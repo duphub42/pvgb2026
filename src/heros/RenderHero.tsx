@@ -7,7 +7,7 @@ import { LowImpactHero } from '@/heros/LowImpact'
 import { MediumImpactHero } from '@/heros/MediumImpact'
 import { PhilippBacherHero } from '@/heros/PhilippBacher' // <--- Unser neuer Import
 
-export const Hero: React.FC<Page['hero']> = (props) => {
+export const RenderHero: React.FC<Page['hero']> = (props) => {
   const { type } = props || {}
 
   if (!type || type === 'none') return null
