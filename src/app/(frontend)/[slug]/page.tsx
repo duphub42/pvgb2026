@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { notFound } from 'next/navigation'
 
 import { PayloadRedirects } from '@/components/PayloadRedirects'
 import configPromise from '@payload-config'
@@ -47,7 +48,7 @@ export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = 'home' } = await paramsPromise
 
-  // 🚨 NEU: Favicon und andere Dateianfragen ignorieren
+  // Favicon und andere Dateianfragen ignorieren
   if (slug.includes('.') || slug.startsWith('_next')) {
     console.log('🚫 Dateianfrage ignoriert:', slug)
     return <PayloadRedirects url={'/'} />
@@ -81,7 +82,10 @@ export default async function Page({ params: paramsPromise }: Args) {
 
       {draft && <LivePreviewListener />}
 
-      <RenderHero {...hero} />
+      {/* 🟢 Wichtig: Hero rendern - DAS IST SCHON RICHTIG! */}
+      {hero && <RenderHero {...hero} />}
+      
+      {/* Layout-Blöcke rendern */}
       <RenderBlocks blocks={layout} />
     </article>
   )
@@ -89,7 +93,6 @@ export default async function Page({ params: paramsPromise }: Args) {
 
 export async function generateMetadata({ params: paramsPromise }: Args): Promise<Metadata> {
   const { slug = 'home' } = await paramsPromise
-  // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
   const page = await queryPageBySlug({
     slug: decodedSlug,
