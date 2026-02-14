@@ -62,6 +62,8 @@ export default buildConfig({
     pool: {
       connectionString: process.env.POSTGRES_URL || '',
     },
+    // Ermöglicht die automatische Synchronisation der Datenbankstruktur
+    push: true,
   }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
@@ -75,7 +77,7 @@ export default buildConfig({
     }),
   ],
   globals: [Header, Footer],
-  secret: process.env.PAYLOAD_SECRET,
+  secret: process.env.PAYLOAD_SECRET || '',
   sharp,
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
