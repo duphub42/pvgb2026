@@ -6,7 +6,18 @@ import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
 
 export const PhilippBacherHero: React.FC<Page['hero']> = (props) => {
-  // 1. "Safe Guard": Falls props oder hero-Daten komplett fehlen (z.B. beim ersten Build)
+  // Hooks MÜSSEN ganz oben stehen, vor jedem Return
+  const [offset, setOffset] = useState(0)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+    const handleScroll = () => setOffset(window.pageYOffset)
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // 1. "Safe Guard": Erst hier prüfen wir, ob Daten da sind
   if (!props) return null
 
   const {
@@ -21,17 +32,7 @@ export const PhilippBacherHero: React.FC<Page['hero']> = (props) => {
     links,
   } = props as any
 
-  const [offset, setOffset] = useState(0)
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-    const handleScroll = () => setOffset(window.pageYOffset)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  // Parallax / Zoom Berechnungen (Sicher vor NaN durch Fallback auf 0)
+  // Parallax / Zoom Berechnungen
   const currentOffset = offset || 0
   const backgroundScale = 1 + Math.min(currentOffset * 0.0005, 0.03)
   const backgroundBlur = Math.min(currentOffset * 0.05, 4)
@@ -56,7 +57,7 @@ export const PhilippBacherHero: React.FC<Page['hero']> = (props) => {
             muted
             loop
             playsInline
-            key={backgroundVideo} // Verhindert Fehler wenn URL noch leer
+            key={backgroundVideo}
           >
             <source src={backgroundVideo} type="video/mp4" />
           </video>
@@ -72,7 +73,6 @@ export const PhilippBacherHero: React.FC<Page['hero']> = (props) => {
           )
         )}
 
-        {/* Dynamisches Overlay */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
