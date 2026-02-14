@@ -2,7 +2,7 @@ import React from 'react'
 import type { Page } from '@/payload-types'
 import { HighImpactHero } from '@/heros/HighImpact'
 import { LowImpactHero } from '@/heros/LowImpact'
-import { PhilippBacherHero } from '@/heros/philippBacher'  // <-- Kleinschreibung!
+import { PhilippBacherHero } from '@/heros/PhilippBacher'  // <-- Großes P!
 
 const heroes = {
   highImpact: HighImpactHero,
