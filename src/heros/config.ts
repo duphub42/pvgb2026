@@ -1,12 +1,10 @@
 import type { Field } from 'payload'
-
 import {
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
-
 import { linkGroup } from '@/fields/linkGroup'
 
 export const hero: Field = {
@@ -19,39 +17,74 @@ export const hero: Field = {
       defaultValue: 'lowImpact',
       label: 'Type',
       options: [
-        {
-          label: 'None',
-          value: 'none',
-        },
-        {
-          label: 'High Impact',
-          value: 'highImpact',
-        },
-        {
-          label: 'Medium Impact',
-          value: 'mediumImpact',
-        },
-        {
-          label: 'Low Impact',
-          value: 'lowImpact',
-        },
+        { label: 'None', value: 'none' },
+        { label: 'High Impact', value: 'highImpact' },
+        { label: 'Medium Impact', value: 'mediumImpact' },
+        { label: 'Low Impact', value: 'lowImpact' },
+        { label: 'Philipp Bacher (Custom)', value: 'philippBacher' },
       ],
       required: true,
     },
+    // Deine individuellen Felder für den Philipp Bacher Look
+    {
+      name: 'subheadline',
+      type: 'text',
+      label: 'Sub-Headline',
+    },
+    {
+      name: 'headline',
+      type: 'textarea',
+      label: 'Haupt-Überschrift',
+    },
+    {
+      name: 'description',
+      type: 'textarea',
+      label: 'Beschreibungstext',
+    },
+    {
+      name: 'mediaType',
+      type: 'select',
+      label: 'Medien-Typ',
+      options: [
+        { label: 'Bild', value: 'image' },
+        { label: 'Video', value: 'video' },
+      ],
+    },
+    {
+      name: 'backgroundVideo',
+      type: 'text',
+      label: 'Video URL (Hintergrund)',
+    },
+    {
+      name: 'overlayOpacity',
+      type: 'number',
+      label: 'Overlay Deckkraft (0.1 bis 1.0)',
+    },
+    {
+      name: 'backgroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Hintergrundbild',
+    },
+    {
+      name: 'foregroundImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Vordergrundbild',
+    },
+    // Standard Felder des Templates
     {
       name: 'richText',
       type: 'richText',
       editor: lexicalEditor({
-        features: ({ rootFeatures }) => {
-          return [
-            ...rootFeatures,
-            HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-            FixedToolbarFeature(),
-            InlineToolbarFeature(),
-          ]
-        },
+        features: ({ rootFeatures }) => [
+          ...rootFeatures,
+          HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
+          FixedToolbarFeature(),
+          InlineToolbarFeature(),
+        ],
       }),
-      label: false,
+      label: 'Rich Text (Optional)',
     },
     linkGroup({
       overrides: {
@@ -61,11 +94,9 @@ export const hero: Field = {
     {
       name: 'media',
       type: 'upload',
-      admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact'].includes(type),
-      },
       relationTo: 'media',
-      required: true,
+      label: 'Standard Bild (Media)',
+      required: false,
     },
   ],
   label: false,
