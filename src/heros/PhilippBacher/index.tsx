@@ -1,64 +1,60 @@
-import React, { useEffect, useState, useRef } from 'react'
+"use client"
+
+import React, { useEffect, useState } from 'react'
 import type { Page } from '@/payload-types'
 import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
 
-export const PhilippBacherHero: React.FC<Page['hero']> = ({
-  headline,
-  subheadline,
-  description,
-  mediaType,
-  backgroundImage,
-  backgroundVideo,
-  foregroundImage,
-  overlayOpacity,
-  links,
-}) => {
-  const [offsetY, setOffsetY] = useState(0)
-  const [isVisible, setIsVisible] = useState(false)
-  const contentRef = useRef<HTMLDivElement>(null)
+export const PhilippBacherHero: React.FC<Page['hero']> = (props) => {
+  const {
+    headline,
+    subheadline,
+    description,
+    mediaType,
+    backgroundImage,
+    foregroundImage,
+    backgroundVideo,
+    overlayOpacity,
+    links,
+  } = props as any
 
-  // Parallax Scroll
+  const [offset, setOffset] = useState(0)
+  const [isMounted, setIsMounted] = useState(false)
+
   useEffect(() => {
-    const handleScroll = () => setOffsetY(window.scrollY)
+    setIsMounted(true)
+    const handleScroll = () => setOffset(window.pageYOffset)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Intersection Observer für Fade-In
-  useEffect(() => {
-    if (!contentRef.current) return
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsVisible(entry.isIntersecting),
-      { threshold: 0.1 }
-    )
-    observer.observe(contentRef.current)
-    return () => observer.disconnect()
-  }, [contentRef])
-
-  // Hilfsfunktion für staggered Delay
-  const getDelay = (index: number) => ({
-    transitionDelay: isVisible ? `${index * 150}ms` : '0ms',
-  })
+  // Parallax / Zoom Berechnungen
+  const backgroundScale = 1 + Math.min(offset * 0.0005, 0.03)
+  const backgroundBlur = Math.min(offset * 0.05, 4)
+  const foregroundScale = 1 + Math.min(offset * 0.001, 0.07)
+  const dynamicOverlayOpacity = Math.min((offset / 1000) + (overlayOpacity ?? 0.5), 0.8)
 
   return (
-    <div className="relative flex items-center justify-center min-h-[90vh] text-white overflow-hidden">
-      {/* Hintergrund */}
+    <div className="relative flex items-center justify-center min-h-[80vh] md:min-h-[90vh] text-white overflow-hidden bg-black">
+      
+      {/* HINTERGRUND */}
       <div
-        className="absolute inset-0 z-0"
+        className="absolute inset-0 z-0 origin-center transition-transform duration-300 ease-out"
         style={{
-          transform: `translateY(${offsetY * 0.3}px)`,
-          transition: 'transform 0.1s linear',
+          transform: `translateY(${offset * 0.3}px) scale(${backgroundScale})`,
+          filter: `blur(${backgroundBlur}px)`,
         }}
       >
         {mediaType === 'video' && backgroundVideo ? (
           <video
-            src={backgroundVideo}
+            className="w-full h-full object-cover"
             autoPlay
             muted
             loop
-            className="w-full h-full object-cover"
-          />
+            playsInline
+          >
+            <source src={backgroundVideo} type="video/mp4" />
+          </video>
         ) : (
           backgroundImage &&
           typeof backgroundImage !== 'string' && (
@@ -70,27 +66,29 @@ export const PhilippBacherHero: React.FC<Page['hero']> = ({
             />
           )
         )}
+
+        {/* Dynamisches Overlay + Vignette */}
         <div
-          className="absolute inset-0 bg-black"
-          style={{ opacity: overlayOpacity || 0.5 }}
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            backgroundColor: 'black',
+            opacity: dynamicOverlayOpacity,
+            maskImage: 'radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)',
+            WebkitMaskImage: 'radial-gradient(circle, rgba(0,0,0,0) 0%, rgba(0,0,0,1) 100%)',
+            transition: 'opacity 0.3s ease',
+          }}
         />
       </div>
 
-      {/* Inhalt + Vordergrund */}
-      <div
-        ref={contentRef}
-        className="container relative z-10 flex flex-col items-center text-center pb-16 pt-32"
-        style={{
-          transform: `translateY(${offsetY * 0.1}px)`,
-        }}
-      >
+      {/* INHALT */}
+      <div className="container relative z-10 flex flex-col items-center text-center px-4 md:px-0 pb-16 pt-24 md:pt-32">
+        
         {/* Subheadline */}
         {subheadline && (
           <span
-            className={`uppercase tracking-widest text-sm mb-4 font-bold text-gray-300 transition-all duration-700 ease-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            className={`uppercase tracking-widest text-xs md:text-sm mb-3 md:mb-4 font-bold text-gray-300 transition-all duration-1000 ${
+              isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
-            style={getDelay(0)}
           >
             {subheadline}
           </span>
@@ -99,10 +97,9 @@ export const PhilippBacherHero: React.FC<Page['hero']> = ({
         {/* Headline */}
         {headline && (
           <h1
-            className={`text-5xl md:text-7xl font-bold leading-tight mb-6 max-w-4xl transition-all duration-700 ease-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            className={`text-3xl md:text-5xl lg:text-7xl font-bold leading-tight mb-4 md:mb-6 max-w-3xl md:max-w-4xl transition-all duration-1000 delay-200 ${
+              isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
-            style={getDelay(1)}
           >
             {headline}
           </h1>
@@ -111,10 +108,9 @@ export const PhilippBacherHero: React.FC<Page['hero']> = ({
         {/* Beschreibung */}
         {description && (
           <p
-            className={`text-lg md:text-xl text-gray-200 max-w-2xl mb-10 leading-relaxed transition-all duration-700 ease-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            className={`text-sm md:text-lg lg:text-xl text-gray-200 max-w-xl md:max-w-2xl mb-6 md:mb-10 leading-relaxed transition-all duration-1000 delay-500 ${
+              isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
-            style={getDelay(2)}
           >
             {description}
           </p>
@@ -123,26 +119,21 @@ export const PhilippBacherHero: React.FC<Page['hero']> = ({
         {/* Buttons / Links */}
         {Array.isArray(links) && links.length > 0 && (
           <div
-            className={`flex flex-col md:flex-row gap-4 justify-center transition-all duration-700 ease-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            className={`flex flex-col md:flex-row gap-3 md:gap-5 justify-center w-full max-w-md md:max-w-2xl transition-all duration-1000 delay-700 ${
+              isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
-            style={getDelay(3)}
           >
             {links.map(({ link }, i) => (
-              <div key={i}>
-                <CMSLink {...link} />
-              </div>
+              <CMSLink key={i} {...link} className="w-full md:w-auto" />
             ))}
           </div>
         )}
 
-        {/* Vordergrundbild */}
+        {/* Vordergrundbild mit Parallax/Zoom */}
         {foregroundImage && typeof foregroundImage !== 'string' && (
           <div
-            className={`mt-12 w-full max-w-lg transition-all duration-700 ease-out ${
-              isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-            }`}
-            style={{ ...getDelay(4), transform: `translateY(${offsetY * 0.15}px)` }}
+            className="mt-8 md:mt-12 w-full max-w-xs md:max-w-lg origin-center transition-transform duration-500"
+            style={{ transform: `translateY(${offset * 0.2}px) scale(${foregroundScale})` }}
           >
             <Media resource={foregroundImage} />
           </div>
