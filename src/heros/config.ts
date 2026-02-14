@@ -22,10 +22,10 @@ export const hero: Field = {
         { label: 'Philipp Bacher (Custom)', value: 'philippBacher' },
       ],
     },
-    // --- FELDER FÜR ALTE HEROS (Nur sichtbar bei High/Low Impact) ---
     {
       name: 'richText',
       type: 'richText',
+      label: 'Inhalt (Alt)',
       editor: lexicalEditor({
         features: ({ rootFeatures }) => [
           ...rootFeatures,
@@ -33,7 +33,6 @@ export const hero: Field = {
           InlineToolbarFeature(),
         ],
       }),
-      label: 'Inhalt (Alt)',
       admin: {
         condition: (_, { type } = {}) => ['highImpact', 'lowImpact'].includes(type),
       },
@@ -43,13 +42,10 @@ export const hero: Field = {
       type: 'upload',
       relationTo: 'media',
       label: 'Bild (Alt)',
-      required: true,
       admin: {
         condition: (_, { type } = {}) => ['highImpact', 'lowImpact'].includes(type),
       },
     },
-    
-    // --- FELDER FÜR PHILIPP BACHER HERO (Nur sichtbar bei philippBacher) ---
     {
       name: 'subheadline',
       type: 'text',
@@ -78,6 +74,7 @@ export const hero: Field = {
       name: 'mediaType',
       type: 'select',
       defaultValue: 'image',
+      label: 'Medium Typ',
       options: [
         { label: 'Bild', value: 'image' },
         { label: 'Video', value: 'video' },
@@ -92,23 +89,25 @@ export const hero: Field = {
       relationTo: 'media',
       label: 'Hintergrund Bild',
       admin: {
-        condition: (_, { mediaType, type } = {}) => type === 'philippBacher' && mediaType === 'image',
+        condition: (_, { mediaType, type } = {}) => 
+          type === 'philippBacher' && mediaType === 'image',
       },
     },
     {
       name: 'backgroundVideo',
       type: 'upload',
-      relationTo: 'media', // Nutze die Media Collection für Videos
+      relationTo: 'media',
       label: 'Hintergrund Video',
       admin: {
-        condition: (_, { mediaType, type } = {}) => type === 'philippBacher' && mediaType === 'video',
+        condition: (_, { mediaType, type } = {}) => 
+          type === 'philippBacher' && mediaType === 'video',
       },
     },
     {
       name: 'foregroundImage',
       type: 'upload',
       relationTo: 'media',
-      label: 'Vordergrund Bild (Parallax)',
+      label: 'Vordergrund Bild',
       admin: {
         condition: (_, { type } = {}) => type === 'philippBacher',
       },
@@ -117,18 +116,17 @@ export const hero: Field = {
       name: 'overlayOpacity',
       type: 'number',
       defaultValue: 0.5,
-      label: 'Overlay Dunkelheit (0.1 - 0.9)',
+      label: 'Overlay Deckkraft',
       admin: {
         condition: (_, { type } = {}) => type === 'philippBacher',
       },
     },
-    
-    // --- LINKS (Gemeinsam genutzt oder getrennt) ---
     linkGroup({
       overrides: {
         maxRows: 2,
         admin: {
-          condition: (_, { type } = {}) => ['highImpact', 'philippBacher'].includes(type),
+          condition: (_, { type } = {}) => 
+            ['highImpact', 'philippBacher'].includes(type),
         },
       },
     }),
