@@ -46,6 +46,13 @@ type Args = {
 export default async function Page({ params: paramsPromise }: Args) {
   const { isEnabled: draft } = await draftMode()
   const { slug = 'home' } = await paramsPromise
+
+  // 🚨 NEU: Favicon und andere Dateianfragen ignorieren
+  if (slug.includes('.') || slug.startsWith('_next')) {
+    console.log('🚫 Dateianfrage ignoriert:', slug)
+    return <PayloadRedirects url={'/'} />
+  }
+
   // Decode to support slugs with special characters
   const decodedSlug = decodeURIComponent(slug)
   const url = '/' + decodedSlug
