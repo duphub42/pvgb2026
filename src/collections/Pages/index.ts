@@ -5,12 +5,13 @@ import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
-import { FormBlock } from '../../blocks/Form/config' // 🟢 Korrigierter Pfad (Form statt FormBlock)
+import { FormBlock } from '../../blocks/Form/config' // Korrigierter Pfad
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { slugField } from '../../fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidatePage } from './hooks/revalidatePage'
+import { link } from '../../fields/link' // Importiert das Standard-Link-Feld
 
 import {
   MetaDescriptionField,
@@ -60,6 +61,7 @@ export const Pages: CollectionConfig = {
       type: 'tabs',
       tabs: [
         {
+          label: 'Hero',
           fields: [
             {
               name: 'hero',
@@ -93,16 +95,9 @@ export const Pages: CollectionConfig = {
                     condition: (_, data) => data?.type !== 'none',
                   },
                   fields: [
-                    {
-                      name: 'link',
-                      type: 'group',
-                      fields: [
-                        {
-                          name: 'label',
-                          type: 'text',
-                        },
-                      ],
-                    },
+                    link({
+                      appearances: false, // Wir brauchen hier nur den Link an sich
+                    }),
                   ],
                   maxRows: 2,
                 },
@@ -119,9 +114,9 @@ export const Pages: CollectionConfig = {
               ],
             },
           ],
-          label: 'Hero',
         },
         {
+          label: 'Content',
           fields: [
             {
               name: 'layout',
@@ -130,9 +125,9 @@ export const Pages: CollectionConfig = {
               required: true,
             },
           ],
-          label: 'Content',
         },
         {
+          label: 'Settings',
           fields: [
             slugField(),
             {
@@ -146,9 +141,9 @@ export const Pages: CollectionConfig = {
               },
             },
           ],
-          label: 'Settings',
         },
         {
+          label: 'SEO',
           name: 'meta',
           fields: [
             OverviewField({
@@ -169,7 +164,6 @@ export const Pages: CollectionConfig = {
               hasGenerateFn: true,
             }),
           ],
-          label: 'SEO',
         },
       ],
     },
