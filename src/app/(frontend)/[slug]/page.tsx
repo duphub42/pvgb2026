@@ -27,36 +27,29 @@ export default async function Page({ params: paramsPromise }: { params: Promise<
     return notFound()
   }
 
-  // Wir extrahieren hero und layout. 
-  // Da RenderHero "hero={hero}" erwartet, übergeben wir es genau so.
   const { hero, layout } = page
 
   return (
     <article className="pt-16 pb-24">
-      {/* Falls 'hero' in PageType optional ist, stellen wir sicher, 
-          dass RenderHero damit umgehen kann oder prüfen es hier.
-      */}
-      <RenderHero hero={hero} />
+      {/* Hero nur rendern, falls vorhanden */}
+      {hero && <RenderHero hero={hero} />}
       
-      {/* Layout-Blöcke rendern */}
+      {/* Layout-Blöcke nur rendern, falls vorhanden */}
       {layout && <RenderBlocks blocks={layout} />}
     </article>
   )
 }
 
+// Statische Pfade für Next.js-Build
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const pages = await payload.find({
     collection: 'pages',
     limit: 1000,
-    // Wir brauchen nur den Slug für die Pfad-Generierung
-    select: {
-      slug: true,
-    },
+    select: { slug: true }, // nur Slug nötig
   })
 
-  return pages.docs.map(({ slug }) => {
-    if (!slug) return { slug: 'index' }
-    return { slug }
-  })
+  return pages.docs.map(({ slug }) => ({
+    slug: slug || 'index', // Default 'index', falls slug fehlt
+  }))
 }
