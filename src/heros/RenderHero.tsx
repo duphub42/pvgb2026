@@ -4,23 +4,23 @@ import { MediumImpactHero } from '@/heros/MediumImpact'
 import { LowImpactHero } from '@/heros/LowImpact'
 import { PhilippBacherHero } from '@/heros/PhilippBacher'
 
-const heroes: Record<string, React.FC<any>> = {
+const heroes = {
   highImpact: HighImpactHero,
   mediumImpact: MediumImpactHero,
   lowImpact: LowImpactHero,
   philippBacher: PhilippBacherHero,
 }
 
-// 🟢 KEINE FESTEN PROPS MEHR! Die Komponente nimmt einfach alles.
+export type HeroType = keyof typeof heroes
+
 export const RenderHero: React.FC<any> = (props) => {
-  // Entweder wurde ein 'hero'-Prop übergeben, oder die Daten direkt (gespreadet)
   const heroData = props.hero || props
 
-  if (!heroData?.type) return null
+  if (!heroData?.type || heroData.type === 'none') return null
 
-  const HeroComponent = heroes[heroData.type]
-  if (!HeroComponent) return null
+  const HeroToRender = (heroes as any)[heroData.type]
 
-  // Alles an die Zielkomponente durchreichen
-  return <HeroComponent {...heroData} />
+  if (!HeroToRender) return null
+
+  return <HeroToRender {...heroData} />
 }
