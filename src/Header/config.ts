@@ -10,6 +10,15 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
+      name: 'logo',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Logo',
+      admin: {
+        description: 'Wird im Header und Footer angezeigt. Leer = Standard-Payload-Logo.',
+      },
+    },
+    {
       name: 'navItems',
       type: 'array',
       fields: [
