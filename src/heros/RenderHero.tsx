@@ -1,33 +1,41 @@
 import React from 'react'
+import type { Page } from '@/payload-types'
 import { HighImpactHero } from '@/heros/HighImpact'
 import { MediumImpactHero } from '@/heros/MediumImpact'
 import { LowImpactHero } from '@/heros/LowImpact'
 import { PhilippBacherHero } from '@/heros/PhilippBacher'
 
-const heroes = {
+/**
+ * Mapping der Hero-Komponenten.
+ * Wir verwenden 'any' für die Komponenten-Werte im Mapping, 
+ * um den strikten String-Abgleich-Fehler im Build zu vermeiden.
+ */
+const heroes: Record<string, React.FC<any>> = {
   highImpact: HighImpactHero,
   mediumImpact: MediumImpactHero,
   lowImpact: LowImpactHero,
   philippBacher: PhilippBacherHero,
 }
 
-export type HeroData = {
-  type: keyof typeof heroes
-} & Record<string, any>
+export const RenderHero: React.FC<{ hero: Page['hero'] }> = ({ hero }) => {
+  // 1. Sicherheitscheck
+  if (!hero || !hero.type || hero.type === 'none') {
+    return null
+  }
 
-interface RenderHeroProps {
-  hero?: HeroData
-}
+  // 2. Komponente anhand des Typs auswählen
+  const HeroComponent = heroes[hero.type]
 
-export const RenderHero: React.FC<RenderHeroProps & Record<string, any>> = ({ hero, ...props }) => {
-  const heroData = (hero || props) as HeroData
+  // 3. Falls der Typ im Mapping nicht existiert (z.B. Tippfehler im CMS)
+  if (!HeroComponent) {
+    console.warn(`Keine Hero-Komponente für Typ "${hero.type}" gefunden.`)
+    return null
+  }
 
-  if (!heroData?.type) return null
+  // 4. Daten übergeben
+  // Wir casten hero zu 'any', damit TypeScript nicht versucht, 
+  // den inkompatiblen 'type' String mit den Erwartungen der Unterkomponenten zu validieren.
+  const heroProps = hero as any
 
-  const HeroComponent = heroes[heroData.type]
-  if (!HeroComponent) return null
-
-  // Übergebe alle Daten, aber TypeScript wird hier nicht mehr auf die Props der Komponente prüfen.
-  // Das ist der sicherste Weg, um den Konflikt mit dem 'type'-Feld zu umgehen.
-  return <HeroComponent {...heroData} />
+  return <HeroComponent {...heroProps} />
 }
