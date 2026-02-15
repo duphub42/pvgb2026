@@ -82,6 +82,7 @@ export interface Config {
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
+    'mega-menu': MegaMenu;
   };
   collectionsJoins: {
     'payload-folders': {
@@ -104,6 +105,7 @@ export interface Config {
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
+    'mega-menu': MegaMenuSelect<false> | MegaMenuSelect<true>;
   };
   db: {
     defaultIDType: number;
@@ -1060,6 +1062,54 @@ export interface PayloadMigration {
   updatedAt: string;
   createdAt: string;
 }
+
+export interface MegaMenu {
+  id: number;
+  label: string;
+  url: string;
+  order: number;
+  subItems?: {
+    label: string;
+    url: string;
+    icon?: (number | null) | Media;
+    badge?: string | null;
+    description?: string | null;
+    id?: string | null;
+  }[];
+  columns?: {
+    title?: string | null;
+    items?: {
+      label: string;
+      url: string;
+      icon?: (number | null) | Media;
+      badge?: string | null;
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
+  highlight?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (number | null) | Media;
+    ctaLabel?: string | null;
+    ctaUrl?: string | null;
+  } | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+
+export interface MegaMenuSelect<T extends boolean = true> {
+  id?: T;
+  label?: T;
+  url?: T;
+  order?: T;
+  subItems?: T;
+  columns?: T;
+  highlight?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+
 /**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "pages_select".
