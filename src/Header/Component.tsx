@@ -13,7 +13,7 @@ export async function Header() {
     (headerData as Header & { useMegaMenu?: boolean })?.useMegaMenu === true
       ? await getMegaMenuItems()
       : []
-  const megaMenuItems: MegaMenuItem[] = Array.isArray(rawItems) ? (rawItems as MegaMenuItem[]) : []
+  const megaMenuItems: MegaMenuItem[] = Array.isArray(rawItems) ? (rawItems as unknown as MegaMenuItem[]) : []
 
   return (
     <HeaderClient
