@@ -12,17 +12,15 @@ const heroes = {
   philippBacher: PhilippBacherHero,
 }
 
-// Diese Komponente akzeptiert BEIDE Varianten:
-// - { ...hero } (gespreadet) - von der original page.tsx
-// - { hero } (als Prop) - falls jemand das ändert
+// ⚡ Kompatibel mit beiden Aufruf-Varianten!
 export const RenderHero: React.FC<any> = (props) => {
-  // Fall 1: Wurde als { hero } übergeben?
+  // Funktioniert egal ob {...hero} oder { hero }
   const heroData = props.hero || props
   
   if (!heroData?.type) return null
-  
+
   const HeroToRender = heroes[heroData.type]
   if (!HeroToRender) return null
-  
+
   return <HeroToRender {...heroData} />
 }
