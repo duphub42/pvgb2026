@@ -85,9 +85,6 @@ export const Pages: CollectionConfig = {
               admin: {
                 position: 'sidebar',
               },
-              hooks: {
-                beforeChange: [populatePublishedAt],
-              },
             },
           ],
         },
@@ -118,6 +115,7 @@ export const Pages: CollectionConfig = {
     },
   ],
   hooks: {
+    beforeChange: [populatePublishedAt],
     afterChange: [revalidatePage],
   },
   versions: {
