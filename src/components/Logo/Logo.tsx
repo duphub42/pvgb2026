@@ -30,7 +30,7 @@ export const Logo = (props: Props) => {
         resource={logo}
         imgClassName={clsx(logoSizeClass, className)}
         loading={loading}
-        priority={priority}
+        priority={priority === 'high'}
         alt={(logo as MediaType).alt ?? 'Logo'}
       />
     )
