@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
@@ -12,17 +13,24 @@ export const revalidate = 0
 
 export default async function Page({ params: paramsPromise }: { params: Promise<{ slug?: string }> }) {
   const { slug = 'home' } = await paramsPromise
+  const { isEnabled: isDraftMode } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })
+
+  const whereClause = isDraftMode
+    ? { slug: { equals: slug } }
+    : {
+        and: [
+          { slug: { equals: slug } },
+          { _status: { equals: 'published' } },
+        ],
+      }
+
   const pages = await payload.find({
     collection: 'pages',
     limit: 1,
-    where: {
-      and: [
-        { slug: { equals: slug } },
-        { _status: { equals: 'published' } },
-      ],
-    },
+    where: whereClause,
+    draft: isDraftMode,
   })
 
   const page = pages.docs[0]
