@@ -32,19 +32,21 @@ export const Pages: CollectionConfig = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: (args: any) => {
+      url: (args: { data?: { slug?: string }; id?: number | string }) => {
         const path = generatePreviewPath({
-          slug: typeof args.data?.slug === 'string' ? args.data.slug : '',
+          slug: typeof args.data?.slug === 'string' ? args.data.slug : 'home',
           collection: 'pages',
+          id: args.id,
         })
 
         return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
       },
     },
-    preview: (data: any) => {
+    preview: (data: { slug?: string; id?: number }) => {
       const path = generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : '',
+        slug: typeof data?.slug === 'string' ? data.slug : 'home',
         collection: 'pages',
+        id: data?.id,
       })
 
       return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`

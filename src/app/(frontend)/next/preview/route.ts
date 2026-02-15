@@ -15,6 +15,7 @@ export async function GET(req: NextRequest): Promise<Response> {
   const path = searchParams.get('path')
   const collection = searchParams.get('collection') as CollectionSlug
   const slug = searchParams.get('slug')
+  const previewId = searchParams.get('previewId')
   const previewSecret = searchParams.get('previewSecret')
 
   if (previewSecret !== process.env.PREVIEW_SECRET) {
@@ -48,9 +49,8 @@ export async function GET(req: NextRequest): Promise<Response> {
     return new Response('You are not allowed to preview this page', { status: 403 })
   }
 
-  // You can add additional checks here to see if the user is allowed to preview this page
-
   draft.enable()
 
-  redirect(path)
+  const targetPath = previewId ? `${path}${path.includes('?') ? '&' : '?'}previewId=${previewId}` : path
+  redirect(targetPath)
 }

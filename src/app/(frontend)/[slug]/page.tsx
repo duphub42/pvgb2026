@@ -11,11 +11,40 @@ import { generateMeta } from '@/utilities/generateMeta'
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
-export default async function Page({ params: paramsPromise }: { params: Promise<{ slug?: string }> }) {
+type PageProps = {
+  params: Promise<{ slug?: string }>
+  searchParams: Promise<{ previewId?: string }>
+}
+
+export default async function Page({ params: paramsPromise, searchParams: searchParamsPromise }: PageProps) {
   const { slug = 'home' } = await paramsPromise
+  const searchParams = await searchParamsPromise
+  const previewId = searchParams?.previewId
   const { isEnabled: isDraftMode } = await draftMode()
 
   const payload = await getPayload({ config: configPromise })
+
+  // Admin preview: load by document ID so preview works even when draft cookie isn't sent in iframe
+  if (previewId) {
+    try {
+      const pageById = await payload.findByID({
+        collection: 'pages',
+        id: previewId,
+        depth: 2,
+        draft: true,
+      })
+      if (pageById) {
+        return (
+          <article>
+            <RenderHero {...pageById.hero} />
+            <RenderBlocks blocks={pageById.layout} />
+          </article>
+        )
+      }
+    } catch {
+      // Invalid or missing id, fall through to slug lookup
+    }
+  }
 
   const resolvedSlug = slug || 'home'
 

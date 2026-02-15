@@ -26,7 +26,7 @@ export const hero: Field = {
     {
       name: 'richText',
       type: 'richText',
-      label: 'Inhalt (Alt)',
+      label: 'Content',
       editor: lexicalEditor({
         features: ({ rootFeatures }) => [
           ...rootFeatures,
@@ -42,7 +42,7 @@ export const hero: Field = {
       name: 'media',
       type: 'upload',
       relationTo: 'media',
-      label: 'Bild (Alt)',
+      label: 'Media',
       admin: {
         condition: (_, siblingData) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(String(siblingData?.type ?? '')),
       },
@@ -127,7 +127,7 @@ export const hero: Field = {
         maxRows: 2,
         admin: {
           condition: (_, siblingData) =>
-            ['highImpact', 'philippBacher'].includes(String(siblingData?.type ?? '')),
+            ['highImpact', 'mediumImpact', 'lowImpact', 'philippBacher'].includes(String(siblingData?.type ?? '')),
         },
       },
     }),
