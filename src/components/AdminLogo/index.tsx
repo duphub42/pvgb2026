@@ -1,27 +1,32 @@
-import React from 'react'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
+'use client'
+
+import React, { useEffect, useState } from 'react'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 const FALLBACK_LOGO_SRC =
   'https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-logo-light.svg'
 
-export const AdminLogo: React.FC = async () => {
-  let logoSrc = FALLBACK_LOGO_SRC
+export function AdminLogo() {
+  const [logoSrc, setLogoSrc] = useState<string>(FALLBACK_LOGO_SRC)
 
-  try {
-    const payload = await getPayload({ config: configPromise })
-    const header = await payload.findGlobal({
-      slug: 'header',
-      depth: 1,
-    })
-    const logo = header?.logo
-    if (logo && typeof logo === 'object' && logo !== null && 'url' in logo && logo.url) {
-      logoSrc = getMediaUrl(logo.url, (logo as { updatedAt?: string }).updatedAt) || logoSrc
+  useEffect(() => {
+    let cancelled = false
+    const base =
+      typeof window !== 'undefined'
+        ? `${window.location.origin}`
+        : ''
+    fetch(`${base}/api/globals/header?depth=1`)
+      .then((res) => (res.ok ? res.json() : null))
+      .then((data: { logo?: { url?: string; updatedAt?: string } | null }) => {
+        if (cancelled || !data?.logo || typeof data.logo !== 'object' || !data.logo.url) return
+        const url = getMediaUrl(data.logo.url, data.logo.updatedAt)
+        if (url) setLogoSrc(url)
+      })
+      .catch(() => {})
+    return () => {
+      cancelled = true
     }
-  } catch {
-    // Keep default logo if fetch fails (e.g. no DB on build)
-  }
+  }, [])
 
   return (
     <img
