@@ -6,14 +6,23 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 
+// Always render on demand so new/updated pages are found (no cached 404)
+export const dynamic = 'force-dynamic'
+export const revalidate = 0
+
 export default async function Page({ params: paramsPromise }: { params: Promise<{ slug?: string }> }) {
   const { slug = 'home' } = await paramsPromise
-  
+
   const payload = await getPayload({ config: configPromise })
   const pages = await payload.find({
     collection: 'pages',
     limit: 1,
-    where: { slug: { equals: slug } },
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        { _status: { equals: 'published' } },
+      ],
+    },
   })
 
   const page = pages.docs[0]
@@ -33,7 +42,12 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   const pages = await payload.find({
     collection: 'pages',
     limit: 1,
-    where: { slug: { equals: slug } },
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        { _status: { equals: 'published' } },
+      ],
+    },
   })
   return generateMeta({ doc: pages.docs[0] })
 }
