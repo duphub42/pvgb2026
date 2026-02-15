@@ -26,10 +26,10 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
 
   return (
     <div
-      className="relative -mt-[10.4rem] flex items-center justify-center text-white"
+      className="relative -mt-[10.4rem] flex min-h-[80vh] items-center justify-center bg-neutral-900 text-white"
       data-theme="dark"
     >
-      <div className="container mb-8 z-10 relative flex items-center justify-center">
+      <div className="container relative z-10 mb-8 flex items-center justify-center">
         <div className="max-w-[36.5rem] md:text-center">
           {hasHeadings && (
             <div className="mb-6">
@@ -38,7 +38,11 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
               {description && <p className="text-base opacity-90">{description}</p>}
             </div>
           )}
-          {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
+          {richText && (
+            <div className="prose prose-invert mb-6 prose-p:opacity-90">
+              <RichText data={richText} enableGutter={false} />
+            </div>
+          )}
           {Array.isArray(links) && links.length > 0 && (
             <ul className="flex md:justify-center gap-4">
               {links.map(({ link }, i) => {
@@ -52,11 +56,11 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
           )}
         </div>
       </div>
-      <div className="min-h-[80vh] select-none">
-        {media && typeof media === 'object' && (
-          <Media fill imgClassName="-z-10 object-cover" priority resource={media} />
-        )}
-      </div>
+      {media && typeof media === 'object' && (
+        <div className="absolute inset-0 z-0 select-none">
+          <Media fill imgClassName="object-cover" priority resource={media} />
+        </div>
+      )}
     </div>
   )
 }

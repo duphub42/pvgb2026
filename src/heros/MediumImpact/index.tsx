@@ -17,16 +17,20 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({
   const hasHeadings = subheadline || headline || description
 
   return (
-    <div className="">
+    <div className="bg-background text-foreground">
       <div className="container mb-8">
         {hasHeadings && (
           <div className="mb-6">
-            {subheadline && <p className="text-lg opacity-90 mb-2">{subheadline}</p>}
-            {headline && <h1 className="text-3xl md:text-4xl font-bold mb-4">{headline}</h1>}
-            {description && <p className="text-base opacity-90">{description}</p>}
+            {subheadline && <p className="text-lg text-foreground/90 mb-2">{subheadline}</p>}
+            {headline && <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{headline}</h1>}
+            {description && <p className="text-base text-foreground/90">{description}</p>}
           </div>
         )}
-        {richText && <RichText className="mb-6" data={richText} enableGutter={false} />}
+        {richText && (
+          <div className="prose prose-neutral dark:prose-invert mb-6">
+            <RichText data={richText} enableGutter={false} />
+          </div>
+        )}
 
         {Array.isArray(links) && links.length > 0 && (
           <ul className="flex gap-4">
@@ -40,7 +44,7 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({
           </ul>
         )}
       </div>
-      <div className="container ">
+      <div className="container">
         {media && typeof media === 'object' && (
           <div>
             <Media
@@ -50,7 +54,7 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({
               resource={media}
             />
             {media?.caption && (
-              <div className="mt-3">
+              <div className="mt-3 prose prose-neutral dark:prose-invert">
                 <RichText data={media.caption} enableGutter={false} />
               </div>
             )}

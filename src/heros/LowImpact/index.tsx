@@ -16,16 +16,23 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
   const hasHeadings = subheadline || headline || description
 
   return (
-    <div className="container mt-16">
-      <div className="max-w-[48rem]">
-        {hasHeadings && (
-          <div className="mb-6">
-            {subheadline && <p className="text-lg opacity-90 mb-2">{subheadline}</p>}
-            {headline && <h1 className="text-2xl md:text-3xl font-bold mb-4">{headline}</h1>}
-            {description && <p className="text-base opacity-90">{description}</p>}
-          </div>
-        )}
-        {children || (richText && <RichText data={richText} enableGutter={false} />)}
+    <div className="bg-background text-foreground">
+      <div className="container mt-16">
+        <div className="max-w-[48rem]">
+          {hasHeadings && (
+            <div className="mb-6">
+              {subheadline && <p className="text-lg text-foreground/90 mb-2">{subheadline}</p>}
+              {headline && <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">{headline}</h1>}
+              {description && <p className="text-base text-foreground/90">{description}</p>}
+            </div>
+          )}
+          {children ||
+            (richText && (
+              <div className="prose prose-neutral dark:prose-invert">
+                <RichText data={richText} enableGutter={false} />
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   )
