@@ -34,24 +34,30 @@ export default async function Page({ params: paramsPromise }: { params: Promise<
 // Statische Pfade
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({ collection: 'pages', limit: 1000, select: { slug: true } })
+  const pages = await payload.find({ 
+    collection: 'pages', 
+    limit: 1000, 
+    select: { slug: true } 
+  })
 
   return pages.docs.map(({ slug }) => ({ slug: slug || 'index' }))
 }
 
-// generateMetadata
-export async function generateMetadata({ params }: { params: { slug?: string } }) {
+// generateMetadata - Jetzt mit Promise!
+export async function generateMetadata({ params }: { params: Promise<{ slug?: string }> }) {
+  const { slug = 'index' } = await params  // <-- WICHTIG: await!
+  
   const payload = await getPayload({ config: configPromise })
   const result = await payload.find({
     collection: 'pages',
     limit: 1,
-    where: { slug: { equals: params.slug || 'index' } },
+    where: { slug: { equals: slug } },
   })
 
   const page = result.docs[0] as PageType | undefined
 
   return {
     title: page?.title || 'Meine Seite',
-    description: page?.description || 'Beschreibung der Seite',
+    description: page?.meta?.description || page?.description || 'Beschreibung der Seite',
   }
 }
