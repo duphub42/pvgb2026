@@ -12,11 +12,15 @@ const heroes = {
   philippBacher: PhilippBacherHero,
 }
 
-// Diese Komponente akzeptiert die gespreadeten Props von page.tsx
-export const RenderHero: React.FC<Page['hero']> = (heroData) => {
+// Diese Komponente ist flexibel und funktioniert mit beiden Aufrufarten
+export const RenderHero: React.FC<any> = (props) => {
+  // 1. Fall: Wurde die Komponente mit einer 'hero'-Prop aufgerufen? (z.B. <RenderHero hero={data} />)
+  // 2. Fall: Wurden die Eigenschaften direkt übergeben? (z.B. <RenderHero {...data} />)
+  const heroData = props.hero || props
+
   if (!heroData?.type) return null
 
-  const HeroToRender = heroes[heroData.type]
+  const HeroToRender = heroes[heroData.type as keyof typeof heroes]
   if (!HeroToRender) return null
 
   return <HeroToRender {...heroData} />
