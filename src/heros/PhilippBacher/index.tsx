@@ -6,12 +6,11 @@ import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
 
 /**
- * PhilippBacherHero: 
- * Nutzt die Felder 'richText', 'media' und 'links' aus der Payload-Config.
- * Inklusive Parallax- und Blur-Effekten beim Scrollen.
+ * PhilippBacherHero – Aufbau wie philippbacher.com:
+ * Subheadline (Tagline) → Headline → optional Description → zwei CTAs (primär + Outline).
+ * Parallax- und Blur-Effekte beim Scrollen.
  */
 export const PhilippBacherHero: React.FC<any> = (props) => {
-  // Hooks für Scroll-Effekte
   const [offset, setOffset] = useState(0)
   const [isMounted, setIsMounted] = useState(false)
 
@@ -22,10 +21,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Sicherheitscheck: Wenn keine Props da sind, nichts rendern
   if (!props) return null
 
-  // Felder aus der Payload Hero-Config (heros/config.ts)
   const {
     richText,
     links,
@@ -40,7 +37,6 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     overlayOpacity = 0.4,
   } = props
 
-  // Hintergrund: neues Schema (backgroundImage/backgroundVideo) oder Fallback auf media
   const backgroundMedia =
     mediaType === 'video' && backgroundVideo
       ? backgroundVideo
@@ -48,16 +44,24 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
 
   const hasTextContent = headline || subheadline || description || richText
 
-  // Parallax / Zoom Berechnungen
   const currentOffset = offset || 0
   const backgroundScale = 1 + Math.min(currentOffset * 0.0005, 0.05)
   const backgroundBlur = Math.min(currentOffset * 0.05, 5)
   const dynamicOverlayOpacity = Math.min((currentOffset / 1000) + overlayOpacity, 0.8)
 
+  const baseButtonClass =
+    'px-6 py-3 font-semibold rounded-full transition-all duration-200 min-w-[140px]'
+  const primaryButtonClass =
+    'bg-white text-black hover:bg-white/90 shadow-lg hover:shadow-xl'
+  const outlineButtonClass =
+    'border-2 border-white bg-transparent text-white hover:bg-white/10'
+
   return (
-    <div className="relative flex items-center justify-center min-h-[80vh] md:min-h-[95vh] text-white overflow-hidden bg-black">
-      
-      {/* HINTERGRUND-LAYER (Parallax) */}
+    <section
+      className="relative flex items-center justify-center min-h-[85vh] md:min-h-[92vh] text-white overflow-hidden bg-black"
+      aria-label="Hero"
+    >
+      {/* Hintergrund (Parallax) */}
       <div
         className="absolute inset-0 z-0 origin-center transition-transform duration-300 ease-out"
         style={{
@@ -73,7 +77,6 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             priority
           />
         )}
-
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -84,35 +87,42 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         />
       </div>
 
-      {/* INHALT-LAYER */}
-      <div className="container relative z-10 flex flex-col items-center text-center px-4 md:px-0 pb-16 pt-24">
-        
-        {/* Headline / Subheadline / Description (neues Schema) oder RichText */}
+      {/* Inhalt – zentriert wie philippbacher.com */}
+      <div className="container relative z-10 flex flex-col items-center text-center px-4 md:px-6 pb-20 pt-28 md:pt-32">
         {hasTextContent && (
           <div
-            className={`prose prose-invert max-w-4xl mb-8 transition-all duration-1000 ${
-              isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            className={`max-w-4xl mb-10 md:mb-12 transition-all duration-700 ease-out ${
+              isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'
             }`}
           >
             {(headline || subheadline || description) ? (
               <>
                 {subheadline && (
-                  <p className="text-lg md:text-xl opacity-90 mb-2">{subheadline}</p>
+                  <p className="text-sm md:text-base tracking-wide opacity-90 mb-3 md:mb-4">
+                    {subheadline}
+                  </p>
                 )}
                 {headline && (
-                  <h1 className="text-4xl md:text-6xl font-bold mb-4">{headline}</h1>
+                  <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 md:mb-6">
+                    {headline}
+                  </h1>
                 )}
                 {description && (
-                  <p className="text-base md:text-lg max-w-2xl mx-auto">{description}</p>
+                  <p className="text-base md:text-lg max-w-2xl mx-auto text-white/90 leading-relaxed">
+                    {description}
+                  </p>
                 )}
               </>
             ) : (
-              richText && <RichText data={richText} enableGutter={false} />
+              richText && (
+                <div className="prose prose-invert max-w-none">
+                  <RichText data={richText} enableGutter={false} />
+                </div>
+              )
             )}
           </div>
         )}
 
-        {/* Vordergrund-Bild (optional) */}
         {foregroundImage && typeof foregroundImage !== 'string' && (
           <div className="relative z-20 w-full max-w-2xl mx-auto mb-8">
             <Media
@@ -122,20 +132,22 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           </div>
         )}
 
-        {/* Buttons / Links */}
         {Array.isArray(links) && links.length > 0 && (
           <div
-            className={`flex flex-col md:flex-row gap-4 justify-center w-full transition-all duration-1000 delay-500 ${
+            className={`flex flex-col sm:flex-row gap-3 md:gap-4 justify-center items-center transition-all duration-700 ease-out delay-300 ${
               isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
             {links.map((linkItem, i) => {
               if (!linkItem?.link) return null
+              const isOutline = linkItem.link.appearance === 'outline'
               return (
-                <CMSLink 
-                  key={i} 
-                  {...linkItem.link} 
-                  className="px-8 py-3 bg-white text-black font-bold rounded-full hover:bg-opacity-90 transition-all shadow-xl" 
+                <CMSLink
+                  key={i}
+                  {...linkItem.link}
+                  className={`${baseButtonClass} ${
+                    isOutline ? outlineButtonClass : primaryButtonClass
+                  }`}
                 />
               )
             })}
@@ -143,10 +155,12 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         )}
       </div>
 
-      {/* Optional: Scroll-Indicator */}
-      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 animate-bounce opacity-50">
-        <div className="w-1 h-12 rounded-full bg-gradient-to-b from-white to-transparent" />
+      <div
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce opacity-40"
+        aria-hidden
+      >
+        <div className="w-1 h-10 rounded-full bg-gradient-to-b from-white to-transparent" />
       </div>
-    </div>
+    </section>
   )
 }
