@@ -53,6 +53,7 @@
     "react-hook-form": "7.71.1",
     "sharp": "0.34.2",
     "tailwind-merge": "^3.4.0",
+    "@payloadcms/db-sqlite": "3.76.1",
     "@payloadcms/db-vercel-postgres": "3.76.1",
     "@payloadcms/storage-vercel-blob": "3.76.1"
   },

@@ -1,3 +1,4 @@
+import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
 import sharp from 'sharp'
 import path from 'path'
@@ -60,14 +61,22 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
-  db: vercelPostgresAdapter({
-    pool: {
-      // Neon: set DATABASE_URL. Vercel Postgres: set POSTGRES_URL.
-      connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL || '',
-    },
-    // Push schema in dev only; use migrations in production (e.g. Vercel)
-    push: process.env.NODE_ENV !== 'production',
-  }),
+  // Ohne DATABASE_URL/POSTGRES_URL: SQLite (./payload.db) für einfaches lokales Setup
+  db:
+    process.env.DATABASE_URL || process.env.POSTGRES_URL
+      ? vercelPostgresAdapter({
+          pool: {
+            connectionString:
+              process.env.DATABASE_URL || process.env.POSTGRES_URL || '',
+          },
+          push: process.env.NODE_ENV !== 'production',
+        })
+      : sqliteAdapter({
+          client: {
+            url: process.env.SQLITE_URL || 'file:./payload.db',
+          },
+          push: true,
+        }),
   collections: [Pages, Posts, Media, Categories, Users, MegaMenu],
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [

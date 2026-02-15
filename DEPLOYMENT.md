@@ -56,9 +56,20 @@ If you use the cron job in `vercel.json` (`/api/payload-jobs/run`), set `CRON_SE
 
 ## 5. Local development
 
+### Einfaches Setup (ohne Postgres/Neon)
+
+1. `.env.example` nach `.env.local` kopieren.
+2. In `.env.local` nur **PAYLOAD_SECRET** setzen (z. B. `openssl rand -hex 32`). `DATABASE_URL` und `POSTGRES_URL` **nicht** setzen – dann nutzt die App automatisch **SQLite** (Datei `./payload.db`, wird beim ersten Start angelegt).
+3. `pnpm install`, danach `pnpm dev`.  
+   → Frontend: http://localhost:3000, Admin: http://localhost:3000/admin
+
+Kein Datenbankserver nötig, keine Migrationen für lokales SQLite (Schema wird per Push angelegt).
+
+### Mit Postgres/Neon
+
 1. Copy `.env.example` to `.env.local`.
 2. For local Postgres, set `POSTGRES_URL` or `DATABASE_URL`. For Neon, you can use the same Neon connection string (e.g. in `.env.local`).
-3. Run `pnpm install`, then `pnpm dev`.
+3. Run `pnpm install`, then `pnpm dev`. For a fresh DB run `pnpm run payload migrate` once.
 
 ## Troubleshooting
 

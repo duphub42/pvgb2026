@@ -5,6 +5,9 @@ node_modules
 .env
 .next
 .vercel
+payload.db
+payload.db-journal
+payload.db-wal
 
 # Payload default media upload directory
 public/media/
