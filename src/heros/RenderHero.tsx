@@ -13,17 +13,15 @@ const heroes = {
 
 export type HeroData = {
   type: keyof typeof heroes
-} & Record<string, any> // erlaubt beliebige weitere Props
+} & Record<string, any>
 
 interface RenderHeroProps {
   hero?: HeroData
 }
 
-/**
- * Dynamisches Rendern der Hero-Komponente
- */
 export const RenderHero: React.FC<RenderHeroProps & Record<string, any>> = ({ hero, ...props }) => {
-  const heroData: HeroData = hero || props
+  // 🟢 Der Fix: as HeroData
+  const heroData = (hero || props) as HeroData
 
   if (!heroData?.type) return null
 
