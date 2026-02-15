@@ -17,8 +17,9 @@ export const hero: Field = {
       label: 'Hero Design Typ',
       options: [
         { label: 'None', value: 'none' },
-        { label: 'High Impact (Alt)', value: 'highImpact' },
-        { label: 'Low Impact (Alt)', value: 'lowImpact' },
+        { label: 'High Impact', value: 'highImpact' },
+        { label: 'Medium Impact', value: 'mediumImpact' },
+        { label: 'Low Impact', value: 'lowImpact' },
         { label: 'Philipp Bacher (Custom)', value: 'philippBacher' },
       ],
     },
@@ -34,7 +35,7 @@ export const hero: Field = {
         ],
       }),
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'lowImpact'].includes(type),
+        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(type),
       },
     },
     {
@@ -43,7 +44,7 @@ export const hero: Field = {
       relationTo: 'media',
       label: 'Bild (Alt)',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'lowImpact'].includes(type),
+        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(type),
       },
     },
     {

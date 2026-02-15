@@ -156,7 +156,7 @@ export interface Page {
   id: number;
   title: string;
   hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact';
+    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'philippBacher';
     richText?: {
       root: {
         type: string;
@@ -197,6 +197,15 @@ export interface Page {
         }[]
       | null;
     media?: (number | null) | Media;
+    /** Philipp Bacher hero fields */
+    subheadline?: string | null;
+    headline?: string | null;
+    description?: string | null;
+    mediaType?: ('image' | 'video') | null;
+    backgroundImage?: (number | null) | Media;
+    backgroundVideo?: (number | null) | Media;
+    foregroundImage?: (number | null) | Media;
+    overlayOpacity?: number | null;
   };
   layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
   meta?: {

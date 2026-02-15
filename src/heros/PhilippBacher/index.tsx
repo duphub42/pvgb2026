@@ -25,13 +25,28 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   // Sicherheitscheck: Wenn keine Props da sind, nichts rendern
   if (!props) return null
 
-  // Wir extrahieren die Felder, die wir in der Pages/index.ts definiert haben
+  // Felder aus der Payload Hero-Config (heros/config.ts)
   const {
     richText,
     links,
-    media, // Das ist das Hintergrundbild/Video aus der Config
+    media,
+    headline,
+    subheadline,
+    description,
+    mediaType = 'image',
+    backgroundImage,
+    backgroundVideo,
+    foregroundImage,
     overlayOpacity = 0.4,
   } = props
+
+  // Hintergrund: neues Schema (backgroundImage/backgroundVideo) oder Fallback auf media
+  const backgroundMedia =
+    mediaType === 'video' && backgroundVideo
+      ? backgroundVideo
+      : (backgroundImage || media)
+
+  const hasTextContent = headline || subheadline || description || richText
 
   // Parallax / Zoom Berechnungen
   const currentOffset = offset || 0
@@ -50,17 +65,15 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           filter: `blur(${backgroundBlur}px)`,
         }}
       >
-        {/* Render Hintergrund-Medium (Bild oder Video) */}
-        {media && typeof media !== 'string' && (
+        {backgroundMedia && typeof backgroundMedia !== 'string' && (
           <Media
-            resource={media}
+            resource={backgroundMedia}
             fill
             imgClassName="object-cover w-full h-full"
             priority
           />
         )}
 
-        {/* Dynamisches Overlay für bessere Lesbarkeit */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -74,14 +87,38 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
       {/* INHALT-LAYER */}
       <div className="container relative z-10 flex flex-col items-center text-center px-4 md:px-0 pb-16 pt-24">
         
-        {/* RichText aus Payload (enthält Headline, Subline etc.) */}
-        {richText && (
-          <div 
+        {/* Headline / Subheadline / Description (neues Schema) oder RichText */}
+        {hasTextContent && (
+          <div
             className={`prose prose-invert max-w-4xl mb-8 transition-all duration-1000 ${
               isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}
           >
-            <RichText content={richText} enableGutter={false} />
+            {(headline || subheadline || description) ? (
+              <>
+                {subheadline && (
+                  <p className="text-lg md:text-xl opacity-90 mb-2">{subheadline}</p>
+                )}
+                {headline && (
+                  <h1 className="text-4xl md:text-6xl font-bold mb-4">{headline}</h1>
+                )}
+                {description && (
+                  <p className="text-base md:text-lg max-w-2xl mx-auto">{description}</p>
+                )}
+              </>
+            ) : (
+              richText && <RichText content={richText} enableGutter={false} />
+            )}
+          </div>
+        )}
+
+        {/* Vordergrund-Bild (optional) */}
+        {foregroundImage && typeof foregroundImage !== 'string' && (
+          <div className="relative z-20 w-full max-w-2xl mx-auto mb-8">
+            <Media
+              resource={foregroundImage}
+              imgClassName="object-contain w-full h-auto"
+            />
           </div>
         )}
 

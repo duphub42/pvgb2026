@@ -60,10 +60,11 @@ export default buildConfig({
   editor: defaultLexical,
   db: vercelPostgresAdapter({
     pool: {
-      connectionString: process.env.POSTGRES_URL || '',
+      // Neon: set DATABASE_URL. Vercel Postgres: set POSTGRES_URL.
+      connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL || '',
     },
-    // Ermöglicht die automatische Synchronisation der Datenbankstruktur
-    push: true,
+    // Push schema in dev only; use migrations in production (e.g. Vercel)
+    push: process.env.NODE_ENV !== 'production',
   }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),

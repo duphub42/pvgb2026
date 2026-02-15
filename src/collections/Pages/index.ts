@@ -1,4 +1,5 @@
 import type { CollectionConfig } from 'payload'
+import { slugField } from 'payload'
 
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
@@ -7,11 +8,10 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config' // Korrigierter Pfad
 import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { slugField } from '../../fields/slug'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
 import { revalidatePage } from './hooks/revalidatePage'
-import { link } from '../../fields/link' // Importiert das Standard-Link-Feld
+import { hero as heroField } from '../../heros/config'
 
 import {
   MetaDescriptionField,
@@ -62,58 +62,7 @@ export const Pages: CollectionConfig = {
       tabs: [
         {
           label: 'Hero',
-          fields: [
-            {
-              name: 'hero',
-              type: 'group',
-              fields: [
-                {
-                  name: 'type',
-                  type: 'select',
-                  defaultValue: 'lowImpact',
-                  label: 'Type',
-                  options: [
-                    { label: 'None', value: 'none' },
-                    { label: 'High Impact', value: 'highImpact' },
-                    { label: 'Medium Impact', value: 'mediumImpact' },
-                    { label: 'Low Impact', value: 'lowImpact' },
-                    { label: 'Philipp Bacher', value: 'philippBacher' },
-                  ],
-                  required: true,
-                },
-                {
-                  name: 'richText',
-                  type: 'richText',
-                  admin: {
-                    condition: (_, data) => data?.type !== 'none',
-                  },
-                },
-                {
-                  name: 'links',
-                  type: 'array',
-                  admin: {
-                    condition: (_, data) => data?.type !== 'none',
-                  },
-                  fields: [
-                    link({
-                      appearances: false, // Wir brauchen hier nur den Link an sich
-                    }),
-                  ],
-                  maxRows: 2,
-                },
-                {
-                  name: 'media',
-                  type: 'upload',
-                  admin: {
-                    condition: (_, data) =>
-                      ['highImpact', 'mediumImpact', 'philippBacher'].includes(data?.type),
-                  },
-                  relationTo: 'media',
-                  required: true,
-                },
-              ],
-            },
-          ],
+          fields: [heroField],
         },
         {
           label: 'Content',
