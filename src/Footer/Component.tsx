@@ -9,11 +9,16 @@ import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
 
 export async function Footer() {
-  const [footerData, headerData] = await Promise.all([
-    getCachedGlobal('footer', 1)(),
-    getCachedGlobal('header', 1)(),
-  ])
-
+  let footerData: Footer | null = null
+  let headerData: Header | null = null
+  try {
+    ;[footerData, headerData] = await Promise.all([
+      getCachedGlobal('footer', 1)(),
+      getCachedGlobal('header', 1)(),
+    ])
+  } catch (err) {
+    console.error('[Footer] Failed to load footer/header globals:', err)
+  }
   const navItems = (footerData as Footer)?.navItems || []
   const logo = (headerData as Header)?.logo ?? null
 
