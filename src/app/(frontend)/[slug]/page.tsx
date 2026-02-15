@@ -25,11 +25,12 @@ export default async function Page({ params: paramsPromise, searchParams: search
   const payload = await getPayload({ config: configPromise })
 
   // Admin preview: load by document ID so preview works even when draft cookie isn't sent in iframe
-  if (previewId) {
+  const validPreviewId = previewId && previewId !== 'undefined' && String(previewId).trim()
+  if (validPreviewId) {
     try {
       const pageById = await payload.findByID({
         collection: 'pages',
-        id: previewId,
+        id: validPreviewId,
         depth: 2,
         draft: true,
       })
@@ -61,7 +62,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
     draft: isDraftMode,
   })
 
-  // Fallback: homepage often has slug "home" or "Home" (case)
+  // Fallback: homepage by common slugs (home, Home, or e.g. "h" if set that way)
   if (pages.docs.length === 0 && (resolvedSlug === 'home' || !resolvedSlug) && !isDraftMode) {
     pages = await payload.find({
       collection: 'pages',
@@ -69,7 +70,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
       depth: 2,
       where: {
         and: [
-          { slug: { in: ['home', 'Home'] } },
+          { slug: { in: ['home', 'Home', 'h'] } },
           { _status: { equals: 'published' } },
         ],
       },
@@ -109,7 +110,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
       depth: 1,
       where: {
         and: [
-          { slug: { in: ['home', 'Home'] } },
+          { slug: { in: ['home', 'Home', 'h'] } },
           { _status: { equals: 'published' } },
         ],
       },

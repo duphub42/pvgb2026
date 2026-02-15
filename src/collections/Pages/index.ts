@@ -34,20 +34,22 @@ export const Pages: CollectionConfig = {
     livePreview: {
       url: (args: { data?: { slug?: string; id?: number }; collectionConfig?: unknown; locale?: unknown }) => {
         const data = args?.data
+        const id = typeof data?.id === 'number' && Number.isFinite(data.id) ? data.id : undefined
         const path = generatePreviewPath({
           slug: typeof data?.slug === 'string' ? data.slug : 'home',
           collection: 'pages',
-          id: data?.id,
+          id,
         })
 
         return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
       },
     },
     preview: (data: { slug?: string; id?: number }) => {
+      const id = typeof data?.id === 'number' && Number.isFinite(data.id) ? data.id : undefined
       const path = generatePreviewPath({
         slug: typeof data?.slug === 'string' ? data.slug : 'home',
         collection: 'pages',
-        id: data?.id,
+        id,
       })
 
       return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
