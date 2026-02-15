@@ -59,3 +59,23 @@ If you use the cron job in `vercel.json` (`/api/payload-jobs/run`), set `CRON_SE
 - **Build fails on Vercel:** Check that all required env vars are set for the environment (Production/Preview). Ensure Node version matches (e.g. 18 or 20 in **Settings → General**).
 - **DB connection errors:** Use the **pooled** connection string from Neon for serverless. Ensure `DATABASE_URL` (or `POSTGRES_URL`) is set in Vercel.
 - **Types out of date:** After changing Payload collections/globals, run `pnpm run generate:types` locally and commit the updated `src/payload-types.ts`.
+
+### Backend zeigt keine Daten (Pages, Globals, Mega-Menü leer)
+
+1. **Richtige Datenbank?**  
+   Vercel **Preview**-Deployments können eine andere `DATABASE_URL` nutzen als Production (z. B. neuer Neon-Branch). Wenn die URL auf eine leere DB zeigt, sind alle Listen leer.  
+   - In Vercel: **Settings → Environment Variables** prüfen: Welche URL gilt für **Production** vs. **Preview**?  
+   - In Neon: Prüfen, ob du den gewünschten Branch (z. B. `main`) und die richtige DB verwendest.
+
+2. **Datenbank wieder befüllen (Seed)**  
+   Wenn die Datenbank leer ist oder du Demo-Daten neu anlegen willst:
+   - Im Payload-Admin einloggen.
+   - `POST /next/seed` aufrufen (z. B. mit einem Tool wie Postman oder von einer Seite aus per Button).  
+   - **Hinweis:** Der Seed **löscht zuerst** alle Einträge in den konfigurierten Collections und setzt Globals (z. B. Nav) zurück, danach werden Demo-Pages, -Posts, -Media und Globals angelegt. Eigenes Logo / Mega-Menü / angepasste Globals danach im Admin wieder setzen.
+
+3. **Seed per curl (eingeloggt)**  
+   Nach dem Login im Admin (Cookie/Session im Browser) kannst du von derselben Domain aus z. B. in der Browser-Konsole ausführen:
+   ```js
+   fetch('/next/seed', { method: 'POST', credentials: 'include' }).then(r => r.json()).then(console.log)
+   ```
+   Oder mit curl die Session-Cookie-Werte übernehmen und `curl -X POST https://deine-domain.vercel.app/next/seed -b "payload-token=..."` ausführen.
