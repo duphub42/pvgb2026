@@ -35,7 +35,7 @@ export const hero: Field = {
         ],
       }),
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(type),
+        condition: (_, siblingData) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -44,7 +44,7 @@ export const hero: Field = {
       relationTo: 'media',
       label: 'Bild (Alt)',
       admin: {
-        condition: (_, { type } = {}) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(type),
+        condition: (_, siblingData) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -52,7 +52,7 @@ export const hero: Field = {
       type: 'text',
       label: 'Sub-Headline',
       admin: {
-        condition: (_, { type } = {}) => type === 'philippBacher',
+        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
       },
     },
     {
@@ -60,7 +60,7 @@ export const hero: Field = {
       type: 'text',
       label: 'Haupt-Überschrift',
       admin: {
-        condition: (_, { type } = {}) => type === 'philippBacher',
+        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
       },
     },
     {
@@ -68,7 +68,7 @@ export const hero: Field = {
       type: 'textarea',
       label: 'Kurze Beschreibung',
       admin: {
-        condition: (_, { type } = {}) => type === 'philippBacher',
+        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
       },
     },
     {
@@ -81,7 +81,7 @@ export const hero: Field = {
         { label: 'Video', value: 'video' },
       ],
       admin: {
-        condition: (_, { type } = {}) => type === 'philippBacher',
+        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
       },
     },
     {
@@ -90,8 +90,8 @@ export const hero: Field = {
       relationTo: 'media',
       label: 'Hintergrund Bild',
       admin: {
-        condition: (_, { mediaType, type } = {}) => 
-          type === 'philippBacher' && mediaType === 'image',
+        condition: (_, siblingData) =>
+          siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'image',
       },
     },
     {
@@ -100,8 +100,8 @@ export const hero: Field = {
       relationTo: 'media',
       label: 'Hintergrund Video',
       admin: {
-        condition: (_, { mediaType, type } = {}) => 
-          type === 'philippBacher' && mediaType === 'video',
+        condition: (_, siblingData) =>
+          siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'video',
       },
     },
     {
@@ -110,7 +110,7 @@ export const hero: Field = {
       relationTo: 'media',
       label: 'Vordergrund Bild',
       admin: {
-        condition: (_, { type } = {}) => type === 'philippBacher',
+        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
       },
     },
     {
@@ -119,15 +119,15 @@ export const hero: Field = {
       defaultValue: 0.5,
       label: 'Overlay Deckkraft',
       admin: {
-        condition: (_, { type } = {}) => type === 'philippBacher',
+        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
       },
     },
     linkGroup({
       overrides: {
         maxRows: 2,
         admin: {
-          condition: (_, { type } = {}) => 
-            ['highImpact', 'philippBacher'].includes(type),
+          condition: (_, siblingData) =>
+            ['highImpact', 'philippBacher'].includes(String(siblingData?.type ?? '')),
         },
       },
     }),
