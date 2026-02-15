@@ -40,8 +40,8 @@ export const Pages: CollectionConfig = {
           collection: 'pages',
           id,
         })
-
-        return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
+        const base = process.env.NEXT_PUBLIC_SERVER_URL ?? ''
+        return path ? `${base}${path}` : base || '/'
       },
     },
     preview: (data: { slug?: string; id?: number }) => {
@@ -51,8 +51,8 @@ export const Pages: CollectionConfig = {
         collection: 'pages',
         id,
       })
-
-      return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`
+      const base = process.env.NEXT_PUBLIC_SERVER_URL ?? ''
+      return path ? `${base}${path}` : base || '/'
     },
     useAsTitle: 'title',
   },
