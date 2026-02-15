@@ -17,17 +17,35 @@ export default async function Page({ params: paramsPromise }: { params: Promise<
 
   const payload = await getPayload({ config: configPromise })
 
-  const pages = await payload.find({
+  const resolvedSlug = slug || 'home'
+
+  let pages = await payload.find({
     collection: 'pages',
     limit: 1,
+    depth: 2,
     where: {
       and: [
-        { slug: { equals: slug } },
+        { slug: { equals: resolvedSlug } },
         ...(isDraftMode ? [] : [{ _status: { equals: 'published' } }]),
       ],
     },
     draft: isDraftMode,
   })
+
+  // Fallback: homepage often has slug "home" or "Home" (case)
+  if (pages.docs.length === 0 && (resolvedSlug === 'home' || !resolvedSlug) && !isDraftMode) {
+    pages = await payload.find({
+      collection: 'pages',
+      limit: 1,
+      depth: 2,
+      where: {
+        and: [
+          { slug: { in: ['home', 'Home'] } },
+          { _status: { equals: 'published' } },
+        ],
+      },
+    })
+  }
 
   const page = pages.docs[0]
   if (!page) notFound()
@@ -41,11 +59,13 @@ export default async function Page({ params: paramsPromise }: { params: Promise<
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug?: string }> }): Promise<Metadata> {
-  const { slug = 'home' } = await params
+  const { slug: slugParam = 'home' } = await params
+  const slug = slugParam || 'home'
   const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({
+  let pages = await payload.find({
     collection: 'pages',
     limit: 1,
+    depth: 1,
     where: {
       and: [
         { slug: { equals: slug } },
@@ -53,5 +73,18 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
       ],
     },
   })
+  if (pages.docs.length === 0 && (slug === 'home' || !slug)) {
+    pages = await payload.find({
+      collection: 'pages',
+      limit: 1,
+      depth: 1,
+      where: {
+        and: [
+          { slug: { in: ['home', 'Home'] } },
+          { _status: { equals: 'published' } },
+        ],
+      },
+    })
+  }
   return generateMeta({ doc: pages.docs[0] })
 }
