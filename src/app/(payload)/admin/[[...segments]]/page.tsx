@@ -18,12 +18,8 @@ type Args = {
   }>
 }
 
-export const generateMetadata = async ({ params, searchParams }: Args): Promise<Metadata> =>
-  generatePageMetadata({
-    config,
-    params: await params,
-    searchParams: await searchParams,
-  })
+export const generateMetadata = ({ params, searchParams }: Args): Promise<Metadata> =>
+  generatePageMetadata({ config, params, searchParams })
 
 const Page = async ({ params, searchParams }: Args) =>
   RootPage({
