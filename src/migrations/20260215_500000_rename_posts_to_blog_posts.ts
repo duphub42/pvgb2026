@@ -5,10 +5,11 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postg
  * so the collection slug can be "blog-posts" (avoids Payload 3 reserved slug "posts").
  */
 export async function up({ db }: MigrateUpArgs): Promise<void> {
-  // 1. Update archive block relation_to enum values (pages reference "posts" collection)
+  // 1. Update archive block relation_to enum values (site_pages blocks reference "posts" collection)
+  //    Enums were renamed to site_pages in migration 20260215_400000.
   await db.execute(sql.raw(`
-    ALTER TYPE "public"."enum_pages_blocks_archive_relation_to" RENAME VALUE 'posts' TO 'blog-posts';
-    ALTER TYPE "public"."enum__pages_v_blocks_archive_relation_to" RENAME VALUE 'posts' TO 'blog-posts';
+    ALTER TYPE "public"."enum_site_pages_blocks_archive_relation_to" RENAME VALUE 'posts' TO 'blog-posts';
+    ALTER TYPE "public"."enum__site_pages_v_blocks_archive_relation_to" RENAME VALUE 'posts' TO 'blog-posts';
   `))
 
   // 2. Rename posts enum types
@@ -69,7 +70,7 @@ export async function down({ db }: MigrateDownArgs): Promise<void> {
   `))
 
   await db.execute(sql.raw(`
-    ALTER TYPE "public"."enum_pages_blocks_archive_relation_to" RENAME VALUE 'blog-posts' TO 'posts';
-    ALTER TYPE "public"."enum__pages_v_blocks_archive_relation_to" RENAME VALUE 'blog-posts' TO 'posts';
+    ALTER TYPE "public"."enum_site_pages_blocks_archive_relation_to" RENAME VALUE 'blog-posts' TO 'posts';
+    ALTER TYPE "public"."enum__site_pages_v_blocks_archive_relation_to" RENAME VALUE 'blog-posts' TO 'posts';
   `))
 }
