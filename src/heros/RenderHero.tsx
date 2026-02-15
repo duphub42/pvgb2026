@@ -20,7 +20,6 @@ interface RenderHeroProps {
 }
 
 export const RenderHero: React.FC<RenderHeroProps & Record<string, any>> = ({ hero, ...props }) => {
-  // 🟢 Der Fix: as HeroData
   const heroData = (hero || props) as HeroData
 
   if (!heroData?.type) return null
@@ -28,5 +27,7 @@ export const RenderHero: React.FC<RenderHeroProps & Record<string, any>> = ({ he
   const HeroComponent = heroes[heroData.type]
   if (!HeroComponent) return null
 
+  // Übergebe alle Daten, aber TypeScript wird hier nicht mehr auf die Props der Komponente prüfen.
+  // Das ist der sicherste Weg, um den Konflikt mit dem 'type'-Feld zu umgehen.
   return <HeroComponent {...heroData} />
 }
