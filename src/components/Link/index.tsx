@@ -12,7 +12,7 @@ type CMSLinkType = {
   label?: string | null
   newTab?: boolean | null
   reference?: {
-    relationTo: 'site-pages' | 'blog-posts'
+    relationTo: 'site-pages' | 'blog-posts' | 'pages' | 'posts' // 'pages'/'posts' = legacy/cache
     value: Page | Post | string | number
   } | null
   size?: ButtonProps['size'] | null
@@ -33,11 +33,13 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     url,
   } = props
 
+  const relationTo = reference?.relationTo
+  const isPage = relationTo === 'site-pages' || relationTo === 'pages'
+  const isPost = relationTo === 'blog-posts' || relationTo === 'posts'
+  const pathPrefix = isPage ? '' : isPost ? '/posts' : relationTo ? `/${relationTo}` : ''
   const href =
     type === 'reference' && typeof reference?.value === 'object' && reference.value.slug
-      ? `${reference?.relationTo === 'site-pages' ? '' : reference?.relationTo === 'blog-posts' ? '/posts' : `/${reference?.relationTo}`}/${
-          reference.value.slug
-        }`
+      ? `${pathPrefix}/${reference.value.slug}`
       : url
 
   if (!href) return null

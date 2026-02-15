@@ -41,8 +41,14 @@ In the Vercel project: **Settings → Environment Variables**. Add these for **P
 
 ### Build and migrations
 
-- **Build:** Default `next build` is enough. No need to run Payload migrations in the build step unless you want to.
-- **Migrations (production):** Run migrations locally against the production DB when you change the schema, or add a CI step that runs `payload migrate` before deploy. The app uses `push: false` in production, so the schema is managed via migrations.
+- **Build:** Default `next build` is enough. **Wichtig nach dem Umstellen auf `site-pages`/`blog-posts`:** Die Datenbank muss die Migrationen haben, sonst gibt die Startseite einen Application Error (z. B. fehlende Tabelle `site_pages`).
+- **Migrations (production):** Entweder:
+  1. **Einmalig (empfohlen nach Slug-Umstellung):** Lokal gegen die Production-DB migrieren:
+     ```bash
+     DATABASE_URL="postgresql://…" pnpm run payload migrate
+     ```
+  2. **Bei jedem Deploy:** In Vercel unter **Settings → General → Build & Development Settings** die **Build Command** auf `pnpm run ci` setzen (führt `payload migrate && next build` aus). So laufen Migrationen vor jedem Build.
+- Die App nutzt `push: false` in Production, das Schema wird nur über Migrationen aktualisiert.
 
 ## 4. Optional: Vercel Cron
 
@@ -56,6 +62,7 @@ If you use the cron job in `vercel.json` (`/api/payload-jobs/run`), set `CRON_SE
 
 ## Troubleshooting
 
+- **Application Error auf der Startseite („a server-side exception has occurred“):** Meist fehlen die Payload-Migrationen in der Production-DB (z. B. nach Umstellung auf `site-pages`/`blog-posts`). Lösung: Migrationen einmal gegen die Production-DB ausführen (`DATABASE_URL="…" pnpm run payload migrate`) oder Build Command in Vercel auf `pnpm run ci` setzen und neu deployen. Siehe Abschnitt **Build and migrations** oben.
 - **Build fails on Vercel:** Check that all required env vars are set for the environment (Production/Preview). Ensure Node version matches (e.g. 18 or 20 in **Settings → General**).
 - **DB connection errors:** Use the **pooled** connection string from Neon for serverless. Ensure `DATABASE_URL` (or `POSTGRES_URL`) is set in Vercel.
 - **Types out of date:** After changing Payload collections/globals, run `pnpm run generate:types` locally and commit the updated `src/payload-types.ts`.
