@@ -10,6 +10,15 @@ export const Header: GlobalConfig = {
   },
   fields: [
     {
+      name: 'useMegaMenu',
+      type: 'checkbox',
+      defaultValue: false,
+      label: 'Mega-Menü verwenden',
+      admin: {
+        description: 'Wenn aktiviert, wird das Mega-Menü (Collection „MegaMenu Items“) angezeigt statt der einfachen Nav-Links.',
+      },
+    },
+    {
       name: 'logo',
       type: 'upload',
       relationTo: 'media',

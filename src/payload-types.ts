@@ -1644,6 +1644,7 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  useMegaMenu?: boolean | null;
   logo?: (number | Media) | null;
   navItems?:
     | {
@@ -1702,6 +1703,7 @@ export interface Footer {
  * via the `definition` "header_select".
  */
 export interface HeaderSelect<T extends boolean = true> {
+  useMegaMenu?: T;
   logo?: T;
   navItems?:
     | T

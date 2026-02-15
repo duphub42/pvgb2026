@@ -6,6 +6,7 @@ import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
 import { Media } from './collections/Media'
+import { MegaMenu } from './collections/MegaMenu'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
@@ -66,7 +67,7 @@ export default buildConfig({
     // Push schema in dev only; use migrations in production (e.g. Vercel)
     push: process.env.NODE_ENV !== 'production',
   }),
-  collections: [Pages, Posts, Media, Categories, Users],
+  collections: [Pages, Posts, Media, Categories, Users, MegaMenu],
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [
     ...plugins,
