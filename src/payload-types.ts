@@ -67,7 +67,7 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    pages: Page;
+    'site-pages': Page;
     posts: Post;
     media: Media;
     categories: Category;
@@ -90,7 +90,7 @@ export interface Config {
     };
   };
   collectionsSelect: {
-    pages: PagesSelect<false> | PagesSelect<true>;
+    'site-pages': PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
@@ -181,7 +181,7 @@ export interface Page {
             newTab?: boolean | null;
             reference?:
               | ({
-                  relationTo: 'pages';
+                  relationTo: 'site-pages';
                   value: number | Page;
                 } | null)
               | ({
@@ -475,7 +475,7 @@ export interface CallToActionBlock {
           newTab?: boolean | null;
           reference?:
             | ({
-                relationTo: 'pages';
+                relationTo: 'site-pages';
                 value: number | Page;
               } | null)
             | ({
@@ -525,7 +525,7 @@ export interface ContentBlock {
           newTab?: boolean | null;
           reference?:
             | ({
-                relationTo: 'pages';
+                relationTo: 'site-pages';
                 value: number | Page;
               } | null)
             | ({
@@ -804,7 +804,7 @@ export interface Redirect {
     type?: ('reference' | 'custom') | null;
     reference?:
       | ({
-          relationTo: 'pages';
+          relationTo: 'site-pages';
           value: number | Page;
         } | null)
       | ({
@@ -981,7 +981,7 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'pages';
+        relationTo: 'site-pages';
         value: number | Page;
       } | null)
     | ({
@@ -1703,7 +1703,7 @@ export interface Header {
           newTab?: boolean | null;
           reference?:
             | ({
-                relationTo: 'pages';
+                relationTo: 'site-pages';
                 value: number | Page;
               } | null)
             | ({
@@ -1732,7 +1732,7 @@ export interface Footer {
           newTab?: boolean | null;
           reference?:
             | ({
-                relationTo: 'pages';
+                relationTo: 'site-pages';
                 value: number | Page;
               } | null)
             | ({
@@ -1806,7 +1806,7 @@ export interface TaskSchedulePublish {
     locale?: string | null;
     doc?:
       | ({
-          relationTo: 'pages';
+          relationTo: 'site-pages';
           value: number | Page;
         } | null)
       | ({
