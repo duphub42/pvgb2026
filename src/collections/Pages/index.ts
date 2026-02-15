@@ -10,6 +10,7 @@ import { FormBlock } from '../../blocks/Form/config' // Korrigierter Pfad
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { generatePreviewPath } from '../../utilities/generatePreviewPath'
+import { getServerSideURL } from '../../utilities/getURL'
 import { revalidatePage } from './hooks/revalidatePage'
 import { hero as heroField } from '../../heros/config'
 
@@ -40,8 +41,8 @@ export const Pages: CollectionConfig = {
           collection: 'pages',
           id,
         })
-        const base = process.env.NEXT_PUBLIC_SERVER_URL ?? ''
-        return path ? `${base}${path}` : base || '/'
+        const base = getServerSideURL() || 'http://localhost:3000'
+        return path ? `${base.replace(/\/$/, '')}${path}` : base
       },
     },
     preview: (data: { slug?: string; id?: number }) => {
@@ -51,8 +52,8 @@ export const Pages: CollectionConfig = {
         collection: 'pages',
         id,
       })
-      const base = process.env.NEXT_PUBLIC_SERVER_URL ?? ''
-      return path ? `${base}${path}` : base || '/'
+      const base = getServerSideURL() || 'http://localhost:3000'
+      return path ? `${base.replace(/\/$/, '')}${path}` : base
     },
     useAsTitle: 'title',
   },
@@ -140,6 +141,7 @@ export const Pages: CollectionConfig = {
       autosave: {
         interval: 100,
       },
+      validate: false, // Erlaubt leere Drafts (z. B. neues Dokument ohne Layout), damit Bearbeitungsansicht rendert
     },
     maxPerDoc: 50,
   },

@@ -79,3 +79,26 @@ If you use the cron job in `vercel.json` (`/api/payload-jobs/run`), set `CRON_SE
    fetch('/next/seed', { method: 'POST', credentials: 'include' }).then(r => r.json()).then(console.log)
    ```
    Oder mit curl die Session-Cookie-Werte übernehmen und `curl -X POST https://deine-domain.vercel.app/next/seed -b "payload-token=..."` ausführen.
+
+### Backend: Bearbeitungsseiten leer (Create New / Dokument öffnen zeigt kein Formular)
+
+Wenn die Listen (z. B. Pages, Posts) sichtbar sind, aber beim Klick auf **Create New** oder einen Eintrag die Bearbeitungsansicht leer bleibt:
+
+1. **Kein eigenes Logo in der Config ohne Import-Map**  
+   In `src/payload.config.ts` darf unter `admin.components` kein `graphics: { Logo: '…' }` stehen, wenn die zugehörige Komponente nicht in der generierten Import-Map (`src/app/(payload)/admin/importMap.js`) eingetragen ist. Sonst kann das gesamte Admin-Layout (inkl. Formulare) ausfallen. Eigenes Logo nur verwenden, wenn danach `pnpm run generate:importmap` ausgeführt wurde.
+
+2. **Browser-Konsole prüfen**  
+   DevTools (F12) → **Console**. Eine leere Bearbeitungsseite öffnen (z. B. Pages → Create New). Gibt es rote Fehlermeldungen? Typisch sind fehlende Komponenten (Import-Map) oder JavaScript-Fehler in einer Field-Komponente.
+
+3. **Network-Tab**  
+   DevTools → **Network**. Beim Öffnen einer Bearbeitungsseite: Schlägt ein Request fehl (z. B. `/api/pages/…` oder `/api/globals/…` mit 401/404/500)? Dann liegt das Problem eher an API/Zugriff als am Frontend.
+
+4. **Andere Collection testen**  
+   Z. B. **Posts** → Create New oder **Media** → Eintrag öffnen. Wenn dort das Formular erscheint, nur **Pages** betroffen (z. B. durch `layout` required oder Live-Preview-URL). Wenn überall leer, Ursache ist global (Config, Import-Map, oder Fehler in einer gemeinsamen Komponente).
+
+5. **Cache / Inkognito**  
+   Einmal Hard-Reload (Strg+Shift+R) oder im Inkognito-Fenster testen. Gespeicherte Admin-Einstellungen (z. B. „Live Preview“ als Standard-Ansicht) können in seltenen Fällen zu leeren Ansichten führen.
+
+6. **Projekt-Code**  
+   - In **Pages** ist `versions.drafts.validate: false` gesetzt, damit neue/leere Entwürfe (ohne Layout) geladen werden können.  
+   - Die Live-Preview- und Preview-URLs nutzen `getServerSideURL()` mit Fallback, damit die Basis-URL nie leer ist.
