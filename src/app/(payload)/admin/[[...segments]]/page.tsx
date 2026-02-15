@@ -1,6 +1,5 @@
 /* THIS FILE WAS GENERATED AUTOMATICALLY BY PAYLOAD. */
 /* DO NOT MODIFY IT BECAUSE IT COULD BE REWRITTEN AT ANY TIME. */
-/* Resolving params/searchParams (Next.js 15) before passing to RootPage so document view loads. */
 import type { Metadata } from 'next'
 
 export const dynamic = 'force-dynamic'
@@ -21,12 +20,7 @@ type Args = {
 export const generateMetadata = ({ params, searchParams }: Args): Promise<Metadata> =>
   generatePageMetadata({ config, params, searchParams })
 
-const Page = async ({ params, searchParams }: Args) =>
-  RootPage({
-    config,
-    params: await params,
-    searchParams: await searchParams,
-    importMap,
-  })
+const Page = ({ params, searchParams }: Args) =>
+  RootPage({ config, params, searchParams, importMap })
 
 export default Page
