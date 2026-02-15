@@ -30,7 +30,7 @@ export const Pages: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    defaultColumns: ['title', 'slug', 'updatedAt'],
+    defaultColumns: ['title', 'slug', 'parent', 'updatedAt'],
     livePreview: {
       url: (args: { data?: { slug?: string; id?: number }; collectionConfig?: unknown; locale?: unknown }) => {
         const data = args?.data
@@ -84,6 +84,18 @@ export const Pages: CollectionConfig = {
           label: 'Settings',
           fields: [
             slugField(),
+            {
+              name: 'parent',
+              type: 'relationship',
+              relationTo: 'pages',
+              hasMany: false,
+              admin: {
+                position: 'sidebar',
+                description: 'Übergeordnete Seite für Baumstruktur (z. B. /leistungen/webdesign).',
+              },
+              filterOptions: ({ id }: { id?: number | string }) =>
+                id != null ? { id: { not_equals: id } } : {},
+            },
             {
               name: 'publishedAt',
               type: 'date',

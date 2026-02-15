@@ -1,6 +1,7 @@
 import * as migration_20260213_172621_initial from './20260213_172621_initial'
 import * as migration_20260215_000000_hero_philipp_bacher from './20260215_000000_hero_philipp_bacher'
 import * as migration_20260215_100000_header_logo from './20260215_100000_header_logo'
+import * as migration_20260215_200000_pages_parent from './20260215_200000_pages_parent'
 
 export const migrations = [
   {
@@ -17,5 +18,10 @@ export const migrations = [
     up: migration_20260215_100000_header_logo.up,
     down: migration_20260215_100000_header_logo.down,
     name: '20260215_100000_header_logo',
+  },
+  {
+    up: migration_20260215_200000_pages_parent.up,
+    down: migration_20260215_200000_pages_parent.down,
+    name: '20260215_200000_pages_parent',
   },
 ]

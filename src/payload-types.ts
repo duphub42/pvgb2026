@@ -222,6 +222,7 @@ export interface Page {
    */
   generateSlug?: boolean | null;
   slug: string;
+  parent?: (number | null) | Page;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
