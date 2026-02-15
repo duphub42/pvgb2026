@@ -17,8 +17,12 @@ export async function GET(req: NextRequest): Promise<Response> {
   const slug = searchParams.get('slug')
   const previewId = searchParams.get('previewId')
   const previewSecret = searchParams.get('previewSecret')
+  const envSecret = process.env.PREVIEW_SECRET
 
-  if (previewSecret !== process.env.PREVIEW_SECRET) {
+  if (!envSecret || envSecret.length < 12) {
+    return new Response('Preview is not configured (PREVIEW_SECRET must be set and at least 12 characters)', { status: 503 })
+  }
+  if (previewSecret !== envSecret) {
     return new Response('You are not allowed to preview this page', { status: 403 })
   }
 

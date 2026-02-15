@@ -32,11 +32,12 @@ export const Pages: CollectionConfig = {
   admin: {
     defaultColumns: ['title', 'slug', 'updatedAt'],
     livePreview: {
-      url: (args: { data?: { slug?: string }; id?: number | string }) => {
+      url: (args: { data?: { slug?: string; id?: number }; collectionConfig?: unknown; locale?: unknown }) => {
+        const data = args?.data
         const path = generatePreviewPath({
-          slug: typeof args.data?.slug === 'string' ? args.data.slug : 'home',
+          slug: typeof data?.slug === 'string' ? data.slug : 'home',
           collection: 'pages',
-          id: args.id,
+          id: data?.id,
         })
 
         return `${process.env.NEXT_PUBLIC_SERVER_URL}${path}`

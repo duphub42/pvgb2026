@@ -33,6 +33,7 @@ In the Vercel project: **Settings → Environment Variables**. Add these for **P
 | `PAYLOAD_SECRET` | Secret for Payload (JWT/session); use a long random string | e.g. generate with `openssl rand -hex 32` |
 | `NEXT_PUBLIC_SERVER_URL` | Public URL of the site (no trailing slash) | `https://your-app.vercel.app` |
 | `BLOB_READ_WRITE_TOKEN` | Vercel Blob storage token (for Media uploads) | From Vercel project → Storage → Blob |
+| `PREVIEW_SECRET` | Live Preview in Admin; **min. 12 characters** | e.g. `openssl rand -hex 12` |
 | `CRON_SECRET` | Optional; for securing cron endpoints | Optional long random string |
 
 - **Neon:** set `DATABASE_URL` to your Neon connection string. The app also accepts `POSTGRES_URL` if you prefer that name.

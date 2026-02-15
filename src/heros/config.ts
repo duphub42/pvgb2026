@@ -52,7 +52,8 @@ export const hero: Field = {
       type: 'text',
       label: 'Sub-Headline',
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        condition: (_, siblingData) =>
+          ['highImpact', 'mediumImpact', 'lowImpact', 'philippBacher'].includes(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -60,7 +61,8 @@ export const hero: Field = {
       type: 'text',
       label: 'Haupt-Überschrift',
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        condition: (_, siblingData) =>
+          ['highImpact', 'mediumImpact', 'lowImpact', 'philippBacher'].includes(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -68,7 +70,8 @@ export const hero: Field = {
       type: 'textarea',
       label: 'Kurze Beschreibung',
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        condition: (_, siblingData) =>
+          ['highImpact', 'mediumImpact', 'lowImpact', 'philippBacher'].includes(String(siblingData?.type ?? '')),
       },
     },
     {
