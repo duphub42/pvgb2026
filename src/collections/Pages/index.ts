@@ -94,7 +94,7 @@ export const Pages: CollectionConfig = {
                 description: 'Übergeordnete Seite für Baumstruktur (z. B. /leistungen/webdesign).',
               },
               filterOptions: ({ id }: { id?: number | string }) =>
-                id != null ? { id: { not_equals: id } } : {},
+                id != null ? { id: { not_equals: id } } : undefined,
             },
             {
               name: 'publishedAt',
