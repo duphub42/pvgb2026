@@ -6,14 +6,9 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { Page as PageType } from '@/payload-types'
 
-// params kann Promise oder direktes Objekt sein
-type ParamsType = { slug?: string } | Promise<{ slug?: string }>
-
-export default async function Page({ params }: { params: ParamsType }) {
-  // Falls Promise übergeben: awaiten, sonst direkt nehmen
-  const resolvedParams = 'then' in params ? await params : params
-  const { slug = 'index' } = resolvedParams
-
+// Next.js 15: params als Promise
+export default async function Page({ params: paramsPromise }: { params: Promise<{ slug?: string }> }) {
+  const { slug = 'index' } = await paramsPromise
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
@@ -23,6 +18,7 @@ export default async function Page({ params }: { params: ParamsType }) {
   })
 
   const page = result.docs[0] as PageType | undefined
+
   if (!page) return notFound()
 
   const { hero, layout } = page
