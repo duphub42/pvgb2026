@@ -9,8 +9,6 @@ import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config' // Korrigierter Pfad
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
-import { generatePreviewPath } from '../../utilities/generatePreviewPath'
-import { getServerSideURL } from '../../utilities/getURL'
 import { revalidatePage } from './hooks/revalidatePage'
 import { hero as heroField } from '../../heros/config'
 
@@ -32,29 +30,8 @@ export const Pages: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'parent', 'updatedAt'],
-    livePreview: {
-      url: (args: { data?: { slug?: string; id?: number }; collectionConfig?: unknown; locale?: unknown }) => {
-        const data = args?.data
-        const id = typeof data?.id === 'number' && Number.isFinite(data.id) ? data.id : undefined
-        const path = generatePreviewPath({
-          slug: typeof data?.slug === 'string' ? data.slug : 'home',
-          collection: 'pages',
-          id,
-        })
-        const base = getServerSideURL() || 'http://localhost:3000'
-        return path ? `${base.replace(/\/$/, '')}${path}` : base
-      },
-    },
-    preview: (data: { slug?: string; id?: number }) => {
-      const id = typeof data?.id === 'number' && Number.isFinite(data.id) ? data.id : undefined
-      const path = generatePreviewPath({
-        slug: typeof data?.slug === 'string' ? data.slug : 'home',
-        collection: 'pages',
-        id,
-      })
-      const base = getServerSideURL() || 'http://localhost:3000'
-      return path ? `${base.replace(/\/$/, '')}${path}` : base
-    },
+    // Live Preview deaktiviert, damit die Bearbeitungsansicht zuverlässig das Formular rendert.
+    // preview: (data) => ... für Preview-Button bei Bedarf später wieder ergänzen.
     useAsTitle: 'title',
   },
   fields: [
