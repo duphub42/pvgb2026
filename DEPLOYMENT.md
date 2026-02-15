@@ -109,6 +109,7 @@ Die Pages-Collection nutzt den Slug **`site-pages`** statt `pages`, weil in Payl
 
 - **Admin-URL:** `/admin/collections/site-pages` (nicht `/admin/collections/pages`).
 - **API:** `/api/site-pages` (nicht `/api/pages`).
+- **Posts-Collection** nutzt den Slug **`blog-posts`** (Admin: `/admin/collections/blog-posts`, API: `/api/blog-posts`). Die Frontend-URLs bleiben `/posts` und `/posts/[slug]`.
 - **Nach dem ersten Deploy mit dieser Änderung:** Migration ausführen, damit die bestehenden Tabellen von `pages` auf `site_pages` umbenannt werden:
   ```bash
   pnpm run payload migrate

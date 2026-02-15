@@ -18,7 +18,7 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const posts = await payload.find({
-    collection: 'posts',
+    collection: 'blog-posts',
     draft: false,
     limit: 1000,
     overrideAccess: false,
@@ -92,7 +92,7 @@ const queryPostBySlug = cache(async ({ slug }: { slug: string }) => {
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
-    collection: 'posts',
+    collection: 'blog-posts',
     draft,
     limit: 1,
     overrideAccess: draft,

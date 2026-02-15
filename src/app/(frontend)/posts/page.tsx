@@ -15,7 +15,7 @@ export default async function Page() {
   const payload = await getPayload({ config: configPromise })
 
   const posts = await payload.find({
-    collection: 'posts',
+    collection: 'blog-posts',
     depth: 1,
     limit: 12,
     overrideAccess: false,
@@ -38,7 +38,7 @@ export default async function Page() {
 
       <div className="container mb-8">
         <PageRange
-          collection="posts"
+          collection="blog-posts"
           currentPage={posts.page}
           limit={12}
           totalDocs={posts.totalDocs}

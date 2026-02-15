@@ -68,7 +68,7 @@ export interface Config {
   blocks: {};
   collections: {
     'site-pages': Page;
-    posts: Post;
+    'blog-posts': Post;
     media: Media;
     categories: Category;
     users: User;
@@ -91,7 +91,7 @@ export interface Config {
   };
   collectionsSelect: {
     'site-pages': PagesSelect<false> | PagesSelect<true>;
-    posts: PostsSelect<false> | PostsSelect<true>;
+    'blog-posts': PostsSelect<false> | PostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -185,7 +185,7 @@ export interface Page {
                   value: number | Page;
                 } | null)
               | ({
-                  relationTo: 'posts';
+                  relationTo: 'blog-posts';
                   value: number | Post;
                 } | null);
             url?: string | null;
@@ -479,7 +479,7 @@ export interface CallToActionBlock {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
+                relationTo: 'blog-posts';
                 value: number | Post;
               } | null);
           url?: string | null;
@@ -529,7 +529,7 @@ export interface ContentBlock {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
+                relationTo: 'blog-posts';
                 value: number | Post;
               } | null);
           url?: string | null;
@@ -577,12 +577,12 @@ export interface ArchiveBlock {
     [k: string]: unknown;
   } | null;
   populateBy?: ('collection' | 'selection') | null;
-  relationTo?: 'posts' | null;
+  relationTo?: 'blog-posts' | null;
   categories?: (number | Category)[] | null;
   limit?: number | null;
   selectedDocs?:
     | {
-        relationTo: 'posts';
+        relationTo: 'blog-posts';
         value: number | Post;
       }[]
     | null;
@@ -808,7 +808,7 @@ export interface Redirect {
           value: number | Page;
         } | null)
       | ({
-          relationTo: 'posts';
+          relationTo: 'blog-posts';
           value: number | Post;
         } | null);
     url?: string | null;
@@ -844,7 +844,7 @@ export interface Search {
   title?: string | null;
   priority?: number | null;
   doc: {
-    relationTo: 'posts';
+    relationTo: 'blog-posts';
     value: number | Post;
   };
   slug?: string | null;
@@ -985,7 +985,7 @@ export interface PayloadLockedDocument {
         value: number | Page;
       } | null)
     | ({
-        relationTo: 'posts';
+        relationTo: 'blog-posts';
         value: number | Post;
       } | null)
     | ({
@@ -1707,7 +1707,7 @@ export interface Header {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
+                relationTo: 'blog-posts';
                 value: number | Post;
               } | null);
           url?: string | null;
@@ -1736,7 +1736,7 @@ export interface Footer {
                 value: number | Page;
               } | null)
             | ({
-                relationTo: 'posts';
+                relationTo: 'blog-posts';
                 value: number | Post;
               } | null);
           url?: string | null;
@@ -1810,7 +1810,7 @@ export interface TaskSchedulePublish {
           value: number | Page;
         } | null)
       | ({
-          relationTo: 'posts';
+          relationTo: 'blog-posts';
           value: number | Post;
         } | null);
     global?: string | null;

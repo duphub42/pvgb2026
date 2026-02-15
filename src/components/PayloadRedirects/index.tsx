@@ -28,11 +28,11 @@ export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }
       const id = redirectItem.to?.reference?.value
 
       const document = (await getCachedDocument(collection, id)()) as Page | Post
-      redirectUrl = `${redirectItem.to?.reference?.relationTo !== 'site-pages' ? `/${redirectItem.to?.reference?.relationTo}` : ''}/${
+      redirectUrl = `${redirectItem.to?.reference?.relationTo !== 'site-pages' && redirectItem.to?.reference?.relationTo !== 'blog-posts' ? `/${redirectItem.to?.reference?.relationTo}` : redirectItem.to?.reference?.relationTo === 'blog-posts' ? '/posts' : ''}/${
         document?.slug
       }`
     } else {
-      redirectUrl = `${redirectItem.to?.reference?.relationTo !== 'site-pages' ? `/${redirectItem.to?.reference?.relationTo}` : ''}/${
+      redirectUrl = `${redirectItem.to?.reference?.relationTo !== 'site-pages' && redirectItem.to?.reference?.relationTo !== 'blog-posts' ? `/${redirectItem.to?.reference?.relationTo}` : redirectItem.to?.reference?.relationTo === 'blog-posts' ? '/posts' : ''}/${
         typeof redirectItem.to?.reference?.value === 'object'
           ? redirectItem.to?.reference?.value?.slug
           : ''
