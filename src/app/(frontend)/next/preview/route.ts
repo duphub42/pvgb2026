@@ -26,11 +26,12 @@ export async function GET(req: NextRequest): Promise<Response> {
     return new Response('You are not allowed to preview this page', { status: 403 })
   }
 
-  if (!path || !collection || !slug) {
-    return new Response('Insufficient search params', { status: 404 })
-  }
+  // When previewId is present, allow missing path/collection/slug (default to pages homepage)
+  const resolvedPath = path && path.startsWith('/') ? path : '/'
+  const resolvedCollection = (collection || 'pages') as CollectionSlug
+  const resolvedSlug = slug || 'home'
 
-  if (!path.startsWith('/')) {
+  if (!resolvedPath.startsWith('/')) {
     return new Response('This endpoint can only be used for relative previews', { status: 500 })
   }
 
@@ -55,6 +56,8 @@ export async function GET(req: NextRequest): Promise<Response> {
 
   draft.enable()
 
-  const targetPath = previewId ? `${path}${path.includes('?') ? '&' : '?'}previewId=${previewId}` : path
+  const targetPath = previewId
+    ? `${resolvedPath}${resolvedPath.includes('?') ? '&' : '?'}previewId=${previewId}`
+    : resolvedPath
   redirect(targetPath)
 }

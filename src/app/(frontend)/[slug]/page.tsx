@@ -25,8 +25,10 @@ export default async function Page({ params: paramsPromise, searchParams: search
   const payload = await getPayload({ config: configPromise })
 
   // Admin preview: load by document ID so preview works even when draft cookie isn't sent in iframe
-  const validPreviewId = previewId && previewId !== 'undefined' && String(previewId).trim()
-  if (validPreviewId) {
+  const rawPreviewId = previewId && previewId !== 'undefined' ? String(previewId).trim() : ''
+  const previewIdNum = rawPreviewId ? Number(rawPreviewId) : NaN
+  const validPreviewId = rawPreviewId && Number.isFinite(previewIdNum) ? previewIdNum : null
+  if (validPreviewId != null) {
     try {
       const pageById = await payload.findByID({
         collection: 'pages',
