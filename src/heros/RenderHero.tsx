@@ -12,11 +12,8 @@ const heroes = {
   philippBacher: PhilippBacherHero,
 }
 
-// ⚡ Kompatibel mit beiden Aufruf-Varianten!
-export const RenderHero: React.FC<any> = (props) => {
-  // Funktioniert egal ob {...hero} oder { hero }
-  const heroData = props.hero || props
-  
+// Diese Komponente akzeptiert die gespreadeten Props von page.tsx
+export const RenderHero: React.FC<Page['hero']> = (heroData) => {
   if (!heroData?.type) return null
 
   const HeroToRender = heroes[heroData.type]
