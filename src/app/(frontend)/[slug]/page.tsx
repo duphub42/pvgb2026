@@ -1,63 +1,39 @@
-import React from 'react'
+import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { RenderHero } from '@/heros/RenderHero'
-import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
-import type { Page as PageType } from '@/payload-types'
+import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { RenderHero } from '@/heros/RenderHero'
+import { generateMeta } from '@/utilities/generateMeta'
 
-// Next.js 15: params als Promise
 export default async function Page({ params: paramsPromise }: { params: Promise<{ slug?: string }> }) {
-  const { slug = 'index' } = await paramsPromise
+  const { slug = 'home' } = await paramsPromise
+  
   const payload = await getPayload({ config: configPromise })
-
-  const result = await payload.find({
+  const pages = await payload.find({
     collection: 'pages',
     limit: 1,
     where: { slug: { equals: slug } },
   })
 
-  const page = result.docs[0] as PageType | undefined
-
-  if (!page) return notFound()
-
-  const { hero, layout } = page
+  const page = pages.docs[0]
+  if (!page) notFound()
 
   return (
-    <article className="pt-16 pb-24">
-      {hero && <RenderHero hero={hero} />}
-      {layout && <RenderBlocks blocks={layout} />}
+    <article>
+      <RenderHero {...page.hero} />
+      <RenderBlocks blocks={page.layout} />
     </article>
   )
 }
 
-// Statische Pfade
-export async function generateStaticParams() {
+export async function generateMetadata({ params }: { params: Promise<{ slug?: string }> }): Promise<Metadata> {
+  const { slug = 'home' } = await params
   const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({ 
-    collection: 'pages', 
-    limit: 1000, 
-    select: { slug: true } 
-  })
-
-  return pages.docs.map(({ slug }) => ({ slug: slug || 'index' }))
-}
-
-// generateMetadata - Jetzt mit Promise!
-export async function generateMetadata({ params }: { params: Promise<{ slug?: string }> }) {
-  const { slug = 'index' } = await params  // <-- WICHTIG: await!
-  
-  const payload = await getPayload({ config: configPromise })
-  const result = await payload.find({
+  const pages = await payload.find({
     collection: 'pages',
     limit: 1,
     where: { slug: { equals: slug } },
   })
-
-  const page = result.docs[0] as PageType | undefined
-
-  return {
-    title: page?.title || 'Meine Seite',
-    description: page?.meta?.description || page?.description || 'Beschreibung der Seite',
-  }
+  return generateMeta({ doc: pages.docs[0] })
 }
