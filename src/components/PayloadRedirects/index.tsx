@@ -1,6 +1,8 @@
 import type React from 'react'
 import type { Page, Post } from '@/payload-types'
 
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
 import { getCachedDocument } from '@/utilities/getDocument'
 import { getCachedRedirects } from '@/utilities/getRedirects'
 import { notFound, redirect } from 'next/navigation'
@@ -21,25 +23,35 @@ export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }
       redirect(redirectItem.to.url)
     }
 
-    let redirectUrl: string
+    const ref = redirectItem.to?.reference
+    if (ref) {
+      const relationTo = ref.relationTo
+      const pathPrefix =
+        relationTo !== 'site-pages' && relationTo !== 'blog-posts'
+          ? `/${relationTo}`
+          : relationTo === 'blog-posts'
+            ? '/posts'
+            : ''
 
-    if (typeof redirectItem.to?.reference?.value === 'string') {
-      const collection = redirectItem.to?.reference?.relationTo
-      const id = redirectItem.to?.reference?.value
-
-      const document = (await getCachedDocument(collection, id)()) as Page | Post
-      redirectUrl = `${redirectItem.to?.reference?.relationTo !== 'site-pages' && redirectItem.to?.reference?.relationTo !== 'blog-posts' ? `/${redirectItem.to?.reference?.relationTo}` : redirectItem.to?.reference?.relationTo === 'blog-posts' ? '/posts' : ''}/${
-        document?.slug
-      }`
-    } else {
-      redirectUrl = `${redirectItem.to?.reference?.relationTo !== 'site-pages' && redirectItem.to?.reference?.relationTo !== 'blog-posts' ? `/${redirectItem.to?.reference?.relationTo}` : redirectItem.to?.reference?.relationTo === 'blog-posts' ? '/posts' : ''}/${
-        typeof redirectItem.to?.reference?.value === 'object'
-          ? redirectItem.to?.reference?.value?.slug
-          : ''
-      }`
+      let redirectUrl: string
+      if (typeof ref.value === 'object' && ref.value && 'slug' in ref.value) {
+        redirectUrl = `${pathPrefix}/${(ref.value as Page | Post).slug ?? ''}`
+      } else if (typeof ref.value === 'number') {
+        const payload = await getPayload({ config: configPromise })
+        const document = (await payload.findByID({
+          collection: relationTo,
+          id: ref.value,
+          depth: 0,
+        })) as Page | Post
+        redirectUrl = `${pathPrefix}/${document?.slug ?? ''}`
+      } else if (typeof ref.value === 'string') {
+        const document = (await getCachedDocument(relationTo, ref.value)()) as Page | Post
+        redirectUrl = `${pathPrefix}/${document?.slug ?? ''}`
+      } else {
+        redirectUrl = `${pathPrefix}/`
+      }
+      if (redirectUrl && redirectUrl !== '/') redirect(redirectUrl)
     }
-
-    if (redirectUrl) redirect(redirectUrl)
   }
 
   if (disableNotFound) return null
