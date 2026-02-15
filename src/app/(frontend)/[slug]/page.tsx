@@ -17,19 +17,15 @@ export default async function Page({ params: paramsPromise }: { params: Promise<
 
   const payload = await getPayload({ config: configPromise })
 
-  const whereClause = isDraftMode
-    ? { slug: { equals: slug } }
-    : {
-        and: [
-          { slug: { equals: slug } },
-          { _status: { equals: 'published' } },
-        ],
-      }
-
   const pages = await payload.find({
     collection: 'pages',
     limit: 1,
-    where: whereClause,
+    where: {
+      and: [
+        { slug: { equals: slug } },
+        ...(isDraftMode ? [] : [{ _status: { equals: 'published' } }]),
+      ],
+    },
     draft: isDraftMode,
   })
 
