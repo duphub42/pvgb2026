@@ -21,7 +21,7 @@ import {
 } from '@payloadcms/plugin-seo/fields'
 
 export const Pages: CollectionConfig = {
-  slug: 'pages',
+  slug: 'site-pages',
   access: {
     create: authenticated,
     delete: authenticated,
@@ -65,7 +65,7 @@ export const Pages: CollectionConfig = {
             {
               name: 'parent',
               type: 'relationship',
-              relationTo: 'pages',
+              relationTo: 'site-pages',
               hasMany: false,
               admin: {
                 position: 'sidebar',

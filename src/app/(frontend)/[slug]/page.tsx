@@ -31,7 +31,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
   if (validPreviewId != null) {
     try {
       const pageById = await payload.findByID({
-        collection: 'pages',
+        collection: 'site-pages',
         id: validPreviewId,
         depth: 2,
         draft: true,
@@ -52,7 +52,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
   const resolvedSlug = slug || 'home'
 
   let pages = await payload.find({
-    collection: 'pages',
+    collection: 'site-pages',
     limit: 1,
     depth: 2,
     where: {
@@ -67,7 +67,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
   // Fallback: only treat canonical homepage slugs (home / Home); do not use 'h' etc.
   if (pages.docs.length === 0 && (resolvedSlug === 'home' || !resolvedSlug) && !isDraftMode) {
     pages = await payload.find({
-      collection: 'pages',
+      collection: 'site-pages',
       limit: 1,
       depth: 2,
       where: {
@@ -95,7 +95,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   const slug = slugParam || 'home'
   const payload = await getPayload({ config: configPromise })
   let pages = await payload.find({
-    collection: 'pages',
+    collection: 'site-pages',
     limit: 1,
     depth: 1,
     where: {
@@ -107,7 +107,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   })
   if (pages.docs.length === 0 && (slug === 'home' || !slug)) {
     pages = await payload.find({
-      collection: 'pages',
+      collection: 'site-pages',
       limit: 1,
       depth: 1,
       where: {

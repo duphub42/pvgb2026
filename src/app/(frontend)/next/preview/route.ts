@@ -28,7 +28,7 @@ export async function GET(req: NextRequest): Promise<Response> {
 
   // When previewId is present, allow missing path/collection/slug (default to pages homepage)
   const resolvedPath = path && path.startsWith('/') ? path : '/'
-  const resolvedCollection = (collection || 'pages') as CollectionSlug
+  const resolvedCollection = (collection || 'site-pages') as CollectionSlug
   const resolvedSlug = slug || 'home'
 
   if (!resolvedPath.startsWith('/')) {

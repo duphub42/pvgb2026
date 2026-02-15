@@ -4,6 +4,7 @@ import * as migration_20260215_100000_header_logo from './20260215_100000_header
 import * as migration_20260215_200000_pages_parent from './20260215_200000_pages_parent'
 import * as migration_20260215_250000_header_use_mega_menu from './20260215_250000_header_use_mega_menu'
 import * as migration_20260215_300000_mega_menu from './20260215_300000_mega_menu'
+import * as migration_20260215_400000_rename_pages_to_site_pages from './20260215_400000_rename_pages_to_site_pages'
 
 export const migrations = [
   {
@@ -35,5 +36,10 @@ export const migrations = [
     up: migration_20260215_300000_mega_menu.up,
     down: migration_20260215_300000_mega_menu.down,
     name: '20260215_300000_mega_menu',
+  },
+  {
+    up: migration_20260215_400000_rename_pages_to_site_pages.up,
+    down: migration_20260215_400000_rename_pages_to_site_pages.down,
+    name: '20260215_400000_rename_pages_to_site_pages',
   },
 ]

@@ -13,7 +13,7 @@ import { post3 } from './post-3'
 const collections: CollectionSlug[] = [
   'categories',
   'media',
-  'pages',
+  'site-pages',
   'posts',
   'forms',
   'form-submissions',
@@ -204,12 +204,12 @@ export const seed = async ({
 
   const [_, contactPage] = await Promise.all([
     payload.create({
-      collection: 'pages',
+      collection: 'site-pages',
       depth: 0,
       data: home({ heroImage: imageHomeDoc, metaImage: image2Doc }),
     }),
     payload.create({
-      collection: 'pages',
+      collection: 'site-pages',
       depth: 0,
       data: contactPageData({ contactForm: contactForm }),
     }),
@@ -234,7 +234,7 @@ export const seed = async ({
               type: 'reference',
               label: 'Contact',
               reference: {
-                relationTo: 'pages',
+                relationTo: 'site-pages',
                 value: contactPage.id,
               },
             },
