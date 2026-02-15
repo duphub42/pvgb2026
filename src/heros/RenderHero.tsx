@@ -5,6 +5,7 @@ import { MediumImpactHero } from '@/heros/MediumImpact'
 import { LowImpactHero } from '@/heros/LowImpact'
 import { PhilippBacherHero } from '@/heros/PhilippBacher'
 
+// Alle Hero-Komponenten in einem Objekt für dynamisches Rendering
 const heroes = {
   highImpact: HighImpactHero,
   mediumImpact: MediumImpactHero,
@@ -12,16 +13,27 @@ const heroes = {
   philippBacher: PhilippBacherHero,
 }
 
-// Diese Komponente ist flexibel und funktioniert mit beiden Aufrufarten
-export const RenderHero: React.FC<any> = (props) => {
-  // 1. Fall: Wurde die Komponente mit einer 'hero'-Prop aufgerufen? (z.B. <RenderHero hero={data} />)
-  // 2. Fall: Wurden die Eigenschaften direkt übergeben? (z.B. <RenderHero {...data} />)
-  const heroData = props.hero || props
+// Typ für heroData
+export type HeroData = {
+  type: keyof typeof heroes
+} & Record<string, any> // weitere dynamische Props
+
+interface RenderHeroProps {
+  hero?: HeroData
+}
+
+/**
+ * RenderHero rendert dynamisch die passende Hero-Komponente
+ * basierend auf dem Typ im hero-Objekt.
+ */
+export const RenderHero: React.FC<RenderHeroProps> = ({ hero, ...props }) => {
+  // hero wird bevorzugt, ansonsten direkt die Props
+  const heroData = hero || props
 
   if (!heroData?.type) return null
 
-  const HeroToRender = heroes[heroData.type as keyof typeof heroes]
-  if (!HeroToRender) return null
+  const HeroComponent = heroes[heroData.type as keyof typeof heroes]
+  if (!HeroComponent) return null
 
-  return <HeroToRender {...heroData} />
+  return <HeroComponent {...heroData} />
 }
