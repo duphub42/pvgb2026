@@ -6,9 +6,14 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import type { Page as PageType } from '@/payload-types'
 
-// Next.js 15: params als Promise
-export default async function Page({ params: paramsPromise }: { params: Promise<{ slug?: string }> }) {
-  const { slug = 'index' } = await paramsPromise
+// params kann Promise oder direktes Objekt sein
+type ParamsType = { slug?: string } | Promise<{ slug?: string }>
+
+export default async function Page({ params }: { params: ParamsType }) {
+  // Falls Promise übergeben: awaiten, sonst direkt nehmen
+  const resolvedParams = 'then' in params ? await params : params
+  const { slug = 'index' } = resolvedParams
+
   const payload = await getPayload({ config: configPromise })
 
   const result = await payload.find({
@@ -18,7 +23,6 @@ export default async function Page({ params: paramsPromise }: { params: Promise<
   })
 
   const page = result.docs[0] as PageType | undefined
-
   if (!page) return notFound()
 
   const { hero, layout } = page
@@ -31,7 +35,7 @@ export default async function Page({ params: paramsPromise }: { params: Promise<
   )
 }
 
-// Statische Pfade für Next.js-Build
+// Statische Pfade
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
   const pages = await payload.find({ collection: 'pages', limit: 1000, select: { slug: true } })
@@ -39,7 +43,7 @@ export async function generateStaticParams() {
   return pages.docs.map(({ slug }) => ({ slug: slug || 'index' }))
 }
 
-// ✅ Neuer Export: generateMetadata
+// generateMetadata
 export async function generateMetadata({ params }: { params: { slug?: string } }) {
   const payload = await getPayload({ config: configPromise })
   const result = await payload.find({
@@ -51,7 +55,7 @@ export async function generateMetadata({ params }: { params: { slug?: string } }
   const page = result.docs[0] as PageType | undefined
 
   return {
-    title: page?.title || 'Meine Seite', // Optional: dynamisch aus Payload
+    title: page?.title || 'Meine Seite',
     description: page?.description || 'Beschreibung der Seite',
   }
 }
