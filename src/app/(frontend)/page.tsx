@@ -1,7 +1,3 @@
-export const dynamic = 'force-dynamic'
-  
-import PageTemplate, { generateMetadata } from './[slug]/page'
-
-export default PageTemplate
-
-export { generateMetadata }
+import Page from './[slug]/page'
+export { generateMetadata } from './[slug]/page'
+export default Page
