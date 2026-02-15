@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react'
 import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
-import { RichText } from '@/components/RichText'
+import RichText from '@/components/RichText'
 
 /**
  * PhilippBacherHero: 
@@ -107,7 +107,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                 )}
               </>
             ) : (
-              richText && <RichText content={richText} enableGutter={false} />
+              richText && <RichText data={richText} enableGutter={false} />
             )}
           </div>
         )}
