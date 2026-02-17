@@ -38,7 +38,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
   const resolvedTheme = headerTheme ?? globalTheme ?? null
 
   const logoEl = (
-    <Link href="/" className="flex items-center shrink-0">
+    <Link href="/" className="logo-link flex items-center shrink-0">
       <Logo
         loading="eager"
         priority="high"
@@ -108,7 +108,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
       <MegaMenu
         items={megaMenuItems}
         logo={logoEl}
-        className={resolvedTheme ? `data-theme:${resolvedTheme}` : ''}
         columnWidths={columnWidths}
         megaMenuCta={hasCta ? megaMenuCta : undefined}
       />

@@ -398,7 +398,7 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
                       <NavigationMenuItem key={item.id} value={value}>
                         <NavigationMenuTrigger className="megamenu-top-item">{item.label}</NavigationMenuTrigger>
                         <NavigationMenuContent>
-                          <div className="w-full container">
+                          <div className="w-full">
                             <div className="grid grid-cols-12 min-h-[400px]">
                               {/* Sidebar Column with background */}
                               <div className={cn('megamenu-sidebar bg-muted/40 p-8 border-r', colSpan(sidebarCols))}>

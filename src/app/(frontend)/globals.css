@@ -196,6 +196,21 @@
   filter: invert(1);
 }
 
+/* Logo-Link: kein Hover-/Label-Effekt (Hintergrund/Unterstrich) */
+.logo-link:hover {
+  background-color: transparent !important;
+  text-decoration: none;
+}
+.megamenu .logo-link:hover {
+  background-color: transparent !important;
+  color: inherit;
+}
+[data-theme='dark'] .megamenu .logo-link:hover {
+  background-color: transparent !important;
+  color: #e8e8e8;
+}
+
+
 /* Link-Stile: link-hover-underline für Content/Footer; mega-menu-link als Box im Menü */
 @layer utilities {
   /* Content (Prose): Link-Farbe aus Design-Global (--link / --link-hover) */
