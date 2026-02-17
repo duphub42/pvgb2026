@@ -43,7 +43,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
         loading="eager"
         priority="high"
         logo={data?.logo}
-        darkBackground={resolvedTheme === 'dark'}
+        darkBackground={false}
       />
     </Link>
   )

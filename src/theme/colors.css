@@ -1,0 +1,182 @@
+/**
+ * ========== ZENTRALE ANPASSUNG: GLOBALE FARBEN ==========
+ * Alle globalen Farben und Theme-Variablen (Light/Dark) hier ändern.
+ * Payload-Design-Tokens (--theme-elevation-*, --theme-success-500, …)
+ * und abgeleitete Werte (--background, --foreground, --muted, …).
+ */
+
+:root {
+  /* Graustufen (Basis für Elevation) */
+  --color-base-0: rgb(255, 255, 255);
+  --color-base-50: rgb(245, 245, 245);
+  --color-base-100: rgb(235, 235, 235);
+  --color-base-150: rgb(221, 221, 221);
+  --color-base-200: rgb(208, 208, 208);
+  --color-base-250: rgb(195, 195, 195);
+  --color-base-300: rgb(181, 181, 181);
+  --color-base-350: rgb(168, 168, 168);
+  --color-base-400: rgb(154, 154, 154);
+  --color-base-450: rgb(141, 141, 141);
+  --color-base-500: rgb(128, 128, 128);
+  --color-base-550: rgb(114, 114, 114);
+  --color-base-600: rgb(101, 101, 101);
+  --color-base-650: rgb(87, 87, 87);
+  --color-base-700: rgb(74, 74, 74);
+  --color-base-750: rgb(60, 60, 60);
+  --color-base-800: rgb(47, 47, 47);
+  --color-base-850: rgb(34, 34, 34);
+  --color-base-900: rgb(20, 20, 20);
+  --color-base-950: rgb(7, 7, 7);
+  --color-base-1000: rgb(0, 0, 0);
+
+  /* Theme Elevation & Basis */
+  --theme-elevation-0: var(--color-base-0);
+  --theme-elevation-50: var(--color-base-50);
+  --theme-elevation-100: var(--color-base-100);
+  --theme-elevation-150: var(--color-base-150);
+  --theme-elevation-200: var(--color-base-200);
+  --theme-elevation-250: var(--color-base-250);
+  --theme-elevation-300: var(--color-base-300);
+  --theme-elevation-400: var(--color-base-400);
+  --theme-elevation-500: var(--color-base-500);
+  --theme-elevation-600: var(--color-base-600);
+  --theme-elevation-700: var(--color-base-700);
+  --theme-elevation-800: var(--color-base-800);
+  --theme-elevation-900: var(--color-base-900);
+  --theme-elevation-1000: var(--color-base-1000);
+  --theme-success-500: rgb(21, 135, 186);
+  --theme-success-250: rgb(125, 204, 248);
+  --theme-border-color: var(--theme-elevation-150);
+  --theme-bg: var(--theme-elevation-0);
+  --theme-text: var(--theme-elevation-800);
+  --theme-input-bg: var(--theme-elevation-0);
+  --font-body: var(--font-geist-sans);
+  --font-heading: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --link: var(--primary);
+  --link-hover: var(--primary);
+  --style-radius-s: 3px;
+  --style-radius-m: 4px;
+  --style-radius-l: 8px;
+
+  /* Abgeleitete Farben (UI) */
+  --background: var(--theme-elevation-0);
+  --foreground: var(--theme-elevation-800);
+  --card: var(--theme-elevation-50);
+  --card-foreground: var(--theme-elevation-800);
+  --popover: var(--theme-elevation-0);
+  --popover-foreground: var(--theme-elevation-800);
+  --primary: var(--theme-elevation-800);
+  --primary-foreground: var(--theme-elevation-0);
+  --secondary: var(--theme-elevation-100);
+  --secondary-foreground: var(--theme-elevation-800);
+  --muted: var(--theme-elevation-100);
+  --muted-foreground: var(--theme-elevation-500);
+  --accent: var(--theme-elevation-100);
+  --accent-foreground: var(--theme-elevation-800);
+  --destructive: rgb(218, 75, 72);
+  --destructive-foreground: rgb(218, 75, 72);
+  --border: var(--theme-elevation-150);
+  --input: var(--theme-elevation-150);
+  --ring: var(--theme-elevation-400);
+  --radius: var(--style-radius-l);
+  --sidebar: var(--theme-elevation-50);
+  --sidebar-foreground: var(--theme-elevation-800);
+  --sidebar-primary: var(--theme-elevation-800);
+  --sidebar-primary-foreground: var(--theme-elevation-0);
+  --sidebar-accent: var(--theme-elevation-100);
+  --sidebar-accent-foreground: var(--theme-elevation-800);
+  --sidebar-border: var(--theme-elevation-150);
+  --sidebar-ring: var(--theme-elevation-400);
+  --success: var(--theme-success-500);
+  --warning: rgb(185, 108, 13);
+  --error: rgb(218, 75, 72);
+  --chart-1: var(--theme-success-500);
+  --chart-2: rgb(11, 110, 153);
+  --chart-3: var(--theme-elevation-600);
+  --chart-4: rgb(185, 108, 13);
+  --chart-5: rgb(218, 75, 72);
+  --mega-nav-glass-bg: rgba(255, 255, 255, 0.72);
+  --mega-dropdown-glass-bg: rgba(255, 255, 255, 0.92);
+  /* Mega-Menü Button (Hell: dunkler Hintergrund, helle Schrift) */
+  --mega-menu-button-bg: var(--theme-success-500);
+  --mega-menu-button-fg: var(--theme-elevation-0);
+  /* Mega-Menü Kontraste (weicher, an Attio angelehnt) */
+  --mega-menu-nav-text: var(--theme-elevation-700);
+  --mega-menu-heading: var(--theme-elevation-600);
+  --mega-menu-item-text: var(--theme-elevation-700);
+  --mega-menu-description: var(--muted-foreground);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --theme-elevation-0: var(--color-base-900);
+  --theme-elevation-50: var(--color-base-850);
+  --theme-elevation-100: var(--color-base-800);
+  --theme-elevation-150: var(--color-base-750);
+  --theme-elevation-200: var(--color-base-700);
+  --theme-elevation-250: var(--color-base-650);
+  --theme-elevation-300: var(--color-base-600);
+  --theme-elevation-400: var(--color-base-450);
+  --theme-elevation-500: var(--color-base-400);
+  --theme-elevation-600: var(--color-base-300);
+  --theme-elevation-700: var(--color-base-200);
+  --theme-elevation-800: var(--color-base-100);
+  --theme-elevation-900: var(--color-base-50);
+  --theme-elevation-1000: var(--color-base-0);
+  --theme-bg: var(--theme-elevation-0);
+  --theme-text: var(--theme-elevation-1000);
+  --theme-input-bg: var(--theme-elevation-50);
+  --theme-border-color: var(--theme-elevation-150);
+  --theme-success-500: rgb(125, 204, 248);
+  --theme-success-250: rgb(18, 66, 90);
+  --link: var(--primary);
+  --link-hover: var(--primary);
+
+  --background: var(--theme-elevation-0);
+  --foreground: var(--theme-elevation-1000);
+  --card: var(--theme-elevation-50);
+  --card-foreground: var(--theme-elevation-1000);
+  --popover: var(--theme-elevation-0);
+  --popover-foreground: var(--theme-elevation-1000);
+  --primary: var(--theme-elevation-1000);
+  --primary-foreground: var(--theme-elevation-0);
+  --secondary: var(--theme-elevation-200);
+  --secondary-foreground: var(--theme-elevation-1000);
+  --muted: var(--theme-elevation-200);
+  --muted-foreground: var(--theme-elevation-500);
+  --accent: var(--theme-elevation-200);
+  --accent-foreground: var(--theme-elevation-1000);
+  --destructive: rgb(253, 154, 146);
+  --destructive-foreground: rgb(253, 154, 146);
+  --border: var(--theme-elevation-150);
+  --input: var(--theme-elevation-200);
+  --ring: var(--theme-elevation-400);
+  --sidebar: var(--theme-elevation-100);
+  --sidebar-foreground: var(--theme-elevation-1000);
+  --sidebar-primary: var(--theme-success-500);
+  --sidebar-primary-foreground: var(--theme-elevation-0);
+  --sidebar-accent: var(--theme-elevation-200);
+  --sidebar-accent-foreground: var(--theme-elevation-1000);
+  --sidebar-border: var(--theme-elevation-150);
+  --sidebar-ring: var(--theme-elevation-400);
+  --success: var(--theme-success-500);
+  --warning: rgb(238, 166, 98);
+  --error: rgb(253, 154, 146);
+  --chart-1: var(--theme-success-250);
+  --chart-2: rgb(156, 216, 253);
+  --chart-3: var(--theme-elevation-400);
+  --chart-4: rgb(240, 185, 136);
+  --chart-5: rgb(253, 177, 170);
+  /* Mega-Menü Dark: Glas-Hintergründe; Text hell für gute Lesbarkeit */
+  --mega-nav-glass-bg: rgba(28, 28, 28, 0.85);
+  --mega-dropdown-glass-bg: rgba(22, 22, 22, 0.96);
+  /* Mega-Menü Button (Dunkel: heller Akzent, dunkle Schrift für Lesbarkeit) */
+  --mega-menu-button-bg: var(--theme-success-500);
+  --mega-menu-button-fg: var(--color-base-900);
+  /* Mega-Menü Dark: helle Schrift auf dunklem Grund (elevation-1000 = Weiß, 900/800 = hell) */
+  --mega-menu-nav-text: var(--theme-elevation-1000);
+  --mega-menu-heading: var(--theme-elevation-900);
+  --mega-menu-item-text: var(--theme-elevation-1000);
+  --mega-menu-description: var(--theme-elevation-500);
+}
