@@ -1,6 +1,7 @@
 'use client'
 
 import { useHeaderTheme } from '@/providers/HeaderTheme'
+import { useTheme } from '@/providers/Theme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
@@ -8,7 +9,7 @@ import React, { useEffect, useState } from 'react'
 import type { Header } from '@/payload-types'
 
 import { Logo } from '@/components/Logo/Logo'
-import { MegaMenu, type MegaMenuItem } from '@/components/MegaMenu'
+import { MegaMenu, type MegaMenuCta, type MegaMenuItem } from '@/components/MegaMenu'
 import { HeaderNav } from './Nav'
 
 interface HeaderClientProps {
@@ -19,6 +20,7 @@ interface HeaderClientProps {
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems = [] }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
+  const { theme: globalTheme } = useTheme()
   const pathname = usePathname()
   const useMegaMenu = (data as Header & { useMegaMenu?: boolean })?.useMegaMenu === true && megaMenuItems.length > 0
 
@@ -32,30 +34,94 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headerTheme])
 
+  // Resolved theme: page override (headerTheme) or global theme (reaktiv beim Toggle)
+  const resolvedTheme = headerTheme ?? globalTheme ?? null
+
   const logoEl = (
     <Link href="/" className="flex items-center shrink-0">
       <Logo
         loading="eager"
         priority="high"
         logo={data?.logo}
-        darkBackground={theme === 'dark'}
+        darkBackground={resolvedTheme === 'dark'}
       />
     </Link>
   )
 
   if (useMegaMenu) {
+    const layout = data?.megaMenuLayout
+    const columnWidths =
+      layout != null
+        ? {
+            sidebar: layout.sidebarCols,
+            content: layout.contentCols,
+            featured: layout.featuredCols,
+          }
+        : undefined
+    const d = data as Header & {
+      megaMenuShowWhatsApp?: boolean
+      megaMenuWhatsAppLabel?: string | null
+      megaMenuWhatsAppUrl?: string | null
+      megaMenuShowCallback?: boolean
+      megaMenuCallbackTitle?: string | null
+      megaMenuCallbackPlaceholder?: string | null
+      megaMenuCallbackButtonText?: string | null
+      megaMenuCallbackForm?: number | { id: number } | null
+      megaMenuCallbackPhoneFieldName?: string | null
+      megaMenuShowNewsletter?: boolean
+      megaMenuNewsletterTitle?: string | null
+      megaMenuNewsletterPlaceholder?: string | null
+      megaMenuNewsletterButtonText?: string | null
+      megaMenuNewsletterForm?: number | { id: number } | null
+      megaMenuNewsletterEmailFieldName?: string | null
+    }
+    const callbackFormId = typeof d?.megaMenuCallbackForm === 'object' && d?.megaMenuCallbackForm != null && 'id' in d.megaMenuCallbackForm
+      ? d.megaMenuCallbackForm.id
+      : typeof d?.megaMenuCallbackForm === 'number' ? d.megaMenuCallbackForm : null
+    const newsletterFormId = typeof d?.megaMenuNewsletterForm === 'object' && d?.megaMenuNewsletterForm != null && 'id' in d.megaMenuNewsletterForm
+      ? d.megaMenuNewsletterForm.id
+      : typeof d?.megaMenuNewsletterForm === 'number' ? d.megaMenuNewsletterForm : null
+    const megaMenuCta: MegaMenuCta = {}
+    if (d?.megaMenuShowWhatsApp && d?.megaMenuWhatsAppUrl) {
+      megaMenuCta.whatsapp = { label: d.megaMenuWhatsAppLabel ?? 'WhatsApp', url: d.megaMenuWhatsAppUrl }
+    }
+    if (d?.megaMenuShowCallback && callbackFormId != null) {
+      megaMenuCta.callback = {
+        title: d.megaMenuCallbackTitle ?? 'Rückruf anfordern',
+        placeholder: d.megaMenuCallbackPlaceholder ?? 'Ihre Telefonnummer',
+        buttonText: d.megaMenuCallbackButtonText ?? 'Anfragen',
+        formId: callbackFormId,
+        phoneFieldName: d.megaMenuCallbackPhoneFieldName ?? 'phone',
+      }
+    }
+    if (d?.megaMenuShowNewsletter && newsletterFormId != null) {
+      megaMenuCta.newsletter = {
+        title: d.megaMenuNewsletterTitle ?? 'Newsletter',
+        placeholder: d.megaMenuNewsletterPlaceholder ?? 'E-Mail-Adresse',
+        buttonText: d.megaMenuNewsletterButtonText ?? 'Anmelden',
+        formId: newsletterFormId,
+        emailFieldName: d.megaMenuNewsletterEmailFieldName ?? 'email',
+      }
+    }
+    const hasCta = Object.keys(megaMenuCta).length > 0
     return (
       <MegaMenu
         items={megaMenuItems}
         logo={logoEl}
-        className={theme ? `data-theme:${theme}` : ''}
+        className={resolvedTheme ? `data-theme:${resolvedTheme}` : ''}
+        columnWidths={columnWidths}
+        megaMenuCta={hasCta ? megaMenuCta : undefined}
       />
     )
   }
 
   return (
-    <header className="container relative z-20" {...(theme ? { 'data-theme': theme } : {})}>
-      <div className="py-8 flex justify-between">
+    <header
+      className="container relative z-20 border-b py-5"
+      style={{ borderColor: 'var(--theme-border-color)' }}
+      {...(resolvedTheme ? { 'data-theme': resolvedTheme } : {})}
+    >
+      <div className="flex justify-between items-center">
         {logoEl}
         <HeaderNav data={data} />
       </div>

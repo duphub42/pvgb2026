@@ -5,8 +5,8 @@ import type { Media as MediaType } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 
-const FALLBACK_LOGO_SRC =
-  'https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-logo-light.svg'
+/** Eigenes Logo (Philipp Bacher) – wird verwendet, wenn im Header-Global kein Logo gesetzt ist. */
+const FALLBACK_LOGO_SRC = '/media/weblogo-philippbacher.svg'
 
 interface Props {
   className?: string
@@ -29,7 +29,8 @@ export const Logo = (props: Props) => {
 
   const loading = loadingFromProps ?? 'lazy'
   const priority = priorityFromProps ?? 'low'
-  const invertClass = darkBackground ? 'invert' : ''
+  // Logo-Kontrast: invert bei Dark Mode ODER bei darkBackground; eine Klasse, damit nie doppelt invertiert wird (siehe globals.css .logo-contrast)
+  const invertClass = clsx('logo-contrast', darkBackground && 'logo-contrast-dark-bg')
 
   if (logo && typeof logo === 'object' && 'url' in logo) {
     return (
@@ -46,7 +47,7 @@ export const Logo = (props: Props) => {
   return (
     /* eslint-disable @next/next/no-img-element */
     <img
-      alt="Payload Logo"
+      alt="Philipp Bacher"
       width={193}
       height={34}
       loading={loading}

@@ -4,10 +4,12 @@ import {
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
+  UploadFeature,
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
 import { link } from '@/fields/link'
+import { blockStyleFields } from '@/blocks/blockStyleFields'
 
 const columnFields: Field[] = [
   {
@@ -41,6 +43,7 @@ const columnFields: Field[] = [
         return [
           ...rootFeatures,
           HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
+          UploadFeature({ enabledCollections: ['media'] }),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
         ]
@@ -67,6 +70,7 @@ export const Content: Block = {
   slug: 'content',
   interfaceName: 'ContentBlock',
   fields: [
+    ...blockStyleFields,
     {
       name: 'columns',
       type: 'array',

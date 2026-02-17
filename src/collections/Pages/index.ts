@@ -9,6 +9,7 @@ import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config' // Korrigierter Pfad
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
+import { normalizeLayout } from './hooks/normalizeLayout'
 import { revalidatePage } from './hooks/revalidatePage'
 import { hero as heroField } from '../../heros/config'
 
@@ -30,8 +31,9 @@ export const Pages: CollectionConfig = {
   },
   admin: {
     defaultColumns: ['title', 'slug', 'parent', 'updatedAt'],
+    description: 'Seiten für die Website (z. B. Startseite, Unterseiten).',
+    listSearchableFields: ['title', 'slug'],
     // Live Preview deaktiviert, damit die Bearbeitungsansicht zuverlässig das Formular rendert.
-    // preview: (data) => ... für Preview-Button bei Bedarf später wieder ergänzen.
     useAsTitle: 'title',
   },
   fields: [
@@ -54,7 +56,10 @@ export const Pages: CollectionConfig = {
               name: 'layout',
               type: 'blocks',
               blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
-              required: true,
+              required: false,
+              admin: {
+                description: 'Mindestens einen Block hinzufügen, damit die Seite Inhalt hat.',
+              },
             },
           ],
         },
@@ -110,6 +115,7 @@ export const Pages: CollectionConfig = {
     },
   ],
   hooks: {
+    afterRead: [normalizeLayout],
     beforeChange: [populatePublishedAt],
     afterChange: [revalidatePage],
   },

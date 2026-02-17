@@ -6,6 +6,10 @@ import * as migration_20260215_250000_header_use_mega_menu from './20260215_2500
 import * as migration_20260215_300000_mega_menu from './20260215_300000_mega_menu'
 import * as migration_20260215_400000_rename_pages_to_site_pages from './20260215_400000_rename_pages_to_site_pages'
 import * as migration_20260215_500000_rename_posts_to_blog_posts from './20260215_500000_rename_posts_to_blog_posts'
+import * as migration_20260215_600000_header_mega_menu_layout from './20260215_600000_header_mega_menu_layout'
+import * as migration_20260215_700000_design_global from './20260215_700000_design_global'
+import * as migration_20260215_800000_seed_globals from './20260215_800000_seed_globals'
+import * as migration_20260215_900000_footer_extended from './20260215_900000_footer_extended'
 
 export const migrations = [
   {
@@ -47,5 +51,25 @@ export const migrations = [
     up: migration_20260215_500000_rename_posts_to_blog_posts.up,
     down: migration_20260215_500000_rename_posts_to_blog_posts.down,
     name: '20260215_500000_rename_posts_to_blog_posts',
+  },
+  {
+    up: migration_20260215_600000_header_mega_menu_layout.up,
+    down: migration_20260215_600000_header_mega_menu_layout.down,
+    name: '20260215_600000_header_mega_menu_layout',
+  },
+  {
+    up: migration_20260215_700000_design_global.up,
+    down: migration_20260215_700000_design_global.down,
+    name: '20260215_700000_design_global',
+  },
+  {
+    up: migration_20260215_800000_seed_globals.up,
+    down: migration_20260215_800000_seed_globals.down,
+    name: '20260215_800000_seed_globals',
+  },
+  {
+    up: migration_20260215_900000_footer_extended.up,
+    down: migration_20260215_900000_footer_extended.down,
+    name: '20260215_900000_footer_extended',
   },
 ]

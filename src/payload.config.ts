@@ -11,6 +11,7 @@ import { MegaMenu } from './collections/MegaMenu'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import { Design } from './globals/Design/config'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
@@ -23,10 +24,11 @@ const dirname = path.dirname(filename)
 
 export default buildConfig({
   admin: {
+    suppressHydrationWarning: true,
     components: {
-      // Kein Custom-Logo, bis die Bearbeitungsansicht wieder funktioniert.
-      // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
-      // Feel free to delete this at any time. Simply remove the line below.
+      graphics: {
+        Logo: '/components/AdminLogo',
+      },
       beforeLogin: ['@/components/BeforeLogin'],
       // The `BeforeDashboard` component renders the 'welcome' block that you see after logging into your admin panel.
       // Feel free to delete this at any time. Simply remove the line below.
@@ -75,6 +77,8 @@ export default buildConfig({
           client: {
             url: process.env.SQLITE_URL || 'file:./payload.db',
           },
+          // push: true + einmal "pnpm run db:push" ausführen, damit Drizzle alle Tabellen/Spalten
+          // (header, footer, design, footer_columns, …) anlegt. Danach normal "pnpm dev".
           push: true,
         }),
   collections: [Pages, Posts, Media, Categories, Users, MegaMenu],
@@ -88,7 +92,31 @@ export default buildConfig({
       token: process.env.BLOB_READ_WRITE_TOKEN || '',
     }),
   ],
-  globals: [Header, Footer],
+  globals: [Header, Footer, Design],
+  onInit: async (payload) => {
+    const slugs = ['header', 'footer', 'design'] as const
+    for (const slug of slugs) {
+      try {
+        let hasDoc = false
+        try {
+          const existing = await payload.findGlobal({ slug, depth: 0 })
+          hasDoc = Boolean(existing && typeof existing === 'object' && 'id' in existing && (existing as { id: unknown }).id != null)
+        } catch {
+          hasDoc = false
+        }
+        if (!hasDoc) {
+          await payload.updateGlobal({
+            slug,
+            data: {},
+            overrideAccess: true,
+          })
+          payload.logger?.info?.(`Global "${slug}" angelegt (Initial-Eintrag).`)
+        }
+      } catch (e) {
+        payload.logger?.warn?.(`onInit: Global "${slug}" – ${e instanceof Error ? e.message : String(e)}. SQLite: push: true in payload.config.ts setzen, Dev-Server starten (Schema wird angelegt), dann /api/init-globals aufrufen.`)
+      }
+    }
+  },
   secret: process.env.PAYLOAD_SECRET || '',
   sharp,
   typescript: {

@@ -3,8 +3,8 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 
-const FALLBACK_LOGO_SRC =
-  'https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-logo-light.svg'
+/** Eigenes Logo – Admin (Login etc.), wenn im Header-Global kein Logo gesetzt ist. */
+const FALLBACK_LOGO_SRC = '/media/weblogo-philippbacher.svg'
 
 export const AdminLogo: React.FC = async () => {
   let logoSrc = FALLBACK_LOGO_SRC
@@ -26,7 +26,7 @@ export const AdminLogo: React.FC = async () => {
   return (
     <img
       src={logoSrc}
-      alt="Logo"
+      alt="Philipp Bacher"
       width={130}
       height={30}
       style={{ display: 'block', maxHeight: '30px', width: 'auto', objectFit: 'contain' }}

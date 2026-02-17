@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
@@ -22,7 +23,26 @@ export default async function Page({ params: paramsPromise, searchParams: search
   const previewId = searchParams?.previewId
   const { isEnabled: isDraftMode } = await draftMode()
 
-  const payload = await getPayload({ config: configPromise })
+  let payload
+  try {
+    payload = await getPayload({ config: configPromise })
+  } catch (err) {
+    console.error('[Page] getPayload failed:', err)
+    if (slug === 'home' || !slug) {
+      return (
+        <article className="container py-16">
+          <div className="prose max-w-none">
+            <h1>Willkommen</h1>
+            <p>Die Datenbank ist gerade nicht erreichbar. Bitte später erneut versuchen oder Admin prüfen.</p>
+            <p>
+              <Link href="/admin" className="underline">Zum Admin</Link>
+            </p>
+          </div>
+        </article>
+      )
+    }
+    throw err
+  }
 
   // Admin preview: load by document ID so preview works even when draft cookie isn't sent in iframe
   const rawPreviewId = previewId && previewId !== 'undefined' ? String(previewId).trim() : ''
@@ -40,7 +60,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
         return (
           <article>
             <RenderHero {...pageById.hero} />
-            <RenderBlocks blocks={pageById.layout} />
+            <RenderBlocks blocks={Array.isArray(pageById.layout) ? pageById.layout : []} />
           </article>
         )
       }
@@ -51,72 +71,124 @@ export default async function Page({ params: paramsPromise, searchParams: search
 
   const resolvedSlug = slug || 'home'
 
-  let pages = await payload.find({
-    collection: 'site-pages',
-    limit: 1,
-    depth: 2,
-    where: {
-      and: [
-        { slug: { equals: resolvedSlug } },
-        ...(isDraftMode ? [] : [{ _status: { equals: 'published' } }]),
-      ],
-    },
-    draft: isDraftMode,
-  })
-
-  // Fallback: only treat canonical homepage slugs (home / Home); do not use 'h' etc.
-  if (pages.docs.length === 0 && (resolvedSlug === 'home' || !resolvedSlug) && !isDraftMode) {
-    pages = await payload.find({
+  try {
+    let pages = await payload.find({
       collection: 'site-pages',
       limit: 1,
       depth: 2,
       where: {
         and: [
-          { slug: { in: ['home', 'Home'] } },
-          { _status: { equals: 'published' } },
+          { slug: { equals: resolvedSlug } },
+          ...(isDraftMode ? [] : [{ _status: { equals: 'published' } }]),
         ],
       },
+      draft: isDraftMode,
     })
+
+    // Fallback: only treat canonical homepage slugs (home / Home); do not use 'h' etc.
+    if (pages.docs.length === 0 && (resolvedSlug === 'home' || !resolvedSlug) && !isDraftMode) {
+      pages = await payload.find({
+        collection: 'site-pages',
+        limit: 1,
+        depth: 2,
+        where: {
+          and: [
+            { slug: { in: ['home', 'Home'] } },
+            { _status: { equals: 'published' } },
+          ],
+        },
+      })
+    }
+
+    const page = pages.docs[0]
+    if (!page) {
+      // Startseite: Fallback anzeigen statt 404, damit localhost nicht leer wirkt
+      if (resolvedSlug === 'home' || !resolvedSlug) {
+        return (
+          <article className="container py-16">
+            <div className="prose max-w-none">
+              <h1>Willkommen</h1>
+              <p>
+                Noch keine Startseite eingerichtet. Im{' '}
+                <Link href="/admin" className="underline">
+                  Admin
+                </Link>{' '}
+                eine Seite mit Slug <strong>home</strong> anlegen und veröffentlichen.
+              </p>
+            </div>
+          </article>
+        )
+      }
+      notFound()
+    }
+
+    return (
+      <article>
+        <RenderHero {...(page.hero ?? {})} />
+        <RenderBlocks blocks={Array.isArray(page.layout) ? page.layout : []} />
+      </article>
+    )
+  } catch (err) {
+    const e = err as Error & { cause?: Error }
+    const causeMsg = e?.cause instanceof Error ? e.cause.message : String(e?.cause ?? '')
+    const fullMsg = [e?.message, causeMsg].filter(Boolean).join(' — ')
+    console.error('[Page] find/render failed:', fullMsg, e?.stack)
+    if (resolvedSlug === 'home' || !resolvedSlug) {
+      return (
+        <article className="container py-16">
+          <div className="prose max-w-none">
+            <h1>Willkommen</h1>
+            <p>Seite konnte nicht geladen werden. Bitte später erneut versuchen oder Admin prüfen.</p>
+            {process.env.NODE_ENV === 'development' && fullMsg && (
+              <pre className="mt-4 p-4 bg-[var(--muted)] rounded text-sm overflow-auto">
+                {fullMsg}
+              </pre>
+            )}
+            <p>
+              <Link href="/admin" className="underline">Zum Admin</Link>
+            </p>
+          </div>
+        </article>
+      )
+    }
+    throw err
   }
-
-  const page = pages.docs[0]
-  if (!page) notFound()
-
-  return (
-    <article>
-      <RenderHero {...page.hero} />
-      <RenderBlocks blocks={page.layout} />
-    </article>
-  )
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug?: string }> }): Promise<Metadata> {
   const { slug: slugParam = 'home' } = await params
   const slug = slugParam || 'home'
-  const payload = await getPayload({ config: configPromise })
-  let pages = await payload.find({
-    collection: 'site-pages',
-    limit: 1,
-    depth: 1,
-    where: {
-      and: [
-        { slug: { equals: slug } },
-        { _status: { equals: 'published' } },
-      ],
-    },
-  })
-  if (pages.docs.length === 0 && (slug === 'home' || !slug)) {
-    pages = await payload.find({
+  try {
+    const payload = await getPayload({ config: configPromise })
+    let pages = await payload.find({
       collection: 'site-pages',
       limit: 1,
       depth: 1,
       where: {
         and: [
-          { slug: { in: ['home', 'Home'] } },
+          { slug: { equals: slug } },
           { _status: { equals: 'published' } },
         ],
       },
     })
+    if (pages.docs.length === 0 && (slug === 'home' || !slug)) {
+      pages = await payload.find({
+        collection: 'site-pages',
+        limit: 1,
+        depth: 1,
+        where: {
+          and: [
+            { slug: { in: ['home', 'Home'] } },
+            { _status: { equals: 'published' } },
+          ],
+        },
+      })
+    }
+    return generateMeta({ doc: pages.docs[0] })
+  } catch (err) {
+    const e = err as Error & { cause?: Error }
+    const causeMsg = e?.cause instanceof Error ? e.cause.message : String(e?.cause ?? '')
+    console.error('[generateMetadata] site-pages find failed:', e?.message, causeMsg ? `cause: ${causeMsg}` : '')
+    return { title: 'Seite' }
   }
-  return generateMeta({ doc: pages.docs[0] })
 }

@@ -27,11 +27,13 @@ type NodeTypes =
   | SerializedBlockNode<CTABlockProps | MediaBlockProps | BannerBlockProps | CodeBlockProps>
 
 const internalDocToHref = ({ linkNode }: { linkNode: SerializedLinkNode }) => {
-  const { value, relationTo } = linkNode.fields.doc!
-  if (typeof value !== 'object') {
-    throw new Error('Expected value to be an object')
-  }
-  const slug = value.slug
+  const doc = linkNode.fields?.doc
+  if (!doc?.value) return '#'
+  const value = doc.value
+  if (typeof value !== 'object' || value === null) return '#'
+  const slug = 'slug' in value ? value.slug : undefined
+  if (!slug || typeof slug !== 'string') return '#'
+  const relationTo = doc.relationTo
   const isPost = relationTo === 'blog-posts' || relationTo === 'posts'
   return isPost ? `/posts/${slug}` : `/${slug}`
 }
@@ -63,10 +65,14 @@ type Props = {
 } & React.HTMLAttributes<HTMLDivElement>
 
 export default function RichText(props: Props) {
-  const { className, enableProse = true, enableGutter = true, ...rest } = props
+  const { data, className, enableProse = true, enableGutter = true, ...rest } = props
+  if (!data?.root) {
+    return null
+  }
   return (
     <ConvertRichText
       converters={jsxConverters}
+      data={data}
       className={cn(
         'payload-richtext',
         {

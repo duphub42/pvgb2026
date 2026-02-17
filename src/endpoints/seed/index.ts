@@ -272,6 +272,10 @@ export const seed = async ({
         ],
       },
     }),
+    payload.updateGlobal({
+      slug: 'design',
+      data: {},
+    }),
   ])
 
   payload.logger.info('Seeded database successfully!')

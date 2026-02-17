@@ -2,8 +2,7 @@
 
 import React, { useEffect, useState } from 'react'
 
-const FALLBACK_LOGO_SRC =
-  'https://raw.githubusercontent.com/payloadcms/payload/main/packages/ui/src/assets/payload-logo-light.svg'
+const FALLBACK_LOGO_SRC = '/media/weblogo-philippbacher.svg'
 
 function buildLogoUrl(url: string | null | undefined, base?: string): string {
   if (!url) return ''
@@ -35,7 +34,7 @@ export const AdminLogoClient: React.FC = () => {
   return (
     <img
       src={logoSrc}
-      alt="Logo"
+      alt="Philipp Bacher"
       width={130}
       height={30}
       style={{ display: 'block', maxHeight: '30px', width: 'auto', objectFit: 'contain' }}

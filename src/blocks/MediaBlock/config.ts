@@ -1,9 +1,12 @@
 import type { Block } from 'payload'
 
+import { blockStyleFields } from '@/blocks/blockStyleFields'
+
 export const MediaBlock: Block = {
   slug: 'mediaBlock',
   interfaceName: 'MediaBlock',
   fields: [
+    ...blockStyleFields,
     {
       name: 'media',
       type: 'upload',

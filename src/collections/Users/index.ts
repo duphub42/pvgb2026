@@ -15,7 +15,9 @@ export const Users: CollectionConfig = {
     defaultColumns: ['name', 'email'],
     useAsTitle: 'name',
   },
-  auth: true,
+  auth: {
+    maxLoginAttempts: 0, // Sperre deaktiviert (0 = unbegrenzt Versuche)
+  },
   fields: [
     {
       name: 'name',

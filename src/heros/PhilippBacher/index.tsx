@@ -37,10 +37,16 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     overlayOpacity = 0.45,
   } = props
 
+  const isMediaObject = (v: unknown) =>
+    typeof v === 'object' && v != null && ('url' in v || 'mimeType' in v)
   const backgroundMedia =
-    mediaType === 'video' && backgroundVideo
+    mediaType === 'video' && backgroundVideo && isMediaObject(backgroundVideo)
       ? backgroundVideo
-      : (backgroundImage || media)
+      : isMediaObject(backgroundImage)
+        ? backgroundImage
+        : isMediaObject(media)
+          ? media
+          : null
 
   const hasTextContent = headline || subheadline || description || richText
 
@@ -62,8 +68,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           transition: 'transform 0.2s ease-out',
         }}
       >
-        {backgroundMedia && typeof backgroundMedia !== 'string' && (
-          <Media
+        {backgroundMedia && (
+            <Media
             resource={backgroundMedia}
             fill
             imgClassName="object-cover w-full h-full"
@@ -116,7 +122,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             </div>
           )}
 
-          {foregroundImage && typeof foregroundImage !== 'string' && (
+          {foregroundImage && isMediaObject(foregroundImage) && (
             <div className="relative z-20 mx-auto mb-10 w-full max-w-2xl md:mb-12">
               <Media
                 resource={foregroundImage}

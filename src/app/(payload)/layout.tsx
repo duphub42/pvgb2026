@@ -22,8 +22,14 @@ const serverFunction: ServerFunctionClient = async function (args) {
   })
 }
 
+// suppressHydrationWarning avoids mismatch when browser extensions (e.g. LanguageTool) add attributes to <html>
 const Layout = ({ children }: Args) => (
-  <RootLayout config={config} importMap={importMap} serverFunction={serverFunction}>
+  <RootLayout
+    config={config}
+    htmlProps={{ suppressHydrationWarning: true }}
+    importMap={importMap}
+    serverFunction={serverFunction}
+  >
     {children}
   </RootLayout>
 )
