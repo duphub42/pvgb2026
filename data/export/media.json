@@ -1,0 +1,710 @@
+[
+  {
+    "id": 7,
+    "alt": "Philipp Bacher - Webdesign & Digitales Marketing",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-15T15:57:58.532Z",
+    "createdAt": "2026-02-15T15:51:47.668Z",
+    "url": "/api/media/file/weblogo-philippbacher.svg",
+    "thumbnailURL": null,
+    "filename": "weblogo-philippbacher.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 8991,
+    "width": 451,
+    "height": 72,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 6,
+    "alt": "Philipp Bacher",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-14T12:56:34.693Z",
+    "createdAt": "2026-02-14T12:56:32.296Z",
+    "url": "/api/media/file/philippbacher.png",
+    "thumbnailURL": "/api/media/file/philippbacher-300x484.png",
+    "filename": "philippbacher.png",
+    "mimeType": "image/png",
+    "filesize": 1536675,
+    "width": 1839,
+    "height": 2968,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/philippbacher-300x484.png",
+        "width": 300,
+        "height": 484,
+        "mimeType": "image/png",
+        "filesize": 184393,
+        "filename": "philippbacher-300x484.png"
+      },
+      "square": {
+        "url": "/api/media/file/philippbacher-500x500.png",
+        "width": 500,
+        "height": 500,
+        "mimeType": "image/png",
+        "filesize": 316210,
+        "filename": "philippbacher-500x500.png"
+      },
+      "small": {
+        "url": "/api/media/file/philippbacher-600x968.png",
+        "width": 600,
+        "height": 968,
+        "mimeType": "image/png",
+        "filesize": 695492,
+        "filename": "philippbacher-600x968.png"
+      },
+      "medium": {
+        "url": "/api/media/file/philippbacher-900x1453.png",
+        "width": 900,
+        "height": 1453,
+        "mimeType": "image/png",
+        "filesize": 1582283,
+        "filename": "philippbacher-900x1453.png"
+      },
+      "large": {
+        "url": "/api/media/file/philippbacher-1400x2259.png",
+        "width": 1400,
+        "height": 2259,
+        "mimeType": "image/png",
+        "filesize": 3873020,
+        "filename": "philippbacher-1400x2259.png"
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": "/api/media/file/philippbacher-1200x630.png",
+        "width": 1200,
+        "height": 630,
+        "mimeType": "image/png",
+        "filesize": 1133877,
+        "filename": "philippbacher-1200x630.png"
+      }
+    }
+  },
+  {
+    "id": 5,
+    "alt": "hintergrund",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-14T12:56:07.337Z",
+    "createdAt": "2026-02-14T12:56:05.886Z",
+    "url": "/api/media/file/bg-hero3.jpeg",
+    "thumbnailURL": "/api/media/file/bg-hero3-300x130.jpg",
+    "filename": "bg-hero3.jpeg",
+    "mimeType": "image/jpeg",
+    "filesize": 1919535,
+    "width": 2222,
+    "height": 961,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/bg-hero3-300x130.jpg",
+        "width": 300,
+        "height": 130,
+        "mimeType": "image/jpeg",
+        "filesize": 9198,
+        "filename": "bg-hero3-300x130.jpg"
+      },
+      "square": {
+        "url": "/api/media/file/bg-hero3-500x500.jpg",
+        "width": 500,
+        "height": 500,
+        "mimeType": "image/jpeg",
+        "filesize": 48931,
+        "filename": "bg-hero3-500x500.jpg"
+      },
+      "small": {
+        "url": "/api/media/file/bg-hero3-600x259.jpg",
+        "width": 600,
+        "height": 259,
+        "mimeType": "image/jpeg",
+        "filesize": 29068,
+        "filename": "bg-hero3-600x259.jpg"
+      },
+      "medium": {
+        "url": "/api/media/file/bg-hero3-900x389.jpg",
+        "width": 900,
+        "height": 389,
+        "mimeType": "image/jpeg",
+        "filesize": 58456,
+        "filename": "bg-hero3-900x389.jpg"
+      },
+      "large": {
+        "url": "/api/media/file/bg-hero3-1400x605.jpg",
+        "width": 1400,
+        "height": 605,
+        "mimeType": "image/jpeg",
+        "filesize": 124679,
+        "filename": "bg-hero3-1400x605.jpg"
+      },
+      "xlarge": {
+        "url": "/api/media/file/bg-hero3-1920x830.jpg",
+        "width": 1920,
+        "height": 830,
+        "mimeType": "image/jpeg",
+        "filesize": 213914,
+        "filename": "bg-hero3-1920x830.jpg"
+      },
+      "og": {
+        "url": "/api/media/file/bg-hero3-1200x630.jpg",
+        "width": 1200,
+        "height": 630,
+        "mimeType": "image/jpeg",
+        "filesize": 117638,
+        "filename": "bg-hero3-1200x630.jpg"
+      }
+    }
+  },
+  {
+    "id": 4,
+    "alt": "Straight metallic shapes with a blue gradient",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-14T12:48:50.655Z",
+    "createdAt": "2026-02-14T12:48:49.615Z",
+    "url": "/api/media/file/image-hero1.webp",
+    "thumbnailURL": "/api/media/file/image-hero1-300x169.webp",
+    "filename": "image-hero1.webp",
+    "mimeType": "image/webp",
+    "filesize": 49432,
+    "width": 3200,
+    "height": 1800,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/image-hero1-300x169.webp",
+        "width": 300,
+        "height": 169,
+        "mimeType": "image/webp",
+        "filesize": 2544,
+        "filename": "image-hero1-300x169.webp"
+      },
+      "square": {
+        "url": "/api/media/file/image-hero1-500x500.webp",
+        "width": 500,
+        "height": 500,
+        "mimeType": "image/webp",
+        "filesize": 4810,
+        "filename": "image-hero1-500x500.webp"
+      },
+      "small": {
+        "url": "/api/media/file/image-hero1-600x338.webp",
+        "width": 600,
+        "height": 338,
+        "mimeType": "image/webp",
+        "filesize": 5750,
+        "filename": "image-hero1-600x338.webp"
+      },
+      "medium": {
+        "url": "/api/media/file/image-hero1-900x506.webp",
+        "width": 900,
+        "height": 506,
+        "mimeType": "image/webp",
+        "filesize": 9402,
+        "filename": "image-hero1-900x506.webp"
+      },
+      "large": {
+        "url": "/api/media/file/image-hero1-1400x788.webp",
+        "width": 1400,
+        "height": 788,
+        "mimeType": "image/webp",
+        "filesize": 16492,
+        "filename": "image-hero1-1400x788.webp"
+      },
+      "xlarge": {
+        "url": "/api/media/file/image-hero1-1920x1080.webp",
+        "width": 1920,
+        "height": 1080,
+        "mimeType": "image/webp",
+        "filesize": 24346,
+        "filename": "image-hero1-1920x1080.webp"
+      },
+      "og": {
+        "url": "/api/media/file/image-hero1-1200x630.webp",
+        "width": 1200,
+        "height": 630,
+        "mimeType": "image/webp",
+        "filesize": 12846,
+        "filename": "image-hero1-1200x630.webp"
+      }
+    }
+  },
+  {
+    "id": 3,
+    "alt": "Curving abstract shapes with an orange and blue gradient",
+    "caption": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Photo by ",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "type": "link",
+                "fields": {
+                  "url": "https://unsplash.com/@kirp",
+                  "newTab": true,
+                  "linkType": "custom"
+                },
+                "format": "",
+                "indent": 0,
+                "version": 2,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Andrew Kliatskyi",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "mode": "normal",
+                "text": " on Unsplash.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "textFormat": 0
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "folder": null,
+    "updatedAt": "2026-02-14T12:48:50.681Z",
+    "createdAt": "2026-02-14T12:48:48.158Z",
+    "url": "/api/media/file/image-post2.webp",
+    "thumbnailURL": "/api/media/file/image-post2-300x169.webp",
+    "filename": "image-post2.webp",
+    "mimeType": "image/webp",
+    "filesize": 22332,
+    "width": 1920,
+    "height": 1080,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/image-post2-300x169.webp",
+        "width": 300,
+        "height": 169,
+        "mimeType": "image/webp",
+        "filesize": 2248,
+        "filename": "image-post2-300x169.webp"
+      },
+      "square": {
+        "url": "/api/media/file/image-post2-500x500.webp",
+        "width": 500,
+        "height": 500,
+        "mimeType": "image/webp",
+        "filesize": 4952,
+        "filename": "image-post2-500x500.webp"
+      },
+      "small": {
+        "url": "/api/media/file/image-post2-600x338.webp",
+        "width": 600,
+        "height": 338,
+        "mimeType": "image/webp",
+        "filesize": 5066,
+        "filename": "image-post2-600x338.webp"
+      },
+      "medium": {
+        "url": "/api/media/file/image-post2-900x506.webp",
+        "width": 900,
+        "height": 506,
+        "mimeType": "image/webp",
+        "filesize": 8036,
+        "filename": "image-post2-900x506.webp"
+      },
+      "large": {
+        "url": "/api/media/file/image-post2-1400x788.webp",
+        "width": 1400,
+        "height": 788,
+        "mimeType": "image/webp",
+        "filesize": 13880,
+        "filename": "image-post2-1400x788.webp"
+      },
+      "xlarge": {
+        "url": "/api/media/file/image-post2-1920x1080.webp",
+        "width": 1920,
+        "height": 1080,
+        "mimeType": "image/webp",
+        "filesize": 22332,
+        "filename": "image-post2-1920x1080.webp"
+      },
+      "og": {
+        "url": "/api/media/file/image-post2-1200x630.webp",
+        "width": 1200,
+        "height": 630,
+        "mimeType": "image/webp",
+        "filesize": 11010,
+        "filename": "image-post2-1200x630.webp"
+      }
+    }
+  },
+  {
+    "id": 2,
+    "alt": "Curving abstract shapes with an orange and blue gradient",
+    "caption": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Photo by ",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "type": "link",
+                "fields": {
+                  "url": "https://unsplash.com/@kirp",
+                  "newTab": true,
+                  "linkType": "custom"
+                },
+                "format": "",
+                "indent": 0,
+                "version": 2,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Andrew Kliatskyi",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "mode": "normal",
+                "text": " on Unsplash.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "textFormat": 0
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "folder": null,
+    "updatedAt": "2026-02-14T12:48:50.273Z",
+    "createdAt": "2026-02-14T12:48:46.282Z",
+    "url": "/api/media/file/image-post3.webp",
+    "thumbnailURL": "/api/media/file/image-post3-300x169.webp",
+    "filename": "image-post3.webp",
+    "mimeType": "image/webp",
+    "filesize": 14662,
+    "width": 1920,
+    "height": 1080,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/image-post3-300x169.webp",
+        "width": 300,
+        "height": 169,
+        "mimeType": "image/webp",
+        "filesize": 1240,
+        "filename": "image-post3-300x169.webp"
+      },
+      "square": {
+        "url": "/api/media/file/image-post3-500x500.webp",
+        "width": 500,
+        "height": 500,
+        "mimeType": "image/webp",
+        "filesize": 2732,
+        "filename": "image-post3-500x500.webp"
+      },
+      "small": {
+        "url": "/api/media/file/image-post3-600x338.webp",
+        "width": 600,
+        "height": 338,
+        "mimeType": "image/webp",
+        "filesize": 3018,
+        "filename": "image-post3-600x338.webp"
+      },
+      "medium": {
+        "url": "/api/media/file/image-post3-900x506.webp",
+        "width": 900,
+        "height": 506,
+        "mimeType": "image/webp",
+        "filesize": 5010,
+        "filename": "image-post3-900x506.webp"
+      },
+      "large": {
+        "url": "/api/media/file/image-post3-1400x788.webp",
+        "width": 1400,
+        "height": 788,
+        "mimeType": "image/webp",
+        "filesize": 9070,
+        "filename": "image-post3-1400x788.webp"
+      },
+      "xlarge": {
+        "url": "/api/media/file/image-post3-1920x1080.webp",
+        "width": 1920,
+        "height": 1080,
+        "mimeType": "image/webp",
+        "filesize": 14662,
+        "filename": "image-post3-1920x1080.webp"
+      },
+      "og": {
+        "url": "/api/media/file/image-post3-1200x630.webp",
+        "width": 1200,
+        "height": 630,
+        "mimeType": "image/webp",
+        "filesize": 6950,
+        "filename": "image-post3-1200x630.webp"
+      }
+    }
+  },
+  {
+    "id": 1,
+    "alt": "Curving abstract shapes with an orange and blue gradient",
+    "caption": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Photo by ",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              },
+              {
+                "type": "link",
+                "fields": {
+                  "url": "https://unsplash.com/@kirp",
+                  "newTab": true,
+                  "linkType": "custom"
+                },
+                "format": "",
+                "indent": 0,
+                "version": 2,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Andrew Kliatskyi",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr"
+              },
+              {
+                "mode": "normal",
+                "text": " on Unsplash.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "textFormat": 0
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "folder": null,
+    "updatedAt": "2026-02-14T12:48:50.076Z",
+    "createdAt": "2026-02-14T12:48:46.245Z",
+    "url": "/api/media/file/image-post1.webp",
+    "thumbnailURL": "/api/media/file/image-post1-300x169.webp",
+    "filename": "image-post1.webp",
+    "mimeType": "image/webp",
+    "filesize": 15924,
+    "width": 1920,
+    "height": 1080,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/image-post1-300x169.webp",
+        "width": 300,
+        "height": 169,
+        "mimeType": "image/webp",
+        "filesize": 1524,
+        "filename": "image-post1-300x169.webp"
+      },
+      "square": {
+        "url": "/api/media/file/image-post1-500x500.webp",
+        "width": 500,
+        "height": 500,
+        "mimeType": "image/webp",
+        "filesize": 3792,
+        "filename": "image-post1-500x500.webp"
+      },
+      "small": {
+        "url": "/api/media/file/image-post1-600x338.webp",
+        "width": 600,
+        "height": 338,
+        "mimeType": "image/webp",
+        "filesize": 3622,
+        "filename": "image-post1-600x338.webp"
+      },
+      "medium": {
+        "url": "/api/media/file/image-post1-900x506.webp",
+        "width": 900,
+        "height": 506,
+        "mimeType": "image/webp",
+        "filesize": 5936,
+        "filename": "image-post1-900x506.webp"
+      },
+      "large": {
+        "url": "/api/media/file/image-post1-1400x788.webp",
+        "width": 1400,
+        "height": 788,
+        "mimeType": "image/webp",
+        "filesize": 10210,
+        "filename": "image-post1-1400x788.webp"
+      },
+      "xlarge": {
+        "url": "/api/media/file/image-post1-1920x1080.webp",
+        "width": 1920,
+        "height": 1080,
+        "mimeType": "image/webp",
+        "filesize": 15924,
+        "filename": "image-post1-1920x1080.webp"
+      },
+      "og": {
+        "url": "/api/media/file/image-post1-1200x630.webp",
+        "width": 1200,
+        "height": 630,
+        "mimeType": "image/webp",
+        "filesize": 8114,
+        "filename": "image-post1-1200x630.webp"
+      }
+    }
+  }
+]

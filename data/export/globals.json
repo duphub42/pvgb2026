@@ -1,0 +1,84 @@
+{
+  "header": {
+    "id": 1,
+    "useMegaMenu": false,
+    "logo": 7,
+    "navItems": [
+      {
+        "id": "6991fe6658d2d458d088865b",
+        "link": {
+          "type": "reference",
+          "newTab": null,
+          "reference": {
+            "relationTo": "site-pages",
+            "value": 7
+          },
+          "url": null,
+          "label": "Home"
+        }
+      },
+      {
+        "id": "6991ff3958d2d458d088865c",
+        "link": {
+          "type": "reference",
+          "newTab": null,
+          "reference": {
+            "relationTo": "site-pages",
+            "value": 16
+          },
+          "url": null,
+          "label": "About"
+        }
+      },
+      {
+        "id": "6991ff4f58d2d458d088865d",
+        "link": {
+          "type": "reference",
+          "newTab": null,
+          "reference": {
+            "relationTo": "site-pages",
+            "value": 15
+          },
+          "url": null,
+          "label": "Portfolio"
+        }
+      },
+      {
+        "id": "699200b76d74c728d26d4c76",
+        "link": {
+          "type": "reference",
+          "newTab": null,
+          "reference": {
+            "relationTo": "site-pages",
+            "value": 13
+          },
+          "url": null,
+          "label": "Leistungen"
+        }
+      },
+      {
+        "id": "699200ca6d74c728d26d4c77",
+        "link": {
+          "type": "reference",
+          "newTab": null,
+          "reference": {
+            "relationTo": "site-pages",
+            "value": 17
+          },
+          "url": null,
+          "label": "Kontakt"
+        }
+      }
+    ],
+    "updatedAt": "2026-02-15T17:30:13.343Z",
+    "createdAt": "2026-02-14T12:43:36.379Z",
+    "globalType": "header"
+  },
+  "footer": {
+    "id": 1,
+    "navItems": [],
+    "updatedAt": "2026-02-14T12:43:36.673Z",
+    "createdAt": "2026-02-14T12:43:36.673Z",
+    "globalType": "footer"
+  }
+}

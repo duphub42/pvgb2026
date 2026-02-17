@@ -67,11 +67,12 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    'site-pages': Page;
-    'blog-posts': Post;
+    'site-pages': SitePage;
+    'blog-posts': BlogPost;
     media: Media;
     categories: Category;
     users: User;
+    'mega-menu': MegaMenu;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -82,7 +83,6 @@ export interface Config {
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
-    'mega-menu': MegaMenu;
   };
   collectionsJoins: {
     'payload-folders': {
@@ -90,11 +90,12 @@ export interface Config {
     };
   };
   collectionsSelect: {
-    'site-pages': PagesSelect<false> | PagesSelect<true>;
-    'blog-posts': PostsSelect<false> | PostsSelect<true>;
+    'site-pages': SitePagesSelect<false> | SitePagesSelect<true>;
+    'blog-posts': BlogPostsSelect<false> | BlogPostsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
+    'mega-menu': MegaMenuSelect<false> | MegaMenuSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -105,7 +106,6 @@ export interface Config {
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
-    'mega-menu': MegaMenuSelect<false> | MegaMenuSelect<true>;
   };
   db: {
     defaultIDType: number;
@@ -114,10 +114,12 @@ export interface Config {
   globals: {
     header: Header;
     footer: Footer;
+    design: Design;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
+    design: DesignSelect<false> | DesignSelect<true>;
   };
   locale: null;
   user: User;
@@ -151,14 +153,16 @@ export interface UserAuthOperations {
   };
 }
 /**
+ * Seiten für die Website (z. B. Startseite, Unterseiten).
+ *
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages".
+ * via the `definition` "site-pages".
  */
-export interface Page {
+export interface SitePage {
   id: number;
   title: string;
-  hero: {
-    type: 'none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'philippBacher';
+  hero?: {
+    type?: ('none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'philippBacher') | null;
     richText?: {
       root: {
         type: string;
@@ -174,6 +178,15 @@ export interface Page {
       };
       [k: string]: unknown;
     } | null;
+    media?: (number | null) | Media;
+    subheadline?: string | null;
+    headline?: string | null;
+    description?: string | null;
+    mediaType?: ('image' | 'video') | null;
+    backgroundImage?: (number | null) | Media;
+    backgroundVideo?: (number | null) | Media;
+    foregroundImage?: (number | null) | Media;
+    overlayOpacity?: number | null;
     links?:
       | {
           link: {
@@ -182,11 +195,11 @@ export interface Page {
             reference?:
               | ({
                   relationTo: 'site-pages';
-                  value: number | Page;
+                  value: number | SitePage;
                 } | null)
               | ({
                   relationTo: 'blog-posts';
-                  value: number | Post;
+                  value: number | BlogPost;
                 } | null);
             url?: string | null;
             label: string;
@@ -198,83 +211,29 @@ export interface Page {
           id?: string | null;
         }[]
       | null;
-    media?: (number | null) | Media;
-    /** Philipp Bacher hero fields */
-    subheadline?: string | null;
-    headline?: string | null;
-    description?: string | null;
-    mediaType?: ('image' | 'video') | null;
-    backgroundImage?: (number | null) | Media;
-    backgroundVideo?: (number | null) | Media;
-    foregroundImage?: (number | null) | Media;
-    overlayOpacity?: number | null;
   };
-  layout: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[];
-  meta?: {
-    title?: string | null;
-    /**
-     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
-     */
-    image?: (number | null) | Media;
-    description?: string | null;
-  };
-  publishedAt?: string | null;
+  /**
+   * Mindestens einen Block hinzufügen, damit die Seite Inhalt hat.
+   */
+  layout?: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[] | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
   slug: string;
-  parent?: (number | null) | Page;
-  updatedAt: string;
-  createdAt: string;
-  _status?: ('draft' | 'published') | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts".
- */
-export interface Post {
-  id: number;
-  title: string;
-  heroImage?: (number | null) | Media;
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: any;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  relatedPosts?: (number | Post)[] | null;
-  categories?: (number | Category)[] | null;
+  /**
+   * Übergeordnete Seite für Baumstruktur (z. B. /leistungen/webdesign).
+   */
+  parent?: (number | null) | SitePage;
+  publishedAt?: string | null;
   meta?: {
     title?: string | null;
+    description?: string | null;
     /**
      * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
      */
     image?: (number | null) | Media;
-    description?: string | null;
   };
-  publishedAt?: string | null;
-  authors?: (number | User)[] | null;
-  populatedAuthors?:
-    | {
-        id?: string | null;
-        name?: string | null;
-      }[]
-    | null;
-  /**
-   * When enabled, the slug will auto-generate from the title field on save and autosave.
-   */
-  generateSlug?: boolean | null;
-  slug: string;
   updatedAt: string;
   createdAt: string;
   _status?: ('draft' | 'published') | null;
@@ -400,6 +359,56 @@ export interface FolderInterface {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "blog-posts".
+ */
+export interface BlogPost {
+  id: number;
+  title: string;
+  heroImage?: (number | null) | Media;
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  relatedPosts?: (number | BlogPost)[] | null;
+  categories?: (number | Category)[] | null;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (number | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  authors?: (number | User)[] | null;
+  populatedAuthors?:
+    | {
+        id?: string | null;
+        name?: string | null;
+      }[]
+    | null;
+  /**
+   * When enabled, the slug will auto-generate from the title field on save and autosave.
+   */
+  generateSlug?: boolean | null;
+  slug: string;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "categories".
  */
 export interface Category {
@@ -436,8 +445,6 @@ export interface User {
   resetPasswordExpiration?: string | null;
   salt?: string | null;
   hash?: string | null;
-  loginAttempts?: number | null;
-  lockUntil?: string | null;
   sessions?:
     | {
         id: string;
@@ -453,6 +460,21 @@ export interface User {
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
   richText?: {
     root: {
       type: string;
@@ -476,11 +498,11 @@ export interface CallToActionBlock {
           reference?:
             | ({
                 relationTo: 'site-pages';
-                value: number | Page;
+                value: number | SitePage;
               } | null)
             | ({
                 relationTo: 'blog-posts';
-                value: number | Post;
+                value: number | BlogPost;
               } | null);
           url?: string | null;
           label: string;
@@ -501,6 +523,21 @@ export interface CallToActionBlock {
  * via the `definition` "ContentBlock".
  */
 export interface ContentBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
   columns?:
     | {
         size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
@@ -526,11 +563,11 @@ export interface ContentBlock {
           reference?:
             | ({
                 relationTo: 'site-pages';
-                value: number | Page;
+                value: number | SitePage;
               } | null)
             | ({
                 relationTo: 'blog-posts';
-                value: number | Post;
+                value: number | BlogPost;
               } | null);
           url?: string | null;
           label: string;
@@ -551,6 +588,21 @@ export interface ContentBlock {
  * via the `definition` "MediaBlock".
  */
 export interface MediaBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
   media: number | Media;
   id?: string | null;
   blockName?: string | null;
@@ -561,6 +613,21 @@ export interface MediaBlock {
  * via the `definition` "ArchiveBlock".
  */
 export interface ArchiveBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
   introContent?: {
     root: {
       type: string;
@@ -583,7 +650,7 @@ export interface ArchiveBlock {
   selectedDocs?:
     | {
         relationTo: 'blog-posts';
-        value: number | Post;
+        value: number | BlogPost;
       }[]
     | null;
   id?: string | null;
@@ -595,6 +662,21 @@ export interface ArchiveBlock {
  * via the `definition` "FormBlock".
  */
 export interface FormBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
   form: number | Form;
   enableIntro?: boolean | null;
   introContent?: {
@@ -792,6 +874,121 @@ export interface Form {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mega-menu".
+ */
+export interface MegaMenu {
+  id: number;
+  label: string;
+  /**
+   * z. B. /leistungen oder https://...
+   */
+  url: string;
+  /**
+   * Sortierung (Drag & Drop im Listen-View).
+   */
+  order: number;
+  /**
+   * Optionales Icon neben dem Label (z. B. für die Hauptnavigation).
+   */
+  icon?: (number | null) | Media;
+  /**
+   * Optionales Bild im Dropdown (z. B. Teaser oder großes Bild).
+   */
+  image?: (number | null) | Media;
+  /**
+   * Top-Level-Eintrag als normalen Link oder als hervorgehobenen Button/Badge anzeigen.
+   */
+  appearance?: ('link' | 'button') | null;
+  /**
+   * Einfache Liste unter dem Haupt-Label.
+   */
+  subItems?:
+    | {
+        label: string;
+        url: string;
+        /**
+         * Kleines Icon (z. B. 16×16).
+         */
+        icon?: (number | null) | Media;
+        /**
+         * Größeres Bild statt oder neben Icon.
+         */
+        image?: (number | null) | Media;
+        /**
+         * Kurzer Text für Badge (z. B. "Neu", "Pro").
+         */
+        badge?: string | null;
+        /**
+         * Farbe des Badges.
+         */
+        badgeColor?: ('success' | 'muted' | 'accent' | 'warning' | 'error') | null;
+        description?: string | null;
+        /**
+         * Zeigt eine Trennlinie vor diesem Eintrag.
+         */
+        dividerBefore?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Mehrspaltiges Dropdown mit optionalem Spaltentitel.
+   */
+  columns?:
+    | {
+        title?: string | null;
+        /**
+         * Zeigt eine vertikale Trennlinie vor dieser Spalte.
+         */
+        dividerBefore?: boolean | null;
+        /**
+         * Optional anderer Hintergrund, um die Spalte visuell abzusetzen.
+         */
+        columnBackground?: ('default' | 'muted' | 'accent') | null;
+        items?:
+          | {
+              label: string;
+              url: string;
+              /**
+               * Kurzer Text unter dem Label (z. B. Attio-Stil).
+               */
+              description?: string | null;
+              /**
+               * Kleines Icon.
+               */
+              icon?: (number | null) | Media;
+              /**
+               * Bild (z. B. Vorschaubild).
+               */
+              image?: (number | null) | Media;
+              /**
+               * Kurzer Text für Badge (z. B. "Neu", "Pro").
+               */
+              badge?: string | null;
+              /**
+               * Farbe des Badges.
+               */
+              badgeColor?: ('success' | 'muted' | 'accent' | 'warning' | 'error') | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optionaler hervorgehobener Block im Dropdown (z. B. CTA).
+   */
+  highlight?: {
+    title?: string | null;
+    description?: string | null;
+    image?: (number | null) | Media;
+    ctaLabel?: string | null;
+    ctaUrl?: string | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -805,11 +1002,11 @@ export interface Redirect {
     reference?:
       | ({
           relationTo: 'site-pages';
-          value: number | Page;
+          value: number | SitePage;
         } | null)
       | ({
           relationTo: 'blog-posts';
-          value: number | Post;
+          value: number | BlogPost;
         } | null);
     url?: string | null;
   };
@@ -845,7 +1042,7 @@ export interface Search {
   priority?: number | null;
   doc: {
     relationTo: 'blog-posts';
-    value: number | Post;
+    value: number | BlogPost;
   };
   slug?: string | null;
   meta?: {
@@ -982,11 +1179,11 @@ export interface PayloadLockedDocument {
   document?:
     | ({
         relationTo: 'site-pages';
-        value: number | Page;
+        value: number | SitePage;
       } | null)
     | ({
         relationTo: 'blog-posts';
-        value: number | Post;
+        value: number | BlogPost;
       } | null)
     | ({
         relationTo: 'media';
@@ -999,6 +1196,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'users';
         value: number | User;
+      } | null)
+    | ({
+        relationTo: 'mega-menu';
+        value: number | MegaMenu;
       } | null)
     | ({
         relationTo: 'redirects';
@@ -1062,65 +1263,26 @@ export interface PayloadMigration {
   updatedAt: string;
   createdAt: string;
 }
-
-export interface MegaMenu {
-  id: number;
-  label: string;
-  url: string;
-  order: number;
-  subItems?: {
-    label: string;
-    url: string;
-    icon?: (number | null) | Media;
-    badge?: string | null;
-    description?: string | null;
-    id?: string | null;
-  }[];
-  columns?: {
-    title?: string | null;
-    items?: {
-      label: string;
-      url: string;
-      icon?: (number | null) | Media;
-      badge?: string | null;
-      id?: string | null;
-    }[];
-    id?: string | null;
-  }[];
-  highlight?: {
-    title?: string | null;
-    description?: string | null;
-    image?: (number | null) | Media;
-    ctaLabel?: string | null;
-    ctaUrl?: string | null;
-  } | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-
-export interface MegaMenuSelect<T extends boolean = true> {
-  id?: T;
-  label?: T;
-  url?: T;
-  order?: T;
-  subItems?: T;
-  columns?: T;
-  highlight?: T;
-  updatedAt?: T;
-  createdAt?: T;
-}
-
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "pages_select".
+ * via the `definition` "site-pages_select".
  */
-export interface PagesSelect<T extends boolean = true> {
+export interface SitePagesSelect<T extends boolean = true> {
   title?: T;
   hero?:
     | T
     | {
         type?: T;
         richText?: T;
+        media?: T;
+        subheadline?: T;
+        headline?: T;
+        description?: T;
+        mediaType?: T;
+        backgroundImage?: T;
+        backgroundVideo?: T;
+        foregroundImage?: T;
+        overlayOpacity?: T;
         links?:
           | T
           | {
@@ -1136,7 +1298,6 @@ export interface PagesSelect<T extends boolean = true> {
                   };
               id?: T;
             };
-        media?: T;
       };
   layout?:
     | T
@@ -1147,16 +1308,17 @@ export interface PagesSelect<T extends boolean = true> {
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
       };
+  generateSlug?: T;
+  slug?: T;
+  parent?: T;
+  publishedAt?: T;
   meta?:
     | T
     | {
         title?: T;
-        image?: T;
         description?: T;
+        image?: T;
       };
-  publishedAt?: T;
-  generateSlug?: T;
-  slug?: T;
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
@@ -1166,6 +1328,14 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "CallToActionBlock_select".
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
   richText?: T;
   links?:
     | T
@@ -1190,6 +1360,14 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
  * via the `definition` "ContentBlock_select".
  */
 export interface ContentBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
   columns?:
     | T
     | {
@@ -1216,6 +1394,14 @@ export interface ContentBlockSelect<T extends boolean = true> {
  * via the `definition` "MediaBlock_select".
  */
 export interface MediaBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
   media?: T;
   id?: T;
   blockName?: T;
@@ -1225,6 +1411,14 @@ export interface MediaBlockSelect<T extends boolean = true> {
  * via the `definition` "ArchiveBlock_select".
  */
 export interface ArchiveBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
   introContent?: T;
   populateBy?: T;
   relationTo?: T;
@@ -1239,6 +1433,14 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  * via the `definition` "FormBlock_select".
  */
 export interface FormBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
   form?: T;
   enableIntro?: T;
   introContent?: T;
@@ -1247,9 +1449,9 @@ export interface FormBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "posts_select".
+ * via the `definition` "blog-posts_select".
  */
-export interface PostsSelect<T extends boolean = true> {
+export interface BlogPostsSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
   content?: T;
@@ -1403,8 +1605,6 @@ export interface UsersSelect<T extends boolean = true> {
   resetPasswordExpiration?: T;
   salt?: T;
   hash?: T;
-  loginAttempts?: T;
-  lockUntil?: T;
   sessions?:
     | T
     | {
@@ -1412,6 +1612,62 @@ export interface UsersSelect<T extends boolean = true> {
         createdAt?: T;
         expiresAt?: T;
       };
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "mega-menu_select".
+ */
+export interface MegaMenuSelect<T extends boolean = true> {
+  label?: T;
+  url?: T;
+  order?: T;
+  icon?: T;
+  image?: T;
+  appearance?: T;
+  subItems?:
+    | T
+    | {
+        label?: T;
+        url?: T;
+        icon?: T;
+        image?: T;
+        badge?: T;
+        badgeColor?: T;
+        description?: T;
+        dividerBefore?: T;
+        id?: T;
+      };
+  columns?:
+    | T
+    | {
+        title?: T;
+        dividerBefore?: T;
+        columnBackground?: T;
+        items?:
+          | T
+          | {
+              label?: T;
+              url?: T;
+              description?: T;
+              icon?: T;
+              image?: T;
+              badge?: T;
+              badgeColor?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  highlight?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        image?: T;
+        ctaLabel?: T;
+        ctaUrl?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1694,8 +1950,61 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
  */
 export interface Header {
   id: number;
+  /**
+   * Wenn aktiviert, wird das Mega-Menü (Collection „MegaMenu Items“) angezeigt statt der einfachen Nav-Links. Mindestens ein Eintrag unter Navigation → MegaMenu Items muss existieren.
+   */
   useMegaMenu?: boolean | null;
-  logo?: (number | Media) | null;
+  /**
+   * Aufteilung des Dropdowns im 12-Spalten-Grid. Die drei Werte müssen zusammen 12 ergeben.
+   */
+  megaMenuLayout?: {
+    /**
+     * Linke Spalte (Titel/Beschreibung).
+     */
+    sidebarCols: number;
+    /**
+     * Mitte (Link-Liste).
+     */
+    contentCols: number;
+    /**
+     * Rechte Spalte (Bild/CTA).
+     */
+    featuredCols: number;
+  };
+  megaMenuShowWhatsApp?: boolean | null;
+  megaMenuWhatsAppLabel?: string | null;
+  /**
+   * z. B. https://wa.me/49123456789 oder https://wa.me/49123456789?text=...
+   */
+  megaMenuWhatsAppUrl?: string | null;
+  megaMenuShowCallback?: boolean | null;
+  megaMenuCallbackTitle?: string | null;
+  megaMenuCallbackPlaceholder?: string | null;
+  megaMenuCallbackButtonText?: string | null;
+  /**
+   * Formular mit mindestens einem Feld für die Telefonnummer (Feldname unten angeben).
+   */
+  megaMenuCallbackForm?: (number | null) | Form;
+  /**
+   * Name des Formularfelds für die Telefonnummer (muss zum gewählten Formular passen).
+   */
+  megaMenuCallbackPhoneFieldName?: string | null;
+  megaMenuShowNewsletter?: boolean | null;
+  megaMenuNewsletterTitle?: string | null;
+  megaMenuNewsletterPlaceholder?: string | null;
+  megaMenuNewsletterButtonText?: string | null;
+  /**
+   * Formular mit mindestens einem E-Mail-Feld (Feldname unten angeben).
+   */
+  megaMenuNewsletterForm?: (number | null) | Form;
+  /**
+   * Name des Formularfelds für die E-Mail (muss zum gewählten Formular passen).
+   */
+  megaMenuNewsletterEmailFieldName?: string | null;
+  /**
+   * Wird im Header und Footer angezeigt. Leer = Standard-Payload-Logo.
+   */
+  logo?: (number | null) | Media;
   navItems?:
     | {
         link: {
@@ -1704,11 +2013,11 @@ export interface Header {
           reference?:
             | ({
                 relationTo: 'site-pages';
-                value: number | Page;
+                value: number | SitePage;
               } | null)
             | ({
                 relationTo: 'blog-posts';
-                value: number | Post;
+                value: number | BlogPost;
               } | null);
           url?: string | null;
           label: string;
@@ -1720,11 +2029,106 @@ export interface Header {
   createdAt?: string | null;
 }
 /**
+ * Footer-Inhalt: Logo, Newsletter-CTA, Navigationsspalten, Social-Media, Rechtliches und Design-Optionen. Spalten und Links sind per Drag & Drop sortierbar.
+ *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "footer".
  */
 export interface Footer {
   id: number;
+  /**
+   * Eigenes Logo im Footer (leer = Logo aus Header übernimmt die Anzeige, falls vorhanden).
+   */
+  footerLogo?: (number | null) | Media;
+  /**
+   * Accessibility-Text für das Logo.
+   */
+  footerLogoAltText?: string | null;
+  /**
+   * z. B. „Newsletter abonnieren“.
+   */
+  newsletterTitle?: string | null;
+  /**
+   * Kurzer Text über den Newsletter.
+   */
+  newsletterDescription?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  newsletterPlaceholder?: string | null;
+  newsletterButtonText?: string | null;
+  /**
+   * Reihenfolge per Drag & Drop ändern. Pro Spalte: Titel und Links.
+   */
+  columns?:
+    | {
+        /**
+         * z. B. „Produkt“, „Unternehmen“.
+         */
+        columnTitle: string;
+        /**
+         * Links in dieser Spalte. Reihenfolge per Drag & Drop.
+         */
+        links?:
+          | {
+              linkText: string;
+              /**
+               * z. B. /datenschutz oder https://…
+               */
+              linkUrl: string;
+              /**
+               * Öffnet in neuem Tab (target="_blank").
+               */
+              isExternal?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Reihenfolge per Drag & Drop. Optional eigenes Icon pro Eintrag.
+   */
+  socialLinks?:
+    | {
+        platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram';
+        /**
+         * Profil-URL (z. B. https://linkedin.com/company/…).
+         */
+        url: string;
+        /**
+         * Leer = Standard-Icon der Plattform.
+         */
+        iconUpload?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * z. B. „© 2026 Firmenname. Alle Rechte vorbehalten.“
+   */
+  copyrightText?: string | null;
+  /**
+   * URL zur Datenschutzseite (z. B. /datenschutz).
+   */
+  privacyLink?: string | null;
+  /**
+   * URL zu Impressum oder AGB.
+   */
+  termsLink?: string | null;
+  backgroundColor?: string | null;
+  textColor?: string | null;
+  linkHoverColor?: string | null;
   navItems?:
     | {
         link: {
@@ -1733,11 +2137,11 @@ export interface Footer {
           reference?:
             | ({
                 relationTo: 'site-pages';
-                value: number | Page;
+                value: number | SitePage;
               } | null)
             | ({
                 relationTo: 'blog-posts';
-                value: number | Post;
+                value: number | BlogPost;
               } | null);
           url?: string | null;
           label: string;
@@ -1745,6 +2149,212 @@ export interface Footer {
         id?: string | null;
       }[]
     | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * Zentrale Farben und Schriften für die gesamte Website. Leer lassen = Standard aus dem Theme. Werte als Hex (z. B. #1587ba) oder rgb(r,g,b).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "design".
+ */
+export interface Design {
+  id: number;
+  /**
+   * Überschreibt die Standard-Farben im Hellmodus.
+   */
+  colorsLight?: {
+    /**
+     * Hauptfarbe (Buttons, Links, Akzente). Hex z. B. #1587ba oder rgb(21, 135, 186)
+     */
+    primary?: string | null;
+    /**
+     * Textfarbe auf Primary-Hintergrund
+     */
+    primaryForeground?: string | null;
+    /**
+     * Sekundärfläche (z. B. abgesetzte Blöcke)
+     */
+    secondary?: string | null;
+    /**
+     * Hover/Highlight (z. B. Menü-Hover)
+     */
+    accent?: string | null;
+    /**
+     * Erfolg/CTA (z. B. Mega-Menü-Button)
+     */
+    success?: string | null;
+    /**
+     * Seitenhintergrund
+     */
+    background?: string | null;
+    /**
+     * Haupttextfarbe
+     */
+    foreground?: string | null;
+    /**
+     * Hintergrund für Karten/Boxen
+     */
+    card?: string | null;
+    /**
+     * Text auf Karten
+     */
+    cardForeground?: string | null;
+    /**
+     * Standard-Linkfarbe (globale Links)
+     */
+    link?: string | null;
+    /**
+     * Linkfarbe bei Hover
+     */
+    linkHover?: string | null;
+    /**
+     * Rahmenfarbe (border)
+     */
+    border?: string | null;
+    /**
+     * Gedämpfter Hintergrund
+     */
+    muted?: string | null;
+    /**
+     * Gedämpfte Textfarbe (Beschreibungen)
+     */
+    mutedForeground?: string | null;
+    /**
+     * Fehler/Löschen
+     */
+    destructive?: string | null;
+    /**
+     * Hintergrundfarbe des hervorgehobenen Buttons im Mega-Menü
+     */
+    megaMenuButtonBg?: string | null;
+    /**
+     * Textfarbe des Buttons im Mega-Menü
+     */
+    megaMenuButtonFg?: string | null;
+    /**
+     * Textfarbe der Hauptnavigation
+     */
+    megaMenuNavText?: string | null;
+    /**
+     * Spaltenüberschriften im Dropdown
+     */
+    megaMenuHeading?: string | null;
+    /**
+     * Text der Menüeinträge im Dropdown
+     */
+    megaMenuItemText?: string | null;
+    /**
+     * Beschreibungstext im Mega-Menü
+     */
+    megaMenuDescription?: string | null;
+  };
+  /**
+   * Überschreibt die Standard-Farben im Dunkelmodus.
+   */
+  colorsDark?: {
+    /**
+     * Hauptfarbe (Buttons, Links, Akzente). Hex z. B. #1587ba oder rgb(21, 135, 186)
+     */
+    primary?: string | null;
+    /**
+     * Textfarbe auf Primary-Hintergrund
+     */
+    primaryForeground?: string | null;
+    /**
+     * Sekundärfläche (z. B. abgesetzte Blöcke)
+     */
+    secondary?: string | null;
+    /**
+     * Hover/Highlight (z. B. Menü-Hover)
+     */
+    accent?: string | null;
+    /**
+     * Erfolg/CTA (z. B. Mega-Menü-Button)
+     */
+    success?: string | null;
+    /**
+     * Seitenhintergrund
+     */
+    background?: string | null;
+    /**
+     * Haupttextfarbe
+     */
+    foreground?: string | null;
+    /**
+     * Hintergrund für Karten/Boxen
+     */
+    card?: string | null;
+    /**
+     * Text auf Karten
+     */
+    cardForeground?: string | null;
+    /**
+     * Standard-Linkfarbe (globale Links)
+     */
+    link?: string | null;
+    /**
+     * Linkfarbe bei Hover
+     */
+    linkHover?: string | null;
+    /**
+     * Rahmenfarbe (border)
+     */
+    border?: string | null;
+    /**
+     * Gedämpfter Hintergrund
+     */
+    muted?: string | null;
+    /**
+     * Gedämpfte Textfarbe (Beschreibungen)
+     */
+    mutedForeground?: string | null;
+    /**
+     * Fehler/Löschen
+     */
+    destructive?: string | null;
+    /**
+     * Hintergrundfarbe des hervorgehobenen Buttons im Mega-Menü
+     */
+    megaMenuButtonBg?: string | null;
+    /**
+     * Textfarbe des Buttons im Mega-Menü
+     */
+    megaMenuButtonFg?: string | null;
+    /**
+     * Textfarbe der Hauptnavigation
+     */
+    megaMenuNavText?: string | null;
+    /**
+     * Spaltenüberschriften im Dropdown
+     */
+    megaMenuHeading?: string | null;
+    /**
+     * Text der Menüeinträge im Dropdown
+     */
+    megaMenuItemText?: string | null;
+    /**
+     * Beschreibungstext im Mega-Menü
+     */
+    megaMenuDescription?: string | null;
+  };
+  /**
+   * CSS font-family. Leer = Geist Sans / Geist Mono.
+   */
+  fonts?: {
+    /**
+     * z. B. var(--font-geist-sans) oder "Inter", sans-serif. Wirkt auf Body und allgemeine Texte.
+     */
+    body?: string | null;
+    /**
+     * z. B. var(--font-geist-sans) oder "Inter", sans-serif. Wirkt auf h1–h6.
+     */
+    heading?: string | null;
+    /**
+     * z. B. var(--font-geist-mono) für Code und monospace Texte.
+     */
+    mono?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1754,6 +2364,28 @@ export interface Footer {
  */
 export interface HeaderSelect<T extends boolean = true> {
   useMegaMenu?: T;
+  megaMenuLayout?:
+    | T
+    | {
+        sidebarCols?: T;
+        contentCols?: T;
+        featuredCols?: T;
+      };
+  megaMenuShowWhatsApp?: T;
+  megaMenuWhatsAppLabel?: T;
+  megaMenuWhatsAppUrl?: T;
+  megaMenuShowCallback?: T;
+  megaMenuCallbackTitle?: T;
+  megaMenuCallbackPlaceholder?: T;
+  megaMenuCallbackButtonText?: T;
+  megaMenuCallbackForm?: T;
+  megaMenuCallbackPhoneFieldName?: T;
+  megaMenuShowNewsletter?: T;
+  megaMenuNewsletterTitle?: T;
+  megaMenuNewsletterPlaceholder?: T;
+  megaMenuNewsletterButtonText?: T;
+  megaMenuNewsletterForm?: T;
+  megaMenuNewsletterEmailFieldName?: T;
   logo?: T;
   navItems?:
     | T
@@ -1778,6 +2410,40 @@ export interface HeaderSelect<T extends boolean = true> {
  * via the `definition` "footer_select".
  */
 export interface FooterSelect<T extends boolean = true> {
+  footerLogo?: T;
+  footerLogoAltText?: T;
+  newsletterTitle?: T;
+  newsletterDescription?: T;
+  newsletterPlaceholder?: T;
+  newsletterButtonText?: T;
+  columns?:
+    | T
+    | {
+        columnTitle?: T;
+        links?:
+          | T
+          | {
+              linkText?: T;
+              linkUrl?: T;
+              isExternal?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        platform?: T;
+        url?: T;
+        iconUpload?: T;
+        id?: T;
+      };
+  copyrightText?: T;
+  privacyLink?: T;
+  termsLink?: T;
+  backgroundColor?: T;
+  textColor?: T;
+  linkHoverColor?: T;
   navItems?:
     | T
     | {
@@ -1798,21 +2464,82 @@ export interface FooterSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "design_select".
+ */
+export interface DesignSelect<T extends boolean = true> {
+  colorsLight?:
+    | T
+    | {
+        primary?: T;
+        primaryForeground?: T;
+        secondary?: T;
+        accent?: T;
+        success?: T;
+        background?: T;
+        foreground?: T;
+        card?: T;
+        cardForeground?: T;
+        link?: T;
+        linkHover?: T;
+        border?: T;
+        muted?: T;
+        mutedForeground?: T;
+        destructive?: T;
+        megaMenuButtonBg?: T;
+        megaMenuButtonFg?: T;
+        megaMenuNavText?: T;
+        megaMenuHeading?: T;
+        megaMenuItemText?: T;
+        megaMenuDescription?: T;
+      };
+  colorsDark?:
+    | T
+    | {
+        primary?: T;
+        primaryForeground?: T;
+        secondary?: T;
+        accent?: T;
+        success?: T;
+        background?: T;
+        foreground?: T;
+        card?: T;
+        cardForeground?: T;
+        link?: T;
+        linkHover?: T;
+        border?: T;
+        muted?: T;
+        mutedForeground?: T;
+        destructive?: T;
+        megaMenuButtonBg?: T;
+        megaMenuButtonFg?: T;
+        megaMenuNavText?: T;
+        megaMenuHeading?: T;
+        megaMenuItemText?: T;
+        megaMenuDescription?: T;
+      };
+  fonts?:
+    | T
+    | {
+        body?: T;
+        heading?: T;
+        mono?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "TaskSchedulePublish".
  */
 export interface TaskSchedulePublish {
   input: {
     type?: ('publish' | 'unpublish') | null;
     locale?: string | null;
-    doc?:
-      | ({
-          relationTo: 'site-pages';
-          value: number | Page;
-        } | null)
-      | ({
-          relationTo: 'blog-posts';
-          value: number | Post;
-        } | null);
+    doc?: {
+      relationTo: 'blog-posts';
+      value: number | BlogPost;
+    } | null;
     global?: string | null;
     user?: (number | null) | User;
   };

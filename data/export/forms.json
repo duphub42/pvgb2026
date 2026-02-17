@@ -1,0 +1,125 @@
+[
+  {
+    "id": 1,
+    "title": "Contact Form",
+    "fields": [
+      {
+        "id": "69906f40d1a00e0004c8fc8d",
+        "name": "full-name",
+        "label": "Full Name",
+        "width": 100,
+        "defaultValue": null,
+        "required": true,
+        "blockName": "full-name",
+        "blockType": "text"
+      },
+      {
+        "id": "69906f40d1a00e0004c8fc8e",
+        "name": "email",
+        "label": "Email",
+        "width": 100,
+        "required": true,
+        "blockName": "email",
+        "blockType": "email"
+      },
+      {
+        "id": "69906f40d1a00e0004c8fc8f",
+        "name": "phone",
+        "label": "Phone",
+        "width": 100,
+        "defaultValue": null,
+        "required": false,
+        "blockName": "phone",
+        "blockType": "number"
+      },
+      {
+        "id": "69906f40d1a00e0004c8fc90",
+        "name": "message",
+        "label": "Message",
+        "width": 100,
+        "defaultValue": null,
+        "required": true,
+        "blockName": "message",
+        "blockType": "textarea"
+      }
+    ],
+    "submitButtonLabel": "Submit",
+    "confirmationType": "message",
+    "confirmationMessage": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "tag": "h2",
+            "type": "heading",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "The contact form has been submitted successfully.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "redirect": {
+      "url": null
+    },
+    "emails": [
+      {
+        "id": "69906f40d1a00e0004c8fc91",
+        "emailTo": "{{email}}",
+        "cc": null,
+        "bcc": null,
+        "replyTo": null,
+        "emailFrom": "\"Payload\" <demo@payloadcms.com>",
+        "subject": "You've received a new message.",
+        "message": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Your contact form submission was successfully received.",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "textFormat": 0
+              }
+            ],
+            "direction": "ltr"
+          }
+        }
+      }
+    ],
+    "updatedAt": "2023-01-12T21:47:41.374Z",
+    "createdAt": "2023-01-12T21:47:41.374Z"
+  }
+]

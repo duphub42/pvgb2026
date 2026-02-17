@@ -1,0 +1,1585 @@
+[
+  {
+    "id": 21,
+    "title": null,
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "description": null,
+      "mediaType": "image",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "links": []
+    },
+    "generateSlug": true,
+    "slug": null,
+    "parent": null,
+    "publishedAt": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T21:23:36.752Z",
+    "createdAt": "2026-02-15T21:23:36.750Z",
+    "_status": "draft",
+    "layout": []
+  },
+  {
+    "id": 20,
+    "title": null,
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "description": null,
+      "mediaType": "image",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "links": []
+    },
+    "generateSlug": true,
+    "slug": null,
+    "parent": null,
+    "publishedAt": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T20:21:53.643Z",
+    "createdAt": "2026-02-15T20:21:53.641Z",
+    "_status": "draft",
+    "layout": []
+  },
+  {
+    "id": 19,
+    "title": null,
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "description": null,
+      "mediaType": "image",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "links": []
+    },
+    "generateSlug": true,
+    "slug": null,
+    "parent": null,
+    "publishedAt": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T18:38:05.081Z",
+    "createdAt": "2026-02-15T18:38:05.081Z",
+    "_status": "draft",
+    "layout": []
+  },
+  {
+    "id": 18,
+    "title": null,
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "description": null,
+      "mediaType": "image",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "links": []
+    },
+    "generateSlug": true,
+    "slug": null,
+    "parent": null,
+    "publishedAt": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T18:36:43.662Z",
+    "createdAt": "2026-02-15T18:36:43.660Z",
+    "_status": "draft",
+    "layout": []
+  },
+  {
+    "id": 17,
+    "title": "Kontakt",
+    "hero": {
+      "type": "lowImpact",
+      "richText": {
+        "root": {
+          "type": "root",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "mode": "normal",
+                  "text": "Kontaktformular",
+                  "type": "text",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "textStyle": "",
+              "textFormat": 0
+            }
+          ],
+          "direction": null
+        }
+      },
+      "media": null,
+      "subheadline": "Schreib mir oder buche direkt dein Beratungsgespräch.",
+      "headline": "Kontakt",
+      "description": "Nutzen Sie die kostenfreie Erstberatung, um Ihre Ziele zu konkretisieren. Wir besprechen Ihre Anforderungen und stecken gemeinsam den Rahmen für Ihren Erfolg ab. So gewinnen Sie volle Klarheit für Ihren nächsten Schritt.",
+      "mediaType": "image",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "699202461c5d8ff13206ebf4",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "6992024a1c5d8ff13206ebf5",
+            "size": "half",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Ihr Projekt verdient digitale Lösungen, die wirken. Teilen Sie uns Ihr Vorhaben über das Formular unten mit – wenn Sie Ihre Telefonnummer angeben, können wir Ihr Projekt besonders schnell und persönlich besprechen. Wir melden uns zeitnah mit den passenden Ideen und nächsten Schritten.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "k",
+    "parent": null,
+    "publishedAt": "2026-02-15T17:27:16.881Z",
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T17:29:42.609Z",
+    "createdAt": "2026-02-15T17:21:38.738Z",
+    "_status": "published"
+  },
+  {
+    "id": 16,
+    "title": "Über mich",
+    "hero": {
+      "type": "philippBacher",
+      "richText": null,
+      "media": null,
+      "subheadline": "Hi, ich bin Philipp Bacher",
+      "headline": "Über mich",
+      "description": "Ich gestalte digitale Lösungen, die wirken – vom ersten Konzept bis zum fertigen Produkt.",
+      "mediaType": "image",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "6991fefea18d79dac273d914",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "6991ff00a18d79dac273d915",
+            "size": "half",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Ich gestalte digitale Lösungen, die wirken – vom ersten Konzept bis zum fertigen Produkt.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          },
+          {
+            "id": "699201b62ccc42437a6c6d58",
+            "size": "half",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "tag": "h3",
+                    "type": "heading",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Story / Philosophie",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Text:",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 1,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Seit über X Jahren unterstütze ich Unternehmen dabei, ihre digitale Präsenz zu optimieren. Meine Arbeit verbindet Kreativität, Technik und Strategie, um Webseiten zu schaffen, die sowohl Nutzer als auch Suchmaschinen überzeugen.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "tag": "h3",
+                    "type": "heading",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Referenzen / Auszeichnungen",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Kundenlogos / Partner (grafisch darstellen)",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Optional: kurze Erwähnungen von Awards oder Presseartikeln",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "ueber-philipp-bacher",
+    "parent": null,
+    "publishedAt": "2026-02-15T17:13:58.851Z",
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T17:26:31.963Z",
+    "createdAt": "2026-02-15T17:13:54.577Z",
+    "_status": "published"
+  },
+  {
+    "id": 15,
+    "title": "Portfolio",
+    "hero": {
+      "type": "highImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": "Meine Projekte im Überblick",
+      "headline": "Portfolio",
+      "description": "Von Corporate Websites bis zu UX/UI-Optimierungen – hier siehst du eine Auswahl meiner Arbeiten.",
+      "mediaType": "image",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "6991fbde98af9765e6a81b27",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "6991fbe498af9765e6a81b28",
+            "size": "full",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Projekt ansehen → /portfolio/{projektname}",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      },
+      {
+        "id": "6991fea898af9765e6a81b29",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "6991feac98af9765e6a81b2a",
+            "size": "oneThird",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "tag": "h3",
+                    "type": "heading",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Einzelprojekt-Beispiel",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Titel:",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 1,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Website-Relaunch für Musterfirma",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Problem:",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 1,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Alte Website war unübersichtlich und nicht mobilfreundlich.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Lösung:",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 1,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Neues Design, moderne UX, SEO-optimierte Inhalte.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Ergebnis:",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 1,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "+40% Traffic, +25% Conversion-Rate",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "CTA:",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 1,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  },
+                  {
+                    "type": "paragraph",
+                    "format": "start",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Kontakt aufnehmen → /kontakt",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "p",
+    "parent": null,
+    "publishedAt": "2026-02-15T17:00:09.054Z",
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T17:13:27.048Z",
+    "createdAt": "2026-02-15T17:00:02.067Z",
+    "_status": "published"
+  },
+  {
+    "id": 14,
+    "title": "Leistungen: SEO & Content",
+    "hero": {
+      "type": "lowImpact",
+      "richText": {
+        "root": {
+          "type": "root",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "mode": "normal",
+                  "text": "SEO-Strategien und Content, der Kunden findet und überzeugt.",
+                  "type": "text",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "textStyle": "",
+              "textFormat": 0
+            }
+          ],
+          "direction": null
+        }
+      },
+      "media": null,
+      "subheadline": "Leistungen",
+      "headline": "SEO & Content",
+      "description": "Sichtbarkeit durch optimierte Inhalte",
+      "mediaType": "image",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "6991fb2c4a5d548076385535",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "6991fb2f4a5d548076385536",
+            "size": "oneThird",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "SEO-Strategien und Content, der Kunden findet und überzeugt.",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "seo-content",
+    "parent": 13,
+    "publishedAt": "2026-02-15T16:57:28.348Z",
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T17:19:49.681Z",
+    "createdAt": "2026-02-15T16:57:09.840Z",
+    "_status": "published"
+  },
+  {
+    "id": 13,
+    "title": "Leistungen",
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": "Angebotener Service",
+      "headline": "Leitungen",
+      "description": "Entdecken Sie in welchen Bereichen ich Ihnen behilflich sein kann. ",
+      "mediaType": "image",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "6991ffd4a18d79dac273d916",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "6991ffd7a18d79dac273d917",
+            "size": "oneThird",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Leistungsangebot",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "leistungen",
+    "parent": null,
+    "publishedAt": "2026-02-15T17:17:00.577Z",
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T17:19:11.732Z",
+    "createdAt": "2026-02-15T16:54:16.251Z",
+    "_status": "published"
+  },
+  {
+    "id": 12,
+    "title": "Leistungen: UX/UI Design",
+    "hero": {
+      "type": "mediumImpact",
+      "richText": {
+        "root": {
+          "type": "root",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "mode": "normal",
+                  "text": "Content Content Content",
+                  "type": "text",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "textStyle": "",
+              "textFormat": 0
+            }
+          ],
+          "direction": null
+        }
+      },
+      "media": null,
+      "subheadline": "Leistungen",
+      "headline": "UX/UI Design",
+      "description": "Interfaces, die Nutzer lieben",
+      "mediaType": "image",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "6991fab25fbaecfe83a6c6bf",
+        "richText": {
+          "root": {
+            "type": "root",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [],
+                "direction": null,
+                "textStyle": "",
+                "textFormat": 0
+              },
+              {
+                "type": "paragraph",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "mode": "normal",
+                    "text": "Content",
+                    "type": "text",
+                    "style": "",
+                    "detail": 0,
+                    "format": 0,
+                    "version": 1
+                  }
+                ],
+                "direction": null,
+                "textStyle": "",
+                "textFormat": 0
+              }
+            ],
+            "direction": null
+          }
+        },
+        "blockName": null,
+        "links": [
+          {
+            "id": "6991fab75fbaecfe83a6c6c0",
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "reference": {
+                "relationTo": "site-pages",
+                "value": 11
+              },
+              "url": null,
+              "label": "Content",
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "cta"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "ux-ui-design",
+    "parent": 13,
+    "publishedAt": "2026-02-15T16:53:30.532Z",
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T17:20:19.547Z",
+    "createdAt": "2026-02-15T16:53:06.656Z",
+    "_status": "published"
+  },
+  {
+    "id": 11,
+    "title": "Leistungen: Webdesign",
+    "hero": {
+      "type": "highImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": "Leistungen",
+      "headline": "Professionelles Webdesign für Ihren Erfolg",
+      "description": "Ich entwickle Websites, die nicht nur schön aussehen, sondern auch messbar erfolgreich sind.",
+      "mediaType": "image",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "6991f7b95fbaecfe83a6c6ba",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "6991f7bd5fbaecfe83a6c6bb",
+            "size": "oneThird",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Beratung & Konzept",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          },
+          {
+            "id": "6991f7c45fbaecfe83a6c6bc",
+            "size": "oneThird",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Design & Wireframes",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          },
+          {
+            "id": "6991f7c75fbaecfe83a6c6bd",
+            "size": "oneThird",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Umsetzung & Testing",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          },
+          {
+            "id": "6991f7c95fbaecfe83a6c6be",
+            "size": "oneThird",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "Launch & Optimierung",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "webdesign",
+    "parent": 13,
+    "publishedAt": "2026-02-15T16:40:30.225Z",
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T17:20:53.500Z",
+    "createdAt": "2026-02-15T16:40:23.068Z",
+    "_status": "published"
+  },
+  {
+    "id": 10,
+    "title": null,
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "description": null,
+      "mediaType": "image",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "links": []
+    },
+    "generateSlug": true,
+    "slug": null,
+    "parent": null,
+    "publishedAt": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T15:47:55.815Z",
+    "createdAt": "2026-02-15T15:47:55.815Z",
+    "_status": "draft",
+    "layout": []
+  },
+  {
+    "id": 7,
+    "title": "Home",
+    "hero": {
+      "type": "highImpact",
+      "richText": {
+        "root": {
+          "type": "root",
+          "format": "",
+          "indent": 0,
+          "version": 1,
+          "children": [
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 1,
+              "children": [
+                {
+                  "mode": "normal",
+                  "text": "Content",
+                  "type": "text",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 1
+                }
+              ],
+              "direction": null,
+              "textStyle": "",
+              "textFormat": 0
+            }
+          ],
+          "direction": null
+        }
+      },
+      "media": null,
+      "subheadline": "Sub-Headline",
+      "headline": "Haupt-Überschrift",
+      "description": "Kurze Beschreibung",
+      "mediaType": "image",
+      "backgroundImage": 5,
+      "backgroundVideo": null,
+      "foregroundImage": 6,
+      "overlayOpacity": 0.5,
+      "links": [
+        {
+          "id": "6991bc41c7e2b4c3e4d5e1f5",
+          "link": {
+            "type": "reference",
+            "newTab": null,
+            "reference": {
+              "relationTo": "site-pages",
+              "value": 7
+            },
+            "url": null,
+            "label": "Link1",
+            "appearance": "default"
+          }
+        },
+        {
+          "id": "6991bc79c7e2b4c3e4d5e1f7",
+          "link": {
+            "type": "reference",
+            "newTab": null,
+            "url": null,
+            "label": "Link2",
+            "appearance": "outline"
+          }
+        }
+      ]
+    },
+    "layout": [
+      {
+        "id": "6991a0880b811e6d372bdb0b",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "6991a08e0b811e6d372bdb0d",
+            "size": "oneThird",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "asdf",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          },
+          {
+            "id": "6991a08c0b811e6d372bdb0c",
+            "size": "oneThird",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "asdf",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          },
+          {
+            "id": "6991a0900b811e6d372bdb0e",
+            "size": "oneThird",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [
+                      {
+                        "mode": "normal",
+                        "text": "asdf",
+                        "type": "text",
+                        "style": "",
+                        "detail": 0,
+                        "format": 0,
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "textStyle": "",
+                    "textFormat": 0
+                  }
+                ],
+                "direction": null
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "home",
+    "parent": null,
+    "publishedAt": "2026-02-15T10:31:00.933Z",
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-15T13:10:27.865Z",
+    "createdAt": "2026-02-15T10:30:08.823Z",
+    "_status": "published"
+  }
+]

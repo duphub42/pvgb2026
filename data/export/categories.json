@@ -1,0 +1,104 @@
+[
+  {
+    "id": 6,
+    "title": "Design",
+    "generateSlug": false,
+    "slug": "design",
+    "parent": null,
+    "breadcrumbs": [
+      {
+        "id": "69906f24d1a00e0004c8fc65",
+        "doc": 6,
+        "url": "/design",
+        "label": "Design"
+      }
+    ],
+    "updatedAt": "2026-02-14T12:48:36.935Z",
+    "createdAt": "2026-02-14T12:48:36.119Z"
+  },
+  {
+    "id": 5,
+    "title": "Finance",
+    "generateSlug": false,
+    "slug": "finance",
+    "parent": null,
+    "breadcrumbs": [
+      {
+        "id": "69906f24d1a00e0004c8fc64",
+        "doc": 5,
+        "url": "/finance",
+        "label": "Finance"
+      }
+    ],
+    "updatedAt": "2026-02-14T12:48:36.915Z",
+    "createdAt": "2026-02-14T12:48:36.117Z"
+  },
+  {
+    "id": 4,
+    "title": "Software",
+    "generateSlug": false,
+    "slug": "software",
+    "parent": null,
+    "breadcrumbs": [
+      {
+        "id": "69906f24d1a00e0004c8fc63",
+        "doc": 4,
+        "url": "/software",
+        "label": "Software"
+      }
+    ],
+    "updatedAt": "2026-02-14T12:48:36.896Z",
+    "createdAt": "2026-02-14T12:48:36.097Z"
+  },
+  {
+    "id": 3,
+    "title": "Engineering",
+    "generateSlug": false,
+    "slug": "engineering",
+    "parent": null,
+    "breadcrumbs": [
+      {
+        "id": "69906f23d1a00e0004c8fc62",
+        "doc": 3,
+        "url": "/engineering",
+        "label": "Engineering"
+      }
+    ],
+    "updatedAt": "2026-02-14T12:48:36.715Z",
+    "createdAt": "2026-02-14T12:48:35.903Z"
+  },
+  {
+    "id": 2,
+    "title": "Technology",
+    "generateSlug": false,
+    "slug": "technology",
+    "parent": null,
+    "breadcrumbs": [
+      {
+        "id": "69906f23d1a00e0004c8fc61",
+        "doc": 2,
+        "url": "/technology",
+        "label": "Technology"
+      }
+    ],
+    "updatedAt": "2026-02-14T12:48:36.656Z",
+    "createdAt": "2026-02-14T12:48:35.822Z"
+  },
+  {
+    "id": 1,
+    "title": "News",
+    "generateSlug": false,
+    "slug": "news",
+    "parent": null,
+    "breadcrumbs": [
+      {
+        "id": "69906f23d1a00e0004c8fc60",
+        "doc": 1,
+        "url": "/news",
+        "label": "News"
+      }
+    ],
+    "updatedAt": "2026-02-14T12:48:36.658Z",
+    "createdAt": "2026-02-14T12:48:35.819Z"
+  }
+]

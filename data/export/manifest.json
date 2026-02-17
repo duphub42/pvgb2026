@@ -1,0 +1,16 @@
+{
+  "collections": {
+    "media": 7,
+    "categories": 6,
+    "users": 2,
+    "site-pages": 13,
+    "blog-posts": 4,
+    "mega-menu": 0,
+    "redirects": 0,
+    "forms": 1
+  },
+  "globals": [
+    "header",
+    "footer"
+  ]
+}
