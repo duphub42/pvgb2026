@@ -13,6 +13,8 @@ import * as migration_20260215_900000_footer_extended from './20260215_900000_fo
 import * as migration_20260215_950000_footer_logo_on_dark from './20260215_950000_footer_logo_on_dark'
 import * as migration_20260219_100000_mega_menu_category_description from './20260219_100000_mega_menu_category_description'
 import * as migration_20260219_110000_mega_menu_category_description_group from './20260219_110000_mega_menu_category_description_group'
+import * as migration_20260219_120000_header_mega_menu_flattened_and_card_style from './20260219_120000_header_mega_menu_flattened_and_card_style'
+import * as migration_20260219_130000_site_pages_hero_floating_elements from './20260219_130000_site_pages_hero_floating_elements'
 
 export const migrations = [
   {
@@ -89,5 +91,15 @@ export const migrations = [
     up: migration_20260219_110000_mega_menu_category_description_group.up,
     down: migration_20260219_110000_mega_menu_category_description_group.down,
     name: '20260219_110000_mega_menu_category_description_group',
+  },
+  {
+    up: migration_20260219_120000_header_mega_menu_flattened_and_card_style.up,
+    down: migration_20260219_120000_header_mega_menu_flattened_and_card_style.down,
+    name: '20260219_120000_header_mega_menu_flattened_and_card_style',
+  },
+  {
+    up: migration_20260219_130000_site_pages_hero_floating_elements.up,
+    down: migration_20260219_130000_site_pages_hero_floating_elements.down,
+    name: '20260219_130000_site_pages_hero_floating_elements',
   },
 ]
