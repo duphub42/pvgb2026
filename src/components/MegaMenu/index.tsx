@@ -400,6 +400,7 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
             : '-translate-y-full opacity-0 pointer-events-none invisible',
           className,
         )}
+        data-scrolled={isScrolled ? 'true' : undefined}
       >
         <div className="container flex h-24 items-center justify-between px-4">
           <div className="flex items-center">{logo}</div>
@@ -681,13 +682,18 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
             <div className="hidden md:flex items-center gap-0">
               <HeaderActions />
             </div>
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="md:hidden">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Toggle menu</span>
-              </Button>
-            </SheetTrigger>
+            <div className="flex md:hidden shrink-0 items-center">
+              <Sheet>
+                <SheetTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    className="h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
+                    aria-label="Menü öffnen"
+                  >
+                    <Menu className="h-6 w-6" aria-hidden />
+                  </Button>
+                </SheetTrigger>
             <SheetContent
               side="right"
               className="megamenu-sheet w-[300px] sm:w-[400px]"
@@ -734,7 +740,8 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
                 ))}
               </nav>
             </SheetContent>
-          </Sheet>
+              </Sheet>
+            </div>
           </div>
         </div>
       </header>

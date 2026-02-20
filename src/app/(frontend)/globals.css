@@ -382,12 +382,41 @@ html[data-theme='light'] {
 .megamenu nav a {
   font-size: 1rem; /* text-base statt text-sm */
 }
-/* Hover: gleicher Hintergrund wie geöffnetes Megamenu-Dropdown */
+/* Hover: gleicher Hintergrund wie geöffnetes Megamenu-Dropdown (nur Desktop) */
 .megamenu:hover,
 .site-header:hover {
   background-color: #ffffff !important;
   box-shadow: none;
   border-bottom: none !important;
+}
+/* Mobile: kein Hover-Hintergrund – Hintergrund nur beim Scrollen (sticky) */
+@media (width < 48rem) {
+  .megamenu:hover,
+  .site-header:hover {
+    background-color: transparent !important;
+  }
+  .megamenu[data-scrolled='true'],
+  .site-header[data-scrolled='true'] {
+    background-color: #ffffff !important;
+    box-shadow: none;
+    border-bottom: none !important;
+  }
+  [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link img,
+  [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link svg,
+  [data-theme='light'] .site-header[data-scrolled='true'] .logo-link img,
+  [data-theme='light'] .site-header[data-scrolled='true'] .logo-link svg {
+    filter: none;
+  }
+  .megamenu[data-scrolled='true'] .megamenu-top-item,
+  .megamenu[data-scrolled='true'] .header-tool-toggle,
+  .site-header[data-scrolled='true'] a,
+  .site-header[data-scrolled='true'] .header-tool-toggle {
+    color: #404040 !important;
+  }
+  .megamenu[data-scrolled='true'] button[aria-label='Menü öffnen'],
+  .site-header[data-scrolled='true'] button[aria-label='Menü öffnen'] {
+    color: #404040 !important;
+  }
 }
 /* Hover: Light-Theme = dunkles Logo auf weiß; Dark-Theme = Logo bleibt hell */
 [data-theme='light'] .megamenu:hover .logo-link img,

@@ -346,7 +346,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   return (
     <section
       ref={heroSectionRef}
-      className="relative flex h-[100vh] min-h-[100dvh] -mt-24 items-stretch overflow-hidden bg-neutral-950 pt-24 text-white"
+      className="relative flex min-h-[100dvh] -mt-24 items-stretch overflow-hidden bg-neutral-950 pt-24 text-white"
       aria-label="Hero"
     >
       {/* Hintergrund zuerst und ganz hinten (z-0): Bild/Video/Halo + Overlays */}
@@ -445,18 +445,20 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
       </div>
 
-      {/* Vordergrund-Bild: rechte Seite (über Overlay und Wellen) */}
+      {/* Vordergrund-Bild: Portrait kompakt, ab lg rechte Seite */}
       {foregroundMedia && (
         <div
           className={cn(
-            'absolute bottom-0 right-[-40%] z-[5] w-[140%] max-w-none pointer-events-none',
-            'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl',
+            'absolute bottom-0 right-0 z-[5] w-[min(85vw,280px)] max-w-none pointer-events-none',
+            'sm:w-[min(90vw,340px)]',
+            'md:right-[-10%] md:w-[min(55vw,380px)]',
+            'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl lg:max-h-none',
           )}
         >
           <div className="relative w-full h-full">
             <Media
               resource={foregroundMedia}
-              imgClassName="w-full h-auto max-h-[70vh] object-contain object-bottom"
+              imgClassName="w-full h-auto max-h-[42dvh] sm:max-h-[55dvh] md:max-h-[65dvh] lg:max-h-[70dvh] object-contain object-bottom"
             />
           </div>
         </div>
