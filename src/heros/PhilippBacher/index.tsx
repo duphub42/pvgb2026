@@ -1,33 +1,264 @@
-"use client"
+'use client'
 
-import React, { useEffect, useState } from 'react'
-import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
+import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
+import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
+import { LogoCarousel } from '@/components/ui/logo-carousel'
+import { Marquee } from '@/components/ui/marquee'
+import { TextAnimate } from '@/components/ui/text-animate'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { cn } from '@/utilities/ui'
+import { getMediaUrl } from '@/utilities/getMediaUrl'
+import dynamic from 'next/dynamic'
+import Link from 'next/link'
+import React, { useEffect, useRef, useState } from 'react'
+import { motion } from 'motion/react'
+
+/** Theme-Hintergrundfarbe für Wellen (entspricht theme/colors.css + Design-Fallback). */
+const WAVE_FILL = { light: 'rgb(255, 255, 255)', dark: 'rgb(20, 20, 20)' } as const
+
+const HeroBackgroundThree = dynamic(
+  () => import('@/components/HeroBackgroundThree/HeroBackgroundThree').then((m) => m.HeroBackgroundThree),
+  { ssr: false },
+)
+const HeroBackgroundVantaHalo = dynamic(
+  () => import('@/components/HeroBackgroundVantaHalo/HeroBackgroundVantaHalo').then((m) => m.HeroBackgroundVantaHalo),
+  { ssr: false },
+)
+const HeroAnimatedGridWave = dynamic(
+  () => import('@/components/HeroAnimatedGridWave/HeroAnimatedGridWave'),
+  { ssr: false },
+)
+
+type FloatingEl = {
+  label: string
+  icon?: number | { url?: string | null; id?: number } | null
+  linkUrl?: string | null
+  linkNewTab?: boolean | null
+  position: 'topLeft' | 'topRight' | 'midLeft' | 'midRight' | 'bottomLeft' | 'bottomRight'
+  offsetX?: number | null
+  offsetY?: number | null
+}
+
+function splitIntoSegments(text: string): string[] {
+  return text
+    .split(/(?<=[.!?])\s+/)
+    .map((part) => part.trim())
+    .filter(Boolean)
+}
+
+function AnimatedDescription({
+  text,
+  mounted,
+  startDelay = 1200,
+}: {
+  text: string
+  mounted: boolean
+  startDelay?: number
+}) {
+  const segments = splitIntoSegments(text)
+
+  if (segments.length === 0) return null
+
+  return (
+    <p className="max-w-md md:max-w-lg text-base leading-relaxed text-white/95 md:text-lg">
+      {segments.map((segment, index) => (
+        <span
+          key={index}
+          className="block overflow-hidden"
+        >
+          <span
+            className={cn(
+              'inline-block transform-gpu origin-left transition-transform transition-opacity duration-[900ms] ease-out',
+              mounted ? 'scale-x-100 opacity-100' : 'scale-x-[0.9] opacity-0',
+            )}
+            style={{ transitionDelay: `${startDelay + index * 260}ms` }}
+          >
+            {segment}
+          </span>
+        </span>
+      ))}
+    </p>
+  )
+}
+
+const POSITION_MAP: Record<string, { left: number; top: number }> = {
+  topLeft: { left: 12, top: 18 },
+  topRight: { left: 82, top: 18 },
+  midLeft: { left: 14, top: 48 },
+  midRight: { left: 80, top: 48 },
+  bottomLeft: { left: 12, top: 78 },
+  bottomRight: { left: 82, top: 78 },
+}
+
+function getMediaUrlSafe(media: unknown): string {
+  if (media == null) return ''
+  if (typeof media === 'object' && 'url' in media && media.url) return getMediaUrl(String(media.url)) || ''
+  return ''
+}
 
 /**
- * PhilippBacherHero – optisch am Hero von philippbacher.com orientiert:
- * Volle Viewport-Höhe, Subheadline (Tagline) → Headline → zwei CTAs.
- * Ruhiger Hintergrund, dezenter Parallax beim Scrollen.
+ * PhilippBacher Hero – zweispaltig, Vordergrund-Bild rechts.
+ * Linke Spalte: Subheadline → Headline → Beschreibung → CTAs.
+ * Rechte Spalte: Vordergrund-Bild mit Einblend-Animation.
+ * Optional: schwebende Elemente (Backend: floatingElements) mit Positionierung.
  */
+/** Einflussradius der Maus – Items weichen dem Cursor aus (px) */
+const FLOATING_MOUSE_RADIUS = 320
+/** Idle-Schweben: Dauer einer Sinus-Periode in ms (größer = langsamer) */
+const FLOATING_IDLE_PERIOD_MS = 4000
+
+/** Einblend-Reihenfolge (ms): Buttons enden bei 2500, dann Marquee, dann Floating chronologisch */
+const HERO_BUTTONS_DELAY_MS = 2500
+const HERO_MARQUEE_START_MS = 3000
+const HERO_MARQUEE_LOGOS_START_MS = 3600
+const HERO_MARQUEE_ITEM_STAGGER_MS = 55
+/** Nach dem Laden: Marquee als „fertig“ betrachten (ms) – danach dürfen Floating-Items freigegeben werden */
+const HERO_MARQUEE_READY_AFTER_MS = 4500
+/** Maus muss mindestens so lange im Hero sein, bevor Floating-Items aufpoppen (ms) */
+const HERO_MOUSE_MIN_INSIDE_MS = 1000
+/** Versatz zwischen den Floating-Items beim Aufpoppen (ms) */
+const HERO_FLOATING_POP_STAGGER_MS = 1000
+
 export const PhilippBacherHero: React.FC<any> = (props) => {
-  const [offset, setOffset] = useState(0)
-  const [isMounted, setIsMounted] = useState(false)
+  const [scrollOffset, setScrollOffset] = useState(0)
+  const [mounted, setMounted] = useState(false)
+  const [floatingUnlock, setFloatingUnlock] = useState(false)
+  const [waveFill, setWaveFill] = useState<string>(WAVE_FILL.dark)
+  const heroSectionRef = useRef<HTMLElement>(null)
+  const mountTimeRef = useRef(0)
+  const floatingElRefs = useRef<(HTMLDivElement | null)[]>([])
+  const mouseRef = useRef({ x: 0, y: 0, inside: false, enteredAt: null as number | null })
+  const floatingCount =
+    props && Array.isArray((props as any).floatingElements)
+      ? (props as any).floatingElements.filter((el: any) => {
+          const url = el?.icon != null ? getMediaUrlSafe(el.icon) : ''
+          const hasLabel = el?.label != null && String(el.label).trim() !== ''
+          return url !== '' || hasLabel
+        }).length
+      : 0
+  const floatingMouseStrength = (props as any)?.floatingMouseStrength as number | undefined
+  const floatingIdleAmplitude = (props as any)?.floatingIdleAmplitude as number | undefined
 
   useEffect(() => {
-    setIsMounted(true)
-    const handleScroll = () => setOffset(window.pageYOffset)
+    mountTimeRef.current = Date.now()
+    setMounted(true)
+    const handleScroll = () => setScrollOffset(window.pageYOffset)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Floating-Items erst freigeben, wenn Marquee „geladen“ ist und Maus mind. 1 s im Hero war
+  useEffect(() => {
+    if (floatingCount === 0 || floatingUnlock) return
+    const id = setInterval(() => {
+      if (!mounted) return
+      const now = Date.now()
+      const marqueeReady = now - mountTimeRef.current >= HERO_MARQUEE_READY_AFTER_MS
+      const mouse = mouseRef.current
+      if (!mouse.inside || !marqueeReady) return
+      const enteredAt = mouse.enteredAt ?? now
+      if (now - enteredAt < HERO_MOUSE_MIN_INSIDE_MS) return
+      setFloatingUnlock(true)
+    }, 250)
+    return () => clearInterval(id)
+  }, [mounted, floatingCount, floatingUnlock])
+
+  // Wellen-Farbe aus data-theme (kein getComputedStyle, damit nichts abstürzt)
+  useEffect(() => {
+    const read = () => {
+      const theme = document.documentElement.getAttribute('data-theme')
+      setWaveFill(theme === 'light' ? WAVE_FILL.light : WAVE_FILL.dark)
+    }
+    read()
+    const observer = new MutationObserver((mutations) => {
+      if (mutations.some((m) => m.type === 'attributes' && m.attributeName === 'data-theme')) read()
+    })
+    observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] })
+    return () => observer.disconnect()
+  }, [])
+
+  // Floating Elements: minimales Schweben/Verschieben wenn Maus in der Nähe (window-Listener, damit Events nicht von overlay/Content blockiert werden)
+  useEffect(() => {
+    if (floatingCount === 0) return
+
+    const onMove = (e: MouseEvent) => {
+      const section = heroSectionRef.current
+      if (!section) return
+      const sr = section.getBoundingClientRect()
+      const inside = e.clientX >= sr.left && e.clientX <= sr.right && e.clientY >= sr.top && e.clientY <= sr.bottom
+      const prev = mouseRef.current
+      const enteredAt =
+        inside
+          ? prev.inside
+            ? prev.enteredAt
+            : Date.now()
+          : null
+      mouseRef.current = { x: e.clientX, y: e.clientY, inside, enteredAt }
+    }
+
+    window.addEventListener('mousemove', onMove)
+
+    const startTime = typeof performance !== 'undefined' ? performance.now() : 0
+    let rafId = 0
+    const tick = () => {
+      rafId = requestAnimationFrame(tick)
+      const mouse = mouseRef.current
+      const refs = floatingElRefs.current
+      const time = (typeof performance !== 'undefined' ? performance.now() : startTime) - startTime
+      const phase = (time / FLOATING_IDLE_PERIOD_MS) * Math.PI * 2
+
+      for (let i = 0; i < floatingCount; i++) {
+        const el = refs[i]
+        if (!el) continue
+
+        const idleAmp = floatingIdleAmplitude ?? 4
+        const idleX = Math.sin(phase + i * 0.7) * idleAmp
+        const idleY = Math.cos(phase + i * 0.5) * idleAmp * 0.8
+
+        let mouseOx = 0
+        let mouseOy = 0
+        if (mouse.inside) {
+          const rect = el.getBoundingClientRect()
+          const cx = rect.left + rect.width / 2
+          const cy = rect.top + rect.height / 2
+          const dx = mouse.x - cx
+          const dy = mouse.y - cy
+          const dist = Math.sqrt(dx * dx + dy * dy)
+          if (dist < FLOATING_MOUSE_RADIUS) {
+            const t = 1 - dist / FLOATING_MOUSE_RADIUS
+            const strength = (floatingMouseStrength ?? 6.5) / 100
+            mouseOx = -dx * strength * t
+            mouseOy = -dy * strength * t
+          }
+        }
+
+        const tx = mouseOx + idleX
+        const ty = mouseOy + idleY
+        el.style.transform = `translate(-50%, -50%) translate(${tx}px, ${ty}px)`
+      }
+    }
+    rafId = requestAnimationFrame(tick)
+
+    return () => {
+      window.removeEventListener('mousemove', onMove)
+      cancelAnimationFrame(rafId)
+      floatingElRefs.current.forEach((el) => {
+        if (el) el.style.transform = 'translate(-50%, -50%) translate(0px, 0px)'
+      })
+    }
+  }, [mounted, floatingCount, floatingMouseStrength, floatingIdleAmplitude])
 
   if (!props) return null
 
   const {
     richText,
     links,
-    media,
     headline,
+    headlineLine1,
+    headlineLine2,
+    headlineLine3,
     subheadline,
     description,
     mediaType = 'image',
@@ -35,129 +266,526 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     backgroundVideo,
     foregroundImage,
     overlayOpacity = 0.45,
+    floatingElements,
+    haloAmplitudeFactor,
+    haloSize,
+    haloSpeed,
+    haloColor2,
+    haloXOffset,
+    haloYOffset,
+    useHaloBackground = true,
+    haloOverlayGradient,
+    haloOverlayGrid,
+    haloOverlayGridSize,
+    haloOverlayGridVariant,
+    haloOverlayGridCustomCode,
+    marqueeHeadline = 'ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN',
+    logoDisplayType = 'marquee',
+    marqueeLogos,
   } = props
+
+  const useThreeLines =
+    [headlineLine1, headlineLine2, headlineLine3].filter(Boolean).length >= 1
+  const lines = useThreeLines
+    ? [headlineLine1 ?? '', headlineLine2 ?? '', headlineLine3 ?? '']
+    : [headline ?? ''].filter(Boolean)
+  const hasHeadline = lines.some((l) => l.trim() !== '')
 
   const isMediaObject = (v: unknown) =>
     typeof v === 'object' && v != null && ('url' in v || 'mimeType' in v)
+
   const backgroundMedia =
     mediaType === 'video' && backgroundVideo && isMediaObject(backgroundVideo)
       ? backgroundVideo
-      : isMediaObject(backgroundImage)
+      : mediaType === 'image' && isMediaObject(backgroundImage)
         ? backgroundImage
-        : isMediaObject(media)
-          ? media
+        : isMediaObject(props.media)
+          ? props.media
           : null
+  const useBackgroundAnimation = mediaType === 'animation'
+  const useBackgroundHalo = mediaType === 'halo'
+  const showHaloLayer = useBackgroundHalo && useHaloBackground
+  const showGridOverlay = useBackgroundHalo
 
-  const hasTextContent = headline || subheadline || description || richText
+  const hasTextContent = hasHeadline || subheadline || description || richText
+  const foregroundMedia = foregroundImage && isMediaObject(foregroundImage) ? foregroundImage : null
+  const hasMarquee = Boolean(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0))
 
-  const currentOffset = offset || 0
-  const backgroundScale = 1 + Math.min(currentOffset * 0.0003, 0.03)
-  const backgroundTranslateY = currentOffset * 0.2
-  const dynamicOverlayOpacity = Math.min((currentOffset / 800) + Number(overlayOpacity), 0.75)
+  const rawCustomGridCode =
+    typeof haloOverlayGridCustomCode === 'string'
+      ? haloOverlayGridCustomCode.trim()
+      : haloOverlayGridCustomCode && typeof haloOverlayGridCustomCode === 'object' && 'code' in haloOverlayGridCustomCode && typeof (haloOverlayGridCustomCode as { code?: string }).code === 'string'
+        ? (haloOverlayGridCustomCode as { code: string }).code.trim()
+        : ''
+  // Transparenten Hintergrund in den iframe-HTML injizieren, damit der Vanta-Halo durchscheint
+  let customGridCode = ''
+  if (rawCustomGridCode) {
+    try {
+      const style = '<style>html,body{background:transparent !important;}</style>'
+      const s = String(rawCustomGridCode)
+      if (/<head\b/i.test(s)) customGridCode = s.replace(/(<head\b[^>]*>)/i, `$1${style}`)
+      else if (/<html\b/i.test(s)) customGridCode = s.replace(/(<html\b[^>]*>)/i, `$1<head>${style}</head>`)
+      else customGridCode = style + s
+    } catch {
+      customGridCode = rawCustomGridCode
+    }
+  }
+
+  const scale = 1 + Math.min(scrollOffset * 0.0003, 0.03)
+  const translateY = scrollOffset * 0.2
+  const overlayNum = Number(overlayOpacity ?? 0.45)
+  const overlay = Number.isFinite(overlayNum)
+    ? Math.min(Math.max(0, scrollOffset / 800 + overlayNum), 0.75)
+    : 0.45
+
+  const floatingListRaw = Array.isArray(floatingElements) ? (floatingElements as FloatingEl[]) : []
+  const floatingList = floatingListRaw.filter(
+    (el) => getMediaUrlSafe(el.icon) !== '' || (el.label != null && String(el.label).trim() !== ''),
+  )
 
   return (
     <section
-      className="relative flex min-h-[100vh] min-h-[100dvh] items-center justify-center overflow-hidden bg-neutral-950 text-white"
+      ref={heroSectionRef}
+      className="relative flex h-[100vh] min-h-[100dvh] -mt-24 items-stretch overflow-hidden bg-neutral-950 pt-24 text-white"
       aria-label="Hero"
     >
-      {/* Hintergrund – ruhig, leichter Parallax */}
+      {/* Hintergrund zuerst und ganz hinten (z-0): Bild/Video/Halo + Overlays */}
       <div
-        className="absolute inset-0 z-0 origin-center will-change-transform"
-        style={{
-          transform: `translateY(${backgroundTranslateY}px) scale(${backgroundScale})`,
-          transition: 'transform 0.2s ease-out',
-        }}
+        className="absolute inset-0 z-0 origin-center transition-transform duration-200 ease-out"
+        style={
+          !useBackgroundAnimation && !useBackgroundHalo
+            ? { transform: `translateY(${translateY}px) scale(${scale})` }
+            : undefined
+        }
       >
-        {backgroundMedia && (
+        {useBackgroundHalo ? (
+          <>
+            {showHaloLayer ? (
+              <HeroBackgroundVantaHalo
+                className="absolute inset-0 w-full h-full"
+                options={{
+                  amplitudeFactor: haloAmplitudeFactor ?? 1.8,
+                  size: haloSize ?? 2.1,
+                  speed: ((haloSpeed ?? 1) * 0.125),
+                  color2: haloColor2 ?? 15918901,
+                  xOffset: haloXOffset ?? 0.15,
+                  yOffset: haloYOffset ?? -0.03,
+                }}
+              />
+            ) : (
+              <div className="absolute inset-0 bg-neutral-950" aria-hidden />
+            )}
+            {showGridOverlay && (haloOverlayGridVariant === 'wave' ? (
+              <>
+                <div
+                  className="hero-halo-overlay-gradient absolute inset-0 pointer-events-none"
+                  aria-hidden
+                  style={
+                    {
+                      '--halo-overlay-gradient': Number(haloOverlayGradient ?? 0.68),
+                    } as React.CSSProperties
+                  }
+                />
+                <HeroAnimatedGridWave className="absolute inset-0 w-full h-full pointer-events-none" />
+              </>
+            ) : haloOverlayGridVariant === 'custom' && customGridCode ? (
+              <>
+                <div
+                  className="hero-halo-overlay-gradient absolute inset-0 pointer-events-none"
+                  aria-hidden
+                  style={
+                    {
+                      '--halo-overlay-gradient': Number(haloOverlayGradient ?? 0.68),
+                    } as React.CSSProperties
+                  }
+                />
+                <iframe
+                  title="Hero Gitter Overlay"
+                  className="absolute inset-0 w-full h-full pointer-events-none border-0"
+                  sandbox="allow-scripts"
+                  srcDoc={customGridCode}
+                />
+              </>
+            ) : (
+              <div
+                className="hero-halo-overlay absolute inset-0 pointer-events-none"
+                aria-hidden
+                style={
+                  {
+                    '--halo-overlay-gradient': Number(haloOverlayGradient ?? 0.68),
+                    '--halo-overlay-grid': Number(haloOverlayGrid ?? 0.08),
+                    '--halo-overlay-grid-size': `${Number(haloOverlayGridSize ?? 12)}px`,
+                  } as React.CSSProperties
+                }
+              />
+            ))}
+          </>
+        ) : useBackgroundAnimation ? (
+          <HeroBackgroundThree className="absolute inset-0 w-full h-full" />
+        ) : (
+          backgroundMedia && (
             <Media
-            resource={backgroundMedia}
-            fill
-            imgClassName="object-cover w-full h-full"
-            priority
-          />
+              resource={backgroundMedia}
+              fill
+              imgClassName="object-cover w-full h-full"
+              priority
+            />
+          )
         )}
+      </div>
+
+      {/* Overlay: hinter Hintergrund, unter Wellen und hinter Vordergrund (z-[1]); Stärke via Backend „Overlay Deckkraft“ */}
+      <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
         <div
-          className="absolute inset-0 pointer-events-none bg-black"
+          className="absolute inset-0 bg-black transition-opacity duration-200"
           style={{
-            opacity: dynamicOverlayOpacity,
-            transition: 'opacity 0.2s ease',
+            opacity: Math.min(1, Math.max(0, useBackgroundHalo ? Math.min(overlay, 0.25) : overlay)),
           }}
         />
+        <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
       </div>
 
-      {/* Inhalt – zentriert, wie philippbacher.com */}
-      <div className="container relative z-10 flex flex-col items-center text-center">
-        <div className="mx-auto w-full max-w-4xl px-4 py-20 sm:px-6 md:py-28">
-          {hasTextContent && (
-            <div
-              className={`mb-10 transition-all duration-500 ease-out md:mb-12 ${
-                isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
-              }`}
-            >
-              {(headline || subheadline || description) ? (
-                <>
-                  {subheadline && (
-                    <p className="mb-4 text-xs font-medium uppercase tracking-[0.2em] text-white/80 sm:text-sm md:mb-5">
-                      {subheadline}
-                    </p>
-                  )}
-                  {headline && (
-                    <h1 className="mb-6 text-3xl font-semibold leading-tight tracking-tight text-white sm:text-4xl md:mb-8 md:text-5xl lg:text-[2.75rem] lg:leading-[1.15]">
-                      {headline}
-                    </h1>
-                  )}
-                  {description && (
-                    <p className="mx-auto max-w-2xl text-base leading-relaxed text-white/85 md:text-lg">
-                      {description}
-                    </p>
-                  )}
-                </>
-              ) : (
-                richText && (
-                  <div className="prose prose-invert prose-lg max-w-none text-white">
-                    <RichText data={richText} enableGutter={false} />
-                  </div>
-                )
-              )}
-            </div>
+      {/* Vordergrund-Bild: rechte Seite (über Overlay und Wellen) */}
+      {foregroundMedia && (
+        <div
+          className={cn(
+            'absolute bottom-0 right-[-40%] z-[5] w-[140%] max-w-none pointer-events-none',
+            'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl',
           )}
-
-          {foregroundImage && isMediaObject(foregroundImage) && (
-            <div className="relative z-20 mx-auto mb-10 w-full max-w-2xl md:mb-12">
-              <Media
-                resource={foregroundImage}
-                imgClassName="object-contain w-full h-auto"
-              />
-            </div>
-          )}
-
-          {Array.isArray(links) && links.length > 0 && (
-            <div
-              className={`flex flex-wrap items-center justify-center gap-3 transition-all duration-500 ease-out delay-150 sm:gap-4 ${
-                isMounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-3'
-              }`}
-            >
-              {links.map((linkItem, i) => {
-                if (!linkItem?.link) return null
-                const isOutline = linkItem.link.appearance === 'outline'
-                return (
-                  <CMSLink
-                    key={i}
-                    {...linkItem.link}
-                    className={
-                      isOutline
-                        ? 'inline-flex items-center justify-center rounded-full border-2 border-white bg-transparent px-6 py-3 text-sm font-medium text-white transition-colors hover:bg-white/10 min-w-[120px] sm:min-w-[140px]'
-                        : 'inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-neutral-900 shadow-md transition-colors hover:bg-white/95 min-w-[120px] sm:min-w-[140px]'
-                    }
-                  />
-                )
-              })}
-            </div>
-          )}
+        >
+          <div className="relative w-full h-full">
+            <Media
+              resource={foregroundMedia}
+              imgClassName="w-full h-auto max-h-[70vh] object-contain object-bottom"
+            />
+          </div>
         </div>
+      )}
+
+      {/* Zweispaltiger Inhalt: pointer-events-none damit Hover am Logo-Marquee ankommt; nur Inhalt klickbar */}
+      <div
+        className={cn(
+          'container relative z-10 grid h-full w-full grid-cols-1 items-end gap-10 px-4 pt-20 pb-0 lg:grid-cols-[3fr_2fr] lg:gap-16 lg:pt-24 lg:pb-0 xl:gap-20 pointer-events-none',
+          !foregroundMedia && 'lg:grid-cols-1 lg:items-center',
+        )}
+      >
+        {/* Linke Spalte: pointer-events-none, nur Inhaltsblock klickbar → Marquee links erhält Hover/Tooltip/Pause */}
+        <div
+          className={cn(
+            'relative z-10 flex w-full flex-col justify-center text-left lg:self-center mr-auto pointer-events-none',
+            foregroundMedia ? 'max-w-full' : 'max-w-2xl',
+            hasMarquee ? 'pb-[12vh] sm:pb-[14vh] md:pb-[calc(14vh+50px)] lg:pb-[calc(16vh+50px)]' : 'pb-[5vh]',
+          )}
+        >
+          <div className={cn('pointer-events-auto w-max max-w-full', foregroundMedia ? '' : 'max-w-2xl')}>
+          {/* Einblendung nacheinander, Gesamtdauer 3s: Subheadline → Headline → Beschreibung → CTAs */}
+          <div className="space-y-6 md:space-y-7">
+            {hasTextContent && (
+              <>
+                {subheadline && (
+                  <p
+                    className={cn(
+                      'text-xs font-medium uppercase tracking-[0.2em] text-white/80 transition-all duration-[600ms] ease-out sm:text-sm',
+                      mounted ? 'translate-y-0 opacity-100 delay-0' : 'translate-y-4 opacity-0',
+                    )}
+                  >
+                    {subheadline}
+                  </p>
+                )}
+                {hasHeadline && (
+                  <h1
+                    className={cn(
+                      'text-3xl font-semibold leading-tight tracking-tight text-white transition-all duration-[600ms] ease-out sm:text-4xl md:text-5xl lg:text-[2.75rem] lg:leading-[1.15]',
+                      mounted ? 'translate-y-0 opacity-100 delay-[600ms]' : 'translate-y-4 opacity-0',
+                    )}
+                    aria-label={lines.join(' ')}
+                  >
+                    {useThreeLines ? (
+                      <span className="block space-y-1 md:space-y-2">
+                        {lines.map((line, i) =>
+                          line.trim() ? (
+                            <span key={i} className="block">
+                              <ScrambleText
+                                text={line}
+                                delayMs={mounted ? 600 + i * 200 : 0}
+                                staggerMs={45}
+                                scrambleDurationMs={400}
+                                tickMs={35}
+                              />
+                            </span>
+                          ) : null,
+                        )}
+                      </span>
+                    ) : (
+                      <ScrambleText
+                        text={lines[0] ?? ''}
+                        delayMs={mounted ? 600 : 0}
+                        staggerMs={45}
+                        scrambleDurationMs={400}
+                        tickMs={35}
+                      />
+                    )}
+                  </h1>
+                )}
+                {description && <AnimatedDescription text={description} mounted={mounted} startDelay={1200} />}
+              </>
+            )}
+            {!hasTextContent && richText && (
+              <div
+                className={cn(
+                  'prose prose-invert prose-lg max-w-none text-white transition-all duration-[600ms] ease-out',
+                  mounted ? 'translate-y-0 opacity-100 delay-[600ms]' : 'translate-y-4 opacity-0',
+                )}
+              >
+                <RichText data={richText} enableGutter={false} />
+              </div>
+            )}
+
+            {Array.isArray(links) && links.length > 0 && (
+              <div
+                className={cn(
+                  'flex flex-wrap gap-3 pt-2 transition-all duration-500 ease-out sm:gap-4',
+                  mounted ? 'translate-y-0 opacity-100 delay-[2500ms]' : 'translate-y-2 opacity-0',
+                )}
+              >
+                {links.map((linkItem: { link?: any }, i: number) => {
+                  if (!linkItem?.link) return null
+                  const isOutline = linkItem.link.appearance === 'outline'
+                  return (
+                    <CMSLink
+                      key={i}
+                      {...linkItem.link}
+                      className={cn(
+                        'inline-flex min-w-[120px] items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition-colors sm:min-w-[140px]',
+                        isOutline
+                          ? 'border-2 border-white bg-transparent text-white hover:bg-white/10'
+                          : 'bg-white text-neutral-900 shadow-md hover:bg-white/95 font-semibold',
+                      )}
+                    />
+                  )
+                })}
+              </div>
+            )}
+          </div>
+          </div>
+        </div>
+
       </div>
 
-      {/* Dezenter Scroll-Hinweis */}
+      {/* Logo-Bereich: ab 768px; Einblendung chronologisch nach Buttons: zuerst Überschrift, dann Logos nacheinander */}
+      {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
+        <div
+          className={cn(
+            'absolute bottom-0 left-0 right-0 z-[4] pointer-events-none hidden md:block',
+            mounted ? 'opacity-100' : 'opacity-0',
+          )}
+          style={{
+            transition: 'opacity 500ms ease-out',
+            transitionDelay: `${HERO_MARQUEE_START_MS}ms`,
+          }}
+        >
+          <div className="container pointer-events-auto px-4 pb-[5vh]">
+            <div className="w-full overflow-hidden pt-2 sm:pt-4">
+              {marqueeHeadline && (
+                <motion.div
+                  initial={{ opacity: 0, filter: 'blur(8px)', y: 12 }}
+                  animate={mounted ? { opacity: 1, filter: 'blur(0px)', y: 0 } : {}}
+                  transition={{ duration: 0.5, delay: HERO_MARQUEE_START_MS / 1000, ease: 'easeOut' }}
+                  className="mb-4 pt-6 sm:pt-8"
+                >
+                  <TextAnimate
+                    animation="blurInUp"
+                    by="character"
+                    once
+                    as="p"
+                    className="text-xs font-medium uppercase tracking-[0.2em] text-white/80"
+                  >
+                    {marqueeHeadline}
+                  </TextAnimate>
+                </motion.div>
+              )}
+              {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 &&
+                (logoDisplayType === 'logoCarousel' ? (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={mounted ? { opacity: 1, y: 0 } : {}}
+                    transition={{
+                      duration: 0.4,
+                      delay: HERO_MARQUEE_LOGOS_START_MS / 1000,
+                      ease: 'easeOut',
+                    }}
+                  >
+                    <LogoCarousel
+                      logos={marqueeLogos
+                        .map((entry: { logo?: unknown; alt?: string | null }, i: number) => {
+                          const url = entry?.logo != null ? getMediaUrlSafe(entry.logo) : ''
+                          return url ? { id: i + 1, name: String(entry.alt ?? `Logo ${i + 1}`), imgUrl: url, alt: entry.alt ?? undefined } : null
+                        })
+                        .filter(Boolean) as { id: number; name: string; imgUrl: string; alt?: string }[]}
+                      columnCount={3}
+                    />
+                  </motion.div>
+                ) : (
+                  <Marquee duration={40} pauseOnHover className="py-1.5" fadeEdges gapClassName="gap-6">
+                    {marqueeLogos.map((entry: { logo?: unknown; alt?: string | null }, i: number) => {
+                      const url = entry?.logo != null ? getMediaUrlSafe(entry.logo) : ''
+                      if (!url) return null
+                      const label = entry.alt ?? ''
+                      const itemDelaySec = (HERO_MARQUEE_LOGOS_START_MS + i * HERO_MARQUEE_ITEM_STAGGER_MS) / 1000
+                      return (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, scale: 0.92 }}
+                          animate={mounted ? { opacity: 1, scale: 1 } : {}}
+                          transition={{
+                            duration: 0.35,
+                            delay: itemDelaySec,
+                            ease: 'easeOut',
+                          }}
+                          className="flex h-[45px] min-w-[5.5rem] shrink-0 items-center justify-center overflow-visible"
+                        >
+                          {label ? (
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <div className="hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2] [&_img]:h-[45px] [&_img]:w-auto [&_img]:max-w-[5.5rem] [&_img]:object-contain">
+                                  <img src={url} alt={label} className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" />
+                                </div>
+                              </TooltipTrigger>
+                              <TooltipContent side="top">{label}</TooltipContent>
+                            </Tooltip>
+                          ) : (
+                            <div className="hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2] [&_img]:h-[45px] [&_img]:w-auto [&_img]:max-w-[5.5rem] [&_img]:object-contain">
+                              <img src={url} alt="" className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" />
+                            </div>
+                          )}
+                        </motion.div>
+                      )
+                    })}
+                  </Marquee>
+                ))}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Floating Elements (aus Backend) */}
+      {floatingList.length > 0 && (
+        <div className="pointer-events-none absolute inset-0 z-20">
+          <div className="container relative h-full w-full">
+            {floatingList.map((el, i) => {
+              const preset = POSITION_MAP[el.position] ?? POSITION_MAP.topRight
+              const left = preset.left + (el.offsetX ?? 0)
+              const top = preset.top + (el.offsetY ?? 0)
+              const iconUrl = el.icon && getMediaUrlSafe(el.icon) ? getMediaUrlSafe(el.icon) : ''
+              const hasLabel = el.label != null && String(el.label).trim() !== ''
+              const content = (
+                <>
+                  {iconUrl ? (
+                    <img
+                      src={iconUrl}
+                      alt={hasLabel ? String(el.label).trim() : ''}
+                      className="size-8 object-contain sm:size-10"
+                    />
+                  ) : null}
+                  {hasLabel ? (
+                    <TextAnimate
+                      animation="blurInUp"
+                      by="character"
+                      once
+                      as="span"
+                      className="text-sm font-medium text-white drop-shadow-sm sm:text-base inline"
+                      segmentClassName="inline-block"
+                    >
+                      {String(el.label).trim()}
+                    </TextAnimate>
+                  ) : null}
+                </>
+              )
+              return (
+                <motion.div
+                  key={i}
+                  ref={(node) => {
+                    floatingElRefs.current[i] = node
+                  }}
+                  className={cn(
+                    'absolute flex items-center gap-2 rounded-xl bg-white/10 px-4 py-2.5 backdrop-blur-sm transition-transform duration-200 hover:scale-105',
+                    el.linkUrl && 'pointer-events-auto',
+                  )}
+                  style={{
+                    left: `${left}%`,
+                    top: `${top}%`,
+                    transform: 'translate(-50%, -50%)',
+                    transition: 'transform 0.2s ease-out',
+                  }}
+                  initial={{ opacity: 0, scale: 0 }}
+                  animate={floatingUnlock ? { opacity: 1, scale: 1 } : {}}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 420,
+                    damping: 22,
+                    delay: floatingUnlock ? (i * HERO_FLOATING_POP_STAGGER_MS) / 1000 : 0,
+                  }}
+                >
+                  {el.linkUrl ? (
+                    <Link
+                      href={el.linkUrl}
+                      target={el.linkNewTab ? '_blank' : undefined}
+                      rel={el.linkNewTab ? 'noopener noreferrer' : undefined}
+                      className="flex items-center gap-2 text-white no-underline hover:text-white"
+                    >
+                      {content}
+                    </Link>
+                  ) : (
+                    content
+                  )}
+                </motion.div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Section-Divider: Wellen-Farbe aus Theme (per useTheme + getComputedStyle) */}
+      <div
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[2] h-[18vh] min-h-[140px] w-full"
+        aria-hidden
+      >
+        <svg
+          className="absolute bottom-0 left-0 w-full"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          style={{ height: '100%' }}
+        >
+          <path
+            d="M0,64 C300,8 500,100 800,48 C1000,16 1100,56 1200,52 L1200,120 L0,120 Z"
+            style={{ fill: waveFill, opacity: 0.92 }}
+          />
+        </svg>
+        <svg
+          className="absolute bottom-0 left-0 w-full"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          style={{ height: '100%', opacity: 0.5 }}
+        >
+          <path
+            d="M0,72 C250,24 450,96 750,60 C950,32 1050,64 1200,58 L1200,120 L0,120 Z"
+            style={{ fill: waveFill }}
+          />
+        </svg>
+        <svg
+          className="absolute bottom-0 left-0 w-full"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          style={{ height: '100%', opacity: 0.22 }}
+        >
+          <path
+            d="M0,58 C350,4 600,88 900,52 C1080,24 1150,62 1200,60 L1200,120 L0,120 Z"
+            style={{ fill: waveFill }}
+          />
+        </svg>
+      </div>
+
+      {/* Scroll-Hinweis */}
       <div
         className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 opacity-30"
         aria-hidden

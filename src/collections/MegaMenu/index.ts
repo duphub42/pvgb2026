@@ -119,13 +119,84 @@ export const MegaMenu: CollectionConfig = {
       ],
     },
     {
+      name: 'columnWidths',
+      type: 'group',
+      label: 'Spaltenbreiten (12er-Grid)',
+      admin: {
+        description:
+          'Breite der drei Dropdown-Spalten (1/12 bis 12/12). Leer = Werte aus Header-Global verwenden. Summe sollte 12 ergeben (z. B. 3 + 6 + 3).',
+      },
+      fields: [
+        {
+          name: 'col1',
+          type: 'number',
+          label: 'Spalte 1 (Kategoriebeschreibung)',
+          min: 1,
+          max: 12,
+          admin: { description: '1 = schmal, 12 = volle Breite.' },
+        },
+        {
+          name: 'col2',
+          type: 'number',
+          label: 'Spalte 2 (Unterpunkte)',
+          min: 1,
+          max: 12,
+          admin: { description: '1 = schmal, 12 = volle Breite.' },
+        },
+        {
+          name: 'col3',
+          type: 'number',
+          label: 'Spalte 3 (Highlight)',
+          min: 1,
+          max: 12,
+          admin: { description: '1 = schmal, 12 = volle Breite.' },
+        },
+      ],
+    },
+    {
+      name: 'categoryDescription',
+      type: 'group',
+      label: 'Spalte 1: Kategoriebeschreibung',
+      admin: {
+        description: 'Linke Spalte im Mega-Dropdown. Optional: Titel und Beschreibung. Spalte wird nur angezeigt, wenn mindestens eines ausgefüllt ist.',
+      },
+      fields: [
+        {
+          name: 'title',
+          type: 'text',
+          label: 'Titel',
+          admin: { description: 'Optional. Überschrift der Spalte (z. B. „Leistungen“).' },
+        },
+        {
+          name: 'description',
+          type: 'textarea',
+          label: 'Beschreibung',
+          admin: { description: 'Fließtext für die Kategorie (z. B. Einleitungstext zu den Unterpunkten).' },
+        },
+      ],
+    },
+    {
       name: 'columns',
       type: 'array',
-      label: 'Spalten (Mega-Dropdown)',
+      label: 'Unterpunkte (Mitte)',
       minRows: 0,
-      admin: { description: 'Mehrspaltiges Dropdown mit optionalem Spaltentitel.' },
+      admin: {
+        description:
+          'Einträge für die mittlere Spalte. Alle Spalten-Titel + Einträge werden zu einer gemeinsamen Liste zusammengeführt. Spaltentitel können zur Gruppierung genutzt werden.',
+      },
       fields: [
         { name: 'title', type: 'text', label: 'Spaltentitel' },
+        {
+          name: 'columnWidth',
+          type: 'number',
+          label: 'Spaltenbreite (1/12–12/12)',
+          min: 1,
+          max: 12,
+          defaultValue: 4,
+          admin: {
+            description: 'Breite dieser Unterpunkt-Spalte im 12er-Grid. Auf Desktop werden die Spalten nebeneinander angezeigt.',
+          },
+        },
         {
           name: 'dividerBefore',
           type: 'checkbox',
@@ -195,18 +266,54 @@ export const MegaMenu: CollectionConfig = {
       name: 'highlight',
       type: 'group',
       label: 'Highlight-Block',
-      admin: { description: 'Optionaler hervorgehobener Block im Dropdown (z. B. CTA).' },
+      admin: {
+        description:
+          'Optionaler Block mit einer oder mehreren Karten (Card-Links, z. B. CTA). Ohne Cards wird ein einzelner Block aus den Feldern Titel/Beschreibung/Bild/Button gebaut (Legacy).',
+      },
       fields: [
-        { name: 'title', type: 'text', label: 'Titel' },
-        { name: 'description', type: 'textarea', label: 'Beschreibung' },
+        {
+          name: 'position',
+          type: 'select',
+          label: 'Position',
+          defaultValue: 'right',
+          options: [
+            { label: 'Rechts (neben Unterpunkten)', value: 'right' },
+            { label: 'Unter den Unterpunkten', value: 'below' },
+          ],
+          admin: {
+            description: 'Rechts = Highlight als rechte Spalte. Unter den Unterpunkten = Highlight als eigene Zeile unter den Menüpunkten.',
+          },
+        },
+        {
+          name: 'cards',
+          type: 'array',
+          label: 'Karten',
+          admin: {
+            description: 'Mehrere Karten möglich. Jede Karte: optional Titel, Beschreibung, Bild und Link. Stil wie Card-Links (z. B. StackBlitz).',
+          },
+          fields: [
+            { name: 'title', type: 'text', label: 'Titel' },
+            { name: 'description', type: 'textarea', label: 'Beschreibung' },
+            {
+              name: 'image',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Bild',
+            },
+            { name: 'ctaLabel', type: 'text', label: 'Button-Text' },
+            { name: 'ctaUrl', type: 'text', label: 'Button-URL' },
+          ],
+        },
+        { name: 'title', type: 'text', label: 'Titel (Legacy, eine Karte)' },
+        { name: 'description', type: 'textarea', label: 'Beschreibung (Legacy)' },
         {
           name: 'image',
           type: 'upload',
           relationTo: 'media',
-          label: 'Bild',
+          label: 'Bild (Legacy)',
         },
-        { name: 'ctaLabel', type: 'text', label: 'Button-Text' },
-        { name: 'ctaUrl', type: 'text', label: 'Button-URL' },
+        { name: 'ctaLabel', type: 'text', label: 'Button-Text (Legacy)' },
+        { name: 'ctaUrl', type: 'text', label: 'Button-URL (Legacy)' },
       ],
     },
   ],

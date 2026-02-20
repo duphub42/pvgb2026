@@ -17,12 +17,14 @@ import {
   SheetTrigger,
 } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
+import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 import { getClientSideURL } from '@/utilities/getURL'
 import { ChevronRight, Menu, MessageCircle, Phone, Mail } from 'lucide-react'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 
+import { HeaderActions } from '@/components/HeaderActions/HeaderActions'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 /** Konfiguration für WhatsApp, Rückruf und Newsletter im Mega-Menü (aus Header-Global) */
@@ -63,6 +65,9 @@ export type MegaMenuItem = {
   icon?: MediaRef
   image?: MediaRef
   appearance?: 'link' | 'button' | null
+  /** Pro Menüpunkt: Breiten der 3 Dropdown-Spalten (1–12). Leer = Header-Global. */
+  columnWidths?: { col1?: number; col2?: number; col3?: number } | null
+  categoryDescription?: { title?: string | null; description?: string | null } | null
   subItems?: Array<{
     label: string
     url: string
@@ -75,6 +80,8 @@ export type MegaMenuItem = {
   }>
   columns?: Array<{
     title?: string | null
+    /** Breite dieser Unterpunkt-Spalte (1–12). Desktop: Spalten nebeneinander. */
+    columnWidth?: number | null
     dividerBefore?: boolean
     columnBackground?: string | null
     items?: Array<{
@@ -88,12 +95,28 @@ export type MegaMenuItem = {
     }>
   }>
   highlight?: {
+    position?: 'right' | 'below' | null
+    cards?: Array<{
+      title?: string | null
+      description?: string | null
+      image?: MediaRef
+      ctaLabel?: string | null
+      ctaUrl?: string | null
+    }> | null
     title?: string | null
     description?: string | null
     image?: MediaRef
     ctaLabel?: string | null
     ctaUrl?: string | null
   } | null
+}
+
+/** Vom Backend konfigurierbarer Stil für Highlight-Link-Karten (Blueprint: Card) */
+export type HighlightCardStyle = {
+  borderRadius?: string
+  shadow?: string
+  hoverShadow?: string
+  hoverBorder?: string
 }
 
 type MegaMenuProps = {
@@ -108,6 +131,8 @@ type MegaMenuProps = {
   }
   /** Optional: WhatsApp, Rückruf, Newsletter aus Header-Global */
   megaMenuCta?: MegaMenuCta
+  /** Optional: Stil der Highlight-Karten (aus Header-Global) */
+  highlightCardStyle?: HighlightCardStyle
 }
 
 function hasDropdown(item: MegaMenuItem): boolean {
@@ -120,7 +145,7 @@ function hasDropdown(item: MegaMenuItem): boolean {
   )
 }
 
-/* 1:1 aus test2 – ListItem */
+/* ListItem: Icon links (quadratisch, 2 Zeilen), daneben Titel + Beschreibung (kleiner, 20% Opacity) */
 const ListItem = React.forwardRef<
   React.ElementRef<typeof Link>,
   React.ComponentPropsWithoutRef<typeof Link> & { title: string; icon?: React.ReactNode }
@@ -130,23 +155,23 @@ const ListItem = React.forwardRef<
       <Link
         ref={ref}
         className={cn(
-          'group flex flex-col select-none space-y-1 rounded-xl p-4 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent/20 border border-transparent hover:border-accent/10',
+          'group flex select-none items-start gap-3 rounded-xl p-4 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent/20 border border-transparent hover:border-accent/10',
           className,
         )}
         {...props}
       >
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 text-sm font-semibold leading-none group-hover:text-primary transition-colors">
-            <div className="p-1.5 rounded-lg bg-muted group-hover:bg-primary/10 group-hover:text-primary transition-all duration-300">
-              {icon}
-            </div>
+        <div className="megamenu-item-icon flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg p-2.5 transition-all duration-300 group-hover:bg-primary/10 group-hover:text-primary [&_img]:h-full [&_img]:w-full [&_img]:object-contain">
+          {icon}
+        </div>
+        <div className="min-w-0 flex-1 space-y-1">
+          <div className="text-sm font-semibold leading-tight group-hover:text-primary dark:group-hover:text-foreground transition-colors">
             {title}
           </div>
-          <ChevronRight className="h-4 w-4 text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+          <p className="line-clamp-2 text-sm leading-snug opacity-20 group-hover:opacity-70 transition-opacity">
+            {children}
+          </p>
         </div>
-        <p className="line-clamp-2 text-sm leading-snug text-muted-foreground mt-2 group-hover:text-foreground transition-colors">
-          {children}
-        </p>
+        <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
       </Link>
     </NavigationMenuLink>
   </li>
@@ -298,7 +323,15 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
   )
 }
 
-export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCta }: MegaMenuProps) {
+const defaultCardStyle: HighlightCardStyle = {
+  borderRadius: 'rounded-lg',
+  shadow: 'shadow-sm',
+  hoverShadow: 'hover:shadow-md',
+  hoverBorder: 'hover:border-primary/40',
+}
+
+export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCta, highlightCardStyle }: MegaMenuProps) {
+  const cardStyle = highlightCardStyle ?? defaultCardStyle
   const [isVisible, setIsVisible] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false)
   const lastScrollYRef = React.useRef(0)
@@ -360,127 +393,272 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
 
       <header
         className={cn(
-          'megamenu sticky top-0 z-50 w-full border-b transition-all duration-300 ease-out',
+          'megamenu sticky top-0 z-50 w-full transition-all duration-300 ease-out',
+          'bg-[var(--background)]',
           isVisible
             ? 'translate-y-0 opacity-100 visible'
             : '-translate-y-full opacity-0 pointer-events-none invisible',
-          isScrolled
-            ? 'bg-background/80 backdrop-blur-xl border-border shadow-soft'
-            : 'bg-background border-transparent',
           className,
         )}
       >
-        <div className="container flex h-16 items-center justify-between px-4">
+        <div className="container flex h-24 items-center justify-between px-4">
           <div className="flex items-center">{logo}</div>
-          <div className="flex items-center gap-4">
+          <div className="megamenu-nav-wrap flex h-full items-stretch gap-4">
           <NavigationMenu
-            className="megamenu-nav hidden md:flex md:flex-initial md:ml-auto"
+            className="megamenu-nav hidden md:flex md:h-full md:flex-initial md:ml-auto"
             value={activeMenu ?? ''}
             onValueChange={(value) => setActiveMenu(value || null)}
           >
-              <NavigationMenuList className="justify-end">
+              <NavigationMenuList className="megamenu-nav-list h-full justify-end">
                 {sortedItems.map((item) => {
                   const hasDrop = hasDropdown(item)
                   const value = String(item.id)
 
                   if (hasDrop) {
-                    const listItems =
-                      (item.columns ?? []).length > 0
-                        ? item.columns!.flatMap((col) => col.items ?? [])
-                        : item.subItems ?? []
-                    const sidebarTitle = item.columns?.[0]?.title ?? item.label
-                    const sidebarDesc =
-                      item.columns?.[0]?.title != null
-                        ? item.highlight?.description ?? null
-                        : item.highlight?.description ?? null
+                    const cols = item.columns ?? []
+                    const cw = item.columnWidths
+                    const columnSpans = [
+                      cw?.col1 != null ? Number(cw.col1) : sidebarCols,
+                      cw?.col2 != null ? Number(cw.col2) : contentCols,
+                      cw?.col3 != null ? Number(cw.col3) : featuredCols,
+                    ]
+                    const allItemsFromColumns = cols.flatMap((col) => (col.items ?? []).map((sub) => ({ ...sub, _groupTitle: col.title })))
+                    const listItems = allItemsFromColumns.length > 0 ? allItemsFromColumns : (item.subItems ?? []).map((s) => ({ ...s, _groupTitle: null }))
+                    const hasGroupTitles = listItems.some((x: { _groupTitle?: string | null }) => x._groupTitle != null && x._groupTitle !== '')
+
+                    // Nur Spalten mit Inhalt anzeigen; Breiten aus Backend (Header → Mega-Menü Spaltenbreiten)
+                    const catDesc = item.categoryDescription
+                    const hasCol1 =
+                      catDesc != null &&
+                      (Boolean(catDesc.title && String(catDesc.title).trim()) ||
+                        Boolean(catDesc.description && String(catDesc.description).trim()))
+                    const hasCol2 = listItems.length > 0
+                    const hasHighlightCards =
+                      Array.isArray(item.highlight?.cards) && item.highlight.cards.length > 0
+                    const hasLegacyHighlight =
+                      item.highlight != null &&
+                      ((item.highlight.title != null && item.highlight.title !== '') ||
+                        (item.highlight.description != null && item.highlight.description !== '') ||
+                        (item.highlight.image != null && mediaUrl(item.highlight.image)) ||
+                        (item.highlight.ctaUrl != null && item.highlight.ctaUrl !== ''))
+                    const hasCol3 =
+                      item.highlight != null && (hasHighlightCards || hasLegacyHighlight)
+
+                    const cardItems: Array<{
+                      title?: string | null
+                      description?: string | null
+                      image?: MediaRef
+                      ctaLabel?: string | null
+                      ctaUrl?: string | null
+                    }> = hasHighlightCards
+                      ? item.highlight!.cards!
+                      : hasLegacyHighlight && item.highlight
+                        ? [
+                            {
+                              title: item.highlight.title,
+                              description: item.highlight.description,
+                              image: item.highlight.image,
+                              ctaLabel: item.highlight.ctaLabel,
+                              ctaUrl: item.highlight.ctaUrl,
+                            },
+                          ]
+                        : []
+
+                    const visibleColumns: Array<{ span: number; key: string; content: React.ReactNode }> = []
+                    if (hasCol1 && catDesc) {
+                      visibleColumns.push({
+                        span: columnSpans[0] ?? sidebarCols,
+                        key: 'desc',
+                        content: (
+                          <div className="space-y-3">
+                            {catDesc.title != null && String(catDesc.title).trim() !== '' && (
+                              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
+                                {catDesc.title}
+                              </h4>
+                            )}
+                            {catDesc.description != null && String(catDesc.description).trim() !== '' && (
+                              <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                                {catDesc.description}
+                              </p>
+                            )}
+                          </div>
+                        ),
+                      })
+                    }
+                    if (hasCol2) {
+                      visibleColumns.push({
+                        span: columnSpans[1] ?? contentCols,
+                        key: 'items',
+                        content: hasGroupTitles ? (
+                          <div className="grid grid-cols-12 gap-6">
+                            {cols.map((col, colIdx) =>
+                              (col.items?.length ?? 0) > 0 ? (
+                                <div key={colIdx} className={cn('space-y-3 min-w-0', colSpan(Math.min(12, Math.max(1, col.columnWidth ?? 4))))}>
+                                  {(col.title != null && col.title !== '') && (
+                                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                                      {col.title}
+                                    </h4>
+                                  )}
+                                  <ul className={cn('grid gap-y-4', (col.items?.length ?? 0) > 4 ? 'grid-cols-2 gap-x-8' : 'grid-cols-1')}>
+                                    {(col.items ?? []).map((sub, idx) => (
+                                      <ListItem
+                                        key={idx}
+                                        title={sub.label}
+                                        href={sub.url}
+                                        icon={
+                                          (sub.icon != null && mediaUrl(sub.icon)) ||
+                                          (sub.image != null && mediaUrl(sub.image)) ? (
+                                            <img src={mediaUrl(sub.image ?? sub.icon!)} alt="" className="h-4 w-4 object-contain" />
+                                          ) : undefined
+                                        }
+                                      >
+                                        {sub.description ?? ''}
+                                      </ListItem>
+                                    ))}
+                                  </ul>
+                                </div>
+                              ) : null,
+                            )}
+                          </div>
+                        ) : (
+                          <ul className={cn('grid gap-y-4', listItems.length > 4 ? 'grid-cols-2 gap-x-8' : 'grid-cols-1')}>
+                            {listItems.map((sub: { label: string; url: string; description?: string | null; icon?: MediaRef; image?: MediaRef }, idx: number) => (
+                              <ListItem
+                                key={idx}
+                                title={sub.label}
+                                href={sub.url}
+                                icon={
+                                  (sub.icon != null && mediaUrl(sub.icon)) ||
+                                  (sub.image != null && mediaUrl(sub.image)) ? (
+                                    <img src={mediaUrl(sub.image ?? sub.icon!)} alt="" className="h-4 w-4 object-contain" />
+                                  ) : undefined
+                                }
+                              >
+                                {sub.description ?? ''}
+                              </ListItem>
+                            ))}
+                          </ul>
+                        ),
+                      })
+                    }
+                    const highlightPosition = item.highlight?.position ?? 'right'
+                    const roundedT =
+                      cardStyle.borderRadius === 'rounded-xl'
+                        ? 'rounded-t-xl'
+                        : cardStyle.borderRadius === 'rounded-lg'
+                          ? 'rounded-t-lg'
+                          : 'rounded-t-none'
+                    const highlightContent =
+                      hasCol3 && cardItems.length > 0 ? (
+                        <div className="grid gap-4">
+                          {cardItems.map((card, cardIdx) => {
+                            const cardTitle = card.title != null && card.title !== '' ? card.title : null
+                            const cardDesc = card.description != null && card.description !== '' ? card.description : null
+                            const cardImageUrl = card.image != null ? mediaUrl(card.image) : ''
+                            const cardCtaUrl = card.ctaUrl != null && card.ctaUrl !== '' ? card.ctaUrl : null
+                            const cardCtaLabel = card.ctaLabel ?? 'Mehr'
+                            const cardClassName = cn(
+                              'group/card border-0 bg-card text-card-foreground transition-all duration-200',
+                              cardStyle.borderRadius,
+                              cardStyle.shadow,
+                              cardStyle.hoverShadow,
+                              cardStyle.hoverBorder,
+                            )
+                            const inner = (
+                              <>
+                                {cardImageUrl && (
+                                  <div
+                                    className={cn(
+                                      'relative aspect-video w-full overflow-hidden bg-muted group/card',
+                                      roundedT,
+                                    )}
+                                  >
+                                    <img
+                                      src={cardImageUrl}
+                                      alt={cardTitle ?? ''}
+                                      className="object-cover w-full h-full transition-transform duration-300 group-hover/card:scale-[1.02]"
+                                    />
+                                    <div className="absolute inset-0 bg-black/10 transition-opacity group-hover/card:bg-black/5" />
+                                  </div>
+                                )}
+                                <CardContent className={cn(cardImageUrl ? 'pt-4' : 'pt-6')}>
+                                  <div className="flex flex-col gap-2">
+                                    {cardTitle && (
+                                      <h4 className="text-sm font-semibold leading-tight">
+                                        {cardTitle}
+                                      </h4>
+                                    )}
+                                    {cardDesc && (
+                                      <p className="text-sm text-muted-foreground leading-snug line-clamp-2">
+                                        {cardDesc}
+                                      </p>
+                                    )}
+                                    {cardCtaUrl && (
+                                      <span className="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                                        {cardCtaLabel}
+                                        <ChevronRight className="h-4 w-4 shrink-0" />
+                                      </span>
+                                    )}
+                                  </div>
+                                </CardContent>
+                              </>
+                            )
+                            const cardEl = (
+                              <Card className={cardClassName}>
+                                {inner}
+                              </Card>
+                            )
+                            return cardCtaUrl ? (
+                              <Link
+                                key={cardIdx}
+                                href={cardCtaUrl}
+                                className="block no-underline text-left text-inherit outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                              >
+                                {cardEl}
+                              </Link>
+                            ) : (
+                              <div key={cardIdx}>{cardEl}</div>
+                            )
+                          })}
+                        </div>
+                      ) : null
+
+                    if (hasCol3 && item.highlight != null && highlightPosition === 'right') {
+                      visibleColumns.push({
+                        span: columnSpans[2] ?? featuredCols,
+                        key: 'highlight',
+                        content: highlightContent,
+                      })
+                    }
 
                     return (
                       <NavigationMenuItem key={item.id} value={value}>
                         <NavigationMenuTrigger className="megamenu-top-item">{item.label}</NavigationMenuTrigger>
                         <NavigationMenuContent>
                           <div className="w-full">
-                            <div className="grid grid-cols-12 min-h-[400px]">
-                              {/* Sidebar Column with background */}
-                              <div className={cn('megamenu-sidebar bg-muted/40 p-8 border-r', colSpan(sidebarCols))}>
-                                <div className="space-y-6">
-                                  <div>
-                                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider mb-2">
-                                      {sidebarTitle}
-                                    </h4>
-                                    {sidebarDesc != null && (
-                                      <p className="text-sm text-muted-foreground leading-relaxed">
-                                        {sidebarDesc}
-                                      </p>
-                                    )}
-                                  </div>
-                                </div>
-                              </div>
-
-                              {/* Content Columns */}
-                              <div className={cn('p-8', colSpan(contentCols))}>
-                                <ul className="grid grid-cols-2 gap-x-8 gap-y-4">
-                                  {listItems.map((sub, idx) => (
-                                    <ListItem
-                                      key={idx}
-                                      title={sub.label}
-                                      href={sub.url}
-                                      icon={
-                                        (sub.icon != null && mediaUrl(sub.icon)) ||
-                                        (sub.image != null && mediaUrl(sub.image)) ? (
-                                          <img
-                                            src={mediaUrl(sub.image ?? sub.icon!)}
-                                            alt=""
-                                            className="h-4 w-4 object-contain"
-                                          />
-                                        ) : undefined
-                                      }
-                                    >
-                                      {sub.description ?? ''}
-                                    </ListItem>
-                                  ))}
-                                </ul>
-                              </div>
-
-                              {/* Featured Column with Image */}
-                              <div className={cn('megamenu-featured p-8 bg-slate-50 border-l flex flex-col justify-between', colSpan(featuredCols))}>
-                                <div className="space-y-4">
-                                  {item.highlight?.title != null && (
-                                    <h4 className="text-sm font-semibold uppercase tracking-wider">
-                                      {item.highlight.title}
-                                    </h4>
+                            {visibleColumns.length > 0 && (
+                              <div className="grid grid-cols-12 min-h-[400px]">
+                                {visibleColumns.map((col, idx) => (
+                                <div
+                                  key={col.key}
+                                  className={cn(
+                                    'p-8 flex flex-col',
+                                    col.key === 'desc' && 'megamenu-sidebar bg-muted/40',
+                                    col.key === 'highlight' && 'megamenu-featured',
+                                    idx < visibleColumns.length - 1 && 'border-r border-border megamenu-col-divider',
+                                    colSpan(col.span),
                                   )}
-                                  {item.highlight?.image != null &&
-                                    mediaUrl(item.highlight.image) && (
-                                      <div className="relative aspect-video rounded-xl overflow-hidden group">
-                                        <img
-                                          src={mediaUrl(item.highlight.image)}
-                                          alt={item.highlight.title ?? ''}
-                                          className="object-cover w-full h-full transition-transform group-hover:scale-105 duration-500"
-                                        />
-                                        <div className="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors" />
-                                      </div>
-                                    )}
-                                  {item.highlight != null && (
-                                    <div className="space-y-2">
-                                      {item.highlight.description != null && (
-                                        <p className="text-xs text-muted-foreground">
-                                          {item.highlight.description}
-                                        </p>
-                                      )}
-                                      {item.highlight.ctaUrl != null && (
-                                        <Link
-                                          href={item.highlight.ctaUrl}
-                                          className="text-xs font-semibold text-primary flex items-center gap-1 hover:underline"
-                                        >
-                                          {item.highlight.ctaLabel ?? 'Mehr'}{' '}
-                                          <ChevronRight className="h-3 w-3" />
-                                        </Link>
-                                      )}
-                                    </div>
-                                  )}
+                                >
+                                  {col.content}
                                 </div>
+                              ))}
                               </div>
-                            </div>
+                            )}
+                            {hasCol3 && item.highlight != null && highlightPosition === 'below' && highlightContent && (
+                              <div className="megamenu-featured border-t border-border p-8">
+                                {highlightContent}
+                              </div>
+                            )}
                             {megaMenuCta && <MegaMenuCtaStrip cta={megaMenuCta} />}
                           </div>
                         </NavigationMenuContent>
@@ -500,6 +678,9 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
                 })}
               </NavigationMenuList>
             </NavigationMenu>
+            <div className="hidden md:flex items-center gap-0">
+              <HeaderActions />
+            </div>
           <Sheet>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon" className="md:hidden">
@@ -507,7 +688,10 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
                 <span className="sr-only">Toggle menu</span>
               </Button>
             </SheetTrigger>
-            <SheetContent side="right" className="megamenu-sheet w-[300px] sm:w-[400px]">
+            <SheetContent
+              side="right"
+              className="megamenu-sheet w-[300px] sm:w-[400px]"
+            >
               <SheetHeader>
                 <SheetTitle className="text-left">Menu</SheetTitle>
               </SheetHeader>
@@ -516,7 +700,7 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
                   <div key={item.id} className="space-y-2">
                     <Link
                       href={item.url}
-                      className="block px-2 py-1 text-lg font-semibold hover:text-primary transition-colors"
+                      className="block px-2 py-1 text-lg font-semibold transition-colors hover:text-primary"
                     >
                       {item.label}
                     </Link>
@@ -526,7 +710,7 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
                           <li key={i}>
                             <Link
                               href={sub.url}
-                              className="block px-2 py-1 text-sm text-muted-foreground hover:text-foreground"
+                              className="block px-2 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
                             >
                               {sub.label}
                             </Link>
@@ -537,7 +721,7 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
                             <li key={`${col.title}-${j}`}>
                               <Link
                                 href={sub.url}
-                                className="block px-2 py-1 text-sm text-muted-foreground hover:text-foreground"
+                                className="block px-2 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
                               >
                                 {sub.label}
                               </Link>

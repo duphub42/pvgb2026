@@ -43,6 +43,16 @@ export const Footer: GlobalConfig = {
           label: 'Alt-Text (Logo)',
           admin: { description: 'Accessibility-Text für das Logo.' },
         },
+        {
+          name: 'logoOnDarkBackground',
+          type: 'checkbox',
+          label: 'Logo auf dunklem Hintergrund',
+          defaultValue: false,
+          admin: {
+            description:
+              'Aktivieren, wenn der Footer einen dunklen Hintergrund hat (Logo wird dann hell dargestellt). Bei hellem Hintergrund deaktiviert lassen.',
+          },
+        },
       ],
     },
     {

@@ -74,6 +74,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
       megaMenuNewsletterButtonText?: string | null
       megaMenuNewsletterForm?: number | { id: number } | null
       megaMenuNewsletterEmailFieldName?: string | null
+      megaMenuCardBorderRadius?: string | null
+      megaMenuCardShadow?: string | null
+      megaMenuCardHoverShadow?: string | null
+      megaMenuCardHoverBorder?: string | null
     }
     const callbackFormId = typeof d?.megaMenuCallbackForm === 'object' && d?.megaMenuCallbackForm != null && 'id' in d.megaMenuCallbackForm
       ? d.megaMenuCallbackForm.id
@@ -104,23 +108,29 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
       }
     }
     const hasCta = Object.keys(megaMenuCta).length > 0
+    const highlightCardStyle = {
+      borderRadius: d?.megaMenuCardBorderRadius ?? 'rounded-lg',
+      shadow: d?.megaMenuCardShadow ?? 'shadow-sm',
+      hoverShadow: d?.megaMenuCardHoverShadow ?? 'hover:shadow-md',
+      hoverBorder: d?.megaMenuCardHoverBorder ?? 'hover:border-primary/40',
+    }
     return (
       <MegaMenu
         items={megaMenuItems}
         logo={logoEl}
         columnWidths={columnWidths}
         megaMenuCta={hasCta ? megaMenuCta : undefined}
+        highlightCardStyle={highlightCardStyle}
       />
     )
   }
 
   return (
     <header
-      className="container relative z-20 border-b py-5"
-      style={{ borderColor: 'var(--theme-border-color)' }}
+      className="site-header sticky top-0 z-50 w-full"
       {...(resolvedTheme ? { 'data-theme': resolvedTheme } : {})}
     >
-      <div className="flex justify-between items-center">
+      <div className="container flex h-24 items-center justify-between px-4">
         {logoEl}
         <HeaderNav data={data} />
       </div>

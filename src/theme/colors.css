@@ -50,8 +50,8 @@
   --theme-bg: var(--theme-elevation-0);
   --theme-text: var(--theme-elevation-800);
   --theme-input-bg: var(--theme-elevation-0);
-  --font-body: var(--font-geist-sans);
-  --font-heading: var(--font-geist-sans);
+  --font-body: var(--font-outfit);
+  --font-heading: var(--font-outfit);
   --font-mono: var(--font-geist-mono);
   --link: var(--primary);
   --link-hover: var(--primary);
@@ -66,14 +66,15 @@
   --card-foreground: var(--theme-elevation-800);
   --popover: var(--theme-elevation-0);
   --popover-foreground: var(--theme-elevation-800);
-  --primary: var(--theme-elevation-800);
-  --primary-foreground: var(--theme-elevation-0);
+  /* shadcn-style: neutral base + indigo theme (Primary) */
+  --primary: 246 56% 59%;
+  --primary-foreground: 0 0% 100%;
   --secondary: var(--theme-elevation-100);
   --secondary-foreground: var(--theme-elevation-800);
   --muted: var(--theme-elevation-100);
   --muted-foreground: var(--theme-elevation-500);
-  --accent: var(--theme-elevation-100);
-  --accent-foreground: var(--theme-elevation-800);
+  --accent: 246 56% 59%;
+  --accent-foreground: 0 0% 100%;
   --destructive: rgb(218, 75, 72);
   --destructive-foreground: rgb(218, 75, 72);
   --border: var(--theme-elevation-150);
@@ -98,14 +99,16 @@
   --chart-5: rgb(218, 75, 72);
   --mega-nav-glass-bg: rgba(255, 255, 255, 0.72);
   --mega-dropdown-glass-bg: rgba(255, 255, 255, 0.92);
-  /* Mega-Menü Button (Hell: dunkler Hintergrund, helle Schrift) */
-  --mega-menu-button-bg: var(--theme-success-500);
-  --mega-menu-button-fg: var(--theme-elevation-0);
-  /* Mega-Menü Kontraste (weicher, an Attio angelehnt) */
-  --mega-menu-nav-text: var(--theme-elevation-700);
-  --mega-menu-heading: var(--theme-elevation-600);
-  --mega-menu-item-text: var(--theme-elevation-700);
-  --mega-menu-description: var(--muted-foreground);
+  /* Footer: immer dunkler Bereich (Light Mode = dunkel, Dark Mode = dunkel) */
+  --theme-footer-bg: var(--theme-elevation-900);
+  --theme-footer-text: var(--theme-elevation-0);
+  /* Mega-Menü: alle Farben von Primary abgeleitet (als HSL-Dreier für einheitliche Überschreibung aus Design) */
+  --mega-menu-button-bg: var(--primary);
+  --mega-menu-button-fg: var(--primary-foreground);
+  --mega-menu-nav-text: color-mix(in hsl, hsl(var(--primary)) 25%, var(--foreground));
+  --mega-menu-heading: color-mix(in hsl, hsl(var(--primary)) 40%, var(--foreground));
+  --mega-menu-item-text: color-mix(in hsl, hsl(var(--primary)) 20%, var(--foreground));
+  --mega-menu-description: color-mix(in hsl, hsl(var(--primary)) 12%, var(--muted-foreground));
 }
 
 [data-theme='dark'] {
@@ -139,14 +142,15 @@
   --card-foreground: var(--theme-elevation-1000);
   --popover: var(--theme-elevation-0);
   --popover-foreground: var(--theme-elevation-1000);
-  --primary: var(--theme-elevation-1000);
-  --primary-foreground: var(--theme-elevation-0);
+  /* shadcn-style: indigo primary in dark mode */
+  --primary: 246 56% 59%;
+  --primary-foreground: 0 0% 100%;
   --secondary: var(--theme-elevation-200);
   --secondary-foreground: var(--theme-elevation-1000);
   --muted: var(--theme-elevation-200);
   --muted-foreground: var(--theme-elevation-500);
-  --accent: var(--theme-elevation-200);
-  --accent-foreground: var(--theme-elevation-1000);
+  --accent: 246 56% 59%;
+  --accent-foreground: 0 0% 100%;
   --destructive: rgb(253, 154, 146);
   --destructive-foreground: rgb(253, 154, 146);
   --border: var(--theme-elevation-150);
@@ -171,12 +175,14 @@
   /* Mega-Menü Dark: Glas-Hintergründe; Text hell für gute Lesbarkeit */
   --mega-nav-glass-bg: rgba(28, 28, 28, 0.85);
   --mega-dropdown-glass-bg: rgba(22, 22, 22, 0.96);
-  /* Mega-Menü Button (Dunkel: heller Akzent, dunkle Schrift für Lesbarkeit) */
-  --mega-menu-button-bg: var(--theme-success-500);
-  --mega-menu-button-fg: var(--color-base-900);
-  /* Mega-Menü Dark: helle Schrift auf dunklem Grund (elevation-1000 = Weiß, 900/800 = hell) */
-  --mega-menu-nav-text: var(--theme-elevation-1000);
-  --mega-menu-heading: var(--theme-elevation-900);
-  --mega-menu-item-text: var(--theme-elevation-1000);
-  --mega-menu-description: var(--theme-elevation-500);
+  /* Footer: in Dark Mode weiterhin dunkel (elevation-0 = Haupt-Dunkel) */
+  --theme-footer-bg: var(--theme-elevation-0);
+  --theme-footer-text: var(--theme-elevation-1000);
+  /* Mega-Menü Dark: von Primary abgeleitet */
+  --mega-menu-button-bg: var(--primary);
+  --mega-menu-button-fg: var(--primary-foreground);
+  --mega-menu-nav-text: color-mix(in hsl, hsl(var(--primary)) 25%, var(--foreground));
+  --mega-menu-heading: color-mix(in hsl, hsl(var(--primary)) 40%, var(--foreground));
+  --mega-menu-item-text: color-mix(in hsl, hsl(var(--primary)) 20%, var(--foreground));
+  --mega-menu-description: color-mix(in hsl, hsl(var(--primary)) 12%, var(--muted-foreground));
 }

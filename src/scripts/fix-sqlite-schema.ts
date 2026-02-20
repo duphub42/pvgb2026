@@ -82,6 +82,35 @@ function main() {
     { name: 'mega_menu_columns_items: image_id', sql: 'ALTER TABLE mega_menu_columns_items ADD COLUMN image_id INTEGER;' },
     { name: 'mega_menu_columns_items: description', sql: 'ALTER TABLE mega_menu_columns_items ADD COLUMN description TEXT;' },
     { name: 'mega_menu_columns_items: badge_color', sql: "ALTER TABLE mega_menu_columns_items ADD COLUMN badge_color TEXT DEFAULT 'success';" },
+    // Mega-Menü: Spaltenbreiten pro Menüpunkt (12er-Grid)
+    { name: 'mega_menu: column_widths_col1', sql: 'ALTER TABLE mega_menu ADD COLUMN column_widths_col1 INTEGER;' },
+    { name: 'mega_menu: column_widths_col2', sql: 'ALTER TABLE mega_menu ADD COLUMN column_widths_col2 INTEGER;' },
+    { name: 'mega_menu: column_widths_col3', sql: 'ALTER TABLE mega_menu ADD COLUMN column_widths_col3 INTEGER;' },
+    // Mega-Menü: Breite pro Unterpunkt-Spalte (1–12)
+    { name: 'mega_menu_columns: column_width', sql: 'ALTER TABLE mega_menu_columns ADD COLUMN column_width INTEGER;' },
+    // Mega-Menü: Spalte 1 Kategoriebeschreibung als Gruppe (title + description)
+    { name: 'mega_menu: category_description_title', sql: 'ALTER TABLE mega_menu ADD COLUMN category_description_title TEXT;' },
+    { name: 'mega_menu: category_description_description', sql: 'ALTER TABLE mega_menu ADD COLUMN category_description_description TEXT;' },
+    {
+      name: 'mega_menu: Migrate category_description → category_description_description',
+      sql: 'UPDATE mega_menu SET category_description_description = category_description WHERE category_description IS NOT NULL;',
+    },
+    // Mega-Menü: Highlight-Block Position (rechts vs. unter den Unterpunkten)
+    { name: 'mega_menu: highlight_position', sql: "ALTER TABLE mega_menu ADD COLUMN highlight_position TEXT DEFAULT 'right';" },
+    // Mega-Menü: Highlight-Cards (Array in highlight.cards) – eigene Tabelle
+    {
+      name: 'mega_menu_highlight_cards: table',
+      sql: `CREATE TABLE IF NOT EXISTS mega_menu_highlight_cards (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        description TEXT,
+        image_id INTEGER,
+        cta_label TEXT,
+        cta_url TEXT
+      );`,
+    },
     // Site-Pages Layout-Blöcke: blockBackground + blockOverlay (Hintergrund/Overlay pro Block)
     { name: 'site_pages_blocks_content: block_background', sql: "ALTER TABLE site_pages_blocks_content ADD COLUMN block_background TEXT DEFAULT 'none';" },
     { name: 'site_pages_blocks_content: block_overlay_enabled', sql: 'ALTER TABLE site_pages_blocks_content ADD COLUMN block_overlay_enabled INTEGER DEFAULT 0;' },
@@ -142,6 +171,11 @@ function main() {
     { name: 'header: mega_menu_newsletter_button_text', sql: 'ALTER TABLE header ADD COLUMN mega_menu_newsletter_button_text TEXT;' },
     { name: 'header: mega_menu_newsletter_form_id', sql: 'ALTER TABLE header ADD COLUMN mega_menu_newsletter_form_id INTEGER REFERENCES forms(id);' },
     { name: 'header: mega_menu_newsletter_email_field_name', sql: 'ALTER TABLE header ADD COLUMN mega_menu_newsletter_email_field_name TEXT;' },
+    // Header: Mega-Menü Highlight-Karten Stil
+    { name: 'header: mega_menu_card_border_radius', sql: "ALTER TABLE header ADD COLUMN mega_menu_card_border_radius TEXT DEFAULT 'rounded-lg';" },
+    { name: 'header: mega_menu_card_shadow', sql: "ALTER TABLE header ADD COLUMN mega_menu_card_shadow TEXT DEFAULT 'shadow-sm';" },
+    { name: 'header: mega_menu_card_hover_shadow', sql: "ALTER TABLE header ADD COLUMN mega_menu_card_hover_shadow TEXT DEFAULT 'hover:shadow-md';" },
+    { name: 'header: mega_menu_card_hover_border', sql: "ALTER TABLE header ADD COLUMN mega_menu_card_hover_border TEXT DEFAULT 'hover:border-primary/40';" },
     // Footer-Global erweitert (Logo, Newsletter, Spalten, Social, Rechtliches, Design)
     { name: 'footer: footer_logo_id', sql: 'ALTER TABLE footer ADD COLUMN footer_logo_id INTEGER REFERENCES media(id);' },
     { name: 'footer: footer_logo_alt_text', sql: 'ALTER TABLE footer ADD COLUMN footer_logo_alt_text TEXT;' },
@@ -157,6 +191,7 @@ function main() {
     { name: 'footer: background_color', sql: 'ALTER TABLE footer ADD COLUMN background_color TEXT;' },
     { name: 'footer: text_color', sql: 'ALTER TABLE footer ADD COLUMN text_color TEXT;' },
     { name: 'footer: link_hover_color', sql: 'ALTER TABLE footer ADD COLUMN link_hover_color TEXT;' },
+    { name: 'footer: logo_on_dark_background', sql: 'ALTER TABLE footer ADD COLUMN logo_on_dark_background INTEGER DEFAULT 1;' },
     // Design-Global (zentrale Farben & Schriften)
     {
       name: 'design: table',
@@ -182,6 +217,39 @@ function main() {
       name: 'design: seed',
       sql: "INSERT INTO design (updated_at, created_at) SELECT datetime('now'), datetime('now') WHERE (SELECT COUNT(*) FROM design) = 0;",
     },
+    // Hero Philipp Bacher: Logo-Anzeige (Marquee vs. Logo Carousel)
+    { name: 'site_pages: hero_logo_display_type', sql: "ALTER TABLE site_pages ADD COLUMN hero_logo_display_type TEXT DEFAULT 'marquee';" },
+    { name: '_site_pages_v: version_hero_logo_display_type', sql: "ALTER TABLE _site_pages_v ADD COLUMN version_hero_logo_display_type TEXT DEFAULT 'marquee';" },
+    // Hero Philipp Bacher: Floating-Animation (Maus-Reaktion + Idle-Schweben)
+    { name: 'site_pages: hero_floating_mouse_strength', sql: 'ALTER TABLE site_pages ADD COLUMN hero_floating_mouse_strength REAL;' },
+    { name: 'site_pages: hero_floating_idle_amplitude', sql: 'ALTER TABLE site_pages ADD COLUMN hero_floating_idle_amplitude REAL;' },
+    { name: '_site_pages_v: version_hero_floating_mouse_strength', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_floating_mouse_strength REAL;' },
+    { name: '_site_pages_v: version_hero_floating_idle_amplitude', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_floating_idle_amplitude REAL;' },
+    // Hero Halo (Vanta) + Overlay-Einstellungen
+    { name: 'site_pages: hero_halo_amplitude_factor', sql: 'ALTER TABLE site_pages ADD COLUMN hero_halo_amplitude_factor REAL;' },
+    { name: 'site_pages: hero_halo_size', sql: 'ALTER TABLE site_pages ADD COLUMN hero_halo_size REAL;' },
+    { name: 'site_pages: hero_halo_speed', sql: 'ALTER TABLE site_pages ADD COLUMN hero_halo_speed REAL;' },
+    { name: 'site_pages: hero_halo_color2', sql: 'ALTER TABLE site_pages ADD COLUMN hero_halo_color2 INTEGER;' },
+    { name: 'site_pages: hero_halo_x_offset', sql: 'ALTER TABLE site_pages ADD COLUMN hero_halo_x_offset REAL;' },
+    { name: 'site_pages: hero_halo_y_offset', sql: 'ALTER TABLE site_pages ADD COLUMN hero_halo_y_offset REAL;' },
+    { name: 'site_pages: hero_halo_overlay_gradient', sql: 'ALTER TABLE site_pages ADD COLUMN hero_halo_overlay_gradient REAL;' },
+    { name: 'site_pages: hero_halo_overlay_grid', sql: 'ALTER TABLE site_pages ADD COLUMN hero_halo_overlay_grid REAL;' },
+    { name: 'site_pages: hero_halo_overlay_grid_size', sql: 'ALTER TABLE site_pages ADD COLUMN hero_halo_overlay_grid_size INTEGER;' },
+    { name: 'site_pages: hero_use_halo_background', sql: 'ALTER TABLE site_pages ADD COLUMN hero_use_halo_background INTEGER DEFAULT 1;' },
+    { name: 'site_pages: hero_halo_overlay_grid_variant', sql: "ALTER TABLE site_pages ADD COLUMN hero_halo_overlay_grid_variant TEXT DEFAULT 'static';" },
+    { name: 'site_pages: hero_halo_overlay_grid_custom_code', sql: 'ALTER TABLE site_pages ADD COLUMN hero_halo_overlay_grid_custom_code TEXT;' },
+    { name: '_site_pages_v: version_hero_halo_amplitude_factor', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_halo_amplitude_factor REAL;' },
+    { name: '_site_pages_v: version_hero_halo_size', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_halo_size REAL;' },
+    { name: '_site_pages_v: version_hero_halo_speed', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_halo_speed REAL;' },
+    { name: '_site_pages_v: version_hero_halo_color2', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_halo_color2 INTEGER;' },
+    { name: '_site_pages_v: version_hero_halo_x_offset', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_halo_x_offset REAL;' },
+    { name: '_site_pages_v: version_hero_halo_y_offset', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_halo_y_offset REAL;' },
+    { name: '_site_pages_v: version_hero_halo_overlay_gradient', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_halo_overlay_gradient REAL;' },
+    { name: '_site_pages_v: version_hero_halo_overlay_grid', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_halo_overlay_grid REAL;' },
+    { name: '_site_pages_v: version_hero_halo_overlay_grid_size', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_halo_overlay_grid_size INTEGER;' },
+    { name: '_site_pages_v: version_hero_use_halo_background', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_use_halo_background INTEGER DEFAULT 1;' },
+    { name: '_site_pages_v: version_hero_halo_overlay_grid_variant', sql: "ALTER TABLE _site_pages_v ADD COLUMN version_hero_halo_overlay_grid_variant TEXT DEFAULT 'static';" },
+    { name: '_site_pages_v: version_hero_halo_overlay_grid_custom_code', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_halo_overlay_grid_custom_code TEXT;' },
     // Falls ein älteres Fix-Script hero_background_video_id → hero_background_video umbenannt hat:
     // zurück zu _id, damit Payload-Abfragen wieder funktionieren.
     {

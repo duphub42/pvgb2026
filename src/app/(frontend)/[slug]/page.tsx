@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 
@@ -122,9 +123,12 @@ export default async function Page({ params: paramsPromise, searchParams: search
       notFound()
     }
 
+    const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
     return (
       <article>
-        <RenderHero {...(page.hero ?? {})} />
+        <HeroErrorBoundary>
+          <RenderHero {...heroProps} />
+        </HeroErrorBoundary>
         <RenderBlocks blocks={Array.isArray(page.layout) ? page.layout : []} />
       </article>
     )
@@ -132,7 +136,9 @@ export default async function Page({ params: paramsPromise, searchParams: search
     const e = err as Error & { cause?: Error }
     const causeMsg = e?.cause instanceof Error ? e.cause.message : String(e?.cause ?? '')
     const fullMsg = [e?.message, causeMsg].filter(Boolean).join(' — ')
-    console.error('[Page] find/render failed:', fullMsg, e?.stack)
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[Page] find/render failed:', fullMsg, e?.stack)
+    }
     if (resolvedSlug === 'home' || !resolvedSlug) {
       return (
         <article className="container py-16">

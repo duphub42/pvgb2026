@@ -4,7 +4,6 @@ import React, { createContext, useCallback, use, useEffect, useState } from 'rea
 
 import type { Theme, ThemeContextType } from './types'
 
-import canUseDOM from '@/utilities/canUseDOM'
 import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared'
 import { themeIsValid } from './types'
 
@@ -15,22 +14,10 @@ const initialContext: ThemeContextType = {
 
 const ThemeContext = createContext(initialContext)
 
-function getInitialTheme(): Theme | undefined {
-  if (!canUseDOM) return undefined
-  const stored = window.localStorage.getItem(themeLocalStorageKey)
-  if (themeIsValid(stored)) {
-    const t = stored as Theme
-    document.documentElement.setAttribute('data-theme', t)
-    return t
-  }
-  const implicit = getImplicitPreference()
-  const t = implicit ?? defaultTheme
-  document.documentElement.setAttribute('data-theme', t)
-  return t
-}
-
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [theme, setThemeState] = useState<Theme | undefined>(getInitialTheme)
+  // Immer undefined beim ersten Render (Server + Client), damit kein Hydration-Mismatch.
+  // InitTheme-Script setzt data-theme vor React; der echte Wert kommt in useEffect.
+  const [theme, setThemeState] = useState<Theme | undefined>(undefined)
 
   const setTheme = useCallback((themeToSet: Theme | null) => {
     if (themeToSet === null) {
@@ -63,7 +50,7 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     setThemeState(themeToSet)
   }, [])
 
-  return <ThemeContext value={{ setTheme, theme }}>{children}</ThemeContext>
+  return <ThemeContext.Provider value={{ setTheme, theme }}>{children}</ThemeContext.Provider>
 }
 
 export const useTheme = (): ThemeContextType => use(ThemeContext)

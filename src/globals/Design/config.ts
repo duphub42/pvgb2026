@@ -11,7 +11,7 @@ export const Design: GlobalConfig = {
   },
   admin: {
     description:
-      'Zentrale Farben und Schriften für die gesamte Website. Leer lassen = Standard aus dem Theme. Werte als Hex (z. B. #1587ba) oder rgb(r,g,b).',
+      'Schriften und optionale Farben (Success, Hintergrund, Card, …). Primary/Secondary/Accent nur in „Theme Colors“ (Sidebar) einstellbar.',
     group: 'Einstellungen',
   },
   fields: [

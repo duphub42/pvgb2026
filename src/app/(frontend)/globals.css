@@ -46,7 +46,7 @@
   --breakpoint-xl: 80rem;
   --breakpoint-2xl: 86rem;
   --font-mono: var(--font-geist-mono);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-outfit);
 }
 
 @layer utilities {
@@ -89,6 +89,11 @@
       max-width: min(var(--breakpoint-2xl), 100%);
     }
   }
+
+  /* Layout „Breit“: Container nutzt mehr Breite */
+  [data-layout='wide'] .container {
+    max-width: min(90rem, 100%);
+  }
 }
 
 @theme inline {
@@ -98,14 +103,14 @@
   --color-card-foreground: var(--card-foreground);
   --color-popover: var(--popover);
   --color-popover-foreground: var(--popover-foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
   --color-muted-foreground: var(--muted-foreground);
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
   --color-border: var(--border);
@@ -196,22 +201,23 @@
   filter: invert(1);
 }
 
+/* Footer-Logo: Im Dark Mode immer hell darstellen (Footer-Hintergrund ist dunkel) */
+[data-theme='dark'] footer .logo-contrast {
+  filter: invert(1) !important;
+}
+
 /* Logo-Link: kein Hover-/Label-Effekt (Hintergrund/Unterstrich) */
 .logo-link:hover {
   background-color: transparent !important;
   text-decoration: none;
 }
-.megamenu .logo-link:hover {
-  background-color: transparent !important;
-  color: inherit;
-}
-[data-theme='dark'] .megamenu .logo-link:hover {
-  background-color: transparent !important;
-  color: #e8e8e8;
+
+/* AdminBar: kein unterer Rand, damit bei mouseout keine Linie über dem Header sichtbar ist */
+.admin-bar {
+  border-bottom: none !important;
 }
 
-
-/* Link-Stile: link-hover-underline für Content/Footer; mega-menu-link als Box im Menü */
+/* Link-Stile: link-hover-underline für Content/Footer */
 @layer utilities {
   /* Content (Prose): Link-Farbe aus Design-Global (--link / --link-hover) */
   .prose a {
@@ -259,181 +265,18 @@
     transform: scaleX(1);
   }
 
-  /* Mega-Menü: Links als Boxen mit deutlichem Hover + Pfeil rechts */
-  .mega-menu-link {
-    position: relative;
-    display: inline-flex;
-    align-items: center;
-    border-radius: var(--style-radius-m);
-    transition: background-color 0.2s ease, color 0.2s ease, box-shadow 0.2s ease;
+  /* Tooltips (Header-Toggles etc.): immer voll deckend, unabhängig vom Design-Global */
+  [data-radix-popper-content-wrapper] [role='tooltip'],
+  .tooltip-content-solid {
+    background-color: #ffffff !important;
+    color: #262626 !important;
+    border-color: #e5e5e5 !important;
   }
-  .mega-menu-link:hover {
-    background-color: var(--muted);
-    color: var(--foreground);
-    box-shadow: 0 0 0 1px var(--theme-elevation-200);
-  }
-  [data-theme='dark'] .mega-menu-link:hover {
-    background-color: var(--theme-elevation-200);
-    color: var(--theme-elevation-1000);
-    box-shadow: 0 0 0 1px var(--theme-elevation-400);
-  }
-  .mega-menu-link .mega-menu-link-arrow {
-    opacity: 0;
-    transform: translateX(-2px);
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    flex-shrink: 0;
-    color: var(--theme-elevation-500);
-  }
-  .mega-menu-link:hover .mega-menu-link-arrow {
-    opacity: 1;
-    transform: translateX(0);
-  }
-  [data-theme='dark'] .mega-menu-link .mega-menu-link-arrow,
-  [data-theme='dark'] .mega-menu-link:hover .mega-menu-link-arrow {
-    color: var(--theme-elevation-300);
-  }
-
-  /* Top-Items: nur bei Hover/Open den Label-Hintergrund */
-  .megamenu .megamenu-top-item {
-    background-color: transparent !important;
-  }
-  .megamenu .megamenu-top-item:hover,
-  .megamenu .megamenu-top-item:focus-visible,
-  .megamenu button.megamenu-top-item[data-state='open'] {
-    background-color: hsl(var(--accent)) !important;
-    color: hsl(var(--accent-foreground));
-  }
-
-  /* ========== Mega-Menü Dark-Skin (sehr dunkel: Header #080808) ========== */
-  [data-theme='dark'] .megamenu-overlay {
-    background: rgba(8, 8, 8, 0.9);
-    backdrop-filter: blur(8px);
-  }
-
-  [data-theme='dark'] .megamenu {
-    background-color: #080808;
-    color: #e8e8e8;
-    border-color: #1a1a1a;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-  }
-
-  [data-theme='dark'] .megamenu a {
-    color: #e8e8e8;
-    transition: color 0.3s ease, background-color 0.3s ease;
-  }
-
-  [data-theme='dark'] .megamenu a:hover {
-    color: #ffffff;
-    background-color: #1a1a1a;
-  }
-
-  [data-theme='dark'] .megamenu button {
-    color: #e8e8e8;
-    transition: color 0.3s ease, background-color 0.3s ease;
-  }
-
-  [data-theme='dark'] .megamenu button:hover,
-  [data-theme='dark'] .megamenu button[data-state='open'] {
-    color: #ffffff;
-    background-color: #1a1a1a;
-  }
-
-  [data-theme='dark'] .megamenu .megamenu-top-item {
-    background-color: transparent !important;
-  }
-  [data-theme='dark'] .megamenu .megamenu-top-item:hover,
-  [data-theme='dark'] .megamenu .megamenu-top-item:focus-visible,
-  [data-theme='dark'] .megamenu button.megamenu-top-item[data-state='open'] {
-    background-color: #1a1a1a !important;
-    color: #ffffff;
-  }
-
-  /* Dropdown / Menübox */
-  [data-theme='dark'] .megamenu .megamenu-viewport {
-    background-color: #0d0d0d;
-    border: 1px solid #1a1a1a;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.8);
-    color: #e8e8e8;
-  }
-
-  /* Borders / Dividers im Dropdown */
-  [data-theme='dark'] .megamenu .border-r,
-  [data-theme='dark'] .megamenu .border-l,
-  [data-theme='dark'] .megamenu .megamenu-viewport {
-    border-color: #1a1a1a;
-  }
-
-  /* Sidebar- und Featured-Spalte */
-  [data-theme='dark'] .megamenu .megamenu-sidebar,
-  [data-theme='dark'] .megamenu .megamenu-featured {
-    background-color: #0d0d0d;
-    border-color: #1a1a1a;
-  }
-
-  /* Text in Dropdown: muted-foreground → helles Grau */
-  [data-theme='dark'] .megamenu .text-muted-foreground {
-    color: #e8e8e8;
-  }
-
-  [data-theme='dark'] .megamenu .text-muted-foreground:hover,
-  [data-theme='dark'] .megamenu a:hover .text-muted-foreground {
-    color: #ffffff;
-  }
-
-  /* ListItem Hover (Karten im Dropdown) */
-  [data-theme='dark'] .megamenu .megamenu-viewport a.rounded-xl:hover {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    border-color: #1a1a1a;
-  }
-
-  [data-theme='dark'] .megamenu .megamenu-viewport a.rounded-xl:hover p {
-    color: #ffffff;
-  }
-
-  /* Badges / Highlights */
-  [data-theme='dark'] .megamenu .megamenu-badge,
-  [data-theme='dark'] .megamenu [class*='badge'] {
-    background-color: #ffb74d;
-    color: #111111;
-  }
-
-  /* Icons / Chevron in Dark */
-  [data-theme='dark'] .megamenu .text-primary {
-    color: #e8e8e8;
-  }
-
-  [data-theme='dark'] .megamenu a:hover .text-primary,
-  [data-theme='dark'] .megamenu button:hover .text-primary {
-    color: #ffffff;
-  }
-
-  /* Mobile Sheet (Drawer) im Dark Mode */
-  [data-theme='dark'] .megamenu-sheet {
-    background-color: #080808;
-    border-color: #1a1a1a;
-    color: #e8e8e8;
-  }
-
-  [data-theme='dark'] .megamenu-sheet a {
-    color: #e8e8e8;
-  }
-
-  [data-theme='dark'] .megamenu-sheet a:hover {
-    color: #ffffff;
-    background-color: #1a1a1a;
-  }
-
-  /* CTA-Strip (WhatsApp, Rückruf, Newsletter) im Mega-Menü-Dropdown */
-  [data-theme='dark'] .megamenu .megamenu-cta-strip {
-    background-color: #0d0d0d;
-    border-color: #1a1a1a;
-  }
-  [data-theme='dark'] .megamenu .megamenu-cta-strip input {
-    background-color: #1a1a1a;
-    border-color: #2a2a2a;
-    color: #e8e8e8;
+  [data-theme='dark'] [data-radix-popper-content-wrapper] [role='tooltip'],
+  [data-theme='dark'] .tooltip-content-solid {
+    background-color: #0d0d0d !important;
+    color: #fafafa !important;
+    border-color: #262626 !important;
   }
 
   /* Footer: Unterstrich baut sich von rechts nach links auf */
@@ -470,4 +313,542 @@ html {
 html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
+}
+
+/* ========== Megamenu: Builder.io-Style (Light) + Dark invertiert ========== */
+/* Light: weißer Header, dezente Border/Shadow; Dropdown weiß, Border, Shadow */
+/* Header ohne Rahmen/Shadow – Trennlinie nur durch Dropdown-Kopfrahmen beim Öffnen */
+.megamenu,
+.site-header {
+  background-color: transparent !important;
+  border: none !important;
+  border-width: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #171717;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+.megamenu > .container,
+.site-header > .container {
+  border: none !important;
+  border-width: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* Aufbau bei Mouseover: entspannte Übergänge (Logo, Links, Toggles) */
+.megamenu .logo-link img,
+.megamenu .logo-link svg,
+.site-header .logo-link img,
+.site-header .logo-link svg {
+  transition: filter 0.5s ease;
+}
+.megamenu .megamenu-top-item,
+.megamenu .megamenu-top-item [class*='lucide'],
+.site-header nav a,
+.site-header .header-tool-toggle,
+.megamenu .header-tool-toggle {
+  transition: color 0.45s ease, background-color 0.45s ease;
+}
+/* Transparenter Modus (mouseout): helles Logo/Links/Icons, Toggles ohne Rahmen */
+.megamenu:not(:hover) .logo-link img,
+.megamenu:not(:hover) .logo-link svg,
+.site-header:not(:hover) .logo-link img,
+.site-header:not(:hover) .logo-link svg {
+  filter: brightness(0) invert(1);
+}
+.megamenu:not(:hover) .megamenu-top-item,
+.megamenu:not(:hover) .megamenu-top-item [class*='lucide'] {
+  color: #fafafa !important;
+}
+.megamenu:not(:hover) .header-tool-toggle,
+.site-header:not(:hover) .header-tool-toggle {
+  color: #fafafa !important;
+  border-color: transparent !important;
+  background-color: transparent !important;
+}
+.megamenu:not(:hover) .header-tool-toggle:hover,
+.site-header:not(:hover) .header-tool-toggle:hover {
+  background-color: rgba(255, 255, 255, 0.15) !important;
+  color: #ffffff !important;
+}
+.site-header:not(:hover) a {
+  color: #fafafa !important;
+}
+.site-header:not(:hover) a:hover {
+  color: #ffffff !important;
+}
+/* Header-Nav-Links: 25% größer */
+.site-header nav a,
+.megamenu nav a {
+  font-size: 1rem; /* text-base statt text-sm */
+}
+/* Hover: gleicher Hintergrund wie geöffnetes Megamenu-Dropdown */
+.megamenu:hover,
+.site-header:hover {
+  background-color: #ffffff !important;
+  box-shadow: none;
+  border-bottom: none !important;
+}
+/* Hover: Light-Theme = dunkles Logo auf weiß; Dark-Theme = Logo bleibt hell */
+[data-theme='light'] .megamenu:hover .logo-link img,
+[data-theme='light'] .megamenu:hover .logo-link svg,
+[data-theme='light'] .site-header:hover .logo-link img,
+[data-theme='light'] .site-header:hover .logo-link svg {
+  filter: none;
+}
+.megamenu .logo-link:hover {
+  background-color: transparent !important;
+  color: inherit;
+}
+.megamenu .megamenu-nav-wrap {
+  min-height: 100%;
+}
+.megamenu .megamenu-nav-list {
+  align-items: stretch;
+}
+.megamenu .megamenu-nav-list > * {
+  height: 100%;
+}
+.megamenu .megamenu-top-item {
+  background: none !important;
+  color: #404040;
+  position: relative;
+  border-radius: 9999px; /* Label-/Pill-Effekt */
+  padding: 0.5rem 1.125rem;
+  margin-block: 0.4rem; /* Abstand zu Header-Ober-/Unterkante */
+  font-size: 1rem; /* text-base statt text-sm */
+  align-items: center;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+/* Unterstrich unter Menüpunkt entfernt – Trennlinie nur noch durch Dropdown-Kopfrahmen */
+.megamenu .megamenu-top-item::after {
+  display: none !important;
+}
+.megamenu .megamenu-top-item:hover,
+.megamenu .megamenu-top-item:focus-visible {
+  color: #171717;
+  background-color: #f5f5f5 !important;
+}
+.megamenu button.megamenu-top-item[data-state='open'] {
+  color: #171717;
+  background-color: #f5f5f5 !important;
+}
+.megamenu .megamenu-top-item [class*='lucide'] {
+  color: #737373;
+  transition: color 0.15s ease;
+}
+.megamenu .megamenu-top-item:hover [class*='lucide'],
+.megamenu button.megamenu-top-item[data-state='open'] [class*='lucide'] {
+  color: #171717;
+}
+/* Rahmen/Shadow nur wenn Dropdown geöffnet – sonst keine Linie unter dem Header */
+.megamenu-dropdown-bg,
+.megamenu-viewport-wrapper {
+  background-color: #ffffff !important;
+  color: #171717;
+  border: none !important;
+  box-shadow: none !important;
+}
+.megamenu-viewport-wrapper:has([data-state='open']) {
+  border: 1px solid #e5e5e5 !important;
+  border-top: 1px solid #e5e5e5 !important;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+}
+.megamenu-viewport,
+.megamenu .megamenu-viewport {
+  background: transparent !important;
+  color: inherit;
+}
+.megamenu .megamenu-sidebar,
+.megamenu .megamenu-featured {
+  background-color: #fafafa;
+  border-color: #e5e5e5;
+}
+/* Spalten-Trenner im hellen Modus dezent (an übrige Farben angepasst) */
+.megamenu .megamenu-col-divider {
+  border-color: rgba(0, 0, 0, 0.06);
+}
+.megamenu .megamenu-viewport a.rounded-xl:hover {
+  background-color: #f5f5f5;
+  color: #171717;
+  border-color: #e5e5e5;
+}
+
+/* Megamenu Link-Icons: transparent, Gitter-Hintergrund; Hover: scale 1.2, rotate 5deg, grey → black */
+.megamenu-item-icon {
+  background-color: transparent;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 12px 12px;
+  color: #999;
+  transition: transform 0.25s ease, color 0.25s ease, background-color 0.3s ease;
+}
+.group:hover .megamenu-item-icon {
+  transform: scale(1.2) rotate(5deg);
+  color: #000;
+  overflow: visible;
+}
+.megamenu-item-icon img,
+.megamenu-item-icon svg {
+  transition: opacity 0.25s ease, color 0.25s ease, stroke 0.25s ease, fill 0.25s ease;
+}
+.megamenu .megamenu-item-icon img {
+  opacity: 0.65;
+}
+.megamenu .group:hover .megamenu-item-icon img {
+  opacity: 1;
+}
+.megamenu .megamenu-item-icon svg {
+  stroke: currentColor;
+  fill: currentColor;
+}
+.megamenu .megamenu-cta-strip {
+  background-color: #f5f5f5;
+  border-color: #e5e5e5;
+}
+.megamenu .megamenu-cta-strip input {
+  background-color: #ffffff;
+  border-color: #e5e5e5;
+  color: #171717;
+}
+.megamenu .header-tool-toggle,
+header .header-tool-toggle {
+  border: 1px solid #e5e5e5;
+  background: transparent;
+  color: #404040;
+  border-radius: 6px;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+.megamenu .header-tool-toggle:hover,
+header .header-tool-toggle:hover {
+  background-color: #f5f5f5;
+  border-color: #d4d4d4;
+  color: #171717;
+}
+.megamenu-sheet {
+  background-color: #ffffff !important;
+  color: #171717;
+  border-color: #e5e5e5;
+}
+.megamenu-sheet a {
+  color: #171717;
+}
+.megamenu-sheet a:hover {
+  background-color: #f5f5f5;
+  color: #171717;
+}
+
+/* Dark: Farben invertiert (dunkler Header/Dropdown, helle Texte) */
+[data-theme='dark'] .megamenu {
+  background-color: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none;
+  color: #fafafa;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+[data-theme='dark'] .site-header {
+  background-color: transparent !important;
+  border-bottom: none !important;
+  box-shadow: none;
+  color: #fafafa;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease;
+}
+[data-theme='dark'] .megamenu:hover,
+[data-theme='dark'] .site-header:hover {
+  background-color: #0a0a0a !important;
+  box-shadow: none;
+}
+[data-theme='dark'] .megamenu .logo-link:hover {
+  background-color: transparent !important;
+  color: #fafafa;
+}
+[data-theme='dark'] .megamenu .megamenu-top-item {
+  color: #a3a3a3;
+}
+[data-theme='dark'] .megamenu .megamenu-top-item:hover,
+[data-theme='dark'] .megamenu .megamenu-top-item:focus-visible,
+[data-theme='dark'] .megamenu button.megamenu-top-item[data-state='open'] {
+  color: #fafafa;
+  background-color: #171717 !important;
+}
+[data-theme='dark'] .megamenu .megamenu-top-item [class*='lucide'] {
+  color: #737373;
+}
+[data-theme='dark'] .megamenu .megamenu-top-item:hover [class*='lucide'],
+[data-theme='dark'] .megamenu button.megamenu-top-item[data-state='open'] [class*='lucide'] {
+  color: #fafafa;
+}
+[data-theme='dark'] .megamenu-dropdown-bg,
+[data-theme='dark'] .megamenu-viewport-wrapper {
+  background-color: #0a0a0a !important;
+  color: #fafafa;
+  border: none !important;
+  box-shadow: none !important;
+}
+[data-theme='dark'] .megamenu-viewport-wrapper:has([data-state='open']) {
+  border: 1px solid #262626 !important;
+  border-top: 1px solid #262626 !important;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+}
+[data-theme='dark'] .megamenu-viewport,
+[data-theme='dark'] .megamenu .megamenu-viewport {
+  background: transparent !important;
+  color: inherit;
+}
+[data-theme='dark'] .megamenu .megamenu-sidebar,
+[data-theme='dark'] .megamenu .megamenu-featured {
+  background-color: #141414;
+  border-color: #262626;
+}
+/* Spalten-Trenner im Dark Mode dezent (an übrige Farben angepasst) */
+[data-theme='dark'] .megamenu .megamenu-col-divider {
+  border-color: rgba(255, 255, 255, 0.06);
+}
+[data-theme='dark'] .megamenu-item-icon img {
+  filter: invert(1);
+}
+[data-theme='dark'] .megamenu .megamenu-item-icon {
+  color: #737373;
+}
+[data-theme='dark'] .megamenu .group:hover .megamenu-item-icon {
+  color: #fafafa;
+}
+[data-theme='dark'] .megamenu .megamenu-cta-strip {
+  background-color: #141414;
+  border-color: #262626;
+}
+[data-theme='dark'] .megamenu .megamenu-cta-strip input {
+  background-color: #262626;
+  border-color: #404040;
+  color: #fafafa;
+}
+[data-theme='dark'] .megamenu a {
+  color: #e5e5e5;
+}
+[data-theme='dark'] .megamenu a:hover {
+  color: #fafafa;
+  background-color: #262626;
+}
+[data-theme='dark'] .megamenu .megamenu-viewport a.rounded-xl:hover {
+  background-color: #262626;
+  color: #fafafa;
+  border-color: #262626;
+}
+[data-theme='dark'] .megamenu-item-icon {
+  background-color: transparent;
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+[data-theme='dark'] .megamenu .text-muted-foreground {
+  color: #a3a3a3;
+}
+[data-theme='dark'] .megamenu .text-muted-foreground:hover,
+[data-theme='dark'] .megamenu a:hover .text-muted-foreground {
+  color: #fafafa;
+}
+[data-theme='dark'] .megamenu .header-tool-toggle,
+[data-theme='dark'] header .header-tool-toggle {
+  border-color: #404040;
+  color: #a3a3a3;
+}
+[data-theme='dark'] .megamenu .header-tool-toggle:hover,
+[data-theme='dark'] header .header-tool-toggle:hover {
+  background-color: #262626;
+  border-color: #525252;
+  color: #fafafa;
+}
+[data-theme='dark'] .megamenu-sheet {
+  background-color: #0a0a0a !important;
+  border-color: #262626;
+  color: #fafafa;
+}
+[data-theme='dark'] .megamenu-sheet a {
+  color: #e5e5e5;
+}
+[data-theme='dark'] .megamenu-sheet a:hover {
+  background-color: #262626;
+  color: #fafafa;
+}
+[data-theme='dark'] .megamenu-overlay {
+  background: rgba(10, 10, 10, 0.85);
+  backdrop-filter: blur(8px);
+}
+
+.tooltip-content-solid,
+[role='tooltip'] {
+  background-color: #ffffff !important;
+  color: #262626 !important;
+  border-color: #e5e5e5 !important;
+}
+[data-theme='dark'] .tooltip-content-solid,
+[data-theme='dark'] [role='tooltip'] {
+  background-color: #0d0d0d !important;
+  color: #fafafa !important;
+  border-color: #262626 !important;
+}
+
+/* Such-Dialog: immer klar sichtbar über Overlay (Light & Dark) */
+.search-dialog {
+  background-color: #ffffff !important;
+  color: #171717 !important;
+  border-color: #e5e5e5 !important;
+}
+[data-theme='dark'] .search-dialog {
+  background-color: #111111 !important;
+  color: #fafafa !important;
+  border-color: #262626 !important;
+}
+
+/* ========== Footer Bounce (GreenSock-Style, beim Erscheinen im Viewport) ========== */
+@keyframes footer-bounce-in {
+  0% {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  55% {
+    opacity: 1;
+    transform: translateY(-8px);
+  }
+  75% {
+    transform: translateY(3px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.footer-bounce-root {
+  opacity: 0;
+  transform: translateY(24px);
+}
+
+.footer-bounce-root.footer-bounce-visible {
+  animation: footer-bounce-in 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* ========== Marquee (infinite horizontal scroll) ========== */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-50% * var(--marquee-direction, 1)));
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
+}
+
+/* Hero-Hintergrund: Animation (Option „Animation“ statt Bild/Video) */
+@keyframes hero-bg-shift {
+  0%, 100% {
+    opacity: 1;
+    transform: scale(1) translate(0, 0);
+  }
+  33% {
+    opacity: 0.95;
+    transform: scale(1.05) translate(2%, -1%);
+  }
+  66% {
+    opacity: 1;
+    transform: scale(0.98) translate(-1%, 2%);
+  }
+}
+.hero-bg-animation {
+  background-color: #0a0a0a;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(38, 38, 38, 0.5) 0%, transparent 50%),
+    radial-gradient(ellipse 60% 80% at 80% 60%, rgba(28, 28, 28, 0.6) 0%, transparent 50%),
+    radial-gradient(ellipse 70% 60% at 50% 80%, rgba(23, 23, 23, 0.4) 0%, transparent 45%);
+  background-size: 100% 100%;
+}
+.hero-bg-animation::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background:
+    radial-gradient(ellipse 40% 40% at 70% 30%, rgba(64, 64, 64, 0.15) 0%, transparent 45%),
+    radial-gradient(ellipse 35% 35% at 30% 70%, rgba(50, 50, 50, 0.12) 0%, transparent 45%);
+  animation: hero-bg-shift 18s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* Overlay über Vanta Halo: nur Verlauf (für animiertes/eigenes Gitter) */
+.hero-halo-overlay-gradient {
+  --halo-overlay-gradient: 0.68;
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(11, 15, 25, var(--halo-overlay-gradient)) 0%,
+      transparent 38%,
+      transparent 62%,
+      rgba(11, 15, 25, calc(var(--halo-overlay-gradient) * 0.9)) 100%
+    ),
+    linear-gradient(
+      to right,
+      rgba(11, 15, 25, calc(var(--halo-overlay-gradient) * 0.6)) 0%,
+      transparent 28%,
+      transparent 72%,
+      rgba(11, 15, 25, calc(var(--halo-overlay-gradient) * 0.5)) 100%
+    );
+  background-size: 100% 100%, 100% 100%;
+}
+
+/* Overlay über Vanta Halo: dezentes Gitter + kräftiger unsichtbarer Verlauf */
+.hero-halo-overlay {
+  --halo-overlay-gradient: 0.68;
+  --halo-overlay-grid: 0.08;
+  --halo-overlay-grid-size: 12px;
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(11, 15, 25, var(--halo-overlay-gradient)) 0%,
+      transparent 38%,
+      transparent 62%,
+      rgba(11, 15, 25, calc(var(--halo-overlay-gradient) * 0.9)) 100%
+    ),
+    linear-gradient(
+      to right,
+      rgba(11, 15, 25, calc(var(--halo-overlay-gradient) * 0.6)) 0%,
+      transparent 28%,
+      transparent 72%,
+      rgba(11, 15, 25, calc(var(--halo-overlay-gradient) * 0.5)) 100%
+    ),
+    repeating-linear-gradient(
+      to right,
+      rgba(255, 255, 255, var(--halo-overlay-grid)) 0px,
+      rgba(255, 255, 255, var(--halo-overlay-grid)) 1px,
+      transparent 1px,
+      transparent var(--halo-overlay-grid-size)
+    ),
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, var(--halo-overlay-grid)) 0px,
+      rgba(255, 255, 255, var(--halo-overlay-grid)) 1px,
+      transparent 1px,
+      transparent var(--halo-overlay-grid-size)
+    );
+  background-size: 100% 100%, 100% 100%, var(--halo-overlay-grid-size) var(--halo-overlay-grid-size),
+    var(--halo-overlay-grid-size) var(--halo-overlay-grid-size);
+}
+
+/* Hero-Logos (Marquee + Carousel): wie philippbacher.com – einheitlich hell/weiß auf dunklem Grund */
+.hero-logo-grayscale {
+  filter: brightness(0.93) contrast(0.33) saturate(0);
+  opacity: 0.92;
+}
+
+/* Hover: Logo farbig, kein Layoutversatz (Skalierung über transform) */
+.hero-logo-marquee-item .hero-logo-grayscale {
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+.hero-logo-marquee-item:hover .hero-logo-grayscale {
+  filter: none;
+  opacity: 1;
 }

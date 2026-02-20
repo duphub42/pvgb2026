@@ -53,7 +53,7 @@ const NavigationMenuTrigger = React.forwardRef<
     {children}
     {' '}
     <ChevronDown
-      className="relative top-[1px] ml-1 h-3 w-3 transition duration-200 group-data-[state=open]:rotate-180"
+      className="relative top-[1px] ml-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180"
       aria-hidden="true"
     />
   </NavigationMenuPrimitive.Trigger>
@@ -67,7 +67,7 @@ const NavigationMenuContent = React.forwardRef<
   <NavigationMenuPrimitive.Content
     ref={ref}
     className={cn(
-      'left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52 data-[motion=to-end]:slide-out-to-right-52 data-[motion=to-start]:slide-out-to-left-52 md:absolute md:w-full',
+      'left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in-0 data-[motion^=from-]:duration-200 data-[motion^=to-]:fade-out-0 data-[motion^=to-]:duration-150 data-[motion=from-end]:slide-in-from-right-2 data-[motion=from-start]:slide-in-from-left-2 data-[motion=to-end]:slide-out-to-right-2 data-[motion=to-start]:slide-out-to-left-2 md:absolute md:w-full',
       className,
     )}
     {...props}
@@ -81,15 +81,17 @@ const NavigationMenuViewport = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Viewport>
 >(({ className, ...props }, ref) => (
-  <div className={cn('absolute left-0 right-0 top-full w-full container')}>
-    <NavigationMenuPrimitive.Viewport
-      className={cn(
-        'megamenu-viewport origin-top relative h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden border bg-popover text-popover-foreground shadow-lg data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-90',
-        className,
-      )}
-      ref={ref}
-      {...props}
-    />
+  <div className="absolute left-0 right-0 top-full w-full">
+    <div className="megamenu-dropdown-bg megamenu-viewport-wrapper overflow-hidden">
+      <NavigationMenuPrimitive.Viewport
+        className={cn(
+          'megamenu-viewport origin-top relative h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:duration-200 data-[state=closed]:duration-150',
+          className,
+        )}
+        ref={ref}
+        {...props}
+      />
+    </div>
   </div>
 ))
 NavigationMenuViewport.displayName =

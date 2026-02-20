@@ -2,9 +2,7 @@
 
 import type { Theme } from '@/providers/Theme/types'
 
-import React, { createContext, useCallback, use, useState } from 'react'
-
-import canUseDOM from '@/utilities/canUseDOM'
+import React, { createContext, useCallback, use, useEffect, useState } from 'react'
 
 export interface ContextType {
   headerTheme?: Theme | null
@@ -19,15 +17,23 @@ const initialContext: ContextType = {
 const HeaderThemeContext = createContext(initialContext)
 
 export const HeaderThemeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [headerTheme, setThemeState] = useState<Theme | undefined | null>(
-    canUseDOM ? (document.documentElement.getAttribute('data-theme') as Theme) : undefined,
-  )
+  // Immer undefined beim ersten Render (Server + Client), damit kein Hydration-Mismatch.
+  const [headerTheme, setThemeState] = useState<Theme | undefined | null>(undefined)
+
+  useEffect(() => {
+    const theme = document.documentElement.getAttribute('data-theme') as Theme | null
+    if (theme === 'light' || theme === 'dark') setThemeState(theme)
+  }, [])
 
   const setHeaderTheme = useCallback((themeToSet: Theme | null) => {
     setThemeState(themeToSet)
   }, [])
 
-  return <HeaderThemeContext value={{ headerTheme, setHeaderTheme }}>{children}</HeaderThemeContext>
+  return (
+    <HeaderThemeContext.Provider value={{ headerTheme, setHeaderTheme }}>
+      {children}
+    </HeaderThemeContext.Provider>
+  )
 }
 
 export const useHeaderTheme = (): ContextType => use(HeaderThemeContext)

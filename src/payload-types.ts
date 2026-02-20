@@ -115,11 +115,13 @@ export interface Config {
     header: Header;
     footer: Footer;
     design: Design;
+    'theme-settings': ThemeSetting;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     design: DesignSelect<false> | DesignSelect<true>;
+    'theme-settings': ThemeSettingsSelect<false> | ThemeSettingsSelect<true>;
   };
   locale: null;
   user: User;
@@ -181,12 +183,113 @@ export interface SitePage {
     media?: (number | null) | Media;
     subheadline?: string | null;
     headline?: string | null;
+    /**
+     * Optional. Wenn gesetzt: 3-Zeilen-Überschrift mit Scramble-Effekt. Sonst wird „Haupt-Überschrift“ verwendet.
+     */
+    headlineLine1?: string | null;
+    headlineLine2?: string | null;
+    headlineLine3?: string | null;
     description?: string | null;
-    mediaType?: ('image' | 'video') | null;
+    mediaType?: ('image' | 'video' | 'animation' | 'halo') | null;
     backgroundImage?: (number | null) | Media;
     backgroundVideo?: (number | null) | Media;
+    /**
+     * Stärke der Wellen (z. B. 1.5–2.5).
+     */
+    haloAmplitudeFactor?: number | null;
+    haloSize?: number | null;
+    haloSpeed?: number | null;
+    /**
+     * Akzentfarbe als Dezimal (z. B. 15918901).
+     */
+    haloColor2?: number | null;
+    haloXOffset?: number | null;
+    haloYOffset?: number | null;
+    /**
+     * Wenn aktiviert, wird der Vanta-Halo hinter dem Gitter angezeigt. Bei eigenem Gitter-Code: Hintergrund im Code transparent lassen, damit der Halo sichtbar bleibt.
+     */
+    useHaloBackground?: boolean | null;
+    /**
+     * Stärke des Abdunkel-Verlaufs (unsichtbar, dämpft den Halo).
+     */
+    haloOverlayGradient?: number | null;
+    /**
+     * Sichtbarkeit des Gitters (niedrig = dezent, z. B. 0,08).
+     */
+    haloOverlayGrid?: number | null;
+    /**
+     * Kleinere Werte = feineres Gitter (z. B. 12 für Millimeterpapier).
+     */
+    haloOverlayGridSize?: number | null;
+    /**
+     * Statisch = aktuelles Gitter. Wave = animiertes Drahtgitter. Eigenes = unten eingegebener Code (wird in iframe gerendert).
+     */
+    haloOverlayGridVariant?: ('static' | 'wave' | 'custom') | null;
+    /**
+     * Vollständiges HTML inkl. <script>. Wird in sandboxed iframe angezeigt. DSGVO: Keine externen Skripte (kein CDN, z. B. kein script src="https://..."). Three.js/WebGL nur mit lokal eingebundenem Code oder Inline-Skript; Renderer alpha: true und setClearColor(0x000000, 0) für transparenten Canvas.
+     */
+    haloOverlayGridCustomCode?: string | null;
     foregroundImage?: (number | null) | Media;
     overlayOpacity?: number | null;
+    /**
+     * Wie stark die schwebenden Elemente dem Cursor ausweichen (0 = aus, 6.5 = Standard).
+     */
+    floatingMouseStrength?: number | null;
+    /**
+     * Amplitude der leichten Bewegung ohne Maus (0 = statisch).
+     */
+    floatingIdleAmplitude?: number | null;
+    /**
+     * Kleine Elemente (Badges, Icons), die über dem Hero schweben. Position über Preset wählen.
+     */
+    floatingElements?:
+      | {
+          /**
+           * Optional. Ein Bild/Icon genügt; mit Text wird beides angezeigt.
+           */
+          label?: string | null;
+          /**
+           * Optional. Mit oder ohne Label – mindestens eines von beiden angeben.
+           */
+          icon?: (number | null) | Media;
+          /**
+           * Optional. Bei Angabe wird das Element klickbar.
+           */
+          linkUrl?: string | null;
+          linkNewTab?: boolean | null;
+          position: 'topLeft' | 'topRight' | 'midLeft' | 'midRight' | 'bottomLeft' | 'bottomRight';
+          /**
+           * Optional. Versatz von der Preset-Position in % (-50 bis 50).
+           */
+          offsetX?: number | null;
+          /**
+           * Optional. Versatz von der Preset-Position in % (-50 bis 50).
+           */
+          offsetY?: number | null;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Überschrift über den Logos (wie auf philippbacher.com).
+     */
+    marqueeHeadline?: string | null;
+    /**
+     * Marquee = Endlos-Laufzeile. Logo Carousel = wechselnde Logos in Spalten (Cult UI).
+     */
+    logoDisplayType?: ('marquee' | 'logoCarousel') | null;
+    /**
+     * Logos für Marquee oder Logo Carousel. Gleiche Quelle für beide Anzeigen.
+     */
+    marqueeLogos?:
+      | {
+          logo: number | Media;
+          /**
+           * Optional. Für Barrierefreiheit.
+           */
+          alt?: string | null;
+          id?: string | null;
+        }[]
+      | null;
     links?:
       | {
           link: {
@@ -931,11 +1034,45 @@ export interface MegaMenu {
       }[]
     | null;
   /**
-   * Mehrspaltiges Dropdown mit optionalem Spaltentitel.
+   * Breite der drei Dropdown-Spalten (1/12 bis 12/12). Leer = Werte aus Header-Global verwenden. Summe sollte 12 ergeben (z. B. 3 + 6 + 3).
+   */
+  columnWidths?: {
+    /**
+     * 1 = schmal, 12 = volle Breite.
+     */
+    col1?: number | null;
+    /**
+     * 1 = schmal, 12 = volle Breite.
+     */
+    col2?: number | null;
+    /**
+     * 1 = schmal, 12 = volle Breite.
+     */
+    col3?: number | null;
+  };
+  /**
+   * Linke Spalte im Mega-Dropdown. Optional: Titel und Beschreibung. Spalte wird nur angezeigt, wenn mindestens eines ausgefüllt ist.
+   */
+  categoryDescription?: {
+    /**
+     * Optional. Überschrift der Spalte (z. B. „Leistungen“).
+     */
+    title?: string | null;
+    /**
+     * Fließtext für die Kategorie (z. B. Einleitungstext zu den Unterpunkten).
+     */
+    description?: string | null;
+  };
+  /**
+   * Einträge für die mittlere Spalte. Alle Spalten-Titel + Einträge werden zu einer gemeinsamen Liste zusammengeführt. Spaltentitel können zur Gruppierung genutzt werden.
    */
   columns?:
     | {
         title?: string | null;
+        /**
+         * Breite dieser Unterpunkt-Spalte im 12er-Grid. Auf Desktop werden die Spalten nebeneinander angezeigt.
+         */
+        columnWidth?: number | null;
         /**
          * Zeigt eine vertikale Trennlinie vor dieser Spalte.
          */
@@ -975,9 +1112,26 @@ export interface MegaMenu {
       }[]
     | null;
   /**
-   * Optionaler hervorgehobener Block im Dropdown (z. B. CTA).
+   * Optionaler Block mit einer oder mehreren Karten (Card-Links, z. B. CTA). Ohne Cards wird ein einzelner Block aus den Feldern Titel/Beschreibung/Bild/Button gebaut (Legacy).
    */
   highlight?: {
+    /**
+     * Rechts = Highlight als rechte Spalte. Unter den Unterpunkten = Highlight als eigene Zeile unter den Menüpunkten.
+     */
+    position?: ('right' | 'below') | null;
+    /**
+     * Mehrere Karten möglich. Jede Karte: optional Titel, Beschreibung, Bild und Link. Stil wie Card-Links (z. B. StackBlitz).
+     */
+    cards?:
+      | {
+          title?: string | null;
+          description?: string | null;
+          image?: (number | null) | Media;
+          ctaLabel?: string | null;
+          ctaUrl?: string | null;
+          id?: string | null;
+        }[]
+      | null;
     title?: string | null;
     description?: string | null;
     image?: (number | null) | Media;
@@ -1277,12 +1431,50 @@ export interface SitePagesSelect<T extends boolean = true> {
         media?: T;
         subheadline?: T;
         headline?: T;
+        headlineLine1?: T;
+        headlineLine2?: T;
+        headlineLine3?: T;
         description?: T;
         mediaType?: T;
         backgroundImage?: T;
         backgroundVideo?: T;
+        haloAmplitudeFactor?: T;
+        haloSize?: T;
+        haloSpeed?: T;
+        haloColor2?: T;
+        haloXOffset?: T;
+        haloYOffset?: T;
+        useHaloBackground?: T;
+        haloOverlayGradient?: T;
+        haloOverlayGrid?: T;
+        haloOverlayGridSize?: T;
+        haloOverlayGridVariant?: T;
+        haloOverlayGridCustomCode?: T;
         foregroundImage?: T;
         overlayOpacity?: T;
+        floatingMouseStrength?: T;
+        floatingIdleAmplitude?: T;
+        floatingElements?:
+          | T
+          | {
+              label?: T;
+              icon?: T;
+              linkUrl?: T;
+              linkNewTab?: T;
+              position?: T;
+              offsetX?: T;
+              offsetY?: T;
+              id?: T;
+            };
+        marqueeHeadline?: T;
+        logoDisplayType?: T;
+        marqueeLogos?:
+          | T
+          | {
+              logo?: T;
+              alt?: T;
+              id?: T;
+            };
         links?:
           | T
           | {
@@ -1637,10 +1829,24 @@ export interface MegaMenuSelect<T extends boolean = true> {
         dividerBefore?: T;
         id?: T;
       };
+  columnWidths?:
+    | T
+    | {
+        col1?: T;
+        col2?: T;
+        col3?: T;
+      };
+  categoryDescription?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+      };
   columns?:
     | T
     | {
         title?: T;
+        columnWidth?: T;
         dividerBefore?: T;
         columnBackground?: T;
         items?:
@@ -1660,6 +1866,17 @@ export interface MegaMenuSelect<T extends boolean = true> {
   highlight?:
     | T
     | {
+        position?: T;
+        cards?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              image?: T;
+              ctaLabel?: T;
+              ctaUrl?: T;
+              id?: T;
+            };
         title?: T;
         description?: T;
         image?: T;
@@ -1955,22 +2172,26 @@ export interface Header {
    */
   useMegaMenu?: boolean | null;
   /**
-   * Aufteilung des Dropdowns im 12-Spalten-Grid. Die drei Werte müssen zusammen 12 ergeben.
+   * Aufteilung des Dropdowns im 12-Spalten-Grid (Kategoriebeschreibung | Unterpunkte | Highlight). Die drei Werte müssen zusammen 12 ergeben. Spalten ohne Inhalt werden automatisch ausgeblendet.
    */
   megaMenuLayout?: {
     /**
-     * Linke Spalte (Titel/Beschreibung).
+     * Linke Spalte: Kategoriebeschreibung (12er-Grid).
      */
     sidebarCols: number;
     /**
-     * Mitte (Link-Liste).
+     * Mitte: Alle Menü-Unterpunkte (12er-Grid).
      */
     contentCols: number;
     /**
-     * Rechte Spalte (Bild/CTA).
+     * Rechte Spalte: Highlight/CTA (12er-Grid). Die drei Werte müssen zusammen 12 ergeben.
      */
     featuredCols: number;
   };
+  megaMenuCardBorderRadius?: ('rounded-none' | 'rounded-lg' | 'rounded-xl') | null;
+  megaMenuCardShadow?: ('shadow-none' | 'shadow-sm' | 'shadow-md') | null;
+  megaMenuCardHoverShadow?: ('hover:shadow-none' | 'hover:shadow-sm' | 'hover:shadow-md') | null;
+  megaMenuCardHoverBorder?: ('' | 'hover:border-primary/40') | null;
   megaMenuShowWhatsApp?: boolean | null;
   megaMenuWhatsAppLabel?: string | null;
   /**
@@ -2044,6 +2265,10 @@ export interface Footer {
    * Accessibility-Text für das Logo.
    */
   footerLogoAltText?: string | null;
+  /**
+   * Aktivieren, wenn der Footer einen dunklen Hintergrund hat (Logo wird dann hell dargestellt). Bei hellem Hintergrund deaktiviert lassen.
+   */
+  logoOnDarkBackground?: boolean | null;
   /**
    * z. B. „Newsletter abonnieren“.
    */
@@ -2153,7 +2378,7 @@ export interface Footer {
   createdAt?: string | null;
 }
 /**
- * Zentrale Farben und Schriften für die gesamte Website. Leer lassen = Standard aus dem Theme. Werte als Hex (z. B. #1587ba) oder rgb(r,g,b).
+ * Schriften und optionale Farben (Success, Hintergrund, Card, …). Primary/Secondary/Accent nur in „Theme Colors“ (Sidebar) einstellbar.
  *
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "design".
@@ -2165,87 +2390,103 @@ export interface Design {
    */
   colorsLight?: {
     /**
-     * Hauptfarbe (Buttons, Links, Akzente). Hex z. B. #1587ba oder rgb(21, 135, 186)
-     */
-    primary?: string | null;
-    /**
-     * Textfarbe auf Primary-Hintergrund
-     */
-    primaryForeground?: string | null;
-    /**
-     * Sekundärfläche (z. B. abgesetzte Blöcke)
-     */
-    secondary?: string | null;
-    /**
-     * Hover/Highlight (z. B. Menü-Hover)
-     */
-    accent?: string | null;
-    /**
-     * Erfolg/CTA (z. B. Mega-Menü-Button)
+     * Erfolg/CTA (z. B. Mega-Menü-Button).
      */
     success?: string | null;
     /**
-     * Seitenhintergrund
+     * Seitenhintergrund.
      */
     background?: string | null;
     /**
-     * Haupttextfarbe
+     * Haupttextfarbe.
      */
     foreground?: string | null;
     /**
-     * Hintergrund für Karten/Boxen
+     * Hintergrund für Karten/Boxen.
      */
     card?: string | null;
     /**
-     * Text auf Karten
+     * Text auf Karten.
      */
     cardForeground?: string | null;
     /**
-     * Standard-Linkfarbe (globale Links)
+     * Hintergrund für Dropdowns, Mega-Menü-Panel, Tooltips.
+     */
+    popover?: string | null;
+    /**
+     * Textfarbe in Dropdowns und Tooltips.
+     */
+    popoverForeground?: string | null;
+    /**
+     * Standard-Linkfarbe (globale Links).
      */
     link?: string | null;
     /**
-     * Linkfarbe bei Hover
+     * Linkfarbe bei Hover.
      */
     linkHover?: string | null;
     /**
-     * Rahmenfarbe (border)
+     * Rahmenfarbe (border).
      */
     border?: string | null;
     /**
-     * Gedämpfter Hintergrund
+     * Gedämpfter Hintergrund.
      */
     muted?: string | null;
     /**
-     * Gedämpfte Textfarbe (Beschreibungen)
+     * Gedämpfte Textfarbe (Beschreibungen).
      */
     mutedForeground?: string | null;
     /**
-     * Fehler/Löschen
+     * Fehler/Löschen.
      */
     destructive?: string | null;
     /**
-     * Hintergrundfarbe des hervorgehobenen Buttons im Mega-Menü
+     * Aktivieren, um eine eigene Farbe zu setzen. Sonst wird die Farbe automatisch aus der Primary-Farbe abgeleitet.
+     */
+    megaMenuButtonBgUseCustom?: boolean | null;
+    /**
+     * Hintergrundfarbe des hervorgehobenen Buttons.
      */
     megaMenuButtonBg?: string | null;
     /**
-     * Textfarbe des Buttons im Mega-Menü
+     * Aktivieren, um eine eigene Farbe zu setzen. Sonst wird die Farbe automatisch aus der Primary-Farbe abgeleitet.
+     */
+    megaMenuButtonFgUseCustom?: boolean | null;
+    /**
+     * Textfarbe des Buttons.
      */
     megaMenuButtonFg?: string | null;
     /**
-     * Textfarbe der Hauptnavigation
+     * Aktivieren, um eine eigene Farbe zu setzen. Sonst wird die Farbe automatisch aus der Primary-Farbe abgeleitet.
+     */
+    megaMenuNavTextUseCustom?: boolean | null;
+    /**
+     * Textfarbe der Hauptnavigation.
      */
     megaMenuNavText?: string | null;
     /**
-     * Spaltenüberschriften im Dropdown
+     * Aktivieren, um eine eigene Farbe zu setzen. Sonst wird die Farbe automatisch aus der Primary-Farbe abgeleitet.
+     */
+    megaMenuHeadingUseCustom?: boolean | null;
+    /**
+     * Spaltenüberschriften im Dropdown.
      */
     megaMenuHeading?: string | null;
     /**
-     * Text der Menüeinträge im Dropdown
+     * Aktivieren, um eine eigene Farbe zu setzen. Sonst wird die Farbe automatisch aus der Primary-Farbe abgeleitet.
+     */
+    megaMenuItemTextUseCustom?: boolean | null;
+    /**
+     * Text der Menüeinträge.
      */
     megaMenuItemText?: string | null;
     /**
-     * Beschreibungstext im Mega-Menü
+     * Aktivieren, um eine eigene Farbe zu setzen. Sonst wird die Farbe automatisch aus der Primary-Farbe abgeleitet.
+     */
+    megaMenuDescriptionUseCustom?: boolean | null;
+    /**
+     * Beschreibungstext im Mega-Menü.
      */
     megaMenuDescription?: string | null;
   };
@@ -2254,87 +2495,103 @@ export interface Design {
    */
   colorsDark?: {
     /**
-     * Hauptfarbe (Buttons, Links, Akzente). Hex z. B. #1587ba oder rgb(21, 135, 186)
-     */
-    primary?: string | null;
-    /**
-     * Textfarbe auf Primary-Hintergrund
-     */
-    primaryForeground?: string | null;
-    /**
-     * Sekundärfläche (z. B. abgesetzte Blöcke)
-     */
-    secondary?: string | null;
-    /**
-     * Hover/Highlight (z. B. Menü-Hover)
-     */
-    accent?: string | null;
-    /**
-     * Erfolg/CTA (z. B. Mega-Menü-Button)
+     * Erfolg/CTA (z. B. Mega-Menü-Button).
      */
     success?: string | null;
     /**
-     * Seitenhintergrund
+     * Seitenhintergrund.
      */
     background?: string | null;
     /**
-     * Haupttextfarbe
+     * Haupttextfarbe.
      */
     foreground?: string | null;
     /**
-     * Hintergrund für Karten/Boxen
+     * Hintergrund für Karten/Boxen.
      */
     card?: string | null;
     /**
-     * Text auf Karten
+     * Text auf Karten.
      */
     cardForeground?: string | null;
     /**
-     * Standard-Linkfarbe (globale Links)
+     * Hintergrund für Dropdowns, Mega-Menü-Panel, Tooltips.
+     */
+    popover?: string | null;
+    /**
+     * Textfarbe in Dropdowns und Tooltips.
+     */
+    popoverForeground?: string | null;
+    /**
+     * Standard-Linkfarbe (globale Links).
      */
     link?: string | null;
     /**
-     * Linkfarbe bei Hover
+     * Linkfarbe bei Hover.
      */
     linkHover?: string | null;
     /**
-     * Rahmenfarbe (border)
+     * Rahmenfarbe (border).
      */
     border?: string | null;
     /**
-     * Gedämpfter Hintergrund
+     * Gedämpfter Hintergrund.
      */
     muted?: string | null;
     /**
-     * Gedämpfte Textfarbe (Beschreibungen)
+     * Gedämpfte Textfarbe (Beschreibungen).
      */
     mutedForeground?: string | null;
     /**
-     * Fehler/Löschen
+     * Fehler/Löschen.
      */
     destructive?: string | null;
     /**
-     * Hintergrundfarbe des hervorgehobenen Buttons im Mega-Menü
+     * Aktivieren, um eine eigene Farbe zu setzen. Sonst wird die Farbe automatisch aus der Primary-Farbe abgeleitet.
+     */
+    megaMenuButtonBgUseCustom?: boolean | null;
+    /**
+     * Hintergrundfarbe des hervorgehobenen Buttons.
      */
     megaMenuButtonBg?: string | null;
     /**
-     * Textfarbe des Buttons im Mega-Menü
+     * Aktivieren, um eine eigene Farbe zu setzen. Sonst wird die Farbe automatisch aus der Primary-Farbe abgeleitet.
+     */
+    megaMenuButtonFgUseCustom?: boolean | null;
+    /**
+     * Textfarbe des Buttons.
      */
     megaMenuButtonFg?: string | null;
     /**
-     * Textfarbe der Hauptnavigation
+     * Aktivieren, um eine eigene Farbe zu setzen. Sonst wird die Farbe automatisch aus der Primary-Farbe abgeleitet.
+     */
+    megaMenuNavTextUseCustom?: boolean | null;
+    /**
+     * Textfarbe der Hauptnavigation.
      */
     megaMenuNavText?: string | null;
     /**
-     * Spaltenüberschriften im Dropdown
+     * Aktivieren, um eine eigene Farbe zu setzen. Sonst wird die Farbe automatisch aus der Primary-Farbe abgeleitet.
+     */
+    megaMenuHeadingUseCustom?: boolean | null;
+    /**
+     * Spaltenüberschriften im Dropdown.
      */
     megaMenuHeading?: string | null;
     /**
-     * Text der Menüeinträge im Dropdown
+     * Aktivieren, um eine eigene Farbe zu setzen. Sonst wird die Farbe automatisch aus der Primary-Farbe abgeleitet.
+     */
+    megaMenuItemTextUseCustom?: boolean | null;
+    /**
+     * Text der Menüeinträge.
      */
     megaMenuItemText?: string | null;
     /**
-     * Beschreibungstext im Mega-Menü
+     * Aktivieren, um eine eigene Farbe zu setzen. Sonst wird die Farbe automatisch aus der Primary-Farbe abgeleitet.
+     */
+    megaMenuDescriptionUseCustom?: boolean | null;
+    /**
+     * Beschreibungstext im Mega-Menü.
      */
     megaMenuDescription?: string | null;
   };
@@ -2359,6 +2616,45 @@ export interface Design {
   createdAt?: string | null;
 }
 /**
+ * Eine Primary Color setzen – alle shadcn/ui Theme-Tokens werden daraus abgeleitet.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "theme-settings".
+ */
+export interface ThemeSetting {
+  id: number;
+  /**
+   * Wie shadcn „Match base color“: Primary nutzt die gleiche neutrale Grauskala wie das Base-Theme (kein eigener Farbton).
+   */
+  primaryMatchesBase?: boolean | null;
+  /**
+   * Hex-Farbe (z. B. #3B82F6). Wird ignoriert, wenn „Primary = Base“ aktiv ist.
+   */
+  primaryColor: string;
+  /**
+   * Nur für Vorschau; Light/Dark-Tokens werden immer beide gespeichert.
+   */
+  themeMode?: ('light' | 'dark') | null;
+  /**
+   * Automatisch aus Primary Color erzeugt.
+   */
+  generatedTheme?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Fertiger CSS-Block :root + .dark fürs Frontend.
+   */
+  cssString?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
@@ -2371,6 +2667,10 @@ export interface HeaderSelect<T extends boolean = true> {
         contentCols?: T;
         featuredCols?: T;
       };
+  megaMenuCardBorderRadius?: T;
+  megaMenuCardShadow?: T;
+  megaMenuCardHoverShadow?: T;
+  megaMenuCardHoverBorder?: T;
   megaMenuShowWhatsApp?: T;
   megaMenuWhatsAppLabel?: T;
   megaMenuWhatsAppUrl?: T;
@@ -2412,6 +2712,7 @@ export interface HeaderSelect<T extends boolean = true> {
 export interface FooterSelect<T extends boolean = true> {
   footerLogo?: T;
   footerLogoAltText?: T;
+  logoOnDarkBackground?: T;
   newsletterTitle?: T;
   newsletterDescription?: T;
   newsletterPlaceholder?: T;
@@ -2470,51 +2771,59 @@ export interface DesignSelect<T extends boolean = true> {
   colorsLight?:
     | T
     | {
-        primary?: T;
-        primaryForeground?: T;
-        secondary?: T;
-        accent?: T;
         success?: T;
         background?: T;
         foreground?: T;
         card?: T;
         cardForeground?: T;
+        popover?: T;
+        popoverForeground?: T;
         link?: T;
         linkHover?: T;
         border?: T;
         muted?: T;
         mutedForeground?: T;
         destructive?: T;
+        megaMenuButtonBgUseCustom?: T;
         megaMenuButtonBg?: T;
+        megaMenuButtonFgUseCustom?: T;
         megaMenuButtonFg?: T;
+        megaMenuNavTextUseCustom?: T;
         megaMenuNavText?: T;
+        megaMenuHeadingUseCustom?: T;
         megaMenuHeading?: T;
+        megaMenuItemTextUseCustom?: T;
         megaMenuItemText?: T;
+        megaMenuDescriptionUseCustom?: T;
         megaMenuDescription?: T;
       };
   colorsDark?:
     | T
     | {
-        primary?: T;
-        primaryForeground?: T;
-        secondary?: T;
-        accent?: T;
         success?: T;
         background?: T;
         foreground?: T;
         card?: T;
         cardForeground?: T;
+        popover?: T;
+        popoverForeground?: T;
         link?: T;
         linkHover?: T;
         border?: T;
         muted?: T;
         mutedForeground?: T;
         destructive?: T;
+        megaMenuButtonBgUseCustom?: T;
         megaMenuButtonBg?: T;
+        megaMenuButtonFgUseCustom?: T;
         megaMenuButtonFg?: T;
+        megaMenuNavTextUseCustom?: T;
         megaMenuNavText?: T;
+        megaMenuHeadingUseCustom?: T;
         megaMenuHeading?: T;
+        megaMenuItemTextUseCustom?: T;
         megaMenuItemText?: T;
+        megaMenuDescriptionUseCustom?: T;
         megaMenuDescription?: T;
       };
   fonts?:
@@ -2524,6 +2833,20 @@ export interface DesignSelect<T extends boolean = true> {
         heading?: T;
         mono?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "theme-settings_select".
+ */
+export interface ThemeSettingsSelect<T extends boolean = true> {
+  primaryMatchesBase?: T;
+  primaryColor?: T;
+  themeMode?: T;
+  generatedTheme?: T;
+  cssString?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

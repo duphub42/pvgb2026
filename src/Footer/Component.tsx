@@ -4,11 +4,15 @@ import Link from 'next/link'
 import React from 'react'
 
 import type { Footer, Header } from '@/payload-types'
+import type { Locale } from '@/utilities/locale'
 
 import RichText from '@/components/RichText'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher'
+import { FooterBounce } from '@/components/FooterBounce/FooterBounce'
+import { messages } from '@/i18n/messages'
 
 const SOCIAL_ICON_SVG: Record<string, string> = {
   linkedin: '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>',
@@ -23,7 +27,7 @@ function mediaUrl(media: { url?: string | null } | number | null | undefined): s
   return ''
 }
 
-export async function Footer() {
+export async function Footer({ locale = 'de' }: { locale?: Locale }) {
   let footerData: Footer | null = null
   let headerData: Header | null = null
   try {
@@ -50,11 +54,12 @@ export async function Footer() {
   const logoFromFooter = footer?.footerLogo
   const logoFromHeader = headerData?.logo ?? null
   const logoToShow = logoFromFooter ?? logoFromHeader
+  const logoOnDarkBackground = footer?.logoOnDarkBackground === true
 
   const style: React.CSSProperties = {
     borderColor: 'var(--theme-border-color)',
-    background: (footer?.backgroundColor as string) || 'var(--theme-elevation-900)',
-    color: (footer?.textColor as string) || 'var(--theme-elevation-0)',
+    background: (footer?.backgroundColor as string) || 'var(--theme-footer-bg)',
+    color: (footer?.textColor as string) || 'var(--theme-footer-text)',
     ...((footer?.linkHoverColor as string)
       ? { ['--footer-link-hover' as string]: footer.linkHoverColor as string }
       : {}),
@@ -63,35 +68,43 @@ export async function Footer() {
   if (!hasNewStructure) {
     return (
       <footer className="mt-auto border-t py-8" style={style}>
-        <div className="container gap-8 flex flex-col md:flex-row md:justify-between">
-          <Link className="flex items-center" href="/">
-            <Logo logo={logoToShow ?? undefined} darkBackground />
-          </Link>
-          <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
-            <ThemeSelector />
-            <nav className="flex flex-col md:flex-row gap-4">
-              {navItems.map(({ link }, i) => (
-                <CMSLink
-                  key={i}
-                  {...link}
-                  className="footer-link-underline text-[var(--theme-elevation-0)] transition-colors duration-200"
-                />
-              ))}
-            </nav>
+        <FooterBounce>
+          <div className="container flex flex-col gap-6">
+          <div className="gap-8 flex flex-col md:flex-row md:justify-between">
+            <Link className="flex items-center" href="/">
+              <Logo logo={logoToShow ?? undefined} darkBackground={logoOnDarkBackground} variant="footer" />
+            </Link>
+            <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
+              <ThemeSelector />
+              <nav className="flex flex-col md:flex-row gap-4">
+                {navItems.map(({ link }, i) => (
+                  <CMSLink
+                    key={i}
+                    {...link}
+                    className="footer-link-underline text-[var(--theme-elevation-0)] transition-colors duration-200"
+                  />
+                ))}
+              </nav>
+            </div>
+          </div>
+          <div className="flex justify-end">
+            <LanguageSwitcher />
           </div>
         </div>
+        </FooterBounce>
       </footer>
     )
   }
 
   return (
     <footer className="mt-auto border-t py-10 md:py-12 footer-custom" style={style}>
+      <FooterBounce>
       <div className="container">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
           {/* Logo + Newsletter */}
           <div className="md:col-span-4 space-y-6">
             <Link href="/" className="inline-block">
-              <Logo logo={logoToShow ?? undefined} darkBackground />
+              <Logo logo={logoToShow ?? undefined} darkBackground={logoOnDarkBackground} variant="footer" />
             </Link>
             {footer.newsletterTitle != null && (
               <div className="space-y-2">
@@ -150,7 +163,7 @@ export async function Footer() {
             </nav>
           )}
 
-          {/* Social + Theme */}
+          {/* Social + Theme + Sprache */}
           <div className="md:col-span-2 flex flex-col gap-4 md:items-end">
             {socialLinks.length > 0 && (
               <ul className="flex gap-3" aria-label="Social Media">
@@ -187,23 +200,27 @@ export async function Footer() {
           </div>
         </div>
 
-        {/* Rechtliches */}
+        {/* Rechtliches + Sprachwechsler unten rechts */}
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-sm opacity-80">
           {footer.copyrightText != null && <span>{footer.copyrightText}</span>}
-          <div className="flex gap-6">
+          <div className="flex flex-wrap items-center gap-4 md:gap-6 md:ml-auto">
             {footer.privacyLink != null && (
               <Link href={footer.privacyLink} className="hover:underline">
-                Datenschutz
+                {messages[locale].footer.privacy}
               </Link>
             )}
             {footer.termsLink != null && (
               <Link href={footer.termsLink} className="hover:underline">
-                Impressum
+                {messages[locale].footer.terms}
               </Link>
             )}
+            <div className="ml-auto md:ml-0">
+              <LanguageSwitcher />
+            </div>
           </div>
         </div>
       </div>
+      </FooterBounce>
     </footer>
   )
 }

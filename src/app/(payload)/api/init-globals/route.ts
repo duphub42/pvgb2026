@@ -13,7 +13,7 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { NextResponse } from 'next/server'
 
-const GLOBAL_SLUGS = ['header', 'footer', 'design'] as const
+const GLOBAL_SLUGS = ['header', 'footer', 'design', 'theme-settings'] as const
 
 function isSchemaError(e: unknown): boolean {
   const msg = e instanceof Error ? (e.cause as Error)?.message ?? e.message : String(e)
