@@ -445,20 +445,20 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
       </div>
 
-      {/* Vordergrund-Bild: Portrait kompakt, ab lg rechte Seite */}
+      {/* Vordergrund-Bild: Portrait groß (iPhone SE/14 Pro Max ~3x), Tablet ~2x, iPad ~1.2x; ab lg rechte Spalte */}
       {foregroundMedia && (
         <div
           className={cn(
-            'absolute bottom-0 right-0 z-[5] w-[min(85vw,280px)] max-w-none pointer-events-none',
-            'sm:w-[min(90vw,340px)]',
-            'md:right-[-10%] md:w-[min(55vw,380px)]',
+            'absolute bottom-0 right-0 z-[5] w-[min(96vw,420px)] max-w-none pointer-events-none',
+            'sm:w-[min(96vw,480px)]',
+            'md:right-[-10%] md:w-[min(58vw,560px)]',
             'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl lg:max-h-none',
           )}
         >
           <div className="relative w-full h-full">
             <Media
               resource={foregroundMedia}
-              imgClassName="w-full h-auto max-h-[42dvh] sm:max-h-[55dvh] md:max-h-[65dvh] lg:max-h-[70dvh] object-contain object-bottom"
+              imgClassName="w-full h-auto max-h-[85dvh] sm:max-h-[88dvh] md:max-h-[82dvh] lg:max-h-[72dvh] object-contain object-bottom"
             />
           </div>
         </div>
