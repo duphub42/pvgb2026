@@ -1,6 +1,11 @@
+import path from 'path'
+import { fileURLToPath } from 'url'
+
 import { withPayload } from '@payloadcms/next/withPayload'
 
 import redirects from './redirects.js'
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
@@ -24,11 +29,16 @@ const nextConfig = {
       }),
     ],
   },
-  webpack: (webpackConfig) => {
+  webpack: (webpackConfig, { isServer }) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
       '.js': ['.ts', '.tsx', '.js', '.jsx'],
       '.mjs': ['.mts', '.mjs'],
+    }
+    // Force "buffer" to resolve to this project's node_modules (avoids ENOENT in /Users/horus/node_modules)
+    webpackConfig.resolve.alias = {
+      ...webpackConfig.resolve.alias,
+      buffer: path.resolve(__dirname, 'node_modules/buffer'),
     }
 
     return webpackConfig

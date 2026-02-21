@@ -19,6 +19,7 @@ import * as migration_20260219_140000_header_mega_menu_cta_columns from './20260
 import * as migration_20260219_150000_site_pages_hero_marquee_logos from './20260219_150000_site_pages_hero_marquee_logos'
 import * as migration_20260219_160000_site_pages_blocks_style_columns from './20260219_160000_site_pages_blocks_style_columns'
 import * as migration_20260219_170000_site_pages_hero_headline_lines from './20260219_170000_site_pages_hero_headline_lines'
+import * as migration_20260219_180000_site_pages_hero_halo_and_floating from './20260219_180000_site_pages_hero_halo_and_floating'
 
 export const migrations = [
   {
@@ -125,5 +126,10 @@ export const migrations = [
     up: migration_20260219_170000_site_pages_hero_headline_lines.up,
     down: migration_20260219_170000_site_pages_hero_headline_lines.down,
     name: '20260219_170000_site_pages_hero_headline_lines',
+  },
+  {
+    up: migration_20260219_180000_site_pages_hero_halo_and_floating.up,
+    down: migration_20260219_180000_site_pages_hero_halo_and_floating.down,
+    name: '20260219_180000_site_pages_hero_halo_and_floating',
   },
 ]
