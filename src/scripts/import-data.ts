@@ -17,9 +17,60 @@ import config from '@payload-config'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const exportDir = path.resolve(__dirname, '../../data/export')
+const mediaExportDir = path.join(exportDir, 'media')
 
 const REPLACE = process.argv.includes('--replace')
 const GLOBAL_SLUGS = ['header', 'footer', 'design', 'theme-settings'] as const
+
+/** Verhindert revalidateTag/revalidatePath in Hooks (Skript läuft außerhalb von Next.js). */
+const SCRIPT_CONTEXT = { skipRevalidate: true, disableRevalidate: true }
+
+const MAX_SQLITE_RETRIES = 5
+const SQLITE_RETRY_DELAY_MS = 2500
+
+function isSqliteBusy(err: unknown): boolean {
+  for (let e: unknown = err; e != null; e = (e as { cause?: unknown })?.cause) {
+    const msg = e instanceof Error ? e.message : String(e)
+    const code = (e as { code?: string })?.code
+    const rawCode = (e as { rawCode?: number })?.rawCode
+    if (code === 'SQLITE_BUSY' || rawCode === 5) return true
+    if (/database is locked|SQLITE_BUSY/i.test(msg)) return true
+  }
+  return false
+}
+
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms))
+}
+
+const CACHE_TAGS = [
+  'global_header',
+  'global_footer',
+  'global_design',
+  'global_theme-settings',
+  'mega-menu',
+]
+
+/** Ruft die Revalidate-API der lokalen App auf, damit Logo/Hero nach Import sofort sichtbar sind. */
+async function revalidateFrontendCache(): Promise<void> {
+  const base =
+    process.env.NEXT_PUBLIC_SERVER_URL ||
+    process.env.VERCEL_URL ||
+    'http://localhost:3000'
+  const url = base.replace(/\/$/, '') + '/api/revalidate?' + CACHE_TAGS.map((t) => `tag=${encodeURIComponent(t)}`).join('&')
+  const secret = process.env.REVALIDATE_SECRET?.trim()
+  const finalUrl = secret ? `${url}&secret=${encodeURIComponent(secret)}` : url
+  try {
+    const res = await fetch(finalUrl, { method: 'GET', signal: AbortSignal.timeout(5000) })
+    if (res.ok) {
+      console.log('  Frontend-Cache invalidiert (Logo/Hero werden beim nächsten Aufruf neu geladen).')
+    } else {
+      console.log('  Hinweis: App-Cache nicht invalidiert (App evtl. nicht unter', base + '). Logo/Hero nach Neustart von "pnpm run dev" sichtbar.')
+    }
+  } catch {
+    console.log('  Hinweis: App läuft evtl. nicht – Logo/Hero nach Start von "pnpm run dev" sichtbar oder Seite neu laden.')
+  }
+}
 
 type IdMap = Record<number, number>
 
@@ -87,6 +138,101 @@ const FIELD_TO_COLLECTION: Record<string, string> = {
 }
 
 const RELATION_COLLECTIONS = new Set(['site-pages', 'blog-posts', 'media', 'users', 'forms'])
+
+/** Exportierte Select-Werte manchmal als "\"value\"" gespeichert – auf "value" normalisieren. */
+function unwrapQuotedString(val: unknown): unknown {
+  if (typeof val !== 'string') return val
+  const t = val.trim()
+  if (t.length >= 2 && t.startsWith('"') && t.endsWith('"')) return t.slice(1, -1).replace(/^"|"$/g, '')
+  return val
+}
+
+const HEADER_GRID_TOTAL = 12
+
+/** Header-Global: Mega-Menü-Karten-Stil und Spaltenbreiten für Import korrigieren. */
+function normalizeHeaderGlobal(data: Record<string, unknown>): Record<string, unknown> {
+  const keys = [
+    'megaMenuCardBorderRadius',
+    'megaMenuCardShadow',
+    'megaMenuCardHoverShadow',
+    'megaMenuCardHoverBorder',
+  ] as const
+  const out = { ...data }
+  for (const k of keys) {
+    if (k in out) out[k] = unwrapQuotedString(out[k])
+  }
+  const layout = out.megaMenuLayout
+  if (layout && typeof layout === 'object' && layout !== null) {
+    const l = layout as Record<string, unknown>
+    const a = toHeaderCol(l.sidebarCols)
+    const b = toHeaderCol(l.contentCols)
+    const c = toHeaderCol(l.featuredCols)
+    const sum = a + b + c
+    if (sum !== HEADER_GRID_TOTAL) {
+      out.megaMenuLayout = {
+        sidebarCols: 3,
+        contentCols: 6,
+        featuredCols: 3,
+      }
+    } else {
+      out.megaMenuLayout = { sidebarCols: a, contentCols: b, featuredCols: c }
+    }
+  }
+  return out
+}
+
+function toHeaderCol(val: unknown): number {
+  if (val == null || val === '') return 3
+  const n = typeof val === 'string' ? parseInt(val, 10) : Number(val)
+  if (!Number.isFinite(n) || n < 1 || n > 12) return 3
+  return n
+}
+
+/** Zahl 1–12 oder null für Spaltenbreiten (Schema min/max). */
+function toColWidth(val: unknown): number | null {
+  if (val == null || val === '') return null
+  const n = typeof val === 'string' ? parseInt(val, 10) : Number(val)
+  if (!Number.isFinite(n)) return null
+  if (n >= 1 && n <= 12) return n
+  return null
+}
+
+/** Mega-Menü: Select- und Zahlenfelder für Import korrigieren (Anführungszeichen, String→Zahl). */
+function normalizeMegaMenuItem(data: Record<string, unknown>): Record<string, unknown> {
+  const out = { ...data }
+
+  const highlight = data.highlight
+  if (highlight && typeof highlight === 'object' && highlight !== null && 'position' in highlight) {
+    out.highlight = { ...(highlight as Record<string, unknown>) }
+    ;(out.highlight as Record<string, unknown>).position = unwrapQuotedString(
+      (highlight as Record<string, unknown>).position,
+    )
+  }
+
+  const cw = data.columnWidths
+  if (cw && typeof cw === 'object' && cw !== null) {
+    const cwObj = cw as Record<string, unknown>
+    out.columnWidths = {
+      col1: toColWidth(cwObj.col1),
+      col2: toColWidth(cwObj.col2),
+      col3: toColWidth(cwObj.col3),
+    }
+  }
+
+  const columns = data.columns
+  if (Array.isArray(columns)) {
+    out.columns = columns.map((col) => {
+      if (!col || typeof col !== 'object') return col
+      const row = { ...(col as Record<string, unknown>) }
+      if ('columnWidth' in row) row.columnWidth = toColWidth(row.columnWidth)
+      if ('columnBackground' in row)
+        row.columnBackground = unwrapQuotedString(row.columnBackground)
+      return row
+    })
+  }
+
+  return out
+}
 
 /** Entfernt Relation-Referenzen, deren Ziel-ID noch nicht importiert wurde (nicht in idMaps). */
 function clearInvalidRelations(
@@ -158,9 +304,44 @@ async function main() {
     console.log('Zieldatenbank: SQLite (lokal).')
   }
 
-  console.log('Lade Payload...')
-  const payload = await getPayload({ config })
+  let lastErr: unknown
+  for (let attempt = 1; attempt <= MAX_SQLITE_RETRIES; attempt++) {
+    if (attempt > 1) {
+      console.log(`\nWiederholung ${attempt}/${MAX_SQLITE_RETRIES} (nach Datenbank-Sperre)...`)
+      await sleep(SQLITE_RETRY_DELAY_MS)
+    }
+    console.log('Lade Payload...')
+    const payload = await getPayload({ config })
 
+    try {
+      await runImport(payload)
+      console.log('\nImport fertig. Lokale App mit npm run dev starten und prüfen.')
+      if (!fs.existsSync(mediaExportDir) || fs.readdirSync(mediaExportDir).length === 0) {
+        console.log(
+          '  Hinweis: Bilder/Icons fehlen evtl., weil der Export keine Mediendateien enthielt. Beim nächsten Mal zuerst exportieren (kopiert Dateien nach data/export/media/), dann importieren.',
+        )
+      }
+      const pwdHint = process.env.IMPORT_USER_PASSWORD
+        ? 'Passwort aus Umgebungsvariable IMPORT_USER_PASSWORD'
+        : "Admin-Passwort (nicht im Export): ChangeMeAfterImport1! – nach dem Login im Admin unter Nutzer ändern."
+      console.log('  ' + pwdHint)
+      await revalidateFrontendCache()
+      process.exit(0)
+    } catch (e) {
+      lastErr = e
+      if (attempt < MAX_SQLITE_RETRIES && isSqliteBusy(e)) {
+        console.warn(
+          `Datenbank gesperrt (SQLITE_BUSY). Warte ${SQLITE_RETRY_DELAY_MS}ms vor nächstem Versuch...`,
+        )
+        continue
+      }
+      throw e
+    }
+  }
+  throw lastErr
+}
+
+async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
   if (REPLACE) {
     console.log('--replace: Leere Zieldatenbank...')
     const collectionsToClear = [
@@ -183,7 +364,7 @@ async function main() {
           pagination: false,
         })
         for (const doc of result.docs) {
-          await payload.delete({ collection: slug, id: doc.id, depth: 0 })
+          await payload.delete({ collection: slug, id: doc.id, depth: 0, context: SCRIPT_CONTEXT })
         }
         if (result.docs.length > 0) {
           console.log(`  ${slug}: ${result.docs.length} Einträge gelöscht`)
@@ -196,10 +377,18 @@ async function main() {
     for (const slug of GLOBAL_SLUGS) {
       if (!payload.globals?.config?.find((g) => g.slug === slug)) continue
       try {
+        const resetData: Record<string, unknown> = {}
+        if (slug === 'header') {
+          resetData.megaMenuCardBorderRadius = 'rounded-lg'
+          resetData.megaMenuCardShadow = 'shadow-sm'
+          resetData.megaMenuCardHoverShadow = 'hover:shadow-md'
+          resetData.megaMenuCardHoverBorder = 'hover:border-primary/40'
+        }
         await payload.updateGlobal({
           slug: slug as 'header' | 'footer' | 'design' | 'theme-settings',
-          data: {},
+          data: resetData,
           overrideAccess: true,
+          context: SCRIPT_CONTEXT,
         })
         console.log(`  Global "${slug}" zurückgesetzt`)
       } catch (e) {
@@ -244,7 +433,7 @@ async function main() {
     }
 
     for (const doc of docs) {
-      const data = stripMeta(
+      let data = stripMeta(
         mapRelations(doc, idMaps, FIELD_TO_COLLECTION) as Record<string, unknown>,
       ) as Record<string, unknown>
 
@@ -324,32 +513,48 @@ async function main() {
         data = clearInvalidRelations(data, idMaps) as Record<string, unknown>
       }
 
+      if (slug === 'mega-menu') data = normalizeMegaMenuItem(data) as Record<string, unknown>
+
       let file: { name: string; data: Buffer; mimetype: string; size: number } | undefined
       if (slug === 'media') {
-        const url = doc.url && typeof doc.url === 'string' ? doc.url : ''
-        const isAbsoluteUrl = url.startsWith('http://') || url.startsWith('https://')
-        if (isAbsoluteUrl) {
+        const filename = (doc.filename as string) || `media-${doc.id}.bin`
+        const id = doc.id as number
+        const localPath = path.join(mediaExportDir, `${id}-${filename}`)
+        if (fs.existsSync(localPath)) {
           try {
-            const res = await fetch(url)
-            if (res.ok) {
-              const buf = Buffer.from(await res.arrayBuffer())
-              const name = (doc.filename as string) || `media-${doc.id}.bin`
-              file = {
-                name,
-                data: buf,
-                mimetype: (doc.mimeType as string) || 'application/octet-stream',
-                size: buf.length,
-              }
+            const data = fs.readFileSync(localPath)
+            file = {
+              name: filename,
+              data,
+              mimetype: (doc.mimeType as string) || 'application/octet-stream',
+              size: data.length,
             }
           } catch {
-            // fetch fehlgeschlagen
+            // fallback below
           }
         }
         if (!file) {
-          file = placeholderMediaFile(
-            (doc.filename as string) || `media-${doc.id}.bin`,
-            doc.mimeType as string | null,
-          )
+          const url = doc.url && typeof doc.url === 'string' ? doc.url : ''
+          const isAbsoluteUrl = url.startsWith('http://') || url.startsWith('https://')
+          if (isAbsoluteUrl) {
+            try {
+              const res = await fetch(url)
+              if (res.ok) {
+                const buf = Buffer.from(await res.arrayBuffer())
+                file = {
+                  name: filename,
+                  data: buf,
+                  mimetype: (doc.mimeType as string) || 'application/octet-stream',
+                  size: buf.length,
+                }
+              }
+            } catch {
+              // fetch fehlgeschlagen
+            }
+          }
+        }
+        if (!file) {
+          file = placeholderMediaFile(filename, doc.mimeType as string | null)
         }
       }
 
@@ -359,6 +564,7 @@ async function main() {
           data: data as never,
           file,
           depth: 0,
+          context: SCRIPT_CONTEXT,
         })
         idMaps[slug][doc.id as number] = created.id
       } catch (err) {
@@ -419,6 +625,7 @@ async function main() {
           id: newPageId,
           data: { parent: newParentId },
           depth: 0,
+          context: SCRIPT_CONTEXT,
         })
         parentsRestored += 1
       }
@@ -438,22 +645,21 @@ async function main() {
       const data = globalsData[slug]
       if (!data || typeof data !== 'object') continue
       if (!payload.globals?.config?.find((g) => g.slug === slug)) continue
-      const mapped = mapRelations(
+      let mapped = mapRelations(
         stripMeta(data),
         idMaps,
         FIELD_TO_COLLECTION,
       ) as Record<string, unknown>
+      if (slug === 'header') mapped = normalizeHeaderGlobal(mapped)
       await payload.updateGlobal({
         slug: slug as 'header' | 'footer' | 'design' | 'theme-settings',
         data: mapped as never,
         overrideAccess: true,
+        context: SCRIPT_CONTEXT,
       })
       console.log(`  Global "${slug}" aktualisiert`)
     }
   }
-
-  console.log('\nImport fertig. Lokale App mit npm run dev starten und prüfen.')
-  process.exit(0)
 }
 
 main().catch((err) => {

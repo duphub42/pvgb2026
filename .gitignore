@@ -18,6 +18,9 @@ public/robots.txt
 public/sitemap*.xml
 
 
+# Lokale Sicherheitskopien (bleiben auf dem Rechner)
+data/backup/
+
 # Playwright
 node_modules/
 /test-results/

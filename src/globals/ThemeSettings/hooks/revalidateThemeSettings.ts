@@ -2,7 +2,7 @@ import type { GlobalAfterChangeHook } from 'payload'
 import { revalidateTag } from 'next/cache'
 
 export const revalidateThemeSettings: GlobalAfterChangeHook = ({ doc, req: { payload, context } }) => {
-  if (!context?.disableRevalidate) {
+  if (!context?.disableRevalidate && !context?.skipRevalidate) {
     payload.logger?.info?.('Revalidating theme-settings')
     revalidateTag('global_theme-settings')
   }

@@ -1,18 +1,2343 @@
 [
   {
-    "id": 7,
-    "alt": "Philipp Bacher - Webdesign & Digitales Marketing",
+    "id": 38,
+    "alt": "Philipp Bacher Logo-Icon",
     "caption": null,
     "folder": null,
-    "updatedAt": "2026-02-15T15:57:58.532Z",
-    "createdAt": "2026-02-15T15:51:47.668Z",
-    "url": "/api/media/file/weblogo-philippbacher.svg",
+    "updatedAt": "2026-02-20T12:32:09.630Z",
+    "createdAt": "2026-02-20T12:32:09.630Z",
+    "url": "/api/media/file/philippbacher-logo-b-1.svg",
     "thumbnailURL": null,
-    "filename": "weblogo-philippbacher.svg",
+    "filename": "philippbacher-logo-b-1.svg",
     "mimeType": "image/svg+xml",
-    "filesize": 8991,
-    "width": 451,
-    "height": 72,
+    "filesize": 524,
+    "width": 91,
+    "height": 88,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 37,
+    "alt": "Portfolio Brands",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-20T11:36:18.127Z",
+    "createdAt": "2026-02-20T11:36:18.127Z",
+    "url": "/api/media/file/portfolio-brands.svg",
+    "thumbnailURL": null,
+    "filename": "portfolio-brands.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 4692,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 36,
+    "alt": "Portfolio Marketingprojekte",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-20T11:29:53.882Z",
+    "createdAt": "2026-02-20T11:29:53.882Z",
+    "url": "/api/media/file/portfolio-marketing.svg",
+    "thumbnailURL": null,
+    "filename": "portfolio-marketing.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 6976,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 35,
+    "alt": "Portfolio-Webdesigner-Referenzen",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-20T11:26:37.686Z",
+    "createdAt": "2026-02-20T11:26:37.686Z",
+    "url": "/api/media/file/portfolio-webdesign.svg",
+    "thumbnailURL": null,
+    "filename": "portfolio-webdesign.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 6345,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 34,
+    "alt": "Like",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-20T10:41:31.541Z",
+    "createdAt": "2026-02-20T10:41:31.541Z",
+    "url": "/api/media/file/like.png",
+    "thumbnailURL": null,
+    "filename": "like.png",
+    "mimeType": "image/png",
+    "filesize": 813,
+    "width": 48,
+    "height": 48,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 33,
+    "alt": "Turbo",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-20T10:34:48.699Z",
+    "createdAt": "2026-02-20T10:34:48.699Z",
+    "url": "/api/media/file/turbo.png",
+    "thumbnailURL": null,
+    "filename": "turbo.png",
+    "mimeType": "image/png",
+    "filesize": 1070,
+    "width": 48,
+    "height": 48,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 32,
+    "alt": "Email",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T22:47:16.133Z",
+    "createdAt": "2026-02-19T22:47:16.129Z",
+    "url": "/api/media/file/Send-Email--Streamline-Ultimate.png",
+    "thumbnailURL": null,
+    "filename": "Send-Email--Streamline-Ultimate.png",
+    "mimeType": "image/png",
+    "filesize": 1173,
+    "width": 48,
+    "height": 48,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 31,
+    "alt": "Cursor",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T22:45:58.684Z",
+    "createdAt": "2026-02-19T22:45:58.684Z",
+    "url": "/api/media/file/Cursor-1--Streamline-Ultimate.png",
+    "thumbnailURL": null,
+    "filename": "Cursor-1--Streamline-Ultimate.png",
+    "mimeType": "image/png",
+    "filesize": 1077,
+    "width": 48,
+    "height": 48,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 30,
+    "alt": null,
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T21:47:32.943Z",
+    "createdAt": "2026-02-19T21:47:32.943Z",
+    "url": "/api/media/file/Firefly_Gemini%20Flash_A%20clean%20pencil%20sketch%20of%20a%20digital%20marketing%20workspace%2C%20including%20a%20laptop%20with%20analy%2059737.png",
+    "thumbnailURL": "/api/media/file/Firefly_Gemini%20Flash_A%20clean%20pencil%20sketch%20of%20a%20digital%20marketing%20workspace%2C%20including%20a%20laptop%20with%20analy%2059737-300x233.png",
+    "filename": "Firefly_Gemini Flash_A clean pencil sketch of a digital marketing workspace, including a laptop with analy 59737.png",
+    "mimeType": "image/png",
+    "filesize": 1150506,
+    "width": 1152,
+    "height": 896,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/Firefly_Gemini%20Flash_A%20clean%20pencil%20sketch%20of%20a%20digital%20marketing%20workspace%2C%20including%20a%20laptop%20with%20analy%2059737-300x233.png",
+        "width": 300,
+        "height": 233,
+        "mimeType": "image/png",
+        "filesize": 64812,
+        "filename": "Firefly_Gemini Flash_A clean pencil sketch of a digital marketing workspace, including a laptop with analy 59737-300x233.png"
+      },
+      "square": {
+        "url": "/api/media/file/Firefly_Gemini%20Flash_A%20clean%20pencil%20sketch%20of%20a%20digital%20marketing%20workspace%2C%20including%20a%20laptop%20with%20analy%2059737-500x500.png",
+        "width": 500,
+        "height": 500,
+        "mimeType": "image/png",
+        "filesize": 276483,
+        "filename": "Firefly_Gemini Flash_A clean pencil sketch of a digital marketing workspace, including a laptop with analy 59737-500x500.png"
+      },
+      "small": {
+        "url": "/api/media/file/Firefly_Gemini%20Flash_A%20clean%20pencil%20sketch%20of%20a%20digital%20marketing%20workspace%2C%20including%20a%20laptop%20with%20analy%2059737-600x467.png",
+        "width": 600,
+        "height": 467,
+        "mimeType": "image/png",
+        "filesize": 278399,
+        "filename": "Firefly_Gemini Flash_A clean pencil sketch of a digital marketing workspace, including a laptop with analy 59737-600x467.png"
+      },
+      "medium": {
+        "url": "/api/media/file/Firefly_Gemini%20Flash_A%20clean%20pencil%20sketch%20of%20a%20digital%20marketing%20workspace%2C%20including%20a%20laptop%20with%20analy%2059737-900x700.png",
+        "width": 900,
+        "height": 700,
+        "mimeType": "image/png",
+        "filesize": 672271,
+        "filename": "Firefly_Gemini Flash_A clean pencil sketch of a digital marketing workspace, including a laptop with analy 59737-900x700.png"
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": "/api/media/file/Firefly_Gemini%20Flash_A%20clean%20pencil%20sketch%20of%20a%20digital%20marketing%20workspace%2C%20including%20a%20laptop%20with%20analy%2059737-1200x630.png",
+        "width": 1200,
+        "height": 630,
+        "mimeType": "image/png",
+        "filesize": 932361,
+        "filename": "Firefly_Gemini Flash_A clean pencil sketch of a digital marketing workspace, including a laptop with analy 59737-1200x630.png"
+      }
+    }
+  },
+  {
+    "id": 29,
+    "alt": null,
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T21:09:20.959Z",
+    "createdAt": "2026-02-19T21:09:20.959Z",
+    "url": "/api/media/file/Gemini_Generated_Image_fpjki5fpjki5fpjk.png",
+    "thumbnailURL": "/api/media/file/Gemini_Generated_Image_fpjki5fpjki5fpjk-300x164.png",
+    "filename": "Gemini_Generated_Image_fpjki5fpjki5fpjk.png",
+    "mimeType": "image/png",
+    "filesize": 1542142,
+    "width": 1408,
+    "height": 768,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/Gemini_Generated_Image_fpjki5fpjki5fpjk-300x164.png",
+        "width": 300,
+        "height": 164,
+        "mimeType": "image/png",
+        "filesize": 83252,
+        "filename": "Gemini_Generated_Image_fpjki5fpjki5fpjk-300x164.png"
+      },
+      "square": {
+        "url": "/api/media/file/Gemini_Generated_Image_fpjki5fpjki5fpjk-500x500.png",
+        "width": 500,
+        "height": 500,
+        "mimeType": "image/png",
+        "filesize": 437829,
+        "filename": "Gemini_Generated_Image_fpjki5fpjki5fpjk-500x500.png"
+      },
+      "small": {
+        "url": "/api/media/file/Gemini_Generated_Image_fpjki5fpjki5fpjk-600x327.png",
+        "width": 600,
+        "height": 327,
+        "mimeType": "image/png",
+        "filesize": 331585,
+        "filename": "Gemini_Generated_Image_fpjki5fpjki5fpjk-600x327.png"
+      },
+      "medium": {
+        "url": "/api/media/file/Gemini_Generated_Image_fpjki5fpjki5fpjk-900x491.png",
+        "width": 900,
+        "height": 491,
+        "mimeType": "image/png",
+        "filesize": 739330,
+        "filename": "Gemini_Generated_Image_fpjki5fpjki5fpjk-900x491.png"
+      },
+      "large": {
+        "url": "/api/media/file/Gemini_Generated_Image_fpjki5fpjki5fpjk-1400x764.png",
+        "width": 1400,
+        "height": 764,
+        "mimeType": "image/png",
+        "filesize": 1723288,
+        "filename": "Gemini_Generated_Image_fpjki5fpjki5fpjk-1400x764.png"
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": "/api/media/file/Gemini_Generated_Image_fpjki5fpjki5fpjk-1200x630.png",
+        "width": 1200,
+        "height": 630,
+        "mimeType": "image/png",
+        "filesize": 1274232,
+        "filename": "Gemini_Generated_Image_fpjki5fpjki5fpjk-1200x630.png"
+      }
+    }
+  },
+  {
+    "id": 28,
+    "alt": null,
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T19:38:22.776Z",
+    "createdAt": "2026-02-19T19:38:22.776Z",
+    "url": "/api/media/file/bg-hero3-9.jpeg",
+    "thumbnailURL": "/api/media/file/bg-hero3-9-300x130.jpg",
+    "filename": "bg-hero3-9.jpeg",
+    "mimeType": "image/jpeg",
+    "filesize": 1919535,
+    "width": 2222,
+    "height": 961,
+    "focalX": 50,
+    "focalY": 50,
+    "sizes": {
+      "thumbnail": {
+        "url": "/api/media/file/bg-hero3-9-300x130.jpg",
+        "width": 300,
+        "height": 130,
+        "mimeType": "image/jpeg",
+        "filesize": 9198,
+        "filename": "bg-hero3-9-300x130.jpg"
+      },
+      "square": {
+        "url": "/api/media/file/bg-hero3-9-500x500.jpg",
+        "width": 500,
+        "height": 500,
+        "mimeType": "image/jpeg",
+        "filesize": 48931,
+        "filename": "bg-hero3-9-500x500.jpg"
+      },
+      "small": {
+        "url": "/api/media/file/bg-hero3-9-600x259.jpg",
+        "width": 600,
+        "height": 259,
+        "mimeType": "image/jpeg",
+        "filesize": 29068,
+        "filename": "bg-hero3-9-600x259.jpg"
+      },
+      "medium": {
+        "url": "/api/media/file/bg-hero3-9-900x389.jpg",
+        "width": 900,
+        "height": 389,
+        "mimeType": "image/jpeg",
+        "filesize": 58456,
+        "filename": "bg-hero3-9-900x389.jpg"
+      },
+      "large": {
+        "url": "/api/media/file/bg-hero3-9-1400x605.jpg",
+        "width": 1400,
+        "height": 605,
+        "mimeType": "image/jpeg",
+        "filesize": 124679,
+        "filename": "bg-hero3-9-1400x605.jpg"
+      },
+      "xlarge": {
+        "url": "/api/media/file/bg-hero3-9-1920x830.jpg",
+        "width": 1920,
+        "height": 830,
+        "mimeType": "image/jpeg",
+        "filesize": 213914,
+        "filename": "bg-hero3-9-1920x830.jpg"
+      },
+      "og": {
+        "url": "/api/media/file/bg-hero3-9-1200x630.jpg",
+        "width": 1200,
+        "height": 630,
+        "mimeType": "image/jpeg",
+        "filesize": 117638,
+        "filename": "bg-hero3-9-1200x630.jpg"
+      }
+    }
+  },
+  {
+    "id": 27,
+    "alt": "Leadgenerierung",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T18:53:35.779Z",
+    "createdAt": "2026-02-19T18:53:35.779Z",
+    "url": "/api/media/file/Leadgenerierung.svg",
+    "thumbnailURL": null,
+    "filename": "Leadgenerierung.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 13593,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 26,
+    "alt": "Content Creation",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T18:24:43.898Z",
+    "createdAt": "2026-02-19T18:24:43.898Z",
+    "url": "/api/media/file/content-creation.svg",
+    "thumbnailURL": null,
+    "filename": "content-creation.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 10605,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 25,
+    "alt": "Webhook-Automatisierung",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T18:22:16.225Z",
+    "createdAt": "2026-02-19T18:22:16.225Z",
+    "url": "/api/media/file/Webhook-Automatisierung.svg",
+    "thumbnailURL": null,
+    "filename": "Webhook-Automatisierung.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 8322,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 24,
+    "alt": "Zapier",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:20:12.189Z",
+    "createdAt": "2026-02-19T17:20:12.189Z",
+    "url": "/api/media/file/zapier.svg",
+    "thumbnailURL": null,
+    "filename": "zapier.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 4084,
+    "width": 120,
+    "height": 60,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 23,
+    "alt": "Webflow",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:19:50.247Z",
+    "createdAt": "2026-02-19T17:19:50.247Z",
+    "url": "/api/media/file/Webflow.svg",
+    "thumbnailURL": null,
+    "filename": "Webflow.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 2140,
+    "width": 120,
+    "height": 60,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 22,
+    "alt": "Wordpress.",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:19:00.916Z",
+    "createdAt": "2026-02-19T17:19:00.916Z",
+    "url": "/api/media/file/Wordpress.svg",
+    "thumbnailURL": null,
+    "filename": "Wordpress.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 3810,
+    "width": 120,
+    "height": 60,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 21,
+    "alt": "Woocommerce",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:18:37.036Z",
+    "createdAt": "2026-02-19T17:18:37.036Z",
+    "url": "/api/media/file/Woocommerce.svg",
+    "thumbnailURL": null,
+    "filename": "Woocommerce.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 1886,
+    "width": 128,
+    "height": 128,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 20,
+    "alt": "Shopify",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:18:09.540Z",
+    "createdAt": "2026-02-19T17:18:09.540Z",
+    "url": "/api/media/file/Shopify.svg",
+    "thumbnailURL": null,
+    "filename": "Shopify.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 3181,
+    "width": 120,
+    "height": 60,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 19,
+    "alt": "Semrush",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:17:45.178Z",
+    "createdAt": "2026-02-19T17:17:45.178Z",
+    "url": "/api/media/file/Semrush.svg",
+    "thumbnailURL": null,
+    "filename": "Semrush.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 2474,
+    "width": 195,
+    "height": 26,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 18,
+    "alt": "Salesforce",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:17:23.118Z",
+    "createdAt": "2026-02-19T17:17:23.117Z",
+    "url": "/api/media/file/Salesforce.svg",
+    "thumbnailURL": null,
+    "filename": "Salesforce.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 6138,
+    "width": 120,
+    "height": 60,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 17,
+    "alt": "Meta",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:16:02.263Z",
+    "createdAt": "2026-02-19T17:16:02.262Z",
+    "url": "/api/media/file/Meta.svg",
+    "thumbnailURL": null,
+    "filename": "Meta.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 6043,
+    "width": 512,
+    "height": 104,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 16,
+    "alt": "Hubspot",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:15:33.356Z",
+    "createdAt": "2026-02-19T17:15:33.356Z",
+    "url": "/api/media/file/Hubspot.svg",
+    "thumbnailURL": null,
+    "filename": "Hubspot.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 2239,
+    "width": 120,
+    "height": 60,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 15,
+    "alt": "Google Ads",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:15:10.562Z",
+    "createdAt": "2026-02-19T17:15:10.562Z",
+    "url": "/api/media/file/google-ads.svg",
+    "thumbnailURL": null,
+    "filename": "google-ads.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 3659,
+    "width": 120,
+    "height": 60,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 14,
+    "alt": "Figma",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:14:48.240Z",
+    "createdAt": "2026-02-19T17:14:48.240Z",
+    "url": "/api/media/file/Figma.svg",
+    "thumbnailURL": null,
+    "filename": "Figma.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 1707,
+    "width": 120,
+    "height": 60,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 13,
+    "alt": "Open-AI",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:14:12.882Z",
+    "createdAt": "2026-02-19T17:14:12.882Z",
+    "url": "/api/media/file/open-ai.svg",
+    "thumbnailURL": null,
+    "filename": "open-ai.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 2729,
+    "width": 936,
+    "height": 232,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 12,
+    "alt": "Markenstrategie",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:07:09.173Z",
+    "createdAt": "2026-02-19T17:07:09.173Z",
+    "url": "/api/media/file/Markenstrategie.svg",
+    "thumbnailURL": null,
+    "filename": "Markenstrategie.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 7788,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 11,
+    "alt": "Logo-Design",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T17:01:33.248Z",
+    "createdAt": "2026-02-19T17:01:33.248Z",
+    "url": "/api/media/file/Logo-Design.svg",
+    "thumbnailURL": null,
+    "filename": "Logo-Design.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 4846,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 10,
+    "alt": "CI: Corporate Identity",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T16:38:24.885Z",
+    "createdAt": "2026-02-19T16:38:24.885Z",
+    "url": "/api/media/file/CI-Corporate-Identity.svg",
+    "thumbnailURL": null,
+    "filename": "CI-Corporate-Identity.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 7870,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 9,
+    "alt": "SMM - Suchmaschinenmarketing",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T16:07:10.367Z",
+    "createdAt": "2026-02-19T16:07:10.366Z",
+    "url": "/api/media/file/smm-suchmaschinenmarketing.svg",
+    "thumbnailURL": null,
+    "filename": "smm-suchmaschinenmarketing.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 5444,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 8,
+    "alt": "SEO - Suchmaschinenoptimierung",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T15:56:51.256Z",
+    "createdAt": "2026-02-19T15:56:51.255Z",
+    "url": "/api/media/file/SEO.svg",
+    "thumbnailURL": null,
+    "filename": "SEO.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 5769,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 7,
+    "alt": "Präsentationen & Keynotes",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-19T15:33:55.395Z",
+    "createdAt": "2026-02-19T15:33:55.395Z",
+    "url": "/api/media/file/keynotes.svg",
+    "thumbnailURL": null,
+    "filename": "keynotes.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 5372,
+    "width": 24,
+    "height": 24,
     "focalX": null,
     "focalY": null,
     "sizes": {
@@ -76,60 +2401,60 @@
   },
   {
     "id": 6,
-    "alt": "Philipp Bacher",
+    "alt": "Printmedien & Grafikdesign",
     "caption": null,
     "folder": null,
-    "updatedAt": "2026-02-14T12:56:34.693Z",
-    "createdAt": "2026-02-14T12:56:32.296Z",
-    "url": "/api/media/file/philippbacher.png",
-    "thumbnailURL": "/api/media/file/philippbacher-300x484.png",
-    "filename": "philippbacher.png",
-    "mimeType": "image/png",
-    "filesize": 1536675,
-    "width": 1839,
-    "height": 2968,
-    "focalX": 50,
-    "focalY": 50,
+    "updatedAt": "2026-02-19T15:27:56.261Z",
+    "createdAt": "2026-02-19T15:27:56.261Z",
+    "url": "/api/media/file/print-grafikdesign.svg",
+    "thumbnailURL": null,
+    "filename": "print-grafikdesign.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 7296,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
     "sizes": {
       "thumbnail": {
-        "url": "/api/media/file/philippbacher-300x484.png",
-        "width": 300,
-        "height": 484,
-        "mimeType": "image/png",
-        "filesize": 184393,
-        "filename": "philippbacher-300x484.png"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "square": {
-        "url": "/api/media/file/philippbacher-500x500.png",
-        "width": 500,
-        "height": 500,
-        "mimeType": "image/png",
-        "filesize": 316210,
-        "filename": "philippbacher-500x500.png"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "small": {
-        "url": "/api/media/file/philippbacher-600x968.png",
-        "width": 600,
-        "height": 968,
-        "mimeType": "image/png",
-        "filesize": 695492,
-        "filename": "philippbacher-600x968.png"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "medium": {
-        "url": "/api/media/file/philippbacher-900x1453.png",
-        "width": 900,
-        "height": 1453,
-        "mimeType": "image/png",
-        "filesize": 1582283,
-        "filename": "philippbacher-900x1453.png"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "large": {
-        "url": "/api/media/file/philippbacher-1400x2259.png",
-        "width": 1400,
-        "height": 2259,
-        "mimeType": "image/png",
-        "filesize": 3873020,
-        "filename": "philippbacher-1400x2259.png"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "xlarge": {
         "url": null,
@@ -140,570 +2465,387 @@
         "filename": null
       },
       "og": {
-        "url": "/api/media/file/philippbacher-1200x630.png",
-        "width": 1200,
-        "height": 630,
-        "mimeType": "image/png",
-        "filesize": 1133877,
-        "filename": "philippbacher-1200x630.png"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       }
     }
   },
   {
     "id": 5,
-    "alt": "hintergrund",
+    "alt": "Websites: Webdesign und Entwicklung ",
     "caption": null,
     "folder": null,
-    "updatedAt": "2026-02-14T12:56:07.337Z",
-    "createdAt": "2026-02-14T12:56:05.886Z",
-    "url": "/api/media/file/bg-hero3.jpeg",
-    "thumbnailURL": "/api/media/file/bg-hero3-300x130.jpg",
-    "filename": "bg-hero3.jpeg",
-    "mimeType": "image/jpeg",
-    "filesize": 1919535,
-    "width": 2222,
-    "height": 961,
-    "focalX": 50,
-    "focalY": 50,
+    "updatedAt": "2026-02-19T15:17:59.015Z",
+    "createdAt": "2026-02-19T15:17:59.015Z",
+    "url": "/api/media/file/webdesign.svg",
+    "thumbnailURL": null,
+    "filename": "webdesign.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 8340,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
     "sizes": {
       "thumbnail": {
-        "url": "/api/media/file/bg-hero3-300x130.jpg",
-        "width": 300,
-        "height": 130,
-        "mimeType": "image/jpeg",
-        "filesize": 9198,
-        "filename": "bg-hero3-300x130.jpg"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "square": {
-        "url": "/api/media/file/bg-hero3-500x500.jpg",
-        "width": 500,
-        "height": 500,
-        "mimeType": "image/jpeg",
-        "filesize": 48931,
-        "filename": "bg-hero3-500x500.jpg"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "small": {
-        "url": "/api/media/file/bg-hero3-600x259.jpg",
-        "width": 600,
-        "height": 259,
-        "mimeType": "image/jpeg",
-        "filesize": 29068,
-        "filename": "bg-hero3-600x259.jpg"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "medium": {
-        "url": "/api/media/file/bg-hero3-900x389.jpg",
-        "width": 900,
-        "height": 389,
-        "mimeType": "image/jpeg",
-        "filesize": 58456,
-        "filename": "bg-hero3-900x389.jpg"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "large": {
-        "url": "/api/media/file/bg-hero3-1400x605.jpg",
-        "width": 1400,
-        "height": 605,
-        "mimeType": "image/jpeg",
-        "filesize": 124679,
-        "filename": "bg-hero3-1400x605.jpg"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "xlarge": {
-        "url": "/api/media/file/bg-hero3-1920x830.jpg",
-        "width": 1920,
-        "height": 830,
-        "mimeType": "image/jpeg",
-        "filesize": 213914,
-        "filename": "bg-hero3-1920x830.jpg"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "og": {
-        "url": "/api/media/file/bg-hero3-1200x630.jpg",
-        "width": 1200,
-        "height": 630,
-        "mimeType": "image/jpeg",
-        "filesize": 117638,
-        "filename": "bg-hero3-1200x630.jpg"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       }
     }
   },
   {
     "id": 4,
-    "alt": "Straight metallic shapes with a blue gradient",
+    "alt": "Philipp Bacher",
     "caption": null,
     "folder": null,
-    "updatedAt": "2026-02-14T12:48:50.655Z",
-    "createdAt": "2026-02-14T12:48:49.615Z",
-    "url": "/api/media/file/image-hero1.webp",
-    "thumbnailURL": "/api/media/file/image-hero1-300x169.webp",
-    "filename": "image-hero1.webp",
-    "mimeType": "image/webp",
-    "filesize": 49432,
-    "width": 3200,
-    "height": 1800,
+    "updatedAt": "2026-02-17T23:12:30.829Z",
+    "createdAt": "2026-02-17T23:12:30.829Z",
+    "url": "/api/media/file/philippbacher-8.png",
+    "thumbnailURL": "/api/media/file/philippbacher-8-300x484.png",
+    "filename": "philippbacher-8.png",
+    "mimeType": "image/png",
+    "filesize": 1536675,
+    "width": 1839,
+    "height": 2968,
     "focalX": 50,
     "focalY": 50,
     "sizes": {
       "thumbnail": {
-        "url": "/api/media/file/image-hero1-300x169.webp",
+        "url": "/api/media/file/philippbacher-8-300x484.png",
         "width": 300,
-        "height": 169,
-        "mimeType": "image/webp",
-        "filesize": 2544,
-        "filename": "image-hero1-300x169.webp"
+        "height": 484,
+        "mimeType": "image/png",
+        "filesize": 184393,
+        "filename": "philippbacher-8-300x484.png"
       },
       "square": {
-        "url": "/api/media/file/image-hero1-500x500.webp",
+        "url": "/api/media/file/philippbacher-8-500x500.png",
         "width": 500,
         "height": 500,
-        "mimeType": "image/webp",
-        "filesize": 4810,
-        "filename": "image-hero1-500x500.webp"
+        "mimeType": "image/png",
+        "filesize": 316210,
+        "filename": "philippbacher-8-500x500.png"
       },
       "small": {
-        "url": "/api/media/file/image-hero1-600x338.webp",
+        "url": "/api/media/file/philippbacher-8-600x968.png",
         "width": 600,
-        "height": 338,
-        "mimeType": "image/webp",
-        "filesize": 5750,
-        "filename": "image-hero1-600x338.webp"
+        "height": 968,
+        "mimeType": "image/png",
+        "filesize": 695492,
+        "filename": "philippbacher-8-600x968.png"
       },
       "medium": {
-        "url": "/api/media/file/image-hero1-900x506.webp",
+        "url": "/api/media/file/philippbacher-8-900x1453.png",
         "width": 900,
-        "height": 506,
-        "mimeType": "image/webp",
-        "filesize": 9402,
-        "filename": "image-hero1-900x506.webp"
+        "height": 1453,
+        "mimeType": "image/png",
+        "filesize": 1582283,
+        "filename": "philippbacher-8-900x1453.png"
       },
       "large": {
-        "url": "/api/media/file/image-hero1-1400x788.webp",
+        "url": "/api/media/file/philippbacher-8-1400x2259.png",
         "width": 1400,
-        "height": 788,
-        "mimeType": "image/webp",
-        "filesize": 16492,
-        "filename": "image-hero1-1400x788.webp"
+        "height": 2259,
+        "mimeType": "image/png",
+        "filesize": 3873020,
+        "filename": "philippbacher-8-1400x2259.png"
       },
       "xlarge": {
-        "url": "/api/media/file/image-hero1-1920x1080.webp",
-        "width": 1920,
-        "height": 1080,
-        "mimeType": "image/webp",
-        "filesize": 24346,
-        "filename": "image-hero1-1920x1080.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "og": {
-        "url": "/api/media/file/image-hero1-1200x630.webp",
+        "url": "/api/media/file/philippbacher-8-1200x630.png",
         "width": 1200,
         "height": 630,
-        "mimeType": "image/webp",
-        "filesize": 12846,
-        "filename": "image-hero1-1200x630.webp"
+        "mimeType": "image/png",
+        "filesize": 1133877,
+        "filename": "philippbacher-8-1200x630.png"
       }
     }
   },
   {
     "id": 3,
-    "alt": "Curving abstract shapes with an orange and blue gradient",
-    "caption": {
-      "root": {
-        "type": "root",
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "children": [
-          {
-            "type": "paragraph",
-            "format": "",
-            "indent": 0,
-            "version": 1,
-            "children": [
-              {
-                "mode": "normal",
-                "text": "Photo by ",
-                "type": "text",
-                "style": "",
-                "detail": 0,
-                "format": 0,
-                "version": 1
-              },
-              {
-                "type": "link",
-                "fields": {
-                  "url": "https://unsplash.com/@kirp",
-                  "newTab": true,
-                  "linkType": "custom"
-                },
-                "format": "",
-                "indent": 0,
-                "version": 2,
-                "children": [
-                  {
-                    "mode": "normal",
-                    "text": "Andrew Kliatskyi",
-                    "type": "text",
-                    "style": "",
-                    "detail": 0,
-                    "format": 0,
-                    "version": 1
-                  }
-                ],
-                "direction": "ltr"
-              },
-              {
-                "mode": "normal",
-                "text": " on Unsplash.",
-                "type": "text",
-                "style": "",
-                "detail": 0,
-                "format": 0,
-                "version": 1
-              }
-            ],
-            "direction": "ltr",
-            "textFormat": 0
-          }
-        ],
-        "direction": "ltr"
-      }
-    },
+    "alt": "Hintergrund",
+    "caption": null,
     "folder": null,
-    "updatedAt": "2026-02-14T12:48:50.681Z",
-    "createdAt": "2026-02-14T12:48:48.158Z",
-    "url": "/api/media/file/image-post2.webp",
-    "thumbnailURL": "/api/media/file/image-post2-300x169.webp",
-    "filename": "image-post2.webp",
-    "mimeType": "image/webp",
-    "filesize": 22332,
-    "width": 1920,
-    "height": 1080,
+    "updatedAt": "2026-02-19T19:37:00.810Z",
+    "createdAt": "2026-02-17T23:12:11.233Z",
+    "url": "/api/media/file/background-footer.jpeg",
+    "thumbnailURL": "/api/media/file/background-footer-300x154.jpg",
+    "filename": "background-footer.jpeg",
+    "mimeType": "image/jpeg",
+    "filesize": 348590,
+    "width": 2000,
+    "height": 1029,
     "focalX": 50,
     "focalY": 50,
     "sizes": {
       "thumbnail": {
-        "url": "/api/media/file/image-post2-300x169.webp",
+        "url": "/api/media/file/background-footer-300x154.jpg",
         "width": 300,
-        "height": 169,
-        "mimeType": "image/webp",
-        "filesize": 2248,
-        "filename": "image-post2-300x169.webp"
+        "height": 154,
+        "mimeType": "image/jpeg",
+        "filesize": 6823,
+        "filename": "background-footer-300x154.jpg"
       },
       "square": {
-        "url": "/api/media/file/image-post2-500x500.webp",
+        "url": "/api/media/file/background-footer-500x500.jpg",
         "width": 500,
         "height": 500,
-        "mimeType": "image/webp",
-        "filesize": 4952,
-        "filename": "image-post2-500x500.webp"
+        "mimeType": "image/jpeg",
+        "filesize": 36583,
+        "filename": "background-footer-500x500.jpg"
       },
       "small": {
-        "url": "/api/media/file/image-post2-600x338.webp",
+        "url": "/api/media/file/background-footer-600x309.jpg",
         "width": 600,
-        "height": 338,
-        "mimeType": "image/webp",
-        "filesize": 5066,
-        "filename": "image-post2-600x338.webp"
+        "height": 309,
+        "mimeType": "image/jpeg",
+        "filesize": 24954,
+        "filename": "background-footer-600x309.jpg"
       },
       "medium": {
-        "url": "/api/media/file/image-post2-900x506.webp",
+        "url": "/api/media/file/background-footer-900x463.jpg",
         "width": 900,
-        "height": 506,
-        "mimeType": "image/webp",
-        "filesize": 8036,
-        "filename": "image-post2-900x506.webp"
+        "height": 463,
+        "mimeType": "image/jpeg",
+        "filesize": 48573,
+        "filename": "background-footer-900x463.jpg"
       },
       "large": {
-        "url": "/api/media/file/image-post2-1400x788.webp",
+        "url": "/api/media/file/background-footer-1400x720.jpg",
         "width": 1400,
-        "height": 788,
-        "mimeType": "image/webp",
-        "filesize": 13880,
-        "filename": "image-post2-1400x788.webp"
+        "height": 720,
+        "mimeType": "image/jpeg",
+        "filesize": 93769,
+        "filename": "background-footer-1400x720.jpg"
       },
       "xlarge": {
-        "url": "/api/media/file/image-post2-1920x1080.webp",
+        "url": "/api/media/file/background-footer-1920x988.jpg",
         "width": 1920,
-        "height": 1080,
-        "mimeType": "image/webp",
-        "filesize": 22332,
-        "filename": "image-post2-1920x1080.webp"
+        "height": 988,
+        "mimeType": "image/jpeg",
+        "filesize": 145460,
+        "filename": "background-footer-1920x988.jpg"
       },
       "og": {
-        "url": "/api/media/file/image-post2-1200x630.webp",
+        "url": "/api/media/file/background-footer-1200x630.jpg",
         "width": 1200,
         "height": 630,
-        "mimeType": "image/webp",
-        "filesize": 11010,
-        "filename": "image-post2-1200x630.webp"
+        "mimeType": "image/jpeg",
+        "filesize": 76903,
+        "filename": "background-footer-1200x630.jpg"
       }
     }
   },
   {
     "id": 2,
-    "alt": "Curving abstract shapes with an orange and blue gradient",
-    "caption": {
-      "root": {
-        "type": "root",
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "children": [
-          {
-            "type": "paragraph",
-            "format": "",
-            "indent": 0,
-            "version": 1,
-            "children": [
-              {
-                "mode": "normal",
-                "text": "Photo by ",
-                "type": "text",
-                "style": "",
-                "detail": 0,
-                "format": 0,
-                "version": 1
-              },
-              {
-                "type": "link",
-                "fields": {
-                  "url": "https://unsplash.com/@kirp",
-                  "newTab": true,
-                  "linkType": "custom"
-                },
-                "format": "",
-                "indent": 0,
-                "version": 2,
-                "children": [
-                  {
-                    "mode": "normal",
-                    "text": "Andrew Kliatskyi",
-                    "type": "text",
-                    "style": "",
-                    "detail": 0,
-                    "format": 0,
-                    "version": 1
-                  }
-                ],
-                "direction": "ltr"
-              },
-              {
-                "mode": "normal",
-                "text": " on Unsplash.",
-                "type": "text",
-                "style": "",
-                "detail": 0,
-                "format": 0,
-                "version": 1
-              }
-            ],
-            "direction": "ltr",
-            "textFormat": 0
-          }
-        ],
-        "direction": "ltr"
-      }
-    },
+    "alt": "Philipp Bacher",
+    "caption": null,
     "folder": null,
-    "updatedAt": "2026-02-14T12:48:50.273Z",
-    "createdAt": "2026-02-14T12:48:46.282Z",
-    "url": "/api/media/file/image-post3.webp",
-    "thumbnailURL": "/api/media/file/image-post3-300x169.webp",
-    "filename": "image-post3.webp",
-    "mimeType": "image/webp",
-    "filesize": 14662,
-    "width": 1920,
-    "height": 1080,
-    "focalX": 50,
-    "focalY": 50,
+    "updatedAt": "2026-02-17T23:08:28.712Z",
+    "createdAt": "2026-02-17T23:08:28.711Z",
+    "url": "/api/media/file/philippbacher-logo-b.svg",
+    "thumbnailURL": null,
+    "filename": "philippbacher-logo-b.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 524,
+    "width": 91,
+    "height": 88,
+    "focalX": null,
+    "focalY": null,
     "sizes": {
       "thumbnail": {
-        "url": "/api/media/file/image-post3-300x169.webp",
-        "width": 300,
-        "height": 169,
-        "mimeType": "image/webp",
-        "filesize": 1240,
-        "filename": "image-post3-300x169.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "square": {
-        "url": "/api/media/file/image-post3-500x500.webp",
-        "width": 500,
-        "height": 500,
-        "mimeType": "image/webp",
-        "filesize": 2732,
-        "filename": "image-post3-500x500.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "small": {
-        "url": "/api/media/file/image-post3-600x338.webp",
-        "width": 600,
-        "height": 338,
-        "mimeType": "image/webp",
-        "filesize": 3018,
-        "filename": "image-post3-600x338.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "medium": {
-        "url": "/api/media/file/image-post3-900x506.webp",
-        "width": 900,
-        "height": 506,
-        "mimeType": "image/webp",
-        "filesize": 5010,
-        "filename": "image-post3-900x506.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "large": {
-        "url": "/api/media/file/image-post3-1400x788.webp",
-        "width": 1400,
-        "height": 788,
-        "mimeType": "image/webp",
-        "filesize": 9070,
-        "filename": "image-post3-1400x788.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "xlarge": {
-        "url": "/api/media/file/image-post3-1920x1080.webp",
-        "width": 1920,
-        "height": 1080,
-        "mimeType": "image/webp",
-        "filesize": 14662,
-        "filename": "image-post3-1920x1080.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "og": {
-        "url": "/api/media/file/image-post3-1200x630.webp",
-        "width": 1200,
-        "height": 630,
-        "mimeType": "image/webp",
-        "filesize": 6950,
-        "filename": "image-post3-1200x630.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       }
     }
   },
   {
     "id": 1,
-    "alt": "Curving abstract shapes with an orange and blue gradient",
-    "caption": {
-      "root": {
-        "type": "root",
-        "format": "",
-        "indent": 0,
-        "version": 1,
-        "children": [
-          {
-            "type": "paragraph",
-            "format": "",
-            "indent": 0,
-            "version": 1,
-            "children": [
-              {
-                "mode": "normal",
-                "text": "Photo by ",
-                "type": "text",
-                "style": "",
-                "detail": 0,
-                "format": 0,
-                "version": 1
-              },
-              {
-                "type": "link",
-                "fields": {
-                  "url": "https://unsplash.com/@kirp",
-                  "newTab": true,
-                  "linkType": "custom"
-                },
-                "format": "",
-                "indent": 0,
-                "version": 2,
-                "children": [
-                  {
-                    "mode": "normal",
-                    "text": "Andrew Kliatskyi",
-                    "type": "text",
-                    "style": "",
-                    "detail": 0,
-                    "format": 0,
-                    "version": 1
-                  }
-                ],
-                "direction": "ltr"
-              },
-              {
-                "mode": "normal",
-                "text": " on Unsplash.",
-                "type": "text",
-                "style": "",
-                "detail": 0,
-                "format": 0,
-                "version": 1
-              }
-            ],
-            "direction": "ltr",
-            "textFormat": 0
-          }
-        ],
-        "direction": "ltr"
-      }
-    },
+    "alt": "Philipp Bacher Logo",
+    "caption": null,
     "folder": null,
-    "updatedAt": "2026-02-14T12:48:50.076Z",
-    "createdAt": "2026-02-14T12:48:46.245Z",
-    "url": "/api/media/file/image-post1.webp",
-    "thumbnailURL": "/api/media/file/image-post1-300x169.webp",
-    "filename": "image-post1.webp",
-    "mimeType": "image/webp",
-    "filesize": 15924,
-    "width": 1920,
-    "height": 1080,
-    "focalX": 50,
-    "focalY": 50,
+    "updatedAt": "2026-02-17T18:50:03.025Z",
+    "createdAt": "2026-02-17T18:50:03.025Z",
+    "url": "/api/media/file/weblogo-philippbacher-9.svg",
+    "thumbnailURL": null,
+    "filename": "weblogo-philippbacher-9.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 8991,
+    "width": 451,
+    "height": 72,
+    "focalX": null,
+    "focalY": null,
     "sizes": {
       "thumbnail": {
-        "url": "/api/media/file/image-post1-300x169.webp",
-        "width": 300,
-        "height": 169,
-        "mimeType": "image/webp",
-        "filesize": 1524,
-        "filename": "image-post1-300x169.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "square": {
-        "url": "/api/media/file/image-post1-500x500.webp",
-        "width": 500,
-        "height": 500,
-        "mimeType": "image/webp",
-        "filesize": 3792,
-        "filename": "image-post1-500x500.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "small": {
-        "url": "/api/media/file/image-post1-600x338.webp",
-        "width": 600,
-        "height": 338,
-        "mimeType": "image/webp",
-        "filesize": 3622,
-        "filename": "image-post1-600x338.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "medium": {
-        "url": "/api/media/file/image-post1-900x506.webp",
-        "width": 900,
-        "height": 506,
-        "mimeType": "image/webp",
-        "filesize": 5936,
-        "filename": "image-post1-900x506.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "large": {
-        "url": "/api/media/file/image-post1-1400x788.webp",
-        "width": 1400,
-        "height": 788,
-        "mimeType": "image/webp",
-        "filesize": 10210,
-        "filename": "image-post1-1400x788.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "xlarge": {
-        "url": "/api/media/file/image-post1-1920x1080.webp",
-        "width": 1920,
-        "height": 1080,
-        "mimeType": "image/webp",
-        "filesize": 15924,
-        "filename": "image-post1-1920x1080.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       },
       "og": {
-        "url": "/api/media/file/image-post1-1200x630.webp",
-        "width": 1200,
-        "height": 630,
-        "mimeType": "image/webp",
-        "filesize": 8114,
-        "filename": "image-post1-1200x630.webp"
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
       }
     }
   }

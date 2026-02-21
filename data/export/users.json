@@ -1,29 +1,15 @@
 [
   {
-    "id": 2,
-    "name": "Demo Author",
-    "updatedAt": "2026-02-14T12:48:37.794Z",
-    "createdAt": "2026-02-14T12:48:37.794Z",
-    "email": "demo-author@example.com",
-    "sessions": [],
-    "collection": "users"
-  },
-  {
     "id": 1,
-    "name": "Philipp Bacher",
-    "updatedAt": "2026-02-14T12:39:45.010Z",
-    "createdAt": "2026-02-14T12:39:45.008Z",
+    "name": "Philipp",
+    "updatedAt": "2026-02-17T13:49:44.261Z",
+    "createdAt": "2026-02-17T13:49:44.259Z",
     "email": "mail@philippbacher.com",
     "sessions": [
       {
-        "id": "0ba4fa48-bb24-4716-9cd4-ca4e80806238",
-        "createdAt": "2026-02-15T19:04:36.224Z",
-        "expiresAt": "2026-02-15T21:04:36.224Z"
-      },
-      {
-        "id": "156c9ef2-292a-428a-a4b1-5bb047903217",
-        "createdAt": "2026-02-15T20:19:09.437Z",
-        "expiresAt": "2026-02-15T22:19:09.437Z"
+        "id": "5c8757ad-fbc0-48cd-8234-d17cd14fc8df",
+        "createdAt": "2026-02-21T13:11:57.351Z",
+        "expiresAt": "2026-02-21T15:11:57.351Z"
       }
     ],
     "collection": "users"

@@ -1,1 +1,364 @@
-[]
+[
+  {
+    "id": 6,
+    "label": "Preise",
+    "url": "/preise",
+    "order": 5,
+    "icon": null,
+    "image": null,
+    "appearance": "link",
+    "subItems": [],
+    "columnWidths": {
+      "col1": null,
+      "col2": null,
+      "col3": null
+    },
+    "categoryDescription": {
+      "title": null,
+      "description": null
+    },
+    "columns": [],
+    "highlight": {
+      "position": "right",
+      "cards": [],
+      "title": null,
+      "description": null,
+      "image": null,
+      "ctaLabel": null,
+      "ctaUrl": null
+    },
+    "updatedAt": "2026-02-21T13:12:24.209Z",
+    "createdAt": "2026-02-21T13:12:24.209Z"
+  },
+  {
+    "id": 5,
+    "label": "Kontakt",
+    "url": "/kontakt",
+    "order": 6,
+    "icon": null,
+    "image": null,
+    "appearance": "link",
+    "subItems": [],
+    "columnWidths": {
+      "col1": null,
+      "col2": null,
+      "col3": null
+    },
+    "categoryDescription": {
+      "title": null,
+      "description": null
+    },
+    "columns": [],
+    "highlight": {
+      "position": "right",
+      "cards": [],
+      "title": null,
+      "description": null,
+      "image": null,
+      "ctaLabel": null,
+      "ctaUrl": null
+    },
+    "updatedAt": "2026-02-21T13:13:18.064Z",
+    "createdAt": "2026-02-18T23:29:54.437Z"
+  },
+  {
+    "id": 4,
+    "label": "Profil",
+    "url": "/profil",
+    "order": 5,
+    "icon": null,
+    "image": null,
+    "appearance": "link",
+    "subItems": [],
+    "columnWidths": {
+      "col1": null,
+      "col2": null,
+      "col3": null
+    },
+    "categoryDescription": {
+      "title": null,
+      "description": null
+    },
+    "columns": [],
+    "highlight": {
+      "position": "\"right\"",
+      "cards": [],
+      "title": null,
+      "description": null,
+      "image": null,
+      "ctaLabel": null,
+      "ctaUrl": null
+    },
+    "updatedAt": "2026-02-18T23:28:56.661Z",
+    "createdAt": "2026-02-18T23:28:56.660Z"
+  },
+  {
+    "id": 3,
+    "label": "Portfolio",
+    "url": "/portfolio",
+    "order": 3,
+    "icon": null,
+    "image": null,
+    "appearance": "link",
+    "subItems": [],
+    "columnWidths": {
+      "col1": 2,
+      "col2": 10,
+      "col3": null
+    },
+    "categoryDescription": {
+      "title": "Portfolio",
+      "description": "Projekte im Überblick – kreative Konzepte, Weblösungen und digitale Highlights."
+    },
+    "columns": [
+      {
+        "id": "69984426bacc453621351f8a",
+        "title": "Design",
+        "columnWidth": 4,
+        "dividerBefore": false,
+        "columnBackground": "default",
+        "items": [
+          {
+            "id": "69984443bacc453621351f8c",
+            "label": "Webdesign & Entwicklung",
+            "url": "/portfolio-webdesign",
+            "description": "Individuelle Webseiten, modern gestaltet und funktional umgesetzt",
+            "icon": 35,
+            "image": null,
+            "badge": null,
+            "badgeColor": "success"
+          }
+        ]
+      },
+      {
+        "id": "699845e2bacc453621351f96",
+        "title": "Marketing",
+        "columnWidth": 4,
+        "dividerBefore": false,
+        "columnBackground": "default",
+        "items": [
+          {
+            "id": "699845eabacc453621351f98",
+            "label": "Marketing Projekte",
+            "url": "/portfolio-marketing",
+            "description": "Durchdachte Kampagnen mit klarer Botschaft und messbarem Ziel – von der Idee bis zur Performance-Optimierung.",
+            "icon": 36,
+            "image": null,
+            "badge": null,
+            "badgeColor": "success"
+          }
+        ]
+      },
+      {
+        "id": "699845c7bacc453621351f94",
+        "title": "Branding",
+        "columnWidth": 4,
+        "dividerBefore": false,
+        "columnBackground": "default",
+        "items": [
+          {
+            "id": "699846a3bacc453621351f9a",
+            "label": "Marken",
+            "url": "/portfolio-marken",
+            "description": "Entwicklung von CI- & Logo-Projekten",
+            "icon": 37,
+            "image": null,
+            "badge": null,
+            "badgeColor": "success"
+          }
+        ]
+      }
+    ],
+    "highlight": {
+      "position": "below",
+      "cards": [],
+      "title": "Referenz gesucht",
+      "description": "Ich suche spannende Projekte, die ich digital umsetzen darf – und die im Portfolio sichtbar werden.",
+      "image": null,
+      "ctaLabel": "Jetzt anfragen",
+      "ctaUrl": "/referenz"
+    },
+    "updatedAt": "2026-02-20T20:29:38.573Z",
+    "createdAt": "2026-02-18T23:28:21.800Z"
+  },
+  {
+    "id": 2,
+    "label": "Leistungen",
+    "url": "/leistungen",
+    "order": 2,
+    "icon": null,
+    "image": null,
+    "appearance": "link",
+    "subItems": [],
+    "columnWidths": {
+      "col1": 2,
+      "col2": 8,
+      "col3": 2
+    },
+    "categoryDescription": {
+      "title": "Leistungen",
+      "description": "Kreative Konzepte, moderne Weblösungen und digitale Strategien – alles aus einer Hand."
+    },
+    "columns": [
+      {
+        "id": "699568e1078ac87e84106613",
+        "title": "Design",
+        "columnWidth": null,
+        "dividerBefore": false,
+        "columnBackground": "default",
+        "items": [
+          {
+            "id": "6995690b078ac87e8410661b",
+            "label": "Webdesign",
+            "url": "/webdesign",
+            "description": "Webdesign und Entwicklung",
+            "icon": 5,
+            "image": null,
+            "badge": null,
+            "badgeColor": "success"
+          },
+          {
+            "id": "69972c24a4a17712c665279c",
+            "label": "Printmedien & Grafikdesign",
+            "url": "/print",
+            "description": "Printdesign, das auffällt – von Flyer bis Broschüre",
+            "icon": 6,
+            "image": null,
+            "badge": null,
+            "badgeColor": "success"
+          },
+          {
+            "id": "69972d8fa4a17712c66527a0",
+            "label": "Präsentationen & Keynotes",
+            "url": "/keynotes",
+            "description": "Präsentationen, die wirken – visuell stark und auf den Punkt",
+            "icon": 7,
+            "image": null,
+            "badge": null,
+            "badgeColor": "success"
+          }
+        ]
+      },
+      {
+        "id": "699568e3078ac87e84106615",
+        "title": "Marketing",
+        "columnWidth": null,
+        "dividerBefore": false,
+        "columnBackground": "default",
+        "items": [
+          {
+            "id": "699732cda4a17712c66527a8",
+            "label": "SEO - Rankings",
+            "url": "/seo",
+            "description": "Suchmaschinenoptimierung für mehr Sichtbarkeit, Traffic und Anfragen.",
+            "icon": 8,
+            "image": null,
+            "badge": null,
+            "badgeColor": "success"
+          },
+          {
+            "id": "6997356ba7234247735c344f",
+            "label": "SEM - Online Werbung",
+            "url": "/sem",
+            "description": "Performance-Marketing auf Suchmaschinen",
+            "icon": 9,
+            "image": null,
+            "badge": null,
+            "badgeColor": "success"
+          },
+          {
+            "id": "699755a22672a70a25f5a8fc",
+            "label": "Content Creation",
+            "url": "/content",
+            "description": "Visuelle Geschichten, Texte und Multimedia, die deine Marke lebendig machen – von Social Media bis Website.",
+            "icon": 26,
+            "image": null,
+            "badge": null,
+            "badgeColor": "success"
+          }
+        ]
+      },
+      {
+        "id": "699568e5078ac87e84106617",
+        "title": "Branding",
+        "columnWidth": null,
+        "dividerBefore": false,
+        "columnBackground": "default",
+        "items": [
+          {
+            "id": "699568f5078ac87e84106619",
+            "label": "CI - Corporate Identity",
+            "url": "/corporate-identity",
+            "description": "Markenidentität klar, einheitlich und professionell gestaltet.",
+            "icon": 10,
+            "image": null,
+            "badge": null,
+            "badgeColor": "success"
+          },
+          {
+            "id": "69974178a7234247735c3451",
+            "label": "Logo-Entwicklung",
+            "url": "/logo",
+            "description": "Einprägsame Logos, die Marke und Werte klar sichtbar machen",
+            "icon": 11,
+            "image": null,
+            "badge": null,
+            "badgeColor": "success"
+          },
+          {
+            "id": "69974293a7234247735c3453",
+            "label": "Markenstrategie",
+            "url": "/markenstrategie",
+            "description": "Marken klar definieren – Strategie, Positionierung und Storytelling.",
+            "icon": 12,
+            "image": null,
+            "badge": null,
+            "badgeColor": "success"
+          }
+        ]
+      }
+    ],
+    "highlight": {
+      "position": "right",
+      "cards": [],
+      "title": "Automatisierung",
+      "description": "Smarter Workflow, weniger Routine, mehr Fokus auf das Wesentliche – wir digitalisieren Prozesse, damit dein Business schneller wächst.\nEchtzeit-Daten, nahtlose Verbindungen: Wir verbinden deine Tools und automatisieren Prozesse direkt über Webhooks.",
+      "image": 29,
+      "ctaLabel": "Potentialanalyse",
+      "ctaUrl": "/automatisierung"
+    },
+    "updatedAt": "2026-02-20T12:39:33.250Z",
+    "createdAt": "2026-02-18T07:25:54.299Z"
+  },
+  {
+    "id": 1,
+    "label": "Home",
+    "url": "/",
+    "order": 0,
+    "icon": null,
+    "image": null,
+    "appearance": "link",
+    "subItems": [],
+    "columnWidths": {
+      "col1": null,
+      "col2": null,
+      "col3": null
+    },
+    "categoryDescription": {
+      "title": null,
+      "description": null
+    },
+    "columns": [],
+    "highlight": {
+      "position": "\"right\"",
+      "cards": [],
+      "title": null,
+      "description": null,
+      "image": null,
+      "ctaLabel": null,
+      "ctaUrl": null
+    },
+    "updatedAt": "2026-02-18T07:22:38.459Z",
+    "createdAt": "2026-02-18T07:22:38.458Z"
+  }
+]

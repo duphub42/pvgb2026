@@ -1,84 +1,201 @@
 {
   "header": {
     "id": 1,
-    "useMegaMenu": false,
-    "logo": 7,
-    "navItems": [
-      {
-        "id": "6991fe6658d2d458d088865b",
-        "link": {
-          "type": "reference",
-          "newTab": null,
-          "reference": {
-            "relationTo": "site-pages",
-            "value": 7
-          },
-          "url": null,
-          "label": "Home"
-        }
-      },
-      {
-        "id": "6991ff3958d2d458d088865c",
-        "link": {
-          "type": "reference",
-          "newTab": null,
-          "reference": {
-            "relationTo": "site-pages",
-            "value": 16
-          },
-          "url": null,
-          "label": "About"
-        }
-      },
-      {
-        "id": "6991ff4f58d2d458d088865d",
-        "link": {
-          "type": "reference",
-          "newTab": null,
-          "reference": {
-            "relationTo": "site-pages",
-            "value": 15
-          },
-          "url": null,
-          "label": "Portfolio"
-        }
-      },
-      {
-        "id": "699200b76d74c728d26d4c76",
-        "link": {
-          "type": "reference",
-          "newTab": null,
-          "reference": {
-            "relationTo": "site-pages",
-            "value": 13
-          },
-          "url": null,
-          "label": "Leistungen"
-        }
-      },
-      {
-        "id": "699200ca6d74c728d26d4c77",
-        "link": {
-          "type": "reference",
-          "newTab": null,
-          "reference": {
-            "relationTo": "site-pages",
-            "value": 17
-          },
-          "url": null,
-          "label": "Kontakt"
-        }
-      }
-    ],
-    "updatedAt": "2026-02-15T17:30:13.343Z",
-    "createdAt": "2026-02-14T12:43:36.379Z",
+    "useMegaMenu": true,
+    "megaMenuLayout": {
+      "sidebarCols": 3,
+      "contentCols": 6,
+      "featuredCols": 3
+    },
+    "megaMenuCardBorderRadius": "\"rounded-lg\"",
+    "megaMenuCardShadow": "\"shadow-sm\"",
+    "megaMenuCardHoverShadow": "\"hover:shadow-md\"",
+    "megaMenuCardHoverBorder": "\"hover:border-primary/40\"",
+    "megaMenuShowWhatsApp": true,
+    "megaMenuWhatsAppLabel": "WhatsApp",
+    "megaMenuWhatsAppUrl": null,
+    "megaMenuShowCallback": true,
+    "megaMenuCallbackTitle": "Rückruf anfordern",
+    "megaMenuCallbackPlaceholder": "Ihre Telefonnummer",
+    "megaMenuCallbackButtonText": "Anfragen",
+    "megaMenuCallbackForm": null,
+    "megaMenuCallbackPhoneFieldName": "phone",
+    "megaMenuShowNewsletter": true,
+    "megaMenuNewsletterTitle": "Newsletter",
+    "megaMenuNewsletterPlaceholder": "E-Mail-Adresse",
+    "megaMenuNewsletterButtonText": "Anmelden",
+    "megaMenuNewsletterForm": null,
+    "megaMenuNewsletterEmailFieldName": "email",
+    "logo": 1,
+    "navItems": [],
+    "updatedAt": "2026-02-17T18:50:05.797Z",
+    "createdAt": "2026-02-17T13:47:51.469Z",
     "globalType": "header"
   },
   "footer": {
     "id": 1,
+    "footerLogo": null,
+    "footerLogoAltText": null,
+    "logoOnDarkBackground": true,
+    "newsletterTitle": null,
+    "newsletterDescription": null,
+    "newsletterPlaceholder": "E-Mail-Adresse",
+    "newsletterButtonText": "Anmelden",
+    "columns": [],
+    "socialLinks": [
+      {
+        "id": "6995750e078ac87e8410661d",
+        "platform": "instagram",
+        "url": "#",
+        "iconUpload": null
+      },
+      {
+        "id": "69957520078ac87e8410661f",
+        "platform": "facebook",
+        "url": "#",
+        "iconUpload": null
+      },
+      {
+        "id": "69957527078ac87e84106621",
+        "platform": "twitter",
+        "url": "#",
+        "iconUpload": null
+      },
+      {
+        "id": "6995752c078ac87e84106623",
+        "platform": "linkedin",
+        "url": "#",
+        "iconUpload": null
+      }
+    ],
+    "copyrightText": "© Philipp Bacher. Alle Rechte vorbehalten.",
+    "privacyLink": "/datenschutz",
+    "termsLink": "/impressum",
+    "backgroundColor": null,
+    "textColor": null,
+    "linkHoverColor": null,
     "navItems": [],
-    "updatedAt": "2026-02-14T12:43:36.673Z",
-    "createdAt": "2026-02-14T12:43:36.673Z",
+    "updatedAt": "2026-02-18T08:15:55.115Z",
+    "createdAt": "2026-02-17T13:47:51.536Z",
     "globalType": "footer"
+  },
+  "design": {
+    "id": 1,
+    "colorsLight": {
+      "success": null,
+      "background": null,
+      "foreground": null,
+      "card": null,
+      "cardForeground": "",
+      "popover": null,
+      "popoverForeground": null,
+      "link": null,
+      "linkHover": null,
+      "border": null,
+      "muted": null,
+      "mutedForeground": null,
+      "destructive": null,
+      "megaMenuButtonBgUseCustom": false,
+      "megaMenuButtonBg": null,
+      "megaMenuButtonFgUseCustom": false,
+      "megaMenuButtonFg": null,
+      "megaMenuNavTextUseCustom": false,
+      "megaMenuNavText": null,
+      "megaMenuHeadingUseCustom": false,
+      "megaMenuHeading": null,
+      "megaMenuItemTextUseCustom": false,
+      "megaMenuItemText": null,
+      "megaMenuDescriptionUseCustom": false,
+      "megaMenuDescription": null
+    },
+    "colorsDark": {
+      "success": null,
+      "background": null,
+      "foreground": null,
+      "card": null,
+      "cardForeground": null,
+      "popover": null,
+      "popoverForeground": null,
+      "link": null,
+      "linkHover": null,
+      "border": null,
+      "muted": null,
+      "mutedForeground": null,
+      "destructive": null,
+      "megaMenuButtonBgUseCustom": false,
+      "megaMenuButtonBg": null,
+      "megaMenuButtonFgUseCustom": false,
+      "megaMenuButtonFg": null,
+      "megaMenuNavTextUseCustom": false,
+      "megaMenuNavText": null,
+      "megaMenuHeadingUseCustom": false,
+      "megaMenuHeading": null,
+      "megaMenuItemTextUseCustom": false,
+      "megaMenuItemText": null,
+      "megaMenuDescriptionUseCustom": false,
+      "megaMenuDescription": null
+    },
+    "fonts": {
+      "body": null,
+      "heading": "",
+      "mono": null
+    },
+    "updatedAt": "2026-02-19T11:09:28.297Z",
+    "createdAt": "2026-02-17T13:47:51.566Z",
+    "globalType": "design"
+  },
+  "theme-settings": {
+    "id": 1,
+    "primaryMatchesBase": true,
+    "primaryColor": "#ff0066",
+    "themeMode": "light",
+    "generatedTheme": {
+      "light": {
+        "background": "0 0% 100%",
+        "foreground": "0 0% 3.9%",
+        "card": "0 0% 100%",
+        "card-foreground": "0 0% 3.9%",
+        "popover": "0 0% 100%",
+        "popover-foreground": "0 0% 3.9%",
+        "primary": "0 0% 9%",
+        "primary-foreground": "0 0% 98%",
+        "secondary": "0 0% 96.1%",
+        "secondary-foreground": "0 0% 9%",
+        "muted": "0 0% 96.1%",
+        "muted-foreground": "0 0% 45.1%",
+        "accent": "0 0% 96.1%",
+        "accent-foreground": "0 0% 9%",
+        "destructive": "0 84.2% 60.2%",
+        "destructive-foreground": "0 0% 98%",
+        "border": "0 0% 89.8%",
+        "input": "0 0% 89.8%",
+        "ring": "0 0% 70.8%"
+      },
+      "dark": {
+        "background": "0 0% 3.9%",
+        "foreground": "0 0% 98%",
+        "card": "0 0% 3.9%",
+        "card-foreground": "0 0% 98%",
+        "popover": "0 0% 3.9%",
+        "popover-foreground": "0 0% 98%",
+        "primary": "0 0% 92.2%",
+        "primary-foreground": "0 0% 9%",
+        "secondary": "0 0% 26.9%",
+        "secondary-foreground": "0 0% 98%",
+        "muted": "0 0% 26.9%",
+        "muted-foreground": "0 0% 63.9%",
+        "accent": "0 0% 26.9%",
+        "accent-foreground": "0 0% 98%",
+        "destructive": "0 62.8% 50.6%",
+        "destructive-foreground": "0 0% 98%",
+        "border": "0 0% 14.9%",
+        "input": "0 0% 14.9%",
+        "ring": "0 0% 55.6%"
+      }
+    },
+    "cssString": ":root {\n  --background: 0 0% 100%;\n  --foreground: 0 0% 3.9%;\n  --card: 0 0% 100%;\n  --card-foreground: 0 0% 3.9%;\n  --popover: 0 0% 100%;\n  --popover-foreground: 0 0% 3.9%;\n  --primary: 0 0% 9%;\n  --primary-foreground: 0 0% 98%;\n  --secondary: 0 0% 96.1%;\n  --secondary-foreground: 0 0% 9%;\n  --muted: 0 0% 96.1%;\n  --muted-foreground: 0 0% 45.1%;\n  --accent: 0 0% 96.1%;\n  --accent-foreground: 0 0% 9%;\n  --destructive: 0 84.2% 60.2%;\n  --destructive-foreground: 0 0% 98%;\n  --border: 0 0% 89.8%;\n  --input: 0 0% 89.8%;\n  --ring: 0 0% 70.8%;\n}\n\n.dark {\n  --background: 0 0% 3.9%;\n  --foreground: 0 0% 98%;\n  --card: 0 0% 3.9%;\n  --card-foreground: 0 0% 98%;\n  --popover: 0 0% 3.9%;\n  --popover-foreground: 0 0% 98%;\n  --primary: 0 0% 92.2%;\n  --primary-foreground: 0 0% 9%;\n  --secondary: 0 0% 26.9%;\n  --secondary-foreground: 0 0% 98%;\n  --muted: 0 0% 26.9%;\n  --muted-foreground: 0 0% 63.9%;\n  --accent: 0 0% 26.9%;\n  --accent-foreground: 0 0% 98%;\n  --destructive: 0 62.8% 50.6%;\n  --destructive-foreground: 0 0% 98%;\n  --border: 0 0% 14.9%;\n  --input: 0 0% 14.9%;\n  --ring: 0 0% 55.6%;\n}",
+    "updatedAt": "2026-02-17T21:16:38.243Z",
+    "createdAt": "2026-02-17T21:11:24.701Z",
+    "globalType": "theme-settings"
   }
 }

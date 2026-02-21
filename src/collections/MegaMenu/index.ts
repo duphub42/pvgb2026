@@ -13,8 +13,8 @@ export const MegaMenu: CollectionConfig = {
     read: () => true,
   },
   hooks: {
-    afterChange: [() => revalidateTag('mega-menu')],
-    afterDelete: [() => revalidateTag('mega-menu')],
+    afterChange: [({ req }) => { if (req.context?.skipRevalidate) return; revalidateTag('mega-menu') }],
+    afterDelete: [({ req }) => { if (req.context?.skipRevalidate) return; revalidateTag('mega-menu') }],
   },
   fields: [
     {
