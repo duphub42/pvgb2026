@@ -1,5 +1,8 @@
 import type { Metadata } from 'next'
 
+/** Layout nutzt cookies() für Locale – alle Routen unter (frontend) sind dynamisch. */
+export const dynamic = 'force-dynamic'
+
 import { fontClassNames } from '@/theme/fonts'
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
