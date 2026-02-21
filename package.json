@@ -20,6 +20,8 @@
     "unlock-users": "tsx src/scripts/unlock-users.ts",
     "reset-password": "cross-env PAYLOAD_MIGRATING=true tsx src/scripts/reset-password.ts",
     "reset-password-direct": "tsx src/scripts/reset-password-direct.ts",
+    "export:local": "cross-env DATABASE_URL= POSTGRES_URL= NODE_ENV=production tsx src/scripts/export-data.ts",
+    "import:neon": "tsx src/scripts/import-data.ts --replace",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
     "generate:types": "cross-env NODE_OPTIONS=--no-deprecation payload generate:types",
     "ii": "cross-env NODE_OPTIONS=--no-deprecation pnpm --ignore-workspace install",

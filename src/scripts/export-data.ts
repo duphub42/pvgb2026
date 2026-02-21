@@ -1,12 +1,13 @@
 /**
- * Export aller Inhalte aus der aktuellen Payload-Datenbank (Production = DATABASE_URL setzen).
- * Schreibt nach data/export/ – danach mit import-data.ts lokal einspielen.
+ * Export aller Inhalte aus der Payload-Datenbank nach data/export/.
  *
- * Aufruf (Production-Daten exportieren):
- *   npx tsx src/scripts/export-data.ts
- * Dafür .env oder .env.local mit DATABASE_URL und PAYLOAD_SECRET füllen (z. B. aus Vercel kopieren).
+ * – Ohne DATABASE_URL/POSTGRES_URL: Export aus lokaler SQLite (für „Lokal → Neon“).
+ * – Mit DATABASE_URL: Export aus der angegebenen DB (z. B. Neon).
  *
- * Oder inline: DATABASE_URL="postgresql://..." PAYLOAD_SECRET="..." npx tsx src/scripts/export-data.ts
+ * Aufruf (lokal, SQLite → für späteren Import nach Neon):
+ *   DATABASE_URL= POSTGRES_URL= npx tsx src/scripts/export-data.ts
+ * Aufruf (aus Neon/Production exportieren):
+ *   DATABASE_URL="postgresql://..." PAYLOAD_SECRET="..." npx tsx src/scripts/export-data.ts
  */
 
 // NODE_ENV=production deaktiviert den Schema-Push (payload.config: push nur wenn !== 'production').
@@ -38,19 +39,9 @@ const COLLECTIONS = [
   'forms',
 ] as const
 
-const GLOBALS = ['header', 'footer'] as const
+const GLOBALS = ['header', 'footer', 'design', 'theme-settings'] as const
 
 async function main() {
-  if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
-    console.error(
-      'Für Export aus Production DATABASE_URL (oder POSTGRES_URL) setzen, z.B.:',
-    )
-    console.error(
-      '  DATABASE_URL="postgresql://user:pass@host/db" npx tsx src/scripts/export-data.ts',
-    )
-    process.exit(1)
-  }
-
   const secret = process.env.PAYLOAD_SECRET?.trim()
   if (!secret || secret.length < 12) {
     console.error('PAYLOAD_SECRET fehlt oder ist zu kurz (min. 12 Zeichen).')
@@ -136,9 +127,8 @@ async function main() {
 
   console.log('\nExport fertig:', exportDir)
   console.log(
-    'Lokal einspielen: DATABASE_URL und POSTGRES_URL entfernen (SQLite), dann:',
+    'Neon mit diesen Daten überschreiben: DATABASE_URL="postgresql://..." PAYLOAD_SECRET="..." npx tsx src/scripts/import-data.ts --replace',
   )
-  console.log('  npx tsx src/scripts/import-data.ts')
   process.exit(0)
 }
 

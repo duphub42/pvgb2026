@@ -1,10 +1,11 @@
 /**
- * Import aus data/export/ in die lokale Payload-DB (SQLite wenn keine DATABASE_URL).
- * Vorher mit export-data.ts die Production-Daten exportieren.
+ * Import aus data/export/ in die Payload-DB.
+ * Welche DB: aktuell konfiguriert (DATABASE_URL = Neon, sonst SQLite).
  *
- * Aufruf (lokal, mit SQLite):
- *   npx tsx src/scripts/import-data.ts
- *   Lädt .env.local (PAYLOAD_SECRET), nutzt aber bewusst SQLite (DATABASE_URL wird für diesen Lauf ignoriert).
+ * – Lokal (SQLite): DATABASE_URL= POSTGRES_URL= npx tsx src/scripts/import-data.ts
+ * – Neon überschreiben (lokale Daten einspielen): DATABASE_URL="postgresql://..." npx tsx src/scripts/import-data.ts --replace
+ *
+ * --replace: Zuerst alle Collections und Globals in der Zieldatenbank leeren, dann importieren.
  */
 
 import './load-env-import'
@@ -16,6 +17,9 @@ import config from '@payload-config'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const exportDir = path.resolve(__dirname, '../../data/export')
+
+const REPLACE = process.argv.includes('--replace')
+const GLOBAL_SLUGS = ['header', 'footer', 'design', 'theme-settings'] as const
 
 type IdMap = Record<number, number>
 
@@ -142,16 +146,69 @@ function placeholderMediaFile(
 
 async function main() {
   if (!fs.existsSync(exportDir)) {
-    console.error('Ordner data/export/ nicht gefunden. Zuerst export-data.ts mit Production-DATABASE_URL ausführen.')
+    console.error(
+      'Ordner data/export/ nicht gefunden. Zuerst exportieren: DATABASE_URL= POSTGRES_URL= npx tsx src/scripts/export-data.ts',
+    )
     process.exit(1)
   }
 
   if (process.env.DATABASE_URL || process.env.POSTGRES_URL) {
-    console.warn('Hinweis: DATABASE_URL/POSTGRES_URL sind gesetzt – Import geht in die aktuelle DB (nicht zwingend SQLite).')
+    console.log('Zieldatenbank: Postgres (DATABASE_URL/POSTGRES_URL gesetzt).')
+  } else {
+    console.log('Zieldatenbank: SQLite (lokal).')
   }
 
   console.log('Lade Payload...')
   const payload = await getPayload({ config })
+
+  if (REPLACE) {
+    console.log('--replace: Leere Zieldatenbank...')
+    const collectionsToClear = [
+      'media',
+      'categories',
+      'users',
+      'site-pages',
+      'blog-posts',
+      'mega-menu',
+      'redirects',
+      'forms',
+    ] as const
+    for (const slug of collectionsToClear) {
+      if (!payload.collections[slug]) continue
+      try {
+        const result = await payload.find({
+          collection: slug,
+          limit: 5000,
+          depth: 0,
+          pagination: false,
+        })
+        for (const doc of result.docs) {
+          await payload.delete({ collection: slug, id: doc.id, depth: 0 })
+        }
+        if (result.docs.length > 0) {
+          console.log(`  ${slug}: ${result.docs.length} Einträge gelöscht`)
+        }
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e)
+        if (!/relation .* does not exist|no such table/i.test(msg)) throw e
+      }
+    }
+    for (const slug of GLOBAL_SLUGS) {
+      if (!payload.globals?.config?.find((g) => g.slug === slug)) continue
+      try {
+        await payload.updateGlobal({
+          slug: slug as 'header' | 'footer' | 'design' | 'theme-settings',
+          data: {},
+          overrideAccess: true,
+        })
+        console.log(`  Global "${slug}" zurückgesetzt`)
+      } catch (e) {
+        const msg = e instanceof Error ? e.message : String(e)
+        if (!/relation .* does not exist|no such table/i.test(msg)) throw e
+      }
+    }
+    console.log('Zieldatenbank geleert.')
+  }
 
   const idMaps: Record<string, IdMap> = {
     media: {},
@@ -377,18 +434,21 @@ async function main() {
       string,
       Record<string, unknown>
     >
-    for (const [slug, data] of Object.entries(globalsData)) {
+    for (const slug of GLOBAL_SLUGS) {
+      const data = globalsData[slug]
       if (!data || typeof data !== 'object') continue
-          const mapped = mapRelations(
-            stripMeta(data),
-            idMaps,
-            FIELD_TO_COLLECTION,
-          ) as Record<string, unknown>
-          await payload.updateGlobal({
-            slug: slug as 'header' | 'footer',
-            data: mapped as never,
-          })
-          console.log(`  Global "${slug}" aktualisiert`)
+      if (!payload.globals?.config?.find((g) => g.slug === slug)) continue
+      const mapped = mapRelations(
+        stripMeta(data),
+        idMaps,
+        FIELD_TO_COLLECTION,
+      ) as Record<string, unknown>
+      await payload.updateGlobal({
+        slug: slug as 'header' | 'footer' | 'design' | 'theme-settings',
+        data: mapped as never,
+        overrideAccess: true,
+      })
+      console.log(`  Global "${slug}" aktualisiert`)
     }
   }
 
