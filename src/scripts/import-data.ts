@@ -471,6 +471,8 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
         if (!data.slug || (typeof data.slug === 'string' && !data.slug.trim())) {
           data.slug = `seite-${doc.id}`
         }
+        // Als veröffentlicht importieren, damit sie im Admin unter „Seiten“ sichtbar sind
+        if (data._status !== 'published') data._status = 'published'
         if (!Array.isArray(data.layout)) data.layout = []
         if (data.layout.length === 0) {
           data.layout = [
