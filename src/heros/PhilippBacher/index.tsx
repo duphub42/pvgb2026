@@ -454,10 +454,10 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             'md:right-[-10%] md:w-[min(58vw,560px)]',
             'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl lg:max-h-none',
             'landscape-short:w-[min(98vw,720px)] landscape-short:min-h-[70vh]',
-            /* Skalierung: SE -10% (1.11), PlayBook -15% (1.28), iPad -10% (1.2) */
+            /* Skalierung: SE -10% (1.11), PlayBook -15% (1.28→1.09), iPad -10% (1.2) */
             'hero-se:scale-[1.11] hero-se-landscape:scale-[1.11]',
             'hero-pro-max:scale-[1.23] hero-pro-max-landscape:scale-[1.23]',
-            'hero-playbook:scale-[1.28] hero-playbook-landscape:scale-[1.28]',
+            'hero-playbook:scale-[1.09] hero-playbook-landscape:scale-[1.09]',
             'hero-ipad:scale-[1.2] hero-ipad-landscape:scale-[1.2]',
             /* iPhone SE Landscape: 3% vom rechten Rand + 50% weiter rechts (schmaler = rechter) */
             'hero-se-landscape:right-[3%] hero-se-landscape:w-[40vw] hero-se-landscape:overflow-hidden',
