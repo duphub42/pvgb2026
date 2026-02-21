@@ -130,7 +130,13 @@ export default async function Page({ params: paramsPromise, searchParams: search
       </article>
     )
   } catch (err) {
-    const e = err as Error & { cause?: Error }
+    const e = err as Error & { digest?: string; cause?: Error }
+    const isNotFound =
+      e?.digest === 'NEXT_NOT_FOUND' ||
+      (typeof e?.message === 'string' && e.message.includes('NEXT_HTTP_ERROR_FALLBACK;404'))
+    if (isNotFound) {
+      throw err
+    }
     const causeMsg = e?.cause instanceof Error ? e.cause.message : String(e?.cause ?? '')
     const fullMsg = [e?.message, causeMsg].filter(Boolean).join(' — ')
     if (process.env.NODE_ENV === 'development') {
