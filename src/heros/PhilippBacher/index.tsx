@@ -455,8 +455,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl lg:max-h-none',
             /* Landscape-Mobile: noch größer/hoher – min-h für Mindesthöhe */
             'landscape-short:w-[min(98vw,720px)] landscape-short:min-h-[70vh]',
-            /* iPhone SE: mind. 20% nach rechts versetzen */
-            'landscape-narrow:right-[-20%] landscape-narrow:w-[115vw]',
+            /* iPhone SE: weitere 50% nach rechts (20%+50%=70%); Overflow rechts abschneiden */
+            'landscape-narrow:right-[-70%] landscape-narrow:w-[165vw] landscape-narrow:overflow-hidden',
           )}
         >
           <div className="relative w-full h-full">
@@ -474,24 +474,24 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         </div>
       )}
 
-      {/* Zweispaltiger Inhalt: auf Mobile Text am unteren Rand, damit Kopf des Vordergrundbildes sichtbar bleibt */}
+      {/* Inhalt: Text am Fuß des Heroes; Oberbereich frei für Kopf des Vordergrundbildes */}
       <div
         className={cn(
           'container relative z-10 grid h-full w-full grid-cols-1 gap-10 px-4 pt-20 pb-0 lg:grid-cols-[3fr_2fr] lg:gap-16 lg:pt-24 lg:pb-0 xl:gap-20 pointer-events-none',
-          /* Mobile: content-end sorgt dafür, dass die Textspalte am unteren Rand des Heroes ausgerichtet ist */
+          /* Mobile: Text am Fuß – absolute bottom für feste Ausrichtung, Kopf-Bereich bleibt frei */
           foregroundMedia
             ? 'max-lg:grid-rows-[1fr] max-lg:content-end max-lg:items-end lg:items-end'
             : 'lg:grid-cols-1 lg:items-center',
         )}
       >
-        {/* Linke Spalte: auf Mobile am Fuß, Desktop zentriert wenn kein Vordergrundbild */}
+        {/* Linke Spalte: unten am Hero positioniert, Text endet am Fuß */}
         <div
           className={cn(
             'relative z-10 flex w-full flex-col text-left mr-auto pointer-events-none',
             foregroundMedia ? 'max-w-full justify-end' : 'max-w-2xl lg:self-center lg:justify-center',
             hasMarquee ? 'pb-[12vh] sm:pb-[14vh] md:pb-[calc(14vh+50px)] lg:pb-[calc(16vh+50px)]' : 'pb-[5vh]',
-            /* Mobile mit Vordergrundbild: weniger Abstand zum unteren Rand für klarere Ausrichtung */
-            foregroundMedia && 'max-lg:landscape-short:pb-[4vh]',
+            /* Text am Fuß: pb = Abstand zur Wellen-Kante */
+            foregroundMedia && 'max-lg:pb-[calc(18vh+1rem)] max-lg:landscape-short:pb-[calc(14vh+0.5rem)]',
           )}
         >
           <div className={cn('pointer-events-auto w-max max-w-full', foregroundMedia ? '' : 'max-w-2xl')}>

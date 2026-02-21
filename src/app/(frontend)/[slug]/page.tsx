@@ -29,20 +29,16 @@ export default async function Page({ params: paramsPromise, searchParams: search
     payload = await getPayload({ config: configPromise })
   } catch (err) {
     console.error('[Page] getPayload failed:', err)
-    if (slug === 'home' || !slug) {
-      return (
-        <article className="container py-16">
-          <div className="prose max-w-none">
-            <h1>Willkommen</h1>
-            <p>Die Datenbank ist gerade nicht erreichbar. Bitte später erneut versuchen oder Admin prüfen.</p>
-            <p>
-              <Link href="/admin" className="underline">Zum Admin</Link>
-            </p>
-          </div>
+    return (
+      <article className="container py-16">
+        <div className="prose max-w-none">
+          <h1>{slug === 'home' || !slug ? 'Willkommen' : 'Seite'}</h1>
+          <p>Die Datenbank ist gerade nicht erreichbar. Bitte später erneut versuchen oder Admin prüfen.</p>
+          <p>
+            <Link href="/admin" className="underline">Zum Admin</Link>
+          </p>
         </article>
       )
-    }
-    throw err
   }
 
   // Admin preview: load by document ID so preview works even when draft cookie isn't sent in iframe
@@ -139,25 +135,22 @@ export default async function Page({ params: paramsPromise, searchParams: search
     if (process.env.NODE_ENV === 'development') {
       console.error('[Page] find/render failed:', fullMsg, e?.stack)
     }
-    if (resolvedSlug === 'home' || !resolvedSlug) {
-      return (
-        <article className="container py-16">
-          <div className="prose max-w-none">
-            <h1>Willkommen</h1>
-            <p>Seite konnte nicht geladen werden. Bitte später erneut versuchen oder Admin prüfen.</p>
-            {process.env.NODE_ENV === 'development' && fullMsg && (
-              <pre className="mt-4 p-4 bg-[var(--muted)] rounded text-sm overflow-auto">
-                {fullMsg}
-              </pre>
-            )}
-            <p>
-              <Link href="/admin" className="underline">Zum Admin</Link>
-            </p>
-          </div>
-        </article>
-      )
-    }
-    throw err
+    return (
+      <article className="container py-16">
+        <div className="prose max-w-none">
+          <h1>{resolvedSlug === 'home' || !resolvedSlug ? 'Willkommen' : 'Seite'}</h1>
+          <p>Seite konnte nicht geladen werden. Bitte später erneut versuchen oder Admin prüfen.</p>
+          {process.env.NODE_ENV === 'development' && fullMsg && (
+            <pre className="mt-4 p-4 bg-[var(--muted)] rounded text-sm overflow-auto">
+              {fullMsg}
+            </pre>
+          )}
+          <p>
+            <Link href="/admin" className="underline">Zum Admin</Link>
+          </p>
+        </div>
+      </article>
+    )
   }
 }
 
