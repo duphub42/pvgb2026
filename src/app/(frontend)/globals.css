@@ -14,6 +14,15 @@
 @custom-variant landscape-short (@media (orientation: landscape) and (max-height: 40rem));
 /* Landscape-Narrow: besonders schmale Landscape-Viewports (z.B. iPhone SE 667px) */
 @custom-variant landscape-narrow (@media (orientation: landscape) and (max-width: 44rem) and (max-height: 40rem));
+/* Geräte-Varianten für Vordergrundbild-Skalierung */
+@custom-variant hero-se (@media (max-width: 26.5rem));
+@custom-variant hero-se-landscape (@media (orientation: landscape) and (max-height: 26.5rem));
+@custom-variant hero-pro-max (@media (min-width: 26.5rem) and (max-width: 29rem));
+@custom-variant hero-pro-max-landscape (@media (orientation: landscape) and (min-width: 57rem) and (max-width: 59rem));
+@custom-variant hero-playbook (@media (min-width: 37rem) and (max-width: 44rem));
+@custom-variant hero-playbook-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (max-height: 44rem));
+@custom-variant hero-ipad (@media (min-width: 48rem) and (max-width: 64rem));
+@custom-variant hero-ipad-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (min-height: 44rem));
 
 @layer base {
   h1,

@@ -445,18 +445,29 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
       </div>
 
-      {/* Vordergrund-Bild: mind. so hoch wie Text, besser 10% höher; iPhone SE am rechten Rand */}
+      {/* Vordergrund-Bild: gerätespezifische Skalierung + Verschiebung nach rechts */}
       {foregroundMedia && (
         <div
           className={cn(
-            'absolute bottom-0 right-0 z-[5] w-[min(96vw,420px)] max-w-none pointer-events-none',
+            'absolute bottom-0 right-0 z-[5] w-[min(96vw,420px)] max-w-none pointer-events-none origin-bottom-right',
             'sm:w-[min(96vw,480px)]',
             'md:right-[-10%] md:w-[min(58vw,560px)]',
             'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl lg:max-h-none',
-            /* Landscape-Mobile: noch größer/hoher – min-h für Mindesthöhe */
             'landscape-short:w-[min(98vw,720px)] landscape-short:min-h-[70vh]',
-            /* iPhone SE: weitere 50% nach rechts (20%+50%=70%); Overflow rechts abschneiden */
-            'landscape-narrow:right-[-70%] landscape-narrow:w-[165vw] landscape-narrow:overflow-hidden',
+            /* Skalierung: SE -10% (1.11), PlayBook -15% (1.28), iPad -10% (1.2) */
+            'hero-se:scale-[1.11] hero-se-landscape:scale-[1.11]',
+            'hero-pro-max:scale-[1.23] hero-pro-max-landscape:scale-[1.23]',
+            'hero-playbook:scale-[1.28] hero-playbook-landscape:scale-[1.28]',
+            'hero-ipad:scale-[1.2] hero-ipad-landscape:scale-[1.2]',
+            /* iPhone SE Landscape: 3% vom rechten Rand + 50% weiter rechts (schmaler = rechter) */
+            'hero-se-landscape:right-[3%] hero-se-landscape:w-[40vw] hero-se-landscape:overflow-hidden',
+            'landscape-narrow:right-[3%] landscape-narrow:w-[40vw] landscape-narrow:overflow-hidden',
+            /* Portrait: SE 20%, Pro Max 20%, PlayBook 15% */
+            'hero-se:right-[-20%] hero-se:overflow-hidden',
+            'hero-pro-max:right-[-20%] hero-pro-max:overflow-hidden',
+            'hero-playbook:right-[-15%] hero-playbook:overflow-hidden',
+            'hero-playbook-landscape:right-[-15%] hero-playbook-landscape:overflow-hidden',
+            'hero-pro-max-landscape:right-[-20%] hero-pro-max-landscape:overflow-hidden',
           )}
         >
           <div className="relative w-full h-full">
@@ -466,7 +477,6 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                 'w-full h-auto object-contain',
                 'object-bottom',
                 'max-h-[85dvh] sm:max-h-[88dvh] md:max-h-[82dvh] lg:max-h-[72dvh]',
-                /* Landscape: noch größer – volle Höhe, Kopf bleibt sichtbar */
                 'landscape-short:object-top landscape-short:max-h-[100dvh] landscape-short:min-h-[60vh]',
               )}
             />
@@ -474,27 +484,24 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         </div>
       )}
 
-      {/* Inhalt: linke Spalte am Fuß des Heroes (absolute bottom auf Mobile) */}
+      {/* Inhalt: linke Spalte am Fuß des Heroes via Flex justify-end */}
       <div
         className={cn(
-          'container relative z-10 grid h-full w-full grid-cols-1 gap-10 px-4 pt-20 pb-0 lg:grid-cols-[3fr_2fr] lg:gap-16 lg:pt-24 lg:pb-0 xl:gap-20 pointer-events-none',
-          !foregroundMedia && 'lg:grid-cols-1 lg:items-center',
+          'container relative z-10 flex min-h-0 flex-1 flex-col px-4 pt-20 pb-0 lg:grid lg:h-full lg:w-full lg:grid-cols-[3fr_2fr] lg:flex-none lg:gap-16 lg:pt-24 lg:pb-0 xl:gap-20 pointer-events-none',
+          foregroundMedia ? 'max-lg:justify-end' : 'lg:grid-cols-1 lg:items-center',
           foregroundMedia && 'lg:items-end',
         )}
       >
-        {/* Linke Spalte: auf Mobile absolute unten am Hero, auf Desktop in Grid */}
+        {/* Linke Spalte: am Fuß – Flex pushed Content nach unten */}
         <div
           className={cn(
             'relative z-10 flex w-full flex-col text-left pointer-events-none',
             foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-center',
-            /* Desktop: im Grid, justify-end */
             foregroundMedia ? 'lg:justify-end lg:mr-auto' : 'lg:justify-center',
             hasMarquee ? 'pb-[12vh] sm:pb-[14vh] md:pb-[calc(14vh+50px)] lg:pb-[calc(16vh+50px)]' : 'pb-[5vh]',
-            /* Mobile mit Vordergrund: absolute bottom = am Fuß des Heroes */
-            foregroundMedia && [
-              'max-lg:absolute max-lg:left-0 max-lg:right-0 max-lg:bottom-0 max-lg:px-4',
-              'max-lg:pb-[calc(18vh+1rem)] max-lg:landscape-short:pb-[calc(14vh+0.5rem)]',
-            ],
+            /* Abstand zum unteren Rand; Portrait SE/Pro Max/PlayBook: ca. 3% zum Browser-Rand */
+            foregroundMedia && 'max-lg:pb-[calc(18vh+1rem)] max-lg:landscape-short:pb-[calc(14vh+0.5rem)]',
+            foregroundMedia && 'hero-se:pb-[3vh] hero-pro-max:pb-[3vh] hero-playbook:pb-[3vh]',
           )}
         >
           <div className={cn('pointer-events-auto w-max max-w-full', foregroundMedia ? '' : 'max-w-2xl')}>
