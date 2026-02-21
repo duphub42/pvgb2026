@@ -474,24 +474,27 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         </div>
       )}
 
-      {/* Inhalt: Text am Fuß des Heroes; Oberbereich frei für Kopf des Vordergrundbildes */}
+      {/* Inhalt: linke Spalte am Fuß des Heroes (absolute bottom auf Mobile) */}
       <div
         className={cn(
           'container relative z-10 grid h-full w-full grid-cols-1 gap-10 px-4 pt-20 pb-0 lg:grid-cols-[3fr_2fr] lg:gap-16 lg:pt-24 lg:pb-0 xl:gap-20 pointer-events-none',
-          /* Mobile: Text am Fuß – absolute bottom für feste Ausrichtung, Kopf-Bereich bleibt frei */
-          foregroundMedia
-            ? 'max-lg:grid-rows-[1fr] max-lg:content-end max-lg:items-end lg:items-end'
-            : 'lg:grid-cols-1 lg:items-center',
+          !foregroundMedia && 'lg:grid-cols-1 lg:items-center',
+          foregroundMedia && 'lg:items-end',
         )}
       >
-        {/* Linke Spalte: unten am Hero positioniert, Text endet am Fuß */}
+        {/* Linke Spalte: auf Mobile absolute unten am Hero, auf Desktop in Grid */}
         <div
           className={cn(
-            'relative z-10 flex w-full flex-col text-left mr-auto pointer-events-none',
-            foregroundMedia ? 'max-w-full justify-end' : 'max-w-2xl lg:self-center lg:justify-center',
+            'relative z-10 flex w-full flex-col text-left pointer-events-none',
+            foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-center',
+            /* Desktop: im Grid, justify-end */
+            foregroundMedia ? 'lg:justify-end lg:mr-auto' : 'lg:justify-center',
             hasMarquee ? 'pb-[12vh] sm:pb-[14vh] md:pb-[calc(14vh+50px)] lg:pb-[calc(16vh+50px)]' : 'pb-[5vh]',
-            /* Text am Fuß: pb = Abstand zur Wellen-Kante */
-            foregroundMedia && 'max-lg:pb-[calc(18vh+1rem)] max-lg:landscape-short:pb-[calc(14vh+0.5rem)]',
+            /* Mobile mit Vordergrund: absolute bottom = am Fuß des Heroes */
+            foregroundMedia && [
+              'max-lg:absolute max-lg:left-0 max-lg:right-0 max-lg:bottom-0 max-lg:px-4',
+              'max-lg:pb-[calc(18vh+1rem)] max-lg:landscape-short:pb-[calc(14vh+0.5rem)]',
+            ],
           )}
         >
           <div className={cn('pointer-events-auto w-max max-w-full', foregroundMedia ? '' : 'max-w-2xl')}>
