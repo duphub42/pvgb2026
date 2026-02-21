@@ -24,6 +24,8 @@ import * as migration_20260219_190000_site_pages_hero_marquee_headline from './2
 import * as migration_20260219_200000_footer_columns_and_social_tables from './20260219_200000_footer_columns_and_social_tables'
 import * as migration_20260219_210000_design_flat_and_theme_settings from './20260219_210000_design_flat_and_theme_settings'
 import * as migration_20260221_000000_locked_documents_rels_mega_menu from './20260221_000000_locked_documents_rels_mega_menu'
+import * as migration_20260221_100000_site_pages_hero_floating_elements_uuid from './20260221_100000_site_pages_hero_floating_elements_uuid'
+import * as migration_20260221_200000_mega_menu_sub_items_image_id from './20260221_200000_mega_menu_sub_items_image_id'
 
 export const migrations = [
   {
@@ -155,5 +157,15 @@ export const migrations = [
     up: migration_20260221_000000_locked_documents_rels_mega_menu.up,
     down: migration_20260221_000000_locked_documents_rels_mega_menu.down,
     name: '20260221_000000_locked_documents_rels_mega_menu',
+  },
+  {
+    up: migration_20260221_100000_site_pages_hero_floating_elements_uuid.up,
+    down: migration_20260221_100000_site_pages_hero_floating_elements_uuid.down,
+    name: '20260221_100000_site_pages_hero_floating_elements_uuid',
+  },
+  {
+    up: migration_20260221_200000_mega_menu_sub_items_image_id.up,
+    down: migration_20260221_200000_mega_menu_sub_items_image_id.down,
+    name: '20260221_200000_mega_menu_sub_items_image_id',
   },
 ]
