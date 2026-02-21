@@ -445,7 +445,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
       </div>
 
-      {/* Vordergrund-Bild: Portrait groß (iPhone SE/14 Pro Max ~3x), Tablet ~2x, iPad ~1.2x; ab lg rechte Spalte */}
+      {/* Vordergrund-Bild: ca. 10% höher als Textspalte auf Landscape-Mobile; Portrait mit Kopf sichtbar */}
       {foregroundMedia && (
         <div
           className={cn(
@@ -453,30 +453,42 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             'sm:w-[min(96vw,480px)]',
             'md:right-[-10%] md:w-[min(58vw,560px)]',
             'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl lg:max-h-none',
+            /* Landscape-Mobile: ~10% größer als Textspalte; object-top sichert sichtbaren Kopf */
+            'landscape-short:w-[min(75vw,580px)]',
           )}
         >
           <div className="relative w-full h-full">
             <Media
               resource={foregroundMedia}
-              imgClassName="w-full h-auto max-h-[85dvh] sm:max-h-[88dvh] md:max-h-[82dvh] lg:max-h-[72dvh] object-contain object-bottom"
+              imgClassName={cn(
+                'w-full h-auto object-contain',
+                'object-bottom',
+                'max-h-[85dvh] sm:max-h-[88dvh] md:max-h-[82dvh] lg:max-h-[72dvh]',
+                'landscape-short:object-top landscape-short:max-h-[96dvh]',
+              )}
             />
           </div>
         </div>
       )}
 
-      {/* Zweispaltiger Inhalt: pointer-events-none damit Hover am Logo-Marquee ankommt; nur Inhalt klickbar */}
+      {/* Zweispaltiger Inhalt: auf Mobile Text am unteren Rand, damit Kopf des Vordergrundbildes sichtbar bleibt */}
       <div
         className={cn(
-          'container relative z-10 grid h-full w-full grid-cols-1 items-end gap-10 px-4 pt-20 pb-0 lg:grid-cols-[3fr_2fr] lg:gap-16 lg:pt-24 lg:pb-0 xl:gap-20 pointer-events-none',
-          !foregroundMedia && 'lg:grid-cols-1 lg:items-center',
+          'container relative z-10 grid h-full w-full grid-cols-1 gap-10 px-4 pt-20 pb-0 lg:grid-cols-[3fr_2fr] lg:gap-16 lg:pt-24 lg:pb-0 xl:gap-20 pointer-events-none',
+          /* Mobile: content-end sorgt dafür, dass die Textspalte am unteren Rand des Heroes ausgerichtet ist */
+          foregroundMedia
+            ? 'max-lg:grid-rows-[1fr] max-lg:content-end max-lg:items-end lg:items-end'
+            : 'lg:grid-cols-1 lg:items-center',
         )}
       >
-        {/* Linke Spalte: pointer-events-none, nur Inhaltsblock klickbar → Marquee links erhält Hover/Tooltip/Pause */}
+        {/* Linke Spalte: auf Mobile am Fuß, Desktop zentriert wenn kein Vordergrundbild */}
         <div
           className={cn(
-            'relative z-10 flex w-full flex-col justify-center text-left lg:self-center mr-auto pointer-events-none',
-            foregroundMedia ? 'max-w-full' : 'max-w-2xl',
+            'relative z-10 flex w-full flex-col text-left mr-auto pointer-events-none',
+            foregroundMedia ? 'max-w-full justify-end' : 'max-w-2xl lg:self-center lg:justify-center',
             hasMarquee ? 'pb-[12vh] sm:pb-[14vh] md:pb-[calc(14vh+50px)] lg:pb-[calc(16vh+50px)]' : 'pb-[5vh]',
+            /* Mobile mit Vordergrundbild: weniger Abstand zum unteren Rand für klarere Ausrichtung */
+            foregroundMedia && 'max-lg:landscape-short:pb-[4vh]',
           )}
         >
           <div className={cn('pointer-events-auto w-max max-w-full', foregroundMedia ? '' : 'max-w-2xl')}>

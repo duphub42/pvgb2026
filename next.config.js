@@ -35,10 +35,11 @@ const nextConfig = {
       '.js': ['.ts', '.tsx', '.js', '.jsx'],
       '.mjs': ['.mts', '.mjs'],
     }
-    // Force "buffer" to resolve to this project's node_modules (avoids ENOENT in /Users/horus/node_modules)
+    // Resolve buffer and uuid from this project's node_modules (avoids ENOENT when pnpm hoists to .ignored)
     webpackConfig.resolve.alias = {
       ...webpackConfig.resolve.alias,
       buffer: path.resolve(__dirname, 'node_modules/buffer'),
+      uuid: path.resolve(__dirname, 'node_modules/uuid'),
     }
 
     return webpackConfig
