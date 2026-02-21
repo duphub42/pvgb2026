@@ -68,7 +68,7 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
-  // Ohne DATABASE_URL/POSTGRES_URL: SQLite (./payload.db) für einfaches lokales Setup
+  // Ohne DATABASE_URL/POSTGRES_URL: SQLite (./payload.db) für lokales Setup.
   db:
     process.env.DATABASE_URL || process.env.POSTGRES_URL
       ? vercelPostgresAdapter({
@@ -82,9 +82,6 @@ export default buildConfig({
           client: {
             url: process.env.SQLITE_URL || 'file:./payload.db',
           },
-          // Schema-Push: true = Drizzle legt fehlende Tabellen/Spalten an.
-          // Wenn Spalten bereits per "pnpm run fix:sqlite-schema" existieren, Push deaktivieren,
-          // sonst: "duplicate column name". In .env.local: PAYLOAD_SKIP_PUSH=true
           push: process.env.PAYLOAD_SKIP_PUSH !== 'true',
         }),
   collections: [Pages, Posts, Media, Categories, Users, MegaMenu],

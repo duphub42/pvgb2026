@@ -18,50 +18,77 @@ import { ThemeSettingsStyles } from '@/components/ThemeSettingsStyles'
 import { getLocale } from '@/utilities/locale'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
-  const { isEnabled } = await draftMode()
-  const cookieStore = await cookies()
-  const locale = getLocale(cookieStore)
+  try {
+    const { isEnabled } = await draftMode()
+    const cookieStore = await cookies()
+    const locale = getLocale(cookieStore)
 
-  let design: Awaited<ReturnType<ReturnType<typeof getCachedGlobal>>> | null = null
-  let themeSettings: { cssString?: string | null } | null = null
+    let design: Awaited<ReturnType<ReturnType<typeof getCachedGlobal>>> | null = null
+    let themeSettings: { cssString?: string | null } | null = null
 
-  const [designResult, themeSettingsResult] = await Promise.allSettled([
-    getCachedGlobal('design', 1)(),
-    getCachedGlobal('theme-settings', 0)(),
-  ])
-  if (designResult.status === 'fulfilled') design = designResult.value
-  if (themeSettingsResult.status === 'fulfilled' && themeSettingsResult.value && typeof themeSettingsResult.value === 'object') {
-    themeSettings = themeSettingsResult.value as { cssString?: string | null }
+    const [designResult, themeSettingsResult] = await Promise.allSettled([
+      getCachedGlobal('design', 1)(),
+      getCachedGlobal('theme-settings', 0)(),
+    ])
+    if (designResult.status === 'fulfilled') design = designResult.value
+    if (themeSettingsResult.status === 'fulfilled' && themeSettingsResult.value && typeof themeSettingsResult.value === 'object') {
+      themeSettings = themeSettingsResult.value as { cssString?: string | null }
+    }
+
+    return (
+      <html className={fontClassNames} lang={locale} suppressHydrationWarning>
+        <head>
+          <InitTheme />
+          <DesignStyles design={design ?? null} />
+          <ThemeSettingsStyles themeSettings={themeSettings ?? null} />
+          <link href="/favicon.ico" rel="icon" sizes="32x32" />
+          <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+        </head>
+        <body data-layout="default">
+          <Providers initialLocale={locale}>
+            <AdminBar
+              adminBarProps={{
+                preview: isEnabled,
+              }}
+            />
+
+            <Header />
+            {children}
+            <Footer locale={locale} />
+          </Providers>
+        </body>
+      </html>
+    )
+  } catch (err) {
+    console.error('[Layout] Error rendering layout:', err)
+    return (
+      <html lang="de">
+        <body>
+          <div style={{ padding: '2rem', fontFamily: 'system-ui', maxWidth: '40rem' }}>
+            <h1>Fehler beim Laden</h1>
+            <p>Die Seite konnte nicht geladen werden. Bitte später erneut versuchen.</p>
+            <p>
+              <a href="/admin">Zum Admin</a>
+            </p>
+          </div>
+        </body>
+      </html>
+    )
   }
+}
 
-  return (
-    <html className={fontClassNames} lang={locale} suppressHydrationWarning>
-      <head>
-        <InitTheme />
-        <DesignStyles design={design ?? null} />
-        <ThemeSettingsStyles themeSettings={themeSettings ?? null} />
-        <link href="/favicon.ico" rel="icon" sizes="32x32" />
-        <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-      </head>
-      <body data-layout="default">
-        <Providers initialLocale={locale}>
-          <AdminBar
-            adminBarProps={{
-              preview: isEnabled,
-            }}
-          />
-
-          <Header />
-          {children}
-          <Footer locale={locale} />
-        </Providers>
-      </body>
-    </html>
-  )
+function getMetadataBase(): URL {
+  try {
+    const url = getServerSideURL()
+    if (url && url.startsWith('http')) return new URL(url)
+  } catch {
+    // ignore
+  }
+  return new URL('https://localhost')
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(getServerSideURL()),
+  metadataBase: getMetadataBase(),
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',

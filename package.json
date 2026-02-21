@@ -66,6 +66,7 @@
     "cross-env": "^7.0.3",
     "dotenv": "16.4.7",
     "graphql": "^16.8.2",
+    "libsql": "^0.4.7",
     "lucide-react": "0.563.0",
     "motion": "^12.34.2",
     "next": "15.4.11",
