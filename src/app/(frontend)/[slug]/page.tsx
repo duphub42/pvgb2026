@@ -37,8 +37,9 @@ export default async function Page({ params: paramsPromise, searchParams: search
           <p>
             <Link href="/admin" className="underline">Zum Admin</Link>
           </p>
-        </article>
-      )
+        </div>
+      </article>
+    )
   }
 
   // Admin preview: load by document ID so preview works even when draft cookie isn't sent in iframe
