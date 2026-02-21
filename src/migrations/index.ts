@@ -22,6 +22,7 @@ import * as migration_20260219_170000_site_pages_hero_headline_lines from './202
 import * as migration_20260219_180000_site_pages_hero_halo_and_floating from './20260219_180000_site_pages_hero_halo_and_floating'
 import * as migration_20260219_190000_site_pages_hero_marquee_headline from './20260219_190000_site_pages_hero_marquee_headline'
 import * as migration_20260219_200000_footer_columns_and_social_tables from './20260219_200000_footer_columns_and_social_tables'
+import * as migration_20260219_210000_design_flat_and_theme_settings from './20260219_210000_design_flat_and_theme_settings'
 
 export const migrations = [
   {
@@ -143,5 +144,10 @@ export const migrations = [
     up: migration_20260219_200000_footer_columns_and_social_tables.up,
     down: migration_20260219_200000_footer_columns_and_social_tables.down,
     name: '20260219_200000_footer_columns_and_social_tables',
+  },
+  {
+    up: migration_20260219_210000_design_flat_and_theme_settings.up,
+    down: migration_20260219_210000_design_flat_and_theme_settings.down,
+    name: '20260219_210000_design_flat_and_theme_settings',
   },
 ]
