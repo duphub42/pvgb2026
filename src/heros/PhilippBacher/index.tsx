@@ -445,7 +445,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
       </div>
 
-      {/* Vordergrund-Bild: ca. 10% höher als Textspalte auf Landscape-Mobile; Portrait mit Kopf sichtbar */}
+      {/* Vordergrund-Bild: auf iPhones größer; iPhone SE zusätzlich nach rechts für rechten Bildschirmrand */}
       {foregroundMedia && (
         <div
           className={cn(
@@ -453,8 +453,10 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             'sm:w-[min(96vw,480px)]',
             'md:right-[-10%] md:w-[min(58vw,560px)]',
             'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl lg:max-h-none',
-            /* Landscape-Mobile: ~10% größer als Textspalte; object-top sichert sichtbaren Kopf */
-            'landscape-short:w-[min(75vw,580px)]',
+            /* Landscape-Mobile: deutlich größer auf allen iPhones */
+            'landscape-short:w-[min(88vw,640px)]',
+            /* iPhone SE: nach rechts rücken, rechte Seite ausfüllen, nicht hinter Text verschwinden */
+            'landscape-narrow:right-[-6%] landscape-narrow:w-[min(95vw,620px)]',
           )}
         >
           <div className="relative w-full h-full">
@@ -464,7 +466,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                 'w-full h-auto object-contain',
                 'object-bottom',
                 'max-h-[85dvh] sm:max-h-[88dvh] md:max-h-[82dvh] lg:max-h-[72dvh]',
-                'landscape-short:object-top landscape-short:max-h-[96dvh]',
+                'landscape-short:object-top landscape-short:max-h-[98dvh]',
               )}
             />
           </div>

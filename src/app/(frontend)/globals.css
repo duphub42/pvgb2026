@@ -12,6 +12,8 @@
 @custom-variant 2xl (@media (width >= theme(--breakpoint-2xl)));
 /* Landscape-Mobile/Tablet: Querformat bis 640px Höhe (iPhone SE, 14 Pro Max, PlayBook etc.) */
 @custom-variant landscape-short (@media (orientation: landscape) and (max-height: 40rem));
+/* Landscape-Narrow: besonders schmale Landscape-Viewports (z.B. iPhone SE 667px) */
+@custom-variant landscape-narrow (@media (orientation: landscape) and (max-width: 44rem) and (max-height: 40rem));
 
 @layer base {
   h1,
