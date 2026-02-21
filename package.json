@@ -7,9 +7,9 @@
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
-    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev -p 3000",
+    "dev": "node scripts/ensure-next-manifests.cjs && cross-env NODE_OPTIONS=--no-deprecation next dev -p 3000",
     "dev:lan": "cross-env NODE_OPTIONS=--no-deprecation next dev -p 3000 --hostname 0.0.0.0",
-    "dev:free-port": "lsof -ti :3000 | xargs kill -9 2>/dev/null; sleep 1; pnpm run dev",
+    "dev:free-port": "lsof -ti :3000 | xargs kill -9 2>/dev/null; sleep 1; node scripts/ensure-next-manifests.cjs && pnpm run dev",
     "dev:clean": "rm -rf .next && pnpm run dev:free-port",
     "dev:reset": "lsof -ti :3000 | xargs kill -9 2>/dev/null; rm -rf .next; echo 'Stopped :3000 and removed .next. Run: pnpm run dev'",
     "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && pnpm build && pnpm start",
