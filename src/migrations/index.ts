@@ -23,6 +23,7 @@ import * as migration_20260219_180000_site_pages_hero_halo_and_floating from './
 import * as migration_20260219_190000_site_pages_hero_marquee_headline from './20260219_190000_site_pages_hero_marquee_headline'
 import * as migration_20260219_200000_footer_columns_and_social_tables from './20260219_200000_footer_columns_and_social_tables'
 import * as migration_20260219_210000_design_flat_and_theme_settings from './20260219_210000_design_flat_and_theme_settings'
+import * as migration_20260221_000000_locked_documents_rels_mega_menu from './20260221_000000_locked_documents_rels_mega_menu'
 
 export const migrations = [
   {
@@ -149,5 +150,10 @@ export const migrations = [
     up: migration_20260219_210000_design_flat_and_theme_settings.up,
     down: migration_20260219_210000_design_flat_and_theme_settings.down,
     name: '20260219_210000_design_flat_and_theme_settings',
+  },
+  {
+    up: migration_20260221_000000_locked_documents_rels_mega_menu.up,
+    down: migration_20260221_000000_locked_documents_rels_mega_menu.down,
+    name: '20260221_000000_locked_documents_rels_mega_menu',
   },
 ]
