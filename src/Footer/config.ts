@@ -1,5 +1,10 @@
 import type { GlobalConfig } from 'payload'
 
+import {
+  createClearOrphanedRefsAfterReadHook,
+  createClearOrphanedRefsBeforeChangeHook,
+  createClearOrphanedRefsBeforeValidateHook,
+} from '@/hooks/clearOrphanedRefs'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { link } from '@/fields/link'
 import { revalidateFooter } from './hooks/revalidateFooter'
@@ -267,6 +272,9 @@ export const Footer: GlobalConfig = {
     },
   ],
   hooks: {
+    afterRead: [createClearOrphanedRefsAfterReadHook()],
+    beforeValidate: [createClearOrphanedRefsBeforeValidateHook()],
+    beforeChange: [createClearOrphanedRefsBeforeChangeHook()],
     afterChange: [revalidateFooter],
   },
 }

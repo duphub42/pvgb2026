@@ -12,6 +12,11 @@ import {
 import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Banner } from '../../blocks/Banner/config'
+import {
+  createClearOrphanedRefsAfterReadHook,
+  createClearOrphanedRefsBeforeChangeHook,
+  createClearOrphanedRefsBeforeValidateHook,
+} from '../../hooks/clearOrphanedRefs'
 import { Code } from '../../blocks/Code/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { populateAuthors } from './hooks/populateAuthors'
@@ -204,7 +209,9 @@ export const Posts: CollectionConfig<'blog-posts'> = {
   ],
   hooks: {
     afterChange: [revalidatePost],
-    afterRead: [populateAuthors],
+    afterRead: [populateAuthors, createClearOrphanedRefsAfterReadHook()],
+    beforeValidate: [createClearOrphanedRefsBeforeValidateHook()],
+    beforeChange: [createClearOrphanedRefsBeforeChangeHook()],
     afterDelete: [revalidateDelete],
   },
   versions: {

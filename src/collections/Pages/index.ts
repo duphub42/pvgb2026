@@ -8,6 +8,11 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config' // Korrigierter Pfad
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import {
+  createClearOrphanedRefsAfterReadHook,
+  createClearOrphanedRefsBeforeChangeHook,
+  createClearOrphanedRefsBeforeValidateHook,
+} from '../../hooks/clearOrphanedRefs'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { normalizeLayout } from './hooks/normalizeLayout'
 import { revalidatePage } from './hooks/revalidatePage'
@@ -116,8 +121,9 @@ export const Pages: CollectionConfig = {
     },
   ],
   hooks: {
-    afterRead: [normalizeLayout],
-    beforeChange: [stripIdOnUpdate, populatePublishedAt],
+    afterRead: [normalizeLayout, createClearOrphanedRefsAfterReadHook()],
+    beforeValidate: [createClearOrphanedRefsBeforeValidateHook()],
+    beforeChange: [stripIdOnUpdate, createClearOrphanedRefsBeforeChangeHook(), populatePublishedAt],
     afterChange: [revalidatePage],
   },
   versions: {

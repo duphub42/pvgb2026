@@ -292,9 +292,10 @@ export const MegaMenu: CollectionConfig = {
           options: [
             { label: 'Standard (einfarbig)', value: 'default' },
             { label: 'Paths (animierte Linien)', value: 'paths' },
+            { label: 'Threads (Wellenlinien)', value: 'threads' },
           ],
           admin: {
-            description: 'Paths = animierte Bezierkurven im Hintergrund (shadcn-Style). Pro Highlight-Box individuell einstellbar.',
+            description: 'Paths = Bezierkurven (shadcn). Threads = wellige Fadenlinien (React Bits-Style). Pro Highlight-Box einstellbar.',
           },
         },
         {

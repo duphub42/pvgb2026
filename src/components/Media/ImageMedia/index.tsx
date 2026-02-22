@@ -77,6 +77,9 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
 
+  // Vercel Blob URLs: Falls remotePatterns nicht greift, unoptimized nutzen damit Bild trotzdem angezeigt wird
+  const isBlobUrl = typeof src === 'string' && src.includes('blob.vercel-storage.com')
+
   // NOTE: this is used by the browser to determine which image to download at different screen sizes
   const sizes = sizeFromProps
     ? sizeFromProps
@@ -98,6 +101,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         loading={loading}
         sizes={sizes}
         src={src}
+        unoptimized={isBlobUrl}
         width={!fill ? width : undefined}
       />
     </picture>

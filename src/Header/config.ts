@@ -1,5 +1,10 @@
 import type { GlobalConfig } from 'payload'
 
+import {
+  createClearOrphanedRefsAfterReadHook,
+  createClearOrphanedRefsBeforeChangeHook,
+  createClearOrphanedRefsBeforeValidateHook,
+} from '@/hooks/clearOrphanedRefs'
 import { link } from '@/fields/link'
 import { revalidateHeader } from './hooks/revalidateHeader'
 
@@ -334,7 +339,9 @@ export const Header: GlobalConfig = {
     },
   ],
   hooks: {
+    afterRead: [createClearOrphanedRefsAfterReadHook()],
     beforeValidate: [
+      createClearOrphanedRefsBeforeValidateHook(),
       ({ data }) => {
         const useMega = (data as { useMegaMenu?: boolean })?.useMegaMenu
         const layout = (data as { megaMenuLayout?: { sidebarCols?: number; contentCols?: number; featuredCols?: number } })?.megaMenuLayout
@@ -351,6 +358,7 @@ export const Header: GlobalConfig = {
         return data
       },
     ],
+    beforeChange: [createClearOrphanedRefsBeforeChangeHook()],
     afterChange: [revalidateHeader],
   },
 }
