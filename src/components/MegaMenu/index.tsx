@@ -526,9 +526,10 @@ export function MegaMenu({
         )}
         data-scrolled={isScrolled ? 'true' : undefined}
       >
-        <div className="container flex h-24 items-center justify-between px-4">
-          <div className="flex items-center">{logo}</div>
-          <div className="megamenu-nav-wrap flex h-full items-stretch gap-4">
+        <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
+          <div className="flex flex-1 items-center justify-between">
+            <div className="flex items-center">{logo}</div>
+            <div className="megamenu-nav-wrap flex h-full items-stretch gap-4">
           <NavigationMenu
             className="megamenu-nav hidden md:flex md:h-full md:flex-initial md:ml-auto"
             value={activeMenu ?? ''}
@@ -911,7 +912,7 @@ export function MegaMenu({
                 })}
               </NavigationMenuList>
                 <div
-                  className="megamenu-sliding-underline pointer-events-none absolute bottom-0 h-0.5 transition-all duration-200 ease-out"
+                  className="megamenu-sliding-underline pointer-events-none absolute -bottom-2 left-0 h-0.5"
                   style={{
                     left: underlineStyle?.left ?? 0,
                     width: underlineStyle?.width ?? 0,
@@ -983,6 +984,7 @@ export function MegaMenu({
             </SheetContent>
               </Sheet>
             </div>
+          </div>
           </div>
         </div>
       </header>

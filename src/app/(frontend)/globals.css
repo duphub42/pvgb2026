@@ -494,9 +494,18 @@ html[data-theme='light'] {
   background-color: transparent;
   transform: translateX(-50%);
 }
-/* Sliding Underline: ein Element, slided zum aktiven Item (siehe MegaMenu JS) */
+/* Sliding Underline: gleiche Farbe wie Header-Rand, Opacity passt sich Hover an */
+/* Bewegung beim Wechsel des aktiven Links: Vercel-Style (left/width animiert) */
 .megamenu .megamenu-sliding-underline {
   background-color: #e5e5e5;
+  opacity: 0.35;
+  transition:
+    opacity 0.2s ease,
+    left 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.megamenu:hover .megamenu-sliding-underline {
+  opacity: 1;
 }
 .megamenu .megamenu-top-item:hover,
 .megamenu .megamenu-top-item:focus-visible {
@@ -656,7 +665,7 @@ html[data-theme='light'] {
   animation: megamenu-wipe-from-right 0.65s var(--megamenu-panel-ease) 200ms forwards;
 }
 
-/* PathsBackground: fließende Bezier-Striche (shadcn Paths-Style) */
+/* PathsBackground: shadcn/ui Style – animierte Bezierkurven (stroke-dashoffset) */
 @keyframes paths-draw {
   0% {
     stroke-dashoffset: 0;
@@ -804,6 +813,14 @@ header .header-tool-toggle--theme:hover {
 }
 [data-theme='dark'] .megamenu .megamenu-sliding-underline {
   background-color: #262626;
+  opacity: 0.35;
+  transition:
+    opacity 0.2s ease,
+    left 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+[data-theme='dark'] .megamenu:hover .megamenu-sliding-underline {
+  opacity: 1;
 }
 [data-theme='dark'] .megamenu .megamenu-top-item:hover,
 [data-theme='dark'] .megamenu .megamenu-top-item:focus-visible,

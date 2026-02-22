@@ -190,7 +190,10 @@ export interface SitePage {
     headlineLine2?: string | null;
     headlineLine3?: string | null;
     description?: string | null;
-    mediaType?: ('image' | 'video' | 'animation' | 'halo') | null;
+    /**
+     * Halo (Vanta) = animierter Hintergrund mit dezentem Gitter. Bei „Bild/Video/Animation“ erscheinen Halo und Gitter nicht.
+     */
+    mediaType?: ('halo' | 'image' | 'video' | 'animation') | null;
     backgroundImage?: (number | null) | Media;
     backgroundVideo?: (number | null) | Media;
     /**

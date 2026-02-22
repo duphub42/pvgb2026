@@ -130,9 +130,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
       className="site-header sticky top-0 z-50 w-full"
       {...(resolvedTheme ? { 'data-theme': resolvedTheme } : {})}
     >
-      <div className="container flex h-24 items-center justify-between px-4">
-        {logoEl}
-        <HeaderNav data={data} />
+      <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
+        <div className="flex flex-1 items-center justify-between">
+          {logoEl}
+          <HeaderNav data={data} />
+        </div>
       </div>
     </header>
   )

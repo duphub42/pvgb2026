@@ -102,16 +102,17 @@ export const hero: Field = {
     {
       name: 'mediaType',
       type: 'select',
-      defaultValue: 'image',
+      defaultValue: 'halo',
       label: 'Hintergrund',
       options: [
+        { label: 'Halo (Vanta) + Gitter', value: 'halo' },
         { label: 'Bild', value: 'image' },
         { label: 'Video', value: 'video' },
         { label: 'Animation', value: 'animation' },
-        { label: 'Halo (Vanta)', value: 'halo' },
       ],
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        description: 'Halo (Vanta) = animierter Hintergrund mit dezentem Gitter. Bei „Bild/Video/Animation“ erscheinen Halo und Gitter nicht.',
       },
     },
     {

@@ -5,9 +5,8 @@ import React from 'react'
 
 /**
  * Paths-Hintergrund im Stil von shadcn/ui Background Paths:
- * Animierte SVG-Bezierkurven mit stroke-dashoffset und Opacity-Puls.
- * Geeignet für Highlight-Boxen, Hero-Bereiche, etc.
- * @see https://www.shadcn.io/background/paths
+ * Animierte SVG-Bezierkurven mit stroke-dashoffset (Zeichen-Effekt), gestaffeltes Timing.
+ * @see https://www.shadcn.io/preview/background/paths
  */
 const PATH_COUNT = 18
 const DURATION_MIN = 20

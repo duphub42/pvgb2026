@@ -126,6 +126,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   const [mounted, setMounted] = useState(false)
   const [floatingUnlock, setFloatingUnlock] = useState(false)
   const [waveFill, setWaveFill] = useState<string>(WAVE_FILL.dark)
+  const [themeKey, setThemeKey] = useState<string>('')
   const heroSectionRef = useRef<HTMLElement>(null)
   const mountTimeRef = useRef(0)
   const floatingElRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -165,11 +166,13 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     return () => clearInterval(id)
   }, [mounted, floatingCount, floatingUnlock])
 
-  // Wellen-Farbe aus data-theme (kein getComputedStyle, damit nichts abstürzt)
+  // Wellen-Farbe + Theme-Key aus data-theme (Key sorgt nach Theme-Wechsel für Remount von Halo/Gitter)
   useEffect(() => {
     const read = () => {
       const theme = document.documentElement.getAttribute('data-theme')
-      setWaveFill(theme === 'light' ? WAVE_FILL.light : WAVE_FILL.dark)
+      const t = theme === 'light' || theme === 'dark' ? theme : 'light'
+      setWaveFill(t === 'light' ? WAVE_FILL.light : WAVE_FILL.dark)
+      setThemeKey(t)
     }
     read()
     const observer = new MutationObserver((mutations) => {
@@ -261,7 +264,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     headlineLine3,
     subheadline,
     description,
-    mediaType = 'image',
+    mediaType = 'halo',
     backgroundImage,
     backgroundVideo,
     foregroundImage,
@@ -359,7 +362,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         }
       >
         {useBackgroundHalo ? (
-          <>
+          <div key={themeKey || 'halo'} className="absolute inset-0 w-full h-full">
             {showHaloLayer ? (
               <HeroBackgroundVantaHalo
                 className="absolute inset-0 w-full h-full"
@@ -419,7 +422,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                 }
               />
             ))}
-          </>
+          </div>
         ) : useBackgroundAnimation ? (
           <HeroBackgroundThree className="absolute inset-0 w-full h-full" />
         ) : (
