@@ -247,26 +247,75 @@ footer a[href='/']:hover .logo-animate {
 
 /* Logo glitch: 1.5s on hover, then rest; only restarts on next mouseover */
 /* Hoher z-index damit Glitch-Layers nicht hinter Header-Elementen verschwinden */
+/* Wilder Pixel-Reveal: Auf- und Abbau mit übersprungenen/springenden Pixeln (Hacker-Look) */
 .logo-glitch-wrapper {
   position: relative;
   z-index: 50;
   display: inline-flex;
   align-items: center;
   overflow: hidden;
-  transition: max-width 0.45s ease-out;
+  --logo-reveal-duration: 0.45s;
+  --logo-collapsed-width: 1.75rem;
+}
+.logo-glitch-wrapper.logo-glitch-footer {
+  --logo-collapsed-width: 1.5rem;
 }
 
-/* Während des Glitchs: keine Maske, damit RGB-Split und Layers ausbrechen können (v. a. Dark Mode) */
+/* Ausgeklappt: Expand-Animation (overflow bleibt hidden bis Glitch läuft) */
+.logo-glitch-wrapper:not(.logo-glitch-collapsed) {
+  animation: logo-reveal-expand-glitch var(--logo-reveal-duration) ease-out forwards;
+}
+/* Nur während Glitch: overflow visible, damit Effekt ausbrechen kann (nicht beim Aufbau) */
 .logo-glitch-wrapper.logo-glitch-active {
   overflow: visible;
 }
-
-/* Nach Initial-Animation: nur Icon sichtbar (nicht beschnitten), Rest versteckt */
+/* Eingeklappt: Collapse-Animation (springt wild, Pixel übersprungen) */
 .logo-glitch-wrapper.logo-glitch-collapsed {
-  max-width: 1.75rem !important;
+  animation: logo-reveal-collapse-glitch var(--logo-reveal-duration) ease-out forwards;
 }
-.logo-glitch-wrapper.logo-glitch-footer.logo-glitch-collapsed {
-  max-width: 1.5rem !important;
+
+/* Keyframes Expand: weicherer Aufbau, leichte Rücksprünge (Hacker-Look, aber smooth) */
+@keyframes logo-reveal-expand-glitch {
+  0% { max-width: var(--logo-collapsed-width); }
+  8% { max-width: 3rem; }
+  16% { max-width: 2.75rem; }
+  24% { max-width: 5rem; }
+  32% { max-width: 4.5rem; }
+  40% { max-width: 8rem; }
+  50% { max-width: 7rem; }
+  60% { max-width: 12rem; }
+  70% { max-width: 10.5rem; }
+  80% { max-width: 16rem; }
+  90% { max-width: 14rem; }
+  100% { max-width: 20rem; }
+}
+
+/* Keyframes Collapse: weicherer Abbau, leichte Rücksprünge */
+@keyframes logo-reveal-collapse-glitch {
+  0% { max-width: 20rem; }
+  12% { max-width: 16rem; }
+  22% { max-width: 17rem; }
+  32% { max-width: 12rem; }
+  42% { max-width: 13rem; }
+  52% { max-width: 8rem; }
+  62% { max-width: 9rem; }
+  72% { max-width: 5rem; }
+  82% { max-width: 3.5rem; }
+  92% { max-width: 2.5rem; }
+  100% { max-width: var(--logo-collapsed-width); }
+}
+
+/* Nach Animation: Endzustände festhalten (für Footer andere Breite) */
+.logo-glitch-wrapper.logo-glitch-collapsed {
+  max-width: var(--logo-collapsed-width) !important;
+}
+/* Text-Logo eingeklappt: nur Mitte sichtbar (Punkt), Rest per clip-path abgeschnitten – Text kann nicht durchscheinen */
+.logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed {
+  clip-path: circle(2px at 50% 50%);
+}
+.logo-glitch-wrapper.logo-glitch-text:not(.logo-glitch-collapsed) {
+  clip-path: none;
+  max-width: 20rem;
 }
 /* Linke Kante abdecken, damit bei transparentem Icon nichts durchscheint */
 .logo-glitch-wrapper.logo-glitch-collapsed::before {
@@ -279,9 +328,6 @@ footer a[href='/']:hover .logo-animate {
   background: inherit;
   z-index: 2;
   pointer-events: none;
-}
-.logo-glitch-wrapper.logo-glitch-text:not(.logo-glitch-collapsed) {
-  max-width: 20rem;
 }
 
 /* Versteckter Modus: 1px-Element mittig (50% 50%) hinter der Icon-Maske */

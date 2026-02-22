@@ -9,7 +9,9 @@ import { cn } from '@/utilities/ui'
 const GLITCH_DURATION_MS = 1500
 /** Verzögerung bis das Logo nach dem ersten Glitch auf Icon-Größe verkleinert wird */
 const COLLAPSE_AFTER_MS = 5000
-/** Dauer der Aufklapp-Animation (muss mit CSS transition übereinstimmen) */
+/** Nach Hover: Logo nach Glitch noch so lange stehen lassen, dann Abbau */
+const STAY_VISIBLE_AFTER_GLITCH_MS = 5000
+/** Dauer der Aufklapp-Animation (muss mit CSS übereinstimmen) */
 const EXPAND_DURATION_MS = 450
 /** Icons für den Icon-Scramble (läuft parallel zum Glitch, nur im Icon-Bereich) */
 const SCRAMBLE_ICONS = [Zap, Globe, Skull, Star, Eye, Heart] as const
@@ -47,6 +49,7 @@ export function LogoWithGlitch({
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const iconScrambleIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const expandDelayRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const stayVisibleTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const animatingRef = useRef(false)
   const hasRunGlitchRef = useRef(false)
 
@@ -105,14 +108,27 @@ export function LogoWithGlitch({
       clearTimeout(expandDelayRef.current)
       expandDelayRef.current = null
     }
+    if (stayVisibleTimeoutRef.current) {
+      clearTimeout(stayVisibleTimeoutRef.current)
+      stayVisibleTimeoutRef.current = null
+    }
     if (collapsed) {
-      /* Glitch erst nach dem Aufklappen starten, damit die Animation in voller Breite läuft wie am Anfang */
+      /* Glitch erst nach dem Aufklappen starten */
       expandDelayRef.current = setTimeout(() => {
         expandDelayRef.current = null
         runGlitch(textLogo != null)
+        /* Nach Glitch (1.5s) noch 5s stehen lassen, dann Abbau */
+        stayVisibleTimeoutRef.current = setTimeout(() => {
+          stayVisibleTimeoutRef.current = null
+          setIsHovered(false)
+        }, GLITCH_DURATION_MS + STAY_VISIBLE_AFTER_GLITCH_MS)
       }, EXPAND_DURATION_MS)
     } else {
       runGlitch(textLogo != null)
+      stayVisibleTimeoutRef.current = setTimeout(() => {
+        stayVisibleTimeoutRef.current = null
+        setIsHovered(false)
+      }, GLITCH_DURATION_MS + STAY_VISIBLE_AFTER_GLITCH_MS)
     }
   }, [runGlitch, textLogo, collapsed])
 
@@ -196,6 +212,10 @@ export function LogoWithGlitch({
             clearTimeout(expandDelayRef.current)
             expandDelayRef.current = null
           }
+          if (stayVisibleTimeoutRef.current) {
+            clearTimeout(stayVisibleTimeoutRef.current)
+            stayVisibleTimeoutRef.current = null
+          }
           setIsHovered(false)
         }}
         role="presentation"
@@ -242,6 +262,10 @@ export function LogoWithGlitch({
           if (expandDelayRef.current) {
             clearTimeout(expandDelayRef.current)
             expandDelayRef.current = null
+          }
+          if (stayVisibleTimeoutRef.current) {
+            clearTimeout(stayVisibleTimeoutRef.current)
+            stayVisibleTimeoutRef.current = null
           }
           setIsHovered(false)
         }}
