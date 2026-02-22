@@ -47,11 +47,11 @@ export function SearchCommand() {
           <Button
             variant="ghost"
             size="icon"
-            className="header-tool-toggle size-[2.75rem]"
+            className="header-tool-toggle header-tool-toggle--theme shrink-0"
             onClick={() => setOpen(true)}
             aria-label="Suchen"
           >
-            <Search className="size-5" />
+            <Search />
           </Button>
         </TooltipTrigger>
         <TooltipContent side="bottom" sideOffset={6}>

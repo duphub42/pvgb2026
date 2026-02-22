@@ -32,7 +32,9 @@ In the Vercel project: **Settings → Environment Variables**. Add these for **P
 | `DATABASE_URL` | Neon connection string (pooled) | `postgresql://user:pass@ep-xxx.neon.tech/neondb?sslmode=require` |
 | `PAYLOAD_SECRET` | Secret for Payload (JWT/session); use a long random string | e.g. generate with `openssl rand -hex 32` |
 | `NEXT_PUBLIC_SERVER_URL` | Public URL of the site (no trailing slash) | `https://your-app.vercel.app` |
-| `BLOB_READ_WRITE_TOKEN` | Vercel Blob storage token (for Media uploads) | From Vercel project → Storage → Blob |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob storage token (for Media uploads); **Pflicht in Production** | From Vercel project → Storage → Blob |
+
+**Wichtig – Media/Bilder bleiben erhalten:** Vercel Blob Storage ist ein separates System. Deployments ersetzen nur den Code, **nicht** die Blob-Daten. Bereits hochgeladene Bilder gehen bei einem Deploy nicht verloren, solange `BLOB_READ_WRITE_TOKEN` gesetzt ist und immer derselbe Token (dasselbe Vercel-Projekt/Storage) verwendet wird. Token in **Production** und **Preview** identisch lassen, damit alle Deployments dieselben Blob-Daten nutzen.
 | `PREVIEW_SECRET` | Live Preview in Admin; **min. 12 characters** | e.g. `openssl rand -hex 12` |
 | `CRON_SECRET` | Optional; for securing cron endpoints | Optional long random string |
 
@@ -50,11 +52,29 @@ In the Vercel project: **Settings → Environment Variables**. Add these for **P
   2. **Bei jedem Deploy:** In Vercel unter **Settings → General → Build & Development Settings** die **Build Command** auf `pnpm run ci` setzen (führt `payload migrate && next build` aus). So laufen Migrationen vor jedem Build.
 - Die App nutzt `push: false` in Production, das Schema wird nur über Migrationen aktualisiert.
 
-## 4. Optional: Vercel Cron
+## 4. Content-Workflow (Live-Betrieb: Pull → Bearbeiten → Push)
+
+Wenn die Seite live ist, solltet ihr **nicht direkt** in der Production-DB arbeiten. Stattdessen:
+
+1. **Pull** – Neon-Inhalte nach lokal holen:
+   ```bash
+   DATABASE_URL="postgresql://neon-url..." PAYLOAD_SECRET="..." npx tsx src/scripts/export-data.ts
+   DATABASE_URL= POSTGRES_URL= PAYLOAD_SECRET="..." npx tsx src/scripts/import-data.ts --replace
+   ```
+2. **Bearbeiten** – Lokal mit `pnpm dev` im Admin arbeiten.
+3. **Push** – Lokale Änderungen nach Neon/Vercel:
+   ```bash
+   DATABASE_URL= POSTGRES_URL= PAYLOAD_SECRET="..." npx tsx src/scripts/export-data.ts
+   DATABASE_URL="postgresql://neon-url..." BLOB_READ_WRITE_TOKEN="..." PAYLOAD_SECRET="..." npx tsx src/scripts/import-data.ts --replace
+   git push
+   ```
+   `--replace` überschreibt die Zieldatenbank jeweils vollständig.
+
+## 5. Optional: Vercel Cron
 
 If you use the cron job in `vercel.json` (`/api/payload-jobs/run`), set `CRON_SECRET` in Vercel and call the endpoint with `Authorization: Bearer <CRON_SECRET>`.
 
-## 5. Local development
+## 6. Local development
 
 ### Einfaches Setup (ohne Postgres/Neon)
 

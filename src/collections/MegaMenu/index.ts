@@ -285,6 +285,19 @@ export const MegaMenu: CollectionConfig = {
           },
         },
         {
+          name: 'background',
+          type: 'select',
+          label: 'Hintergrund',
+          defaultValue: 'default',
+          options: [
+            { label: 'Standard (einfarbig)', value: 'default' },
+            { label: 'Paths (animierte Linien)', value: 'paths' },
+          ],
+          admin: {
+            description: 'Paths = animierte Bezierkurven im Hintergrund (shadcn-Style). Pro Highlight-Box individuell einstellbar.',
+          },
+        },
+        {
           name: 'cards',
           type: 'array',
           label: 'Karten',

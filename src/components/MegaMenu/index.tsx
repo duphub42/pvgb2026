@@ -22,9 +22,11 @@ import { cn } from '@/utilities/ui'
 import { getClientSideURL } from '@/utilities/getURL'
 import { ChevronRight, Menu, MessageCircle, Phone, Mail } from 'lucide-react'
 import Link from 'next/link'
-import React, { useEffect, useState } from 'react'
+import { usePathname } from 'next/navigation'
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { HeaderActions } from '@/components/HeaderActions/HeaderActions'
+import { PathsBackground } from '@/components/PathsBackground/PathsBackground'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 /** Konfiguration für WhatsApp, Rückruf und Newsletter im Mega-Menü (aus Header-Global) */
@@ -96,6 +98,7 @@ export type MegaMenuItem = {
   }>
   highlight?: {
     position?: 'right' | 'below' | null
+    background?: 'default' | 'paths' | null
     cards?: Array<{
       title?: string | null
       description?: string | null
@@ -330,13 +333,50 @@ const defaultCardStyle: HighlightCardStyle = {
   hoverBorder: 'hover:border-primary/40',
 }
 
-export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCta, highlightCardStyle }: MegaMenuProps) {
+/** Prüft, ob die aktuelle Route diesem Menü-Item entspricht (Vercel: Underline nur bei aktiver Seite) */
+function isItemActive(pathname: string, itemUrl: string): boolean {
+  const path = itemUrl.startsWith('http') ? new URL(itemUrl).pathname : itemUrl
+  if (pathname === path) return true
+  if (path !== '/' && pathname.startsWith(path + '/')) return true
+  return false
+}
+
+export function MegaMenu({
+  items,
+  logo,
+  className = '',
+  columnWidths,
+  megaMenuCta,
+  highlightCardStyle,
+}: MegaMenuProps) {
   const cardStyle = highlightCardStyle ?? defaultCardStyle
+  const pathname = usePathname()
   const [isVisible, setIsVisible] = useState(true)
   const [isScrolled, setIsScrolled] = useState(false)
   const lastScrollYRef = React.useRef(0)
   const scrollReadyRef = React.useRef(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
+  const navListWrapRef = useRef<HTMLDivElement>(null)
+  const viewportWrapperRef = useRef<HTMLDivElement>(null)
+  const prevViewportHeightRef = useRef<number>(0)
+  const prevActiveMenuRef = useRef<string | null>(null)
+  const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const [underlineStyle, setUnderlineStyle] = useState<{ left: number; width: number } | null>(null)
+  const [mouseEntrySide, setMouseEntrySide] = useState<'left' | 'right'>('left')
+
+  /* Schließen verzögern (300ms): Cursor darf langsam vom Link ins Dropdown fahren, ohne dass es zugeht */
+  useEffect(() => {
+    const wrapper = viewportWrapperRef.current
+    if (!wrapper) return
+    const onEnter = () => {
+      if (closeTimeoutRef.current) {
+        clearTimeout(closeTimeoutRef.current)
+        closeTimeoutRef.current = null
+      }
+    }
+    wrapper.addEventListener('pointerenter', onEnter)
+    return () => wrapper.removeEventListener('pointerenter', onEnter)
+  }, [])
 
   const sidebarCols = columnWidths?.sidebar ?? 3
   const contentCols = columnWidths?.content ?? 6
@@ -352,6 +392,90 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
     }, 500)
     return () => clearTimeout(t)
   }, [])
+
+  useLayoutEffect(() => {
+    const wrap = navListWrapRef.current
+    if (!wrap) return
+    const active = wrap.querySelector('.megamenu-top-item[data-active="true"]') as HTMLElement | null
+    if (!active) {
+      setUnderlineStyle(null)
+      return
+    }
+    const wrapRect = wrap.getBoundingClientRect()
+    const activeRect = active.getBoundingClientRect()
+    setUnderlineStyle({
+      left: activeRect.left - wrapRect.left,
+      width: activeRect.width,
+    })
+  }, [pathname])
+
+  useEffect(() => {
+    const wrap = navListWrapRef.current
+    if (!wrap) return
+    const ro = new ResizeObserver(() => {
+      const active = wrap.querySelector('.megamenu-top-item[data-active="true"]') as HTMLElement | null
+      if (!active) {
+        setUnderlineStyle(null)
+        return
+      }
+      const wrapRect = wrap.getBoundingClientRect()
+      const activeRect = active.getBoundingClientRect()
+      setUnderlineStyle({
+        left: activeRect.left - wrapRect.left,
+        width: activeRect.width,
+      })
+    })
+    ro.observe(wrap)
+    return () => ro.disconnect()
+  }, [pathname])
+
+  /* Beim Wechsel zwischen zwei Menüpunkten: Dropdown-Höhe per Slide up/down animieren */
+  useEffect(() => {
+    const prev = prevActiveMenuRef.current
+    prevActiveMenuRef.current = activeMenu ?? null
+
+    const switching = prev != null && prev !== '' && activeMenu != null && activeMenu !== '' && prev !== activeMenu
+    if (!switching) {
+      if (activeMenu != null && activeMenu !== '') {
+        const wrapper = viewportWrapperRef.current
+        if (wrapper) prevViewportHeightRef.current = wrapper.offsetHeight
+      }
+      return
+    }
+
+    const wrapper = viewportWrapperRef.current
+    if (!wrapper) return
+
+    const viewport = wrapper.firstElementChild as HTMLElement | null
+    const oldHeight = prevViewportHeightRef.current || wrapper.offsetHeight
+    const duration = 480
+    const ease = 'cubic-bezier(0.32, 0.72, 0, 1)' /* smooth slide ease-out */
+
+    /* Wrapper sofort auf alte Höhe fixieren, damit kein Sprung sichtbar ist */
+    wrapper.style.minHeight = '0'
+    wrapper.style.height = `${oldHeight}px`
+    wrapper.style.transition = `height ${duration}ms ${ease}`
+
+    /* Neue Höhe erst nach Layout lesen (Radix/React brauchen einen Tick), dann weich animieren */
+    const timeoutId = setTimeout(() => {
+      const newHeightPx = viewport
+        ? parseFloat(getComputedStyle(viewport).height) || viewport.scrollHeight
+        : wrapper.scrollHeight
+      const capped = Math.min(newHeightPx, window.innerHeight * 0.85)
+      wrapper.style.height = `${capped}px`
+      prevViewportHeightRef.current = capped
+
+      const onEnd = () => {
+        wrapper.style.transition = ''
+        wrapper.style.minHeight = ''
+        wrapper.style.height = ''
+        wrapper.removeEventListener('transitionend', onEnd)
+      }
+      wrapper.addEventListener('transitionend', onEnd)
+    }, 0)
+
+    return () => clearTimeout(timeoutId)
+  }, [activeMenu])
 
   useEffect(() => {
     const handleScroll = () => {
@@ -408,9 +532,29 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
           <NavigationMenu
             className="megamenu-nav hidden md:flex md:h-full md:flex-initial md:ml-auto"
             value={activeMenu ?? ''}
-            onValueChange={(value) => setActiveMenu(value || null)}
+            onValueChange={(value) => {
+              const next = value || null
+              if (next !== '' && next !== null) {
+                if (closeTimeoutRef.current) {
+                  clearTimeout(closeTimeoutRef.current)
+                  closeTimeoutRef.current = null
+                }
+                if (viewportWrapperRef.current && next !== activeMenu)
+                  prevViewportHeightRef.current = viewportWrapperRef.current.offsetHeight
+                setActiveMenu(next)
+                return
+              }
+              /* Schließen um 300ms verzögern, damit Cursor vom Link ins Dropdown kann */
+              if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
+              closeTimeoutRef.current = setTimeout(() => {
+                setActiveMenu(null)
+                closeTimeoutRef.current = null
+              }, 300)
+            }}
+            viewportWrapperRef={viewportWrapperRef}
           >
-              <NavigationMenuList className="megamenu-nav-list h-full justify-end">
+              <div ref={navListWrapRef} className="megamenu-nav-list-wrap relative flex h-full flex-1 justify-end">
+                <NavigationMenuList className="megamenu-nav-list h-full justify-end">
                 {sortedItems.map((item) => {
                   const hasDrop = hasDropdown(item)
                   const value = String(item.id)
@@ -625,52 +769,140 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
                       ) : null
 
                     if (hasCol3 && item.highlight != null && highlightPosition === 'right') {
+                      const usePathsBg = item.highlight?.background === 'paths'
                       visibleColumns.push({
                         span: columnSpans[2] ?? featuredCols,
                         key: 'highlight',
-                        content: highlightContent,
+                        content: (
+                          <div className="megamenu-highlight-wipe-wrap overflow-hidden" data-wipe={mouseEntrySide}>
+                            {usePathsBg ? (
+                              <div className="relative min-h-[200px]">
+                                <PathsBackground
+                                  strokeColor="currentColor"
+                                  strokeOpacity={0.14}
+                                  className="text-muted-foreground/60"
+                                />
+                                <div className="relative z-10">{highlightContent}</div>
+                              </div>
+                            ) : (
+                              highlightContent
+                            )}
+                          </div>
+                        ),
                       })
                     }
 
                     return (
                       <NavigationMenuItem key={item.id} value={value}>
-                        <NavigationMenuTrigger className="megamenu-top-item">{item.label}</NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                          <div className="w-full">
-                            {visibleColumns.length > 0 && (
-                              <div className="grid grid-cols-12 min-h-[400px]">
-                                {visibleColumns.map((col, idx) => (
-                                <div
-                                  key={col.key}
-                                  className={cn(
-                                    'p-8 flex flex-col',
-                                    col.key === 'desc' && 'megamenu-sidebar bg-muted/40',
-                                    col.key === 'highlight' && 'megamenu-featured',
-                                    idx < visibleColumns.length - 1 && 'border-r border-border megamenu-col-divider',
-                                    colSpan(col.span),
-                                  )}
-                                >
-                                  {col.content}
-                                </div>
-                              ))}
+                        <NavigationMenuTrigger
+                          className="megamenu-top-item"
+                          onPointerEnter={(e) => {
+                            const rect = e.currentTarget.getBoundingClientRect()
+                            setMouseEntrySide(e.clientX < rect.left + rect.width / 2 ? 'left' : 'right')
+                          }}
+                        >
+                          {item.label}
+                        </NavigationMenuTrigger>
+                        <NavigationMenuContent key={`${value}-${activeMenu === value ? 'open' : 'closed'}`}>
+                          <div
+                            className="w-full"
+                            onPointerEnter={(e) => {
+                              const rect = e.currentTarget.getBoundingClientRect()
+                              setMouseEntrySide(e.clientX < rect.left + rect.width / 2 ? 'left' : 'right')
+                            }}
+                          >
+                            {visibleColumns.length > 0 && (() => {
+                              const hasDescColumn = visibleColumns.some((c) => c.key === 'desc')
+                              const hasHighlightInRow = visibleColumns.some((c) => c.key === 'highlight')
+                              const threeColsInRow = hasDescColumn && hasHighlightInRow
+                              const twoColsInRow = visibleColumns.length === 2 && (hasDescColumn || hasHighlightInRow)
+                              /* Responsive: Ab xl (1280px) = Highlight neben Inhalt; unter xl = Highlight unter Inhalt, Desc ausgeblendet. */
+                              /* Mittlere Spalte (Unterpunkte) bekommt maximale Breite; Seiten-Spalten begrenzt */
+                              const flexMiddleGrid =
+                                threeColsInRow
+                                  ? 'xl:grid-cols-[minmax(10rem,18rem)_1fr_minmax(10rem,18rem)]'
+                                  : twoColsInRow && hasDescColumn
+                                    ? 'xl:grid-cols-[minmax(10rem,18rem)_1fr]'
+                                    : twoColsInRow && hasHighlightInRow
+                                      ? 'xl:grid-cols-[1fr_minmax(10rem,18rem)]'
+                                      : null
+                              return (
+                              <div
+                                className={cn(
+                                  'megamenu-dropdown-content grid grid-cols-12',
+                                  flexMiddleGrid,
+                                )}
+                              >
+                                {visibleColumns.map((col, idx) => {
+                                  const flexMiddle = threeColsInRow || twoColsInRow
+                                  const isItemsCol = col.key === 'items'
+                                  const isHighlightCol = col.key === 'highlight'
+                                  const getSpan = () => {
+                                    if (col.key === 'desc') return flexMiddle ? 'xl:col-auto' : colSpan(col.span)
+                                    if (isItemsCol && flexMiddle) return 'col-span-12 xl:col-auto'
+                                    if (isItemsCol) return 'col-span-12 xl:col-span-6'
+                                    if (isHighlightCol && flexMiddle) return 'col-span-12 xl:col-auto'
+                                    if (isHighlightCol) return 'col-span-12 xl:col-span-3'
+                                    return colSpan(col.span)
+                                  }
+                                  return (
+                                    <div
+                                      key={col.key}
+                                      className={cn(
+                                        'p-8 flex flex-col min-w-0',
+                                        col.key === 'desc' && 'megamenu-sidebar megamenu-col-desc bg-muted/40 hidden xl:flex',
+                                        col.key === 'highlight' && 'megamenu-featured',
+                                        col.key === 'items' && 'megamenu-col-items',
+                                        idx < visibleColumns.length - 1 && 'border-r border-border megamenu-col-divider',
+                                        isItemsCol && flexMiddle && 'max-xl:border-r-0',
+                                        isHighlightCol && flexMiddle && 'max-xl:border-t max-xl:border-border',
+                                        getSpan(),
+                                      )}
+                                    >
+                                      {col.content}
+                                    </div>
+                                  )
+                                })}
                               </div>
-                            )}
-                            {hasCol3 && item.highlight != null && highlightPosition === 'below' && highlightContent && (
-                              <div className="megamenu-featured border-t border-border p-8">
-                                {highlightContent}
+                              )
+                            })()}
+                            {(hasCol3 && item.highlight != null && highlightPosition === 'below' && highlightContent) || megaMenuCta ? (
+                              <div className="megamenu-dropdown-content-footer">
+                                {hasCol3 && item.highlight != null && highlightPosition === 'below' && highlightContent && (
+                                  <div
+                                    className="megamenu-highlight-wipe-wrap megamenu-below-highlight-wrap overflow-hidden"
+                                    data-wipe={mouseEntrySide}
+                                  >
+                                    <div className="megamenu-featured relative border-t border-border p-8">
+                                      {item.highlight?.background === 'paths' && (
+                                        <PathsBackground
+                                          strokeColor="currentColor"
+                                          strokeOpacity={0.14}
+                                          className="text-muted-foreground/60"
+                                        />
+                                      )}
+                                      <div className="relative z-10">{highlightContent}</div>
+                                    </div>
+                                  </div>
+                                )}
+                                {megaMenuCta && <MegaMenuCtaStrip cta={megaMenuCta} />}
                               </div>
-                            )}
-                            {megaMenuCta && <MegaMenuCtaStrip cta={megaMenuCta} />}
+                            ) : null}
                           </div>
                         </NavigationMenuContent>
                       </NavigationMenuItem>
                     )
                   }
 
+                  const linkActive = isItemActive(pathname ?? '', item.url)
                   return (
                     <NavigationMenuItem key={item.id}>
                       <NavigationMenuLink asChild>
-                        <Link href={item.url} className={cn(navigationMenuTriggerStyle(), 'megamenu-top-item')}>
+                        <Link
+                          href={item.url}
+                          className={cn(navigationMenuTriggerStyle(), 'megamenu-top-item')}
+                          data-active={linkActive ? 'true' : undefined}
+                        >
                           {item.label}
                         </Link>
                       </NavigationMenuLink>
@@ -678,6 +910,15 @@ export function MegaMenu({ items, logo, className = '', columnWidths, megaMenuCt
                   )
                 })}
               </NavigationMenuList>
+                <div
+                  className="megamenu-sliding-underline pointer-events-none absolute bottom-0 h-0.5 transition-all duration-200 ease-out"
+                  style={{
+                    left: underlineStyle?.left ?? 0,
+                    width: underlineStyle?.width ?? 0,
+                  }}
+                  aria-hidden
+                />
+              </div>
             </NavigationMenu>
             <div className="hidden md:flex items-center gap-0">
               <HeaderActions />

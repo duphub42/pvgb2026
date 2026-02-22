@@ -1120,6 +1120,10 @@ export interface MegaMenu {
      */
     position?: ('right' | 'below') | null;
     /**
+     * Paths = animierte Bezierkurven im Hintergrund (shadcn-Style). Pro Highlight-Box individuell einstellbar.
+     */
+    background?: ('default' | 'paths') | null;
+    /**
      * Mehrere Karten möglich. Jede Karte: optional Titel, Beschreibung, Bild und Link. Stil wie Card-Links (z. B. StackBlitz).
      */
     cards?:
@@ -1867,6 +1871,7 @@ export interface MegaMenuSelect<T extends boolean = true> {
     | T
     | {
         position?: T;
+        background?: T;
         cards?:
           | T
           | {

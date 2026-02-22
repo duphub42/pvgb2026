@@ -1,32 +1,105 @@
 'use client'
 
-import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { useTheme } from '@/providers/Theme'
-import { Moon, Sun } from 'lucide-react'
-import React, { useEffect, useState } from 'react'
+import { cn } from '@/utilities/ui'
+import { flushSync } from 'react-dom'
+import React, { useCallback, useEffect, useId, useRef, useState } from 'react'
+
+const VIEW_TRANSITION_DURATION = 400
+
+/** theme-toggles "Expand": Sonne expandiert zu Mond (toggles.dev/expand, npm theme-toggles) */
+const EXPAND_RAYS_PATH =
+  'M18.3 3.2c0 1.3-1 2.3-2.3 2.3s-2.3-1-2.3-2.3S14.7.9 16 .9s2.3 1 2.3 2.3zm-4.6 25.6c0-1.3 1-2.3 2.3-2.3s2.3 1 2.3 2.3-1 2.3-2.3 2.3-2.3-1-2.3-2.3zm15.1-10.5c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zM3.2 13.7c1.3 0 2.3 1 2.3 2.3s-1 2.3-2.3 2.3S.9 17.3.9 16s1-2.3 2.3-2.3zm5.8-7C9 7.9 7.9 9 6.7 9S4.4 8 4.4 6.7s1-2.3 2.3-2.3S9 5.4 9 6.7zm16.3 21c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zm2.4-21c0 1.3-1 2.3-2.3 2.3S23 7.9 23 6.7s1-2.3 2.3-2.3 2.4 1 2.4 2.3zM6.7 23C8 23 9 24 9 25.3s-1 2.3-2.3 2.3-2.3-1-2.3-2.3 1-2.3 2.3-2.3z'
+
+function ExpandToggleIcon({ cutoutId }: { cutoutId: string }) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+      width="1em"
+      height="1em"
+      fill="currentColor"
+      className="theme-toggle__expand"
+      viewBox="0 0 32 32"
+    >
+      <clipPath id={cutoutId}>
+        <path d="M0-11h25a1 1 0 0017 13v30H0Z" />
+      </clipPath>
+      <g clipPath={`url(#${cutoutId})`}>
+        <circle cx="16" cy="16" r="8.4" />
+        <path d={EXPAND_RAYS_PATH} />
+      </g>
+    </svg>
+  )
+}
 
 export function ThemeSwitcher() {
+  const cutoutId = useId().replace(/:/g, '-') + '-expand-cutout'
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const buttonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => setMounted(true), [])
 
+  const isDark = mounted && theme === 'dark'
   const resolved = mounted && theme ? theme : 'light'
-  const toggle = () => setTheme(resolved === 'light' ? 'dark' : 'light')
+
+  const toggle = useCallback(() => {
+    const newTheme = resolved === 'light' ? 'dark' : 'light'
+
+    const runUpdate = () => {
+      flushSync(() => {
+        setTheme(newTheme)
+      })
+    }
+
+    if (typeof document !== 'undefined' && 'startViewTransition' in document && buttonRef.current) {
+      const rect = buttonRef.current.getBoundingClientRect()
+      const x = rect.left + rect.width / 2
+      const y = rect.top + rect.height / 2
+      const maxRadius = Math.hypot(
+        Math.max(rect.left, window.innerWidth - rect.left),
+        Math.max(rect.top, window.innerHeight - rect.top),
+      )
+      ;(document as Document & { startViewTransition: (cb: () => void | Promise<void>) => { ready: Promise<void> } })
+        .startViewTransition(runUpdate)
+        .ready.then(() => {
+          document.documentElement.animate(
+            {
+              clipPath: [
+                `circle(0px at ${x}px ${y}px)`,
+                `circle(${maxRadius}px at ${x}px ${y}px)`,
+              ],
+            },
+            {
+              duration: VIEW_TRANSITION_DURATION,
+              easing: 'ease-in-out',
+              pseudoElement: '::view-transition-new(root)',
+            } as KeyframeAnimationOptions,
+          )
+        })
+    } else {
+      runUpdate()
+    }
+  }, [resolved, setTheme])
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="header-tool-toggle size-[2.75rem]"
+        <button
+          ref={buttonRef}
+          type="button"
+          title="Toggle theme"
+          aria-label="Toggle theme"
+          className={cn(
+            'theme-toggle header-tool-toggle header-tool-toggle--theme flex shrink-0 items-center justify-center rounded-md p-0 border-0 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
+            isDark && 'theme-toggle--toggled',
+          )}
           onClick={toggle}
-          aria-label={resolved === 'light' ? 'Dunkelmodus' : 'Hellmodus'}
         >
-          {resolved === 'light' ? <Moon className="size-5" /> : <Sun className="size-5" />}
-        </Button>
+          <ExpandToggleIcon cutoutId={cutoutId} />
+        </button>
       </TooltipTrigger>
       <TooltipContent side="bottom" sideOffset={6}>
         {resolved === 'light' ? 'Dunkelmodus' : 'Hellmodus'}

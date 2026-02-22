@@ -18,12 +18,12 @@ export function LayoutSwitcher() {
         <Button
           variant="ghost"
           size="icon"
-          className="header-tool-toggle size-[2.75rem]"
+          className="header-tool-toggle header-tool-toggle--theme shrink-0"
           onClick={toggle}
           aria-label={isWide ? 'Standard-Breite' : 'Breite Ansicht'}
           aria-pressed={isWide}
         >
-          {isWide ? <PanelRightOpen className="size-5" /> : <LayoutGrid className="size-5" />}
+          {isWide ? <PanelRightOpen /> : <LayoutGrid />}
         </Button>
       </TooltipTrigger>
       <TooltipContent side="bottom" sideOffset={6}>

@@ -97,6 +97,8 @@ function main() {
     },
     // Mega-Menü: Highlight-Block Position (rechts vs. unter den Unterpunkten)
     { name: 'mega_menu: highlight_position', sql: "ALTER TABLE mega_menu ADD COLUMN highlight_position TEXT DEFAULT 'right';" },
+    // Mega-Menü: Highlight-Block Hintergrund (default | paths)
+    { name: 'mega_menu: highlight_background', sql: "ALTER TABLE mega_menu ADD COLUMN highlight_background TEXT DEFAULT 'default';" },
     // Mega-Menü: Highlight-Cards (Array in highlight.cards) – eigene Tabelle
     {
       name: 'mega_menu_highlight_cards: table',

@@ -5,17 +5,21 @@ import { ChevronDown } from 'lucide-react'
 
 import { cn } from '@/utilities/ui'
 
+type NavigationMenuProps = React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root> & {
+  viewportWrapperRef?: React.RefObject<HTMLDivElement | null>
+}
+
 const NavigationMenu = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Root>,
-  React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Root>
->(({ className, children, ...props }, ref) => (
+  NavigationMenuProps
+>(({ className, children, viewportWrapperRef, ...props }, ref) => (
   <NavigationMenuPrimitive.Root
     ref={ref}
     className={cn('z-10 flex flex-1 items-center justify-center', className)}
     {...props}
   >
     {children}
-    <NavigationMenuViewport />
+    <NavigationMenuViewport ref={viewportWrapperRef} />
   </NavigationMenuPrimitive.Root>
 ))
 NavigationMenu.displayName = NavigationMenuPrimitive.Root.displayName
@@ -78,17 +82,16 @@ NavigationMenuContent.displayName = NavigationMenuPrimitive.Content.displayName
 const NavigationMenuLink = NavigationMenuPrimitive.Link
 
 const NavigationMenuViewport = React.forwardRef<
-  React.ElementRef<typeof NavigationMenuPrimitive.Viewport>,
+  HTMLDivElement,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Viewport>
 >(({ className, ...props }, ref) => (
-  <div className="absolute left-0 right-0 top-full w-full">
-    <div className="megamenu-dropdown-bg megamenu-viewport-wrapper overflow-hidden">
+  <div className="megamenu-viewport-outer absolute left-0 right-0 top-full w-full overflow-hidden">
+    <div ref={ref} className="megamenu-dropdown-bg megamenu-viewport-wrapper origin-top">
       <NavigationMenuPrimitive.Viewport
         className={cn(
-          'megamenu-viewport origin-top relative h-[var(--radix-navigation-menu-viewport-height)] w-full overflow-hidden data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[state=open]:fade-in-0 data-[state=open]:zoom-in-95 data-[state=open]:duration-200 data-[state=closed]:duration-150',
+          'megamenu-viewport origin-top relative w-full',
           className,
         )}
-        ref={ref}
         {...props}
       />
     </div>

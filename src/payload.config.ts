@@ -91,6 +91,8 @@ export default buildConfig({
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [
     ...plugins,
+    // Vercel Blob: persistent – Deployments überschreiben Blob-Daten nicht.
+    // BLOB_READ_WRITE_TOKEN in Vercel (Production + Preview) setzen.
     vercelBlobStorage({
       collections: {
         media: true,
