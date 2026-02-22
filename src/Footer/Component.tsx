@@ -10,6 +10,7 @@ import RichText from '@/components/RichText'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
+import { LogoWithGlitchWrapper } from '@/components/Logo/LogoWithGlitchWrapper'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher'
 import { FooterBounce } from '@/components/FooterBounce/FooterBounce'
 import { messages } from '@/i18n/messages'
@@ -55,6 +56,8 @@ export async function Footer({ locale = 'de' }: { locale?: Locale }) {
   const logoFromHeader = headerData?.logo ?? null
   const logoToShow = logoFromFooter ?? logoFromHeader
   const logoOnDarkBackground = footer?.logoOnDarkBackground === true
+  const logoUrl = mediaUrl(logoToShow)
+  const useTextLogo = !logoToShow
 
   const style: React.CSSProperties = {
     borderColor: 'var(--theme-border-color)',
@@ -72,7 +75,16 @@ export async function Footer({ locale = 'de' }: { locale?: Locale }) {
           <div className="container flex flex-col gap-6">
           <div className="gap-8 flex flex-col md:flex-row md:justify-between">
             <Link className="flex items-center" href="/">
-              <Logo logo={logoToShow ?? undefined} darkBackground={logoOnDarkBackground} variant="footer" />
+              <LogoWithGlitchWrapper
+                useTextLogo={useTextLogo}
+                logoUrl={logoUrl}
+                variant="footer"
+                darkBackground={logoOnDarkBackground}
+              >
+                {logoToShow != null && (
+                  <Logo logo={logoToShow} darkBackground={logoOnDarkBackground} variant="footer" />
+                )}
+              </LogoWithGlitchWrapper>
             </Link>
             <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
               <ThemeSelector />
@@ -104,7 +116,16 @@ export async function Footer({ locale = 'de' }: { locale?: Locale }) {
           {/* Logo + Newsletter */}
           <div className="md:col-span-4 space-y-6">
             <Link href="/" className="inline-block">
-              <Logo logo={logoToShow ?? undefined} darkBackground={logoOnDarkBackground} variant="footer" />
+              <LogoWithGlitchWrapper
+                useTextLogo={useTextLogo}
+                logoUrl={logoUrl}
+                variant="footer"
+                darkBackground={logoOnDarkBackground}
+              >
+                {logoToShow != null && (
+                  <Logo logo={logoToShow} darkBackground={logoOnDarkBackground} variant="footer" />
+                )}
+              </LogoWithGlitchWrapper>
             </Link>
             {footer.newsletterTitle != null && (
               <div className="space-y-2">

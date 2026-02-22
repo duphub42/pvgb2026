@@ -354,7 +354,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     >
       {/* Hintergrund zuerst und ganz hinten (z-0): Bild/Video/Halo + Overlays */}
       <div
-        className="absolute inset-0 z-0 origin-center transition-transform duration-200 ease-out"
+        className="hero-bg-wrap absolute inset-0 z-0 origin-center transition-transform duration-200 ease-out"
         style={
           !useBackgroundAnimation && !useBackgroundHalo
             ? { transform: `translateY(${translateY}px) scale(${scale})` }
@@ -362,7 +362,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         }
       >
         {useBackgroundHalo ? (
-          <div key={themeKey || 'halo'} className="absolute inset-0 w-full h-full">
+          <div key={themeKey || 'halo'} className="hero-halo-layer absolute inset-0 w-full h-full">
             {showHaloLayer ? (
               <HeroBackgroundVantaHalo
                 className="absolute inset-0 w-full h-full"

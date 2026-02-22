@@ -5,13 +5,18 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 const CHARS = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
 
-function randomChar() {
-  return CHARS[Math.floor(Math.random() * CHARS.length)]
+/** Hacker-Style: mehr Ziffern, Klammern, Code-Zeichen */
+export const HACKER_CHARS = '01{}[]<>/\\|;:=*#@$%&_+-~`'
+
+function randomCharFrom(chars: string) {
+  return chars[Math.floor(Math.random() * chars.length)]
 }
 
 type ScrambleTextProps = {
   text: string
   className?: string
+  /** Zeichensatz für Scramble (z. B. HACKER_CHARS). Ohne = Standard. */
+  chars?: string
   /** Verzögerung pro Zeichen in ms (Stagger) */
   staggerMs?: number
   /** Dauer pro Zeichen im Scramble-Zustand in ms, danach wird der Endbuchstabe angezeigt */
@@ -29,6 +34,7 @@ type ScrambleTextProps = {
 export function ScrambleText({
   text,
   className,
+  chars = CHARS,
   staggerMs = 50,
   scrambleDurationMs = 450,
   tickMs = 40,
@@ -44,6 +50,7 @@ export function ScrambleText({
       return
     }
     const len = text.length
+    const scrambleChars = chars || CHARS
     startTimeRef.current = performance.now()
 
     const tick = () => {
@@ -54,7 +61,7 @@ export function ScrambleText({
         if (elapsed >= revealAt) {
           next.push(text[i])
         } else if (elapsed >= i * staggerMs) {
-          next.push(randomChar())
+          next.push(randomCharFrom(scrambleChars))
         } else {
           next.push(' ')
         }
@@ -73,7 +80,7 @@ export function ScrambleText({
     if (intervalRef.current) clearInterval(intervalRef.current)
     intervalRef.current = setInterval(tick, tickMs)
     tick()
-  }, [text, staggerMs, scrambleDurationMs, tickMs])
+  }, [text, chars, staggerMs, scrambleDurationMs, tickMs])
 
   useEffect(() => {
     if (!text) {

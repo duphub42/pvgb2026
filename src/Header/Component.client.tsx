@@ -7,8 +7,10 @@ import { usePathname } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
 
 import type { Header } from '@/payload-types'
+import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 import { Logo } from '@/components/Logo/Logo'
+import { LogoWithGlitch } from '@/components/Logo/LogoWithGlitch'
 import { MegaMenu, type MegaMenuCta, type MegaMenuItem } from '@/components/MegaMenu'
 import { HeaderNav } from './Nav'
 
@@ -37,14 +39,28 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
   // Resolved theme: page override (headerTheme) or global theme (reaktiv beim Toggle)
   const resolvedTheme = headerTheme ?? globalTheme ?? null
 
+  const logo = data?.logo
+  const hasCustomLogo =
+    logo && typeof logo === 'object' && 'url' in logo && (logo as { url?: string }).url
+  const logoUrl =
+    hasCustomLogo && typeof logo === 'object' && logo !== null && 'url' in logo
+      ? getMediaUrl((logo as { url: string }).url, (logo as { updatedAt?: string }).updatedAt)
+      : null
+
   const logoEl = (
     <Link href="/" className="logo-link flex items-center shrink-0">
-      <Logo
-        loading="eager"
-        priority="high"
-        logo={data?.logo}
-        darkBackground={false}
-      />
+      {hasCustomLogo && logoUrl ? (
+        <LogoWithGlitch imgSrc={logoUrl} variant="header">
+          <Logo
+            loading="eager"
+            priority="high"
+            logo={data?.logo}
+            darkBackground={false}
+          />
+        </LogoWithGlitch>
+      ) : (
+        <LogoWithGlitch textLogo="Philipp Bacher" variant="header" />
+      )}
     </Link>
   )
 

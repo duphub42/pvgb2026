@@ -3,10 +3,7 @@
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { useTheme } from '@/providers/Theme'
 import { cn } from '@/utilities/ui'
-import { flushSync } from 'react-dom'
-import React, { useCallback, useEffect, useId, useRef, useState } from 'react'
-
-const VIEW_TRANSITION_DURATION = 400
+import React, { useCallback, useEffect, useId, useState } from 'react'
 
 /** theme-toggles "Expand": Sonne expandiert zu Mond (toggles.dev/expand, npm theme-toggles) */
 const EXPAND_RAYS_PATH =
@@ -38,7 +35,6 @@ export function ThemeSwitcher() {
   const cutoutId = useId().replace(/:/g, '-') + '-expand-cutout'
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
-  const buttonRef = useRef<HTMLButtonElement>(null)
 
   useEffect(() => setMounted(true), [])
 
@@ -47,48 +43,15 @@ export function ThemeSwitcher() {
 
   const toggle = useCallback(() => {
     const newTheme = resolved === 'light' ? 'dark' : 'light'
-
-    const runUpdate = () => {
-      flushSync(() => {
-        setTheme(newTheme)
-      })
-    }
-
-    if (typeof document !== 'undefined' && 'startViewTransition' in document && buttonRef.current) {
-      const rect = buttonRef.current.getBoundingClientRect()
-      const x = rect.left + rect.width / 2
-      const y = rect.top + rect.height / 2
-      const maxRadius = Math.hypot(
-        Math.max(rect.left, window.innerWidth - rect.left),
-        Math.max(rect.top, window.innerHeight - rect.top),
-      )
-      ;(document as Document & { startViewTransition: (cb: () => void | Promise<void>) => { ready: Promise<void> } })
-        .startViewTransition(runUpdate)
-        .ready.then(() => {
-          document.documentElement.animate(
-            {
-              clipPath: [
-                `circle(0px at ${x}px ${y}px)`,
-                `circle(${maxRadius}px at ${x}px ${y}px)`,
-              ],
-            },
-            {
-              duration: VIEW_TRANSITION_DURATION,
-              easing: 'ease-in-out',
-              pseudoElement: '::view-transition-new(root)',
-            } as KeyframeAnimationOptions,
-          )
-        })
-    } else {
-      runUpdate()
-    }
+    setTheme(newTheme)
+    /* View Transition deaktiviert: Snapshot würde vor fertig gezeichnetem Vanta-Halo/Gitter
+       erstellt und überdeckt den echten Inhalt – Halo/Gitter verschwinden nach dem Wechsel. */
   }, [resolved, setTheme])
 
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <button
-          ref={buttonRef}
           type="button"
           title="Toggle theme"
           aria-label="Toggle theme"

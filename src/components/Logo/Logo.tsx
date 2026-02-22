@@ -44,12 +44,13 @@ export const Logo = (props: Props) => {
   // Logo-Kontrast: invert bei Dark Mode ODER bei darkBackground; eine Klasse, damit nie doppelt invertiert wird (siehe globals.css .logo-contrast)
   const invertClass = clsx('logo-contrast', darkBackground && 'logo-contrast-dark-bg')
   const sizeClass = variant === 'footer' ? logoSizeFooterClass : logoSizeClass
+  const animateClass = 'logo-animate'
 
   if (logo && typeof logo === 'object' && 'url' in logo) {
     return (
       <Media
         resource={logo}
-        imgClassName={clsx(sizeClass, invertClass, className)}
+        imgClassName={clsx(sizeClass, invertClass, animateClass, className)}
         loading={loading}
         priority={priority === 'high'}
         alt={(logo as MediaType).alt ?? 'Logo'}
@@ -66,7 +67,7 @@ export const Logo = (props: Props) => {
       loading={loading}
       fetchPriority={priority}
       decoding="async"
-      className={clsx(sizeClass, invertClass, className)}
+      className={clsx(sizeClass, invertClass, animateClass, className)}
       src={FALLBACK_LOGO_SRC}
     />
   )
