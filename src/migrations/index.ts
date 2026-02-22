@@ -32,6 +32,7 @@ import * as migration_20260221_500000_mega_menu_columns_width_divider_bg from '.
 import * as migration_20260221_600000_mega_menu_icon_image_appearance_cols from './20260221_600000_mega_menu_icon_image_appearance_cols'
 import * as migration_20260221_700000_mega_menu_highlight_position from './20260221_700000_mega_menu_highlight_position'
 import * as migration_20260221_800000_site_pages_version_tables_uuid from './20260221_800000_site_pages_version_tables_uuid'
+import * as migration_20260221_900000_version_marquee_logos_id_serial from './20260221_900000_version_marquee_logos_id_serial'
 
 export const migrations = [
   {
@@ -203,5 +204,10 @@ export const migrations = [
     up: migration_20260221_800000_site_pages_version_tables_uuid.up,
     down: migration_20260221_800000_site_pages_version_tables_uuid.down,
     name: '20260221_800000_site_pages_version_tables_uuid',
+  },
+  {
+    up: migration_20260221_900000_version_marquee_logos_id_serial.up,
+    down: migration_20260221_900000_version_marquee_logos_id_serial.down,
+    name: '20260221_900000_version_marquee_logos_id_serial',
   },
 ]

@@ -75,6 +75,15 @@ After you click the `Deploy` button above, you'll want to have standalone copy o
 
 That's it! Changes made in `./src` will be reflected in your app. Follow the on-screen instructions to login and create your first admin user. Then check out [Production](#production) once you're ready to build and serve your app, and [Deployment](#deployment) when you're ready to go live.
 
+#### Entwicklung & Deployment (Workflow)
+
+- **Code:** Alles lokal entwickeln → `git push` → Vercel baut und deployed automatisch.
+- **Lokal mit Neon (empfohlen, eine DB):** In `.env` die **DATABASE_URL** (Neon-Connection-String) eintragen und lokal **`pnpm run dev:neon`** starten. Dann nutzt die App dieselbe Neon-Datenbank wie Vercel – SQLite ist überflüssig, Export/Import entfällt. Änderungen im lokalen Admin landen direkt in Neon und erscheinen nach dem nächsten Deploy auf der Live-Seite.
+- **Lokal mit SQLite (optional):** Ohne `DATABASE_URL` bzw. mit **`pnpm run dev`** (ohne `dev:neon`) nutzt die App **SQLite** (`payload.db`) – sinnvoll, wenn ihr offline oder ohne Neon-Verbindung arbeiten wollt. Inhalte dann ggf. mit `export:local` → `import:neon` nachziehen.
+- **Bilder:** Werden im Admin hochgeladen und in **Vercel Blob** gespeichert (URLs in der DB). Mit `dev:neon` und gleichem `BLOB_READ_WRITE_TOKEN` in der `.env` nutzt ihr lokal dieselben Bilder wie online.
+
+Kurz: **`pnpm run dev:neon` + DATABASE_URL in `.env` → eine Neon-DB für lokal und Production, SQLite optional.**
+
 #### Docker (Optional)
 
 If you prefer to use Docker for local development instead of a local Postgres instance, the provided docker-compose.yml file can be used.

@@ -10,6 +10,10 @@ import { fileURLToPath } from 'url'
 
 import { anyone } from '../access/anyone'
 import { authenticated } from '../access/authenticated'
+import {
+  revalidateAfterMediaChange,
+  revalidateAfterMediaDelete,
+} from './Media/hooks/revalidateMedia'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -17,6 +21,10 @@ const dirname = path.dirname(filename)
 export const Media: CollectionConfig = {
   slug: 'media',
   folders: true,
+  hooks: {
+    afterChange: [revalidateAfterMediaChange],
+    afterDelete: [revalidateAfterMediaDelete],
+  },
   access: {
     create: authenticated,
     delete: authenticated,

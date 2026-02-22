@@ -197,6 +197,29 @@ function toColWidth(val: unknown): number | null {
   return null
 }
 
+/** Entfernt id aus allen Objekten, die in Arrays liegen (Payload erzeugt beim Create neue IDs). */
+function stripNestedIds(obj: unknown): unknown {
+  if (obj === null || obj === undefined) return obj
+  if (Array.isArray(obj)) {
+    return obj.map((item) => {
+      if (item != null && typeof item === 'object') {
+        const o = { ...(item as Record<string, unknown>) }
+        delete o.id
+        return stripNestedIds(o) as Record<string, unknown>
+      }
+      return item
+    })
+  }
+  if (typeof obj === 'object') {
+    const out: Record<string, unknown> = {}
+    for (const [k, v] of Object.entries(obj)) {
+      out[k] = stripNestedIds(v)
+    }
+    return out
+  }
+  return obj
+}
+
 /** Mega-Menü: Select- und Zahlenfelder für Import korrigieren (Anführungszeichen, String→Zahl). */
 function normalizeMegaMenuItem(data: Record<string, unknown>): Record<string, unknown> {
   const out = { ...data }
@@ -478,10 +501,8 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
           data.layout = [
             {
               blockType: 'content',
-              id: `import-${doc.id}-block`,
               columns: [
                 {
-                  id: `import-${doc.id}-col`,
                   size: 'full',
                   richText: emptyLexicalRoot,
                 },
@@ -489,6 +510,8 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
             },
           ]
         }
+        // IDs in layout/hero-Arrays entfernen, Payload erzeugt sie beim Create
+        data = stripNestedIds(data) as Record<string, unknown>
         const existingPageIds = new Set(Object.values(idMaps['site-pages']))
         const parentId = data.parent != null && typeof data.parent === 'number' ? data.parent : null
         if (parentId != null && !existingPageIds.has(parentId)) {
@@ -515,7 +538,12 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
         data = clearInvalidRelations(data, idMaps) as Record<string, unknown>
       }
 
-      if (slug === 'mega-menu') data = normalizeMegaMenuItem(data) as Record<string, unknown>
+      if (slug === 'mega-menu') {
+        data = normalizeMegaMenuItem(data) as Record<string, unknown>
+        data = stripNestedIds(data) as Record<string, unknown>
+      }
+
+      delete data.id
 
       let file: { name: string; data: Buffer; mimetype: string; size: number } | undefined
       if (slug === 'media') {
