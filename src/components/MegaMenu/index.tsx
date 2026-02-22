@@ -27,6 +27,7 @@ import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { HeaderActions } from '@/components/HeaderActions/HeaderActions'
 import { PathsBackground } from '@/components/PathsBackground/PathsBackground'
+import { ThreadsBackground } from '@/components/ThreadsBackground/ThreadsBackground'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 /** Konfiguration für WhatsApp, Rückruf und Newsletter im Mega-Menü (aus Header-Global) */
@@ -98,7 +99,7 @@ export type MegaMenuItem = {
   }>
   highlight?: {
     position?: 'right' | 'below' | null
-    background?: 'default' | 'paths' | null
+    background?: 'default' | 'paths' | 'threads' | null
     cards?: Array<{
       title?: string | null
       description?: string | null
@@ -771,18 +772,31 @@ export function MegaMenu({
 
                     if (hasCol3 && item.highlight != null && highlightPosition === 'right') {
                       const usePathsBg = item.highlight?.background === 'paths'
+                      const useThreadsBg = item.highlight?.background === 'threads'
+                      const useCustomBg = usePathsBg || useThreadsBg
                       visibleColumns.push({
                         span: columnSpans[2] ?? featuredCols,
                         key: 'highlight',
                         content: (
                           <div className="megamenu-highlight-wipe-wrap overflow-hidden" data-wipe={mouseEntrySide}>
-                            {usePathsBg ? (
+                            {useCustomBg ? (
                               <div className="relative min-h-[200px]">
-                                <PathsBackground
-                                  strokeColor="currentColor"
-                                  strokeOpacity={0.14}
-                                  className="text-muted-foreground/60"
-                                />
+                                {usePathsBg && (
+                                  <PathsBackground
+                                    strokeColor="currentColor"
+                                    strokeOpacity={0.14}
+                                    className="text-muted-foreground/60"
+                                  />
+                                )}
+                                {useThreadsBg && (
+                                  <ThreadsBackground
+                                    strokeColor="currentColor"
+                                    strokeOpacity={0.14}
+                                    amplitude={3.6}
+                                    distance={2}
+                                    className="text-muted-foreground/60"
+                                  />
+                                )}
                                 <div className="relative z-10">{highlightContent}</div>
                               </div>
                             ) : (
@@ -879,6 +893,15 @@ export function MegaMenu({
                                         <PathsBackground
                                           strokeColor="currentColor"
                                           strokeOpacity={0.14}
+                                          className="text-muted-foreground/60"
+                                        />
+                                      )}
+                                      {item.highlight?.background === 'threads' && (
+                                        <ThreadsBackground
+                                          strokeColor="currentColor"
+                                          strokeOpacity={0.14}
+                                          amplitude={3.6}
+                                          distance={2}
                                           className="text-muted-foreground/60"
                                         />
                                       )}

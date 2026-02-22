@@ -1267,6 +1267,20 @@ html[data-theme='light'] {
   }
 }
 
+/* ThreadsBackground: sanfte Horizontal-Drift (React Bits-Style) */
+@keyframes threads-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(8px);
+  }
+}
+.animate-threads-drift {
+  animation: threads-drift 12s ease-in-out infinite;
+}
+
 .megamenu .megamenu-sidebar,
 .megamenu .megamenu-featured {
   background-color: #fafafa;
