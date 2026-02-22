@@ -3,22 +3,13 @@
 import { Code2, Terminal, Braces, Binary, Zap, Globe, Skull, Star, Eye, Heart } from 'lucide-react'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
-import { PixelTransitionOverlay } from '@/components/PixelTransitionOverlay/PixelTransitionOverlay'
 import { ScrambleText, HACKER_CHARS } from '@/components/ScrambleText/ScrambleText'
 import { cn } from '@/utilities/ui'
 
 const GLITCH_DURATION_MS = 1500
-/** Nach ca. 5 s startet die Pixel-Transition zum B-Icon (React-Bits-Style) */
-const PIXEL_TRANSITION_DELAY_MS = 5000
-/** Dauer der Aufklapp-Animation (muss mit CSS übereinstimmen) */
-const EXPAND_DURATION_MS = 450
 /** Icons für den Icon-Scramble (läuft parallel zum Glitch, nur im Icon-Bereich) */
 const SCRAMBLE_ICONS = [Zap, Globe, Skull, Star, Eye, Heart] as const
 const SCRAMBLE_ICON_TICK_MS = 55
-/** Pixel-Transition wie https://www.reactbits.dev/animations/pixel-transition */
-const PIXEL_TRANSITION_GRID_SIZE = 18
-const PIXEL_TRANSITION_DURATION_MS = 900
-
 export interface LogoWithGlitchProps {
   className?: string
   /** Image mode: render children (Logo) and two clone layers with this src for glitch */
@@ -33,7 +24,7 @@ export interface LogoWithGlitchProps {
 }
 
 /**
- * Logo: Beim Laden einmal Glitch/Scramble, dann reduziert auf Icon (Mask). Bei Hover gleitet das volle Logo heraus.
+ * Logo: Beim Laden Glitch/Scramble, bei Hover erneut Glitch. Kein Logo-Switch.
  */
 export function LogoWithGlitch({
   className,
@@ -46,10 +37,6 @@ export function LogoWithGlitch({
   const [glitchActive, setGlitchActive] = useState(false)
   const [scrambleKey, setScrambleKey] = useState(0)
   const [iconScrambleIndex, setIconScrambleIndex] = useState(0)
-  const [initialRunDone, setInitialRunDone] = useState(false)
-  const [isHovered, setIsHovered] = useState(false)
-  const [pixelTransitionOut, setPixelTransitionOut] = useState(false)
-  const initialTransitionRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const iconScrambleIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const expandDelayRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -84,8 +71,6 @@ export function LogoWithGlitch({
     }
   }, [])
 
-  const collapsed = initialRunDone && !isHovered
-
   /* Icon-Scramble: parallel zum Glitch, nur im Icon-Bereich – Icons wechseln während glitchActive */
   useEffect(() => {
     if (!glitchActive) {
@@ -116,44 +101,12 @@ export function LogoWithGlitch({
       clearTimeout(stayVisibleTimeoutRef.current)
       stayVisibleTimeoutRef.current = null
     }
-    if (collapsed) {
-      /* Glitch erst nach dem Aufklappen starten (collapsed ist bei uns nie true – Logo wird nicht verkleinert) */
-      expandDelayRef.current = setTimeout(() => {
-        expandDelayRef.current = null
-        runGlitch(textLogo != null)
-      }, EXPAND_DURATION_MS)
-    } else {
-      runGlitch(textLogo != null)
-    }
-  }, [runGlitch, textLogo, collapsed])
-
-  const handlePixelTransitionComplete = useCallback(() => {
-    setPixelTransitionOut(false)
-    setInitialRunDone(true)
-    setIsHovered(false)
-  }, [])
+    runGlitch(textLogo != null)
+  }, [runGlitch, textLogo])
 
   useEffect(() => {
     runGlitch(textLogo != null)
-    /* Nach ca. 5 s: Pixel-Transition starten (nur Text-Logo), danach B-Icon anzeigen */
-    if (textLogo != null) {
-      initialTransitionRef.current = setTimeout(() => {
-        initialTransitionRef.current = null
-        setPixelTransitionOut(true)
-      }, PIXEL_TRANSITION_DELAY_MS)
-    } else {
-      const t = setTimeout(() => {
-        setInitialRunDone(true)
-        setIsHovered(false)
-      }, PIXEL_TRANSITION_DELAY_MS)
-      return () => clearTimeout(t)
-    }
-    return () => {
-      if (initialTransitionRef.current) {
-        clearTimeout(initialTransitionRef.current)
-        initialTransitionRef.current = null
-      }
-    }
+    return () => {}
   }, []) // eslint-disable-line react-hooks/exhaustive-deps -- only on mount
 
   const scrambleProps = {
@@ -169,22 +122,6 @@ export function LogoWithGlitch({
     variant === 'footer'
       ? 'text-base sm:text-lg md:text-xl'
       : 'text-xl sm:text-2xl'
-
-  /** Im versteckten Modus: 1px-Punkt (Fallback) oder Logo-Icon (philippbacher-logo-b) */
-  const collapsedDot = (
-    <span
-      className="logo-glitch-collapsed-dot"
-      aria-hidden
-    />
-  )
-  /** Eingeklapptes Text-Logo: echtes Logo-Icon (B) aus philippbacher-logo-b.svg, inline für currentColor */
-  const collapsedLogoIcon = (
-    <span className="logo-glitch-collapsed-icon" aria-hidden>
-      <svg viewBox="0 0 91.48 88" fill="currentColor" className="logo-glitch-collapsed-icon-svg">
-        <path d="M0,21.19h59.87c1.44,0,3.49,2.12,3.66,3.64.54,5.14-4.24,9.49-9.2,9.56l-42.55.14L0,87.99h20.13l8.66-33.67,36.64-.15c7.35,1.44,3.28,10.67-1.83,12.4-3.13.99-15.83,1.02-20.69,1.28l-6.02,20.14h23.49s9.05.53,19.45-8.31c10.41-8.86,16.86-29.18,6.08-40.1-.55-.56-2.94-2.12-2.98-2.31-.14-.68,2.27-5.98,2.63-7.4C89.23,15.39,80.01,2.16,65.42.03l-60.71-.03L0,21.19Z" />
-      </svg>
-    </span>
-  )
 
   const CurrentScrambleIcon = SCRAMBLE_ICONS[iconScrambleIndex] ?? Zap
   /** Icon-Scramble: nur im Icon-Bereich (linker Streifen), sichtbar nur während Glitch */
@@ -223,15 +160,10 @@ export function LogoWithGlitch({
           'logo-glitch-wrapper logo-glitch-text',
           variant === 'footer' && 'logo-glitch-footer',
           glitchActive && 'logo-glitch-active',
-          collapsed && 'logo-glitch-collapsed',
-          pixelTransitionOut && 'logo-pixel-transition-active',
           darkBackground && 'logo-contrast logo-contrast-dark-bg',
           className,
         )}
-        onMouseEnter={() => {
-          setIsHovered(true)
-          startGlitch()
-        }}
+        onMouseEnter={() => startGlitch()}
         onMouseLeave={() => {
           if (expandDelayRef.current) {
             clearTimeout(expandDelayRef.current)
@@ -244,17 +176,6 @@ export function LogoWithGlitch({
         }}
         role="presentation"
       >
-        {collapsedDot}
-        {collapsedLogoIcon}
-        {pixelTransitionOut && (
-          <PixelTransitionOverlay
-            key="pixel-out"
-            active={true}
-            onComplete={handlePixelTransitionComplete}
-            gridSize={PIXEL_TRANSITION_GRID_SIZE}
-            durationMs={PIXEL_TRANSITION_DURATION_MS}
-          />
-        )}
         {iconScrambleLayer}
         {hackerIcons}
         <span className="logo-glitch-layer logo-glitch-layer-1" aria-hidden>
@@ -285,13 +206,9 @@ export function LogoWithGlitch({
           variant === 'footer' && 'logo-glitch-footer',
           imageWrapperSizeClass,
           glitchActive && 'logo-glitch-active',
-          collapsed && 'logo-glitch-collapsed',
           className,
         )}
-        onMouseEnter={() => {
-          setIsHovered(true)
-          startGlitch()
-        }}
+        onMouseEnter={() => startGlitch()}
         onMouseLeave={() => {
           if (expandDelayRef.current) {
             clearTimeout(expandDelayRef.current)
@@ -301,11 +218,9 @@ export function LogoWithGlitch({
             clearTimeout(stayVisibleTimeoutRef.current)
             stayVisibleTimeoutRef.current = null
           }
-          /* Logo wird nicht verkleinert */
         }}
         role="presentation"
       >
-        {collapsedDot}
         {iconScrambleLayer}
         {hackerIcons}
         <img

@@ -269,9 +269,17 @@ footer a[href='/']:hover .logo-animate {
 .logo-glitch-wrapper.logo-glitch-active {
   overflow: visible;
 }
-/* Eingeklappt: Collapse-Animation (springt wild, Pixel übersprungen) */
+/* Austausch mit B-Icon: kein Verkleinern, Wrapper behält Breite und Mindesthöhe, nur Inhalt wird getauscht */
 .logo-glitch-wrapper.logo-glitch-collapsed {
-  animation: logo-reveal-collapse-glitch var(--logo-reveal-duration) ease-out forwards;
+  transition: none;
+}
+.logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed {
+  max-width: 20rem;
+  min-height: 2.5rem; /* Verhindert Höhe 0, wenn Text aus dem Fluss ist – B-Icon bleibt sichtbar */
+}
+/* Feste Mindesthöhe für Text-Logo (ausgeklappt + eingeklappt), damit Header-Höhe sich nicht ändert und Hero-Grid nicht verschwindet */
+.logo-glitch-wrapper.logo-glitch-text.logo-glitch-text-fixed-height {
+  min-height: 2.5rem;
 }
 
 /* Keyframes Expand: weicherer Aufbau, leichte Rücksprünge (Hacker-Look, aber smooth) */
@@ -305,10 +313,6 @@ footer a[href='/']:hover .logo-animate {
   100% { max-width: var(--logo-collapsed-width); }
 }
 
-/* Nach Animation: Endzustände festhalten (für Footer andere Breite) */
-.logo-glitch-wrapper.logo-glitch-collapsed {
-  max-width: var(--logo-collapsed-width) !important;
-}
 /* Text-Logo eingeklappt: echtes Logo-Icon (B) anzeigen, Text bleibt versteckt */
 .logo-glitch-wrapper.logo-glitch-text:not(.logo-glitch-collapsed) {
   clip-path: none;
@@ -344,6 +348,11 @@ footer a[href='/']:hover .logo-animate {
   z-index: 25;
   isolation: isolate;
   background: transparent;
+}
+/* Portal-Variante: Größe kommt von inline style (position: fixed), Grid füllt den Container */
+.logo-pixel-transition-portal {
+  min-width: 0;
+  min-height: 0;
 }
 .logo-pixel-transition-grid {
   position: absolute;
@@ -382,9 +391,31 @@ footer a[href='/']:hover .logo-animate {
 .logo-glitch-wrapper.logo-glitch-collapsed .logo-glitch-collapsed-dot {
   display: block;
 }
-/* Text-Logo eingeklappt: Punkt ausblenden, stattdessen Logo-Icon (B) anzeigen */
+/* Text-Logo: bei Austausch B-Icon anzeigen, Dot aus */
 .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-collapsed-dot {
   display: none;
+}
+/* Bild-Logo: bei Austausch ebenfalls B-Icon anzeigen, Dot aus */
+.logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-collapsed-dot {
+  display: none;
+}
+.logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-collapsed-icon {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 2;
+}
+/* Bild-Logo bei Austausch: Bild-Inhalt ausblenden, nur B-Icon sichtbar */
+.logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-main,
+.logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-layer {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  left: -9999px;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
 }
 .logo-glitch-collapsed-icon {
   display: none;
@@ -401,11 +432,25 @@ footer a[href='/']:hover .logo-animate {
   height: auto;
   display: block;
 }
+/* Im reinen Austausch-View (nur B-Icon): immer sichtbar */
+.logo-glitch-collapsed-icon-visible {
+  display: block !important;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  color: var(--color-foreground);
+  pointer-events: none;
+}
 .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-collapsed-icon-svg {
   width: 1.5rem;
 }
 .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-collapsed-icon {
-  display: block;
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  z-index: 2;
 }
 /* Abdeckfläche hinter dem B-Icon, damit kein Text/Glitch durchscheint (z-index unter dem Icon) */
 .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed::after {
