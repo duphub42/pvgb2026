@@ -309,10 +309,7 @@ footer a[href='/']:hover .logo-animate {
 .logo-glitch-wrapper.logo-glitch-collapsed {
   max-width: var(--logo-collapsed-width) !important;
 }
-/* Text-Logo eingeklappt: nur Mitte sichtbar (Punkt), Rest per clip-path abgeschnitten – Text kann nicht durchscheinen */
-.logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed {
-  clip-path: circle(2px at 50% 50%);
-}
+/* Text-Logo eingeklappt: echtes Logo-Icon (B) anzeigen, Text bleibt versteckt */
 .logo-glitch-wrapper.logo-glitch-text:not(.logo-glitch-collapsed) {
   clip-path: none;
   max-width: 20rem;
@@ -347,6 +344,31 @@ footer a[href='/']:hover .logo-animate {
 .logo-glitch-wrapper.logo-glitch-collapsed .logo-glitch-collapsed-dot {
   display: block;
 }
+/* Text-Logo eingeklappt: Punkt ausblenden, stattdessen Logo-Icon (B) anzeigen */
+.logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-collapsed-dot {
+  display: none;
+}
+.logo-glitch-collapsed-icon {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  pointer-events: none;
+  color: var(--color-foreground);
+}
+.logo-glitch-collapsed-icon-svg {
+  width: 1.75rem;
+  height: auto;
+  display: block;
+}
+.logo-glitch-wrapper.logo-glitch-footer .logo-glitch-collapsed-icon-svg {
+  width: 1.5rem;
+}
+.logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-collapsed-icon {
+  display: block;
+}
 /* Text-Logo eingeklappt: Buchstaben übereinander legen (letter-spacing), dann verstecken */
 .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-main > span,
 .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-layer > span {
@@ -378,9 +400,6 @@ footer a[href='/']:hover .logo-animate {
   z-index: 0;
   background: var(--color-background);
   pointer-events: none;
-}
-.logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-collapsed-dot {
-  z-index: 1;
 }
 /* Bild-Logo eingeklappt: nur Bild-Icon sichtbar, Punkt ausblenden */
 .logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-collapsed-dot {

@@ -154,12 +154,20 @@ export function LogoWithGlitch({
       ? 'text-base sm:text-lg md:text-xl'
       : 'text-xl sm:text-2xl'
 
-  /** Im versteckten Modus: 1px-Element mittig (50% 50%) hinter der Icon-Maske */
+  /** Im versteckten Modus: 1px-Punkt (Fallback) oder Logo-Icon (philippbacher-logo-b) */
   const collapsedDot = (
     <span
       className="logo-glitch-collapsed-dot"
       aria-hidden
     />
+  )
+  /** Eingeklapptes Text-Logo: echtes Logo-Icon (B) aus philippbacher-logo-b.svg, inline für currentColor */
+  const collapsedLogoIcon = (
+    <span className="logo-glitch-collapsed-icon" aria-hidden>
+      <svg viewBox="0 0 91.48 88" fill="currentColor" className="logo-glitch-collapsed-icon-svg">
+        <path d="M0,21.19h59.87c1.44,0,3.49,2.12,3.66,3.64.54,5.14-4.24,9.49-9.2,9.56l-42.55.14L0,87.99h20.13l8.66-33.67,36.64-.15c7.35,1.44,3.28,10.67-1.83,12.4-3.13.99-15.83,1.02-20.69,1.28l-6.02,20.14h23.49s9.05.53,19.45-8.31c10.41-8.86,16.86-29.18,6.08-40.1-.55-.56-2.94-2.12-2.98-2.31-.14-.68,2.27-5.98,2.63-7.4C89.23,15.39,80.01,2.16,65.42.03l-60.71-.03L0,21.19Z" />
+      </svg>
+    </span>
   )
 
   const CurrentScrambleIcon = SCRAMBLE_ICONS[iconScrambleIndex] ?? Zap
@@ -221,6 +229,7 @@ export function LogoWithGlitch({
         role="presentation"
       >
         {collapsedDot}
+        {collapsedLogoIcon}
         {iconScrambleLayer}
         {hackerIcons}
         <span className="logo-glitch-layer logo-glitch-layer-1" aria-hidden>
