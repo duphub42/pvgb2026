@@ -11,6 +11,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { normalizeLayout } from './hooks/normalizeLayout'
 import { revalidatePage } from './hooks/revalidatePage'
+import { stripIdOnUpdate } from './hooks/stripIdOnUpdate'
 import { hero as heroField } from '../../heros/config'
 
 import {
@@ -116,7 +117,7 @@ export const Pages: CollectionConfig = {
   ],
   hooks: {
     afterRead: [normalizeLayout],
-    beforeChange: [populatePublishedAt],
+    beforeChange: [stripIdOnUpdate, populatePublishedAt],
     afterChange: [revalidatePage],
   },
   versions: {
