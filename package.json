@@ -5,18 +5,21 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--no-deprecation next build",
+    "build": "cross-env NODE_OPTIONS=--no-deprecation sh -c 'payload migrate && next build'",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
-    "dev": "node scripts/ensure-next-manifests.cjs && cross-env NODE_OPTIONS=--no-deprecation next dev -p 3000",
+    "dev": "node scripts/ensure-next-manifests.cjs && cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=4096\" next dev -p 3000",
+    "dev:turbo": "node scripts/ensure-next-manifests.cjs && cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=4096\" next dev -p 3000 --turbo",
     "dev:neon": "node scripts/ensure-next-manifests.cjs && cross-env USE_NEON=true NODE_OPTIONS=\"--no-deprecation -r dotenv/config\" next dev -p 3000",
     "dev:lan": "cross-env NODE_OPTIONS=--no-deprecation next dev -p 3000 --hostname 0.0.0.0",
     "dev:free-port": "lsof -ti :3000 | xargs kill -9 2>/dev/null; sleep 1; node scripts/ensure-next-manifests.cjs && pnpm run dev",
     "dev:clean": "rm -rf .next && pnpm run dev:free-port",
+    "dev:clean:turbo": "rm -rf .next && lsof -ti :3000 | xargs kill -9 2>/dev/null; sleep 1; node scripts/ensure-next-manifests.cjs && cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=4096\" next dev -p 3000 --turbo",
     "dev:reset": "lsof -ti :3000 | xargs kill -9 2>/dev/null; rm -rf .next; echo 'Stopped :3000 and removed .next. Run: pnpm run dev'",
     "dev:prod": "cross-env NODE_OPTIONS=--no-deprecation rm -rf .next && pnpm build && pnpm start",
     "db:push": "cross-env PAYLOAD_FORCE_DRIZZLE_PUSH=true NODE_OPTIONS=--no-deprecation next dev -p 3000",
     "db:reset": "cross-env PAYLOAD_DROP_DATABASE=true NODE_OPTIONS=--no-deprecation next dev -p 3000",
     "fix:sqlite-schema": "tsx src/scripts/fix-sqlite-schema.ts",
+    "ensure-content1-tables": "tsx src/scripts/ensure-content1-tables.ts",
     "seed:globals": "cross-env PAYLOAD_MIGRATING=true tsx src/scripts/seed-globals.ts",
     "unlock-users": "tsx src/scripts/unlock-users.ts",
     "reset-password": "cross-env PAYLOAD_MIGRATING=true tsx src/scripts/reset-password.ts",
@@ -26,6 +29,8 @@
     "publish-pages": "tsx src/scripts/publish-site-pages.ts",
     "check-pages": "tsx src/scripts/check-site-pages-api.ts",
     "fix:orphaned-refs": "tsx src/scripts/fix-orphaned-refs.ts",
+    "fix:orphaned-refs:neon": "cross-env USE_NEON=true NODE_OPTIONS=\"--no-deprecation -r dotenv/config\" tsx src/scripts/fix-orphaned-refs.ts",
+    "repair:orphaned-refs:neon": "cross-env USE_NEON=true NODE_OPTIONS=\"--no-deprecation -r dotenv/config\" tsx src/scripts/repair-orphaned-refs-via-payload.ts",
     "migrate:neon": "cross-env USE_NEON=true NODE_OPTIONS=\"--no-deprecation -r dotenv/config\" payload migrate",
     "inspect:neon": "tsx src/scripts/inspect-neon-schema.ts",
     "generate:importmap": "cross-env NODE_OPTIONS=--no-deprecation payload generate:importmap",
@@ -67,6 +72,7 @@
     "@radix-ui/react-navigation-menu": "^1.2.14",
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-tabs": "^1.1.13",
     "@radix-ui/react-tooltip": "^1.2.8",
     "buffer": "^6.0.3",
     "class-variance-authority": "^0.7.0",
@@ -126,7 +132,10 @@
       "sharp",
       "esbuild",
       "unrs-resolver"
-    ]
+    ],
+    "patchedDependencies": {
+      "payload": "patches/payload.patch"
+    }
   },
   "packageManager": "pnpm@10.29.3"
 }

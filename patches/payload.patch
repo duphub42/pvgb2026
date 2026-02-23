@@ -1,0 +1,25 @@
+diff --git a/dist/collections/operations/utilities/update.js b/dist/collections/operations/utilities/update.js
+index 0de196f0ff1d45a8551951acaa41d34a12a45ca9..fc79907bc0dfaa759859f6c269907098681a5713 100644
+--- a/dist/collections/operations/utilities/update.js
++++ b/dist/collections/operations/utilities/update.js
+@@ -129,14 +129,16 @@ import { mergeLocalizedData } from '../../../utilities/mergeLocalizedData.js';
+     // /////////////////////////////////////
+     // beforeChange - Fields
+     // /////////////////////////////////////
++    // On update, do not add id to data – the doc id comes from the URL; putting it in data
++    // triggers a DB unique-constraint error (Value must be unique for path: id).
++    const dataForFields = id != null
++        ? (() => { const { id: _omit, ...rest } = data || {}; return rest; })()
++        : { ...data };
+     const beforeChangeArgs = {
+         id,
+         collection: collectionConfig,
+         context: req.context,
+-        data: {
+-            ...data,
+-            id
+-        },
++        data: dataForFields,
+         doc: originalDoc,
+         docWithLocales,
+         global: null,
