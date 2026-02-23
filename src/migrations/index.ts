@@ -26,6 +26,7 @@ import * as migration_20260219_210000_design_flat_and_theme_settings from './202
 import * as migration_20260221_000000_locked_documents_rels_mega_menu from './20260221_000000_locked_documents_rels_mega_menu'
 import * as migration_20260221_100000_site_pages_hero_floating_elements_uuid from './20260221_100000_site_pages_hero_floating_elements_uuid'
 import * as migration_20260221_200000_mega_menu_sub_items_image_id from './20260221_200000_mega_menu_sub_items_image_id'
+import * as migration_20260221_250000_rename_mega_menu_column_items_to_columns_items from './20260221_250000_rename_mega_menu_column_items_to_columns_items'
 import * as migration_20260221_300000_mega_menu_columns_items_description from './20260221_300000_mega_menu_columns_items_description'
 import * as migration_20260221_400000_mega_menu_columns_items_image_badge from './20260221_400000_mega_menu_columns_items_image_badge'
 import * as migration_20260221_500000_mega_menu_columns_width_divider_bg from './20260221_500000_mega_menu_columns_width_divider_bg'
@@ -175,6 +176,11 @@ export const migrations = [
     up: migration_20260221_200000_mega_menu_sub_items_image_id.up,
     down: migration_20260221_200000_mega_menu_sub_items_image_id.down,
     name: '20260221_200000_mega_menu_sub_items_image_id',
+  },
+  {
+    up: migration_20260221_250000_rename_mega_menu_column_items_to_columns_items.up,
+    down: migration_20260221_250000_rename_mega_menu_column_items_to_columns_items.down,
+    name: '20260221_250000_rename_mega_menu_column_items_to_columns_items',
   },
   {
     up: migration_20260221_300000_mega_menu_columns_items_description.up,
