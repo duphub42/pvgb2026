@@ -219,6 +219,9 @@ function main() {
       name: 'design: seed',
       sql: "INSERT INTO design (updated_at, created_at) SELECT datetime('now'), datetime('now') WHERE (SELECT COUNT(*) FROM design) = 0;",
     },
+    // Indizes für hero_media_id (Payload/Drizzle erwarten diese Namen; ohne sie schlägt CREATE INDEX beim Push fehl)
+    { name: 'site_pages: index hero_media_id', sql: 'CREATE INDEX IF NOT EXISTS site_pages_hero_hero_media_idx ON site_pages(hero_media_id);' },
+    { name: '_site_pages_v: index version_hero_media_id', sql: 'CREATE INDEX IF NOT EXISTS _site_pages_v_version_hero_version_hero_media_idx ON _site_pages_v(version_hero_media_id);' },
     // Hero Philipp Bacher: Logo-Anzeige (Marquee vs. Logo Carousel)
     { name: 'site_pages: hero_logo_display_type', sql: "ALTER TABLE site_pages ADD COLUMN hero_logo_display_type TEXT DEFAULT 'marquee';" },
     { name: '_site_pages_v: version_hero_logo_display_type', sql: "ALTER TABLE _site_pages_v ADD COLUMN version_hero_logo_display_type TEXT DEFAULT 'marquee';" },
@@ -275,7 +278,8 @@ function main() {
         err.status === 1 ||
         msg.includes('no such table') ||
         msg.includes('no such column') ||
-        msg.includes('duplicate column name')
+        msg.includes('duplicate column name') ||
+        msg.includes('already exists')
       if (skip) {
         console.warn('Übersprungen:', step.name)
       } else {
