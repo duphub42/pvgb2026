@@ -58,7 +58,7 @@
       "haloOverlayGridVariant": "custom",
       "haloOverlayGridCustomCode": "<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n<meta charset=\"UTF-8\" />\n<meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\" />\n<title>Premium SaaS Wireframe – Breathing Field</title>\n<style>\n  body {\n    margin: 0;\n    overflow: hidden;\n    background: transparent;\n  }\n  canvas {\n    display: block;\n  }\n</style>\n</head>\n<body>\n\n<script src=\"https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js\"></script>\n\n<script>\nconst scene = new THREE.Scene();\nconst camera = new THREE.PerspectiveCamera(\n  60,\n  window.innerWidth / window.innerHeight,\n  0.1,\n  1000\n);\n\ncamera.position.z = 6;\ncamera.position.y = 1;\ncamera.rotation.x = -0.5;\n\nconst renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });\nrenderer.setClearColor(0x000000, 0);\nrenderer.setSize(window.innerWidth, window.innerHeight);\nrenderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));\ndocument.body.appendChild(renderer.domElement);\n\nconst geometry = new THREE.PlaneGeometry(20, 20, 80, 80);\n\nconst material = new THREE.MeshBasicMaterial({\n  color: 0xffffff,\n  wireframe: true,\n  transparent: true,\n  opacity: 0.1\n});\n\nconst plane = new THREE.Mesh(geometry, material);\nplane.rotation.x = -Math.PI / 2;\nscene.add(plane);\n\nconst clock = new THREE.Clock();\n\nfunction animate() {\n  requestAnimationFrame(animate);\n\n  const time = clock.getElapsedTime();\n  const position = geometry.attributes.position;\n\n  for (let i = 0; i < position.count; i++) {\n    const x = position.getX(i);\n    const y = position.getY(i);\n\n    const distance = Math.sqrt(x*x + y*y);\n    const pulse = Math.sin(distance * 0.8 - time * 0.6) * 0.25;\n\n    position.setZ(i, pulse);\n  }\n\n  position.needsUpdate = true;\n\n  renderer.render(scene, camera);\n}\n\nanimate();\n\nwindow.addEventListener(\"resize\", () => {\n  camera.aspect = window.innerWidth / window.innerHeight;\n  camera.updateProjectionMatrix();\n  renderer.setSize(window.innerWidth, window.innerHeight);\n});\n</script>\n\n</body>\n</html>",
       "foregroundImage": 35,
-      "overlayOpacity": 0.5,
+      "overlayOpacity": 1,
       "floatingMouseStrength": null,
       "floatingIdleAmplitude": null,
       "floatingElements": [],
@@ -269,10 +269,10 @@
             },
             "enableLink": null,
             "link": {
-              "type": "reference",
+              "type": "custom",
               "newTab": null,
-              "url": null,
-              "label": null,
+              "url": "#",
+              "label": "",
               "appearance": "default"
             }
           },
@@ -474,10 +474,10 @@
             },
             "enableLink": null,
             "link": {
-              "type": "reference",
+              "type": "custom",
               "newTab": null,
-              "url": null,
-              "label": null,
+              "url": "#",
+              "label": "",
               "appearance": "default"
             }
           }
@@ -554,7 +554,7 @@
         "columns": [
           {
             "id": "699a254bfae65f22251d50b4",
-            "size": "oneThird",
+            "size": "half",
             "richText": {
               "root": {
                 "children": [
@@ -575,7 +575,7 @@
                     "indent": 0,
                     "type": "heading",
                     "version": 1,
-                    "tag": "h2"
+                    "tag": "h3"
                   },
                   {
                     "children": [
@@ -607,7 +607,7 @@
                     "indent": 0,
                     "type": "paragraph",
                     "version": 1,
-                    "textFormat": 0,
+                    "textFormat": 1,
                     "textStyle": ""
                   },
                   {
@@ -640,7 +640,7 @@
                     "indent": 0,
                     "type": "paragraph",
                     "version": 1,
-                    "textFormat": 0,
+                    "textFormat": 1,
                     "textStyle": ""
                   },
                   {
@@ -682,7 +682,7 @@
                     "indent": 0,
                     "type": "paragraph",
                     "version": 1,
-                    "textFormat": 0,
+                    "textFormat": 1,
                     "textStyle": ""
                   },
                   {
@@ -724,7 +724,7 @@
                     "indent": 0,
                     "type": "paragraph",
                     "version": 1,
-                    "textFormat": 0,
+                    "textFormat": 1,
                     "textStyle": ""
                   },
                   {
@@ -766,7 +766,7 @@
                     "indent": 0,
                     "type": "paragraph",
                     "version": 1,
-                    "textFormat": 0,
+                    "textFormat": 1,
                     "textStyle": ""
                   }
                 ],
@@ -780,10 +780,210 @@
             },
             "enableLink": null,
             "link": {
-              "type": "reference",
+              "type": "custom",
               "newTab": null,
-              "url": null,
-              "label": null,
+              "url": "#",
+              "label": "",
+              "appearance": "default"
+            }
+          },
+          {
+            "id": "699a3191fae65f22251d50ca",
+            "size": "half",
+            "richText": {
+              "root": {
+                "children": [
+                  {
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 1,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Meine Leistungen im Überblick (4 Blöcke)",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "format": "start",
+                    "indent": 0,
+                    "type": "heading",
+                    "version": 1,
+                    "tag": "h3"
+                  },
+                  {
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 1,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Digital Consulting",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "format": "start",
+                    "indent": 0,
+                    "type": "heading",
+                    "version": 1,
+                    "textFormat": 1,
+                    "tag": "h4"
+                  },
+                  {
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "format": "start",
+                    "indent": 0,
+                    "type": "paragraph",
+                    "version": 1,
+                    "textFormat": 0,
+                    "textStyle": ""
+                  },
+                  {
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 1,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Webentwicklung & Apps",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "format": "start",
+                    "indent": 0,
+                    "type": "heading",
+                    "version": 1,
+                    "tag": "h4"
+                  },
+                  {
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "format": "start",
+                    "indent": 0,
+                    "type": "paragraph",
+                    "version": 1,
+                    "textFormat": 0,
+                    "textStyle": ""
+                  },
+                  {
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 1,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Branding & Design",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "format": "start",
+                    "indent": 0,
+                    "type": "heading",
+                    "version": 1,
+                    "textFormat": 1,
+                    "tag": "h4"
+                  },
+                  {
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "format": "",
+                    "indent": 0,
+                    "type": "paragraph",
+                    "version": 1,
+                    "textFormat": 0,
+                    "textStyle": ""
+                  },
+                  {
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 1,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Marketing & Automatisierung",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "format": "start",
+                    "indent": 0,
+                    "type": "heading",
+                    "version": 1,
+                    "tag": "h4"
+                  },
+                  {
+                    "children": [
+                      {
+                        "detail": 0,
+                        "format": 0,
+                        "mode": "normal",
+                        "style": "",
+                        "text": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+                        "type": "text",
+                        "version": 1
+                      }
+                    ],
+                    "direction": null,
+                    "format": "start",
+                    "indent": 0,
+                    "type": "paragraph",
+                    "version": 1,
+                    "textFormat": 0,
+                    "textStyle": ""
+                  }
+                ],
+                "direction": null,
+                "format": "",
+                "indent": 0,
+                "type": "root",
+                "version": 1
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "custom",
+              "newTab": null,
+              "url": "#",
+              "label": "",
               "appearance": "default"
             }
           }
@@ -805,7 +1005,7 @@
       "description": "Ich helfe Unternehmen, online sichtbar zu werden – mit Webdesign, Branding, Marketing & smarten Automatisierungen für messbares Wachstum.",
       "image": 1
     },
-    "updatedAt": "2026-02-21T21:36:27.188Z",
+    "updatedAt": "2026-02-23T21:57:28.916Z",
     "createdAt": "2026-02-21T19:37:56.335Z",
     "_status": "published"
   },

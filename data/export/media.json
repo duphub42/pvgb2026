@@ -1,5 +1,230 @@
 [
   {
+    "id": 41,
+    "alt": null,
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-23T19:56:59.623Z",
+    "createdAt": "2026-02-23T19:56:59.623Z",
+    "url": "/api/media/file/Design-Tool-Compass--Streamline-Ultimate.svg",
+    "thumbnailURL": null,
+    "filename": "Design-Tool-Compass--Streamline-Ultimate.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 6950,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 40,
+    "alt": null,
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-23T19:56:13.476Z",
+    "createdAt": "2026-02-23T19:56:13.476Z",
+    "url": "/api/media/file/App-Window-Clock--Streamline-Ultimate.svg",
+    "thumbnailURL": null,
+    "filename": "App-Window-Clock--Streamline-Ultimate.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 6139,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 39,
+    "alt": null,
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-22T13:21:32.320Z",
+    "createdAt": "2026-02-22T13:21:32.320Z",
+    "url": "/api/media/file/weblogo-philippbacher.svg",
+    "thumbnailURL": null,
+    "filename": "weblogo-philippbacher.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 8991,
+    "width": 451,
+    "height": 72,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
     "id": 38,
     "alt": "Philipp Bacher Logo",
     "caption": null,

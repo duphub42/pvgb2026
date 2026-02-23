@@ -20,6 +20,7 @@
     "columns": [],
     "highlight": {
       "position": "right",
+      "background": "\"default\"",
       "cards": [],
       "title": null,
       "description": null,
@@ -169,14 +170,15 @@
     ],
     "highlight": {
       "position": "right",
+      "background": "elegant",
       "cards": [],
       "title": "Automatisierung",
       "description": "Smarter Workflow, weniger Routine, mehr Fokus auf das Wesentliche – wir digitalisieren Prozesse, damit dein Business schneller wächst.\nEchtzeit-Daten, nahtlose Verbindungen: Wir verbinden deine Tools und automatisieren Prozesse direkt über Webhooks.",
-      "image": 10,
+      "image": null,
       "ctaLabel": "Potentialanalyse",
       "ctaUrl": "/automatisierung"
     },
-    "updatedAt": "2026-02-21T19:37:56.401Z",
+    "updatedAt": "2026-02-23T12:51:53.806Z",
     "createdAt": "2026-02-21T19:37:56.401Z"
   },
   {
@@ -189,9 +191,9 @@
     "appearance": "link",
     "subItems": [],
     "columnWidths": {
-      "col1": null,
-      "col2": null,
-      "col3": null
+      "col1": 2,
+      "col2": 12,
+      "col3": 12
     },
     "categoryDescription": {
       "title": "Portfolio",
@@ -258,14 +260,15 @@
     ],
     "highlight": {
       "position": "below",
+      "background": "elegant",
       "cards": [],
-      "title": "Referenz gesucht",
-      "description": "Ich suche spannende Projekte, die ich digital umsetzen darf – und die im Portfolio sichtbar werden.",
+      "title": "Projekt vorschlagen",
+      "description": "Ihr Projekt könnte einen neuen Anstrich gebrauchen, etwas Anschub nötig oder soll erweitert werden? ",
       "image": null,
-      "ctaLabel": "Jetzt anfragen",
+      "ctaLabel": "Vorschlag einreichen",
       "ctaUrl": "/referenz"
     },
-    "updatedAt": "2026-02-21T19:37:56.390Z",
+    "updatedAt": "2026-02-23T12:52:44.163Z",
     "createdAt": "2026-02-21T19:37:56.390Z"
   },
   {
@@ -289,6 +292,7 @@
     "columns": [],
     "highlight": {
       "position": "right",
+      "background": "\"default\"",
       "cards": [],
       "title": null,
       "description": null,
@@ -320,6 +324,7 @@
     "columns": [],
     "highlight": {
       "position": "right",
+      "background": "\"default\"",
       "cards": [],
       "title": null,
       "description": null,
@@ -351,6 +356,7 @@
     "columns": [],
     "highlight": {
       "position": "right",
+      "background": "\"default\"",
       "cards": [],
       "title": null,
       "description": null,
