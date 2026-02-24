@@ -1139,3 +1139,35 @@ For deeper exploration of specific topics, refer to the context files located in
 - GitHub: https://github.com/payloadcms/payload
 - Examples: https://github.com/payloadcms/payload/tree/main/examples
 - Templates: https://github.com/payloadcms/payload/tree/main/templates
+
+## Cursor Cloud specific instructions
+
+### Overview
+
+This is a Payload CMS + Next.js 15 website template. A single Next.js app serves both the CMS admin panel (`/admin`) and the public frontend. By default it uses **SQLite** (`./payload.db`) — no external database service is needed for local development.
+
+### Running the app
+
+- **Dev server:** `pnpm dev` (runs on port 3000)
+- **Admin panel:** http://localhost:3000/admin
+- **Frontend:** http://localhost:3000
+- First-time setup requires creating an admin user at `/admin` or via `POST /api/users/first-register` with `{"email":"...","password":"..."}`.
+
+### Key commands
+
+| Task | Command |
+|------|---------|
+| Lint | `pnpm lint` |
+| Integration tests | `pnpm test:int` |
+| E2E tests | `pnpm test:e2e` (requires Playwright browsers: `pnpm exec playwright install`) |
+| Type check | `tsc --noEmit` |
+| Generate types | `pnpm generate:types` |
+| Generate import map | `pnpm generate:importmap` |
+
+### Gotchas
+
+- **Lint exit code 1:** The project has pre-existing lint warnings that cause `pnpm lint` to exit with code 1. This is expected; the warnings are not errors. The Next.js build config sets `eslint: { ignoreDuringBuilds: true }`.
+- **SQLite schema:** The SQLite adapter uses `push: true` in dev, which auto-creates/updates the schema on startup. If you see "duplicate column" errors, set `PAYLOAD_SKIP_PUSH=true` in `.env`.
+- **`.env` required:** Copy `.env.example` to `.env` and set `PAYLOAD_SECRET` to a random hex string (e.g., `openssl rand -hex 32`). Without this, the app won't start.
+- **postinstall script:** `node scripts/link-richtext-lexical-uuid.cjs` runs on install; this patches a UUID import for the rich text editor. It's safe and expected.
+- **`pnpm approve-builds` warnings:** The `bufferutil` and `utf-8-validate` build script warnings can be safely ignored; they are optional WebSocket optimizations.
