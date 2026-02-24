@@ -1127,12 +1127,19 @@ export interface MegaMenu {
      */
     background?: ('default' | 'paths' | 'threads') | null;
     /**
-     * Mehrere Karten möglich. Jede Karte: optional Titel, Beschreibung, Bild und Link. Stil wie Card-Links (z. B. StackBlitz).
+     * Mehrere Karten möglich. Jede Karte: optional Icon oder Bild, Titel, Beschreibung und Link.
      */
     cards?:
       | {
           title?: string | null;
           description?: string | null;
+          /**
+           * Kleines Icon (z. B. wie bei Unterpunkten). Optional, alternativ Bild.
+           */
+          icon?: (number | null) | Media;
+          /**
+           * Optional. Bei Position „unter den Unterpunkten“: Bild links neben Text.
+           */
           image?: (number | null) | Media;
           ctaLabel?: string | null;
           ctaUrl?: string | null;
@@ -1141,6 +1148,10 @@ export interface MegaMenu {
       | null;
     title?: string | null;
     description?: string | null;
+    /**
+     * Optional. Wie bei Unterpunkten – Icon statt oder zusätzlich zum Bild.
+     */
+    icon?: (number | null) | Media;
     image?: (number | null) | Media;
     ctaLabel?: string | null;
     ctaUrl?: string | null;
@@ -1880,6 +1891,7 @@ export interface MegaMenuSelect<T extends boolean = true> {
           | {
               title?: T;
               description?: T;
+              icon?: T;
               image?: T;
               ctaLabel?: T;
               ctaUrl?: T;
@@ -1887,6 +1899,7 @@ export interface MegaMenuSelect<T extends boolean = true> {
             };
         title?: T;
         description?: T;
+        icon?: T;
         image?: T;
         ctaLabel?: T;
         ctaUrl?: T;

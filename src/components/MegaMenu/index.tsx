@@ -103,12 +103,14 @@ export type MegaMenuItem = {
     cards?: Array<{
       title?: string | null
       description?: string | null
+      icon?: MediaRef
       image?: MediaRef
       ctaLabel?: string | null
       ctaUrl?: string | null
     }> | null
     title?: string | null
     description?: string | null
+    icon?: MediaRef
     image?: MediaRef
     ctaLabel?: string | null
     ctaUrl?: string | null
@@ -586,6 +588,7 @@ export function MegaMenu({
                       item.highlight != null &&
                       ((item.highlight.title != null && item.highlight.title !== '') ||
                         (item.highlight.description != null && item.highlight.description !== '') ||
+                        (item.highlight.icon != null && mediaUrl(item.highlight.icon)) ||
                         (item.highlight.image != null && mediaUrl(item.highlight.image)) ||
                         (item.highlight.ctaUrl != null && item.highlight.ctaUrl !== ''))
                     const hasCol3 =
@@ -594,6 +597,7 @@ export function MegaMenu({
                     const cardItems: Array<{
                       title?: string | null
                       description?: string | null
+                      icon?: MediaRef
                       image?: MediaRef
                       ctaLabel?: string | null
                       ctaUrl?: string | null
@@ -604,6 +608,7 @@ export function MegaMenu({
                             {
                               title: item.highlight.title,
                               description: item.highlight.description,
+                              icon: item.highlight.icon,
                               image: item.highlight.image,
                               ctaLabel: item.highlight.ctaLabel,
                               ctaUrl: item.highlight.ctaUrl,
@@ -697,13 +702,15 @@ export function MegaMenu({
                           : 'rounded-t-none'
                     const highlightContent =
                       hasCol3 && cardItems.length > 0 ? (
-                        <div className="grid gap-4">
+                        <div className={cn('grid gap-4', highlightPosition === 'below' && 'max-h-[min(50vh,420px)] overflow-y-auto')}>
                           {cardItems.map((card, cardIdx) => {
                             const cardTitle = card.title != null && card.title !== '' ? card.title : null
                             const cardDesc = card.description != null && card.description !== '' ? card.description : null
+                            const cardIconUrl = card.icon != null ? mediaUrl(card.icon) : ''
                             const cardImageUrl = card.image != null ? mediaUrl(card.image) : ''
                             const cardCtaUrl = card.ctaUrl != null && card.ctaUrl !== '' ? card.ctaUrl : null
                             const cardCtaLabel = card.ctaLabel ?? 'Mehr'
+                            const hasMedia = cardImageUrl || cardIconUrl
                             const cardClassName = cn(
                               'group/card border-0 bg-card text-card-foreground transition-all duration-200',
                               cardStyle.borderRadius,
@@ -711,13 +718,13 @@ export function MegaMenu({
                               cardStyle.hoverShadow,
                               cardStyle.hoverBorder,
                             )
-                            const inner = (
+                            const mediaBlock = (
                               <>
                                 {cardImageUrl && (
                                   <div
                                     className={cn(
-                                      'relative aspect-video w-full overflow-hidden bg-muted group/card',
-                                      roundedT,
+                                      'relative overflow-hidden bg-muted group/card',
+                                      highlightPosition === 'below' ? 'aspect-square min-w-[100px] w-[100px] shrink-0 rounded-l-lg' : cn('aspect-video w-full', roundedT),
                                     )}
                                   >
                                     <img
@@ -728,26 +735,49 @@ export function MegaMenu({
                                     <div className="absolute inset-0 bg-black/10 transition-opacity group-hover/card:bg-black/5" />
                                   </div>
                                 )}
-                                <CardContent className={cn(cardImageUrl ? 'pt-4' : 'pt-6')}>
-                                  <div className="flex flex-col gap-2">
-                                    {cardTitle && (
-                                      <h4 className="text-sm font-semibold leading-tight">
-                                        {cardTitle}
-                                      </h4>
+                                {!cardImageUrl && cardIconUrl && (
+                                  <div
+                                    className={cn(
+                                      'flex shrink-0 items-center justify-center overflow-hidden bg-muted/60 p-2.5 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
+                                      highlightPosition === 'below' ? 'h-full min-w-[100px] w-[100px] rounded-l-lg' : 'megamenu-item-icon h-14 w-14 rounded-lg',
                                     )}
-                                    {cardDesc && (
-                                      <p className="text-sm text-muted-foreground leading-snug line-clamp-2">
-                                        {cardDesc}
-                                      </p>
-                                    )}
-                                    {cardCtaUrl && (
-                                      <span className="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                                        {cardCtaLabel}
-                                        <ChevronRight className="h-4 w-4 shrink-0" />
-                                      </span>
-                                    )}
+                                  >
+                                    <img src={cardIconUrl} alt="" />
                                   </div>
-                                </CardContent>
+                                )}
+                              </>
+                            )
+                            const textBlock = (
+                              <CardContent className={cn(hasMedia && highlightPosition !== 'below' ? 'pt-4' : hasMedia && highlightPosition === 'below' ? 'py-3 pl-4 pr-4' : 'pt-6')}>
+                                <div className="flex flex-col gap-2">
+                                  {cardTitle && (
+                                    <h4 className="text-sm font-semibold leading-tight">
+                                      {cardTitle}
+                                    </h4>
+                                  )}
+                                  {cardDesc && (
+                                    <p className="text-sm text-muted-foreground leading-snug line-clamp-2">
+                                      {cardDesc}
+                                    </p>
+                                  )}
+                                  {cardCtaUrl && (
+                                    <span className="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                                      {cardCtaLabel}
+                                      <ChevronRight className="h-4 w-4 shrink-0" />
+                                    </span>
+                                  )}
+                                </div>
+                              </CardContent>
+                            )
+                            const inner = highlightPosition === 'below' && hasMedia ? (
+                              <div className="flex min-h-[80px] min-w-0 items-stretch">
+                                {mediaBlock}
+                                {textBlock}
+                              </div>
+                            ) : (
+                              <>
+                                {mediaBlock}
+                                {textBlock}
                               </>
                             )
                             const cardEl = (

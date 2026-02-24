@@ -88,6 +88,8 @@ function main() {
     { name: 'mega_menu: column_widths_col3', sql: 'ALTER TABLE mega_menu ADD COLUMN column_widths_col3 INTEGER;' },
     // Mega-Menü: Breite pro Unterpunkt-Spalte (1–12)
     { name: 'mega_menu_columns: column_width', sql: 'ALTER TABLE mega_menu_columns ADD COLUMN column_width INTEGER;' },
+    // Mega-Menü: ggf. alten Index auf _order entfernen, damit Payload seinen eigenen anlegen kann
+    { name: 'mega_menu_columns: drop legacy _order index', sql: 'DROP INDEX IF EXISTS mega_menu_columns_order_idx;' },
     // Mega-Menü: Spalte 1 Kategoriebeschreibung als Gruppe (title + description)
     { name: 'mega_menu: category_description_title', sql: 'ALTER TABLE mega_menu ADD COLUMN category_description_title TEXT;' },
     { name: 'mega_menu: category_description_description', sql: 'ALTER TABLE mega_menu ADD COLUMN category_description_description TEXT;' },

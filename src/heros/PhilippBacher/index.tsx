@@ -777,7 +777,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
 
       {/* Section-Divider: Wellen-Farbe aus Theme (per useTheme + getComputedStyle) */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[2] h-[18vh] min-h-[140px] w-full"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[2] h-[12vh] min-h-[96px] w-full"
         aria-hidden
       >
         <svg

@@ -304,17 +304,25 @@ export const MegaMenu: CollectionConfig = {
           label: 'Karten',
           minRows: 0,
           admin: {
-            description: 'Mehrere Karten möglich. Jede Karte: optional Titel, Beschreibung, Bild und Link. Stil wie Card-Links (z. B. StackBlitz).',
+            description: 'Mehrere Karten möglich. Jede Karte: optional Icon oder Bild, Titel, Beschreibung und Link.',
             initCollapsed: false,
           },
           fields: [
             { name: 'title', type: 'text', label: 'Titel' },
             { name: 'description', type: 'textarea', label: 'Beschreibung' },
             {
+              name: 'icon',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Icon',
+              admin: { description: 'Kleines Icon (z. B. wie bei Unterpunkten). Optional, alternativ Bild.' },
+            },
+            {
               name: 'image',
               type: 'upload',
               relationTo: 'media',
               label: 'Bild',
+              admin: { description: 'Optional. Bei Position „unter den Unterpunkten“: Bild links neben Text.' },
             },
             { name: 'ctaLabel', type: 'text', label: 'Button-Text' },
             { name: 'ctaUrl', type: 'text', label: 'Button-URL' },
@@ -331,6 +339,16 @@ export const MegaMenu: CollectionConfig = {
           type: 'textarea',
           label: 'Beschreibung (Legacy)',
           admin: { condition: (_, siblingData) => !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0) },
+        },
+        {
+          name: 'icon',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Icon (Legacy)',
+          admin: {
+            description: 'Optional. Wie bei Unterpunkten – Icon statt oder zusätzlich zum Bild.',
+            condition: (_, siblingData) => !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0),
+          },
         },
         {
           name: 'image',

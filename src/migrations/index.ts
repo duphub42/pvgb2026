@@ -36,6 +36,7 @@ import * as migration_20260221_750000_mega_menu_highlight_background from './202
 import * as migration_20260221_760000_mega_menu_highlight_cards_table from './20260221_760000_mega_menu_highlight_cards_table'
 import * as migration_20260221_800000_site_pages_version_tables_uuid from './20260221_800000_site_pages_version_tables_uuid'
 import * as migration_20260221_900000_version_marquee_logos_id_serial from './20260221_900000_version_marquee_logos_id_serial'
+import * as migration_20260224_100000_mega_menu_highlight_icon from './20260224_100000_mega_menu_highlight_icon'
 
 export const migrations = [
   {
@@ -227,5 +228,10 @@ export const migrations = [
     up: migration_20260221_900000_version_marquee_logos_id_serial.up,
     down: migration_20260221_900000_version_marquee_logos_id_serial.down,
     name: '20260221_900000_version_marquee_logos_id_serial',
+  },
+  {
+    up: migration_20260224_100000_mega_menu_highlight_icon.up,
+    down: migration_20260224_100000_mega_menu_highlight_icon.down,
+    name: '20260224_100000_mega_menu_highlight_icon',
   },
 ]
