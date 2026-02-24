@@ -20,7 +20,7 @@
     "columns": [],
     "highlight": {
       "position": "right",
-      "background": "\"default\"",
+      "background": "default",
       "cards": [],
       "title": null,
       "description": null,
@@ -170,7 +170,7 @@
     ],
     "highlight": {
       "position": "right",
-      "background": "elegant",
+      "background": "default",
       "cards": [],
       "title": "Automatisierung",
       "description": "Smarter Workflow, weniger Routine, mehr Fokus auf das Wesentliche – wir digitalisieren Prozesse, damit dein Business schneller wächst.\nEchtzeit-Daten, nahtlose Verbindungen: Wir verbinden deine Tools und automatisieren Prozesse direkt über Webhooks.",
@@ -260,7 +260,7 @@
     ],
     "highlight": {
       "position": "below",
-      "background": "elegant",
+      "background": "default",
       "cards": [],
       "title": "Projekt vorschlagen",
       "description": "Ihr Projekt könnte einen neuen Anstrich gebrauchen, etwas Anschub nötig oder soll erweitert werden? ",
@@ -292,7 +292,7 @@
     "columns": [],
     "highlight": {
       "position": "right",
-      "background": "\"default\"",
+      "background": "default",
       "cards": [],
       "title": null,
       "description": null,
@@ -324,7 +324,7 @@
     "columns": [],
     "highlight": {
       "position": "right",
-      "background": "\"default\"",
+      "background": "default",
       "cards": [],
       "title": null,
       "description": null,
@@ -356,7 +356,7 @@
     "columns": [],
     "highlight": {
       "position": "right",
-      "background": "\"default\"",
+      "background": "default",
       "cards": [],
       "title": null,
       "description": null,
