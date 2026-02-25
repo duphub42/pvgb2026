@@ -154,7 +154,7 @@ export const hero: Field = {
           name: 'haloSize',
           type: 'number',
           label: 'Halo: Größe',
-          defaultValue: 2.1,
+          defaultValue: 1.4,
           admin: {
             condition: (_, siblingData) =>
               siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'halo',

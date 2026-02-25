@@ -27,6 +27,7 @@
     "reset-password-direct": "tsx src/scripts/reset-password-direct.ts",
     "export:local": "cross-env DATABASE_URL= POSTGRES_URL= NODE_ENV=production tsx src/scripts/export-data.ts",
     "import:neon": "cross-env USE_NEON=true NODE_OPTIONS=\"-r dotenv/config\" tsx src/scripts/import-data.ts --replace",
+    "sync:neon-to-local": "cross-env USE_NEON=true NODE_OPTIONS=\"-r dotenv/config\" EXPORT_DIR=data/export-from-neon tsx src/scripts/export-data.ts && cross-env DATABASE_URL= POSTGRES_URL= NODE_OPTIONS=\"-r dotenv/config\" IMPORT_DIR=data/export-from-neon tsx src/scripts/import-data.ts --replace",
     "publish-pages": "tsx src/scripts/publish-site-pages.ts",
     "check-pages": "tsx src/scripts/check-site-pages-api.ts",
     "fix:orphaned-refs": "tsx src/scripts/fix-orphaned-refs.ts",

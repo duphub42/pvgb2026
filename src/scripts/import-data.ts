@@ -16,7 +16,10 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
-const exportDir = path.resolve(__dirname, '../../data/export')
+/** Verzeichnis mit Export-JSON (Standard: data/export). Bei sync:neon-to-local: data/export-from-neon. */
+const exportDir = process.env.IMPORT_DIR
+  ? path.resolve(__dirname, '../..', process.env.IMPORT_DIR)
+  : path.resolve(__dirname, '../../data/export')
 const mediaExportDir = path.join(exportDir, 'media')
 
 const REPLACE = process.argv.includes('--replace')

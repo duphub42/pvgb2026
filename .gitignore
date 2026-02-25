@@ -21,6 +21,9 @@ public/sitemap*.xml
 # Lokale Sicherheitskopien (bleiben auf dem Rechner)
 data/backup/
 
+# Temporärer Export bei sync:neon-to-local (Neon → SQLite)
+data/export-from-neon/
+
 # Playwright
 node_modules/
 /test-results/

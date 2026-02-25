@@ -1,13 +1,13 @@
 /**
- * Export aller Inhalte aus der Payload-Datenbank nach data/export/.
+ * Export aller Inhalte aus der Payload-Datenbank nach data/export/ (oder EXPORT_DIR).
  *
  * – Ohne DATABASE_URL/POSTGRES_URL: Export aus lokaler SQLite (für „Lokal → Neon“).
- * – Mit DATABASE_URL: Export aus der angegebenen DB (z. B. Neon).
+ * – Mit DATABASE_URL / USE_NEON=true: Export aus Neon.
  *
  * Aufruf (lokal, SQLite → für späteren Import nach Neon):
  *   DATABASE_URL= POSTGRES_URL= npx tsx src/scripts/export-data.ts
- * Aufruf (aus Neon/Production exportieren):
- *   DATABASE_URL="postgresql://..." PAYLOAD_SECRET="..." npx tsx src/scripts/export-data.ts
+ * Aufruf (aus Neon exportieren, z. B. für sync:neon-to-local):
+ *   USE_NEON=true EXPORT_DIR=data/export-from-neon npx tsx src/scripts/export-data.ts
  */
 
 // NODE_ENV=production deaktiviert den Schema-Push (payload.config: push nur wenn !== 'production').
@@ -25,7 +25,10 @@ import config from '@payload-config'
 
 const __dirnameScript = path.dirname(fileURLToPath(import.meta.url))
 const projectRoot = path.resolve(__dirnameScript, '../..')
-const exportDir = path.resolve(projectRoot, 'data/export')
+/** Verzeichnis für Export (Standard: data/export). Bei sync:neon-to-local: data/export-from-neon. */
+const exportDir = process.env.EXPORT_DIR
+  ? path.resolve(projectRoot, process.env.EXPORT_DIR)
+  : path.resolve(projectRoot, 'data/export')
 /** Payload Media: staticDir aus Media-Collection (public/media). */
 const mediaStaticDir = path.join(projectRoot, 'public', 'media')
 const mediaExportDir = path.join(exportDir, 'media')

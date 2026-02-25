@@ -151,13 +151,26 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Schwere Hintergründe (Three/Vanta/Grid) erst nach LCP laden, um LCP und TBT zu verbessern
+  // Schwere Hintergründe (Three/Vanta/Grid) erst nach LCP + TBT-relevantem Zeitfenster laden.
+  // Auf Slow 4G/Mobile: requestIdleCallback/400ms war zu früh → Chunk 4854 blockiert massiv.
+  // Warten auf load-Event oder 2.5s, damit FCP/LCP/TBT nicht von Three.js blockiert werden.
   useEffect(() => {
-    const id = typeof requestIdleCallback !== 'undefined'
-      ? requestIdleCallback(() => setDeferHeavyBackground(true), { timeout: 600 })
-      : window.setTimeout(() => setDeferHeavyBackground(true), 400)
-    return () =>
-      typeof cancelIdleCallback !== 'undefined' ? cancelIdleCallback(id as number) : clearTimeout(id as unknown as ReturnType<typeof setTimeout>)
+    let cancelled = false
+    const apply = () => {
+      if (!cancelled) setDeferHeavyBackground(true)
+    }
+    const onLoad = () => apply()
+    if (document.readyState === 'complete') {
+      window.setTimeout(apply, 100)
+    } else {
+      window.addEventListener('load', onLoad)
+    }
+    const fallbackId = window.setTimeout(apply, 2500)
+    return () => {
+      cancelled = true
+      window.removeEventListener('load', onLoad)
+      clearTimeout(fallbackId)
+    }
   }, [])
 
   // Floating-Items erst freigeben, wenn Marquee „geladen“ ist und Maus mind. 1 s im Hero war
@@ -379,7 +392,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                   className="absolute inset-0 w-full h-full"
                   options={{
                     amplitudeFactor: haloAmplitudeFactor ?? 1.8,
-                    size: haloSize ?? 2.1,
+                    size: haloSize ?? 1.4,
                     speed: ((haloSpeed ?? 1) * 0.125),
                     color2: haloColor2 ?? 15918901,
                     xOffset: haloXOffset ?? 0.15,
