@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "build": "cross-env NODE_OPTIONS=--no-deprecation sh -c 'payload migrate && next build'",
+    "analyze": "cross-env ANALYZE=true NODE_OPTIONS=--no-deprecation next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "dev": "node scripts/ensure-next-manifests.cjs && cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=4096\" next dev -p 3000",
     "dev:turbo": "node scripts/ensure-next-manifests.cjs && cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=4096\" next dev -p 3000 --turbo",
@@ -104,6 +105,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
+    "@next/bundle-analyzer": "^16.1.6",
     "@playwright/test": "1.58.2",
     "@tailwindcss/postcss": "^4.1.18",
     "@tailwindcss/typography": "^0.5.19",
@@ -129,7 +131,12 @@
     "vite-tsconfig-paths": "6.0.5",
     "vitest": "4.0.18"
   },
-  "browserslist": ["chrome 111", "edge 111", "firefox 111", "safari 16.4"],
+  "browserslist": [
+    "chrome 111",
+    "edge 111",
+    "firefox 111",
+    "safari 16.4"
+  ],
   "engines": {
     "node": "^18.20.2 || >=20.9.0"
   },

@@ -10,6 +10,8 @@ declare global {
       VERCEL_PROJECT_PRODUCTION_URL?: string
       CRON_SECRET?: string
       BLOB_READ_WRITE_TOKEN?: string
+      /** EWWW Easy IO / ExactDN zone (e.g. abc123.exactdn.com). When set, image URLs are rewritten to the CDN. */
+      NEXT_PUBLIC_EXACTDN_DOMAIN?: string
     }
   }
 }

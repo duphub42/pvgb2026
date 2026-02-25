@@ -81,6 +81,7 @@ That's it! Changes made in `./src` will be reflected in your app. Follow the on-
 - **Lokal mit Neon (empfohlen, eine DB):** In `.env` die **DATABASE_URL** (Neon-Connection-String) eintragen und lokal **`pnpm run dev:neon`** starten. Dann nutzt die App dieselbe Neon-Datenbank wie Vercel – SQLite ist überflüssig, Export/Import entfällt. Änderungen im lokalen Admin landen direkt in Neon und erscheinen nach dem nächsten Deploy auf der Live-Seite.
 - **Lokal mit SQLite (optional):** Ohne `DATABASE_URL` bzw. mit **`pnpm run dev`** (ohne `dev:neon`) nutzt die App **SQLite** (`payload.db`) – sinnvoll, wenn ihr offline oder ohne Neon-Verbindung arbeiten wollt. Inhalte dann ggf. mit `export:local` → `import:neon` nachziehen.
 - **Bilder:** Werden im Admin hochgeladen und in **Vercel Blob** gespeichert (URLs in der DB). Mit `dev:neon` und gleichem `BLOB_READ_WRITE_TOKEN` in der `.env` nutzt ihr lokal dieselben Bilder wie online.
+- **Optional – EWWW Easy IO (ExactDN):** Mit einem [EWWW.io](https://ewww.io)-Account könnt ihr Bilder über die Easy-IO-CDN ausliefern (Kompression, WebP/AVIF, Resize per Query-Parameter). Site im EWWW-Dashboard hinzufügen, ExactDN-Zone aktivieren, dann in Vercel bzw. `.env` die Variable **`NEXT_PUBLIC_EXACTDN_DOMAIN`** setzen (z.B. `abc123.exactdn.com`). Alle über `getMediaUrl()` ausgegebenen Bild-URLs werden dann automatisch auf die CDN-URL umgeschrieben.
 
 Kurz: **`pnpm run dev:neon` + DATABASE_URL in `.env` → eine Neon-DB für lokal und Production, SQLite optional.**
 

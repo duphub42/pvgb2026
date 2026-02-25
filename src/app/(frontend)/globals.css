@@ -2064,14 +2064,6 @@ header .header-tool-toggle--theme:hover {
 }
 
 /* Dark Mode: Halo + Gitter sichtbar; color-scheme: light verhindert Browser-Dunkelmodus auf Canvas/Overlays */
-/* Vanta auf iPhone Portrait ca. 39 % kleiner (Scale 0,61) */
-@media (orientation: portrait) and (max-width: 29rem) {
-  .hero-halo-vanta-wrap {
-    transform: scale(0.61);
-    transform-origin: center center;
-  }
-}
-
 [data-theme='dark'] .hero-halo-layer,
 [data-theme='dark'] .hero-halo-layer .hero-halo-overlay,
 [data-theme='dark'] .hero-halo-layer .hero-halo-overlay-gradient {

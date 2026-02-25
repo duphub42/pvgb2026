@@ -1,11 +1,13 @@
 import path from 'path'
 import { fileURLToPath } from 'url'
 
+import bundleAnalyzer from '@next/bundle-analyzer'
 import { withPayload } from '@payloadcms/next/withPayload'
 
 import redirects from './redirects.js'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
+const withBundleAnalyzer = bundleAnalyzer({ enabled: process.env.ANALYZE === 'true' })
 
 const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
@@ -13,6 +15,8 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Pingdom F0: Gzip-Kompression explizit aktivieren (Next.js macht das standardmäßig bei next start)
+  compress: true,
   // So "pnpm run build" completes after "rm -rf .next"; remove once lint/type errors are fixed
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
@@ -68,6 +72,17 @@ const nextConfig = {
   },
   reactStrictMode: true,
   redirects,
+  // Pingdom F32: Lange Cache-Header für Build-Assets → weniger effektive Requests bei Wiederbesuchen
+  async headers() {
+    return [
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+    ]
+  },
 }
 
-export default withPayload(nextConfig, { devBundleServerPackages: false })
+export default withBundleAnalyzer(withPayload(nextConfig, { devBundleServerPackages: false }))

@@ -407,10 +407,9 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           <div key={themeKey || 'halo'} className="hero-halo-layer absolute inset-0 w-full h-full">
             {showHaloLayer ? (
               deferHeavyBackground ? (
-                <div className="hero-halo-vanta-wrap absolute inset-0 w-full h-full">
-                  <HeroBackgroundVantaHalo
-                    className="absolute inset-0 w-full h-full"
-                    options={{
+                <HeroBackgroundVantaHalo
+                  className="absolute inset-0 w-full h-full"
+                  options={{
                     amplitudeFactor: haloAmplitudeFactor ?? 1.8,
                     size: haloSize ?? 2.1,
                     speed: ((haloSpeed ?? 1) * 0.125),
@@ -418,8 +417,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                     xOffset: haloXOffset ?? 0.15,
                     yOffset: haloYOffset ?? -0.03,
                   }}
-                  />
-                </div>
+                />
               ) : (
                 <div className="absolute inset-0 bg-neutral-950" aria-hidden />
               )

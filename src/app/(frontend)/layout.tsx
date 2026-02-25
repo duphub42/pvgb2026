@@ -4,7 +4,7 @@ import type { Metadata, Viewport } from 'next'
 export const dynamic = 'force-dynamic'
 
 import { fontClassNames } from '@/theme/fonts'
-import { AdminBar } from '@/components/AdminBar'
+import { AdminBarGate } from '@/components/AdminBar/AdminBarGate'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
@@ -64,10 +64,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </head>
         <body data-layout="default">
           <Providers initialLocale={locale}>
-            <AdminBar
-              adminBarProps={{
-                preview: isEnabled,
-              }}
+            <AdminBarGate
+              preview={isEnabled}
+              adminBarProps={{ preview: isEnabled }}
             />
 
             <Header />
