@@ -1,29 +1,12 @@
 /**
- * Läuft einmal beim Start des Next.js-Servers (vor dem ersten Request).
- * Entfernt bei SQLite den Index footer_footer_logo_idx, falls vorhanden,
- * damit Payload-Push ihn neu anlegen kann (vermeidet „index already exists“).
+ * Next.js instrumentation hook – läuft einmal beim Start des Servers (Node.js).
+ * Bei SQLite: Index-Konflikte (z. B. footer_footer_logo_idx) ggf. mit
+ *   pnpm run fix:sqlite-schema
+ * beheben. Kein child_process/fs hier, damit das Modul bundler-kompatibel bleibt.
  */
 export async function register() {
   if (process.env.NEXT_RUNTIME !== 'nodejs') return
   if (process.env.DATABASE_URL || process.env.POSTGRES_URL) return
-
-  const { execSync } = await import('child_process')
-  const fs = await import('fs')
-  const path = await import('path')
-
-  const projectRoot = process.cwd()
-  const url = process.env.SQLITE_URL || 'file:./payload.db'
-  const dbPath = url.startsWith('file:')
-    ? path.resolve(projectRoot, url.slice(5).replace(/^\/(\w:)/, '$1'))
-    : path.join(projectRoot, 'payload.db')
-
-  if (!fs.existsSync(dbPath)) return
-
-  try {
-    execSync(`sqlite3 "${dbPath}" "DROP INDEX IF EXISTS footer_footer_logo_idx;"`, {
-      stdio: 'ignore',
-    })
-  } catch {
-    // sqlite3-CLI fehlt oder Fehler – ignorieren, Payload-Start nicht blockieren
-  }
+  // SQLite: Index-Drop o. ä. nur über separate Skripte (fix:sqlite-schema),
+  // um "Module not found: child_process" in Next/Turbopack zu vermeiden.
 }

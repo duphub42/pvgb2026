@@ -16,6 +16,7 @@ import React from 'react'
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
 import { getCachedGlobal } from '@/utilities/getGlobals'
+import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { DesignStyles } from '@/components/DesignStyles'
 import { ThemeSettingsStyles } from '@/components/ThemeSettingsStyles'
 import { getLocale } from '@/utilities/locale'
@@ -28,14 +29,20 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
     let design: Awaited<ReturnType<ReturnType<typeof getCachedGlobal>>> | null = null
     let themeSettings: { cssString?: string | null } | null = null
+    let faviconUrl: string | null = null
 
-    const [designResult, themeSettingsResult] = await Promise.allSettled([
+    const [designResult, themeSettingsResult, headerResult] = await Promise.allSettled([
       getCachedGlobal('design', 1)(),
       getCachedGlobal('theme-settings', 0)(),
+      getCachedGlobal('header', 1)(),
     ])
     if (designResult.status === 'fulfilled') design = designResult.value
     if (themeSettingsResult.status === 'fulfilled' && themeSettingsResult.value && typeof themeSettingsResult.value === 'object') {
       themeSettings = themeSettingsResult.value as { cssString?: string | null }
+    }
+    const header = headerResult.status === 'fulfilled' && headerResult.value && typeof headerResult.value === 'object' ? headerResult.value as { favicon?: { url?: string | null; updatedAt?: string } | number | null } : null
+    if (header?.favicon && typeof header.favicon === 'object' && header.favicon?.url) {
+      faviconUrl = getMediaUrl(header.favicon.url, header.favicon.updatedAt) || null
     }
 
     return (
@@ -44,8 +51,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <InitTheme />
           <DesignStyles design={design ?? null} />
           <ThemeSettingsStyles themeSettings={themeSettings ?? null} />
-          <link href="/favicon.ico" rel="icon" sizes="32x32" />
-          <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+          {faviconUrl ? (
+            <link href={faviconUrl} rel="icon" type="image/x-icon" />
+          ) : (
+            <>
+              <link href="/favicon.ico" rel="icon" sizes="32x32" />
+              <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
+            </>
+          )}
         </head>
         <body data-layout="default">
           <Providers initialLocale={locale}>

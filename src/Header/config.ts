@@ -313,13 +313,29 @@ export const Header: GlobalConfig = {
       ],
     },
     {
-      name: 'logo',
-      type: 'upload',
-      relationTo: 'media',
-      label: 'Logo',
-      admin: {
-        description: 'Wird im Header und Footer angezeigt. Leer = Standard-Payload-Logo.',
-      },
+      type: 'row',
+      fields: [
+        {
+          name: 'logo',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Logo',
+          admin: {
+            description: 'Wird im Header und Footer angezeigt. Leer = Standard-Payload-Logo.',
+            width: '50%',
+          },
+        },
+        {
+          name: 'favicon',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Favicon',
+          admin: {
+            description: 'Browser-Tab-Icon (16–48 px, quadratisch).',
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'navItems',

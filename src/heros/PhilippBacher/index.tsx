@@ -127,6 +127,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   const [floatingUnlock, setFloatingUnlock] = useState(false)
   const [waveFill, setWaveFill] = useState<string>(WAVE_FILL.dark)
   const [themeKey, setThemeKey] = useState<string>('')
+  const [deferHeavyBackground, setDeferHeavyBackground] = useState(false)
   const heroSectionRef = useRef<HTMLElement>(null)
   const mountTimeRef = useRef(0)
   const floatingElRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -148,6 +149,15 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     const handleScroll = () => setScrollOffset(window.pageYOffset)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Schwere Hintergründe (Three/Vanta/Grid) erst nach LCP laden, um LCP und TBT zu verbessern
+  useEffect(() => {
+    const id = typeof requestIdleCallback !== 'undefined'
+      ? requestIdleCallback(() => setDeferHeavyBackground(true), { timeout: 600 })
+      : window.setTimeout(() => setDeferHeavyBackground(true), 400)
+    return () =>
+      typeof cancelIdleCallback !== 'undefined' ? cancelIdleCallback(id as number) : clearTimeout(id as unknown as ReturnType<typeof setTimeout>)
   }, [])
 
   // Floating-Items erst freigeben, wenn Marquee „geladen“ ist und Maus mind. 1 s im Hero war
@@ -364,17 +374,21 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         {useBackgroundHalo ? (
           <div key={themeKey || 'halo'} className="hero-halo-layer absolute inset-0 w-full h-full">
             {showHaloLayer ? (
-              <HeroBackgroundVantaHalo
-                className="absolute inset-0 w-full h-full"
-                options={{
-                  amplitudeFactor: haloAmplitudeFactor ?? 1.8,
-                  size: haloSize ?? 2.1,
-                  speed: ((haloSpeed ?? 1) * 0.125),
-                  color2: haloColor2 ?? 15918901,
-                  xOffset: haloXOffset ?? 0.15,
-                  yOffset: haloYOffset ?? -0.03,
-                }}
-              />
+              deferHeavyBackground ? (
+                <HeroBackgroundVantaHalo
+                  className="absolute inset-0 w-full h-full"
+                  options={{
+                    amplitudeFactor: haloAmplitudeFactor ?? 1.8,
+                    size: haloSize ?? 2.1,
+                    speed: ((haloSpeed ?? 1) * 0.125),
+                    color2: haloColor2 ?? 15918901,
+                    xOffset: haloXOffset ?? 0.15,
+                    yOffset: haloYOffset ?? -0.03,
+                  }}
+                />
+              ) : (
+                <div className="absolute inset-0 bg-neutral-950" aria-hidden />
+              )
             ) : (
               <div className="absolute inset-0 bg-neutral-950" aria-hidden />
             )}
@@ -389,7 +403,9 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                     } as React.CSSProperties
                   }
                 />
-                <HeroAnimatedGridWave className="absolute inset-0 w-full h-full pointer-events-none" />
+                {deferHeavyBackground && (
+                  <HeroAnimatedGridWave className="absolute inset-0 w-full h-full pointer-events-none" />
+                )}
               </>
             ) : haloOverlayGridVariant === 'custom' && customGridCode ? (
               <>
@@ -424,7 +440,11 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             ))}
           </div>
         ) : useBackgroundAnimation ? (
-          <HeroBackgroundThree className="absolute inset-0 w-full h-full" />
+          deferHeavyBackground ? (
+            <HeroBackgroundThree className="absolute inset-0 w-full h-full" />
+          ) : (
+            <div className="absolute inset-0 bg-neutral-950" aria-hidden />
+          )
         ) : (
           backgroundMedia && (
             <Media
@@ -478,6 +498,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           <div className="relative w-full h-full">
             <Media
               resource={foregroundMedia}
+              priority
+              size="(max-width: 640px) min(96vw, 420px), (max-width: 768px) min(96vw, 480px), (max-width: 1024px) min(58vw, 560px), 40vw"
               imgClassName={cn(
                 'w-full h-auto object-contain',
                 'object-bottom',
@@ -777,7 +799,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         </div>
       )}
 
-      {/* Section-Divider: Wellen-Farbe aus Theme (per useTheme + getComputedStyle) */}
+      {/* Section-Divider: Wellen mit tangentenstetigen Kurven (keine sichtbare Naht in der Mitte) */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 right-0 z-[2] h-[12vh] min-h-[96px] w-full"
         aria-hidden
@@ -789,7 +811,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           style={{ height: '100%' }}
         >
           <path
-            d="M0,64 C300,8 500,100 800,48 C1000,16 1100,56 1200,52 L1200,120 L0,120 Z"
+            d="M0,58 C200,18 400,92 600,54 C800,16 1000,90 1200,52 L1200,120 L0,120 Z"
             style={{ fill: waveFill, opacity: 0.92 }}
           />
         </svg>
@@ -800,7 +822,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           style={{ height: '100%', opacity: 0.5 }}
         >
           <path
-            d="M0,72 C250,24 450,96 750,60 C950,32 1050,64 1200,58 L1200,120 L0,120 Z"
+            d="M0,68 C200,28 400,98 600,62 C800,26 1000,94 1200,58 L1200,120 L0,120 Z"
             style={{ fill: waveFill }}
           />
         </svg>
@@ -811,7 +833,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           style={{ height: '100%', opacity: 0.22 }}
         >
           <path
-            d="M0,58 C350,4 600,88 900,52 C1080,24 1150,62 1200,60 L1200,120 L0,120 Z"
+            d="M0,62 C200,22 400,88 600,56 C800,24 1000,86 1200,54 L1200,120 L0,120 Z"
             style={{ fill: waveFill }}
           />
         </svg>

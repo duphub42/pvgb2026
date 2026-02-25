@@ -56,9 +56,7 @@ const getPagesSitemap = unstable_cache(
     return [...defaultSitemap, ...sitemap]
   },
   ['pages-sitemap'],
-  {
-    tags: ['pages-sitemap'],
-  },
+  { revalidate: 600, tags: ['pages-sitemap'] },
 )
 
 export async function GET() {

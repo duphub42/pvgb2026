@@ -3664,6 +3664,10 @@ export interface Header {
    * Wird im Header und Footer angezeigt. Leer = Standard-Payload-Logo.
    */
   logo?: (number | null) | Media;
+  /**
+   * Browser-Tab-Icon (16–48 px, quadratisch).
+   */
+  favicon?: (number | null) | Media;
   navItems?:
     | {
         link: {
@@ -4171,6 +4175,7 @@ export interface HeaderSelect<T extends boolean = true> {
   megaMenuNewsletterForm?: T;
   megaMenuNewsletterEmailFieldName?: T;
   logo?: T;
+  favicon?: T;
   navItems?:
     | T
     | {

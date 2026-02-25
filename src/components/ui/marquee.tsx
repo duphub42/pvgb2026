@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/utilities/ui'
-import React from 'react'
+import React, { useCallback, useState } from 'react'
 
 interface MarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -43,11 +43,29 @@ export function Marquee({
   verticalAlign = 'center',
   gapClassName = 'gap-12',
   className,
+  onMouseEnter,
+  onMouseLeave,
   ...props
 }: MarqueeProps) {
+  const [isPaused, setIsPaused] = useState(false)
+  const handleMouseEnter = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (pauseOnHover) setIsPaused(true)
+      onMouseEnter?.(e)
+    },
+    [pauseOnHover, onMouseEnter],
+  )
+  const handleMouseLeave = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      if (pauseOnHover) setIsPaused(false)
+      onMouseLeave?.(e)
+    },
+    [pauseOnHover, onMouseLeave],
+  )
+
   return (
     <div
-      className={cn('relative w-full overflow-hidden', pauseOnHover && 'group', className)}
+      className={cn('relative w-full overflow-hidden', className)}
       style={
         fadeEdges
           ? {
@@ -58,13 +76,14 @@ export function Marquee({
             }
           : undefined
       }
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       {...props}
     >
       <div
         className={cn(
           'flex w-max animate-marquee',
           gapClassName,
-          pauseOnHover && '[animation-play-state:running] group-hover:[animation-play-state:paused]',
           verticalAlign === 'top' && 'items-start',
           verticalAlign === 'center' && 'items-center',
           verticalAlign === 'bottom' && 'items-end',
@@ -73,6 +92,7 @@ export function Marquee({
           {
             '--marquee-duration': `${duration}s`,
             '--marquee-direction': reverse ? '-1' : '1',
+            animationPlayState: pauseOnHover && isPaused ? 'paused' : 'running',
           } as React.CSSProperties
         }
       >

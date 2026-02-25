@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
@@ -9,7 +10,7 @@ import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 
-// Always render on demand so new/updated pages are found (no cached 404)
+// Preview/Draft: dynamic. Published pages: cached 60s for PageSpeed.
 export const dynamic = 'force-dynamic'
 export const revalidate = 0
 
@@ -70,32 +71,53 @@ export default async function Page({ params: paramsPromise, searchParams: search
   const resolvedSlug = slug || 'home'
 
   try {
-    let pages = await payload.find({
-      collection: 'site-pages',
-      limit: 1,
-      depth: 2,
-      where: {
-        and: [
-          { slug: { equals: resolvedSlug } },
-          ...(isDraftMode ? [] : [{ _status: { equals: 'published' } }]),
-        ],
-      },
-      draft: isDraftMode,
-    })
+    let pages: Awaited<ReturnType<typeof payload.find>>
 
-    // Fallback: only treat canonical homepage slugs (home / Home); do not use 'h' etc.
-    if (pages.docs.length === 0 && (resolvedSlug === 'home' || !resolvedSlug) && !isDraftMode) {
+    if (isDraftMode) {
       pages = await payload.find({
         collection: 'site-pages',
         limit: 1,
         depth: 2,
         where: {
-          and: [
-            { slug: { in: ['home', 'Home'] } },
-            { _status: { equals: 'published' } },
-          ],
+          and: [{ slug: { equals: resolvedSlug } }],
         },
+        draft: true,
       })
+    } else {
+      const getCachedPage = unstable_cache(
+        async () => {
+          const p = await getPayload({ config: configPromise })
+          let result = await p.find({
+            collection: 'site-pages',
+            limit: 1,
+            depth: 2,
+            where: {
+              and: [
+                { slug: { equals: resolvedSlug } },
+                { _status: { equals: 'published' } },
+              ],
+            },
+            draft: false,
+          })
+          if (result.docs.length === 0 && (resolvedSlug === 'home' || !resolvedSlug)) {
+            result = await p.find({
+              collection: 'site-pages',
+              limit: 1,
+              depth: 2,
+              where: {
+                and: [
+                  { slug: { in: ['home', 'Home'] } },
+                  { _status: { equals: 'published' } },
+                ],
+              },
+            })
+          }
+          return result
+        },
+        [`page-${resolvedSlug}`],
+        { revalidate: 60, tags: ['site-pages', `page-${resolvedSlug}`] },
+      )
+      pages = await getCachedPage()
     }
 
     const page = pages.docs[0]
@@ -165,31 +187,33 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   const { slug: slugParam = 'home' } = await params
   const slug = slugParam || 'home'
   try {
-    const payload = await getPayload({ config: configPromise })
-    let pages = await payload.find({
-      collection: 'site-pages',
-      limit: 1,
-      depth: 1,
-      where: {
-        and: [
-          { slug: { equals: slug } },
-          { _status: { equals: 'published' } },
-        ],
+    const getCachedMetaPage = unstable_cache(
+      async () => {
+        const p = await getPayload({ config: configPromise })
+        let pages = await p.find({
+          collection: 'site-pages',
+          limit: 1,
+          depth: 1,
+          where: {
+            and: [{ slug: { equals: slug } }, { _status: { equals: 'published' } }],
+          },
+        })
+        if (pages.docs.length === 0 && (slug === 'home' || !slug)) {
+          pages = await p.find({
+            collection: 'site-pages',
+            limit: 1,
+            depth: 1,
+            where: {
+              and: [{ slug: { in: ['home', 'Home'] } }, { _status: { equals: 'published' } }],
+            },
+          })
+        }
+        return pages
       },
-    })
-    if (pages.docs.length === 0 && (slug === 'home' || !slug)) {
-      pages = await payload.find({
-        collection: 'site-pages',
-        limit: 1,
-        depth: 1,
-        where: {
-          and: [
-            { slug: { in: ['home', 'Home'] } },
-            { _status: { equals: 'published' } },
-          ],
-        },
-      })
-    }
+      [`meta-${slug}`],
+      { revalidate: 60, tags: ['site-pages', `page-${slug}`] },
+    )
+    const pages = await getCachedMetaPage()
     return generateMeta({ doc: pages.docs[0] })
   } catch (err) {
     const e = err as Error & { cause?: Error }
