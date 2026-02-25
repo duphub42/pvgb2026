@@ -191,9 +191,9 @@ export interface SitePage {
     headlineLine3?: string | null;
     description?: string | null;
     /**
-     * Halo (Vanta) = animierter Hintergrund mit dezentem Gitter. Bei „Bild/Video/Animation“ erscheinen Halo und Gitter nicht.
+     * Halo (Vanta) = 3D-Hintergrund. Orbit (CSS) = leichte Ring-Animation ohne Three.js. Bei „Bild/Video/Animation“ erscheinen Halo/Orbit nicht.
      */
-    mediaType?: ('halo' | 'image' | 'video' | 'animation') | null;
+    mediaType?: ('halo' | 'orbit' | 'image' | 'video' | 'animation') | null;
     backgroundImage?: (number | null) | Media;
     backgroundVideo?: (number | null) | Media;
     /**

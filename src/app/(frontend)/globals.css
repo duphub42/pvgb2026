@@ -25,6 +25,14 @@
 @custom-variant hero-ipad-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (min-height: 44rem));
 
 @layer base {
+  html {
+    overflow-x: hidden;
+    overscroll-behavior: none;
+  }
+  body {
+    overflow-x: hidden;
+    overscroll-behavior: none;
+  }
   h1,
   h2,
   h3,
@@ -1992,6 +2000,48 @@ header .header-tool-toggle--theme:hover {
   pointer-events: none;
 }
 
+/* Hero Orbit (CSS-only): leichte Alternative zu Vanta, nur Keyframes + transform */
+@keyframes hero-orbit-rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.hero-orbit {
+  background-color: #0b0f19;
+}
+.hero-orbit__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 50%;
+  border: 1px solid rgba(80, 120, 160, 0.15);
+  animation: hero-orbit-rotate linear infinite;
+  will-change: transform;
+}
+.hero-orbit__ring--1 {
+  width: 90vmax;
+  height: 90vmax;
+  margin-left: -45vmax;
+  margin-top: -45vmax;
+  animation-duration: 35s;
+}
+.hero-orbit__ring--2 {
+  width: 70vmax;
+  height: 70vmax;
+  margin-left: -35vmax;
+  margin-top: -35vmax;
+  animation-duration: 28s;
+  animation-direction: reverse;
+  border-color: rgba(100, 140, 180, 0.12);
+}
+.hero-orbit__ring--3 {
+  width: 50vmax;
+  height: 50vmax;
+  margin-left: -25vmax;
+  margin-top: -25vmax;
+  animation-duration: 22s;
+  border-color: rgba(70, 110, 150, 0.1);
+}
+
 /* Overlay über Vanta Halo: nur Verlauf (für animiertes/eigenes Gitter) */
 .hero-halo-overlay-gradient {
   --halo-overlay-gradient: 0.68;
@@ -2014,6 +2064,14 @@ header .header-tool-toggle--theme:hover {
 }
 
 /* Dark Mode: Halo + Gitter sichtbar; color-scheme: light verhindert Browser-Dunkelmodus auf Canvas/Overlays */
+/* Vanta auf iPhone Portrait ca. 39 % kleiner (Scale 0,61) */
+@media (orientation: portrait) and (max-width: 29rem) {
+  .hero-halo-vanta-wrap {
+    transform: scale(0.61);
+    transform-origin: center center;
+  }
+}
+
 [data-theme='dark'] .hero-halo-layer,
 [data-theme='dark'] .hero-halo-layer .hero-halo-overlay,
 [data-theme='dark'] .hero-halo-layer .hero-halo-overlay-gradient {

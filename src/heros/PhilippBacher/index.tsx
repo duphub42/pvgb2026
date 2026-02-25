@@ -30,6 +30,10 @@ const HeroAnimatedGridWave = dynamic(
   () => import('@/components/HeroAnimatedGridWave/HeroAnimatedGridWave'),
   { ssr: false },
 )
+const HeroBackgroundOrbit = dynamic(
+  () => import('@/components/HeroBackgroundOrbit/HeroBackgroundOrbit').then((m) => m.HeroBackgroundOrbit),
+  { ssr: false },
+)
 
 type FloatingEl = {
   label: string
@@ -344,6 +348,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           : null
   const useBackgroundAnimation = mediaType === 'animation'
   const useBackgroundHalo = mediaType === 'halo'
+  const useBackgroundOrbit = mediaType === 'orbit'
   const showHaloLayer = useBackgroundHalo && useHaloBackground
   const showGridOverlay = useBackgroundHalo
 
@@ -386,14 +391,14 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   return (
     <section
       ref={heroSectionRef}
-      className="relative flex min-h-[100dvh] -mt-24 items-stretch overflow-hidden bg-neutral-950 pt-24 text-white"
+      className="relative flex -mt-24 items-stretch overflow-hidden bg-neutral-950 pt-24 text-white min-h-[100vh] md:min-h-[100dvh]"
       aria-label="Hero"
     >
       {/* Hintergrund zuerst und ganz hinten (z-0): Bild/Video/Halo + Overlays */}
       <div
         className="hero-bg-wrap absolute inset-0 z-0 origin-center transition-transform duration-200 ease-out"
         style={
-          !useBackgroundAnimation && !useBackgroundHalo
+          !useBackgroundAnimation && !useBackgroundHalo && !useBackgroundOrbit
             ? { transform: `translateY(${translateY}px) scale(${scale})` }
             : undefined
         }
@@ -402,9 +407,10 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           <div key={themeKey || 'halo'} className="hero-halo-layer absolute inset-0 w-full h-full">
             {showHaloLayer ? (
               deferHeavyBackground ? (
-                <HeroBackgroundVantaHalo
-                  className="absolute inset-0 w-full h-full"
-                  options={{
+                <div className="hero-halo-vanta-wrap absolute inset-0 w-full h-full">
+                  <HeroBackgroundVantaHalo
+                    className="absolute inset-0 w-full h-full"
+                    options={{
                     amplitudeFactor: haloAmplitudeFactor ?? 1.8,
                     size: haloSize ?? 2.1,
                     speed: ((haloSpeed ?? 1) * 0.125),
@@ -412,7 +418,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                     xOffset: haloXOffset ?? 0.15,
                     yOffset: haloYOffset ?? -0.03,
                   }}
-                />
+                  />
+                </div>
               ) : (
                 <div className="absolute inset-0 bg-neutral-950" aria-hidden />
               )
@@ -466,6 +473,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
               />
             ))}
           </div>
+        ) : useBackgroundOrbit ? (
+          <HeroBackgroundOrbit className="absolute inset-0 w-full h-full" />
         ) : useBackgroundAnimation ? (
           deferHeavyBackground ? (
             <HeroBackgroundThree className="absolute inset-0 w-full h-full" />
@@ -529,8 +538,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
               size="(max-width: 640px) min(96vw, 360px), (max-width: 768px) min(96vw, 480px), (max-width: 1024px) min(58vw, 560px), 40vw"
               imgClassName={cn(
                 'w-full h-auto object-contain object-bottom',
-                // iPhone/Mobile: geringere max-Höhe, damit mehr Abstand oben sichtbar bleibt
-                'max-h-[72dvh] sm:max-h-[85dvh] md:max-h-[82dvh] lg:max-h-[72dvh]',
+                // iPhone/Playbook: mind. 18% Abstand oben (max 82% Höhe), vh damit keine Vergrößerung beim Scroll (dvh-Änderung)
+                'max-h-[82vh] sm:max-h-[82vh] md:max-h-[82dvh] lg:max-h-[72dvh]',
                 'landscape-short:object-top landscape-short:max-h-[100dvh] landscape-short:min-h-[60vh]',
               )}
             />

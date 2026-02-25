@@ -107,13 +107,14 @@ export const hero: Field = {
       label: 'Hintergrund',
       options: [
         { label: 'Halo (Vanta) + Gitter', value: 'halo' },
+        { label: 'Orbit (CSS)', value: 'orbit' },
         { label: 'Bild', value: 'image' },
         { label: 'Video', value: 'video' },
         { label: 'Animation', value: 'animation' },
       ],
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'philippBacher',
-        description: 'Halo (Vanta) = animierter Hintergrund mit dezentem Gitter. Bei „Bild/Video/Animation“ erscheinen Halo und Gitter nicht.',
+        description: 'Halo (Vanta) = 3D-Hintergrund. Orbit (CSS) = leichte Ring-Animation ohne Three.js. Bei „Bild/Video/Animation“ erscheinen Halo/Orbit nicht.',
       },
     },
     {
