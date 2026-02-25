@@ -560,6 +560,11 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
 
       delete data.id
 
+      if (slug === 'media') {
+        delete data.folder
+        delete data.folderID
+      }
+
       let file: { name: string; data: Buffer; mimetype: string; size: number } | undefined
       if (slug === 'media') {
         const filename = (doc.filename as string) || `media-${doc.id}.bin`

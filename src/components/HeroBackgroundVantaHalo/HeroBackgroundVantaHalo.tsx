@@ -96,11 +96,19 @@ export function HeroBackgroundVantaHalo({
       const el = elRef.current
       if (!el || cancelled) return
       try {
-        // Three.js von CDN laden (nicht bündeln) → kleinerer eigener Chunk; Vanta nur halo gebündelt
-        await loadScript(THREE_CDN_URL)
-        if (cancelled) return
-        const THREE = (typeof window !== 'undefined' && (window as unknown as { THREE?: unknown }).THREE) as unknown
-        if (!THREE) throw new Error('THREE not on window after script load')
+        let THREE: unknown
+        try {
+          await loadScript(THREE_CDN_URL)
+          if (cancelled) return
+          THREE = typeof window !== 'undefined' && (window as unknown as { THREE?: unknown }).THREE
+        } catch {
+          // CDN blockiert oder fehlgeschlagen → Fallback: gebündeltes Three
+          const threeModule = await import('three')
+          if (cancelled) return
+          THREE = (threeModule as { default: typeof threeModule }).default ?? threeModule
+        }
+        if (!THREE) throw new Error('THREE not available')
+        if (typeof window !== 'undefined') (window as unknown as { THREE: unknown }).THREE = THREE
         const vantaModule = await import('vanta/dist/vanta.halo.min.js')
         if (cancelled) return
         const HALO = (vantaModule as { default: (opts: Record<string, unknown>) => VantaEffect }).default

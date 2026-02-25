@@ -152,14 +152,13 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Auf Mobil oder langsamer Verbindung: Three/Vanta/Grid nie laden → TBT/Performance stark verbessert (Lighthouse Moto G + Slow 4G).
+  // Nur bei echter Langsamverbindung (2g/slow-2g) Vanta/Three weglassen; auf Mobil mit 3g/4g wieder anzeigen.
   useEffect(() => {
     if (!mounted) return
-    const isNarrow = !window.matchMedia('(min-width: 769px)').matches
     const conn = (navigator as Navigator & { connection?: { effectiveType?: string } }).connection
     const effectiveType = conn?.effectiveType ?? ''
     const isSlowConnection = effectiveType === '2g' || effectiveType === 'slow-2g'
-    setSkipHeavyBackground(isNarrow || isSlowConnection)
+    setSkipHeavyBackground(isSlowConnection)
   }, [mounted])
 
   // Schwere Hintergründe (Three/Vanta/Grid) erst nach LCP + TBT-relevantem Zeitfenster laden.
@@ -523,7 +522,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             <Media
               resource={foregroundMedia}
               priority
-              size="(max-width: 640px) min(96vw, 420px), (max-width: 768px) min(96vw, 480px), (max-width: 1024px) min(58vw, 560px), 40vw"
+              size="(max-width: 640px) min(96vw, 360px), (max-width: 768px) min(96vw, 480px), (max-width: 1024px) min(58vw, 560px), 40vw"
               imgClassName={cn(
                 'w-full h-auto object-contain object-bottom',
                 // iPhone/Mobile: geringere max-Höhe, damit mehr Abstand oben sichtbar bleibt
