@@ -161,24 +161,28 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     setSkipHeavyBackground(isSlowConnection)
   }, [mounted])
 
-  // Schwere Hintergründe (Three/Vanta/Grid) erst nach LCP + TBT-relevantem Zeitfenster laden.
-  // Nur wenn nicht skipHeavyBackground (Desktop + ausreichend schnelle Verbindung).
+  // Schwere Hintergründe (Three/Vanta/Grid) erst nach LCP laden, um TBT/FCP zu verbessern.
+  // Mindestverzögerung 1.8s, dann requestIdleCallback oder Fallback 3s.
+  const DEFER_MIN_MS = 1800
+  const DEFER_FALLBACK_MS = 3000
   useEffect(() => {
     if (skipHeavyBackground) return
     let cancelled = false
     const apply = () => {
       if (!cancelled) setDeferHeavyBackground(true)
     }
-    const onLoad = () => apply()
-    if (document.readyState === 'complete') {
-      window.setTimeout(apply, 100)
-    } else {
-      window.addEventListener('load', onLoad)
+    const afterMinDelay = () => {
+      if (typeof requestIdleCallback !== 'undefined') {
+        requestIdleCallback(apply, { timeout: DEFER_FALLBACK_MS - DEFER_MIN_MS })
+      } else {
+        window.setTimeout(apply, 200)
+      }
     }
-    const fallbackId = window.setTimeout(apply, 2500)
+    const minDelayId = window.setTimeout(afterMinDelay, DEFER_MIN_MS)
+    const fallbackId = window.setTimeout(apply, DEFER_FALLBACK_MS)
     return () => {
       cancelled = true
-      window.removeEventListener('load', onLoad)
+      clearTimeout(minDelayId)
       clearTimeout(fallbackId)
     }
   }, [skipHeavyBackground])
@@ -496,8 +500,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         <div
           className={cn(
             'absolute right-0 z-[5] max-w-none pointer-events-none origin-bottom-right',
-            // iPhone/Mobile: mind. 10% Abstand oben (inkl. Safe Area via .hero-foreground-top), Bild etwas kleiner
-            'hero-foreground-top w-[min(88vw,360px)] bottom-auto md:bottom-0',
+            // Immer am unteren Hero-Rand anliegend; Abstand oben nur über max-h des Bildes
+            'bottom-0 w-[min(88vw,360px)]',
             'sm:w-[min(92vw,420px)]',
             'md:right-[-10%] md:w-[min(58vw,560px)]',
             'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl lg:max-h-none',
