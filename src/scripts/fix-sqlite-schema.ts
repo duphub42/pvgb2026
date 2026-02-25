@@ -235,6 +235,8 @@ function main() {
       name: 'design: seed',
       sql: "INSERT INTO design (updated_at, created_at) SELECT datetime('now'), datetime('now') WHERE (SELECT COUNT(*) FROM design) = 0;",
     },
+    // Footer: Index entfernen, damit Payload-Push ihn neu anlegen kann (vermeidet „index footer_footer_logo_idx already exists“)
+    { name: 'footer: drop legacy footer_footer_logo_idx', sql: 'DROP INDEX IF EXISTS footer_footer_logo_idx;' },
     // Indizes für hero_media_id (Payload/Drizzle erwarten diese Namen; ohne sie schlägt CREATE INDEX beim Push fehl)
     { name: 'site_pages: index hero_media_id', sql: 'CREATE INDEX IF NOT EXISTS site_pages_hero_hero_media_idx ON site_pages(hero_media_id);' },
     { name: '_site_pages_v: index version_hero_media_id', sql: 'CREATE INDEX IF NOT EXISTS _site_pages_v_version_hero_version_hero_media_idx ON _site_pages_v(version_hero_media_id);' },

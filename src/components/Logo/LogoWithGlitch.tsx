@@ -104,11 +104,10 @@ export function LogoWithGlitch({
     runGlitch(textLogo != null)
   }, [runGlitch, textLogo])
 
-  const isFooterImage = variant === 'footer' && imgSrc != null && children != null
   useEffect(() => {
-    if (!isFooterImage) runGlitch(textLogo != null)
+    runGlitch(textLogo != null)
     return () => {}
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps -- only on mount
+  }, [runGlitch, textLogo])
 
   const scrambleProps = {
     text: textLogo ?? '',

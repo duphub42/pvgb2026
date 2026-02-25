@@ -27,7 +27,7 @@ interface Props {
 const logoSizeClass =
   'w-full max-w-[11.7rem] h-[42.5px] object-contain object-left'
 const logoSizeFooterClass =
-  'max-w-[6rem] h-[28px] sm:max-w-[7.5rem] sm:h-[30px] md:max-w-[9.375rem] md:h-[34px]'
+  'max-w-[8rem] h-[36px] sm:max-w-[9.5rem] sm:h-[40px] md:max-w-[11rem] md:h-[44px]'
 
 export const Logo = (props: Props) => {
   const {

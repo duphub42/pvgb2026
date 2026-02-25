@@ -61,10 +61,10 @@ function FlipCard({ src, index, total, phase, target }: FlipCardProps) {
           style={{ backfaceVisibility: 'hidden', transform: 'rotateY(180deg)' }}
         >
           <div className="text-center">
-            <p className="mb-1 text-[8px] font-bold uppercase tracking-[0.2em] text-primary">
+            <p className="mb-1 text-xs font-semibold uppercase tracking-[0.2em] text-primary">
               View
             </p>
-            <p className="text-xs font-medium text-foreground">Details</p>
+            <p className="text-sm font-medium text-foreground md:text-xs">Details</p>
           </div>
         </div>
       </motion.div>

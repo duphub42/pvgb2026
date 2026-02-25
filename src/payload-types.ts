@@ -3726,6 +3726,14 @@ export interface Footer {
     [k: string]: unknown;
   } | null;
   /**
+   * Adresse im Footer, z. B. für Impressum / Kontakt. Zeilenumbrüche werden übernommen.
+   */
+  footerAddress?: string | null;
+  /**
+   * Optionale Telefonnummer im Footer.
+   */
+  footerPhone?: string | null;
+  /**
    * Aktivieren, wenn der Footer einen dunklen Hintergrund hat (Logo wird dann hell dargestellt). Bei hellem Hintergrund deaktiviert lassen.
    */
   logoOnDarkBackground?: boolean | null;
@@ -3733,6 +3741,14 @@ export interface Footer {
    * z. B. „Newsletter abonnieren“.
    */
   newsletterTitle?: string | null;
+  /**
+   * Optionales Icon oder Emoji vor dem Newsletter-Titel (z. B. ✉️, ⭐). Wird verwendet, wenn kein eigenes Icon-Bild hochgeladen ist.
+   */
+  newsletterIcon?: string | null;
+  /**
+   * Eigenes Icon-Bild vor dem Newsletter-Titel. Falls gesetzt, wird dieses anstelle des Emoji/Text-Icons verwendet.
+   */
+  newsletterIconUpload?: (number | null) | Media;
   /**
    * Kurzer Text über den Newsletter.
    */
@@ -3758,6 +3774,14 @@ export interface Footer {
    */
   columns?:
     | {
+        /**
+         * Optionales Icon oder Emoji vor dem Spaltentitel (z. B. 🔧, ⭐, →). Wird verwendet, wenn kein eigenes Icon-Bild hochgeladen ist.
+         */
+        columnIcon?: string | null;
+        /**
+         * Eigenes Icon-Bild vor dem Spaltentitel. Falls gesetzt, wird dieses anstelle des Emoji/Text-Icons verwendet.
+         */
+        columnIconUpload?: (number | null) | Media;
         /**
          * z. B. „Produkt“, „Unternehmen“.
          */
@@ -4174,14 +4198,20 @@ export interface FooterSelect<T extends boolean = true> {
   footerLogoAltText?: T;
   mobileFooterLogo?: T;
   footerDescription?: T;
+  footerAddress?: T;
+  footerPhone?: T;
   logoOnDarkBackground?: T;
   newsletterTitle?: T;
+  newsletterIcon?: T;
+  newsletterIconUpload?: T;
   newsletterDescription?: T;
   newsletterPlaceholder?: T;
   newsletterButtonText?: T;
   columns?:
     | T
     | {
+        columnIcon?: T;
+        columnIconUpload?: T;
         columnTitle?: T;
         links?:
           | T

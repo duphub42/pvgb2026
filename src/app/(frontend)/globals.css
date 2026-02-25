@@ -446,22 +446,6 @@ footer a[href='/']:hover .logo-animate {
   }
 }
 
-/* Header Bild-Logo: sichtbar halten (min-Höhe, Bild nicht kollabieren) */
-.logo-glitch-wrapper.logo-glitch-image:not(.logo-glitch-footer) .logo-glitch-main {
-  min-height: 2.5rem;
-  display: flex;
-  align-items: center;
-}
-.logo-glitch-wrapper.logo-glitch-image:not(.logo-glitch-footer) .logo-glitch-main picture,
-.logo-glitch-wrapper.logo-glitch-image:not(.logo-glitch-footer) .logo-glitch-main img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-  min-height: 1px;
-  object-fit: contain;
-  object-position: left center;
-}
-
 /* Ausgeklappt: Expand-Animation (overflow bleibt hidden bis Glitch läuft). Footer-Bild-Logo ausgenommen (kein Glitch/Expand). */
 .logo-glitch-wrapper:not(.logo-glitch-collapsed):not(.logo-glitch-footer) {
   animation: logo-reveal-expand-glitch var(--logo-reveal-duration) ease-out forwards;
@@ -1109,22 +1093,35 @@ footer a[href='/']:hover .logo-animate {
     transform: scaleX(1);
   }
 
-  /* Footer: Linkschrift 10 % Transparenz; Headings 50 % Transparenz */
+  /* Footer: Links ca. 80 % Deckkraft, bei Hover weiß */
   .footer-custom .footer-link {
-    opacity: 0.9;
-    transition: opacity 0.2s ease;
+    opacity: 0.8;
+    transition: opacity 0.2s ease, color 0.2s ease;
   }
   .footer-custom .footer-link:hover {
     opacity: 1;
-    color: var(--footer-link-hover, currentColor);
+    color: #fff;
   }
   .footer-custom .footer-heading {
     opacity: 0.5;
   }
 
-  /* Pfeil nur bei Hover, wird nicht unterstrichen */
+  /* Beschreibungstexte im Footer: gleiche Schriftgröße und Farbe wie Footer-Links */
+  .footer-custom .footer-description,
+  .footer-custom .footer-description p,
+  .footer-custom .footer-description * {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    color: inherit;
+  }
+  .footer-custom .footer-description {
+    line-height: 1.5;
+  }
+
+  /* Kleiner Pfeil (>) nur bei Hover, wird nicht unterstrichen */
   .footer-custom .footer-link-arrow {
-    margin-left: 0.2em;
+    margin-left: 0.25em;
+    font-size: 0.85em;
     opacity: 0;
     transition: opacity 0.25s ease;
   }
@@ -1192,6 +1189,12 @@ footer a[href='/']:hover .logo-animate {
   position: relative;
   z-index: 1;
   border-radius: 9999px;
+}
+.footer-newsletter-btn-wrap button {
+  transition: filter 0.2s ease;
+}
+.footer-newsletter-btn-wrap:hover button {
+  filter: invert(1);
 }
 @keyframes footer-border-gradient-rotate {
   to {

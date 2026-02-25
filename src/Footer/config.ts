@@ -69,6 +69,28 @@ export const Footer: GlobalConfig = {
           },
         },
         {
+          type: 'row',
+          fields: [
+            {
+              name: 'footerAddress',
+              type: 'textarea',
+              label: 'Adresse (Footer)',
+              admin: {
+                description: 'Adresse im Footer, z. B. für Impressum / Kontakt. Zeilenumbrüche werden übernommen.',
+                rows: 3,
+              },
+            },
+            {
+              name: 'footerPhone',
+              type: 'text',
+              label: 'Telefonnummer (Footer)',
+              admin: {
+                description: 'Optionale Telefonnummer im Footer.',
+              },
+            },
+          ],
+        },
+        {
           name: 'logoOnDarkBackground',
           type: 'checkbox',
           label: 'Logo auf dunklem Hintergrund',
@@ -90,6 +112,25 @@ export const Footer: GlobalConfig = {
           type: 'text',
           label: 'Titel',
           admin: { description: 'z. B. „Newsletter abonnieren“.' },
+        },
+        {
+          name: 'newsletterIcon',
+          type: 'text',
+          label: 'Icon vor dem Newsletter-Titel (Emoji/Text)',
+          admin: {
+            description:
+              'Optionales Icon oder Emoji vor dem Newsletter-Titel (z. B. ✉️, ⭐). Wird verwendet, wenn kein eigenes Icon-Bild hochgeladen ist.',
+          },
+        },
+        {
+          name: 'newsletterIconUpload',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Icon-Bild (optional)',
+          admin: {
+            description:
+              'Eigenes Icon-Bild vor dem Newsletter-Titel. Falls gesetzt, wird dieses anstelle des Emoji/Text-Icons verwendet.',
+          },
         },
         {
           name: 'newsletterDescription',
@@ -129,6 +170,25 @@ export const Footer: GlobalConfig = {
             },
           },
           fields: [
+            {
+              name: 'columnIcon',
+              type: 'text',
+              label: 'Icon vor dem Spaltentitel (Emoji/Text)',
+              admin: {
+                description:
+                  'Optionales Icon oder Emoji vor dem Spaltentitel (z. B. 🔧, ⭐, →). Wird verwendet, wenn kein eigenes Icon-Bild hochgeladen ist.',
+              },
+            },
+            {
+              name: 'columnIconUpload',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Icon-Bild (optional)',
+              admin: {
+                description:
+                  'Eigenes Icon-Bild vor dem Spaltentitel. Falls gesetzt, wird dieses anstelle des Emoji/Text-Icons verwendet.',
+              },
+            },
             {
               name: 'columnTitle',
               type: 'text',

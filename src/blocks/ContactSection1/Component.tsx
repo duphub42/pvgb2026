@@ -232,7 +232,7 @@ export const ContactSection1Block: React.FC<ContactSection1BlockProps> = (props)
                   </div>
                   <div>
                     <h4 className="text-sm font-medium">{contactEmailLabel}</h4>
-                    <p className="text-muted-foreground text-xs">{contactEmailValue ?? ''}</p>
+                    <p className="text-muted-foreground text-sm md:text-xs">{contactEmailValue ?? ''}</p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
@@ -241,7 +241,7 @@ export const ContactSection1Block: React.FC<ContactSection1BlockProps> = (props)
                   </div>
                   <div>
                     <h4 className="text-sm font-medium">{contactPhoneLabel}</h4>
-                    <p className="text-muted-foreground text-xs">{contactPhoneValue ?? ''}</p>
+                    <p className="text-muted-foreground text-sm md:text-xs">{contactPhoneValue ?? ''}</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-3">
@@ -250,7 +250,7 @@ export const ContactSection1Block: React.FC<ContactSection1BlockProps> = (props)
                   </div>
                   <div>
                     <h4 className="text-sm font-medium">{contactOfficeLabel}</h4>
-                    <p className="text-muted-foreground whitespace-pre-line text-xs">
+                    <p className="text-muted-foreground whitespace-pre-line text-sm md:text-xs">
                       {contactOfficeValue ?? ''}
                     </p>
                   </div>
