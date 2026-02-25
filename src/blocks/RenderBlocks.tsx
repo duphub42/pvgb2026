@@ -2,7 +2,9 @@ import React, { Fragment } from 'react'
 
 import type { SitePage } from '@/payload-types'
 
-import { BlockRenderer, SUPPORTED_BLOCK_TYPES } from '@/blocks/BlockRenderer'
+import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
+import { BlockRenderer } from '@/blocks/BlockRenderer'
+import { CLIENT_BLOCK_TYPES } from '@/blocks/clientBlockTypes'
 
 type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   blockBackground?: 'none' | 'muted' | 'accent' | 'light' | 'dark' | null
@@ -64,7 +66,10 @@ export const RenderBlocks: React.FC<{
           const b = block as BlockWithStyle
           const { blockType } = b
 
-          if (!blockType || !SUPPORTED_BLOCK_TYPES.has(blockType)) return null
+          if (!blockType) return null
+          const isArchive = blockType === 'archive'
+          const isClientBlock = CLIENT_BLOCK_TYPES.has(blockType)
+          if (!isArchive && !isClientBlock) return null
 
           const bg = b.blockBackground
           const overlay = b.blockOverlay
@@ -97,7 +102,11 @@ export const RenderBlocks: React.FC<{
                     hasBackground || hasOverlay ? 'relative z-10 py-8' : ''
                   }
                 >
-                  <BlockRenderer blockType={blockType} block={b} />
+                  {isArchive ? (
+                    <ArchiveBlock {...b} disableInnerContainer />
+                  ) : (
+                    <BlockRenderer blockType={blockType} block={b} />
+                  )}
                 </div>
               </div>
             )

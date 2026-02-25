@@ -4,12 +4,14 @@ import React, { Suspense, lazy } from 'react'
 
 import type { SitePage } from '@/payload-types'
 
-/** Lazy-Load pro Block-Typ: Nur die Blöcke, die auf der Seite vorkommen, werden geladen. Reduziert Script-Größe deutlich. */
+import { CLIENT_BLOCK_TYPES } from '@/blocks/clientBlockTypes'
+
+/** Lazy-Load pro Block-Typ: Nur die Blöcke, die auf der Seite vorkommen, werden geladen. Reduziert Script-Größe deutlich.
+ *  ArchiveBlock ist ausgenommen – er nutzt getPayload/config (Server) und darf nicht im Client-Bundle landen. */
 const blockLoaders: Record<
   string,
   React.LazyExoticComponent<React.ComponentType<Record<string, unknown> & { disableInnerContainer?: boolean }>>
 > = {
-  archive: lazy(() => import('@/blocks/ArchiveBlock/Component').then((m) => ({ default: m.ArchiveBlock }))),
   content: lazy(() => import('@/blocks/Content/Component').then((m) => ({ default: m.ContentBlock }))),
   serpContent: lazy(() => import('@/blocks/SerpContent/Component').then((m) => ({ default: m.SerpContentBlock }))),
   lyraContent: lazy(() => import('@/blocks/LyraContent/Component').then((m) => ({ default: m.LyraContentBlock }))),
@@ -50,7 +52,7 @@ const blockLoaders: Record<
   mediaBlock: lazy(() => import('@/blocks/MediaBlock/Component').then((m) => ({ default: m.MediaBlock }))),
 }
 
-export const SUPPORTED_BLOCK_TYPES = new Set(Object.keys(blockLoaders))
+export const SUPPORTED_BLOCK_TYPES = CLIENT_BLOCK_TYPES
 
 type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   blockBackground?: 'none' | 'muted' | 'accent' | 'light' | 'dark' | null
