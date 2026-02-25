@@ -41,7 +41,7 @@ export const Design: GlobalConfig = {
           label: 'Fließtext',
           admin: {
             description:
-              'z. B. var(--font-geist-sans) oder "Inter", sans-serif. Wirkt auf Body und allgemeine Texte.',
+              'z. B. var(--font-outfit). Wirkt auf Body und allgemeine Texte.',
           },
         },
         {
@@ -50,7 +50,7 @@ export const Design: GlobalConfig = {
           label: 'Überschriften',
           admin: {
             description:
-              'z. B. var(--font-geist-sans) oder "Inter", sans-serif. Wirkt auf h1–h6.',
+              'z. B. var(--font-outfit). Wirkt auf h1–h6.',
           },
         },
         {
@@ -58,7 +58,7 @@ export const Design: GlobalConfig = {
           type: 'text',
           label: 'Monospace',
           admin: {
-            description: 'z. B. var(--font-geist-mono) für Code und monospace Texte.',
+            description: 'z. B. var(--font-outfit). Einzige Schrift ist Outfit.',
           },
         },
       ],

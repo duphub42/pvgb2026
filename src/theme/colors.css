@@ -52,7 +52,7 @@
   --theme-input-bg: var(--theme-elevation-0);
   --font-body: var(--font-outfit);
   --font-heading: var(--font-outfit);
-  --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-outfit);
   --link: var(--primary);
   --link-hover: var(--primary);
   --style-radius-s: 3px;

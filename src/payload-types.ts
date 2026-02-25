@@ -4088,15 +4088,15 @@ export interface Design {
    */
   fonts?: {
     /**
-     * z. B. var(--font-geist-sans) oder "Inter", sans-serif. Wirkt auf Body und allgemeine Texte.
+     * z. B. var(--font-outfit). Wirkt auf Body und allgemeine Texte.
      */
     body?: string | null;
     /**
-     * z. B. var(--font-geist-sans) oder "Inter", sans-serif. Wirkt auf h1–h6.
+     * z. B. var(--font-outfit). Wirkt auf h1–h6.
      */
     heading?: string | null;
     /**
-     * z. B. var(--font-geist-mono) für Code und monospace Texte.
+     * z. B. var(--font-outfit). Einzige Schrift ist Outfit.
      */
     mono?: string | null;
   };
