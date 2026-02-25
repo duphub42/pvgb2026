@@ -12,10 +12,10 @@
  * Aufruf: pnpm run fix:sqlite-schema
  */
 
-import { execSync } from 'node:child_process'
-import fs from 'node:fs'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { execSync } from 'child_process'
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
 import dotenv from 'dotenv'
 

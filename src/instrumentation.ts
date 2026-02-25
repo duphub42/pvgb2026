@@ -7,9 +7,9 @@ export async function register() {
   if (process.env.NEXT_RUNTIME !== 'nodejs') return
   if (process.env.DATABASE_URL || process.env.POSTGRES_URL) return
 
-  const { execSync } = await import('node:child_process')
-  const fs = await import('node:fs')
-  const path = await import('node:path')
+  const { execSync } = await import('child_process')
+  const fs = await import('fs')
+  const path = await import('path')
 
   const projectRoot = process.cwd()
   const url = process.env.SQLITE_URL || 'file:./payload.db'

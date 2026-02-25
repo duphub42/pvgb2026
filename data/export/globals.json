@@ -26,26 +26,100 @@
     "megaMenuNewsletterButtonText": "Anmelden",
     "megaMenuNewsletterForm": null,
     "megaMenuNewsletterEmailFieldName": "email",
-    "logo": 39,
+    "logo": 42,
     "navItems": [],
-    "updatedAt": "2026-02-22T13:21:35.324Z",
+    "updatedAt": "2026-02-25T09:17:11.473Z",
     "createdAt": "2026-02-17T13:47:51.469Z",
     "globalType": "header"
   },
   "footer": {
     "id": 1,
-    "footerLogo": null,
-    "footerLogoAltText": "Ich bin Philipp Bacher – Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Webdesign. Ich realisiere moderne, nutzerzentrierte Websites, konsistente Markenauftritte und unterstütze Unternehmen dabei, ihre Prozesse digital zu automatisieren – effizient, fundiert und ergebnisorientiert.",
+    "footerLogo": 44,
+    "footerLogoAltText": "Philipp Bacher – Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Webdesign.",
+    "mobileFooterLogo": null,
+    "footerDescription": {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Philipp Bacher – Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Webdesign. Ich realisiere moderne, nutzerzentrierte Websites, konsistente Markenauftritte und unterstütze Unternehmen dabei, Ihre Prozesse digital zu automatisieren – effizient, fundiert und ergebnisorientiert.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "root",
+        "version": 1
+      }
+    },
+    "footerAddress": "Händelstr. 3\nD-06114 Halle/Saale",
+    "footerPhone": "+49 3459 6393323",
     "logoOnDarkBackground": true,
-    "newsletterTitle": null,
-    "newsletterDescription": null,
+    "newsletterTitle": "Newsletter abonnieren",
+    "newsletterIcon": null,
+    "newsletterIconUpload": 52,
+    "newsletterDescription": {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Praxisnahe Impulse zu Webdesign, Marketing und Automatisierung – kompakt, relevant und mit echtem Mehrwert.",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "root",
+        "version": 1
+      }
+    },
     "newsletterPlaceholder": "E-Mail-Adresse",
-    "newsletterButtonText": "Anmelden",
+    "newsletterButtonText": "Abonnieren",
     "columns": [
       {
         "id": "699a2e25fae65f22251d50b6",
+        "columnIcon": null,
+        "columnIconUpload": 47,
         "columnTitle": "Navigation",
         "links": [
+          {
+            "id": "699e31f3a176278114900b1c",
+            "linkText": "Start",
+            "linkUrl": "/",
+            "isExternal": false
+          },
           {
             "id": "699a2e2efae65f22251d50b8",
             "linkText": "Leistungen",
@@ -59,6 +133,12 @@
             "isExternal": false
           },
           {
+            "id": "699e31dba176278114900b1a",
+            "linkText": "Preise",
+            "linkUrl": "/preise",
+            "isExternal": false
+          },
+          {
             "id": "699a2e31fae65f22251d50bc",
             "linkText": "Profil",
             "linkUrl": "/profil",
@@ -68,6 +148,8 @@
       },
       {
         "id": "699a2f84fae65f22251d50be",
+        "columnIcon": null,
+        "columnIconUpload": 46,
         "columnTitle": "Legal",
         "links": [
           {
@@ -86,6 +168,110 @@
             "id": "699a2fa6fae65f22251d50c4",
             "linkText": "Kontakt",
             "linkUrl": "/kontakt",
+            "isExternal": false
+          }
+        ]
+      },
+      {
+        "id": "699e2f89a176278114900af4",
+        "columnIcon": null,
+        "columnIconUpload": 48,
+        "columnTitle": "Design-Leistungen",
+        "links": [
+          {
+            "id": "699e2f92a176278114900af6",
+            "linkText": "Webdesign & Entwicklung",
+            "linkUrl": "/webdesign",
+            "isExternal": false
+          },
+          {
+            "id": "699e2f95a176278114900af8",
+            "linkText": "Printmedien & Grafikdesign",
+            "linkUrl": "/print",
+            "isExternal": false
+          },
+          {
+            "id": "699e2f97a176278114900afa",
+            "linkText": "Präsentationen & Keynotes",
+            "linkUrl": "/keynotes",
+            "isExternal": false
+          }
+        ]
+      },
+      {
+        "id": "699e301da176278114900b02",
+        "columnIcon": null,
+        "columnIconUpload": 49,
+        "columnTitle": "Marketing",
+        "links": [
+          {
+            "id": "699e302fa176278114900b04",
+            "linkText": "SEO - Rankings",
+            "linkUrl": "/seo",
+            "isExternal": false
+          },
+          {
+            "id": "699e305aa176278114900b06",
+            "linkText": "SEM - Online Werbung",
+            "linkUrl": "/sem",
+            "isExternal": false
+          },
+          {
+            "id": "699e306ca176278114900b08",
+            "linkText": "Content-Creation",
+            "linkUrl": "/content",
+            "isExternal": false
+          }
+        ]
+      },
+      {
+        "id": "699e308ea176278114900b0a",
+        "columnIcon": null,
+        "columnIconUpload": 50,
+        "columnTitle": "Branding",
+        "links": [
+          {
+            "id": "699e3095a176278114900b0c",
+            "linkText": "CI - corporate Identity",
+            "linkUrl": "/corporate-identity",
+            "isExternal": false
+          },
+          {
+            "id": "699e30d7a176278114900b0e",
+            "linkText": "Logo-Entwicklung",
+            "linkUrl": "/logo",
+            "isExternal": false
+          },
+          {
+            "id": "699e30e9a176278114900b10",
+            "linkText": "Markenstrategie",
+            "linkUrl": "/markenstrategie",
+            "isExternal": false
+          }
+        ]
+      },
+      {
+        "id": "699e313da176278114900b12",
+        "columnIcon": null,
+        "columnIconUpload": 51,
+        "columnTitle": "Portfolio",
+        "links": [
+          {
+            "id": "699e3143a176278114900b14",
+            "linkText": "Webdesign-Referenzen",
+            "linkUrl": "/portfolio-webdesign",
+            "isExternal": false
+          },
+          {
+            "id": "699e3171a176278114900b16",
+            "linkText": "Marketing-Referenzen",
+            "linkUrl": "/portfolio-marketing",
+            "isExternal": false
+          },
+          {
+            "id": "699e319fa176278114900b18",
+            "linkText": "Marken-Referenzen",
+            "linkUrl": "portfolio-marken",
             "isExternal": false
           }
         ]
@@ -120,11 +306,11 @@
     "copyrightText": "© Philipp Bacher. Alle Rechte vorbehalten.",
     "privacyLink": "/datenschutz",
     "termsLink": "/impressum",
-    "backgroundColor": null,
+    "backgroundColor": "",
     "textColor": null,
     "linkHoverColor": null,
     "navItems": [],
-    "updatedAt": "2026-02-21T22:20:48.973Z",
+    "updatedAt": "2026-02-25T11:53:59.457Z",
     "createdAt": "2026-02-17T13:47:51.536Z",
     "globalType": "footer"
   },

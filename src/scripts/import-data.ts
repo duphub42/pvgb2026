@@ -227,9 +227,21 @@ function normalizeMegaMenuItem(data: Record<string, unknown>): Record<string, un
   const highlight = data.highlight
   if (highlight && typeof highlight === 'object' && highlight !== null && 'position' in highlight) {
     out.highlight = { ...(highlight as Record<string, unknown>) }
-    ;(out.highlight as Record<string, unknown>).position = unwrapQuotedString(
-      (highlight as Record<string, unknown>).position,
-    )
+    const h = out.highlight as Record<string, unknown>
+    h.position = unwrapQuotedString(h.position)
+    if ('background' in h) {
+      let bg = unwrapQuotedString(h.background)
+      if (typeof bg === 'string') {
+        if (bg === 'elegant') {
+          bg = 'gradient'
+        }
+        const allowed = new Set(['default', 'paths', 'threads', 'gradient'])
+        if (!allowed.has(bg)) {
+          bg = 'default'
+        }
+      }
+      h.background = bg
+    }
   }
 
   const cw = data.columnWidths

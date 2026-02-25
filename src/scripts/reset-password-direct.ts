@@ -7,10 +7,10 @@
  *         npm run reset-password-direct -- demo-author@example.com NeuesPasswort123!
  */
 
-import crypto from 'node:crypto'
-import fs from 'node:fs'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
+import crypto from 'crypto'
+import fs from 'fs'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
 import dotenv from 'dotenv'
 
@@ -65,7 +65,7 @@ async function main() {
   }
 
   const { hash, salt } = await generatePayloadHash(newPassword)
-  const { execSync } = await import('node:child_process')
+  const { execSync } = await import('child_process')
   // SQLite escape: single quotes in values verdoppeln
   const emailEsc = email.replace(/'/g, "''")
   const hashEsc = hash.replace(/'/g, "''")

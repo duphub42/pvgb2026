@@ -20,10 +20,11 @@
     "columns": [],
     "highlight": {
       "position": "right",
-      "background": "default",
+      "background": "\"default\"",
       "cards": [],
       "title": null,
       "description": null,
+      "icon": null,
       "image": null,
       "ctaLabel": null,
       "ctaUrl": null
@@ -170,15 +171,16 @@
     ],
     "highlight": {
       "position": "right",
-      "background": "default",
+      "background": "gradient",
       "cards": [],
       "title": "Automatisierung",
       "description": "Smarter Workflow, weniger Routine, mehr Fokus auf das Wesentliche – wir digitalisieren Prozesse, damit dein Business schneller wächst.\nEchtzeit-Daten, nahtlose Verbindungen: Wir verbinden deine Tools und automatisieren Prozesse direkt über Webhooks.",
+      "icon": null,
       "image": null,
       "ctaLabel": "Potentialanalyse",
       "ctaUrl": "/automatisierung"
     },
-    "updatedAt": "2026-02-23T12:51:53.806Z",
+    "updatedAt": "2026-02-24T20:09:50.259Z",
     "createdAt": "2026-02-21T19:37:56.401Z"
   },
   {
@@ -260,10 +262,11 @@
     ],
     "highlight": {
       "position": "below",
-      "background": "default",
+      "background": "elegant",
       "cards": [],
       "title": "Projekt vorschlagen",
       "description": "Ihr Projekt könnte einen neuen Anstrich gebrauchen, etwas Anschub nötig oder soll erweitert werden? ",
+      "icon": null,
       "image": null,
       "ctaLabel": "Vorschlag einreichen",
       "ctaUrl": "/referenz"
@@ -292,10 +295,11 @@
     "columns": [],
     "highlight": {
       "position": "right",
-      "background": "default",
+      "background": "\"default\"",
       "cards": [],
       "title": null,
       "description": null,
+      "icon": null,
       "image": null,
       "ctaLabel": null,
       "ctaUrl": null
@@ -324,10 +328,11 @@
     "columns": [],
     "highlight": {
       "position": "right",
-      "background": "default",
+      "background": "\"default\"",
       "cards": [],
       "title": null,
       "description": null,
+      "icon": null,
       "image": null,
       "ctaLabel": null,
       "ctaUrl": null
@@ -356,15 +361,16 @@
     "columns": [],
     "highlight": {
       "position": "right",
-      "background": "default",
+      "background": null,
       "cards": [],
       "title": null,
       "description": null,
+      "icon": null,
       "image": null,
       "ctaLabel": null,
       "ctaUrl": null
     },
-    "updatedAt": "2026-02-21T19:37:56.376Z",
+    "updatedAt": "2026-02-24T22:05:49.711Z",
     "createdAt": "2026-02-21T19:37:56.376Z"
   }
 ]

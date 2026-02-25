@@ -1,5 +1,532 @@
 [
   {
+    "id": 6,
+    "title": "Kontakt",
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "mediaType": "halo",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "haloAmplitudeFactor": 1.8,
+      "haloSize": 2.1,
+      "haloSpeed": 1,
+      "haloColor2": 15918901,
+      "haloXOffset": 0.15,
+      "haloYOffset": -0.03,
+      "useHaloBackground": true,
+      "haloOverlayGradient": 0.68,
+      "haloOverlayGrid": 0.08,
+      "haloOverlayGridSize": 12,
+      "haloOverlayGridVariant": "static",
+      "haloOverlayGridCustomCode": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "floatingMouseStrength": 6.5,
+      "floatingIdleAmplitude": 4,
+      "floatingElements": [],
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "699e4ab8c084e832c6e9c445",
+        "blockBackground": "none",
+        "heading": "Get in Touch",
+        "description": "Have a question or want to work together? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+        "formTitle": "Send us a Message",
+        "formFirstNameLabel": "First name",
+        "formFirstNamePlaceholder": "John",
+        "formLastNameLabel": "Last name",
+        "formLastNamePlaceholder": "Doe",
+        "formEmailLabel": "Email",
+        "formEmailPlaceholder": "john@example.com",
+        "formSubjectLabel": "Subject",
+        "formSubjectPlaceholder": "How can we help?",
+        "formMessageLabel": "Message",
+        "formMessagePlaceholder": "Tell us more about your project...",
+        "formButtonText": "Send Message",
+        "formActionUrl": null,
+        "contactCardTitle": "Contact Information",
+        "contactEmailLabel": "Email",
+        "contactEmailValue": "hello@company.com",
+        "contactPhoneLabel": "Phone",
+        "contactPhoneValue": "+1 (555) 123-4567",
+        "contactOfficeLabel": "Office",
+        "contactOfficeValue": "123 Business Ave, Suite 100\nSan Francisco, CA 94105",
+        "hoursCardTitle": "Business Hours",
+        "altCardTitle": "Prefer to Call?",
+        "altCardDescription": "Speak directly with our team for immediate assistance.",
+        "altCardButtonText": "Schedule a Call",
+        "altCardButtonUrl": "#",
+        "blockName": null,
+        "hoursRows": [
+          {
+            "id": "699e4ab90f42c84d6d661b00",
+            "label": "Monday - Friday",
+            "value": "9:00 AM - 6:00 PM"
+          },
+          {
+            "id": "699e4ab90f42c84d6d661b01",
+            "label": "Saturday",
+            "value": "10:00 AM - 4:00 PM"
+          },
+          {
+            "id": "699e4ab90f42c84d6d661b02",
+            "label": "Sunday",
+            "value": "Closed"
+          }
+        ],
+        "blockType": "contactSection1",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      }
+    ],
+    "generateSlug": false,
+    "slug": "kontakt",
+    "parent": null,
+    "publishedAt": "2026-02-25T01:04:19.696Z",
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-25T01:04:58.537Z",
+    "createdAt": "2026-02-25T01:04:11.060Z",
+    "_status": "published"
+  },
+  {
+    "id": 5,
+    "title": "Preise",
+    "hero": {
+      "type": "highImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": "Preise",
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "mediaType": "halo",
+      "backgroundImage": null,
+      "backgroundVideo": null,
+      "haloAmplitudeFactor": 1.8,
+      "haloSize": 2.1,
+      "haloSpeed": 1,
+      "haloColor2": 15918901,
+      "haloXOffset": 0.15,
+      "haloYOffset": -0.03,
+      "useHaloBackground": true,
+      "haloOverlayGradient": 0.68,
+      "haloOverlayGrid": 0.08,
+      "haloOverlayGridSize": 12,
+      "haloOverlayGridVariant": "static",
+      "haloOverlayGridCustomCode": null,
+      "foregroundImage": null,
+      "overlayOpacity": 0.5,
+      "floatingMouseStrength": 6.5,
+      "floatingIdleAmplitude": 4,
+      "floatingElements": [],
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "699e1fa273bf101b12815198",
+        "blockBackground": "none",
+        "title": "The foundation for AI",
+        "subtitle": "Lyra is evolving to be more than just the models. It supports an entire to the APIs and platforms helping developers and businesses innovate.",
+        "blockName": null,
+        "items": [
+          {
+            "id": "699e1fa321d04c0f80ecebc1",
+            "icon": "database",
+            "title": "Database Visualization",
+            "content": "Lyra is evolving to be more than just the models. It supports an entire to the APIs and platforms helping developers and businesses innovate.",
+            "darkImage": 41,
+            "lightImage": null
+          },
+          {
+            "id": "699e1fa321d04c0f80ecebc2",
+            "icon": "fingerprint",
+            "title": "Advanced Authentication",
+            "content": "Lyra is evolving to be more than just the models. It supports an entire to the APIs and platforms helping developers and businesses innovate.",
+            "darkImage": 40,
+            "lightImage": null
+          },
+          {
+            "id": "699e1fa321d04c0f80ecebc3",
+            "icon": "idCard",
+            "title": "Identity Management",
+            "content": "Lyra is evolving to be more than just the models. It supports an entire to the APIs and platforms helping developers and businesses innovate.",
+            "darkImage": 34,
+            "lightImage": null
+          },
+          {
+            "id": "699e1fa321d04c0f80ecebc4",
+            "icon": "chart",
+            "title": "Analytics Dashboard",
+            "content": "Lyra is evolving to be more than just the models. It supports an entire to the APIs and platforms helping developers and businesses innovate.",
+            "darkImage": 32,
+            "lightImage": null
+          }
+        ],
+        "blockType": "featAiAcc",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e1fb573bf101b1281519a",
+        "blockBackground": "none",
+        "title": "Built for Scaling teams",
+        "subtitle": "Orrupti aut temporibus assumenda atque ab, accusamus sit, molestiae veniam laboriosam pariatur.",
+        "darkImage": 39,
+        "lightImage": null,
+        "blockName": null,
+        "features": [
+          {
+            "id": "699e1fb521d04c0f80ecebc5",
+            "icon": "mail",
+            "label": "Email and web support"
+          },
+          {
+            "id": "699e1fb521d04c0f80ecebc6",
+            "icon": "zap",
+            "label": "Fast response time"
+          },
+          {
+            "id": "699e1fb521d04c0f80ecebc7",
+            "icon": "activity",
+            "label": "Menitoring and analytics"
+          },
+          {
+            "id": "699e1fb521d04c0f80ecebc8",
+            "icon": "draftingCompass",
+            "label": "Architectural review"
+          }
+        ],
+        "blockType": "featuresScaling",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e1fd373bf101b1281519e",
+        "blockBackground": "none",
+        "title": "UX/UI Design",
+        "introHeadline": "User-Centered Design That Converts",
+        "introText": "We believe that great design should be intuitive, accessible, and purposeful for every user who interacts with your product. Our UX/UI design approach focuses on understanding your users' needs, behaviors, and pain points to create interfaces that not only look beautiful but function seamlessly.",
+        "body": null,
+        "blockName": null,
+        "blockType": "serviceUxUi",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e204e73bf101b128151a2",
+        "blockBackground": "none",
+        "title": "Built to cover your needs",
+        "subtitle": "Libero sapiente aliquam quibusdam aspernatur, praesentium iusto repellendus.",
+        "blockName": null,
+        "items": [
+          {
+            "id": "699e204f21d04c0f80ecec19",
+            "icon": "zap",
+            "title": "Customizable",
+            "description": "Extensive customization options, allowing you to tailor every aspect to meet your specific needs."
+          },
+          {
+            "id": "699e204f21d04c0f80ecec1a",
+            "icon": "settings2",
+            "title": "You have full control",
+            "description": "From design elements to functionality, you have complete control to create a unique and personalized experience."
+          },
+          {
+            "id": "699e204f21d04c0f80ecec1b",
+            "icon": "sparkles",
+            "title": "Powered By AI",
+            "description": "Elements to functionality, you have complete control to create a unique experience."
+          }
+        ],
+        "blockType": "featuresGrid",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e206073bf101b128151a4",
+        "blockBackground": "none",
+        "blockName": null,
+        "blockType": "collabCur",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e206473bf101b128151a6",
+        "blockBackground": "none",
+        "title": "Build your next project with Smoothui",
+        "highlight": "Smoothui",
+        "subtitle": "Smoothui gives you the building blocks to create stunning, animated interfaces in minutes.",
+        "primaryCtaLabel": "Get Started",
+        "primaryCtaUrl": "#get-started",
+        "secondaryCtaLabel": "Learn more",
+        "secondaryCtaUrl": "#learn-more",
+        "blockName": null,
+        "blockType": "heroGrid",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e206873bf101b128151a8",
+        "blockBackground": "none",
+        "badgeLabel": "Introducing Support for AI Models",
+        "title": "Modern Solutions for Customer Engagement",
+        "subtitle": "Highly customizable components for building modern websites and applications that look and feel the way you mean it.",
+        "primaryCtaLabel": "Start Building",
+        "primaryCtaUrl": "#start",
+        "secondaryCtaLabel": "Request a demo",
+        "secondaryCtaUrl": "#demo",
+        "blockName": null,
+        "blockType": "heroMarketing",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e392d7d2e455480857e2d",
+        "blockBackground": "none",
+        "introHeadline": "The future is built on AI.",
+        "introSubline": "SCROLL TO EXPLORE",
+        "activeHeadline": "Explore Our Vision",
+        "activeText": "Discover a world where technology meets creativity. Scroll through our curated collection of innovations designed to shape the future.",
+        "blockName": null,
+        "blockType": "scrollMorphHero",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e39397d2e455480857e2f",
+        "blockBackground": "none",
+        "badgeLabel": "Platform",
+        "title": "Something new!",
+        "subtitle": "Managing a small business today is already tough.",
+        "blockName": null,
+        "items": [
+          {
+            "id": "699e3939d18520cc8ad05dfb",
+            "title": "Easy to use",
+            "description": "We&apos;ve made it easy to use and understand."
+          },
+          {
+            "id": "699e3939d18520cc8ad05dfc",
+            "title": "Fast and reliable",
+            "description": "We&apos;ve made it fast and reliable."
+          },
+          {
+            "id": "699e3939d18520cc8ad05dfd",
+            "title": "Beautiful and modern",
+            "description": "We&apos;ve made it beautiful and modern."
+          }
+        ],
+        "blockType": "featureAdvantages",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e393f7d2e455480857e31",
+        "blockBackground": "none",
+        "badge": "Why Choose Us",
+        "title": "Experience the Difference",
+        "description": "Discover why thousands of customers trust us for their shopping needs. We combine quality, convenience, and exceptional service.",
+        "ctaLabel": "Start Shopping",
+        "ctaUrl": "#",
+        "blockName": null,
+        "items": [
+          {
+            "id": "699e393fd18520cc8ad05dfe",
+            "icon": "sparkles",
+            "title": "Premium Quality",
+            "description": "Handcrafted with premium materials and meticulous attention to detail.",
+            "linkLabel": "Learn more",
+            "linkUrl": "#"
+          },
+          {
+            "id": "699e393fd18520cc8ad05dff",
+            "icon": "shield",
+            "title": "Secure Shopping",
+            "description": "100% secure payment processing with end-to-end encryption.",
+            "linkLabel": "Learn more",
+            "linkUrl": "#"
+          },
+          {
+            "id": "699e393fd18520cc8ad05e00",
+            "icon": "truck",
+            "title": "Fast Delivery",
+            "description": "Free worldwide shipping and hassle-free returns within 30 days.",
+            "linkLabel": "Learn more",
+            "linkUrl": "#"
+          },
+          {
+            "id": "699e393fd18520cc8ad05e01",
+            "icon": "clock",
+            "title": "24/7 Support",
+            "description": "Round-the-clock customer support to assist you anytime.",
+            "linkLabel": "Learn more",
+            "linkUrl": "#"
+          }
+        ],
+        "blockType": "feature1",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e394c7d2e455480857e33",
+        "blockBackground": "none",
+        "title": "Why Choose Us",
+        "description": "We deliver exceptional quality and service that sets us apart. Experience the difference with our dedicated approach.",
+        "image": null,
+        "blockName": null,
+        "items": [
+          {
+            "id": "699e394cd18520cc8ad05e02",
+            "icon": "heart",
+            "title": "Quality Assurance",
+            "description": "Every product in our catalog undergoes rigorous quality checks to meet the highest standards of excellence and performance."
+          },
+          {
+            "id": "699e394cd18520cc8ad05e03",
+            "icon": "zap",
+            "title": "Fast Service",
+            "description": "Experience lightning-fast order processing and delivery with our advanced logistics network and efficient service protocols."
+          },
+          {
+            "id": "699e394cd18520cc8ad05e04",
+            "icon": "clock",
+            "title": "Timely Updates",
+            "description": "Get real-time notifications and detailed tracking for all your orders, keeping you informed throughout the delivery process."
+          },
+          {
+            "id": "699e394cd18520cc8ad05e05",
+            "icon": "users",
+            "title": "Expert Team",
+            "description": "Our team of dedicated professionals is available 24/7 to assist you with personalized support and expert advice."
+          }
+        ],
+        "blockType": "feature2",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e395a7d2e455480857e37",
+        "blockBackground": "none",
+        "badge": "Pricing",
+        "title": "Prices that make sense!",
+        "description": "Managing a small business today is already tough.",
+        "blockName": null,
+        "plans": [],
+        "blockType": "pricingCards",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e397e7d2e455480857e39",
+        "blockBackground": "none",
+        "badgeIcon": "rocket",
+        "badgeText": "Launch Your Success",
+        "title": "Accelerate your digital transformation journey",
+        "description": "Join thousands of innovative companies using our cutting-edge platform to automate workflows, boost team productivity, and deliver exceptional results faster than ever before.",
+        "primaryButtonIcon": "zap",
+        "primaryButtonLabel": "Start Free Trial",
+        "primaryButtonHref": "#",
+        "secondaryButtonLabel": "Watch Demo",
+        "secondaryButtonHref": "#",
+        "blockName": null,
+        "rightCards": [
+          {
+            "id": "699e397ed18520cc8ad05e06",
+            "icon": "bookOpen",
+            "title": "Documentation",
+            "description": "Complete guides, API references, and best practices to get you started.",
+            "href": "#"
+          },
+          {
+            "id": "699e397ed18520cc8ad05e07",
+            "icon": "playCircle",
+            "title": "Video Tutorials",
+            "description": "Step-by-step video guides to help you master the platform quickly.",
+            "href": "#"
+          }
+        ],
+        "blockType": "ctaSection3",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      }
+    ],
+    "generateSlug": false,
+    "slug": "preise",
+    "parent": null,
+    "publishedAt": "2026-02-23T22:27:29.920Z",
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-02-24T23:51:33.007Z",
+    "createdAt": "2026-02-23T22:27:27.726Z",
+    "_status": "published"
+  },
+  {
     "id": 4,
     "title": "Home",
     "hero": {
@@ -994,6 +1521,127 @@
           "color": "dark",
           "opacity": 30
         }
+      },
+      {
+        "id": "699e084ad269b865d351bf69",
+        "blockBackground": "none",
+        "eyebrow": "Free Plan",
+        "title": "A Workflow Revolution",
+        "description": "Transform your team's productivity with our intuitive platform. Seamlessly integrate tasks, communication, and project tracking in one powerful solution.",
+        "sectionTitle": "Flexibility at Your Fingertips",
+        "sectionDescription": "Whether you're a startup or an enterprise, our scalable solution grows with you. Customize workflows, integrate with your favorite tools, and automate repetitive tasks.",
+        "cardTitle": "Revolutionize your workflow",
+        "cardSubtitle": "Professional headshot portrait",
+        "cardBadge": "20+ expert services at your fingertips",
+        "statPrimaryLabel": "Teams onboarded",
+        "statPrimaryValue": "500+",
+        "statSecondaryLabel": "Average productivity gain",
+        "statSecondaryValue": "35%",
+        "blockName": null,
+        "bullets": [
+          {
+            "id": "699e084a59bf5a60b0ac8a9e",
+            "label": "Instant Updates.",
+            "description": "Changes sync across all devices in real-time, ensuring your team always has the latest information at their fingertips."
+          },
+          {
+            "id": "699e084a59bf5a60b0ac8a9f",
+            "label": "Robust Security.",
+            "description": "Your data is protected with enterprise-grade encryption and customizable access controls, giving you peace of mind."
+          },
+          {
+            "id": "699e084a59bf5a60b0ac8aa0",
+            "label": "Intelligent Insights.",
+            "description": "Our analytics engine provides actionable data on team performance, helping you optimize workflows and boost productivity."
+          }
+        ],
+        "blockType": "serpContent",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e08a3d269b865d351bf6b",
+        "blockBackground": "none",
+        "title": "The Lyra ecosystem brings together our models, products and platforms.",
+        "paragraphOne": "Lyra is evolving to be more than just the models. It supports an entire ecosystem — from products to the APIs and platforms helping developers and businesses innovate.",
+        "paragraphTwo": "Tailark. It supports an entire ecosystem — from products innovate. Sit minus, quod debitis autem quia aspernatur delectus impedit modi, neque non id ad dignissimos? Saepe deleniti perferendis beatae.",
+        "buttonLabel": "Learn More",
+        "blockName": null,
+        "blockType": "lyraContent",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        },
+        "button": {
+          "link": {
+            "type": "reference",
+            "newTab": null,
+            "reference": {
+              "relationTo": "site-pages",
+              "value": 1
+            },
+            "url": null,
+            "label": "Test",
+            "appearance": "default"
+          }
+        }
+      },
+      {
+        "id": "699e08cbd269b865d351bf6d",
+        "blockBackground": "none",
+        "title": "The Lyra ecosystem brings together our models.",
+        "paragraphOne": "Lyra is evolving to be more than just the models. It supports an entire ecosystem — from products innovate.",
+        "paragraphTwo": "It supports an entire ecosystem — from products to the APIs and platforms helping developers and businesses innovate.",
+        "featureFastTitle": "Faaast",
+        "featureFastText": "It supports an entire helping developers and innovate.",
+        "featurePowerfulTitle": "Powerful",
+        "featurePowerfulText": "It supports an entire helping developers and businesses.",
+        "darkImage": null,
+        "lightImage": null,
+        "blockName": null,
+        "blockType": "lyraFeature",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
+      },
+      {
+        "id": "699e091ed269b865d351bf6f",
+        "blockBackground": "none",
+        "title": "Built to cover your needs",
+        "subtitle": "Libero sapiente aliquam quibusdam aspernatur, praesentium iusto repellendus.",
+        "blockName": null,
+        "items": [
+          {
+            "id": "699e091e59bf5a60b0ac8aa1",
+            "icon": "zap",
+            "title": "Customizable",
+            "description": "Extensive customization options, allowing you to tailor every aspect to meet your specific needs."
+          },
+          {
+            "id": "699e091e59bf5a60b0ac8aa2",
+            "icon": "settings2",
+            "title": "You have full control",
+            "description": "From design elements to functionality, you have complete control to create a unique and personalized experience."
+          },
+          {
+            "id": "699e091e59bf5a60b0ac8aa3",
+            "icon": "sparkles",
+            "title": "Powered By AI",
+            "description": "Elements to functionality, you have complete control to create a unique experience."
+          }
+        ],
+        "blockType": "featuresGrid",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        }
       }
     ],
     "generateSlug": false,
@@ -1005,7 +1653,7 @@
       "description": "Ich helfe Unternehmen, online sichtbar zu werden – mit Webdesign, Branding, Marketing & smarten Automatisierungen für messbares Wachstum.",
       "image": 1
     },
-    "updatedAt": "2026-02-23T21:57:28.916Z",
+    "updatedAt": "2026-02-24T20:25:03.863Z",
     "createdAt": "2026-02-21T19:37:56.335Z",
     "_status": "published"
   },

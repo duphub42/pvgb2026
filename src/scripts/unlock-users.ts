@@ -26,7 +26,7 @@ function getDbPath(): string {
 }
 
 async function main() {
-  const { execSync } = await import('node:child_process')
+  const { execSync } = await import('child_process')
   const dbPath = getDbPath()
   const sql = 'UPDATE users SET login_attempts = 0, lock_until = NULL;'
   execSync(`sqlite3 "${dbPath}" "${sql}"`, { stdio: 'inherit' })

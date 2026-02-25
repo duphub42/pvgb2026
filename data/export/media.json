@@ -1,5 +1,830 @@
 [
   {
+    "id": 52,
+    "alt": "Newsletter",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-25T11:38:14.910Z",
+    "createdAt": "2026-02-25T11:38:14.910Z",
+    "url": "/api/media/file/newsletter.svg",
+    "thumbnailURL": null,
+    "filename": "newsletter.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 4279,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 51,
+    "alt": "Portfolio",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-25T11:16:44.500Z",
+    "createdAt": "2026-02-25T11:16:44.500Z",
+    "url": "/api/media/file/Portfolio.svg",
+    "thumbnailURL": null,
+    "filename": "Portfolio.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 6196,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 50,
+    "alt": "Branding",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-25T11:15:25.528Z",
+    "createdAt": "2026-02-25T11:15:25.528Z",
+    "url": "/api/media/file/Corporate-Identity-CI.svg",
+    "thumbnailURL": null,
+    "filename": "Corporate-Identity-CI.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 7870,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 49,
+    "alt": null,
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-25T11:14:27.757Z",
+    "createdAt": "2026-02-25T11:14:27.757Z",
+    "url": "/api/media/file/marketing-leistungen.svg",
+    "thumbnailURL": null,
+    "filename": "marketing-leistungen.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 4450,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 48,
+    "alt": null,
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-25T11:13:04.518Z",
+    "createdAt": "2026-02-25T11:13:04.518Z",
+    "url": "/api/media/file/design-leistungen.svg",
+    "thumbnailURL": null,
+    "filename": "design-leistungen.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 5668,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 47,
+    "alt": "Navigation",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-25T11:03:08.702Z",
+    "createdAt": "2026-02-25T11:03:08.702Z",
+    "url": "/api/media/file/Navigation.svg",
+    "thumbnailURL": null,
+    "filename": "Navigation.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 3975,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 46,
+    "alt": "Pflichtangaben",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-25T10:56:44.140Z",
+    "createdAt": "2026-02-25T10:56:44.139Z",
+    "url": "/api/media/file/legal.svg",
+    "thumbnailURL": null,
+    "filename": "legal.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 5196,
+    "width": 24,
+    "height": 24,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 45,
+    "alt": null,
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-25T01:08:15.712Z",
+    "createdAt": "2026-02-25T01:08:15.711Z",
+    "url": "/api/media/file/philippbacher-logo-b-10.svg",
+    "thumbnailURL": null,
+    "filename": "philippbacher-logo-b-10.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 524,
+    "width": 91,
+    "height": 88,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 44,
+    "alt": null,
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-25T01:07:51.912Z",
+    "createdAt": "2026-02-25T01:07:51.912Z",
+    "url": "/api/media/file/philippbacher-logo-b-9.svg",
+    "thumbnailURL": null,
+    "filename": "philippbacher-logo-b-9.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 524,
+    "width": 91,
+    "height": 88,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 43,
+    "alt": "Philipp Bacher",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-25T00:20:07.419Z",
+    "createdAt": "2026-02-25T00:20:07.419Z",
+    "url": "/api/media/file/weblogo-philippbacher-13.svg",
+    "thumbnailURL": null,
+    "filename": "weblogo-philippbacher-13.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 8991,
+    "width": 451,
+    "height": 72,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
+    "id": 42,
+    "alt": "Philipp Bacher",
+    "caption": null,
+    "folder": null,
+    "updatedAt": "2026-02-24T23:57:58.560Z",
+    "createdAt": "2026-02-24T23:57:58.559Z",
+    "url": "/api/media/file/weblogo-philippbacher.svg",
+    "thumbnailURL": null,
+    "filename": "weblogo-philippbacher.svg",
+    "mimeType": "image/svg+xml",
+    "filesize": 8991,
+    "width": 451,
+    "height": 72,
+    "focalX": null,
+    "focalY": null,
+    "sizes": {
+      "thumbnail": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "square": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "small": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "medium": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "large": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "xlarge": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      },
+      "og": {
+        "url": null,
+        "width": null,
+        "height": null,
+        "mimeType": null,
+        "filesize": null,
+        "filename": null
+      }
+    }
+  },
+  {
     "id": 41,
     "alt": null,
     "caption": null,
@@ -154,15 +979,15 @@
     "alt": null,
     "caption": null,
     "folder": null,
-    "updatedAt": "2026-02-22T13:21:32.320Z",
+    "updatedAt": "2026-02-24T23:47:13.192Z",
     "createdAt": "2026-02-22T13:21:32.320Z",
-    "url": "/api/media/file/weblogo-philippbacher.svg",
+    "url": "/api/media/file/philippbacher-logo-b2.svg",
     "thumbnailURL": null,
-    "filename": "weblogo-philippbacher.svg",
+    "filename": "philippbacher-logo-b2.svg",
     "mimeType": "image/svg+xml",
-    "filesize": 8991,
-    "width": 451,
-    "height": 72,
+    "filesize": 9327,
+    "width": 568,
+    "height": 214,
     "focalX": null,
     "focalY": null,
     "sizes": {
