@@ -39,7 +39,8 @@ export const Footer: GlobalConfig = {
           relationTo: 'media',
           label: 'Footer-Logo',
           admin: {
-            description: 'Eigenes Logo im Footer (leer = Logo aus Header übernimmt die Anzeige, falls vorhanden).',
+            description:
+              'Logo nur für den Footer – unabhängig vom Header-Logo wählbar. Leer = Text-/Standard-Logo (kein Bild).',
           },
         },
         {
@@ -47,6 +48,25 @@ export const Footer: GlobalConfig = {
           type: 'text',
           label: 'Alt-Text (Logo)',
           admin: { description: 'Accessibility-Text für das Logo.' },
+        },
+        {
+          name: 'mobileFooterLogo',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Footer-Logo (mobil)',
+          admin: {
+            description:
+              'Optionales Logo nur für mobile Endgeräte. Wenn leer, wird automatisch das normale Footer-Logo verwendet.',
+          },
+        },
+        {
+          name: 'footerDescription',
+          type: 'richText',
+          label: 'Beschreibung unter dem Logo',
+          editor: defaultLexical,
+          admin: {
+            description: 'Kurzer Text direkt unter dem Footer-Logo (z. B. was du machst / Claim).',
+          },
         },
         {
           name: 'logoOnDarkBackground',

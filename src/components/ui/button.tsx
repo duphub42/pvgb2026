@@ -15,6 +15,8 @@ const buttonVariants = cva(
         secondary: 'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
         ghost: 'hover:bg-accent hover:text-accent-foreground',
         link: 'text-primary underline-offset-4 hover:underline',
+        expandIcon:
+          'group relative text-primary-foreground bg-primary hover:bg-primary/90',
       },
       size: {
         clear: '',
@@ -31,22 +33,84 @@ const buttonVariants = cva(
   },
 )
 
+export interface ButtonIconProps {
+  Icon?: React.ElementType
+  iconPlacement?: 'left' | 'right'
+}
+
 export interface ButtonProps
   extends React.ComponentProps<'button'>,
-    VariantProps<typeof buttonVariants> {
+    VariantProps<typeof buttonVariants>,
+    ButtonIconProps {
   asChild?: boolean
 }
 
-const Button: React.FC<ButtonProps> = ({ asChild = false, className, size, variant, ...props }) => {
-  const Comp = asChild ? Slot : 'button'
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  (
+    {
+      className,
+      size,
+      variant,
+      asChild = false,
+      Icon,
+      iconPlacement = 'right',
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const iconLeft =
+      Icon && iconPlacement === 'left' ? (
+        <div className="w-0 translate-x-0 pr-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-full group-hover:pr-2 group-hover:opacity-100">
+          <Icon />
+        </div>
+      ) : null
+    const iconRight =
+      Icon && iconPlacement === 'right' ? (
+        <div className="w-0 translate-x-full pl-0 opacity-0 transition-all duration-200 group-hover:w-5 group-hover:translate-x-0 group-hover:pl-2 group-hover:opacity-100">
+          <Icon />
+        </div>
+      ) : null
 
-  return (
-    <Comp
-      data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }))}
-      {...props}
-    />
-  )
-}
+    const mergedClassName = cn(buttonVariants({ variant, size, className }))
+
+    if (asChild && Icon != null) {
+      const child = React.Children.only(children) as React.ReactElement
+      return React.cloneElement(child, {
+        ...child.props,
+        className: cn(mergedClassName, child.props?.className),
+        children: (
+          <>
+            {iconLeft}
+            {child.props?.children}
+            {iconRight}
+          </>
+        ),
+      })
+    }
+
+    if (asChild) {
+      return (
+        <Slot ref={ref} className={mergedClassName} data-slot="button" {...props}>
+          {children}
+        </Slot>
+      )
+    }
+
+    return (
+      <button
+        ref={ref}
+        data-slot="button"
+        className={mergedClassName}
+        {...props}
+      >
+        {iconLeft}
+        {children}
+        {iconRight}
+      </button>
+    )
+  },
+)
+Button.displayName = 'Button'
 
 export { Button, buttonVariants }

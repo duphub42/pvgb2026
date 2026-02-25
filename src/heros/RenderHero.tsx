@@ -3,12 +3,14 @@ import { HighImpactHero } from '@/heros/HighImpact'
 import { MediumImpactHero } from '@/heros/MediumImpact'
 import { LowImpactHero } from '@/heros/LowImpact'
 import { PhilippBacherHero } from '@/heros/PhilippBacher'
+import { GridHero } from '@/heros/GridHero'
 
 const heroes = {
   highImpact: HighImpactHero,
   mediumImpact: MediumImpactHero,
   lowImpact: LowImpactHero,
   philippBacher: PhilippBacherHero,
+  gridHero: GridHero,
 }
 
 export type HeroType = keyof typeof heroes

@@ -101,6 +101,8 @@ function main() {
     { name: 'mega_menu: highlight_position', sql: "ALTER TABLE mega_menu ADD COLUMN highlight_position TEXT DEFAULT 'right';" },
     // Mega-Menü: Highlight-Block Hintergrund (default | paths)
     { name: 'mega_menu: highlight_background', sql: "ALTER TABLE mega_menu ADD COLUMN highlight_background TEXT DEFAULT 'default';" },
+    // Mega-Menü: Highlight-Icon (Legacy + Cards)
+    { name: 'mega_menu: highlight_icon_id', sql: 'ALTER TABLE mega_menu ADD COLUMN highlight_icon_id INTEGER;' },
     // Mega-Menü: Highlight-Cards (Array in highlight.cards) – eigene Tabelle
     {
       name: 'mega_menu_highlight_cards: table',
@@ -110,10 +112,20 @@ function main() {
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         title TEXT,
         description TEXT,
+        icon_id INTEGER,
         image_id INTEGER,
         cta_label TEXT,
         cta_url TEXT
       );`,
+    },
+    {
+      name: 'mega_menu_highlight_cards: drop legacy _order index',
+      sql: 'DROP INDEX IF EXISTS mega_menu_highlight_cards_order_idx;',
+    },
+    // Falls Tabelle schon existiert, icon_id nachziehen
+    {
+      name: 'mega_menu_highlight_cards: icon_id',
+      sql: 'ALTER TABLE mega_menu_highlight_cards ADD COLUMN icon_id INTEGER;',
     },
     // Site-Pages Layout-Blöcke: blockBackground + blockOverlay (Hintergrund/Overlay pro Block)
     { name: 'site_pages_blocks_content: block_background', sql: "ALTER TABLE site_pages_blocks_content ADD COLUMN block_background TEXT DEFAULT 'none';" },
@@ -175,6 +187,8 @@ function main() {
     { name: 'header: mega_menu_newsletter_button_text', sql: 'ALTER TABLE header ADD COLUMN mega_menu_newsletter_button_text TEXT;' },
     { name: 'header: mega_menu_newsletter_form_id', sql: 'ALTER TABLE header ADD COLUMN mega_menu_newsletter_form_id INTEGER REFERENCES forms(id);' },
     { name: 'header: mega_menu_newsletter_email_field_name', sql: 'ALTER TABLE header ADD COLUMN mega_menu_newsletter_email_field_name TEXT;' },
+    // Header: ggf. alten Index auf mega_menu_callback_form_id entfernen, damit Payload seinen eigenen anlegen kann
+    { name: 'header: drop legacy mega_menu_callback_form_idx', sql: 'DROP INDEX IF EXISTS header_mega_menu_callback_form_idx;' },
     // Header: Mega-Menü Highlight-Karten Stil
     { name: 'header: mega_menu_card_border_radius', sql: "ALTER TABLE header ADD COLUMN mega_menu_card_border_radius TEXT DEFAULT 'rounded-lg';" },
     { name: 'header: mega_menu_card_shadow', sql: "ALTER TABLE header ADD COLUMN mega_menu_card_shadow TEXT DEFAULT 'shadow-sm';" },

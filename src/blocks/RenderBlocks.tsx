@@ -7,10 +7,50 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { SerpContentBlock } from '@/blocks/SerpContent/Component'
+import { LyraContentBlock } from '@/blocks/LyraContent/Component'
+import { LyraFeatureBlock } from '@/blocks/LyraFeature/Component'
+import { FeaturesGridBlock } from '@/blocks/FeaturesGrid/Component'
+import { FeatureAdvantagesBlock } from '@/blocks/FeatureAdvantages/Component'
+import { Feature1Block } from '@/blocks/Feature1/Component'
+import { Feature2Block } from '@/blocks/Feature2/Component'
+import { ServiceUxUiBlock } from '@/blocks/ServiceUxUi/Component'
+import { Services4Block } from '@/blocks/Services4/Component'
+import { FeaturesScalingBlock } from '@/blocks/FeaturesScaling/Component'
+import { FeaturesAiAccordionBlock } from '@/blocks/FeaturesAiAccordion/Component'
+import { HeroMarketingBlock } from '@/blocks/HeroMarketing/Component'
+import { HeroGridBlock } from '@/blocks/HeroGrid/Component'
+import { ContactSection1Block } from '@/blocks/ContactSection1/Component'
+import { CtaSection3Block } from '@/blocks/CtaSection3/Component'
+import { CollaborationCursorsBlock } from '@/blocks/CollaborationCursors/Component'
+import { ScrollMorphHeroBlock } from '@/blocks/ScrollMorphHero/Component'
+import { FaqSimpleBlock } from '@/blocks/FaqSimple/Component'
+import { PricingBlockComponent } from '@/blocks/Pricing/Component'
+import { PricingCardsBlock } from '@/blocks/PricingCards/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
   content: ContentBlock,
+  serpContent: SerpContentBlock,
+  lyraContent: LyraContentBlock,
+  lyraFeature: LyraFeatureBlock,
+  featuresGrid: FeaturesGridBlock,
+  featureAdvantages: FeatureAdvantagesBlock,
+  feature1: Feature1Block,
+  feature2: Feature2Block,
+  serviceUxUi: ServiceUxUiBlock,
+  services4: Services4Block,
+  featuresScaling: FeaturesScalingBlock,
+  faqSimple: FaqSimpleBlock,
+  pricing: PricingBlockComponent,
+  pricingCards: PricingCardsBlock,
+  featuresAiAccordion: FeaturesAiAccordionBlock,
+  heroMarketing: HeroMarketingBlock,
+  heroGrid: HeroGridBlock,
+  scrollMorphHero: ScrollMorphHeroBlock,
+  contactSection1: ContactSection1Block,
+  ctaSection3: CtaSection3Block,
+  collabCur: CollaborationCursorsBlock,
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
@@ -112,7 +152,6 @@ export const RenderBlocks: React.FC<{
                     hasBackground || hasOverlay ? 'relative z-10 py-8' : ''
                   }
                 >
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>
               </div>

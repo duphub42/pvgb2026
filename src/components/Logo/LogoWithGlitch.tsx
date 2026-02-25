@@ -6,7 +6,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { ScrambleText, HACKER_CHARS } from '@/components/ScrambleText/ScrambleText'
 import { cn } from '@/utilities/ui'
 
-const GLITCH_DURATION_MS = 1500
+const GLITCH_DURATION_MS = 1000
 /** Icons für den Icon-Scramble (läuft parallel zum Glitch, nur im Icon-Bereich) */
 const SCRAMBLE_ICONS = [Zap, Globe, Skull, Star, Eye, Heart] as const
 const SCRAMBLE_ICON_TICK_MS = 55
@@ -104,8 +104,9 @@ export function LogoWithGlitch({
     runGlitch(textLogo != null)
   }, [runGlitch, textLogo])
 
+  const isFooterImage = variant === 'footer' && imgSrc != null && children != null
   useEffect(() => {
-    runGlitch(textLogo != null)
+    if (!isFooterImage) runGlitch(textLogo != null)
     return () => {}
   }, []) // eslint-disable-line react-hooks/exhaustive-deps -- only on mount
 
@@ -191,50 +192,60 @@ export function LogoWithGlitch({
     )
   }
 
+  /* Footer-Bild: keine Tailwind-Größe, nur CSS in globals.css (kein Glitch/Expand) */
   const imageWrapperSizeClass =
     variant === 'footer'
-      ? 'max-w-[6rem] h-[28px] sm:max-w-[7.5rem] sm:h-[30px] md:max-w-[9.375rem] md:h-[34px]'
+      ? ''
       : 'w-full max-w-[11.7rem] h-[42.5px]'
 
   const layerInvertClass = darkBackground ? 'logo-contrast logo-contrast-dark-bg' : ''
 
   if (imgSrc && children) {
+    const isFooterImage = variant === 'footer'
     return (
       <div
         className={cn(
           'logo-glitch-wrapper relative logo-glitch-image',
           variant === 'footer' && 'logo-glitch-footer',
           imageWrapperSizeClass,
-          glitchActive && 'logo-glitch-active',
+          !isFooterImage && glitchActive && 'logo-glitch-active',
           className,
         )}
-        onMouseEnter={() => startGlitch()}
-        onMouseLeave={() => {
-          if (expandDelayRef.current) {
-            clearTimeout(expandDelayRef.current)
-            expandDelayRef.current = null
-          }
-          if (stayVisibleTimeoutRef.current) {
-            clearTimeout(stayVisibleTimeoutRef.current)
-            stayVisibleTimeoutRef.current = null
-          }
-        }}
+        onMouseEnter={isFooterImage ? undefined : () => startGlitch()}
+        onMouseLeave={
+          isFooterImage
+            ? undefined
+            : () => {
+                if (expandDelayRef.current) {
+                  clearTimeout(expandDelayRef.current)
+                  expandDelayRef.current = null
+                }
+                if (stayVisibleTimeoutRef.current) {
+                  clearTimeout(stayVisibleTimeoutRef.current)
+                  stayVisibleTimeoutRef.current = null
+                }
+              }
+        }
         role="presentation"
       >
-        {iconScrambleLayer}
-        {hackerIcons}
-        <img
-          src={imgSrc}
-          alt=""
-          aria-hidden
-          className={cn('logo-glitch-layer logo-glitch-layer-1', layerInvertClass)}
-        />
-        <img
-          src={imgSrc}
-          alt=""
-          aria-hidden
-          className={cn('logo-glitch-layer logo-glitch-layer-2', layerInvertClass)}
-        />
+        {!isFooterImage && iconScrambleLayer}
+        {!isFooterImage && hackerIcons}
+        {!isFooterImage && (
+          <>
+            <img
+              src={imgSrc}
+              alt=""
+              aria-hidden
+              className={cn('logo-glitch-layer logo-glitch-layer-1', layerInvertClass)}
+            />
+            <img
+              src={imgSrc}
+              alt=""
+              aria-hidden
+              className={cn('logo-glitch-layer logo-glitch-layer-2', layerInvertClass)}
+            />
+          </>
+        )}
         <div className="logo-glitch-main flex items-center shrink-0">
           {children}
         </div>

@@ -99,7 +99,7 @@ export type MegaMenuItem = {
   }>
   highlight?: {
     position?: 'right' | 'below' | null
-    background?: 'default' | 'paths' | 'threads' | null
+    background?: 'default' | 'paths' | 'threads' | 'gradient' | null
     cards?: Array<{
       title?: string | null
       description?: string | null
@@ -803,14 +803,25 @@ export function MegaMenu({
                     if (hasCol3 && item.highlight != null && highlightPosition === 'right') {
                       const usePathsBg = item.highlight?.background === 'paths'
                       const useThreadsBg = item.highlight?.background === 'threads'
-                      const useCustomBg = usePathsBg || useThreadsBg
+                      const useGradientBg = item.highlight?.background === 'gradient'
+                      const useCustomBg = usePathsBg || useThreadsBg || useGradientBg
                       visibleColumns.push({
                         span: columnSpans[2] ?? featuredCols,
                         key: 'highlight',
                         content: (
                           <div className="megamenu-highlight-wipe-wrap overflow-hidden" data-wipe={mouseEntrySide}>
                             {useCustomBg ? (
-                              <div className="relative min-h-[200px]">
+                              <div
+                                className="relative min-h-[200px]"
+                                style={
+                                  useGradientBg
+                                    ? {
+                                        background:
+                                          'radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)',
+                                      }
+                                    : undefined
+                                }
+                              >
                                 {usePathsBg && (
                                   <PathsBackground
                                     strokeColor="currentColor"

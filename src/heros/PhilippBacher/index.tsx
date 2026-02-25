@@ -452,7 +452,9 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
       {foregroundMedia && (
         <div
           className={cn(
-            'absolute bottom-0 right-0 z-[5] w-[min(96vw,420px)] max-w-none pointer-events-none origin-bottom-right',
+            'absolute right-0 z-[5] w-[min(96vw,420px)] max-w-none pointer-events-none origin-bottom-right',
+            // Auf mobilen Geräten: Mindestabstand 10% der Viewport-Höhe vom oberen Rand
+            'top-[10vh] bottom-auto md:top-auto md:bottom-0',
             'sm:w-[min(96vw,480px)]',
             'md:right-[-10%] md:w-[min(58vw,560px)]',
             'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl lg:max-h-none',

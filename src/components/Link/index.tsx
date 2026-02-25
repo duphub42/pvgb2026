@@ -1,5 +1,6 @@
 import { Button, type ButtonProps } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
 
@@ -9,6 +10,8 @@ type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
   children?: React.ReactNode
   className?: string
+  /** When set, hero-style expand-icon animation (icon slides in on hover). Overrides appearance to expandIcon when not inline. */
+  expandIcon?: 'left' | 'right'
   label?: string | null
   newTab?: boolean | null
   reference?: {
@@ -26,6 +29,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     appearance = 'inline',
     children,
     className,
+    expandIcon,
     label,
     newTab,
     reference,

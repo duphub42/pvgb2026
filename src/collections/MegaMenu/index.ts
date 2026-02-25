@@ -293,9 +293,11 @@ export const MegaMenu: CollectionConfig = {
             { label: 'Standard (einfarbig)', value: 'default' },
             { label: 'Paths (animierte Linien)', value: 'paths' },
             { label: 'Threads (Wellenlinien)', value: 'threads' },
+            { label: 'Radial-Gradient (Fokus)', value: 'gradient' },
           ],
           admin: {
-            description: 'Paths = Bezierkurven (shadcn). Threads = wellige Fadenlinien (React Bits-Style). Pro Highlight-Box einstellbar.',
+            description:
+              'Paths = Bezierkurven (shadcn). Threads = wellige Fadenlinien (React Bits-Style). Gradient = radialer Fokus mit Primärfarbe. Pro Highlight-Box einstellbar.',
           },
         },
         {

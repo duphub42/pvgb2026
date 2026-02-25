@@ -21,6 +21,7 @@ export const hero: Field = {
         { label: 'Medium Impact', value: 'mediumImpact' },
         { label: 'Low Impact', value: 'lowImpact' },
         { label: 'Philipp Bacher (Custom)', value: 'philippBacher' },
+        { label: 'Grid Hero (Smoothui)', value: 'gridHero' },
       ],
     },
     {

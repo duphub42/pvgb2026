@@ -8,6 +8,26 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config' // Korrigierter Pfad
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { SerpContent } from '../../blocks/SerpContent/config'
+import { LyraContent } from '../../blocks/LyraContent/config'
+import { LyraFeature } from '../../blocks/LyraFeature/config'
+import { FeaturesGrid } from '../../blocks/FeaturesGrid/config'
+import { FeatureAdvantages } from '../../blocks/FeatureAdvantages/config'
+import { Feature1 } from '../../blocks/Feature1/config'
+import { Feature2 } from '../../blocks/Feature2/config'
+import { FaqSimple } from '../../blocks/FaqSimple/config'
+import { PricingBlockConfig } from '../../blocks/Pricing/config'
+import { PricingCards } from '../../blocks/PricingCards/config'
+import { ServiceUxUi } from '../../blocks/ServiceUxUi/config'
+import { Services4 } from '../../blocks/Services4/config'
+import { FeaturesScaling } from '../../blocks/FeaturesScaling/config'
+import { FeaturesAiAccordion } from '../../blocks/FeaturesAiAccordion/config'
+import { HeroMarketing } from '../../blocks/HeroMarketing/config'
+import { HeroGrid } from '../../blocks/HeroGrid/config'
+import { CollaborationCursors } from '../../blocks/CollaborationCursors/config'
+import { ContactSection1 } from '../../blocks/ContactSection1/config'
+import { CtaSection3 } from '../../blocks/CtaSection3/config'
+import { ScrollMorphHero } from '../../blocks/ScrollMorphHero/config'
 import {
   createClearOrphanedRefsAfterReadHook,
   createClearOrphanedRefsBeforeChangeHook,
@@ -61,7 +81,33 @@ export const Pages: CollectionConfig = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock],
+              blocks: [
+                HeroMarketing,
+                HeroGrid,
+                CollaborationCursors,
+                ScrollMorphHero,
+                FeatureAdvantages,
+                Feature1,
+                Feature2,
+                FaqSimple,
+                PricingBlockConfig,
+                PricingCards,
+                ContactSection1,
+                CtaSection3,
+                CallToAction,
+                Content,
+                SerpContent,
+                LyraContent,
+                LyraFeature,
+                FeaturesGrid,
+                ServiceUxUi,
+                Services4,
+                FeaturesScaling,
+                FeaturesAiAccordion,
+                MediaBlock,
+                Archive,
+                FormBlock,
+              ],
               required: false,
               admin: {
                 description: 'Mindestens einen Block hinzufügen, damit die Seite Inhalt hat.',

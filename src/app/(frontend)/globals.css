@@ -49,6 +49,13 @@
 @source inline("bg-error/30");
 @source inline("border-success");
 @source inline("bg-success/30");
+
+/* PlayBook-Bereich: Footer-Navigation immer mit 3 Spalten */
+@hero-playbook {
+  .footer-nav-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
 @source inline("border-warning");
 @source inline("bg-warning/30");
 
@@ -69,6 +76,95 @@
     margin-inline: auto;
     padding-inline: 1rem;
     min-width: 0;
+  }
+
+  /* Neon Flow blobs (angelehnt an 21st.dev Neon Flow) */
+  .neon-flow-blob {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 9999px;
+    filter: blur(60px);
+    opacity: 0.9;
+    mix-blend-mode: screen;
+    animation: neon-flow-pulse 16s ease-in-out infinite;
+  }
+
+  .neon-flow-blob-1 {
+    top: -60px;
+    left: -40px;
+    background: radial-gradient(circle at 30% 30%, #22c55e, transparent 55%);
+    animation-delay: 0s;
+  }
+
+  .neon-flow-blob-2 {
+    top: 40%;
+    right: -80px;
+    background: radial-gradient(circle at 70% 30%, #6366f1, transparent 55%);
+    animation-delay: -4s;
+  }
+
+  .neon-flow-blob-3 {
+    bottom: -80px;
+    left: 30%;
+    background: radial-gradient(circle at 50% 50%, #f97316, transparent 55%);
+    animation-delay: -8s;
+  }
+
+  @keyframes neon-flow-pulse {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.9;
+    }
+    25% {
+      transform: translate3d(20px, -10px, 0) scale(1.1);
+      opacity: 1;
+    }
+    50% {
+      transform: translate3d(-10px, 20px, 0) scale(0.95);
+      opacity: 0.85;
+    }
+    75% {
+      transform: translate3d(-25px, -15px, 0) scale(1.08);
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.9;
+    }
+  }
+
+  @keyframes tech-marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-tech-marquee {
+    animation: tech-marquee 28s linear infinite;
+  }
+
+  @keyframes flip {
+    to {
+      transform: rotateY(180deg);
+    }
+  }
+
+  @keyframes rotate {
+    to {
+      transform: rotate(-90deg);
+    }
+  }
+
+  .animate-flip {
+    animation: flip 0.6s ease-in-out;
+  }
+
+  .animate-rotate {
+    animation: rotate 3s linear infinite;
   }
 
   @variant sm {
@@ -225,15 +321,15 @@
   text-decoration: none;
 }
 
-/* Logo-Animation: dezenter Einstieg (Fade + leichter Scale) + Hover-Vergrößerung */
+/* Logo-Animation: nur Fade-in (keine Verkleinerung), Hover-Vergrößerung */
 .logo-animate {
-  animation: logo-in 0.45s ease-out forwards;
+  animation: logo-in 1s ease-out forwards;
   transition: transform 0.35s ease;
 }
 @keyframes logo-in {
   from {
     opacity: 0;
-    transform: scale(0.97);
+    transform: scale(1);
   }
   to {
     opacity: 1;
@@ -261,8 +357,113 @@ footer a[href='/']:hover .logo-animate {
   --logo-collapsed-width: 1.5rem;
 }
 
-/* Ausgeklappt: Expand-Animation (overflow bleibt hidden bis Glitch läuft) */
-.logo-glitch-wrapper:not(.logo-glitch-collapsed) {
+/* Footer Bild-Logo: statisch, kein Glitch/Scramble/Animation; Breite auto, max. 80 % der Spalte; Hover 100 % Deckkraft */
+.footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image {
+  width: auto;
+  max-width: 80%;
+  overflow: visible;
+  animation: none;
+  opacity: 1;
+  transition: opacity 0.3s ease;
+  display: block;
+}
+.footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image:hover {
+  opacity: 1;
+}
+.footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble,
+.footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icons {
+  display: none !important;
+}
+.footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main {
+  width: auto;
+  height: auto;
+  clip-path: none !important;
+  position: relative;
+  z-index: 1;
+}
+.footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main picture,
+.footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main img {
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: left center;
+  clip-path: none !important;
+  display: block;
+}
+.footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-layer {
+  display: none !important;
+}
+
+/* Footer: dezente, animierte Hintergrund-Blobs hinter dem Inhalt */
+.footer-ambient-shapes {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+.footer-ambient-circle {
+  position: absolute;
+  border-radius: 9999px;
+  min-width: 360px;
+  height: 360px;
+  filter: blur(48px);
+  mix-blend-mode: screen;
+  opacity: 0.18;
+  animation: footer-ambient-scale 10s cubic-bezier(0.39, 0.575, 0.565, 1) infinite both;
+}
+.footer-ambient-circle-1 {
+  background-color: hsl(0 0% 36%);
+  left: -4%;
+  top: 10%;
+}
+.footer-ambient-circle-2 {
+  background-color: hsl(0 0% 28%);
+  right: -6%;
+  top: 35%;
+  animation-delay: 2s;
+}
+.footer-ambient-circle-3 {
+  background-color: hsl(0 0% 20%);
+  left: 18%;
+  bottom: -12%;
+  animation-delay: 4s;
+}
+
+@keyframes footer-ambient-scale {
+  0% {
+    transform: translate(0px, 0px) scale(1);
+  }
+  33% {
+    transform: translate(26px, -40px) scale(1.08);
+  }
+  66% {
+    transform: translate(-18px, 22px) scale(0.94);
+  }
+  100% {
+    transform: translate(0px, 0px) scale(1);
+  }
+}
+
+/* Header Bild-Logo: sichtbar halten (min-Höhe, Bild nicht kollabieren) */
+.logo-glitch-wrapper.logo-glitch-image:not(.logo-glitch-footer) .logo-glitch-main {
+  min-height: 2.5rem;
+  display: flex;
+  align-items: center;
+}
+.logo-glitch-wrapper.logo-glitch-image:not(.logo-glitch-footer) .logo-glitch-main picture,
+.logo-glitch-wrapper.logo-glitch-image:not(.logo-glitch-footer) .logo-glitch-main img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  min-height: 1px;
+  object-fit: contain;
+  object-position: left center;
+}
+
+/* Ausgeklappt: Expand-Animation (overflow bleibt hidden bis Glitch läuft). Footer-Bild-Logo ausgenommen (kein Glitch/Expand). */
+.logo-glitch-wrapper:not(.logo-glitch-collapsed):not(.logo-glitch-footer) {
   animation: logo-reveal-expand-glitch var(--logo-reveal-duration) ease-out forwards;
 }
 /* Nur während Glitch: overflow visible, damit Effekt ausbrechen kann (nicht beim Aufbau) */
@@ -533,7 +734,7 @@ footer a[href='/']:hover .logo-animate {
 }
 /* Glitch auf den Scramble-Icons (RGB-Split, parallel zum Logo-Glitch) */
 .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble-current {
-  animation: logo-glitch-icon-scramble-glitch 1.5s steps(1) forwards;
+  animation: logo-glitch-icon-scramble-glitch 1s steps(1) forwards;
 }
 @keyframes logo-glitch-icon-scramble-glitch {
   0%, 4%, 100% {
@@ -607,7 +808,7 @@ footer a[href='/']:hover .logo-animate {
   z-index: 2;
 }
 .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon {
-  animation: logo-glitch-icon-flicker 1.5s steps(1) forwards;
+  animation: logo-glitch-icon-flicker 1s steps(1) forwards;
 }
 .logo-glitch-icons-visible .logo-glitch-icon-1 { animation-delay: 0ms; }
 .logo-glitch-icons-visible .logo-glitch-icon-2 { animation-delay: 80ms; }
@@ -637,10 +838,10 @@ footer a[href='/']:hover .logo-animate {
   object-position: left center;
 }
 .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-1 {
-  animation: logo-glitch-img-1 1.5s steps(1) forwards;
+  animation: logo-glitch-img-1 1s steps(1) forwards;
 }
 .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-2 {
-  animation: logo-glitch-img-2 1.5s steps(1) forwards;
+  animation: logo-glitch-img-2 1s steps(1) forwards;
 }
 /* Viele Frames: schneller Wechsel, ruckartiger Glitch */
 @keyframes logo-glitch-img-1 {
@@ -702,7 +903,7 @@ footer a[href='/']:hover .logo-animate {
     0.06em 0.08em 0 rgba(0, 0, 255, 0.85);
 }
 .logo-glitch-text.logo-glitch-active .logo-glitch-main {
-  animation: logo-glitch-text-shadow 1.5s steps(1) forwards;
+  animation: logo-glitch-text-shadow 1s steps(1) forwards;
 }
 .logo-glitch-text .logo-glitch-layer {
   width: 100%;
@@ -723,10 +924,10 @@ footer a[href='/']:hover .logo-animate {
   animation: none;
 }
 .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1 {
-  animation: logo-glitch-text-shadow 1.5s steps(1) forwards;
+  animation: logo-glitch-text-shadow 1s steps(1) forwards;
 }
 .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2 {
-  animation: logo-glitch-text-shadow 1.5s steps(1) forwards;
+  animation: logo-glitch-text-shadow 1s steps(1) forwards;
 }
 /* Viele Frames: RGB-Split wechselt oft, wirkt schneller */
 @keyframes logo-glitch-text-shadow {
@@ -762,7 +963,7 @@ footer a[href='/']:hover .logo-animate {
 [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-main,
 [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1,
 [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2 {
-  animation: logo-glitch-text-shadow-dark 1.5s steps(1) forwards;
+  animation: logo-glitch-text-shadow-dark 1s steps(1) forwards;
 }
 @keyframes logo-glitch-text-shadow-dark {
   0%, 4%, 100% { text-shadow: 0.08em 0 0 rgba(0, 255, 255, 0.9), -0.08em -0.05em 0 rgba(255, 0, 255, 0.9), -0.05em 0.08em 0 rgba(255, 255, 0, 0.9); }
@@ -884,31 +1085,169 @@ footer a[href='/']:hover .logo-animate {
     border-color: #262626 !important;
   }
 
-  /* Footer: Unterstrich baut sich von rechts nach links auf */
-  .footer-link-underline {
+  /* Footer: Unterstrich nur unter dem Text (nicht unter dem Pfeil), von links nach rechts */
+  .footer-link-underline,
+  .footer-custom .footer-link-text {
     position: relative;
     display: inline-block;
   }
-  .footer-link-underline::after {
+  .footer-link-underline::after,
+  .footer-custom .footer-link-text::after {
     content: '';
     position: absolute;
-    right: 0;
+    left: 0;
     bottom: -2px;
     width: 100%;
     height: 1px;
     background: currentColor;
     transform: scaleX(0);
-    transform-origin: right;
+    transform-origin: left;
     transition: transform 0.35s ease;
   }
-  .footer-link-underline:hover::after {
+  .footer-link-underline:hover::after,
+  .footer-custom .footer-link:hover .footer-link-text::after {
     transform: scaleX(1);
   }
 
-  /* Footer Design-Option: Link-Hover-Farbe aus Backend (--footer-link-hover) */
+  /* Footer: Linkschrift 10 % Transparenz; Headings 50 % Transparenz */
+  .footer-custom .footer-link {
+    opacity: 0.9;
+    transition: opacity 0.2s ease;
+  }
   .footer-custom .footer-link:hover {
+    opacity: 1;
     color: var(--footer-link-hover, currentColor);
   }
+  .footer-custom .footer-heading {
+    opacity: 0.5;
+  }
+
+  /* Pfeil nur bei Hover, wird nicht unterstrichen */
+  .footer-custom .footer-link-arrow {
+    margin-left: 0.2em;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .footer-custom .footer-link:hover .footer-link-arrow {
+    opacity: 0.85;
+  }
+  .footer-custom .footer-link-ext {
+    margin-left: 0.35em;
+    font-size: 0.75em;
+    opacity: 0.7;
+    text-transform: lowercase;
+  }
+}
+
+/* Mobile-only: größere Klickflächen im Footer (WCAG Target Size) */
+@media (max-width: 47.99rem) {
+  /* Footer-Links: höhere Zeilenhöhe + vertikales Padding */
+  .footer-custom .footer-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 1rem; /* ~16px für bessere Lesbarkeit */
+  }
+
+  /* Footer-Heading: ebenfalls etwas größer auf Mobile */
+  .footer-custom .footer-heading {
+    font-size: 1rem; /* ~16px */
+  }
+
+  /* Newsletter-Input-Text: auf Body-Größe anheben */
+  .footer-custom input[name='newsletter-email'] {
+    font-size: 1rem;
+  }
+
+  /* Newsletter-Button: mindestens 44px hoch */
+  .footer-newsletter-btn-wrap {
+    height: 2.75rem; /* 44px */
+  }
+}
+
+/* Footer Newsletter-Button: Border-Gradient nach Vorgabe (.border-gradient) */
+@property --footer-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.footer-newsletter-btn-wrap {
+  position: relative;
+  border-radius: 9999px;
+  --c: #0b0b0b;
+  --p: 10%;
+  padding: 1px;
+  background:
+    linear-gradient(var(--c), var(--c)) padding-box,
+    conic-gradient(
+      from var(--footer-border-angle),
+      transparent,
+      #ffffff var(--p),
+      transparent calc(var(--p) * 2)
+    ) border-box;
+  border: 1px solid transparent;
+  animation: footer-border-gradient-rotate 8s linear infinite;
+}
+.footer-newsletter-btn-wrap > * {
+  position: relative;
+  z-index: 1;
+  border-radius: 9999px;
+}
+@keyframes footer-border-gradient-rotate {
+  to {
+    --footer-border-angle: 360deg;
+  }
+}
+
+/* Footer: schwarz, Verlauf hellster Punkt #111111, ~10% am Rand schwarz (Grid dort unsichtbar) */
+.footer-gradient {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    #111111 0%,
+    #0a0a0a 35%,
+    #050505 60%,
+    #000 90%,
+    #000 100%
+  ) !important;
+}
+
+/* Grid: nur in der Mitte sichtbar, vom Rand zur Mitte stark reduziert */
+.footer-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--theme-footer-text) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--theme-footer-text) 1px, transparent 1px);
+  background-size: 2.5rem 2.5rem;
+  background-position: 0 0;
+  opacity: 0.015;
+  pointer-events: none;
+  /* Kleiner mittiger Bereich sichtbar, zum Rand hin stark ausblenden */
+  mask-image: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    white 0%,
+    white 25%,
+    transparent 70%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    white 0%,
+    white 25%,
+    transparent 70%
+  );
+  mask-size: 100% 100%;
+  mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-position: center;
+}
+
+.footer-gradient > *:not(.footer-ambient-shapes) {
+  position: relative;
+  z-index: 1;
 }
 
 html {

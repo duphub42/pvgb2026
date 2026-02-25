@@ -99,9 +99,11 @@
   --chart-5: rgb(218, 75, 72);
   --mega-nav-glass-bg: rgba(255, 255, 255, 0.72);
   --mega-dropdown-glass-bg: rgba(255, 255, 255, 0.92);
-  /* Footer: immer dunkler Bereich (Light Mode = dunkel, Dark Mode = dunkel) */
+  /* Footer: Apple-Style-Verlauf (Light = dunkel, Dark = dunkel), elegant weicher Übergang */
   --theme-footer-bg: var(--theme-elevation-900);
   --theme-footer-text: var(--theme-elevation-0);
+  --theme-footer-gradient-start: var(--theme-elevation-800);
+  --theme-footer-gradient-end: var(--theme-elevation-900);
   /* Mega-Menü: alle Farben von Primary abgeleitet (als HSL-Dreier für einheitliche Überschreibung aus Design) */
   --mega-menu-button-bg: var(--primary);
   --mega-menu-button-fg: var(--primary-foreground);
@@ -175,9 +177,11 @@
   /* Mega-Menü Dark: Glas-Hintergründe; Text hell für gute Lesbarkeit */
   --mega-nav-glass-bg: rgba(28, 28, 28, 0.85);
   --mega-dropdown-glass-bg: rgba(22, 22, 22, 0.96);
-  /* Footer: in Dark Mode weiterhin dunkel (elevation-0 = Haupt-Dunkel) */
+  /* Footer: in Dark Mode weiterhin dunkel, Verlauf von leicht aufgehellt zu Haupt-Dunkel */
   --theme-footer-bg: var(--theme-elevation-0);
   --theme-footer-text: var(--theme-elevation-1000);
+  --theme-footer-gradient-start: var(--theme-elevation-50);
+  --theme-footer-gradient-end: var(--theme-elevation-0);
   /* Mega-Menü Dark: von Primary abgeleitet */
   --mega-menu-button-bg: var(--primary);
   --mega-menu-button-fg: var(--primary-foreground);

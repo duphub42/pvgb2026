@@ -164,7 +164,7 @@ export interface SitePage {
   id: number;
   title: string;
   hero?: {
-    type?: ('none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'philippBacher') | null;
+    type?: ('none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'philippBacher' | 'gridHero') | null;
     richText?: {
       root: {
         type: string;
@@ -321,7 +321,35 @@ export interface SitePage {
   /**
    * Mindestens einen Block hinzufügen, damit die Seite Inhalt hat.
    */
-  layout?: (CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[] | null;
+  layout?:
+    | (
+        | HeroMarketingBlock
+        | HeroGridBlock
+        | CollaborationCursorsBlock
+        | ScrollMorphHeroBlock
+        | FeatureAdvantagesBlock
+        | Feature1Block
+        | Feature2Block
+        | FaqSimpleBlock
+        | PricingBlock
+        | PricingCardsBlock
+        | ContactSection1Block
+        | CtaSection3Block
+        | CallToActionBlock
+        | ContentBlock
+        | SerpContentBlock
+        | LyraContentBlock
+        | LyraFeatureBlock
+        | FeaturesGridBlock
+        | ServiceUxUiBlock
+        | Services4Block
+        | FeaturesScalingBlock
+        | FeaturesAiAccordionBlock
+        | MediaBlock
+        | ArchiveBlock
+        | FormBlock
+      )[]
+    | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -563,6 +591,466 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroMarketingBlock".
+ */
+export interface HeroMarketingBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  badgeLabel?: string | null;
+  title?: string | null;
+  subtitle?: string | null;
+  primaryCtaLabel?: string | null;
+  primaryCtaUrl?: string | null;
+  secondaryCtaLabel?: string | null;
+  secondaryCtaUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroMarketing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroGridBlock".
+ */
+export interface HeroGridBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  title?: string | null;
+  /**
+   * Optionales Wort, das im Titel farbig hervorgehoben wird.
+   */
+  highlight?: string | null;
+  subtitle?: string | null;
+  primaryCtaLabel?: string | null;
+  primaryCtaUrl?: string | null;
+  secondaryCtaLabel?: string | null;
+  secondaryCtaUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CollaborationCursorsBlock".
+ */
+export interface CollaborationCursorsBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'collabCur';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScrollMorphHeroBlock".
+ */
+export interface ScrollMorphHeroBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  introHeadline?: string | null;
+  introSubline?: string | null;
+  activeHeadline?: string | null;
+  activeText?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'scrollMorphHero';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureAdvantagesBlock".
+ */
+export interface FeatureAdvantagesBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  badgeLabel?: string | null;
+  title: string;
+  subtitle?: string | null;
+  items?:
+    | {
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featureAdvantages';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature1Block".
+ */
+export interface Feature1Block {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  badge?: string | null;
+  title?: string | null;
+  description?: string | null;
+  items?:
+    | {
+        icon?: ('sparkles' | 'shield' | 'truck' | 'clock') | null;
+        title: string;
+        description: string;
+        linkLabel?: string | null;
+        linkUrl?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaLabel?: string | null;
+  ctaUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'feature1';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature2Block".
+ */
+export interface Feature2Block {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  title?: string | null;
+  description?: string | null;
+  items?:
+    | {
+        icon?: ('heart' | 'zap' | 'clock' | 'users') | null;
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional. Ohne Auswahl wird ein Platzhalterbild angezeigt.
+   */
+  image?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'feature2';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqSimpleBlock".
+ */
+export interface FaqSimpleBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  badge?: string | null;
+  heading?: string | null;
+  description?: string | null;
+  faqs?:
+    | {
+        question: string;
+        answer: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faqSimple';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingBlock".
+ */
+export interface PricingBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  title?: string | null;
+  description?: string | null;
+  plans?:
+    | {
+        name: string;
+        price: string;
+        yearlyPrice: string;
+        period?: string | null;
+        features?:
+          | {
+              feature: string;
+              id?: string | null;
+            }[]
+          | null;
+        description?: string | null;
+        buttonText?: string | null;
+        href?: string | null;
+        isPopular?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pricing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingCardsBlock".
+ */
+export interface PricingCardsBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  badge?: string | null;
+  title?: string | null;
+  description?: string | null;
+  plans?:
+    | {
+        name: string;
+        description?: string | null;
+        price: string;
+        period?: string | null;
+        features?:
+          | {
+              title: string;
+              description?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        buttonText?: string | null;
+        href?: string | null;
+        isHighlighted?: boolean | null;
+        buttonIcon?: ('arrow' | 'phone') | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pricingCards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactSection1Block".
+ */
+export interface ContactSection1Block {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  heading?: string | null;
+  description?: string | null;
+  formTitle?: string | null;
+  /**
+   * Label für Vorname
+   */
+  formFirstNameLabel?: string | null;
+  formFirstNamePlaceholder?: string | null;
+  formLastNameLabel?: string | null;
+  formLastNamePlaceholder?: string | null;
+  formEmailLabel?: string | null;
+  formEmailPlaceholder?: string | null;
+  formSubjectLabel?: string | null;
+  formSubjectPlaceholder?: string | null;
+  formMessageLabel?: string | null;
+  formMessagePlaceholder?: string | null;
+  formButtonText?: string | null;
+  /**
+   * Leer lassen = kein Submit. Sonst z.B. /api/contact oder URL eines Form-Handlers.
+   */
+  formActionUrl?: string | null;
+  contactCardTitle?: string | null;
+  contactEmailLabel?: string | null;
+  contactEmailValue?: string | null;
+  contactPhoneLabel?: string | null;
+  contactPhoneValue?: string | null;
+  contactOfficeLabel?: string | null;
+  contactOfficeValue?: string | null;
+  hoursCardTitle?: string | null;
+  hoursRows?:
+    | {
+        label: string;
+        value: string;
+        id?: string | null;
+      }[]
+    | null;
+  altCardTitle?: string | null;
+  altCardDescription?: string | null;
+  altCardButtonText?: string | null;
+  altCardButtonUrl?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactSection1';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaSection3Block".
+ */
+export interface CtaSection3Block {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  badgeIcon?: ('rocket' | 'zap' | 'bookOpen' | 'playCircle') | null;
+  badgeText?: string | null;
+  title?: string | null;
+  description?: string | null;
+  primaryButtonIcon?: ('none' | 'zap' | 'rocket' | 'arrowRight') | null;
+  primaryButtonLabel?: string | null;
+  primaryButtonHref?: string | null;
+  secondaryButtonLabel?: string | null;
+  secondaryButtonHref?: string | null;
+  rightCards?:
+    | {
+        icon?: ('bookOpen' | 'playCircle' | 'rocket' | 'zap') | null;
+        title: string;
+        description: string;
+        href?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaSection3';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
@@ -688,6 +1176,336 @@ export interface ContentBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'content';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SerpContentBlock".
+ */
+export interface SerpContentBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  eyebrow?: string | null;
+  title: string;
+  description?: string | null;
+  sectionTitle?: string | null;
+  sectionDescription?: string | null;
+  bullets?:
+    | {
+        label: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  cardTitle?: string | null;
+  cardSubtitle?: string | null;
+  cardBadge?: string | null;
+  statPrimaryLabel?: string | null;
+  statPrimaryValue?: string | null;
+  statSecondaryLabel?: string | null;
+  statSecondaryValue?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serpContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LyraContentBlock".
+ */
+export interface LyraContentBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  title: string;
+  paragraphOne?: string | null;
+  paragraphTwo?: string | null;
+  buttonLabel?: string | null;
+  button: {
+    /**
+     * Ziel für den „Learn More“-Button.
+     */
+    link: {
+      type?: ('reference' | 'custom') | null;
+      newTab?: boolean | null;
+      reference?:
+        | ({
+            relationTo: 'site-pages';
+            value: number | SitePage;
+          } | null)
+        | ({
+            relationTo: 'blog-posts';
+            value: number | BlogPost;
+          } | null);
+      url?: string | null;
+      label: string;
+      /**
+       * Choose how the link should be rendered.
+       */
+      appearance?: ('default' | 'outline') | null;
+    };
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'lyraContent';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LyraFeatureBlock".
+ */
+export interface LyraFeatureBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  title: string;
+  paragraphOne?: string | null;
+  paragraphTwo?: string | null;
+  featureFastTitle?: string | null;
+  featureFastText?: string | null;
+  featurePowerfulTitle?: string | null;
+  featurePowerfulText?: string | null;
+  /**
+   * Wird angezeigt, wenn das Theme dunkel ist. Optional.
+   */
+  darkImage?: (number | null) | Media;
+  /**
+   * Wird angezeigt, wenn das Theme hell ist. Optional.
+   */
+  lightImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'lyraFeature';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesGridBlock".
+ */
+export interface FeaturesGridBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  title: string;
+  subtitle?: string | null;
+  items?:
+    | {
+        icon?: ('zap' | 'settings2' | 'sparkles') | null;
+        title: string;
+        description?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featuresGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceUxUiBlock".
+ */
+export interface ServiceUxUiBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  title?: string | null;
+  introHeadline?: string | null;
+  introText?: string | null;
+  /**
+   * Freier Textbereich für den Service-Abschnitt (Überschriften, Absätze, Listen …). Wenn leer, wird der Standardtext aus dem Code verwendet.
+   */
+  body?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serviceUxUi';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Services4Block".
+ */
+export interface Services4Block {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  title: string;
+  subtitle?: string | null;
+  services?:
+    | {
+        icon?: ('cog' | 'penTool' | 'code' | 'shrub') | null;
+        title: string;
+        description?: string | null;
+        items?:
+          | {
+              label: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'services4';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesScalingBlock".
+ */
+export interface FeaturesScalingBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  title: string;
+  subtitle?: string | null;
+  features?:
+    | {
+        icon?: ('mail' | 'zap' | 'activity' | 'draftingCompass') | null;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Wird angezeigt, wenn das Theme dunkel ist. Optional.
+   */
+  darkImage?: (number | null) | Media;
+  /**
+   * Wird angezeigt, wenn das Theme hell ist. Optional.
+   */
+  lightImage?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featuresScaling';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesAiAccordionBlock".
+ */
+export interface FeaturesAiAccordionBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  title: string;
+  subtitle?: string | null;
+  items?:
+    | {
+        icon?: ('database' | 'fingerprint' | 'idCard' | 'chart') | null;
+        title: string;
+        content?: string | null;
+        darkImage?: (number | null) | Media;
+        lightImage?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'featAiAcc';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1123,9 +1941,9 @@ export interface MegaMenu {
      */
     position?: ('right' | 'below') | null;
     /**
-     * Paths = Bezierkurven (shadcn). Threads = wellige Fadenlinien (React Bits-Style). Pro Highlight-Box einstellbar.
+     * Paths = Bezierkurven (shadcn). Threads = wellige Fadenlinien (React Bits-Style). Gradient = radialer Fokus mit Primärfarbe. Pro Highlight-Box einstellbar.
      */
-    background?: ('default' | 'paths' | 'threads') | null;
+    background?: ('default' | 'paths' | 'threads' | 'gradient') | null;
     /**
      * Mehrere Karten möglich. Jede Karte: optional Icon oder Bild, Titel, Beschreibung und Link.
      */
@@ -1512,8 +2330,28 @@ export interface SitePagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
+        heroMarketing?: T | HeroMarketingBlockSelect<T>;
+        heroGrid?: T | HeroGridBlockSelect<T>;
+        collabCur?: T | CollaborationCursorsBlockSelect<T>;
+        scrollMorphHero?: T | ScrollMorphHeroBlockSelect<T>;
+        featureAdvantages?: T | FeatureAdvantagesBlockSelect<T>;
+        feature1?: T | Feature1BlockSelect<T>;
+        feature2?: T | Feature2BlockSelect<T>;
+        faqSimple?: T | FaqSimpleBlockSelect<T>;
+        pricing?: T | PricingBlockSelect<T>;
+        pricingCards?: T | PricingCardsBlockSelect<T>;
+        contactSection1?: T | ContactSection1BlockSelect<T>;
+        ctaSection3?: T | CtaSection3BlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
+        serpContent?: T | SerpContentBlockSelect<T>;
+        lyraContent?: T | LyraContentBlockSelect<T>;
+        lyraFeature?: T | LyraFeatureBlockSelect<T>;
+        featuresGrid?: T | FeaturesGridBlockSelect<T>;
+        serviceUxUi?: T | ServiceUxUiBlockSelect<T>;
+        services4?: T | Services4BlockSelect<T>;
+        featuresScaling?: T | FeaturesScalingBlockSelect<T>;
+        featAiAcc?: T | FeaturesAiAccordionBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
@@ -1532,6 +2370,358 @@ export interface SitePagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroMarketingBlock_select".
+ */
+export interface HeroMarketingBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  badgeLabel?: T;
+  title?: T;
+  subtitle?: T;
+  primaryCtaLabel?: T;
+  primaryCtaUrl?: T;
+  secondaryCtaLabel?: T;
+  secondaryCtaUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroGridBlock_select".
+ */
+export interface HeroGridBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  title?: T;
+  highlight?: T;
+  subtitle?: T;
+  primaryCtaLabel?: T;
+  primaryCtaUrl?: T;
+  secondaryCtaLabel?: T;
+  secondaryCtaUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CollaborationCursorsBlock_select".
+ */
+export interface CollaborationCursorsBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ScrollMorphHeroBlock_select".
+ */
+export interface ScrollMorphHeroBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  introHeadline?: T;
+  introSubline?: T;
+  activeHeadline?: T;
+  activeText?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeatureAdvantagesBlock_select".
+ */
+export interface FeatureAdvantagesBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  badgeLabel?: T;
+  title?: T;
+  subtitle?: T;
+  items?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature1Block_select".
+ */
+export interface Feature1BlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  badge?: T;
+  title?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        linkLabel?: T;
+        linkUrl?: T;
+        id?: T;
+      };
+  ctaLabel?: T;
+  ctaUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Feature2Block_select".
+ */
+export interface Feature2BlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  title?: T;
+  description?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FaqSimpleBlock_select".
+ */
+export interface FaqSimpleBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  badge?: T;
+  heading?: T;
+  description?: T;
+  faqs?:
+    | T
+    | {
+        question?: T;
+        answer?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingBlock_select".
+ */
+export interface PricingBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  title?: T;
+  description?: T;
+  plans?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        yearlyPrice?: T;
+        period?: T;
+        features?:
+          | T
+          | {
+              feature?: T;
+              id?: T;
+            };
+        description?: T;
+        buttonText?: T;
+        href?: T;
+        isPopular?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingCardsBlock_select".
+ */
+export interface PricingCardsBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  badge?: T;
+  title?: T;
+  description?: T;
+  plans?:
+    | T
+    | {
+        name?: T;
+        description?: T;
+        price?: T;
+        period?: T;
+        features?:
+          | T
+          | {
+              title?: T;
+              description?: T;
+              id?: T;
+            };
+        buttonText?: T;
+        href?: T;
+        isHighlighted?: T;
+        buttonIcon?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactSection1Block_select".
+ */
+export interface ContactSection1BlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  heading?: T;
+  description?: T;
+  formTitle?: T;
+  formFirstNameLabel?: T;
+  formFirstNamePlaceholder?: T;
+  formLastNameLabel?: T;
+  formLastNamePlaceholder?: T;
+  formEmailLabel?: T;
+  formEmailPlaceholder?: T;
+  formSubjectLabel?: T;
+  formSubjectPlaceholder?: T;
+  formMessageLabel?: T;
+  formMessagePlaceholder?: T;
+  formButtonText?: T;
+  formActionUrl?: T;
+  contactCardTitle?: T;
+  contactEmailLabel?: T;
+  contactEmailValue?: T;
+  contactPhoneLabel?: T;
+  contactPhoneValue?: T;
+  contactOfficeLabel?: T;
+  contactOfficeValue?: T;
+  hoursCardTitle?: T;
+  hoursRows?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        id?: T;
+      };
+  altCardTitle?: T;
+  altCardDescription?: T;
+  altCardButtonText?: T;
+  altCardButtonUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CtaSection3Block_select".
+ */
+export interface CtaSection3BlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  badgeIcon?: T;
+  badgeText?: T;
+  title?: T;
+  description?: T;
+  primaryButtonIcon?: T;
+  primaryButtonLabel?: T;
+  primaryButtonHref?: T;
+  secondaryButtonLabel?: T;
+  secondaryButtonHref?: T;
+  rightCards?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        href?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1594,6 +2784,233 @@ export interface ContentBlockSelect<T extends boolean = true> {
               label?: T;
               appearance?: T;
             };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "SerpContentBlock_select".
+ */
+export interface SerpContentBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  eyebrow?: T;
+  title?: T;
+  description?: T;
+  sectionTitle?: T;
+  sectionDescription?: T;
+  bullets?:
+    | T
+    | {
+        label?: T;
+        description?: T;
+        id?: T;
+      };
+  cardTitle?: T;
+  cardSubtitle?: T;
+  cardBadge?: T;
+  statPrimaryLabel?: T;
+  statPrimaryValue?: T;
+  statSecondaryLabel?: T;
+  statSecondaryValue?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LyraContentBlock_select".
+ */
+export interface LyraContentBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  title?: T;
+  paragraphOne?: T;
+  paragraphTwo?: T;
+  buttonLabel?: T;
+  button?:
+    | T
+    | {
+        link?:
+          | T
+          | {
+              type?: T;
+              newTab?: T;
+              reference?: T;
+              url?: T;
+              label?: T;
+              appearance?: T;
+            };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "LyraFeatureBlock_select".
+ */
+export interface LyraFeatureBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  title?: T;
+  paragraphOne?: T;
+  paragraphTwo?: T;
+  featureFastTitle?: T;
+  featureFastText?: T;
+  featurePowerfulTitle?: T;
+  featurePowerfulText?: T;
+  darkImage?: T;
+  lightImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesGridBlock_select".
+ */
+export interface FeaturesGridBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  title?: T;
+  subtitle?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceUxUiBlock_select".
+ */
+export interface ServiceUxUiBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  title?: T;
+  introHeadline?: T;
+  introText?: T;
+  body?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "Services4Block_select".
+ */
+export interface Services4BlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  title?: T;
+  subtitle?: T;
+  services?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        items?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesScalingBlock_select".
+ */
+export interface FeaturesScalingBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  title?: T;
+  subtitle?: T;
+  features?:
+    | T
+    | {
+        icon?: T;
+        label?: T;
+        id?: T;
+      };
+  darkImage?: T;
+  lightImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesAiAccordionBlock_select".
+ */
+export interface FeaturesAiAccordionBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  title?: T;
+  subtitle?: T;
+  items?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        content?: T;
+        darkImage?: T;
+        lightImage?: T;
         id?: T;
       };
   id?: T;
@@ -2279,13 +3696,35 @@ export interface Header {
 export interface Footer {
   id: number;
   /**
-   * Eigenes Logo im Footer (leer = Logo aus Header übernimmt die Anzeige, falls vorhanden).
+   * Logo nur für den Footer – unabhängig vom Header-Logo wählbar. Leer = Text-/Standard-Logo (kein Bild).
    */
   footerLogo?: (number | null) | Media;
   /**
    * Accessibility-Text für das Logo.
    */
   footerLogoAltText?: string | null;
+  /**
+   * Optionales Logo nur für mobile Endgeräte. Wenn leer, wird automatisch das normale Footer-Logo verwendet.
+   */
+  mobileFooterLogo?: (number | null) | Media;
+  /**
+   * Kurzer Text direkt unter dem Footer-Logo (z. B. was du machst / Claim).
+   */
+  footerDescription?: {
+    root: {
+      type: string;
+      children: {
+        type: any;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  } | null;
   /**
    * Aktivieren, wenn der Footer einen dunklen Hintergrund hat (Logo wird dann hell dargestellt). Bei hellem Hintergrund deaktiviert lassen.
    */
@@ -2733,6 +4172,8 @@ export interface HeaderSelect<T extends boolean = true> {
 export interface FooterSelect<T extends boolean = true> {
   footerLogo?: T;
   footerLogoAltText?: T;
+  mobileFooterLogo?: T;
+  footerDescription?: T;
   logoOnDarkBackground?: T;
   newsletterTitle?: T;
   newsletterDescription?: T;
