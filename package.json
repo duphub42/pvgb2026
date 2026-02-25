@@ -26,7 +26,7 @@
     "reset-password": "cross-env PAYLOAD_MIGRATING=true tsx src/scripts/reset-password.ts",
     "reset-password-direct": "tsx src/scripts/reset-password-direct.ts",
     "export:local": "cross-env DATABASE_URL= POSTGRES_URL= NODE_ENV=production tsx src/scripts/export-data.ts",
-    "import:neon": "tsx src/scripts/import-data.ts --replace",
+    "import:neon": "cross-env USE_NEON=true NODE_OPTIONS=\"-r dotenv/config\" tsx src/scripts/import-data.ts --replace",
     "publish-pages": "tsx src/scripts/publish-site-pages.ts",
     "check-pages": "tsx src/scripts/check-site-pages-api.ts",
     "fix:orphaned-refs": "tsx src/scripts/fix-orphaned-refs.ts",
@@ -128,6 +128,7 @@
     "vite-tsconfig-paths": "6.0.5",
     "vitest": "4.0.18"
   },
+  "browserslist": ["chrome 111", "edge 111", "firefox 111", "safari 16.4"],
   "engines": {
     "node": "^18.20.2 || >=20.9.0"
   },
