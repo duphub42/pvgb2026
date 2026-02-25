@@ -128,6 +128,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   const [waveFill, setWaveFill] = useState<string>(WAVE_FILL.dark)
   const [themeKey, setThemeKey] = useState<string>('')
   const [deferHeavyBackground, setDeferHeavyBackground] = useState(false)
+  const [skipHeavyBackground, setSkipHeavyBackground] = useState(false)
   const heroSectionRef = useRef<HTMLElement>(null)
   const mountTimeRef = useRef(0)
   const floatingElRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -151,10 +152,20 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  // Schwere Hintergründe (Three/Vanta/Grid) erst nach LCP + TBT-relevantem Zeitfenster laden.
-  // Auf Slow 4G/Mobile: requestIdleCallback/400ms war zu früh → Chunk 4854 blockiert massiv.
-  // Warten auf load-Event oder 2.5s, damit FCP/LCP/TBT nicht von Three.js blockiert werden.
+  // Auf Mobil oder langsamer Verbindung: Three/Vanta/Grid nie laden → TBT/Performance stark verbessert (Lighthouse Moto G + Slow 4G).
   useEffect(() => {
+    if (!mounted) return
+    const isNarrow = !window.matchMedia('(min-width: 769px)').matches
+    const conn = (navigator as Navigator & { connection?: { effectiveType?: string } }).connection
+    const effectiveType = conn?.effectiveType ?? ''
+    const isSlowConnection = effectiveType === '2g' || effectiveType === 'slow-2g'
+    setSkipHeavyBackground(isNarrow || isSlowConnection)
+  }, [mounted])
+
+  // Schwere Hintergründe (Three/Vanta/Grid) erst nach LCP + TBT-relevantem Zeitfenster laden.
+  // Nur wenn nicht skipHeavyBackground (Desktop + ausreichend schnelle Verbindung).
+  useEffect(() => {
+    if (skipHeavyBackground) return
     let cancelled = false
     const apply = () => {
       if (!cancelled) setDeferHeavyBackground(true)
@@ -171,7 +182,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
       window.removeEventListener('load', onLoad)
       clearTimeout(fallbackId)
     }
-  }, [])
+  }, [skipHeavyBackground])
 
   // Floating-Items erst freigeben, wenn Marquee „geladen“ ist und Maus mind. 1 s im Hero war
   useEffect(() => {
@@ -392,7 +403,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                   className="absolute inset-0 w-full h-full"
                   options={{
                     amplitudeFactor: haloAmplitudeFactor ?? 1.8,
-                    size: haloSize ?? 1.4,
+                    size: haloSize ?? 2.1,
                     speed: ((haloSpeed ?? 1) * 0.125),
                     color2: haloColor2 ?? 15918901,
                     xOffset: haloXOffset ?? 0.15,
@@ -485,10 +496,10 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
       {foregroundMedia && (
         <div
           className={cn(
-            'absolute right-0 z-[5] w-[min(96vw,420px)] max-w-none pointer-events-none origin-bottom-right',
-            // Auf mobilen Geräten: Mindestabstand 10% der Viewport-Höhe vom oberen Rand
-            'top-[10vh] bottom-auto md:top-auto md:bottom-0',
-            'sm:w-[min(96vw,480px)]',
+            'absolute right-0 z-[5] max-w-none pointer-events-none origin-bottom-right',
+            // iPhone/Mobile: mind. 10% Abstand oben (inkl. Safe Area via .hero-foreground-top), Bild etwas kleiner
+            'hero-foreground-top w-[min(88vw,360px)] bottom-auto md:bottom-0',
+            'sm:w-[min(92vw,420px)]',
             'md:right-[-10%] md:w-[min(58vw,560px)]',
             'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl lg:max-h-none',
             'landscape-short:w-[min(98vw,720px)] landscape-short:min-h-[70vh]',
@@ -514,9 +525,9 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
               priority
               size="(max-width: 640px) min(96vw, 420px), (max-width: 768px) min(96vw, 480px), (max-width: 1024px) min(58vw, 560px), 40vw"
               imgClassName={cn(
-                'w-full h-auto object-contain',
-                'object-bottom',
-                'max-h-[85dvh] sm:max-h-[88dvh] md:max-h-[82dvh] lg:max-h-[72dvh]',
+                'w-full h-auto object-contain object-bottom',
+                // iPhone/Mobile: geringere max-Höhe, damit mehr Abstand oben sichtbar bleibt
+                'max-h-[72dvh] sm:max-h-[85dvh] md:max-h-[82dvh] lg:max-h-[72dvh]',
                 'landscape-short:object-top landscape-short:max-h-[100dvh] landscape-short:min-h-[60vh]',
               )}
             />

@@ -1992,6 +1992,16 @@ header .header-tool-toggle--theme:hover {
   pointer-events: none;
 }
 
+/* Vordergrundbild Hero: iPhone/Mobile mind. 10% Abstand oben inkl. Safe Area (Notch) */
+.hero-foreground-top {
+  top: max(12vh, 10%, env(safe-area-inset-top, 0px));
+}
+@media (width >= 48rem) {
+  .hero-foreground-top {
+    top: auto;
+  }
+}
+
 /* Overlay über Vanta Halo: nur Verlauf (für animiertes/eigenes Gitter) */
 .hero-halo-overlay-gradient {
   --halo-overlay-gradient: 0.68;

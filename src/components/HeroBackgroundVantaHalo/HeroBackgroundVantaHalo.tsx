@@ -14,6 +14,29 @@ function isWebGLSupported(): boolean {
   }
 }
 
+/** Three.js von CDN laden statt bündeln → reduziert Chunk-Größe um ~160 KiB. Version an package.json anpassen. */
+const THREE_CDN_URL = 'https://cdn.jsdelivr.net/npm/three@0.183.0/build/three.min.js'
+
+function loadScript(src: string): Promise<void> {
+  return new Promise((resolve, reject) => {
+    if (typeof document === 'undefined') {
+      reject(new Error('document undefined'))
+      return
+    }
+    const existing = document.querySelector(`script[src="${src}"]`)
+    if (existing) {
+      resolve()
+      return
+    }
+    const script = document.createElement('script')
+    script.src = src
+    script.async = true
+    script.onload = () => resolve()
+    script.onerror = () => reject(new Error(`Failed to load script: ${src}`))
+    document.head.appendChild(script)
+  })
+}
+
 const HALO_DEFAULTS = {
   amplitudeFactor: 1.8,
   backgroundAlpha: 1,
@@ -27,9 +50,9 @@ const HALO_DEFAULTS = {
   mouseEase: false,
   ringFactor: 1,
   rotationFactor: 1,
-  scale: 0.85,
-  scaleMobile: 0.75,
-  size: 1.4,
+  scale: 1,
+  scaleMobile: 1,
+  size: 2.1,
   speed: 1,
   touchControls: false,
   xOffset: 0.15,
@@ -73,11 +96,11 @@ export function HeroBackgroundVantaHalo({
       const el = elRef.current
       if (!el || cancelled) return
       try {
-        // Three und Vanta sind lokale npm-Pakete (gebündelt), keine externen CDN-Skripte
-        const threeModule = await import('three')
+        // Three.js von CDN laden (nicht bündeln) → kleinerer eigener Chunk; Vanta nur halo gebündelt
+        await loadScript(THREE_CDN_URL)
         if (cancelled) return
-        const THREE = (threeModule as { default: typeof threeModule }).default ?? threeModule
-        if (typeof window !== 'undefined') (window as unknown as { THREE: typeof THREE }).THREE = THREE
+        const THREE = (typeof window !== 'undefined' && (window as unknown as { THREE?: unknown }).THREE) as unknown
+        if (!THREE) throw new Error('THREE not on window after script load')
         const vantaModule = await import('vanta/dist/vanta.halo.min.js')
         if (cancelled) return
         const HALO = (vantaModule as { default: (opts: Record<string, unknown>) => VantaEffect }).default

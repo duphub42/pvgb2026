@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 
 /** Layout nutzt cookies() für Locale – alle Routen unter (frontend) sind dynamisch. */
 export const dynamic = 'force-dynamic'
@@ -48,6 +48,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     return (
       <html className={fontClassNames} lang={locale} suppressHydrationWarning>
         <head>
+          {/* Three.js für Vanta-Hero von jsDelivr CDN → früher Verbindungsaufbau */}
+          <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
           <InitTheme />
           <DesignStyles design={design ?? null} />
           <ThemeSettingsStyles themeSettings={themeSettings ?? null} />
@@ -110,4 +112,11 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     creator: '@payloadcms',
   },
+}
+
+/** Safe Area (Notch) auf iPhone: env(safe-area-inset-*) funktioniert nur mit viewport-fit=cover */
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
 }
