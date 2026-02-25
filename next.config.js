@@ -54,6 +54,12 @@ const nextConfig = {
         hostname: '**.public.blob.vercel-storage.com',
         pathname: '/**',
       },
+      // ExactDN / Jetpack CDN (Media-URLs; Next.js erlaubt keine Host-Wildcards, daher konkreter Host)
+      {
+        protocol: 'https',
+        hostname: 'etdsfttu5ar.exactdn.com',
+        pathname: '/**',
+      },
     ],
   },
   webpack: (webpackConfig, { isServer }) => {
