@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { Loader2, Check, Sparkles } from 'lucide-react'
-import confetti from 'canvas-confetti'
 
 import { useTheme } from '@/providers/Theme'
 import { cn } from '@/utilities/ui'
@@ -69,8 +68,9 @@ export function SaveButton({
     }
   }, [isControlled, status])
 
-  const triggerConfetti = (anchor?: HTMLDivElement | null) => {
+  const triggerConfetti = async (anchor?: HTMLDivElement | null) => {
     try {
+      const { default: confetti } = await import('canvas-confetti')
       let origin: { x: number; y: number } = { x: 0.5, y: 0.6 }
       if (anchor && typeof window !== 'undefined') {
         const rect = anchor.getBoundingClientRect()

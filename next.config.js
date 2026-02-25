@@ -22,6 +22,7 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: true },
   // PageSpeed: tree-shake large packages so less JS is shipped
   experimental: {
+    // Weniger Script-Größe: nur genutzte Exports aus großen Paketen laden
     optimizePackageImports: [
       '@radix-ui/react-navigation-menu',
       '@radix-ui/react-dialog',
@@ -29,8 +30,11 @@ const nextConfig = {
       '@radix-ui/react-select',
       '@radix-ui/react-tooltip',
       '@radix-ui/react-slot',
+      '@radix-ui/react-checkbox',
+      '@radix-ui/react-label',
       'lucide-react',
       'motion',
+      'cmdk',
     ],
   },
   // DSGVO: Fonts/Skripte sind lokal (kein Google Fonts, keine CDNs). Bei Bedarf: headers() mit Content-Security-Policy script-src 'self'; font-src 'self'.

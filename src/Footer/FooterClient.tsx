@@ -325,7 +325,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                                     className="text-sm transition-opacity hover:opacity-100 footer-link"
                                   >
                                     <span className="footer-link-text">{linkRow.linkText}</span>
-                                    <span className="footer-link-arrow" aria-hidden>»</span>
+                                    <span className="footer-link-arrow" aria-hidden>{'\u9654'}</span>
                                     {linkRow.isExternal === true && (
                                       <span className="footer-link-ext" aria-hidden>ext.</span>
                                     )}
@@ -427,13 +427,13 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
               {footer.privacyLink != null && (
                 <Link href={footer.privacyLink} className="footer-link text-sm transition-opacity hover:opacity-100">
                   <span className="footer-link-text">{messages[locale].footer.privacy}</span>
-                  <span className="footer-link-arrow" aria-hidden>»</span>
+                  <span className="footer-link-arrow" aria-hidden>{'\u9654'}</span>
                 </Link>
               )}
               {footer.termsLink != null && (
                 <Link href={footer.termsLink} className="footer-link text-sm transition-opacity hover:opacity-100">
                   <span className="footer-link-text">{messages[locale].footer.terms}</span>
-                  <span className="footer-link-arrow" aria-hidden>»</span>
+                  <span className="footer-link-arrow" aria-hidden>{'\u9654'}</span>
                 </Link>
               )}
               <div className="ml-auto flex items-center gap-3 md:ml-0">
