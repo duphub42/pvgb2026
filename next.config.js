@@ -32,7 +32,6 @@ const nextConfig = {
       '@radix-ui/react-slot',
       '@radix-ui/react-checkbox',
       '@radix-ui/react-label',
-      'lucide-react',
       'motion',
       'cmdk',
     ],
