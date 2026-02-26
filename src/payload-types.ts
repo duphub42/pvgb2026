@@ -73,6 +73,7 @@ export interface Config {
     categories: Category;
     users: User;
     'mega-menu': MegaMenu;
+    'hero-backgrounds': HeroBackground;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -96,6 +97,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     'mega-menu': MegaMenuSelect<false> | MegaMenuSelect<true>;
+    'hero-backgrounds': HeroBackgroundsSelect<false> | HeroBackgroundsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -190,6 +192,10 @@ export interface SitePage {
     headlineLine2?: string | null;
     headlineLine3?: string | null;
     description?: string | null;
+    /**
+     * Optionales, animiertes Hintergrund-Preset (Orbit, Halo, Gradient). Wird hinter dem jeweiligen Hero-Layout gerendert.
+     */
+    backgroundPreset?: (number | null) | HeroBackground;
     /**
      * Halo (Vanta) = 3D-Hintergrund. Halo (CSS) = weiche Farb-Halos ohne WebGL. Orbit (CSS) = leichte Ring-Animation. Bei „Bild/Video/Animation“ erscheinen die Spezial-Hintergründe nicht.
      */
@@ -492,6 +498,31 @@ export interface FolderInterface {
     totalDocs?: number;
   };
   folderType?: 'media'[] | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Vorkonfigurierte, animierte Header-Hintergründe (CSS-only). Können in allen Heros als Hintergrund-Layer verwendet werden.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero-backgrounds".
+ */
+export interface HeroBackground {
+  id: number;
+  name: string;
+  type: 'orbit' | 'cssHalo' | 'gradient';
+  /**
+   * 0.2 = sehr dezent, 1 = Standard, 2 = sehr kräftig.
+   */
+  intensity?: number | null;
+  /**
+   * Grundfarbton für Orbit/Halo (0–360). Wird per CSS-Variablen auf den Hintergrund angewendet.
+   */
+  hue?: number | null;
+  /**
+   * Optionales CSS, das im Hero als zusätzliche Klasse angewendet werden kann. Keine externen Imports (kein @import, kein <script>).
+   */
+  customCss?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -2196,6 +2227,10 @@ export interface PayloadLockedDocument {
         value: number | MegaMenu;
       } | null)
     | ({
+        relationTo: 'hero-backgrounds';
+        value: number | HeroBackground;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -2275,6 +2310,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         headlineLine2?: T;
         headlineLine3?: T;
         description?: T;
+        backgroundPreset?: T;
         mediaType?: T;
         mediaTypeMobile?: T;
         backgroundImage?: T;
@@ -3326,6 +3362,19 @@ export interface MegaMenuSelect<T extends boolean = true> {
         ctaLabel?: T;
         ctaUrl?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero-backgrounds_select".
+ */
+export interface HeroBackgroundsSelect<T extends boolean = true> {
+  name?: T;
+  type?: T;
+  intensity?: T;
+  hue?: T;
+  customCss?: T;
   updatedAt?: T;
   createdAt?: T;
 }

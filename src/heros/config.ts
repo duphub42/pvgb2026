@@ -101,6 +101,17 @@ export const hero: Field = {
       },
     },
     {
+      name: 'backgroundPreset',
+      type: 'relationship',
+      label: 'Hintergrund-Preset',
+      relationTo: 'hero-backgrounds',
+      hasMany: false,
+      admin: {
+        description:
+          'Optionales, animiertes Hintergrund-Preset (Orbit, Halo, Gradient). Wird hinter dem jeweiligen Hero-Layout gerendert.',
+      },
+    },
+    {
       name: 'mediaType',
       type: 'select',
       defaultValue: 'halo',

@@ -2103,13 +2103,17 @@ header .header-tool-toggle--theme:hover {
   height: 80vmin;
   border-radius: 9999px;
   background:
-    radial-gradient(circle at 30% 20%, rgba(244, 244, 245, 0.95), transparent 60%),
-    radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.9), transparent 70%),
-    radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.85), transparent 80%);
+    radial-gradient(circle at 30% 20%, rgba(244, 244, 245, 0.95), transparent 52%),
+    radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.9), transparent 68%),
+    radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.85), transparent 76%);
   transform: translate(-50%, -50%);
   filter: blur(46px);
   opacity: 0.95;
   animation: hero-orbit-core-pulse 18s ease-in-out infinite alternate;
+  /* Donut-Loch: innerer Kreis in Hintergrundfarbe „schneidet“ die Mitte aus */
+  box-shadow:
+    0 0 0 0 #020617,
+    0 0 0 18vmin #020617 inset;
 }
 .hero-orbit__ring {
   position: absolute;

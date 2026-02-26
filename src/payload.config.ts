@@ -12,6 +12,7 @@ import { MegaMenu } from './collections/MegaMenu'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
+import { HeroBackgrounds } from './collections/HeroBackgrounds'
 import { Design } from './globals/Design/config'
 import { ThemeSettings } from './globals/ThemeSettings/config'
 import { Footer } from './Footer/config'
@@ -87,7 +88,7 @@ export default buildConfig({
           },
           push: process.env.PAYLOAD_SKIP_PUSH !== 'true',
         }),
-  collections: [Pages, Posts, Media, Categories, Users, MegaMenu],
+  collections: [Pages, Posts, Media, Categories, Users, MegaMenu, HeroBackgrounds],
   cors: [getServerSideURL()].filter(Boolean),
   plugins: [
     ...plugins,

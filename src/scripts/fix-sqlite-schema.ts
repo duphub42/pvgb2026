@@ -222,6 +222,20 @@ function main() {
         fonts TEXT
       );`,
     },
+    // Hero Background Presets (Collection hero-backgrounds) – einfache Tabelle für SQLite
+    {
+      name: 'hero_backgrounds: table',
+      sql: `CREATE TABLE IF NOT EXISTS hero_backgrounds (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        updated_at TEXT,
+        created_at TEXT,
+        name TEXT,
+        type TEXT,
+        intensity REAL,
+        hue REAL,
+        custom_css TEXT
+      );`,
+    },
     // Globals: je 1 Eintrag anlegen, damit Admin „Design & Farben“ und „Header“ nicht „Nothing found“ anzeigt
     {
       name: 'header: seed',
@@ -243,6 +257,14 @@ function main() {
     // Hero Philipp Bacher: Logo-Anzeige (Marquee vs. Logo Carousel)
     { name: 'site_pages: hero_logo_display_type', sql: "ALTER TABLE site_pages ADD COLUMN hero_logo_display_type TEXT DEFAULT 'marquee';" },
     { name: '_site_pages_v: version_hero_logo_display_type', sql: "ALTER TABLE _site_pages_v ADD COLUMN version_hero_logo_display_type TEXT DEFAULT 'marquee';" },
+    // Hero Philipp Bacher: Globales Hintergrund-Preset (Relationship hero-backgrounds)
+    { name: 'site_pages: hero_background_preset_id', sql: 'ALTER TABLE site_pages ADD COLUMN hero_background_preset_id INTEGER;' },
+    { name: '_site_pages_v: version_hero_background_preset_id', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_background_preset_id INTEGER;' },
+    // Locked Documents: Relationship für hero-backgrounds (damit Admin-„Locking“ nicht mit „no such column hero_backgrounds_id“ fehlschlägt)
+    {
+      name: 'payload_locked_documents_rels: hero_backgrounds_id',
+      sql: 'ALTER TABLE payload_locked_documents_rels ADD COLUMN hero_backgrounds_id INTEGER;',
+    },
     // Hero Philipp Bacher: separater Hintergrund-Typ für Mobilgeräte (mediaTypeMobile)
     { name: 'site_pages: hero_media_type_mobile', sql: 'ALTER TABLE site_pages ADD COLUMN hero_media_type_mobile TEXT;' },
     { name: '_site_pages_v: version_hero_media_type_mobile', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_media_type_mobile TEXT;' },

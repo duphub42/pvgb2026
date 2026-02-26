@@ -14,9 +14,10 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
 import { motion } from 'motion/react'
+import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 
-/** Theme-Hintergrundfarbe für Wellen (entspricht theme/colors.css + Design-Fallback). */
-const WAVE_FILL = { light: 'rgb(255, 255, 255)', dark: 'rgb(20, 20, 20)' } as const
+/** Shape-Divider-Farbe: immer identisch zum Main-Content-Hintergrund (`--background`, Theme-abhängig). */
+const WAVE_FILL = 'var(--background)' as const
 
 const HeroBackgroundThree = dynamic(
   () => import('@/components/HeroBackgroundThree/HeroBackgroundThree').then((m) => m.HeroBackgroundThree),
@@ -133,7 +134,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   const [scrollOffset, setScrollOffset] = useState(0)
   const [mounted, setMounted] = useState(false)
   const [floatingUnlock, setFloatingUnlock] = useState(false)
-  const [waveFill, setWaveFill] = useState<string>(WAVE_FILL.dark)
+  const [waveFill, setWaveFill] = useState<string>(WAVE_FILL)
   const [themeKey, setThemeKey] = useState<string>('')
   const [deferHeavyBackground, setDeferHeavyBackground] = useState(false)
   const [skipHeavyBackground, setSkipHeavyBackground] = useState(false)
@@ -276,7 +277,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     const read = () => {
       const theme = document.documentElement.getAttribute('data-theme')
       const t = theme === 'light' || theme === 'dark' ? theme : 'light'
-      setWaveFill(t === 'light' ? WAVE_FILL.light : WAVE_FILL.dark)
+      // Wellen verwenden immer denselben Farb-Token wie der Main-Content-Hintergrund
+      setWaveFill(WAVE_FILL)
       setThemeKey(t)
     }
     read()
@@ -391,6 +393,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     marqueeHeadline = 'ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN',
     logoDisplayType = 'marquee',
     marqueeLogos,
+    backgroundPreset,
   } = props
 
   const useThreeLines =
@@ -468,10 +471,13 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   return (
     <section
       ref={heroSectionRef}
-      className="relative flex -mt-24 items-stretch overflow-hidden bg-neutral-950 pt-24 text-white min-h-[100vh] md:min-h-[100dvh]"
+      className="relative flex -mt-24 items-stretch overflow-hidden lg:overflow-visible bg-neutral-950 pt-24 text-white min-h-[100vh] md:min-h-[100dvh]"
       aria-label="Hero"
     >
-      {/* Hintergrund zuerst und ganz hinten (z-0): Bild/Video/Halo + Overlays */}
+      {/* Optionaler globaler Hintergrund-Layer (Orbit/Halo/Gradient) ganz hinten */}
+      <HeroBackgroundPresetLayer preset={backgroundPreset as any} />
+
+      {/* Hero-spezifischer Hintergrund (Vanta/Halo/Orbit/Bild) auf unterster Ebene */}
       <div
         className="hero-bg-wrap absolute inset-0 z-0 origin-center transition-transform duration-200 ease-out"
         style={
@@ -586,8 +592,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         <div
           className={cn(
             'absolute right-0 z-[5] max-w-none pointer-events-none origin-bottom-right',
-            // Immer am unteren Hero-Rand anliegend; Abstand oben nur über max-h des Bildes
-            'bottom-0 w-[min(88vw,360px)]',
+            // Standard: am Hero-Rand; auf Desktop leicht nach unten gezogen, sodass das Bild am unteren Rand der Herobox endet
+            'bottom-0 lg:bottom-[-3vh] w-[min(88vw,360px)]',
             'sm:w-[min(92vw,420px)]',
             'md:right-[-10%] md:w-[min(58vw,560px)]',
             'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl lg:max-h-none',
@@ -632,6 +638,11 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           foregroundMedia && 'lg:items-end',
         )}
       >
+        {/* Desktop-Frame: rahmt den gesamten Hero inkl. Marquee; überlappt ~3% in den folgenden Inhalt; Rand = Container (Header/Main) */}
+        <div className="pointer-events-none absolute inset-x-0 top-4 bottom-[-3vh] z-[1] hidden lg:block">
+          <div className="h-full w-full rounded-3xl border border-white/12 shadow-[0_32px_120px_rgba(15,23,42,0.8)]" />
+        </div>
+
         {/* Linke Spalte: am Fuß – Flex pushed Content nach unten */}
         <div
           className={cn(
