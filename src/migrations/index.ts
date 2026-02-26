@@ -42,6 +42,7 @@ import * as migration_20260225_110000_footer_columns_icon from './20260225_11000
 import * as migration_20260225_120000_footer_missing_columns from './20260225_120000_footer_missing_columns'
 import * as migration_20260225_130000_drizzle_missing_block_versions from './20260225_130000_drizzle_missing_block_versions'
 import * as migration_20260225_140000_header_favicon from './20260225_140000_header_favicon'
+import * as migration_20260226_100000_site_pages_hero_media_type_mobile from './20260226_100000_site_pages_hero_media_type_mobile'
 
 export const migrations = [
   {
@@ -263,5 +264,10 @@ export const migrations = [
     up: migration_20260225_140000_header_favicon.up,
     down: migration_20260225_140000_header_favicon.down,
     name: '20260225_140000_header_favicon',
+  },
+  {
+    up: migration_20260226_100000_site_pages_hero_media_type_mobile.up,
+    down: migration_20260226_100000_site_pages_hero_media_type_mobile.down,
+    name: '20260226_100000_site_pages_hero_media_type_mobile',
   },
 ]

@@ -2006,14 +2006,18 @@ header .header-tool-toggle--theme:hover {
   to { transform: rotate(360deg); }
 }
 .hero-orbit {
-  background-color: #0b0f19;
+  /* leicht hellerer Hintergrund + dezenter Glow, damit die Orbits klar sichtbar sind */
+  background:
+    radial-gradient(circle at 20% 20%, rgba(96, 165, 250, 0.16), transparent 55%),
+    radial-gradient(circle at 80% 80%, rgba(45, 212, 191, 0.12), transparent 55%),
+    #020617;
 }
 .hero-orbit__ring {
   position: absolute;
   left: 50%;
   top: 50%;
   border-radius: 50%;
-  border: 1px solid rgba(80, 120, 160, 0.15);
+  border: 2px solid rgba(148, 163, 184, 0.25);
   animation: hero-orbit-rotate linear infinite;
   will-change: transform;
 }
