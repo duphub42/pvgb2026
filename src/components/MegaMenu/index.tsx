@@ -660,7 +660,7 @@ export function MegaMenu({
                                         icon={
                                           (sub.icon != null && mediaUrl(sub.icon)) ||
                                           (sub.image != null && mediaUrl(sub.image)) ? (
-                                            <img src={mediaUrl(sub.image ?? sub.icon!)} alt="" className="h-4 w-4 object-contain" />
+                                            <img src={mediaUrl(sub.image ?? sub.icon!)} alt="" className="h-4 w-4 object-contain" loading="lazy" decoding="async" />
                                           ) : undefined
                                         }
                                       >
@@ -682,7 +682,7 @@ export function MegaMenu({
                                 icon={
                                   (sub.icon != null && mediaUrl(sub.icon)) ||
                                   (sub.image != null && mediaUrl(sub.image)) ? (
-                                    <img src={mediaUrl(sub.image ?? sub.icon!)} alt="" className="h-4 w-4 object-contain" />
+                                    <img src={mediaUrl(sub.image ?? sub.icon!)} alt="" className="h-4 w-4 object-contain" loading="lazy" decoding="async" />
                                   ) : undefined
                                 }
                               >
@@ -731,6 +731,8 @@ export function MegaMenu({
                                       src={cardImageUrl}
                                       alt={cardTitle ?? ''}
                                       className="object-cover w-full h-full transition-transform duration-300 group-hover/card:scale-[1.02]"
+                                      loading="lazy"
+                                      decoding="async"
                                     />
                                     <div className="absolute inset-0 bg-black/10 transition-opacity group-hover/card:bg-black/5" />
                                   </div>
@@ -742,7 +744,7 @@ export function MegaMenu({
                                       highlightPosition === 'below' ? 'h-full min-w-[100px] w-[100px] rounded-l-lg' : 'megamenu-item-icon h-14 w-14 rounded-lg',
                                     )}
                                   >
-                                    <img src={cardIconUrl} alt="" />
+                                    <img src={cardIconUrl} alt="" loading="lazy" decoding="async" />
                                   </div>
                                 )}
                               </>

@@ -245,6 +245,8 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                                   alt=""
                                   className="size-5 object-contain"
                                   width={20}
+                                  loading="lazy"
+                                  decoding="async"
                                 />
                               ) : Icon ? (
                                 <Icon className="size-5" />
@@ -303,6 +305,8 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                                 alt=""
                                 className="h-6 w-6 object-contain filter invert"
                                 aria-hidden="true"
+                                loading="lazy"
+                                decoding="async"
                               />
                             ) : colIcon ? (
                               <span aria-hidden="true" className="text-2xl leading-none">
@@ -325,7 +329,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                                     className="text-sm transition-opacity hover:opacity-100 footer-link"
                                   >
                                     <span className="footer-link-text">{linkRow.linkText}</span>
-                                    <span className="footer-link-arrow" aria-hidden>{'\u9654'}</span>
+                                    <span className="footer-link-arrow" aria-hidden>{'->'}</span>
                                     {linkRow.isExternal === true && (
                                       <span className="footer-link-ext" aria-hidden>ext.</span>
                                     )}
@@ -350,6 +354,8 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                               alt=""
                               className="h-6 w-6 object-contain filter invert"
                               aria-hidden="true"
+                              loading="lazy"
+                              decoding="async"
                             />
                           ) : newsletterIcon ? (
                             <span aria-hidden="true" className="text-2xl leading-none">
@@ -427,13 +433,13 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
               {footer.privacyLink != null && (
                 <Link href={footer.privacyLink} className="footer-link text-sm transition-opacity hover:opacity-100">
                   <span className="footer-link-text">{messages[locale].footer.privacy}</span>
-                  <span className="footer-link-arrow" aria-hidden>{'\u9654'}</span>
+                  <span className="footer-link-arrow" aria-hidden>{'->'}</span>
                 </Link>
               )}
               {footer.termsLink != null && (
                 <Link href={footer.termsLink} className="footer-link text-sm transition-opacity hover:opacity-100">
                   <span className="footer-link-text">{messages[locale].footer.terms}</span>
-                  <span className="footer-link-arrow" aria-hidden>{'\u9654'}</span>
+                  <span className="footer-link-arrow" aria-hidden>{'->'}</span>
                 </Link>
               )}
               <div className="ml-auto flex items-center gap-3 md:ml-0">

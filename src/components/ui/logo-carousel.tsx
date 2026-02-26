@@ -70,6 +70,8 @@ const LogoColumn = React.memo(({ logos, index, currentTime, className }: LogoCol
             src={currentLogo.imgUrl}
             alt={currentLogo.alt ?? currentLogo.name}
             className="hero-logo-grayscale h-auto max-h-full w-full object-contain opacity-95"
+            loading="lazy"
+            decoding="async"
           />
         </motion.div>
       </AnimatePresence>

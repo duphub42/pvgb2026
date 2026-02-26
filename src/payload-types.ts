@@ -194,6 +194,10 @@ export interface SitePage {
      * Halo (Vanta) = 3D-Hintergrund. Orbit (CSS) = leichte Ring-Animation ohne Three.js. Bei „Bild/Video/Animation“ erscheinen Halo/Orbit nicht.
      */
     mediaType?: ('halo' | 'orbit' | 'image' | 'video' | 'animation') | null;
+    /**
+     * Optionaler Override für Mobilgeräte (z. B. Desktop = Halo/Gitter, Mobil = Orbit). „Wie Desktop-Einstellung“ übernimmt die normale Auswahl.
+     */
+    mediaTypeMobile?: ('auto' | 'halo' | 'orbit' | 'image' | 'video' | 'animation') | null;
     backgroundImage?: (number | null) | Media;
     backgroundVideo?: (number | null) | Media;
     /**
@@ -2272,6 +2276,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         headlineLine3?: T;
         description?: T;
         mediaType?: T;
+        mediaTypeMobile?: T;
         backgroundImage?: T;
         backgroundVideo?: T;
         haloAmplitudeFactor?: T;

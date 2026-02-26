@@ -133,6 +133,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   const [themeKey, setThemeKey] = useState<string>('')
   const [deferHeavyBackground, setDeferHeavyBackground] = useState(false)
   const [skipHeavyBackground, setSkipHeavyBackground] = useState(false)
+  const [isMobileViewport, setIsMobileViewport] = useState(false)
   const heroSectionRef = useRef<HTMLElement>(null)
   const mountTimeRef = useRef(0)
   const floatingElRefs = useRef<(HTMLDivElement | null)[]>([])
@@ -153,7 +154,34 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     setMounted(true)
     const handleScroll = () => setScrollOffset(window.pageYOffset)
     window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const mq = window.matchMedia?.('(max-width: 767.98px)')
+    const updateViewport = () => setIsMobileViewport(Boolean(mq && mq.matches))
+    try {
+      if (mq) {
+        updateViewport()
+        if (typeof mq.addEventListener === 'function') {
+          mq.addEventListener('change', updateViewport)
+        } else if (typeof (mq as any).addListener === 'function') {
+          ;(mq as any).addListener(updateViewport)
+        }
+      }
+    } catch {
+      // ignore matchMedia errors
+    }
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (mq) {
+        try {
+          if (typeof mq.removeEventListener === 'function') {
+            mq.removeEventListener('change', updateViewport)
+          } else if (typeof (mq as any).removeListener === 'function') {
+            ;(mq as any).removeListener(updateViewport)
+          }
+        } catch {
+          // ignore
+        }
+      }
+    }
   }, [])
 
   // Nur bei echter Langsamverbindung (2g/slow-2g) Vanta/Three weglassen; auf Mobil mit 3g/4g wieder anzeigen.
@@ -306,6 +334,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     subheadline,
     description,
     mediaType = 'halo',
+    mediaTypeMobile = 'auto',
     backgroundImage,
     backgroundVideo,
     foregroundImage,
@@ -338,17 +367,20 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   const isMediaObject = (v: unknown) =>
     typeof v === 'object' && v != null && ('url' in v || 'mimeType' in v)
 
+  const effectiveMediaType =
+    isMobileViewport && mediaTypeMobile && mediaTypeMobile !== 'auto' ? mediaTypeMobile : mediaType
+
   const backgroundMedia =
-    mediaType === 'video' && backgroundVideo && isMediaObject(backgroundVideo)
+    effectiveMediaType === 'video' && backgroundVideo && isMediaObject(backgroundVideo)
       ? backgroundVideo
-      : mediaType === 'image' && isMediaObject(backgroundImage)
+      : effectiveMediaType === 'image' && isMediaObject(backgroundImage)
         ? backgroundImage
         : isMediaObject(props.media)
           ? props.media
           : null
-  const useBackgroundAnimation = mediaType === 'animation'
-  const useBackgroundHalo = mediaType === 'halo'
-  const useBackgroundOrbit = mediaType === 'orbit'
+  const useBackgroundAnimation = effectiveMediaType === 'animation'
+  const useBackgroundHalo = effectiveMediaType === 'halo'
+  const useBackgroundOrbit = effectiveMediaType === 'orbit'
   const showHaloLayer = useBackgroundHalo && useHaloBackground
   const showGridOverlay = useBackgroundHalo
 
@@ -736,14 +768,14 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                             <Tooltip>
                               <TooltipTrigger asChild>
                                 <div className="hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2] [&_img]:h-[45px] [&_img]:w-auto [&_img]:max-w-[5.5rem] [&_img]:object-contain">
-                                  <img src={url} alt={label} className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" />
+                                  <img src={url} alt={label} className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" loading="lazy" decoding="async" />
                                 </div>
                               </TooltipTrigger>
                               <TooltipContent side="top">{label}</TooltipContent>
                             </Tooltip>
                           ) : (
                             <div className="hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2] [&_img]:h-[45px] [&_img]:w-auto [&_img]:max-w-[5.5rem] [&_img]:object-contain">
-                              <img src={url} alt="" className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" />
+                              <img src={url} alt="" className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" loading="lazy" decoding="async" />
                             </div>
                           )}
                         </motion.div>
@@ -773,6 +805,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                       src={iconUrl}
                       alt={hasLabel ? String(el.label).trim() : ''}
                       className="size-8 object-contain sm:size-10"
+                      loading="lazy"
+                      decoding="async"
                     />
                   ) : null}
                   {hasLabel ? (

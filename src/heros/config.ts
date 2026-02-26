@@ -118,6 +118,25 @@ export const hero: Field = {
       },
     },
     {
+      name: 'mediaTypeMobile',
+      type: 'select',
+      defaultValue: 'auto',
+      label: 'Hintergrund (Mobil)',
+      options: [
+        { label: 'Wie Desktop-Einstellung', value: 'auto' },
+        { label: 'Halo (Vanta) + Gitter', value: 'halo' },
+        { label: 'Orbit (CSS)', value: 'orbit' },
+        { label: 'Bild', value: 'image' },
+        { label: 'Video', value: 'video' },
+        { label: 'Animation', value: 'animation' },
+      ],
+      admin: {
+        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        description:
+          'Optionaler Override für Mobilgeräte (z. B. Desktop = Halo/Gitter, Mobil = Orbit). „Wie Desktop-Einstellung“ übernimmt die normale Auswahl.',
+      },
+    },
+    {
       name: 'backgroundImage',
       type: 'upload',
       relationTo: 'media',

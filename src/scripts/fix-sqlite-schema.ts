@@ -243,6 +243,9 @@ function main() {
     // Hero Philipp Bacher: Logo-Anzeige (Marquee vs. Logo Carousel)
     { name: 'site_pages: hero_logo_display_type', sql: "ALTER TABLE site_pages ADD COLUMN hero_logo_display_type TEXT DEFAULT 'marquee';" },
     { name: '_site_pages_v: version_hero_logo_display_type', sql: "ALTER TABLE _site_pages_v ADD COLUMN version_hero_logo_display_type TEXT DEFAULT 'marquee';" },
+    // Hero Philipp Bacher: separater Hintergrund-Typ für Mobilgeräte (mediaTypeMobile)
+    { name: 'site_pages: hero_media_type_mobile', sql: 'ALTER TABLE site_pages ADD COLUMN hero_media_type_mobile TEXT;' },
+    { name: '_site_pages_v: version_hero_media_type_mobile', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_media_type_mobile TEXT;' },
     // Hero Philipp Bacher: Floating-Animation (Maus-Reaktion + Idle-Schweben)
     { name: 'site_pages: hero_floating_mouse_strength', sql: 'ALTER TABLE site_pages ADD COLUMN hero_floating_mouse_strength REAL;' },
     { name: 'site_pages: hero_floating_idle_amplitude', sql: 'ALTER TABLE site_pages ADD COLUMN hero_floating_idle_amplitude REAL;' },
