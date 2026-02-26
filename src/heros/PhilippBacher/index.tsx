@@ -471,21 +471,15 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   return (
     <section
       ref={heroSectionRef}
-      className="relative flex -mt-24 items-stretch overflow-hidden lg:overflow-visible bg-neutral-950 pt-24 text-white min-h-[100vh] md:min-h-[100dvh]"
+      className="relative flex flex-col justify-center items-stretch overflow-hidden lg:overflow-visible bg-neutral-950 -mt-24 pt-48 text-white min-h-[96vh] md:min-h-[100dvh] lg:min-h-[min(90vh,777px)] max-h-[777px]"
       aria-label="Hero"
     >
       {/* Optionaler globaler Hintergrund-Layer (Orbit/Halo/Gradient) ganz hinten */}
       <HeroBackgroundPresetLayer preset={backgroundPreset as any} />
 
-      {/* Hero-spezifischer Hintergrund (Vanta/Halo/Orbit/Bild) auf unterster Ebene */}
-      <div
-        className="hero-bg-wrap absolute inset-0 z-0 origin-center transition-transform duration-200 ease-out"
-        style={
-          !useBackgroundAnimation && !useBackgroundHalo && !useBackgroundOrbit
-            ? { transform: `translateY(${translateY}px) scale(${scale})` }
-            : undefined
-        }
-      >
+      {/* Hero-spezifischer Hintergrund (Vanta/Halo/Orbit/Bild) auf unterster Ebene.
+          Kein Scroll-Transform mehr, damit zwischen Shape-Divider und darunterliegendem Content keine Lücke entsteht. */}
+      <div className="hero-bg-wrap absolute inset-0 z-0">
         {useBackgroundHalo ? (
           <div key={themeKey || 'halo'} className="hero-halo-layer absolute inset-0 w-full h-full">
             {showHaloLayer ? (
@@ -587,50 +581,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
       </div>
 
-      {/* Vordergrund-Bild: gerätespezifische Skalierung + Verschiebung nach rechts */}
-      {foregroundMedia && (
-        <div
-          className={cn(
-            'absolute right-0 z-[5] max-w-none pointer-events-none origin-bottom-right',
-            // Standard: am Hero-Rand; auf Desktop leicht nach unten gezogen, sodass das Bild am unteren Rand der Herobox endet
-            'bottom-0 lg:bottom-[-3vh] w-[min(88vw,360px)]',
-            'sm:w-[min(92vw,420px)]',
-            'md:right-[-10%] md:w-[min(58vw,560px)]',
-            'lg:right-[calc((100vw-min(64rem,100vw))/2)] lg:w-2/5 lg:max-w-xl lg:max-h-none',
-            'landscape-short:w-[min(98vw,720px)] landscape-short:min-h-[70vh]',
-            /* Skalierung: SE -10% (1.11), PlayBook -15% (1.28→1.09), iPad -10% (1.2) */
-            'hero-se:scale-[1.11] hero-se-landscape:scale-[1.11]',
-            'hero-pro-max:scale-[1.23] hero-pro-max-landscape:scale-[1.23]',
-            'hero-playbook:scale-[1.09] hero-playbook-landscape:scale-[1.09]',
-            'hero-ipad:scale-[1.2] hero-ipad-landscape:scale-[1.2]',
-            /* iPhone SE Landscape: 3% vom rechten Rand + 50% weiter rechts (schmaler = rechter) */
-            'hero-se-landscape:right-[3%] hero-se-landscape:w-[40vw] hero-se-landscape:overflow-hidden',
-            'landscape-narrow:right-[3%] landscape-narrow:w-[40vw] landscape-narrow:overflow-hidden',
-            /* Portrait: SE 20%, Pro Max 20%, PlayBook 15% */
-            'hero-se:right-[-20%] hero-se:overflow-hidden',
-            'hero-pro-max:right-[-20%] hero-pro-max:overflow-hidden',
-            'hero-playbook:right-[-15%] hero-playbook:overflow-hidden',
-            'hero-playbook-landscape:right-[-15%] hero-playbook-landscape:overflow-hidden',
-            'hero-pro-max-landscape:right-[-20%] hero-pro-max-landscape:overflow-hidden',
-          )}
-        >
-          <div className="relative w-full h-full">
-            <Media
-              resource={foregroundMedia}
-              priority
-              size="(max-width: 640px) min(96vw, 360px), (max-width: 768px) min(96vw, 480px), (max-width: 1024px) min(58vw, 560px), 40vw"
-              imgClassName={cn(
-                'w-full h-auto object-contain object-bottom',
-                // iPhone/Playbook: mind. 18% Abstand oben (max 82% Höhe), vh damit keine Vergrößerung beim Scroll (dvh-Änderung)
-                'max-h-[82vh] sm:max-h-[82vh] md:max-h-[82dvh] lg:max-h-[72dvh]',
-                'landscape-short:object-top landscape-short:max-h-[100dvh] landscape-short:min-h-[60vh]',
-              )}
-            />
-          </div>
-        </div>
-      )}
-
-      {/* Inhalt: linke Spalte am Fuß des Heroes via Flex justify-end */}
+      {/* Inhalt: linke Spalte + Vordergrundbild + Marquee innerhalb der Herobox (Container begrenzt alles) */}
       <div
         className={cn(
           'container relative z-10 flex min-h-0 flex-1 flex-col px-4 pt-20 pb-0 lg:grid lg:h-full lg:w-full lg:grid-cols-[3fr_2fr] lg:flex-none lg:gap-16 lg:pt-24 lg:pb-0 xl:gap-20 pointer-events-none',
@@ -638,10 +589,32 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           foregroundMedia && 'lg:items-end',
         )}
       >
-        {/* Desktop-Frame: rahmt den gesamten Hero inkl. Marquee; überlappt ~3% in den folgenden Inhalt; Rand = Container (Header/Main) */}
-        <div className="pointer-events-none absolute inset-x-0 top-4 bottom-[-3vh] z-[1] hidden lg:block">
-          <div className="h-full w-full rounded-3xl border border-white/12 shadow-[0_32px_120px_rgba(15,23,42,0.8)]" />
+        {/* Desktop-Frame: rahmt den gesamten Hero inkl. Marquee; Unterkante sitzt immer direkt am Shape-Divider.
+            Dadurch wächst die Box mit, wenn der Viewport höher wird. */}
+        <div className="pointer-events-none absolute inset-x-0 top-[calc(1rem+3vh)] bottom-[6vh] z-[1] hidden lg:block">
+          <div className="h-full w-full rounded-3xl border-[0.5px] border-white/5 hero-box-frame-shadow" />
         </div>
+
+        {/* Vordergrund-Bild: zwei Stufen (unter lg / ab lg), vollständig sichtbar, ragt oben ~3% über die Box. */}
+        {foregroundMedia && (
+          <div
+            className={cn(
+              'pointer-events-none absolute right-0 bottom-0 z-[5] overflow-hidden',
+              'w-[min(90vw,400px)] max-h-[80vh]',
+              'lg:right-[-2%] lg:top-[-3%] lg:bottom-[6vh] lg:w-[40%] lg:max-w-[400px] lg:max-h-none',
+              'xl:right-auto xl:left-[60%]',
+            )}
+          >
+            <div className="relative w-full h-full flex items-end justify-center">
+              <Media
+                resource={foregroundMedia}
+                priority
+                size="(max-width: 1024px) 400px, 400px"
+                imgClassName="max-w-full max-h-full w-auto h-auto object-contain object-bottom"
+              />
+            </div>
+          </div>
+        )}
 
         {/* Linke Spalte: am Fuß – Flex pushed Content nach unten */}
         <div
@@ -649,7 +622,10 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             'relative z-10 flex w-full flex-col text-left pointer-events-none',
             foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-center',
             foregroundMedia ? 'lg:justify-end lg:mr-auto' : 'lg:justify-center',
-            hasMarquee ? 'pb-[12vh] sm:pb-[14vh] md:pb-[calc(14vh+50px)] lg:pb-[calc(16vh+50px)]' : 'pb-[5vh]',
+            // Zusätzlicher Abstand nach unten, wenn Marquee aktiv ist, damit sich Beschreibung/CTAs nicht mit der Marquee-Überschrift überschneiden
+            hasMarquee
+              ? 'pb-[10vh] sm:pb-[12vh] md:pb-[calc(16vh+56px)] lg:pb-[calc(18vh+64px)]'
+              : 'pb-[5vh]',
             /* Abstand zum unteren Rand; Portrait SE/Pro Max/PlayBook: ca. 3% zum Browser-Rand */
             foregroundMedia && 'max-lg:pb-[calc(18vh+1rem)] max-lg:landscape-short:pb-[calc(14vh+0.5rem)]',
             foregroundMedia && 'hero-se:pb-[3vh] hero-pro-max:pb-[3vh] hero-playbook:pb-[3vh]',
@@ -748,103 +724,106 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           </div>
         </div>
 
-      </div>
-
-      {/* Logo-Bereich: ab 768px; Einblendung chronologisch nach Buttons: zuerst Überschrift, dann Logos nacheinander */}
-      {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
-        <div
-          className={cn(
-            'absolute bottom-0 left-0 right-0 z-[4] pointer-events-none hidden md:block',
-            mounted ? 'opacity-100' : 'opacity-0',
-          )}
-          style={{
-            transition: 'opacity 500ms ease-out',
-            transitionDelay: `${HERO_MARQUEE_START_MS}ms`,
-          }}
-        >
-          <div className="container pointer-events-auto px-4 pb-[5vh]">
-            <div className="w-full overflow-hidden pt-2 sm:pt-4">
-              {marqueeHeadline && (
-                <motion.div
-                  initial={{ opacity: 0, filter: 'blur(8px)', y: 12 }}
-                  animate={mounted ? { opacity: 1, filter: 'blur(0px)', y: 0 } : {}}
-                  transition={{ duration: 0.5, delay: HERO_MARQUEE_START_MS / 1000, ease: 'easeOut' }}
-                  className="mb-4 pt-6 sm:pt-8"
-                >
-                  <TextAnimate
-                    animation="blurInUp"
-                    by="character"
-                    once
-                    as="p"
-                    className="text-xs font-medium uppercase tracking-[0.2em] text-white/80"
-                  >
-                    {marqueeHeadline}
-                  </TextAnimate>
-                </motion.div>
-              )}
-              {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 &&
-                (logoDisplayType === 'logoCarousel' ? (
+        {/* Logo-Bereich: ab 768px; Einblendung chronologisch nach Buttons, innerhalb der Herobox fixiert */}
+        {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
+          <div
+            className={cn(
+              // Am oberen Rand des Shape-Dividers ausrichten, damit Marquee innerhalb der Herobox bleibt (6vh = Box-Unterkante)
+              'pointer-events-none absolute inset-x-0 bottom-[6vh] z-[4] hidden md:block',
+              mounted ? 'opacity-100' : 'opacity-0',
+            )}
+            style={{
+              transition: 'opacity 500ms ease-out',
+              transitionDelay: `${HERO_MARQUEE_START_MS}ms`,
+            }}
+            >
+            <div className="pointer-events-auto pb-[1.75vh] sm:pb-[2vh]">
+              <div className="container mx-auto px-4">
+                <div className="w-full overflow-hidden pt-2 sm:pt-4">
+                {marqueeHeadline && (
                   <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={mounted ? { opacity: 1, y: 0 } : {}}
-                    transition={{
-                      duration: 0.4,
-                      delay: HERO_MARQUEE_LOGOS_START_MS / 1000,
-                      ease: 'easeOut',
-                    }}
+                    initial={{ opacity: 0, filter: 'blur(8px)', y: 12 }}
+                    animate={mounted ? { opacity: 1, filter: 'blur(0px)', y: 0 } : {}}
+                    transition={{ duration: 0.5, delay: HERO_MARQUEE_START_MS / 1000, ease: 'easeOut' }}
+                    className="mb-4 max-w-2xl pt-4 sm:pt-6"
                   >
-                    <LogoCarousel
-                      logos={marqueeLogos
-                        .map((entry: { logo?: unknown; alt?: string | null }, i: number) => {
-                          const url = entry?.logo != null ? getMediaUrlSafe(entry.logo) : ''
-                          return url ? { id: i + 1, name: String(entry.alt ?? `Logo ${i + 1}`), imgUrl: url, alt: entry.alt ?? undefined } : null
-                        })
-                        .filter(Boolean) as { id: number; name: string; imgUrl: string; alt?: string }[]}
-                      columnCount={3}
-                    />
+                    <TextAnimate
+                      animation="blurInUp"
+                      by="character"
+                      once
+                      as="p"
+                      className="text-xs font-medium uppercase tracking-[0.2em] text-white/80"
+                    >
+                      {marqueeHeadline}
+                    </TextAnimate>
                   </motion.div>
-                ) : (
-                  <Marquee duration={40} pauseOnHover className="py-1.5" fadeEdges gapClassName="gap-6">
-                    {marqueeLogos.map((entry: { logo?: unknown; alt?: string | null }, i: number) => {
-                      const url = entry?.logo != null ? getMediaUrlSafe(entry.logo) : ''
-                      if (!url) return null
-                      const label = entry.alt ?? ''
-                      const itemDelaySec = (HERO_MARQUEE_LOGOS_START_MS + i * HERO_MARQUEE_ITEM_STAGGER_MS) / 1000
-                      return (
-                        <motion.div
-                          key={i}
-                          initial={{ opacity: 0, scale: 0.92 }}
-                          animate={mounted ? { opacity: 1, scale: 1 } : {}}
-                          transition={{
-                            duration: 0.35,
-                            delay: itemDelaySec,
-                            ease: 'easeOut',
-                          }}
-                          className="flex h-[45px] min-w-[5.5rem] shrink-0 items-center justify-center overflow-visible"
-                        >
-                          {label ? (
-                            <Tooltip>
-                              <TooltipTrigger asChild>
-                                <div className="hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2] [&_img]:h-[45px] [&_img]:w-auto [&_img]:max-w-[5.5rem] [&_img]:object-contain">
-                                  <img src={url} alt={label} className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" loading="lazy" decoding="async" />
-                                </div>
-                              </TooltipTrigger>
-                              <TooltipContent side="top">{label}</TooltipContent>
-                            </Tooltip>
-                          ) : (
-                            <div className="hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2] [&_img]:h-[45px] [&_img]:w-auto [&_img]:max-w-[5.5rem] [&_img]:object-contain">
-                              <img src={url} alt="" className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" loading="lazy" decoding="async" />
-                            </div>
-                          )}
-                        </motion.div>
-                      )
-                    })}
-                  </Marquee>
-                ))}
+                )}
+                {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 &&
+                  (logoDisplayType === 'logoCarousel' ? (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={mounted ? { opacity: 1, y: 0 } : {}}
+                      transition={{
+                        duration: 0.4,
+                        delay: HERO_MARQUEE_LOGOS_START_MS / 1000,
+                        ease: 'easeOut',
+                      }}
+                    >
+                      <LogoCarousel
+                        logos={marqueeLogos
+                          .map((entry: { logo?: unknown; alt?: string | null }, i: number) => {
+                            const url = entry?.logo != null ? getMediaUrlSafe(entry.logo) : ''
+                            return url ? { id: i + 1, name: String(entry.alt ?? `Logo ${i + 1}`), imgUrl: url, alt: entry.alt ?? undefined } : null
+                          })
+                          .filter(Boolean) as { id: number; name: string; imgUrl: string; alt?: string }[]}
+                        columnCount={3}
+                      />
+                    </motion.div>
+                  ) : (
+                    <Marquee duration={40} pauseOnHover className="py-1.5" fadeEdges gapClassName="gap-6">
+                      {marqueeLogos.map((entry: { logo?: unknown; alt?: string | null }, i: number) => {
+                        const url = entry?.logo != null ? getMediaUrlSafe(entry.logo) : ''
+                        if (!url) return null
+                        const label = entry.alt ?? ''
+                        const itemDelaySec = (HERO_MARQUEE_LOGOS_START_MS + i * HERO_MARQUEE_ITEM_STAGGER_MS) / 1000
+                        return (
+                          <motion.div
+                            key={i}
+                            initial={{ opacity: 0, scale: 0.92 }}
+                            animate={mounted ? { opacity: 1, scale: 1 } : {}}
+                            transition={{
+                              duration: 0.35,
+                              delay: itemDelaySec,
+                              ease: 'easeOut',
+                            }}
+                            className="flex h-[45px] min-w-[5.5rem] shrink-0 items-center justify-center overflow-visible"
+                          >
+                            {label ? (
+                              <Tooltip>
+                                <TooltipTrigger asChild>
+                                  <div className="hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2] [&_img]:h-[45px] [&_img]:w-auto [&_img]:max-w-[5.5rem] [&_img]:object-contain">
+                                    <img src={url} alt={label} className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" loading="lazy" decoding="async" />
+                                  </div>
+                                </TooltipTrigger>
+                                <TooltipContent side="top">{label}</TooltipContent>
+                              </Tooltip>
+                            ) : (
+                              <div className="hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2] [&_img]:h-[45px] [&_img]:w-auto [&_img]:max-w-[5.5rem] [&_img]:object-contain">
+                                <img src={url} alt="" className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" loading="lazy" decoding="async" />
+                              </div>
+                            )}
+                          </motion.div>
+                        )
+                      })}
+                    </Marquee>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      )}
+        )}
+
+      </div>
 
       {/* Floating Elements (aus Backend) */}
       {floatingList.length > 0 && (
@@ -925,9 +904,10 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         </div>
       )}
 
-      {/* Section-Divider: Wellen mit tangentenstetigen Kurven (keine sichtbare Naht in der Mitte) */}
+      {/* Section-Divider: Wellen mit tangentenstetigen Kurven (keine sichtbare Naht in der Mitte).
+          Höhe ist fix, die Herobox-Unterkante sitzt genau an der oberen Kante dieses Bereichs. */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[2] h-[12vh] min-h-[96px] w-full"
+        className="pointer-events-none absolute left-0 right-0 z-[2] h-[9vh] min-h-[72px] w-full hero-shape-divider"
         aria-hidden
       >
         <svg
@@ -938,7 +918,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         >
           <path
             d="M0,58 C200,18 400,92 600,54 C800,16 1000,90 1200,52 L1200,120 L0,120 Z"
-            style={{ fill: waveFill, opacity: 0.92 }}
+            style={{ fill: waveFill, opacity: 1 }}
           />
         </svg>
         <svg
@@ -963,14 +943,6 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             style={{ fill: waveFill }}
           />
         </svg>
-      </div>
-
-      {/* Scroll-Hinweis */}
-      <div
-        className="absolute bottom-6 left-1/2 z-10 -translate-x-1/2 opacity-30"
-        aria-hidden
-      >
-        <div className="h-8 w-px bg-gradient-to-b from-white to-transparent" />
       </div>
     </section>
   )

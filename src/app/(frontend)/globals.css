@@ -86,6 +86,26 @@
     min-width: 0;
   }
 
+  /* Hero-Box-Rahmen: Schatten nur per CSS, damit Server/Client gleiches Markup (kein Hydration-Mismatch durch dark:) */
+  .hero-box-frame-shadow {
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.1),
+      0 4px 24px rgba(0, 0, 0, 0.06),
+      0 0 64px rgba(255, 255, 255, 0.08),
+      0 0 120px rgba(255, 255, 255, 0.03);
+  }
+  [data-theme='dark'] .hero-box-frame-shadow {
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.06),
+      0 0 64px rgba(255, 255, 255, 0.08),
+      0 0 120px rgba(255, 255, 255, 0.03);
+  }
+
+  /* Shape-Divider 1px Überlappung mit Content – fest in CSS, gleiches Markup für Hydration */
+  .hero-shape-divider {
+    bottom: -1px;
+  }
+
   /* Neon Flow blobs (angelehnt an 21st.dev Neon Flow) */
   .neon-flow-blob {
     position: absolute;

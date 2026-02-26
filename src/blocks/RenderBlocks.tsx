@@ -78,7 +78,9 @@ export const RenderBlocks: React.FC<{
 
           return (
               <div
-                className="my-16"
+                // Erster Block: minimal nach oben ziehen, damit Shape-Divider des Heros ohne sichtbare Lücke
+                // an den folgenden Content anschließt (verhindert Subpixel-Gaps beim Scrollen).
+                className={index === 0 ? 'mt-[-1px] mb-16' : 'my-16'}
                 key={index}
                 style={
                   hasBackground
