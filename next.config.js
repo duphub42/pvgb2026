@@ -18,6 +18,7 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: true },
   // DSGVO: Fonts/Skripte sind lokal (kein Google Fonts, keine CDNs). Bei Bedarf: headers() mit Content-Security-Policy script-src 'self'; font-src 'self'.
   images: {
+    formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
         const url = new URL(item)
@@ -34,6 +35,38 @@ const nextConfig = {
       },
     ],
   },
+  headers: async () => [
+    {
+      source: '/_next/static/:path*',
+      headers: [
+        { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+      ],
+    },
+    {
+      source: '/_next/image',
+      headers: [
+        { key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' },
+      ],
+    },
+    {
+      source: '/media/:path*',
+      headers: [
+        { key: 'Cache-Control', value: 'public, max-age=86400, stale-while-revalidate=604800' },
+      ],
+    },
+    {
+      source: '/favicon.ico',
+      headers: [
+        { key: 'Cache-Control', value: 'public, max-age=604800' },
+      ],
+    },
+    {
+      source: '/favicon.svg',
+      headers: [
+        { key: 'Cache-Control', value: 'public, max-age=604800' },
+      ],
+    },
+  ],
   webpack: (webpackConfig, { isServer }) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],

@@ -80,12 +80,11 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   // Vercel Blob URLs: Falls remotePatterns nicht greift, unoptimized nutzen damit Bild trotzdem angezeigt wird
   const isBlobUrl = typeof src === 'string' && src.includes('blob.vercel-storage.com')
 
-  // NOTE: this is used by the browser to determine which image to download at different screen sizes
   const sizes = sizeFromProps
     ? sizeFromProps
     : Object.entries(breakpoints)
-        .map(([, value]) => `(max-width: ${value}px) ${value * 2}w`)
-        .join(', ')
+        .map(([, value]) => `(max-width: ${value}px) ${value}px`)
+        .join(', ') + ', 100vw'
 
   return (
     <picture className={cn(pictureClassName)}>
@@ -97,7 +96,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         placeholder="blur"
         blurDataURL={placeholderBlur}
         priority={priority}
-        quality={100}
+        quality={75}
         loading={loading}
         sizes={sizes}
         src={src}

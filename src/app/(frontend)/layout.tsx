@@ -44,6 +44,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <InitTheme />
           <DesignStyles design={design ?? null} />
           <ThemeSettingsStyles themeSettings={themeSettings ?? null} />
+          <link rel="dns-prefetch" href="https://public.blob.vercel-storage.com" />
           <link href="/favicon.ico" rel="icon" sizes="32x32" />
           <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
         </head>

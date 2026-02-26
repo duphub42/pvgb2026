@@ -1,5 +1,6 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
+import NextImage from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
@@ -202,7 +203,7 @@ export async function Footer({ locale = 'de' }: { locale?: Locale }) {
                         aria-label={item.platform}
                       >
                         {iconSrc ? (
-                          <img src={iconSrc} alt="" className="h-5 w-5 object-contain" />
+                          <NextImage src={iconSrc} alt="" width={20} height={20} className="h-5 w-5 object-contain" loading="lazy" unoptimized />
                         ) : (
                           <span
                             className="inline-block h-5 w-5 [&>svg]:h-full [&>svg]:w-full"

@@ -10,6 +10,7 @@ import { TextAnimate } from '@/components/ui/text-animate'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { cn } from '@/utilities/ui'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
+import NextImage from 'next/image'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
@@ -677,15 +678,15 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                           {label ? (
                             <Tooltip>
                               <TooltipTrigger asChild>
-                                <div className="hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2] [&_img]:h-[45px] [&_img]:w-auto [&_img]:max-w-[5.5rem] [&_img]:object-contain">
-                                  <img src={url} alt={label} className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" />
+                                <div className="hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2]">
+                                  <NextImage src={url} alt={label} width={88} height={45} className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" loading="lazy" unoptimized />
                                 </div>
                               </TooltipTrigger>
                               <TooltipContent side="top">{label}</TooltipContent>
                             </Tooltip>
                           ) : (
-                            <div className="hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2] [&_img]:h-[45px] [&_img]:w-auto [&_img]:max-w-[5.5rem] [&_img]:object-contain">
-                              <img src={url} alt="" className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" />
+                            <div className="hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2]">
+                              <NextImage src={url} alt="" width={88} height={45} className="h-[45px] w-auto max-w-[5.5rem] object-contain hero-logo-grayscale" loading="lazy" unoptimized />
                             </div>
                           )}
                         </motion.div>
@@ -711,10 +712,14 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
               const content = (
                 <>
                   {iconUrl ? (
-                    <img
+                    <NextImage
                       src={iconUrl}
                       alt={hasLabel ? String(el.label).trim() : ''}
+                      width={40}
+                      height={40}
                       className="size-8 object-contain sm:size-10"
+                      loading="lazy"
+                      unoptimized
                     />
                   ) : null}
                   {hasLabel ? (
