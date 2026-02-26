@@ -41,7 +41,7 @@ const nextConfig = {
     formats: ['image/avif', 'image/webp'],
     minimumCacheTTL: 60,
     // Kleinere Stufen für LCP/Hero auf Mobil (PageSpeed: 750w war zu groß für ~396px Anzeige)
-    deviceSizes: [420, 640, 750, 828, 1080, 1200, 1920, 2048, 3840],
+    deviceSizes: [360, 480, 640, 768, 1024, 1280, 1536, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     remotePatterns: [
       ...[NEXT_PUBLIC_SERVER_URL /* 'https://example.com' */].map((item) => {
