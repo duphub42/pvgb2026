@@ -44,6 +44,8 @@ import * as migration_20260225_130000_drizzle_missing_block_versions from './202
 import * as migration_20260225_140000_header_favicon from './20260225_140000_header_favicon'
 import * as migration_20260226_100000_site_pages_hero_media_type_mobile from './20260226_100000_site_pages_hero_media_type_mobile'
 import * as migration_20260226_110000_site_pages_hero_background_preset from './20260226_110000_site_pages_hero_background_preset'
+import * as migration_20260226_120000_hero_backgrounds_table from './20260226_120000_hero_backgrounds_table'
+import * as migration_20260226_130000_locked_documents_rels_hero_backgrounds from './20260226_130000_locked_documents_rels_hero_backgrounds'
 
 export const migrations = [
   {
@@ -275,5 +277,15 @@ export const migrations = [
     up: migration_20260226_110000_site_pages_hero_background_preset.up,
     down: migration_20260226_110000_site_pages_hero_background_preset.down,
     name: '20260226_110000_site_pages_hero_background_preset',
+  },
+  {
+    up: migration_20260226_120000_hero_backgrounds_table.up,
+    down: migration_20260226_120000_hero_backgrounds_table.down,
+    name: '20260226_120000_hero_backgrounds_table',
+  },
+  {
+    up: migration_20260226_130000_locked_documents_rels_hero_backgrounds.up,
+    down: migration_20260226_130000_locked_documents_rels_hero_backgrounds.down,
+    name: '20260226_130000_locked_documents_rels_hero_backgrounds',
   },
 ]

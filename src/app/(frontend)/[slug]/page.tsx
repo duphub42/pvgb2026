@@ -84,8 +84,9 @@ export default async function Page({ params: paramsPromise, searchParams: search
         draft: true,
       })
     } else {
+      const slugKey = resolvedSlug
       const getCachedPage = unstable_cache(
-        async () => {
+        async (slug: string) => {
           const p = await getPayload({ config: configPromise })
           let result = await p.find({
             collection: 'site-pages',
@@ -93,13 +94,13 @@ export default async function Page({ params: paramsPromise, searchParams: search
             depth: 2,
             where: {
               and: [
-                { slug: { equals: resolvedSlug } },
+                { slug: { equals: slug } },
                 { _status: { equals: 'published' } },
               ],
             },
             draft: false,
           })
-          if (result.docs.length === 0 && (resolvedSlug === 'home' || !resolvedSlug)) {
+          if (result.docs.length === 0 && (slug === 'home' || !slug)) {
             result = await p.find({
               collection: 'site-pages',
               limit: 1,
@@ -110,14 +111,15 @@ export default async function Page({ params: paramsPromise, searchParams: search
                   { _status: { equals: 'published' } },
                 ],
               },
+              draft: false,
             })
           }
           return result
         },
-        [`page-${resolvedSlug}`],
-        { revalidate: 60, tags: ['site-pages', `page-${resolvedSlug}`] },
+        ['page', slugKey],
+        { revalidate: 60, tags: ['site-pages', `page-${slugKey}`] },
       )
-      pages = await getCachedPage()
+      pages = await getCachedPage(slugKey)
     }
 
     const page = pages.docs[0]
@@ -187,18 +189,20 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   const { slug: slugParam = 'home' } = await params
   const slug = slugParam || 'home'
   try {
+    const slugKey = slug || 'home'
     const getCachedMetaPage = unstable_cache(
-      async () => {
+      async (slugParam: string) => {
         const p = await getPayload({ config: configPromise })
         let pages = await p.find({
           collection: 'site-pages',
           limit: 1,
           depth: 1,
           where: {
-            and: [{ slug: { equals: slug } }, { _status: { equals: 'published' } }],
+            and: [{ slug: { equals: slugParam } }, { _status: { equals: 'published' } }],
           },
+          draft: false,
         })
-        if (pages.docs.length === 0 && (slug === 'home' || !slug)) {
+        if (pages.docs.length === 0 && (slugParam === 'home' || !slugParam)) {
           pages = await p.find({
             collection: 'site-pages',
             limit: 1,
@@ -206,14 +210,15 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
             where: {
               and: [{ slug: { in: ['home', 'Home'] } }, { _status: { equals: 'published' } }],
             },
+            draft: false,
           })
         }
         return pages
       },
-      [`meta-${slug}`],
-      { revalidate: 60, tags: ['site-pages', `page-${slug}`] },
+      ['meta', slugKey],
+      { revalidate: 60, tags: ['site-pages', `page-${slugKey}`] },
     )
-    const pages = await getCachedMetaPage()
+    const pages = await getCachedMetaPage(slugKey)
     return generateMeta({ doc: pages.docs[0] })
   } catch (err) {
     const e = err as Error & { cause?: Error }

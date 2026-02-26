@@ -71,7 +71,7 @@ function AnimatedDescription({
   if (segments.length === 0) return null
 
   return (
-    <p className="max-w-md md:max-w-lg text-base leading-relaxed text-white/95 md:text-lg">
+    <div className="max-w-sm md:max-w-md text-base leading-relaxed text-white/95 md:text-lg space-y-5">
       {segments.map((segment, index) => (
         <span
           key={index}
@@ -88,7 +88,7 @@ function AnimatedDescription({
           </span>
         </span>
       ))}
-    </p>
+    </div>
   )
 }
 
@@ -495,6 +495,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
       {/* Hero-spezifischer Hintergrund (Vanta/Halo/Orbit/Bild) auf unterster Ebene.
           Kein Scroll-Transform mehr, damit zwischen Shape-Divider und darunterliegendem Content keine Lücke entsteht. */}
       <div className="hero-bg-wrap absolute inset-0 z-0">
+        <div className="hero-pattern-bg absolute inset-0" aria-hidden />
         {useBackgroundHalo ? (
           <div key={themeKey || 'halo'} className="hero-halo-layer absolute inset-0 w-full h-full">
             {showHaloLayer ? (
@@ -585,7 +586,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         )}
       </div>
 
-      {/* Overlay: hinter Hintergrund, unter Wellen und hinter Vordergrund (z-[1]); Stärke via Backend „Overlay Deckkraft“ */}
+      {/* Overlay: hinter Hintergrund, unter Wellen und hinter Vordergrund (z-[1]); Stärke via Backend „Overlay Deckkraft“. Randabdunklung oben/rechts. */}
       <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
           <div
             className="absolute inset-0 bg-black transition-opacity duration-200"
@@ -594,18 +595,19 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             }}
           />
         <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
+        <div className="hero-edge-darken absolute inset-0" />
       </div>
 
       {/* Inhalt: linke Spalte + Vordergrundbild + Marquee innerhalb der Herobox (Container begrenzt alles) */}
       <div
         className={cn(
-          'container relative z-10 flex min-h-0 flex-1 flex-col px-4 pt-20 pb-0 lg:grid lg:h-full lg:w-full lg:grid-cols-[3fr_2fr] lg:flex-none lg:gap-16 lg:pt-24 lg:pb-0 xl:gap-20 pointer-events-none',
+          'container relative z-10 flex min-h-0 flex-1 flex-col px-6 pt-[calc(6rem+3vh)] pb-0 lg:grid lg:h-full lg:w-full lg:grid-cols-[3fr_2fr] lg:flex-none lg:gap-16 lg:px-8 lg:pt-[calc(8rem+3vh)] lg:pb-0 xl:gap-20 pointer-events-none',
           foregroundMedia ? 'max-lg:justify-end' : 'lg:grid-cols-1 lg:items-center',
           foregroundMedia && 'lg:items-end',
         )}
       >
         {/* Desktop-Frame: Slide von unten. -m/p-[60px] damit overflow-hidden den Schatten nicht abschneidet. */}
-        <div className="pointer-events-none absolute inset-x-0 top-[calc(1rem+3vh)] bottom-[6vh] z-[1] hidden lg:block -m-[60px] p-[60px] overflow-hidden hero-box-animate">
+        <div className="pointer-events-none absolute inset-x-0 top-[calc(1rem+6vh)] bottom-[6vh] z-[1] hidden lg:block -m-[60px] p-[60px] overflow-hidden hero-box-animate">
           <div className="hero-box-inner h-full w-full rounded-3xl border-[0.5px] border-white/5 hero-box-frame-shadow" />
         </div>
 
@@ -766,7 +768,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
           <div
             className={cn(
-              // Am oberen Rand des Shape-Dividers ausrichten, damit Marquee innerhalb der Herobox bleibt (6vh = Box-Unterkante)
+              // Am oberen Rand des Shape-Dividers ausrichten, damit Marquee innerhalb der Herobox bleibt (6vh = Box-Unterkante, überlappt 9vh-Divider)
               'pointer-events-none absolute inset-x-0 bottom-[6vh] z-[4] hidden md:block',
               mounted ? 'opacity-100' : 'opacity-0',
             )}
@@ -777,13 +779,13 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             >
             <div className="pointer-events-auto pb-[1.75vh] sm:pb-[2vh]">
               <div className="container mx-auto px-4">
-                <div className="w-full overflow-hidden pt-2 sm:pt-4">
+                <div className="w-full overflow-hidden pt-6 sm:pt-9">
                 {marqueeHeadline && (
                   <motion.div
                     initial={{ opacity: 0, filter: 'blur(8px)', y: 12 }}
                     animate={mounted ? { opacity: 1, filter: 'blur(0px)', y: 0 } : {}}
                     transition={{ duration: 0.5, delay: HERO_MARQUEE_START_MS / 1000, ease: 'easeOut' }}
-                    className="mb-4 max-w-2xl pt-4 sm:pt-6"
+                    className="mb-6 max-w-2xl pt-9 sm:pt-12"
                   >
                     {marqueeHeadlineReveal && (
                       <TextAnimate
@@ -961,12 +963,12 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         </div>
       )}
 
-      {/* Section-Divider: Wellen mit tangentenstetigen Kurven (keine sichtbare Naht in der Mitte).
-          Höhe ist fix, die Herobox-Unterkante sitzt genau an der oberen Kante dieses Bereichs. */}
+      {/* Section-Divider: Wellen mit stärkerer Amplitude; 2. Welle 50% Transparenz, leicht versetzt. */}
       <div
         className="pointer-events-none absolute left-0 right-0 z-[2] h-[9vh] min-h-[72px] w-full hero-shape-divider"
         aria-hidden
       >
+        {/* 1. Welle: stärkere Amplitude */}
         <svg
           className="absolute bottom-0 left-0 w-full"
           viewBox="0 0 1200 120"
@@ -974,18 +976,19 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           style={{ height: '100%' }}
         >
           <path
-            d="M0,58 C200,18 400,92 600,54 C800,16 1000,90 1200,52 L1200,120 L0,120 Z"
+            d="M0,58 C200,8 400,98 600,54 C800,8 1000,98 1200,52 L1200,120 L0,120 Z"
             style={{ fill: waveFill, opacity: 1 }}
           />
         </svg>
+        {/* 2. Welle: 50% Transparenz, leicht nach rechts versetzt */}
         <svg
           className="absolute bottom-0 left-0 w-full"
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
-          style={{ height: '100%', opacity: 0.5 }}
+          style={{ height: '100%', opacity: 0.5, transform: 'translateX(3%)' }}
         >
           <path
-            d="M0,68 C200,28 400,98 600,62 C800,26 1000,94 1200,58 L1200,120 L0,120 Z"
+            d="M0,58 C200,8 400,98 600,54 C800,8 1000,98 1200,52 L1200,120 L0,120 Z"
             style={{ fill: waveFill }}
           />
         </svg>

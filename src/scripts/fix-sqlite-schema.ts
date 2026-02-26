@@ -233,6 +233,8 @@ function main() {
         type TEXT,
         intensity REAL,
         hue REAL,
+        pattern_color1 TEXT,
+        pattern_color2 TEXT,
         custom_css TEXT
       );`,
     },
@@ -265,6 +267,9 @@ function main() {
       name: 'payload_locked_documents_rels: hero_backgrounds_id',
       sql: 'ALTER TABLE payload_locked_documents_rels ADD COLUMN hero_backgrounds_id INTEGER;',
     },
+    // Hero Backgrounds: Musterfarben (patternColor1, patternColor2)
+    { name: 'hero_backgrounds: pattern_color1', sql: 'ALTER TABLE hero_backgrounds ADD COLUMN pattern_color1 TEXT;' },
+    { name: 'hero_backgrounds: pattern_color2', sql: 'ALTER TABLE hero_backgrounds ADD COLUMN pattern_color2 TEXT;' },
     // Hero Philipp Bacher: separater Hintergrund-Typ für Mobilgeräte (mediaTypeMobile)
     { name: 'site_pages: hero_media_type_mobile', sql: 'ALTER TABLE site_pages ADD COLUMN hero_media_type_mobile TEXT;' },
     { name: '_site_pages_v: version_hero_media_type_mobile', sql: 'ALTER TABLE _site_pages_v ADD COLUMN version_hero_media_type_mobile TEXT;' },

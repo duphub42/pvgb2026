@@ -106,7 +106,29 @@
     bottom: -1px;
   }
 
-  /* Hero-Box: Slide von unten nach oben (Look bleibt: nur Rahmen + Shadow, kein Hintergrund) */
+  /* Hero: Randabdunklung oben und rechts (äußere 20px), Hintergrundmuster dort nicht sichtbar */
+  /* Oberer Verlauf reicht bis unteren Headerrand, damit das Muster links unten im Hero nicht mehr sichtbar ist. */
+  .hero-edge-darken {
+    background-image:
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0.88) 0,
+        rgba(0, 0, 0, 0.5) 35%,
+        rgba(0, 0, 0, 0.12) 70%,
+        transparent 100%
+      ),
+      linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0.72) 0,
+        rgba(0, 0, 0, 0.18) 45%,
+        transparent 100%
+      );
+    background-size: 100% 55%, 72px 100%;
+    background-position: 0 0, 100% 0;
+    background-repeat: no-repeat;
+  }
+
+  /* Hero-Box: Slide von unten nach oben, Glaseffekt (backdrop-blur + halbtransparenter Hintergrund) */
   @keyframes hero-box-slide-up {
     from {
       transform: translateY(100%);
@@ -117,12 +139,18 @@
   }
   .hero-box-inner {
     transform: translateY(100%);
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  [data-theme='dark'] .hero-box-inner {
+    background: rgba(0, 0, 0, 0.25);
   }
   .hero-box-animate .hero-box-inner {
     animation: hero-box-slide-up 1100ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
-  /* Vordergrundbild: 2 Scans – 1. Welle grob (clip + blur), 2. Welle scharf (Mask von unten) */
+  /* Vordergrundbild: Scan-artiger Aufbau – diskrete Zeilen, sichtbare Scanlinie */
   @keyframes hero-foreground-scan1 {
     0% {
       clip-path: inset(0 0 100% 0);
@@ -144,23 +172,52 @@
     0% {
       mask-size: 100% 0%;
       mask-position: bottom;
-      filter: none;
     }
     50% {
       mask-size: 100% 0%;
       mask-position: bottom;
-      filter: none;
     }
     100% {
       mask-size: 100% 100%;
       mask-position: bottom;
-      filter: none;
+    }
+  }
+  @keyframes hero-foreground-scanline {
+    0% {
+      transform: translateY(-100%);
+      opacity: 0.9;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0.9;
     }
   }
   .hero-foreground-reveal {
     position: relative;
     width: 100%;
     height: 100%;
+    overflow: hidden;
+  }
+  .hero-foreground-reveal::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 3px;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(255, 255, 255, 0.6) 30%,
+      rgba(255, 255, 255, 0.9) 50%,
+      rgba(255, 255, 255, 0.6) 70%,
+      transparent 100%
+    );
+    pointer-events: none;
+    z-index: 2;
+  }
+  .hero-foreground-reveal.hero-foreground-reveal-active::after {
+    animation: hero-foreground-scanline 2.2s linear forwards;
   }
   .hero-foreground-scan1 {
     position: absolute;
@@ -172,7 +229,7 @@
     filter: blur(10px) contrast(0.75);
   }
   .hero-foreground-reveal-active .hero-foreground-scan1 {
-    animation: hero-foreground-scan1 2.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: hero-foreground-scan1 2.2s steps(50, end) forwards;
   }
   .hero-foreground-scan2 {
     position: absolute;
@@ -187,11 +244,151 @@
     mask-repeat: no-repeat;
   }
   .hero-foreground-reveal-active .hero-foreground-scan2 {
-    animation: hero-foreground-scan2 2.2s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    animation: hero-foreground-scan2 2.2s steps(50, end) forwards;
   }
   .hero-foreground-reveal .hero-foreground-scan2 img,
   .hero-foreground-reveal .hero-foreground-scan1 img {
     image-rendering: -webkit-optimize-contrast;
+  }
+
+  /* Hero-Hintergrundmuster (Graustufen, 50 % Intensität) */
+  .hero-pattern-bg {
+    width: 100%;
+    height: 100%;
+    opacity: 0.5;
+    background:
+      radial-gradient(
+        circle farthest-side at 0% 50%,
+        #282828 23.5%,
+        rgba(0, 0, 0, 0) 0
+      )
+      21px 30px,
+      radial-gradient(
+        circle farthest-side at 0% 50%,
+        #4a4a4a 24%,
+        rgba(0, 0, 0, 0) 0
+      )
+      19px 30px,
+      linear-gradient(
+        #282828 14%,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 85%,
+        #282828 0
+      )
+      0 0,
+      linear-gradient(
+        150deg,
+        #282828 24%,
+        #4a4a4a 0,
+        #4a4a4a 26%,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 74%,
+        #4a4a4a 0,
+        #4a4a4a 76%,
+        #282828 0
+      )
+      0 0,
+      linear-gradient(
+        30deg,
+        #282828 24%,
+        #4a4a4a 0,
+        #4a4a4a 26%,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 74%,
+        #4a4a4a 0,
+        #4a4a4a 76%,
+        #282828 0
+      )
+      0 0,
+      linear-gradient(90deg, #4a4a4a 2%, #282828 0, #282828 98%, #4a4a4a 0%) 0 0 #282828;
+    background-size: 40px 60px;
+  }
+
+  /* Hero-Hintergrund: Quadratmuster (Preset „Quadratmuster“, Graustufen, 50 % Intensität). Farben überschreibbar via --hero-pattern-c1, --hero-pattern-c2 */
+  .hero-pattern-square {
+    opacity: 0.5;
+    --mx: 0;
+    --my: 0;
+    --a-x: calc(var(--mx) * 8px);
+    --a-y: calc(var(--my) * 8px);
+    --b-x: calc(var(--mx) * -6px);
+    --b-y: calc(var(--my) * -6px);
+    --c-x: calc(var(--mx) * 4px);
+    --c-y: calc(var(--my) * 4px);
+    width: 100%;
+    height: 100%;
+    background:
+      repeating-linear-gradient(
+          45deg,
+          #0000 calc(-650% / 13) calc(50% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(100% / 13),
+          #0000 0 calc(150% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(200% / 13),
+          #0000 0 calc(250% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(300% / 13)
+        )
+        calc(0px + var(--c-x)) calc(0px + var(--c-y)),
+      repeating-linear-gradient(
+          45deg,
+          #0000 calc(-650% / 13) calc(50% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(100% / 13),
+          #0000 0 calc(150% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(200% / 13),
+          #0000 0 calc(250% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(300% / 13)
+        )
+        calc(32px + var(--a-x)) calc(32px + var(--a-y)),
+      repeating-linear-gradient(
+          -45deg,
+          #0000 calc(-650% / 13) calc(50% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(100% / 13),
+          #0000 0 calc(150% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(200% / 13),
+          #0000 0 calc(250% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(300% / 13)
+        )
+        calc(0px + var(--b-x)) calc(0px + var(--b-y)),
+      repeating-linear-gradient(
+          -45deg,
+          #0000 calc(-650% / 13) calc(50% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(100% / 13),
+          #0000 0 calc(150% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(200% / 13),
+          #0000 0 calc(250% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(300% / 13)
+        )
+        calc(32px + var(--a-x)) calc(32px + var(--a-y)) var(--hero-pattern-c2, #1e1e1e);
+    background-size: 64px 64px;
+  }
+
+  /* Hero-Hintergrund: Gold-Radial (Preset „Gold Radial“, Graustufen, 50 % Intensität). Farben überschreibbar via --hero-pattern-c1, --hero-pattern-c2 */
+  .hero-pattern-gold-radial {
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    --s: 200px;
+    --c1: var(--hero-pattern-c1, #a0a0a0);
+    --c2: var(--hero-pattern-c2, #121212);
+    --_g: var(--c2) 4% 14%, var(--c1) 14% 24%, var(--c2) 22% 34%,
+      var(--c1) 34% 44%, var(--c2) 44% 56%, var(--c1) 56% 66%, var(--c2) 66% 76%,
+      var(--c1) 76% 86%, var(--c2) 86% 96%;
+    background:
+      radial-gradient(
+        100% 100% at 100% 0,
+        var(--c1) 4%,
+        var(--_g),
+        #0008 96%,
+        #0000
+      ),
+      radial-gradient(
+          100% 100% at 0 100%,
+          #0000,
+          #0008 4%,
+          var(--_g),
+          var(--c1) 96%
+        )
+        var(--c1);
+    background-size: var(--s) var(--s);
   }
 
   /* Neon Flow blobs (angelehnt an 21st.dev Neon Flow) */

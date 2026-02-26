@@ -510,7 +510,7 @@ export interface FolderInterface {
 export interface HeroBackground {
   id: number;
   name: string;
-  type: 'orbit' | 'cssHalo' | 'gradient';
+  type: 'orbit' | 'cssHalo' | 'patternSquare' | 'goldRadial' | 'gradient';
   /**
    * 0.2 = sehr dezent, 1 = Standard, 2 = sehr kräftig.
    */
@@ -519,6 +519,14 @@ export interface HeroBackground {
    * Grundfarbton für Orbit/Halo (0–360). Wird per CSS-Variablen auf den Hintergrund angewendet.
    */
   hue?: number | null;
+  /**
+   * Hex-Farbe (z. B. #d4af37). Gold Radial: Akzentfarbe. Quadratmuster: Streifenfarbe.
+   */
+  patternColor1?: string | null;
+  /**
+   * Hex-Farbe (z. B. #121212). Gold Radial: dunkle Farbe. Quadratmuster: Grundfarbe/Hintergrund.
+   */
+  patternColor2?: string | null;
   /**
    * Optionales CSS, das im Hero als zusätzliche Klasse angewendet werden kann. Keine externen Imports (kein @import, kein <script>).
    */
@@ -3374,6 +3382,8 @@ export interface HeroBackgroundsSelect<T extends boolean = true> {
   type?: T;
   intensity?: T;
   hue?: T;
+  patternColor1?: T;
+  patternColor2?: T;
   customCss?: T;
   updatedAt?: T;
   createdAt?: T;
