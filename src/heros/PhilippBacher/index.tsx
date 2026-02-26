@@ -368,7 +368,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     typeof v === 'object' && v != null && ('url' in v || 'mimeType' in v)
 
   const effectiveMediaType =
-    isMobileViewport && mediaTypeMobile && mediaTypeMobile !== 'auto' ? mediaTypeMobile : mediaType
+    mounted && isMobileViewport && mediaTypeMobile && mediaTypeMobile !== 'auto' ? mediaTypeMobile : mediaType
 
   const backgroundMedia =
     effectiveMediaType === 'video' && backgroundVideo && isMediaObject(backgroundVideo)
@@ -435,26 +435,23 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             : undefined
         }
       >
-        {useBackgroundHalo ? (
+        {/* Static placeholder – always rendered to prevent hydration mismatch */}
+        <div className="absolute inset-0 bg-neutral-950" aria-hidden />
+        {/* Dynamic backgrounds mounted after hydration via CSS visibility */}
+        {mounted && useBackgroundHalo && (
           <div key={themeKey || 'halo'} className="hero-halo-layer absolute inset-0 w-full h-full">
-            {showHaloLayer ? (
-              deferHeavyBackground ? (
-                <HeroBackgroundVantaHalo
-                  className="absolute inset-0 w-full h-full"
-                  options={{
-                    amplitudeFactor: haloAmplitudeFactor ?? 1.8,
-                    size: haloSize ?? 2.1,
-                    speed: ((haloSpeed ?? 1) * 0.125),
-                    color2: haloColor2 ?? 15918901,
-                    xOffset: haloXOffset ?? 0.15,
-                    yOffset: haloYOffset ?? -0.03,
-                  }}
-                />
-              ) : (
-                <div className="absolute inset-0 bg-neutral-950" aria-hidden />
-              )
-            ) : (
-              <div className="absolute inset-0 bg-neutral-950" aria-hidden />
+            {showHaloLayer && deferHeavyBackground && (
+              <HeroBackgroundVantaHalo
+                className="absolute inset-0 w-full h-full"
+                options={{
+                  amplitudeFactor: haloAmplitudeFactor ?? 1.8,
+                  size: haloSize ?? 2.1,
+                  speed: ((haloSpeed ?? 1) * 0.125),
+                  color2: haloColor2 ?? 15918901,
+                  xOffset: haloXOffset ?? 0.15,
+                  yOffset: haloYOffset ?? -0.03,
+                }}
+              />
             )}
             {showGridOverlay && (haloOverlayGridVariant === 'wave' ? (
               <>
@@ -503,23 +500,20 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
               />
             ))}
           </div>
-        ) : useBackgroundOrbit ? (
+        )}
+        {mounted && useBackgroundOrbit && (
           <HeroBackgroundOrbit className="absolute inset-0 w-full h-full" />
-        ) : useBackgroundAnimation ? (
-          deferHeavyBackground ? (
-            <HeroBackgroundThree className="absolute inset-0 w-full h-full" />
-          ) : (
-            <div className="absolute inset-0 bg-neutral-950" aria-hidden />
-          )
-        ) : (
-          backgroundMedia && (
-            <Media
-              resource={backgroundMedia}
-              fill
-              imgClassName="object-cover w-full h-full"
-              priority
-            />
-          )
+        )}
+        {mounted && useBackgroundAnimation && deferHeavyBackground && (
+          <HeroBackgroundThree className="absolute inset-0 w-full h-full" />
+        )}
+        {!useBackgroundHalo && !useBackgroundOrbit && !useBackgroundAnimation && backgroundMedia && (
+          <Media
+            resource={backgroundMedia}
+            fill
+            imgClassName="object-cover w-full h-full"
+            priority
+          />
         )}
       </div>
 
