@@ -84,6 +84,10 @@ interface LogoCarouselProps {
   logos: LogoCarouselLogo[]
   columnCount?: number
   className?: string
+  /** Schrittweises Einblenden: Verzögerung in ms zwischen den Spalten (0 = alle auf einmal). */
+  staggerRevealMs?: number
+  /** Stagger erst nach dieser ms ab Mount starten (z. B. passend zu Marquee-Sichtbarkeit). */
+  staggerStartAfterMs?: number
 }
 
 /**
@@ -91,9 +95,22 @@ interface LogoCarouselProps {
  * Wechselnde Logos in Spalten mit gestaffelter Animation (motion).
  * Verwendet dieselben Logos wie die Marquee (Payload Media).
  */
-export function LogoCarousel({ logos, columnCount = 3, className }: LogoCarouselProps) {
+export function LogoCarousel({
+  logos,
+  columnCount = 3,
+  className,
+  staggerRevealMs = 0,
+  staggerStartAfterMs = 0,
+}: LogoCarouselProps) {
   const [logoSets, setLogoSets] = useState<LogoCarouselLogo[][]>([])
   const [currentTime, setCurrentTime] = useState(0)
+  const [staggerRevealed, setStaggerRevealed] = useState(staggerStartAfterMs <= 0)
+
+  useEffect(() => {
+    if (staggerStartAfterMs <= 0) return
+    const id = setTimeout(() => setStaggerRevealed(true), staggerStartAfterMs)
+    return () => clearTimeout(id)
+  }, [staggerStartAfterMs])
 
   useEffect(() => {
     if (logos.length === 0) return
@@ -112,20 +129,37 @@ export function LogoCarousel({ logos, columnCount = 3, className }: LogoCarousel
 
   if (logoSets.length === 0) return null
 
+  const columnContent = (columnLogos: LogoCarouselLogo[], index: number) => (
+    <LogoColumn
+      key={index}
+      logos={columnLogos}
+      index={index}
+      currentTime={currentTime}
+      className="min-h-[6rem]"
+    />
+  )
+
   return (
     <div
       className={cn('grid w-full gap-4', className)}
       style={{ gridTemplateColumns: `repeat(${columnCount}, 1fr)` }}
     >
-      {logoSets.map((columnLogos, index) => (
-        <LogoColumn
-          key={index}
-          logos={columnLogos}
-          index={index}
-          currentTime={currentTime}
-          className="min-h-[6rem]"
-        />
-      ))}
+      {staggerRevealMs > 0
+        ? logoSets.map((columnLogos, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 12 }}
+              animate={staggerRevealed ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+              transition={{
+                duration: 0.32,
+                delay: staggerRevealed ? (index * staggerRevealMs) / 1000 : 0,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+            >
+              {columnContent(columnLogos, index)}
+            </motion.div>
+          ))
+        : logoSets.map((columnLogos, index) => columnContent(columnLogos, index))}
     </div>
   )
 }

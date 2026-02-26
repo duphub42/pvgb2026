@@ -118,13 +118,16 @@ const FLOATING_MOUSE_RADIUS = 320
 /** Idle-Schweben: Dauer einer Sinus-Periode in ms (größer = langsamer) */
 const FLOATING_IDLE_PERIOD_MS = 4000
 
-/** Einblend-Reihenfolge (ms): Buttons enden bei 2500, dann Marquee, dann Floating chronologisch */
+/** Einblend-Reihenfolge (ms): Buttons enden bei 2500, Vordergrundbild dann Marquee, dann Floating */
 const HERO_BUTTONS_DELAY_MS = 2500
-const HERO_MARQUEE_START_MS = 3000
-const HERO_MARQUEE_LOGOS_START_MS = 3600
-const HERO_MARQUEE_ITEM_STAGGER_MS = 55
+/** Vordergrundbild: Reveal ab 2000ms, Animation 2.2s → Marquee erst danach starten */
+const HERO_FOREGROUND_REVEAL_MS = 2000
+const HERO_FOREGROUND_ANIMATION_MS = 2200
+const HERO_MARQUEE_START_MS = HERO_FOREGROUND_REVEAL_MS + HERO_FOREGROUND_ANIMATION_MS
+const HERO_MARQUEE_LOGOS_START_MS = HERO_MARQUEE_START_MS
+const HERO_MARQUEE_ITEM_STAGGER_MS = 280
 /** Nach dem Laden: Marquee als „fertig“ betrachten (ms) – danach dürfen Floating-Items freigegeben werden */
-const HERO_MARQUEE_READY_AFTER_MS = 4500
+const HERO_MARQUEE_READY_AFTER_MS = HERO_MARQUEE_START_MS + 900
 /** Maus muss mindestens so lange im Hero sein, bevor Floating-Items aufpoppen (ms) */
 const HERO_MOUSE_MIN_INSIDE_MS = 1000
 /** Versatz zwischen den Floating-Items beim Aufpoppen (ms) */
@@ -133,6 +136,9 @@ const HERO_FLOATING_POP_STAGGER_MS = 1000
 export const PhilippBacherHero: React.FC<any> = (props) => {
   const [scrollOffset, setScrollOffset] = useState(0)
   const [mounted, setMounted] = useState(false)
+  const [textReveal, setTextReveal] = useState(false)
+  const [foregroundReveal, setForegroundReveal] = useState(false)
+  const [marqueeHeadlineReveal, setMarqueeHeadlineReveal] = useState(false)
   const [floatingUnlock, setFloatingUnlock] = useState(false)
   const [waveFill, setWaveFill] = useState<string>(WAVE_FILL)
   const [themeKey, setThemeKey] = useState<string>('')
@@ -159,7 +165,12 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
 
   useEffect(() => {
     mountTimeRef.current = Date.now()
-    setMounted(true)
+    const idMount = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setMounted(true))
+    })
+    const idText = setTimeout(() => setTextReveal(true), 800)
+    const idForeground = setTimeout(() => setForegroundReveal(true), HERO_FOREGROUND_REVEAL_MS)
+    const idMarqueeHeadline = setTimeout(() => setMarqueeHeadlineReveal(true), HERO_MARQUEE_START_MS)
 
     const animateScroll = () => {
       const current = scrollCurrentRef.current
@@ -202,6 +213,10 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
       // ignore matchMedia errors
     }
     return () => {
+      cancelAnimationFrame(idMount)
+      clearTimeout(idText)
+      clearTimeout(idForeground)
+      clearTimeout(idMarqueeHeadline)
       window.removeEventListener('scroll', handleScroll)
       if (scrollRafIdRef.current != null) {
         window.cancelAnimationFrame(scrollRafIdRef.current)
@@ -589,29 +604,44 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           foregroundMedia && 'lg:items-end',
         )}
       >
-        {/* Desktop-Frame: rahmt den gesamten Hero inkl. Marquee; Unterkante sitzt immer direkt am Shape-Divider.
-            Dadurch wächst die Box mit, wenn der Viewport höher wird. */}
-        <div className="pointer-events-none absolute inset-x-0 top-[calc(1rem+3vh)] bottom-[6vh] z-[1] hidden lg:block">
-          <div className="h-full w-full rounded-3xl border-[0.5px] border-white/5 hero-box-frame-shadow" />
+        {/* Desktop-Frame: Slide von unten. -m/p-[60px] damit overflow-hidden den Schatten nicht abschneidet. */}
+        <div className="pointer-events-none absolute inset-x-0 top-[calc(1rem+3vh)] bottom-[6vh] z-[1] hidden lg:block -m-[60px] p-[60px] overflow-hidden hero-box-animate">
+          <div className="hero-box-inner h-full w-full rounded-3xl border-[0.5px] border-white/5 hero-box-frame-shadow" />
         </div>
 
         {/* Vordergrund-Bild: zwei Stufen (unter lg / ab lg), vollständig sichtbar, ragt oben ~3% über die Box. */}
         {foregroundMedia && (
           <div
             className={cn(
-              'pointer-events-none absolute right-0 bottom-0 z-[5] overflow-hidden',
+              'pointer-events-none absolute right-0 bottom-0 z-[5] overflow-hidden transition-opacity duration-500 ease-out',
               'w-[min(90vw,400px)] max-h-[80vh]',
               'lg:right-[-2%] lg:top-[-3%] lg:bottom-[6vh] lg:w-[40%] lg:max-w-[400px] lg:max-h-none',
               'xl:right-auto xl:left-[60%]',
+              foregroundReveal ? 'opacity-100' : 'opacity-0',
             )}
           >
-            <div className="relative w-full h-full flex items-end justify-center">
-              <Media
-                resource={foregroundMedia}
-                priority
-                size="(max-width: 1024px) 400px, 400px"
-                imgClassName="max-w-full max-h-full w-auto h-auto object-contain object-bottom"
-              />
+            <div
+              className={cn(
+                'hero-foreground-reveal',
+                foregroundReveal && 'hero-foreground-reveal-active',
+              )}
+            >
+              <div className="hero-foreground-scan1">
+                <Media
+                  resource={foregroundMedia}
+                  priority
+                  size="(max-width: 1024px) 400px, 400px"
+                  imgClassName="max-w-full max-h-full w-auto h-auto object-contain object-bottom"
+                />
+              </div>
+              <div className="hero-foreground-scan2">
+                <Media
+                  resource={foregroundMedia}
+                  priority
+                  size="(max-width: 1024px) 400px, 400px"
+                  imgClassName="max-w-full max-h-full w-auto h-auto object-contain object-bottom"
+                />
+              </div>
             </div>
           </div>
         )}
@@ -636,21 +666,29 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           <div className="space-y-6 md:space-y-7">
             {hasTextContent && (
               <>
-                {subheadline && (
-                  <p
-                    className={cn(
-                      'text-xs font-medium uppercase tracking-[0.2em] text-white/80 transition-all duration-[600ms] ease-out sm:text-sm',
-                      mounted ? 'translate-y-0 opacity-100 delay-0' : 'translate-y-4 opacity-0',
-                    )}
-                  >
-                    {subheadline}
-                  </p>
-                )}
+                {subheadline &&
+                  (textReveal ? (
+                    <TextAnimate
+                      animation="slideRight"
+                      by="character"
+                      duration={0.12}
+                      once
+                      startOnView={false}
+                      as="p"
+                      className="text-xs font-medium uppercase tracking-[0.2em] text-white/80 sm:text-sm"
+                    >
+                      {subheadline}
+                    </TextAnimate>
+                  ) : (
+                    <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/80 opacity-0 sm:text-sm" aria-hidden>
+                      {subheadline}
+                    </p>
+                  ))}
                 {hasHeadline && (
                   <h1
                     className={cn(
                       'text-3xl font-semibold leading-tight tracking-tight text-white transition-all duration-[600ms] ease-out sm:text-4xl md:text-5xl lg:text-[2.75rem] lg:leading-[1.15]',
-                      mounted ? 'translate-y-0 opacity-100 delay-[600ms]' : 'translate-y-4 opacity-0',
+                      textReveal ? 'translate-y-0 opacity-100 delay-[600ms]' : 'translate-y-4 opacity-0',
                     )}
                     aria-label={lines.join(' ')}
                   >
@@ -661,7 +699,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                             <span key={i} className="block">
                               <ScrambleText
                                 text={line}
-                                delayMs={mounted ? 600 + i * 200 : 0}
+                                delayMs={textReveal ? 600 + i * 200 : 0}
                                 staggerMs={45}
                                 scrambleDurationMs={400}
                                 tickMs={35}
@@ -673,7 +711,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                     ) : (
                       <ScrambleText
                         text={lines[0] ?? ''}
-                        delayMs={mounted ? 600 : 0}
+                        delayMs={textReveal ? 600 : 0}
                         staggerMs={45}
                         scrambleDurationMs={400}
                         tickMs={35}
@@ -681,14 +719,14 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                     )}
                   </h1>
                 )}
-                {description && <AnimatedDescription text={description} mounted={mounted} startDelay={1200} />}
+                {description && <AnimatedDescription text={description} mounted={textReveal} startDelay={1200} />}
               </>
             )}
             {!hasTextContent && richText && (
               <div
                 className={cn(
                   'prose prose-invert prose-lg max-w-none text-white transition-all duration-[600ms] ease-out',
-                  mounted ? 'translate-y-0 opacity-100 delay-[600ms]' : 'translate-y-4 opacity-0',
+                  textReveal ? 'translate-y-0 opacity-100 delay-[600ms]' : 'translate-y-4 opacity-0',
                 )}
               >
                 <RichText data={richText} enableGutter={false} />
@@ -699,7 +737,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
               <div
                 className={cn(
                   'flex flex-wrap gap-3 pt-2 transition-all duration-500 ease-out sm:gap-4',
-                  mounted ? 'translate-y-0 opacity-100 delay-[2500ms]' : 'translate-y-2 opacity-0',
+                  textReveal ? 'translate-y-0 opacity-100 delay-[2500ms]' : 'translate-y-2 opacity-0',
                 )}
               >
                 {links.map((linkItem: { link?: any }, i: number) => {
@@ -747,15 +785,19 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                     transition={{ duration: 0.5, delay: HERO_MARQUEE_START_MS / 1000, ease: 'easeOut' }}
                     className="mb-4 max-w-2xl pt-4 sm:pt-6"
                   >
-                    <TextAnimate
-                      animation="blurInUp"
-                      by="character"
-                      once
-                      as="p"
-                      className="text-xs font-medium uppercase tracking-[0.2em] text-white/80"
-                    >
-                      {marqueeHeadline}
-                    </TextAnimate>
+                    {marqueeHeadlineReveal && (
+                      <TextAnimate
+                        animation="slideRight"
+                        by="character"
+                        duration={0.15}
+                        once
+                        startOnView={false}
+                        as="p"
+                        className="text-xs font-medium uppercase tracking-[0.2em] text-white/80"
+                      >
+                        {marqueeHeadline}
+                      </TextAnimate>
+                    )}
                   </motion.div>
                 )}
                 {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 &&
@@ -777,26 +819,41 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                           })
                           .filter(Boolean) as { id: number; name: string; imgUrl: string; alt?: string }[]}
                         columnCount={3}
+                        staggerRevealMs={180}
+                        staggerStartAfterMs={HERO_MARQUEE_LOGOS_START_MS}
                       />
                     </motion.div>
                   ) : (
-                    <Marquee duration={40} pauseOnHover className="py-1.5" fadeEdges gapClassName="gap-6">
+                    <Marquee
+                      duration={40}
+                      pauseOnHover
+                      className="py-1.5"
+                      fadeEdges
+                      gapClassName="gap-6"
+                      startAfterMs={
+                        HERO_MARQUEE_LOGOS_START_MS +
+                        Math.max(0, marqueeLogos.length - 1) * HERO_MARQUEE_ITEM_STAGGER_MS +
+                        700
+                      }
+                    >
                       {marqueeLogos.map((entry: { logo?: unknown; alt?: string | null }, i: number) => {
                         const url = entry?.logo != null ? getMediaUrlSafe(entry.logo) : ''
                         if (!url) return null
                         const label = entry.alt ?? ''
                         const itemDelaySec = (HERO_MARQUEE_LOGOS_START_MS + i * HERO_MARQUEE_ITEM_STAGGER_MS) / 1000
+                        const fromDir = { opacity: 0, x: 0, y: -36, scale: 0.5 }
                         return (
                           <motion.div
                             key={i}
-                            initial={{ opacity: 0, scale: 0.92 }}
-                            animate={mounted ? { opacity: 1, scale: 1 } : {}}
+                            initial={fromDir}
+                            animate={mounted ? { opacity: 1, x: 0, y: 0, scale: 1 } : fromDir}
                             transition={{
-                              duration: 0.35,
                               delay: itemDelaySec,
-                              ease: 'easeOut',
+                              type: 'spring',
+                              stiffness: 380,
+                              damping: 14,
                             }}
-                            className="flex h-[45px] min-w-[5.5rem] shrink-0 items-center justify-center overflow-visible"
+                            className="flex h-[45px] min-w-[5.5rem] shrink-0 items-center justify-center overflow-visible origin-center"
                           >
                             {label ? (
                               <Tooltip>

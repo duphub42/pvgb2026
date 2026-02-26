@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/utilities/ui'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 
 interface MarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
@@ -32,6 +32,10 @@ interface MarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
    * Gap between items (Tailwind class, e.g. 'gap-3' or 'gap-6'). Default 'gap-12'.
    */
   gapClassName?: string
+  /**
+   * Lauf erst nach dieser Verzögerung (ms) starten. Bis dahin ist die Animation pausiert.
+   */
+  startAfterMs?: number
 }
 
 export function Marquee({
@@ -42,12 +46,19 @@ export function Marquee({
   fadeEdges = true,
   verticalAlign = 'center',
   gapClassName = 'gap-12',
+  startAfterMs,
   className,
   onMouseEnter,
   onMouseLeave,
   ...props
 }: MarqueeProps) {
   const [isPaused, setIsPaused] = useState(false)
+  const [delayElapsed, setDelayElapsed] = useState(!startAfterMs || startAfterMs <= 0)
+  useEffect(() => {
+    if (!startAfterMs || startAfterMs <= 0) return
+    const id = setTimeout(() => setDelayElapsed(true), startAfterMs)
+    return () => clearTimeout(id)
+  }, [startAfterMs])
   const handleMouseEnter = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
       if (pauseOnHover) setIsPaused(true)
@@ -92,7 +103,7 @@ export function Marquee({
           {
             '--marquee-duration': `${duration}s`,
             '--marquee-direction': reverse ? '-1' : '1',
-            animationPlayState: pauseOnHover && isPaused ? 'paused' : 'running',
+            animationPlayState: !delayElapsed || (pauseOnHover && isPaused) ? 'paused' : 'running',
           } as React.CSSProperties
         }
       >
