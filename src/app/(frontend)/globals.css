@@ -2053,54 +2053,102 @@ header .header-tool-toggle--theme:hover {
   pointer-events: none;
 }
 
-/* Hero Orbit (CSS-only): leichte Alternative zu Vanta, nur Keyframes + transform */
-@keyframes hero-orbit-rotate {
+/* Hero Orbit (CSS-only): Alternative zu Vanta, nur Keyframes + transform, inspiriert von ReactBits Orb */
+@keyframes hero-orbit-core-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(1);
+    filter: blur(42px) hue-rotate(0deg);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translate(-50%, -50%) scale(1.06);
+    filter: blur(52px) hue-rotate(25deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(0.98);
+    filter: blur(40px) hue-rotate(-15deg);
+    opacity: 0.9;
+  }
+}
+@keyframes hero-orbit-ring-rotate {
   from {
-    transform: rotate(0deg);
+    transform: translate(-50%, -50%) rotate(0deg);
   }
   to {
-    transform: rotate(360deg);
+    transform: translate(-50%, -50%) rotate(360deg);
   }
 }
-@keyframes hero-orbit-ring-pulse {
-  0% {
-    border-color: rgba(96, 165, 250, 0.7);
-    box-shadow:
-      0 0 32px rgba(59, 130, 246, 0.45),
-      0 0 18px rgba(59, 130, 246, 0.3);
-  }
-  50% {
-    border-color: rgba(45, 212, 191, 0.8);
-    box-shadow:
-      0 0 36px rgba(45, 212, 191, 0.5),
-      0 0 22px rgba(45, 212, 191, 0.32);
-  }
-  100% {
-    border-color: rgba(129, 140, 248, 0.75);
-    box-shadow:
-      0 0 34px rgba(129, 140, 248, 0.5),
-      0 0 20px rgba(129, 140, 248, 0.32);
-  }
-}
-@keyframes hero-orbit-flare {
+@keyframes hero-orbit-flare-orbit {
   0% {
     transform: rotate(0deg);
-    opacity: 0.7;
-    filter: hue-rotate(0deg);
-  }
-  50% {
-    opacity: 1;
-    filter: hue-rotate(25deg);
   }
   100% {
     transform: rotate(360deg);
-    opacity: 0.7;
-    filter: hue-rotate(0deg);
   }
 }
 .hero-orbit {
-  /* Container für ReactBits Orb – Hintergrundfarbe kommt aus Orb-Props */
   position: relative;
+  background:
+    radial-gradient(circle at 20% 10%, rgba(96, 165, 250, 0.3), transparent 60%),
+    radial-gradient(circle at 80% 85%, rgba(45, 212, 191, 0.26), transparent 60%),
+    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.18), transparent 70%),
+    #020617;
+}
+.hero-orbit__core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 80vmin;
+  height: 80vmin;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 30% 20%, rgba(244, 244, 245, 0.95), transparent 60%),
+    radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.9), transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.85), transparent 80%);
+  transform: translate(-50%, -50%);
+  filter: blur(46px);
+  opacity: 0.95;
+  animation: hero-orbit-core-pulse 18s ease-in-out infinite alternate;
+}
+.hero-orbit__ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 70vmin;
+  height: 70vmin;
+  border-radius: 9999px;
+  border: 2px solid rgba(148, 163, 184, 0.4);
+  box-shadow:
+    0 0 40px rgba(148, 163, 184, 0.6),
+    0 0 80px rgba(59, 130, 246, 0.8);
+  transform: translate(-50%, -50%);
+  animation: hero-orbit-ring-rotate 40s linear infinite;
+}
+.hero-orbit__flare {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  transform-origin: center;
+  animation: hero-orbit-flare-orbit 22s linear infinite;
+}
+.hero-orbit__flare::before {
+  content: '';
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  border-radius: 9999px;
+  background:
+    radial-gradient(circle at 20% 20%, #f9fafb, transparent 40%),
+    radial-gradient(circle at 60% 70%, rgba(248, 250, 252, 0.9), transparent 70%),
+    radial-gradient(circle at 50% 50%, rgba(251, 113, 133, 0.95), transparent 80%);
+  box-shadow:
+    0 0 36px rgba(248, 250, 252, 1),
+    0 0 72px rgba(251, 113, 133, 0.95),
+    0 0 96px rgba(251, 113, 133, 0.85);
+  transform: translateX(36vmin);
 }
 
 /* Overlay über Vanta Halo: nur Verlauf (für animiertes/eigenes Gitter) */
