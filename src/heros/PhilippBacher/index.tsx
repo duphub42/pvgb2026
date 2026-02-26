@@ -19,6 +19,12 @@ import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 /** Shape-Divider-Farbe: immer identisch zum Main-Content-Hintergrund (`--background`, Theme-abhängig). */
 const WAVE_FILL = 'var(--background)' as const
 
+/** Hero-Box: feste Klassennamen für SSR/Client – keine Abhängigkeit von Viewport/State, damit Hydration nicht divergiert. */
+const HERO_BOX_WRAPPER_CLASS =
+  'pointer-events-none absolute inset-x-0 top-[calc(0.5rem+5vh)] bottom-[5vh] max-lg:bottom-0 z-[1] -m-4 p-4 sm:-m-6 sm:p-6 md:top-[calc(1rem+6vh)] md:bottom-[6vh] lg:-m-[60px] lg:p-[60px] lg:bottom-[6vh] overflow-hidden hero-box-animate'
+const HERO_BOX_INNER_CLASS =
+  'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5 hero-box-frame-shadow'
+
 const HeroBackgroundThree = dynamic(
   () => import('@/components/HeroBackgroundThree/HeroBackgroundThree').then((m) => m.HeroBackgroundThree),
   { ssr: false },
@@ -486,7 +492,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   return (
     <section
       ref={heroSectionRef}
-      className="relative flex flex-col justify-center items-stretch overflow-hidden lg:overflow-visible bg-neutral-950 -mt-24 pt-48 text-white min-h-[96vh] md:min-h-[100dvh] lg:min-h-[min(90vh,777px)] max-h-[777px]"
+      className="relative flex flex-col justify-center items-stretch overflow-hidden lg:overflow-visible bg-neutral-950 -mt-24 pt-48 text-white min-h-[96vh] md:min-h-[100dvh] lg:min-h-[min(90vh,777px)] max-h-[777px] mb-12 md:mb-16 lg:mb-20"
       aria-label="Hero"
     >
       {/* Optionaler globaler Hintergrund-Layer (Orbit/Halo/Gradient) ganz hinten */}
@@ -606,25 +612,26 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           foregroundMedia && 'lg:items-end',
         )}
       >
-        {/* Desktop-Frame: Slide von unten. -m/p-[60px] damit overflow-hidden den Schatten nicht abschneidet. */}
-        <div className="pointer-events-none absolute inset-x-0 top-[calc(1rem+6vh)] bottom-[6vh] z-[1] hidden lg:block -m-[60px] p-[60px] overflow-hidden hero-box-animate">
-          <div className="hero-box-inner h-full w-full rounded-3xl border-[0.5px] border-white/5 hero-box-frame-shadow" />
+        {/* Hero-Box-Rahmen: auf allen Viewports sichtbar. -m/p damit overflow-hidden den Schatten nicht abschneidet. Klassen konstant für stabile Hydration. */}
+        <div className={HERO_BOX_WRAPPER_CLASS}>
+          <div className={HERO_BOX_INNER_CLASS} />
         </div>
 
-        {/* Vordergrund-Bild: zwei Stufen (unter lg / ab lg), vollständig sichtbar, ragt oben ~3% über die Box. */}
+        {/* Vordergrund-Bild: Mobile = rechts ausgerichtet, hinter Text (z-0). Leichter top-Offset nur gegen Abschneiden, nicht so groß dass das Bild verschwindet. */}
         {foregroundMedia && (
           <div
             className={cn(
-              'pointer-events-none absolute right-0 bottom-0 z-[5] overflow-hidden transition-opacity duration-500 ease-out',
-              'w-[min(90vw,400px)] max-h-[80vh]',
-              'lg:right-[-2%] lg:top-[-3%] lg:bottom-[6vh] lg:w-[40%] lg:max-w-[400px] lg:max-h-none',
+              'pointer-events-none absolute bottom-0 overflow-visible transition-opacity duration-500 ease-out',
+              'max-lg:left-0 max-lg:right-0 max-lg:z-0 max-lg:flex max-lg:justify-end max-lg:items-end max-lg:-mr-6 max-lg:pr-0 max-lg:translate-x-[5%]',
+              'max-lg:top-[3vh] max-lg:w-full max-lg:h-full max-lg:max-h-[80vh]',
+              'lg:z-[5] lg:right-[-2%] lg:top-[-3%] lg:bottom-[6vh] lg:w-[41%] lg:max-w-[414px] lg:max-h-none',
               'xl:right-auto xl:left-[60%]',
               foregroundReveal ? 'opacity-100' : 'opacity-0',
             )}
           >
             <div
               className={cn(
-                'hero-foreground-reveal',
+                'hero-foreground-reveal max-lg:w-[min(88vw,394px)] max-lg:shrink-0 scale-[1.034] origin-bottom-right',
                 foregroundReveal && 'hero-foreground-reveal-active',
               )}
             >
@@ -632,7 +639,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                 <Media
                   resource={foregroundMedia}
                   priority
-                  size="(max-width: 1024px) 400px, 400px"
+                  size="(max-width: 1024px) 414px, 414px"
                   imgClassName="max-w-full max-h-full w-auto h-auto object-contain object-bottom"
                 />
               </div>
@@ -640,7 +647,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                 <Media
                   resource={foregroundMedia}
                   priority
-                  size="(max-width: 1024px) 400px, 400px"
+                  size="(max-width: 1024px) 414px, 414px"
                   imgClassName="max-w-full max-h-full w-auto h-auto object-contain object-bottom"
                 />
               </div>
@@ -963,12 +970,11 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         </div>
       )}
 
-      {/* Section-Divider: Wellen mit stärkerer Amplitude; 2. Welle 50% Transparenz, leicht versetzt. */}
+      {/* Section-Divider 1: Steigung von links nach rechts (links niedriger, rechts höher). */}
       <div
         className="pointer-events-none absolute left-0 right-0 z-[2] h-[9vh] min-h-[72px] w-full hero-shape-divider"
         aria-hidden
       >
-        {/* 1. Welle: stärkere Amplitude */}
         <svg
           className="absolute bottom-0 left-0 w-full"
           viewBox="0 0 1200 120"
@@ -976,11 +982,10 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           style={{ height: '100%' }}
         >
           <path
-            d="M0,58 C200,8 400,98 600,54 C800,8 1000,98 1200,52 L1200,120 L0,120 Z"
+            d="M0,70 C200,48 400,82 600,56 C800,28 1000,68 1200,38 L1200,120 L0,120 Z"
             style={{ fill: waveFill, opacity: 1 }}
           />
         </svg>
-        {/* 2. Welle: 50% Transparenz, leicht nach rechts versetzt */}
         <svg
           className="absolute bottom-0 left-0 w-full"
           viewBox="0 0 1200 120"
@@ -988,7 +993,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           style={{ height: '100%', opacity: 0.5, transform: 'translateX(3%)' }}
         >
           <path
-            d="M0,58 C200,8 400,98 600,54 C800,8 1000,98 1200,52 L1200,120 L0,120 Z"
+            d="M0,68 C200,54 400,78 600,58 C800,42 1000,72 1200,42 L1200,120 L0,120 Z"
             style={{ fill: waveFill }}
           />
         </svg>
@@ -999,7 +1004,48 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           style={{ height: '100%', opacity: 0.22 }}
         >
           <path
-            d="M0,62 C200,22 400,88 600,56 C800,24 1000,86 1200,54 L1200,120 L0,120 Z"
+            d="M0,72 C200,58 400,82 600,60 C800,46 1000,76 1200,44 L1200,120 L0,120 Z"
+            style={{ fill: waveFill }}
+          />
+        </svg>
+      </div>
+
+      {/* Section-Divider 2: Über der 1. Ebene, 33% Opacity, mind. 15px höher, minimal kleinere Amplitude. */}
+      <div
+        className="pointer-events-none absolute left-0 right-0 z-[3] h-[9vh] min-h-[72px] w-full hero-shape-divider"
+        style={{ opacity: 0.33, transform: 'translateY(-15px)' }}
+        aria-hidden
+      >
+        <svg
+          className="absolute bottom-0 left-0 w-full"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          style={{ height: '100%' }}
+        >
+          <path
+            d="M0,70 C200,54 400,78 600,56 C800,34 1000,66 1200,38 L1200,120 L0,120 Z"
+            style={{ fill: waveFill, opacity: 1 }}
+          />
+        </svg>
+        <svg
+          className="absolute bottom-0 left-0 w-full"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          style={{ height: '100%', opacity: 0.5, transform: 'translateX(4%)' }}
+        >
+          <path
+            d="M0,68 C200,58 400,76 600,58 C800,44 1000,70 1200,42 L1200,120 L0,120 Z"
+            style={{ fill: waveFill }}
+          />
+        </svg>
+        <svg
+          className="absolute bottom-0 left-0 w-full"
+          viewBox="0 0 1200 120"
+          preserveAspectRatio="none"
+          style={{ height: '100%', opacity: 0.22 }}
+        >
+          <path
+            d="M0,72 C200,62 400,80 600,60 C800,48 1000,74 1200,44 L1200,120 L0,120 Z"
             style={{ fill: waveFill }}
           />
         </svg>
