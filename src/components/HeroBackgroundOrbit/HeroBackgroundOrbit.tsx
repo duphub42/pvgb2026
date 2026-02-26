@@ -2,20 +2,22 @@
 
 import React from 'react'
 import { cn } from '@/utilities/ui'
+import Orb from '@/components/Orb'
 
 /**
- * Reine CSS-Orbit-Animation für den Hero-Hintergrund.
- * Kein Three.js, kein Vanta – nur Keyframes + transform. Deutlich leichter als Vanta.
+ * ReactBits Orb (JS+CSS) als Hero-Hintergrund.
+ * Nutzt OGL + Shader, wie auf reactbits.dev.
  */
 export function HeroBackgroundOrbit({ className = '' }: { className?: string }) {
   return (
-    <div
-      className={cn('hero-orbit absolute inset-0 overflow-hidden', className)}
-      aria-hidden
-    >
-      <div className="hero-orbit__ring hero-orbit__ring--1" />
-      <div className="hero-orbit__ring hero-orbit__ring--2" />
-      <div className="hero-orbit__ring hero-orbit__ring--3" />
+    <div className={cn('absolute inset-0 overflow-hidden bg-black', className)} aria-hidden>
+      <Orb
+        hue={0}
+        hoverIntensity={0.5}
+        rotateOnHover
+        forceHoverState={false}
+        backgroundColor="#020617"
+      />
     </div>
   )
 }

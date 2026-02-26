@@ -107,6 +107,7 @@ export const hero: Field = {
       label: 'Hintergrund',
       options: [
         { label: 'Halo (Vanta) + Gitter', value: 'halo' },
+        { label: 'Halo (CSS, leicht)', value: 'cssHalo' },
         { label: 'Orbit (CSS)', value: 'orbit' },
         { label: 'Bild', value: 'image' },
         { label: 'Video', value: 'video' },
@@ -114,7 +115,8 @@ export const hero: Field = {
       ],
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'philippBacher',
-        description: 'Halo (Vanta) = 3D-Hintergrund. Orbit (CSS) = leichte Ring-Animation ohne Three.js. Bei „Bild/Video/Animation“ erscheinen Halo/Orbit nicht.',
+        description:
+          'Halo (Vanta) = 3D-Hintergrund. Halo (CSS) = weiche Farb-Halos ohne WebGL. Orbit (CSS) = leichte Ring-Animation. Bei „Bild/Video/Animation“ erscheinen die Spezial-Hintergründe nicht.',
       },
     },
     {
@@ -125,6 +127,7 @@ export const hero: Field = {
       options: [
         { label: 'Wie Desktop-Einstellung', value: 'auto' },
         { label: 'Halo (Vanta) + Gitter', value: 'halo' },
+        { label: 'Halo (CSS, leicht)', value: 'cssHalo' },
         { label: 'Orbit (CSS)', value: 'orbit' },
         { label: 'Bild', value: 'image' },
         { label: 'Video', value: 'video' },

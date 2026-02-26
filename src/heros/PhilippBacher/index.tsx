@@ -34,6 +34,10 @@ const HeroBackgroundOrbit = dynamic(
   () => import('@/components/HeroBackgroundOrbit/HeroBackgroundOrbit').then((m) => m.HeroBackgroundOrbit),
   { ssr: false },
 )
+const HaloBackground = dynamic(
+  () => import('@/components/HaloBackground/HaloBackground').then((m) => m.HaloBackground),
+  { ssr: false },
+)
 
 type FloatingEl = {
   label: string
@@ -135,6 +139,9 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   const [skipHeavyBackground, setSkipHeavyBackground] = useState(false)
   const [isMobileViewport, setIsMobileViewport] = useState(false)
   const heroSectionRef = useRef<HTMLElement>(null)
+  const scrollTargetRef = useRef(0)
+  const scrollCurrentRef = useRef(0)
+  const scrollRafIdRef = useRef<number | null>(null)
   const mountTimeRef = useRef(0)
   const floatingElRefs = useRef<(HTMLDivElement | null)[]>([])
   const mouseRef = useRef({ x: 0, y: 0, inside: false, enteredAt: null as number | null })
@@ -152,7 +159,32 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   useEffect(() => {
     mountTimeRef.current = Date.now()
     setMounted(true)
-    const handleScroll = () => setScrollOffset(window.pageYOffset)
+
+    const animateScroll = () => {
+      const current = scrollCurrentRef.current
+      const target = scrollTargetRef.current
+      const diff = target - current
+
+      if (Math.abs(diff) < 0.5) {
+        scrollCurrentRef.current = target
+        setScrollOffset(target)
+        scrollRafIdRef.current = null
+        return
+      }
+
+      const next = current + diff * 0.18
+      scrollCurrentRef.current = next
+      setScrollOffset(next)
+      scrollRafIdRef.current = window.requestAnimationFrame(animateScroll)
+    }
+
+    const handleScroll = () => {
+      scrollTargetRef.current = window.pageYOffset
+      if (scrollRafIdRef.current == null) {
+        scrollRafIdRef.current = window.requestAnimationFrame(animateScroll)
+      }
+    }
+
     window.addEventListener('scroll', handleScroll)
     const mq = window.matchMedia?.('(max-width: 767.98px)')
     const updateViewport = () => setIsMobileViewport(Boolean(mq && mq.matches))
@@ -170,6 +202,10 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     }
     return () => {
       window.removeEventListener('scroll', handleScroll)
+      if (scrollRafIdRef.current != null) {
+        window.cancelAnimationFrame(scrollRafIdRef.current)
+        scrollRafIdRef.current = null
+      }
       if (mq) {
         try {
           if (typeof mq.removeEventListener === 'function') {
@@ -380,6 +416,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           : null
   const useBackgroundAnimation = effectiveMediaType === 'animation'
   const useBackgroundHalo = effectiveMediaType === 'halo'
+  const useBackgroundCssHalo = effectiveMediaType === 'cssHalo'
   const useBackgroundOrbit = effectiveMediaType === 'orbit'
   const showHaloLayer = useBackgroundHalo && useHaloBackground
   const showGridOverlay = useBackgroundHalo
@@ -408,12 +445,20 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     }
   }
 
-  const scale = 1 + Math.min(scrollOffset * 0.0003, 0.03)
-  const translateY = scrollOffset * 0.2
+  const easedScroll = Math.min(scrollOffset, 1200)
+  const scrollFactor = easedScroll / 1200
+  const scale = 1 + 0.03 * scrollFactor
+  const translateY = 40 * scrollFactor
   const overlayNum = Number(overlayOpacity ?? 0.45)
-  const overlay = Number.isFinite(overlayNum)
-    ? Math.min(Math.max(0, scrollOffset / 800 + overlayNum), 0.75)
+  const overlayRaw = Number.isFinite(overlayNum)
+    ? Math.min(Math.max(0, overlayNum + scrollFactor * 0.35), 0.75)
     : 0.45
+  // Für CSS-Halo, Orbit und Bild/Video-Hintergründe das Overlay deutlich schwächer halten,
+  // damit der Hintergrund nicht „verschwindet“.
+  const overlay =
+    useBackgroundHalo || useBackgroundCssHalo || useBackgroundOrbit || backgroundMedia
+      ? Math.min(overlayRaw, 0.3)
+      : overlayRaw
 
   const floatingListRaw = Array.isArray(floatingElements) ? (floatingElements as FloatingEl[]) : []
   const floatingList = floatingListRaw.filter(
@@ -503,6 +548,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
               />
             ))}
           </div>
+        ) : useBackgroundCssHalo ? (
+          <HaloBackground />
         ) : useBackgroundOrbit ? (
           <HeroBackgroundOrbit className="absolute inset-0 w-full h-full" />
         ) : useBackgroundAnimation ? (
@@ -525,12 +572,12 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
 
       {/* Overlay: hinter Hintergrund, unter Wellen und hinter Vordergrund (z-[1]); Stärke via Backend „Overlay Deckkraft“ */}
       <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
-        <div
-          className="absolute inset-0 bg-black transition-opacity duration-200"
-          style={{
-            opacity: Math.min(1, Math.max(0, useBackgroundHalo ? Math.min(overlay, 0.25) : overlay)),
-          }}
-        />
+          <div
+            className="absolute inset-0 bg-black transition-opacity duration-200"
+            style={{
+              opacity: Math.min(1, Math.max(0, overlay)),
+            }}
+          />
         <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
       </div>
 
