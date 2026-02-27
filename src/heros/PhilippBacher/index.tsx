@@ -759,7 +759,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                 {hasHeadline && (
                   <h1
                     className={cn(
-                      'text-3xl font-semibold leading-tight tracking-tight text-white transition-all duration-[600ms] ease-out sm:text-4xl md:text-5xl lg:text-[2.75rem] lg:leading-[1.15]',
+                      'hero-headline text-3xl font-semibold leading-tight tracking-tight text-white transition-all duration-[600ms] ease-out sm:text-4xl md:text-5xl lg:text-[2.75rem] lg:leading-[1.15]',
                       textReveal ? 'translate-y-0 opacity-100 delay-[600ms]' : 'translate-y-4 opacity-0',
                     )}
                     aria-label={lines.join(' ')}
@@ -854,9 +854,9 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             }}
             >
             <div className="pointer-events-auto pb-[1.75vh] sm:pb-[2vh]">
-              <div className="container mx-auto px-6 lg:px-8">
-                {/* Mobile: feste Mindesthöhe reservieren, damit die Marquee keinen Layout-Shift verursacht */}
-                <div className="w-full overflow-hidden pt-4 sm:pt-6 max-lg:min-h-[96px] hero-playbook:pt-3">
+              {/* Keine zusätzliche container-Einrückung – gleiche linke Flucht wie Textspalte */}
+              {/* Mobile: feste Mindesthöhe reservieren, damit die Marquee keinen Layout-Shift verursacht */}
+              <div className="w-full overflow-hidden pt-4 sm:pt-6 max-lg:min-h-[96px] hero-playbook:pt-3">
                 {marqueeHeadline && (
                   <motion.div
                     initial={{ opacity: 0, filter: 'blur(8px)', y: 12 }}
