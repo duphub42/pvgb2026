@@ -3,7 +3,7 @@
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { Facebook, Instagram, Linkedin, Twitter, MapPin, Phone } from 'lucide-react'
+import { Facebook, Instagram, Linkedin, Twitter, MapPin, Phone, ArrowRight } from 'lucide-react'
 
 import type { Footer, Header } from '@/payload-types'
 import { SaveButton } from '@/components/ui/save-button'
@@ -329,7 +329,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                                     className="text-sm transition-opacity hover:opacity-100 footer-link"
                                   >
                                     <span className="footer-link-text">{linkRow.linkText}</span>
-                                    <span className="footer-link-arrow" aria-hidden>{'->'}</span>
+                                    <ArrowRight className="footer-link-arrow inline-block size-[0.85em] shrink-0" aria-hidden />
                                     {linkRow.isExternal === true && (
                                       <span className="footer-link-ext" aria-hidden>ext.</span>
                                     )}
@@ -433,13 +433,13 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
               {footer.privacyLink != null && (
                 <Link href={footer.privacyLink} className="footer-link text-sm transition-opacity hover:opacity-100">
                   <span className="footer-link-text">{messages[locale].footer.privacy}</span>
-                  <span className="footer-link-arrow" aria-hidden>{'->'}</span>
+                  <ArrowRight className="footer-link-arrow inline-block size-[0.85em] shrink-0" aria-hidden />
                 </Link>
               )}
               {footer.termsLink != null && (
                 <Link href={footer.termsLink} className="footer-link text-sm transition-opacity hover:opacity-100">
                   <span className="footer-link-text">{messages[locale].footer.terms}</span>
-                  <span className="footer-link-arrow" aria-hidden>{'->'}</span>
+                  <ArrowRight className="footer-link-arrow inline-block size-[0.85em] shrink-0" aria-hidden />
                 </Link>
               )}
               <div className="ml-auto flex items-center gap-3 md:ml-0">

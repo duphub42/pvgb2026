@@ -89,16 +89,35 @@
   /* Hero-Box-Rahmen: Schatten nur per CSS, damit Server/Client gleiches Markup (kein Hydration-Mismatch durch dark:) */
   .hero-box-frame-shadow {
     box-shadow:
-      0 12px 40px rgba(0, 0, 0, 0.1),
-      0 4px 24px rgba(0, 0, 0, 0.06),
-      0 0 64px rgba(255, 255, 255, 0.08),
-      0 0 120px rgba(255, 255, 255, 0.03);
+      0 12px 40px rgba(0, 0, 0, 0.08),
+      0 4px 24px rgba(0, 0, 0, 0.04),
+      0 0 64px rgba(255, 255, 255, 0.04),
+      0 0 120px rgba(255, 255, 255, 0.015);
   }
   [data-theme='dark'] .hero-box-frame-shadow {
     box-shadow:
-      0 4px 24px rgba(0, 0, 0, 0.06),
-      0 0 64px rgba(255, 255, 255, 0.08),
-      0 0 120px rgba(255, 255, 255, 0.03);
+      0 4px 24px rgba(0, 0, 0, 0.04),
+      0 0 64px rgba(255, 255, 255, 0.04),
+      0 0 120px rgba(255, 255, 255, 0.015);
+  }
+
+  /* Mobile: Glow weicher gestreut, Stärke minimal. */
+  @media (max-width: 63.99rem) {
+    .hero-box-frame-shadow {
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.06),
+        0 2px 16px rgba(0, 0, 0, 0.03),
+        0 0 48px rgba(255, 255, 255, 0.035),
+        0 0 96px rgba(255, 255, 255, 0.02),
+        0 0 160px rgba(255, 255, 255, 0.01);
+    }
+    [data-theme='dark'] .hero-box-frame-shadow {
+      box-shadow:
+        0 2px 16px rgba(0, 0, 0, 0.03),
+        0 0 48px rgba(255, 255, 255, 0.035),
+        0 0 96px rgba(255, 255, 255, 0.02),
+        0 0 160px rgba(255, 255, 255, 0.01);
+    }
   }
 
   /* Shape-Divider 1px Überlappung mit Content – fest in CSS, gleiches Markup für Hydration */
@@ -106,8 +125,33 @@
     bottom: -1px;
   }
 
-  /* Hero: Randabdunklung oben und rechts (äußere 20px), Hintergrundmuster dort nicht sichtbar */
-  /* Oberer Verlauf reicht bis unteren Headerrand, damit das Muster links unten im Hero nicht mehr sichtbar ist. */
+  /* Schwarzer Overlay: radial von oben rechts, stärkerer Transparenzverlauf; Glasfilter (Backdrop-Blur) damit der Overlay nicht flach wirkt. */
+  .hero-overlay-base {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    background: radial-gradient(
+      ellipse 220% 220% at 100% calc(0.5rem + 5vh),
+      transparent 0%,
+      transparent 55%,
+      rgba(0, 0, 0, calc(var(--hero-overlay, 0.45) * 0.4)) 75%,
+      rgba(0, 0, 0, var(--hero-overlay, 0.45)) 92%,
+      rgba(0, 0, 0, var(--hero-overlay, 0.45)) 100%
+    );
+  }
+  @media (min-width: 768px) {
+    .hero-overlay-base {
+      background: radial-gradient(
+        ellipse 220% 220% at 100% calc(1rem + 6vh),
+        transparent 0%,
+        transparent 55%,
+        rgba(0, 0, 0, calc(var(--hero-overlay, 0.45) * 0.4)) 75%,
+        rgba(0, 0, 0, var(--hero-overlay, 0.45)) 92%,
+        rgba(0, 0, 0, var(--hero-overlay, 0.45)) 100%
+      );
+    }
+  }
+
+  /* Hero-Hintergrund-Overlay: oben Abdunklung (linear) + radial oben rechts mit stärkerem Transparenzverlauf. */
   .hero-edge-darken {
     background-image:
       linear-gradient(
@@ -117,18 +161,42 @@
         rgba(0, 0, 0, 0.12) 70%,
         transparent 100%
       ),
-      linear-gradient(
-        to left,
-        rgba(0, 0, 0, 0.72) 0,
-        rgba(0, 0, 0, 0.18) 45%,
-        transparent 100%
+      radial-gradient(
+        ellipse 180% 180% at 100% calc(0.5rem + 5vh),
+        transparent 0%,
+        transparent 35%,
+        rgba(0, 0, 0, 0.2) 55%,
+        rgba(0, 0, 0, 0.6) 75%,
+        rgba(0, 0, 0, 0.88) 92%,
+        rgba(0, 0, 0, 0.92) 100%
       );
-    background-size: 100% 55%, 72px 100%;
-    background-position: 0 0, 100% 0;
+    background-size: 100% 55%, 100% 100%;
+    background-position: 0 0, 0 0;
     background-repeat: no-repeat;
   }
+  @media (min-width: 768px) {
+    .hero-edge-darken {
+      background-image:
+        linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.88) 0,
+          rgba(0, 0, 0, 0.5) 35%,
+          rgba(0, 0, 0, 0.12) 70%,
+          transparent 100%
+        ),
+        radial-gradient(
+          ellipse 180% 180% at 100% calc(1rem + 6vh),
+          transparent 0%,
+          transparent 35%,
+          rgba(0, 0, 0, 0.2) 55%,
+          rgba(0, 0, 0, 0.6) 75%,
+          rgba(0, 0, 0, 0.88) 92%,
+          rgba(0, 0, 0, 0.92) 100%
+        );
+    }
+  }
 
-  /* Hero-Box: Slide von unten nach oben, Glaseffekt (backdrop-blur + halbtransparenter Hintergrund) */
+  /* Hero-Box: gewünschte Transparenz – radialer Verlauf, oben rechts (Ecke) 100 % transparent, zur Mitte hin dezenter Glaseffekt. */
   @keyframes hero-box-slide-up {
     from {
       transform: translateY(100%);
@@ -137,43 +205,106 @@
       transform: translateY(0);
     }
   }
+  /* Hero-Box: starke Transparenz von oben rechts; Blur nur links/unten (radial von oben rechts ausgeblendet). */
   .hero-box-inner {
+    position: relative;
     transform: translateY(100%);
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    background: radial-gradient(
+      ellipse 240% 240% at 100% 0%,
+      transparent 0%,
+      transparent 88%,
+      rgba(255, 255, 255, 0.003) 94%,
+      rgba(255, 255, 255, 0.008) 100%
+    );
+  }
+  /* ::before = Blur nur außerhalb der oberen rechten Ecke (Mask: oben rechts transparent = kein Blur). */
+  .hero-box-inner::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 0;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    mask-image: radial-gradient(
+      ellipse 240% 240% at 100% 0%,
+      transparent 0%,
+      transparent 88%,
+      black 94%,
+      black 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 240% 240% at 100% 0%,
+      transparent 0%,
+      transparent 88%,
+      black 94%,
+      black 100%
+    );
+    mask-repeat: no-repeat;
+    mask-position: 0 0;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: 0 0;
+    -webkit-mask-size: 100% 100%;
+  }
+  /* ::after = Abdunklung (radial von oben rechts). */
+  .hero-box-inner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    pointer-events: none;
+    z-index: 1;
+    background: radial-gradient(
+      ellipse 240% 240% at 100% 0%,
+      transparent 0%,
+      transparent 88%,
+      rgba(0, 0, 0, 0.02) 94%,
+      rgba(0, 0, 0, 0.05) 100%
+    );
   }
   [data-theme='dark'] .hero-box-inner {
-    background: rgba(0, 0, 0, 0.25);
+    background: radial-gradient(
+      ellipse 240% 240% at 100% 0%,
+      transparent 0%,
+      transparent 88%,
+      rgba(0, 0, 0, 0.02) 94%,
+      rgba(0, 0, 0, 0.06) 100%
+    );
+  }
+  [data-theme='dark'] .hero-box-inner::after {
+    background: radial-gradient(
+      ellipse 240% 240% at 100% 0%,
+      transparent 0%,
+      transparent 88%,
+      rgba(0, 0, 0, 0.04) 94%,
+      rgba(0, 0, 0, 0.1) 100%
+    );
+  }
+  /* Desktop: Abdunklung auf ::after. */
+  @media (min-width: 64rem) {
+    .hero-box-inner::after {
+      background: radial-gradient(
+        ellipse 240% 240% at 100% 0%,
+        transparent 0%,
+        transparent 88%,
+        rgba(0, 0, 0, 0.03) 94%,
+        rgba(0, 0, 0, 0.08) 100%
+      );
+    }
+    [data-theme='dark'] .hero-box-inner::after {
+      background: radial-gradient(
+        ellipse 240% 240% at 100% 0%,
+        transparent 0%,
+        transparent 88%,
+        rgba(0, 0, 0, 0.05) 94%,
+        rgba(0, 0, 0, 0.12) 100%
+      );
+    }
   }
   .hero-box-animate .hero-box-inner {
     animation: hero-box-slide-up 1100ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-  }
-
-  /* Nur Mobile/Tablet (< 1024px): Herobox-Verlauf nach rechts-oben transparent, Vordergrundbild scheint durch (Desktop unverändert) */
-  @media (max-width: 63.99rem) {
-    .hero-box-inner {
-      background: linear-gradient(
-        135deg,
-        transparent 0,
-        transparent 35%,
-        rgba(0, 0, 0, 0.08) 55%,
-        rgba(0, 0, 0, 0.2) 75%,
-        rgba(0, 0, 0, 0.25) 100%
-      );
-      -webkit-backdrop-filter: blur(12px);
-      backdrop-filter: blur(12px);
-    }
-    [data-theme='dark'] .hero-box-inner {
-      background: linear-gradient(
-        135deg,
-        transparent 0,
-        transparent 35%,
-        rgba(0, 0, 0, 0.1) 55%,
-        rgba(0, 0, 0, 0.2) 75%,
-        rgba(0, 0, 0, 0.25) 100%
-      );
-    }
   }
 
   /* Vordergrundbild: Scan-artiger Aufbau – diskrete Zeilen, sichtbare Scanlinie */
@@ -213,9 +344,14 @@
       transform: translateY(-100%);
       opacity: 0.9;
     }
-    100% {
+    85% {
       transform: translateY(100vh);
       opacity: 0.9;
+    }
+    100% {
+      transform: translateY(100vh);
+      opacity: 0;
+      visibility: hidden;
     }
   }
   .hero-foreground-reveal {
@@ -250,12 +386,13 @@
   .hero-foreground-reveal.hero-foreground-reveal-active::after {
     animation: hero-foreground-scanline 2.2s linear forwards;
   }
+  /* Scan-Layer: Bild rechts ausgerichtet (justify-end), nicht den Layer verschieben. */
   .hero-foreground-scan1 {
     position: absolute;
     inset: 0;
     display: flex;
     align-items: flex-end;
-    justify-content: center;
+    justify-content: flex-end;
     clip-path: inset(0 0 100% 0);
     filter: blur(10px) contrast(0.75);
   }
@@ -267,7 +404,7 @@
     inset: 0;
     display: flex;
     align-items: flex-end;
-    justify-content: center;
+    justify-content: flex-end;
     /* Solid black mask: bei 100% komplett deckend, kein Verlauf = kein Durchscheinen von scan1 (blur) */
     mask-image: linear-gradient(to top, black, black);
     mask-size: 100% 0%;
@@ -280,6 +417,11 @@
   .hero-foreground-reveal .hero-foreground-scan2 img,
   .hero-foreground-reveal .hero-foreground-scan1 img {
     image-rendering: -webkit-optimize-contrast;
+    /* Kein Überlauf nach oben: Bild skaliert immer in die Box, nie Abschnitt nach oben. */
+    max-height: 100%;
+    min-height: 0;
+    object-fit: contain;
+    object-position: bottom right;
   }
 
   /* Hero-Hintergrundmuster (Graustufen, 50 % Intensität) */
@@ -2665,3 +2807,6 @@ header .header-tool-toggle--theme:hover {
     transition: none !important;
   }
 }
+
+/* Hero-Box: radialer Glaseffekt gilt auch auf Mobile – keine Überschreibung durch solid/mask.
+   Der Verlauf liegt ausschließlich auf .hero-box-inner (siehe oben), nicht auf dem Hero-Overlay. */

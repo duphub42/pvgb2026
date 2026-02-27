@@ -14,6 +14,7 @@ import {
   revalidateAfterMediaChange,
   revalidateAfterMediaDelete,
 } from './Media/hooks/revalidateMedia'
+import { rewriteBlobToOrigin } from './Media/hooks/rewriteBlobToOrigin'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -22,6 +23,7 @@ export const Media: CollectionConfig = {
   slug: 'media',
   folders: true,
   hooks: {
+    afterRead: [rewriteBlobToOrigin],
     afterChange: [revalidateAfterMediaChange],
     afterDelete: [revalidateAfterMediaDelete],
   },

@@ -21,7 +21,7 @@ const WAVE_FILL = 'var(--background)' as const
 
 /** Hero-Box: feste Klassennamen für SSR/Client – keine Abhängigkeit von Viewport/State, damit Hydration nicht divergiert. */
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-[calc(0.5rem+5vh)] bottom-[5vh] max-lg:bottom-0 z-[1] -m-4 p-4 sm:-m-6 sm:p-6 md:top-[calc(1rem+6vh)] md:bottom-[6vh] lg:-m-[60px] lg:p-[60px] lg:bottom-[6vh] overflow-hidden hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-[calc(0.5rem+5vh)] bottom-[5vh] max-lg:bottom-0 z-[2] -m-8 p-8 sm:-m-10 sm:p-10 md:top-[calc(1rem+6vh)] md:bottom-[6vh] md:-m-6 md:p-6 lg:-m-[60px] lg:p-[60px] lg:bottom-[6vh] overflow-hidden hero-box-animate'
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5 hero-box-frame-shadow'
 
@@ -492,7 +492,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   return (
     <section
       ref={heroSectionRef}
-      className="relative flex flex-col justify-center items-stretch overflow-hidden lg:overflow-visible bg-neutral-950 -mt-24 pt-48 text-white min-h-[96vh] md:min-h-[100dvh] lg:min-h-[min(90vh,777px)] max-h-[777px] mb-12 md:mb-16 lg:mb-20"
+      className="relative flex flex-col justify-center items-stretch overflow-visible bg-neutral-950 -mt-24 pt-48 text-white min-h-[96vh] md:min-h-[100dvh] lg:min-h-[min(90vh,777px)] max-h-[777px] mb-12 md:mb-16 lg:mb-20"
       aria-label="Hero"
     >
       {/* Optionaler globaler Hintergrund-Layer (Orbit/Halo/Gradient) ganz hinten */}
@@ -592,12 +592,12 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         )}
       </div>
 
-      {/* Overlay: hinter Hintergrund, unter Wellen und hinter Vordergrund (z-[1]); Stärke via Backend „Overlay Deckkraft“. Randabdunklung oben/rechts. */}
+      {/* Overlay: hinter Hintergrund, unter Wellen und hinter Vordergrund (z-[1]). Schwarzer Anteil mit gleichem radialen Verlauf wie Hero-Box (oben rechts transparent). */}
       <div className="pointer-events-none absolute inset-0 z-[1]" aria-hidden>
           <div
-            className="absolute inset-0 bg-black transition-opacity duration-200"
+            className="hero-overlay-base absolute inset-0 transition-opacity duration-200"
             style={{
-              opacity: Math.min(1, Math.max(0, overlay)),
+              ['--hero-overlay' as string]: String(Math.min(1, Math.max(0, overlay))),
             }}
           />
         <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
@@ -617,22 +617,22 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           <div className={HERO_BOX_INNER_CLASS} />
         </div>
 
-        {/* Vordergrund-Bild: Mobile = rechts ausgerichtet, hinter Text (z-0). Leichter top-Offset nur gegen Abschneiden, nicht so groß dass das Bild verschwindet. */}
+        {/* Vordergrund-Bild: hinter der Hero-Box (z-0), damit die transparente obere rechte Ecke der Box das Bild durchscheinen lässt. Box hat z-[2]. */}
         {foregroundMedia && (
           <div
             className={cn(
-              'pointer-events-none absolute bottom-0 overflow-visible transition-opacity duration-500 ease-out',
-              'max-lg:left-0 max-lg:right-0 max-lg:z-0 max-lg:flex max-lg:justify-end max-lg:items-end max-lg:-mr-6 max-lg:pr-0 max-lg:translate-x-[5%]',
-              'max-lg:top-[3vh] max-lg:w-full max-lg:h-full max-lg:max-h-[80vh]',
-              'lg:z-[5] lg:right-[-2%] lg:top-[-3%] lg:bottom-[6vh] lg:w-[41%] lg:max-w-[414px] lg:max-h-none',
+              'pointer-events-none absolute right-0 bottom-0 overflow-visible transition-opacity duration-500 ease-out z-0 max-lg:z-[1]',
+              'max-lg:inset-x-0 max-lg:top-[calc(0.5rem+5vh)] max-lg:bottom-0 max-lg:flex max-lg:justify-end max-lg:items-end max-lg:w-full',
+              'md:top-[calc(1rem+6vh)] md:bottom-[6vh]',
+              'lg:right-[-2%] lg:top-[-3%] lg:bottom-[6vh] lg:w-[41%] lg:max-w-[414px] lg:max-h-none',
               'xl:right-auto xl:left-[60%]',
-              foregroundReveal ? 'opacity-100' : 'opacity-0',
+              mounted && foregroundReveal ? 'opacity-100' : 'opacity-0',
             )}
           >
             <div
               className={cn(
-                'hero-foreground-reveal max-lg:w-[min(88vw,394px)] max-lg:shrink-0 scale-[1.034] origin-bottom-right',
-                foregroundReveal && 'hero-foreground-reveal-active',
+                'hero-foreground-reveal max-lg:w-[min(88vw,394px)] max-lg:h-full max-lg:max-h-full max-lg:min-h-0 max-lg:shrink-0 lg:scale-[1.034] origin-bottom-right',
+                mounted && foregroundReveal && 'hero-foreground-reveal-active',
               )}
             >
               <div className="hero-foreground-scan1">
@@ -776,7 +776,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           <div
             className={cn(
               // Am oberen Rand des Shape-Dividers ausrichten, damit Marquee innerhalb der Herobox bleibt (6vh = Box-Unterkante, überlappt 9vh-Divider)
-              'pointer-events-none absolute inset-x-0 bottom-[6vh] z-[4] hidden md:block',
+              'pointer-events-none absolute inset-x-0 bottom-[6vh] z-[4] max-lg:z-0 hidden md:block',
               mounted ? 'opacity-100' : 'opacity-0',
             )}
             style={{
