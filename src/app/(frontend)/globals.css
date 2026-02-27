@@ -361,10 +361,10 @@
     overflow: visible;
     filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.2));
   }
-  /* overflow: hidden nötig, damit Scan-Aufbau (clip-path scan1, mask scan2) sauber wirkt. */
+  /* overflow: visible, damit das Bild nicht beschnitten wird. Der Aufbau-Effekt kommt von clip-path (scan1) und mask (scan2), nicht von overflow. */
   .hero-foreground-reveal .hero-foreground-scan1,
   .hero-foreground-reveal .hero-foreground-scan2 {
-    overflow: hidden;
+    overflow: visible;
   }
   @media (max-width: 30rem) {
     .hero-foreground-reveal .hero-foreground-scan1 img,
