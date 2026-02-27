@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--no-deprecation sh -c 'payload migrate && next build'",
+    "build": "cross-env NODE_OPTIONS=--no-deprecation sh -c 'tsx src/scripts/generate-icon-sprite.ts && payload migrate && next build'",
     "analyze": "cross-env ANALYZE=true NODE_OPTIONS=--no-deprecation next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "dev": "node scripts/ensure-next-manifests.cjs && cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=4096\" next dev -p 3000",
@@ -26,6 +26,7 @@
     "unlock-users": "tsx src/scripts/unlock-users.ts",
     "reset-password": "cross-env PAYLOAD_MIGRATING=true tsx src/scripts/reset-password.ts",
     "reset-password-direct": "tsx src/scripts/reset-password-direct.ts",
+    "generate:icon-sprite": "cross-env NODE_OPTIONS=--no-deprecation tsx src/scripts/generate-icon-sprite.ts",
     "export:local": "cross-env DATABASE_URL= POSTGRES_URL= NODE_ENV=production tsx src/scripts/export-data.ts",
     "import:neon": "cross-env USE_NEON=true NODE_OPTIONS=\"-r dotenv/config\" tsx src/scripts/import-data.ts --replace",
     "sync:neon-to-local": "cross-env USE_NEON=true NODE_OPTIONS=\"-r dotenv/config\" EXPORT_DIR=data/export-from-neon tsx src/scripts/export-data.ts && cross-env DATABASE_URL= POSTGRES_URL= NODE_OPTIONS=\"-r dotenv/config\" IMPORT_DIR=data/export-from-neon tsx src/scripts/import-data.ts --replace",

@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/command'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
@@ -51,7 +50,9 @@ export function SearchCommand() {
             onClick={() => setOpen(true)}
             aria-label="Suchen"
           >
-            <Search />
+            <svg className="size-5" aria-hidden="true">
+              <use href="/icons-sprite.svg#hf-search" />
+            </svg>
           </Button>
         </TooltipTrigger>
         <TooltipContent side="bottom" sideOffset={6}>

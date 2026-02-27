@@ -125,10 +125,8 @@
     bottom: -1px;
   }
 
-  /* Schwarzer Overlay: radial von oben rechts, stärkerer Transparenzverlauf; Glasfilter (Backdrop-Blur) damit der Overlay nicht flach wirkt. */
+  /* Schwarzer Overlay: radial von oben rechts, stärkerer Transparenzverlauf – OHNE Glasblur (Glaseffekt liegt nur noch auf .hero-box-inner). */
   .hero-overlay-base {
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
     background: radial-gradient(
       ellipse 220% 220% at 100% calc(0.5rem + 5vh),
       transparent 0%,
@@ -205,101 +203,49 @@
       transform: translateY(0);
     }
   }
-  /* Hero-Box: starke Transparenz von oben rechts; Blur nur links/unten (radial von oben rechts ausgeblendet). */
+  /* Hero-Box („herobox“): EIN Layer mit Glaseffekt (Blur + Tönung) und starker Transparenz von oben rechts. */
   .hero-box-inner {
     position: relative;
     transform: translateY(100%);
+    /* Stärkerer Milchglas-Blur für die Herobox */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     background: radial-gradient(
       ellipse 240% 240% at 100% 0%,
-      transparent 0%,
-      transparent 88%,
-      rgba(255, 255, 255, 0.003) 94%,
-      rgba(255, 255, 255, 0.008) 100%
-    );
-  }
-  /* ::before = Blur nur außerhalb der oberen rechten Ecke (Mask: oben rechts transparent = kein Blur). */
-  .hero-box-inner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    z-index: 0;
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    mask-image: radial-gradient(
-      ellipse 240% 240% at 100% 0%,
-      transparent 0%,
-      transparent 88%,
-      black 94%,
-      black 100%
-    );
-    -webkit-mask-image: radial-gradient(
-      ellipse 240% 240% at 100% 0%,
-      transparent 0%,
-      transparent 88%,
-      black 94%,
-      black 100%
-    );
-    mask-repeat: no-repeat;
-    mask-position: 0 0;
-    mask-size: 100% 100%;
-    -webkit-mask-repeat: no-repeat;
-    -webkit-mask-position: 0 0;
-    -webkit-mask-size: 100% 100%;
-  }
-  /* ::after = Abdunklung (radial von oben rechts). */
-  .hero-box-inner::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: inherit;
-    pointer-events: none;
-    z-index: 1;
-    background: radial-gradient(
-      ellipse 240% 240% at 100% 0%,
-      transparent 0%,
-      transparent 88%,
-      rgba(0, 0, 0, 0.02) 94%,
-      rgba(0, 0, 0, 0.05) 100%
+      /* Obere rechte Ecke: nur leicht getönt, keine „klare“ Ecke mehr */
+      rgba(0, 0, 0, 0.015) 0%,
+      rgba(0, 0, 0, 0.025) 40%,
+      rgba(0, 0, 0, 0.05) 80%,
+      rgba(0, 0, 0, 0.08) 100%
     );
   }
   [data-theme='dark'] .hero-box-inner {
     background: radial-gradient(
       ellipse 240% 240% at 100% 0%,
-      transparent 0%,
-      transparent 88%,
-      rgba(0, 0, 0, 0.02) 94%,
-      rgba(0, 0, 0, 0.06) 100%
+      rgba(0, 0, 0, 0.03) 0%,
+      rgba(0, 0, 0, 0.05) 40%,
+      rgba(0, 0, 0, 0.09) 80%,
+      rgba(0, 0, 0, 0.16) 100%
     );
   }
-  [data-theme='dark'] .hero-box-inner::after {
-    background: radial-gradient(
-      ellipse 240% 240% at 100% 0%,
-      transparent 0%,
-      transparent 88%,
-      rgba(0, 0, 0, 0.04) 94%,
-      rgba(0, 0, 0, 0.1) 100%
-    );
-  }
-  /* Desktop: Abdunklung auf ::after. */
+  /* Desktop: etwas stärkerer Glas-Effekt (mehr Tönung) */
   @media (min-width: 64rem) {
-    .hero-box-inner::after {
+    .hero-box-inner {
       background: radial-gradient(
         ellipse 240% 240% at 100% 0%,
-        transparent 0%,
-        transparent 88%,
-        rgba(0, 0, 0, 0.03) 94%,
-        rgba(0, 0, 0, 0.08) 100%
+        rgba(0, 0, 0, 0.03) 0%,
+        rgba(0, 0, 0, 0.045) 40%,
+        rgba(0, 0, 0, 0.09) 80%,
+        rgba(0, 0, 0, 0.2) 100%
       );
     }
-    [data-theme='dark'] .hero-box-inner::after {
+    [data-theme='dark'] .hero-box-inner {
       background: radial-gradient(
         ellipse 240% 240% at 100% 0%,
-        transparent 0%,
-        transparent 88%,
-        rgba(0, 0, 0, 0.05) 94%,
-        rgba(0, 0, 0, 0.12) 100%
+        rgba(0, 0, 0, 0.05) 0%,
+        rgba(0, 0, 0, 0.07) 40%,
+        rgba(0, 0, 0, 0.13) 80%,
+        rgba(0, 0, 0, 0.28) 100%
       );
     }
   }
@@ -345,11 +291,11 @@
       opacity: 0.9;
     }
     85% {
-      transform: translateY(100vh);
+      transform: translateY(100%);
       opacity: 0.9;
     }
     100% {
-      transform: translateY(100vh);
+      transform: translateY(100%);
       opacity: 0;
       visibility: hidden;
     }
@@ -357,7 +303,9 @@
   .hero-foreground-reveal {
     position: relative;
     width: 100%;
-    height: 100%;
+    /* Desktop: nur so hoch wie das Vordergrundbild, damit der Scanbalken direkt über dem Bild läuft.
+       Auf Mobile erzwingen wir volle Höhe explizit per Tailwind-Klasse (max-lg:h-full). */
+    height: auto;
     overflow: visible;
     filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.2));
   }
@@ -375,11 +323,9 @@
   @media (orientation: landscape) and (max-height: 40rem) and (max-width: 64rem) {
     .hero-foreground-reveal .hero-foreground-scan1 img,
     .hero-foreground-reveal .hero-foreground-scan2 img {
-      object-fit: contain;
-      object-position: center right;
-      max-height: 100%;
-      width: auto;
-      height: auto;
+    /* Panorama-/Landscape-Ansicht auf iPhone/SE: Bild um 20 % verkleinern, ohne andere Viewports zu beeinflussen */
+    transform: scale(0.8);
+    transform-origin: bottom right;
     }
   }
   .hero-foreground-reveal::after {

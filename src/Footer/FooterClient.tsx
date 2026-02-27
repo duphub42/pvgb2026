@@ -1,9 +1,10 @@
 'use client'
 
 import { getMediaUrl } from '@/utilities/getMediaUrl'
+import { getSpriteIdFromMediaUrl } from '@/utilities/getSpriteIdFromMediaUrl'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import { Facebook, Instagram, Linkedin, Twitter, MapPin, Phone, ArrowRight } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 import type { Footer, Header } from '@/payload-types'
 import { SaveButton } from '@/components/ui/save-button'
@@ -18,11 +19,11 @@ import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher
 import { FooterBounce } from '@/components/FooterBounce/FooterBounce'
 import { messages } from '@/i18n/messages'
 
-const socialIcons: Record<string, React.ComponentType<{ className?: string }>> = {
-  linkedin: Linkedin,
-  twitter: Twitter,
-  facebook: Facebook,
-  instagram: Instagram,
+const SOCIAL_SPRITE_IDS: Record<string, string> = {
+  linkedin: 'hf-linkedin',
+  twitter: 'hf-twitter',
+  facebook: 'hf-facebook',
+  instagram: 'hf-instagram',
 }
 
 function mediaUrl(media: { url?: string | null } | number | null | undefined): string {
@@ -70,6 +71,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
     newsletterIconUpload && typeof newsletterIconUpload === 'object' && newsletterIconUpload?.url
       ? getMediaUrl((newsletterIconUpload as { url?: string }).url)
       : ''
+  const newsletterSpriteId = getSpriteIdFromMediaUrl(newsletterIconUploadUrl)
 
   const hasCustomBg = Boolean((footer?.backgroundColor as string)?.trim())
   const style: React.CSSProperties = {
@@ -199,7 +201,9 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                         {footerAddress && (
                           <div className="flex items-start gap-2">
                             <span className="mt-0.5 text-xs opacity-80">
-                              <MapPin className="inline-block size-5" aria-hidden="true" />
+                              <svg className="inline-block size-5" aria-hidden="true">
+                                <use href="/icons-sprite.svg#hf-map-pin" />
+                              </svg>
                             </span>
                             <p className="whitespace-pre-line">{footerAddress}</p>
                           </div>
@@ -207,7 +211,9 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                         {footerPhone && (
                           <div className="flex items-center gap-2">
                             <span className="text-xs opacity-80">
-                              <Phone className="inline-block size-5" aria-hidden="true" />
+                              <svg className="inline-block size-5" aria-hidden="true">
+                                <use href="/icons-sprite.svg#hf-phone" />
+                              </svg>
                             </span>
                             <a
                               href={`tel:${footerPhone.replace(/\s+/g, '')}`}
@@ -224,11 +230,13 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                         {(footer.socialLinks ?? []).map((item, i) => {
                           const url = item?.url?.trim()
                           const platform = (item?.platform ?? '') as string
-                          const Icon = socialIcons[platform]
                           const customIconUrl =
                             item?.iconUpload && typeof item.iconUpload === 'object' && item.iconUpload?.url
                               ? getMediaUrl((item.iconUpload as { url?: string }).url)
                               : ''
+                          const uploadSpriteId = customIconUrl ? getSpriteIdFromMediaUrl(customIconUrl) : null
+                          const spriteId = uploadSpriteId ?? SOCIAL_SPRITE_IDS[platform] ?? null
+
                           if (!url) return null
                           return (
                             <a
@@ -239,7 +247,11 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                               className="opacity-80 transition-opacity hover:opacity-100 focus:opacity-100 focus:outline-none"
                               aria-label={platform}
                             >
-                              {customIconUrl ? (
+                              {spriteId ? (
+                                <svg className="size-5" aria-hidden="true">
+                                  <use href={`/icons-sprite.svg#${spriteId}`} />
+                                </svg>
+                              ) : customIconUrl ? (
                                 <img
                                   src={customIconUrl}
                                   alt=""
@@ -248,8 +260,6 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                                   loading="lazy"
                                   decoding="async"
                                 />
-                              ) : Icon ? (
-                                <Icon className="size-5" />
                               ) : (
                                 <span className="text-xs">Link</span>
                               )}
@@ -348,7 +358,14 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                       <div className="flex flex-row items-start gap-x-3">
                         {/* Icon-Spalte: nur Iconbreite, kein prozentualer Abstand wie bei den Nav-Spalten */}
                         <div className="flex shrink-0 pt-0.5">
-                          {newsletterIconUploadUrl ? (
+                          {newsletterSpriteId ? (
+                            <svg
+                              className="h-6 w-6 text-white"
+                              aria-hidden="true"
+                            >
+                              <use href={`/icons-sprite.svg#${newsletterSpriteId}`} />
+                            </svg>
+                          ) : newsletterIconUploadUrl ? (
                             <img
                               src={newsletterIconUploadUrl}
                               alt=""

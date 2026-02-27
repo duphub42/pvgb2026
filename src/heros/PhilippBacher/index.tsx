@@ -617,11 +617,11 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           <div className={HERO_BOX_INNER_CLASS} />
         </div>
 
-        {/* Vordergrund-Bild: z-0 (hinter Hero-Box z-[2]). Ebenen/Filter/Verläufe: siehe docs/hero-foreground-layers.md */}
+        {/* Vordergrund-Bild: vor Marquee (z-[6]), hinter Floating-Items (z-20). Ebenen/Filter/Verläufe: siehe docs/hero-foreground-layers.md */}
         {foregroundMedia && (
           <div
             className={cn(
-              'pointer-events-none absolute right-0 bottom-0 overflow-visible transition-opacity duration-500 ease-out z-0',
+              'pointer-events-none absolute right-0 bottom-0 overflow-visible transition-opacity duration-500 ease-out z-[6]',
               'max-lg:inset-x-0 max-lg:top-[calc(0.5rem+5vh)] max-lg:bottom-0 max-lg:flex max-lg:justify-end max-lg:items-end max-lg:w-full',
               'md:top-[calc(1rem+6vh)] md:bottom-[6vh]',
               'lg:right-[-2%] lg:top-[-3%] lg:bottom-[6vh] lg:w-[41%] lg:max-w-[414px] lg:max-h-none',

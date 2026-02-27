@@ -3,7 +3,6 @@
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { useLayout, type LayoutMode } from '@/providers/Layout'
-import { LayoutGrid, PanelRightOpen } from 'lucide-react'
 import React from 'react'
 
 export function LayoutSwitcher() {
@@ -23,7 +22,9 @@ export function LayoutSwitcher() {
           aria-label={isWide ? 'Standard-Breite' : 'Breite Ansicht'}
           aria-pressed={isWide}
         >
-          {isWide ? <PanelRightOpen /> : <LayoutGrid />}
+          <svg className="size-5" aria-hidden="true">
+            <use href={isWide ? '/icons-sprite.svg#hf-panel-right-open' : '/icons-sprite.svg#hf-layout-grid'} />
+          </svg>
         </Button>
       </TooltipTrigger>
       <TooltipContent side="bottom" sideOffset={6}>
