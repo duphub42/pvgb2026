@@ -310,6 +310,13 @@
     }
   }
 
+  /* Hero-Headline: nur ganze Wörter umbrechen, niemals mitten im Wort. */
+  .hero-headline {
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: manual;
+  }
+
   /* Vordergrundbild: Scan-artiger Aufbau – diskrete Zeilen, sichtbare Scanlinie */
   @keyframes hero-foreground-scan1 {
     0% {
