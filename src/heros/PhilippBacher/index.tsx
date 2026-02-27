@@ -956,7 +956,6 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                 </div>
               </div>
             </div>
-          </div>
         )}
 
       </div>
