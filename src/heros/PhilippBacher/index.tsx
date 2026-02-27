@@ -617,7 +617,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           <div className={HERO_BOX_INNER_CLASS} />
         </div>
 
-        {/* Vordergrund-Bild: z-0, liegt hinter Hero-Box (z-[2]). Siehe Auflistung „Vordergrundbild – Ebenen/Filter/Verläufe“ in AGENTS.md oder diesem Kommentar. */}
+        {/* Vordergrund-Bild: z-0 (hinter Hero-Box z-[2]). Ebenen/Filter/Verläufe: siehe docs/hero-foreground-layers.md */}
         {foregroundMedia && (
           <div
             className={cn(

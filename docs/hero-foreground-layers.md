@@ -1,0 +1,39 @@
+# Vordergrundbild Hero – Ebenen, Filter und Verläufe
+
+Das Vordergrundbild hat **z-0** und liegt **hinter** der Hero-Box (z-[2]). Die Box liegt also darüber; nur durch ihre transparenten Bereiche ist das Bild sichtbar.
+
+## 1. Ebenen ÜBER dem Vordergrundbild (beeinflussen die Anzeige)
+
+| Ebene | Klasse / Element | Wirkung |
+|--------|------------------|--------|
+| **Hero-Box** | `.hero-box-inner` | Liegt über dem Bild (z-[2]). Nur wo die Box transparent ist, scheint das Bild durch. |
+| **Glas-Hintergrund** | `.hero-box-inner` (background) | Radialer Verlauf (ellipse 240% at 100% 0%): 0–88 % transparent, danach leichtes Weiß/Dunkel (Light/Dark). |
+| **Blur-Layer** | `.hero-box-inner::before` | `backdrop-filter: blur(6px)`, nur außerhalb der oberen rechten Ecke (radiale Maske: 0–88 % transparent, ab 94 % sichtbar). |
+| **Abdunklung** | `.hero-box-inner::after` | Radialer Verlauf (88 % transparent, danach 0.02→0.05 Light / 0.04→0.1 Dark); Desktop stärker (0.03→0.08 / 0.05→0.12). |
+| **Rahmen/Schatten** | `.hero-box-frame-shadow` | Box-Schatten um die Hero-Box (kein direkter Filter auf das Bild). |
+
+## 2. Ebenen AM Vordergrundbild (eigene Struktur)
+
+| Ebene | Klasse / Element | Wirkung |
+|--------|------------------|--------|
+| **Wrapper** | Vordergrund-`div` (TSX) | Position: max-lg an Hero-Box angepasst (top/bottom), z-0, overflow visible. |
+| **Reveal-Container** | `.hero-foreground-reveal` | Breite/Höhe (max-lg: w min(88vw,394px), h-full, max-h-full), **Filter:** `drop-shadow(0 4px 16px rgba(0,0,0,0.2))`, lg: `scale(1.034)` origin bottom-right. |
+| **Scan-Layer 1** | `.hero-foreground-scan1` | **clip-path:** Animation von `inset(0 0 100% 0)` auf `inset(0 0 0 0)`; **filter:** `blur(10px) contrast(0.75)` (während Reveal); overflow hidden (auf iPhone SE & Landscape teils visible). |
+| **Scan-Layer 2** | `.hero-foreground-scan2` | **mask:** linear-gradient(to top, black, black), mask-size 0→100 % (Animation); overflow wie scan1. |
+| **Scanbalken** | `.hero-foreground-reveal::after` | Linie (3px), **linear-gradient** (transparent→weiß→transparent), Animation von oben nach unten, am Ende ausgeblendet. |
+| **Bild** | `img` in scan1/scan2 | **object-fit:** contain, **object-position:** bottom right (iPhone ≤30rem & Landscape: center right), **max-height:** 100 %, **min-height:** 0, image-rendering: -webkit-optimize-contrast. |
+
+## 3. Verläufe (Zusammenfassung)
+
+- **Hero-Box:** radialer Verlauf oben rechts (100 % 0 %), 88 % Radius transparent, danach Glas/Abdunklung.
+- **Hero-Box ::before:** radiale Maske (kein Farbverlauf), steuert nur die Blur-Sichtbarkeit.
+- **Hero-Box ::after:** radialer Abdunklungsverlauf (rgba(0,0,0,…)).
+- **Scanbalken:** linearer Gradient (vertikal, weiß, für die Scanlinie).
+
+## 4. Was das Vordergrundbild NICHT beeinflusst (liegt dahinter)
+
+- **hero-overlay-base** (z-[1]): Section-Overlay mit radialem Schwarzverlauf und Backdrop-Blur – liegt unter dem gesamten Content (z-10), also unter dem Vordergrundbild.
+- **Gradient links** (from-black/80 via-black/60 to-transparent): ebenfalls im Overlay-Container z-[1].
+- **hero-edge-darken**: linear + radial, ebenfalls z-[1].
+
+Diese drei liegen **hinter** dem Content-Bereich und damit hinter dem Vordergrundbild; sie verändern nicht die Darstellung des Bildes selbst, nur den Hintergrund der Section.

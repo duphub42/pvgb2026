@@ -361,27 +361,18 @@
     overflow: visible;
     filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.2));
   }
+  /* overflow: hidden nötig, damit Scan-Aufbau (clip-path scan1, mask scan2) sauber wirkt. */
   .hero-foreground-reveal .hero-foreground-scan1,
   .hero-foreground-reveal .hero-foreground-scan2 {
     overflow: hidden;
   }
-  /* iPhone SE / iPhone: kein Clipping, Bild vollständig (inkl. Kopf) anzeigen. */
   @media (max-width: 30rem) {
-    .hero-foreground-reveal .hero-foreground-scan1,
-    .hero-foreground-reveal .hero-foreground-scan2 {
-      overflow: visible;
-    }
     .hero-foreground-reveal .hero-foreground-scan1 img,
     .hero-foreground-reveal .hero-foreground-scan2 img {
       object-position: center right;
     }
   }
-  /* Panorama/Landscape auf iPhones: Vordergrundbild an Hero-Box anpassen durch Skalierung (Größe ändern), nicht abschneiden. */
   @media (orientation: landscape) and (max-height: 40rem) and (max-width: 64rem) {
-    .hero-foreground-reveal .hero-foreground-scan1,
-    .hero-foreground-reveal .hero-foreground-scan2 {
-      overflow: visible;
-    }
     .hero-foreground-reveal .hero-foreground-scan1 img,
     .hero-foreground-reveal .hero-foreground-scan2 img {
       object-fit: contain;
