@@ -433,7 +433,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
     typeof v === 'object' && v != null && ('url' in v || 'mimeType' in v)
 
   const effectiveMediaType =
-    isMobileViewport && mediaTypeMobile && mediaTypeMobile !== 'auto' ? mediaTypeMobile : mediaType
+    mounted && isMobileViewport && mediaTypeMobile && mediaTypeMobile !== 'auto' ? mediaTypeMobile : mediaType
 
   const backgroundMedia =
     effectiveMediaType === 'video' && backgroundVideo && isMediaObject(backgroundVideo)
