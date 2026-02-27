@@ -670,7 +670,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             foregroundMedia ? 'lg:justify-end lg:mr-auto' : 'lg:justify-center',
             // Zusätzlicher Abstand nach unten, wenn Marquee aktiv ist, damit sich Beschreibung/CTAs nicht mit der Marquee-Überschrift überschneiden
             hasMarquee
-              ? 'pb-[10vh] sm:pb-[12vh] md:pb-[calc(16vh+56px)] lg:pb-[calc(18vh+64px)]'
+              ? 'pb-[10vh] sm:pb-[12vh] md:pb-[calc(16vh+56px)] lg:pb-[calc(18vh+64px)] hero-ipad:pb-[calc(9vh+32px)]'
               : 'pb-[5vh]',
             /* Abstand zum unteren Rand; Portrait SE/Pro Max/PlayBook: ca. 3% zum Browser-Rand */
             foregroundMedia && 'max-lg:pb-[calc(18vh+1rem)] max-lg:landscape-short:pb-[calc(14vh+0.5rem)]',
