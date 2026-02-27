@@ -617,11 +617,11 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           <div className={HERO_BOX_INNER_CLASS} />
         </div>
 
-        {/* Vordergrund-Bild: hinter der Hero-Box (z-0), damit die transparente obere rechte Ecke der Box das Bild durchscheinen lässt. Box hat z-[2]. */}
+        {/* Vordergrund-Bild: z-0, liegt hinter Hero-Box (z-[2]). Siehe Auflistung „Vordergrundbild – Ebenen/Filter/Verläufe“ in AGENTS.md oder diesem Kommentar. */}
         {foregroundMedia && (
           <div
             className={cn(
-              'pointer-events-none absolute right-0 bottom-0 overflow-visible transition-opacity duration-500 ease-out z-0 max-lg:z-[1]',
+              'pointer-events-none absolute right-0 bottom-0 overflow-visible transition-opacity duration-500 ease-out z-0',
               'max-lg:inset-x-0 max-lg:top-[calc(0.5rem+5vh)] max-lg:bottom-0 max-lg:flex max-lg:justify-end max-lg:items-end max-lg:w-full',
               'md:top-[calc(1rem+6vh)] md:bottom-[6vh]',
               'lg:right-[-2%] lg:top-[-3%] lg:bottom-[6vh] lg:w-[41%] lg:max-w-[414px] lg:max-h-none',
