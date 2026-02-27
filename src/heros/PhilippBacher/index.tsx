@@ -626,27 +626,22 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         {foregroundMedia && (
           <div
             className={cn(
-              // Standard: rechts unten ausgerichtet, overflow sichtbar.
-              // iPhone 14 Pro Max: links bündig, Überstand rechts wird abgeschnitten (overflow-hidden).
+              // Revert: einheitliches Verhalten für alle mobilen Geräte, um Clipping am Kopf sicher zu vermeiden.
               'pointer-events-none absolute right-0 bottom-0 overflow-visible transition-opacity duration-500 ease-out z-0 lg:z-[6]',
               'max-lg:inset-x-0 max-lg:top-[calc(0.5rem+5vh)] max-lg:bottom-0 max-lg:flex max-lg:justify-end max-lg:items-end max-lg:w-full',
-              // iPhone 14 Pro Max: links bündig; nur horizontaler Überstand rechts wird beschnitten (overflow-x-hidden);
-              // vertikal bleibt sichtbar (overflow-y-visible). top wird NICHT erzwungen, damit der Kopf nicht in die obere Kante gedrückt wird.
-              'hero-pro-max:left-0 hero-pro-max:right-auto hero-pro-max:top-auto hero-pro-max:bottom-0 hero-pro-max:overflow-x-hidden hero-pro-max:overflow-y-visible',
               'md:top-[calc(1rem+6vh)] md:bottom-[6vh]',
               'lg:right-[-2%] lg:top-[-3%] lg:bottom-[6vh] lg:w-[41%] lg:max-w-[414px] lg:max-h-none',
               'xl:right-auto xl:left-[60%]',
-              mounted && foregroundReveal ? 'opacity-100' : 'opacity-0',
+              mounted ? 'opacity-100' : 'opacity-0',
             )}
           >
-              <div
-                className={cn(
-                  // iPhone 14 Pro Max: leicht größer skalieren. Auf Mobile Höhe vom Bild ableiten (kein erzwungenes h-full), damit der Kopf nicht oben beschnitten wirkt.
-                  // iPhone 14 Pro Max: ca. 5 % größer als Basis (1.05 statt 1.0)
-                  'hero-foreground-reveal max-lg:w-[min(88vw,394px)] max-lg:min-h-0 max-lg:shrink-0 lg:scale-[1.034] origin-bottom-right hero-pro-max:scale-[1.05]',
-                  mounted && foregroundReveal && 'hero-foreground-reveal-active',
-                )}
-              >
+            <div
+              className={cn(
+                'hero-foreground-reveal max-lg:w-[min(88vw,394px)] max-lg:min-h-0 max-lg:shrink-0 lg:scale-[1.034] origin-bottom-right hero-foreground-reveal-active',
+                // iPhone 14 Pro Max: etwas größer und leicht nach rechts verschoben, darf rechts aus dem Viewport laufen
+                'hero-pro-max:scale-[1.15] hero-pro-max:translate-x-[10%]',
+              )}
+            >
               <div className="hero-foreground-scan1">
                 <Media
                   resource={foregroundMedia}
@@ -691,12 +686,12 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                   (isMobileViewport
                     ? badgeReveal
                       ? (
-                        <p className="hero-subheadline-badge text-xs font-medium uppercase tracking-[0.2em] text-white/80 sm:text-sm">
-                          <span className="inline-flex items-center gap-1.5">
+                        <p className="hero-subheadline-badge text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.12em] text-white/80">
+                          <span className="inline-flex items-center gap-1.5 align-middle leading-none">
                             {/* Verified-Icon: nur im Badge auf Mobile/Tablet sichtbar, Größe relativ zur Schrift */}
                             <span
                               aria-hidden
-                              className="inline-flex items-center justify-center text-[0] max-lg:h-[2.05em] max-lg:w-[2.05em]"
+                              className="inline-flex items-center justify-center h-[1.6em] w-[1.6em]"
                             >
                               <svg
                                 viewBox="0 0 24 24"
@@ -736,7 +731,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                         )
                       : (
                         <p
-                          className="hero-subheadline-badge text-xs font-medium uppercase tracking-[0.2em] text-white/80 opacity-0 sm:text-sm"
+                          className="hero-subheadline-badge text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.12em] text-white/80 opacity-0"
                           aria-hidden
                         >
                           {subheadline}
@@ -751,7 +746,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                           once
                           startOnView={false}
                           as="p"
-                          className="text-xs font-medium uppercase tracking-[0.2em] text-white/80 sm:text-sm"
+                          className="text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.12em] text-white/80"
                         >
                           {subheadline}
                         </TextAnimate>
@@ -839,20 +834,18 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           </div>
         </div>
 
-        {/* Logo-Bereich: auch auf Mobile sichtbar, aber nicht unter ca. 430px (hero-se:hidden);
-            - iPad (hero-ipad): absolute am oberen Rand des Shape-Dividers innerhalb der Herobox
-            - iPhone 14 Pro Max / PlayBook (hero-pro-max / hero-playbook): unterhalb des Beschreibungstextes, im normalen Flow */}
+        {/* Logo-Bereich: auch auf Mobile sichtbar, aber nicht unter ca. 430px (hero-se:hidden).
+            - Mobile (max-lg): direkt unterhalb des Textblocks, im normalen Flow (gleiche Ebene wie Beschreibung), mit fester Mindesthöhe (kein Layout-Shift).
+            - Desktop (lg+): absolute am oberen Rand des Shape-Dividers innerhalb der Herobox. */}
         {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
           <div
             className={cn(
-              // Standard: absolute am oberen Rand des Shape-Dividers (6vh = Box-Unterkante, überlappt 9vh-Divider)
+              // Desktop: absolute am oberen Rand des Shape-Dividers (6vh = Box-Unterkante, überlappt 9vh-Divider)
               // Sehr kleine Geräte (hero-se): ausgeblendet
-              // iPad (hero-ipad): z-[4] über der Herobox
-              // iPhone 14 Pro Max / PlayBook: statisch unterhalb des Textblocks, mit leichtem Abstand und höherer z-Ebene
-              'pointer-events-none absolute inset-x-0 bottom-[6vh] z-[4] max-lg:z-0 hero-ipad:z-[4] block hero-se:hidden',
-              // iPhone 14 Pro Max: Abstand zum Text halbieren (mt-2 statt mt-4)
-              'hero-pro-max:static hero-pro-max:inset-auto hero-pro-max:bottom-auto hero-pro-max:z-[6] hero-pro-max:mt-1',
-              'hero-playbook:static hero-playbook:inset-auto hero-playbook:bottom-auto hero-playbook:z-[6] hero-playbook:mt-4',
+              'pointer-events-none block hero-se:hidden',
+              'lg:absolute lg:inset-x-0 lg:bottom-[6vh] lg:z-[4]',
+              // Mobile (max-lg): im Flow unterhalb des Textblocks, mit moderatem Abstand und über der Herobox (z-[3] > z-[2])
+              'max-lg:z-[3] max-lg:mt-3 hero-pro-max:mt-2 hero-playbook:mt-3',
               mounted ? 'opacity-100' : 'opacity-0',
             )}
             style={{
@@ -862,13 +855,14 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             >
             <div className="pointer-events-auto pb-[1.75vh] sm:pb-[2vh]">
               <div className="container mx-auto px-6 lg:px-8">
-                <div className="w-full overflow-hidden pt-6 sm:pt-9 hero-pro-max:pt-3 hero-playbook:pt-3">
+                {/* Mobile: feste Mindesthöhe reservieren, damit die Marquee keinen Layout-Shift verursacht */}
+                <div className="w-full overflow-hidden pt-4 sm:pt-6 max-lg:min-h-[96px] hero-playbook:pt-3">
                 {marqueeHeadline && (
                   <motion.div
                     initial={{ opacity: 0, filter: 'blur(8px)', y: 12 }}
                     animate={mounted ? { opacity: 1, filter: 'blur(0px)', y: 0 } : {}}
                     transition={{ duration: 0.5, delay: HERO_MARQUEE_START_MS / 1000, ease: 'easeOut' }}
-                    className="mb-6 max-w-2xl pt-9 sm:pt-12 hero-pro-max:pt-3 hero-pro-max:mb-3 hero-playbook:pt-3 hero-playbook:mb-3"
+                    className="mb-6 max-w-2xl pt-3 sm:pt-4 max-lg:mb-2 hero-playbook:pt-3 hero-playbook:mb-3"
                   >
                     {marqueeHeadlineReveal && (
                       <TextAnimate
