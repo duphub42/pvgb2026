@@ -33,7 +33,13 @@ const nextConfig = {
       '@radix-ui/react-checkbox',
       '@radix-ui/react-label',
       'motion',
+      'motion/react',
       'cmdk',
+      'lucide-react',
+      'ogl',
+      'class-variance-authority',
+      'clsx',
+      'tailwind-merge',
     ],
   },
   // DSGVO: Fonts/Skripte sind lokal (kein Google Fonts, keine CDNs). Bei Bedarf: headers() mit Content-Security-Policy script-src 'self'; font-src 'self'.
