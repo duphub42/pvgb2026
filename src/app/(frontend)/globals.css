@@ -210,22 +210,50 @@
     /* Stärkerer Milchglas-Blur für die Herobox */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
+    /* Mobile/Tablet: 90% Abdunklung unten links, gleichmäßiger Verlauf zur oberen rechten Ecke. */
     background: radial-gradient(
-      ellipse 240% 240% at 100% 0%,
-      /* Obere rechte Ecke: nur leicht getönt, keine „klare“ Ecke mehr */
-      rgba(0, 0, 0, 0.015) 0%,
-      rgba(0, 0, 0, 0.025) 40%,
-      rgba(0, 0, 0, 0.05) 80%,
+      ellipse 260% 260% at 0% 100%,
+      /* Untere linke Ecke: sehr dunkel (~90%) */
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.75) 30%,
+      rgba(0, 0, 0, 0.45) 55%,
+      rgba(0, 0, 0, 0.2) 78%,
       rgba(0, 0, 0, 0.08) 100%
     );
+    /* Mobile/Tablet: Kreis oben rechts „ausgestanzt“ – weicher Übergang, Blur/Tönung setzen erst weiter außerhalb voll ein. */
+    mask-image: radial-gradient(
+      circle at 100% 0%,
+      transparent 0%,
+      transparent 34%,
+      rgba(0, 0, 0, 0.4) 50%,
+      rgba(0, 0, 0, 0.8) 70%,
+      black 86%,
+      black 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      circle at 100% 0%,
+      transparent 0%,
+      transparent 34%,
+      rgba(0, 0, 0, 0.4) 50%,
+      rgba(0, 0, 0, 0.8) 70%,
+      black 86%,
+      black 100%
+    );
+    mask-repeat: no-repeat;
+    mask-position: 0 0;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    -webkit-mask-position: 0 0;
+    -webkit-mask-size: 100% 100%;
   }
   [data-theme='dark'] .hero-box-inner {
     background: radial-gradient(
-      ellipse 240% 240% at 100% 0%,
-      rgba(0, 0, 0, 0.03) 0%,
-      rgba(0, 0, 0, 0.05) 40%,
-      rgba(0, 0, 0, 0.09) 80%,
-      rgba(0, 0, 0, 0.16) 100%
+      ellipse 260% 260% at 0% 100%,
+      rgba(0, 0, 0, 0.9) 0%,
+      rgba(0, 0, 0, 0.78) 30%,
+      rgba(0, 0, 0, 0.52) 55%,
+      rgba(0, 0, 0, 0.26) 78%,
+      rgba(0, 0, 0, 0.12) 100%
     );
   }
   /* Desktop: etwas stärkerer Glas-Effekt (mehr Tönung) */
@@ -238,6 +266,9 @@
         rgba(0, 0, 0, 0.09) 80%,
         rgba(0, 0, 0, 0.2) 100%
       );
+      /* Desktop: kein „ausgestanzter“ Kreis – Box wieder vollflächig. */
+      mask-image: none;
+      -webkit-mask-image: none;
     }
     [data-theme='dark'] .hero-box-inner {
       background: radial-gradient(
@@ -251,6 +282,32 @@
   }
   .hero-box-animate .hero-box-inner {
     animation: hero-box-slide-up 1100ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+
+  /* Hero-Subheading-Badge: nur auf mobilen Geräten; Desktop nutzt reine Typo-Klassen. */
+  @media (max-width: 63.99rem) {
+    .hero-subheadline-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.2rem 0.7rem;
+      border-radius: 9999px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      /* Klarer schwarzer Badge ohne Rand. */
+      border: none;
+      background: rgba(0, 0, 0, 0.92);
+      color: rgba(248, 250, 252, 0.98);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+    [data-theme='dark'] .hero-subheadline-badge {
+      border: none;
+      background: rgba(0, 0, 0, 0.96);
+      color: rgba(248, 250, 252, 0.98);
+    }
   }
 
   /* Vordergrundbild: Scan-artiger Aufbau – diskrete Zeilen, sichtbare Scanlinie */
@@ -303,9 +360,7 @@
   .hero-foreground-reveal {
     position: relative;
     width: 100%;
-    /* Desktop: nur so hoch wie das Vordergrundbild, damit der Scanbalken direkt über dem Bild läuft.
-       Auf Mobile erzwingen wir volle Höhe explizit per Tailwind-Klasse (max-lg:h-full). */
-    height: auto;
+    height: 100%;
     overflow: visible;
     filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.2));
   }
@@ -328,26 +383,9 @@
     transform-origin: bottom right;
     }
   }
+  /* Scanbalken deaktiviert – Aufbau-Effekt läuft nur über scan1/scan2. */
   .hero-foreground-reveal::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    height: 3px;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      rgba(255, 255, 255, 0.6) 30%,
-      rgba(255, 255, 255, 0.9) 50%,
-      rgba(255, 255, 255, 0.6) 70%,
-      transparent 100%
-    );
-    pointer-events: none;
-    z-index: 2;
-  }
-  .hero-foreground-reveal.hero-foreground-reveal-active::after {
-    animation: hero-foreground-scanline 2.2s linear forwards;
+    content: none;
   }
   /* Scan-Layer: Bild rechts ausgerichtet (justify-end), nicht den Layer verschieben. */
   .hero-foreground-scan1 {

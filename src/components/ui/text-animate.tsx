@@ -19,7 +19,7 @@ export type TextAnimateVariant =
   | 'scaleDown'
 
 export interface TextAnimateProps extends Omit<MotionProps, 'children'> {
-  children: string
+  children: string | number | null | undefined
   className?: string
   segmentClassName?: string
   delay?: number
@@ -205,6 +205,7 @@ const TextAnimateBase = ({
   accessible = true,
   ...props
 }: TextAnimateProps) => {
+  const text = typeof children === 'string' ? children : children != null ? String(children) : ''
   const MotionComponent =
     typeof Component === 'string'
       ? (motion as unknown as Record<string, ComponentType<MotionProps>>)[Component] ?? motion.div
@@ -213,17 +214,17 @@ const TextAnimateBase = ({
   let segments: string[] = []
   switch (by) {
     case 'word':
-      segments = children.split(/(\s+)/)
+      segments = text.split(/(\s+)/)
       break
     case 'character':
-      segments = children.split('')
+      segments = text.split('')
       break
     case 'line':
-      segments = children.split('\n')
+      segments = text.split('\n')
       break
     case 'text':
     default:
-      segments = [children]
+      segments = [text]
       break
   }
 
@@ -278,10 +279,10 @@ const TextAnimateBase = ({
         exit="exit"
         className={cn('whitespace-pre-wrap', className)}
         viewport={{ once }}
-        aria-label={accessible ? children : undefined}
+        aria-label={accessible ? text : undefined}
         {...props}
       >
-        {accessible ? <span className="sr-only">{children}</span> : null}
+        {accessible ? <span className="sr-only">{text}</span> : null}
         {segments.map((segment, i) => (
           <motion.span
             key={`${by}-${segment}-${i}`}

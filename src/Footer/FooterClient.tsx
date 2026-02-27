@@ -300,6 +300,9 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                       colIconUpload && typeof colIconUpload === 'object' && colIconUpload?.url
                         ? getMediaUrl((colIconUpload as { url?: string }).url)
                         : ''
+                    const colIconSpriteId = colIconUploadUrl
+                      ? getSpriteIdFromMediaUrl(colIconUploadUrl)
+                      : null
 
                     return (
                       <div
@@ -309,7 +312,11 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                         <div className="flex flex-row items-start gap-x-4">
                           {/* 1. Spalte: Icons */}
                           <div className="flex shrink-0 pt-0.5 lg:basis-[10%]">
-                            {colIconUploadUrl ? (
+                            {colIconSpriteId ? (
+                              <svg className="h-6 w-6 text-white" aria-hidden="true">
+                                <use href={`/icons-sprite.svg#${colIconSpriteId}`} />
+                              </svg>
+                            ) : colIconUploadUrl ? (
                               <img
                                 src={colIconUploadUrl}
                                 alt=""
