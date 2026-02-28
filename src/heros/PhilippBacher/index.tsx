@@ -78,7 +78,7 @@ type HeroProps = {
 const WAVE_FILL = 'var(--background)' as const
 
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[700px] z-[6] m-0 p-0 overflow-hidden hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[666px] z-[6] m-0 p-0 overflow-hidden hero-box-animate'
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5 hero-box-frame-shadow'
 
@@ -555,7 +555,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
   return (
     <section
       ref={heroSectionRef}
-      className="relative z-10 w-full min-h-[100svh] overflow-hidden flex items-center justify-center bg-neutral-950 m-0 p-0 text-white"
+      className="relative z-10 w-full min-h-[777px] max-h-[777px] overflow-hidden flex items-end justify-center bg-neutral-950 m-0 p-0 text-white -mt-[var(--header-height,6rem)]"
       aria-label="Hero"
     >
       {/* Layer 0: Background only — no flex, grid, padding, margin, relative */}
@@ -772,8 +772,8 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
       )}
 
       {/* Content: relative z-[6], never absolute */}
-      <div className="container relative z-[6] flex min-h-0 flex-1 flex-col p-0 pointer-events-none">
-        <div className="relative min-h-[min(700px,78vh)] flex-1 w-full">
+      <div className="container relative z-[6] flex min-h-0 flex-col p-0 pointer-events-none">
+        <div className="relative min-h-[min(666px,78vh)] flex-1 w-full">
           <div className={HERO_BOX_WRAPPER_CLASS}>
             <div className={HERO_BOX_INNER_CLASS} />
             <div
@@ -820,12 +820,12 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
             <div
               className={cn(
                 'relative z-10 grid h-full min-h-0 w-full grid-cols-1 content-start gap-0 lg:grid-cols-[3fr_2fr] lg:items-end',
-                'p-0',
+                'px-4 py-4 md:px-6 md:py-6 lg:px-8 lg:py-6',
               )}
             >
               <div
                 className={cn(
-                  'relative z-10 flex w-full flex-col text-left pointer-events-none overflow-visible max-h-[700px] min-h-0',
+                  'relative z-10 flex w-full flex-col text-left pointer-events-none overflow-visible max-h-[666px] min-h-0',
                   foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-center',
                   foregroundMedia ? 'lg:justify-end lg:mr-auto' : 'lg:justify-center',
                   'pb-0',

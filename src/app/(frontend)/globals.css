@@ -126,37 +126,49 @@
     min-width: 0;
   }
 
-  /* Hero-Box-Rahmen: Schatten nur per CSS, damit Server/Client gleiches Markup (kein Hydration-Mismatch durch dark:) */
+  /* Hero-Box: edler Glow + im Light Mode Schlagschatten am unteren Rand. */
   .hero-box-frame-shadow {
     box-shadow:
       0 12px 40px rgba(0, 0, 0, 0.08),
       0 4px 24px rgba(0, 0, 0, 0.04),
-      0 0 64px rgba(255, 255, 255, 0.04),
-      0 0 120px rgba(255, 255, 255, 0.015);
+      0 16px 40px rgba(0, 0, 0, 0.06),
+      0 28px 56px rgba(0, 0, 0, 0.04),
+      0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 0 48px rgba(255, 255, 255, 0.06),
+      0 0 96px rgba(255, 255, 255, 0.04),
+      0 0 160px rgba(255, 255, 255, 0.025),
+      0 0 220px rgba(255, 255, 255, 0.012);
   }
   [data-theme='dark'] .hero-box-frame-shadow {
     box-shadow:
       0 4px 24px rgba(0, 0, 0, 0.03),
-      0 0 80px rgba(255, 255, 255, 0.025),
-      0 0 160px rgba(255, 255, 255, 0.01);
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 0 64px rgba(255, 255, 255, 0.04),
+      0 0 120px rgba(255, 255, 255, 0.03),
+      0 0 200px rgba(255, 255, 255, 0.018),
+      0 0 280px rgba(255, 255, 255, 0.008);
   }
 
-  /* Mobile: Glow weicher gestreut, Stärke minimal. */
+  /* Mobile: Glow weicher, Schlagschatten unten etwas reduziert. */
   @media (max-width: 63.99rem) {
     .hero-box-frame-shadow {
       box-shadow:
         0 8px 32px rgba(0, 0, 0, 0.06),
         0 2px 16px rgba(0, 0, 0, 0.03),
-        0 0 48px rgba(255, 255, 255, 0.035),
-        0 0 96px rgba(255, 255, 255, 0.02),
-        0 0 160px rgba(255, 255, 255, 0.01);
+        0 12px 32px rgba(0, 0, 0, 0.05),
+        0 20px 44px rgba(0, 0, 0, 0.03),
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 0 40px rgba(255, 255, 255, 0.05),
+        0 0 80px rgba(255, 255, 255, 0.03),
+        0 0 140px rgba(255, 255, 255, 0.015);
     }
     [data-theme='dark'] .hero-box-frame-shadow {
       box-shadow:
         0 2px 16px rgba(0, 0, 0, 0.025),
-        0 0 56px rgba(255, 255, 255, 0.022),
-        0 0 120px rgba(255, 255, 255, 0.012),
-        0 0 200px rgba(255, 255, 255, 0.006);
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 0 48px rgba(255, 255, 255, 0.032),
+        0 0 100px rgba(255, 255, 255, 0.02),
+        0 0 180px rgba(255, 255, 255, 0.01);
     }
   }
 
@@ -267,9 +279,9 @@
     height: 100%;
     border-radius: 1.5rem;
     border: 0.5px solid rgba(255, 255, 255, 0.05);
-    /* Schatten über .hero-box-frame-shadow (Tailwind-Klasse am Element), nicht hier doppelt. */
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
+    /* Schatten über .hero-box-frame-shadow (Tailwind-Klasse am Element), nicht hier doppelt. Maximaler Glasfilter. */
+    backdrop-filter: blur(48px) saturate(180%);
+    -webkit-backdrop-filter: blur(48px) saturate(180%);
     background: radial-gradient(
       ellipse 260% 260% at 0% 100%,
       rgba(0, 0, 0, 0.9) 0%,
@@ -314,12 +326,12 @@
     );
   }
 
-  /* ≤640px: kleinere Ecken, weniger Blur; Mask auf allen Endgeräten sichtbar (kein mask-image: none). */
+  /* ≤640px: kleinere Ecken, starker Glasfilter; Mask auf allen Endgeräten sichtbar (kein mask-image: none). */
   @media (max-width: 640px) {
     .hero-box-inner {
       border-radius: 1rem;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(40px) saturate(160%);
+      -webkit-backdrop-filter: blur(40px) saturate(160%);
     }
   }
 
@@ -345,33 +357,19 @@
         black 86%,
         black 100%
       );
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
     }
   }
 
-  /* Desktop (1025px+): volle Mask, große Ecken (lg:rounded-3xl). */
+  /* Desktop (1025px+): keine Mask (keine transparente obere rechte Ecke), große Ecken (lg:rounded-3xl), maximaler Glasfilter. */
   @media (min-width: 1025px) {
     .hero-box-inner {
       border-radius: 1.875rem;
-      mask-image: radial-gradient(
-        circle at 100% 0%,
-        transparent 0%,
-        transparent 34%,
-        rgba(0, 0, 0, 0.4) 50%,
-        rgba(0, 0, 0, 0.8) 70%,
-        black 86%,
-        black 100%
-      );
-      -webkit-mask-image: radial-gradient(
-        circle at 100% 0%,
-        transparent 0%,
-        transparent 34%,
-        rgba(0, 0, 0, 0.4) 50%,
-        rgba(0, 0, 0, 0.8) 70%,
-        black 86%,
-        black 100%
-      );
+      backdrop-filter: blur(64px) saturate(200%);
+      -webkit-backdrop-filter: blur(64px) saturate(200%);
+      mask-image: none;
+      -webkit-mask-image: none;
     }
   }
 
@@ -2095,13 +2093,14 @@ html.theme-fallback {
   transition: color 0.45s ease, background-color 0.45s ease;
 }
 /* Nur auf Geräten MIT echter Hover-Unterstützung (Desktop/Maus):
-   Transparenter Modus wenn nicht gehovered. */
+   Transparenter Modus wenn nicht gehovered. Dark-Header = heller Content (über Hero), Light-Header = dunkler Content (über hellem Bereich). */
+/* Logo im Header: immer gleiche Farbe wie Links/Toggles (überschreibt .logo-contrast). */
 @media (hover: hover) {
   .megamenu:not(:hover) .logo-link img,
   .megamenu:not(:hover) .logo-link svg,
   .site-header:not(:hover) .logo-link img,
   .site-header:not(:hover) .logo-link svg {
-    filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1) !important;
   }
   .megamenu:not(:hover) .megamenu-top-item,
   .megamenu:not(:hover) .megamenu-top-item [class*='lucide'] {
@@ -2124,6 +2123,26 @@ html.theme-fallback {
   .site-header:not(:hover) a:hover {
     color: #ffffff !important;
   }
+  /* Light-Header ohne Hover: dunkler Content wie die Links. */
+  [data-theme='light'] .site-header:not(:hover) .logo-link img,
+  [data-theme='light'] .site-header:not(:hover) .logo-link svg {
+    filter: none !important;
+  }
+  [data-theme='light'] .site-header:not(:hover) .header-tool-toggle {
+    color: #404040 !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    background-color: transparent !important;
+  }
+  [data-theme='light'] .site-header:not(:hover) .header-tool-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.06) !important;
+    color: #171717 !important;
+  }
+  [data-theme='light'] .site-header:not(:hover) a {
+    color: #171717 !important;
+  }
+  [data-theme='light'] .site-header:not(:hover) a:hover {
+    color: #000000 !important;
+  }
 }
 
 /* Auf Touch-Geräten (hover:none): Header immer transparent bis scrolled,
@@ -2133,7 +2152,7 @@ html.theme-fallback {
   .megamenu .logo-link svg,
   .site-header .logo-link img,
   .site-header .logo-link svg {
-    filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1) !important;
   }
   .megamenu .megamenu-top-item,
   .megamenu .megamenu-top-item [class*='lucide'] {
@@ -2159,7 +2178,7 @@ html.theme-fallback {
   .megamenu[data-scrolled='true'] .logo-link svg,
   .site-header[data-scrolled='true'] .logo-link img,
   .site-header[data-scrolled='true'] .logo-link svg {
-    filter: none;
+    filter: none !important;
   }
   [data-theme='dark'] .megamenu[data-scrolled='true'] .megamenu-top-item,
   [data-theme='dark'] .megamenu[data-scrolled='true'] .header-tool-toggle,
@@ -2171,7 +2190,7 @@ html.theme-fallback {
   [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link svg,
   [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link img,
   [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link svg {
-    filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1) !important;
   }
 }
 /* Header-Nav-Links: 25% größer */
@@ -2201,7 +2220,7 @@ html.theme-fallback {
   [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link svg,
   [data-theme='light'] .site-header[data-scrolled='true'] .logo-link img,
   [data-theme='light'] .site-header[data-scrolled='true'] .logo-link svg {
-    filter: none;
+    filter: none !important;
   }
   .megamenu[data-scrolled='true'] .megamenu-top-item,
   .megamenu[data-scrolled='true'] .header-tool-toggle,
@@ -2214,12 +2233,18 @@ html.theme-fallback {
     color: #404040 !important;
   }
 }
-/* Hover: Light-Theme = dunkles Logo auf weiß; Dark-Theme = Logo bleibt hell */
+/* Hover: Logo gleiche Farbe wie Links – Light = dunkel, Dark = hell. */
 [data-theme='light'] .megamenu:hover .logo-link img,
 [data-theme='light'] .megamenu:hover .logo-link svg,
 [data-theme='light'] .site-header:hover .logo-link img,
 [data-theme='light'] .site-header:hover .logo-link svg {
-  filter: none;
+  filter: none !important;
+}
+[data-theme='dark'] .megamenu:hover .logo-link img,
+[data-theme='dark'] .megamenu:hover .logo-link svg,
+[data-theme='dark'] .site-header:hover .logo-link img,
+[data-theme='dark'] .site-header:hover .logo-link svg {
+  filter: brightness(0) invert(1) !important;
 }
 .megamenu .logo-link:hover {
   background-color: transparent !important;
@@ -2572,6 +2597,11 @@ header .header-tool-toggle--theme:hover {
   color: #fafafa;
   transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
+/* Dark-Header: Logo immer invertiert (hell), damit es auf dunklem Grund erkennbar ist. */
+[data-theme='dark'] .site-header .logo-link img,
+[data-theme='dark'] .site-header .logo-link svg {
+  filter: brightness(0) invert(1) !important;
+}
 /* Dark: unterer Rand = gleiche Farbe/Dicke wie Megamenu-Dropdown (1px solid #262626) */
 [data-theme='dark'] .megamenu:hover,
 [data-theme='dark'] .site-header:hover {
@@ -2754,7 +2784,7 @@ header .header-tool-toggle--theme:hover {
 [data-theme='dark'] .megamenu:hover .logo-link svg,
 [data-theme='dark'] .site-header:hover .logo-link img,
 [data-theme='dark'] .site-header:hover .logo-link svg {
-  filter: brightness(0) invert(1);
+  filter: brightness(0) invert(1) !important;
 }
 [data-theme='dark'] .megamenu-dropdown-bg,
 [data-theme='dark'] .megamenu-viewport-wrapper {
@@ -2794,7 +2824,7 @@ header .header-tool-toggle--theme:hover {
   [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link svg,
   [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link img,
   [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link svg {
-    filter: brightness(0) invert(1);
+    filter: brightness(0) invert(1) !important;
   }
 }
 
