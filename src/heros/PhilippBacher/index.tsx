@@ -19,9 +19,9 @@ import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 /** Shape-Divider-Farbe: immer identisch zum Main-Content-Hintergrund (`--background`, Theme-abhängig). */
 const WAVE_FILL = 'var(--background)' as const
 
-/** Hero-Box: feste Klassennamen für SSR/Client – keine Abhängigkeit von Viewport/State, damit Hydration nicht divergiert. */
+/** Hero-Box: unter dem Header starten (top = header-height - 12rem), am unteren Rand fixiert, max 700px hoch. z-[6] über Shape-Dividern (z-[2]/z-[3]). */
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-[calc(0.5rem+5vh)] bottom-[5vh] max-lg:bottom-0 z-[2] -m-8 p-8 sm:-m-10 sm:p-10 md:top-[calc(1rem+6vh)] md:bottom-[6vh] md:-m-6 md:p-6 lg:-m-[60px] lg:p-[60px] lg:bottom-[6vh] overflow-hidden hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-[calc(var(--header-height)-12rem)] bottom-0 max-h-[700px] z-[6] -m-8 p-8 sm:-m-10 sm:p-10 md:-m-6 md:p-6 lg:-m-[60px] lg:p-[60px] overflow-hidden hero-box-animate'
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5 hero-box-frame-shadow'
 
@@ -497,7 +497,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
   return (
     <section
       ref={heroSectionRef}
-      className="relative flex flex-col justify-center items-stretch overflow-visible bg-neutral-950 -mt-24 pt-48 text-white min-h-[96vh] md:min-h-[100dvh] lg:min-h-[min(90vh,777px)] max-h-[777px] mb-12 md:mb-16 lg:mb-20"
+      className="relative z-10 flex flex-col justify-center items-stretch overflow-visible bg-neutral-950 -mt-24 pt-48 text-white min-h-[96vh] md:min-h-[100dvh] lg:min-h-[min(90vh,777px)] max-h-[777px] mb-12 md:mb-16 lg:mb-20"
       aria-label="Hero"
     >
       {/* Optionaler globaler Hintergrund-Layer (Orbit/Halo/Gradient) ganz hinten */}
@@ -612,7 +612,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
       {/* Inhalt: linke Spalte + Vordergrundbild + Marquee innerhalb der Herobox (Container begrenzt alles) */}
       <div
         className={cn(
-          'container relative z-10 flex min-h-0 flex-1 flex-col px-6 pt-[calc(6rem+3vh)] pb-0 lg:grid lg:h-full lg:w-full lg:grid-cols-[3fr_2fr] lg:flex-none lg:gap-16 lg:px-8 lg:pt-[calc(8rem+3vh)] lg:pb-0 xl:gap-20 pointer-events-none',
+          'container relative z-10 flex min-h-0 flex-1 flex-col px-6 pt-[calc(var(--header-height)+3vh+10vh)] pb-0 lg:grid lg:h-full lg:w-full lg:grid-cols-[3fr_2fr] lg:flex-none lg:gap-16 lg:px-8 lg:pt-[calc(var(--header-height)+2rem+3vh+10vh)] lg:pb-0 xl:gap-20 pointer-events-none',
           foregroundMedia ? 'max-lg:justify-end' : 'lg:grid-cols-1 lg:items-center',
           foregroundMedia && 'lg:items-end',
         )}
@@ -622,24 +622,22 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
           <div className={HERO_BOX_INNER_CLASS} />
         </div>
 
-        {/* Vordergrund-Bild: Mobile hinter Herobox (z-0), ab lg vor Marquee (lg:z-[6]), hinter Floating-Items (z-20). Ebenen/Filter/Verläufe: siehe docs/hero-foreground-layers.md */}
+        {/* Vordergrund-Bild: min-height damit Wrapper nicht kollabiert (scan1/2 sind absolute → keine Höhe im Flow). */}
         {foregroundMedia && (
           <div
             className={cn(
-              // Revert: einheitliches Verhalten für alle mobilen Geräte, um Clipping am Kopf sicher zu vermeiden.
-              'pointer-events-none absolute right-0 bottom-0 overflow-visible transition-opacity duration-500 ease-out z-0 lg:z-[6]',
-              'max-lg:inset-x-0 max-lg:top-[calc(0.5rem+5vh)] max-lg:bottom-0 max-lg:flex max-lg:justify-end max-lg:items-end max-lg:w-full',
-              'md:top-[calc(1rem+6vh)] md:bottom-[6vh]',
-              'lg:right-[-2%] lg:top-[-3%] lg:bottom-[6vh] lg:w-[41%] lg:max-w-[414px] lg:max-h-none',
-              'xl:right-auto xl:left-[60%]',
+              'pointer-events-none absolute bottom-0 overflow-visible z-0 lg:z-[2] transition-opacity duration-500',
+              'max-lg:right-0 max-lg:left-0 max-lg:flex max-lg:justify-end max-lg:items-end max-lg:min-h-[50vh]',
+              'lg:right-0 lg:w-[41%] lg:max-w-[414px] lg:min-h-[420px]',
+              'xl:left-[58%] xl:right-auto',
               mounted ? 'opacity-100' : 'opacity-0',
             )}
           >
             <div
               className={cn(
-                'hero-foreground-reveal max-lg:w-[min(88vw,394px)] max-lg:min-h-0 max-lg:shrink-0 lg:scale-[1.034] origin-bottom-right hero-foreground-reveal-active',
-                // iPhone 14 Pro Max: etwas größer und leicht nach rechts verschoben, darf rechts aus dem Viewport laufen
-                'hero-pro-max:scale-[1.15] hero-pro-max:translate-x-[10%]',
+                'hero-foreground-reveal hero-foreground-reveal-active h-full min-h-0',
+                'max-lg:w-[min(88vw,394px)] max-lg:max-h-[85vh] max-lg:min-h-[280px]',
+                'lg:w-full lg:max-h-none lg:scale-[1.02] lg:origin-bottom-right',
               )}
             >
               <div className="hero-foreground-scan1">
@@ -647,7 +645,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                   resource={foregroundMedia}
                   priority
                   size="(max-width: 1024px) 414px, 414px"
-                  imgClassName="max-w-full max-h-full w-auto h-auto object-contain object-bottom"
+                  imgClassName="w-full h-full object-contain object-bottom max-lg:object-top"
                 />
               </div>
               <div className="hero-foreground-scan2">
@@ -655,17 +653,18 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                   resource={foregroundMedia}
                   priority
                   size="(max-width: 1024px) 414px, 414px"
-                  imgClassName="max-w-full max-h-full w-auto h-auto object-contain object-bottom"
+                  imgClassName="w-full h-full object-contain object-bottom max-lg:object-top"
                 />
               </div>
             </div>
           </div>
         )}
 
-        {/* Linke Spalte: am Fuß – Flex pushed Content nach unten */}
+        {/* Linke Spalte: an der Hero-Box ausgerichtet – pt = Box-Oberkante, max-height wie Box damit Inhalt nicht über Box hinausfällt. */}
         <div
           className={cn(
-            'relative z-10 flex w-full flex-col text-left pointer-events-none',
+            'relative z-10 flex w-full flex-col text-left pointer-events-none overflow-visible max-h-[700px] min-h-0',
+            'pt-[calc(var(--header-height)-12rem)] pl-8 pr-8 md:pl-6 md:pr-6 sm:pl-10 sm:pr-10 lg:pl-[60px] lg:pr-[60px]',
             foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-center',
             foregroundMedia ? 'lg:justify-end lg:mr-auto' : 'lg:justify-center',
             // Zusätzlicher Abstand nach unten, wenn Marquee aktiv ist, damit sich Beschreibung/CTAs nicht mit der Marquee-Überschrift überschneiden
@@ -809,7 +808,7 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
               <div
                 className={cn(
                   'flex flex-wrap gap-3 pt-2 transition-all duration-500 ease-out sm:gap-4',
-                  textReveal ? 'translate-y-0 opacity-100 delay-[2500ms]' : 'translate-y-2 opacity-0',
+                  textReveal ? 'translate-y-0 opacity-100 delay-[1200ms]' : 'translate-y-2 opacity-0',
                 )}
               >
                 {links.map((linkItem: { link?: any }, i: number) => {
@@ -832,26 +831,20 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
             )}
           </div>
           </div>
-        </div>
 
-        {/* Logo-Bereich: auch auf Mobile sichtbar, aber nicht unter ca. 430px (hero-se:hidden).
-            - Mobile (max-lg): direkt unterhalb des Textblocks, im normalen Flow (gleiche Ebene wie Beschreibung), mit fester Mindesthöhe (kein Layout-Shift).
-            - Desktop (lg+): absolute am oberen Rand des Shape-Dividers innerhalb der Herobox. */}
-        {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
-          <div
-            className={cn(
-              // Desktop: absolute am oberen Rand des Shape-Dividers (6vh = Box-Unterkante, überlappt 9vh-Divider)
-              // Sehr kleine Geräte (hero-se): ausgeblendet
-              'pointer-events-none block hero-se:hidden',
-              'lg:absolute lg:inset-x-0 lg:bottom-[6vh] lg:z-[4]',
-              // Mobile (max-lg): im Flow unterhalb des Textblocks, mit moderatem Abstand und über der Herobox (z-[3] > z-[2])
-              'max-lg:z-[3] max-lg:mt-3 hero-pro-max:mt-2 hero-playbook:mt-3',
-              mounted ? 'opacity-100' : 'opacity-0',
-            )}
-            style={{
-              transition: 'opacity 500ms ease-out',
-              transitionDelay: `${HERO_MARQUEE_START_MS}ms`,
-            }}
+          {/* Logo-Bereich (Marquee): innerhalb der linken Spalte. Immer sichtbar (kein hero-se:hidden), overflow-visible damit nichts abgeschnitten wird. */}
+          {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
+            <div
+              className={cn(
+                'pointer-events-none block w-full overflow-visible shrink-0',
+                'lg:z-[4] lg:pt-4 lg:pb-[6vh]',
+                'max-lg:z-[3] max-lg:mt-3 hero-pro-max:mt-2 hero-playbook:mt-3',
+                mounted ? 'opacity-100' : 'opacity-0',
+              )}
+              style={{
+                transition: 'opacity 500ms ease-out',
+                transitionDelay: `${HERO_MARQUEE_START_MS}ms`,
+              }}
             >
             <div className="pointer-events-auto pb-[1.75vh] sm:pb-[2vh]">
               {/* Keine zusätzliche container-Einrückung – gleiche linke Flucht wie Textspalte */}
@@ -956,7 +949,8 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
                 </div>
               </div>
             </div>
-        )}
+          )}
+        </div>
 
       </div>
 
