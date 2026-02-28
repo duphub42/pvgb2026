@@ -1,5 +1,6 @@
-/**
- * Re-export for shadcn/ui alias @/lib/utils.
- * Project standard for cn() remains @/utilities/ui; this file keeps shadcn CLI-generated imports working.
- */
-export { cn } from '@/utilities/ui'
+import { clsx, type ClassValue } from "clsx"
+import { twMerge } from "tailwind-merge"
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
