@@ -10,11 +10,21 @@ export default function GlobalError({
   error: Error & { digest?: string }
   reset: () => void
 }) {
+  const isNetwork =
+    typeof error?.message === 'string' &&
+    /network error|failed to fetch|load failed|network request failed/i.test(error.message)
+
   return (
     <html lang="de">
       <body>
         <div style={{ padding: '2rem', textAlign: 'center', fontFamily: 'system-ui' }}>
           <h2>Ein Fehler ist aufgetreten</h2>
+          {isNetwork && (
+            <p style={{ marginTop: '0.5rem', color: '#666' }}>
+              Verbindung unterbrochen. Bitte prüfen Sie Ihre Internetverbindung bzw. ob der
+              Dev-Server läuft.
+            </p>
+          )}
           <button
             type="button"
             onClick={() => reset()}
