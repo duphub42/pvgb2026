@@ -131,18 +131,6 @@ const HeroBackgroundThree = dynamic(
   () => import('@/components/HeroBackgroundThree/HeroBackgroundThree').then((m) => m.HeroBackgroundThree),
   { ssr: false, loading: () => <div className="absolute inset-0 bg-neutral-950" aria-hidden /> },
 )
-const HeroBackgroundVantaHalo = dynamic(
-  () => import('@/components/HeroBackgroundVantaHalo/HeroBackgroundVantaHalo').then((m) => m.HeroBackgroundVantaHalo),
-  { ssr: false, loading: () => <div className="absolute inset-0 bg-neutral-950" aria-hidden /> },
-)
-const HeroAnimatedGridWave = dynamic(
-  () => import('@/components/HeroAnimatedGridWave/HeroAnimatedGridWave'),
-  { ssr: false, loading: () => <div className="absolute inset-0" aria-hidden /> },
-)
-const HeroBackgroundOrbit = dynamic(
-  () => import('@/components/HeroBackgroundOrbit/HeroBackgroundOrbit').then((m) => m.HeroBackgroundOrbit),
-  { ssr: false, loading: () => <div className="absolute inset-0 bg-neutral-950" aria-hidden /> },
-)
 const HaloBackground = dynamic(
   () => import('@/components/HaloBackground/HaloBackground').then((m) => m.HaloBackground),
   { ssr: false, loading: () => <div className="absolute inset-0 bg-neutral-950" aria-hidden /> },
@@ -220,7 +208,6 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
   const [marqueeHeadlineReveal, setMarqueeHeadlineReveal] = useState(false)
   const [floatingUnlock, setFloatingUnlock] = useState(false)
   const [waveFill, setWaveFill] = useState<string>(WAVE_FILL)
-  const [themeKey, setThemeKey] = useState<string>('')
   const [deferHeavyBackground, setDeferHeavyBackground] = useState(false)
   const [skipHeavyBackground, setSkipHeavyBackground] = useState(false)
   const [isMobileViewport, setIsMobileViewport] = useState(false)
@@ -394,9 +381,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
 
   useEffect(() => {
     const read = () => {
-      const theme = document.documentElement.getAttribute('data-theme')
       setWaveFill(WAVE_FILL)
-      setThemeKey(theme === 'light' || theme === 'dark' ? theme : 'light')
     }
     read()
     const observer = new MutationObserver((mutations) => {
@@ -500,38 +485,11 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
           : null
 
   const useBackgroundAnimation = effectiveMediaType === 'animation'
-  const useBackgroundHalo      = effectiveMediaType === 'halo'
   const useBackgroundCssHalo   = effectiveMediaType === 'cssHalo'
-  const useBackgroundOrbit     = effectiveMediaType === 'orbit'
-  const showHaloLayer          = useBackgroundHalo && useHaloBackground
-  const showGridOverlay        = useBackgroundHalo
 
   const hasTextContent  = hasHeadline || subheadline || description || richText
   const foregroundMedia = foregroundImage && isMediaObject(foregroundImage) ? foregroundImage : null
   const hasMarquee      = Boolean(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0))
-
-  const rawCustomGridCode =
-    typeof haloOverlayGridCustomCode === 'string'
-      ? haloOverlayGridCustomCode.trim()
-      : haloOverlayGridCustomCode &&
-        typeof haloOverlayGridCustomCode === 'object' &&
-        'code' in haloOverlayGridCustomCode &&
-        typeof haloOverlayGridCustomCode.code === 'string'
-        ? haloOverlayGridCustomCode.code.trim()
-        : ''
-
-  let customGridCode = ''
-  if (rawCustomGridCode) {
-    try {
-      const style = '<style>html,body{background:transparent !important;}</style>'
-      const s = String(rawCustomGridCode)
-      if (/<head\b/i.test(s))       customGridCode = s.replace(/(<head\b[^>]*>)/i, `$1${style}`)
-      else if (/<html\b/i.test(s))  customGridCode = s.replace(/(<html\b[^>]*>)/i, `$1<head>${style}</head>`)
-      else                          customGridCode = style + s
-    } catch {
-      customGridCode = rawCustomGridCode
-    }
-  }
 
   const easedScroll  = Math.min(scrollOffset, SCROLL_MAX_OFFSET)
   const scrollFactor = easedScroll / SCROLL_MAX_OFFSET
@@ -543,7 +501,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
     ? Math.min(Math.max(0, overlayNum + scrollFactor * 0.35), 0.75)
     : 0.45
   const overlay =
-    useBackgroundHalo || useBackgroundCssHalo || useBackgroundOrbit || backgroundMedia
+    useBackgroundCssHalo || backgroundMedia
       ? Math.min(overlayRaw, 0.3)
       : overlayRaw
 
@@ -563,84 +521,23 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
         <HeroBackgroundPresetLayer preset={backgroundPreset as Record<string, unknown>} />
         <div className="hero-bg-wrap absolute inset-0">
           <div className="hero-pattern-bg absolute inset-0" aria-hidden />
-        {useBackgroundHalo ? (
-          <div key={themeKey || 'halo'} className="hero-halo-layer absolute inset-0 w-full h-full">
-            {showHaloLayer ? (
-              deferHeavyBackground ? (
-                <HeroBackgroundVantaHalo
-                  className="absolute inset-0 w-full h-full"
-                  options={{
-                    amplitudeFactor: haloAmplitudeFactor ?? 1.8,
-                    size:            haloSize            ?? 2.1,
-                    speed:           (haloSpeed ?? 1) * 0.125,
-                    color2:          haloColor2          ?? 15918901,
-                    xOffset:         haloXOffset         ?? 0.15,
-                    yOffset:         haloYOffset         ?? -0.03,
-                  }}
-                />
-              ) : (
-                <div className="absolute inset-0 bg-neutral-950" aria-hidden />
-              )
-            ) : (
-              <div className="absolute inset-0 bg-neutral-950" aria-hidden />
-            )}
-            {showGridOverlay &&
-              (haloOverlayGridVariant === 'wave' ? (
-                <>
-                  <div
-                    className="hero-halo-overlay-gradient absolute inset-0 pointer-events-none"
-                    aria-hidden
-                    style={{ ['--halo-overlay-gradient' as string]: Number(haloOverlayGradient ?? 0.68) }}
-                  />
-                  {deferHeavyBackground && (
-                    <HeroAnimatedGridWave className="absolute inset-0 w-full h-full pointer-events-none" />
-                  )}
-                </>
-              ) : haloOverlayGridVariant === 'custom' && customGridCode ? (
-                <>
-                  <div
-                    className="hero-halo-overlay-gradient absolute inset-0 pointer-events-none"
-                    aria-hidden
-                    style={{ ['--halo-overlay-gradient' as string]: Number(haloOverlayGradient ?? 0.68) }}
-                  />
-                  <iframe
-                    title="Hero Gitter Overlay"
-                    className="absolute inset-0 w-full h-full pointer-events-none border-0"
-                    sandbox="allow-scripts"
-                    srcDoc={customGridCode}
-                  />
-                </>
-              ) : (
-                <div
-                  className="hero-halo-overlay absolute inset-0 pointer-events-none"
-                  aria-hidden
-                  style={{
-                    ['--halo-overlay-gradient' as string]: Number(haloOverlayGradient ?? 0.68),
-                    ['--halo-overlay-grid' as string]:     Number(haloOverlayGrid ?? 0.08),
-                    ['--halo-overlay-grid-size' as string]: `${Number(haloOverlayGridSize ?? 12)}px`,
-                  }}
-                />
-              ))}
-          </div>
-        ) : useBackgroundCssHalo ? (
+        {useBackgroundCssHalo ? (
           <HaloBackground />
-        ) : useBackgroundOrbit ? (
-          <HeroBackgroundOrbit className="absolute inset-0 w-full h-full" />
         ) : useBackgroundAnimation ? (
           deferHeavyBackground ? (
             <HeroBackgroundThree className="absolute inset-0 w-full h-full" />
           ) : (
             <div className="absolute inset-0 bg-neutral-950" aria-hidden />
           )
+        ) : backgroundMedia ? (
+          <Media
+            resource={backgroundMedia}
+            fill
+            imgClassName="object-cover w-full h-full"
+            priority
+          />
         ) : (
-          backgroundMedia && (
-            <Media
-              resource={backgroundMedia}
-              fill
-              imgClassName="object-cover w-full h-full"
-              priority
-            />
-          )
+          <div className="absolute inset-0 bg-neutral-950" aria-hidden />
         )}
         </div>
       </div>
