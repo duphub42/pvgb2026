@@ -4,8 +4,8 @@
   "rsc": true,
   "tsx": true,
   "tailwind": {
-    "config": "tailwind.config.mjs",
-    "css": "src/app/(frontend)/globals.css",
+    "config": "",
+    "css": "app/globals.css",
     "baseColor": "neutral",
     "cssVariables": true,
     "prefix": ""
@@ -25,7 +25,7 @@
     "@shadcnblocks": {
       "url": "https://shadcnblocks.com/r/{name}",
       "headers": {
-        "Authorization": "Bearer ${sk_live_LfxNIF7vSej8mmkTNVP6Nb8CK8KjOgvG}"
+        "Authorization": "Bearer ${SHADCNBLOCKS_API_KEY}"
       }
     }
   }

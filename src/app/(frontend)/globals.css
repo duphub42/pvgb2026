@@ -314,14 +314,20 @@
     background: rgba(0, 0, 0, 0.08);
   }
 
-  /* ≤640px (Mobile): Glasebene ohne Maske; Verdunklungsverlauf auf separater Ebene (.hero-box-inner::after) mit transparenter rechter oberer Ecke – so funktioniert die Ecke auch bei Safari/iOS (Maske nur auf dem Verlauf, nicht auf dem Glas). */
+  /* ≤640px (Mobile): Ecke muss transparent sein (Design). SVG-Maske (#hero-box-corner-mask) für Glas + ::after – Safari/iOS-tauglich. */
   @media (max-width: 640px) {
     .hero-box-inner {
       border-radius: 1rem;
       backdrop-filter: blur(40px) saturate(160%);
       -webkit-backdrop-filter: blur(40px) saturate(160%);
-      mask-image: none;
-      -webkit-mask-image: none;
+      mask: url(#hero-box-corner-mask);
+      -webkit-mask: url(#hero-box-corner-mask);
+      mask-size: 100% 100%;
+      mask-position: 0 0;
+      mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+      -webkit-mask-position: 0 0;
+      -webkit-mask-repeat: no-repeat;
     }
     .hero-box-inner::after {
       content: '';
@@ -337,30 +343,14 @@
         rgba(0, 0, 0, 0.12) 78%,
         transparent 100%
       );
-      mask-image: radial-gradient(
-        circle at 100% 0%,
-        transparent 0%,
-        transparent 34%,
-        rgba(0, 0, 0, 0.4) 50%,
-        rgba(0, 0, 0, 0.8) 70%,
-        black 86%,
-        black 100%
-      );
-      -webkit-mask-image: radial-gradient(
-        circle at 100% 0%,
-        transparent 0%,
-        transparent 34%,
-        rgba(0, 0, 0, 0.4) 50%,
-        rgba(0, 0, 0, 0.8) 70%,
-        black 86%,
-        black 100%
-      );
-      mask-repeat: no-repeat;
-      mask-position: 0 0;
+      mask: url(#hero-box-corner-mask);
+      -webkit-mask: url(#hero-box-corner-mask);
       mask-size: 100% 100%;
-      -webkit-mask-repeat: no-repeat;
-      -webkit-mask-position: 0 0;
+      mask-position: 0 0;
+      mask-repeat: no-repeat;
       -webkit-mask-size: 100% 100%;
+      -webkit-mask-position: 0 0;
+      -webkit-mask-repeat: no-repeat;
     }
   }
 

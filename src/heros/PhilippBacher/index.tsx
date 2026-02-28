@@ -671,6 +671,22 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
         </div>
       )}
 
+      {/* SVG-Maske für Mobile: rechte obere Ecke transparent (Safari-tauglich). Muss im DOM sein für url(#…). */}
+      <svg aria-hidden="true" className="absolute w-0 h-0 overflow-hidden" focusable="false">
+        <defs>
+          <mask id="hero-box-corner-mask" maskContentUnits="objectBoundingBox" maskUnits="objectBoundingBox">
+            <radialGradient id="hero-corner-mask-gradient" cx="1" cy="0" r="0.6">
+              <stop offset="0" stopColor="black" />
+              <stop offset="0.34" stopColor="black" />
+              <stop offset="0.5" stopColor="white" stopOpacity="0.4" />
+              <stop offset="0.7" stopColor="white" stopOpacity="0.8" />
+              <stop offset="0.86" stopColor="white" />
+              <stop offset="1" stopColor="white" />
+            </radialGradient>
+            <rect width="1" height="1" fill="url(#hero-corner-mask-gradient)" />
+          </mask>
+        </defs>
+      </svg>
       {/* Content: relative z-[6], never absolute */}
       <div className="container relative z-[6] flex min-h-0 flex-col p-0 pointer-events-none">
         <div className="relative min-h-[min(666px,78vh)] flex-1 w-full">
