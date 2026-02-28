@@ -993,57 +993,6 @@ footer a[href='/']:hover .logo-animate {
   display: none !important;
 }
 
-/* Footer: dezente, animierte Hintergrund-Blobs hinter dem Inhalt */
-.footer-ambient-shapes {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
-.footer-ambient-circle {
-  position: absolute;
-  border-radius: 9999px;
-  min-width: 360px;
-  height: 360px;
-  filter: blur(48px);
-  mix-blend-mode: screen;
-  opacity: 0.18;
-  animation: footer-ambient-scale 10s cubic-bezier(0.39, 0.575, 0.565, 1) infinite both;
-}
-.footer-ambient-circle-1 {
-  background-color: hsl(0 0% 36%);
-  left: -4%;
-  top: 10%;
-}
-.footer-ambient-circle-2 {
-  background-color: hsl(0 0% 28%);
-  right: -6%;
-  top: 35%;
-  animation-delay: 2s;
-}
-.footer-ambient-circle-3 {
-  background-color: hsl(0 0% 20%);
-  left: 18%;
-  bottom: -12%;
-  animation-delay: 4s;
-}
-
-@keyframes footer-ambient-scale {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  33% {
-    transform: translate(26px, -40px) scale(1.08);
-  }
-  66% {
-    transform: translate(-18px, 22px) scale(0.94);
-  }
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
-}
-
 /* Ausgeklappt: Expand-Animation (overflow bleibt hidden bis Glitch läuft). Footer-Bild-Logo ausgenommen (kein Glitch/Expand). */
 .logo-glitch-wrapper:not(.logo-glitch-collapsed):not(.logo-glitch-footer) {
   animation: logo-reveal-expand-glitch var(--logo-reveal-duration) ease-out forwards;
@@ -1909,7 +1858,7 @@ footer a[href='/']:hover .logo-animate {
   -webkit-mask-position: center;
 }
 
-.footer-gradient > *:not(.footer-ambient-shapes) {
+.footer-gradient > * {
   position: relative;
   z-index: 1;
 }
@@ -1930,21 +1879,6 @@ footer a[href='/']:hover .logo-animate {
     linear-gradient(to right, #000 1px, transparent 1px),
     linear-gradient(to bottom, #000 1px, transparent 1px);
   opacity: 0.04;
-}
-[data-theme='light'] .footer-ambient-circle {
-  mix-blend-mode: multiply;
-}
-[data-theme='light'] .footer-ambient-circle-1 {
-  background-color: hsl(0 0% 55%);
-  opacity: 0.12;
-}
-[data-theme='light'] .footer-ambient-circle-2 {
-  background-color: hsl(0 0% 45%);
-  opacity: 0.10;
-}
-[data-theme='light'] .footer-ambient-circle-3 {
-  background-color: hsl(0 0% 35%);
-  opacity: 0.08;
 }
 .footer-custom {
   color: var(--theme-footer-text, #fff);

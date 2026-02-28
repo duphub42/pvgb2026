@@ -1,10 +1,18 @@
 import { Button, type ButtonProps } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import { ArrowRight } from 'lucide-react'
-import Link from 'next/link'
+import NextLink from 'next/link'
 import React from 'react'
 
 import type { Page, Post } from '@/payload-types'
+
+/** Fallback wenn next/link im Client-Bundle undefined ist (verhindert "Cannot read properties of undefined (reading 'call')"). */
+function LinkFallback(
+  props: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href?: string },
+) {
+  return <a {...props} href={props.href ?? '#'} />
+}
+const Link = NextLink ?? LinkFallback
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']

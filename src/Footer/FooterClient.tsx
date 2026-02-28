@@ -144,14 +144,6 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
       style={style}
     >
       <FooterBounce>
-        {/* Hintergrund-Blobs — Theme-aware Farben via CSS */}
-        {!hasCustomBg && hasNewStructure && (
-          <div className="footer-ambient-shapes" aria-hidden="true">
-            <div className="footer-ambient-circle footer-ambient-circle-1" />
-            <div className="footer-ambient-circle footer-ambient-circle-2" />
-            <div className="footer-ambient-circle footer-ambient-circle-3" />
-          </div>
-        )}
         <div className="container">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:grid-cols-[1fr_3fr] [&>*]:pt-4">
             <div className="md:col-span-12 lg:col-span-1 order-1 md:order-1 lg:order-1">

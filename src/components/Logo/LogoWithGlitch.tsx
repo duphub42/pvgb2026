@@ -160,9 +160,9 @@ export function LogoWithGlitch({
     const isFooterImage = variant === 'footer'
     return (
       <div
-        // FIX: logo-contrast immer, kein darkBackground-conditional
+        /* logo-contrast nur auf dem inneren img (Logo), nicht auf dem Wrapper – sonst doppelte Inversion im Dark Mode (schwarz statt weiß). */
         className={cn(
-          'logo-glitch-wrapper relative logo-glitch-image logo-contrast',
+          'logo-glitch-wrapper relative logo-glitch-image',
           variant === 'footer' && 'logo-glitch-footer',
           imageWrapperSizeClass,
           !isFooterImage && glitchActive && 'logo-glitch-active',

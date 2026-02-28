@@ -6,44 +6,18 @@ import type { SitePage } from '@/payload-types'
 
 import { CLIENT_BLOCK_TYPES } from '@/blocks/clientBlockTypes'
 
-/** Lazy-Load pro Block-Typ. ArchiveBlock wird in RenderBlocks direkt gerendert (Server). Fallback verhindert "Element type is invalid: got undefined". */
-function lazyBlock<T extends React.ComponentType<any>>(
-  loader: () => Promise<{ default?: T } & Record<string, T | undefined>>,
-  name: string,
-): React.LazyExoticComponent<T> {
-  return lazy(async () => {
-    const m = await loader()
-    const C = (m as { default?: T }).default ?? (m as Record<string, T>)[name]
-    if (C == null || (typeof C !== 'function' && typeof C !== 'object'))
-      throw new Error(`Block "${name}" export is invalid`)
-    return { default: C as T }
-  })
-}
-
+/** Lazy-Load pro Block-Typ. ArchiveBlock wird in RenderBlocks direkt gerendert (Server). */
 const blockLoaders: Record<
   string,
   React.LazyExoticComponent<React.ComponentType<Record<string, unknown> & { disableInnerContainer?: boolean }>>
 > = {
-  content: lazyBlock(
-    () => import('@/blocks/Content/Component'),
-    'ContentBlock',
+  content: lazy(() => import('@/blocks/Content/Component').then((m) => ({ default: m.ContentBlock }))),
+  heroMarketing: lazy(() =>
+    import('@/blocks/HeroMarketing/Component').then((m) => ({ default: m.HeroMarketingBlock })),
   ),
-  heroMarketing: lazyBlock(
-    () => import('@/blocks/HeroMarketing/Component'),
-    'HeroMarketingBlock',
-  ),
-  cta: lazyBlock(
-    () => import('@/blocks/CallToAction/Component'),
-    'CallToActionBlock',
-  ),
-  formBlock: lazyBlock(
-    () => import('@/blocks/Form/Component'),
-    'FormBlock',
-  ),
-  mediaBlock: lazyBlock(
-    () => import('@/blocks/MediaBlock/Component'),
-    'MediaBlock',
-  ),
+  cta: lazy(() => import('@/blocks/CallToAction/Component').then((m) => ({ default: m.CallToActionBlock }))),
+  formBlock: lazy(() => import('@/blocks/Form/Component').then((m) => ({ default: m.FormBlock }))),
+  mediaBlock: lazy(() => import('@/blocks/MediaBlock/Component').then((m) => ({ default: m.MediaBlock }))),
 }
 
 export const SUPPORTED_BLOCK_TYPES = CLIENT_BLOCK_TYPES

@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import Link from 'next/link'
 import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
@@ -36,7 +35,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
           <h1>{slug === 'home' || !slug ? 'Willkommen' : 'Seite'}</h1>
           <p>Die Datenbank ist gerade nicht erreichbar. Bitte später erneut versuchen oder Admin prüfen.</p>
           <p>
-            <Link href="/admin" className="underline">Zum Admin</Link>
+            <a href="/admin" className="underline">Zum Admin</a>
           </p>
         </div>
       </article>
@@ -134,9 +133,9 @@ export default async function Page({ params: paramsPromise, searchParams: search
               <h1>Willkommen</h1>
               <p>
                 Noch keine Startseite eingerichtet. Im{' '}
-                <Link href="/admin" className="underline">
+                <a href="/admin" className="underline">
                   Admin
-                </Link>{' '}
+                </a>{' '}
                 eine Seite mit Slug <strong>home</strong> anlegen und veröffentlichen.
               </p>
             </div>
@@ -181,7 +180,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
             </pre>
           )}
           <p>
-            <Link href="/admin" className="underline">Zum Admin</Link>
+            <a href="/admin" className="underline">Zum Admin</a>
           </p>
         </div>
       </article>
