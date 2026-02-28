@@ -1,0 +1,182 @@
+/* -------------------------------
+   Hero – Globals (optimiert)
+   Referenz: Einheitlicher Breakpoint 768px, reduzierte Komplexität.
+   In globals.css bleiben zusätzlich: Dark Theme, Overlay-Gradienten,
+   Desktop-Overrides (64rem), Shape-Divider, Foreground-Scan-Keyframes.
+---------------------------------*/
+
+/* -------------------------------
+   1. Hero Breakpoints (Tailwind Only)
+---------------------------------*/
+:root {
+  --header-height: 6rem;
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 86rem;
+}
+
+/* -------------------------------
+   2. Hero Box Frame & Inner
+---------------------------------*/
+.hero-box-frame-shadow {
+  box-shadow:
+    0 12px 40px rgba(0,0,0,0.08),
+    0 4px 24px rgba(0,0,0,0.04),
+    0 0 64px rgba(255,255,255,0.04),
+    0 0 120px rgba(255,255,255,0.015);
+}
+
+.hero-box-inner {
+  position: relative;
+  transform: translateY(100%);
+  animation: hero-box-slide-up 1100ms cubic-bezier(0.22,1,0.36,1) forwards;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  background: radial-gradient(
+    ellipse 260% 260% at 0% 100%,
+    rgba(0,0,0,0.9) 0%,
+    rgba(0,0,0,0.75) 30%,
+    rgba(0,0,0,0.45) 55%,
+    rgba(0,0,0,0.2) 78%,
+    rgba(0,0,0,0.08) 100%
+  );
+  mask-image: radial-gradient(
+    circle at 100% 0%,
+    transparent 0%, transparent 34%,
+    rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 70%,
+    black 86%, black 100%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle at 100% 0%,
+    transparent 0%, transparent 34%,
+    rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 70%,
+    black 86%, black 100%
+  );
+}
+
+/* Slide up Animation */
+@keyframes hero-box-slide-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+/* -------------------------------
+   3. Hero Overlay / Edge Darken
+---------------------------------*/
+.hero-overlay-base,
+.hero-edge-darken {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* -------------------------------
+   4. Hero Subheadline / Headline
+---------------------------------*/
+.hero-subheadline-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.2rem 0.7rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  background: rgba(0,0,0,0.92);
+  color: rgba(248,250,252,0.98);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+/* -------------------------------
+   5. Hero Foreground Reveal (Fix Mobile)
+---------------------------------*/
+.hero-foreground-reveal {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.hero-foreground-scan1,
+.hero-foreground-scan2 {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+/* Mobile Fix */
+@media (max-width: 768px) {
+  .hero-box-inner {
+    mask-image: none !important;
+    -webkit-mask-image: none !important;
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+    animation: none !important;
+  }
+
+  .hero-foreground-scan1,
+  .hero-foreground-scan2 {
+    clip-path: none !important;
+    position: relative !important;
+  }
+
+  .hero-subheadline-badge {
+    font-size: 0.65rem;
+    padding: 0.15rem 0.5rem;
+  }
+}
+
+/* -------------------------------
+   6. Hero Background Animations
+---------------------------------*/
+.hero-bg-animation::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  animation: hero-bg-shift 18s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes hero-bg-shift {
+  0%, 100% { opacity: 1; transform: scale(1) translate(0,0); }
+  33% { opacity: 0.95; transform: scale(1.05) translate(2%, -1%); }
+  66% { opacity: 1; transform: scale(0.98) translate(-1%, 2%); }
+}
+
+/* -------------------------------
+   7. Hero Halo / Orbit
+---------------------------------*/
+.hero-css-halo .halo {
+  position: absolute;
+  border-radius: 50%;
+  width: 60vw;
+  height: 60vw;
+  filter: blur(120px);
+  opacity: 0.4;
+  mix-blend-mode: screen;
+  animation: hero-css-halo-float 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes hero-css-halo-float {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-40px) scale(1.05); }
+  100% { transform: translateY(20px) scale(0.95); }
+}
+
+/* -------------------------------
+   8. Marquee Logos
+---------------------------------*/
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(calc(-50% * var(--marquee-direction, 1))); }
+}
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
+}

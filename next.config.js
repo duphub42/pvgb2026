@@ -73,6 +73,8 @@ const nextConfig = {
             },
           ]
         : []),
+      // Placeholder-Bilder (Hero/Logo) für Entwicklung und Copy-Paste-Hero
+      { protocol: 'https', hostname: 'placehold.co', pathname: '/**' },
     ],
   },
   webpack: (webpackConfig, { isServer }) => {

@@ -202,7 +202,7 @@
     }
   }
 
-  /* Hero-Box: gewünschte Transparenz – radialer Verlauf, oben rechts (Ecke) 100 % transparent, zur Mitte hin dezenter Glaseffekt. */
+  /* HeroBox Slide-Up: Keyframes für Wrapper (.hero-box-animate) – Tailwind-kompatibel (auch in tailwind.config.mjs). */
   @keyframes hero-box-slide-up {
     from {
       transform: translateY(100%);
@@ -211,25 +211,35 @@
       transform: translateY(0);
     }
   }
-  /* Hero-Box („herobox“): EIN Layer mit Glaseffekt. Start: translateY(100%) → Animation bringt sie nach oben; Fallback bei prefers-reduced-motion unten. */
+
+  /* HeroBox Wrapper: Animation (Slide Up), damit der gesamte Kasten einblendet. */
+  .hero-box-animate {
+    animation: hero-box-slide-up 1100ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-box-animate {
+      animation: none;
+    }
+  }
+
+  /* HeroBox Inner: Glaseffekt, Masken, Blur – responsive (iPhone / Android Compact / iPad / Desktop). Keine Animation hier (läuft auf Wrapper). */
   .hero-box-inner {
     position: relative;
-    transform: translateY(100%);
-    animation: hero-box-slide-up 1100ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
-    /* Stärkerer Milchglas-Blur für die Herobox */
+    width: 100%;
+    height: 100%;
+    border-radius: 1.5rem;
+    border: 0.5px solid rgba(255, 255, 255, 0.05);
+    /* Schatten über .hero-box-frame-shadow (Tailwind-Klasse am Element), nicht hier doppelt. */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    /* Mobile/Tablet: 90% Abdunklung unten links, gleichmäßiger Verlauf zur oberen rechten Ecke. */
     background: radial-gradient(
       ellipse 260% 260% at 0% 100%,
-      /* Untere linke Ecke: sehr dunkel (~90%) */
       rgba(0, 0, 0, 0.9) 0%,
       rgba(0, 0, 0, 0.75) 30%,
       rgba(0, 0, 0, 0.45) 55%,
       rgba(0, 0, 0, 0.2) 78%,
       rgba(0, 0, 0, 0.08) 100%
     );
-    /* Mobile/Tablet: Kreis oben rechts „ausgestanzt“ – weicher Übergang, Blur/Tönung setzen erst weiter außerhalb voll ein. */
     mask-image: radial-gradient(
       circle at 100% 0%,
       transparent 0%,
@@ -265,72 +275,97 @@
       rgba(0, 0, 0, 0.12) 100%
     );
   }
-  /* Desktop: etwas stärkerer Glas-Effekt (mehr Tönung) */
-  @media (min-width: 64rem) {
+
+  /* iPhone (≤640px): Mask aus, kleinerer Blur, kleinere Ecken – verhindert zerschossene Layouts. */
+  @media (max-width: 640px) {
     .hero-box-inner {
-      background: radial-gradient(
-        ellipse 240% 240% at 100% 0%,
-        rgba(0, 0, 0, 0.03) 0%,
-        rgba(0, 0, 0, 0.045) 40%,
-        rgba(0, 0, 0, 0.09) 80%,
-        rgba(0, 0, 0, 0.2) 100%
-      );
-      /* Desktop: kein „ausgestanzter“ Kreis – Box wieder vollflächig. */
+      border-radius: 1rem;
       mask-image: none;
       -webkit-mask-image: none;
-    }
-    [data-theme='dark'] .hero-box-inner {
-      background: radial-gradient(
-        ellipse 240% 240% at 100% 0%,
-        rgba(0, 0, 0, 0.05) 0%,
-        rgba(0, 0, 0, 0.07) 40%,
-        rgba(0, 0, 0, 0.13) 80%,
-        rgba(0, 0, 0, 0.28) 100%
-      );
-    }
-  }
-  /* Fallback: Box sofort sichtbar bei reduzierter Bewegung */
-  @media (prefers-reduced-motion: reduce) {
-    .hero-box-inner {
-      transform: translateY(0);
-      animation: none;
-    }
-  }
-  /* Mobile: Mask/Blur/Animation deaktivieren – viele Mobile-Browser rendern mask + backdrop-filter instabil (Box wirkt abgeschnitten/unsichtbar). */
-  @media (max-width: 40rem) {
-    .hero-box-inner {
-      mask-image: none !important;
-      -webkit-mask-image: none !important;
-      backdrop-filter: none !important;
-      -webkit-backdrop-filter: none !important;
-      animation: none !important;
-      transform: translateY(0) !important;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
     }
   }
 
-  /* Hero-Subheading-Badge: nur auf mobilen Geräten; Desktop nutzt reine Typo-Klassen. */
-  @media (max-width: 63.99rem) {
-    .hero-subheadline-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 0.2rem 0.7rem;
-      border-radius: 9999px;
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      /* Klarer schwarzer Badge ohne Rand. */
-      border: none;
-      background: rgba(0, 0, 0, 0.92);
-      color: rgba(248, 250, 252, 0.98);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
+  /* Android Compact / iPad (641px–1024px): Mask leicht abgeschwächt, mittlere Ecken. */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .hero-box-inner {
+      border-radius: 1.25rem;
+      mask-image: radial-gradient(
+        circle at 100% 0%,
+        transparent 0%,
+        transparent 34%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.7) 70%,
+        black 86%,
+        black 100%
+      );
+      -webkit-mask-image: radial-gradient(
+        circle at 100% 0%,
+        transparent 0%,
+        transparent 34%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.7) 70%,
+        black 86%,
+        black 100%
+      );
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
-    [data-theme='dark'] .hero-subheadline-badge {
-      border: none;
-      background: rgba(0, 0, 0, 0.96);
-      color: rgba(248, 250, 252, 0.98);
+  }
+
+  /* Desktop (1025px+): volle Mask, große Ecken (lg:rounded-3xl). */
+  @media (min-width: 1025px) {
+    .hero-box-inner {
+      border-radius: 1.875rem;
+      mask-image: radial-gradient(
+        circle at 100% 0%,
+        transparent 0%,
+        transparent 34%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.8) 70%,
+        black 86%,
+        black 100%
+      );
+      -webkit-mask-image: radial-gradient(
+        circle at 100% 0%,
+        transparent 0%,
+        transparent 34%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.8) 70%,
+        black 86%,
+        black 100%
+      );
+    }
+  }
+
+  /* Hero-Subheadline-Badge: Basis (immer sichtbar), Tailwind-kompatibel. */
+  .hero-subheadline-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.2rem 0.7rem;
+    border-radius: 9999px;
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    border: none;
+    background: rgba(0, 0, 0, 0.92);
+    color: rgba(248, 250, 252, 0.98);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+  [data-theme='dark'] .hero-subheadline-badge {
+    border: none;
+    background: rgba(0, 0, 0, 0.96);
+    color: rgba(248, 250, 252, 0.98);
+  }
+  /* Ab 768px: Badge kompakter auf kleinen Screens. */
+  @media (max-width: 768px) {
+    .hero-subheadline-badge {
+      font-size: 0.65rem;
+      padding: 0.15rem 0.5rem;
     }
   }
 
@@ -446,8 +481,8 @@
   .hero-foreground-reveal-active .hero-foreground-scan2 {
     animation: hero-foreground-scan2 2.2s steps(50, end) forwards;
   }
-  /* Tablet/Mobile: clip-path + absolute führt oft zu falscher Skalierung / Überdeckung von Text. Vordergrund-Bild ist bei uns auf max-lg ohnehin ein eigener Layer hinter der Box – dieser Fallback hilft, falls die Struktur geändert wird. */
-  @media (max-width: 48rem) {
+  /* Tablet/Mobile (≤768px): clip-path + absolute führt oft zu falscher Skalierung / Überdeckung. Fallback; Vordergrund ist bei uns max-lg ein eigener Layer hinter der Box. */
+  @media (max-width: 768px) {
     .hero-foreground-scan1,
     .hero-foreground-scan2 {
       clip-path: none !important;
