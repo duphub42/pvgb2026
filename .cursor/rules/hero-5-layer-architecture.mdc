@@ -1,0 +1,64 @@
+# Hero 5-Layer-Architektur (PhilippBacher)
+
+Dieses Raster ist verbindlich für alle Hero-Komponenten. Es definiert **wer absolute/relative/transform/z-index haben darf** – es ersetzt **nicht** die bestehende Payload-Logik (Vanta, Orbit, Parallax, Props).
+
+## Z-Index-System (unverändert beibehalten)
+
+- **z-0**: Hintergrund (Vanta, ThreeJS, Orbit, Gradient, Preset)
+- **z-[1]**: Halo & FX (Overlay, Gradient, Edge-Darken, Foreground-Bild mobil, Shape-Divider)
+- **z-[2]**: Nur Floating-Elemente
+- **z-[6]**: Content-Wrapper (relativ, nie absolute)
+
+Nicht mischen mit anderen Schemata (z-10, z-20 nur wo bereits verwendet).
+
+## 1. Root Section
+
+- **Genau ein** `relative` auf dem Section-Root.
+- Kein `transform` auf diesem Element.
+- Klassen: `relative z-10 w-full min-h-[100svh] overflow-hidden flex items-center justify-center` (+ bestehende bg/text).
+- **min-h-[100svh]** (nicht h-screen, nicht mehrere min-h-Varianten).
+
+## 2. Background-Wrapper (Layer 0)
+
+- Ein Wrapper: `className="absolute inset-0 z-0"`.
+- Darin: PresetLayer, hero-bg-wrap (mit hero-pattern-bg), dynamischer Hintergrund (Vanta/Orbit/Three/Media).
+- **Niemals** auf diesem Wrapper: flex, grid, padding, margin, relative.
+
+## 3. Halo & FX (Layer 1)
+
+- Ein Wrapper: `className="absolute inset-0 z-[1] pointer-events-none"`.
+- Darin: hero-overlay-base, Gradient, hero-edge-darken, Foreground-Bild (nur mobil), Shape-Divider-SVGs.
+- Nicht mit Floating mischen.
+
+## 4. Floating-Layer (Layer 2)
+
+- Ein Wrapper: `className="absolute inset-0 z-[2] pointer-events-none"`.
+- **Kein** innerer Container mit `relative` oder `container`.
+- Kinder: nur `absolute` mit Prozent-Positionierung (`left: ${x}%`, `top: ${y}%`).
+- Floating-Kinder: `className` inkl. `absolute will-change-transform`.
+- Links können `pointer-events-auto` haben.
+
+## 5. Content
+
+- Content-Wrapper: `className="container relative z-[6] ..."` (niemals `absolute`).
+- Kein `transform` auf dem Content-Container.
+- Inhalte (Text, Marquee, CTAs) leben innerhalb dieses relativen Containers.
+
+## getMediaUrlSafe
+
+- Zentral in `@/utils/media.ts`.
+- In Hero-Dateien: `import { getMediaUrlSafe } from '@/utils/media'`.
+- Keine lokale Duplikation der Funktion.
+
+## globals.css
+
+- **Nicht ersetzen** – nur ergänzen (z. B. hero-bg-gradient, hero-halo-helper, floating helpers).
+- Bestehende 2800+ Zeilen und Z-Index-System unangetastet lassen.
+
+## Refactor-Regel für Cursor
+
+Beim Ändern des Heroes:
+
+- Payload-Props und -Interfaces nicht entfernen.
+- Dynamische Hintergrund-Varianten (mediaType, Preset, etc.) beibehalten.
+- Nur Layout-Layer umstrukturieren; keine Logik löschen.

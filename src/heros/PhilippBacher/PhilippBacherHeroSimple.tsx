@@ -4,6 +4,7 @@ import React from 'react'
 import Image from 'next/image'
 import { CMSLink } from '@/components/Link'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
+import { getMediaUrlSafe } from '@/utils/media'
 
 // -------------------------------
 // Typdefinitionen für Props (Payload-kompatibel)
@@ -44,12 +45,6 @@ export interface PhilippBacherHeroSimpleProps {
   mediaType?: 'halo' | 'animation' | 'orbit' | 'video' | 'image'
   mediaTypeMobile?: 'halo' | 'animation' | 'orbit' | 'video' | 'image' | 'auto'
   backgroundPreset?: string | null
-}
-
-function getMediaUrlSafe(media: unknown): string {
-  if (media == null) return ''
-  if (typeof media === 'object' && 'url' in media && media.url) return getMediaUrl(String(media.url)) || ''
-  return ''
 }
 
 const POSITION_CLASSES: Record<string, string> = {

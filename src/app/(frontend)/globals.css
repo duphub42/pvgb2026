@@ -25,13 +25,30 @@
 @custom-variant hero-ipad-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (min-height: 44rem));
 
 @layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  * {
+    @apply border-border outline-ring/50;
+  }
   html {
     overflow-x: hidden;
     overscroll-behavior: none;
+    max-width: 100vw;
   }
   body {
     overflow-x: hidden;
     overscroll-behavior: none;
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    max-width: 100%;
+    min-width: 0;
+    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
   }
   h1,
   h2,
@@ -42,6 +59,27 @@
     font-weight: unset;
     font-size: unset;
     font-family: var(--font-heading);
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  video,
+  iframe,
+  object,
+  embed {
+    max-width: 100%;
+  }
+  pre,
+  [class*='prose'] {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  main,
+  article {
+    min-width: 0;
+    max-width: 100%;
   }
 }
 
@@ -58,8 +96,8 @@
 @source inline("border-success");
 @source inline("bg-success/30");
 
-/* PlayBook-Bereich: Footer-Navigation immer mit 3 Spalten */
-@hero-playbook {
+/* PlayBook-Bereich: Footer-Navigation immer mit 3 Spalten (Media Query statt ungültiger @hero-playbook) */
+@media (min-width: 37rem) and (max-width: 44rem) {
   .footer-nav-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
@@ -811,67 +849,16 @@
   --color-error: var(--error);
 }
 
-@layer base {
-  *,
-  *::before,
-  *::after {
-    box-sizing: border-box;
-  }
-
-  * {
-    @apply border-border outline-ring/50;
-  }
-
-  html {
-    overflow-x: hidden;
-    max-width: 100vw;
-  }
-
-  body {
-    font-family: var(--font-body);
-    font-size: 13px;
-    line-height: 20px;
-    font-weight: 400;
-    -webkit-font-smoothing: antialiased;
-    overflow-x: hidden;
-    max-width: 100%;
-    min-width: 0;
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
-  }
-
-  /* Verhindert Overflow durch Bilder und eingebettete Inhalte */
-  img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-  }
-
-  video,
-  iframe,
-  object,
-  embed {
-    max-width: 100%;
-  }
-
-  /* Lange Wörter/URLs umbrechen, damit kein horizontaler Overflow entsteht */
-  pre,
-  [class*='prose'] {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  }
-
-  /* Flex-Kinder können viewport nicht überragen */
-  main,
-  article {
-    min-width: 0;
-    max-width: 100%;
-  }
-}
-
-/* Logo-Kontrast: einmal invertieren bei Dark Mode oder dunklem Hintergrund (verhindert schwarz auf schwarz) */
-[data-theme='dark'] .logo-contrast,
-.logo-contrast.logo-contrast-dark-bg {
+/* Logo-Kontrast: Dark = invertieren, Light = nie invertieren (logo-contrast-fix) */
+[data-theme='dark'] .logo-contrast {
   filter: invert(1);
+}
+[data-theme='dark'] .logo-contrast.logo-contrast-dark-bg {
+  filter: invert(1);
+}
+[data-theme='light'] .logo-contrast,
+[data-theme='light'] .logo-contrast.logo-contrast-dark-bg {
+  filter: none;
 }
 
 /* Footer-Logo: Im Dark Mode immer hell darstellen (Footer-Hintergrund ist dunkel) */
@@ -1880,14 +1867,180 @@ footer a[href='/']:hover .logo-animate {
   z-index: 1;
 }
 
-html {
-  opacity: 0;
+/* ========== Footer Light-Mode (finale Version) ========== */
+[data-theme='light'] .footer-gradient {
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    #f8f8f8 0%,
+    #f2f2f2 35%,
+    #ebebeb 60%,
+    #e5e5e5 90%,
+    #e0e0e0 100%
+  ) !important;
+}
+[data-theme='light'] .footer-gradient::before {
+  background-image:
+    linear-gradient(to right, #000 1px, transparent 1px),
+    linear-gradient(to bottom, #000 1px, transparent 1px);
+  opacity: 0.04;
+}
+[data-theme='light'] .footer-ambient-circle {
+  mix-blend-mode: multiply;
+}
+[data-theme='light'] .footer-ambient-circle-1 {
+  background-color: hsl(0 0% 55%);
+  opacity: 0.12;
+}
+[data-theme='light'] .footer-ambient-circle-2 {
+  background-color: hsl(0 0% 45%);
+  opacity: 0.10;
+}
+[data-theme='light'] .footer-ambient-circle-3 {
+  background-color: hsl(0 0% 35%);
+  opacity: 0.08;
+}
+.footer-custom {
+  color: var(--theme-footer-text, #fff);
+}
+[data-theme='light'] .footer-custom,
+[data-theme='light'] .footer-gradient {
+  color: #1a1a1a;
+}
+[data-theme='light'] .footer-custom .footer-link {
+  opacity: 0.70;
+  color: inherit;
+}
+[data-theme='light'] .footer-custom .footer-link:hover {
+  opacity: 1;
+  color: #000;
+}
+[data-theme='light'] .footer-custom .footer-heading {
+  opacity: 0.65;
+  color: #1a1a1a;
+}
+[data-theme='light'] .footer-custom .footer-description,
+[data-theme='light'] .footer-custom .footer-description p,
+[data-theme='light'] .footer-custom .footer-description * {
+  color: #2a2a2a;
+  opacity: 0.85;
+}
+.footer-icon-img {
+  filter: invert(1);
+}
+[data-theme='light'] .footer-icon-img {
+  filter: invert(0);
+}
+.footer-newsletter-input {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.footer-newsletter-input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+.footer-newsletter-input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+[data-theme='light'] .footer-newsletter-input {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: #1a1a1a;
+}
+[data-theme='light'] .footer-newsletter-input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+[data-theme='light'] .footer-newsletter-input:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+.footer-newsletter-submit {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.footer-newsletter-submit:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+[data-theme='light'] .footer-newsletter-submit {
+  background: rgba(0, 0, 0, 0.08);
+  color: #1a1a1a;
+}
+[data-theme='light'] .footer-newsletter-submit:hover {
+  background: rgba(0, 0, 0, 0.14);
+}
+[data-theme='light'] .footer-newsletter-btn-wrap {
+  --c: #f0f0f0;
+  background:
+    linear-gradient(var(--c), var(--c)) padding-box,
+    conic-gradient(
+      from var(--footer-border-angle),
+      transparent,
+      #555 var(--p),
+      transparent calc(var(--p) * 2)
+    ) border-box;
+}
+[data-theme='light'] .footer-newsletter-btn-wrap:hover button {
+  filter: invert(0);
+  background: #1a1a1a;
+  color: #fff;
+}
+.footer-bottom-border {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+[data-theme='light'] .footer-bottom-border {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+[data-theme='light'] .footer-social-icon {
+  opacity: 0.6;
+}
+[data-theme='light'] .footer-social-icon:hover {
+  opacity: 1;
+}
+@media (max-width: 47.99rem) {
+  [data-theme='light'] .footer-custom .footer-link {
+    color: #1a1a1a;
+  }
+  [data-theme='light'] .footer-custom .footer-heading {
+    color: #1a1a1a;
+  }
 }
 
+html {
+  opacity: 0;
+  /* Transition nur für Theme-Wechsel (sehr kurz), kein Flackern beim Load */
+  transition: opacity 0.15s ease;
+}
 html[data-theme='dark'],
 html[data-theme='light'] {
-  opacity: initial;
+  opacity: 1;
 }
+/* Fallback: Nach 500ms sowieso einblenden, falls JS hängt oder
+   data-theme nie gesetzt wird (verhindert dauerhaft weiße Seite).
+   Wird via <script> im <head> gesetzt — siehe Kommentar unten. */
+html.theme-fallback {
+  opacity: 1 !important;
+}
+/*
+  ⚠️  WICHTIG: Diesen Inline-Script-Block in dein <head>-Tag einfügen
+  (direkt nach dem <html>-Tag, VOR allen Stylesheets):
+
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch(e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+      // Fallback: nach 400ms sowieso einblenden
+      setTimeout(function() {
+        document.documentElement.classList.add('theme-fallback');
+      }, 400);
+    })();
+  </script>
+
+  Damit wird data-theme synchron VOR dem ersten Paint gesetzt →
+  kein FOUC, kein opacity:0 Flash.
+*/
 
 /* View Transition API: Theme-Wechsel mit Kreisfade (animated theme toggler) */
 ::view-transition-old(root),
@@ -1943,33 +2096,85 @@ html[data-theme='light'] {
 .megamenu .header-tool-toggle {
   transition: color 0.45s ease, background-color 0.45s ease;
 }
-/* Transparenter Modus (mouseout): helles Logo/Links/Icons, Toggles ohne Rahmen */
-.megamenu:not(:hover) .logo-link img,
-.megamenu:not(:hover) .logo-link svg,
-.site-header:not(:hover) .logo-link img,
-.site-header:not(:hover) .logo-link svg {
-  filter: brightness(0) invert(1);
+/* Nur auf Geräten MIT echter Hover-Unterstützung (Desktop/Maus):
+   Transparenter Modus wenn nicht gehovered. */
+@media (hover: hover) {
+  .megamenu:not(:hover) .logo-link img,
+  .megamenu:not(:hover) .logo-link svg,
+  .site-header:not(:hover) .logo-link img,
+  .site-header:not(:hover) .logo-link svg {
+    filter: brightness(0) invert(1);
+  }
+  .megamenu:not(:hover) .megamenu-top-item,
+  .megamenu:not(:hover) .megamenu-top-item [class*='lucide'] {
+    color: #fafafa !important;
+  }
+  .megamenu:not(:hover) .header-tool-toggle,
+  .site-header:not(:hover) .header-tool-toggle {
+    color: #fafafa !important;
+    border-color: transparent !important;
+    background-color: transparent !important;
+  }
+  .megamenu:not(:hover) .header-tool-toggle:hover,
+  .site-header:not(:hover) .header-tool-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    color: #ffffff !important;
+  }
+  .site-header:not(:hover) a {
+    color: #fafafa !important;
+  }
+  .site-header:not(:hover) a:hover {
+    color: #ffffff !important;
+  }
 }
-.megamenu:not(:hover) .megamenu-top-item,
-.megamenu:not(:hover) .megamenu-top-item [class*='lucide'] {
-  color: #fafafa !important;
-}
-.megamenu:not(:hover) .header-tool-toggle,
-.site-header:not(:hover) .header-tool-toggle {
-  color: #fafafa !important;
-  border-color: transparent !important;
-  background-color: transparent !important;
-}
-.megamenu:not(:hover) .header-tool-toggle:hover,
-.site-header:not(:hover) .header-tool-toggle:hover {
-  background-color: rgba(255, 255, 255, 0.15) !important;
-  color: #ffffff !important;
-}
-.site-header:not(:hover) a {
-  color: #fafafa !important;
-}
-.site-header:not(:hover) a:hover {
-  color: #ffffff !important;
+
+/* Auf Touch-Geräten (hover:none): Header immer transparent bis scrolled,
+   dann white/dark per data-scrolled. Keine :not(:hover)-Tricks. */
+@media (hover: none) {
+  .megamenu .logo-link img,
+  .megamenu .logo-link svg,
+  .site-header .logo-link img,
+  .site-header .logo-link svg {
+    filter: brightness(0) invert(1);
+  }
+  .megamenu .megamenu-top-item,
+  .megamenu .megamenu-top-item [class*='lucide'] {
+    color: #fafafa !important;
+  }
+  .megamenu .header-tool-toggle,
+  .site-header .header-tool-toggle {
+    color: #fafafa !important;
+    border-color: transparent !important;
+    background-color: transparent !important;
+  }
+  .site-header a {
+    color: #fafafa !important;
+  }
+  /* scrolled-State überschreibt die Touch-Defaults */
+  .megamenu[data-scrolled='true'] .megamenu-top-item,
+  .megamenu[data-scrolled='true'] .header-tool-toggle,
+  .site-header[data-scrolled='true'] a,
+  .site-header[data-scrolled='true'] .header-tool-toggle {
+    color: #404040 !important;
+  }
+  .megamenu[data-scrolled='true'] .logo-link img,
+  .megamenu[data-scrolled='true'] .logo-link svg,
+  .site-header[data-scrolled='true'] .logo-link img,
+  .site-header[data-scrolled='true'] .logo-link svg {
+    filter: none;
+  }
+  [data-theme='dark'] .megamenu[data-scrolled='true'] .megamenu-top-item,
+  [data-theme='dark'] .megamenu[data-scrolled='true'] .header-tool-toggle,
+  [data-theme='dark'] .site-header[data-scrolled='true'] a,
+  [data-theme='dark'] .site-header[data-scrolled='true'] .header-tool-toggle {
+    color: #d4d4d4 !important;
+  }
+  [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link img,
+  [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link svg,
+  [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link img,
+  [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link svg {
+    filter: brightness(0) invert(1);
+  }
 }
 /* Header-Nav-Links: 25% größer */
 .site-header nav a,
@@ -2518,6 +2723,83 @@ header .header-tool-toggle--theme:hover {
   backdrop-filter: blur(8px);
 }
 
+/* ========== Megamenu Dark-Mode (Patch) ========== */
+[data-theme='dark'] .megamenu,
+[data-theme='dark'] .site-header {
+  color: #fafafa;
+}
+[data-theme='dark'] .megamenu:hover,
+[data-theme='dark'] .site-header:hover {
+  background-color: rgba(10, 10, 10, 0.95) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+[data-theme='dark'] .megamenu .megamenu-top-item {
+  color: #d4d4d4;
+}
+[data-theme='dark'] .megamenu .megamenu-top-item:hover,
+[data-theme='dark'] .megamenu .megamenu-top-item:focus-visible {
+  color: #fafafa;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+[data-theme='dark'] .megamenu button.megamenu-top-item[data-state='open'] {
+  color: #fafafa;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+[data-theme='dark'] .megamenu .megamenu-top-item [class*='lucide'] {
+  color: #737373;
+}
+[data-theme='dark'] .megamenu .megamenu-top-item:hover [class*='lucide'],
+[data-theme='dark'] .megamenu button.megamenu-top-item[data-state='open'] [class*='lucide'] {
+  color: #fafafa;
+}
+[data-theme='dark'] .megamenu:hover .logo-link img,
+[data-theme='dark'] .megamenu:hover .logo-link svg,
+[data-theme='dark'] .site-header:hover .logo-link img,
+[data-theme='dark'] .site-header:hover .logo-link svg {
+  filter: brightness(0) invert(1);
+}
+[data-theme='dark'] .megamenu-dropdown-bg,
+[data-theme='dark'] .megamenu-viewport-wrapper {
+  background-color: #0a0a0a !important;
+  color: #fafafa;
+}
+[data-theme='dark'] .megamenu-viewport-wrapper:has([data-state='open']) {
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-top: none !important;
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+[data-theme='dark'] .megamenu-viewport,
+[data-theme='dark'] .megamenu .megamenu-viewport {
+  background: transparent !important;
+  color: #fafafa;
+}
+[data-theme='dark'] .megamenu .megamenu-sliding-underline {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+@media (width < 48rem) {
+  [data-theme='dark'] .megamenu[data-scrolled='true'],
+  [data-theme='dark'] .site-header[data-scrolled='true'] {
+    background-color: rgba(10, 10, 10, 0.97) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+  }
+  [data-theme='dark'] .megamenu[data-scrolled='true'] .megamenu-top-item,
+  [data-theme='dark'] .megamenu[data-scrolled='true'] .header-tool-toggle,
+  [data-theme='dark'] .site-header[data-scrolled='true'] a,
+  [data-theme='dark'] .site-header[data-scrolled='true'] .header-tool-toggle {
+    color: #d4d4d4 !important;
+  }
+  [data-theme='dark'] .megamenu[data-scrolled='true'] button[aria-label='Menü öffnen'],
+  [data-theme='dark'] .site-header[data-scrolled='true'] button[aria-label='Menü öffnen'] {
+    color: #d4d4d4 !important;
+  }
+  [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link img,
+  [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link svg,
+  [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link img,
+  [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link svg {
+    filter: brightness(0) invert(1);
+  }
+}
+
 .tooltip-content-solid,
 [role='tooltip'] {
   background-color: #ffffff !important;
@@ -2888,3 +3170,72 @@ header .header-tool-toggle--theme:hover {
 
 /* Hero-Box: radialer Glaseffekt gilt auch auf Mobile – keine Überschreibung durch solid/mask.
    Der Verlauf liegt ausschließlich auf .hero-box-inner (siehe oben), nicht auf dem Hero-Overlay. */
+
+/* ===============================
+   Hero Utilities Patch
+   Ergänzt Marquee, Halo Helper & Floating Defaults
+   =============================== */
+
+/* --- Marquee Logos Animation --- */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
+}
+
+/* --- Floating Elements Defaults --- */
+.hero-float {
+  position: absolute;
+  will-change: transform;
+  transition: transform 0.2s ease-out;
+  pointer-events: none;
+}
+
+/* --- Halo Helper Layer --- */
+.hero-halo-helper {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.25;
+}
+
+.hero-halo-helper .halo {
+  position: absolute;
+  border-radius: 50%;
+  width: 60vw;
+  height: 60vw;
+  filter: blur(120px);
+  opacity: 0.4;
+  mix-blend-mode: screen;
+  animation: hero-halo-float 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+@keyframes hero-halo-float {
+  0% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-40px) scale(1.05); }
+  100% { transform: translateY(20px) scale(0.95); }
+}
+
+/* --- Optional: Hero Background Preset Defaults --- */
+.hero-bg-preset {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* --- Hero 5-Layer: Background gradient fallback (nur ergänzen) --- */
+.hero-bg-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(ellipse 80% 80% at 50% 20%, rgba(30, 35, 50, 0.4), transparent 50%),
+    radial-gradient(ellipse 60% 60% at 80% 80%, rgba(20, 25, 40, 0.3), transparent 45%);
+  pointer-events: none;
+}

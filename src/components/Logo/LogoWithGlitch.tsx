@@ -7,31 +7,26 @@ import { ScrambleText, HACKER_CHARS } from '@/components/ScrambleText/ScrambleTe
 import { cn } from '@/utilities/ui'
 
 const GLITCH_DURATION_MS = 1000
-/** Icons für den Icon-Scramble (läuft parallel zum Glitch, nur im Icon-Bereich) */
 const SCRAMBLE_ICONS = [Zap, Globe, Skull, Star, Eye, Heart] as const
 const SCRAMBLE_ICON_TICK_MS = 55
+
 export interface LogoWithGlitchProps {
   className?: string
-  /** Image mode: render children (Logo) and two clone layers with this src for glitch */
   imgSrc?: string | null
-  /** Text mode: render scramble + glitch with this text (e.g. "Philipp Bacher") */
   textLogo?: string | null
-  /** Size context for text logo styling */
   variant?: 'header' | 'footer'
-  /** For text logo: invert for dark backgrounds */
+  // FIX: darkBackground wird noch akzeptiert aber ignoriert —
+  // invert läuft jetzt vollständig über CSS (data-theme).
   darkBackground?: boolean
   children?: React.ReactNode
 }
 
-/**
- * Logo: Beim Laden Glitch/Scramble, bei Hover erneut Glitch. Kein Logo-Switch.
- */
 export function LogoWithGlitch({
   className,
   imgSrc,
   textLogo,
   variant = 'header',
-  darkBackground = false,
+  // darkBackground ignoriert — CSS übernimmt
   children,
 }: LogoWithGlitchProps) {
   const [glitchActive, setGlitchActive] = useState(false)
@@ -60,18 +55,14 @@ export function LogoWithGlitch({
     }
 
     if (hasRunGlitchRef.current) {
-      /* Bereits einmal gelaufen: Klasse kurz abziehen, damit die CSS-Animation beim erneuten Setzen neu startet (wie am Anfang) */
       setGlitchActive(false)
-      requestAnimationFrame(() => {
-        requestAnimationFrame(startGlitchState)
-      })
+      requestAnimationFrame(() => requestAnimationFrame(startGlitchState))
     } else {
       hasRunGlitchRef.current = true
       startGlitchState()
     }
   }, [])
 
-  /* Icon-Scramble: parallel zum Glitch, nur im Icon-Bereich – Icons wechseln während glitchActive */
   useEffect(() => {
     if (!glitchActive) {
       if (iconScrambleIntervalRef.current) {
@@ -82,7 +73,7 @@ export function LogoWithGlitch({
     }
     setIconScrambleIndex((i) => (i + 1) % SCRAMBLE_ICONS.length)
     iconScrambleIntervalRef.current = setInterval(() => {
-      setIconScrambleIndex((i) => Math.floor(Math.random() * SCRAMBLE_ICONS.length))
+      setIconScrambleIndex(() => Math.floor(Math.random() * SCRAMBLE_ICONS.length))
     }, SCRAMBLE_ICON_TICK_MS)
     return () => {
       if (iconScrambleIntervalRef.current) {
@@ -93,14 +84,8 @@ export function LogoWithGlitch({
   }, [glitchActive])
 
   const startGlitch = useCallback(() => {
-    if (expandDelayRef.current) {
-      clearTimeout(expandDelayRef.current)
-      expandDelayRef.current = null
-    }
-    if (stayVisibleTimeoutRef.current) {
-      clearTimeout(stayVisibleTimeoutRef.current)
-      stayVisibleTimeoutRef.current = null
-    }
+    if (expandDelayRef.current) { clearTimeout(expandDelayRef.current); expandDelayRef.current = null }
+    if (stayVisibleTimeoutRef.current) { clearTimeout(stayVisibleTimeoutRef.current); stayVisibleTimeoutRef.current = null }
     runGlitch(textLogo != null)
   }, [runGlitch, textLogo])
 
@@ -118,33 +103,17 @@ export function LogoWithGlitch({
     delayMs: 0,
   }
 
-  const textSizeClass =
-    variant === 'footer'
-      ? 'text-base sm:text-lg md:text-xl'
-      : 'text-xl sm:text-2xl'
-
+  const textSizeClass = variant === 'footer' ? 'text-base sm:text-lg md:text-xl' : 'text-xl sm:text-2xl'
   const CurrentScrambleIcon = SCRAMBLE_ICONS[iconScrambleIndex] ?? Zap
-  /** Icon-Scramble: nur im Icon-Bereich (linker Streifen), sichtbar nur während Glitch */
+
   const iconScrambleLayer = (
-    <div
-      className="logo-glitch-icon-scramble pointer-events-none absolute inset-y-0 left-0 flex items-center justify-center"
-      aria-hidden
-    >
-      <CurrentScrambleIcon
-        className="logo-glitch-icon-scramble-current text-current"
-        strokeWidth={2}
-      />
+    <div className="logo-glitch-icon-scramble pointer-events-none absolute inset-y-0 left-0 flex items-center justify-center" aria-hidden>
+      <CurrentScrambleIcon className="logo-glitch-icon-scramble-current text-current" strokeWidth={2} />
     </div>
   )
 
   const hackerIcons = (
-    <div
-      className={cn(
-        'logo-glitch-icons pointer-events-none absolute inset-0',
-        glitchActive && 'logo-glitch-icons-visible',
-      )}
-      aria-hidden
-    >
+    <div className={cn('logo-glitch-icons pointer-events-none absolute inset-0', glitchActive && 'logo-glitch-icons-visible')} aria-hidden>
       <Code2 className="logo-glitch-icon logo-glitch-icon-1" size={14} strokeWidth={2} style={{ top: '8%', left: '12%' }} />
       <Terminal className="logo-glitch-icon logo-glitch-icon-2" size={12} strokeWidth={2} style={{ top: '60%', left: '8%' }} />
       <Braces className="logo-glitch-icon logo-glitch-icon-3" size={13} strokeWidth={2} style={{ top: '15%', right: '15%' }} />
@@ -156,23 +125,17 @@ export function LogoWithGlitch({
   if (textLogo != null) {
     return (
       <div
+        // FIX: logo-contrast immer gesetzt, kein darkBackground-conditional mehr
         className={cn(
-          'logo-glitch-wrapper logo-glitch-text',
+          'logo-glitch-wrapper logo-glitch-text logo-contrast',
           variant === 'footer' && 'logo-glitch-footer',
           glitchActive && 'logo-glitch-active',
-          darkBackground && 'logo-contrast logo-contrast-dark-bg',
           className,
         )}
         onMouseEnter={() => startGlitch()}
         onMouseLeave={() => {
-          if (expandDelayRef.current) {
-            clearTimeout(expandDelayRef.current)
-            expandDelayRef.current = null
-          }
-          if (stayVisibleTimeoutRef.current) {
-            clearTimeout(stayVisibleTimeoutRef.current)
-            stayVisibleTimeoutRef.current = null
-          }
+          if (expandDelayRef.current) { clearTimeout(expandDelayRef.current); expandDelayRef.current = null }
+          if (stayVisibleTimeoutRef.current) { clearTimeout(stayVisibleTimeoutRef.current); stayVisibleTimeoutRef.current = null }
         }}
         role="presentation"
       >
@@ -191,58 +154,34 @@ export function LogoWithGlitch({
     )
   }
 
-  /* Footer-Bild: keine Tailwind-Größe, nur CSS in globals.css (kein Glitch/Expand) */
-  const imageWrapperSizeClass =
-    variant === 'footer'
-      ? ''
-      : 'w-full max-w-[11.7rem] h-[42.5px]'
-
-  const layerInvertClass = darkBackground ? 'logo-contrast logo-contrast-dark-bg' : ''
+  const imageWrapperSizeClass = variant === 'footer' ? '' : 'w-full max-w-[11.7rem] h-[42.5px]'
 
   if (imgSrc && children) {
     const isFooterImage = variant === 'footer'
     return (
       <div
+        // FIX: logo-contrast immer, kein darkBackground-conditional
         className={cn(
-          'logo-glitch-wrapper relative logo-glitch-image',
+          'logo-glitch-wrapper relative logo-glitch-image logo-contrast',
           variant === 'footer' && 'logo-glitch-footer',
           imageWrapperSizeClass,
           !isFooterImage && glitchActive && 'logo-glitch-active',
           className,
         )}
         onMouseEnter={isFooterImage ? undefined : () => startGlitch()}
-        onMouseLeave={
-          isFooterImage
-            ? undefined
-            : () => {
-                if (expandDelayRef.current) {
-                  clearTimeout(expandDelayRef.current)
-                  expandDelayRef.current = null
-                }
-                if (stayVisibleTimeoutRef.current) {
-                  clearTimeout(stayVisibleTimeoutRef.current)
-                  stayVisibleTimeoutRef.current = null
-                }
-              }
-        }
+        onMouseLeave={isFooterImage ? undefined : () => {
+          if (expandDelayRef.current) { clearTimeout(expandDelayRef.current); expandDelayRef.current = null }
+          if (stayVisibleTimeoutRef.current) { clearTimeout(stayVisibleTimeoutRef.current); stayVisibleTimeoutRef.current = null }
+        }}
         role="presentation"
       >
         {!isFooterImage && iconScrambleLayer}
         {!isFooterImage && hackerIcons}
         {!isFooterImage && (
           <>
-            <img
-              src={imgSrc}
-              alt=""
-              aria-hidden
-              className={cn('logo-glitch-layer logo-glitch-layer-1', layerInvertClass)}
-            />
-            <img
-              src={imgSrc}
-              alt=""
-              aria-hidden
-              className={cn('logo-glitch-layer logo-glitch-layer-2', layerInvertClass)}
-            />
+            {/* FIX: logo-contrast auf Glitch-Layern, kein layerInvertClass mehr */}
+            <img src={imgSrc} alt="" aria-hidden className="logo-glitch-layer logo-glitch-layer-1 logo-contrast" />
+            <img src={imgSrc} alt="" aria-hidden className="logo-glitch-layer logo-glitch-layer-2 logo-contrast" />
           </>
         )}
         <div className="logo-glitch-main flex items-center shrink-0">

@@ -74,10 +74,13 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
   const newsletterSpriteId = getSpriteIdFromMediaUrl(newsletterIconUploadUrl)
 
   const hasCustomBg = Boolean((footer?.backgroundColor as string)?.trim())
+
+  // FIX: style ohne hartkodiertes color-Fallback — wird von CSS-Variablen übernommen
   const style: React.CSSProperties = {
     borderColor: 'var(--theme-border-color)',
     ...(hasCustomBg ? { background: footer?.backgroundColor as string } : {}),
-    color: (footer?.textColor as string) || 'var(--theme-footer-text)',
+    // Nur setzen wenn explizit im CMS gesetzt, sonst CSS-Variablen übernehmen
+    ...(footer?.textColor ? { color: footer.textColor as string } : {}),
     ...((footer?.linkHoverColor as string)
       ? { ['--footer-link-hover' as string]: footer.linkHoverColor as string }
       : {}),
@@ -95,7 +98,6 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
               <Link className="logo-link flex items-center" href="/">
                 {logoToShow != null ? (
                   <>
-                    {/* Mobile footer logo (falls gesetzt), sonst Fallback auf Standard-Logo */}
                     <Logo
                       logo={mobileFooterLogo ?? logoToShow}
                       darkBackground={logoOnDarkBackground}
@@ -125,7 +127,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                     <CMSLink
                       key={i}
                       {...link}
-                      className="footer-link-underline text-[var(--theme-elevation-0)] transition-colors duration-200"
+                      className="footer-link-underline transition-colors duration-200"
                     />
                   ))}
                 </nav>
@@ -146,7 +148,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
       style={style}
     >
       <FooterBounce>
-        {/* Dezente animierte Blobs im Hintergrund (unterhalb des Inhalts) */}
+        {/* Hintergrund-Blobs — Theme-aware Farben via CSS */}
         {!hasCustomBg && hasNewStructure && (
           <div className="footer-ambient-shapes" aria-hidden="true">
             <div className="footer-ambient-circle footer-ambient-circle-1" />
@@ -159,17 +161,17 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
             <div className="md:col-span-12 lg:col-span-1 order-1 md:order-1 lg:order-1">
               <div className="space-y-4 md:space-y-0 lg:space-y-8">
                 {footer.footerDescription != null && (
-                  <div className="footer-description hidden lg:block prose prose-invert prose-sm max-w-none text-left prose-headings:mt-0 prose-p:mt-0">
+                  // FIX: prose-invert nur im Dark-Mode, prose-DEFAULT im Light-Mode
+                  <div className="footer-description hidden lg:block prose dark:prose-invert prose-sm max-w-none text-left prose-headings:mt-0 prose-p:mt-0">
                     <RichText data={footer.footerDescription} enableGutter={false} />
                   </div>
                 )}
                 <div className="flex flex-col items-center text-center gap-6 md:grid md:grid-cols-[2fr_5fr_13fr] md:items-start md:text-left lg:flex lg:flex-row lg:items-center lg:gap-6">
-                  {/* Spalte 1: Logo */}
+                  {/* Logo */}
                   <div className="flex items-center justify-center md:justify-start">
                     <Link href="/" className="logo-link inline-block max-w-[100%]">
                       {logoToShow != null ? (
                         <>
-                          {/* Mobile footer logo (falls gesetzt), sonst Fallback auf Standard-Logo */}
                           <Logo
                             logo={mobileFooterLogo ?? logoToShow}
                             darkBackground={logoOnDarkBackground}
@@ -194,7 +196,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                     </Link>
                   </div>
 
-                  {/* Spalte 2: Kontaktdaten + Social Icons */}
+                  {/* Kontakt + Social */}
                   <div className="space-y-4">
                     {(footerAddress || footerPhone) && (
                       <div className="space-y-1 text-sm opacity-80">
@@ -226,7 +228,10 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                       </div>
                     )}
                     {(footer?.socialLinks?.length ?? 0) > 0 && (
-                      <div className="flex flex-wrap items-center justify-center md:justify-start gap-3" aria-label="Social Media">
+                      <div
+                        className="flex flex-wrap items-center justify-center md:justify-start gap-3"
+                        aria-label="Social Media"
+                      >
                         {(footer.socialLinks ?? []).map((item, i) => {
                           const url = item?.url?.trim()
                           const platform = (item?.platform ?? '') as string
@@ -244,10 +249,12 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                               href={url}
                               target="_blank"
                               rel="noopener noreferrer"
-                              className="opacity-80 transition-opacity hover:opacity-100 focus:opacity-100 focus:outline-none"
+                              // FIX: footer-social-icon statt text-white — Theme-aware via CSS
+                              className="footer-social-icon opacity-70 transition-opacity hover:opacity-100 focus:opacity-100 focus:outline-none"
                               aria-label={platform}
                             >
                               {spriteId ? (
+                                // FIX: currentColor statt text-white — erbt Footer-Textfarbe
                                 <svg className="size-5" aria-hidden="true">
                                   <use href={`/icons-sprite.svg#${spriteId}`} />
                                 </svg>
@@ -255,7 +262,8 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                                 <img
                                   src={customIconUrl}
                                   alt=""
-                                  className="size-5 object-contain"
+                                  // FIX: footer-icon-img statt filter-invert — Theme-aware
+                                  className="footer-icon-img size-5 object-contain"
                                   width={20}
                                   loading="lazy"
                                   decoding="async"
@@ -270,15 +278,16 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                     )}
                   </div>
 
-                  {/* Spalte 3: Beschreibung nur auf iPad/Playbook (md) */}
-                {footer.footerDescription != null && (
-                  <div className="footer-description hidden md:block lg:hidden prose prose-invert prose-sm max-w-none text-left prose-headings:mt-0 prose-p:mt-0">
-                    <RichText data={footer.footerDescription} enableGutter={false} />
-                  </div>
-                )}
+                  {/* Beschreibung iPad/Playbook */}
+                  {footer.footerDescription != null && (
+                    <div className="footer-description hidden md:block lg:hidden prose dark:prose-invert prose-sm max-w-none text-left prose-headings:mt-0 prose-p:mt-0">
+                      <RichText data={footer.footerDescription} enableGutter={false} />
+                    </div>
+                  )}
                 </div>
+
                 {footer.footerDescription != null && (
-                  <div className="footer-description block md:hidden prose prose-invert prose-sm max-w-none text-left prose-headings:mt-0 prose-p:mt-0">
+                  <div className="footer-description block md:hidden prose dark:prose-invert prose-sm max-w-none text-left prose-headings:mt-0 prose-p:mt-0">
                     <RichText data={footer.footerDescription} enableGutter={false} />
                   </div>
                 )}
@@ -294,7 +303,6 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                       String((col as any).columnIcon).trim().length > 0
                         ? String((col as any).columnIcon).trim()
                         : null
-
                     const colIconUpload = (col as any)?.columnIconUpload
                     const colIconUploadUrl =
                       colIconUpload && typeof colIconUpload === 'object' && colIconUpload?.url
@@ -305,22 +313,20 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                       : null
 
                     return (
-                      <div
-                        key={col.id ?? i}
-                        className={`space-y-4 ${i < 2 ? 'lg:row-start-2' : ''}`}
-                      >
+                      <div key={col.id ?? i} className={`space-y-4 ${i < 2 ? 'lg:row-start-2' : ''}`}>
                         <div className="flex flex-row items-start gap-x-4">
-                          {/* 1. Spalte: Icons */}
                           <div className="flex shrink-0 pt-0.5 lg:basis-[10%]">
                             {colIconSpriteId ? (
-                              <svg className="h-6 w-6 text-white" aria-hidden="true">
+                              // FIX: currentColor statt text-white
+                              <svg className="h-6 w-6" aria-hidden="true">
                                 <use href={`/icons-sprite.svg#${colIconSpriteId}`} />
                               </svg>
                             ) : colIconUploadUrl ? (
                               <img
                                 src={colIconUploadUrl}
                                 alt=""
-                                className="h-6 w-6 object-contain filter invert"
+                                // FIX: footer-icon-img statt filter-invert hardkodiert
+                                className="footer-icon-img h-6 w-6 object-contain"
                                 aria-hidden="true"
                                 loading="lazy"
                                 decoding="async"
@@ -331,7 +337,6 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                               </span>
                             ) : null}
                           </div>
-                          {/* 2. Spalte: Überschrift mit Links */}
                           <div className="min-w-[10rem] flex-1 space-y-2 lg:basis-[90%]">
                             <h3 className="footer-heading text-sm font-semibold uppercase tracking-wider">
                               {col.columnTitle}
@@ -363,20 +368,16 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                   {footer.newsletterTitle != null && (
                     <div className="flex min-w-0 flex-col space-y-4 col-span-2 md:col-span-3 lg:col-span-2 lg:row-start-2 lg:col-start-3">
                       <div className="flex flex-row items-start gap-x-3">
-                        {/* Icon-Spalte: nur Iconbreite, kein prozentualer Abstand wie bei den Nav-Spalten */}
                         <div className="flex shrink-0 pt-0.5">
                           {newsletterSpriteId ? (
-                            <svg
-                              className="h-6 w-6 text-white"
-                              aria-hidden="true"
-                            >
+                            <svg className="h-6 w-6" aria-hidden="true">
                               <use href={`/icons-sprite.svg#${newsletterSpriteId}`} />
                             </svg>
                           ) : newsletterIconUploadUrl ? (
                             <img
                               src={newsletterIconUploadUrl}
                               alt=""
-                              className="h-6 w-6 object-contain filter invert"
+                              className="footer-icon-img h-6 w-6 object-contain"
                               aria-hidden="true"
                               loading="lazy"
                               decoding="async"
@@ -388,7 +389,6 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                           ) : null}
                         </div>
 
-                        {/* Überschrift + Beschreibung + Formular */}
                         <div className="min-w-0 flex-1 space-y-2">
                           <h3 className="footer-heading text-sm font-semibold uppercase tracking-wider">
                             {footer.newsletterTitle}
@@ -396,7 +396,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
 
                           <div className="flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-6">
                             {footer.newsletterDescription != null && (
-                              <div className="footer-description prose prose-invert prose-sm max-w-none min-w-0 text-left prose-headings:mt-0 prose-p:mt-0">
+                              <div className="footer-description prose dark:prose-invert prose-sm max-w-none min-w-0 text-left prose-headings:mt-0 prose-p:mt-0">
                                 <RichText data={footer.newsletterDescription} enableGutter={false} />
                               </div>
                             )}
@@ -408,7 +408,6 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                                 if (newsletterStatus !== 'idle') return
                                 setNewsletterStatus('saving')
                                 try {
-                                  // TODO: submit to Payload form or external newsletter API
                                   await new Promise((r) => setTimeout(r, 1200))
                                   setNewsletterStatus('saved')
                                   setTimeout(() => setNewsletterStatus('idle'), 2000)
@@ -417,11 +416,12 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                                 }
                               }}
                             >
+                              {/* FIX: Theme-aware Input — dark:bg-black/40 + dark:border-white/20 */}
                               <input
                                 type="email"
                                 name="newsletter-email"
                                 placeholder={footer.newsletterPlaceholder ?? 'E-Mail'}
-                                className="h-10 w-full min-w-0 max-w-full rounded-full border border-white/20 bg-black/40 px-4 text-sm text-white placeholder:text-white/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/40 transition-colors"
+                                className="footer-newsletter-input h-10 w-full min-w-0 max-w-full rounded-full px-4 text-sm focus-visible:outline-none focus-visible:ring-2 transition-colors"
                                 disabled={newsletterStatus === 'saving'}
                               />
                               <div className="footer-newsletter-btn-wrap h-10 w-full min-w-0 max-w-full">
@@ -449,7 +449,9 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
             )}
           </div>
 
-          <div className="mt-10 flex flex-col items-center gap-4 border-t border-white/10 pt-6 text-sm opacity-80 md:flex-row md:flex-wrap md:items-center md:justify-between">
+          {/* Bottom Bar */}
+          {/* FIX: footer-bottom-border statt border-white/10 hardkodiert */}
+          <div className="mt-10 flex flex-col items-center gap-4 footer-bottom-border pt-6 text-sm opacity-80 md:flex-row md:flex-wrap md:items-center md:justify-between">
             {footer.copyrightText != null && (
               <span className="text-center md:text-left">{footer.copyrightText}</span>
             )}
