@@ -108,18 +108,16 @@ export const hero: Field = {
       hasMany: false,
       admin: {
         description:
-          'Optionales, animiertes Hintergrund-Preset (Orbit, Halo, Gradient). Wird hinter dem jeweiligen Hero-Layout gerendert.',
+          'Optionales, animiertes Hintergrund-Preset (Halo CSS, Gradient). Wird hinter dem jeweiligen Hero-Layout gerendert.',
       },
     },
     {
       name: 'mediaType',
       type: 'select',
-      defaultValue: 'halo',
+      defaultValue: 'cssHalo',
       label: 'Hintergrund',
       options: [
-        { label: 'Halo (Vanta) + Gitter', value: 'halo' },
         { label: 'Halo (CSS, leicht)', value: 'cssHalo' },
-        { label: 'Orbit (CSS)', value: 'orbit' },
         { label: 'Bild', value: 'image' },
         { label: 'Video', value: 'video' },
         { label: 'Animation', value: 'animation' },
@@ -127,7 +125,7 @@ export const hero: Field = {
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'philippBacher',
         description:
-          'Halo (Vanta) = 3D-Hintergrund. Halo (CSS) = weiche Farb-Halos ohne WebGL. Orbit (CSS) = leichte Ring-Animation. Bei „Bild/Video/Animation“ erscheinen die Spezial-Hintergründe nicht.',
+          'Halo (CSS) = weiche Farb-Halos ohne WebGL. Bei „Bild/Video/Animation“ erscheinen die Spezial-Hintergründe nicht.',
       },
     },
     {
@@ -137,9 +135,7 @@ export const hero: Field = {
       label: 'Hintergrund (Mobil)',
       options: [
         { label: 'Wie Desktop-Einstellung', value: 'auto' },
-        { label: 'Halo (Vanta) + Gitter', value: 'halo' },
         { label: 'Halo (CSS, leicht)', value: 'cssHalo' },
-        { label: 'Orbit (CSS)', value: 'orbit' },
         { label: 'Bild', value: 'image' },
         { label: 'Video', value: 'video' },
         { label: 'Animation', value: 'animation' },
@@ -147,7 +143,7 @@ export const hero: Field = {
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'philippBacher',
         description:
-          'Optionaler Override für Mobilgeräte (z. B. Desktop = Halo/Gitter, Mobil = Orbit). „Wie Desktop-Einstellung“ übernimmt die normale Auswahl.',
+          'Optionaler Override für Mobilgeräte. „Wie Desktop-Einstellung“ übernimmt die normale Auswahl.',
       },
     },
     {
@@ -169,169 +165,6 @@ export const hero: Field = {
         condition: (_, siblingData) =>
           siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'video',
       },
-    },
-    {
-      type: 'row',
-      fields: [
-        {
-          name: 'haloAmplitudeFactor',
-          type: 'number',
-          label: 'Halo: Amplitude',
-          defaultValue: 1.8,
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'halo',
-            description: 'Stärke der Wellen (z. B. 1.5–2.5).',
-          },
-        },
-        {
-          name: 'haloSize',
-          type: 'number',
-          label: 'Halo: Größe',
-          defaultValue: 2.1,
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'halo',
-          },
-        },
-        {
-          name: 'haloSpeed',
-          type: 'number',
-          label: 'Halo: Geschwindigkeit',
-          defaultValue: 1,
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'halo',
-          },
-        },
-      ],
-    },
-    {
-      type: 'row',
-      fields: [
-        {
-          name: 'haloColor2',
-          type: 'number',
-          label: 'Halo: Farbe (Dezimal)',
-          defaultValue: 15918901,
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'halo',
-            description: 'Akzentfarbe als Dezimal (z. B. 15918901).',
-          },
-        },
-        {
-          name: 'haloXOffset',
-          type: 'number',
-          label: 'Halo: X-Offset',
-          defaultValue: 0.15,
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'halo',
-          },
-        },
-        {
-          name: 'haloYOffset',
-          type: 'number',
-          label: 'Halo: Y-Offset',
-          defaultValue: -0.03,
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'halo',
-          },
-        },
-      ],
-    },
-    {
-      name: 'useHaloBackground',
-      type: 'checkbox',
-      label: 'Halo-Hintergrund anzeigen',
-      defaultValue: true,
-      admin: {
-        condition: (_, siblingData) =>
-          siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'halo',
-        description: 'Wenn aktiviert, wird der Vanta-Halo hinter dem Gitter angezeigt. Bei eigenem Gitter-Code: Hintergrund im Code transparent lassen, damit der Halo sichtbar bleibt.',
-      },
-    },
-    {
-      type: 'row',
-      fields: [
-        {
-          name: 'haloOverlayGradient',
-          type: 'number',
-          label: 'Overlay: Verlauf',
-          defaultValue: 0.68,
-          min: 0,
-          max: 1,
-          step: 0.05,
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'halo',
-            description: 'Stärke des Abdunkel-Verlaufs (unsichtbar, dämpft den Halo).',
-          },
-        },
-        {
-          name: 'haloOverlayGrid',
-          type: 'number',
-          label: 'Overlay: Gitter',
-          defaultValue: 0.08,
-          min: 0,
-          max: 1,
-          step: 0.05,
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'halo',
-            description: 'Sichtbarkeit des Gitters (niedrig = dezent, z. B. 0,08).',
-          },
-        },
-        {
-          name: 'haloOverlayGridSize',
-          type: 'number',
-          label: 'Overlay: Gitter-Abstand (px)',
-          defaultValue: 12,
-          min: 8,
-          max: 48,
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'halo',
-            description: 'Kleinere Werte = feineres Gitter (z. B. 12 für Millimeterpapier).',
-          },
-        },
-      ],
-    },
-    {
-      type: 'row',
-      fields: [
-        {
-          name: 'haloOverlayGridVariant',
-          type: 'select',
-          label: 'Overlay: Gitter-Variante',
-          defaultValue: 'static',
-          options: [
-            { label: 'Statisch (CSS-Gitter)', value: 'static' },
-            { label: 'Animiert (Three.js Wave)', value: 'wave' },
-            { label: 'Eigenes HTML/JS (Code)', value: 'custom' },
-          ],
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'halo',
-            description: 'Statisch = aktuelles Gitter. Wave = animiertes Drahtgitter. Eigenes = unten eingegebener Code (wird in iframe gerendert).',
-          },
-        },
-        {
-          name: 'haloOverlayGridCustomCode',
-          type: 'code',
-          label: 'Overlay: Eigenes Gitter (HTML/JS)',
-          admin: {
-            condition: (_, siblingData) =>
-              siblingData?.type === 'philippBacher' &&
-              siblingData?.mediaType === 'halo' &&
-              siblingData?.haloOverlayGridVariant === 'custom',
-            description: 'Vollständiges HTML inkl. <script>. Wird in sandboxed iframe angezeigt. DSGVO: Keine externen Skripte (kein CDN, z. B. kein script src="https://..."). Three.js/WebGL nur mit lokal eingebundenem Code oder Inline-Skript; Renderer alpha: true und setClearColor(0x000000, 0) für transparenten Canvas.',
-            language: 'html',
-          },
-        },
-      ],
     },
     {
       name: 'foregroundImage',

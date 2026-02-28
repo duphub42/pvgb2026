@@ -44,8 +44,7 @@ export function ThemeSwitcher() {
   const toggle = useCallback(() => {
     const newTheme = resolved === 'light' ? 'dark' : 'light'
     setTheme(newTheme)
-    /* View Transition deaktiviert: Snapshot würde vor fertig gezeichnetem Vanta-Halo/Gitter
-       erstellt und überdeckt den echten Inhalt – Halo/Gitter verschwinden nach dem Wechsel. */
+    /* View Transition deaktiviert: Snapshot könnte animierte Hintergründe überdecken. */
   }, [resolved, setTheme])
 
   return (

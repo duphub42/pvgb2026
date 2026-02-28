@@ -7,7 +7,7 @@ type Preset = HeroBackgrounds | number | null | undefined
 export function HeroBackgroundPresetLayer({ preset }: { preset: Preset }) {
   if (!preset || typeof preset === 'number') return null
 
-  const type = preset.type ?? 'orbit'
+  const type = preset.type ?? 'cssHalo'
   const intensity = typeof preset.intensity === 'number' ? preset.intensity : 1
   const hue = typeof preset.hue === 'number' ? preset.hue : 220
   const patternColor1 =
@@ -24,10 +24,6 @@ export function HeroBackgroundPresetLayer({ preset }: { preset: Preset }) {
     ['--hero-orbit-hue' as string]: String(hue),
     ...(patternColor1 && { ['--hero-pattern-c1' as string]: patternColor1 }),
     ...(patternColor2 && { ['--hero-pattern-c2' as string]: patternColor2 }),
-  }
-
-  if (type === 'orbit') {
-    return <div className="hero-orbit absolute inset-0 z-0" style={style} aria-hidden />
   }
 
   if (type === 'cssHalo') {

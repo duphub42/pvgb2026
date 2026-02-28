@@ -7,10 +7,10 @@ Das Vordergrundbild hat **z-0** und liegt **hinter** der Hero-Box (z-[2]). Die B
 | Ebene | Klasse / Element | Wirkung |
 |--------|------------------|--------|
 | **Hero-Box** | `.hero-box-inner` | Liegt über dem Bild (z-[2]). Nur wo die Box transparent ist, scheint das Bild durch. |
-| **Glas-Hintergrund** | `.hero-box-inner` (background) | Radialer Verlauf (ellipse 240% at 100% 0%): 0–88 % transparent, danach leichtes Weiß/Dunkel (Light/Dark). |
-| **Blur-Layer** | `.hero-box-inner::before` | `backdrop-filter: blur(6px)`, nur außerhalb der oberen rechten Ecke (radiale Maske: 0–88 % transparent, ab 94 % sichtbar). |
-| **Abdunklung** | `.hero-box-inner::after` | Radialer Verlauf (88 % transparent, danach 0.02→0.05 Light / 0.04→0.1 Dark); Desktop stärker (0.03→0.08 / 0.05→0.12). |
-| **Rahmen/Schatten** | `.hero-box-frame-shadow` | Box-Schatten um die Hero-Box (kein direkter Filter auf das Bild). |
+| **Glas-Hintergrund** | `.hero-box-inner` (background) | Hell (rgba 0.04 Light / 0.08 Dark); **backdrop-filter** für Milchglas. |
+| **Transparente Ecke** | `.hero-box-inner` (mask) Desktop/Tablet, **Mobile:** `.hero-box-inner::after` (Verdunklungsverlauf mit Maske) | Desktop/Tablet: Maske auf der Glasebene (circle at 100% 0%, transparent 0–34 %). Mobile: Keine Maske auf dem Glas; Verdunklung in **::after** mit gleicher Maske – rechte obere Ecke ohne Verlauf = transparent (Safari-tauglich). |
+| **Abdunklungsverlauf** | **Mobile:** `.hero-box-inner::after` | Nur ≤640px: radialer Verlauf (ellipse 260% at 0% 100%), in der rechten oberen Ecke per Maske ausgespart. |
+| **Rahmen/Schatten** | `.hero-box-frame-shadow` (am Wrapper) | Box-Schatten um die Hero-Box. |
 
 ## 2. Ebenen AM Vordergrundbild (eigene Struktur)
 

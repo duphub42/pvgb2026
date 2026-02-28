@@ -78,9 +78,9 @@ type HeroProps = {
 const WAVE_FILL = 'var(--background)' as const
 
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[666px] z-[6] m-0 p-0 overflow-hidden hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[666px] z-[6] m-0 p-0 overflow-hidden rounded-2xl lg:rounded-3xl hero-box-frame-shadow hero-box-animate'
 const HERO_BOX_INNER_CLASS =
-  'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5 hero-box-frame-shadow'
+  'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5'
 
 // FIX: Animation-Timing als benannte Konstanten (keine Magic Numbers)
 /** Subheadline/Text erscheint nach 800ms */
@@ -231,7 +231,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
     headlineLine3,
     subheadline,
     description,
-    mediaType = 'halo',
+    mediaType = 'cssHalo',
     mediaTypeMobile = 'auto',
     backgroundImage,
     backgroundVideo,
@@ -470,10 +470,13 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
   const isMediaObject = (v: unknown): v is MediaObject =>
     typeof v === 'object' && v != null && ('url' in v || 'mimeType' in v)
 
-  const effectiveMediaType =
+  const rawMediaType =
     mounted && isMobileViewport && mediaTypeMobile && mediaTypeMobile !== 'auto'
       ? mediaTypeMobile
       : mediaType
+  // Orbit und Vanta-Halo entfernt: alte Werte als cssHalo anzeigen
+  const effectiveMediaType =
+    rawMediaType === 'halo' || rawMediaType === 'orbit' ? 'cssHalo' : rawMediaType
 
   const backgroundMedia =
     effectiveMediaType === 'video' && backgroundVideo && isMediaObject(backgroundVideo)
@@ -513,7 +516,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
   return (
     <section
       ref={heroSectionRef}
-      className="relative z-10 w-full min-h-[777px] max-h-[777px] overflow-hidden flex items-end justify-center bg-neutral-950 m-0 p-0 text-white -mt-[var(--header-height,6rem)]"
+      className="relative z-10 w-full min-h-[777px] max-h-[777px] overflow-visible flex items-end justify-center bg-neutral-950 m-0 p-0 text-white -mt-[var(--header-height,6rem)] -mb-24"
       aria-label="Hero"
     >
       {/* Layer 0: Background only — no flex, grid, padding, margin, relative */}
@@ -674,7 +677,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
           <div className={HERO_BOX_WRAPPER_CLASS}>
             <div className={HERO_BOX_INNER_CLASS} />
             <div
-              className="pointer-events-none absolute inset-0 rounded-2xl lg:rounded-3xl bg-gradient-to-b from-transparent to-black/80 lg:opacity-0 z-[1]"
+              className="pointer-events-none absolute inset-0 rounded-2xl lg:rounded-3xl z-[1]"
               aria-hidden
             />
             <div
@@ -716,15 +719,15 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
 
             <div
               className={cn(
-                'relative z-10 grid h-full min-h-0 w-full grid-cols-1 content-start gap-0 lg:grid-cols-[3fr_2fr] lg:items-end',
+                'relative z-10 grid h-full min-h-0 w-full grid-cols-1 content-start gap-0 lg:grid-cols-[3fr_2fr] lg:items-start',
                 'px-4 py-4 md:px-6 md:py-6 lg:px-8 lg:py-6',
               )}
             >
               <div
                 className={cn(
                   'relative z-10 flex w-full flex-col text-left pointer-events-none overflow-visible max-h-[666px] min-h-0',
-                  foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-center',
-                  foregroundMedia ? 'lg:justify-end lg:mr-auto' : 'lg:justify-center',
+                  foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-start',
+                  foregroundMedia ? 'lg:justify-start lg:mr-auto' : 'lg:justify-start',
                   'pb-0',
                 )}
               >

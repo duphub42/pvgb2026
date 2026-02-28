@@ -33,9 +33,8 @@ export const HeroBackgrounds: CollectionConfig = {
       type: 'select',
       label: 'Typ',
       required: true,
-      defaultValue: 'orbit',
+      defaultValue: 'cssHalo',
       options: [
-        { label: 'Orbit (CSS Donut)', value: 'orbit' },
         { label: 'Halo (CSS)', value: 'cssHalo' },
         { label: 'Quadratmuster', value: 'patternSquare' },
         { label: 'Gold Radial', value: 'goldRadial' },
@@ -52,7 +51,7 @@ export const HeroBackgrounds: CollectionConfig = {
       step: 0.1,
       admin: {
         description: '0.2 = sehr dezent, 1 = Standard, 2 = sehr kräftig.',
-        condition: (_, siblingData) => ['orbit', 'cssHalo'].includes(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => siblingData?.type === 'cssHalo',
       },
     },
     {
@@ -63,8 +62,8 @@ export const HeroBackgrounds: CollectionConfig = {
       min: 0,
       max: 360,
       admin: {
-        description: 'Grundfarbton für Orbit/Halo (0–360). Wird per CSS-Variablen auf den Hintergrund angewendet.',
-        condition: (_, siblingData) => ['orbit', 'cssHalo'].includes(String(siblingData?.type ?? '')),
+        description: 'Grundfarbton für Halo (0–360). Wird per CSS-Variablen auf den Hintergrund angewendet.',
+        condition: (_, siblingData) => siblingData?.type === 'cssHalo',
       },
     },
     {

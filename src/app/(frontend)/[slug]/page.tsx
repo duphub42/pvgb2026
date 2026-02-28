@@ -59,7 +59,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
         return (
           <article>
             <RenderHero {...pageById.hero} />
-            <div className="relative z-0">
+            <div className="relative z-0 pt-24">
               <RenderBlocks blocks={Array.isArray(pageById.layout) ? pageById.layout : []} />
             </div>
           </article>
@@ -152,7 +152,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
         <HeroErrorBoundary>
           <RenderHero {...heroProps} />
         </HeroErrorBoundary>
-        <div className="relative z-0">
+        <div className="relative z-0 pt-24">
           <RenderBlocks blocks={Array.isArray(page.layout) ? page.layout : []} />
         </div>
       </article>
