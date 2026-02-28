@@ -19,9 +19,9 @@ import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 /** Shape-Divider-Farbe: immer identisch zum Main-Content-Hintergrund (`--background`, Theme-abhängig). */
 const WAVE_FILL = 'var(--background)' as const
 
-/** Hero-Box: unter dem Header starten (top = header-height - 12rem), am unteren Rand fixiert, max 700px hoch. z-[6] über Shape-Dividern (z-[2]/z-[3]). */
+/** Hero-Box: Oberkante 10 % unter dem Header (top = header-height + 10vh), ragt mit bottom-[-10vh] über die Shape-Divider. z-[6] über Shape-Dividern (z-[2]/z-[3]). */
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-[calc(var(--header-height)-12rem)] bottom-0 max-h-[700px] z-[6] -m-8 p-8 sm:-m-10 sm:p-10 md:-m-6 md:p-6 lg:-m-[60px] lg:p-[60px] overflow-hidden hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-[calc(var(--header-height)+10vh)] bottom-[-10vh] max-h-[700px] z-[6] -m-8 p-8 sm:-m-10 sm:p-10 md:-m-6 md:p-6 lg:-m-[60px] lg:p-[60px] overflow-hidden hero-box-animate'
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5 hero-box-frame-shadow'
 
@@ -114,10 +114,11 @@ function getMediaUrlSafe(media: unknown): string {
 }
 
 /**
- * PhilippBacher Hero – zweispaltig, Vordergrund-Bild rechts.
- * Linke Spalte: Subheadline → Headline → Beschreibung → CTAs.
- * Rechte Spalte: Vordergrund-Bild mit Einblend-Animation.
- * Optional: schwebende Elemente (Backend: floatingElements) mit Positionierung.
+ * PhilippBacher Hero – responsive für Desktop (lg/xl), Tablet (md), Mobile (sm/default).
+ * - HeroBox enthält: links Subheadline, Headline, Beschreibung, 2 CTAs; rechts (nur lg+) Vordergrund-Bild; unten Marquee.
+ * - lg/xl: Bild in der Box (rechte Spalte). max-lg: Bild als Layer hinter der Box, Box mit Gradient (from-transparent to-black/80) für Lesbarkeit.
+ * - Layout nur mit Tailwind-Breakpoints (sm, md, lg, xl), keine festen Pixel für Inhalt.
+ * - Optional: schwebende Elemente (Backend: floatingElements).
  */
 /** Einflussradius der Maus – Items weichen dem Cursor aus (px) */
 const FLOATING_MOUSE_RADIUS = 320
@@ -609,73 +610,97 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
         <div className="hero-edge-darken absolute inset-0" />
       </div>
 
-      {/* Inhalt: linke Spalte + Vordergrundbild + Marquee innerhalb der Herobox (Container begrenzt alles) */}
+      {/* Tablet/Mobile: Vordergrund-Bild als Layer HINTER der Hero-Box („Bild rutscht hinter die Box“). Nur max-lg sichtbar; auf lg+ ist das Bild in der Box. */}
+      {foregroundMedia ? (
+        <div
+          className="pointer-events-none absolute inset-0 z-[2] lg:hidden"
+          aria-hidden
+        >
+          <div className="absolute right-0 top-[calc(var(--header-height)+10vh)] bottom-0 w-[min(24rem,88vw)] md:w-[min(28rem,50vw)]">
+            <Media
+              resource={foregroundMedia as any}
+              fill
+              imgClassName="object-contain object-bottom object-right"
+              priority
+            />
+          </div>
+        </div>
+      ) : null}
+
+      {/* Inhalt: Hero-Box (Rahmen + Content + Vordergrund) füllt den Container. Wrapper hält Höhe, da die Box absolute ist. */}
       <div
         className={cn(
-          'container relative z-10 flex min-h-0 flex-1 flex-col px-6 pt-[calc(var(--header-height)+3vh+10vh)] pb-0 lg:grid lg:h-full lg:w-full lg:grid-cols-[3fr_2fr] lg:flex-none lg:gap-16 lg:px-8 lg:pt-[calc(var(--header-height)+2rem+3vh+10vh)] lg:pb-0 xl:gap-20 pointer-events-none',
-          foregroundMedia ? 'max-lg:justify-end' : 'lg:grid-cols-1 lg:items-center',
-          foregroundMedia && 'lg:items-end',
+          'container relative z-10 flex min-h-0 flex-1 flex-col px-6 pt-[calc(var(--header-height)+3vh+10vh)] pb-0 lg:px-8 lg:pt-[calc(var(--header-height)+2rem+3vh+10vh)] lg:pb-0 pointer-events-none',
         )}
       >
-        {/* Hero-Box-Rahmen: auf allen Viewports sichtbar. -m/p damit overflow-hidden den Schatten nicht abschneidet. Klassen konstant für stabile Hydration. */}
+        <div className="relative min-h-[min(700px,78vh)] flex-1 w-full">
+        {/* Hero-Box: Rahmen + Content + Vordergrund INNERHALB der Box (Desktop: Bild in der rechten Box-Hälfte).
+            Inner div first (unconditional) so DOM order is stable and hydration matches server/client. */}
         <div className={HERO_BOX_WRAPPER_CLASS}>
           <div className={HERO_BOX_INNER_CLASS} />
-        </div>
-
-        {/* Vordergrund-Bild: min-height damit Wrapper nicht kollabiert (scan1/2 sind absolute → keine Höhe im Flow). */}
-        {foregroundMedia && (
+          {/* Tablet/Mobile: Gradient von transparent zu dunkel, damit das Vordergrund-Bild (Layer hinter der Box) oben durchscheint. Auf lg+ ausgeblendet. */}
+          <div
+            className="pointer-events-none absolute inset-0 rounded-2xl lg:rounded-3xl bg-gradient-to-b from-transparent to-black/80 lg:opacity-0 z-[1]"
+            aria-hidden
+          />
+          {/* Vordergrund-Bild INNERHALB der Box nur auf lg+ (Desktop). Auf max-lg wird das Bild als eigener Layer hinter der Box gerendert. */}
           <div
             className={cn(
-              'pointer-events-none absolute bottom-0 overflow-visible z-0 lg:z-[2] transition-opacity duration-500',
-              'max-lg:right-0 max-lg:left-0 max-lg:flex max-lg:justify-end max-lg:items-end max-lg:min-h-[50vh]',
+              'pointer-events-none absolute bottom-0 overflow-visible z-0 transition-opacity duration-500',
+              'max-lg:hidden',
               'lg:right-0 lg:w-[41%] lg:max-w-[414px] lg:min-h-[420px]',
-              'xl:left-[58%] xl:right-auto',
-              mounted ? 'opacity-100' : 'opacity-0',
+              'xl:left-[58%] xl:right-auto xl:w-[42%]',
+              foregroundMedia && mounted ? 'opacity-100' : 'opacity-0',
             )}
           >
+            {foregroundMedia ? (
+              <div
+                className={cn(
+                  'hero-foreground-reveal hero-foreground-reveal-active h-full min-h-0',
+                  'max-lg:w-[min(88vw,394px)] max-lg:max-h-[85vh] max-lg:min-h-[280px]',
+                  'lg:w-full lg:max-h-none lg:scale-[1.02] lg:origin-bottom-right',
+                )}
+              >
+                <div className="hero-foreground-scan1">
+                  <Media
+                    resource={foregroundMedia}
+                    priority
+                    size="(max-width: 1024px) 414px, 414px"
+                    imgClassName="w-full h-full object-contain object-bottom max-lg:object-top"
+                  />
+                </div>
+                <div className="hero-foreground-scan2">
+                  <Media
+                    resource={foregroundMedia}
+                    priority
+                    size="(max-width: 1024px) 414px, 414px"
+                    imgClassName="w-full h-full object-contain object-bottom max-lg:object-top"
+                  />
+                </div>
+              </div>
+            ) : null}
+          </div>
+
+          {/* Content-Grid: Text + Marquee INNERHALB der Hero-Box, gleiche Spaltenaufteilung 3fr 2fr. */}
+          <div
+            className={cn(
+              'relative z-10 grid h-full min-h-0 w-full grid-cols-1 content-start gap-16 lg:grid-cols-[3fr_2fr] lg:items-end',
+              'px-8 py-6 sm:px-10 md:px-6 lg:px-[60px] lg:pb-[60px]',
+            )}
+          >
+            {/* Linke Spalte: Text, CTAs, Marquee – alles innerhalb der Box. */}
             <div
               className={cn(
-                'hero-foreground-reveal hero-foreground-reveal-active h-full min-h-0',
-                'max-lg:w-[min(88vw,394px)] max-lg:max-h-[85vh] max-lg:min-h-[280px]',
-                'lg:w-full lg:max-h-none lg:scale-[1.02] lg:origin-bottom-right',
+                'relative z-10 flex w-full flex-col text-left pointer-events-none overflow-visible max-h-[700px] min-h-0',
+                foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-center',
+                foregroundMedia ? 'lg:justify-end lg:mr-auto' : 'lg:justify-center',
+                hasMarquee
+                  ? 'pb-[10vh] sm:pb-[12vh] md:pb-[calc(16vh+56px)] lg:pb-[calc(18vh+64px)] hero-ipad:pb-[calc(9vh+32px)]'
+                  : 'pb-[5vh]',
+                foregroundMedia && 'max-lg:pb-[calc(18vh+1rem)] max-lg:landscape-short:pb-[calc(14vh+0.5rem)]',
+                foregroundMedia && 'hero-se:pb-[3vh] hero-pro-max:pb-[3vh] hero-playbook:pb-[3vh]',
               )}
             >
-              <div className="hero-foreground-scan1">
-                <Media
-                  resource={foregroundMedia}
-                  priority
-                  size="(max-width: 1024px) 414px, 414px"
-                  imgClassName="w-full h-full object-contain object-bottom max-lg:object-top"
-                />
-              </div>
-              <div className="hero-foreground-scan2">
-                <Media
-                  resource={foregroundMedia}
-                  priority
-                  size="(max-width: 1024px) 414px, 414px"
-                  imgClassName="w-full h-full object-contain object-bottom max-lg:object-top"
-                />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Linke Spalte: an der Hero-Box ausgerichtet – pt = Box-Oberkante, max-height wie Box damit Inhalt nicht über Box hinausfällt. */}
-        <div
-          className={cn(
-            'relative z-10 flex w-full flex-col text-left pointer-events-none overflow-visible max-h-[700px] min-h-0',
-            'pt-[calc(var(--header-height)-12rem)] pl-8 pr-8 md:pl-6 md:pr-6 sm:pl-10 sm:pr-10 lg:pl-[60px] lg:pr-[60px]',
-            foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-center',
-            foregroundMedia ? 'lg:justify-end lg:mr-auto' : 'lg:justify-center',
-            // Zusätzlicher Abstand nach unten, wenn Marquee aktiv ist, damit sich Beschreibung/CTAs nicht mit der Marquee-Überschrift überschneiden
-            hasMarquee
-              ? 'pb-[10vh] sm:pb-[12vh] md:pb-[calc(16vh+56px)] lg:pb-[calc(18vh+64px)] hero-ipad:pb-[calc(9vh+32px)]'
-              : 'pb-[5vh]',
-            /* Abstand zum unteren Rand; Portrait SE/Pro Max/PlayBook: ca. 3% zum Browser-Rand */
-            foregroundMedia && 'max-lg:pb-[calc(18vh+1rem)] max-lg:landscape-short:pb-[calc(14vh+0.5rem)]',
-            foregroundMedia && 'hero-se:pb-[3vh] hero-pro-max:pb-[3vh] hero-playbook:pb-[3vh]',
-          )}
-        >
           <div className={cn('pointer-events-auto w-max max-w-full', foregroundMedia ? '' : 'max-w-2xl')}>
           {/* Einblendung nacheinander, Gesamtdauer 3s: Subheadline → Headline → Beschreibung → CTAs */}
           <div className="space-y-6 md:space-y-7">
@@ -950,6 +975,9 @@ export const PhilippBacherHero: React.FC<any> = (props) => {
               </div>
             </div>
           )}
+            </div>
+          </div>
+        </div>
         </div>
 
       </div>

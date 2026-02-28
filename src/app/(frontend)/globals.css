@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import '../../theme/colors.css';
-
+/* @config nach Imports ist bei Tailwind v4 üblich; bei Problemen mit Breakpoints/Variablen prüfen, ob tailwind.config.mjs erreichbar ist. */
 @config '../../../tailwind.config.mjs';
 
 @custom-variant dark (&:is([data-theme='dark'] *));
@@ -14,7 +14,7 @@
 @custom-variant landscape-short (@media (orientation: landscape) and (max-height: 40rem));
 /* Landscape-Narrow: besonders schmale Landscape-Viewports (z.B. iPhone SE 667px) */
 @custom-variant landscape-narrow (@media (orientation: landscape) and (max-width: 44rem) and (max-height: 40rem));
-/* Geräte-Varianten für Vordergrundbild-Skalierung */
+/* Geräte-Varianten nur für gezielte Hero-/Footer-Anpassungen (z. B. hero-se:pb-[3vh], @hero-playbook). Nicht für generelles Layout verwenden – sonst können Tailwind sm/md/lg Utilities konkurrieren. */
 @custom-variant hero-se (@media (max-width: 26.5rem));
 @custom-variant hero-se-landscape (@media (orientation: landscape) and (max-height: 26.5rem));
 @custom-variant hero-pro-max (@media (min-width: 26.5rem) and (max-width: 29rem));
@@ -127,8 +127,11 @@
     bottom: -1px;
   }
 
-  /* Schwarzer Overlay: radial von oben rechts, stärkerer Transparenzverlauf – OHNE Glasblur (Glaseffekt liegt nur noch auf .hero-box-inner). */
+  /* Schwarzer Overlay: radial von oben rechts, stärkerer Transparenzverlauf – OHNE Glasblur (Glaseffekt liegt nur noch auf .hero-box-inner). Scoped auf Hero-Container (position/inset). */
   .hero-overlay-base {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
     background: radial-gradient(
       ellipse 220% 220% at 100% calc(0.5rem + 5vh),
       transparent 0%,
@@ -151,8 +154,11 @@
     }
   }
 
-  /* Hero-Hintergrund-Overlay: oben Abdunklung (linear) + radial oben rechts mit stärkerem Transparenzverlauf. */
+  /* Hero-Hintergrund-Overlay: oben Abdunklung (linear) + radial oben rechts mit stärkerem Transparenzverlauf. Scoped auf Hero-Container. */
   .hero-edge-darken {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
     background-image:
       linear-gradient(
         to bottom,
@@ -288,6 +294,17 @@
     .hero-box-inner {
       transform: translateY(0);
       animation: none;
+    }
+  }
+  /* Mobile: Mask/Blur/Animation deaktivieren – viele Mobile-Browser rendern mask + backdrop-filter instabil (Box wirkt abgeschnitten/unsichtbar). */
+  @media (max-width: 40rem) {
+    .hero-box-inner {
+      mask-image: none !important;
+      -webkit-mask-image: none !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
+      animation: none !important;
+      transform: translateY(0) !important;
     }
   }
 
@@ -428,6 +445,18 @@
   }
   .hero-foreground-reveal-active .hero-foreground-scan2 {
     animation: hero-foreground-scan2 2.2s steps(50, end) forwards;
+  }
+  /* Tablet/Mobile: clip-path + absolute führt oft zu falscher Skalierung / Überdeckung von Text. Vordergrund-Bild ist bei uns auf max-lg ohnehin ein eigener Layer hinter der Box – dieser Fallback hilft, falls die Struktur geändert wird. */
+  @media (max-width: 48rem) {
+    .hero-foreground-scan1,
+    .hero-foreground-scan2 {
+      clip-path: none !important;
+      mask-image: none !important;
+      -webkit-mask-image: none !important;
+      position: relative !important;
+      filter: none !important;
+      animation: none !important;
+    }
   }
   .hero-foreground-reveal .hero-foreground-scan2 img,
   .hero-foreground-reveal .hero-foreground-scan1 img {
