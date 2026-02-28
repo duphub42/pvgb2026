@@ -25,18 +25,25 @@ import { s3Storage } from '@payloadcms/storage-s3'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
+if (!process.env.PAYLOAD_SECRET?.trim() || process.env.PAYLOAD_SECRET === 'YOUR_SECRET_HERE') {
+  if (typeof process !== 'undefined') {
+    console.warn(
+      '[Payload] PAYLOAD_SECRET fehlt oder ist der Platzhalter. Admin kann nicht laden. In .env oder .env.local setzen: PAYLOAD_SECRET=<mind. 12 Zeichen>',
+    )
+  }
+}
+
 export default buildConfig({
   admin: {
     suppressHydrationWarning: true,
-    // Custom-Komponenten vorübergehend deaktiviert, um weiße Admin-Seite zu debuggen.
-    // components: {
-    //   graphics: { Logo: '/components/AdminLogo' },
-    //   beforeLogin: ['@/components/BeforeLogin'],
-    //   beforeDashboard: ['@/components/BeforeDashboard'],
-    //   views: {
-    //     themeColors: { Component: '@/components/ThemeGeneratorPage', path: '/theme-colors' },
-    //   },
-    // },
+    components: {
+      graphics: { Logo: '/components/AdminLogo' },
+      // beforeLogin: ['@/components/BeforeLogin'],
+      // beforeDashboard: ['@/components/BeforeDashboard'],
+      // views: {
+      //   themeColors: { Component: '@/components/ThemeGeneratorPage', path: '/theme-colors' },
+      // },
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
