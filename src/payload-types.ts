@@ -3802,10 +3802,6 @@ export interface Footer {
    */
   footerPhone?: string | null;
   /**
-   * Aktivieren, wenn der Footer einen dunklen Hintergrund hat (Logo wird dann hell dargestellt). Bei hellem Hintergrund deaktiviert lassen.
-   */
-  logoOnDarkBackground?: boolean | null;
-  /**
    * z. B. „Newsletter abonnieren“.
    */
   newsletterTitle?: string | null;
@@ -4269,7 +4265,6 @@ export interface FooterSelect<T extends boolean = true> {
   footerDescription?: T;
   footerAddress?: T;
   footerPhone?: T;
-  logoOnDarkBackground?: T;
   newsletterTitle?: T;
   newsletterIcon?: T;
   newsletterIconUpload?: T;

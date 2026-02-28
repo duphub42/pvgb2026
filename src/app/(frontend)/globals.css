@@ -314,12 +314,10 @@
     );
   }
 
-  /* iPhone (≤640px): Mask aus, kleinerer Blur, kleinere Ecken – verhindert zerschossene Layouts. */
+  /* ≤640px: kleinere Ecken, weniger Blur; Mask auf allen Endgeräten sichtbar (kein mask-image: none). */
   @media (max-width: 640px) {
     .hero-box-inner {
       border-radius: 1rem;
-      mask-image: none;
-      -webkit-mask-image: none;
       backdrop-filter: blur(10px);
       -webkit-backdrop-filter: blur(10px);
     }

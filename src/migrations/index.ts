@@ -47,6 +47,7 @@ import * as migration_20260226_110000_site_pages_hero_background_preset from './
 import * as migration_20260226_120000_hero_backgrounds_table from './20260226_120000_hero_backgrounds_table'
 import * as migration_20260226_130000_locked_documents_rels_hero_backgrounds from './20260226_130000_locked_documents_rels_hero_backgrounds'
 import * as migration_20260227_100000_site_pages_v_background_preset from './20260227_100000_site_pages_v_background_preset'
+import * as migration_20260228_100000_footer_remove_logo_on_dark_background from './20260228_100000_footer_remove_logo_on_dark_background'
 
 export const migrations = [
   {
@@ -293,5 +294,10 @@ export const migrations = [
     up: migration_20260227_100000_site_pages_v_background_preset.up,
     down: migration_20260227_100000_site_pages_v_background_preset.down,
     name: '20260227_100000_site_pages_v_background_preset',
+  },
+  {
+    up: migration_20260228_100000_footer_remove_logo_on_dark_background.up,
+    down: migration_20260228_100000_footer_remove_logo_on_dark_background.down,
+    name: '20260228_100000_footer_remove_logo_on_dark_background',
   },
 ]

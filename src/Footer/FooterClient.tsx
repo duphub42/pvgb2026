@@ -57,7 +57,6 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
   const mobileFooterLogo = (footer as any)?.mobileFooterLogo ?? null
   const footerAddress = (footer as any)?.footerAddress as string | null | undefined
   const footerPhone = (footer as any)?.footerPhone as string | null | undefined
-  const logoOnDarkBackground = footer?.logoOnDarkBackground === true
   const logoUrl = mediaUrl(logoToShow)
   const useTextLogo = !logoToShow
 
@@ -100,13 +99,11 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                   <>
                     <Logo
                       logo={mobileFooterLogo ?? logoToShow}
-                      darkBackground={logoOnDarkBackground}
                       variant="footer"
                       className="block max-w-[100%] h-16 sm:h-18 md:h-22 md:hidden"
                     />
                     <Logo
                       logo={logoToShow}
-                      darkBackground={logoOnDarkBackground}
                       variant="footer"
                       className="hidden max-w-[100%] h-20 md:h-28 md:block"
                     />
@@ -116,7 +113,6 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                     useTextLogo={useTextLogo}
                     logoUrl={logoUrl}
                     variant="footer"
-                    darkBackground={logoOnDarkBackground}
                   />
                 )}
               </Link>
@@ -174,13 +170,11 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                         <>
                           <Logo
                             logo={mobileFooterLogo ?? logoToShow}
-                            darkBackground={logoOnDarkBackground}
                             variant="footer"
                             className="block max-w-[100%] h-16 sm:h-18 md:h-22 md:hidden"
                           />
                           <Logo
                             logo={logoToShow}
-                            darkBackground={logoOnDarkBackground}
                             variant="footer"
                             className="hidden max-w-[100%] h-20 md:h-28 md:block"
                           />
@@ -190,7 +184,6 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                           useTextLogo={useTextLogo}
                           logoUrl={logoUrl}
                           variant="footer"
-                          darkBackground={logoOnDarkBackground}
                         />
                       )}
                     </Link>
