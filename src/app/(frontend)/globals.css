@@ -903,6 +903,16 @@
   filter: invert(1) !important;
 }
 
+/* Header-Logo im Dark Mode: immer invertieren (hell auf dunkel), damit es sichtbar bleibt */
+[data-theme='dark'] .site-header .logo-link img,
+[data-theme='dark'] .site-header .logo-link svg,
+[data-theme='dark'] .site-header .logo-link .logo-contrast,
+.site-header[data-theme='dark'] .logo-link img,
+.site-header[data-theme='dark'] .logo-link svg,
+.site-header[data-theme='dark'] .logo-link .logo-contrast {
+  filter: brightness(0) invert(1) !important;
+}
+
 /* Logo-Link: kein Hover-/Label-Effekt (Hintergrund/Unterstrich) */
 .logo-link:hover {
   background-color: transparent !important;

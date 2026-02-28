@@ -22,9 +22,14 @@ export const RenderHero: React.FC<any> = (props) => {
 
   if (!heroData?.type || heroData.type === 'none') return null
 
-  const HeroToRender = (heroes as any)[heroData.type]
+  const typeKey = heroData.type as string
+  let HeroToRender = (heroes as Record<string, React.ComponentType<any>>)[typeKey]
+  if (!HeroToRender && typeof typeKey === 'string') {
+    const lower = typeKey.charAt(0).toLowerCase() + typeKey.slice(1)
+    HeroToRender = (heroes as Record<string, React.ComponentType<any>>)[lower]
+  }
 
-  if (!HeroToRender) return null
+  if (!HeroToRender || typeof HeroToRender !== 'function') return null
 
   return <HeroToRender {...heroData} />
 }

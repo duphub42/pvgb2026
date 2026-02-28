@@ -28,19 +28,15 @@ const dirname = path.dirname(filename)
 export default buildConfig({
   admin: {
     suppressHydrationWarning: true,
-    components: {
-      graphics: {
-        Logo: '/components/AdminLogo',
-      },
-      beforeLogin: ['@/components/BeforeLogin'],
-      beforeDashboard: ['@/components/BeforeDashboard'],
-      views: {
-        themeColors: {
-          Component: '@/components/ThemeGeneratorPage',
-          path: '/theme-colors',
-        },
-      },
-    },
+    // Custom-Komponenten vorübergehend deaktiviert, um weiße Admin-Seite zu debuggen.
+    // components: {
+    //   graphics: { Logo: '/components/AdminLogo' },
+    //   beforeLogin: ['@/components/BeforeLogin'],
+    //   beforeDashboard: ['@/components/BeforeDashboard'],
+    //   views: {
+    //     themeColors: { Component: '@/components/ThemeGeneratorPage', path: '/theme-colors' },
+    //   },
+    // },
     importMap: {
       baseDir: path.resolve(dirname),
     },

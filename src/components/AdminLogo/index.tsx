@@ -1,31 +1,14 @@
-import React from 'react'
-import { getPayload } from 'payload'
-import configPromise from '@payload-config'
-import { getMediaUrl } from '@/utilities/getMediaUrl'
+'use client'
 
-/** Eigenes Logo – Admin (Login etc.), wenn im Header-Global kein Logo gesetzt ist. */
+import React from 'react'
+
+/** Eigenes Logo – Admin. Synchrone Client-Komponente, damit das Admin-UI nicht nach dem ersten Render weiß wird (kein async RSC im Admin-Tree). */
 const FALLBACK_LOGO_SRC = '/media/weblogo-philippbacher.svg'
 
-export const AdminLogo: React.FC = async () => {
-  let logoSrc = FALLBACK_LOGO_SRC
-
-  try {
-    const payload = await getPayload({ config: configPromise })
-    const header = await payload.findGlobal({
-      slug: 'header',
-      depth: 1,
-    })
-    const logo = header?.logo
-    if (logo && typeof logo === 'object' && logo !== null && 'url' in logo && logo.url) {
-      logoSrc = getMediaUrl(logo.url, (logo as { updatedAt?: string }).updatedAt) || logoSrc
-    }
-  } catch {
-    // Keep default logo if fetch fails (e.g. no DB on build)
-  }
-
+export const AdminLogo: React.FC = () => {
   return (
     <img
-      src={logoSrc}
+      src={FALLBACK_LOGO_SRC}
       alt="Philipp Bacher"
       width={130}
       height={30}
