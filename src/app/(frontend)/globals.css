@@ -1960,20 +1960,20 @@ footer a[href='/']:hover .logo-animate {
 }
 
 .hero-css-halo .halo-1 {
-  background: radial-gradient(circle, #00e1ff, transparent 60%);
+  background: radial-gradient(circle, #0000ff80, transparent 60%);
   top: -20%;
   left: -10%;
 }
 
 .hero-css-halo .halo-2 {
-  background: radial-gradient(circle, #2b00ff, transparent 60%);
+  background: radial-gradient(circle, #2b00ff81, transparent 60%);
   bottom: -30%;
   right: -20%;
   animation-duration: 22s;
 }
 
 .hero-css-halo .halo-3 {
-  background: radial-gradient(circle, #004cff, transparent 60%);
+  background: radial-gradient(circle, #004cff83, transparent 60%);
   top: 30%;
   right: 10%;
   animation-duration: 25s;

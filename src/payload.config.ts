@@ -43,7 +43,10 @@ if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') {
   )
 }
 
+const serverURL = getServerSideURL()
+
 export default buildConfig({
+  serverURL,
   admin: {
     suppressHydrationWarning: true,
     // Custom Logo/BeforeLogin/BeforeDashboard deaktiviert – Admin lädt so mit Standard-Payload-UI.
