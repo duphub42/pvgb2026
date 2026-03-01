@@ -31,16 +31,22 @@ export const rewriteBlobToOrigin: CollectionAfterReadHook = ({ doc, req }) => {
   if ((req as { context?: { skipUrlRewrite?: boolean } })?.context?.skipUrlRewrite) return doc
 
   const id = String(doc.id)
+  const streamUrl = `/api/media/stream/${id}`
 
-  if (doc.url && typeof doc.url === 'string' && isExternalStorageUrl(doc.url)) {
-    ;(doc as { url: string }).url = `/api/media/stream/${id}`
+  // Externe Storage-URLs (R2, S3, Blob) und alte /api/media/file/*-URLs auf Stream-Proxy umschreiben
+  if (doc.url && typeof doc.url === 'string') {
+    if (isExternalStorageUrl(doc.url) || doc.url.startsWith('/api/media/file/')) {
+      ;(doc as { url: string }).url = streamUrl
+    }
   }
 
   if (doc.sizes && typeof doc.sizes === 'object') {
     const sizes = doc.sizes as Record<string, { url?: string }>
     for (const [name, data] of Object.entries(sizes)) {
-      if (data?.url && typeof data.url === 'string' && isExternalStorageUrl(data.url)) {
-        data.url = `/api/media/stream/${id}?size=${encodeURIComponent(name)}`
+      if (data?.url && typeof data.url === 'string') {
+        if (isExternalStorageUrl(data.url) || data.url.startsWith('/api/media/file/')) {
+          data.url = `/api/media/stream/${id}?size=${encodeURIComponent(name)}`
+        }
       }
     }
   }
