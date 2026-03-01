@@ -2620,16 +2620,19 @@ html.theme-fallback {
 /* Easing: weiches ease-out (Cocoa/SwiftUI-ähnlich); Dauer etwas über 1s für sanfteren Verlauf */
 /* Breakpoint: Ab wann Kategoriebeschreibung ausgeblendet + Highlight unter Inhalt (stacked). xl = 1280px. */
 .megamenu {
-  --megamenu-panel-duration: 1100ms;
+  --megamenu-panel-duration: 500ms;
   --megamenu-panel-ease: cubic-bezier(0.22, 1, 0.36, 1);
   --megamenu-stack-max-width: 1279px; /* < 1280px = xl: Highlight unter Inhalt, Desc ausgeblendet */
 }
+/* Öffnen: Höhe und Transform gemeinsam animieren, damit kein Sprung durch sofortiges max-height entsteht */
 @keyframes megamenu-slide-down {
   from {
     transform: translateY(-100%);
+    max-height: 0;
   }
   to {
     transform: translateY(0);
+    max-height: 85vh;
   }
 }
 @keyframes megamenu-slide-up {
@@ -2639,7 +2642,6 @@ html.theme-fallback {
   }
   to {
     transform: translateY(-100%);
-    min-height: 0;
     max-height: 0;
   }
 }
@@ -2647,10 +2649,11 @@ html.theme-fallback {
   overflow: hidden;
   max-height: 0;
   min-height: 0;
+  /* Transform-Animation auf Composite-Layer für flüssigere Wiedergabe */
+  will-change: transform;
 }
-/* Dropdown geöffnet: Höhe nach Inhalt, max 85vh, bei Bedarf scrollen */
+/* Dropdown geöffnet: Höhe nur per Keyframe (slide-down), kein sofortiges max-height → kein Sprung */
 .megamenu-viewport-wrapper:has([data-state='open']) {
-  max-height: 85vh;
   min-height: 0;
   height: auto;
   overflow-x: hidden;
@@ -2693,21 +2696,21 @@ html.theme-fallback {
 }
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > * {
   opacity: 0;
-  animation: megamenu-content-in 0.65s var(--megamenu-panel-ease) forwards;
+  animation: megamenu-content-in 0.4s var(--megamenu-panel-ease) forwards;
 }
-.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > *:nth-child(1) { animation-delay: 200ms; }
-.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > *:nth-child(2) { animation-delay: 400ms; }
-.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > *:nth-child(3) { animation-delay: 600ms; }
-.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > *:nth-child(4) { animation-delay: 800ms; }
-.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > *:nth-child(5) { animation-delay: 1000ms; }
-.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > *:nth-child(n+6) { animation-delay: 1200ms; }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > *:nth-child(1) { animation-delay: 80ms; }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > *:nth-child(2) { animation-delay: 160ms; }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > *:nth-child(3) { animation-delay: 240ms; }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > *:nth-child(4) { animation-delay: 320ms; }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > *:nth-child(5) { animation-delay: 400ms; }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > *:nth-child(n+6) { animation-delay: 480ms; }
 /* Footer: erstes Kind (Highlight oder CTA) 600ms, zweites Kind (CTA) 1300ms; Wipe-Wrapper hat eigene Animation */
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:not(.megamenu-highlight-wipe-wrap) {
   opacity: 0;
-  animation: megamenu-content-in 0.65s var(--megamenu-panel-ease) forwards;
+  animation: megamenu-content-in 0.4s var(--megamenu-panel-ease) forwards;
 }
-.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(1):not(.megamenu-highlight-wipe-wrap) { animation-delay: 600ms; }
-.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(2):not(.megamenu-highlight-wipe-wrap) { animation-delay: 1300ms; }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(1):not(.megamenu-highlight-wipe-wrap) { animation-delay: 280ms; }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(2):not(.megamenu-highlight-wipe-wrap) { animation-delay: 400ms; }
 /* Wipe-Effekt für Highlight-Box (rechts + unten): Aufblenden von links oder rechts je nach Maus */
 @keyframes megamenu-wipe-from-left {
   from {
@@ -2731,11 +2734,11 @@ html.theme-fallback {
 }
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='left'] {
   opacity: 0;
-  animation: megamenu-wipe-from-left 0.65s var(--megamenu-panel-ease) 200ms forwards;
+  animation: megamenu-wipe-from-left 0.4s var(--megamenu-panel-ease) 120ms forwards;
 }
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='right'] {
   opacity: 0;
-  animation: megamenu-wipe-from-right 0.65s var(--megamenu-panel-ease) 200ms forwards;
+  animation: megamenu-wipe-from-right 0.4s var(--megamenu-panel-ease) 120ms forwards;
 }
 
 /* PathsBackground: shadcn/ui Style – animierte Bezierkurven (stroke-dashoffset) */
