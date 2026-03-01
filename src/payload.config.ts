@@ -104,7 +104,9 @@ export default buildConfig({
           push: process.env.PAYLOAD_SKIP_PUSH !== 'true',
         }),
   collections: [Pages, Posts, Media, Categories, Users, MegaMenu, HeroBackgrounds],
-  cors: [getServerSideURL()].filter(Boolean),
+  cors: [serverURL].filter(Boolean),
+  // CSRF: erlaubte Origins für Admin-Requests (Cookie wird sonst abgelehnt → 401 auf Vercel)
+  csrf: [serverURL, 'http://localhost:3000'].filter(Boolean),
   plugins: [
     ...plugins,
     // Cloudflare R2 (S3-kompatibel): Kein Vercel Blob-Limit, EWWW zieht über Origin-Proxy.
@@ -116,6 +118,9 @@ export default buildConfig({
               media: true,
             },
             bucket: process.env.R2_BUCKET,
+            // Vercel: Server-Upload-Limit 4,5 MB – Client-Uploads (Presigned URL) umgehen das.
+            // R2-Bucket: CORS mit PUT + AllowedOrigins auf deine Domain setzen (Dashboard oder API).
+            clientUploads: true,
             config: {
               credentials: {
                 accessKeyId: process.env.R2_ACCESS_KEY_ID,
