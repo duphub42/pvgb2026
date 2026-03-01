@@ -18,6 +18,9 @@ const blockLoaders: Record<
   cta: lazy(() => import('@/blocks/CallToAction/Component').then((m) => ({ default: m.CallToActionBlock }))),
   formBlock: lazy(() => import('@/blocks/Form/Component').then((m) => ({ default: m.FormBlock }))),
   mediaBlock: lazy(() => import('@/blocks/MediaBlock/Component').then((m) => ({ default: m.MediaBlock }))),
+  shadcnBlock: lazy(() =>
+    import('@/blocks/ShadcnBlock/Component').then((m) => ({ default: m.ShadcnBlockComponent })),
+  ),
 }
 
 export const SUPPORTED_BLOCK_TYPES = CLIENT_BLOCK_TYPES

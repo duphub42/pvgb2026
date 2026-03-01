@@ -8,4 +8,5 @@ export const CLIENT_BLOCK_TYPES = new Set([
   'formBlock',
   'heroMarketing',
   'mediaBlock',
+  'shadcnBlock',
 ])

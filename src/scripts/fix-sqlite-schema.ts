@@ -148,6 +148,38 @@ function main() {
     { name: 'site_pages_blocks_form_block: block_overlay_enabled', sql: 'ALTER TABLE site_pages_blocks_form_block ADD COLUMN block_overlay_enabled INTEGER DEFAULT 0;' },
     { name: 'site_pages_blocks_form_block: block_overlay_color', sql: "ALTER TABLE site_pages_blocks_form_block ADD COLUMN block_overlay_color TEXT DEFAULT 'dark';" },
     { name: 'site_pages_blocks_form_block: block_overlay_opacity', sql: 'ALTER TABLE site_pages_blocks_form_block ADD COLUMN block_overlay_opacity INTEGER DEFAULT 30;' },
+    // Shadcn Block (neue Komponenten: feature215b, about15, hero238, …)
+    {
+      name: 'site_pages_blocks_shadcn_block: table',
+      sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_shadcn_block (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL,
+        _path TEXT NOT NULL,
+        id TEXT PRIMARY KEY,
+        block_background TEXT DEFAULT 'none',
+        block_overlay_enabled INTEGER DEFAULT 0,
+        block_overlay_color TEXT DEFAULT 'dark',
+        block_overlay_opacity INTEGER DEFAULT 30,
+        variant TEXT NOT NULL,
+        block_name TEXT
+      );`,
+    },
+    {
+      name: '_site_pages_v_blocks_shadcn_block: table',
+      sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_shadcn_block (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL,
+        _path TEXT NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        block_background TEXT DEFAULT 'none',
+        block_overlay_enabled INTEGER DEFAULT 0,
+        block_overlay_color TEXT DEFAULT 'dark',
+        block_overlay_opacity INTEGER DEFAULT 30,
+        variant TEXT NOT NULL,
+        _uuid TEXT,
+        block_name TEXT
+      );`,
+    },
     // Version-Tabellen für Drafts (gleiche Spalten)
     { name: '_site_pages_v_blocks_content: block_background', sql: "ALTER TABLE _site_pages_v_blocks_content ADD COLUMN block_background TEXT DEFAULT 'none';" },
     { name: '_site_pages_v_blocks_content: block_overlay_enabled', sql: 'ALTER TABLE _site_pages_v_blocks_content ADD COLUMN block_overlay_enabled INTEGER DEFAULT 0;' },

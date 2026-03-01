@@ -84,6 +84,10 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         .map(([, value]) => `(max-width: ${value}px) ${value * 2}w`)
         .join(', ')
 
+  // Next.js: placeholder="blur" only for images >= 40x40 to avoid warning and improve performance
+  const useBlurPlaceholder =
+    typeof width === 'number' && typeof height === 'number' && width >= 40 && height >= 40
+
   return (
     <picture className={cn(pictureClassName)}>
       <NextImage
@@ -91,8 +95,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         className={cn(imgClassName)}
         fill={fill}
         height={!fill ? height : undefined}
-        placeholder="blur"
-        blurDataURL={placeholderBlur}
+        {...(useBlurPlaceholder ? { placeholder: 'blur' as const, blurDataURL: placeholderBlur } : {})}
         priority={priority}
         fetchPriority={priority ? 'high' : undefined}
         quality={72}
