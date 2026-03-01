@@ -25,25 +25,34 @@ import { s3Storage } from '@payloadcms/storage-s3'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
-if (!process.env.PAYLOAD_SECRET?.trim() || process.env.PAYLOAD_SECRET === 'YOUR_SECRET_HERE') {
-  if (typeof process !== 'undefined') {
-    console.warn(
-      '[Payload] PAYLOAD_SECRET fehlt oder ist der Platzhalter. Admin kann nicht laden. In .env oder .env.local setzen: PAYLOAD_SECRET=<mind. 12 Zeichen>',
+// Production (z. B. Vercel): Fehlende Env-Variablen sofort melden, damit das Admin nicht weiß bleibt
+if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') {
+  if (!process.env.PAYLOAD_SECRET?.trim() || process.env.PAYLOAD_SECRET === 'YOUR_SECRET_HERE') {
+    throw new Error(
+      '[Payload] In Production muss PAYLOAD_SECRET gesetzt sein (Vercel: Project → Settings → Environment Variables). Mind. 12 Zeichen, z. B. openssl rand -hex 32',
     )
   }
+  if (!process.env.DATABASE_URL?.trim() && !process.env.POSTGRES_URL?.trim()) {
+    throw new Error(
+      '[Payload] In Production müssen DATABASE_URL oder POSTGRES_URL gesetzt sein (Vercel: Settings → Environment Variables). Ohne DB lädt das Admin nicht.',
+    )
+  }
+} else if (!process.env.PAYLOAD_SECRET?.trim() || process.env.PAYLOAD_SECRET === 'YOUR_SECRET_HERE') {
+  console.warn(
+    '[Payload] PAYLOAD_SECRET fehlt oder ist der Platzhalter. In .env oder .env.local setzen: PAYLOAD_SECRET=<mind. 12 Zeichen>',
+  )
 }
 
 export default buildConfig({
   admin: {
     suppressHydrationWarning: true,
-    components: {
-      graphics: { Logo: '/components/AdminLogo' },
-      // beforeLogin: ['@/components/BeforeLogin'],
-      // beforeDashboard: ['@/components/BeforeDashboard'],
-      // views: {
-      //   themeColors: { Component: '@/components/ThemeGeneratorPage', path: '/theme-colors' },
-      // },
-    },
+    // Custom Logo/BeforeLogin/BeforeDashboard deaktiviert – Admin lädt so mit Standard-Payload-UI.
+    // components: {
+    //   graphics: { Logo: '/components/AdminLogo' },
+    //   beforeLogin: ['@/components/BeforeLogin'],
+    //   beforeDashboard: ['@/components/BeforeDashboard'],
+    //   views: { themeColors: { Component: '@/components/ThemeGeneratorPage', path: '/theme-colors' } },
+    // },
     importMap: {
       baseDir: path.resolve(dirname),
     },

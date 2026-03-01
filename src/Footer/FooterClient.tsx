@@ -298,9 +298,9 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                       : null
 
                     return (
-                      <div key={col.id ?? i} className={`space-y-4 ${i < 2 ? 'lg:row-start-2' : ''}`}>
+                      <div key={col.id ?? i} className={`group space-y-4 ${i < 2 ? 'lg:row-start-2' : ''}`}>
                         <div className="flex flex-row items-start gap-x-4">
-                          <div className="flex shrink-0 pt-0.5 lg:basis-[10%]">
+                          <div className="footer-column-icon flex shrink-0 pt-0.5 lg:basis-[10%] opacity-80 transition-opacity duration-[600ms] group-hover:opacity-100 group-hover:duration-300">
                             {colIconSpriteId ? (
                               // FIX: currentColor statt text-white
                               <svg className="h-6 w-6" aria-hidden="true">
@@ -352,8 +352,8 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
 
                   {footer.newsletterTitle != null && (
                     <div className="flex min-w-0 flex-col space-y-4 col-span-2 md:col-span-3 lg:col-span-2 lg:row-start-2 lg:col-start-3">
-                      <div className="flex flex-row items-start gap-x-3">
-                        <div className="flex shrink-0 pt-0.5">
+                      <div className="group flex flex-row items-start gap-x-3">
+                        <div className="footer-column-icon flex shrink-0 pt-0.5 opacity-80 transition-opacity duration-[600ms] group-hover:opacity-100 group-hover:duration-300">
                           {newsletterSpriteId ? (
                             <svg className="h-6 w-6" aria-hidden="true">
                               <use href={`/icons-sprite.svg#${newsletterSpriteId}`} />
