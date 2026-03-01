@@ -698,7 +698,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
             />
             <div
               className={cn(
-                'pointer-events-none absolute bottom-0 overflow-visible z-[11] transition-opacity duration-500',
+                'pointer-events-none absolute bottom-0 overflow-visible z-[20] transition-opacity duration-500',
                 'max-lg:hidden',
                 'lg:right-0 lg:w-[41%] lg:max-w-[414px] lg:min-h-[420px]',
                 'xl:left-[58%] xl:right-auto xl:w-[42%]',
@@ -736,7 +736,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
             <div
               className={cn(
                 'absolute inset-0 z-10 grid h-full min-h-0 w-full grid-cols-1 content-start gap-0 lg:grid-cols-[3fr_2fr] lg:items-start',
-                'px-4 py-4 md:px-6 md:py-6 lg:px-8 lg:py-6',
+                'px-4 pt-8 pb-4 md:px-6 md:pt-12 md:pb-6 lg:px-8 lg:pt-12 lg:pb-6',
               )}
             >
               <div
@@ -748,7 +748,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                 )}
               >
                 <div className={cn('pointer-events-auto w-max max-w-full min-h-0 flex-shrink-0', foregroundMedia ? '' : 'max-w-2xl')}>
-                  <div className="space-y-0">
+                  <div className="space-y-8">
                     {hasTextContent && (
                       <>
                         {subheadline &&
@@ -880,7 +880,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                     {Array.isArray(links) && links.length > 0 && (
                       <div
                         className={cn(
-                          'flex flex-wrap gap-2 pt-0 transition-all duration-500 ease-out',
+                          'flex flex-wrap gap-2 transition-all duration-500 ease-out',
                           textReveal ? 'translate-y-0 opacity-100 delay-[1200ms]' : 'translate-y-2 opacity-0',
                         )}
                       >

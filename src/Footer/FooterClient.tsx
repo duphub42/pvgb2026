@@ -297,8 +297,9 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                       ? getSpriteIdFromMediaUrl(colIconUploadUrl)
                       : null
 
+                    const columnWrapperClass = i < 2 ? 'group space-y-4 lg:row-start-2' : 'group space-y-4'
                     return (
-                      <div key={col.id ?? i} className={`group space-y-4 ${i < 2 ? 'lg:row-start-2' : ''}`}>
+                      <div key={col.id ?? i} className={columnWrapperClass}>
                         <div className="flex flex-row items-start gap-x-4">
                           <div className="footer-column-icon flex shrink-0 pt-0.5 lg:basis-[10%] opacity-80 transition-opacity duration-[600ms] group-hover:opacity-100 group-hover:duration-300">
                             {colIconSpriteId ? (

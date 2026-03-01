@@ -295,7 +295,9 @@ export interface SitePage {
   /**
    * Mindestens einen Block hinzufügen, damit die Seite Inhalt hat.
    */
-  layout?: (HeroMarketingBlock | CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[] | null;
+  layout?:
+    | (HeroMarketingBlock | ShadcnBlock | CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[]
+    | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
@@ -598,6 +600,56 @@ export interface HeroMarketingBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroMarketing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ShadcnBlock".
+ */
+export interface ShadcnBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  /**
+   * Welche Shadcnblocks-Komponente angezeigt werden soll.
+   */
+  variant:
+    | 'feature215b'
+    | 'feature210'
+    | 'about15'
+    | 'about8'
+    | 'about3'
+    | 'hero238'
+    | 'hero256'
+    | 'feature268'
+    | 'feature267'
+    | 'feature271'
+    | 'feature270'
+    | 'feature282'
+    | 'feature294'
+    | 'feature147'
+    | 'feature148'
+    | 'feature190'
+    | 'feature229'
+    | 'feature250'
+    | 'feature251'
+    | 'feature253'
+    | 'feature256'
+    | 'feature261';
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'shadcnBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1545,6 +1597,7 @@ export interface SitePagesSelect<T extends boolean = true> {
     | T
     | {
         heroMarketing?: T | HeroMarketingBlockSelect<T>;
+        shadcnBlock?: T | ShadcnBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -1586,6 +1639,23 @@ export interface HeroMarketingBlockSelect<T extends boolean = true> {
   primaryCtaUrl?: T;
   secondaryCtaLabel?: T;
   secondaryCtaUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ShadcnBlock_select".
+ */
+export interface ShadcnBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  variant?: T;
   id?: T;
   blockName?: T;
 }

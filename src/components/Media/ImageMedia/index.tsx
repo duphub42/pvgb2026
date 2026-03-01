@@ -93,6 +93,11 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     width >= 40 &&
     height >= 40
 
+  // Explicit placeholder="empty" when not using blur so server and client never inject different styles (avoids hydration mismatch)
+  const placeholderProp = useBlurPlaceholder
+    ? { placeholder: 'blur' as const, blurDataURL: placeholderBlur }
+    : { placeholder: 'empty' as const }
+
   return (
     <picture className={cn(pictureClassName)}>
       <NextImage
@@ -100,7 +105,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         className={cn(imgClassName)}
         fill={fill}
         height={!fill ? height : undefined}
-        {...(useBlurPlaceholder ? { placeholder: 'blur' as const, blurDataURL: placeholderBlur } : {})}
+        {...placeholderProp}
         priority={priority}
         fetchPriority={priority ? 'high' : undefined}
         quality={72}
