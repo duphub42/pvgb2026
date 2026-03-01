@@ -78,7 +78,7 @@ type HeroProps = {
 const WAVE_FILL = 'var(--background)' as const
 
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[666px] z-[6] m-0 p-0 overflow-hidden rounded-2xl lg:rounded-3xl hero-box-frame-shadow hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[666px] z-[6] m-0 p-0 overflow-visible rounded-2xl lg:rounded-3xl hero-box-frame-shadow hero-box-animate'
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5'
 
@@ -698,7 +698,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
             />
             <div
               className={cn(
-                'pointer-events-none absolute bottom-0 overflow-visible z-0 transition-opacity duration-500',
+                'pointer-events-none absolute bottom-0 overflow-visible z-[11] transition-opacity duration-500',
                 'max-lg:hidden',
                 'lg:right-0 lg:w-[41%] lg:max-w-[414px] lg:min-h-[420px]',
                 'xl:left-[58%] xl:right-auto xl:w-[42%]',
@@ -741,13 +741,13 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
             >
               <div
                 className={cn(
-                  'relative z-10 flex w-full flex-col text-left pointer-events-none overflow-visible max-h-[666px] min-h-0',
+                  'relative z-10 flex w-full flex-col text-left pointer-events-none overflow-visible max-h-[666px] min-h-0 min-w-0',
                   foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-start',
                   foregroundMedia ? 'lg:justify-start lg:mr-auto' : 'lg:justify-start',
                   'pb-0',
                 )}
               >
-                <div className={cn('pointer-events-auto w-max max-w-full', foregroundMedia ? '' : 'max-w-2xl')}>
+                <div className={cn('pointer-events-auto w-max max-w-full min-h-0 flex-shrink-0', foregroundMedia ? '' : 'max-w-2xl')}>
                   <div className="space-y-0">
                     {hasTextContent && (
                       <>
@@ -908,7 +908,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                 {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
                   <div
                     className={cn(
-                      'pointer-events-none block w-full overflow-visible shrink-0',
+                      'pointer-events-none block w-full overflow-visible shrink-0 mt-auto',
                       'lg:z-[4] pt-0 pb-0',
                       'max-lg:z-[3] mt-0',
                       mounted ? 'opacity-100' : 'opacity-0',
@@ -935,7 +935,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                                 once
                                 startOnView={false}
                                 as="p"
-                                className="text-xs font-medium uppercase tracking-[0.2em] text-white/80"
+                                className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-800/90 [data-theme='dark']:text-white/80"
                               >
                                 {marqueeHeadline}
                               </TextAnimate>

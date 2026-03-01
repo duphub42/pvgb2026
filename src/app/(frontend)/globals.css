@@ -272,7 +272,7 @@
     }
   }
 
-  /* HeroBox Inner: Milchglas mit gleichmäßiger Transparenz – Hintergrund scheint durch, Blur für Glaseffekt. */
+  /* HeroBox Inner: Milchglas – links transparenter, rechts etwas deckender; Blur für Glaseffekt. */
   .hero-box-inner {
     position: relative;
     width: 100%;
@@ -281,10 +281,20 @@
     border: 0.5px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(48px) saturate(180%);
     -webkit-backdrop-filter: blur(48px) saturate(180%);
-    background: rgba(252, 252, 252, 0.7);
+    background: linear-gradient(
+      to right,
+      rgba(252, 252, 252, 0.22) 0%,
+      rgba(252, 252, 252, 0.42) 35%,
+      rgba(252, 252, 252, 0.58) 100%
+    );
   }
   [data-theme='dark'] .hero-box-inner {
-    background: rgba(18, 18, 18, 0.72);
+    background: linear-gradient(
+      to right,
+      rgba(18, 18, 18, 0.28) 0%,
+      rgba(18, 18, 18, 0.45) 35%,
+      rgba(18, 18, 18, 0.62) 100%
+    );
     border-color: rgba(255, 255, 255, 0.06);
   }
 
