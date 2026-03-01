@@ -272,7 +272,9 @@
     }
   }
 
-  /* HeroBox Inner: Milchglas – links transparenter, rechts etwas deckender; Blur für Glaseffekt. */
+  /* HeroBox Inner: Milchglas – links transparenter, rechts etwas deckender; Blur für Glaseffekt.
+   * Freistellung oben rechts: Glas in der oberen rechten Ecke ausgeblendet, damit das Vordergrundbild
+   * (auf max-lg hinter der Box in z-[1]) dort scharf sichtbar bleibt und nicht vom Backdrop-Blur verdeckt wird. */
   .hero-box-inner {
     position: relative;
     width: 100%;
@@ -287,6 +289,25 @@
       rgba(252, 252, 252, 0.26) 35%,
       rgba(252, 252, 252, 0.4) 100%
     );
+    /* Aussparung oben rechts: radialer Verlauf, damit in der Ecke kein Glas liegt */
+    mask-image: radial-gradient(
+      ellipse 100% 85% at 100% 0%,
+      transparent 0%,
+      transparent 47%,
+      black 73%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 100% 85% at 100% 0%,
+      transparent 0%,
+      transparent 47%,
+      black 73%
+    );
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-position: 0 0;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
   }
   [data-theme='dark'] .hero-box-inner {
     background: linear-gradient(
@@ -316,12 +337,14 @@
     }
   }
 
-  /* Desktop (1025px+): Milchglas-Box, große Ecken, stärkerer Blur. */
+  /* Desktop (1025px+): Milchglas-Box, große Ecken, stärkerer Blur. Keine Freistellung nötig – Vordergrundbild liegt in der Box (z-20) über dem Glas. */
   @media (min-width: 1025px) {
     .hero-box-inner {
       border-radius: 1.875rem;
       backdrop-filter: blur(96px) saturate(220%);
       -webkit-backdrop-filter: blur(96px) saturate(220%);
+      mask-image: none;
+      -webkit-mask-image: none;
     }
   }
 
@@ -500,6 +523,16 @@
       mask-size: 100% 100%;
       -webkit-mask-size: 100% 100%;
     }
+  }
+
+  /* Desktop-Vordergrund: Einblendung ohne JS (mounted) – sichtbar auch bei verzögerter Hydration */
+  @keyframes hero-desktop-foreground-fade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  .hero-desktop-foreground-fade-in {
+    opacity: 0;
+    animation: hero-desktop-foreground-fade 0.5s ease-out 0.15s forwards;
   }
 
   /* Hero-Hintergrundmuster (Graustufen, 50 % Intensität) */

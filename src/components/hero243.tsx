@@ -1,3 +1,5 @@
+"use client";
+
 import { TrendingUp, Users, Zap } from "lucide-react";
 import React from "react";
 

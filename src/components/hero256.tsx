@@ -1,3 +1,5 @@
+"use client";
+
 import { Activity, ArrowRight, Receipt, Zap } from "lucide-react";
 import React from "react";
 

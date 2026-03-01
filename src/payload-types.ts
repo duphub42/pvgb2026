@@ -166,7 +166,23 @@ export interface SitePage {
   id: number;
   title: string;
   hero?: {
-    type?: ('none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'philippBacher' | 'gridHero') | null;
+    type?:
+      | (
+          | 'none'
+          | 'highImpact'
+          | 'mediumImpact'
+          | 'lowImpact'
+          | 'philippBacher'
+          | 'gridHero'
+          | 'hero75'
+          | 'hero215'
+          | 'hero238'
+          | 'hero242'
+          | 'hero243'
+          | 'hero244'
+          | 'hero256'
+        )
+      | null;
     richText?: {
       root: {
         type: string;
@@ -182,6 +198,9 @@ export interface SitePage {
       };
       [k: string]: unknown;
     } | null;
+    /**
+     * Bei Shadcn-Blocks: optionales Bild für den Hero (z. B. rechts).
+     */
     media?: (number | null) | Media;
     subheadline?: string | null;
     headline?: string | null;

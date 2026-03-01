@@ -78,7 +78,7 @@ type HeroProps = {
 const WAVE_FILL = 'var(--background)' as const
 
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[666px] z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-visible rounded-2xl lg:rounded-3xl hero-box-frame-shadow hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[100vh] lg:max-h-[666px] z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-visible rounded-2xl lg:rounded-3xl hero-box-frame-shadow hero-box-animate'
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5'
 
@@ -127,13 +127,21 @@ const DEFER_FALLBACK_MS = 3000
 // Dynamic Imports (SSR disabled, mit Skeleton-Fallback)
 // ---------------------------------------------------------------------------
 
+const FallbackBg = () => <div className="absolute inset-0 bg-neutral-950" aria-hidden />
+
 const HeroBackgroundThree = dynamic(
-  () => import('@/components/HeroBackgroundThree/HeroBackgroundThree').then((m) => m.HeroBackgroundThree),
-  { ssr: false, loading: () => <div className="absolute inset-0 bg-neutral-950" aria-hidden /> },
+  () =>
+    import('@/components/HeroBackgroundThree/HeroBackgroundThree')
+      .then((m) => ({ default: m?.HeroBackgroundThree ?? FallbackBg }))
+      .catch(() => ({ default: FallbackBg })),
+  { ssr: false, loading: () => <FallbackBg /> },
 )
 const HaloBackground = dynamic(
-  () => import('@/components/HaloBackground/HaloBackground').then((m) => m.HaloBackground),
-  { ssr: false, loading: () => <div className="absolute inset-0 bg-neutral-950" aria-hidden /> },
+  () =>
+    import('@/components/HaloBackground/HaloBackground')
+      .then((m) => ({ default: m?.HaloBackground ?? FallbackBg }))
+      .catch(() => ({ default: FallbackBg })),
+  { ssr: false, loading: () => <FallbackBg /> },
 )
 
 // ---------------------------------------------------------------------------
@@ -516,7 +524,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
   return (
     <section
       ref={heroSectionRef}
-      className="relative z-10 w-full min-h-[777px] max-h-[777px] overflow-visible flex items-end justify-center bg-neutral-950 m-0 p-0 text-white -mt-[var(--header-height,6rem)] -mb-24"
+      className="relative z-10 w-full min-h-[100vh] max-h-[100vh] lg:min-h-[777px] lg:max-h-[777px] overflow-visible flex items-end justify-center bg-neutral-950 m-0 p-0 text-white -mt-[var(--header-height,6rem)] -mb-24"
       aria-label="Hero"
     >
       {/* Layer 0: Background only — no flex, grid, padding, margin, relative */}
@@ -689,7 +697,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
       </svg>
       {/* Content: gleicher Container wie Seiteninhalt, Box reicht mit negativem Margin in die Gutter = breiter, Grid-Padding = bündig mit Inhalt */}
       <div className="container relative z-[6] flex min-h-0 flex-col pointer-events-none">
-        <div className="relative min-h-[min(666px,78vh)] flex-1 w-full">
+        <div className="relative min-h-[100vh] lg:min-h-[min(666px,78vh)] flex-1 w-full max-h-[100vh] lg:max-h-none">
           <div className={HERO_BOX_WRAPPER_CLASS}>
             <div className={HERO_BOX_INNER_CLASS} />
             <div
@@ -698,11 +706,10 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
             />
             <div
               className={cn(
-                'pointer-events-none absolute bottom-0 overflow-visible z-[20] transition-opacity duration-500',
-                'max-lg:hidden',
+                'pointer-events-none absolute bottom-0 overflow-visible z-[20] max-lg:hidden',
                 'lg:right-0 lg:w-[41%] lg:max-w-[414px] lg:min-h-[420px]',
                 'xl:left-[58%] xl:right-auto xl:w-[42%]',
-                foregroundMedia && mounted ? 'opacity-100' : 'opacity-0',
+                foregroundMedia ? 'hero-desktop-foreground-fade-in' : 'opacity-0',
               )}
             >
               {foregroundMedia && (
@@ -735,15 +742,15 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
 
             <div
               className={cn(
-                'absolute inset-0 z-10 grid h-full min-h-0 w-full grid-cols-1 content-start gap-0 lg:grid-cols-[3fr_2fr] lg:items-start',
+                'absolute inset-0 z-10 grid h-full min-h-0 w-full grid-cols-1 gap-0 lg:grid-cols-[3fr_2fr] items-stretch',
                 'px-4 pt-8 pb-4 md:px-6 md:pt-12 md:pb-6 lg:px-8 lg:pt-12 lg:pb-6',
               )}
             >
               <div
                 className={cn(
-                  'relative z-10 flex w-full flex-col text-left pointer-events-none overflow-visible max-h-[666px] min-h-0 min-w-0',
+                  'relative z-10 flex min-h-full w-full flex-col justify-end text-left pointer-events-none overflow-visible max-h-[666px] min-w-0',
                   foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-start',
-                  foregroundMedia ? 'lg:justify-start lg:mr-auto' : 'lg:justify-start',
+                  foregroundMedia ? 'lg:mr-auto' : '',
                   'pb-0',
                 )}
               >

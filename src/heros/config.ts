@@ -6,6 +6,24 @@ import {
 } from '@payloadcms/richtext-lexical'
 import { linkGroup } from '@/fields/linkGroup'
 
+/** Hero-Typen, die Headline/Beschreibung/Links/Media im Backend bearbeitbar haben (inkl. Shadcn Blocks). */
+const HERO_TYPES_WITH_EDITABLE_CONTENT = [
+  'highImpact',
+  'mediumImpact',
+  'lowImpact',
+  'philippBacher',
+  'hero75',
+  'hero215',
+  'hero238',
+  'hero242',
+  'hero243',
+  'hero244',
+  'hero256',
+] as const
+
+const hasEditableContent = (type: string | undefined) =>
+  type != null && (HERO_TYPES_WITH_EDITABLE_CONTENT as readonly string[]).includes(type)
+
 export const hero: Field = {
   name: 'hero',
   type: 'group',
@@ -22,6 +40,13 @@ export const hero: Field = {
         { label: 'Low Impact', value: 'lowImpact' },
         { label: 'Philipp Bacher (Custom)', value: 'philippBacher' },
         { label: 'Grid Hero (Smoothui)', value: 'gridHero' },
+        { label: 'Shadcn Hero 75', value: 'hero75' },
+        { label: 'Shadcn Hero 215', value: 'hero215' },
+        { label: 'Shadcn Hero 238', value: 'hero238' },
+        { label: 'Shadcn Hero 242', value: 'hero242' },
+        { label: 'Shadcn Hero 243', value: 'hero243' },
+        { label: 'Shadcn Hero 244', value: 'hero244' },
+        { label: 'Shadcn Hero 256', value: 'hero256' },
       ],
     },
     {
@@ -43,9 +68,16 @@ export const hero: Field = {
       name: 'media',
       type: 'upload',
       relationTo: 'media',
-      label: 'Media',
+      label: 'Media / Hintergrundbild',
       admin: {
-        condition: (_, siblingData) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => {
+          const t = String(siblingData?.type ?? '')
+          return (
+            ['highImpact', 'mediumImpact', 'lowImpact'].includes(t) ||
+            ['hero75', 'hero215', 'hero238', 'hero242', 'hero243', 'hero244', 'hero256'].includes(t)
+          )
+        },
+        description: 'Bei Shadcn-Blocks: optionales Bild für den Hero (z. B. rechts).',
       },
     },
     {
@@ -53,8 +85,7 @@ export const hero: Field = {
       type: 'text',
       label: 'Sub-Headline',
       admin: {
-        condition: (_, siblingData) =>
-          ['highImpact', 'mediumImpact', 'lowImpact', 'philippBacher'].includes(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => hasEditableContent(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -62,8 +93,7 @@ export const hero: Field = {
       type: 'text',
       label: 'Haupt-Überschrift',
       admin: {
-        condition: (_, siblingData) =>
-          ['highImpact', 'mediumImpact', 'lowImpact', 'philippBacher'].includes(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => hasEditableContent(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -96,8 +126,7 @@ export const hero: Field = {
       type: 'textarea',
       label: 'Kurze Beschreibung',
       admin: {
-        condition: (_, siblingData) =>
-          ['highImpact', 'mediumImpact', 'lowImpact', 'philippBacher'].includes(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => hasEditableContent(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -331,8 +360,7 @@ export const hero: Field = {
       overrides: {
         maxRows: 2,
         admin: {
-          condition: (_, siblingData) =>
-            ['highImpact', 'mediumImpact', 'lowImpact', 'philippBacher'].includes(String(siblingData?.type ?? '')),
+          condition: (_, siblingData) => hasEditableContent(String(siblingData?.type ?? '')),
         },
       },
     }),
