@@ -9,7 +9,6 @@ import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { HeroMarketing } from '../../blocks/HeroMarketing/config'
-import { ShadcnBlock } from '../../blocks/ShadcnBlock/config'
 import {
   createClearOrphanedRefsAfterReadHook,
   createClearOrphanedRefsBeforeChangeHook,
@@ -70,7 +69,6 @@ export const Pages: CollectionConfig = {
                 MediaBlock,
                 Archive,
                 FormBlock,
-                ShadcnBlock,
               ],
               required: false,
               admin: {

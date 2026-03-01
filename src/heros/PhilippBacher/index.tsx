@@ -78,7 +78,7 @@ type HeroProps = {
 const WAVE_FILL = 'var(--background)' as const
 
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[666px] z-[6] m-0 p-0 overflow-visible rounded-2xl lg:rounded-3xl hero-box-frame-shadow hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[666px] z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-visible rounded-2xl lg:rounded-3xl hero-box-frame-shadow hero-box-animate'
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5'
 
@@ -687,8 +687,8 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
           </mask>
         </defs>
       </svg>
-      {/* Content: relative z-[6], never absolute */}
-      <div className="container relative z-[6] flex min-h-0 flex-col p-0 pointer-events-none">
+      {/* Content: gleicher Container wie Seiteninhalt, Box reicht mit negativem Margin in die Gutter = breiter, Grid-Padding = bündig mit Inhalt */}
+      <div className="container relative z-[6] flex min-h-0 flex-col pointer-events-none">
         <div className="relative min-h-[min(666px,78vh)] flex-1 w-full">
           <div className={HERO_BOX_WRAPPER_CLASS}>
             <div className={HERO_BOX_INNER_CLASS} />
@@ -935,7 +935,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                                 once
                                 startOnView={false}
                                 as="p"
-                                className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-800/90 [data-theme='dark']:text-white/80"
+                                className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-800/90 dark:text-white/80"
                               >
                                 {marqueeHeadline}
                               </TextAnimate>
