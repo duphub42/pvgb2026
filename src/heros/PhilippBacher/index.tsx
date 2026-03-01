@@ -78,13 +78,15 @@ type HeroProps = {
 const WAVE_FILL = 'var(--background)' as const
 
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[calc(100vh-var(--header-height,6rem))] max-lg:max-h-[calc(100vh-12rem)] lg:max-h-[666px] z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-visible rounded-2xl lg:rounded-3xl hero-box-frame-shadow hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[calc(100vh-var(--header-height,6rem)*1.05)] max-lg:max-h-[calc(100vh-var(--header-height,6rem)*1.05)] lg:max-h-[min(85vh,900px)] z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-visible rounded-2xl lg:rounded-3xl hero-box-animate'
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5'
 
-/** Mobile Vordergrund: innere Positionierung – Konstante verhindert Hydration-Mismatch */
-const MOBILE_FOREGROUND_INNER_CLASS =
-  'absolute right-0 top-0 bottom-0 w-[min(24rem,88vw)] md:w-[min(28rem,50vw)] max-[430px]:translate-x-[35%]'
+/** Single constant to avoid server/client className mismatch (hydration) */
+const HERO_SECTION_CLASS =
+  'relative z-10 w-full overflow-visible flex justify-center bg-[var(--background)] m-0 p-0 text-[var(--foreground)] -mt-[var(--header-height,6rem)] -mb-24 items-end lg:min-h-[666px] lg:max-h-[min(90vh,920px)] pt-[calc(var(--header-height,6rem)*2.05)] max-lg:pt-0 max-lg:min-h-[100vh] max-lg:max-h-[100vh]'
+const HERO_FOREGROUND_WRAPPER_CLASS =
+  'absolute right-0 lg:left-auto top-[var(--hero-content-top)] bottom-0 overflow-visible hero-foreground-image hero-foreground-image-mid w-[min(24rem,88vw)] md:w-[min(28rem,50vw)] lg:max-w-[50%] lg:w-[50%] max-[430px]:translate-x-[32%]'
 
 // FIX: Animation-Timing als benannte Konstanten (keine Magic Numbers)
 /** Subheadline/Text erscheint nach 800ms */
@@ -111,17 +113,6 @@ const FLOATING_MOUSE_RADIUS = 320
 /** Floating: Dauer einer Idle-Sinus-Periode (ms) */
 const FLOATING_IDLE_PERIOD_MS = 4000
 
-/** Scroll-Easing: Ziel-Offset-Faktor */
-const SCROLL_EASE_FACTOR = 0.18
-/** Scroll-Snap-Threshold */
-const SCROLL_SNAP_THRESHOLD = 0.5
-/** Maximaler Scroll-Offset für Parallax */
-const SCROLL_MAX_OFFSET = 1200
-/** Parallax-Skalierung bei maximalem Scroll */
-const SCROLL_SCALE_AMOUNT = 0.03
-/** Parallax-TranslateY bei maximalem Scroll (px) */
-const SCROLL_TRANSLATE_Y_PX = 40
-
 /** Deferred Heavy Background: Mindestverzögerung (ms) */
 const DEFER_MIN_MS = 1800
 /** Deferred Heavy Background: Fallback (ms) */
@@ -131,7 +122,7 @@ const DEFER_FALLBACK_MS = 3000
 // Dynamic Imports (SSR disabled, mit Skeleton-Fallback)
 // ---------------------------------------------------------------------------
 
-const FallbackBg = () => <div className="absolute inset-0 bg-neutral-950" aria-hidden />
+const FallbackBg = () => <div className="absolute inset-0 bg-[var(--background)]" aria-hidden />
 
 const HeroBackgroundThree = dynamic(
   () =>
@@ -176,7 +167,7 @@ function AnimatedDescription({
   if (segments.length === 0) return null
 
   return (
-    <div className="max-w-sm md:max-w-md text-base leading-relaxed text-white/95 md:text-lg space-y-5">
+    <div className="max-w-sm md:max-w-md text-base leading-relaxed text-inherit/95 md:text-lg space-y-5">
       {segments.map((segment, index) => (
         <span key={index} className="block overflow-hidden">
           <span
@@ -212,7 +203,6 @@ const MARQUEE_LOGO_ITEM_CLASS =
 // ---------------------------------------------------------------------------
 
 export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
-  const [scrollOffset, setScrollOffset] = useState(0)
   const [mounted, setMounted] = useState(false)
   const [textReveal, setTextReveal] = useState(false)
   const [foregroundReveal, setForegroundReveal] = useState(false)
@@ -225,9 +215,6 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
   const [isMobileViewport, setIsMobileViewport] = useState(false)
 
   const heroSectionRef = useRef<HTMLElement>(null)
-  const scrollTargetRef = useRef(0)
-  const scrollCurrentRef = useRef(0)
-  const scrollRafIdRef = useRef<number | null>(null)
   const mountTimeRef = useRef(0)
   const floatingElRefs = useRef<(HTMLDivElement | null)[]>([])
   const mouseRef = useRef({ x: 0, y: 0, inside: false, enteredAt: null as number | null })
@@ -296,27 +283,6 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
     const idBadge      = setTimeout(() => setBadgeReveal(true),         HERO_BADGE_REVEAL_MS)
     const idMarquee    = setTimeout(() => setMarqueeHeadlineReveal(true),HERO_MARQUEE_START_MS)
 
-    const animateScroll = () => {
-      const diff = scrollTargetRef.current - scrollCurrentRef.current
-      if (Math.abs(diff) < SCROLL_SNAP_THRESHOLD) {
-        scrollCurrentRef.current = scrollTargetRef.current
-        setScrollOffset(scrollTargetRef.current)
-        scrollRafIdRef.current = null
-        return
-      }
-      scrollCurrentRef.current += diff * SCROLL_EASE_FACTOR
-      setScrollOffset(scrollCurrentRef.current)
-      scrollRafIdRef.current = window.requestAnimationFrame(animateScroll)
-    }
-
-    const handleScroll = () => {
-      scrollTargetRef.current = window.pageYOffset
-      if (scrollRafIdRef.current == null) {
-        scrollRafIdRef.current = window.requestAnimationFrame(animateScroll)
-      }
-    }
-    window.addEventListener('scroll', handleScroll, { passive: true })
-
     const mq = window.matchMedia?.('(max-width: 767.98px)')
     const updateViewport = () => setIsMobileViewport(Boolean(mq?.matches))
     if (mq) {
@@ -335,11 +301,6 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
       clearTimeout(idForeground)
       clearTimeout(idBadge)
       clearTimeout(idMarquee)
-      window.removeEventListener('scroll', handleScroll)
-      if (scrollRafIdRef.current != null) {
-        cancelAnimationFrame(scrollRafIdRef.current)
-        scrollRafIdRef.current = null
-      }
       if (mq) {
         try {
           mq.removeEventListener('change', updateViewport)
@@ -506,14 +467,9 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
   const foregroundMedia = foregroundImage && isMediaObject(foregroundImage) ? foregroundImage : null
   const hasMarquee      = Boolean(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0))
 
-  const easedScroll  = Math.min(scrollOffset, SCROLL_MAX_OFFSET)
-  const scrollFactor = easedScroll / SCROLL_MAX_OFFSET
-  const scale        = 1 + SCROLL_SCALE_AMOUNT * scrollFactor
-  const translateY   = SCROLL_TRANSLATE_Y_PX * scrollFactor
-
   const overlayNum = Number(overlayOpacity ?? 0.45)
   const overlayRaw = Number.isFinite(overlayNum)
-    ? Math.min(Math.max(0, overlayNum + scrollFactor * 0.35), 0.75)
+    ? Math.min(Math.max(0, overlayNum), 0.75)
     : 0.45
   const overlay =
     useBackgroundCssHalo || backgroundMedia
@@ -525,14 +481,20 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
     (el) => getMediaUrlSafe(el.icon) !== '' || (el.label != null && String(el.label).trim() !== ''),
   )
 
+  /** Fokuspunkt Hero-Bild: Nackenspitze bei ~75 % Bildschirmhöhe, Gesicht im transparenten Bereich (oben rechts). object-position: (x, y) = Punkt im Bild an (x, y) im Container. */
+  const HERO_FOCUS_X = '60%'
+  const HERO_FOCUS_Y = '75%'
+
   return (
     <section
       ref={heroSectionRef}
-      className={cn(
-        'relative z-10 w-full overflow-visible flex justify-center bg-neutral-950 m-0 p-0 text-white -mt-[var(--header-height,6rem)] -mb-24',
-        'min-h-[100vh] max-h-[100vh] items-end lg:min-h-[777px] lg:max-h-[777px]',
-        'max-lg:max-h-none max-lg:pt-[calc(var(--header-height,6rem)*2)]',
-      )}
+      className={HERO_SECTION_CLASS}
+      suppressHydrationWarning
+      style={{
+        ['--hero-focus-x' as string]: HERO_FOCUS_X,
+        ['--hero-focus-y' as string]: HERO_FOCUS_Y,
+        ['--hero-content-top' as string]: 'calc(var(--header-height, 6rem) * 1.05)',
+      }}
       aria-label="Hero"
     >
       {/* Layer 0: Background only — no flex, grid, padding, margin, relative */}
@@ -546,7 +508,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
           deferHeavyBackground ? (
             <HeroBackgroundThree className="absolute inset-0 w-full h-full" />
           ) : (
-            <div className="absolute inset-0 bg-neutral-950" aria-hidden />
+            <div className="absolute inset-0 bg-[var(--background)]" aria-hidden />
           )
         ) : backgroundMedia ? (
           <Media
@@ -556,7 +518,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
             priority
           />
         ) : (
-          <div className="absolute inset-0 bg-neutral-950" aria-hidden />
+          <div className="absolute inset-0 bg-[var(--background)]" aria-hidden />
         )}
         </div>
       </div>
@@ -567,18 +529,16 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
           className="hero-overlay-base absolute inset-0 transition-opacity duration-200"
           style={{ ['--hero-overlay' as string]: String(Math.min(1, Math.max(0, overlay))) }}
         />
-        <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
+        <div className="hero-left-gradient absolute inset-y-0 left-0 w-2/3" />
         <div className="hero-edge-darken absolute inset-0" />
         {foregroundMedia && (
-          <div className="absolute inset-0 overflow-visible lg:hidden" suppressHydrationWarning>
-            <div className={MOBILE_FOREGROUND_INNER_CLASS} suppressHydrationWarning>
-              <Media
-                resource={foregroundMedia}
-                fill
-                imgClassName="object-contain object-bottom object-right"
-                priority
-              />
-            </div>
+          <div className={HERO_FOREGROUND_WRAPPER_CLASS} aria-hidden>
+            <Media
+              resource={foregroundMedia}
+              fill
+              imgClassName="object-contain object-center"
+              priority
+            />
           </div>
         )}
         <div
@@ -639,7 +599,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                     by="character"
                     once
                     as="span"
-                    className="text-sm font-medium text-white drop-shadow-sm sm:text-base inline"
+                    className="text-sm font-medium text-inherit drop-shadow-sm sm:text-base inline"
                     segmentClassName="inline-block"
                   >
                     {String(el.label).trim()}
@@ -676,7 +636,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                     href={el.linkUrl}
                     target={el.linkNewTab ? '_blank' : undefined}
                     rel={el.linkNewTab ? 'noopener noreferrer' : undefined}
-                    className="flex items-center gap-2 text-white no-underline hover:text-white"
+                    className="flex items-center gap-2 text-inherit no-underline hover:text-inherit"
                   >
                     {content}
                   </Link>
@@ -703,15 +663,16 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
           </mask>
         </defs>
       </svg>
-      {/* Content: gleicher Container wie Seiteninhalt, Box reicht mit negativem Margin in die Gutter = breiter, Grid-Padding = bündig mit Inhalt */}
-      <div className="container relative z-[6] flex min-h-0 flex-col pointer-events-none">
+      {/* Content: gleicher Container wie Seiteninhalt, Box reicht mit negativem Margin in die Gutter; max-lg: -mb zieht Box über den Shape-Divider */}
+      <div className="container relative z-[6] flex min-h-0 flex-col pointer-events-none max-lg:-mb-[9vh] max-lg:min-h-0">
         <div
           className={cn(
-            'relative flex-1 w-full min-h-[calc(100vh-var(--header-height,6rem))] max-h-[calc(100vh-var(--header-height,6rem))] lg:min-h-[min(666px,78vh)] lg:max-h-none',
-            'max-lg:max-h-[calc(100vh-12rem)]',
+            'relative flex-1 w-full max-lg:min-h-0 max-lg:flex-initial lg:min-h-[min(720px,82vh)] lg:max-h-none',
           )}
         >
           <div className={HERO_BOX_WRAPPER_CLASS}>
+            {/* Glow/Shadow ohne Maske (hero-box-outer), damit Schatten und Glow sichtbar sind */}
+            <div className="hero-box-frame-shadow absolute inset-0 rounded-2xl lg:rounded-3xl pointer-events-none" aria-hidden />
             <div className={HERO_BOX_INNER_CLASS} />
             <div
               className="pointer-events-none absolute inset-0 rounded-2xl lg:rounded-3xl z-[1]"
@@ -719,49 +680,13 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
             />
             <div
               className={cn(
-                'pointer-events-none absolute bottom-0 overflow-visible z-[20] max-lg:hidden',
-                'lg:right-0 lg:w-[41%] lg:max-w-[414px] lg:min-h-[420px]',
-                'xl:left-[58%] xl:right-auto xl:w-[42%]',
-                foregroundMedia ? 'hero-desktop-foreground-fade-in' : 'opacity-0',
-              )}
-            >
-              {foregroundMedia && (
-                <div
-                  className={cn(
-                    'hero-foreground-reveal hero-foreground-reveal-active h-full min-h-0',
-                    'max-lg:w-[min(88vw,394px)] max-lg:max-h-[85vh] max-lg:min-h-[280px]',
-                    'lg:w-full lg:max-h-none lg:scale-[1.02] lg:origin-bottom-right',
-                  )}
-                >
-                  <div className="hero-foreground-scan1">
-                    <Media
-                      resource={foregroundMedia}
-                      priority
-                      size="(max-width: 1024px) 414px, 414px"
-                      imgClassName="w-full h-full object-contain object-bottom max-lg:object-top"
-                    />
-                  </div>
-                  <div className="hero-foreground-scan2">
-                    <Media
-                      resource={foregroundMedia}
-                      priority
-                      size="(max-width: 1024px) 414px, 414px"
-                      imgClassName="w-full h-full object-contain object-bottom max-lg:object-top"
-                    />
-                  </div>
-                </div>
-              )}
-            </div>
-
-            <div
-              className={cn(
-                'absolute inset-0 z-10 grid h-full min-h-0 w-full grid-cols-1 gap-0 lg:grid-cols-[3fr_2fr] items-stretch',
-                'px-4 pt-8 pb-4 md:px-6 md:pt-12 md:pb-6 lg:px-8 lg:pt-12 lg:pb-6',
+                'absolute inset-0 z-10 grid h-full min-h-0 w-full grid-cols-1 gap-0 items-stretch',
+                'px-4 pt-5 pb-4 md:px-6 md:pt-12 md:pb-6 lg:px-8 lg:pt-12 lg:pb-6',
               )}
             >
               <div
                 className={cn(
-                  'relative z-10 flex min-h-full w-full flex-col justify-end text-left pointer-events-none overflow-visible max-h-[666px] min-w-0',
+                  'relative z-10 flex min-h-full w-full flex-col justify-end text-left pointer-events-none overflow-visible max-h-[min(85vh,900px)] min-w-0',
                   foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-start',
                   foregroundMedia ? 'lg:mr-auto' : '',
                   'pb-0',
@@ -775,7 +700,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                           (isMobileViewport
                             ? badgeReveal
                               ? (
-                                <p className="hero-subheadline-badge text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.12em] text-white/80">
+                                <p className="hero-subheadline-badge text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.12em] text-inherit/80">
                                   <span className="inline-flex items-center gap-1.5 align-middle leading-none">
                                     <span aria-hidden className="inline-flex items-center justify-center h-[1.6em] w-[1.6em]">
                                       <svg
@@ -818,7 +743,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                               )
                               : (
                                 <p
-                                  className="hero-subheadline-badge text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.12em] text-white/80 opacity-0"
+                                  className="hero-subheadline-badge text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.12em] text-inherit/80 opacity-0"
                                   aria-hidden
                                 >
                                   {subheadline}
@@ -833,13 +758,13 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                                   once
                                   startOnView={false}
                                   as="p"
-                                  className="text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.12em] text-white/80"
+                                  className="text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.12em] text-inherit/80"
                                 >
                                   {subheadline}
                                 </TextAnimate>
                               )
                               : (
-                                <p className="text-xs font-medium uppercase tracking-[0.2em] text-white/80 opacity-0 sm:text-sm" aria-hidden>
+                                <p className="text-xs font-medium uppercase tracking-[0.2em] text-inherit/80 opacity-0 sm:text-sm" aria-hidden>
                                   {subheadline}
                                 </p>
                               ))}
@@ -847,13 +772,13 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                         {hasHeadline && (
                           <h1
                             className={cn(
-                              'hero-headline text-3xl font-semibold leading-tight tracking-tight text-white transition-all duration-[600ms] ease-out sm:text-4xl md:text-5xl lg:text-[2.75rem] lg:leading-[1.15]',
+                              'hero-headline text-4xl font-medium leading-[0.95] tracking-tighter text-inherit transition-all duration-[600ms] ease-out md:text-6xl lg:text-7xl',
                               textReveal ? 'translate-y-0 opacity-100 delay-[600ms]' : 'translate-y-4 opacity-0',
                             )}
                             aria-label={lines.filter(Boolean).join(' ')}
                           >
                             {useThreeLines ? (
-                              <span className="block space-y-1 md:space-y-2">
+                              <span className="block space-y-0 leading-[0.95]">
                                 {lines.map((line, i) =>
                                   line.trim() ? (
                                     <span key={i} className="block">
@@ -889,7 +814,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                     {!hasTextContent && richText && (
                       <div
                         className={cn(
-                          'prose prose-invert prose-lg max-w-none text-white transition-all duration-[600ms] ease-out',
+                          'prose prose-lg max-w-none text-inherit transition-all duration-[600ms] ease-out hero-prose',
                           textReveal ? 'translate-y-0 opacity-100 delay-[600ms]' : 'translate-y-4 opacity-0',
                         )}
                       >
@@ -914,8 +839,8 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                               className={cn(
                                 'inline-flex min-w-[120px] items-center justify-center rounded-full px-6 py-3 text-sm font-medium transition-colors sm:min-w-[140px]',
                                 isOutline
-                                  ? 'border-2 border-white bg-transparent text-white hover:bg-white/10'
-                                  : 'bg-white text-neutral-900 shadow-md hover:bg-white/95 font-semibold',
+                                  ? 'border-2 border-[var(--foreground)] bg-transparent text-inherit hover:bg-[var(--foreground)]/10'
+                                  : 'bg-[var(--background)] text-[var(--foreground)] shadow-md hover:opacity-95 font-semibold',
                               )}
                             />
                           )
@@ -929,8 +854,8 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                   <div
                     className={cn(
                       'pointer-events-none block w-full overflow-visible shrink-0 mt-auto',
-                      'lg:z-[4] pt-0 pb-0',
-                      'max-lg:z-[3] mt-0',
+                      'lg:z-[4] pt-0 pb-0 mt-6 lg:mt-8',
+                      'max-lg:z-[3]',
                       mounted ? 'opacity-100' : 'opacity-0',
                     )}
                     style={{
@@ -955,7 +880,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                                 once
                                 startOnView={false}
                                 as="p"
-                                className="text-xs font-medium uppercase tracking-[0.2em] text-neutral-800/90 dark:text-white/80"
+                                className="text-xs font-medium uppercase tracking-[0.2em] text-inherit/90 max-lg:text-[0.5rem] max-lg:tracking-[0.18em]"
                               >
                                 {marqueeHeadline}
                               </TextAnimate>

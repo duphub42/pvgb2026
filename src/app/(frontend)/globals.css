@@ -50,6 +50,10 @@
     min-width: 0;
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
   }
+  /* Hero-Bild/Wrapper darf nach rechts überlaufen – auf Seiten mit Hero overflow erlauben */
+  body:has([aria-label="Hero"]) {
+    overflow-x: visible;
+  }
   h1,
   h2,
   h3,
@@ -118,16 +122,50 @@
 }
 
 @layer utilities {
+  /* Inhalte, die über die Containerbreite gehen, werden abgeschnitten; Hero-Box ausgenommen. */
   .container {
     width: 100%;
     max-width: 100%;
     margin-inline: auto;
     padding-inline: 1rem;
     min-width: 0;
+    overflow-x: hidden;
+  }
+  [aria-label="Hero"] .container {
+    overflow-x: visible;
   }
 
-  /* Hero-Box: edler Glow + im Light Mode Schlagschatten am unteren Rand. */
+  /* Folgesection: oberer Rand transparent (Shape-Divider sichtbar), darunter Verlauf → deckend, kaschiert nur den Schatten unterhalb des Heros. */
+  .hero-following-section-mask {
+    background: linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 2.5rem,
+      var(--background) 4rem
+    );
+  }
+
+  /* Hero-Box: edler Glow + im Light Mode Schlagschatten am unteren Rand.
+   * Glow bleibt überall, blendet nach oben rechts weich aus (Maske). Desktop: Maske bei 80% (Vordergrundbild weiter links). */
   .hero-box-frame-shadow {
+    mask-image: radial-gradient(
+      ellipse 110% 90% at 100% 0%,
+      transparent 0%,
+      transparent 38%,
+      black 72%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 110% 90% at 100% 0%,
+      transparent 0%,
+      transparent 38%,
+      black 72%
+    );
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-position: 0 0;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
     box-shadow:
       0 12px 40px rgba(0, 0, 0, 0.08),
       0 4px 24px rgba(0, 0, 0, 0.04),
@@ -169,6 +207,39 @@
         0 0 48px rgba(255, 255, 255, 0.032),
         0 0 100px rgba(255, 255, 255, 0.02),
         0 0 180px rgba(255, 255, 255, 0.01);
+    }
+  }
+
+  /* Desktop (64rem+): Deutlicher Schatten und Glow. Glow rechts weich ausblenden, damit Hero-Bild links nicht überlagert wird. */
+  @media (min-width: 64rem) {
+    .hero-box-frame-shadow {
+      mask-image: linear-gradient(to right, black 48%, transparent 62%);
+      -webkit-mask-image: linear-gradient(to right, black 48%, transparent 62%);
+      mask-size: 100% 100%;
+      -webkit-mask-size: 100% 100%;
+      mask-position: 0 0;
+      -webkit-mask-position: 0 0;
+      mask-repeat: no-repeat;
+      -webkit-mask-repeat: no-repeat;
+      box-shadow:
+        0 20px 56px rgba(0, 0, 0, 0.12),
+        0 8px 32px rgba(0, 0, 0, 0.08),
+        0 32px 64px rgba(0, 0, 0, 0.1),
+        0 48px 88px rgba(0, 0, 0, 0.06),
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 0 56px rgba(255, 255, 255, 0.12),
+        0 0 112px rgba(255, 255, 255, 0.08),
+        0 0 180px rgba(255, 255, 255, 0.05),
+        0 0 260px rgba(255, 255, 255, 0.03);
+    }
+    [data-theme='dark'] .hero-box-frame-shadow {
+      box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.06),
+        0 0 0 1px rgba(255, 255, 255, 0.14),
+        0 0 72px rgba(255, 255, 255, 0.1),
+        0 0 144px rgba(255, 255, 255, 0.06),
+        0 0 240px rgba(255, 255, 255, 0.04),
+        0 0 340px rgba(255, 255, 255, 0.02);
     }
   }
 
@@ -252,6 +323,82 @@
     }
   }
 
+  /* Hero: linker Verlauf (Theme – Dark = dunkel, Light = hell) */
+  .hero-left-gradient {
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
+  }
+  [data-theme='light'] .hero-left-gradient {
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.8) 0, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
+  }
+
+  /* Hero Overlay / Edge: Light Theme – aufgehellte Verläufe */
+  [data-theme='light'] .hero-overlay-base {
+    background: radial-gradient(
+      ellipse 220% 220% at 100% calc(0.5rem + 5vh),
+      transparent 0%,
+      transparent 55%,
+      rgba(255, 255, 255, calc(var(--hero-overlay, 0.45) * 0.4)) 75%,
+      rgba(255, 255, 255, var(--hero-overlay, 0.45)) 92%,
+      rgba(255, 255, 255, var(--hero-overlay, 0.45)) 100%
+    );
+  }
+  @media (min-width: 768px) {
+    [data-theme='light'] .hero-overlay-base {
+      background: radial-gradient(
+        ellipse 220% 220% at 100% calc(1rem + 6vh),
+        transparent 0%,
+        transparent 55%,
+        rgba(255, 255, 255, calc(var(--hero-overlay, 0.45) * 0.4)) 75%,
+        rgba(255, 255, 255, var(--hero-overlay, 0.45)) 92%,
+        rgba(255, 255, 255, var(--hero-overlay, 0.45)) 100%
+      );
+    }
+  }
+
+  [data-theme='light'] .hero-edge-darken {
+    background-image:
+      linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0.88) 0,
+        rgba(255, 255, 255, 0.5) 35%,
+        rgba(255, 255, 255, 0.12) 70%,
+        transparent 100%
+      ),
+      radial-gradient(
+        ellipse 180% 180% at 100% calc(0.5rem + 5vh),
+        transparent 0%,
+        transparent 35%,
+        rgba(255, 255, 255, 0.2) 55%,
+        rgba(255, 255, 255, 0.6) 75%,
+        rgba(255, 255, 255, 0.88) 92%,
+        rgba(255, 255, 255, 0.92) 100%
+      );
+    background-size: 100% 55%, 100% 100%;
+    background-position: 0 0, 0 0;
+    background-repeat: no-repeat;
+  }
+  @media (min-width: 768px) {
+    [data-theme='light'] .hero-edge-darken {
+      background-image:
+        linear-gradient(
+          to bottom,
+          rgba(255, 255, 255, 0.88) 0,
+          rgba(255, 255, 255, 0.5) 35%,
+          rgba(255, 255, 255, 0.12) 70%,
+          transparent 100%
+        ),
+        radial-gradient(
+          ellipse 180% 180% at 100% calc(1rem + 6vh),
+          transparent 0%,
+          transparent 35%,
+          rgba(255, 255, 255, 0.2) 55%,
+          rgba(255, 255, 255, 0.6) 75%,
+          rgba(255, 255, 255, 0.88) 92%,
+          rgba(255, 255, 255, 0.92) 100%
+        );
+    }
+  }
+
   /* HeroBox Slide-Up: Keyframes für Wrapper (.hero-box-animate) – Tailwind-kompatibel (auch in tailwind.config.mjs). */
   @keyframes hero-box-slide-up {
     from {
@@ -272,24 +419,55 @@
     }
   }
 
-  /* HeroBox Inner: Milchglas – links transparenter, rechts etwas deckender; Blur für Glaseffekt.
+  /* HeroBox Wrapper (hero-box-outer): gleiche obere rechte Aussparung wie .hero-box-inner, damit der Glow/Frame-Shadow dort nicht sichtbar ist. */
+  .hero-box-outer {
+    mask-image: radial-gradient(
+      ellipse 100% 85% at 100% 0%,
+      transparent 0%,
+      transparent 47%,
+      black 73%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 100% 85% at 100% 0%,
+      transparent 0%,
+      transparent 47%,
+      black 73%
+    );
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-position: 0 0;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+  }
+
+  /* HeroBox Inner: Milchglas – weicher Verlauf; linke untere Ecke fast kein Durchschimmern (deckender Aufbau).
    * Freistellung oben rechts: Glas in der oberen rechten Ecke ausgeblendet, damit das Vordergrundbild
-   * (auf max-lg hinter der Box in z-[1]) dort scharf sichtbar bleibt und nicht vom Backdrop-Blur verdeckt wird. */
+   * (auf max-lg hinter der Box in z-[1]) dort scharf sichtbar bleibt. */
+  /* Deckender Hintergrund: kein scrollabhängiges „Umfärben“ durch Durchscheinen von Inhalt. */
   .hero-box-inner {
     position: relative;
     width: 100%;
     height: 100%;
     border-radius: 1.5rem;
     border: 0.5px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(48px) saturate(180%);
-    -webkit-backdrop-filter: blur(48px) saturate(180%);
-    background: linear-gradient(
-      to right,
-      rgba(252, 252, 252, 0.12) 0%,
-      rgba(252, 252, 252, 0.26) 35%,
-      rgba(252, 252, 252, 0.4) 100%
-    );
-    /* Aussparung oben rechts: radialer Verlauf, damit in der Ecke kein Glas liegt */
+    backdrop-filter: blur(80px) saturate(200%);
+    -webkit-backdrop-filter: blur(80px) saturate(200%);
+    background:
+      radial-gradient(
+        ellipse 125% 112% at 0% 100%,
+        rgba(252, 252, 252, 0.98) 0%,
+        rgba(252, 252, 252, 0.95) 50%,
+        rgba(252, 252, 252, 0.92) 88%
+      ),
+      linear-gradient(
+        to right,
+        rgba(252, 252, 252, 0.92) 0%,
+        rgba(252, 252, 252, 0.94) 40%,
+        rgba(252, 252, 252, 0.96) 70%,
+        rgba(252, 252, 252, 0.98) 100%
+      );
+    /* Nur oben rechts: Aussparung für Vordergrundbild */
     mask-image: radial-gradient(
       ellipse 100% 85% at 100% 0%,
       transparent 0%,
@@ -310,41 +488,55 @@
     -webkit-mask-repeat: no-repeat;
   }
   [data-theme='dark'] .hero-box-inner {
-    background: linear-gradient(
-      to right,
-      rgba(18, 18, 18, 0.16) 0%,
-      rgba(18, 18, 18, 0.32) 35%,
-      rgba(18, 18, 18, 0.48) 100%
-    );
+    background:
+      radial-gradient(
+        ellipse 125% 112% at 0% 100%,
+        rgba(18, 18, 18, 0.98) 0%,
+        rgba(18, 18, 18, 0.96) 50%,
+        rgba(18, 18, 18, 0.94) 88%
+      ),
+      linear-gradient(
+        to right,
+        rgba(18, 18, 18, 0.94) 0%,
+        rgba(18, 18, 18, 0.95) 40%,
+        rgba(18, 18, 18, 0.96) 70%,
+        rgba(18, 18, 18, 0.98) 100%
+      );
     border-color: rgba(255, 255, 255, 0.06);
   }
 
-  /* ≤640px (Mobile): Milchglas mit Transparenz, kleinere Ecken. */
+  /* ≤640px (Mobile): Milchglas stark, kleinere Ecken. */
   @media (max-width: 640px) {
     .hero-box-inner {
       border-radius: 1rem;
-      backdrop-filter: blur(40px) saturate(160%);
-      -webkit-backdrop-filter: blur(40px) saturate(160%);
+      backdrop-filter: blur(72px) saturate(190%);
+      -webkit-backdrop-filter: blur(72px) saturate(190%);
     }
   }
 
-  /* Tablet (641px–1024px): Milchglas-Box, mittlere Ecken. */
+  /* Tablet (641px–1024px): Milchglas stark, mittlere Ecken. */
   @media (min-width: 641px) and (max-width: 1024px) {
     .hero-box-inner {
       border-radius: 1.25rem;
-      backdrop-filter: blur(24px) saturate(180%);
-      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      backdrop-filter: blur(56px) saturate(200%);
+      -webkit-backdrop-filter: blur(56px) saturate(200%);
     }
   }
 
-  /* Desktop (1025px+): Milchglas-Box, große Ecken, stärkerer Blur. Keine Freistellung nötig – Vordergrundbild liegt in der Box (z-20) über dem Glas. */
+  /* Desktop (1025px+): Milchglas-Box stark. Rechts weich transparent, damit das Hero-Bild links nicht überlagert/abgeschnitten wird (Glas nur über Textbereich links). */
   @media (min-width: 1025px) {
     .hero-box-inner {
       border-radius: 1.875rem;
-      backdrop-filter: blur(96px) saturate(220%);
-      -webkit-backdrop-filter: blur(96px) saturate(220%);
-      mask-image: none;
-      -webkit-mask-image: none;
+      backdrop-filter: blur(140px) saturate(240%);
+      -webkit-backdrop-filter: blur(140px) saturate(240%);
+      mask-image: linear-gradient(to right, black 48%, transparent 62%);
+      -webkit-mask-image: linear-gradient(to right, black 48%, transparent 62%);
+      mask-size: 100% 100%;
+      -webkit-mask-size: 100% 100%;
+      mask-position: 0 0;
+      -webkit-mask-position: 0 0;
+      mask-repeat: no-repeat;
+      -webkit-mask-repeat: no-repeat;
     }
   }
 
@@ -365,10 +557,26 @@
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
   }
+  /* Hero Prose: Farbe vom Section erben (Theme = --foreground) */
+  .hero-prose,
+  .hero-prose p,
+  .hero-prose strong,
+  .hero-prose a {
+    color: inherit;
+  }
+  .hero-prose a:hover {
+    opacity: 0.9;
+  }
+
   [data-theme='dark'] .hero-subheadline-badge {
     border: none;
     background: rgba(0, 0, 0, 0.96);
     color: rgba(248, 250, 252, 0.98);
+  }
+  [data-theme='light'] .hero-subheadline-badge {
+    background: rgba(243, 244, 246, 0.9);
+    color: rgba(23, 23, 23, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.06);
   }
   /* Ab 768px: Badge kompakter auf kleinen Screens. */
   @media (max-width: 768px) {
@@ -439,6 +647,27 @@
     overflow: visible;
     filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.2));
   }
+  /* Hero-Bild: Light = Schatten, Dark = Glow (stärker). */
+  [data-theme='light'] .hero-foreground-image.hero-foreground-image-mid img {
+    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.18)) drop-shadow(0 12px 40px rgba(0, 0, 0, 0.12)) drop-shadow(0 24px 56px rgba(0, 0, 0, 0.06));
+  }
+  [data-theme='dark'] .hero-foreground-image.hero-foreground-image-mid img {
+    filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.06)) drop-shadow(0 0 80px rgba(255, 255, 255, 0.04)) drop-shadow(0 0 120px rgba(255, 255, 255, 0.02));
+  }
+  /* Desktop (lg+): Vordergrundbild vergrößert (min. 30 % Breite), Kopf am oberen Rand fixiert, am Fuß abgeschnitten (object-cover, oben rechts ausgerichtet). */
+  /* Desktop: Möglichst das ganze Bild sichtbar (contain), links verankert, Overflow nach rechts. */
+  @media (min-width: 64rem) {
+    .hero-foreground-image.hero-foreground-image-mid img {
+      object-fit: contain;
+      object-position: center;
+    }
+  }
+  /* iPhone 14 Pro Max (und vergleichbar): Hero-Vordergrund etwas weiter rechts als SE, weniger als zuvor. iPhone SE (≤375px) und PlayBook (>430px) unverändert. */
+  @media (min-width: 376px) and (max-width: 430px) {
+    .hero-foreground-image.hero-foreground-image-mid {
+      transform: translateX(32%);
+    }
+  }
   /* overflow: visible, damit das Bild nicht beschnitten wird. Der Aufbau-Effekt kommt von clip-path (scan1) und mask (scan2), nicht von overflow. */
   .hero-foreground-reveal .hero-foreground-scan1,
   .hero-foreground-reveal .hero-foreground-scan2 {
@@ -447,17 +676,10 @@
   @media (max-width: 30rem) {
     .hero-foreground-reveal .hero-foreground-scan1 img,
     .hero-foreground-reveal .hero-foreground-scan2 img {
-      object-position: center right;
+      object-position: var(--hero-focus-x, 60%) var(--hero-focus-y, 75%);
     }
   }
-  @media (orientation: landscape) and (max-height: 40rem) and (max-width: 64rem) {
-    .hero-foreground-reveal .hero-foreground-scan1 img,
-    .hero-foreground-reveal .hero-foreground-scan2 img {
-    /* Panorama-/Landscape-Ansicht auf iPhone/SE: Bild um 20 % verkleinern, ohne andere Viewports zu beeinflussen */
-    transform: scale(0.8);
-    transform-origin: bottom right;
-    }
-  }
+  /* Panorama: scale(0.8) entfernt, damit das Bild am unteren Rand der Hero-Box bleibt und nicht „nach oben flieht“. */
   /* Scanbalken deaktiviert – Aufbau-Effekt läuft nur über scan1/scan2. */
   .hero-foreground-reveal::after {
     content: none;
@@ -502,13 +724,14 @@
       animation: none !important;
     }
   }
+  /* Fokuspunkt: Nackenspitze ~75 % Bildhöhe, Gesicht im transparenten Bereich (oben rechts). Variablen von Section. */
   .hero-foreground-reveal .hero-foreground-scan2 img,
   .hero-foreground-reveal .hero-foreground-scan1 img {
     image-rendering: -webkit-optimize-contrast;
     max-height: 100%;
     min-height: 0;
-    object-fit: contain;
-    object-position: bottom right;
+    object-fit: cover;
+    object-position: var(--hero-focus-x, 60%) var(--hero-focus-y, 75%);
   }
   /* Desktop: Vordergrundbild nach Animation und bei reduced-motion immer sichtbar (Scan-Maske auf 100 %) */
   @media (min-width: 64rem) {
@@ -585,6 +808,56 @@
       )
       0 0,
       linear-gradient(90deg, #4a4a4a 2%, #282828 0, #282828 98%, #4a4a4a 0%) 0 0 #282828;
+    background-size: 40px 60px;
+  }
+  /* Hero-Pattern Light Theme: aufgehelltes Graustufen-Muster */
+  [data-theme='light'] .hero-pattern-bg {
+    opacity: 0.5;
+    background:
+      radial-gradient(
+        circle farthest-side at 0% 50%,
+        #d4d4d4 23.5%,
+        rgba(255, 255, 255, 0) 0
+      )
+      21px 30px,
+      radial-gradient(
+        circle farthest-side at 0% 50%,
+        #a3a3a3 24%,
+        rgba(255, 255, 255, 0) 0
+      )
+      19px 30px,
+      linear-gradient(
+        #d4d4d4 14%,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0) 85%,
+        #d4d4d4 0
+      )
+      0 0,
+      linear-gradient(
+        150deg,
+        #d4d4d4 24%,
+        #a3a3a3 0,
+        #a3a3a3 26%,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0) 74%,
+        #a3a3a3 0,
+        #a3a3a3 76%,
+        #d4d4d4 0
+      )
+      0 0,
+      linear-gradient(
+        30deg,
+        #d4d4d4 24%,
+        #a3a3a3 0,
+        #a3a3a3 26%,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0) 74%,
+        #a3a3a3 0,
+        #a3a3a3 76%,
+        #d4d4d4 0
+      )
+      0 0,
+      linear-gradient(90deg, #a3a3a3 2%, #d4d4d4 0, #d4d4d4 98%, #a3a3a3 0%) 0 0 #e5e5e5;
     background-size: 40px 60px;
   }
 
@@ -2066,7 +2339,7 @@ html.theme-fallback {
   .site-header:not(:hover) a:hover {
     color: #ffffff !important;
   }
-  /* Light-Header ohne Hover: dunkler Content wie die Links. */
+  /* Light-Header ohne Hover: dunkler Content (Logo, Links, Icons), damit ohne Mouseover erkennbar. */
   [data-theme='light'] .site-header:not(:hover) .logo-link img,
   [data-theme='light'] .site-header:not(:hover) .logo-link svg {
     filter: none !important;
@@ -2085,6 +2358,24 @@ html.theme-fallback {
   }
   [data-theme='light'] .site-header:not(:hover) a:hover {
     color: #000000 !important;
+  }
+  /* Light-Megamenu ohne Hover: Menü und Icons ebenfalls invertiert (dunkel), nicht weiß auf weiß. */
+  [data-theme='light'] .megamenu:not(:hover) .logo-link img,
+  [data-theme='light'] .megamenu:not(:hover) .logo-link svg {
+    filter: none !important;
+  }
+  [data-theme='light'] .megamenu:not(:hover) .megamenu-top-item,
+  [data-theme='light'] .megamenu:not(:hover) .megamenu-top-item [class*='lucide'] {
+    color: #171717 !important;
+  }
+  [data-theme='light'] .megamenu:not(:hover) .header-tool-toggle {
+    color: #404040 !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    background-color: transparent !important;
+  }
+  [data-theme='light'] .megamenu:not(:hover) .header-tool-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.06) !important;
+    color: #171717 !important;
   }
 }
 
@@ -2109,6 +2400,24 @@ html.theme-fallback {
   }
   .site-header a {
     color: #fafafa !important;
+  }
+  /* Light Mode auf Touch: Header komplett invertiert (dunkel), damit auf hellem Grund erkennbar */
+  [data-theme='light'] .megamenu .logo-link img,
+  [data-theme='light'] .megamenu .logo-link svg,
+  [data-theme='light'] .site-header .logo-link img,
+  [data-theme='light'] .site-header .logo-link svg {
+    filter: none !important;
+  }
+  [data-theme='light'] .megamenu .megamenu-top-item,
+  [data-theme='light'] .megamenu .megamenu-top-item [class*='lucide'],
+  [data-theme='light'] .megamenu .header-tool-toggle,
+  [data-theme='light'] .site-header .header-tool-toggle,
+  [data-theme='light'] .site-header a {
+    color: #171717 !important;
+  }
+  [data-theme='light'] .megamenu .header-tool-toggle,
+  [data-theme='light'] .site-header .header-tool-toggle {
+    border-color: rgba(0, 0, 0, 0.1) !important;
   }
   /* scrolled-State überschreibt die Touch-Defaults */
   .megamenu[data-scrolled='true'] .megamenu-top-item,
@@ -2523,6 +2832,18 @@ header .header-tool-toggle--theme:hover {
 .megamenu-sheet a:hover {
   background-color: #f5f5f5;
   color: #171717;
+}
+
+/* Light: Header komplett invertiert (dunkle Texte/Logo), damit auf hellem Grund erkennbar */
+[data-theme='light'] .site-header,
+[data-theme='light'] .megamenu {
+  color: #171717;
+}
+[data-theme='light'] .site-header .logo-link img,
+[data-theme='light'] .site-header .logo-link svg,
+[data-theme='light'] .megamenu .logo-link img,
+[data-theme='light'] .megamenu .logo-link svg {
+  filter: none !important;
 }
 
 /* Dark: Farben invertiert (dunkler Header/Dropdown, helle Texte) */

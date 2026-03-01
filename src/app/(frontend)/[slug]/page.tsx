@@ -151,7 +151,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
         <HeroErrorBoundary>
           <RenderHero {...heroProps} />
         </HeroErrorBoundary>
-        <div className="relative z-0 pt-24">
+        <div className="relative z-20 pt-24 hero-following-section-mask">
           <RenderBlocks blocks={Array.isArray(page.layout) ? page.layout : []} />
         </div>
       </article>

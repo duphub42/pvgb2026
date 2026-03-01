@@ -98,8 +98,11 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     ? { placeholder: 'blur' as const, blurDataURL: placeholderBlur }
     : { placeholder: 'empty' as const }
 
+  // With fill, Next/Image renders a positioned wrapper; wrapping in <picture> can cause invalid nesting and hydration mismatch. Use div when fill.
+  const Wrapper = fill ? 'div' : 'picture'
+
   return (
-    <picture className={cn(pictureClassName)}>
+    <Wrapper className={cn(pictureClassName)}>
       <NextImage
         alt={alt || ''}
         className={cn(imgClassName)}
@@ -114,6 +117,6 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         src={src}
         width={!fill ? width : undefined}
       />
-    </picture>
+    </Wrapper>
   )
 }
