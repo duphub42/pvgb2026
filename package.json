@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--no-deprecation sh -c 'tsx src/scripts/generate-icon-sprite.ts && payload migrate && next build'",
+    "build": "cross-env NODE_OPTIONS=--no-deprecation sh -c 'tsx src/scripts/generate-icon-sprite.ts && payload migrate && payload generate:importmap && next build'",
     "analyze": "cross-env ANALYZE=true NODE_OPTIONS=--no-deprecation next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "dev": "node scripts/ensure-next-manifests.cjs && cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=4096\" next dev -p 3000",
