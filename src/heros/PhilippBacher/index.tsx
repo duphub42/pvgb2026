@@ -78,7 +78,7 @@ type HeroProps = {
 const WAVE_FILL = 'var(--background)' as const
 
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[100vh] lg:max-h-[666px] z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-visible rounded-2xl lg:rounded-3xl hero-box-frame-shadow hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[calc(100vh-var(--header-height,6rem))] max-[430px]:max-h-none lg:max-h-[666px] z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-visible rounded-2xl lg:rounded-3xl hero-box-frame-shadow hero-box-animate'
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5'
 
@@ -524,7 +524,11 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
   return (
     <section
       ref={heroSectionRef}
-      className="relative z-10 w-full min-h-[100vh] max-h-[100vh] lg:min-h-[777px] lg:max-h-[777px] overflow-visible flex items-end justify-center bg-neutral-950 m-0 p-0 text-white -mt-[var(--header-height,6rem)] -mb-24"
+      className={cn(
+        'relative z-10 w-full overflow-visible flex items-end justify-center bg-neutral-950 m-0 p-0 text-white -mt-[var(--header-height,6rem)] -mb-24',
+        'min-h-[100vh] max-h-[100vh] lg:min-h-[777px] lg:max-h-[777px]',
+        'max-[430px]:min-h-[calc(100vh+8rem)] max-[430px]:max-h-none max-[430px]:pt-[calc(var(--header-height,6rem)+8rem)]',
+      )}
       aria-label="Hero"
     >
       {/* Layer 0: Background only — no flex, grid, padding, margin, relative */}
@@ -697,7 +701,12 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
       </svg>
       {/* Content: gleicher Container wie Seiteninhalt, Box reicht mit negativem Margin in die Gutter = breiter, Grid-Padding = bündig mit Inhalt */}
       <div className="container relative z-[6] flex min-h-0 flex-col pointer-events-none">
-        <div className="relative min-h-[100vh] lg:min-h-[min(666px,78vh)] flex-1 w-full max-h-[100vh] lg:max-h-none">
+        <div
+          className={cn(
+            'relative flex-1 w-full min-h-[calc(100vh-var(--header-height,6rem))] max-h-[calc(100vh-var(--header-height,6rem))] lg:min-h-[min(666px,78vh)] lg:max-h-none',
+            'max-[430px]:min-h-0 max-[430px]:max-h-none',
+          )}
+        >
           <div className={HERO_BOX_WRAPPER_CLASS}>
             <div className={HERO_BOX_INNER_CLASS} />
             <div
