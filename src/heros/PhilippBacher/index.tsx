@@ -78,9 +78,13 @@ type HeroProps = {
 const WAVE_FILL = 'var(--background)' as const
 
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[calc(100vh-var(--header-height,6rem))] max-[430px]:max-h-none lg:max-h-[666px] z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-visible rounded-2xl lg:rounded-3xl hero-box-frame-shadow hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[calc(100vh-var(--header-height,6rem))] max-lg:max-h-[calc(100vh-12rem)] lg:max-h-[666px] z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-visible rounded-2xl lg:rounded-3xl hero-box-frame-shadow hero-box-animate'
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5'
+
+/** Mobile Vordergrund: innere Positionierung – Konstante verhindert Hydration-Mismatch */
+const MOBILE_FOREGROUND_INNER_CLASS =
+  'absolute right-0 top-0 bottom-0 w-[min(24rem,88vw)] md:w-[min(28rem,50vw)] max-[430px]:translate-x-[35%]'
 
 // FIX: Animation-Timing als benannte Konstanten (keine Magic Numbers)
 /** Subheadline/Text erscheint nach 800ms */
@@ -525,9 +529,9 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
     <section
       ref={heroSectionRef}
       className={cn(
-        'relative z-10 w-full overflow-visible flex items-end justify-center bg-neutral-950 m-0 p-0 text-white -mt-[var(--header-height,6rem)] -mb-24',
-        'min-h-[100vh] max-h-[100vh] lg:min-h-[777px] lg:max-h-[777px]',
-        'max-[430px]:min-h-[calc(100vh+8rem)] max-[430px]:max-h-none max-[430px]:pt-[calc(var(--header-height,6rem)+8rem)]',
+        'relative z-10 w-full overflow-visible flex justify-center bg-neutral-950 m-0 p-0 text-white -mt-[var(--header-height,6rem)] -mb-24',
+        'min-h-[100vh] max-h-[100vh] items-end lg:min-h-[777px] lg:max-h-[777px]',
+        'max-lg:max-h-none max-lg:pt-[calc(var(--header-height,6rem)*2)]',
       )}
       aria-label="Hero"
     >
@@ -566,8 +570,8 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
         <div className="absolute inset-y-0 left-0 w-2/3 bg-gradient-to-r from-black/80 via-black/60 to-transparent" />
         <div className="hero-edge-darken absolute inset-0" />
         {foregroundMedia && (
-          <div className="absolute inset-0 lg:hidden">
-            <div className="absolute right-0 top-0 bottom-0 w-[min(24rem,88vw)] md:w-[min(28rem,50vw)]">
+          <div className="absolute inset-0 overflow-visible lg:hidden" suppressHydrationWarning>
+            <div className={MOBILE_FOREGROUND_INNER_CLASS} suppressHydrationWarning>
               <Media
                 resource={foregroundMedia}
                 fill
@@ -704,7 +708,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
         <div
           className={cn(
             'relative flex-1 w-full min-h-[calc(100vh-var(--header-height,6rem))] max-h-[calc(100vh-var(--header-height,6rem))] lg:min-h-[min(666px,78vh)] lg:max-h-none',
-            'max-[430px]:min-h-0 max-[430px]:max-h-none',
+            'max-lg:max-h-[calc(100vh-12rem)]',
           )}
         >
           <div className={HERO_BOX_WRAPPER_CLASS}>
