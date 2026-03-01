@@ -735,7 +735,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
 
             <div
               className={cn(
-                'relative z-10 grid h-full min-h-0 w-full grid-cols-1 content-start gap-0 lg:grid-cols-[3fr_2fr] lg:items-start',
+                'absolute inset-0 z-10 grid h-full min-h-0 w-full grid-cols-1 content-start gap-0 lg:grid-cols-[3fr_2fr] lg:items-start',
                 'px-4 py-4 md:px-6 md:py-6 lg:px-8 lg:py-6',
               )}
             >
