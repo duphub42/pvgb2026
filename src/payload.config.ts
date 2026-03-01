@@ -22,8 +22,6 @@ import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import { s3Storage } from '@payloadcms/storage-s3'
 
-console.log('R2_BUCKET:', process.env.R2_BUCKET)
-
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
