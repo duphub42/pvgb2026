@@ -43,6 +43,7 @@ export const Logo = (props: Props) => {
         loading={loading}
         priority={priority === 'high'}
         alt={(logo as MediaType).alt ?? 'Logo'}
+        disableBlurPlaceholder
       />
     )
   }

@@ -18,5 +18,7 @@ export interface Props {
   resource?: MediaType | string | number | null // for Payload media
   size?: string // for NextImage only
   src?: StaticImageData // for static media
+  /** Set to true to avoid blur placeholder (prevents hydration mismatch with Next.js Image) */
+  disableBlurPlaceholder?: boolean
   videoClassName?: string
 }

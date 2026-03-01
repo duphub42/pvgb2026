@@ -272,7 +272,7 @@
     }
   }
 
-  /* HeroBox Inner: komplett milchglasig undurchsichtig – opaker Hintergrund, Blur für Milchglas-Optik, keine transparente Ecke. */
+  /* HeroBox Inner: Milchglas mit leichter Transparenz – Hintergrund scheint durch, Blur für Glaseffekt. */
   .hero-box-inner {
     position: relative;
     width: 100%;
@@ -281,14 +281,14 @@
     border: 0.5px solid rgba(255, 255, 255, 0.08);
     backdrop-filter: blur(48px) saturate(180%);
     -webkit-backdrop-filter: blur(48px) saturate(180%);
-    background: rgba(252, 252, 252, 0.98);
+    background: rgba(252, 252, 252, 0.78);
   }
   [data-theme='dark'] .hero-box-inner {
-    background: rgba(18, 18, 18, 0.98);
+    background: rgba(18, 18, 18, 0.82);
     border-color: rgba(255, 255, 255, 0.06);
   }
 
-  /* ≤640px (Mobile): gleiche undurchsichtige Milchglas-Optik, nur kleinere Ecken. */
+  /* ≤640px (Mobile): Milchglas mit Transparenz, kleinere Ecken. */
   @media (max-width: 640px) {
     .hero-box-inner {
       border-radius: 1rem;
@@ -297,7 +297,7 @@
     }
   }
 
-  /* Tablet (641px–1024px): undurchsichtige Milchglas-Box, mittlere Ecken. */
+  /* Tablet (641px–1024px): Milchglas-Box, mittlere Ecken. */
   @media (min-width: 641px) and (max-width: 1024px) {
     .hero-box-inner {
       border-radius: 1.25rem;
@@ -306,7 +306,7 @@
     }
   }
 
-  /* Desktop (1025px+): undurchsichtige Milchglas-Box, große Ecken, stärkerer Blur für Milchglas-Optik. */
+  /* Desktop (1025px+): Milchglas-Box, große Ecken, stärkerer Blur. */
   @media (min-width: 1025px) {
     .hero-box-inner {
       border-radius: 1.875rem;

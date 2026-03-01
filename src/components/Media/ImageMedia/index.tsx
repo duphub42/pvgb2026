@@ -48,6 +48,7 @@ const placeholderBlur =
 export const ImageMedia: React.FC<MediaProps> = (props) => {
   const {
     alt: altFromProps,
+    disableBlurPlaceholder,
     fill,
     pictureClassName,
     imgClassName,
@@ -84,9 +85,13 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         .map(([, value]) => `(max-width: ${value}px) ${value * 2}w`)
         .join(', ')
 
-  // Next.js: placeholder="blur" only for images >= 40x40 to avoid warning and improve performance
+  // Next.js: placeholder="blur" only for images >= 40x40 and when not disabled (e.g. Logo avoids it to prevent hydration mismatch)
   const useBlurPlaceholder =
-    typeof width === 'number' && typeof height === 'number' && width >= 40 && height >= 40
+    !disableBlurPlaceholder &&
+    typeof width === 'number' &&
+    typeof height === 'number' &&
+    width >= 40 &&
+    height >= 40
 
   return (
     <picture className={cn(pictureClassName)}>

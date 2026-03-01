@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Suspense, lazy } from 'react'
+import React, { Suspense, lazy, useEffect, useState } from 'react'
 
 import type { SitePage } from '@/payload-types'
 
@@ -30,6 +30,12 @@ type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   blockOverlay?: { enabled?: boolean | null; color?: 'dark' | 'light' | null; opacity?: number | null } | null
 }
 
+const BLOCK_FALLBACK = <div className="min-h-[120px]" aria-hidden />
+
+/**
+ * Rendert den Block erst nach Client-Mount, damit Server und Client dasselbe HTML erzeugen (Fallback).
+ * Verhindert Hydration-Mismatch durch React.lazy: Server könnte den Block auflösen, Client zeigt erst den Fallback.
+ */
 export function BlockRenderer({
   blockType,
   block,
@@ -37,10 +43,16 @@ export function BlockRenderer({
   blockType: string
   block: BlockWithStyle
 }) {
+  const [mounted, setMounted] = useState(false)
+  useEffect(() => setMounted(true), [])
+
   const Block = blockLoaders[blockType]
   if (!Block) return null
+
+  if (!mounted) return BLOCK_FALLBACK
+
   return (
-    <Suspense fallback={<div className="min-h-[120px]" aria-hidden />}>
+    <Suspense fallback={BLOCK_FALLBACK}>
       <Block {...block} disableInnerContainer />
     </Suspense>
   )
