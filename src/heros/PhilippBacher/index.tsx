@@ -667,7 +667,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
       <div className="container relative z-[6] flex min-h-0 flex-col pointer-events-none max-lg:-mb-[9vh] max-lg:min-h-0">
         <div
           className={cn(
-            'relative flex-1 w-full max-lg:min-h-0 max-lg:flex-initial lg:min-h-[min(720px,82vh)] lg:max-h-none',
+            'relative flex-1 w-full max-lg:min-h-[calc(100vh-var(--header-height,6rem))] max-lg:max-h-[calc(100vh-var(--header-height,6rem))] lg:min-h-[min(720px,82vh)] lg:max-h-none',
           )}
         >
           <div className={HERO_BOX_WRAPPER_CLASS}>
@@ -686,7 +686,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
             >
               <div
                 className={cn(
-                  'relative z-10 flex min-h-full w-full flex-col justify-end text-left pointer-events-none overflow-visible max-h-[min(85vh,900px)] min-w-0',
+                  'relative z-10 flex min-h-full w-full flex-col justify-start text-left pointer-events-none overflow-visible max-h-[min(85vh,900px)] min-w-0',
                   foregroundMedia ? 'max-w-full' : 'max-w-2xl lg:self-start',
                   foregroundMedia ? 'lg:mr-auto' : '',
                   'pb-0',
