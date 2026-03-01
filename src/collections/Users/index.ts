@@ -17,6 +17,11 @@ export const Users: CollectionConfig = {
   },
   auth: {
     maxLoginAttempts: 0, // Sperre deaktiviert (0 = unbegrenzt Versuche)
+    // Cookie explizit für HTTPS/Vercel setzen, damit Admin-POSTs (z. B. Globals) nicht 401 liefern. Lokal (HTTP) ohne secure.
+    cookies: {
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+    },
   },
   fields: [
     {

@@ -105,8 +105,13 @@ export default buildConfig({
         }),
   collections: [Pages, Posts, Media, Categories, Users, MegaMenu, HeroBackgrounds],
   cors: [serverURL].filter(Boolean),
-  // CSRF: erlaubte Origins für Admin-Requests (Cookie wird sonst abgelehnt → 401 auf Vercel)
-  csrf: [serverURL, 'http://localhost:3000'].filter(Boolean),
+  // CSRF: erlaubte Origins für Admin-Requests (Cookie wird sonst abgelehnt → 401 auf Vercel).
+  // Auf Vercel: NEXT_PUBLIC_SERVER_URL = https://pvgb2026.vercel.app setzen, damit serverURL mit dem Request-Origin übereinstimmt.
+  csrf: [
+    serverURL,
+    'http://localhost:3000',
+    ...(process.env.PAYLOAD_CSRF_ORIGINS?.split(',').map((o) => o.trim()).filter(Boolean) ?? []),
+  ].filter(Boolean),
   plugins: [
     ...plugins,
     // Cloudflare R2 (S3-kompatibel): Kein Vercel Blob-Limit, EWWW zieht über Origin-Proxy.
@@ -118,9 +123,10 @@ export default buildConfig({
               media: true,
             },
             bucket: process.env.R2_BUCKET,
-            // Vercel: Server-Upload-Limit 4,5 MB – Client-Uploads (Presigned URL) umgehen das.
-            // R2-Bucket: CORS mit PUT + AllowedOrigins auf deine Domain setzen (Dashboard oder API).
-            clientUploads: true,
+            // R2 unterstützt keine ACL bei PutObject/Presigned-URL – weglassen, sonst 500.
+            acl: undefined,
+            // clientUploads: false = Upload über Server (Vercel-Limit 4,5 MB). true = Presigned-URL vom Client (bekanntes Problem: falscher Content-Type).
+            clientUploads: false,
             config: {
               credentials: {
                 accessKeyId: process.env.R2_ACCESS_KEY_ID,
