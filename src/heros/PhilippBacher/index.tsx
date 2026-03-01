@@ -77,16 +77,29 @@ type HeroProps = {
 
 const WAVE_FILL = 'var(--background)' as const
 
+/** Desktop: keine max-h, damit Inhalt (Text/Marquee) nach unten wachsen kann. Mobile behält Begrenzung. */
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[calc(100vh-var(--header-height,6rem)*1.05)] max-lg:max-h-none lg:max-h-[min(85vh,900px)] z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-visible rounded-2xl lg:rounded-3xl hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[calc(100vh-var(--header-height,6rem)*1.05)] max-lg:max-h-none lg:max-h-none z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-visible rounded-2xl lg:rounded-3xl hero-box-animate'
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5'
 
-/** Single constant to avoid server/client className mismatch (hydration) */
+/** Desktop: kein max-h. Mobile: min 93vh. Panorama/PlayBook-Mindesthöhen in globals.css (.hero-pb-section) wegen Hydration. */
 const HERO_SECTION_CLASS =
-  'relative z-10 w-full overflow-visible flex justify-center bg-[var(--background)] m-0 p-0 text-[var(--foreground)] -mt-[var(--header-height,6rem)] -mb-24 items-end lg:min-h-[666px] lg:max-h-[min(90vh,920px)] pt-[calc(var(--header-height,6rem)*2.05)] max-lg:pt-0 max-lg:min-h-[93vh] max-lg:max-h-[93vh] lg:[--hero-content-top:calc(2*var(--header-height,6rem)+10vh)]'
+  'hero-pb-section relative z-10 w-full overflow-visible flex justify-center bg-[var(--background)] m-0 p-0 text-[var(--foreground)] -mt-[var(--header-height,6rem)] -mb-24 items-end lg:min-h-[888px] pt-[calc(var(--header-height,6rem)*2.05)] max-lg:min-h-[93vh] lg:[--hero-content-top:calc(2*var(--header-height,6rem)+10vh)]'
 const HERO_FOREGROUND_WRAPPER_CLASS =
   'absolute right-0 lg:left-auto top-[var(--hero-content-top)] bottom-0 overflow-visible hero-foreground-image hero-foreground-image-mid w-[min(24rem,88vw)] md:w-[min(28rem,50vw)] lg:max-w-[50%] lg:w-[50%] max-[430px]:translate-x-[32%]'
+
+/** Mobile: min-h für Mindesthöhe. Panorama/PlayBook-Mindesthöhen in globals.css (.hero-pb-content-wrapper) wegen Hydration. */
+const HERO_CONTENT_COLUMN_WRAPPER_CLASS =
+  'hero-pb-content-wrapper relative flex-1 w-full max-lg:min-h-[calc(93vh-var(--header-height,6rem)-10vh)] lg:min-h-[min(720px,82vh)] lg:max-h-none'
+
+/** Grid-Container der Hero-Box – feste Klasse für stabile Hydration. */
+const HERO_BOX_GRID_CLASS =
+  'absolute inset-0 z-10 grid h-full min-h-0 w-full grid-cols-1 gap-0 items-stretch px-4 pt-5 pb-4 md:px-6 md:pt-12 md:pb-6 lg:px-8 lg:pt-12 lg:pb-6'
+
+/** Marquee-Wrapper: Desktop pb-[5vh]. Mobile max-lg:pb-[15vh] (10vh + 5vh), damit Marquee oberhalb der Folgesection bleibt (Container -mb-[9vh]). */
+const HERO_MARQUEE_WRAPPER_BASE_CLASS =
+  'pointer-events-none block w-full overflow-visible shrink-0 mt-auto lg:z-[4] lg:max-w-[80%] pt-0 pb-0 mt-6 lg:mt-8 lg:pb-[5vh] max-lg:z-[3] max-lg:pb-[15vh]'
 
 // FIX: Animation-Timing als benannte Konstanten (keine Magic Numbers)
 /** Subheadline/Text erscheint nach 800ms */
@@ -666,9 +679,8 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
       {/* Content: gleicher Container wie Seiteninhalt, Box reicht mit negativem Margin in die Gutter; max-lg: -mb zieht Box über den Shape-Divider */}
       <div className="container relative z-[6] flex min-h-0 flex-col pointer-events-none max-lg:-mb-[9vh] max-lg:min-h-0">
         <div
-          className={cn(
-            'relative flex-1 w-full max-lg:min-h-[calc(93vh-var(--header-height,6rem)-10vh)] max-lg:max-h-[calc(93vh-var(--header-height,6rem)-10vh)] lg:min-h-[min(720px,82vh)] lg:max-h-none',
-          )}
+          className={HERO_CONTENT_COLUMN_WRAPPER_CLASS}
+          suppressHydrationWarning
         >
           <div className={HERO_BOX_WRAPPER_CLASS}>
             {/* Glow/Shadow ohne Maske (hero-box-outer), damit Schatten und Glow sichtbar sind */}
@@ -678,15 +690,10 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
               className="pointer-events-none absolute inset-0 rounded-2xl lg:rounded-3xl z-[1]"
               aria-hidden
             />
-            <div
-              className={cn(
-                'absolute inset-0 z-10 grid h-full min-h-0 w-full grid-cols-1 gap-0 items-stretch',
-                'px-4 pt-5 pb-4 md:px-6 md:pt-12 md:pb-6 lg:px-8 lg:pt-12 lg:pb-6',
-              )}
-            >
+            <div className={HERO_BOX_GRID_CLASS} data-hero-grid>
               <div
                 className={cn(
-                  'relative z-10 flex min-h-full w-full flex-col justify-end text-left pointer-events-none overflow-visible max-h-[min(85vh,900px)] min-w-0',
+                  'relative z-10 flex min-h-full w-full flex-col justify-end text-left pointer-events-none overflow-visible min-w-0',
                   foregroundMedia ? 'max-w-full lg:max-w-[60%]' : 'max-w-2xl lg:self-start',
                   foregroundMedia ? 'lg:mr-auto' : '',
                   'pb-0',
@@ -852,25 +859,21 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
 
                 {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
                   <div
-                    className={cn(
-                      'pointer-events-none block w-full overflow-visible shrink-0 mt-auto',
-                      'lg:z-[4] lg:max-w-[80%] pt-0 pb-0 mt-6 lg:mt-8 lg:pb-[5vh]',
-                      'max-lg:z-[3]',
-                      mounted ? 'opacity-100' : 'opacity-0',
-                    )}
+                    className={cn(HERO_MARQUEE_WRAPPER_BASE_CLASS, mounted ? 'opacity-100' : 'opacity-0')}
+                    suppressHydrationWarning
                     style={{
                       transition: 'opacity 500ms ease-out',
                       transitionDelay: `${HERO_MARQUEE_START_MS}ms`,
                     }}
                   >
                     <div className="pointer-events-auto pb-0">
-                      <div className="w-full overflow-hidden pt-0">
+                      <div className="w-full overflow-hidden pt-0 flex flex-col gap-12">
                         {marqueeHeadline && (
                           <motion.div
                             initial={{ opacity: 0, filter: 'blur(8px)', y: 12 }}
                             animate={mounted ? { opacity: 1, filter: 'blur(0px)', y: 0 } : {}}
                             transition={{ duration: 0.5, delay: HERO_MARQUEE_START_MS / 1000, ease: 'easeOut' }}
-                            className="mb-0 max-w-2xl pt-0"
+                            className="max-w-2xl pt-0"
                           >
                             {marqueeHeadlineReveal && (
                               <TextAnimate

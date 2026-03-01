@@ -419,6 +419,38 @@
     }
   }
 
+  /* Philipp-Bacher-Hero: Abstand Header → Inhalt auf Mobile/iPhone/PlayBook (max-lg).
+   * Mindestabstand mit max(10vh, header-height), damit der Inhalt nie unter den Header rutscht
+   * (bei kurzer Viewport-Höhe ist 10vh < 6rem → ohne max() würde die Box überlappen). */
+  @media (max-width: 63.99rem) {
+    .hero-pb-section {
+      padding-top: calc(var(--header-height, 6rem) + max(10vh, var(--header-height, 6rem)));
+    }
+    /* Box-Höhe begrenzen, damit sie mit items-end nicht in den Padding-Bereich ragt. */
+    .hero-pb-content-wrapper {
+      max-height: calc(93vh - 2 * var(--header-height, 6rem));
+    }
+  }
+
+  /* Mindesthöhen für Panorama/PlayBook in CSS (keine Tailwind-Varianten). */
+  @media (orientation: landscape) and (max-height: 40rem) {
+    .hero-pb-section { min-height: 32rem; }
+    .hero-pb-content-wrapper { min-height: 28rem; }
+    /* In Panorama: mehr Abstand oben in der Hero-Box, damit Inhalt nicht gestaucht wirkt. */
+    [data-hero-grid] {
+      padding-top: clamp(1.25rem, 5vh, 2.5rem);
+    }
+  }
+  @media (min-width: 37rem) and (max-width: 44rem) {
+    .hero-pb-section { min-height: 888px; }
+    /* Content-Wrapper ebenfalls 888px, sonst bleibt die Hero-Box kürzer (Section hat items-end, Container streckt nicht). */
+    .hero-pb-content-wrapper { min-height: 888px; }
+  }
+  /* iPad (48rem–64rem): Mindesthöhe 888px. */
+  @media (min-width: 48rem) and (max-width: 64rem) {
+    .hero-pb-section { min-height: 888px; }
+  }
+
   /* HeroBox Wrapper (hero-box-outer): gleiche obere rechte Aussparung wie .hero-box-inner, damit der Glow/Frame-Shadow dort nicht sichtbar ist. */
   .hero-box-outer {
     mask-image: radial-gradient(
