@@ -774,7 +774,8 @@
   .hero-foreground-reveal-active .hero-foreground-scan2 {
     animation: hero-foreground-scan2 2.2s steps(50, end) forwards;
   }
-  /* Tablet/Mobile (≤768px): clip-path + absolute führt oft zu falscher Skalierung / Überdeckung. Fallback; Vordergrund ist bei uns max-lg ein eigener Layer hinter der Box. */
+  /* Tablet/Mobile (≤768px): clip-path + absolute führt oft zu falscher Skalierung / Überdeckung.
+   * Fallback: Scan-Masken deaktivieren, aber eine einfache Bottom-up-Fade-In-Animation beibehalten. */
   @media (max-width: 768px) {
     .hero-foreground-scan1,
     .hero-foreground-scan2 {
@@ -783,7 +784,20 @@
       -webkit-mask-image: none !important;
       position: relative !important;
       filter: none !important;
-      animation: none !important;
+    }
+    @keyframes hero-mobile-foreground-rise {
+      from {
+        opacity: 0;
+        transform: translateY(18px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Mobile-Vordergrund: einfaches „von unten nach oben“ Einblenden des finalen Layers. */
+    .hero-foreground-reveal-active .hero-foreground-scan2 {
+      animation: hero-mobile-foreground-rise 0.7s ease-out forwards;
     }
   }
   /* Fokuspunkt: Nackenspitze ~75 % Bildhöhe, Gesicht im transparenten Bereich (oben rechts). Variablen von Section. */
