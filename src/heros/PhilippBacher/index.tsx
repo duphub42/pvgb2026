@@ -83,9 +83,10 @@ const HERO_BOX_WRAPPER_CLASS =
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5'
 
-/** Desktop: kein max-h. Mobile: min 93vh. Panorama/PlayBook-Mindesthöhen in globals.css (.hero-pb-section) wegen Hydration. */
+/** Desktop: kein max-h. Mobile: min 93vh. Panorama/PlayBook-Mindesthöhen in globals.css (.hero-pb-section) wegen Hydration.
+ * --hero-content-top nur per Inline-Style (heroContentTop), nicht per lg-Override, damit das Vordergrundbild nicht beim Laden groß→klein springt. */
 const HERO_SECTION_CLASS =
-  'hero-pb-section relative z-10 w-full overflow-visible flex justify-center bg-[var(--background)] m-0 p-0 text-[var(--foreground)] -mt-[var(--header-height,6rem)] -mb-24 items-end lg:min-h-[888px] pt-[calc(var(--header-height,6rem)*2.05)] max-lg:min-h-[93vh] lg:[--hero-content-top:calc(2*var(--header-height,6rem)+10vh)]'
+  'hero-pb-section relative z-10 w-full overflow-visible flex justify-center bg-[var(--background)] m-0 p-0 text-[var(--foreground)] -mt-[var(--header-height,6rem)] -mb-24 items-end lg:min-h-[888px] pt-[calc(var(--header-height,6rem)*2.05)] max-lg:min-h-[93vh]'
 const HERO_FOREGROUND_WRAPPER_CLASS =
   // iPhone SE/kleinere Geräte: Vordergrundbild etwas nach rechts schieben, größere iPhones (z. B. 14 Pro Max, 430px) unverändert lassen.
   'absolute right-0 lg:left-auto top-[var(--hero-content-top)] bottom-0 overflow-visible hero-foreground-image hero-foreground-image-mid w-[min(24rem,88vw)] md:w-[min(28rem,50vw)] lg:max-w-[50%] lg:w-[50%] max-[390px]:translate-x-[24%]'
@@ -727,78 +728,47 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                   <div className="space-y-8">
                     {hasTextContent && (
                       <>
-                        {subheadline &&
-                          (isMobileViewport
-                            ? badgeReveal
-                              ? (
-                                <p className="hero-subheadline-badge text-[0.65rem] sm:text-xs max-[430px]:text-[0.5rem] font-medium uppercase tracking-[0.12em] max-[430px]:tracking-[0.08em] text-inherit/80">
-                                  <span className="inline-flex items-center gap-1.5 align-middle leading-none">
-                                    <span aria-hidden className="inline-flex items-center justify-center h-[1.6em] w-[1.6em]">
-                                      <svg
-                                        viewBox="0 0 24 24"
-                                        className="h-[1.6em] w-[1.6em]"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        aria-label="Verifiziert"
-                                        role="img"
-                                      >
-                                        <path
-                                          d="M12 3.25 9.75 5.5 6.75 5.25 6.5 8.25 4.25 10.5 6.5 12.75 6.75 15.75 9.75 15.5 12 17.75 14.25 15.5 17.25 15.75 17.5 12.75 19.75 10.5 17.5 8.25 17.25 5.25 14.25 5.5 12 3.25Z"
-                                          fill="none"
-                                          stroke="currentColor"
-                                          strokeWidth="1.4"
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                        />
-                                        <path
-                                          d="M10.25 11.75 11.25 12.75 13.75 10.25"
-                                          fill="none"
-                                          stroke="currentColor"
-                                          strokeWidth="1.6"
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                        />
-                                      </svg>
-                                    </span>
-                                    <TextAnimate
-                                      animation="slideRight"
-                                      by="character"
-                                      duration={0.12}
-                                      once
-                                      startOnView={false}
-                                      as="span"
-                                    >
-                                      {subheadline}
-                                    </TextAnimate>
-                                  </span>
-                                </p>
-                              )
-                              : (
-                                <p
-                                  className="hero-subheadline-badge text-[0.65rem] sm:text-xs max-[430px]:text-[0.5rem] font-medium uppercase tracking-[0.12em] max-[430px]:tracking-[0.08em] text-inherit/80 opacity-0"
-                                  aria-hidden
-                                >
-                                  {subheadline}
-                                </p>
-                              )
-                            : textReveal
-                              ? (
-                                <TextAnimate
-                                  animation="slideRight"
-                                  by="character"
-                                  duration={0.12}
-                                  once
-                                  startOnView={false}
-                                  as="p"
-                                  className="text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.12em] text-inherit/80"
-                                >
-                                  {subheadline}
-                                </TextAnimate>
-                              )
-                              : (
-                                <p className="text-xs font-medium uppercase tracking-[0.2em] text-inherit/80 opacity-0 sm:text-sm" aria-hidden>
-                                  {subheadline}
-                                </p>
-                              ))}
+                        {/* Badge + Headline mit halbem Abstand (space-y-4), Rest space-y-8 */}
+                        <div className="space-y-4">
+                          {subheadline && (
+                            <p
+                              className={cn(
+                                'hero-subheadline-badge text-inherit/80 transition-all duration-500 ease-out',
+                                badgeReveal ? 'translate-y-0 opacity-100' : 'translate-y-2 opacity-0',
+                              )}
+                              aria-hidden={!badgeReveal}
+                            >
+                              <span className="inline-flex items-center gap-1.5 align-middle leading-none">
+                                <span aria-hidden className="inline-flex items-center justify-center h-[1.6em] w-[1.6em]">
+                                  <svg
+                                    viewBox="0 0 24 24"
+                                    className="h-[1.6em] w-[1.6em]"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    aria-label="Verifiziert"
+                                    role="img"
+                                  >
+                                    <path
+                                      d="M12 3.25 9.75 5.5 6.75 5.25 6.5 8.25 4.25 10.5 6.5 12.75 6.75 15.75 9.75 15.5 12 17.75 14.25 15.5 17.25 15.75 17.5 12.75 19.75 10.5 17.5 8.25 17.25 5.25 14.25 5.5 12 3.25Z"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeWidth="1.4"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                    <path
+                                      d="M10.25 11.75 11.25 12.75 13.75 10.25"
+                                      fill="none"
+                                      stroke="currentColor"
+                                      strokeWidth="1.6"
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                    />
+                                  </svg>
+                                </span>
+                                <span>{subheadline}</span>
+                              </span>
+                            </p>
+                          )}
 
                         {hasHeadline && (
                           <h1
@@ -835,6 +805,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                             )}
                           </h1>
                         )}
+                        </div>
 
                         {description && (
                           <AnimatedDescription text={description} mounted={textReveal} startDelay={1200} />
