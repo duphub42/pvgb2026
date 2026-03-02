@@ -660,7 +660,7 @@ export function MegaMenu({
                                         icon={
                                           (sub.icon != null && mediaUrl(sub.icon)) ||
                                           (sub.image != null && mediaUrl(sub.image)) ? (
-                                            <img src={mediaUrl(sub.image ?? sub.icon!)} alt="" className="h-4 w-4 object-contain" loading="lazy" decoding="async" />
+                                            <img src={mediaUrl(sub.image ?? sub.icon!)} alt="" className="h-4 w-4 object-contain" decoding="async" />
                                           ) : undefined
                                         }
                                       >
@@ -682,7 +682,7 @@ export function MegaMenu({
                                 icon={
                                   (sub.icon != null && mediaUrl(sub.icon)) ||
                                   (sub.image != null && mediaUrl(sub.image)) ? (
-                                    <img src={mediaUrl(sub.image ?? sub.icon!)} alt="" className="h-4 w-4 object-contain" loading="lazy" decoding="async" />
+                                    <img src={mediaUrl(sub.image ?? sub.icon!)} alt="" className="h-4 w-4 object-contain" decoding="async" />
                                   ) : undefined
                                 }
                               >
@@ -744,7 +744,7 @@ export function MegaMenu({
                                       highlightPosition === 'below' ? 'h-full min-w-[100px] w-[100px] rounded-l-lg' : 'megamenu-item-icon h-14 w-14 rounded-lg',
                                     )}
                                   >
-                                    <img src={cardIconUrl} alt="" loading="lazy" decoding="async" />
+                                    <img src={cardIconUrl} alt="" decoding="async" />
                                   </div>
                                 )}
                               </>

@@ -79,7 +79,7 @@ const WAVE_FILL = 'var(--background)' as const
 
 /** Desktop: keine max-h, damit Inhalt (Text/Marquee) nach unten wachsen kann. Mobile behält Begrenzung. */
 const HERO_BOX_WRAPPER_CLASS =
-  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[calc(100vh-var(--header-height,6rem)*1.05)] max-lg:max-h-none lg:max-h-none z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-visible rounded-2xl lg:rounded-3xl hero-box-animate'
+  'pointer-events-none absolute inset-x-0 top-0 bottom-0 max-h-[calc(100vh-var(--header-height,6rem)*1.05)] max-lg:max-h-none lg:max-h-none z-[6] m-0 p-0 -mx-4 md:-mx-6 lg:-mx-8 overflow-hidden rounded-2xl lg:rounded-3xl hero-box-animate'
 const HERO_BOX_INNER_CLASS =
   'hero-box-inner h-full w-full rounded-2xl lg:rounded-3xl border-[0.5px] border-white/5'
 
@@ -106,9 +106,9 @@ const HERO_MARQUEE_WRAPPER_BASE_CLASS =
 // FIX: Animation-Timing als benannte Konstanten (keine Magic Numbers)
 /** Subheadline/Text erscheint nach 800ms */
 const TEXT_REVEAL_DELAY_MS = 800
-/** Vordergrundbild startet bei 2000ms */
-const HERO_FOREGROUND_REVEAL_MS = 2000
-/** Vordergrundbild-Animation dauert 2200ms */
+/** Vordergrundbild startet nach der Headline (ca. 2.4s nach Mount) */
+const HERO_FOREGROUND_REVEAL_MS = 2400
+/** Vordergrundbild-Animation dauert 2200ms (für Marquee-Timing) */
 const HERO_FOREGROUND_ANIMATION_MS = 2200
 /** Badge erscheint nach Vordergrundbild-Scan + 200ms Puffer */
 const HERO_BADGE_REVEAL_MS = HERO_FOREGROUND_REVEAL_MS + HERO_FOREGROUND_ANIMATION_MS + 200
@@ -211,7 +211,7 @@ const POSITION_MAP: Record<string, { left: number; top: number }> = {
 
 /** Stabile Klasse für Marquee-Logo-Items, verhindert Hydration-Mismatch durch Radix TooltipTrigger asChild. */
 const MARQUEE_LOGO_ITEM_CLASS =
-  'hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center transition-transform duration-200 hover:scale-[1.2]'
+  'hero-logo-marquee-item flex h-[45px] cursor-default items-center justify-center origin-center'
 
 // ---------------------------------------------------------------------------
 // Main Component
@@ -551,32 +551,20 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
         <div className="hero-left-gradient absolute inset-y-0 left-0 w-2/3" />
         <div className="hero-edge-darken absolute inset-0" />
         {foregroundMedia && (
-          <div className={HERO_FOREGROUND_WRAPPER_CLASS} aria-hidden>
-            <div
-              className={cn(
-                'hero-foreground-reveal',
-                foregroundReveal && 'hero-foreground-reveal-active',
-              )}
-            >
-              {/* Scan-Layer 1: unscharfer Aufbau, der nach oben „ausfadet“ */}
-              <div className="hero-foreground-scan1">
-                <Media
-                  resource={foregroundMedia}
-                  fill
-                  imgClassName="object-contain object-center"
-                  priority
-                />
-              </div>
-              {/* Scan-Layer 2: finale, scharfe Version mit Masken-Animation */}
-              <div className="hero-foreground-scan2">
-                <Media
-                  resource={foregroundMedia}
-                  fill
-                  imgClassName="object-contain object-center"
-                  priority
-                />
-              </div>
-            </div>
+          <div
+            className={cn(
+              HERO_FOREGROUND_WRAPPER_CLASS,
+              'hero-foreground-fade-up',
+              foregroundReveal && 'hero-foreground-fade-up-active',
+            )}
+            aria-hidden
+          >
+            <Media
+              resource={foregroundMedia}
+              fill
+              imgClassName="object-contain object-center"
+              priority
+            />
           </div>
         )}
         <div

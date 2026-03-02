@@ -50,10 +50,6 @@
     min-width: 0;
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
   }
-  /* Hero-Bild/Wrapper darf nach rechts überlaufen – auf Seiten mit Hero overflow erlauben */
-  body:has([aria-label="Hero"]) {
-    overflow-x: visible;
-  }
   h1,
   h2,
   h3,
@@ -464,6 +460,33 @@
     .hero-pb-section { min-height: 888px; }
   }
 
+  /* Einfacher Fade-Up für das Hero-Vordergrundbild (ohne Scan-Layer). */
+  @keyframes hero-foreground-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .hero-foreground-fade-up {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  .hero-foreground-fade-up-active {
+    animation: hero-foreground-fade-up 700ms ease-out forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-foreground-fade-up,
+    .hero-foreground-fade-up-active {
+      opacity: 1;
+      transform: none;
+      animation: none;
+    }
+  }
+
   /* HeroBox Wrapper (hero-box-outer): gleiche obere rechte Aussparung wie .hero-box-inner, damit der Glow/Frame-Shadow dort nicht sichtbar ist. */
   .hero-box-outer {
     mask-image: radial-gradient(
@@ -802,7 +825,8 @@
   .hero-foreground-reveal .hero-foreground-scan2 img,
   .hero-foreground-reveal .hero-foreground-scan1 img {
     image-rendering: -webkit-optimize-contrast;
-    max-height: 100%;
+    /* Bild darf nie höher als 666px werden, egal wie hoch der Hero-Container ist. */
+    max-height: min(100%, 666px);
     min-height: 0;
     object-fit: cover;
     object-position: var(--hero-focus-x, 60%) var(--hero-focus-y, 75%);
@@ -3491,7 +3515,7 @@ header .header-tool-toggle--theme:hover {
 /* Hero-Logos (Marquee + Carousel): wie philippbacher.com – einheitlich hell/weiß auf dunklem Grund */
 .hero-logo-grayscale {
   filter: brightness(0.93) contrast(0.33) saturate(0);
-  opacity: 0.92;
+  opacity: 0.66;
 }
 
 /* Hover: Logo farbig, kein Layoutversatz (Skalierung über transform) */
