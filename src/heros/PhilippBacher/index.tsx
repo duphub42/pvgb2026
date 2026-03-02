@@ -87,7 +87,8 @@ const HERO_BOX_INNER_CLASS =
 const HERO_SECTION_CLASS =
   'hero-pb-section relative z-10 w-full overflow-visible flex justify-center bg-[var(--background)] m-0 p-0 text-[var(--foreground)] -mt-[var(--header-height,6rem)] -mb-24 items-end lg:min-h-[888px] pt-[calc(var(--header-height,6rem)*2.05)] max-lg:min-h-[93vh] lg:[--hero-content-top:calc(2*var(--header-height,6rem)+10vh)]'
 const HERO_FOREGROUND_WRAPPER_CLASS =
-  'absolute right-0 lg:left-auto top-[var(--hero-content-top)] bottom-0 overflow-visible hero-foreground-image hero-foreground-image-mid w-[min(24rem,88vw)] md:w-[min(28rem,50vw)] lg:max-w-[50%] lg:w-[50%] max-[430px]:translate-x-[32%]'
+  // iPhone SE/kleinere Geräte: Vordergrundbild etwas nach rechts schieben, größere iPhones (z. B. 14 Pro Max, 430px) unverändert lassen.
+  'absolute right-0 lg:left-auto top-[var(--hero-content-top)] bottom-0 overflow-visible hero-foreground-image hero-foreground-image-mid w-[min(24rem,88vw)] md:w-[min(28rem,50vw)] lg:max-w-[50%] lg:w-[50%] max-[390px]:translate-x-[24%]'
 
 /** Mobile: min-h für Mindesthöhe. Panorama/PlayBook-Mindesthöhen in globals.css (.hero-pb-content-wrapper) wegen Hydration. */
 const HERO_CONTENT_COLUMN_WRAPPER_CLASS =
