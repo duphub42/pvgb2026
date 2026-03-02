@@ -421,7 +421,10 @@
 
   /* Philipp-Bacher-Hero: Abstand Header → Inhalt auf Mobile/iPhone/PlayBook (max-lg).
    * Mindestabstand mit max(10vh, header-height), damit der Inhalt nie unter den Header rutscht
-   * (bei kurzer Viewport-Höhe ist 10vh < 6rem → ohne max() würde die Box überlappen). */
+   * (bei kurzer Viewport-Höhe ist 10vh < 6rem → ohne max() würde die Box überlappen).
+   *
+   * iOS-Safari behandelt 1vh dynamisch (Adressleiste ein-/ausgeblendet). Für echte Geräte verwenden wir,
+   * wenn verfügbar, die stabilere sichtbare Höhe (svh), lassen aber vh als Fallback für andere Browser. */
   @media (max-width: 63.99rem) {
     .hero-pb-section {
       padding-top: calc(var(--header-height, 6rem) + max(10vh, var(--header-height, 6rem)));
@@ -429,6 +432,16 @@
     /* Box-Höhe begrenzen, damit sie mit items-end nicht in den Padding-Bereich ragt. */
     .hero-pb-content-wrapper {
       max-height: calc(93vh - 2 * var(--header-height, 6rem));
+    }
+
+    /* iOS / moderne Mobile-Browser: svh = sichtbare Viewport-Höhe (ohne URL-Bar). */
+    @supports (height: 100svh) {
+      .hero-pb-section {
+        padding-top: calc(var(--header-height, 6rem) + max(10svh, var(--header-height, 6rem)));
+      }
+      .hero-pb-content-wrapper {
+        max-height: calc(93svh - 2 * var(--header-height, 6rem));
+      }
     }
   }
 
