@@ -244,78 +244,32 @@
     bottom: -1px;
   }
 
-  /* Schwarzer Overlay: radial von oben rechts, stärkerer Transparenzverlauf – OHNE Glasblur (Glaseffekt liegt nur noch auf .hero-box-inner). Scoped auf Hero-Container (position/inset). */
+  /* Schwarzer Overlay: deaktiviert (kein zusätzliches „blurry“ Overlay mehr). */
   .hero-overlay-base {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: radial-gradient(
-      ellipse 220% 220% at 100% calc(0.5rem + 5vh),
-      transparent 0%,
-      transparent 55%,
-      rgba(0, 0, 0, calc(var(--hero-overlay, 0.45) * 0.4)) 75%,
-      rgba(0, 0, 0, var(--hero-overlay, 0.45)) 92%,
-      rgba(0, 0, 0, var(--hero-overlay, 0.45)) 100%
-    );
+    background: none;
   }
   @media (min-width: 768px) {
     .hero-overlay-base {
-      background: radial-gradient(
-        ellipse 220% 220% at 100% calc(1rem + 6vh),
-        transparent 0%,
-        transparent 55%,
-        rgba(0, 0, 0, calc(var(--hero-overlay, 0.45) * 0.4)) 75%,
-        rgba(0, 0, 0, var(--hero-overlay, 0.45)) 92%,
-        rgba(0, 0, 0, var(--hero-overlay, 0.45)) 100%
-      );
+      background: none;
     }
   }
 
-  /* Hero-Hintergrund-Overlay: oben Abdunklung (linear) + radial oben rechts mit stärkerem Transparenzverlauf. Scoped auf Hero-Container. */
+  /* Hero-Hintergrund-Overlay: deaktiviert, damit kein zusätzlicher weicher Abdunklungs-„Blur“ mehr über dem Hintergrund liegt. */
   .hero-edge-darken {
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background-image:
-      linear-gradient(
-        to bottom,
-        rgba(0, 0, 0, 0.88) 0,
-        rgba(0, 0, 0, 0.5) 35%,
-        rgba(0, 0, 0, 0.12) 70%,
-        transparent 100%
-      ),
-      radial-gradient(
-        ellipse 180% 180% at 100% calc(0.5rem + 5vh),
-        transparent 0%,
-        transparent 35%,
-        rgba(0, 0, 0, 0.2) 55%,
-        rgba(0, 0, 0, 0.6) 75%,
-        rgba(0, 0, 0, 0.88) 92%,
-        rgba(0, 0, 0, 0.92) 100%
-      );
-    background-size: 100% 55%, 100% 100%;
-    background-position: 0 0, 0 0;
+    background-image: none;
+    background-size: auto;
+    background-position: 0 0;
     background-repeat: no-repeat;
   }
   @media (min-width: 768px) {
     .hero-edge-darken {
-      background-image:
-        linear-gradient(
-          to bottom,
-          rgba(0, 0, 0, 0.88) 0,
-          rgba(0, 0, 0, 0.5) 35%,
-          rgba(0, 0, 0, 0.12) 70%,
-          transparent 100%
-        ),
-        radial-gradient(
-          ellipse 180% 180% at 100% calc(1rem + 6vh),
-          transparent 0%,
-          transparent 35%,
-          rgba(0, 0, 0, 0.2) 55%,
-          rgba(0, 0, 0, 0.6) 75%,
-          rgba(0, 0, 0, 0.88) 92%,
-          rgba(0, 0, 0, 0.92) 100%
-        );
+      background-image: none;
     }
   }
 
@@ -425,7 +379,9 @@
     .hero-pb-section {
       padding-top: calc(var(--header-height, 6rem) + max(10vh, var(--header-height, 6rem)));
     }
-    /* Box-Höhe begrenzen, damit sie mit items-end nicht in den Padding-Bereich ragt. */
+    /* Box-Höhe für normale Mobile-Viewports begrenzen, damit sie mit items-end nicht in den Padding-Bereich ragt.
+     * Für sehr kleine Geräte (z. B. iPhone SE, <=375px) heben wir diese Begrenzung weiter unten wieder auf,
+     * damit sich der Inhalt nach unten ausdehnen kann (kein Abschneiden). */
     .hero-pb-content-wrapper {
       max-height: calc(93vh - 2 * var(--header-height, 6rem));
     }
@@ -458,6 +414,23 @@
   /* iPad (48rem–64rem): Mindesthöhe 888px. */
   @media (min-width: 48rem) and (max-width: 64rem) {
     .hero-pb-section { min-height: 888px; }
+  }
+
+  /* iPhone SE / sehr kleine Breite (<=375px):
+   * - Hero-Box von oben nach unten wachsen lassen (keine fixed/max-height-Klammer mehr)
+   * - Wrapper nicht mehr absolute/inset-0, damit der Inhalt sich nach unten ausdehnen kann (Scroll statt Abschneiden). */
+  @media (max-width: 23.5rem) {
+    .hero-pb-content-wrapper {
+      max-height: none;
+      min-height: auto;
+    }
+    .hero-pb-content-wrapper .hero-box-animate {
+      position: static;
+      inset: auto;
+      max-height: none;
+      height: auto;
+      overflow: visible;
+    }
   }
 
   /* Einfacher Fade-Up für das Hero-Vordergrundbild (ohne Scan-Layer). */
@@ -519,8 +492,6 @@
     height: 100%;
     border-radius: 1.5rem;
     border: 0.5px solid rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(80px) saturate(200%);
-    -webkit-backdrop-filter: blur(80px) saturate(200%);
     background:
       radial-gradient(
         ellipse 125% 112% at 0% 100%,
@@ -535,18 +506,18 @@
         rgba(252, 252, 252, 0.96) 70%,
         rgba(252, 252, 252, 0.98) 100%
       );
-    /* Nur oben rechts: Aussparung für Vordergrundbild */
+    /* Nur oben rechts: Aussparung für Vordergrundbild – Blur im Eck praktisch 0 (große transparente Zone, Glas setzt erst weiter innen ein). */
     mask-image: radial-gradient(
-      ellipse 100% 85% at 100% 0%,
+      ellipse 110% 90% at 100% 0%,
       transparent 0%,
-      transparent 47%,
-      black 73%
+      transparent 65%,
+      black 90%
     );
     -webkit-mask-image: radial-gradient(
-      ellipse 100% 85% at 100% 0%,
+      ellipse 110% 90% at 100% 0%,
       transparent 0%,
-      transparent 47%,
-      black 73%
+      transparent 65%,
+      black 90%
     );
     mask-size: 100% 100%;
     -webkit-mask-size: 100% 100%;
@@ -561,14 +532,14 @@
       mask-image: radial-gradient(
         ellipse 95% 78% at 100% 0%,
         transparent 0%,
-        transparent 32%,
-        black 62%
+        transparent 50%,
+        black 82%
       );
       -webkit-mask-image: radial-gradient(
         ellipse 95% 78% at 100% 0%,
         transparent 0%,
-        transparent 32%,
-        black 62%
+        transparent 50%,
+        black 82%
       );
     }
   }

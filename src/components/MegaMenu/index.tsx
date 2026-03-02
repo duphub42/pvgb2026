@@ -20,6 +20,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 import { getClientSideURL } from '@/utilities/getURL'
+import { getSpriteIdFromMediaUrl } from '@/utilities/getSpriteIdFromMediaUrl'
 import { ChevronRight, Menu, MessageCircle, Phone, Mail } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -652,21 +653,30 @@ export function MegaMenu({
                                     </h4>
                                   )}
                                   <ul className={cn('grid gap-y-4', (col.items?.length ?? 0) > 4 ? 'grid-cols-2 gap-x-8' : 'grid-cols-1')}>
-                                    {(col.items ?? []).map((sub, idx) => (
-                                      <ListItem
-                                        key={idx}
-                                        title={sub.label}
-                                        href={sub.url}
-                                        icon={
-                                          (sub.icon != null && mediaUrl(sub.icon)) ||
-                                          (sub.image != null && mediaUrl(sub.image)) ? (
-                                            <img src={mediaUrl(sub.image ?? sub.icon!)} alt="" className="h-4 w-4 object-contain" decoding="async" />
-                                          ) : undefined
-                                        }
-                                      >
-                                        {sub.description ?? ''}
-                                      </ListItem>
-                                    ))}
+                                    {(col.items ?? []).map((sub, idx) => {
+                                      const rawMedia = (sub.image ?? sub.icon) ?? null
+                                      const iconUrl = rawMedia ? mediaUrl(rawMedia) : ''
+                                      const iconSpriteId = iconUrl ? getSpriteIdFromMediaUrl(iconUrl) : null
+
+                                      return (
+                                        <ListItem
+                                          key={idx}
+                                          title={sub.label}
+                                          href={sub.url}
+                                          icon={
+                                            iconSpriteId ? (
+                                              <svg className="h-4 w-4" aria-hidden="true">
+                                                <use href={`/icons-sprite.svg#${iconSpriteId}`} />
+                                              </svg>
+                                            ) : iconUrl ? (
+                                              <img src={iconUrl} alt="" className="h-4 w-4 object-contain" decoding="async" />
+                                            ) : undefined
+                                          }
+                                        >
+                                          {sub.description ?? ''}
+                                        </ListItem>
+                                      )
+                                    })}
                                   </ul>
                                 </div>
                               ) : null,
@@ -674,21 +684,30 @@ export function MegaMenu({
                           </div>
                         ) : (
                           <ul className={cn('grid gap-y-4', listItems.length > 4 ? 'grid-cols-2 gap-x-8' : 'grid-cols-1')}>
-                            {listItems.map((sub: { label: string; url: string; description?: string | null; icon?: MediaRef; image?: MediaRef }, idx: number) => (
-                              <ListItem
-                                key={idx}
-                                title={sub.label}
-                                href={sub.url}
-                                icon={
-                                  (sub.icon != null && mediaUrl(sub.icon)) ||
-                                  (sub.image != null && mediaUrl(sub.image)) ? (
-                                    <img src={mediaUrl(sub.image ?? sub.icon!)} alt="" className="h-4 w-4 object-contain" decoding="async" />
-                                  ) : undefined
-                                }
-                              >
-                                {sub.description ?? ''}
-                              </ListItem>
-                            ))}
+                            {listItems.map((sub: { label: string; url: string; description?: string | null; icon?: MediaRef; image?: MediaRef }, idx: number) => {
+                              const rawMedia = (sub.image ?? sub.icon) ?? null
+                              const iconUrl = rawMedia ? mediaUrl(rawMedia) : ''
+                              const iconSpriteId = iconUrl ? getSpriteIdFromMediaUrl(iconUrl) : null
+
+                              return (
+                                <ListItem
+                                  key={idx}
+                                  title={sub.label}
+                                  href={sub.url}
+                                  icon={
+                                    iconSpriteId ? (
+                                      <svg className="h-4 w-4" aria-hidden="true">
+                                        <use href={`/icons-sprite.svg#${iconSpriteId}`} />
+                                      </svg>
+                                    ) : iconUrl ? (
+                                      <img src={iconUrl} alt="" className="h-4 w-4 object-contain" decoding="async" />
+                                    ) : undefined
+                                  }
+                                >
+                                  {sub.description ?? ''}
+                                </ListItem>
+                              )
+                            })}
                           </ul>
                         ),
                       })
@@ -707,6 +726,7 @@ export function MegaMenu({
                             const cardTitle = card.title != null && card.title !== '' ? card.title : null
                             const cardDesc = card.description != null && card.description !== '' ? card.description : null
                             const cardIconUrl = card.icon != null ? mediaUrl(card.icon) : ''
+                            const cardIconSpriteId = cardIconUrl ? getSpriteIdFromMediaUrl(cardIconUrl) : null
                             const cardImageUrl = card.image != null ? mediaUrl(card.image) : ''
                             const cardCtaUrl = card.ctaUrl != null && card.ctaUrl !== '' ? card.ctaUrl : null
                             const cardCtaLabel = card.ctaLabel ?? 'Mehr'
@@ -744,7 +764,13 @@ export function MegaMenu({
                                       highlightPosition === 'below' ? 'h-full min-w-[100px] w-[100px] rounded-l-lg' : 'megamenu-item-icon h-14 w-14 rounded-lg',
                                     )}
                                   >
-                                    <img src={cardIconUrl} alt="" decoding="async" />
+                                    {cardIconSpriteId ? (
+                                      <svg className="h-6 w-6" aria-hidden="true">
+                                        <use href={`/icons-sprite.svg#${cardIconSpriteId}`} />
+                                      </svg>
+                                    ) : (
+                                      <img src={cardIconUrl} alt="" decoding="async" />
+                                    )}
                                   </div>
                                 )}
                               </>
