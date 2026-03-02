@@ -532,6 +532,23 @@
     mask-repeat: no-repeat;
     -webkit-mask-repeat: no-repeat;
   }
+  /* iPhone / kleine Viewports: Aussparung oben rechts etwas kleiner, damit mehr Glasfläche über Text liegt. */
+  @media (max-width: 430px) {
+    .hero-box-inner {
+      mask-image: radial-gradient(
+        ellipse 95% 78% at 100% 0%,
+        transparent 0%,
+        transparent 32%,
+        black 62%
+      );
+      -webkit-mask-image: radial-gradient(
+        ellipse 95% 78% at 100% 0%,
+        transparent 0%,
+        transparent 32%,
+        black 62%
+      );
+    }
+  }
   [data-theme='dark'] .hero-box-inner {
     background:
       radial-gradient(

@@ -499,6 +499,11 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
   const HERO_FOCUS_X = '60%'
   const HERO_FOCUS_Y = '75%'
 
+  // Mobile: Inhalt etwas tiefer, damit Marquee knapp über dem Fold endet; Desktop behält bisherige Position.
+  const heroContentTop = isMobileViewport
+    ? 'calc(var(--header-height, 6rem) * 1.25)'
+    : 'calc(var(--header-height, 6rem) * 1.05)'
+
   return (
     <section
       ref={heroSectionRef}
@@ -507,7 +512,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
       style={{
         ['--hero-focus-x' as string]: HERO_FOCUS_X,
         ['--hero-focus-y' as string]: HERO_FOCUS_Y,
-        ['--hero-content-top' as string]: 'calc(var(--header-height, 6rem) * 1.05)',
+        ['--hero-content-top' as string]: heroContentTop,
       }}
       aria-label="Hero"
     >
@@ -708,7 +713,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                           (isMobileViewport
                             ? badgeReveal
                               ? (
-                                <p className="hero-subheadline-badge text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.12em] text-inherit/80">
+                                <p className="hero-subheadline-badge text-[0.65rem] sm:text-xs max-[430px]:text-[0.5rem] font-medium uppercase tracking-[0.12em] max-[430px]:tracking-[0.08em] text-inherit/80">
                                   <span className="inline-flex items-center gap-1.5 align-middle leading-none">
                                     <span aria-hidden className="inline-flex items-center justify-center h-[1.6em] w-[1.6em]">
                                       <svg
@@ -751,7 +756,7 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                               )
                               : (
                                 <p
-                                  className="hero-subheadline-badge text-[0.65rem] sm:text-xs font-medium uppercase tracking-[0.12em] text-inherit/80 opacity-0"
+                                  className="hero-subheadline-badge text-[0.65rem] sm:text-xs max-[430px]:text-[0.5rem] font-medium uppercase tracking-[0.12em] max-[430px]:tracking-[0.08em] text-inherit/80 opacity-0"
                                   aria-hidden
                                 >
                                   {subheadline}
