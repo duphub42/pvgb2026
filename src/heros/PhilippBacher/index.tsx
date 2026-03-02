@@ -499,10 +499,9 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
   const HERO_FOCUS_X = '60%'
   const HERO_FOCUS_Y = '75%'
 
-  // Mobile: Inhalt etwas tiefer, damit Marquee knapp über dem Fold endet; Desktop behält bisherige Position.
-  const heroContentTop = isMobileViewport
-    ? 'calc(var(--header-height, 6rem) * 1.25)'
-    : 'calc(var(--header-height, 6rem) * 1.05)'
+  // Layout-stabil: gleicher Startpunkt für alle Viewports, etwas tiefer als ursprünglich (1.05x), um Mobile mehr Luft zu geben,
+  // aber ohne nachträglichen Layout-Shift über isMobileViewport.
+  const heroContentTop = 'calc(var(--header-height, 6rem) * 1.2)'
 
   return (
     <section
@@ -552,12 +551,31 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
         <div className="hero-edge-darken absolute inset-0" />
         {foregroundMedia && (
           <div className={HERO_FOREGROUND_WRAPPER_CLASS} aria-hidden>
-            <Media
-              resource={foregroundMedia}
-              fill
-              imgClassName="object-contain object-center"
-              priority
-            />
+            <div
+              className={cn(
+                'hero-foreground-reveal',
+                foregroundReveal && 'hero-foreground-reveal-active',
+              )}
+            >
+              {/* Scan-Layer 1: unscharfer Aufbau, der nach oben „ausfadet“ */}
+              <div className="hero-foreground-scan1">
+                <Media
+                  resource={foregroundMedia}
+                  fill
+                  imgClassName="object-contain object-center"
+                  priority
+                />
+              </div>
+              {/* Scan-Layer 2: finale, scharfe Version mit Masken-Animation + Fallback-Fade für Desktop */}
+              <div className={cn('hero-foreground-scan2', 'hero-desktop-foreground-fade-in')}>
+                <Media
+                  resource={foregroundMedia}
+                  fill
+                  imgClassName="object-contain object-center"
+                  priority
+                />
+              </div>
+            </div>
           </div>
         )}
         <div
