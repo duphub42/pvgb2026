@@ -566,8 +566,8 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                   priority
                 />
               </div>
-              {/* Scan-Layer 2: finale, scharfe Version mit Masken-Animation + Fallback-Fade für Desktop */}
-              <div className={cn('hero-foreground-scan2', 'hero-desktop-foreground-fade-in')}>
+              {/* Scan-Layer 2: finale, scharfe Version mit Masken-Animation */}
+              <div className="hero-foreground-scan2">
                 <Media
                   resource={foregroundMedia}
                   fill
@@ -899,19 +899,20 @@ export const PhilippBacherHero: React.FC<HeroProps> = (props) => {
                             transition={{ duration: 0.5, delay: HERO_MARQUEE_START_MS / 1000, ease: 'easeOut' }}
                             className="max-w-2xl pt-0"
                           >
-                            {marqueeHeadlineReveal && (
-                              <TextAnimate
-                                animation="slideRight"
-                                by="character"
-                                duration={0.15}
-                                once
-                                startOnView={false}
-                                as="p"
-                                className="text-xs font-medium uppercase tracking-[0.2em] text-inherit/90 max-lg:text-[0.5rem] max-lg:tracking-[0.18em]"
-                              >
-                                {marqueeHeadline}
-                              </TextAnimate>
-                            )}
+                            <TextAnimate
+                              animation="slideRight"
+                              by="character"
+                              duration={0.15}
+                              once
+                              startOnView={false}
+                              as="p"
+                              className={cn(
+                                'text-xs font-medium uppercase tracking-[0.2em] text-inherit/90 max-lg:text-[0.5rem] max-lg:tracking-[0.18em]',
+                                marqueeHeadlineReveal ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2',
+                              )}
+                            >
+                              {marqueeHeadline}
+                            </TextAnimate>
                           </motion.div>
                         )}
                         {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 &&
