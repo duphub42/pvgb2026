@@ -774,15 +774,14 @@
   .hero-foreground-reveal-active .hero-foreground-scan2 {
     animation: hero-foreground-scan2 2.2s steps(50, end) forwards;
   }
-  /* Tablet/Mobile (≤768px): clip-path + absolute führt oft zu falscher Skalierung / Überdeckung.
-   * Fallback: Scan-Masken deaktivieren, aber eine einfache Bottom-up-Fade-In-Animation beibehalten. */
+  /* Tablet/Mobile (≤768px): Scan-Masken deaktivieren, Layer aber weiterhin absolute/inset:0 lassen,
+   * damit die Bildgröße unverändert bleibt. Nur einfache Bottom-up-Fade-In-Animation. */
   @media (max-width: 768px) {
     .hero-foreground-scan1,
     .hero-foreground-scan2 {
       clip-path: none !important;
       mask-image: none !important;
       -webkit-mask-image: none !important;
-      position: relative !important;
       filter: none !important;
     }
     @keyframes hero-mobile-foreground-rise {
