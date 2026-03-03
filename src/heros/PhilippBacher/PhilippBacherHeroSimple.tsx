@@ -252,7 +252,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Vordergrundbild: unten rechts, responsive Breite/Höhe (zählt zur Höhe des Heros) */}
       {foregroundImage && getMediaUrlSafe(foregroundImage) && (
         <div
-          className="absolute bottom-0 right-0 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] flex justify-end items-end overflow-x-hidden pointer-events-none hero-portrait-sm hero-simple-portrait"
+          className="absolute bottom-0 right-0 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] flex justify-start items-start overflow-visible pointer-events-none hero-portrait-sm hero-simple-portrait pt-0 pb-16 pl-0"
           style={{ width: '100%' }}
         >
           <Image
