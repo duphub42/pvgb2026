@@ -27,7 +27,13 @@ export function HeroBackgroundPresetLayer({ preset }: { preset: Preset }) {
   }
 
   if (type === 'cssHalo') {
-    return <div className="hero-css-halo absolute inset-0 z-0" style={style} aria-hidden />
+    return (
+      <div
+        className="hero-css-halo absolute top-0 right-0 bottom-0 z-0"
+        style={style}
+        aria-hidden
+      />
+    )
   }
 
   if (type === 'patternSquare') {

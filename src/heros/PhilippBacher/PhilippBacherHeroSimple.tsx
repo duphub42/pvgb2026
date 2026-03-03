@@ -95,7 +95,10 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   const headlineText = hasLines ? undefined : headline
 
   return (
-    <section className="relative w-full min-h-0 h-fit flex flex-col justify-start items-start overflow-visible text-foreground hero-offset">
+    <section
+      className="relative w-full min-h-0 h-fit flex flex-col justify-start items-start overflow-visible text-foreground hero-offset"
+      style={{ backgroundColor: 'unset', background: 'unset' }}
+    >
       {/* Hintergrund-Preset-Layer aus Payload (z. B. cssHalo, patternSquare) */}
       <HeroBackgroundPresetLayer preset={backgroundPreset} />
 
