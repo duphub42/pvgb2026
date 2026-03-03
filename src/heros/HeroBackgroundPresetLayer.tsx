@@ -29,7 +29,7 @@ export function HeroBackgroundPresetLayer({ preset }: { preset: Preset }) {
   if (type === 'cssHalo') {
     return (
       <div
-        className="hero-css-halo absolute top-0 right-0 bottom-0 z-0"
+        className="hero-css-halo absolute top-0 right-0 bottom-0 -z-[20]"
         style={style}
         aria-hidden
       />
@@ -37,14 +37,14 @@ export function HeroBackgroundPresetLayer({ preset }: { preset: Preset }) {
   }
 
   if (type === 'patternSquare') {
-    return <div className="hero-pattern-square absolute inset-0 z-0" style={style} aria-hidden />
+    return <div className="hero-pattern-square absolute inset-0 -z-[20]" style={style} aria-hidden />
   }
 
   if (type === 'goldRadial') {
-    return <div className="hero-pattern-gold-radial absolute inset-0 z-0" style={style} aria-hidden />
+    return <div className="hero-pattern-gold-radial absolute inset-0 -z-[20]" style={style} aria-hidden />
   }
 
   // gradient / customCss: nur leere Ebene, CSS kommt aus globalen Styles/customCss
-  return <div className="hero-gradient-bg absolute inset-0 z-0" aria-hidden />
+  return <div className="hero-gradient-bg absolute inset-0 -z-[20]" aria-hidden />
 }
 

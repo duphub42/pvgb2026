@@ -102,6 +102,9 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Hintergrund-Preset-Layer aus Payload (z. B. cssHalo, patternSquare) */}
       <HeroBackgroundPresetLayer preset={backgroundPreset} />
 
+      {/* Honeycomb-Hintergrund (hero-pattern-bg) */}
+      <div className="hero-pattern-bg absolute inset-0 -z-[20]" aria-hidden />
+
       {/* Hintergrundbild / Video */}
       {backgroundImage?.url && (
         <Image
@@ -123,9 +126,12 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         </video>
       )}
 
+      {/* Farbiges Radial-Overlay über dem Hintergrund (mehrlagiger Glow vom unteren Rand) */}
+      <div className="hero-background-overlay" aria-hidden />
+
       {/* Overlay – nur Opacity, kein festes Layout (vermeidet Hydration-Mismatch) */}
       <div
-        className="absolute top-0 left-0 right-0 w-full h-fit -z-[10] bg-background"
+        className="absolute top-0 left-0 right-0 w-full h-fit -z-[5] bg-background"
         style={{ opacity: Number(overlayOpacity) ?? 0.42 }}
         aria-hidden
       />
@@ -243,10 +249,10 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         )}
       </div>
 
-      {/* Vordergrundbild: unten rechts, responsive Breite/Höhe */}
+      {/* Vordergrundbild: unten rechts, responsive Breite/Höhe (zählt zur Höhe des Heros) */}
       {foregroundImage && getMediaUrlSafe(foregroundImage) && (
         <div
-          className="absolute bottom-0 right-0 z-[-10] w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] flex justify-end items-end overflow-x-hidden pointer-events-none hero-portrait-sm hero-simple-portrait"
+          className="absolute bottom-0 right-0 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] flex justify-end items-end overflow-x-hidden pointer-events-none hero-portrait-sm hero-simple-portrait"
           style={{ width: '100%' }}
         >
           <Image
@@ -308,7 +314,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           className="absolute bottom-0 left-0 w-full"
           viewBox="0 0 1200 120"
           preserveAspectRatio="none"
-          style={{ height: '100%', opacity: 0.5, transform: 'translateX(10%)' }}
+          style={{ height: '100%', opacity: 0.5 }}
         >
           <path
             d="M0,32 C250,59 500,22 750,56 C1000,26 1200,62 1200,62 L1200,120 L0,120 Z"

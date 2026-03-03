@@ -138,7 +138,7 @@
   /* Hero-Offset: sorgt dafür, dass Hero-Content erst unterhalb der Header-Höhe + 10vh beginnt,
      damit sich Header- und Hero-Inhalte nicht überlappen. */
   .hero-offset {
-    padding-top: calc(var(--header-height) + 10vh);
+    padding-top: max(calc(var(--header-height) + 10vh), 180px);
   }
 
   /* Sehr kleine Viewports (< 430px): Abstand etwas reduzieren,
@@ -172,6 +172,7 @@
   .hero-simple-portrait-img {
     transition: box-shadow 200ms ease-out, transform 200ms ease-out;
     box-sizing: content-box;
+    vertical-align: top;
   }
 
   /* Light Mode: dezenter Schlagschatten, leicht aufgehellter Rand */
@@ -212,10 +213,24 @@
 
   /* Hero-Verlauf (Default): im Light Theme von Weiß → transparent, im Dark Theme von Schwarz → transparent. */
   .hero-box-gradient {
-    background: linear-gradient(39.2deg, #ffffff 45%, transparent 72%);
+    background: linear-gradient(39deg, rgba(255, 255, 255, 1) 45%, rgba(0, 0, 0, 0) 72%);
   }
   [data-theme='dark'] .hero-box-gradient {
     background: linear-gradient(39deg, rgba(10, 10, 10, 1) 51%, rgba(0, 0, 0, 0) 72%);
+  }
+
+  /* Hero-Hintergrund-Overlay: dezente, mehrlagige Radial-Verläufe vom unteren Rand aus.
+     Wird als zusätzlicher Layer über Hintergrundbild/-video gelegt. */
+  .hero-background-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: -4;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 50% 100%, rgba(70, 85, 110, 0.5) 0%, transparent 60%),
+      radial-gradient(circle at 50% 100%, rgba(99, 102, 241, 0.4) 0%, transparent 70%),
+      radial-gradient(circle at 50% 100%, rgba(181, 184, 208, 0.3) 0%, transparent 80%);
+    background-repeat: no-repeat;
   }
 
   /* Hero-Box: edler Glow + im Light Mode Schlagschatten am unteren Rand.
@@ -914,102 +929,102 @@
   .hero-pattern-bg {
     width: 100%;
     height: 100%;
-    opacity: 0.5;
+    opacity: 0.25;
     background:
       radial-gradient(
         circle farthest-side at 0% 50%,
-        #fb1 23.5%,
-        rgba(240, 166, 17, 0) 0
+        #282828 23.5%,
+        rgba(0, 0, 0, 0) 0
       )
       21px 30px,
       radial-gradient(
         circle farthest-side at 0% 50%,
-        #b71 24%,
-        rgba(240, 166, 17, 0) 0
+        #4a4a4a 24%,
+        rgba(0, 0, 0, 0) 0
       )
       19px 30px,
       linear-gradient(
-        #fb1 14%,
-        rgba(240, 166, 17, 0) 0,
-        rgba(240, 166, 17, 0) 85%,
-        #fb1 0
+        #282828 14%,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 85%,
+        #282828 0
       )
       0 0,
       linear-gradient(
         150deg,
-        #fb1 24%,
-        #b71 0,
-        #b71 26%,
-        rgba(240, 166, 17, 0) 0,
-        rgba(240, 166, 17, 0) 74%,
-        #b71 0,
-        #b71 76%,
-        #fb1 0
+        #282828 24%,
+        #4a4a4a 0,
+        #4a4a4a 26%,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 74%,
+        #4a4a4a 0,
+        #4a4a4a 76%,
+        #282828 0
       )
       0 0,
       linear-gradient(
         30deg,
-        #fb1 24%,
-        #b71 0,
-        #b71 26%,
-        rgba(240, 166, 17, 0) 0,
-        rgba(240, 166, 17, 0) 74%,
-        #b71 0,
-        #b71 76%,
-        #fb1 0
+        #282828 24%,
+        #4a4a4a 0,
+        #4a4a4a 26%,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 74%,
+        #4a4a4a 0,
+        #4a4a4a 76%,
+        #282828 0
       )
       0 0,
-      linear-gradient(90deg, #b71 2%, #fb1 0, #fb1 98%, #b71 0%) 0 0 #fb1;
+      linear-gradient(90deg, #4a4a4a 2%, #282828 0, #282828 98%, #4a4a4a 0%) 0 0 #282828;
     background-size: 40px 60px;
   }
   /* Hero-Pattern Light Theme: aufgehelltes Graustufen-Muster */
   [data-theme='light'] .hero-pattern-bg {
-    opacity: 0.5;
+    opacity: 0.25;
     background:
       radial-gradient(
         circle farthest-side at 0% 50%,
-        #fb1 23.5%,
-        rgba(240, 166, 17, 0) 0
+        #d4d4d4 23.5%,
+        rgba(255, 255, 255, 0) 0
       )
       21px 30px,
       radial-gradient(
         circle farthest-side at 0% 50%,
-        #b71 24%,
-        rgba(240, 166, 17, 0) 0
+        #a3a3a3 24%,
+        rgba(255, 255, 255, 0) 0
       )
       19px 30px,
       linear-gradient(
-        #fb1 14%,
-        rgba(240, 166, 17, 0) 0,
-        rgba(240, 166, 17, 0) 85%,
-        #fb1 0
+        #d4d4d4 14%,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0) 85%,
+        #d4d4d4 0
       )
       0 0,
       linear-gradient(
         150deg,
-        #fb1 24%,
-        #b71 0,
-        #b71 26%,
-        rgba(240, 166, 17, 0) 0,
-        rgba(240, 166, 17, 0) 74%,
-        #b71 0,
-        #b71 76%,
-        #fb1 0
+        #d4d4d4 24%,
+        #a3a3a3 0,
+        #a3a3a3 26%,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0) 74%,
+        #a3a3a3 0,
+        #a3a3a3 76%,
+        #d4d4d4 0
       )
       0 0,
       linear-gradient(
         30deg,
-        #fb1 24%,
-        #b71 0,
-        #b71 26%,
-        rgba(240, 166, 17, 0) 0,
-        rgba(240, 166, 17, 0) 74%,
-        #b71 0,
-        #b71 76%,
-        #fb1 0
+        #d4d4d4 24%,
+        #a3a3a3 0,
+        #a3a3a3 26%,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0) 74%,
+        #a3a3a3 0,
+        #a3a3a3 76%,
+        #d4d4d4 0
       )
       0 0,
-      linear-gradient(90deg, #b71 2%, #fb1 0, #fb1 98%, #b71 0%) 0 0 #fb1;
+      linear-gradient(90deg, #a3a3a3 2%, #d4d4d4 0, #d4d4d4 98%, #a3a3a3 0%) 0 0 #e5e5e5;
     background-size: 40px 60px;
   }
 
