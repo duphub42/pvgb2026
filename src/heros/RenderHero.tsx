@@ -5,6 +5,7 @@ import { HighImpactHero } from '@/heros/HighImpact'
 import { MediumImpactHero } from '@/heros/MediumImpact'
 import { LowImpactHero } from '@/heros/LowImpact'
 import { PhilippBacherHero } from '@/heros/PhilippBacher'
+import { PhilippBacherHeroSimple } from '@/heros/PhilippBacher/PhilippBacherHeroSimple'
 import { GridHero } from '@/heros/GridHero'
 import SimpleHero from '@/heros/SimpleHero'
 import { Hero75 } from '@/components/hero75'
@@ -57,7 +58,8 @@ const heroes = {
   highImpact: HighImpactHero,
   mediumImpact: MediumImpactHero,
   lowImpact: LowImpactHero,
-  philippBacher: PhilippBacherHero,
+  // philippBacher: PhilippBacherHero,
+  philippBacher: PhilippBacherHeroSimple,
   gridHero: GridHero,
   simpleHero: SimpleHero,
   hero75: Hero75,
