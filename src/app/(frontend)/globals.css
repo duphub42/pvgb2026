@@ -56,9 +56,13 @@
   h4,
   h5,
   h6 {
+    margin: 0;
     font-weight: unset;
     font-size: unset;
     font-family: var(--font-heading);
+  }
+  h1 {
+    @apply text-4xl font-medium tracking-tighter leading-tight md:text-6xl md:leading-[1.1] lg:text-7xl;
   }
   img {
     max-width: 100%;
@@ -131,6 +135,71 @@
     overflow-x: visible;
   }
 
+  /* Hero-Offset: sorgt dafür, dass Hero-Content erst unterhalb der Header-Höhe + 10vh beginnt,
+     damit sich Header- und Hero-Inhalte nicht überlappen. */
+  .hero-offset {
+    padding-top: calc(var(--header-height) + 10vh);
+  }
+
+  /* Sehr kleine Viewports (< 430px): Abstand etwas reduzieren,
+     damit mehr Platz für den Hero-Content bleibt. */
+  @media (max-width: 429px) {
+    .hero-offset {
+      padding-top: calc(var(--header-height) + 1vh);
+    }
+  }
+
+  /* Viewports unter 555px: Hero-Portrait skalieren und Verlauf anpassen:
+     Winkel 0° und transparenter Bereich um 15% reduziert (72% → 57%). */
+  @media (max-width: 554px) {
+    .hero-portrait-sm {
+      transform: scale(1.33);
+      transform-origin: bottom right;
+    }
+    .hero-box-gradient {
+      background: linear-gradient(0deg, #ffffff 45%, transparent 57%);
+    }
+    [data-theme='dark'] .hero-box-gradient {
+      background: linear-gradient(0.4deg, rgba(0, 0, 0, 1) 53%, rgba(0, 0, 0, 0.8) 80%, rgba(0, 0, 0, 0) 87%);
+    }
+  }
+
+  /* Einfaches Hero-Portrait (PhilippBacherHeroSimple):
+     - Edler Schlagschatten im Light Mode
+     - Edler Glow im Dark Mode
+     - Desktop: Bild zentriert sich an der Hero-Mitte und sitzt ca. 15% rechts davon
+  */
+  .hero-simple-portrait-img {
+    transition: box-shadow 200ms ease-out, transform 200ms ease-out;
+    box-sizing: content-box;
+  }
+
+  /* Light Mode: dezenter Schlagschatten, leicht aufgehellter Rand */
+  .hero-simple-portrait-img {
+    box-shadow:
+      0 18px 40px rgba(0, 0, 0, 0.24),
+      0 8px 24px rgba(0, 0, 0, 0.16),
+      0 0 0 1px rgba(255, 255, 255, 0.18);
+  }
+
+  /* Dark Mode: weicher Glow, weniger „harte“ Schatten */
+  [data-theme='dark'] .hero-simple-portrait-img {
+    box-shadow:
+      0 0 40px rgba(255, 255, 255, 0.14),
+      0 0 80px rgba(255, 255, 255, 0.1),
+      0 0 0 1px rgba(255, 255, 255, 0.2);
+  }
+
+  /* Desktop: Bild-Mittelpunkt bei ca. 65% der Hero-Breite (50% Mitte + 15% nach rechts),
+     ohne über den rechten Inhaltsrand hinauszuragen. */
+  @media (min-width: 1024px) {
+    .hero-simple-portrait {
+      right: auto;
+      left: 72%;
+      transform: translateX(-50%);
+    }
+  }
+
   /* Folgesection: oberer Rand transparent (Shape-Divider sichtbar), darunter Verlauf → deckend, kaschiert nur den Schatten unterhalb des Heros. */
   .hero-following-section-mask {
     background: linear-gradient(
@@ -139,6 +208,14 @@
       transparent 2.5rem,
       var(--background) 4rem
     );
+  }
+
+  /* Hero-Verlauf (Default): im Light Theme von Weiß → transparent, im Dark Theme von Schwarz → transparent. */
+  .hero-box-gradient {
+    background: linear-gradient(39.2deg, #ffffff 45%, transparent 72%);
+  }
+  [data-theme='dark'] .hero-box-gradient {
+    background: linear-gradient(39deg, rgba(0, 0, 0, 1) 51%, rgba(0, 0, 0, 0) 72%);
   }
 
   /* Hero-Box: edler Glow + im Light Mode Schlagschatten am unteren Rand.
