@@ -103,7 +103,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       <HeroBackgroundPresetLayer preset={backgroundPreset} />
 
       {/* Honeycomb-Hintergrund (hero-pattern-bg) */}
-      <div className="hero-pattern-bg absolute inset-0 -z-[20]" aria-hidden />
+      <div className="hero-pattern-bg absolute inset-0 -z-[21]" aria-hidden />
 
       {/* Hintergrundbild / Video */}
       {backgroundImage?.url && (
