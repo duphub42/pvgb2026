@@ -16,7 +16,6 @@ import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React from 'react'
 import { motion } from 'motion/react'
-import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 import type { HeroBackground } from '@/payload-types'
 
 // -------------------------------
@@ -96,9 +95,6 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
   return (
     <section className="relative w-full min-h-0 h-fit flex flex-col justify-start items-start overflow-visible text-foreground hero-offset">
-      {/* Hintergrund-Preset-Layer aus Payload (z. B. cssHalo, patternSquare) */}
-      <HeroBackgroundPresetLayer preset={backgroundPreset} />
-
       {/* Hintergrundbild / Video */}
       {backgroundImage?.url && (
         <Image
@@ -129,7 +125,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
       {/* Haupt-Content: flussbasiert, Padding skaliert mit Breakpoints */}
       <div
-        className="relative z-10 container max-w-6xl mx-auto px-4 md:px-6 py-8 sm:py-10 md:py-12 lg:py-16 text-left flex flex-col items-start justify-center w-full gap-0 hero-box-gradient"
+        className="relative z-10 container max-w-6xl mx-auto px-4 md:px-6 py-8 sm:py-10 md:py-12 lg:py-16 text-left flex flex-col items-start justify-end w-full gap-0 hero-box-gradient"
         style={{
           width: 'fit-content',
           height: 'fit-content',
@@ -191,7 +187,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
         {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
           <div
-            className="mt-6 md:mt-8 w-full border-t border-border flex flex-col items-stretch px-4 py-3 md:py-4 gap-3 box-content"
+            className="mt-6 md:mt-8 w-full lg:max-w-[50%] border-t border-border flex flex-col items-stretch px-4 py-3 md:py-4 gap-3 box-content"
             style={{ backdropFilter: 'none', background: 'unset', backgroundColor: 'rgba(255,255,255,0)' }}
           >
             {marqueeHeadline && (

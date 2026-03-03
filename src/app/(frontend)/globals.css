@@ -149,6 +149,15 @@
     }
   }
 
+  /* Extra-kleine Viewports (< 400px): Hero direkt unter den Header legen
+     und so hoch ziehen, dass nach Möglichkeit der Marquee unter den Fold rutscht. */
+  @media (max-width: 399px) {
+    .hero-offset {
+      padding-top: var(--header-height);
+      min-height: calc(100vh - var(--header-height));
+    }
+  }
+
   /* Viewports unter 555px: Hero-Portrait skalieren und Verlauf anpassen:
      Winkel 0° und transparenter Bereich um 15% reduziert (72% → 57%). */
   @media (max-width: 554px) {
