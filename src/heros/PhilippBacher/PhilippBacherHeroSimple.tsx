@@ -288,7 +288,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
         {/* Beschreibung: Wort für Wort von links nach rechts */}
         {description && (
-          <p className="text-base md:text-lg text-muted-foreground text-left max-w-[268px] mx-0 w-fit mt-4 mb-4 flex flex-wrap gap-x-[0.35em] gap-y-0">
+          <p className="text-base md:text-lg text-muted-foreground text-left min-w-[337px] mx-0 w-fit h-fit mt-4 mb-4 flex flex-wrap gap-x-[0.35em] gap-y-0">
             {description.split(/\s+/).map((word, idx) => (
               <span
                 key={idx}
@@ -334,7 +334,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           >
             {marqueeHeadline && (
               <span
-                className="text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-muted-foreground mt-[3px] mb-[3px] inline-flex flex-wrap"
+                className="text-[0.47rem] font-semibold uppercase tracking-[0.25em] text-muted-foreground mt-[3px] mb-[3px] inline-flex flex-wrap"
                 role="presentation"
                 aria-label={marqueeHeadline}
               >
