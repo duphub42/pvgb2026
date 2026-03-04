@@ -329,7 +329,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         {/* Marquee: Überschrift Buchstabe für Buchstabe, dann Logos von unten mit Pause */}
         {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
           <div
-            className="relative z-[40] mt-6 md:mt-8 w-full md:max-w-[60%] flex flex-col items-stretch px-0 py-0 md:py-0 gap-3 box-content"
+            className="relative z-[40] mt-6 md:mt-8 w-full flex flex-col items-stretch px-0 py-0 md:py-0 gap-3 box-content"
             style={MARQUEE_CONTAINER_STYLE}
           >
             {marqueeHeadline && (
