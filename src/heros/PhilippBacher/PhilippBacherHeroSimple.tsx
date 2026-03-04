@@ -101,12 +101,28 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
     try {
       const header = document.querySelector('header')
       const img = document.querySelector('.hero-simple-portrait-img')
+      const hero = document.querySelector('.hero-offset')
+      const following = document.querySelector('.hero-following-section-mask')
 
       if (!header || !img) return
 
       const headerRect = header.getBoundingClientRect()
       const imgRect = (img as HTMLElement).getBoundingClientRect()
       const overlapsHeader = imgRect.top < headerRect.bottom
+
+      const heroRect = hero ? (hero as HTMLElement).getBoundingClientRect() : null
+      const followingRect = following
+        ? (following as HTMLElement).getBoundingClientRect()
+        : null
+
+      const payloadBase = {
+        sessionId: '04eb8f',
+        runId: 'pre-fix',
+        location: 'PhilippBacherHeroSimple.tsx:geometry',
+        viewportHeight: window.innerHeight,
+        viewportWidth: window.innerWidth,
+        timestamp: Date.now(),
+      }
 
       fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
         method: 'POST',
@@ -115,21 +131,36 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           'X-Debug-Session-Id': '04eb8f',
         },
         body: JSON.stringify({
-          sessionId: '04eb8f',
-          runId: 'pre-fix',
+          ...payloadBase,
           hypothesisId: 'H-position',
-          location: 'PhilippBacherHeroSimple.tsx:header-vs-hero',
           message: 'Hero image vs header overlap check',
           data: {
             headerBottom: headerRect.bottom,
             imgTop: imgRect.top,
             overlapsHeader,
-            viewportHeight: window.innerHeight,
-            viewportWidth: window.innerWidth,
           },
-          timestamp: Date.now(),
         }),
       }).catch(() => {})
+
+      if (followingRect || heroRect) {
+        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Debug-Session-Id': '04eb8f',
+          },
+          body: JSON.stringify({
+            ...payloadBase,
+            hypothesisId: 'H-bottom',
+            message: 'Hero image vs following section overlap check',
+            data: {
+              imgBottom: imgRect.bottom,
+              heroBottom: heroRect?.bottom ?? null,
+              followingTop: followingRect?.top ?? null,
+            },
+          }),
+        }).catch(() => {})
+      }
     } catch {
       // bewusst kein Throw im Debug-Log
     }
@@ -193,7 +224,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         }}
       >
         {subheadline && (
-          <p className="text-xs md:text-sm uppercase tracking-[0.25em] text-muted-foreground w-fit">
+          <p className="hero-subheadline-badge text-xs md:text-sm uppercase tracking-[0.25em] text-muted-foreground w-fit">
             {subheadline}
           </p>
         )}
