@@ -105,7 +105,6 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       const heroBox = document.querySelector('.hero-box-gradient')
       const shapeDividers = document.querySelectorAll('.hero-shape-divider')
       const heroForegroundContainer = document.querySelector('.hero-foreground-container')
-      const heroPortraitWrapper = document.querySelector('.hero-portrait-wrapper')
       const following = document.querySelector('.hero-following-section-mask')
 
       if (!header || !img) return
@@ -220,6 +219,37 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         }).catch(() => {})
       }
 
+      // Mobile-Bottom-Alignment: Hero-Section vs. Hero-Box (Layer) relativ zum Viewport
+      if (hero && heroBox) {
+        const heroSectionRect = (hero as HTMLElement).getBoundingClientRect()
+        const heroBoxRectMobile = (heroBox as HTMLElement).getBoundingClientRect()
+
+        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Debug-Session-Id': 'ffd420',
+          },
+          body: JSON.stringify({
+            sessionId: 'ffd420',
+            runId: 'pre-fix',
+            hypothesisId: 'H-mobile-bottom-align',
+            location: 'PhilippBacherHeroSimple.tsx:hero-mobile-bottom',
+            message: 'Hero section and hero-box positioning vs viewport',
+            timestamp: Date.now(),
+            data: {
+              viewportWidth: window.innerWidth,
+              viewportHeight: window.innerHeight,
+              heroTop: heroSectionRect.top,
+              heroBottom: heroSectionRect.bottom,
+              heroBoxTop: heroBoxRectMobile.top,
+              heroBoxBottom: heroBoxRectMobile.bottom,
+              bottomGapToViewport: window.innerHeight - heroBoxRectMobile.bottom,
+            },
+          }),
+        }).catch(() => {})
+      }
+
       // Shape-Divider vs. Hero-Box: Z-Index und vertikale Überlappung
       if (heroBox && shapeDividers.length > 0) {
         const heroBoxRect2 = (heroBox as HTMLElement).getBoundingClientRect()
@@ -295,24 +325,26 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
         // Korrektur:
         // - Standard: Bild so weit nach links verschieben, dass es nicht über den rechten Viewportrand hinausläuft
-        // - Unter 555px Breite: Bild ca. 10 % seiner Breite nach rechts und 8 % seiner Höhe nach oben verschieben
+        // - Unter 555px Breite: Bild ca. 10 % seiner Breite nach rechts und ca. 18 % seiner Höhe nach oben verschieben
+        //   und zusätzlich auf 1.33x vergrößern, damit es höher und präsenter im Hero sitzt.
         let appliedShiftX = 0
         let appliedShiftY = 24
         const overflowRight = imgRectBefore.right - window.innerWidth
         const isVeryNarrow = window.innerWidth < 555
 
-        if (heroPortraitWrapper) {
-          if (isVeryNarrow) {
-            // 10 % nach rechts und 8 % nach oben verschieben, Beschnitt rechts ist erlaubt
-            appliedShiftX = imgRectBefore.width * 0.1
-            appliedShiftY = -imgRectBefore.height * 0.08
-          } else if (overflowRight > 0) {
-            // Nur bei größeren Viewports Clamp nach links
-            appliedShiftX = -overflowRight
-          }
+        let scale = 1
 
-          ;(heroPortraitWrapper as HTMLElement).style.transform = `translate(${appliedShiftX}px, ${appliedShiftY}px)`
+        if (isVeryNarrow) {
+          // 10 % nach rechts und ~18 % nach oben verschieben, Beschnitt rechts ist erlaubt
+          appliedShiftX = imgRectBefore.width * 0.1
+          appliedShiftY = -imgRectBefore.height * 0.18
+          scale = 1.33
+        } else if (overflowRight > 0) {
+          // Nur bei größeren Viewports Clamp nach links
+          appliedShiftX = -overflowRight
         }
+
+        imgEl.style.transform = `translate(${appliedShiftX}px, ${appliedShiftY}px) scale(${scale})`
 
         const imgRectAfter = imgEl.getBoundingClientRect()
 
@@ -352,7 +384,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
   return (
     <section
-      className="relative w-full min-h-0 h-fit flex flex-col justify-start items-start overflow-visible text-foreground hero-offset"
+      className="relative w-full min-h-0 h-fit flex flex-col justify-end md:justify-start items-start overflow-visible text-foreground hero-offset"
       style={{ backgroundColor: 'unset', background: 'unset' }}
     >
       {/* Hintergrund-Preset-Layer aus Payload (z. B. cssHalo, patternSquare) */}
@@ -499,18 +531,14 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {foregroundImage && getMediaUrlSafe(foregroundImage) && (
         <div className="pointer-events-none w-full">
           <div className="relative max-w-6xl mx-auto hero-foreground-container">
-            <div
-              className="absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] flex justify-start items-start overflow-visible hero-portrait-sm hero-simple-portrait hero-portrait-wrapper pb-16 pl-0 md:z-20"
-              style={{ width: '100%', transform: 'translateY(40px)' }}
-            >
-              <Image
-                src={getMediaUrlSafe(foregroundImage)}
-                alt=""
-                width={414}
-                height={600}
-                className="hero-simple-portrait-img flex flex-wrap box-content align-bottom w-full h-fit object-contain object-bottom"
-              />
-            </div>
+            <Image
+              src={getMediaUrlSafe(foregroundImage)}
+              alt=""
+              width={414}
+              height={600}
+              className="hero-simple-portrait-img hero-portrait-sm hero-simple-portrait absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] box-content h-fit object-contain object-bottom md:z-20"
+              style={{ transform: 'translateY(40px)' }}
+            />
           </div>
         </div>
       )}
