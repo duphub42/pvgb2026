@@ -138,12 +138,10 @@
   /* Hero-Offset: sorgt dafür, dass Hero-Content erst unterhalb der Header-Höhe + 10vh beginnt,
      damit sich Header- und Hero-Inhalte nicht überlappen.
      Zusätzlich:
-     - margin-top: zieht den gesamten Hero-Hintergrund bis zum Browserkopf hoch (unter den Header)
-     - overflow: hidden; verhindert, dass Schatten/Content nach unten in die Folgesektion „ausbrechen“. */
+     - margin-top: zieht den gesamten Hero-Hintergrund bis zum Browserkopf hoch (unter den Header) */
   .hero-offset {
     padding-top: max(calc(var(--header-height) + 10vh), 180px);
     margin-top: calc(-1 * var(--header-height));
-    overflow: hidden;
   }
 
   /* Sehr kleine Viewports (< 430px): Abstand etwas reduzieren,
@@ -152,7 +150,6 @@
     .hero-offset {
       padding-top: calc(var(--header-height) + 1vh);
       margin-top: calc(-1 * var(--header-height));
-      overflow: hidden;
     }
   }
 
@@ -186,6 +183,14 @@
     box-shadow: none;
     background: transparent;
     overflow: visible;
+  }
+
+  /* Desktop: Herobild soll nicht in den Header hineinragen:
+     zusätzlicher Top-Padding-Abstand entsprechend Header-Höhe. */
+  @media (min-width: 1024px) {
+    .hero-simple-portrait {
+      padding-top: calc(var(--header-height) + 6rem);
+    }
   }
 
   /* Einfaches Hero-Portrait (PhilippBacherHeroSimple):

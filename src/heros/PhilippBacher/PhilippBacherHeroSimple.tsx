@@ -14,7 +14,7 @@ import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip
 import { cn } from '@/utilities/ui'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { motion } from 'motion/react'
 import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 import type { HeroBackground } from '@/payload-types'
@@ -93,6 +93,48 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   const lines = [headlineLine1, headlineLine2, headlineLine3].filter(Boolean) as string[]
   const hasLines = lines.length >= 1
   const headlineText = hasLines ? undefined : headline
+
+  // #region agent log
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    try {
+      const header = document.querySelector('header')
+      const img = document.querySelector('.hero-simple-portrait-img')
+
+      if (!header || !img) return
+
+      const headerRect = header.getBoundingClientRect()
+      const imgRect = (img as HTMLElement).getBoundingClientRect()
+      const overlapsHeader = imgRect.top < headerRect.bottom
+
+      fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-Debug-Session-Id': '04eb8f',
+        },
+        body: JSON.stringify({
+          sessionId: '04eb8f',
+          runId: 'pre-fix',
+          hypothesisId: 'H-position',
+          location: 'PhilippBacherHeroSimple.tsx:header-vs-hero',
+          message: 'Hero image vs header overlap check',
+          data: {
+            headerBottom: headerRect.bottom,
+            imgTop: imgRect.top,
+            overlapsHeader,
+            viewportHeight: window.innerHeight,
+            viewportWidth: window.innerWidth,
+          },
+          timestamp: Date.now(),
+        }),
+      }).catch(() => {})
+    } catch {
+      // bewusst kein Throw im Debug-Log
+    }
+  }, [])
+  // #endregion agent log
 
   return (
     <section
@@ -200,7 +242,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
         {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
           <div
-            className="mt-6 md:mt-8 w-full md:max-w-[60%] flex flex-col items-stretch px-4 py-3 md:py-4 gap-3 box-content"
+            className="relative z-[40] mt-6 md:mt-8 w-full md:max-w-[60%] flex flex-col items-stretch px-4 py-3 md:py-4 gap-3 box-content"
             style={{
               backdropFilter: 'none',
               background: 'unset',
@@ -252,7 +294,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Vordergrundbild: unten rechts, responsive Breite/Höhe (zählt zur Höhe des Heros) */}
       {foregroundImage && getMediaUrlSafe(foregroundImage) && (
         <div
-          className="absolute bottom-0 right-0 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] flex justify-start items-start overflow-visible pointer-events-none hero-portrait-sm hero-simple-portrait pt-0 pb-16 pl-0"
+          className="absolute bottom-0 right-0 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] flex justify-start items-start overflow-visible pointer-events-none hero-portrait-sm hero-simple-portrait pb-16 pl-0 md:z-20"
           style={{ width: '100%' }}
         >
           <Image
@@ -281,7 +323,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
       {/* Wellen-Shape-Divider: 2 Wellen, unterschiedliche Amplituden, steigt von rechts nach links, 10vh */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[2] w-full hero-shape-divider"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[30] w-full hero-shape-divider"
         style={{ height: '10vh' }}
         aria-hidden
       >
@@ -306,7 +348,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
       {/* Zweiter Shape-Divider: leicht größer, halbtransparent, horizontal versetzt */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[1] w-full hero-shape-divider"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[29] w-full hero-shape-divider"
         style={{ height: 'calc(10vh + 15px)' }}
         aria-hidden
       >
