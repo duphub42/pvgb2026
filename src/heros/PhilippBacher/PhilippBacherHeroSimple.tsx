@@ -526,7 +526,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                       <img
                         src={url}
                         alt={logo?.alt ?? ''}
-                        className="h-8 md:h-10 w-auto max-h-12 object-contain opacity-90"
+                        className="w-auto max-w-[88px] h-auto max-h-[33px] object-contain opacity-90"
                         loading="lazy"
                         decoding="async"
                       />

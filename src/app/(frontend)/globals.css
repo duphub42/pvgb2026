@@ -236,10 +236,10 @@
     .hero-box-gradient {
       margin-top: 0;
       background: linear-gradient(
-        8.4deg,
-        rgba(255, 255, 255, 1) 51%,
-        rgba(255, 255, 255, 0.7) 82%,
-        rgba(223, 17, 17, 0) 93%
+        8.1deg,
+        rgba(255, 255, 255, 1) 55%,
+        rgba(255, 255, 255, 0.7) 78%,
+        rgba(223, 17, 17, 0) 94%
       );
     }
     [data-theme='dark'] .hero-box-gradient {
@@ -249,6 +249,14 @@
         rgba(10, 10, 10, 0.7) 82%,
         rgba(10, 10, 10, 0) 93%
       );
+    }
+  }
+
+  /* iPhone SE und kleiner: Hero-Bild nicht vergrößern (100% Skalierung). */
+  @media (max-width: 375px) {
+    .hero-portrait-sm {
+      transform: scale(1);
+      transform-origin: bottom right;
     }
   }
 
