@@ -5,10 +5,26 @@ import { CMSLink } from '@/components/Link'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { getMediaUrlSafe } from '@/utils/media'
 import { Marquee } from '@/components/ui/marquee'
+import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import type { ComponentProps } from 'react'
 import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 import type { HeroBackground } from '@/payload-types'
+
+/** Verzögerungen (ms) für die Hero-Enter-Animationen: Headline (Scramble) → Beschreibung (Wort für Wort) → CTAs (Pop) → Marquee-Überschrift (Buchstabe) → Marquee-Logos (Pop) → Subheadline (Slide up). */
+const HERO_ANIM = {
+  headlineScramble: { staggerMs: 48, scrambleDurationMs: 420, lineDelayMs: 680 },
+  descStartMs: 2600,
+  descWordMs: 88,
+  ctaStartMs: 3800,
+  marqueeHeadlineStartMs: 4200,
+  marqueeLetterMs: 38,
+  marqueeLogosStartMs: 6000,
+  marqueeLogoMs: 95,
+  subheadlineStartMs: 7200,
+  portraitDelayMs: 280,
+  portraitDurationMs: 1800,
+} as const
 
 // -------------------------------
 // Typdefinitionen für Props (Payload-kompatibel)
@@ -243,37 +259,63 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
       {/* Haupt-Content */}
       <div className="relative z-[40] container max-w-6xl mx-auto px-4 md:px-6 py-8 sm:py-10 md:py-12 lg:py-16 text-left flex flex-col items-start justify-center w-full gap-0 hero-box-gradient md:translate-y-[4vh]">
+        {/* Subheadline: blendet als Letztes von unten nach oben ein */}
         {subheadline && (
-          <p className="hero-subheadline-badge text-xs md:text-sm uppercase tracking-[0.25em] text-muted-foreground w-fit">
+          <p
+            className="hero-subheadline-badge hero-reveal-subheadline text-xs md:text-sm uppercase tracking-[0.25em] text-muted-foreground w-fit"
+            style={{ animationDelay: `${HERO_ANIM.subheadlineStartMs}ms` }}
+          >
             {subheadline}
           </p>
         )}
 
-        {/* Headline: immer genau ein <h1>, weitere Zeilen als <span> */}
+        {/* Headline: Scramble-Effekt, Zeile für Zeile mit Stagger */}
         {hasLines ? (
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit">
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline">
             {lines.map((line, idx) => (
               <span key={idx} className="block">
-                {line}
+                <ScrambleText
+                  text={line}
+                  staggerMs={HERO_ANIM.headlineScramble.staggerMs}
+                  scrambleDurationMs={HERO_ANIM.headlineScramble.scrambleDurationMs}
+                  delayMs={idx * HERO_ANIM.headlineScramble.lineDelayMs}
+                />
               </span>
             ))}
           </h1>
         ) : (
           headlineText && (
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit">
-              {headlineText}
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline">
+              <ScrambleText
+                text={headlineText}
+                staggerMs={HERO_ANIM.headlineScramble.staggerMs}
+                scrambleDurationMs={HERO_ANIM.headlineScramble.scrambleDurationMs}
+              />
             </h1>
           )
         )}
+
+        {/* Beschreibung: Wort für Wort von links nach rechts */}
         {description && (
-          <p className="text-base md:text-lg text-muted-foreground text-left max-w-[268px] mx-0 w-fit mt-4 mb-4">
-            {description}
+          <p className="text-base md:text-lg text-muted-foreground text-left max-w-[268px] mx-0 w-fit mt-4 mb-4 flex flex-wrap gap-x-[0.35em] gap-y-0">
+            {description.split(/\s+/).map((word, idx) => (
+              <span
+                key={idx}
+                className="hero-reveal-word inline-block"
+                style={{ animationDelay: `${HERO_ANIM.descStartMs + idx * HERO_ANIM.descWordMs}ms` }}
+              >
+                {word}
+              </span>
+            ))}
           </p>
         )}
 
-        {/* CTA-Links */}
+        {/* CTA-Links: poppen nach der Beschreibung */}
         {Array.isArray(links) && links.length > 0 && (
-          <div className="flex flex-wrap gap-3 sm:gap-4 justify-center md:justify-start w-fit">
+          <div
+            className="flex flex-wrap gap-3 sm:gap-4 justify-center md:justify-start w-fit hero-reveal-pop"
+            style={{ animationDelay: `${HERO_ANIM.ctaStartMs}ms` }}
+          >
             {links.map((linkItem, idx) => {
               if (!linkItem?.link) return null
               const { reference: _ref, ...link } = linkItem.link
@@ -281,7 +323,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
               return (
                 <CMSLink
                   key={idx}
-                {...link}
+                  {...link}
                   className={
                     isOutline
                       ? 'border border-border text-foreground hover:bg-accent hover:text-accent-foreground px-6 py-3 rounded-full font-medium transition'
@@ -293,15 +335,29 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           </div>
         )}
 
-        {/* Marquee */}
+        {/* Marquee: Überschrift Buchstabe für Buchstabe, dann Logos von unten mit Pause */}
         {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
           <div
             className="relative z-[40] mt-6 md:mt-8 w-full md:max-w-[60%] flex flex-col items-stretch px-0 py-0 md:py-0 gap-3 box-content"
             style={MARQUEE_CONTAINER_STYLE}
           >
             {marqueeHeadline && (
-              <span className="text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-muted-foreground mt-[3px] mb-[3px]">
-                {marqueeHeadline}
+              <span
+                className="text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-muted-foreground mt-[3px] mb-[3px] inline-flex flex-wrap"
+                role="presentation"
+                aria-label={marqueeHeadline}
+              >
+                {marqueeHeadline.split('').map((char, idx) => (
+                  <span
+                    key={idx}
+                    className="hero-reveal-letter inline-block"
+                    style={{
+                      animationDelay: `${HERO_ANIM.marqueeHeadlineStartMs + idx * HERO_ANIM.marqueeLetterMs}ms`,
+                    }}
+                  >
+                    {char === ' ' ? '\u00A0' : char}
+                  </span>
+                ))}
               </span>
             )}
             {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && (
@@ -312,12 +368,15 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                   return (
                     <div
                       key={idx}
-                      className="flex h-8 md:h-10 min-w-[4rem] shrink-0 items-center justify-center"
+                      className="hero-logo-marquee-item hero-reveal-logo flex h-8 md:h-10 min-w-[4rem] shrink-0 items-center justify-center"
+                      style={{
+                        animationDelay: `${HERO_ANIM.marqueeLogosStartMs + idx * HERO_ANIM.marqueeLogoMs}ms`,
+                      }}
                     >
                       <img
                         src={url}
                         alt={logo?.alt ?? ''}
-                        className="w-auto max-w-[88px] h-auto max-h-[33px] object-contain opacity-90"
+                        className="hero-logo-grayscale w-auto max-w-[88px] h-auto max-h-[33px] object-contain"
                         loading="lazy"
                         decoding="async"
                       />
@@ -330,19 +389,27 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         )}
       </div>
 
-      {/* Vordergrundbild (Portrait) */}
+      {/* Vordergrundbild (Portrait): langsamer Fade-in von unten nach oben */}
       {foregroundImageUrl && (
         <div className="pointer-events-none w-full">
           <div className="relative max-w-6xl mx-auto hero-foreground-container">
-            <Image
-              ref={imgRef}
-              src={foregroundImageUrl}
-              alt={headlineText || subheadline || 'Portrait'}
-              width={414}
-              height={600}
-              className="hero-simple-portrait-img hero-portrait-sm hero-simple-portrait absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] box-content h-fit object-contain object-bottom md:z-20"
-              style={{ transform: portraitTransform }}
-            />
+            <div
+              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] box-content h-fit md:z-20"
+              style={{
+                animationDelay: `${HERO_ANIM.portraitDelayMs}ms`,
+                animationDuration: `${HERO_ANIM.portraitDurationMs}ms`,
+              }}
+            >
+              <Image
+                ref={imgRef}
+                src={foregroundImageUrl}
+                alt={headlineText || subheadline || 'Portrait'}
+                width={414}
+                height={600}
+                className="hero-simple-portrait-img hero-portrait-sm hero-simple-portrait w-full h-fit object-contain object-bottom"
+                style={{ transform: portraitTransform }}
+              />
+            </div>
           </div>
         </div>
       )}

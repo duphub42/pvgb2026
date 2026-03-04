@@ -515,7 +515,7 @@ export function MegaMenu({
       {/* Background Blur Overlay – 1:1 test2 */}
       <div
         className={cn(
-          'megamenu-overlay fixed inset-0 z-40 bg-background/20 backdrop-blur-md transition-all duration-500 pointer-events-none opacity-0',
+          'megamenu-overlay fixed inset-0 z-50 bg-background/20 backdrop-blur-md transition-all duration-500 pointer-events-none opacity-0',
           activeMenu != null && 'opacity-100 pointer-events-auto',
         )}
       />

@@ -64,12 +64,12 @@ const LogoColumn = React.memo(({ logos, index, currentTime, className }: LogoCol
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}
           transition={{ duration: 0.3 }}
-          className="flex h-full min-h-[5rem] w-[30%] min-w-[4rem] max-w-[7rem] items-center justify-center"
+          className="hero-logo-marquee-item flex h-full min-h-[5rem] w-[30%] min-w-[4rem] max-w-[7rem] items-center justify-center"
         >
           <img
             src={currentLogo.imgUrl}
             alt={currentLogo.alt ?? currentLogo.name}
-            className="hero-logo-grayscale h-auto max-h-full w-full object-contain opacity-95"
+            className="hero-logo-grayscale h-auto max-h-full w-full object-contain"
             loading="lazy"
             decoding="async"
           />

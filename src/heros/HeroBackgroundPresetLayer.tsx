@@ -8,8 +8,6 @@ export function HeroBackgroundPresetLayer({ preset }: { preset: Preset }) {
   if (!preset || typeof preset === 'number') return null
 
   const type = preset.type ?? 'cssHalo'
-  const intensity = typeof preset.intensity === 'number' ? preset.intensity : 1
-  const hue = typeof preset.hue === 'number' ? preset.hue : 220
   const patternColor1 =
     typeof preset.patternColor1 === 'string' && preset.patternColor1.trim() !== ''
       ? preset.patternColor1.trim()
@@ -20,8 +18,6 @@ export function HeroBackgroundPresetLayer({ preset }: { preset: Preset }) {
       : undefined
 
   const style: React.CSSProperties = {
-    ['--hero-orbit-intensity' as string]: String(intensity),
-    ['--hero-orbit-hue' as string]: String(hue),
     ...(patternColor1 && { ['--hero-pattern-c1' as string]: patternColor1 }),
     ...(patternColor2 && { ['--hero-pattern-c2' as string]: patternColor2 }),
   }

@@ -382,111 +382,6 @@
     bottom: -1px;
   }
 
-  /* Schwarzer Overlay: deaktiviert (kein zusätzliches „blurry“ Overlay mehr). */
-  .hero-overlay-base {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: none;
-  }
-  @media (min-width: 768px) {
-    .hero-overlay-base {
-      background: none;
-    }
-  }
-
-  /* Hero-Hintergrund-Overlay: deaktiviert, damit kein zusätzlicher weicher Abdunklungs-„Blur“ mehr über dem Hintergrund liegt. */
-  .hero-edge-darken {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background-image: none;
-    background-size: auto;
-    background-position: 0 0;
-    background-repeat: no-repeat;
-  }
-  @media (min-width: 768px) {
-    .hero-edge-darken {
-      background-image: none;
-    }
-  }
-
-  /* Hero: linker Verlauf (Theme – Dark = dunkel, Light = hell) */
-  .hero-left-gradient {
-    background: linear-gradient(to right, rgba(0, 0, 0, 0.8) 0, rgba(0, 0, 0, 0.6) 50%, transparent 100%);
-  }
-  [data-theme='light'] .hero-left-gradient {
-    background: linear-gradient(to right, rgba(255, 255, 255, 0.8) 0, rgba(255, 255, 255, 0.6) 50%, transparent 100%);
-  }
-
-  /* Hero Overlay / Edge: Light Theme – aufgehellte Verläufe */
-  [data-theme='light'] .hero-overlay-base {
-    background: radial-gradient(
-      ellipse 220% 220% at 100% calc(0.5rem + 5vh),
-      transparent 0%,
-      transparent 55%,
-      rgba(255, 255, 255, calc(var(--hero-overlay, 0.45) * 0.4)) 75%,
-      rgba(255, 255, 255, var(--hero-overlay, 0.45)) 92%,
-      rgba(255, 255, 255, var(--hero-overlay, 0.45)) 100%
-    );
-  }
-  @media (min-width: 768px) {
-    [data-theme='light'] .hero-overlay-base {
-      background: radial-gradient(
-        ellipse 220% 220% at 100% calc(1rem + 6vh),
-        transparent 0%,
-        transparent 55%,
-        rgba(255, 255, 255, calc(var(--hero-overlay, 0.45) * 0.4)) 75%,
-        rgba(255, 255, 255, var(--hero-overlay, 0.45)) 92%,
-        rgba(255, 255, 255, var(--hero-overlay, 0.45)) 100%
-      );
-    }
-  }
-
-  [data-theme='light'] .hero-edge-darken {
-    background-image:
-      linear-gradient(
-        to bottom,
-        rgba(255, 255, 255, 0.88) 0,
-        rgba(255, 255, 255, 0.5) 35%,
-        rgba(255, 255, 255, 0.12) 70%,
-        transparent 100%
-      ),
-      radial-gradient(
-        ellipse 180% 180% at 100% calc(0.5rem + 5vh),
-        transparent 0%,
-        transparent 35%,
-        rgba(255, 255, 255, 0.2) 55%,
-        rgba(255, 255, 255, 0.6) 75%,
-        rgba(255, 255, 255, 0.88) 92%,
-        rgba(255, 255, 255, 0.92) 100%
-      );
-    background-size: 100% 55%, 100% 100%;
-    background-position: 0 0, 0 0;
-    background-repeat: no-repeat;
-  }
-  @media (min-width: 768px) {
-    [data-theme='light'] .hero-edge-darken {
-      background-image:
-        linear-gradient(
-          to bottom,
-          rgba(255, 255, 255, 0.88) 0,
-          rgba(255, 255, 255, 0.5) 35%,
-          rgba(255, 255, 255, 0.12) 70%,
-          transparent 100%
-        ),
-        radial-gradient(
-          ellipse 180% 180% at 100% calc(1rem + 6vh),
-          transparent 0%,
-          transparent 35%,
-          rgba(255, 255, 255, 0.2) 55%,
-          rgba(255, 255, 255, 0.6) 75%,
-          rgba(255, 255, 255, 0.88) 92%,
-          rgba(255, 255, 255, 0.92) 100%
-        );
-    }
-  }
-
   /* HeroBox Slide-Up: Keyframes für Wrapper (.hero-box-animate) – Tailwind-kompatibel (auch in tailwind.config.mjs). */
   @keyframes hero-box-slide-up {
     from {
@@ -568,33 +463,6 @@
       max-height: none;
       height: auto;
       overflow: visible;
-    }
-  }
-
-  /* Einfacher Fade-Up für das Hero-Vordergrundbild (ohne Scan-Layer). */
-  @keyframes hero-foreground-fade-up {
-    from {
-      opacity: 0;
-      transform: translateY(18px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  .hero-foreground-fade-up {
-    opacity: 0;
-    transform: translateY(18px);
-  }
-  .hero-foreground-fade-up-active {
-    animation: hero-foreground-fade-up 700ms ease-out forwards;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .hero-foreground-fade-up,
-    .hero-foreground-fade-up-active {
-      opacity: 1;
-      transform: none;
-      animation: none;
     }
   }
 
@@ -789,189 +657,90 @@
     hyphens: manual;
   }
 
-  /* Vordergrundbild: Scan-artiger Aufbau – diskrete Zeilen, sichtbare Scanlinie */
-  @keyframes hero-foreground-scan1 {
-    0% {
-      clip-path: inset(0 0 100% 0);
-      filter: blur(10px) contrast(0.75);
+  /* ========== Hero-Enter-Animationen (PhilippBacherHeroSimple) ========== */
+  @keyframes hero-reveal-word {
+    from {
+      opacity: 0;
+      transform: translateX(-0.5em);
+    }
+    to {
       opacity: 1;
+      transform: translateX(0);
     }
-    50% {
-      clip-path: inset(0 0 0 0);
-      filter: blur(10px) contrast(0.75);
+  }
+  @keyframes hero-reveal-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    to {
       opacity: 1;
+      transform: scale(1);
     }
-    100% {
-      clip-path: inset(0 0 0 0);
-      filter: blur(10px) contrast(0.75);
+  }
+  @keyframes hero-reveal-letter {
+    from {
       opacity: 0;
+      transform: translateX(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
     }
   }
-  @keyframes hero-foreground-scan2 {
-    0% {
-      mask-size: 100% 0%;
-      mask-position: bottom;
-    }
-    50% {
-      mask-size: 100% 0%;
-      mask-position: bottom;
-    }
-    100% {
-      mask-size: 100% 100%;
-      mask-position: bottom;
-    }
-  }
-  @keyframes hero-foreground-scanline {
-    0% {
-      transform: translateY(-100%);
-      opacity: 0.9;
-    }
-    85% {
-      transform: translateY(100%);
-      opacity: 0.9;
-    }
-    100% {
-      transform: translateY(100%);
+  @keyframes hero-reveal-logo {
+    from {
       opacity: 0;
-      visibility: hidden;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
-  .hero-foreground-reveal {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.2));
-  }
-  /* Hero-Bild: Light = Schatten, Dark = Glow (stärker). */
-  [data-theme='light'] .hero-foreground-image.hero-foreground-image-mid img {
-    filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.18)) drop-shadow(0 12px 40px rgba(0, 0, 0, 0.12)) drop-shadow(0 24px 56px rgba(0, 0, 0, 0.06));
-  }
-  [data-theme='dark'] .hero-foreground-image.hero-foreground-image-mid img {
-    filter: drop-shadow(0 0 40px rgba(255, 255, 255, 0.06)) drop-shadow(0 0 80px rgba(255, 255, 255, 0.04)) drop-shadow(0 0 120px rgba(255, 255, 255, 0.02));
-  }
-  /* Desktop (lg+): Vordergrundbild vergrößert (min. 30 % Breite), Kopf am oberen Rand fixiert, am Fuß abgeschnitten (object-cover, oben rechts ausgerichtet). */
-  /* Desktop: Möglichst das ganze Bild sichtbar (contain), links verankert, Overflow nach rechts. */
-  @media (min-width: 64rem) {
-    .hero-foreground-image.hero-foreground-image-mid img {
-      object-fit: contain;
-      object-position: center;
-    }
-  }
-  /* iPhone 14 Pro Max (und vergleichbar): Hero-Vordergrund etwas weiter rechts als SE, weniger als zuvor. iPhone SE (≤375px) und PlayBook (>430px) unverändert. */
-  @media (min-width: 376px) and (max-width: 430px) {
-    .hero-foreground-image.hero-foreground-image-mid {
-      transform: translateX(32%);
-    }
-  }
-  /* overflow: visible, damit das Bild nicht beschnitten wird. Der Aufbau-Effekt kommt von clip-path (scan1) und mask (scan2), nicht von overflow. */
-  .hero-foreground-reveal .hero-foreground-scan1,
-  .hero-foreground-reveal .hero-foreground-scan2 {
-    overflow: visible;
-  }
-  @media (max-width: 30rem) {
-    .hero-foreground-reveal .hero-foreground-scan1 img,
-    .hero-foreground-reveal .hero-foreground-scan2 img {
-      object-position: var(--hero-focus-x, 60%) var(--hero-focus-y, 75%);
-    }
-  }
-  /* Panorama: scale(0.8) entfernt, damit das Bild am unteren Rand der Hero-Box bleibt und nicht „nach oben flieht“. */
-  /* Scanbalken deaktiviert – Aufbau-Effekt läuft nur über scan1/scan2. */
-  .hero-foreground-reveal::after {
-    content: none;
-  }
-  /* Scan-Layer: Bild rechts ausgerichtet (justify-end), nicht den Layer verschieben. */
-  .hero-foreground-scan1 {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    clip-path: inset(0 0 100% 0);
-    filter: blur(10px) contrast(0.75);
-  }
-  .hero-foreground-reveal-active .hero-foreground-scan1 {
-    animation: hero-foreground-scan1 2.2s steps(50, end) forwards;
-  }
-  .hero-foreground-scan2 {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
-    /* Solid black mask: bei 100% komplett deckend, kein Verlauf = kein Durchscheinen von scan1 (blur) */
-    mask-image: linear-gradient(to top, black, black);
-    mask-size: 100% 0%;
-    mask-position: bottom;
-    mask-repeat: no-repeat;
-  }
-  .hero-foreground-reveal-active .hero-foreground-scan2 {
-    animation: hero-foreground-scan2 2.2s steps(50, end) forwards;
-  }
-  /* Tablet/Mobile (≤768px): Scan-Masken deaktivieren, Layer aber weiterhin absolute/inset:0 lassen,
-   * damit die Bildgröße unverändert bleibt. Nur einfache Bottom-up-Fade-In-Animation. */
-  @media (max-width: 768px) {
-    .hero-foreground-scan1,
-    .hero-foreground-scan2 {
-      clip-path: none !important;
-      mask-image: none !important;
-      -webkit-mask-image: none !important;
-      filter: none !important;
-    }
-    @keyframes hero-mobile-foreground-rise {
-      from {
-        opacity: 0;
-        transform: translateY(18px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-    /* Mobile-Vordergrund: einfaches „von unten nach oben“ Einblenden des finalen Layers. */
-    .hero-foreground-reveal-active .hero-foreground-scan2 {
-      animation: hero-mobile-foreground-rise 0.7s ease-out forwards;
-    }
-  }
-  /* Fokuspunkt: Nackenspitze ~75 % Bildhöhe, Gesicht im transparenten Bereich (oben rechts). Variablen von Section. */
-  .hero-foreground-reveal .hero-foreground-scan2 img,
-  .hero-foreground-reveal .hero-foreground-scan1 img {
-    image-rendering: -webkit-optimize-contrast;
-    /* Bild darf nie höher als 666px werden, egal wie hoch der Hero-Container ist. */
-    max-height: min(100%, 666px);
-    min-height: 0;
-    object-fit: cover;
-    object-position: var(--hero-focus-x, 60%) var(--hero-focus-y, 75%);
-  }
-  /* Desktop: Vordergrundbild nach Animation und bei reduced-motion immer sichtbar (Scan-Maske auf 100 %) */
-  @media (min-width: 64rem) {
-    /* Scan1 (Blur) auf Desktop immer ausblenden → nur Scan2 zeigt Aufbau, kein Sprung groß→klein */
-    .hero-foreground-scan1 {
-      opacity: 0 !important;
-      clip-path: inset(0 0 0 0);
-      filter: none;
-    }
-    .hero-foreground-reveal-active .hero-foreground-scan1,
-    .hero-foreground-reveal .hero-foreground-scan1 {
-      clip-path: inset(0 0 0 0);
+  @keyframes hero-reveal-subheadline {
+    from {
       opacity: 0;
-      filter: none;
+      transform: translateY(10px);
     }
-    .hero-foreground-reveal-active .hero-foreground-scan2,
-    .hero-foreground-reveal .hero-foreground-scan2 {
-      mask-size: 100% 100%;
-      -webkit-mask-size: 100% 100%;
+    to {
+      opacity: 1;
+      transform: translateY(0);
     }
   }
-
-  /* Desktop-Vordergrund: Einblendung ohne JS (mounted) – sichtbar auch bei verzögerter Hydration */
-  @keyframes hero-desktop-foreground-fade {
-    from { opacity: 0; }
-    to { opacity: 1; }
+  @keyframes hero-portrait-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
-  .hero-desktop-foreground-fade-in {
+  .hero-reveal-word {
     opacity: 0;
-    animation: hero-desktop-foreground-fade 0.5s ease-out 0.15s forwards;
+    animation: hero-reveal-word 0.35s ease-out both;
+  }
+  .hero-reveal-pop {
+    opacity: 0;
+    animation: hero-reveal-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-reveal-letter {
+    opacity: 0;
+    animation: hero-reveal-letter 0.25s ease-out both;
+  }
+  .hero-reveal-logo {
+    opacity: 0;
+    animation: hero-reveal-logo 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-reveal-subheadline {
+    opacity: 0;
+    animation: hero-reveal-subheadline 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-portrait-fade-up {
+    opacity: 0;
+    animation: hero-portrait-fade-up 1.8s ease-out both;
   }
 
   /* Hero-Hintergrundmuster (Graustufen, 50 % Intensität).
@@ -3417,231 +3186,17 @@ header .header-tool-toggle--theme:hover {
   pointer-events: none;
 }
 
-/* Hero Orbit (CSS-only): Alternative zu Vanta, nur Keyframes + transform, inspiriert von ReactBits Orb */
-@keyframes hero-orbit-core-pulse {
-  0% {
-    transform: translate(-50%, -50%) scale(1);
-    filter: blur(42px) hue-rotate(0deg);
-    opacity: 0.95;
-  }
-  50% {
-    transform: translate(-50%, -50%) scale(1.06);
-    filter: blur(52px) hue-rotate(25deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(-50%, -50%) scale(0.98);
-    filter: blur(40px) hue-rotate(-15deg);
-    opacity: 0.9;
-  }
-}
-@keyframes hero-orbit-ring-rotate {
-  from {
-    transform: translate(-50%, -50%) rotate(0deg);
-  }
-  to {
-    transform: translate(-50%, -50%) rotate(360deg);
-  }
-}
-@keyframes hero-orbit-flare-orbit {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-.hero-orbit {
-  position: relative;
-  background:
-    radial-gradient(circle at 20% 10%, rgba(96, 165, 250, 0.3), transparent 60%),
-    radial-gradient(circle at 80% 85%, rgba(45, 212, 191, 0.26), transparent 60%),
-    radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.18), transparent 70%),
-    #020617;
-}
-.hero-orbit__core {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 80vmin;
-  height: 80vmin;
-  border-radius: 9999px;
-  background:
-    radial-gradient(circle at 30% 20%, rgba(244, 244, 245, 0.95), transparent 52%),
-    radial-gradient(circle at 70% 80%, rgba(59, 130, 246, 0.9), transparent 68%),
-    radial-gradient(circle at 50% 50%, rgba(37, 99, 235, 0.85), transparent 76%);
-  transform: translate(-50%, -50%);
-  filter: blur(46px);
-  opacity: 0.95;
-  animation: hero-orbit-core-pulse 18s ease-in-out infinite alternate;
-  /* Donut-Loch: innerer Kreis in Hintergrundfarbe „schneidet“ die Mitte aus */
-  box-shadow:
-    0 0 0 0 #020617,
-    0 0 0 18vmin #020617 inset;
-}
-.hero-orbit__ring {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 70vmin;
-  height: 70vmin;
-  border-radius: 9999px;
-  border: 2px solid rgba(148, 163, 184, 0.4);
-  box-shadow:
-    0 0 40px rgba(148, 163, 184, 0.6),
-    0 0 80px rgba(59, 130, 246, 0.8);
-  transform: translate(-50%, -50%);
-  animation: hero-orbit-ring-rotate 40s linear infinite;
-}
-.hero-orbit__flare {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 0;
-  height: 0;
-  transform-origin: center;
-  animation: hero-orbit-flare-orbit 22s linear infinite;
-}
-/* Flare: neutraler Blau-/Grauton statt Rosa (kein rötlicher Stich mehr) */
-.hero-orbit__flare::before {
-  content: '';
-  position: absolute;
-  width: 26px;
-  height: 26px;
-  border-radius: 9999px;
-  background:
-    radial-gradient(circle at 20% 20%, #f8fafc, transparent 40%),
-    radial-gradient(circle at 60% 70%, rgba(226, 232, 240, 0.9), transparent 70%),
-    radial-gradient(circle at 50% 50%, rgba(148, 163, 184, 0.95), transparent 80%);
-  box-shadow:
-    0 0 36px rgba(248, 250, 252, 0.9),
-    0 0 72px rgba(148, 163, 184, 0.5),
-    0 0 96px rgba(100, 116, 139, 0.4);
-  transform: translateX(36vmin);
-}
-
-/* Mobile: Orbit-Glow dezenter, weicher und größer (weniger „gepresst“) */
-@media (max-width: 63.99rem) {
-  .hero-orbit {
-    background:
-      radial-gradient(circle at 20% 10%, rgba(96, 165, 250, 0.2), transparent 55%),
-      radial-gradient(circle at 80% 85%, rgba(45, 212, 191, 0.18), transparent 55%),
-      radial-gradient(circle at 50% 50%, rgba(59, 130, 246, 0.12), transparent 65%),
-      #020617;
-  }
-  .hero-orbit__core {
-    width: 95vmin;
-    height: 95vmin;
-    filter: blur(72px);
-    opacity: 0.82;
-    box-shadow:
-      0 0 0 0 #020617,
-      0 0 0 20vmin #020617 inset;
-  }
-  .hero-orbit__ring {
-    width: 85vmin;
-    height: 85vmin;
-    border: 1.5px solid rgba(148, 163, 184, 0.28);
-    box-shadow:
-      0 0 32px rgba(148, 163, 184, 0.4),
-      0 0 64px rgba(59, 130, 246, 0.5);
-  }
-  .hero-orbit__flare::before {
-    box-shadow:
-      0 0 28px rgba(248, 250, 252, 0.6),
-      0 0 56px rgba(148, 163, 184, 0.35),
-      0 0 72px rgba(100, 116, 139, 0.25);
-  }
-}
-
-/* Overlay über Vanta Halo: nur Verlauf (für animiertes/eigenes Gitter) */
-.hero-halo-overlay-gradient {
-  --halo-overlay-gradient: 0.68;
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgba(11, 15, 25, var(--halo-overlay-gradient)) 0%,
-      transparent 38%,
-      transparent 62%,
-      rgba(11, 15, 25, calc(var(--halo-overlay-gradient) * 0.9)) 100%
-    ),
-    linear-gradient(
-      to right,
-      rgba(11, 15, 25, calc(var(--halo-overlay-gradient) * 0.6)) 0%,
-      transparent 28%,
-      transparent 72%,
-      rgba(11, 15, 25, calc(var(--halo-overlay-gradient) * 0.5)) 100%
-    );
-  background-size: 100% 100%, 100% 100%;
-}
-
-/* Dark Mode: Halo + Gitter sichtbar; color-scheme: light verhindert Browser-Dunkelmodus auf Canvas/Overlays */
-[data-theme='dark'] .hero-halo-layer,
-[data-theme='dark'] .hero-halo-layer .hero-halo-overlay,
-[data-theme='dark'] .hero-halo-layer .hero-halo-overlay-gradient {
-  opacity: 1 !important;
-  visibility: visible !important;
-}
-[data-theme='dark'] .hero-halo-layer {
-  color-scheme: light;
-  isolation: isolate;
-}
-/* Ganzer Hero-Hintergrund (Vanta + Gitter) im Dark Mode in eigenem Farbkontext, damit Canvas sichtbar bleibt */
-[data-theme='dark'] .hero-bg-wrap {
-  color-scheme: light;
-}
-
-/* Overlay über Vanta Halo: dezentes Gitter + kräftiger unsichtbarer Verlauf */
-.hero-halo-overlay {
-  --halo-overlay-gradient: 0.68;
-  --halo-overlay-grid: 0.08;
-  --halo-overlay-grid-size: 12px;
-  background-image:
-    linear-gradient(
-      to bottom,
-      rgba(11, 15, 25, var(--halo-overlay-gradient)) 0%,
-      transparent 38%,
-      transparent 62%,
-      rgba(11, 15, 25, calc(var(--halo-overlay-gradient) * 0.9)) 100%
-    ),
-    linear-gradient(
-      to right,
-      rgba(11, 15, 25, calc(var(--halo-overlay-gradient) * 0.6)) 0%,
-      transparent 28%,
-      transparent 72%,
-      rgba(11, 15, 25, calc(var(--halo-overlay-gradient) * 0.5)) 100%
-    ),
-    repeating-linear-gradient(
-      to right,
-      rgba(255, 255, 255, var(--halo-overlay-grid)) 0px,
-      rgba(255, 255, 255, var(--halo-overlay-grid)) 1px,
-      transparent 1px,
-      transparent var(--halo-overlay-grid-size)
-    ),
-    repeating-linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, var(--halo-overlay-grid)) 0px,
-      rgba(255, 255, 255, var(--halo-overlay-grid)) 1px,
-      transparent 1px,
-      transparent var(--halo-overlay-grid-size)
-    );
-  background-size: 100% 100%, 100% 100%, var(--halo-overlay-grid-size) var(--halo-overlay-grid-size),
-    var(--halo-overlay-grid-size) var(--halo-overlay-grid-size);
-}
-
-/* Hero-Logos (Marquee + Carousel): standardmäßig farbig, nur leicht abgedunkelt */
+/* Hero-Logos (Marquee): standardmäßig farblos/grau, bei Hover farbig */
 .hero-logo-grayscale {
-  filter: brightness(0.95) contrast(1.05);
-  opacity: 0.9;
+  filter: grayscale(100%);
+  opacity: 0.75;
+  transition: filter 0.25s ease, opacity 0.25s ease, transform 0.2s ease;
 }
-
-/* Hover: dezente Betonung ohne Farbwechsel */
-.hero-logo-marquee-item .hero-logo-grayscale {
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
+/* Hover: farbig, leicht hervorgehoben (Marquee + Carousel) */
 .hero-logo-marquee-item:hover .hero-logo-grayscale {
-  transform: translateY(-1px) scale(1.02);
+  filter: grayscale(0%);
   opacity: 1;
+  transform: translateY(-1px) scale(1.02);
 }
 
 /* ========== Theme Toggle: Expand (theme-toggles npm, toggles.dev/expand) ========== */
@@ -3698,33 +3253,6 @@ header .header-tool-toggle--theme:hover {
   will-change: transform;
   transition: transform 0.2s ease-out;
   pointer-events: none;
-}
-
-/* --- Halo Helper Layer --- */
-.hero-halo-helper {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.25;
-}
-
-.hero-halo-helper .halo {
-  position: absolute;
-  border-radius: 50%;
-  width: 60vw;
-  height: 60vw;
-  filter: blur(120px);
-  opacity: 0.4;
-  mix-blend-mode: screen;
-  animation: hero-halo-float 18s ease-in-out infinite alternate;
-  will-change: transform;
-}
-
-@keyframes hero-halo-float {
-  0% { transform: translateY(0) scale(1); }
-  50% { transform: translateY(-40px) scale(1.05); }
-  100% { transform: translateY(20px) scale(0.95); }
 }
 
 /* --- Optional: Hero Background Preset Defaults --- */
