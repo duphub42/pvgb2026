@@ -5,7 +5,8 @@ import { CMSLink } from '@/components/Link'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { getMediaUrlSafe } from '@/utils/media'
 import { Marquee } from '@/components/ui/marquee'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
+import type { ComponentProps } from 'react'
 import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 import type { HeroBackground } from '@/payload-types'
 
@@ -25,13 +26,10 @@ interface Logo {
   alt?: string | null
 }
 
+type CMSLinkProps = ComponentProps<typeof CMSLink>
+
 interface LinkItem {
-  link?: {
-    url?: string
-    label?: string
-    appearance?: 'filled' | 'outline'
-    newTab?: boolean
-    type?: string
+  link?: Pick<CMSLinkProps, 'url' | 'label' | 'appearance' | 'newTab' | 'type'> & {
     reference?: unknown
   }
 }
@@ -58,7 +56,7 @@ export interface PhilippBacherHeroSimpleProps {
 }
 
 /** Prozentbasierte Positionen – skaliert mit Section, keine festen rem/px. */
-const POSITION_CLASSES: Record<string, string> = {
+const POSITION_CLASSES: Record<FloatingElement['position'], string> = {
   topLeft: 'top-[10%] left-[8%]',
   topRight: 'top-[10%] right-[8%]',
   midLeft: 'top-1/2 -translate-y-1/2 left-[8%]',
@@ -88,6 +86,19 @@ const SECTION_STYLE: React.CSSProperties = {
 // Helper: Portrait-Transform berechnen
 // -------------------------------
 
+function debounce<T extends (...args: any[]) => void>(fn: T, delay: number): T {
+  let timeoutId: number | undefined
+
+  return function debounced(this: unknown, ...args: any[]) {
+    if (timeoutId !== undefined) {
+      window.clearTimeout(timeoutId)
+    }
+    timeoutId = window.setTimeout(() => {
+      fn.apply(this, args)
+    }, delay)
+  } as T
+}
+
 function computePortraitTransform(imgRect: DOMRect, viewportWidth: number): string {
   const isVeryNarrow = viewportWidth < 555
 
@@ -115,6 +126,39 @@ function computePortraitTransform(imgRect: DOMRect, viewportWidth: number): stri
   return 'translateY(40px)'
 }
 
+function usePortraitTransform() {
+  const [portraitTransform, setPortraitTransform] = useState<string>('translateY(40px)')
+  const imgRef = useRef<HTMLImageElement | null>(null)
+
+  useEffect(() => {
+    const img = imgRef.current
+    if (!img) return
+
+    function updateTransform() {
+      const current = imgRef.current
+      if (!current) return
+      const rect = current.getBoundingClientRect()
+      setPortraitTransform(computePortraitTransform(rect, window.innerWidth))
+    }
+
+    const debouncedUpdate = debounce(updateTransform, 100)
+
+    // Initial berechnen (nach Paint)
+    const rafId = requestAnimationFrame(debouncedUpdate)
+
+    // Bei Resize neu berechnen (z. B. Orientierungswechsel)
+    const observer = new ResizeObserver(() => debouncedUpdate())
+    observer.observe(document.documentElement)
+
+    return () => {
+      cancelAnimationFrame(rafId)
+      observer.disconnect()
+    }
+  }, [])
+
+  return { imgRef, portraitTransform }
+}
+
 // -------------------------------
 // Einfache Hero-Komponente (Copy-Paste-Referenz, Tailwind-only)
 // -------------------------------
@@ -132,48 +176,30 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   floatingElements,
   marqueeHeadline,
   marqueeLogos,
-  overlayOpacity = 0.5,
+  overlayOpacity = 0.42,
   backgroundPreset,
 }) => {
   const lines = [headlineLine1, headlineLine2, headlineLine3].filter(
     (l): l is string => Boolean(l),
   )
-  const hasLines = lines.length >= 1
+  const hasLines = lines.length > 0
   const headlineText = hasLines ? undefined : headline
 
-  const [portraitTransform, setPortraitTransform] = useState<string>('translateY(40px)')
-  const imgRef = useRef<HTMLImageElement | null>(null)
-
-  useEffect(() => {
-    const img = imgRef.current
-    if (!img) return
-
-    function updateTransform() {
-      const current = imgRef.current
-      if (!current) return
-      const rect = current.getBoundingClientRect()
-      setPortraitTransform(computePortraitTransform(rect, window.innerWidth))
-    }
-
-    // Initial berechnen (nach Paint)
-    const rafId = requestAnimationFrame(updateTransform)
-
-    // Bei Resize neu berechnen (z. B. Orientierungswechsel)
-    const observer = new ResizeObserver(updateTransform)
-    observer.observe(document.documentElement)
-
-    return () => {
-      cancelAnimationFrame(rafId)
-      observer.disconnect()
-    }
-  }, [])
-
+  const { imgRef, portraitTransform } = usePortraitTransform()
   const foregroundImageUrl = foregroundImage ? getMediaUrlSafe(foregroundImage) : null
+  const overlayStyle = useMemo(
+    () => ({ opacity: overlayOpacity ?? 0.42 }),
+    [overlayOpacity],
+  )
+
+  const sectionAriaLabel =
+    headlineText || headlineLine1 || headlineLine2 || headlineLine3 || subheadline || 'Hero section'
 
   return (
     <section
       className="relative w-full min-h-0 h-fit flex flex-col justify-end md:justify-start items-start overflow-visible text-foreground hero-offset"
       style={SECTION_STYLE}
+      aria-label={sectionAriaLabel ?? undefined}
     >
       {/* Hintergrund-Preset-Layer (z. B. cssHalo, patternSquare) */}
       <HeroBackgroundPresetLayer preset={backgroundPreset} />
@@ -198,6 +224,8 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           loop
           muted
           playsInline
+          aria-hidden
+          title="Background video"
         >
           <source src={getMediaUrl(backgroundVideo.url) || backgroundVideo.url} type="video/mp4" />
         </video>
@@ -209,7 +237,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Deckkraft-Overlay */}
       <div
         className="absolute top-0 left-0 right-0 w-full h-fit -z-[5] bg-background"
-        style={{ opacity: overlayOpacity ?? 0.42 }}
+        style={overlayStyle}
         aria-hidden
       />
 
@@ -253,7 +281,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
               return (
                 <CMSLink
                   key={idx}
-                  {...(link as any)}
+                {...link}
                   className={
                     isOutline
                       ? 'border border-border text-foreground hover:bg-accent hover:text-accent-foreground px-6 py-3 rounded-full font-medium transition'
@@ -309,7 +337,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
             <Image
               ref={imgRef}
               src={foregroundImageUrl}
-              alt=""
+              alt={headlineText || subheadline || 'Portrait'}
               width={414}
               height={600}
               className="hero-simple-portrait-img hero-portrait-sm hero-simple-portrait absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] box-content h-fit object-contain object-bottom md:z-20"
