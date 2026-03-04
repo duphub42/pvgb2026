@@ -243,12 +243,11 @@
       );
     }
     [data-theme='dark'] .hero-box-gradient {
-      background: radial-gradient(
-        circle at 100% 0%,
-        rgba(0, 0, 0, 0) 0%,
-        rgba(0, 0, 0, 0) 50%,
-        rgba(10, 10, 10, 1) 50%,
-        rgba(10, 10, 10, 1) 100%
+      background: linear-gradient(
+        8.4deg,
+        rgba(10, 10, 10, 1) 51%,
+        rgba(10, 10, 10, 0.7) 82%,
+        rgba(10, 10, 10, 0) 93%
       );
     }
   }

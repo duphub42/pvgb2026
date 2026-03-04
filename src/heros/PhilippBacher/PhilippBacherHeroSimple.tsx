@@ -325,8 +325,11 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
         // Korrektur:
         // - Standard: Bild so weit nach links verschieben, dass es nicht über den rechten Viewportrand hinausläuft
-        // - Unter 555px Breite: Bild ca. 10 % seiner Breite nach rechts und ca. 18 % seiner Höhe nach oben verschieben
-        //   und zusätzlich auf 1.33x vergrößern, damit es höher und präsenter im Hero sitzt.
+        // - Unter 555px Breite:
+        //   - sehr kleine Geräte (z. B. iPhone SE, ~375px): Bild ca. 10 % nach rechts,
+        //     nur ca. 3 % seiner Höhe nach oben verschieben (15 % weniger als zuvor) und auf 1.11x skalieren
+        //   - größere Phones (z. B. iPhone 14 Pro Max, ~430px): Bild ca. 10 % nach rechts,
+        //     ca. 18 % seiner Höhe nach oben verschieben und auf ~1.28x skalieren (ca. 15 % größer als 1.11).
         let appliedShiftX = 0
         let appliedShiftY = 24
         const overflowRight = imgRectBefore.right - window.innerWidth
@@ -335,10 +338,19 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         let scale = 1
 
         if (isVeryNarrow) {
-          // 10 % nach rechts und ~18 % nach oben verschieben, Beschnitt rechts ist erlaubt
-          appliedShiftX = imgRectBefore.width * 0.1
-          appliedShiftY = -imgRectBefore.height * 0.18
-          scale = 1.33
+          const isSmallPhone = window.innerWidth <= 390 // z. B. iPhone SE / 360–375px
+
+          if (isSmallPhone) {
+            // iPhone SE: 10 % nach rechts, nur ca. 3 % nach oben, Scale 1.11
+            appliedShiftX = imgRectBefore.width * 0.1
+            appliedShiftY = -imgRectBefore.height * 0.03
+            scale = 1.11
+          } else {
+            // Größere Phones (z. B. iPhone 14 Pro Max): 10 % nach rechts, 18 % nach oben, Scale ~1.28
+            appliedShiftX = imgRectBefore.width * 0.1
+            appliedShiftY = -imgRectBefore.height * 0.18
+            scale = 1.28
+          }
         } else if (overflowRight > 0) {
           // Nur bei größeren Viewports Clamp nach links
           appliedShiftX = -overflowRight
