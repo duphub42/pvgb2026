@@ -230,10 +230,10 @@
     }
     .hero-box-gradient {
       background: linear-gradient(
-        46.8deg,
+        8.4deg,
         rgba(255, 255, 255, 1) 51%,
-        rgba(255, 255, 255, 0.88) 67%,
-        rgba(223, 17, 17, 0) 80%
+        rgba(255, 255, 255, 0.88) 82%,
+        rgba(223, 17, 17, 0) 93%
       );
     }
     [data-theme='dark'] .hero-box-gradient {

@@ -204,7 +204,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
         // Korrektur:
         // - Standard: Bild so weit nach links verschieben, dass es nicht über den rechten Viewportrand hinausläuft
-        // - Unter 555px Breite: Bild ca. 5 % seiner Breite nach rechts und 5 % seiner Höhe nach oben verschieben
+        // - Unter 555px Breite: Bild ca. 10 % seiner Breite nach rechts und 8 % seiner Höhe nach oben verschieben
         let appliedShiftX = 0
         let appliedShiftY = 24
         const overflowRight = imgRectBefore.right - window.innerWidth
@@ -212,9 +212,9 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
         if (heroPortraitWrapper) {
           if (isVeryNarrow) {
-            // 10 % nach rechts und 5 % nach oben verschieben, Beschnitt rechts ist erlaubt
+            // 10 % nach rechts und 8 % nach oben verschieben, Beschnitt rechts ist erlaubt
             appliedShiftX = imgRectBefore.width * 0.1
-            appliedShiftY = -imgRectBefore.height * 0.05
+            appliedShiftY = -imgRectBefore.height * 0.08
           } else if (overflowRight > 0) {
             // Nur bei größeren Viewports Clamp nach links
             appliedShiftX = -overflowRight
@@ -311,6 +311,8 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           borderStyle: 'none',
           borderColor: 'rgba(0, 0, 0, 0)',
           borderImage: 'none',
+          marginTop: '20px',
+          marginBottom: '20px',
         }}
       >
         {subheadline && (
