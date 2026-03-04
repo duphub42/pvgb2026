@@ -4,18 +4,8 @@ import Image from 'next/image'
 import { CMSLink } from '@/components/Link'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { getMediaUrlSafe } from '@/utils/media'
-import { Media } from '@/components/Media'
-import RichText from '@/components/RichText'
-import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
-import { LogoCarousel } from '@/components/ui/logo-carousel'
 import { Marquee } from '@/components/ui/marquee'
-import { TextAnimate } from '@/components/ui/text-animate'
-import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { cn } from '@/utilities/ui'
-import dynamic from 'next/dynamic'
-import Link from 'next/link'
-import React, { useEffect } from 'react'
-import { motion } from 'motion/react'
+import React, { useEffect, useRef, useState } from 'react'
 import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 import type { HeroBackground } from '@/payload-types'
 
@@ -36,7 +26,14 @@ interface Logo {
 }
 
 interface LinkItem {
-  link?: { url?: string; label?: string; appearance?: 'filled' | 'outline' }
+  link?: {
+    url?: string
+    label?: string
+    appearance?: 'filled' | 'outline'
+    newTab?: boolean
+    type?: string
+    reference?: unknown
+  }
 }
 
 export interface PhilippBacherHeroSimpleProps {
@@ -70,6 +67,54 @@ const POSITION_CLASSES: Record<string, string> = {
   bottomRight: 'bottom-[10%] right-[8%]',
 }
 
+/** Inline-Style für den Marquee-Container – stable reference, kein Re-Create pro Render. */
+const MARQUEE_CONTAINER_STYLE: React.CSSProperties = {
+  backdropFilter: 'none',
+  background: 'unset',
+  backgroundColor: 'rgba(255,255,255,0)',
+  color: 'rgba(10, 10, 10, 1)',
+  borderTopWidth: 0,
+  borderTopStyle: 'none',
+  borderTopColor: 'rgba(0, 0, 0, 0)',
+  borderImage: 'none',
+}
+
+const SECTION_STYLE: React.CSSProperties = {
+  backgroundColor: 'unset',
+  background: 'unset',
+}
+
+// -------------------------------
+// Helper: Portrait-Transform berechnen
+// -------------------------------
+
+function computePortraitTransform(imgRect: DOMRect, viewportWidth: number): string {
+  const isVeryNarrow = viewportWidth < 555
+
+  if (isVeryNarrow) {
+    const isSmallPhone = viewportWidth <= 390
+    if (isSmallPhone) {
+      // iPhone SE: leicht nach rechts, kaum nach oben, leicht skaliert
+      const shiftX = imgRect.width * 0.1
+      const shiftY = -imgRect.height * 0.03
+      return `translate(${shiftX}px, ${shiftY}px) scale(1.11)`
+    } else {
+      // Größere Phones (z. B. iPhone 14 Pro Max): mehr nach oben, stärker skaliert
+      const shiftX = imgRect.width * 0.1
+      const shiftY = -imgRect.height * 0.18
+      return `translate(${shiftX}px, ${shiftY}px) scale(1.28)`
+    }
+  }
+
+  // Große Viewports: nur nach links clampen wenn Overflow
+  const overflowRight = imgRect.right - viewportWidth
+  if (overflowRight > 0) {
+    return `translate(${-overflowRight}px, 40px)`
+  }
+
+  return 'translateY(40px)'
+}
+
 // -------------------------------
 // Einfache Hero-Komponente (Copy-Paste-Referenz, Tailwind-only)
 // -------------------------------
@@ -90,322 +135,53 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   overlayOpacity = 0.5,
   backgroundPreset,
 }) => {
-  const lines = [headlineLine1, headlineLine2, headlineLine3].filter(Boolean) as string[]
+  const lines = [headlineLine1, headlineLine2, headlineLine3].filter(
+    (l): l is string => Boolean(l),
+  )
   const hasLines = lines.length >= 1
   const headlineText = hasLines ? undefined : headline
 
-  // #region agent log
+  const [portraitTransform, setPortraitTransform] = useState<string>('translateY(40px)')
+  const imgRef = useRef<HTMLImageElement | null>(null)
+
   useEffect(() => {
-    if (typeof window === 'undefined') return
+    const img = imgRef.current
+    if (!img) return
 
-    try {
-      const header = document.querySelector('header')
-      const img = document.querySelector('.hero-simple-portrait-img')
-      const hero = document.querySelector('.hero-offset')
-      const heroBox = document.querySelector('.hero-box-gradient')
-      const shapeDividers = document.querySelectorAll('.hero-shape-divider')
-      const heroForegroundContainer = document.querySelector('.hero-foreground-container')
-      const following = document.querySelector('.hero-following-section-mask')
+    function updateTransform() {
+      const current = imgRef.current
+      if (!current) return
+      const rect = current.getBoundingClientRect()
+      setPortraitTransform(computePortraitTransform(rect, window.innerWidth))
+    }
 
-      if (!header || !img) return
+    // Initial berechnen (nach Paint)
+    const rafId = requestAnimationFrame(updateTransform)
 
-      const headerRect = header.getBoundingClientRect()
-      const imgRect = (img as HTMLElement).getBoundingClientRect()
-      const overlapsHeader = imgRect.top < headerRect.bottom
+    // Bei Resize neu berechnen (z. B. Orientierungswechsel)
+    const observer = new ResizeObserver(updateTransform)
+    observer.observe(document.documentElement)
 
-      const heroRect = hero ? (hero as HTMLElement).getBoundingClientRect() : null
-      const followingRect = following
-        ? (following as HTMLElement).getBoundingClientRect()
-        : null
-
-      const payloadBase = {
-        sessionId: '04eb8f',
-        runId: 'pre-fix',
-        location: 'PhilippBacherHeroSimple.tsx:geometry',
-        viewportHeight: window.innerHeight,
-        viewportWidth: window.innerWidth,
-        timestamp: Date.now(),
-      }
-
-      fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Debug-Session-Id': '04eb8f',
-        },
-        body: JSON.stringify({
-          ...payloadBase,
-          hypothesisId: 'H-position',
-          message: 'Hero image vs header overlap check',
-          data: {
-            headerBottom: headerRect.bottom,
-            imgTop: imgRect.top,
-            overlapsHeader,
-          },
-        }),
-      }).catch(() => {})
-
-      if (followingRect || heroRect) {
-        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Debug-Session-Id': '04eb8f',
-          },
-          body: JSON.stringify({
-            ...payloadBase,
-            hypothesisId: 'H-bottom',
-            message: 'Hero image vs following section overlap check',
-            data: {
-              imgBottom: imgRect.bottom,
-              heroBottom: heroRect?.bottom ?? null,
-              followingTop: followingRect?.top ?? null,
-            },
-          }),
-        }).catch(() => {})
-      }
-
-      // Zusätzliche Messung: Abstand zwischen Header-Unterkante und Hero-Box-Oberkante
-      if (header && heroBox) {
-        const heroBoxRect = (heroBox as HTMLElement).getBoundingClientRect()
-
-        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Debug-Session-Id': 'ef0cb0',
-          },
-          body: JSON.stringify({
-            sessionId: 'ef0cb0',
-            runId: 'pre-spacing',
-            hypothesisId: 'H-header-hero-spacing',
-            location: 'PhilippBacherHeroSimple.tsx:header-hero-box',
-            message: 'Header bottom vs hero-box top spacing',
-            timestamp: Date.now(),
-            data: {
-              headerBottom: headerRect.bottom,
-              heroBoxTop: heroBoxRect.top,
-              spacing: heroBoxRect.top - headerRect.bottom,
-              viewportHeight: window.innerHeight,
-              viewportWidth: window.innerWidth,
-            },
-          }),
-        }).catch(() => {})
-      }
-
-      // Abstand zwischen Hero-Sektions-Unterkante und Bild-Unterkante (Lücke unterhalb des Herobildes)
-      if (heroRect && imgRect) {
-        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Debug-Session-Id': 'ef0cb0',
-          },
-          body: JSON.stringify({
-            sessionId: 'ef0cb0',
-            runId: 'pre-gap',
-            hypothesisId: 'H-hero-bottom-gap',
-            location: 'PhilippBacherHeroSimple.tsx:hero-bottom-gap',
-            message: 'Gap between hero section bottom and hero image bottom',
-            timestamp: Date.now(),
-            data: {
-              heroBottom: heroRect.bottom,
-              imgBottom: imgRect.bottom,
-              gap: heroRect.bottom - imgRect.bottom,
-              viewportHeight: window.innerHeight,
-              viewportWidth: window.innerWidth,
-            },
-          }),
-        }).catch(() => {})
-      }
-
-      // Mobile-Bottom-Alignment: Hero-Section vs. Hero-Box (Layer) relativ zum Viewport
-      if (hero && heroBox) {
-        const heroSectionRect = (hero as HTMLElement).getBoundingClientRect()
-        const heroBoxRectMobile = (heroBox as HTMLElement).getBoundingClientRect()
-
-        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Debug-Session-Id': 'ffd420',
-          },
-          body: JSON.stringify({
-            sessionId: 'ffd420',
-            runId: 'pre-fix',
-            hypothesisId: 'H-mobile-bottom-align',
-            location: 'PhilippBacherHeroSimple.tsx:hero-mobile-bottom',
-            message: 'Hero section and hero-box positioning vs viewport',
-            timestamp: Date.now(),
-            data: {
-              viewportWidth: window.innerWidth,
-              viewportHeight: window.innerHeight,
-              heroTop: heroSectionRect.top,
-              heroBottom: heroSectionRect.bottom,
-              heroBoxTop: heroBoxRectMobile.top,
-              heroBoxBottom: heroBoxRectMobile.bottom,
-              bottomGapToViewport: window.innerHeight - heroBoxRectMobile.bottom,
-            },
-          }),
-        }).catch(() => {})
-      }
-
-      // Shape-Divider vs. Hero-Box: Z-Index und vertikale Überlappung
-      if (heroBox && shapeDividers.length > 0) {
-        const heroBoxRect2 = (heroBox as HTMLElement).getBoundingClientRect()
-        const firstShape = shapeDividers[0] as HTMLElement
-        const shapeRect = firstShape.getBoundingClientRect()
-        const heroBoxStyles = window.getComputedStyle(heroBox as HTMLElement)
-        const shapeStyles = window.getComputedStyle(firstShape)
-
-        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Debug-Session-Id': 'ef0cb0',
-          },
-          body: JSON.stringify({
-            sessionId: 'ef0cb0',
-            runId: 'pre-shape-stack',
-            hypothesisId: 'H-shape-overlap',
-            location: 'PhilippBacherHeroSimple.tsx:hero-shape-stack',
-            message: 'Hero box vs shape divider stacking and overlap',
-            timestamp: Date.now(),
-            data: {
-              heroBoxTop: heroBoxRect2.top,
-              heroBoxBottom: heroBoxRect2.bottom,
-              shapeTop: shapeRect.top,
-              shapeBottom: shapeRect.bottom,
-              heroBoxZ: heroBoxStyles.zIndex,
-              shapeZ: shapeStyles.zIndex,
-              viewportHeight: window.innerHeight,
-              viewportWidth: window.innerWidth,
-            },
-          }),
-        }).catch(() => {})
-      }
-
-      // Horizontaler Check & Korrektur: liegt das Hero-Bild rechts außerhalb des Viewports / Content-Bereichs?
-      try {
-        const imgEl = img as HTMLElement
-        const imgRectBefore = imgEl.getBoundingClientRect()
-        const heroRect2 = hero ? (hero as HTMLElement).getBoundingClientRect() : null
-        const foregroundRect = heroForegroundContainer
-          ? (heroForegroundContainer as HTMLElement).getBoundingClientRect()
-          : null
-
-        // Messung vor der Korrektur
-        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Debug-Session-Id': 'bb8fe5',
-          },
-          body: JSON.stringify({
-            sessionId: 'bb8fe5',
-            runId: 'pre-fix',
-            hypothesisId: 'H-horizontal',
-            location: 'PhilippBacherHeroSimple.tsx:geometry',
-            message: 'Hero image horizontal bounds vs viewport and hero container (before fix)',
-            timestamp: Date.now(),
-            data: {
-              imgRight: imgRectBefore.right,
-              imgWidth: imgRectBefore.width,
-              viewportWidth: window.innerWidth,
-              viewportHeight: window.innerHeight,
-              heroRight: heroRect2?.right ?? null,
-              heroLeft: heroRect2?.left ?? null,
-              heroWidth: heroRect2?.width ?? null,
-              foregroundRight: foregroundRect?.right ?? null,
-              foregroundLeft: foregroundRect?.left ?? null,
-              foregroundWidth: foregroundRect?.width ?? null,
-            },
-          }),
-        }).catch(() => {})
-
-        // Korrektur:
-        // - Standard: Bild so weit nach links verschieben, dass es nicht über den rechten Viewportrand hinausläuft
-        // - Unter 555px Breite:
-        //   - sehr kleine Geräte (z. B. iPhone SE, ~375px): Bild ca. 10 % nach rechts,
-        //     nur ca. 3 % seiner Höhe nach oben verschieben (15 % weniger als zuvor) und auf 1.11x skalieren
-        //   - größere Phones (z. B. iPhone 14 Pro Max, ~430px): Bild ca. 10 % nach rechts,
-        //     ca. 18 % seiner Höhe nach oben verschieben und auf ~1.28x skalieren (ca. 15 % größer als 1.11).
-        let appliedShiftX = 0
-        let appliedShiftY = 24
-        const overflowRight = imgRectBefore.right - window.innerWidth
-        const isVeryNarrow = window.innerWidth < 555
-
-        let scale = 1
-
-        if (isVeryNarrow) {
-          const isSmallPhone = window.innerWidth <= 390 // z. B. iPhone SE / 360–375px
-
-          if (isSmallPhone) {
-            // iPhone SE: 10 % nach rechts, nur ca. 3 % nach oben, Scale 1.11
-            appliedShiftX = imgRectBefore.width * 0.1
-            appliedShiftY = -imgRectBefore.height * 0.03
-            scale = 1.11
-          } else {
-            // Größere Phones (z. B. iPhone 14 Pro Max): 10 % nach rechts, 18 % nach oben, Scale ~1.28
-            appliedShiftX = imgRectBefore.width * 0.1
-            appliedShiftY = -imgRectBefore.height * 0.18
-            scale = 1.28
-          }
-        } else if (overflowRight > 0) {
-          // Nur bei größeren Viewports Clamp nach links
-          appliedShiftX = -overflowRight
-        }
-
-        imgEl.style.transform = `translate(${appliedShiftX}px, ${appliedShiftY}px) scale(${scale})`
-
-        const imgRectAfter = imgEl.getBoundingClientRect()
-
-        // Messung nach der Korrektur
-        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Debug-Session-Id': 'bb8fe5',
-          },
-          body: JSON.stringify({
-            sessionId: 'bb8fe5',
-            runId: 'post-fix',
-            hypothesisId: 'H-horizontal-fix',
-            location: 'PhilippBacherHeroSimple.tsx:geometry',
-            message: 'Hero image horizontal bounds after applying clamp',
-            timestamp: Date.now(),
-            data: {
-              overflowRightBefore: overflowRight,
-              appliedShiftX,
-              appliedShiftY,
-              isVeryNarrow,
-              imgRightAfter: imgRectAfter.right,
-              imgWidthAfter: imgRectAfter.width,
-              viewportWidth: window.innerWidth,
-            },
-          }),
-        }).catch(() => {})
-      } catch {
-        // bewusst kein Throw im Debug-Log
-      }
-    } catch {
-      // bewusst kein Throw im Debug-Log
+    return () => {
+      cancelAnimationFrame(rafId)
+      observer.disconnect()
     }
   }, [])
-  // #endregion agent log
+
+  const foregroundImageUrl = foregroundImage ? getMediaUrlSafe(foregroundImage) : null
 
   return (
     <section
       className="relative w-full min-h-0 h-fit flex flex-col justify-end md:justify-start items-start overflow-visible text-foreground hero-offset"
-      style={{ backgroundColor: 'unset', background: 'unset' }}
+      style={SECTION_STYLE}
     >
-      {/* Hintergrund-Preset-Layer aus Payload (z. B. cssHalo, patternSquare) */}
+      {/* Hintergrund-Preset-Layer (z. B. cssHalo, patternSquare) */}
       <HeroBackgroundPresetLayer preset={backgroundPreset} />
 
-      {/* Honeycomb-Hintergrund (hero-pattern-bg) */}
+      {/* Honeycomb-Hintergrund */}
       <div className="hero-pattern-bg absolute inset-0 -z-[21]" aria-hidden />
 
-      {/* Hintergrundbild / Video */}
+      {/* Hintergrundbild */}
       {backgroundImage?.url && (
         <Image
           src={getMediaUrl(backgroundImage.url) || backgroundImage.url}
@@ -414,6 +190,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           className="object-cover -z-10"
         />
       )}
+      {/* Hintergrundvideo */}
       {backgroundVideo?.url && (
         <video
           className="absolute inset-0 w-full h-full object-cover -z-20"
@@ -426,38 +203,39 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         </video>
       )}
 
-      {/* Farbiges Radial-Overlay über dem Hintergrund (mehrlagiger Glow vom unteren Rand) */}
+      {/* Radial-Glow-Overlay */}
       <div className="hero-background-overlay" aria-hidden />
 
-      {/* Overlay – nur Opacity, kein festes Layout (vermeidet Hydration-Mismatch) */}
+      {/* Deckkraft-Overlay */}
       <div
         className="absolute top-0 left-0 right-0 w-full h-fit -z-[5] bg-background"
-        style={{ opacity: Number(overlayOpacity) ?? 0.42 }}
+        style={{ opacity: overlayOpacity ?? 0.42 }}
         aria-hidden
       />
 
-      {/* Haupt-Content: flussbasiert, Padding skaliert mit Breakpoints */}
-      <div
-        className="relative z-10 container max-w-6xl mx-auto px-4 md:px-6 py-8 sm:py-10 md:py-12 lg:py-16 text-left flex flex-col items-start justify-center w-full gap-0 hero-box-gradient md:-translate-y-[10vh]"
-      >
+      {/* Haupt-Content */}
+      <div className="relative z-10 container max-w-6xl mx-auto px-4 md:px-6 py-8 sm:py-10 md:py-12 lg:py-16 text-left flex flex-col items-start justify-center w-full gap-0 hero-box-gradient md:-translate-y-[10vh]">
         {subheadline && (
           <p className="hero-subheadline-badge text-xs md:text-sm uppercase tracking-[0.25em] text-muted-foreground w-fit">
             {subheadline}
           </p>
         )}
-        {hasLines &&
-          lines.map((line, idx) => (
-            <h1
-              key={idx}
-              className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit"
-            >
-              {line}
-            </h1>
-          ))}
-        {headlineText && (
+
+        {/* Headline: immer genau ein <h1>, weitere Zeilen als <span> */}
+        {hasLines ? (
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit">
-            {headlineText}
+            {lines.map((line, idx) => (
+              <span key={idx} className="block">
+                {line}
+              </span>
+            ))}
           </h1>
+        ) : (
+          headlineText && (
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit">
+              {headlineText}
+            </h1>
+          )
         )}
         {description && (
           <p className="text-base md:text-lg text-muted-foreground text-left max-w-[268px] mx-0 w-fit mt-4 mb-4">
@@ -465,13 +243,12 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           </p>
         )}
 
-        {/* Links (Payload CMSLink-kompatibel) */}
+        {/* CTA-Links */}
         {Array.isArray(links) && links.length > 0 && (
           <div className="flex flex-wrap gap-3 sm:gap-4 justify-center md:justify-start w-fit">
             {links.map((linkItem, idx) => {
               if (!linkItem?.link) return null
-              const rawLink = linkItem.link as { url?: string; label?: string; appearance?: string; newTab?: boolean; type?: string; reference?: unknown }
-              const { reference: _reference, ...link } = rawLink
+              const { reference: _ref, ...link } = linkItem.link
               const isOutline = link.appearance === 'outline'
               return (
                 <CMSLink
@@ -488,19 +265,11 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           </div>
         )}
 
+        {/* Marquee */}
         {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
           <div
             className="relative z-[40] mt-6 md:mt-8 w-full md:max-w-[60%] flex flex-col items-stretch px-0 py-0 md:py-0 gap-3 box-content"
-            style={{
-              backdropFilter: 'none',
-              background: 'unset',
-              backgroundColor: 'rgba(255,255,255,0)',
-              color: 'rgba(10, 10, 10, 1)',
-              borderTopWidth: 0,
-              borderTopStyle: 'none',
-              borderTopColor: 'rgba(0, 0, 0, 0)',
-              borderImage: 'none',
-            }}
+            style={MARQUEE_CONTAINER_STYLE}
           >
             {marqueeHeadline && (
               <span className="text-[0.7rem] font-semibold uppercase tracking-[0.25em] text-muted-foreground mt-[3px] mb-[3px]">
@@ -508,13 +277,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
               </span>
             )}
             {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && (
-              <Marquee
-                duration={40}
-                pauseOnHover
-                fadeEdges
-                gapClassName="gap-6"
-                className="py-0 -mx-1"
-              >
+              <Marquee duration={40} pauseOnHover fadeEdges gapClassName="gap-6" className="py-0 -mx-1">
                 {marqueeLogos.map((logo, idx) => {
                   const url = logo?.logo != null ? getMediaUrlSafe(logo.logo) : ''
                   if (!url) return null
@@ -539,23 +302,24 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         )}
       </div>
 
-      {/* Vordergrundbild: unten rechts, an Content-Breite (max-w-6xl) ausgerichtet */}
-      {foregroundImage && getMediaUrlSafe(foregroundImage) && (
+      {/* Vordergrundbild (Portrait) */}
+      {foregroundImageUrl && (
         <div className="pointer-events-none w-full">
           <div className="relative max-w-6xl mx-auto hero-foreground-container">
             <Image
-              src={getMediaUrlSafe(foregroundImage)}
+              ref={imgRef}
+              src={foregroundImageUrl}
               alt=""
               width={414}
               height={600}
               className="hero-simple-portrait-img hero-portrait-sm hero-simple-portrait absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] box-content h-fit object-contain object-bottom md:z-20"
-              style={{ transform: 'translateY(40px)' }}
+              style={{ transform: portraitTransform }}
             />
           </div>
         </div>
       )}
 
-      {/* Floating Elements – prozentbasiert */}
+      {/* Floating Elements */}
       {Array.isArray(floatingElements) &&
         floatingElements.map((f, idx) => (
           <div
