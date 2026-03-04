@@ -103,6 +103,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       const img = document.querySelector('.hero-simple-portrait-img')
       const hero = document.querySelector('.hero-offset')
       const heroBox = document.querySelector('.hero-box-gradient')
+      const shapeDividers = document.querySelectorAll('.hero-shape-divider')
       const heroForegroundContainer = document.querySelector('.hero-foreground-container')
       const heroPortraitWrapper = document.querySelector('.hero-portrait-wrapper')
       const following = document.querySelector('.hero-following-section-mask')
@@ -212,6 +213,41 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
               heroBottom: heroRect.bottom,
               imgBottom: imgRect.bottom,
               gap: heroRect.bottom - imgRect.bottom,
+              viewportHeight: window.innerHeight,
+              viewportWidth: window.innerWidth,
+            },
+          }),
+        }).catch(() => {})
+      }
+
+      // Shape-Divider vs. Hero-Box: Z-Index und vertikale Überlappung
+      if (heroBox && shapeDividers.length > 0) {
+        const heroBoxRect2 = (heroBox as HTMLElement).getBoundingClientRect()
+        const firstShape = shapeDividers[0] as HTMLElement
+        const shapeRect = firstShape.getBoundingClientRect()
+        const heroBoxStyles = window.getComputedStyle(heroBox as HTMLElement)
+        const shapeStyles = window.getComputedStyle(firstShape)
+
+        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Debug-Session-Id': 'ef0cb0',
+          },
+          body: JSON.stringify({
+            sessionId: 'ef0cb0',
+            runId: 'pre-shape-stack',
+            hypothesisId: 'H-shape-overlap',
+            location: 'PhilippBacherHeroSimple.tsx:hero-shape-stack',
+            message: 'Hero box vs shape divider stacking and overlap',
+            timestamp: Date.now(),
+            data: {
+              heroBoxTop: heroBoxRect2.top,
+              heroBoxBottom: heroBoxRect2.bottom,
+              shapeTop: shapeRect.top,
+              shapeBottom: shapeRect.bottom,
+              heroBoxZ: heroBoxStyles.zIndex,
+              shapeZ: shapeStyles.zIndex,
               viewportHeight: window.innerHeight,
               viewportWidth: window.innerWidth,
             },
@@ -358,15 +394,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
       {/* Haupt-Content: flussbasiert, Padding skaliert mit Breakpoints */}
       <div
-        className="relative z-10 container max-w-6xl mx-auto px-4 md:px-6 py-8 sm:py-10 md:py-12 lg:py-16 text-left flex flex-col items-start justify-end w-full gap-0 hero-box-gradient"
-        style={{
-          width: 'fit-content',
-          height: 'fit-content',
-          padding: '33px',
-          borderStyle: 'none',
-          borderColor: 'rgba(0, 0, 0, 0)',
-          borderImage: 'none',
-        }}
+        className="relative z-10 container max-w-6xl mx-auto px-4 md:px-6 py-8 sm:py-10 md:py-12 lg:py-16 text-left flex flex-col items-start justify-center w-full gap-0 hero-box-gradient md:-translate-y-[10vh]"
       >
         {subheadline && (
           <p className="hero-subheadline-badge text-xs md:text-sm uppercase tracking-[0.25em] text-muted-foreground w-fit">
@@ -473,7 +501,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           <div className="relative max-w-6xl mx-auto hero-foreground-container">
             <div
               className="absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] flex justify-start items-start overflow-visible hero-portrait-sm hero-simple-portrait hero-portrait-wrapper pb-16 pl-0 md:z-20"
-              style={{ width: '100%', transform: 'translateY(24px)' }}
+              style={{ width: '100%', transform: 'translateY(40px)' }}
             >
               <Image
                 src={getMediaUrlSafe(foregroundImage)}
@@ -502,9 +530,9 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         ))}
 
       {/* Wellen-Shape-Divider: 2 Wellen, unterschiedliche Amplituden, steigt von rechts nach links, 10vh.
-          Liegt bewusst unter dem Content (z-Index kleiner als Hero-Box), aber über dem Hintergrund-Overlay. */}
+          Mobile unter dem Content, ab Desktop/iPad darüber (z-Index höher als Hero-Content). */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[5] w-full hero-shape-divider"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[5] md:z-[30] w-full hero-shape-divider"
         style={{ height: '10vh' }}
         aria-hidden
       >
@@ -529,7 +557,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
       {/* Zweiter Shape-Divider: leicht größer, halbtransparent, horizontal versetzt */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[4] w-full hero-shape-divider"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[4] md:z-[29] w-full hero-shape-divider"
         style={{ height: 'calc(10vh + 33px)' }}
         aria-hidden
       >
