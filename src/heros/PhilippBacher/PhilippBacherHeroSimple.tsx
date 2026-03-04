@@ -242,7 +242,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       />
 
       {/* Haupt-Content */}
-      <div className="relative z-10 container max-w-6xl mx-auto px-4 md:px-6 py-8 sm:py-10 md:py-12 lg:py-16 text-left flex flex-col items-start justify-center w-full gap-0 hero-box-gradient md:-translate-y-[10vh]">
+      <div className="relative z-[40] container max-w-6xl mx-auto px-4 md:px-6 py-8 sm:py-10 md:py-12 lg:py-16 text-left flex flex-col items-start justify-center w-full gap-0 hero-box-gradient md:translate-y-[4vh]">
         {subheadline && (
           <p className="hero-subheadline-badge text-xs md:text-sm uppercase tracking-[0.25em] text-muted-foreground w-fit">
             {subheadline}
