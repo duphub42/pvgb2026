@@ -118,19 +118,10 @@ function debounce<T extends (...args: any[]) => void>(fn: T, delay: number): T {
 function computePortraitTransform(imgRect: DOMRect, viewportWidth: number): string {
   const isVeryNarrow = viewportWidth < 555
 
+  // Kleine Viewports: Bild nicht nach oben oder nach links verschieben, keine zusätzliche Skalierung.
+  // So bleibt der Kopf sichtbar und die Beschneidung kann höchstens unten oder rechts passieren.
   if (isVeryNarrow) {
-    const isSmallPhone = viewportWidth <= 390
-    if (isSmallPhone) {
-      // iPhone SE: leicht nach rechts, kaum nach oben, leicht skaliert
-      const shiftX = imgRect.width * 0.1
-      const shiftY = -imgRect.height * 0.03
-      return `translate(${shiftX}px, ${shiftY}px) scale(1.11)`
-    } else {
-      // Größere Phones (z. B. iPhone 14 Pro Max): mehr nach oben, stärker skaliert
-      const shiftX = imgRect.width * 0.1
-      const shiftY = -imgRect.height * 0.18
-      return `translate(${shiftX}px, ${shiftY}px) scale(1.28)`
-    }
+    return 'translateY(40px)'
   }
 
   // Große Viewports: nur nach links clampen wenn Overflow
@@ -262,7 +253,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         {/* Subheadline: blendet als Letztes von unten nach oben ein */}
         {subheadline && (
           <p
-            className="hero-subheadline-badge hero-reveal-subheadline text-xs md:text-sm uppercase tracking-[0.25em] text-muted-foreground w-fit"
+            className="hero-subheadline-badge hero-reveal-subheadline text-[1rem] md:text-[1.167rem] uppercase tracking-[0.25em] text-muted-foreground w-fit"
             style={{ animationDelay: `${HERO_ANIM.subheadlineStartMs}ms` }}
           >
             {subheadline}
@@ -376,7 +367,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                       <img
                         src={url}
                         alt={logo?.alt ?? ''}
-                        className="hero-logo-grayscale w-auto max-w-[88px] h-auto max-h-[33px] object-contain"
+                        className="hero-logo-grayscale filter grayscale w-auto max-w-[88px] h-auto max-h-[33px] object-contain"
                         loading="lazy"
                         decoding="async"
                       />
@@ -444,7 +435,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           {/* Welle 1: größere Amplitude, steigt von rechts (y groß) nach links (y klein) – fill folgt Theme (--background) */}
           <path
             d="M0,28 C250,55 500,18 750,52 C1000,22 1200,58 1200,58 L1200,120 L0,120 Z"
-            style={{ fill: 'var(--background)', opacity: 1 }}
+            style={{ fill: 'var(--background)', opacity: 1, visibility: 'hidden' }}
           />
           {/* Welle 2: kleinere Amplitude, versetzt für Tiefe */}
           <path

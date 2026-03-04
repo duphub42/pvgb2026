@@ -69,7 +69,7 @@ const LogoColumn = React.memo(({ logos, index, currentTime, className }: LogoCol
           <img
             src={currentLogo.imgUrl}
             alt={currentLogo.alt ?? currentLogo.name}
-            className="hero-logo-grayscale h-auto max-h-full w-full object-contain"
+            className="hero-logo-grayscale filter grayscale h-auto max-h-full w-full object-contain"
             loading="lazy"
             decoding="async"
           />
