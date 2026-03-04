@@ -102,6 +102,8 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       const header = document.querySelector('header')
       const img = document.querySelector('.hero-simple-portrait-img')
       const hero = document.querySelector('.hero-offset')
+      const heroForegroundContainer = document.querySelector('.hero-foreground-container')
+      const heroPortraitWrapper = document.querySelector('.hero-portrait-wrapper')
       const following = document.querySelector('.hero-following-section-mask')
 
       if (!header || !img) return
@@ -161,6 +163,96 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           }),
         }).catch(() => {})
       }
+
+      // Horizontaler Check & Korrektur: liegt das Hero-Bild rechts außerhalb des Viewports / Content-Bereichs?
+      try {
+        const imgEl = img as HTMLElement
+        const imgRectBefore = imgEl.getBoundingClientRect()
+        const heroRect2 = hero ? (hero as HTMLElement).getBoundingClientRect() : null
+        const foregroundRect = heroForegroundContainer
+          ? (heroForegroundContainer as HTMLElement).getBoundingClientRect()
+          : null
+
+        // Messung vor der Korrektur
+        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Debug-Session-Id': 'bb8fe5',
+          },
+          body: JSON.stringify({
+            sessionId: 'bb8fe5',
+            runId: 'pre-fix',
+            hypothesisId: 'H-horizontal',
+            location: 'PhilippBacherHeroSimple.tsx:geometry',
+            message: 'Hero image horizontal bounds vs viewport and hero container (before fix)',
+            timestamp: Date.now(),
+            data: {
+              imgRight: imgRectBefore.right,
+              imgWidth: imgRectBefore.width,
+              viewportWidth: window.innerWidth,
+              viewportHeight: window.innerHeight,
+              heroRight: heroRect2?.right ?? null,
+              heroLeft: heroRect2?.left ?? null,
+              heroWidth: heroRect2?.width ?? null,
+              foregroundRight: foregroundRect?.right ?? null,
+              foregroundLeft: foregroundRect?.left ?? null,
+              foregroundWidth: foregroundRect?.width ?? null,
+            },
+          }),
+        }).catch(() => {})
+
+        // Korrektur:
+        // - Standard: Bild so weit nach links verschieben, dass es nicht über den rechten Viewportrand hinausläuft
+        // - Unter 555px Breite: Bild ca. 5 % seiner Breite nach rechts und 5 % seiner Höhe nach oben verschieben
+        let appliedShiftX = 0
+        let appliedShiftY = 24
+        const overflowRight = imgRectBefore.right - window.innerWidth
+        const isVeryNarrow = window.innerWidth < 555
+
+        if (heroPortraitWrapper) {
+          if (isVeryNarrow) {
+            // 10 % nach rechts und 5 % nach oben verschieben, Beschnitt rechts ist erlaubt
+            appliedShiftX = imgRectBefore.width * 0.1
+            appliedShiftY = -imgRectBefore.height * 0.05
+          } else if (overflowRight > 0) {
+            // Nur bei größeren Viewports Clamp nach links
+            appliedShiftX = -overflowRight
+          }
+
+          ;(heroPortraitWrapper as HTMLElement).style.transform = `translate(${appliedShiftX}px, ${appliedShiftY}px)`
+        }
+
+        const imgRectAfter = imgEl.getBoundingClientRect()
+
+        // Messung nach der Korrektur
+        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Debug-Session-Id': 'bb8fe5',
+          },
+          body: JSON.stringify({
+            sessionId: 'bb8fe5',
+            runId: 'post-fix',
+            hypothesisId: 'H-horizontal-fix',
+            location: 'PhilippBacherHeroSimple.tsx:geometry',
+            message: 'Hero image horizontal bounds after applying clamp',
+            timestamp: Date.now(),
+            data: {
+              overflowRightBefore: overflowRight,
+              appliedShiftX,
+              appliedShiftY,
+              isVeryNarrow,
+              imgRightAfter: imgRectAfter.right,
+              imgWidthAfter: imgRectAfter.width,
+              viewportWidth: window.innerWidth,
+            },
+          }),
+        }).catch(() => {})
+      } catch {
+        // bewusst kein Throw im Debug-Log
+      }
     } catch {
       // bewusst kein Throw im Debug-Log
     }
@@ -219,8 +311,6 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           borderStyle: 'none',
           borderColor: 'rgba(0, 0, 0, 0)',
           borderImage: 'none',
-          backgroundClip: 'unset',
-          WebkitBackgroundClip: 'unset',
         }}
       >
         {subheadline && (
@@ -273,7 +363,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
         {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
           <div
-            className="relative z-[40] mt-6 md:mt-8 w-full md:max-w-[60%] flex flex-col items-stretch px-4 py-3 md:py-4 gap-3 box-content"
+            className="relative z-[40] mt-6 md:mt-8 w-full md:max-w-[60%] flex flex-col items-stretch px-0 py-0 md:py-0 gap-3 box-content"
             style={{
               backdropFilter: 'none',
               background: 'unset',
@@ -322,19 +412,23 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         )}
       </div>
 
-      {/* Vordergrundbild: unten rechts, responsive Breite/Höhe (zählt zur Höhe des Heros) */}
+      {/* Vordergrundbild: unten rechts, an Content-Breite (max-w-6xl) ausgerichtet */}
       {foregroundImage && getMediaUrlSafe(foregroundImage) && (
-        <div
-          className="absolute bottom-0 right-0 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] flex justify-start items-start overflow-visible pointer-events-none hero-portrait-sm hero-simple-portrait pb-16 pl-0 md:z-20"
-          style={{ width: '100%' }}
-        >
-          <Image
-            src={getMediaUrlSafe(foregroundImage)}
-            alt=""
-            width={414}
-            height={600}
-            className="hero-simple-portrait-img flex flex-wrap box-content align-bottom w-full h-fit object-contain object-bottom"
-          />
+        <div className="pointer-events-none w-full">
+          <div className="relative max-w-6xl mx-auto hero-foreground-container">
+            <div
+              className="absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] flex justify-start items-start overflow-visible hero-portrait-sm hero-simple-portrait hero-portrait-wrapper pb-16 pl-0 md:z-20"
+              style={{ width: '100%', transform: 'translateY(24px)' }}
+            >
+              <Image
+                src={getMediaUrlSafe(foregroundImage)}
+                alt=""
+                width={414}
+                height={600}
+                className="hero-simple-portrait-img flex flex-wrap box-content align-bottom w-full h-fit object-contain object-bottom"
+              />
+            </div>
+          </div>
         </div>
       )}
 
@@ -380,7 +474,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Zweiter Shape-Divider: leicht größer, halbtransparent, horizontal versetzt */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 right-0 z-[29] w-full hero-shape-divider"
-        style={{ height: 'calc(10vh + 15px)' }}
+        style={{ height: 'calc(10vh + 33px)' }}
         aria-hidden
       >
         <svg
