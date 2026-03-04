@@ -3629,18 +3629,18 @@ header .header-tool-toggle--theme:hover {
     var(--halo-overlay-grid-size) var(--halo-overlay-grid-size);
 }
 
-/* Hero-Logos (Marquee + Carousel): wie philippbacher.com – einheitlich hell/weiß auf dunklem Grund */
+/* Hero-Logos (Marquee + Carousel): standardmäßig farbig, nur leicht abgedunkelt */
 .hero-logo-grayscale {
-  filter: brightness(0.93) contrast(0.33) saturate(0);
-  opacity: 0.66;
+  filter: brightness(0.95) contrast(1.05);
+  opacity: 0.9;
 }
 
-/* Hover: Logo farbig, kein Layoutversatz (Skalierung über transform) */
+/* Hover: dezente Betonung ohne Farbwechsel */
 .hero-logo-marquee-item .hero-logo-grayscale {
-  transition: filter 0.2s ease, opacity 0.2s ease;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 .hero-logo-marquee-item:hover .hero-logo-grayscale {
-  filter: none;
+  transform: translateY(-1px) scale(1.02);
   opacity: 1;
 }
 
