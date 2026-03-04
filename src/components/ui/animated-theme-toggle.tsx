@@ -25,17 +25,19 @@ export function AnimatedThemeToggle({ className }: { className?: string }) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button
-          type="button"
-          variant="outline"
-          size="icon"
-          onClick={toggle}
-          title="Toggle theme"
-          aria-label="Toggle theme"
-          className={cn('header-tool-toggle header-tool-toggle--theme px-2.5', className)}
-        >
-          <SolarSwitch isDark={isDark} />
-        </Button>
+        <span className="inline-flex shrink-0">
+          <Button
+            type="button"
+            variant="outline"
+            size="icon"
+            onClick={toggle}
+            title="Toggle theme"
+            aria-label="Toggle theme"
+            className={cn('header-tool-toggle header-tool-toggle--theme px-2.5', className)}
+          >
+            <SolarSwitch isDark={isDark} />
+          </Button>
+        </span>
       </TooltipTrigger>
       <TooltipContent side="bottom" sideOffset={6}>
         {resolved === 'light' ? 'Dunkelmodus' : 'Hellmodus'}

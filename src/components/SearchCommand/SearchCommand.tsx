@@ -43,17 +43,19 @@ export function SearchCommand() {
     <>
       <Tooltip>
         <TooltipTrigger asChild>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="header-tool-toggle header-tool-toggle--theme shrink-0"
-            onClick={() => setOpen(true)}
-            aria-label="Suchen"
-          >
-            <svg className="size-5" aria-hidden="true">
-              <use href="/icons-sprite.svg#hf-search" />
-            </svg>
-          </Button>
+          <span className="inline-flex shrink-0">
+            <Button
+              variant="ghost"
+              size="icon"
+              className="header-tool-toggle header-tool-toggle--theme shrink-0"
+              onClick={() => setOpen(true)}
+              aria-label="Suchen"
+            >
+              <svg className="size-5" aria-hidden="true">
+                <use href="/icons-sprite.svg#hf-search" />
+              </svg>
+            </Button>
+          </span>
         </TooltipTrigger>
         <TooltipContent side="bottom" sideOffset={6}>
           Suchen <span className="text-muted-foreground">⌘K</span>

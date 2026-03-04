@@ -1020,14 +1020,16 @@ export function MegaMenu({
             <div className="flex md:hidden shrink-0 items-center">
               <Sheet>
                 <SheetTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
-                    aria-label="Menü öffnen"
-                  >
-                    <Menu className="h-6 w-6" aria-hidden />
-                  </Button>
+                  <span className="inline-flex shrink-0">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
+                      aria-label="Menü öffnen"
+                    >
+                      <Menu className="h-6 w-6" aria-hidden />
+                    </Button>
+                  </span>
                 </SheetTrigger>
             <SheetContent
               side="right"

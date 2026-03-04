@@ -14,18 +14,20 @@ export function LayoutSwitcher() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="header-tool-toggle header-tool-toggle--theme shrink-0"
-          onClick={toggle}
-          aria-label={isWide ? 'Standard-Breite' : 'Breite Ansicht'}
-          aria-pressed={isWide}
-        >
-          <svg className="size-5" aria-hidden="true">
-            <use href={isWide ? '/icons-sprite.svg#hf-panel-right-open' : '/icons-sprite.svg#hf-layout-grid'} />
-          </svg>
-        </Button>
+        <span className="inline-flex shrink-0">
+          <Button
+            variant="ghost"
+            size="icon"
+            className="header-tool-toggle header-tool-toggle--theme shrink-0"
+            onClick={toggle}
+            aria-label={isWide ? 'Standard-Breite' : 'Breite Ansicht'}
+            aria-pressed={isWide}
+          >
+            <svg className="size-5" aria-hidden="true">
+              <use href={isWide ? '/icons-sprite.svg#hf-panel-right-open' : '/icons-sprite.svg#hf-layout-grid'} />
+            </svg>
+          </Button>
+        </span>
       </TooltipTrigger>
       <TooltipContent side="bottom" sideOffset={6}>
         {isWide ? 'Standard-Breite' : 'Breite Ansicht'}
