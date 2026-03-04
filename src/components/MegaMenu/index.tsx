@@ -1057,21 +1057,28 @@ export function MegaMenu({
                       </Link>
                       {hasDropdown(item) && listItems.length > 0 && (
                         <ul className="pl-4 space-y-1 border-l border-border">
-                          {listItems.map((sub, i) => (
-                            <li key={i}>
-                              {sub._groupTitle != null && sub._groupTitle !== '' && (
-                                <span className="block pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                                  {sub._groupTitle}
-                                </span>
-                              )}
-                              <Link
-                                href={sub.url}
-                                className="block px-2 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                              >
-                                {sub.label}
-                              </Link>
-                            </li>
-                          ))}
+                          {listItems.map((sub, i) => {
+                            const prevTitle = i > 0 ? (listItems[i - 1] as { _groupTitle?: string | null })._groupTitle : null
+                            const showGroupTitle =
+                              sub._groupTitle != null &&
+                              sub._groupTitle !== '' &&
+                              sub._groupTitle !== prevTitle
+                            return (
+                              <li key={i}>
+                                {showGroupTitle && (
+                                  <span className="block pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                                    {sub._groupTitle}
+                                  </span>
+                                )}
+                                <Link
+                                  href={sub.url}
+                                  className="block px-2 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                >
+                                  {sub.label}
+                                </Link>
+                              </li>
+                            )
+                          })}
                         </ul>
                       )}
                     </div>
