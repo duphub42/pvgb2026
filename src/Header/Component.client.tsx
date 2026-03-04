@@ -4,7 +4,8 @@ import { useHeaderTheme } from '@/providers/HeaderTheme'
 import { useTheme } from '@/providers/Theme'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import { cn } from '@/utilities/ui'
 
 import type { Header } from '@/payload-types'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
@@ -21,10 +22,48 @@ interface HeaderClientProps {
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems = [] }) => {
   const [theme, setTheme] = useState<string | null>(null)
+  const [headerVisible, setHeaderVisible] = useState(true)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const lastScrollYRef = useRef(0)
+  const scrollReadyRef = useRef(false)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const { theme: globalTheme } = useTheme()
   const pathname = usePathname()
   const useMegaMenu = (data as Header & { useMegaMenu?: boolean })?.useMegaMenu === true && megaMenuItems.length > 0
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      lastScrollYRef.current = window.scrollY
+      const t = setTimeout(() => {
+        scrollReadyRef.current = true
+      }, 500)
+      return () => clearTimeout(t)
+    }
+  }, [])
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const lastScrollY = lastScrollYRef.current
+      const delta = currentScrollY - lastScrollY
+      lastScrollYRef.current = currentScrollY
+      setIsScrolled(currentScrollY > 20)
+      const nearTop = currentScrollY < 100
+      const scrollingDown = delta > 10
+      const scrollingUp = delta < -10
+      const pastThreshold = currentScrollY > 100
+      const mayHide = scrollReadyRef.current
+      if (nearTop || scrollingUp) {
+        setHeaderVisible(true)
+      } else if (mayHide && scrollingDown && pastThreshold) {
+        setHeaderVisible(false)
+      } else {
+        setHeaderVisible(true)
+      }
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
 
   useEffect(() => {
     setHeaderTheme(null)
@@ -143,8 +182,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
 
   return (
     <header
-      className="site-header sticky top-0 z-50 w-full"
+      className={cn(
+        'site-header sticky top-0 z-50 w-full transition-[transform,opacity] duration-300 ease-out',
+        headerVisible
+          ? 'translate-y-0 opacity-100 visible'
+          : '-translate-y-full opacity-0 pointer-events-none invisible',
+      )}
       {...(resolvedTheme ? { 'data-theme': resolvedTheme } : {})}
+      data-scrolled={isScrolled ? 'true' : undefined}
     >
       <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
         <div className="flex flex-1 items-center justify-between">

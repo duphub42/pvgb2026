@@ -253,7 +253,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         {/* Subheadline: blendet als Letztes von unten nach oben ein */}
         {subheadline && (
           <p
-            className="hero-subheadline-badge hero-reveal-subheadline text-[1rem] md:text-[1.167rem] uppercase tracking-[0.25em] text-muted-foreground w-fit"
+            className="hero-subheadline-badge hero-reveal-subheadline text-[1rem] md:text-[1.167rem] min-[555px]:text-[0.67rem] min-[555px]:md:text-[0.78rem] uppercase tracking-[0.25em] text-muted-foreground w-fit"
             style={{ animationDelay: `${HERO_ANIM.subheadlineStartMs}ms` }}
           >
             {subheadline}

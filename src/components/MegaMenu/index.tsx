@@ -1034,33 +1034,36 @@ export function MegaMenu({
               className="megamenu-sheet w-[300px] sm:w-[400px]"
             >
               <SheetHeader className="flex flex-row items-center justify-between gap-3">
-                <SheetTitle className="text-left">Menu</SheetTitle>
-                <AnimatedThemeToggle />
+                <AnimatedThemeToggle className="order-first shrink-0" />
+                <SheetTitle className="text-left flex-1">Menu</SheetTitle>
               </SheetHeader>
               <nav className="flex flex-col gap-4 mt-8">
-                {sortedItems.map((item) => (
-                  <div key={item.id} className="space-y-2">
-                    <Link
-                      href={item.url}
-                      className="block px-2 py-1 text-lg font-semibold transition-colors hover:text-primary"
-                    >
-                      {item.label}
-                    </Link>
-                    {hasDropdown(item) && (
-                      <ul className="pl-4 space-y-1 border-l border-border">
-                        {(item.subItems ?? []).map((sub, i) => (
-                          <li key={i}>
-                            <Link
-                              href={sub.url}
-                              className="block px-2 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
-                            >
-                              {sub.label}
-                            </Link>
-                          </li>
-                        ))}
-                        {(item.columns ?? []).flatMap((col) =>
-                          (col.items ?? []).map((sub, j) => (
-                            <li key={`${col.title}-${j}`}>
+                {sortedItems.map((item) => {
+                  const cols = item.columns ?? []
+                  const allItemsFromColumns = cols.flatMap((col) =>
+                    (col.items ?? []).map((sub) => ({ ...sub, _groupTitle: col.title ?? null })),
+                  )
+                  const listItems =
+                    allItemsFromColumns.length > 0
+                      ? allItemsFromColumns
+                      : (item.subItems ?? []).map((s) => ({ ...s, _groupTitle: null as string | null }))
+                  return (
+                    <div key={item.id} className="space-y-2">
+                      <Link
+                        href={item.url}
+                        className="block px-2 py-1 text-lg font-semibold transition-colors hover:text-primary"
+                      >
+                        {item.label}
+                      </Link>
+                      {hasDropdown(item) && listItems.length > 0 && (
+                        <ul className="pl-4 space-y-1 border-l border-border">
+                          {listItems.map((sub, i) => (
+                            <li key={i}>
+                              {sub._groupTitle != null && sub._groupTitle !== '' && (
+                                <span className="block pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                                  {sub._groupTitle}
+                                </span>
+                              )}
                               <Link
                                 href={sub.url}
                                 className="block px-2 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
@@ -1068,12 +1071,12 @@ export function MegaMenu({
                                 {sub.label}
                               </Link>
                             </li>
-                          )),
-                        )}
-                      </ul>
-                    )}
-                  </div>
-                ))}
+                          ))}
+                        </ul>
+                      )}
+                    </div>
+                  )
+                })}
               </nav>
             </SheetContent>
               </Sheet>
