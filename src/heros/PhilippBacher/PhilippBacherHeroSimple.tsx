@@ -102,6 +102,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       const header = document.querySelector('header')
       const img = document.querySelector('.hero-simple-portrait-img')
       const hero = document.querySelector('.hero-offset')
+      const heroBox = document.querySelector('.hero-box-gradient')
       const heroForegroundContainer = document.querySelector('.hero-foreground-container')
       const heroPortraitWrapper = document.querySelector('.hero-portrait-wrapper')
       const following = document.querySelector('.hero-following-section-mask')
@@ -159,6 +160,60 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
               imgBottom: imgRect.bottom,
               heroBottom: heroRect?.bottom ?? null,
               followingTop: followingRect?.top ?? null,
+            },
+          }),
+        }).catch(() => {})
+      }
+
+      // Zusätzliche Messung: Abstand zwischen Header-Unterkante und Hero-Box-Oberkante
+      if (header && heroBox) {
+        const heroBoxRect = (heroBox as HTMLElement).getBoundingClientRect()
+
+        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Debug-Session-Id': 'ef0cb0',
+          },
+          body: JSON.stringify({
+            sessionId: 'ef0cb0',
+            runId: 'pre-spacing',
+            hypothesisId: 'H-header-hero-spacing',
+            location: 'PhilippBacherHeroSimple.tsx:header-hero-box',
+            message: 'Header bottom vs hero-box top spacing',
+            timestamp: Date.now(),
+            data: {
+              headerBottom: headerRect.bottom,
+              heroBoxTop: heroBoxRect.top,
+              spacing: heroBoxRect.top - headerRect.bottom,
+              viewportHeight: window.innerHeight,
+              viewportWidth: window.innerWidth,
+            },
+          }),
+        }).catch(() => {})
+      }
+
+      // Abstand zwischen Hero-Sektions-Unterkante und Bild-Unterkante (Lücke unterhalb des Herobildes)
+      if (heroRect && imgRect) {
+        fetch('http://127.0.0.1:7646/ingest/7566231f-57c2-48b8-9cf8-8f81f4440438', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-Debug-Session-Id': 'ef0cb0',
+          },
+          body: JSON.stringify({
+            sessionId: 'ef0cb0',
+            runId: 'pre-gap',
+            hypothesisId: 'H-hero-bottom-gap',
+            location: 'PhilippBacherHeroSimple.tsx:hero-bottom-gap',
+            message: 'Gap between hero section bottom and hero image bottom',
+            timestamp: Date.now(),
+            data: {
+              heroBottom: heroRect.bottom,
+              imgBottom: imgRect.bottom,
+              gap: heroRect.bottom - imgRect.bottom,
+              viewportHeight: window.innerHeight,
+              viewportWidth: window.innerWidth,
             },
           }),
         }).catch(() => {})
@@ -311,8 +366,6 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           borderStyle: 'none',
           borderColor: 'rgba(0, 0, 0, 0)',
           borderImage: 'none',
-          marginTop: '20px',
-          marginBottom: '20px',
         }}
       >
         {subheadline && (
@@ -448,9 +501,10 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           </div>
         ))}
 
-      {/* Wellen-Shape-Divider: 2 Wellen, unterschiedliche Amplituden, steigt von rechts nach links, 10vh */}
+      {/* Wellen-Shape-Divider: 2 Wellen, unterschiedliche Amplituden, steigt von rechts nach links, 10vh.
+          Liegt bewusst unter dem Content (z-Index kleiner als Hero-Box), aber über dem Hintergrund-Overlay. */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[30] w-full hero-shape-divider"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[5] w-full hero-shape-divider"
         style={{ height: '10vh' }}
         aria-hidden
       >
@@ -475,7 +529,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
       {/* Zweiter Shape-Divider: leicht größer, halbtransparent, horizontal versetzt */}
       <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[29] w-full hero-shape-divider"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[4] w-full hero-shape-divider"
         style={{ height: 'calc(10vh + 33px)' }}
         aria-hidden
       >

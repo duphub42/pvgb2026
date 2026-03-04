@@ -30,6 +30,7 @@ import { HeaderActions } from '@/components/HeaderActions/HeaderActions'
 import { PathsBackground } from '@/components/PathsBackground/PathsBackground'
 import { ThreadsBackground } from '@/components/ThreadsBackground/ThreadsBackground'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
+import { AnimatedThemeToggle } from '@/components/ui/animated-theme-toggle'
 
 /** Konfiguration für WhatsApp, Rückruf und Newsletter im Mega-Menü (aus Header-Global) */
 export type MegaMenuCta = {
@@ -1032,8 +1033,9 @@ export function MegaMenu({
               side="right"
               className="megamenu-sheet w-[300px] sm:w-[400px]"
             >
-              <SheetHeader>
+              <SheetHeader className="flex flex-row items-center justify-between gap-3">
                 <SheetTitle className="text-left">Menu</SheetTitle>
+                <AnimatedThemeToggle />
               </SheetHeader>
               <nav className="flex flex-col gap-4 mt-8">
                 {sortedItems.map((item) => (
