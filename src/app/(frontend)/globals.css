@@ -266,6 +266,15 @@
       padding-top: 0.5rem;
     }
 
+    .hero-portrait-fade-up {
+      bottom: 18vh;
+    }
+    /* iPhone SE (≤375px): 15vh */
+    @media (max-width: 375px) {
+      .hero-portrait-fade-up {
+        bottom: 15vh;
+      }
+    }
     .hero-portrait-sm {
       transform: scale(1.11);
       transform-origin: bottom right;
