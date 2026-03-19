@@ -22,28 +22,9 @@ const nextConfig = {
   eslint: { ignoreDuringBuilds: true },
   typescript: { ignoreBuildErrors: true },
   // PageSpeed: tree-shake large packages so less JS is shipped
-  experimental: {
-    // Critical CSS: Next.js hat kein built-in optimizeCss; bei Bedarf z. B. next-critical-css oder critters als Plugin.
-    // Weniger Script-Größe: nur genutzte Exports aus großen Paketen laden
-    optimizePackageImports: [
-      '@radix-ui/react-navigation-menu',
-      '@radix-ui/react-dialog',
-      '@radix-ui/react-dropdown-menu',
-      '@radix-ui/react-select',
-      '@radix-ui/react-tooltip',
-      '@radix-ui/react-slot',
-      '@radix-ui/react-checkbox',
-      '@radix-ui/react-label',
-      'motion',
-      'motion/react',
-      'cmdk',
-      'lucide-react',
-      'ogl',
-      'class-variance-authority',
-      'clsx',
-      'tailwind-merge',
-    ],
-  },
+  // NOTE: Disabled unstable experimental chunk optimization because it intermittently
+  // emits missing server chunks (e.g. ./6292.js, ./9993.js, vendor-chunks/*) at runtime/build.
+  experimental: {},
   // DSGVO: Fonts/Skripte sind lokal (kein Google Fonts, keine CDNs). Bei Bedarf: headers() mit Content-Security-Policy script-src 'self'; font-src 'self'.
   images: {
     formats: ['image/avif', 'image/webp'],

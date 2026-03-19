@@ -11,7 +11,8 @@ export async function getMegaMenuItems() {
         const result = await payload.find({
           collection: 'mega-menu',
           limit: 50,
-          depth: 2,
+          // Nested icon/image relations in columns/highlight need deeper population.
+          depth: 4,
           sort: 'order',
         })
         return result.docs

@@ -11,7 +11,8 @@ export async function Footer({ locale = 'de' }: { locale?: Locale }) {
   let headerData: Header | null = null
   try {
     ;[footerData, headerData] = await Promise.all([
-      getCachedGlobal('footer', 2)(),
+      // Footer icons can be nested in arrays/groups; use higher depth for media relation URLs.
+      getCachedGlobal('footer', 4)(),
       getCachedGlobal('header', 1)(),
     ])
   } catch (err) {

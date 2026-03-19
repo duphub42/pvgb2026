@@ -8,6 +8,7 @@ import {
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
+import { Link2 } from 'lucide-react'
 
 import type { Footer, Header } from '@/payload-types'
 import { SaveButton } from '@/components/ui/save-button'
@@ -262,7 +263,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                                   decoding="async"
                                 />
                               ) : (
-                                <span className="text-xs">Link</span>
+                                <Link2 className="size-5 opacity-60" aria-hidden="true" />
                               )}
                             </a>
                           )
