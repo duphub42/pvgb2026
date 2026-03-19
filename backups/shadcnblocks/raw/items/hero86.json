@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hero86",
+  "title": "Hero",
+  "description": "This component features a 2-column layout with a text section and an image. The text includes a title, description, and a button. The image section has a unique aspect ratio with a decorative background.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "aspect-ratio",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/hero86.tsx",
+      "content": "import { AspectRatio } from \"@/components/ui/aspect-ratio\";\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Hero86Props {\n  className?: string;\n}\n\nconst Hero86 = ({ className }: Hero86Props) => {\n  return (\n    <section className={cn(\"pb-24\", className)}>\n      <div className=\"bg-muted pt-16 lg:pt-24\">\n        <div className=\"container flex flex-col items-center lg:flex-row lg:items-start\">\n          <div className=\"relative flex flex-col items-start gap-8 pb-20 lg:w-1/2\">\n            <h2 className=\"text-3xl leading-tight font-bold tracking-tighter text-foreground lg:text-5xl\">\n              Your ad campaigns excel with{\" \"}\n              <span className=\"border-muted2 border-b-2\">my expertise</span>,\n              delivering optimized performance.\n            </h2>\n            <p className=\"text-lg text-foreground\">\n              I’ll maximize your ad campaigns' potential or teach you the\n              strategies so you can manage them yourself!\n            </p>\n            <Button className=\"h-fit px-6 py-3.5 text-base font-medium lg:text-lg\">\n              I want to outsource your ads\n            </Button>\n          </div>\n          <div className=\"relative flex w-full justify-center lg:w-1/2\">\n            <div className=\"relative z-10 -mb-16 h-auto w-[80%] max-w-[355px] lg:w-[520px]\">\n              <AspectRatio ratio={355 / 520} className=\"border-muted2 border\">\n                <img\n                  src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg\"\n                  alt=\"\"\n                  className=\"size-full object-cover\"\n                />\n              </AspectRatio>\n            </div>\n            <div className=\"absolute bottom-0 w-full overflow-hidden\">\n              <AspectRatio ratio={2} className=\"relative\">\n                <AspectRatio\n                  ratio={1}\n                  className=\"absolute w-full rounded-full bg-muted\"\n                />\n              </AspectRatio>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Hero86 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

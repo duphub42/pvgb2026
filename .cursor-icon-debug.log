@@ -1,0 +1,8 @@
+   ▲ Next.js 15.4.11
+   - Local:        http://localhost:3201
+   - Network:      http://172.20.10.12:3201
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Compiled /instrumentation in 244ms (20 modules)
+ ✓ Ready in 2.1s

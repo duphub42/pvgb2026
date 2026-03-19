@@ -1,0 +1,9 @@
+{
+  "slug": "industries2",
+  "title": "Industries",
+  "description": "This component displays a collection of service industries with descriptive text, images, and a customizable badge for quick identification. It features a structured layout with headings, icons, and detailed descriptions of services to enhance user navigation and comprehension.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/industries2",
+  "downloadedAt": "2026-03-19T19:42:17Z",
+  "fileCount": 1
+}

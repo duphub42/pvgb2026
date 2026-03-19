@@ -1,0 +1,9 @@
+{
+  "slug": "hero259",
+  "title": "Hero",
+  "description": "This component provides a dynamic and interactive block featuring a company header with logo and navigation links, a content section with a heading and action button, and a footer presenting additional company information. It also incorporates a visually appealing animated background utilizing canvas and dithering effects for enhanced user engagement.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/hero259",
+  "downloadedAt": "2026-03-19T19:42:12Z",
+  "fileCount": 1
+}

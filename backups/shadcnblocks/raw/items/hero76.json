@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hero76",
+  "title": "Hero",
+  "description": "A component features a centered layout with a logo, headlining text for a UI library, descriptive subtext, and a download button, above an aspect-ratio constrained image.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "aspect-ratio",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/hero76.tsx",
+      "content": "import { AspectRatio } from \"@/components/ui/aspect-ratio\";\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Hero76Props {\n  className?: string;\n}\n\nconst Hero76 = ({ className }: Hero76Props) => {\n  return (\n    <section\n      className={cn(\n        \"container mx-auto mt-32 flex flex-col items-center gap-20 bg-background md:gap-40 md:text-center\",\n        className,\n      )}\n    >\n      <div className=\"flex flex-col gap-10 md:items-center\">\n        <img\n          src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/figma-icon.svg\"\n          alt=\"\"\n          className=\"h-11 w-fit\"\n        />\n        <div className=\"flex max-w-[880px] flex-col items-center gap-6\">\n          <h1 className=\"text-4xl tracking-tighter text-foreground capitalize md:text-5xl lg:text-6xl\">\n            <p>The continuously growing UI library for Shadcn & Figma</p>\n          </h1>\n          <div className=\"text-xl text-muted-foreground\">\n            <p>\n              Create quicker, more efficiently, and boost your design expertise.\n            </p>\n            <p>Transform into an elite designer instantly</p>\n          </div>\n        </div>\n        <Button className=\"h-fit self-center rounded-full px-6 py-3\">\n          Download Now\n        </Button>\n      </div>\n      <div className=\"w-full overflow-hidden rounded-lg\">\n        <AspectRatio ratio={1.916786227 / 1}>\n          <img\n            src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg\"\n            alt=\"\"\n            className=\"size-full object-cover\"\n          />\n        </AspectRatio>\n      </div>\n    </section>\n  );\n};\n\nexport { Hero76 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

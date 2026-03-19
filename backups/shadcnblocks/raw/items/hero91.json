@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hero91",
+  "title": "Hero",
+  "description": "A block with two columns: text (50% width) and a video element. Includes buttons and stylized text layout.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/hero91.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Hero91Props {\n  className?: string;\n}\n\nconst Hero91 = ({ className }: Hero91Props) => {\n  return (\n    <section\n      className={cn(\n        \"flex min-h-screen items-center justify-between bg-background py-14\",\n        className,\n      )}\n    >\n      <div className=\"flex flex-col gap-5 px-[10%] lg:w-[50%] lg:pr-0\">\n        <p className=\"font-light text-foreground uppercase\">\n          Virtual Engagement Maximized & AI-Powered Content Transformation\n        </p>\n        <h1 className=\"text-5xl font-medium text-foreground md:text-6xl lg:text-7xl\">\n          Presentation Platform for Marketing Professionals\n        </h1>\n        <p className=\"my-8 text-foreground md:text-xl\">\n          Effortlessly Create, Deliver, and Reimagine All-Hands Corporate\n          Meetings\n        </p>\n        <div className=\"flex flex-col gap-4 font-medium md:flex-row\">\n          <Button className=\"h-fit items-center gap-1 rounded-full px-6 py-3\">\n            Try it firsthand →\n          </Button>\n          <Button variant=\"secondary\" className=\"h-fit rounded-full px-6 py-3\">\n            Schedule a demo\n          </Button>\n        </div>\n      </div>\n      <div className=\"relative hidden h-[720px] w-[45%] overflow-hidden rounded-l-full bg-black lg:block\">\n        <video\n          autoPlay\n          loop\n          muted\n          playsInline\n          data-wf-ignore=\"true\"\n          data-object-fit=\"cover\"\n          className=\"h-full w-full rounded-tl-xl object-cover\"\n        >\n          <source\n            src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/video-1.mp4\"\n            type=\"video/mp4\"\n          />\n        </video>\n      </div>\n    </section>\n  );\n};\n\nexport { Hero91 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

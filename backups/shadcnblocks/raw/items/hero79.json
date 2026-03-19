@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hero79",
+  "title": "Hero",
+  "description": "A full-screen hero component with a background image, featuring a title, subtitle, decorative image, and a \"Read More\" button with an arrow icon. Layout has two columns on larger screens.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/hero79.tsx",
+      "content": "import { ArrowDown } from \"lucide-react\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Hero79Props {\n  className?: string;\n}\n\nconst Hero79 = ({ className }: Hero79Props) => {\n  return (\n    <section\n      className={cn(\n        \"dark h-svh w-svw bg-background bg-[url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/full-width-backgrounds/andrew-kliatskyi-MaVm_A0xhKk-unsplash.jpg')] bg-cover bg-center bg-no-repeat pt-12 pb-24\",\n        className,\n      )}\n    >\n      <div className=\"container flex h-full flex-col justify-between px-5 xl:px-20\">\n        <img\n          src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-white-1.svg\"\n          alt=\"\"\n          className=\"size-20\"\n        />\n        <div className=\"flex items-end justify-between\">\n          <div className=\"flex w-full flex-col gap-8 md:w-2/3\">\n            <h1 className=\"text-6xl font-medium text-foreground md:text-[5.8rem]\">\n              Create your own fiber optics facility\n            </h1>\n            <p className=\"text-xl text-foreground md:text-2xl\">\n              CableCore Partnership. Worldwide network. Regional manufacturing\n            </p>\n          </div>\n          <Button\n            variant=\"ghost\"\n            className=\"hidden items-center gap-2 text-foreground hover:bg-transparent md:flex\"\n          >\n            <span className=\"text-2xl\">Read More</span>\n            <ArrowDown className=\"size-6!\" />\n          </Button>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Hero79 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

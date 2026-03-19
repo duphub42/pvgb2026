@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hero59",
+  "title": "Hero",
+  "description": "A full-screen component with a video background, featuring a title, subtitle, and two buttons in a central column layout.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/hero59.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Hero59Props {\n  className?: string;\n}\n\nconst Hero59 = ({ className }: Hero59Props) => {\n  return (\n    <section className={cn(\"dark relative h-screen bg-background\", className)}>\n      <div className=\"relative z-10 container mx-auto flex size-full max-w-3xl flex-col justify-center gap-4 lg:items-center lg:text-center\">\n        <span className=\"text-xs text-muted-foreground\">\n          BETA RELEASE AVAILABLE\n        </span>\n        <h1 className=\"text-5xl font-bold text-foreground lg:text-[4.2rem]\">\n          Unveiling MyBusiness Edition 1\n        </h1>\n        <p className=\"text-lg text-muted-foreground\">\n          Tailor and oversee any creative process from start to finish with\n          unprecedented speed and efficiency.\n        </p>\n        <div className=\"flex lg:justify-center\">\n          <div className=\"flex min-w-fit flex-col gap-5 text-sm leading-[.96] whitespace-nowrap lg:flex-row lg:items-stretch\">\n            <Button className=\"h-fit flex-1 rounded-full px-6 py-3.5\">\n              Enroll in Beta\n            </Button>\n            <Button\n              variant=\"outline\"\n              className=\"h-fit flex-1 rounded-full border border-white/50 bg-transparent px-6 py-3.5 text-foreground hover:bg-transparent\"\n            >\n              Book a Demo\n            </Button>\n          </div>\n        </div>\n      </div>\n      <video\n        loop\n        playsInline\n        src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/video-5.mp4\"\n        className=\"absolute top-0 left-0 size-full object-cover\"\n        autoPlay\n        muted\n      />\n    </section>\n  );\n};\n\nexport { Hero59 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

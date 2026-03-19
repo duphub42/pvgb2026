@@ -1,0 +1,9 @@
+{
+  "slug": "industries1",
+  "title": "Industries",
+  "description": "This component displays a grid of industry categories, each with an image, name, and detailed description revealed on hover. Designed with interactive animations and hover effects, it facilitates user engagement and provides information about various industries through visual and textual elements.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/industries1",
+  "downloadedAt": "2026-03-19T19:42:17Z",
+  "fileCount": 1
+}

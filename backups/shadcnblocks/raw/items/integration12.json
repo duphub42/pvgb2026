@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "integration12",
+  "title": "Integration",
+  "description": "A component features platform integration with a list of 5 permissions. Includes two logo comparisons, title, description, and buttons for actions.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/integration12.tsx",
+      "content": "\"use client\";\n\nimport { ArrowLeftRight, Check } from \"lucide-react\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\nconst permissions = [\n  \"View analytics and performance metrics\",\n  \"Create and manage project milestones\",\n  \"Assign and update team responsibilities\",\n  \"Receive and respond to customer feedback\",\n  \"Manage notification preferences and alerts\",\n];\n\ninterface Integration12Props {\n  className?: string;\n}\n\nconst Integration12 = ({ className }: Integration12Props) => {\n  return (\n    <section\n      className={cn(\n        \"flex min-h-screen items-center justify-center bg-muted py-32\",\n        className,\n      )}\n    >\n      <div className=\"container\">\n        <div className=\"mx-auto flex w-full max-w-md flex-col items-center gap-6 p-0\">\n          <div className=\"flex w-full flex-col items-center gap-2 border-b pb-4\">\n            <div className=\"mt-2 mb-2 flex items-center justify-center gap-4\">\n              <div className=\"flex h-12 w-12 items-center justify-center rounded-lg border bg-background p-3 shadow\">\n                <img\n                  src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcn-ui-icon.svg\"\n                  alt=\"shadcn/ui\"\n                />\n              </div>\n              <ArrowLeftRight className=\"size-4\" />\n              <div className=\"flex h-12 w-12 items-center justify-center rounded-lg border bg-background p-3 shadow\">\n                <img\n                  src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg\"\n                  alt=\"shadcn/ui\"\n                />\n              </div>\n            </div>\n            <h1 className=\"text-center text-2xl font-semibold\">\n              Link shadcn/ui to Shadcnblocks\n            </h1>\n            <p className=\"mt-1 text-center text-base text-muted-foreground\">\n              Empower your team with seamless project tracking and real-time\n              collaboration across platforms.\n            </p>\n          </div>\n          <div className=\"w-full py-6\">\n            <ul className=\"space-y-3\">\n              {permissions.map((perm, i) => (\n                <li\n                  key={i}\n                  className=\"flex items-center gap-3 text-sm text-foreground\"\n                >\n                  <Check className=\"size-4 text-primary\" />\n                  {perm}\n                </li>\n              ))}\n            </ul>\n          </div>\n          <div className=\"flex w-full items-center justify-end gap-2 pb-2\">\n            <Button variant=\"outline\" type=\"button\">\n              Cancel\n            </Button>\n            <Button type=\"button\">Connect now</Button>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Integration12 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

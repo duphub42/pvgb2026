@@ -1,0 +1,9 @@
+{
+  "slug": "integration11",
+  "title": "Integration",
+  "description": "A tabbed component showcasing categorized integrations with toggles for connection status and details button. Layout scales from 1 to 3 columns.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/integration11",
+  "downloadedAt": "2026-03-19T19:42:19Z",
+  "fileCount": 1
+}
