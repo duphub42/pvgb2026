@@ -28013,11 +28013,11 @@ font-style: normal;
     background: transparent;
     overflow: visible;
     clip-path: none;
-    padding-top: calc(var(--header-height) + max(33px, 3vh));
+    padding-top: calc(var(--header-height) + max(66px, 3vh));
   }
   @media (min-width: 1024px) {
     .hero-simple-portrait {
-      padding-top: calc(var(--header-height) + max(33px, 3vh));
+      padding-top: calc(var(--header-height) + max(66px, 3vh));
     }
   }
   .hero-simple-portrait-img {
@@ -28027,7 +28027,7 @@ font-style: normal;
     vertical-align: top;
     box-shadow: none;
     filter: none;
-    max-height: calc(100dvh - var(--header-height) - 33px);
+    max-height: calc(100dvh - var(--header-height) - 66px);
     clip-path: inset(0 -20% 1.75rem -20%);
   }
   @media (min-width: 1024px) {
@@ -28043,7 +28043,7 @@ font-style: normal;
     }
     .hero-simple-portrait-img {
       clip-path: inset(0 -20% 0rem -20%);
-      max-height: calc(100vh - var(--header-height) - max(33px, 3vh));
+      max-height: calc(100vh - var(--header-height) - max(66px, 3vh));
       width: auto;
       max-width: 100%;
       transform: translateY(0);

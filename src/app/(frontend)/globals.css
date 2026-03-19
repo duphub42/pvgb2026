@@ -193,15 +193,15 @@
     background: transparent;
     overflow: visible;
     clip-path: none;
-    /* Mindestabstand zum Header immer >= 33px */
-    padding-top: calc(var(--header-height) + max(33px, 3vh));
+    /* Mindestabstand zum Header immer >= 66px */
+    padding-top: calc(var(--header-height) + max(66px, 3vh));
   }
 
   /* Desktop: Herobild soll nicht in den Header hineinragen, aber vollständig sichtbar bleiben. */
   @media (min-width: 1024px) {
     .hero-simple-portrait {
-      /* Mindestabstand zum Header auch auf Desktop nie unter 33px */
-      padding-top: calc(var(--header-height) + max(33px, 3vh));
+      /* Mindestabstand zum Header auch auf Desktop nie unter 66px */
+      padding-top: calc(var(--header-height) + max(66px, 3vh));
     }
   }
 
@@ -217,8 +217,8 @@
     vertical-align: top;
     box-shadow: none;
     filter: none;
-    /* Guard rail: portrait must never violate minimum 33px gap below header */
-    max-height: calc(100dvh - var(--header-height) - 33px);
+    /* Guard rail: portrait must never violate minimum 66px gap below header */
+    max-height: calc(100dvh - var(--header-height) - 66px);
     /* Weniger starker Beschnitt unten, damit das Portrait bei großen Auflösungen nicht „halbiert“ wirkt. */
     clip-path: inset(0 -20% 1.75rem -20%);
   }
@@ -240,7 +240,7 @@
 
     .hero-simple-portrait-img {
       clip-path: inset(0 -20% 0rem -20%);
-      max-height: calc(100vh - var(--header-height) - max(33px, 3vh));
+      max-height: calc(100vh - var(--header-height) - max(66px, 3vh));
       width: auto;
       max-width: 100%;
       transform: translateY(0);
