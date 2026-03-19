@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hero247",
+  "title": "Hero",
+  "description": "The Hero247 component presents a visually appealing introductory block featuring an animated avatar, a headline, and dual call-to-action buttons that emphasize engagement. This component includes customizable button options and variants, with motion effects applied to both text and image elements for dynamic content presentation.",
+  "dependencies": [
+    "framer-motion"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/hero247.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface ButtonItem {\n  text: string;\n  url: string;\n}\n\ninterface AnimatedButtonProps extends ButtonItem {\n  variant?: \"outline\" | \"default\";\n}\n\nconst AnimatedButton = ({ text, url, variant }: AnimatedButtonProps) => {\n  return (\n    <motion.a\n      initial={{\n        opacity: 0,\n        y: 100,\n      }}\n      animate={{\n        opacity: 1,\n        y: 0,\n      }}\n      transition={{\n        duration: 1.5,\n        ease: [0.16, 1, 0.3, 1],\n        delay: variant === \"outline\" ? 0.4 : 0.7,\n      }}\n      href={url}\n      className={cn(variant === \"outline\" && \"hidden md:block\")}\n    >\n      <Button size=\"lg\" variant={variant} className=\"group\">\n        <div className=\"h-5 overflow-hidden\">\n          <div className=\"flex flex-col items-center gap-4 transition-[translate] duration-300 ease-out group-hover:-translate-y-9\">\n            <span>{text}</span>\n            <span>{text}</span>\n          </div>\n        </div>\n      </Button>\n    </motion.a>\n  );\n};\n\ninterface Hero247Props {\n  avatar: string;\n  heading: string;\n  secondaryButton: ButtonItem;\n  primaryButton: ButtonItem;\n  className?: string;\n}\n\nconst Hero247 = ({\n  className,\n  avatar = \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar/cool-dude.jpg\",\n  heading = \"Hello, I'm Marcus, a Seattle based visual designer shaping memorable brand identities.\",\n  secondaryButton = {\n    text: \"See my work\",\n    url: \"https://www.shadcnblocks.com\",\n  },\n  primaryButton = {\n    text: \"Let's collaborate\",\n    url: \"https://www.shadcnblocks.com\",\n  },\n}: Hero247Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"flex flex-col items-center gap-6\">\n          <motion.img\n            initial={{ opacity: 0, scale: 0.6 }}\n            animate={{ opacity: 1, scale: 1 }}\n            transition={{\n              duration: 2.2,\n              ease: [0.16, 1, 0.3, 1],\n            }}\n            src={avatar}\n            alt=\"avatar\"\n            className=\"size-16 rounded-full lg:size-18\"\n          />\n          <motion.h3\n            initial={{ y: 100, opacity: 0 }}\n            animate={{ y: 0, opacity: 1 }}\n            transition={{\n              duration: 1.5,\n              ease: [0.16, 1, 0.3, 1],\n            }}\n            className=\"max-w-3xl text-center text-4xl font-medium lg:text-5xl\"\n          >\n            {heading}\n          </motion.h3>\n          <div className=\"flex items-center gap-2\">\n            <AnimatedButton\n              text={secondaryButton.text}\n              url={secondaryButton.url}\n              variant=\"outline\"\n            />\n            <AnimatedButton text={primaryButton.text} url={primaryButton.url} />\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Hero247 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

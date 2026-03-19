@@ -1,0 +1,9 @@
+{
+  "slug": "hero247",
+  "title": "Hero",
+  "description": "The Hero247 component presents a visually appealing introductory block featuring an animated avatar, a headline, and dual call-to-action buttons that emphasize engagement. This component includes customizable button options and variants, with motion effects applied to both text and image elements for dynamic content presentation.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/hero247",
+  "downloadedAt": "2026-03-19T19:42:11Z",
+  "fileCount": 1
+}

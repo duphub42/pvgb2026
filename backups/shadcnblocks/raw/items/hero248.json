@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hero248",
+  "title": "Hero",
+  "description": "A component showcasing a team section with dynamic tooltips over names, a large title, description, and a call-to-action button. Incorporates a 2-column layout with rotating tooltips for team members.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button",
+    "https://magicui.design/r/animated-tooltip"
+  ],
+  "files": [
+    {
+      "path": "block/hero248.tsx",
+      "content": "\"use client\";\n\nimport { ArrowRight } from \"lucide-react\";\n\nimport { AnimatedTooltip } from \"@/components/magicui/animated-tooltip\";\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\nconst people = [\n  {\n    id: 1,\n    name: \"Alex\",\n    designation: \"Software Engineer\",\n    image:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw2.jpeg\",\n  },\n  {\n    id: 2,\n    name: \"Lisa\",\n    designation: \"Product Designer\",\n    image:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw3.jpeg\",\n  },\n  {\n    id: 3,\n    name: \"Julia\",\n    designation: \"UX Researcher\",\n    image:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/lummi/bw11.jpeg\",\n  },\n];\n\ninterface Hero248Props {\n  className?: string;\n}\n\nconst Hero248 = ({ className }: Hero248Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"grid grid-cols-1 items-start gap-12 md:grid-cols-2 lg:gap-16\">\n          <div className=\"space-y-8\">\n            <h1 className=\"text-4xl font-semibold tracking-tight md:text-5xl\">\n              Our team{\" \"}\n              <span className=\"inline-flex items-start gap-4\">\n                <div className=\"relative flex items-start\">\n                  <div className=\"flex [&>div]:transition-transform [&>div]:duration-300 [&>div:hover]:rotate-0 [&>div:nth-child(1)]:-rotate-3 [&>div:nth-child(2)]:rotate-2 [&>div:nth-child(3)]:-rotate-1\">\n                    <AnimatedTooltip items={people} />\n                  </div>\n                </div>\n              </span>\n              <span className=\"ml-6\">\n                build human-centered digital products that inspire, engage, and\n                perform.\n              </span>\n            </h1>\n            <p className=\"text-lg leading-relaxed text-muted-foreground md:text-xl\">\n              From idea to execution — we craft intuitive experiences and\n              scalable solutions that align with your business goals and truly\n              connect with your audience. You hat do you want\n            </p>\n            <Button size=\"lg\">\n              Let’s Talk\n              <ArrowRight className=\"h-4 w-4\" />\n            </Button>\n          </div>\n          <div className=\"mx-auto max-w-xl lg:pt-4\"></div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Hero248 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

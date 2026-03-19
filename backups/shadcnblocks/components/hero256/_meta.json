@@ -1,0 +1,9 @@
+{
+  "slug": "hero256",
+  "title": "Hero",
+  "description": "The component features a prominent hero block that includes a dynamic heading, a badge, and call-to-action buttons for easy user interaction. It also integrates a features section with interactive cards highlighting key functionalities, each accompanied by icons and descriptions, aiming to streamline workflows and provide insightful analytics.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/hero256",
+  "downloadedAt": "2026-03-19T19:42:12Z",
+  "fileCount": 2
+}
