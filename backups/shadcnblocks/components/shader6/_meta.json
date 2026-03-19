@@ -1,0 +1,9 @@
+{
+  "slug": "shader6",
+  "title": "Shader",
+  "description": "A full-screen shader background with cosine wave pattern, Bayer dither, and configurable foreground and background colors.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/shader6",
+  "downloadedAt": "2026-03-19T19:43:41Z",
+  "fileCount": 1
+}

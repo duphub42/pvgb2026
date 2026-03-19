@@ -1,0 +1,9 @@
+{
+  "slug": "shopping-cart2",
+  "title": "Shopping-cart",
+  "description": "This component provides a detailed shopping cart interface where users can view, modify, and manage their selected items, including options to adjust quantities or remove items. It also features an order summary with subtotal, shipping costs, and total price calculations, allowing users to seamlessly proceed to checkout.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/shopping-cart2",
+  "downloadedAt": "2026-03-19T19:43:44Z",
+  "fileCount": 1
+}

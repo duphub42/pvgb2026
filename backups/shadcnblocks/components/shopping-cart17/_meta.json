@@ -1,0 +1,9 @@
+{
+  "slug": "shopping-cart17",
+  "title": "Shopping-cart",
+  "description": "This component provides an interactive shopping cart experience with features like displaying cart items, allowing quantity adjustments, and updating the total price dynamically. It includes functionality for handling empty cart states and adding promotional codes to enhance user engagement and purchase potential.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/shopping-cart17",
+  "downloadedAt": "2026-03-19T19:43:43Z",
+  "fileCount": 3
+}

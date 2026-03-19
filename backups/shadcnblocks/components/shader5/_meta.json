@@ -1,0 +1,9 @@
+{
+  "slug": "shader5",
+  "title": "Shader",
+  "description": "A full-screen shader background with raymarched gyroid surface and sphere, neon volumetric lighting, and blue noise dither.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/shader5",
+  "downloadedAt": "2026-03-19T19:43:41Z",
+  "fileCount": 1
+}

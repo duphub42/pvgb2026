@@ -1,0 +1,9 @@
+{
+  "slug": "shopping-cart20",
+  "title": "Shopping-cart",
+  "description": "The ShoppingCart20 component provides an interactive shopping cart interface, allowing users to view, modify, and manage items directly from a pop-up interface. Key features include displaying items with images, adjusting item quantities, calculating subtotals, and offering express checkout options with payment integrations like Apple Pay and PayPal.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/shopping-cart20",
+  "downloadedAt": "2026-03-19T19:43:44Z",
+  "fileCount": 1
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "shopping-cart16",
+  "title": "Shopping-cart",
+  "description": "The component is a dynamic and interactive shopping cart block that allows users to manage items in their cart, update item quantities, and view suggested products. It features functionalities like displaying product details, calculating totals, applying discounts, and incorporates carousel and collapsible elements for enhanced user interaction.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/shopping-cart16",
+  "downloadedAt": "2026-03-19T19:43:43Z",
+  "fileCount": 3
+}
