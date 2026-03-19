@@ -128,3 +128,11 @@ No new imports found, skipping writing import map
  ✓ Compiled in 722ms (1649 modules)
  ✓ Compiled in 834ms (1649 modules)
  ✓ Compiled in 796ms (1649 modules)
+ ✓ Compiled in 726ms (1649 modules)
+ ✓ Compiled in 705ms (1649 modules)
+Generating import map
+No new imports found, skipping writing import map
+ ✓ Compiled in 710ms (1649 modules)
+ ✓ Compiled in 785ms (1649 modules)
+ GET /api/media/file/weblogo-philippbacher-22.svg 200 in 934ms
+ ✓ Compiled in 764ms (1649 modules)

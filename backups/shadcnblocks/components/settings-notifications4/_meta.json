@@ -1,0 +1,9 @@
+{
+  "slug": "settings-notifications4",
+  "title": "Settings-notifications",
+  "description": "A notification settings table with Email and SMS checkbox columns for each notification type in a matrix layout.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/settings-notifications4",
+  "downloadedAt": "2026-03-19T19:43:36Z",
+  "fileCount": 1
+}

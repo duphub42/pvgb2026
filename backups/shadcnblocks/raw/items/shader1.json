@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "shader1",
+  "title": "Shader",
+  "description": "A full-screen shader background with raymarched 3D shapes, rotating scene, configurable color, and smooth volumetric lighting.",
+  "dependencies": [
+    "@react-three/fiber",
+    "three"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/shader1.tsx",
+      "content": "\"use client\";\n\nimport { Canvas, useFrame, useThree } from \"@react-three/fiber\";\nimport { useMemo, useRef } from \"react\";\nimport * as THREE from \"three\";\n\nimport { cn } from \"@/lib/utils\";\n\ninterface ShaderPlaneProps {\n  vertexShader: string;\n  fragmentShader: string;\n  uniforms: { [key: string]: { value: unknown } };\n}\n\nconst ShaderPlane = ({\n  vertexShader,\n  fragmentShader,\n  uniforms,\n}: ShaderPlaneProps) => {\n  const meshRef = useRef<THREE.Mesh>(null);\n  const { size } = useThree();\n\n  useFrame((state) => {\n    if (meshRef.current) {\n      const material = meshRef.current.material as THREE.ShaderMaterial;\n      material.uniforms.u_time.value = state.clock.elapsedTime * 0.5;\n      material.uniforms.u_resolution.value.set(size.width, size.height, 1.0);\n    }\n  });\n\n  return (\n    <mesh ref={meshRef}>\n      <planeGeometry args={[2, 2]} />\n      <shaderMaterial\n        vertexShader={vertexShader}\n        fragmentShader={fragmentShader}\n        uniforms={uniforms}\n        side={THREE.FrontSide}\n        depthTest={false}\n        depthWrite={false}\n      />\n    </mesh>\n  );\n};\n\ninterface ShaderBackgroundProps {\n  vertexShader?: string;\n  fragmentShader?: string;\n  uniforms?: { [key: string]: { value: unknown } };\n  className?: string;\n  color?: string;\n}\n\nconst Shader1 = ({\n  vertexShader = `\n    varying vec2 vUv;\n    void main() {\n      vUv = uv;\n    gl_Position = vec4(position, 1.0);\n    }\n  `,\n  fragmentShader = `\n    precision highp float;\n\n    varying vec2 vUv;\n    uniform float u_time;\n    uniform vec3 u_resolution;\n    uniform vec3 u_color;\n    uniform sampler2D u_channel0;\n\n  \t#define t (u_time * 0.5)\n  \tmat2 m(float a){float c=cos(a), s=sin(a);return mat2(c,-s,s,c);}\n  \tfloat map(vec3 p){\n  \t\tp.xz*= m(t*0.4);p.xy*= m(t*0.3);\n  \t\tvec3 q = p*2.+t;\n  \t\treturn length(p+vec3(sin(t*0.7)))*log(length(p)+1.) + sin(q.x+sin(q.z+sin(q.y)))*2.5 - 0.5;\n  \t}\n\n  \tvoid mainImage( out vec4 fragColor, in vec2 fragCoord ){\n  \t\tvec2 p = fragCoord.xy/u_resolution.y - vec2(.9,.5);\n  \t\tvec3 cl = vec3(0.);\n  \t\tfloat d = .9;\n  \t\tfor(int i=0; i<=5; i++)\t{\n  \t\t\tvec3 p = vec3(0,0,5.) + normalize(vec3(p, -1.))*d;\n  \t\t\tfloat rz = map(p);\n  \t\t\tfloat f =  clamp((rz - map(p+.1))*0.5, -.1, 1. );\n\n        vec3 base = u_color * 0.25;\n        vec3 bright = u_color * 1.75;\n\n        vec3 l = base + bright * f;\n  \t\t\tcl = cl*l + (1.-smoothstep(0., 2.5, rz))*.7*l;\n  \t\t\td += min(rz, 1.);\n  \t\t}\n  \t\tfragColor = vec4(cl * u_color, 1.0);\t}\n\n      void main() {\n        vec4 fragColor;\n        vec2 fragCoord = vUv * u_resolution.xy;\n        mainImage(fragColor, fragCoord);\n        gl_FragColor = fragColor;\n      }\n  `,\n  uniforms = {},\n  className,\n  color = \"#0000ff\",\n}: ShaderBackgroundProps) => {\n  const shaderUniforms = useMemo(\n    () => ({\n      u_time: { value: 0 },\n      u_resolution: { value: new THREE.Vector3(1, 1, 1) },\n      u_color: { value: new THREE.Color(color) },\n      ...uniforms,\n    }),\n    [uniforms, color],\n  );\n\n  return (\n    <section className={cn(className, \"absolute inset-0 h-screen w-full\")}>\n      <Canvas>\n        <ShaderPlane\n          vertexShader={vertexShader}\n          fragmentShader={fragmentShader}\n          uniforms={shaderUniforms}\n        />\n      </Canvas>\n    </section>\n  );\n};\n\nexport { Shader1 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

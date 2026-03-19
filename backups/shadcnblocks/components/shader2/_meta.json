@@ -1,0 +1,9 @@
+{
+  "slug": "shader2",
+  "title": "Shader",
+  "description": "A full-screen shader background with kaleidoscope-style rotating shapes, fractal-like patterns, configurable color, and time-based animation.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/shader2",
+  "downloadedAt": "2026-03-19T19:43:40Z",
+  "fileCount": 1
+}

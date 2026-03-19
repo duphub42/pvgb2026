@@ -1,0 +1,9 @@
+{
+  "slug": "shader12",
+  "title": "Shader",
+  "description": "A full-screen shader background with a raymarched 3D grid scene, configurable base, accent, and glow colors, vignette, and time-based camera motion.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/shader12",
+  "downloadedAt": "2026-03-19T19:43:39Z",
+  "fileCount": 1
+}

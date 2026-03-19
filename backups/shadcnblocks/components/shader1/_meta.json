@@ -1,0 +1,9 @@
+{
+  "slug": "shader1",
+  "title": "Shader",
+  "description": "A full-screen shader background with raymarched 3D shapes, rotating scene, configurable color, and smooth volumetric lighting.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/shader1",
+  "downloadedAt": "2026-03-19T19:43:38Z",
+  "fileCount": 1
+}

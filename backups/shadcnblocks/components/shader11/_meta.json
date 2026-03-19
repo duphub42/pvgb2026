@@ -1,0 +1,9 @@
+{
+  "slug": "shader11",
+  "title": "Shader",
+  "description": "A full-screen 3D background with an instanced torus of 30 metallic slices, blue gradient backdrop, multi-light setup, and bloom post-processing.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/shader11",
+  "downloadedAt": "2026-03-19T19:43:39Z",
+  "fileCount": 1
+}

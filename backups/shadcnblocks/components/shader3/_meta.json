@@ -1,0 +1,9 @@
+{
+  "slug": "shader3",
+  "title": "Shader",
+  "description": "A full-screen shader background with glass refraction, circular shapes, mouse-following interaction, and configurable color.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/shader3",
+  "downloadedAt": "2026-03-19T19:43:40Z",
+  "fileCount": 1
+}

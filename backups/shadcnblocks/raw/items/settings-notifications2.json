@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "settings-notifications2",
+  "title": "Settings-notifications",
+  "description": "A minimal notification settings list with switch toggles for each notification type in a vertical stack.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "switch"
+  ],
+  "files": [
+    {
+      "path": "block/settings-notifications2.tsx",
+      "content": "import { Switch } from \"@/components/ui/switch\";\nimport { cn } from \"@/lib/utils\";\n\ninterface NotificationItem {\n  id: string;\n  title: string;\n  description: string;\n  enabled: boolean;\n}\n\ninterface SettingsNotifications2Props {\n  heading?: string;\n  subHeading?: string;\n  className?: string;\n  notifications?: NotificationItem[];\n}\n\nconst SettingsNotifications2 = ({\n  heading = \"Notifications\",\n  subHeading = \"Choose which notifications you'd like to receive\",\n  notifications = [\n    {\n      id: \"email-updates\",\n      title: \"Email updates\",\n      description: \"Receive emails about your account activity and security.\",\n      enabled: true,\n    },\n    {\n      id: \"push-notifications\",\n      title: \"Push notifications\",\n      description: \"Receive push notifications on your mobile device.\",\n      enabled: true,\n    },\n    {\n      id: \"weekly-digest\",\n      title: \"Weekly digest\",\n      description: \"Get a weekly summary of your activity and insights.\",\n      enabled: false,\n    },\n    {\n      id: \"marketing-emails\",\n      title: \"Marketing emails\",\n      description: \"Receive tips, product updates, and promotional offers.\",\n      enabled: false,\n    },\n  ],\n  className,\n}: SettingsNotifications2Props) => {\n  return (\n    <section className=\"py-32\">\n      <div\n        className={cn(\n          \"container max-w-2xl space-y-8 tracking-tight\",\n          className,\n        )}\n      >\n        <div className=\"space-y-2\">\n          <h3 className=\"text-2xl font-semibold\">{heading}</h3>\n          <p className=\"font-medium text-muted-foreground\">{subHeading}</p>\n        </div>\n\n        <div className=\"divide-y\">\n          {notifications.map((notification) => (\n            <div\n              key={notification.id}\n              className=\"flex items-center justify-between gap-4 py-4\"\n            >\n              <div className=\"space-y-0.5\">\n                <p className=\"font-medium\">{notification.title}</p>\n                <p className=\"text-sm text-muted-foreground\">\n                  {notification.description}\n                </p>\n              </div>\n              <Switch defaultChecked={notification.enabled} />\n            </div>\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { SettingsNotifications2 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}
