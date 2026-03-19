@@ -1,0 +1,9 @@
+{
+  "slug": "login6",
+  "title": "Login",
+  "description": "A login form component with email and password fields, sign-in and Google sign-up buttons, links for account creation and password recovery.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/login6",
+  "downloadedAt": "2026-03-19T19:42:26Z",
+  "fileCount": 1
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "login7",
+  "title": "Login",
+  "description": "A login component featuring a card layout with a logo, a &#x27;Sign up with Google&#x27; button, a divider with &#x27;OR&#x27;, email and password fields, and a submit button.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "button",
+    "card",
+    "input",
+    "label"
+  ],
+  "files": [
+    {
+      "path": "block/login7.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Card, CardContent, CardHeader } from \"@/components/ui/card\";\nimport { Input } from \"@/components/ui/input\";\nimport { Label } from \"@/components/ui/label\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Login7Props {\n  className?: string;\n}\n\nconst Login7 = ({ className }: Login7Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"flex flex-col items-center gap-4\">\n          <Card className=\"mx-auto w-full max-w-[380px]\">\n            <CardHeader className=\"items-center justify-center\">\n              <a\n                href=\"https://www.shadcnblocks.com\"\n                className=\"flex items-center gap-2\"\n              >\n                <img\n                  src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg\"\n                  className=\"max-h-8\"\n                  alt=\"Shadcn UI Navbar\"\n                />\n                <span className=\"text-lg font-semibold tracking-tighter\">\n                  Shadcnblocks.com\n                </span>\n              </a>\n            </CardHeader>\n            <CardContent>\n              <div className=\"grid gap-4\">\n                <Button variant=\"outline\" className=\"w-full\">\n                  <img\n                    src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/google-icon.svg\"\n                    className=\"mr-2 size-4\"\n                    alt=\"Google\"\n                  />\n                  Sign up with Google\n                </Button>\n                <div className=\"flex items-center gap-4\">\n                  <span className=\"h-px w-full bg-input\"></span>\n                  <span className=\"text-xs text-muted-foreground\">OR</span>\n                  <span className=\"h-px w-full bg-input\"></span>\n                </div>\n                <div className=\"grid gap-2\">\n                  <Label htmlFor=\"email\">Email</Label>\n                  <Input\n                    id=\"email\"\n                    type=\"email\"\n                    placeholder=\"m@example.com\"\n                    required\n                  />\n                </div>\n                <div className=\"grid gap-2\">\n                  <Input\n                    id=\"password\"\n                    type=\"password\"\n                    placeholder=\"Enter your password\"\n                    required\n                  />\n                </div>\n                <Button type=\"submit\" className=\"w-full\">\n                  Log in\n                </Button>\n              </div>\n            </CardContent>\n          </Card>\n          <div className=\"mx-auto flex gap-1 text-sm\">\n            <p>Don&apos;t have an account yet?</p>\n            <a href=\"#\" className=\"underline\">\n              Log in\n            </a>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Login7 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

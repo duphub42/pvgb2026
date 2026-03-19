@@ -1,0 +1,9 @@
+{
+  "slug": "login4",
+  "title": "Login",
+  "description": "A login form featuring email and password fields, \"Remember me\" checkbox & Google Login. Includes forgot password & signup links.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/login4",
+  "downloadedAt": "2026-03-19T19:42:26Z",
+  "fileCount": 1
+}

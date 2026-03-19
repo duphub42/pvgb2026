@@ -1,0 +1,9 @@
+{
+  "slug": "live-purchase1",
+  "title": "Live-purchase",
+  "description": "The LivePurchase1 component displays recent purchases with customer and product details in a rotating card format, featuring automatic rotation and customizable interval options. It is ideal for showcasing live purchase updates with user avatars, product images, and a dismissible close button.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/live-purchase1",
+  "downloadedAt": "2026-03-19T19:42:24Z",
+  "fileCount": 1
+}

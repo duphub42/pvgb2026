@@ -1,0 +1,9 @@
+{
+  "slug": "login3",
+  "title": "Login",
+  "description": "A login block with logo, main heading, subheading, email/password inputs, remember me checkbox, forgot password link, login & google login buttons, and signup prompt.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/login3",
+  "downloadedAt": "2026-03-19T19:42:26Z",
+  "fileCount": 1
+}

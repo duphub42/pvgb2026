@@ -1,0 +1,9 @@
+{
+  "slug": "live-purchase2",
+  "title": "Live-purchase",
+  "description": "This component dynamically displays recent customer purchases, cycling through them at specified intervals to show customer name, location, and product details with an option to dismiss the notification. It includes customizable properties such as purchase data, auto-rotation settings, and visual styling, ensuring adaptability to various user needs.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/live-purchase2",
+  "downloadedAt": "2026-03-19T19:42:25Z",
+  "fileCount": 1
+}

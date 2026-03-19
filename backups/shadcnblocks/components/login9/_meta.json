@@ -1,0 +1,9 @@
+{
+  "slug": "login9",
+  "title": "Login",
+  "description": "This component provides a user-friendly login interface featuring options for social media and email authentication. It includes customizable login buttons for Google, GitHub, and LinkedIn, along with a sign-up option and a logo display.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/login9",
+  "downloadedAt": "2026-03-19T19:42:27Z",
+  "fileCount": 1
+}

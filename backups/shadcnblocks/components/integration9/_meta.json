@@ -1,0 +1,9 @@
+{
+  "slug": "integration9",
+  "title": "Integration",
+  "description": "A component displaying available integrations in a 1-4 column grid, featuring icons, titles, and descriptions.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/integration9",
+  "downloadedAt": "2026-03-19T19:42:21Z",
+  "fileCount": 1
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "invite-user2",
+  "title": "Invite-user",
+  "description": "A user management table with invite button that opens a slide-out sheet for sending bulk email invitations with role selection and textarea input.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button",
+    "label",
+    "select",
+    "sheet",
+    "table",
+    "textarea"
+  ],
+  "files": [
+    {
+      "path": "block/invite-user2.tsx",
+      "content": "\"use client\";\n\nimport { CornerDownLeft, UserRoundPlus } from \"lucide-react\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { Label } from \"@/components/ui/label\";\nimport {\n  Select,\n  SelectContent,\n  SelectItem,\n  SelectTrigger,\n  SelectValue,\n} from \"@/components/ui/select\";\nimport {\n  Sheet,\n  SheetContent,\n  SheetDescription,\n  SheetHeader,\n  SheetTitle,\n  SheetTrigger,\n} from \"@/components/ui/sheet\";\nimport {\n  Table,\n  TableBody,\n  TableCell,\n  TableHead,\n  TableHeader,\n  TableRow,\n} from \"@/components/ui/table\";\nimport { Textarea } from \"@/components/ui/textarea\";\nimport { cn } from \"@/lib/utils\";\n\ninterface InviteUser2Props {\n  heading?: string;\n  className?: string;\n}\n\nconst InviteUser2 = ({\n  heading = \"Invite Users\",\n  className,\n}: InviteUser2Props) => {\n  const users = [\n    {\n      id: 1,\n      name: \"Sarah Johnson\",\n      email: \"sarah.j@company.com\",\n      role: \"Administrator\",\n      status: \"Active\",\n    },\n    {\n      id: 2,\n      name: \"Michael Chen\",\n      email: \"m.chen@company.com\",\n      role: \"Collaborator\",\n      status: \"Invited\",\n    },\n  ];\n\n  return (\n    <section className=\"py-32\">\n      <div className=\"container flex flex-col gap-6\">\n        <div>\n          <h2 className=\"text-2xl font-semibold tracking-tight\">\n            Team Members\n          </h2>\n          <p className=\"mt-2 text-sm text-muted-foreground\">\n            Manage and invite users to your team\n          </p>\n        </div>\n        <Table>\n          <TableHeader>\n            <TableRow>\n              <TableHead>Name</TableHead>\n              <TableHead>Email</TableHead>\n              <TableHead>Role</TableHead>\n              <TableHead>Status</TableHead>\n            </TableRow>\n          </TableHeader>\n          <TableBody>\n            {users.map((user) => (\n              <TableRow key={user.id}>\n                <TableCell className=\"font-medium\">{user.name}</TableCell>\n                <TableCell>{user.email}</TableCell>\n                <TableCell>{user.role}</TableCell>\n                <TableCell>{user.status}</TableCell>\n              </TableRow>\n            ))}\n          </TableBody>\n        </Table>\n        <Sheet>\n          <SheetTrigger asChild>\n            <Button className=\"w-fit\">Invite Users</Button>\n          </SheetTrigger>\n          <SheetContent\n            side=\"right\"\n            className={cn(\n              \"flex h-full w-full flex-col gap-0 overflow-y-auto p-0 sm:max-w-lg\",\n              className,\n            )}\n          >\n            <SheetHeader className=\"border-b px-6 py-4\">\n              <SheetTitle className=\"flex items-center gap-2 font-semibold\">\n                <UserRoundPlus className=\"size-4\" />\n                {heading}\n              </SheetTitle>\n              <SheetDescription className=\"sr-only\">\n                Invite users to your team by entering their email addresses\n              </SheetDescription>\n            </SheetHeader>\n            <form\n              autoComplete=\"off\"\n              onSubmit={(e) => e.preventDefault()}\n              className=\"flex flex-1 flex-col gap-6 overflow-y-auto bg-muted pt-6\"\n            >\n              <div className=\"space-y-1 px-6\">\n                <Label className=\"text-xs\">Email addresses</Label>\n                <Textarea\n                  style={{\n                    resize: \"none\",\n                    minHeight: \"100px\",\n                  }}\n                  placeholder=\"Enter email addresses...\"\n                  className=\"bg-background\"\n                />\n              </div>\n              <div className=\"space-y-1 px-6\">\n                <Label className=\"text-xs\">Assign role</Label>\n                <Select defaultValue=\"collaborator\">\n                  <SelectTrigger className=\"w-full bg-background\">\n                    <SelectValue placeholder=\"Choose a role\" />\n                  </SelectTrigger>\n                  <SelectContent>\n                    <SelectItem value=\"collaborator\">Collaborator</SelectItem>\n                    <SelectItem value=\"administrator\">Administrator</SelectItem>\n                  </SelectContent>\n                </Select>\n              </div>\n              <div className=\"flex px-6\">\n                <Button type=\"submit\">\n                  Send Invitation <CornerDownLeft />\n                </Button>\n              </div>\n            </form>\n          </SheetContent>\n        </Sheet>\n      </div>\n    </section>\n  );\n};\n\nexport { InviteUser2 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

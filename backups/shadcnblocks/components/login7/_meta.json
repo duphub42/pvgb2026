@@ -1,0 +1,9 @@
+{
+  "slug": "login7",
+  "title": "Login",
+  "description": "A login component featuring a card layout with a logo, a &#x27;Sign up with Google&#x27; button, a divider with &#x27;OR&#x27;, email and password fields, and a submit button.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/login7",
+  "downloadedAt": "2026-03-19T19:42:27Z",
+  "fileCount": 1
+}
