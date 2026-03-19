@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "signup8",
+  "title": "Signup",
+  "description": "A signup component with a 2-column layout featuring a promotional badge, headings, text, and sign-up buttons on the left, and an illustrative card simulating a browser window on the right.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "badge",
+    "button",
+    "card"
+  ],
+  "files": [
+    {
+      "path": "block/signup8.tsx",
+      "content": "import { ChevronRight } from \"lucide-react\";\nimport React from \"react\";\n\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport { Card, CardContent } from \"@/components/ui/card\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Signup8Props {\n  className?: string;\n}\n\nconst Signup8 = ({ className }: Signup8Props) => {\n  return (\n    <section className={cn(\"bg-background py-32\", className)}>\n      <div className=\"relative container flex flex-col items-center\">\n        <div className=\"flex w-full flex-col items-center justify-between gap-8 overflow-hidden rounded-3xl border-border p-4 sm:border lg:flex-row lg:p-12\">\n          {/* Left Content */}\n          <div className=\"flex w-full flex-col gap-8\">\n            <Badge\n              variant=\"outline\"\n              className=\"flex w-fit items-center gap-4 rounded-full px-6 py-2\"\n            >\n              <span className=\"text-sm font-medium text-muted-foreground\">\n                Copy paste Blocks for your app\n              </span>\n              <ChevronRight className=\"size-4!\" />\n            </Badge>\n\n            <h1 className=\"text-7xl font-semibold tracking-tighter\">\n              Blocks Built\n              <br />\n              With Shadcn\n              <br />\n              &amp; Tailwind.\n            </h1>\n\n            <p className=\"text-xl font-normal tracking-tight text-muted-foreground\">\n              Finely crafted components built with React, Tailwind and Shadcn\n              UI. Developers can copy and paste these blocks directly into their\n              project.\n            </p>\n\n            <div className=\"flex w-full flex-col gap-4\">\n              <Button className=\"text-md h-12 w-full rounded-lg bg-primary text-primary-foreground\">\n                <img\n                  src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/google-icon.svg\"\n                  alt=\"\"\n                  className=\"size-4\"\n                />\n                Sign up with Google\n              </Button>\n\n              <Button\n                variant=\"outline\"\n                className=\"text-md h-12 w-full rounded-lg\"\n              >\n                Sign up with email\n              </Button>\n            </div>\n\n            <p className=\"text-center text-sm text-muted-foreground\">\n              No credit card required\n            </p>\n          </div>\n\n          {/* Right Content - Browser Window */}\n          <div className=\"w-full\">\n            <div className=\"ml-0 flex h-[500px] w-full flex-col items-center justify-center rounded-3xl border border-border bg-muted p-2 lg:ml-32\">\n              <Card className=\"relative h-full w-full rounded-2xl border\">\n                <CardContent className=\"flex h-full w-full items-center justify-center p-0\">\n                  {/* Browser Window Controls */}\n                  <div className=\"absolute top-4 left-4 flex items-center gap-2\">\n                    <div className=\"size-3.5 rounded-full bg-red-500\" />\n                    <div className=\"size-3.5 rounded-full bg-yellow-500\" />\n                    <div className=\"size-3.5 rounded-full bg-green-500\" />\n                  </div>\n                  {/* Browser Window Content */}\n                  <img\n                    className=\"size-60\"\n                    alt=\"Block Logo\"\n                    src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg\"\n                  />\n                </CardContent>\n              </Card>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Signup8 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

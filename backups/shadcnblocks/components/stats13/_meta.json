@@ -1,0 +1,9 @@
+{
+  "slug": "stats13",
+  "title": "Stats",
+  "description": "A component showcasing animated bars comparing values, with tooltips and percentage indicators for enhanced visual analysis. Includes a candy-striped background.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/stats13",
+  "downloadedAt": "2026-03-19T19:43:59Z",
+  "fileCount": 1
+}

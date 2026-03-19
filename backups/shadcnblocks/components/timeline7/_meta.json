@@ -1,0 +1,9 @@
+{
+  "slug": "timeline7",
+  "title": "Timeline",
+  "description": "A component with a stepper UI to guide through a process, featuring dynamic progress indication, navigational buttons, and transition animations.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/timeline7",
+  "downloadedAt": "2026-03-19T19:44:16Z",
+  "fileCount": 1
+}

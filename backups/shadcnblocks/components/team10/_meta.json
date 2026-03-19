@@ -1,0 +1,9 @@
+{
+  "slug": "team10",
+  "title": "Team",
+  "description": "A block displaying a team with a title, introduction, and button, followed by a multi-column layout of team members&#x27; avatars and roles.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/team10",
+  "downloadedAt": "2026-03-19T19:44:05Z",
+  "fileCount": 1
+}

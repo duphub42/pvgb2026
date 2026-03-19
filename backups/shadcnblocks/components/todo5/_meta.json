@@ -1,0 +1,9 @@
+{
+  "slug": "todo5",
+  "title": "Todo",
+  "description": "This component provides a dynamic and interactive to-do list that supports creating, reordering, editing, and deleting tasks with a user-friendly drag-and-drop interface. It features task management capabilities, including toggling task completion status, with easy access to edit or delete actions through a dropdown menu.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/todo5",
+  "downloadedAt": "2026-03-19T19:44:19Z",
+  "fileCount": 1
+}

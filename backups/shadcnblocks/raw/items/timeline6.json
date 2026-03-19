@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "timeline6",
+  "title": "Timeline",
+  "description": "A two-column component featuring a sticky section with a bold statement on the left and a scrollable section on the right showcasing icons with related titles and descriptions.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/timeline6.tsx",
+      "content": "import { Clock, Cloud, FileCheck, Scale, Users, XCircle } from \"lucide-react\";\nimport React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\ninterface DataItem {\n  icon: React.ReactNode;\n  title: string;\n  description: string;\n}\n\nconst DATA: DataItem[] = [\n  {\n    icon: <Cloud strokeWidth={1.5} className=\"size-12\" />,\n    title: \"Boost Productivity\",\n    description:\n      \"Streamline your workflows and eliminate inefficiencies with our advanced task management tools.\",\n  },\n  {\n    icon: <XCircle strokeWidth={1.5} className=\"size-12\" />,\n    title: \"Minimize Errors\",\n    description:\n      \"Automate repetitive tasks to reduce human error and ensure consistent results.\",\n  },\n  {\n    icon: <Users strokeWidth={1.5} className=\"size-12\" />,\n    title: \"Enhance Collaboration\",\n    description:\n      \"Improve team communication and collaboration with real-time updates and shared workspaces.\",\n  },\n  {\n    icon: <Scale strokeWidth={1.5} className=\"size-12\" />,\n    title: \"Scale Seamlessly\",\n    description:\n      \"Grow your team and projects without hassle, thanks to flexible and scalable solutions.\",\n  },\n  {\n    icon: <FileCheck strokeWidth={1.5} className=\"size-12\" />,\n    title: \"Track Progress\",\n    description:\n      \"Stay on top of your goals with detailed progress tracking and actionable insights.\",\n  },\n  {\n    icon: <Clock strokeWidth={1.5} className=\"size-12\" />,\n    title: \"Save Time\",\n    description:\n      \"Focus on what matters most by automating time-consuming tasks and processes.\",\n  },\n];\n\ninterface Timeline6Props {\n  className?: string;\n}\n\nconst Timeline6 = ({ className }: Timeline6Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"grid gap-8 sm:gap-12 lg:grid-cols-2 lg:gap-16\">\n          {/* Left Column - Fixed Content */}\n          <div className=\"lg:sticky lg:top-24 lg:self-start\">\n            <div className=\"max-w-lg\">\n              <h2 className=\"text-3xl font-bold tracking-tight text-primary sm:text-4xl lg:text-5xl\">\n                Our tools make\n                <br />\n                productivity your\n                <br />\n                <span className=\"text-muted-foreground\">superpower</span>\n              </h2>\n            </div>\n          </div>\n\n          {/* Right Column - Scrollable Cards */}\n          <div className=\"-mt-8 sm:-mt-12\">\n            {DATA.map((item, index) => (\n              <div\n                key={index}\n                className=\"relative flex flex-col justify-center overflow-hidden border-b py-8 shadow-none sm:py-12\"\n              >\n                <div className=\"flex gap-4 sm:gap-6\">\n                  <div className=\"shrink-0\">{item.icon}</div>\n                  <div>\n                    <h4 className=\"mb-2 text-2xl font-semibold text-primary sm:text-3xl\">\n                      {item.title}\n                    </h4>\n                    <p className=\"mt-6 text-sm text-muted-foreground sm:text-base\">\n                      {item.description}\n                    </p>\n                  </div>\n                </div>\n              </div>\n            ))}\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Timeline6 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

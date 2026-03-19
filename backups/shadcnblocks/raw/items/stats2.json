@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stats2",
+  "title": "Stats",
+  "description": "A 3-column block displaying platform insights with arrows and icons denoting trends and values, includes descriptive texts.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "card"
+  ],
+  "files": [
+    {
+      "path": "block/stats2.tsx",
+      "content": "import { ArrowDown, ArrowUp, Infinity as InfinityIcon } from \"lucide-react\";\n\nimport { Card } from \"@/components/ui/card\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Stats2Props {\n  className?: string;\n}\n\nconst Stats2 = ({ className }: Stats2Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <h1 className=\"text-center text-4xl font-semibold lg:text-6xl\">\n          Platform Performance Insights\n        </h1>\n        <div className=\"grid gap-6 pt-9 text-center md:grid-cols-3 lg:pt-20\">\n          <Card className=\"border-none bg-accent p-8 lg:p-10\">\n            <p className=\"mb-1 flex items-center justify-center text-2xl font-semibold lg:text-3xl\">\n              <ArrowUp className=\"mr-1 h-8 text-green-400\" />\n              20,000\n            </p>\n            <p className=\"text-muted-foreground\">\n              Lorem ipsum dolor sit amet consectetur adipisicing elit.\n            </p>\n          </Card>\n          <Card className=\"border-none bg-accent p-8 lg:p-10\">\n            <p className=\"mb-1 flex items-center justify-center text-2xl font-semibold lg:text-3xl\">\n              <ArrowUp className=\"mr-1 h-8 text-green-400\" />\n              20+\n            </p>\n            <p className=\"text-muted-foreground\">\n              Lorem ipsum dolor sit amet consectetur adipisicing elit.\n            </p>\n          </Card>\n          <Card className=\"border-none bg-accent p-8 lg:p-10\">\n            <p className=\"mb-1 flex items-center justify-center text-2xl font-semibold lg:text-3xl\">\n              <ArrowDown className=\"mr-1 h-8 text-red-400\" />\n              50%\n            </p>\n            <p className=\"text-muted-foreground\">\n              Lorem ipsum dolor sit amet consectetur adipisicing elit.\n            </p>\n          </Card>\n          <Card className=\"border-none bg-accent p-8 lg:p-10\">\n            <p className=\"mb-1 flex items-center justify-center text-2xl font-semibold lg:text-3xl\">\n              <ArrowUp className=\"mr-1 h-8 text-green-400\" />\n              100+\n            </p>\n            <p className=\"text-muted-foreground\">\n              Lorem ipsum dolor sit amet consectetur adipisicing elit.\n            </p>\n          </Card>\n          <Card className=\"border-none bg-accent p-8 lg:p-10\">\n            <p className=\"mb-1 flex items-center justify-center text-2xl font-semibold lg:text-3xl\">\n              <ArrowUp className=\"mr-1 h-8 text-green-400\" />\n              100%\n            </p>\n            <p className=\"text-muted-foreground\">\n              Lorem ipsum dolor sit amet consectetur adipisicing elit.\n            </p>\n          </Card>\n          <Card className=\"border-none bg-accent p-8 lg:p-10\">\n            <p className=\"mb-1 flex items-center justify-center text-2xl font-semibold lg:text-3xl\">\n              <InfinityIcon className=\"mr-1 h-8\" />\n              Forever\n            </p>\n            <p className=\"text-muted-foreground\">\n              Lorem ipsum dolor sit amet consectetur adipisicing elit.\n            </p>\n          </Card>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Stats2 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

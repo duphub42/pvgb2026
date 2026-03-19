@@ -1,0 +1,9 @@
+{
+  "slug": "stats12",
+  "title": "Stats",
+  "description": "This component displays dynamic stats with a toggle for monthly/yearly views, animated graph, and call-to-action button. It has a 2-column layout with animated numbers and icons.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/stats12",
+  "downloadedAt": "2026-03-19T19:43:59Z",
+  "fileCount": 1
+}

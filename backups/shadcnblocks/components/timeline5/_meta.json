@@ -1,0 +1,9 @@
+{
+  "slug": "timeline5",
+  "title": "Timeline",
+  "description": "A 2-column layout component featuring static content on the left and scrollable cards on the right, each with an icon, title, and description.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/timeline5",
+  "downloadedAt": "2026-03-19T19:44:16Z",
+  "fileCount": 1
+}

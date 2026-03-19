@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "trust-strip3",
+  "title": "Trust-strip",
+  "description": "This component displays a list of certifications and guarantees, providing visual icons and descriptions for each to convey trust and authenticity. It allows customization by accepting optional props for different certifications, guarantees, and additional styling through the `className` prop.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/trust-strip3.tsx",
+      "content": "import { Award, Lock, Medal, ShieldCheck } from \"lucide-react\";\nimport React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\ninterface Certification {\n  icon: React.ReactNode;\n  name: string;\n}\n\ninterface TrustStrip3Props {\n  certifications?: Certification[];\n  guarantees?: string[];\n  className?: string;\n}\n\nconst DEFAULT_CERTIFICATIONS: Certification[] = [\n  { icon: <ShieldCheck className=\"size-5\" />, name: \"SSL Secured\" },\n  { icon: <Lock className=\"size-5\" />, name: \"PCI Compliant\" },\n  { icon: <Award className=\"size-5\" />, name: \"BBB Accredited\" },\n  { icon: <Medal className=\"size-5\" />, name: \"Top Rated 2024\" },\n];\n\nconst DEFAULT_GUARANTEES = [\n  \"Money-back guarantee\",\n  \"Authentic products\",\n  \"Secure checkout\",\n];\n\nconst TrustStrip3 = ({\n  certifications = DEFAULT_CERTIFICATIONS,\n  guarantees = DEFAULT_GUARANTEES,\n  className,\n}: TrustStrip3Props) => {\n  return (\n    <section className={cn(\"border-y py-6\", className)}>\n      <div className=\"container\">\n        <div className=\"flex flex-col items-center gap-6 md:flex-row md:justify-between\">\n          {/* Certifications */}\n          <div className=\"flex flex-wrap items-center justify-center gap-4 md:justify-start\">\n            {certifications.map((cert, index) => (\n              <div\n                key={index}\n                className=\"flex items-center gap-2 rounded-full bg-muted px-3 py-1.5\"\n              >\n                <span className=\"text-muted-foreground\">{cert.icon}</span>\n                <span className=\"text-sm font-medium\">{cert.name}</span>\n              </div>\n            ))}\n          </div>\n\n          {/* Guarantees */}\n          <div className=\"flex flex-wrap items-center justify-center gap-4 text-sm text-muted-foreground md:justify-end\">\n            {guarantees.map((guarantee, index) => (\n              <div key={index} className=\"flex items-center gap-1.5\">\n                <div className=\"size-1.5 rounded-full bg-emerald-500\" />\n                <span>{guarantee}</span>\n              </div>\n            ))}\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { TrustStrip3 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

@@ -20,10 +20,6 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 import { getClientSideURL } from '@/utilities/getURL'
-import {
-  getSpriteIdFromMediaUrl,
-  shouldUseLocalSpriteForMediaUrl,
-} from '@/utilities/getSpriteIdFromMediaUrl'
 import { ChevronRight, Menu, MessageCircle, Phone, Mail } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -700,9 +696,7 @@ export function MegaMenu({
                                     {(col.items ?? []).map((sub, idx) => {
                                       const rawMedia = (sub.image ?? sub.icon) ?? null
                                       const iconUrl = rawMedia ? mediaUrl(rawMedia) : ''
-                                      const iconSpriteId = shouldUseLocalSpriteForMediaUrl(iconUrl)
-                                        ? getSpriteIdFromMediaUrl(iconUrl)
-                                        : null
+                                      const iconSpriteId = null
 
                                       return (
                                         <ListItem
@@ -733,9 +727,7 @@ export function MegaMenu({
                             {listItems.map((sub: { label: string; url: string; description?: string | null; icon?: MediaRef; image?: MediaRef }, idx: number) => {
                               const rawMedia = (sub.image ?? sub.icon) ?? null
                               const iconUrl = rawMedia ? mediaUrl(rawMedia) : ''
-                              const iconSpriteId = shouldUseLocalSpriteForMediaUrl(iconUrl)
-                                ? getSpriteIdFromMediaUrl(iconUrl)
-                                : null
+                              const iconSpriteId = null
 
                               return (
                                 <ListItem
@@ -774,9 +766,7 @@ export function MegaMenu({
                             const cardTitle = card.title != null && card.title !== '' ? card.title : null
                             const cardDesc = card.description != null && card.description !== '' ? card.description : null
                             const cardIconUrl = card.icon != null ? mediaUrl(card.icon) : ''
-                            const cardIconSpriteId = shouldUseLocalSpriteForMediaUrl(cardIconUrl)
-                              ? getSpriteIdFromMediaUrl(cardIconUrl)
-                              : null
+                            const cardIconSpriteId = null
                             const cardImageUrl = card.image != null ? mediaUrl(card.image) : ''
                             const cardCtaUrl = card.ctaUrl != null && card.ctaUrl !== '' ? card.ctaUrl : null
                             const cardCtaLabel = card.ctaLabel ?? 'Mehr'

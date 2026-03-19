@@ -1,0 +1,9 @@
+{
+  "slug": "stats10",
+  "title": "Stats",
+  "description": "A component with 3 cards each showcasing metrics like conversion stoppage, time-saving, and growth. Each card has an avatar, logo, large text for the metric, and a description.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/stats10",
+  "downloadedAt": "2026-03-19T19:43:58Z",
+  "fileCount": 1
+}

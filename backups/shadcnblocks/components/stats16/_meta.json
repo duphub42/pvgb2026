@@ -1,0 +1,9 @@
+{
+  "slug": "stats16",
+  "title": "Stats",
+  "description": "A component displaying statistics with a title, subtitle, a dynamic line chart, and three key metrics.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/stats16",
+  "downloadedAt": "2026-03-19T19:44:00Z",
+  "fileCount": 1
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stats-card5",
+  "title": "Stats-card",
+  "description": "A metric card with a colored icon badge in the header alongside the title and value.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "card"
+  ],
+  "files": [
+    {
+      "path": "block/stats-card5.tsx",
+      "content": "import { DollarSign, ShoppingCart, TrendingUp, Users } from \"lucide-react\";\n\nimport { Card, CardContent, CardHeader, CardTitle } from \"@/components/ui/card\";\nimport { cn } from \"@/lib/utils\";\n\ntype IconType = \"dollar\" | \"users\" | \"cart\" | \"trending\";\n\ninterface StatsCard5Props {\n  title?: string;\n  value?: string;\n  subtitle?: string;\n  icon?: IconType;\n  className?: string;\n}\n\nconst iconMap = {\n  dollar: DollarSign,\n  users: Users,\n  cart: ShoppingCart,\n  trending: TrendingUp,\n};\n\nconst StatsCard5 = ({\n  title = \"Total Revenue\",\n  value = \"$45,231\",\n  subtitle = \"+20.1% from last month\",\n  icon = \"dollar\",\n  className,\n}: StatsCard5Props) => {\n  const Icon = iconMap[icon];\n\n  return (\n    <Card className={cn(\"w-full max-w-xs\", className)}>\n      <CardHeader className=\"flex flex-row items-center justify-between space-y-0 pb-2\">\n        <CardTitle className=\"text-sm font-medium text-muted-foreground\">\n          {title}\n        </CardTitle>\n        <div className=\"rounded-md bg-primary/10 p-2\">\n          <Icon className=\"size-4 text-primary\" />\n        </div>\n      </CardHeader>\n      <CardContent>\n        <div className=\"text-3xl font-bold\">{value}</div>\n        <p className=\"mt-1 text-sm text-muted-foreground\">{subtitle}</p>\n      </CardContent>\n    </Card>\n  );\n};\n\nexport { StatsCard5 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

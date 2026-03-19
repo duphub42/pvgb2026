@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stats-card7",
+  "title": "Stats-card",
+  "description": "A metric card with a mini donut chart showing percentage completion alongside the value.",
+  "dependencies": [
+    "recharts"
+  ],
+  "registryDependencies": [
+    "utils",
+    "card"
+  ],
+  "files": [
+    {
+      "path": "block/stats-card7.tsx",
+      "content": "\"use client\";\n\nimport { Cell, Pie, PieChart, ResponsiveContainer } from \"recharts\";\n\nimport { Card, CardContent, CardHeader, CardTitle } from \"@/components/ui/card\";\nimport { cn } from \"@/lib/utils\";\n\ninterface StatsCard7Props {\n  title?: string;\n  value?: string;\n  percentage?: number;\n  label?: string;\n  className?: string;\n}\n\nconst StatsCard7 = ({\n  title = \"Storage Used\",\n  value = \"75 GB\",\n  percentage = 75,\n  label = \"of 100 GB\",\n  className,\n}: StatsCard7Props) => {\n  const data = [\n    { name: \"used\", value: percentage },\n    { name: \"remaining\", value: 100 - percentage },\n  ];\n\n  return (\n    <Card className={cn(\"w-full max-w-xs\", className)}>\n      <CardHeader className=\"pb-2\">\n        <CardTitle className=\"text-sm font-medium text-muted-foreground\">\n          {title}\n        </CardTitle>\n      </CardHeader>\n      <CardContent>\n        <div className=\"flex items-center gap-4\">\n          <div className=\"relative size-20\">\n            <ResponsiveContainer width=\"100%\" height=\"100%\">\n              <PieChart>\n                <Pie\n                  data={data}\n                  cx=\"50%\"\n                  cy=\"50%\"\n                  innerRadius={28}\n                  outerRadius={38}\n                  paddingAngle={0}\n                  dataKey=\"value\"\n                  startAngle={90}\n                  endAngle={-270}\n                  strokeWidth={0}\n                >\n                  <Cell fill=\"var(--chart-1)\" />\n                  <Cell fill=\"var(--muted)\" />\n                </Pie>\n              </PieChart>\n            </ResponsiveContainer>\n            <div className=\"absolute inset-0 flex items-center justify-center\">\n              <span className=\"text-sm font-semibold\">{percentage}%</span>\n            </div>\n          </div>\n          <div>\n            <div className=\"text-2xl font-bold\">{value}</div>\n            <div className=\"text-sm text-muted-foreground\">{label}</div>\n          </div>\n        </div>\n      </CardContent>\n    </Card>\n  );\n};\n\nexport { StatsCard7 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

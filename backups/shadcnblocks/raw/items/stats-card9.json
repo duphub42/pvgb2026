@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stats-card9",
+  "title": "Stats-card",
+  "description": "A metric card with MRR/ARR toggle to switch between monthly and annual recurring revenue views.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "card",
+    "tabs"
+  ],
+  "files": [
+    {
+      "path": "block/stats-card9.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\n\nimport { Card, CardContent, CardHeader, CardTitle } from \"@/components/ui/card\";\nimport { Tabs, TabsList, TabsTrigger } from \"@/components/ui/tabs\";\nimport { cn } from \"@/lib/utils\";\n\ninterface StatsCard9Props {\n  title?: string;\n  monthlyValue?: string;\n  annualValue?: string;\n  monthlyLabel?: string;\n  annualLabel?: string;\n  className?: string;\n}\n\nconst StatsCard9 = ({\n  title = \"MRR\",\n  monthlyValue = \"$12,450\",\n  annualValue = \"$149,400\",\n  monthlyLabel = \"Monthly recurring\",\n  annualLabel = \"Annual recurring\",\n  className,\n}: StatsCard9Props) => {\n  const [period, setPeriod] = useState<\"monthly\" | \"annual\">(\"monthly\");\n\n  return (\n    <Card className={cn(\"w-full max-w-xs\", className)}>\n      <CardHeader className=\"flex flex-row items-center justify-between space-y-0 pb-2\">\n        <CardTitle className=\"text-sm font-medium text-muted-foreground\">\n          {title}\n        </CardTitle>\n        <Tabs\n          value={period}\n          onValueChange={(v) => setPeriod(v as \"monthly\" | \"annual\")}\n        >\n          <TabsList className=\"h-7\">\n            <TabsTrigger value=\"monthly\" className=\"px-2 text-xs\">\n              MRR\n            </TabsTrigger>\n            <TabsTrigger value=\"annual\" className=\"px-2 text-xs\">\n              ARR\n            </TabsTrigger>\n          </TabsList>\n        </Tabs>\n      </CardHeader>\n      <CardContent>\n        <div className=\"text-3xl font-bold\">\n          {period === \"monthly\" ? monthlyValue : annualValue}\n        </div>\n        <p className=\"mt-1 text-sm text-muted-foreground\">\n          {period === \"monthly\" ? monthlyLabel : annualLabel}\n        </p>\n      </CardContent>\n    </Card>\n  );\n};\n\nexport { StatsCard9 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "team15",
+  "title": "Team",
+  "description": "This component showcases a team of professionals, featuring their names, roles, avatars, and social media links (Twitter, Instagram, and LinkedIn) in an engaging, grid-based layout. It includes customizable titles and subtitles to highlight the team's mission and provides buttons to connect with each member through their social media profiles.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/team15",
+  "downloadedAt": "2026-03-19T19:44:06Z",
+  "fileCount": 1
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "signup3",
+  "title": "Signup",
+  "description": "A signup component with a logo, forms for email and password, and social login options (Google, Github, Facebook). Fits in a column of max-width 340px.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/signup3",
+  "downloadedAt": "2026-03-19T19:43:51Z",
+  "fileCount": 1
+}

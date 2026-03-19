@@ -1,0 +1,9 @@
+{
+  "slug": "todo3",
+  "title": "Todo",
+  "description": "This component allows users to manage a to-do list, featuring drag-and-drop reordering of tasks, completion toggles, and organization of tasks into active and collapsible completed sections. It includes interactive elements such as draggable icons, checkboxes, and animation effects to enhance user interaction while managing tasks.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/todo3",
+  "downloadedAt": "2026-03-19T19:44:18Z",
+  "fileCount": 1
+}

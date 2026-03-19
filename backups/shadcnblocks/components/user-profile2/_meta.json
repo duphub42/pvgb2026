@@ -1,0 +1,9 @@
+{
+  "slug": "user-profile2",
+  "title": "User-profile",
+  "description": "A horizontal profile layout with avatar, name, role, social links, follower stats, and action buttons.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/user-profile2",
+  "downloadedAt": "2026-03-19T19:44:23Z",
+  "fileCount": 1
+}

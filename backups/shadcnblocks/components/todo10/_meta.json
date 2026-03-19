@@ -1,0 +1,9 @@
+{
+  "slug": "todo10",
+  "title": "Todo",
+  "description": "This component is a task management block that allows users to manage, organize, and prioritize tasks along with subtasks by their due dates, projects, and priorities. It features drag-and-drop functionality, task sorting, filtering options, and the ability for users to add, update, delete, and toggle task completion and star status for easy organization and tracking.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/todo10",
+  "downloadedAt": "2026-03-19T19:44:18Z",
+  "fileCount": 1
+}

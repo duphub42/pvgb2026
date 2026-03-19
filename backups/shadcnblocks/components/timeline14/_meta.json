@@ -1,0 +1,9 @@
+{
+  "slug": "timeline14",
+  "title": "Timeline",
+  "description": "A timeline component showcasing key milestones, uses intersection observer for active item highlight, includes sticky year indicator.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/timeline14",
+  "downloadedAt": "2026-03-19T19:44:15Z",
+  "fileCount": 1
+}

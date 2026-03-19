@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stats18",
+  "title": "Stats",
+  "description": "A component featuring a central radar chart and a row of stats below, displaying numerical values and descriptions.",
+  "dependencies": [
+    "recharts"
+  ],
+  "registryDependencies": [
+    "utils",
+    "chart"
+  ],
+  "files": [
+    {
+      "path": "block/stats18.tsx",
+      "content": "\"use client\";\n\nimport React from \"react\";\nimport { PolarAngleAxis, PolarGrid, Radar, RadarChart } from \"recharts\";\n\nimport type { ChartConfig } from \"@/components/ui/chart\";\nimport {\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\nimport { cn } from \"@/lib/utils\";\n\ninterface StatItem {\n  title: string;\n  description: string;\n}\n\nconst statsData: StatItem[] = [\n  {\n    title: \"100%\",\n    description: \"Pre-Optimised for SEO\",\n  },\n  {\n    title: \"750+\",\n    description: \"Pre Built Blocks\",\n  },\n  {\n    title: \"85k+\",\n    description: \"Developers Trust\",\n  },\n];\n\ninterface Stats18Props {\n  className?: string;\n}\n\nconst Stats18 = ({ className }: Stats18Props) => {\n  return (\n    <section className={cn(\"overflow-hidden py-32\", className)}>\n      <div className=\"container flex w-full flex-col items-center justify-center px-4\">\n        <p className=\"mb-4 rounded-full bg-muted px-2 py-1 text-xs uppercase\">\n          STATS\n        </p>\n        <h2 className=\"relative py-2 text-center font-sans text-4xl font-semibold tracking-tighter lg:text-5xl\">\n          Stats That Show the Difference\n        </h2>\n        <p className=\"mx-auto max-w-xl px-5 text-center text-sm text-muted-foreground lg:text-base\">\n          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do\n          eiusmod tempor incididunt ut\n        </p>\n\n        <div className=\"my-10 h-[40vh] w-full max-w-xl\">\n          <ChartRadarDots />\n        </div>\n        <div className=\"flex w-full max-w-2xl items-center justify-between\">\n          {statsData.map((stat, index) => (\n            <div\n              key={index}\n              className=\"flex w-25 flex-col items-center justify-center gap-2 text-center\"\n            >\n              <h2 className=\"text-3xl font-semibold tracking-tighter md:text-5xl\">\n                {stat.title}\n              </h2>\n              <p className=\"text-sm text-muted-foreground\">\n                {stat.description}\n              </p>\n            </div>\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n};\n\nconst chartData = [\n  { month: \"January\", desktop: 186 },\n  { month: \"February\", desktop: 305 },\n  { month: \"March\", desktop: 237 },\n  { month: \"April\", desktop: 273 },\n  { month: \"May\", desktop: 209 },\n  { month: \"June\", desktop: 214 },\n];\n\nconst chartConfig = {\n  desktop: {\n    label: \"Desktop\",\n    color: \"var(--chart-1)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartRadarDots = () => {\n  return (\n    <ChartContainer\n      config={chartConfig}\n      className=\"mx-auto aspect-square max-h-[350px]\"\n    >\n      <RadarChart data={chartData}>\n        <ChartTooltip cursor={false} content={<ChartTooltipContent />} />\n        <PolarAngleAxis dataKey=\"month\" />\n        <PolarGrid />\n        <Radar\n          dataKey=\"desktop\"\n          fill=\"var(--color-desktop)\"\n          fillOpacity={0.6}\n          dot={{\n            r: 4,\n            fillOpacity: 1,\n          }}\n        />\n      </RadarChart>\n    </ChartContainer>\n  );\n};\n\nexport { Stats18 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

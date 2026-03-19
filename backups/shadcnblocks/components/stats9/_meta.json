@@ -1,0 +1,9 @@
+{
+  "slug": "stats9",
+  "title": "Stats",
+  "description": "This component displays statistics and four feature cards in a 2-column layout, highlighting benefits and key metrics.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/stats9",
+  "downloadedAt": "2026-03-19T19:44:04Z",
+  "fileCount": 1
+}

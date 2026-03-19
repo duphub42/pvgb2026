@@ -1,0 +1,9 @@
+{
+  "slug": "stats7",
+  "title": "Stats",
+  "description": "A component displaying weekly stats in a bordered block with 3 metrics (work completed, progress metric, error rate), each with percentages, arrows indicating trend, and progress bars.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/stats7",
+  "downloadedAt": "2026-03-19T19:44:02Z",
+  "fileCount": 1
+}

@@ -1,10 +1,6 @@
 'use client'
 
 import { getMediaUrl } from '@/utilities/getMediaUrl'
-import {
-  getSpriteIdFromMediaUrl,
-  shouldUseLocalSpriteForMediaUrl,
-} from '@/utilities/getSpriteIdFromMediaUrl'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { ArrowRight } from 'lucide-react'
@@ -74,9 +70,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
     newsletterIconUpload && typeof newsletterIconUpload === 'object' && newsletterIconUpload?.url
       ? getMediaUrl((newsletterIconUpload as { url?: string }).url)
       : ''
-  const newsletterSpriteId = shouldUseLocalSpriteForMediaUrl(newsletterIconUploadUrl)
-    ? getSpriteIdFromMediaUrl(newsletterIconUploadUrl)
-    : null
+  const newsletterSpriteId = null
 
   const hasCustomBg = Boolean((footer?.backgroundColor as string)?.trim())
 
@@ -230,10 +224,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                             item?.iconUpload && typeof item.iconUpload === 'object' && item.iconUpload?.url
                               ? getMediaUrl((item.iconUpload as { url?: string }).url)
                               : ''
-                          const uploadSpriteId =
-                            shouldUseLocalSpriteForMediaUrl(customIconUrl)
-                              ? getSpriteIdFromMediaUrl(customIconUrl)
-                              : null
+                          const uploadSpriteId = null
                           const spriteId = uploadSpriteId ?? SOCIAL_SPRITE_IDS[platform] ?? null
 
                           if (!url) return null
@@ -302,9 +293,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                       colIconUpload && typeof colIconUpload === 'object' && colIconUpload?.url
                         ? getMediaUrl((colIconUpload as { url?: string }).url)
                         : ''
-                    const colIconSpriteId = shouldUseLocalSpriteForMediaUrl(colIconUploadUrl)
-                      ? getSpriteIdFromMediaUrl(colIconUploadUrl)
-                      : null
+                    const colIconSpriteId = null
 
                     const columnWrapperClass = i < 2 ? 'group space-y-4 lg:row-start-2' : 'group space-y-4'
                     return (

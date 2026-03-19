@@ -1,0 +1,9 @@
+{
+  "slug": "stats-card8",
+  "title": "Stats-card",
+  "description": "A metric card with a color-coded status indicator showing healthy, warning, or critical states.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/stats-card8",
+  "downloadedAt": "2026-03-19T19:43:57Z",
+  "fileCount": 1
+}

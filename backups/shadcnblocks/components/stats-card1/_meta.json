@@ -1,0 +1,9 @@
+{
+  "slug": "stats-card1",
+  "title": "Stats-card",
+  "description": "A compact metric card displaying a value with trend indicator showing percentage change and direction.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/stats-card1",
+  "downloadedAt": "2026-03-19T19:43:55Z",
+  "fileCount": 1
+}

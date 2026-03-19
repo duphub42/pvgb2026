@@ -1,0 +1,9 @@
+{
+  "slug": "timeline13",
+  "title": "Timeline",
+  "description": "A component displaying a product launch timeline with 3 phases, progress bars, and durations. Features an animated timeline indicator.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/timeline13",
+  "downloadedAt": "2026-03-19T19:44:14Z",
+  "fileCount": 1
+}

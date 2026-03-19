@@ -1,0 +1,9 @@
+{
+  "slug": "team12",
+  "title": "Team",
+  "description": "A team showcase component with staggered animation for each member's photo, including name and role. Displays info in two columns with adjustable gaps.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/team12",
+  "downloadedAt": "2026-03-19T19:44:05Z",
+  "fileCount": 1
+}

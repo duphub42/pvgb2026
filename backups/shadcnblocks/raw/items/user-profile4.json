@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "user-profile4",
+  "title": "User-profile",
+  "description": "A small pill-shaped profile chip with avatar, name, role, and status indicator for inline use.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "avatar"
+  ],
+  "files": [
+    {
+      "path": "block/user-profile4.tsx",
+      "content": "import { Avatar, AvatarFallback, AvatarImage } from \"@/components/ui/avatar\";\nimport { cn } from \"@/lib/utils\";\n\ninterface User {\n  name: string;\n  avatar?: string;\n  role?: string;\n  status?: \"online\" | \"offline\" | \"away\" | \"busy\";\n}\n\ninterface UserProfile4Props {\n  user?: User;\n  className?: string;\n  showStatus?: boolean;\n}\n\nconst statusColors = {\n  online: \"bg-emerald-500\",\n  offline: \"bg-muted-foreground\",\n  away: \"bg-amber-500\",\n  busy: \"bg-red-500\",\n};\n\nconst UserProfile4 = ({\n  user = {\n    name: \"Alex Morgan\",\n    avatar:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar/avatar8.jpg\",\n    role: \"Product Designer\",\n    status: \"online\",\n  },\n  className,\n  showStatus = true,\n}: UserProfile4Props) => {\n  const initials = user.name\n    .split(\" \")\n    .map((n) => n[0])\n    .join(\"\")\n    .toUpperCase();\n\n  return (\n    <div\n      className={cn(\n        \"inline-flex max-w-xs items-center gap-3 rounded-full border bg-card py-1.5 pr-4 pl-1.5 shadow-sm\",\n        className,\n      )}\n    >\n      <div className=\"relative\">\n        <Avatar className=\"size-8\">\n          <AvatarImage\n            src={user.avatar}\n            alt={user.name}\n            className=\"object-cover\"\n          />\n          <AvatarFallback className=\"text-xs font-medium\">\n            {initials}\n          </AvatarFallback>\n        </Avatar>\n        {showStatus && user.status && (\n          <span\n            className={cn(\n              \"absolute -right-0.5 -bottom-0.5 size-3 rounded-full border-2 border-card\",\n              statusColors[user.status],\n            )}\n          />\n        )}\n      </div>\n      <div className=\"flex flex-col\">\n        <span className=\"text-sm leading-tight font-medium\">{user.name}</span>\n        {user.role && (\n          <span className=\"text-xs text-muted-foreground\">{user.role}</span>\n        )}\n      </div>\n    </div>\n  );\n};\n\nexport { UserProfile4 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

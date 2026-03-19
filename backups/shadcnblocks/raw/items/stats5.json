@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stats5",
+  "title": "Stats",
+  "description": "A component displays performance metrics in 3 columns, highlighting values with dynamic icons and bold percentage figures.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/stats5.tsx",
+      "content": "import { BarChart3, TrendingDown, TrendingUp } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\ninterface Stats5Props {\n  className?: string;\n}\n\nconst Stats5 = ({ className }: Stats5Props) => {\n  return (\n    <section className={cn(\"bg-background/50 py-20 md:py-32\", className)}>\n      <div className=\"container flex flex-col items-start text-left\">\n        <h2 className=\"mb-12 w-full max-w-[24rem] text-3xl font-bold text-pretty sm:text-4xl md:mb-20 md:max-w-[30rem] lg:max-w-[40rem] lg:text-5xl lg:leading-[4rem]\">\n          Platform Performance Insights\n        </h2>\n        <div className=\"flex w-full flex-col gap-x-8 gap-y-12 border-border md:flex-row md:border-b md:pb-10\">\n          <div className=\"group w-full\">\n            <div className=\"relative mb-4 text-6xl font-bold text-primary transition-transform duration-300 group-hover:scale-105 md:mb-6 lg:text-7xl\">\n              <span>95</span>\n              <span className=\"text-4xl lg:text-5xl\">%</span>\n              <div className=\"absolute -bottom-2 left-0 h-1 w-12 rounded-full bg-primary\"></div>\n            </div>\n            <div className=\"flex items-center gap-2 text-muted-foreground md:text-lg\">\n              <TrendingUp className=\"h-5 w-5 text-green-500\" />\n              <span className=\"leading-7\">Metric 1</span>\n            </div>\n          </div>\n\n          <div className=\"group w-full\">\n            <div className=\"relative mb-4 text-6xl font-bold text-primary transition-transform duration-300 group-hover:scale-105 md:mb-6 lg:text-7xl\">\n              <span>95</span>\n              <span className=\"text-4xl lg:text-5xl\">%</span>\n              <div className=\"absolute -bottom-2 left-0 h-1 w-12 rounded-full bg-primary\"></div>\n            </div>\n            <div className=\"flex items-center gap-2 text-muted-foreground md:text-lg\">\n              <TrendingDown className=\"h-5 w-5 text-red-500\" />\n              <span className=\"leading-7\">Metric 2</span>\n            </div>\n          </div>\n\n          <div className=\"group w-full\">\n            <div className=\"relative mb-4 text-6xl font-bold text-primary transition-transform duration-300 group-hover:scale-105 md:mb-6 lg:text-7xl\">\n              <span>95</span>\n              <span className=\"text-4xl lg:text-5xl\">%</span>\n              <div className=\"absolute -bottom-2 left-0 h-1 w-12 rounded-full bg-primary\"></div>\n            </div>\n            <div className=\"flex items-center gap-2 text-muted-foreground md:text-lg\">\n              <BarChart3 className=\"h-5 w-5 text-blue-500\" />\n              <span className=\"leading-7\">Metric 3</span>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Stats5 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

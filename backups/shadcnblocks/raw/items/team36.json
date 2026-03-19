@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "team36",
+  "title": "Team",
+  "description": "A simple team or investors grid with square photos, names, and roles/companies in a responsive 5-column layout.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/team36.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\ninterface TeamMember {\n  name: string;\n  role: string;\n  image: string;\n}\n\ninterface Team36Props {\n  heading?: string;\n  members?: TeamMember[];\n  className?: string;\n}\n\nconst Team36 = ({\n  heading = \"Our investors\",\n  members = [\n    {\n      name: \"Dennis Bouvard\",\n      role: \"Blackbird Ventures\",\n      image:\n        \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar/avatar-1.webp\",\n    },\n    {\n      name: \"Renatus Gerard\",\n      role: \"Center Studies\",\n      image:\n        \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar/avatar-2.webp\",\n    },\n    {\n      name: \"Leslie Alexander\",\n      role: \"TechNexus\",\n      image:\n        \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar/avatar-3.webp\",\n    },\n    {\n      name: \"Matthew Stephens\",\n      role: \"Etymol Cap\",\n      image:\n        \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar/avatar-4.webp\",\n    },\n    {\n      name: \"Josephine Newman\",\n      role: \"Vandenberg\",\n      image:\n        \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar/avatar-5.webp\",\n    },\n  ],\n  className,\n}: Team36Props) => {\n  return (\n    <section className={cn(\"container max-w-5xl py-12\", className)}>\n      <h2 className=\"text-4xl font-medium tracking-wide text-foreground\">\n        {heading}\n      </h2>\n      <div className=\"mt-8 grid grid-cols-2 gap-12 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5\">\n        {members.map((member) => (\n          <div key={member.name}>\n            <img\n              src={member.image}\n              alt={member.name}\n              className=\"size-30 object-cover\"\n            />\n            <h3 className=\"mt-3 font-semibold\">{member.name}</h3>\n            <p className=\"text-muted-foreground\">{member.role}</p>\n          </div>\n        ))}\n      </div>\n    </section>\n  );\n};\n\nexport { Team36 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

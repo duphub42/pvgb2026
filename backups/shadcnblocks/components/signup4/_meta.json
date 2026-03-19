@@ -1,0 +1,9 @@
+{
+  "slug": "signup4",
+  "title": "Signup",
+  "description": "A signup component featuring a logo, headings, email/password inputs, and social media signup options (Google, Facebook, Apple). Includes a &#x27;login&#x27; link.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/signup4",
+  "downloadedAt": "2026-03-19T19:43:51Z",
+  "fileCount": 1
+}

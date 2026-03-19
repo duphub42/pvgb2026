@@ -1,0 +1,9 @@
+{
+  "slug": "todo8",
+  "title": "Todo",
+  "description": "This component provides a dynamic to-do list with features for managing tasks and subtasks, allowing users to expand, reorder, and track progress with drag-and-drop functionality. Users can mark tasks and subtasks as completed and add new subtasks with ease, enabling efficient task management and prioritization.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/todo8",
+  "downloadedAt": "2026-03-19T19:44:19Z",
+  "fileCount": 1
+}

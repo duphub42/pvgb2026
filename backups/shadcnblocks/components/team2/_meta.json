@@ -1,0 +1,9 @@
+{
+  "slug": "team2",
+  "title": "Team",
+  "description": "A component showcasing a team with a section title, description, and a grid of profiles (up to 4 columns), each with an avatar, name, role, description, and social links.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/team2",
+  "downloadedAt": "2026-03-19T19:44:06Z",
+  "fileCount": 1
+}

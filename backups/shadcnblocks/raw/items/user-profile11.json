@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "user-profile11",
+  "title": "User-profile",
+  "description": "A profile card with full-bleed background image and overlay text.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/user-profile11.tsx",
+      "content": "import { BadgeCheck, LayoutGrid, Plus, Users } from \"lucide-react\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface User {\n  name: string;\n  image?: string;\n  bio?: string;\n  verified?: boolean;\n  followers?: number;\n  posts?: number;\n}\n\ninterface UserProfile11Props {\n  user?: User;\n  className?: string;\n}\n\nconst UserProfile11 = ({\n  user = {\n    name: \"Sarah Chen\",\n    image:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/portraits/Elegant%20Woman%20Portrait.png\",\n    bio: \"UX Engineer crafting intuitive experiences with code & design\",\n    verified: true,\n    followers: 1248,\n    posts: 42,\n  },\n  className,\n}: UserProfile11Props) => {\n  return (\n    <div\n      className={cn(\n        \"relative w-full max-w-xs overflow-hidden rounded-2xl shadow-lg\",\n        className,\n      )}\n    >\n      {/* Full background image */}\n      <img\n        src={user.image}\n        alt={user.name}\n        className=\"aspect-[3/4] w-full object-cover\"\n      />\n\n      {/* Gradient overlay for text readability */}\n      <div className=\"absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent\" />\n\n      {/* Content overlay at bottom - uses explicit light colors since it's always on dark overlay */}\n      <div className=\"absolute inset-x-0 bottom-0 space-y-3 p-5 text-white\">\n        {/* Name with verification badge */}\n        <div>\n          <div className=\"flex items-center gap-1.5\">\n            <h3 className=\"text-lg font-semibold\">{user.name}</h3>\n            {user.verified && (\n              <BadgeCheck className=\"size-5 fill-emerald-500 text-white\" />\n            )}\n          </div>\n          {user.bio && <p className=\"mt-1 text-sm text-white/80\">{user.bio}</p>}\n        </div>\n\n        {/* Stats and follow button */}\n        <div className=\"flex items-center justify-between\">\n          <div className=\"flex items-center gap-4 text-sm text-white/80\">\n            <span className=\"flex items-center gap-1.5\">\n              <Users className=\"size-4\" />\n              {user.followers?.toLocaleString()}\n            </span>\n            <span className=\"flex items-center gap-1.5\">\n              <LayoutGrid className=\"size-4\" />\n              {user.posts}\n            </span>\n          </div>\n          <Button\n            size=\"sm\"\n            className=\"gap-1.5 bg-white/20 text-white backdrop-blur-sm hover:bg-white/30\"\n          >\n            Follow\n            <Plus className=\"size-4\" />\n          </Button>\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport { UserProfile11 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

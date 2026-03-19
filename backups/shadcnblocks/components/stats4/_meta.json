@@ -1,0 +1,9 @@
+{
+  "slug": "stats4",
+  "title": "Stats",
+  "description": "A component displays platform ratings from Apple Store, Play Store, and Trustpilot, along with a headline. It uses star icons for ratings and logos for each platform.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/stats4",
+  "downloadedAt": "2026-03-19T19:44:01Z",
+  "fileCount": 1
+}

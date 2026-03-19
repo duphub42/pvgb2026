@@ -1,0 +1,9 @@
+{
+  "slug": "team7",
+  "title": "Team",
+  "description": "A component showcasing a team with a title, displaying 5 profiles in grids that adapt from 2 to 5 columns. Each profile has an image, name, and company.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/team7",
+  "downloadedAt": "2026-03-19T19:44:08Z",
+  "fileCount": 1
+}

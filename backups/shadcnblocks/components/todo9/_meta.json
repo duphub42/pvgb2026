@@ -1,0 +1,9 @@
+{
+  "slug": "todo9",
+  "title": "Todo",
+  "description": "This component provides a dynamic to-do list with features for real-time search, tag management, and task reordering via drag-and-drop functionality. Users can add or remove multiple tags per task, filter tasks based on tags, and utilize a search function to quickly locate tasks.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/todo9",
+  "downloadedAt": "2026-03-19T19:44:20Z",
+  "fileCount": 1
+}

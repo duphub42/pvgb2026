@@ -1,0 +1,9 @@
+{
+  "slug": "timeline9",
+  "title": "Timeline",
+  "description": "This component displays a vertical timeline of key events in artificial intelligence history, using cards with titles, dates, and content.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/timeline9",
+  "downloadedAt": "2026-03-19T19:44:17Z",
+  "fileCount": 1
+}

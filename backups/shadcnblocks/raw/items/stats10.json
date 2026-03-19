@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "stats10",
+  "title": "Stats",
+  "description": "A component with 3 cards each showcasing metrics like conversion stoppage, time-saving, and growth. Each card has an avatar, logo, large text for the metric, and a description.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "avatar",
+    "card"
+  ],
+  "files": [
+    {
+      "path": "block/stats10.tsx",
+      "content": "import { Avatar, AvatarFallback, AvatarImage } from \"@/components/ui/avatar\";\nimport { Card, CardContent } from \"@/components/ui/card\";\nimport { cn } from \"@/lib/utils\";\n\nconst statsData = [\n  {\n    logo: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-1.svg\",\n    avatar:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-1.webp\",\n    avatarFallback: \"\",\n    heading: \"89%\",\n    text: \"Stop spending on ads with zero conversions\",\n  },\n  {\n    logo: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-2.svg\",\n    avatar:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-2.webp\",\n    avatarFallback: \"\",\n    heading: \"7 HRS\",\n    text: \"Daily savings on ad management\",\n  },\n  {\n    logo: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/company/fictional-company-logo-3.svg\",\n    avatar:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/avatar-3.webp\",\n    avatarFallback: \"\",\n    heading: \"2,540%\",\n    text: \"Growth in overall client ad investment\",\n  },\n];\n\ninterface Stats10Props {\n  className?: string;\n}\n\nconst Stats10 = ({ className }: Stats10Props) => {\n  return (\n    <section className={cn(\"py-12 md:py-20\", className)}>\n      <div className=\"container max-w-[75rem]\">\n        <div className=\"pt-10 pb-10\">\n          <div className=\"grid grid-cols-1 gap-7 md:grid-cols-2 lg:grid-cols-3\">\n            {statsData.map(\n              ({ logo, avatar, avatarFallback, heading, text }, i) => (\n                <a href=\"#\" key={`link${i}`} className=\"block w-full\">\n                  <Card className=\"rounded-3xl border-2 p-10 transition hover:-translate-y-3 hover:border-primary\">\n                    <CardContent className=\"block p-0\">\n                      <div className=\"flex items-center gap-7\">\n                        <Avatar className=\"h-14 w-14 overflow-hidden rounded-full border\">\n                          <AvatarImage src={avatar} alt=\"\" />\n                          <AvatarFallback>{avatarFallback}</AvatarFallback>\n                        </Avatar>\n                        <img src={logo} alt=\"\" className=\"h-6\" />\n                      </div>\n                      <div className=\"mt-6 text-6xl leading-tight font-semibold\">\n                        {heading}\n                      </div>\n                      <p className=\"mb-5 max-w-52 text-lg font-medium\">\n                        {text}\n                      </p>\n                    </CardContent>\n                  </Card>\n                </a>\n              ),\n            )}\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Stats10 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

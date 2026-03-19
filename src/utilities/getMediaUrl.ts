@@ -30,6 +30,13 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
 
   const appendTag = (base: string): string =>
     encodedTag ? `${base}${base.includes('?') ? '&' : '?'}${encodedTag}` : base
+  const rewriteApiMediaPath = (pathWithSearch: string): string => {
+    const [pathPart, queryPart] = pathWithSearch.split('?')
+    const match = pathPart?.match(/^\/api\/media\/file\/(.+)$/)
+    if (!match?.[1]) return pathWithSearch
+    const normalized = `/media/${match[1]}`
+    return queryPart != null && queryPart !== '' ? `${normalized}?${queryPart}` : normalized
+  }
 
   // ExactDN-Rewrite deaktiviert (EXACTDN_DOMAIN = undefined). Für CDN: EXACTDN_DOMAIN aus env setzen und Block aktivieren.
   // if (exactdn) {
@@ -57,12 +64,13 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
         parsed.pathname.startsWith('/api/media/') ||
         parsed.pathname.startsWith('/media/')
       ) {
-        return appendTag(mediaPath)
+        return appendTag(rewriteApiMediaPath(mediaPath))
       }
     } catch {
       // keep original URL below if parsing fails
     }
     return appendTag(url)
   }
+  if (url.startsWith('/api/media/')) return appendTag(rewriteApiMediaPath(url))
   return appendTag(url)
 }
