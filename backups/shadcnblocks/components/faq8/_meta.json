@@ -1,0 +1,9 @@
+{
+  "slug": "faq8",
+  "title": "Faq",
+  "description": "An FAQ component with collapsible sections for \"General\" and \"Billing\" questions, each with their own set of questions and answers. It has a 3-column layout on wider screens.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/faq8",
+  "downloadedAt": "2026-03-19T19:41:19Z",
+  "fileCount": 1
+}

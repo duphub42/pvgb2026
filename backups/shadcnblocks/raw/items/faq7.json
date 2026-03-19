@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "faq7",
+  "title": "Faq",
+  "description": "A 2-column FAQ block featuring a title, a supportive call-to-action with an external link, and a multi-expand accordion of questions and answers.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "accordion",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/faq7.tsx",
+      "content": "import {\n  Accordion,\n  AccordionContent,\n  AccordionItem,\n  AccordionTrigger,\n} from \"@/components/ui/accordion\";\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\nconst faqs = [\n  {\n    question: \"What is a FAQ and why is it important?\",\n    answer:\n      \"FAQ stands for Frequently Asked Questions. It is a list that provides answers to common questions people may have about a specific product, service, or topic.\",\n  },\n  {\n    question: \"Why should I use a FAQ on my website or app?\",\n    answer:\n      \"Utilizing a FAQ section on your website or app is a practical way to offer instant assistance to your users or customers. Instead of waiting for customer support responses, they can find quick answers to commonly asked questions. \",\n  },\n  {\n    question: \"How do I effectively create a FAQ section?\",\n    answer:\n      \"Creating a FAQ section starts with gathering the most frequent questions you receive from your users or customers. Once you have a list, you need to write clear, detailed, and helpful answers to each question.\",\n  },\n  {\n    question: \"What are the benefits of having a well-maintained FAQ section?\",\n    answer:\n      \"There are numerous advantages to maintaining a robust FAQ section. Firstly, it provides immediate answers to common queries, which improves the user experience.\",\n  },\n  {\n    question: \"How do I effectively create a FAQ section?\",\n    answer:\n      \"Creating a FAQ section starts with gathering the most frequent questions you receive from your users or customers. Once you have a list, you need to write clear, detailed, and helpful answers to each question.\",\n  },\n];\n\ninterface Faq7Props {\n  className?: string;\n}\n\nconst Faq7 = ({ className }: Faq7Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"mx-auto grid max-w-7xl gap-10 md:grid-cols-2\">\n          <div className=\"flex flex-col gap-6\">\n            <h2 className=\"text-4xl font-semibold\">\n              Need Help?\n              <br />\n              <span className=\"text-muted-foreground/70\">\n                We&apos;re here to assist.\n              </span>\n            </h2>\n            <p className=\"text-lg text-muted-foreground md:text-xl\">\n              Still have questions? Feel free to contact our friendly\n              <a href=\"#\" className=\"mx-1 whitespace-nowrap underline\">\n                support team\n              </a>\n              specialists.\n            </p>\n            <Button size=\"lg\" variant=\"outline\" className=\"w-fit\">\n              View all FAQs\n            </Button>\n          </div>\n          <Accordion type=\"multiple\">\n            {faqs.map((faq, index) => (\n              <AccordionItem key={index} value={`item-${index}`}>\n                <AccordionTrigger className=\"text-left\">\n                  {faq.question}\n                </AccordionTrigger>\n                <AccordionContent>{faq.answer}</AccordionContent>\n              </AccordionItem>\n            ))}\n          </Accordion>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Faq7 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

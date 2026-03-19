@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "faq9",
+  "title": "Faq",
+  "description": "An FAQ component featuring a title and an expandable accordion with multiple items to display questions and answers.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "accordion"
+  ],
+  "files": [
+    {
+      "path": "block/faq9.tsx",
+      "content": "import {\n  Accordion,\n  AccordionContent,\n  AccordionItem,\n  AccordionTrigger,\n} from \"@/components/ui/accordion\";\nimport { cn } from \"@/lib/utils\";\n\nconst faqs = [\n  {\n    question: \"What is a FAQ and why is it important?\",\n    answer:\n      \"FAQ stands for Frequently Asked Questions. It is a list that provides answers to common questions people may have about a specific product, service, or topic.\",\n  },\n  {\n    question: \"Why should I use a FAQ on my website or app?\",\n    answer:\n      \"Utilizing a FAQ section on your website or app is a practical way to offer instant assistance to your users or customers. Instead of waiting for customer support responses, they can find quick answers to commonly asked questions. \",\n  },\n  {\n    question: \"How do I effectively create a FAQ section?\",\n    answer:\n      \"Creating a FAQ section starts with gathering the most frequent questions you receive from your users or customers. Once you have a list, you need to write clear, detailed, and helpful answers to each question.\",\n  },\n  {\n    question: \"What are the benefits of having a well-maintained FAQ section?\",\n    answer:\n      \"There are numerous advantages to maintaining a robust FAQ section. Firstly, it provides immediate answers to common queries, which improves the user experience.\",\n  },\n  {\n    question: \"How do I effectively create a FAQ section?\",\n    answer:\n      \"Creating a FAQ section starts with gathering the most frequent questions you receive from your users or customers. Once you have a list, you need to write clear, detailed, and helpful answers to each question.\",\n  },\n];\n\ninterface Faq9Props {\n  className?: string;\n}\n\nconst Faq9 = ({ className }: Faq9Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <h2 className=\"mt-2 mb-12 text-3xl font-bold md:text-6xl\">FAQ</h2>\n        <Accordion type=\"multiple\">\n          {faqs.map((faq, index) => (\n            <AccordionItem\n              key={index}\n              value={`item-${index}`}\n              className=\"mb-2 rounded-md border-b-0 bg-muted px-5 py-2 md:mb-4\"\n            >\n              <AccordionTrigger className=\"text-left\">\n                {faq.question}\n              </AccordionTrigger>\n              <AccordionContent>{faq.answer}</AccordionContent>\n            </AccordionItem>\n          ))}\n        </Accordion>\n      </div>\n    </section>\n  );\n};\n\nexport { Faq9 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

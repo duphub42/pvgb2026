@@ -1,0 +1,9 @@
+{
+  "slug": "feature276",
+  "title": "Feature",
+  "description": "A component displaying a 3-column grid of cards for features like \"Plug & Play\", \"Customizable\", each with an icon, title, and description. It highlights a card on hover.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/feature276",
+  "downloadedAt": "2026-03-19T19:41:22Z",
+  "fileCount": 1
+}

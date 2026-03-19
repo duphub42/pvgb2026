@@ -1,0 +1,9 @@
+{
+  "slug": "feature255",
+  "title": "Feature",
+  "description": "A component displaying a list of top contributors with images, titles, and descriptions. Includes a header with a \"View all\" button.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/feature255",
+  "downloadedAt": "2026-03-19T19:41:21Z",
+  "fileCount": 1
+}
