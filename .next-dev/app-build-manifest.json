@@ -60,6 +60,12 @@
       "static/chunks/main-app.js",
       "static/css/app/(payload)/api/[...slug]/route.css",
       "static/chunks/app/(payload)/api/[...slug]/route.js"
+    ],
+    "/(frontend)/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/css/app/(frontend)/[slug]/page.css",
+      "static/chunks/app/(frontend)/[slug]/page.js"
     ]
   }
 }
