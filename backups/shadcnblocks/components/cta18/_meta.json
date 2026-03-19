@@ -1,0 +1,9 @@
+{
+  "slug": "cta18",
+  "title": "Cta",
+  "description": "A call-to-action component with two columns: text (with a title and buttons) on one side, and unique, angled placeholder images on the other.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/cta18",
+  "downloadedAt": "2026-03-19T19:40:56Z",
+  "fileCount": 1
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "dashboard1",
+  "title": "Dashboard",
+  "description": "A full-page shadcn/ui revenue, sales, and analytics dashboard with collapsible sidebar, stat cards, channel revenue bar chart, composed revenue chart, and pie chart breakdown.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/dashboard1",
+  "downloadedAt": "2026-03-19T19:41:00Z",
+  "fileCount": 1
+}

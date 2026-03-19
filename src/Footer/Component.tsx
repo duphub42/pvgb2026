@@ -22,6 +22,7 @@ export async function Footer({ locale = 'de' }: { locale?: Locale }) {
     let socialNumeric = 0
     let columnWithUrl = 0
     let columnNumeric = 0
+    const columnUrlSamples: string[] = []
     const socialPlatforms: string[] = []
     for (const s of socialLinks) {
       const iconUpload = s?.iconUpload as unknown
@@ -43,7 +44,18 @@ export async function Footer({ locale = 'de' }: { locale?: Locale }) {
       const iconUpload = c?.columnIconUpload as unknown
       if (iconUpload == null) continue
       if (typeof iconUpload === 'number') columnNumeric += 1
-      if (typeof iconUpload === 'object' && iconUpload != null && 'url' in iconUpload) columnWithUrl += 1
+      if (
+        typeof iconUpload === 'object' &&
+        iconUpload != null &&
+        'url' in iconUpload &&
+        typeof (iconUpload as { url?: unknown }).url === 'string' &&
+        (iconUpload as { url?: string }).url!.trim() !== ''
+      ) {
+        columnWithUrl += 1
+        if (columnUrlSamples.length < 8) {
+          columnUrlSamples.push((iconUpload as { url: string }).url)
+        }
+      }
     }
     console.info('[debug-icons][footer]', {
       socialLinks: socialLinks.length,
@@ -53,6 +65,7 @@ export async function Footer({ locale = 'de' }: { locale?: Locale }) {
       columns: columns.length,
       columnWithUrl,
       columnNumeric,
+      columnUrlSamples,
     })
   } catch (err) {
     console.error('[Footer] Failed to load footer/header globals:', err)

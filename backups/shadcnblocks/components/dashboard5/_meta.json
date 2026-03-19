@@ -1,0 +1,9 @@
+{
+  "slug": "dashboard5",
+  "title": "Dashboard",
+  "description": "A Shadcn UI dashboard with stat cards featuring embedded sparklines, revenue bar chart, transactions table, and scrollable activity feed.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/dashboard5",
+  "downloadedAt": "2026-03-19T19:41:01Z",
+  "fileCount": 1
+}

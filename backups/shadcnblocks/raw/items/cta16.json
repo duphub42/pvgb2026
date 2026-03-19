@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta16",
+  "title": "Cta",
+  "description": "A component featuring a centered call-to-action with a decorative icon, a bold headline, and two buttons. It&#x27;s set against a darkened full-width background image.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/cta16.tsx",
+      "content": "import { Zap } from \"lucide-react\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Cta16Props {\n  className?: string;\n}\n\nconst Cta16 = ({ className }: Cta16Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"flex h-[620px] items-center justify-center bg-[linear-gradient(rgba(0,0,0,.6),rgba(0,0,0,.6)),url('https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/simone-hutsch-xOLhD-qfoRI-unsplash.jpg')] bg-cover bg-center\">\n        <div className=\"container\">\n          <div className=\"flex flex-col gap-8 p-4 text-center text-primary-foreground\">\n            <div className=\"flex items-center justify-center gap-2 text-2xl font-medium\">\n              <Zap className=\"h-full w-7\" /> Faster\n            </div>\n            <h2 className=\"text-5xl font-bold\">Build your website faster.</h2>\n            <div className=\"flex flex-col justify-center gap-2 sm:flex-row\">\n              <Button size=\"lg\" variant=\"secondary\">\n                Get Started\n              </Button>\n              <Button\n                size=\"lg\"\n                variant=\"outline\"\n                className=\"border-0 bg-background/20 backdrop-blur-sm hover:bg-background/30 hover:text-primary-foreground\"\n              >\n                Learn More\n              </Button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Cta16 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

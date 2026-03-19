@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta26",
+  "title": "Cta",
+  "description": "A component featuring a full-width image background, overlaid with a call-to-action (CTA) message and a large button. Below, two detailed information blocks are displayed side-by-side, each with an icon, title, and description.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/cta26.tsx",
+      "content": "import { ArrowUpRight, BookOpen, Zap } from \"lucide-react\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Cta26Props {\n  className?: string;\n}\n\nconst Cta26 = ({ className }: Cta26Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"relative h-96 overflow-hidden rounded-xl border border-border\">\n          <img\n            src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/full-width-backgrounds/andrew-kliatskyi-LYZxo7oVFOI-unsplash.webp\"\n            alt=\"placeholder\"\n            className=\"hidden h-full w-full object-cover dark:block\"\n          />\n          <img\n            src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/full-width-backgrounds/denis96-gmsf4Zo2-rY-unsplash.webp\"\n            alt=\"placeholder\"\n            className=\"h-full w-full object-cover dark:hidden\"\n          />\n          <div className=\"absolute inset-0 bg-radial from-background to-background/50 lg:to-transparent\" />\n          <div className=\"absolute inset-0 flex flex-col items-center justify-center gap-8 p-6\">\n            <div className=\"text-center\">\n              <h2 className=\"text-3xl font-semibold md:text-5xl\">\n                Try it free\n              </h2>\n              <p className=\"text-lg text-muted-foreground md:text-xl\">\n                Experience our platform and discover how it can transform your\n                workflow\n              </p>\n            </div>\n            <Button size=\"lg\">\n              Get started\n              <ArrowUpRight className=\"size-4\" />\n            </Button>\n          </div>\n        </div>\n        <div className=\"mt-4 grid grid-cols-1 gap-4 md:grid-cols-2\">\n          <a\n            href=\"#\"\n            className=\"flex flex-col items-start gap-8 rounded-xl border border-border bg-muted/50 px-10 py-8 transition-transform hover:-translate-y-0.5\"\n          >\n            <span className=\"grid size-12 place-items-center rounded-lg border border-border\">\n              <Zap className=\"size-5\" />\n            </span>\n            <div className=\"flex flex-col gap-1\">\n              <h3 className=\"text-2xl font-medium md:text-3xl\">\n                Instant setup\n              </h3>\n              <p className=\"text-muted-foreground\">\n                Get up and running in minutes with our guided onboarding\n              </p>\n            </div>\n          </a>\n          <a\n            href=\"#\"\n            className=\"flex flex-col items-start gap-8 rounded-xl border border-border bg-muted/50 px-10 py-8 transition-transform hover:-translate-y-0.5\"\n          >\n            <span className=\"grid size-12 place-items-center rounded-lg border border-border\">\n              <BookOpen className=\"size-5\" />\n            </span>\n            <div className=\"flex flex-col gap-1\">\n              <h3 className=\"text-2xl font-medium md:text-3xl\">\n                Documentation\n              </h3>\n              <p className=\"text-muted-foreground\">\n                Comprehensive guides and tutorials to help you succeed\n              </p>\n            </div>\n          </a>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Cta26 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

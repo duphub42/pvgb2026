@@ -1,0 +1,9 @@
+{
+  "slug": "data-table24",
+  "title": "Data-table",
+  "description": "A data table section with transactions grouped by date, hidden column headers, and currency-formatted amounts. Built with TanStack Table.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/data-table24",
+  "downloadedAt": "2026-03-19T19:41:02Z",
+  "fileCount": 1
+}

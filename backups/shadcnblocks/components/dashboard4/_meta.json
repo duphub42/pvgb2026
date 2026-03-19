@@ -1,0 +1,9 @@
+{
+  "slug": "dashboard4",
+  "title": "Dashboard",
+  "description": "A shadcn/ui finance dashboard with revenue and cost charts, period tabs, and a transactions table with multi-filter dropdowns for status, date, and payment method.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/dashboard4",
+  "downloadedAt": "2026-03-19T19:41:01Z",
+  "fileCount": 1
+}

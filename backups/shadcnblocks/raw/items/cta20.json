@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta20",
+  "title": "Cta",
+  "description": "A call-to-action block with centered text, a large button labeled \"Get Started,\" flanked by separators, within a single-column layout.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "button",
+    "separator"
+  ],
+  "files": [
+    {
+      "path": "block/cta20.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { Separator } from \"@/components/ui/separator\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Cta20Props {\n  className?: string;\n}\n\nconst Cta20 = ({ className }: Cta20Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div>\n          <p className=\"text-center text-sm\">Transform your business today.</p>\n          <div className=\"mt-4 flex items-center justify-between gap-4\">\n            <Separator className=\"shrink\" />\n            <Button size=\"lg\">Get Started</Button>\n            <Separator className=\"shrink\" />\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Cta20 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

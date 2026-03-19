@@ -55,7 +55,8 @@ export async function getMegaMenuItems() {
         return []
       }
     },
-    ['mega-menu'],
+    // Include a version token so stale cached shallow payloads are invalidated.
+    ['mega-menu', 'depth-4-v2'],
     { tags: ['mega-menu'] },
   )
   return getter()

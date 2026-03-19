@@ -1,0 +1,9 @@
+{
+  "slug": "dashboard2",
+  "title": "Dashboard",
+  "description": "A shadcn/ui e-commerce dashboard with revenue and orders. Collapsible sidebar, revenue stats and charts, paginated recent orders table with filtering.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/dashboard2",
+  "downloadedAt": "2026-03-19T19:41:00Z",
+  "fileCount": 1
+}

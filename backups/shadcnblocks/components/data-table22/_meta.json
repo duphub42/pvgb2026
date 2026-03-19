@@ -1,0 +1,9 @@
+{
+  "slug": "data-table22",
+  "title": "Data-table",
+  "description": "A data table section with expandable rows containing nested sub-tables of order items, customer avatars, status badges, and row actions. Built with TanStack Table.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/data-table22",
+  "downloadedAt": "2026-03-19T19:41:02Z",
+  "fileCount": 1
+}

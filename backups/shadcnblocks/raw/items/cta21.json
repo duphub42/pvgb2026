@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta21",
+  "title": "Cta",
+  "description": "A component with a large background image, overlayed by centered text and a large button, featuring an arrow icon.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/cta21.tsx",
+      "content": "import { ArrowRight } from \"lucide-react\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Cta21Props {\n  className?: string;\n}\n\nconst Cta21 = ({ className }: Cta21Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"relative h-[300px] overflow-hidden rounded-xl md:h-[500px]\">\n          <img\n            src=\"https://images.unsplash.com/photo-1507623457503-9743b35aea95?q=80&w=2080&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D\"\n            alt=\"placeholder\"\n            className=\"h-full w-full bg-bottom object-cover\"\n          />\n          <div className=\"absolute inset-0 z-10 flex flex-col items-center justify-center gap-8 p-6\">\n            <h2 className=\"text-center text-2xl font-semibold md:text-4xl\">\n              Innovation. Control. Success.\n            </h2>\n            <Button size=\"lg\">\n              Get Started Now\n              <ArrowRight className=\"ml-2\" />\n            </Button>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Cta21 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

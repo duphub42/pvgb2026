@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta15",
+  "title": "Cta",
+  "description": "A component featuring a call to action with gradient background, text, and buttons on one side, and an image with a subtle overlay effect on the other. Designed in a two-column layout that adjusts to single column on smaller screens.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/cta15.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Cta15Props {\n  className?: string;\n}\n\nconst Cta15 = ({ className }: Cta15Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"mx-auto flex max-w-7xl flex-col justify-between gap-20 overflow-hidden rounded-2xl border bg-[radial-gradient(ellipse_30%_60%_at_100%_80%,var(--color-gray-200),transparent)] pt-20 sm:pl-16 lg:flex-row lg:bg-[radial-gradient(ellipse_50%_80%_at_40%_120%,var(--color-gray-200),transparent)] lg:pl-20\">\n          <div className=\"lg:texlf mx-auto max-w-md px-4 text-center md:px-0 lg:mx-0 lg:pb-20 lg:text-left\">\n            <p className=\"mb-6 font-medium\">Ready to get started?</p>\n            <h2 className=\"mb-6 text-4xl font-bold md:text-5xl\">\n              Start your free trial today.\n            </h2>\n            <p className=\"text-lg text-muted-foreground\">\n              Start with a 14-day free trial. No credit card required. No setup\n              fees. Cancel anytime.\n            </p>\n            <div className=\"mt-6 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start\">\n              <Button>Get Started</Button>\n              <Button variant=\"outline\">Learn More</Button>\n            </div>\n          </div>\n          <div className=\"relative w-full pl-4 sm:pl-0\">\n            <div className=\"absolute -bottom-8 -left-8 -z-10 h-4/5 w-4/5 rounded-tl-2xl rounded-br-2xl bg-stone-900/20 blur-2xl\"></div>\n            <img\n              src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/pawel-czerwinski-O4fAgtXLRwI-unsplash.jpg\"\n              alt=\"placeholder\"\n              className=\"relative z-10 h-full max-h-[400px] w-full rounded-tl-2xl rounded-br-2xl object-cover\"\n            />\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Cta15 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

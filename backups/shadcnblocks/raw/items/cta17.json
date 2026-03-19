@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta17",
+  "title": "Cta",
+  "description": "A centered call-to-action block with a patterned background, featuring a large title, a descriptive paragraph, and two large buttons for actions.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/cta17.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Cta17Props {\n  className?: string;\n}\n\nconst CirclesPattern = () => (\n  <svg\n    className=\"absolute inset-0 size-full\"\n    viewBox=\"0 0 1984 1984\"\n    fill=\"none\"\n    xmlns=\"http://www.w3.org/2000/svg\"\n    preserveAspectRatio=\"xMidYMid slice\"\n  >\n    <rect\n      x=\"0.5\"\n      y=\"0.5\"\n      width=\"1983\"\n      height=\"1983\"\n      rx=\"991.5\"\n      className=\"fill-muted/30 stroke-border\"\n    />\n    <rect\n      x=\"100.5\"\n      y=\"100.5\"\n      width=\"1783\"\n      height=\"1783\"\n      rx=\"891.5\"\n      className=\"fill-muted/30 stroke-border\"\n    />\n    <rect\n      x=\"200.5\"\n      y=\"200.5\"\n      width=\"1583\"\n      height=\"1583\"\n      rx=\"791.5\"\n      className=\"fill-muted/30 stroke-border\"\n    />\n    <rect\n      x=\"300.5\"\n      y=\"300.5\"\n      width=\"1383\"\n      height=\"1383\"\n      rx=\"691.5\"\n      className=\"fill-muted/30 stroke-border\"\n    />\n    <rect\n      x=\"400.25\"\n      y=\"400.25\"\n      width=\"1183.5\"\n      height=\"1183.5\"\n      rx=\"591.75\"\n      strokeWidth=\"0.5\"\n      className=\"fill-muted/30 stroke-border\"\n    />\n    <rect\n      x=\"500.25\"\n      y=\"500.25\"\n      width=\"983.5\"\n      height=\"983.5\"\n      rx=\"491.75\"\n      strokeWidth=\"0.5\"\n      className=\"fill-muted/30 stroke-border\"\n    />\n    <rect\n      x=\"600.25\"\n      y=\"600.25\"\n      width=\"783.5\"\n      height=\"783.5\"\n      rx=\"391.75\"\n      strokeWidth=\"0.5\"\n      className=\"fill-muted/50 stroke-border\"\n    />\n    <rect\n      x=\"700.25\"\n      y=\"700.25\"\n      width=\"583.5\"\n      height=\"583.5\"\n      rx=\"291.75\"\n      strokeWidth=\"0.5\"\n      className=\"fill-muted/30 stroke-border\"\n    />\n  </svg>\n);\n\nconst Cta17 = ({ className }: Cta17Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"relative flex items-center justify-center overflow-hidden border py-20 text-center md:p-20\">\n        <CirclesPattern />\n        <div className=\"relative container\">\n          <div className=\"mx-auto max-w-3xl\">\n            <h1 className=\"mb-4 text-3xl font-semibold text-balance md:text-5xl\">\n              Start building your websites faster\n            </h1>\n            <p className=\"md:text-lg\">\n              Try our tools and services to build your website faster. Start\n              with a 14-day free trial. No credit card required. No setup fees.\n              Cancel anytime.\n            </p>\n            <div className=\"mt-11 flex flex-col justify-center gap-2 sm:flex-row\">\n              <Button size=\"lg\">Get Started</Button>\n              <Button size=\"lg\" variant=\"outline\">\n                Learn More\n              </Button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Cta17 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

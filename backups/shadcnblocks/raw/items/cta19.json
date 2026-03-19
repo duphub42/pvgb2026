@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta19",
+  "title": "Cta",
+  "description": "A component featuring enterprise solution highlights, with a badge, heading, text, and action buttons on one side. The other side contains links to documentation and demos, divided by a separator.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "badge",
+    "button",
+    "separator"
+  ],
+  "files": [
+    {
+      "path": "block/cta19.tsx",
+      "content": "import { FileCode, Layers } from \"lucide-react\";\n\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport { Separator } from \"@/components/ui/separator\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Cta19Props {\n  className?: string;\n}\n\nconst Cta19 = ({ className }: Cta19Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"flex flex-col rounded-xl border lg:flex-row\">\n          <div className=\"grow px-8 py-8 lg:px-16\">\n            <Badge variant=\"outline\">Get Started</Badge>\n            <div className=\"mt-4 max-w-xl\">\n              <h2 className=\"text-3xl font-semibold md:text-4xl\">\n                Transform your workflow with our enterprise solution\n              </h2>\n              <p className=\"mt-4 text-muted-foreground md:text-lg\">\n                Our platform streamlines complex operations at scale, providing\n                comprehensive insights and intelligent automation capabilities.\n                Achieve greater efficiency and productivity with our proven\n                enterprise tools.\n              </p>\n            </div>\n            <div className=\"mt-8 flex flex-col gap-4 sm:flex-row\">\n              <Button>Start free trial</Button>\n              <Button variant=\"outline\">Schedule demo</Button>\n            </div>\n          </div>\n          <div className=\"flex grow basis-5/12 flex-col justify-between border-t lg:border-t-0 lg:border-l\">\n            <a\n              href=\"#\"\n              className=\"flex h-full items-center px-9 py-6 transition-colors hover:bg-muted/50 lg:justify-center\"\n            >\n              <div className=\"flex gap-4\">\n                <FileCode\n                  className=\"size-8 shrink-0 md:size-10\"\n                  strokeWidth={1.5}\n                />\n                <div className=\"flex flex-col gap-1\">\n                  <h3 className=\"text-lg font-semibold md:text-xl\">\n                    Documentation\n                  </h3>\n                  <p className=\"max-w-lg text-muted-foreground md:text-lg\">\n                    Learn more about our platform&apos;s features and\n                    capabilities.\n                  </p>\n                </div>\n              </div>\n            </a>\n            <Separator />\n            <a\n              href=\"#\"\n              className=\"flex h-full items-center px-9 py-6 transition-colors hover:bg-muted/50 lg:justify-center\"\n            >\n              <div className=\"flex gap-4\">\n                <Layers\n                  className=\"size-8 shrink-0 md:size-10\"\n                  strokeWidth={1.5}\n                />\n                <div className=\"flex flex-col gap-1\">\n                  <h3 className=\"text-lg font-semibold md:text-xl\">\n                    Interactive Demo\n                  </h3>\n                  <p className=\"max-w-lg text-muted-foreground md:text-lg\">\n                    Experience our platform firsthand with an interactive\n                    demonstration of key features.\n                  </p>\n                </div>\n              </div>\n            </a>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Cta19 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

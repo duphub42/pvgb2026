@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "cta23",
+  "title": "Cta",
+  "description": "A component with a newsletter subscription form, badge, heading, description, and features list, styled with icons and varying text sizes.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "badge",
+    "button",
+    "input"
+  ],
+  "files": [
+    {
+      "path": "block/cta23.tsx",
+      "content": "import { ArrowRight, CheckCircle, Mail } from \"lucide-react\";\n\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Cta23Props {\n  className?: string;\n}\n\nconst Cta23 = ({ className }: Cta23Props) => {\n  return (\n    <section className={cn(\"bg-muted py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"flex flex-col items-start md:items-center\">\n          {/* Badge */}\n          <Badge>\n            <Mail className=\"mr-2 h-4 w-4\" />\n            Stay Informed\n          </Badge>\n\n          {/* Heading */}\n          <h4 className=\"mt-4 text-2xl font-semibold tracking-tight md:text-center md:text-3xl xl:text-4xl\">\n            Subscribe to our newsletter\n          </h4>\n\n          {/* Description */}\n          <p className=\"mt-2 text-lg font-medium text-muted-foreground md:text-center xl:text-xl\">\n            Get the <span className=\"text-primary\">latest updates</span>,{\" \"}\n            <span className=\"text-primary\">tips</span>, and{\" \"}\n            <span className=\"text-primary\">exclusive</span> offers from AlignUI.\n          </p>\n\n          {/* Form */}\n          <form className=\"mt-5 flex w-full flex-col gap-2 md:w-auto xl:mt-8 xl:gap-3\">\n            <div className=\"group relative flex w-full items-center gap-2 rounded-lg px-3 md:w-[416px]\">\n              <Input\n                type=\"email\"\n                required\n                placeholder=\"Enter your email...\"\n                className=\"bg-background\"\n              />\n              <Button type=\"submit\" aria-label=\"Submit form\">\n                <ArrowRight className=\"h-3 w-3\" />\n              </Button>\n            </div>\n          </form>\n\n          {/* Features */}\n          <div className=\"mt-5 flex flex-wrap gap-4 md:justify-center xl:mt-8 xl:gap-7\">\n            <div className=\"flex items-center gap-2 text-sm xl:text-base\">\n              <CheckCircle className=\"h-4 w-4 text-green-500\" />\n              Weekly updates\n            </div>\n            <div className=\"flex items-center gap-2 text-sm xl:text-base\">\n              <CheckCircle className=\"h-4 w-4 text-green-500\" />\n              Exclusive content\n            </div>\n            <div className=\"flex items-center gap-2 text-sm xl:text-base\">\n              <CheckCircle className=\"h-4 w-4 text-green-500\" />\n              Early access for features\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Cta23 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}
