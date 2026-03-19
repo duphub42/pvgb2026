@@ -23,6 +23,14 @@ function getSiteHost(): string | null {
   }
 }
 
+function localApiMediaToPublicMedia(pathWithSearch: string): string {
+  const [pathPart, queryPart] = pathWithSearch.split('?')
+  const match = pathPart?.match(/^\/api\/media\/file\/(.+)$/)
+  if (!match?.[1]) return pathWithSearch
+  const normalizedPath = `/media/${match[1]}`
+  return queryPart != null && queryPart !== '' ? `${normalizedPath}?${queryPart}` : normalizedPath
+}
+
 /**
  * Processes media resource URL to ensure proper formatting.
  * Uses relative URLs for same-origin paths so server and client render the same src (avoids hydration mismatch).
@@ -34,6 +42,7 @@ function getSiteHost(): string | null {
  */
 export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | null): string => {
   if (!url) return ''
+  const isVercelRuntime = process.env.VERCEL === '1' || process.env.VERCEL === 'true'
 
   const encodedTag = cacheTag && cacheTag !== '' ? encodeURIComponent(cacheTag) : null
 
@@ -75,6 +84,9 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
         parsed.pathname.startsWith('/api/media/') ||
         ((isLocalHost || isSameHost) && parsed.pathname.startsWith('/media/'))
       ) {
+        const normalizedPath = isLocalHost && parsed.pathname.startsWith('/api/media/file/')
+          ? localApiMediaToPublicMedia(mediaPath)
+          : mediaPath
         if (
           isLocalHost &&
           mediaDebugSeen.size < 30 &&
@@ -83,15 +95,18 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
           mediaDebugSeen.add(url)
           console.info('[debug-media][normalize-absolute-local]', {
             input: url,
-            output: mediaPath,
+            output: normalizedPath,
           })
         }
-        return appendTag(mediaPath)
+        return appendTag(normalizedPath)
       }
     } catch {
       // keep original URL below if parsing fails
     }
     return appendTag(url)
+  }
+  if (!isVercelRuntime && url.startsWith('/api/media/file/')) {
+    return appendTag(localApiMediaToPublicMedia(url))
   }
   if (url.startsWith('/api/media/')) return appendTag(url)
   return appendTag(url)

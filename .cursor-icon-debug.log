@@ -1,0 +1,176 @@
+   ▲ Next.js 15.4.11
+   - Local:        http://localhost:3201
+   - Network:      http://172.20.10.12:3201
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Compiled /instrumentation in 242ms (20 modules)
+ ✓ Ready in 1969ms
+ ○ Compiling / ...
+ ✓ Compiled / in 13.7s (4919 modules)
+[21:12:44] [33mWARN[39m: [36mNo email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.[39m
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/favicon.svg',
+  output: '/media/favicon.svg'
+}
+[debug-icons][footer] {
+  socialLinks: 4,
+  socialPlatforms: [ 'instagram', 'facebook', 'twitter', 'linkedin' ],
+  socialWithUrl: 0,
+  socialNumeric: 0,
+  columns: 6,
+  columnWithUrl: 6,
+  columnNumeric: 0,
+  columnUrlSamples: [
+    'http://localhost:3000/api/media/file/navigation-2.svg',
+    'http://localhost:3000/api/media/file/legal-2.svg',
+    'http://localhost:3000/api/media/file/design.svg',
+    'http://localhost:3000/api/media/file/marketing.svg',
+    'http://localhost:3000/api/media/file/Corporate-Identity-CI-2.svg',
+    'http://localhost:3000/api/media/file/portfolio-2.svg'
+  ]
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/philippbacher-logo-b-15.svg',
+  output: '/media/philippbacher-logo-b-15.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/Newsletter-2.svg',
+  output: '/media/Newsletter-2.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/navigation-2.svg',
+  output: '/media/navigation-2.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/legal-2.svg',
+  output: '/media/legal-2.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/design.svg',
+  output: '/media/design.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/marketing.svg',
+  output: '/media/marketing.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/Corporate-Identity-CI-2.svg',
+  output: '/media/Corporate-Identity-CI-2.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/portfolio-2.svg',
+  output: '/media/portfolio-2.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/philippbacher-logo-b2-3.svg',
+  output: '/media/philippbacher-logo-b2-3.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/weblogo-philippbacher-22.svg',
+  output: '/media/weblogo-philippbacher-22.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/webdesign-3.svg',
+  output: '/media/webdesign-3.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/printmedien.svg',
+  output: '/media/printmedien.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/keynotes-3.svg',
+  output: '/media/keynotes-3.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/Seo-Suchmaschinenoptimierung.svg',
+  output: '/media/Seo-Suchmaschinenoptimierung.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/SEM-Suchmaschinenmarketing.svg',
+  output: '/media/SEM-Suchmaschinenmarketing.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/content-creation-3.svg',
+  output: '/media/content-creation-3.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/Corporate-Identity-CI-1.svg',
+  output: '/media/Corporate-Identity-CI-1.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/Logo-Design-3.svg',
+  output: '/media/Logo-Design-3.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/Markenstrategie-3.svg',
+  output: '/media/Markenstrategie-3.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/philippbacher-19.png',
+  output: '/media/philippbacher-19.png'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/open-ai-4.svg',
+  output: '/media/open-ai-4.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/figma-5.svg',
+  output: '/media/figma-5.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/google-ads-4.svg',
+  output: '/media/google-ads-4.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/hubspot-5.svg',
+  output: '/media/hubspot-5.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/meta-6.svg',
+  output: '/media/meta-6.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/salesforce-5.svg',
+  output: '/media/salesforce-5.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/Semrush-5.svg',
+  output: '/media/Semrush-5.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/shopify-5.svg',
+  output: '/media/shopify-5.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/woocommerce-5.svg',
+  output: '/media/woocommerce-5.svg'
+}
+[debug-media][normalize-absolute-local] {
+  input: 'http://localhost:3000/api/media/file/wordpress-5.svg',
+  output: '/media/wordpress-5.svg'
+}
+ GET / 200 in 15938ms
+[debug-icons][footer] {
+  socialLinks: 4,
+  socialPlatforms: [ 'instagram', 'facebook', 'twitter', 'linkedin' ],
+  socialWithUrl: 0,
+  socialNumeric: 0,
+  columns: 6,
+  columnWithUrl: 6,
+  columnNumeric: 0,
+  columnUrlSamples: [
+    'http://localhost:3000/api/media/file/navigation-2.svg',
+    'http://localhost:3000/api/media/file/legal-2.svg',
+    'http://localhost:3000/api/media/file/design.svg',
+    'http://localhost:3000/api/media/file/marketing.svg',
+    'http://localhost:3000/api/media/file/Corporate-Identity-CI-2.svg',
+    'http://localhost:3000/api/media/file/portfolio-2.svg'
+  ]
+}
+ GET / 200 in 162ms
+ ✓ Compiled in 2.5s (4919 modules)
+ ✓ Compiled in 2.3s (1653 modules)
+ ✓ Compiled in 896ms (1645 modules)
+ ✓ Compiled in 2.1s (1645 modules)
+ ✓ Compiled in 2.2s (1645 modules)
