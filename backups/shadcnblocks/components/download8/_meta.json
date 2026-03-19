@@ -1,0 +1,9 @@
+{
+  "slug": "download8",
+  "title": "Download",
+  "description": "This component displays a download block with a featured image, a title, an auto-detect download button with its last update date, and a list of download options for various platforms categorized in a 2-column layout.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/download8",
+  "downloadedAt": "2026-03-19T19:41:10Z",
+  "fileCount": 1
+}

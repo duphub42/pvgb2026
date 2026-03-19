@@ -1,0 +1,9 @@
+{
+  "slug": "ecommerce-hero2",
+  "title": "Ecommerce-hero",
+  "description": "This component, `EcommerceHero2`, is designed to display a visually engaging hero section showcasing products with images, videos, and call-to-action buttons. It supports highlighting products with titles, pricing information, and a link to purchase, making it suitable for e-commerce platforms.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/ecommerce-hero2",
+  "downloadedAt": "2026-03-19T19:41:12Z",
+  "fileCount": 2
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "download9",
+  "title": "Download",
+  "description": "A component for software downloads showcases features, buy/download options, platform compatibility icons in 2 columns.",
+  "dependencies": [
+    "lucide-react",
+    "react-icons"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/download9.tsx",
+      "content": "import { Check } from \"lucide-react\";\nimport {\n  FaAndroid,\n  FaApple,\n  FaAppStoreIos,\n  FaChrome,\n  FaEdge,\n  FaFirefoxBrowser,\n  FaLinux,\n  FaWindows,\n} from \"react-icons/fa\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\nconst platforms = [\n  {\n    name: \"Windows\",\n    icon: FaWindows,\n    link: \"#\",\n  },\n  {\n    name: \"MacOS\",\n    icon: FaApple,\n    link: \"#\",\n  },\n  {\n    name: \"Linux\",\n    icon: FaLinux,\n    link: \"#\",\n  },\n  {\n    name: \"Android\",\n    icon: FaAndroid,\n    link: \"#\",\n  },\n  {\n    name: \"iOS\",\n    icon: FaAppStoreIos,\n    link: \"#\",\n  },\n  {\n    name: \"Chrome\",\n    icon: FaChrome,\n    link: \"#\",\n  },\n  {\n    name: \"Firefox\",\n    icon: FaFirefoxBrowser,\n    link: \"#\",\n  },\n  {\n    name: \"Edge\",\n    icon: FaEdge,\n    link: \"#\",\n  },\n];\n\ninterface Download9Props {\n  className?: string;\n}\n\nconst Download9 = ({ className }: Download9Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"grid items-center gap-10 lg:grid-cols-2\">\n          <div className=\"flex flex-col gap-6\">\n            <h1 className=\"text-4xl font-semibold\">Download Software</h1>\n            <p className=\"max-w-md text-muted-foreground\">\n              Create stunning designs, collaborate seamlessly, and bring your\n              ideas to life on any device. Start designing in seconds with our\n              intuitive design platform.\n            </p>\n            <ul className=\"space-y-2\">\n              <li className=\"flex items-center gap-2\">\n                <Check className=\"size-4 shrink-0\" />\n                Create professional designs with advanced vector tools\n              </li>\n              <li className=\"flex items-center gap-2\">\n                <Check className=\"size-4 shrink-0\" />\n                Collaborate in real-time with your design team\n              </li>\n              <li className=\"flex items-center gap-2\">\n                <Check className=\"size-4 shrink-0\" />\n                Export to multiple formats with one-click publishing\n              </li>\n              <li className=\"flex items-center gap-2\">\n                <Check className=\"size-4 shrink-0\" />\n                Unlimited cloud storage for all your projects\n              </li>\n            </ul>\n            <div className=\"flex w-full flex-col items-center gap-2 sm:flex-row\">\n              <Button size=\"lg\" className=\"w-full sm:w-auto\">\n                Buy Now\n              </Button>\n              <Button variant=\"outline\" size=\"lg\" className=\"w-full sm:w-auto\">\n                Download\n              </Button>\n            </div>\n          </div>\n          <img\n            src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg\"\n            alt=\"placeholder\"\n            className=\"w-full max-w-lg rounded-lg border border-border\"\n          />\n        </div>\n        <div className=\"mt-16 flex items-center gap-10 md:mt-20 md:gap-20\">\n          <hr className=\"h-[1px] w-full bg-muted\"></hr>\n          <span className=\"text-sm whitespace-nowrap\">Available on</span>\n          <hr className=\"h-[1px] w-full bg-muted\"></hr>\n        </div>\n        <div className=\"mt-8 flex flex-wrap items-center justify-center gap-5 md:mt-10\">\n          {platforms.map((platform, idx) => (\n            <a\n              href={platform.link}\n              key={idx}\n              className=\"flex w-20 flex-col items-center gap-2 rounded-lg p-2 text-sm hover:bg-muted\"\n            >\n              <platform.icon className=\"size-5\" />\n              {platform.name}\n            </a>\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Download9 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}
