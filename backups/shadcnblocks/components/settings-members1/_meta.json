@@ -1,0 +1,9 @@
+{
+  "slug": "settings-members1",
+  "title": "Settings-members",
+  "description": "A team members table with search input, role filter popover, invite dialog, and status badges showing active and pending members.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/settings-members1",
+  "downloadedAt": "2026-03-19T19:43:34Z",
+  "fileCount": 1
+}

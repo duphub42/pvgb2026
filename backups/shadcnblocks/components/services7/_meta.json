@@ -1,0 +1,9 @@
+{
+  "slug": "services7",
+  "title": "Services",
+  "description": "This component displays four services, each with an icon, title, description, and list of features, styled with rounded containers.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/services7",
+  "downloadedAt": "2026-03-19T19:43:28Z",
+  "fileCount": 1
+}

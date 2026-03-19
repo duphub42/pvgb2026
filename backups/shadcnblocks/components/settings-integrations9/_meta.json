@@ -1,0 +1,9 @@
+{
+  "slug": "settings-integrations9",
+  "title": "Settings-integrations",
+  "description": "A management view for active integrations showing connection status, who connected them, and recent activity with dropdown actions.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/settings-integrations9",
+  "downloadedAt": "2026-03-19T19:43:33Z",
+  "fileCount": 1
+}

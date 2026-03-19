@@ -115,3 +115,16 @@ Generating import map
  ✓ Compiled in 643ms (1649 modules)
 No new imports found, skipping writing import map
  ✓ Compiled in 865ms (1649 modules)
+ GET /api/media/file/navigation-2.svg 404 in 8515ms
+ ✓ Compiled in 747ms (1649 modules)
+Generating import map
+No new imports found, skipping writing import map
+ GET /api/media/file/webdesign-3.svg 404 in 422ms
+ ✓ Compiled in 928ms (1649 modules)
+ ✓ Compiled in 766ms (1649 modules)
+ ✓ Compiled in 660ms (1649 modules)
+ ✓ Compiled in 615ms (1649 modules)
+ ✓ Compiled in 628ms (1649 modules)
+ ✓ Compiled in 722ms (1649 modules)
+ ✓ Compiled in 834ms (1649 modules)
+ ✓ Compiled in 796ms (1649 modules)
