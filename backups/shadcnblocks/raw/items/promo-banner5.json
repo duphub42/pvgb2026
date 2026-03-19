@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "promo-banner5",
+  "title": "Promo-banner",
+  "description": "This component is a promotional banner with a countdown timer that highlights a flash sale event, displaying the time remaining until the end of the sale. It features customizable messages and descriptions, and adjusts its appearance based on provided styling classes.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/promo-banner5.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useMemo, useState } from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\ninterface PromoBanner5Props {\n  endTime?: Date;\n  message?: string;\n  description?: string;\n  className?: string;\n}\n\nconst PromoBanner5 = ({\n  endTime,\n  message = \"Flash Sale Ends In\",\n  description = \"Up to 50% off on selected items\",\n  className,\n}: PromoBanner5Props) => {\n  const defaultEndTime = useMemo(\n    () => new Date(Date.now() + 24 * 60 * 60 * 1000),\n    [],\n  );\n  const targetTime = endTime ?? defaultEndTime;\n\n  const [timeLeft, setTimeLeft] = useState({\n    hours: 0,\n    minutes: 0,\n    seconds: 0,\n  });\n\n  useEffect(() => {\n    const calculateTimeLeft = () => {\n      const now = new Date().getTime();\n      const target = targetTime.getTime();\n      const diff = target - now;\n\n      if (diff <= 0) {\n        return { hours: 0, minutes: 0, seconds: 0 };\n      }\n\n      return {\n        hours: Math.floor(diff / (1000 * 60 * 60)),\n        minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),\n        seconds: Math.floor((diff % (1000 * 60)) / 1000),\n      };\n    };\n\n    setTimeLeft(calculateTimeLeft());\n    const timer = setInterval(() => {\n      setTimeLeft(calculateTimeLeft());\n    }, 1000);\n\n    return () => clearInterval(timer);\n  }, [targetTime]);\n\n  const pad = (n: number) => n.toString().padStart(2, \"0\");\n\n  return (\n    <div className={cn(\"w-full bg-primary text-primary-foreground\", className)}>\n      <div className=\"container py-2.5\">\n        <div className=\"flex flex-wrap items-center justify-center gap-x-4 gap-y-1 text-sm\">\n          <span className=\"font-medium\">{message}</span>\n          <div className=\"flex items-center gap-1 font-mono text-lg font-bold\">\n            <span className=\"rounded bg-primary/80 px-2 py-0.5\">\n              {pad(timeLeft.hours)}\n            </span>\n            <span>:</span>\n            <span className=\"rounded bg-primary/80 px-2 py-0.5\">\n              {pad(timeLeft.minutes)}\n            </span>\n            <span>:</span>\n            <span className=\"rounded bg-primary/80 px-2 py-0.5\">\n              {pad(timeLeft.seconds)}\n            </span>\n          </div>\n          <span className=\"opacity-90\">{description}</span>\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport { PromoBanner5 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

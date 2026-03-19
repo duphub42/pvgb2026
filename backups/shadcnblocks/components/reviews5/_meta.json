@@ -1,0 +1,9 @@
+{
+  "slug": "reviews5",
+  "title": "Reviews",
+  "description": "This component displays a list of customer reviews with features like sorting options by helpfulness, date, and rating, and includes visual elements such as avatars, ratings, and progress bars for rating distribution. It provides an interactive user interface where users can view detailed customer feedback and load additional reviews.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/reviews5",
+  "downloadedAt": "2026-03-19T19:43:21Z",
+  "fileCount": 2
+}

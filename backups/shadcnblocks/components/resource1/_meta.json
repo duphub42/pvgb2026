@@ -1,0 +1,9 @@
+{
+  "slug": "resource1",
+  "title": "Resource",
+  "description": "A component displaying a guide with options to download, share, and a story narrative; uses icons, buttons, and social links; split into two main sections.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/resource1",
+  "downloadedAt": "2026-03-19T19:43:17Z",
+  "fileCount": 1
+}

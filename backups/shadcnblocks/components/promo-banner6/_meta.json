@@ -1,0 +1,9 @@
+{
+  "slug": "promo-banner6",
+  "title": "Promo-banner",
+  "description": "This component is a promotional banner featuring a countdown timer, useful for displaying time left until a special event or offer ends. It accepts props such as `endTime` for the countdown target, a customizable `title` for the banner message, and additional styling through `className`.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/promo-banner6",
+  "downloadedAt": "2026-03-19T19:43:16Z",
+  "fileCount": 1
+}

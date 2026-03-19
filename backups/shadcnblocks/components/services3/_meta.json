@@ -1,0 +1,9 @@
+{
+  "slug": "services3",
+  "title": "Services",
+  "description": "A component displaying four service categories, each with an icon, title, and list of services in a three-column layout.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/services3",
+  "downloadedAt": "2026-03-19T19:43:27Z",
+  "fileCount": 1
+}

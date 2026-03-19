@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "promo-banner3",
+  "title": "Promo-banner",
+  "description": "This component is a promotional banner designed to display a countdown timer indicating the time remaining for users to place orders to ensure delivery by a specified date. It includes customizable delivery date and cutoff time features and utilizes a countdown logic to update live on-screen, making it ideal for time-sensitive promotions.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/promo-banner3.tsx",
+      "content": "\"use client\";\n\nimport { Gift } from \"lucide-react\";\nimport { useEffect, useMemo, useState } from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\ninterface PromoBanner3Props {\n  deliveryDate?: string;\n  cutoffTime?: Date;\n  className?: string;\n}\n\nconst PromoBanner3 = ({\n  deliveryDate = \"Dec 24\",\n  cutoffTime,\n  className,\n}: PromoBanner3Props) => {\n  const defaultCutoffTime = useMemo(\n    () => new Date(Date.now() + 4 * 60 * 60 * 1000),\n    [],\n  );\n  const targetTime = cutoffTime ?? defaultCutoffTime;\n\n  const [timeLeft, setTimeLeft] = useState({\n    hours: 0,\n    minutes: 0,\n    seconds: 0,\n  });\n\n  useEffect(() => {\n    const calculateTimeLeft = () => {\n      const now = new Date().getTime();\n      const target = targetTime.getTime();\n      const diff = target - now;\n\n      if (diff <= 0) {\n        return { hours: 0, minutes: 0, seconds: 0 };\n      }\n\n      return {\n        hours: Math.floor(diff / (1000 * 60 * 60)),\n        minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),\n        seconds: Math.floor((diff % (1000 * 60)) / 1000),\n      };\n    };\n\n    setTimeLeft(calculateTimeLeft());\n    const timer = setInterval(() => {\n      setTimeLeft(calculateTimeLeft());\n    }, 1000);\n\n    return () => clearInterval(timer);\n  }, [targetTime]);\n\n  const pad = (n: number) => n.toString().padStart(2, \"0\");\n\n  return (\n    <div className={cn(\"w-full bg-primary text-primary-foreground\", className)}>\n      <div className=\"container py-2.5\">\n        <div className=\"flex flex-wrap items-center justify-center gap-3 text-sm\">\n          <div className=\"flex items-center gap-2\">\n            <Gift className=\"size-4\" />\n            <span>\n              Order within{\" \"}\n              <span className=\"font-mono font-bold\">\n                {pad(timeLeft.hours)}:{pad(timeLeft.minutes)}:\n                {pad(timeLeft.seconds)}\n              </span>{\" \"}\n              for delivery by{\" \"}\n              <span className=\"font-semibold\">{deliveryDate}</span>\n            </span>\n          </div>\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport { PromoBanner3 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

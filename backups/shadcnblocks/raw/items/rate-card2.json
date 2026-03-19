@@ -1,0 +1,33 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "rate-card2",
+  "title": "Rate-card",
+  "description": "This component is designed to display pricing plans, featuring options for a monthly retainer and a premium package, each with detailed descriptions and a list of included benefits. Users can easily view the price, billing period, and a button to initiate the sign-up process for each plan.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/rate-card2.tsx",
+      "content": "\"use client\";\n\nimport { Target } from \"lucide-react\";\nimport React from \"react\";\n\nimport { BorderButton } from \"@/components/shadcnblocks/border-button\";\nimport { useGoogleFont } from \"@/hooks/use-google-font\";\nimport { cn } from \"@/lib/utils\";\n\ninterface RateCard2Props {\n  className?: string;\n}\n\nconst RateCard2 = ({ className }: RateCard2Props) => {\n  const pricingPlans = [\n    {\n      title: \"Monthly retainer\",\n      description:\n        \"Lorem ipsum dolor sit amet consectetur adipisicing elit. A quidem libero perferendis eius sunt\",\n      price: \"$3,499\",\n      period: \"/Month\",\n      features: [\n        \"Up to 2 active request at a time\",\n        \"Unlimited revisions included\",\n        \"24/7 priority support access\",\n        \"Dedicated account manager\",\n      ],\n    },\n    {\n      title: \"Premium Package\",\n      description:\n        \"Lorem ipsum dolor sit amet consectetur adipisicing elit. A quidem libero perferendis eius sunt doloremque natus!\",\n      price: \"$5,999\",\n      period: \"/Month\",\n      features: [\n        \"Up to 5 active requests at a time\",\n        \"Advanced analytics dashboard\",\n        \"Custom integrations available\",\n        \"Weekly strategy consultations\",\n      ],\n    },\n  ];\n\n  useGoogleFont(\"Antonio\");\n  return (\n    <section\n      className={cn(\"bg-background py-32\", className)}\n      style={\n        {\n          \"--font-mono\": \"Antonio\",\n        } as React.CSSProperties\n      }\n    >\n      <div className=\"container flex flex-col items-center justify-center gap-8 lg:gap-15\">\n        <div className=\"flex w-full max-w-6xl flex-col items-center justify-between gap-4 lg:flex-row\">\n          {pricingPlans.map((plan, index) => (\n            <div\n              key={index}\n              className=\"flex w-full flex-col justify-between gap-10 rounded-3xl bg-muted p-10\"\n            >\n              <div>\n                <h2 className=\"text-3xl font-semibold tracking-tight\">\n                  {plan.title}\n                </h2>\n                <p className=\"mt-4 w-full max-w-xs text-lg tracking-tight text-foreground/30\">\n                  {plan.description}\n                </p>\n              </div>\n              <ul className=\"mt-5\">\n                <li className=\"mb-4 text-xs font-medium text-foreground/40 uppercase\">\n                  WHATS INCLUDED:\n                </li>\n                {plan.features.map((feature, featureIndex) => (\n                  <li\n                    key={featureIndex}\n                    className=\"mt-1 flex items-center gap-2 font-medium\"\n                  >\n                    <Target className=\"size-4\" />\n                    {feature}\n                  </li>\n                ))}\n              </ul>\n              <div className=\"mt-10 flex items-end justify-between\">\n                <h1 className=\"text-4xl font-medium tracking-tighter lg:text-7xl\">\n                  <span className=\"font-mono\">{plan.price}</span>\n                  <sup className=\"pl-2 align-top text-sm font-normal tracking-normal tracking-tight lg:text-base\">\n                    {plan.period}\n                  </sup>\n                </h1>\n                <BorderButton\n                  variant=\"outline\"\n                  className=\"relative rounded-none !px-4 uppercase shadow-none\"\n                >\n                  Get started\n                </BorderButton>\n              </div>\n            </div>\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { RateCard2 };\n",
+      "type": "registry:block"
+    },
+    {
+      "path": "components/shadcnblocks/border-button.tsx",
+      "content": "import { cn } from \"@/lib/utils\";\n\nimport { Button } from \"@/components/ui/button\";\n\nexport const BorderButton = ({\n  children,\n  variant = \"outline\",\n  className,\n}: {\n  children: React.ReactNode;\n  variant?:\n    | \"outline\"\n    | \"default\"\n    | \"destructive\"\n    | \"secondary\"\n    | \"ghost\"\n    | \"link\";\n  className?: string;\n}) => {\n  return (\n    <Button\n      variant={variant}\n      className={cn(className, \"relative rounded-none !px-4 shadow-none\")}\n    >\n      {children}\n      <Illustration className=\"absolute right-0 bottom-0 size-3 scale-y-[-1] rotate-180\" />\n      <Illustration className=\"absolute bottom-0 left-0 size-3\" />\n      <Illustration className=\"absolute top-0 left-0 size-3 rotate-90\" />\n      <Illustration className=\"absolute top-0 right-0 size-3 scale-y-[-1] rotate-90\" />\n    </Button>\n  );\n};\n\nconst Illustration = (props: React.SVGProps<SVGSVGElement>) => {\n  return (\n    <svg\n      width=\"12\"\n      height=\"13\"\n      fill=\"none\"\n      xmlns=\"http://www.w3.org/2000/svg\"\n      {...props}\n    >\n      <path d=\"M0.857422 0.545898L0.857422 12.0889\" stroke=\"currentColor\" />\n      <path d=\"M11.4355 11.5518H0.394532\" stroke=\"currentColor\" />\n    </svg>\n  );\n};\n",
+      "type": "registry:component",
+      "target": ""
+    },
+    {
+      "path": "hooks/use-google-font.ts",
+      "content": "import { useEffect } from \"react\";\n\nexport function useGoogleFont(fontName: string) {\n  useEffect(() => {\n    if (!fontName || typeof window === \"undefined\") return;\n\n    const id = `google-font-${fontName.replace(/\\s+/g, \"-\").toLowerCase()}`;\n    if (document.getElementById(id)) return;\n\n    const link = document.createElement(\"link\");\n    link.id = id;\n    link.rel = \"stylesheet\";\n    link.href = `https://fonts.googleapis.com/css2?family=${fontName.replace(\n      /\\s+/g,\n      \"+\",\n    )}&display=swap`;\n\n    document.head.appendChild(link);\n\n    return () => {\n      const existingLink = document.getElementById(id);\n      if (existingLink) {\n        document.head.removeChild(existingLink);\n      }\n    };\n  }, [fontName]);\n}\n",
+      "type": "registry:hook",
+      "target": ""
+    }
+  ],
+  "type": "registry:block"
+}

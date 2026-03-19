@@ -1,0 +1,9 @@
+{
+  "slug": "reviews1",
+  "title": "Reviews",
+  "description": "This component displays a list of customer reviews, including each review's rating, title, content, author, and date. It calculates and shows the average rating from all reviews, and highlights verified purchases with a distinct badge.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/reviews1",
+  "downloadedAt": "2026-03-19T19:43:20Z",
+  "fileCount": 2
+}

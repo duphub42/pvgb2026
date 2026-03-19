@@ -1,0 +1,9 @@
+{
+  "slug": "reviews6",
+  "title": "Reviews",
+  "description": "This component is designed to display a carousel of customer reviews, highlighting feedback on various products including product details such as name, image, price, and a link. Users can interact with the carousel to navigate through different reviews, and the component includes dynamic elements like product rating, customer comments, and author attribution.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/reviews6",
+  "downloadedAt": "2026-03-19T19:43:22Z",
+  "fileCount": 3
+}

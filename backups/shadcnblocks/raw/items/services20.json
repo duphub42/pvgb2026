@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "services20",
+  "title": "Services",
+  "description": "A component listing services using animations, a structured approach text, and contact button. Includes 5 sections, each with a title and options; animations on scroll.",
+  "dependencies": [
+    "framer-motion",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/services20.tsx",
+      "content": "\"use client\";\n\nimport { motion } from \"framer-motion\";\nimport { CornerDownLeft, Milestone } from \"lucide-react\";\nimport React from \"react\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\nconst services = [\n  {\n    id: 1,\n    title: \"Branding\",\n    options: [\"Logo Design\", \"Brand Identity\", \"Style Guide\", \"Color Palette\"],\n  },\n  {\n    id: 2,\n    title: \"Development\",\n    options: [\"Web Apps\", \"Mobile Apps\", \"APIs\", \"Database Design\", \"DevOps\"],\n  },\n  {\n    id: 3,\n    title: \"Marketing\",\n    options: [\"SEO\", \"Social Media\", \"Content Strategy\", \"Analytics\"],\n  },\n  {\n    id: 4,\n    title: \"Launch\",\n    options: [\"Testing\", \"Deployment\", \"Go-Live Support\", \"Bug Fixes\"],\n  },\n  {\n    id: 5,\n    title: \"Support\",\n    options: [\"24/7 Support\", \"Maintenance\", \"Updates\", \"Training\"],\n  },\n];\n\ninterface Services20Props {\n  className?: string;\n}\n\nconst Services20 = ({ className }: Services20Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"flex flex-col justify-between gap-[10vw] lg:flex-row\">\n          <h2 className=\"pt-4 tracking-tight text-foreground/30 uppercase md:block\">\n            Services we provide\n          </h2>\n          <div className=\"w-full max-w-3xl px-2\">\n            <h1 className=\"text-3xl font-semibold tracking-tighter md:text-5xl\">\n              Our comprehensive approach to delivering exceptional results\n              through a structured methodology\n            </h1>\n            <Button variant=\"ghost\" className=\"mt-6 lg:text-base\">\n              <CornerDownLeft className=\"size-5 text-orange-500\" /> Get in touch\n            </Button>\n          </div>\n        </div>\n        <ul className=\"mt-20 space-y-2\">\n          {services.map((service, index) => (\n            <motion.li\n              initial={{ opacity: 0, y: 30 }}\n              whileInView={{ opacity: 1, y: 0 }}\n              transition={{\n                type: \"spring\",\n                stiffness: 100,\n                damping: 20,\n                delay: index * 0.1,\n              }}\n              key={service.id}\n              className=\"relative flex h-54 w-full flex-col justify-center gap-5 md:h-27 lg:flex-row lg:items-center lg:justify-between\"\n            >\n              <div\n                style={{\n                  backgroundImage:\n                    \"repeating-linear-gradient(45deg, transparent, transparent 2px, var(--muted) 2px, var(--muted) 4px)\",\n                }}\n                className={cn(\n                  \"absolute left-1/2 h-54 w-screen -translate-x-1/2 md:h-27\",\n                )}\n              ></div>\n\n              <h3 className=\"relative z-1 text-3xl font-medium tracking-tight md:text-8xl\">\n                {service.title}\n              </h3>\n              <div className=\"relative z-10 flex w-full max-w-xs flex-wrap gap-2\">\n                {service.options.map((option, optionIndex) => (\n                  <div\n                    key={optionIndex}\n                    className=\"flex items-center justify-center gap-3\"\n                  >\n                    <Milestone className=\"size-5 text-muted-foreground\" />{\" \"}\n                    {option}\n                  </div>\n                ))}\n              </div>\n            </motion.li>\n          ))}\n        </ul>\n      </div>\n    </section>\n  );\n};\n\nexport { Services20 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

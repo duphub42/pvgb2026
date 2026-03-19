@@ -1,0 +1,9 @@
+{
+  "slug": "reviews3",
+  "title": "Reviews",
+  "description": "This component presents user reviews with features that include displaying the reviewer's name, avatar, review content, rating, and images. It also allows users to mark reviews as helpful and provides a button to write a new review.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/reviews3",
+  "downloadedAt": "2026-03-19T19:43:21Z",
+  "fileCount": 2
+}

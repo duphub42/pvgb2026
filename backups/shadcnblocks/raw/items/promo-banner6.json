@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "promo-banner6",
+  "title": "Promo-banner",
+  "description": "This component is a promotional banner featuring a countdown timer, useful for displaying time left until a special event or offer ends. It accepts props such as `endTime` for the countdown target, a customizable `title` for the banner message, and additional styling through `className`.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/promo-banner6.tsx",
+      "content": "\"use client\";\n\nimport { Gift } from \"lucide-react\";\nimport { useEffect, useMemo, useState } from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\ninterface PromoBanner6Props {\n  endTime?: Date;\n  title?: string;\n  className?: string;\n}\n\nconst PromoBanner6 = ({\n  endTime,\n  title = \"Holiday Sale\",\n  className,\n}: PromoBanner6Props) => {\n  const defaultEndTime = useMemo(\n    () => new Date(Date.now() + 2 * 24 * 60 * 60 * 1000),\n    [],\n  );\n  const targetTime = endTime ?? defaultEndTime;\n\n  const [timeLeft, setTimeLeft] = useState({\n    days: 0,\n    hours: 0,\n    minutes: 0,\n    seconds: 0,\n  });\n\n  useEffect(() => {\n    const calculateTimeLeft = () => {\n      const now = new Date().getTime();\n      const target = targetTime.getTime();\n      const diff = target - now;\n\n      if (diff <= 0) {\n        return { days: 0, hours: 0, minutes: 0, seconds: 0 };\n      }\n\n      return {\n        days: Math.floor(diff / (1000 * 60 * 60 * 24)),\n        hours: Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)),\n        minutes: Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60)),\n        seconds: Math.floor((diff % (1000 * 60)) / 1000),\n      };\n    };\n\n    setTimeLeft(calculateTimeLeft());\n    const timer = setInterval(() => {\n      setTimeLeft(calculateTimeLeft());\n    }, 1000);\n\n    return () => clearInterval(timer);\n  }, [targetTime]);\n\n  return (\n    <div className={cn(\"w-full bg-primary text-primary-foreground\", className)}>\n      <div className=\"container py-3\">\n        <div className=\"flex flex-wrap items-center justify-center gap-4\">\n          <div className=\"flex items-center gap-2\">\n            <Gift className=\"size-5\" />\n            <span className=\"font-semibold\">{title}</span>\n          </div>\n          <div className=\"flex items-center gap-2\">\n            {[\n              { value: timeLeft.days, label: \"Days\" },\n              { value: timeLeft.hours, label: \"Hrs\" },\n              { value: timeLeft.minutes, label: \"Min\" },\n              { value: timeLeft.seconds, label: \"Sec\" },\n            ].map((unit, index) => (\n              <div key={unit.label} className=\"flex items-center gap-2\">\n                <div className=\"flex flex-col items-center\">\n                  <span className=\"min-w-[2.5rem] rounded bg-white/20 px-2 py-1 text-center font-mono text-lg font-bold\">\n                    {unit.value.toString().padStart(2, \"0\")}\n                  </span>\n                  <span className=\"mt-0.5 text-[10px] tracking-wider uppercase opacity-80\">\n                    {unit.label}\n                  </span>\n                </div>\n                {index < 3 && (\n                  <span className=\"mb-4 text-lg font-bold opacity-50\">:</span>\n                )}\n              </div>\n            ))}\n          </div>\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport { PromoBanner6 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

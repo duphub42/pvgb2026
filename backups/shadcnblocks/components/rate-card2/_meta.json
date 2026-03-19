@@ -1,0 +1,9 @@
+{
+  "slug": "rate-card2",
+  "title": "Rate-card",
+  "description": "This component is designed to display pricing plans, featuring options for a monthly retainer and a premium package, each with detailed descriptions and a list of included benefits. Users can easily view the price, billing period, and a button to initiate the sign-up process for each plan.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/rate-card2",
+  "downloadedAt": "2026-03-19T19:43:17Z",
+  "fileCount": 3
+}

@@ -107,3 +107,11 @@
  ✓ Compiled in 679ms (1646 modules)
  ✓ Compiled in 725ms (1646 modules)
  ○ Compiling /api/[...slug] ...
+ ✓ Compiled /api/[...slug] in 4.5s (5664 modules)
+ ✓ Compiled in 1057ms (1649 modules)
+ ✓ Compiled in 680ms (1649 modules)
+ ✓ Compiled in 629ms (1649 modules)
+Generating import map
+ ✓ Compiled in 643ms (1649 modules)
+No new imports found, skipping writing import map
+ ✓ Compiled in 865ms (1649 modules)

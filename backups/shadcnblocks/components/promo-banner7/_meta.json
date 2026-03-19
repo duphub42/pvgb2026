@@ -1,0 +1,9 @@
+{
+  "slug": "promo-banner7",
+  "title": "Promo-banner",
+  "description": "This component displays a promotional banner featuring a countdown timer and stock progress bar, ideal for showcasing limited-time offers. Users can customize the end time and stock values, while it dynamically updates to indicate time left and items remaining.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/promo-banner7",
+  "downloadedAt": "2026-03-19T19:43:17Z",
+  "fileCount": 1
+}

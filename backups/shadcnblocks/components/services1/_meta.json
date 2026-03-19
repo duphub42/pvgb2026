@@ -1,0 +1,9 @@
+{
+  "slug": "services1",
+  "title": "Services",
+  "description": "A component displaying services in 1-2 columns, each service with a title, description, and list of features marked by check icons.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/services1",
+  "downloadedAt": "2026-03-19T19:43:24Z",
+  "fileCount": 1
+}

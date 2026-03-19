@@ -1,0 +1,9 @@
+{
+  "slug": "promo-banner5",
+  "title": "Promo-banner",
+  "description": "This component is a promotional banner with a countdown timer that highlights a flash sale event, displaying the time remaining until the end of the sale. It features customizable messages and descriptions, and adjusts its appearance based on provided styling classes.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/promo-banner5",
+  "downloadedAt": "2026-03-19T19:43:16Z",
+  "fileCount": 1
+}
