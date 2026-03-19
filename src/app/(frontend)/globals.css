@@ -217,8 +217,8 @@
     vertical-align: top;
     box-shadow: none;
     filter: none;
-    /* Guard rail: portrait must never violate minimum 66px gap below header */
-    max-height: calc(100dvh - var(--header-height) - 66px);
+    /* Keep portrait reliably visible on short viewports */
+    max-height: calc(100dvh - var(--header-height) - 33px);
     /* Weniger starker Beschnitt unten, damit das Portrait bei großen Auflösungen nicht „halbiert“ wirkt. */
     clip-path: inset(0 -20% 1.75rem -20%);
   }
@@ -240,7 +240,7 @@
 
     .hero-simple-portrait-img {
       clip-path: inset(0 -20% 0rem -20%);
-      max-height: calc(100vh - var(--header-height) - max(66px, 3vh));
+      max-height: calc(100vh - var(--header-height) - max(33px, 3vh));
       width: auto;
       max-width: 100%;
       transform: translateY(0);
