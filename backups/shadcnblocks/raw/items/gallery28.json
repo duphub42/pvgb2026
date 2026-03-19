@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "gallery28",
+  "title": "Gallery",
+  "description": "A gallery block featuring a carousel of curated interior design images with a centralized heading, description, and navigation buttons.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "carousel"
+  ],
+  "files": [
+    {
+      "path": "block/gallery28.tsx",
+      "content": "\"use client\";\n\nimport {\n  Carousel,\n  CarouselContent,\n  CarouselItem,\n  CarouselNext,\n  CarouselPrevious,\n} from \"@/components/ui/carousel\";\nimport { cn } from \"@/lib/utils\";\n\nconst images = [\n  \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/alex-tyson-2Fv_otxbGtg-unsplash.jpg\",\n  \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jason-leung-6uoj7DL6BFk-unsplash.jpg\",\n  \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jonathan-borba-UisC7KLAWjs-unsplash.jpg\",\n  \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jean-philippe-delberghe-fnIIuaEHvII-unsplash.jpg\",\n  \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jonathan-borba-YdomJdFdbDo-unsplash.jpg\",\n  \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/jose-angel-rios-ux9cu6FLsFE-unsplash.jpg\",\n  \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/zhao-yangyang-4uMRVFnJcP4-unsplash.jpg\",\n];\n\ninterface Gallery28Props {\n  className?: string;\n}\n\nconst Gallery28 = ({ className }: Gallery28Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <h2 className=\"mb-4 text-center text-4xl font-semibold\">\n          Beautiful Interiors.\n        </h2>\n        <p className=\"text-center text-sm text-muted-foreground\">\n          Explore our curated collection of stunning interior designs.\n          <br />\n          Each space tells a unique story through thoughtful design and\n          attention to detail.\n        </p>\n        <div className=\"mt-10\">\n          <Carousel\n            opts={{\n              align: \"start\",\n              loop: true,\n            }}\n            className=\"mx-auto w-full max-w-6xl\"\n          >\n            <CarouselContent\n              style={{\n                backfaceVisibility: \"hidden\",\n              }}\n            >\n              {images.map((image, index) => (\n                <CarouselItem key={index} className=\"basis-1/2\">\n                  <img\n                    src={image}\n                    alt=\"placeholder\"\n                    className=\"aspect-[3.8/5] w-full rounded-xl object-cover\"\n                  />\n                </CarouselItem>\n              ))}\n            </CarouselContent>\n            <CarouselPrevious className=\"left-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50\" />\n            <CarouselNext className=\"right-5 scale-120 border-none bg-black/30 text-white hover:bg-black/50 hover:text-white dark:bg-black/30 dark:hover:bg-black/50\" />\n          </Carousel>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Gallery28 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

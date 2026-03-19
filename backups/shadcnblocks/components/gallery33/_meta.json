@@ -1,0 +1,9 @@
+{
+  "slug": "gallery33",
+  "title": "Gallery",
+  "description": "A gallery component showcasing items in a grid that adjusts from 1 to 3 columns based on screen size. Features hover effects and links to more details.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/gallery33",
+  "downloadedAt": "2026-03-19T19:42:06Z",
+  "fileCount": 1
+}

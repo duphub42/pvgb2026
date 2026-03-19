@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "gallery31",
+  "title": "Gallery",
+  "description": "A product showcase block with a dynamic grid layout of 1-4 columns, displaying items with hover effects, titles, and prices.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "https://ui.aceternity.com/registry/direction-aware-hover.json"
+  ],
+  "files": [
+    {
+      "path": "block/gallery31.tsx",
+      "content": "import { DirectionAwareHover } from \"@/components/aceternity/direction-aware-hover\";\nimport { cn } from \"@/lib/utils\";\n\ninterface FeatureData {\n  imgClass: string;\n  imgsrc: string;\n  ptitle: string;\n  pdes: string;\n}\n\ninterface Gallery31Props {\n  featureData?: FeatureData[];\n  className?: string;\n}\n\nconst defaultFeatureData: FeatureData[] = [\n  {\n    imgClass: \"md:h-70 w-full rounded-3xl md:w-full\",\n    imgsrc:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img7.jpeg\",\n    ptitle: \"Gaming Controller\",\n    pdes: \"$199\",\n  },\n  {\n    imgClass: \"md:h-70 w-full rounded-3xl md:w-full lg:col-span-2\",\n    imgsrc:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img6.jpeg\",\n    ptitle: \"Wireless Headphones\",\n    pdes: \"$189\",\n  },\n  {\n    imgClass:\n      \"md:h-70 col-span-1 h-full w-full rounded-3xl md:w-full lg:row-span-2 lg:h-full\",\n    imgsrc:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img11.jpeg\",\n    ptitle: \"Smart Watch\",\n    pdes: \"$249\",\n  },\n  {\n    imgClass: \"md:h-70 w-full rounded-3xl md:w-full lg:col-span-2\",\n    imgsrc:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img14.jpeg\",\n    ptitle: \"Bluetooth Speaker\",\n    pdes: \"$179\",\n  },\n  {\n    imgClass: \"md:h-70 w-full rounded-3xl md:w-full\",\n    imgsrc:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img13.jpeg\",\n    ptitle: \"Mechanical Keyboard\",\n    pdes: \"$219\",\n  },\n];\n\nconst Gallery31: React.FC<Gallery31Props> = ({\n  featureData = defaultFeatureData,\n  className,\n}) => {\n  return (\n    <section className={cn(\"relative h-full overflow-hidden py-32\", className)}>\n      <div className=\"relative container flex h-full w-full flex-col items-center justify-center\">\n        <div className=\"relative z-10 flex flex-col items-center justify-center gap-5\">\n          <p className=\"rounded-full bg-muted px-2 py-1 text-xs uppercase\">\n            CATALOG\n          </p>\n          <h2 className=\"font-calSans text-center text-5xl font-medium md:text-6xl\">\n            Exclusive shadcnblocks\n          </h2>\n          <p className=\"text-center text-muted-foreground\">\n            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam,\n          </p>\n        </div>\n        <div className=\"relative mt-[34px] grid w-full grid-cols-1 justify-center gap-[10px] md:grid-cols-2 lg:grid-cols-4\">\n          {featureData.map((item, index) => (\n            <DirectionAwareHover\n              key={index}\n              className={item.imgClass}\n              imageUrl={item.imgsrc}\n            >\n              <p className=\"text-xl font-bold\">{item.ptitle}</p>\n              <p className=\"text-sm font-normal\">{item.pdes}</p>\n            </DirectionAwareHover>\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Gallery31 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

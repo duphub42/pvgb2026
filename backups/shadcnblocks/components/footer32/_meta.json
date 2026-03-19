@@ -1,0 +1,9 @@
+{
+  "slug": "footer32",
+  "title": "Footer",
+  "description": "This component, called Footer32, provides a customizable footer block featuring a pre-defined heading, descriptive text, a call-to-action button, and integration with social media links for platforms like Twitter, Instagram, and Facebook. It also allows for adding a support email link, making it suitable for enhancing connectivity and engagement on web applications.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/footer32",
+  "downloadedAt": "2026-03-19T19:42:02Z",
+  "fileCount": 1
+}

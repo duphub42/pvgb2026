@@ -1,0 +1,9 @@
+{
+  "slug": "gallery30",
+  "title": "Gallery",
+  "description": "An interactive gallery component with dynamically shuffled images that are draggable. Includes title and description.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/gallery30",
+  "downloadedAt": "2026-03-19T19:42:05Z",
+  "fileCount": 1
+}

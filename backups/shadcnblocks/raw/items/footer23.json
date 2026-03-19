@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "footer23",
+  "title": "Footer",
+  "description": "A footer component with a logo, description, link columns, and an animated globe. Includes 3 sections with navigational links and separators.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "separator",
+    "https://magicui.design/r/globe"
+  ],
+  "files": [
+    {
+      "path": "block/footer23.tsx",
+      "content": "import { Globe } from \"@/components/magicui/globe\";\nimport { Separator } from \"@/components/ui/separator\";\nimport { cn } from \"@/lib/utils\";\n\nconst sections = [\n  {\n    title: \"Product\",\n    links: [\n      { name: \"Overview\", href: \"#\" },\n      { name: \"Pricing\", href: \"#\" },\n      { name: \"Marketplace\", href: \"#\" },\n      { name: \"Features\", href: \"#\" },\n    ],\n  },\n  {\n    title: \"Company\",\n    links: [\n      { name: \"About\", href: \"#\" },\n      { name: \"Team\", href: \"#\" },\n      { name: \"Blog\", href: \"#\" },\n      { name: \"Careers\", href: \"#\" },\n    ],\n  },\n  {\n    title: \"Resources\",\n    links: [\n      { name: \"Help\", href: \"#\" },\n      { name: \"Sales\", href: \"#\" },\n      { name: \"Advertise\", href: \"#\" },\n    ],\n  },\n];\n\ninterface Footer23Props {\n  logo?: {\n    url: string;\n    src: string;\n    alt: string;\n    title: string;\n  };\n  className?: string;\n}\nconst Footer23 = ({\n  logo = {\n    url: \"https://www.shadcnblocks.com\",\n    src: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/shadcnblockscom-icon.svg\",\n    alt: \"logo\",\n    title: \"Shadcnblocks.com\",\n  },\n  className,\n}: Footer23Props) => {\n  return (\n    <section className={cn(\"\", className)}>\n      <div className=\"container\">\n        <footer>\n          <Separator className=\"my-14\" />\n          <div className=\"flex flex-col items-center justify-between gap-6 lg:flex-row\">\n            <div className=\"lg:max-w-md\">\n              <div className=\"flex items-center justify-start gap-2\">\n                <a href=\"https://shadcnblocks.com\">\n                  <img\n                    src={logo.src}\n                    alt={logo.alt}\n                    title={logo.title}\n                    className=\"h-10\"\n                  />\n                </a>\n                <h2 className=\"text-xl font-semibold tracking-tight\">\n                  {logo.title}\n                </h2>\n              </div>\n              <p className=\"mt-4 text-left text-sm text-muted-foreground\">\n                Lorem ipsum dolor, sit amet consectetur adipisicing elit.\n                Reprehenderit consequuntur, corporis at recusandae nisi iste\n                quaerat maxime nihil. Iusto iure consequatur\n              </p>\n            </div>\n            <div className=\"mt-8 flex w-full flex-wrap justify-between gap-12 lg:mt-0 lg:w-fit\">\n              {sections.map((section, sectionIdx) => (\n                <div key={sectionIdx} className=\"mb-4\">\n                  <h3 className=\"mb-4 font-semibold tracking-tight\">\n                    {section.title}\n                  </h3>\n                  <ul className=\"space-y-2 text-sm text-muted-foreground\">\n                    {section.links.map((link, linkIdx) => (\n                      <li key={linkIdx} className=\"hover:text-primary\">\n                        <a href={link.href}>{link.name}</a>\n                      </li>\n                    ))}\n                  </ul>\n                </div>\n              ))}\n            </div>\n          </div>\n          <div className=\"relative h-52 overflow-hidden lg:h-82\">\n            <Globe className=\"absolute top-10 md:scale-125 lg:top-16 lg:scale-150\" />\n          </div>\n        </footer>\n      </div>\n    </section>\n  );\n};\n\nexport { Footer23 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

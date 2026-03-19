@@ -48,6 +48,20 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
   // }
 
   if (url.startsWith('http://') || url.startsWith('https://')) {
+    try {
+      const parsed = new URL(url)
+      const mediaPath = `${parsed.pathname}${parsed.search}`
+      // Normalize media URLs to same-origin relative paths.
+      // This avoids broken absolute localhost URLs stored in content exports.
+      if (
+        parsed.pathname.startsWith('/api/media/') ||
+        parsed.pathname.startsWith('/media/')
+      ) {
+        return appendTag(mediaPath)
+      }
+    } catch {
+      // keep original URL below if parsing fails
+    }
     return appendTag(url)
   }
   return appendTag(url)

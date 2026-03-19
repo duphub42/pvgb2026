@@ -1,0 +1,9 @@
+{
+  "slug": "gallery29",
+  "title": "Gallery",
+  "description": "A component displaying a gallery title, description, and a marquee of images with a central featured image that reveals a caption on hover, surrounded by fading edges and decorative skew elements.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/gallery29",
+  "downloadedAt": "2026-03-19T19:42:04Z",
+  "fileCount": 1
+}
