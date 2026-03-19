@@ -206,6 +206,31 @@ function main() {
         link_appearance TEXT DEFAULT 'default'
       );`,
     },
+    {
+      name: '_lnks_v: table (ShadcnBlock content links versions)',
+      sql: `CREATE TABLE IF NOT EXISTS _lnks_v (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        link_type TEXT DEFAULT 'reference',
+        link_new_tab INTEGER DEFAULT 0,
+        link_url TEXT,
+        link_label TEXT,
+        link_appearance TEXT DEFAULT 'default',
+        _uuid TEXT
+      );`,
+    },
+    {
+      name: '_lnks_v_rels: table (ShadcnBlock content link relations versions)',
+      sql: `CREATE TABLE IF NOT EXISTS _lnks_v_rels (
+        "order" INTEGER NOT NULL,
+        parent_id INTEGER NOT NULL,
+        path TEXT NOT NULL,
+        site_pages_id INTEGER,
+        blog_posts_id INTEGER,
+        categories_id INTEGER
+      );`,
+    },
     // Shadcn Block Content: Version-Tabellen (Drafts)
     { name: '_site_pages_v_blocks_shadcn_block: content_headline', sql: 'ALTER TABLE _site_pages_v_blocks_shadcn_block ADD COLUMN content_headline TEXT;' },
     { name: '_site_pages_v_blocks_shadcn_block: content_subheadline', sql: 'ALTER TABLE _site_pages_v_blocks_shadcn_block ADD COLUMN content_subheadline TEXT;' },

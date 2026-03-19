@@ -30,6 +30,7 @@ import { PathsBackground } from '@/components/PathsBackground/PathsBackground'
 import { ThreadsBackground } from '@/components/ThreadsBackground/ThreadsBackground'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { AnimatedThemeToggle } from '@/components/ui/animated-theme-toggle'
+import { ResilientImage } from '@/components/ui/resilient-image'
 
 /** Konfiguration für WhatsApp, Rückruf und Newsletter im Mega-Menü (aus Header-Global) */
 export type MegaMenuCta = {
@@ -765,7 +766,7 @@ export function MegaMenu({
                                                 <use href={`/icons-sprite.svg#${iconSpriteId}`} />
                                               </svg>
                                             ) : iconUrl ? (
-                                              <img src={iconUrl} alt="" className="h-4 w-4 object-contain" decoding="sync" />
+                                              <ResilientImage src={iconUrl} alt="" className="h-4 w-4 object-contain" decoding="sync" />
                                             ) : undefined
                                           }
                                         >
@@ -796,7 +797,7 @@ export function MegaMenu({
                                         <use href={`/icons-sprite.svg#${iconSpriteId}`} />
                                       </svg>
                                     ) : iconUrl ? (
-                                      <img src={iconUrl} alt="" className="h-4 w-4 object-contain" decoding="sync" />
+                                      <ResilientImage src={iconUrl} alt="" className="h-4 w-4 object-contain" decoding="sync" />
                                     ) : undefined
                                   }
                                 >
@@ -865,7 +866,7 @@ export function MegaMenu({
                                         <use href={`/icons-sprite.svg#${cardIconSpriteId}`} />
                                       </svg>
                                     ) : (
-                                      <img src={cardIconUrl} alt="" decoding="sync" />
+                                      <ResilientImage src={cardIconUrl} alt="" decoding="sync" />
                                     )}
                                   </div>
                                 )}

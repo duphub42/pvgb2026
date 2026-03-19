@@ -5,6 +5,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import { ScrambleText, HACKER_CHARS } from '@/components/ScrambleText/ScrambleText'
 import { cn } from '@/utilities/ui'
+import { ResilientImage } from '@/components/ui/resilient-image'
 
 const GLITCH_DURATION_MS = 1000
 const SCRAMBLE_ICONS = [Zap, Globe, Skull, Star, Eye, Heart] as const
@@ -180,8 +181,8 @@ export function LogoWithGlitch({
         {!isFooterImage && (
           <>
             {/* FIX: logo-contrast auf Glitch-Layern, kein layerInvertClass mehr */}
-            <img src={imgSrc} alt="" aria-hidden className="logo-glitch-layer logo-glitch-layer-1 logo-contrast" />
-            <img src={imgSrc} alt="" aria-hidden className="logo-glitch-layer logo-glitch-layer-2 logo-contrast" />
+            <ResilientImage src={imgSrc} alt="" aria-hidden className="logo-glitch-layer logo-glitch-layer-1 logo-contrast" />
+            <ResilientImage src={imgSrc} alt="" aria-hidden className="logo-glitch-layer logo-glitch-layer-2 logo-contrast" />
           </>
         )}
         <div className="logo-glitch-main flex items-center shrink-0">

@@ -10,6 +10,8 @@ import React, { useEffect, useMemo, useState } from 'react'
 import type { ComponentProps } from 'react'
 import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 import type { HeroBackground } from '@/payload-types'
+import { ResilientImage } from '@/components/ui/resilient-image'
+import { getMediaUrlCandidates } from '@/utilities/mediaUrlCandidates'
 
 /** Verzögerungen (ms) für die Hero-Enter-Animationen: Headline (Scramble) → Beschreibung (Wort für Wort) → CTAs (Pop) → Marquee-Überschrift (Buchstabe) → Marquee-Logos (Pop) → Subheadline (Slide up). */
 const HERO_ANIM = {
@@ -130,6 +132,15 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   const fullHeadlineLabel = hasLines ? lines.join(' ') : headlineText
 
   const foregroundImageUrl = foregroundImage ? getMediaUrlSafe(foregroundImage) : null
+  const foregroundCandidates = useMemo(
+    () => getMediaUrlCandidates(foregroundImageUrl),
+    [foregroundImageUrl],
+  )
+  const [foregroundSrcIndex, setForegroundSrcIndex] = React.useState(0)
+  const foregroundSrc = foregroundCandidates[foregroundSrcIndex] ?? foregroundImageUrl ?? ''
+  React.useEffect(() => {
+    setForegroundSrcIndex(0)
+  }, [foregroundImageUrl])
   const overlayStyle = useMemo(
     () => ({ opacity: overlayOpacity ?? 0.42 }),
     [overlayOpacity],
@@ -333,7 +344,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                         animationDelay: `${HERO_ANIM.marqueeLogosStartMs + idx * HERO_ANIM.marqueeLogoMs}ms`,
                       }}
                     >
-                      <img
+                      <ResilientImage
                         src={url}
                         alt={logo?.alt ?? ''}
                         width={88}
@@ -385,7 +396,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
               }}
             >
               <Image
-                src={foregroundImageUrl}
+                src={foregroundSrc}
                 alt={headlineText || subheadline || 'Portrait'}
                 width={414}
                 height={600}
@@ -393,6 +404,11 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                 fetchPriority="high"
                 sizes="(max-width: 555px) 88vw, (max-width: 768px) 48vw, 28rem"
                 className="hero-simple-portrait-img hero-portrait-sm w-full h-fit object-contain object-bottom"
+                onError={() => {
+                  if (foregroundSrcIndex < foregroundCandidates.length - 1) {
+                    setForegroundSrcIndex((i) => i + 1)
+                  }
+                }}
               />
             </div>
           </div>
