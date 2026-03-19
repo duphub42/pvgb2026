@@ -1,5 +1,17 @@
 {
-  "node": {},
+  "node": {
+    "4044eddc6de0252fa7e67a409dc6494f2f034b5825": {
+      "workers": {
+        "app/(frontend)/page": {
+          "moduleId": "(action-browser)/./node_modules/.pnpm/next@15.4.11_@babel+core@7.29.0_@playwright+test@1.58.2_babel-plugin-macros@3.1.0_react_6e7d97cea24a18f860d7fe2598e63979/node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fhorus%2FDesktop%2Fpvgb2026%2Fpvgb2026%2Fsrc%2Fapp%2F(frontend)%2Factions%2Flocale.ts%22%2C%5B%7B%22id%22%3A%224044eddc6de0252fa7e67a409dc6494f2f034b5825%22%2C%22exportedName%22%3A%22setLocaleAction%22%7D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(frontend)/page": "action-browser"
+      }
+    }
+  },
   "edge": {},
   "encryptionKey": "LpoJcBhfO33O+kJ3JCVR1lPgJRR1sv+DE9D59I5wEgw="
 }
