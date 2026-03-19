@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "community6",
+  "title": "Community",
+  "description": "A component featuring cards for social platform links, each with icons, titles, and descriptions, organized in a variable-column layout.",
+  "dependencies": [
+    "react-icons"
+  ],
+  "registryDependencies": [
+    "utils",
+    "card"
+  ],
+  "files": [
+    {
+      "path": "block/community6.tsx",
+      "content": "import {\n  FaDiscord,\n  FaGithub,\n  FaLinkedin,\n  FaSlack,\n  FaXTwitter,\n} from \"react-icons/fa6\";\nimport { SiBluesky } from \"react-icons/si\";\n\nimport { Card } from \"@/components/ui/card\";\nimport { cn } from \"@/lib/utils\";\n\nconst iconWrapper =\n  \"mb-4 flex items-center justify-center h-16 w-16 rounded-full border-2 border-dotted border-muted-foreground/40 transition-colors duration-200\";\n\ninterface Community6Props {\n  className?: string;\n}\n\nconst Community6 = ({ className }: Community6Props) => {\n  const communityCards = [\n    {\n      icon: <FaXTwitter className=\"h-8 w-8 text-foreground/80\" />,\n      title: \"Twitter\",\n      description: \"Follow us for updates, insights, and news\",\n      link: \"#\",\n    },\n    {\n      icon: <FaGithub className=\"h-8 w-8 text-foreground/80\" />,\n      title: \"GitHub\",\n      description: \"Contribute, report issues, and star the project\",\n      link: \"#\",\n    },\n    {\n      icon: <FaDiscord className=\"h-8 w-8 text-foreground/80\" />,\n      title: \"Discord\",\n      description: \"Chat, share ideas, and get support from the community\",\n      link: \"#\",\n    },\n    {\n      icon: <FaLinkedin className=\"h-8 w-8 text-foreground/80\" />,\n      title: \"LinkedIn\",\n      description: \"Connect with us professionally and grow your network\",\n      link: \"#\",\n    },\n    {\n      icon: <FaSlack className=\"h-8 w-8 text-foreground/80\" />,\n      title: \"Slack\",\n      description: \"Join our Slack for real-time collaboration\",\n      link: \"#\",\n    },\n    {\n      icon: <SiBluesky className=\"h-8 w-8 text-foreground/80\" />,\n      title: \"Bluesky\",\n      description: \"Connect with us on Bluesky for open social networking\",\n      link: \"#\",\n    },\n  ];\n\n  return (\n    <section\n      className={cn(\n        \"relative overflow-hidden rounded-3xl bg-background py-32 text-foreground\",\n        className,\n      )}\n    >\n      <div className=\"relative z-10 container flex flex-col items-center justify-center\">\n        <h2 className=\"mb-4 text-center text-4xl font-bold tracking-tight md:text-5xl xl:text-6xl\">\n          Join Our Vibrant Network\n        </h2>\n        <p className=\"mb-8 max-w-2xl text-center text-lg font-normal text-muted-foreground md:text-xl\">\n          Connect, collaborate, and create with passionate developers and\n          creators worldwide.\n        </p>\n        <div className=\"mb-10 grid w-full grid-cols-1 gap-6 md:grid-cols-3 xl:grid-cols-6\">\n          {communityCards.map((card) => (\n            <Card\n              key={card.title}\n              className=\"group flex flex-1 flex-col items-center rounded-2xl bg-background p-8 transition-shadow duration-200 hover:shadow-lg\"\n            >\n              <a\n                href={card.link}\n                target=\"_blank\"\n                className=\"flex flex-col items-center\"\n              >\n                <span className={`${iconWrapper} group-hover:bg-muted`}>\n                  {card.icon}\n                </span>\n                <h5 className=\"mb-1 text-lg font-semibold\">{card.title}</h5>\n                <p className=\"mb-2 text-center text-base text-muted-foreground\">\n                  {card.description}\n                </p>\n              </a>\n            </Card>\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Community6 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

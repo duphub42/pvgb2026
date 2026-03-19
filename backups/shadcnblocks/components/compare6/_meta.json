@@ -1,0 +1,9 @@
+{
+  "slug": "compare6",
+  "title": "Compare",
+  "description": "A component displaying a comparative analysis of models in a table with tabs for model selection. Features statue indicators and fixed columns.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/compare6",
+  "downloadedAt": "2026-03-19T19:40:47Z",
+  "fileCount": 1
+}

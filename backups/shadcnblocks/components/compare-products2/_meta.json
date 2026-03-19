@@ -1,0 +1,9 @@
+{
+  "slug": "compare-products2",
+  "title": "Compare-products",
+  "description": "This component, \"CompareProducts2,\" is designed for comparing multiple products with specific characteristics and specifications presented in a tabular format. It allows users to view product images, prices, ratings, and additional product details, facilitating easy comparison and decision-making.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/compare-products2",
+  "downloadedAt": "2026-03-19T19:40:44Z",
+  "fileCount": 1
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "community5",
+  "title": "Community",
+  "description": "A component featuring a GitHub profile card with stats (stars, forks, contributors), decorative grid pattern, and links to social media (Discord, Twitter, LinkedIn).",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/community5",
+  "downloadedAt": "2026-03-19T19:40:41Z",
+  "fileCount": 1
+}

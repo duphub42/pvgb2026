@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "compare10",
+  "title": "Compare",
+  "description": "A component contrasting \"Legacy\" vs \"New\" features in a two-column layout, highlighting issues with old tools and advantages of modern solutions, using symbols and separators.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "separator"
+  ],
+  "files": [
+    {
+      "path": "block/compare10.tsx",
+      "content": "import { X } from \"lucide-react\";\nimport React from \"react\";\n\nimport { Separator } from \"@/components/ui/separator\";\nimport { cn } from \"@/lib/utils\";\n\nconst legacyFeatures = [\n  \"One-size-fits-all project tools with generic workflows.\",\n  \"Clunky, overcomplicated, and hard to adopt.\",\n  \"Scattered data stitched together with brittle integrations.\",\n  \"Minimal automation leading to manual reporting.\",\n  \"Slow, risky migrations that disrupt delivery.\",\n  \"Aging tech with limited cloud and mobile support.\",\n  \"High price tags without measurable outcomes.\",\n  \"Surprise fees for training, support, and integrations.\",\n];\n\nconst newFeatures = [\n  { emoji: \"🧭\", text: \"Built for modern product and engineering teams.\" },\n  { emoji: \"💡\", text: \"Opinionated defaults with a simple, modern UX.\" },\n  { emoji: \"📊\", text: \"Unified workspace as your single source of truth.\" },\n  { emoji: \"⚡\", text: \"Automation and AI that cut busywork.\" },\n  { emoji: \"🧰\", text: \"Guided, low-risk migrations measured in weeks.\" },\n  { emoji: \"☁️\", text: \"Cloud-native, secure, and always up to date.\" },\n  { emoji: \"📈\", text: \"Improves velocity with a clear, provable ROI.\" },\n  { emoji: \"💬\", text: \"Straightforward, transparent pricing.\" },\n];\ninterface Compare10Props {\n  className?: string;\n}\n\nconst Compare10 = ({ className }: Compare10Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"flex flex-col gap-6 text-center md:gap-12\">\n          <h2 className=\"l:text-7xl text-4xl font-medium md:text-5xl\">\n            <span className=\"text-muted-foreground\">Why Teams are </span>\n            <br /> Moving to Modern Tools\n          </h2>\n          <p className=\"text-lg\">\n            Old tools slow your team down and don&apos;t help you ship faster.{\" \"}\n            <br className=\"hidden md:block\" /> Modern tools help you ship\n            faster.\n          </p>\n        </div>\n        <div className=\"mt-20 grid gap-12 lg:grid-cols-2 lg:gap-0\">\n          <div className=\"rounded-3xl bg-muted p-6 lg:rounded-r-none lg:p-12\">\n            <h3 className=\"text-2xl font-medium\">Legacy Features</h3>\n            <ul className=\"mt-9 space-y-3\">\n              {legacyFeatures.map((feature, idx) => (\n                <React.Fragment key={idx}>\n                  <div className=\"flex items-center gap-2\">\n                    <X className=\"my-1.5 size-4 shrink-0 text-muted-foreground\" />\n                    <li className=\"text-sm\">{feature}</li>\n                  </div>\n                  {idx !== legacyFeatures.length - 1 && <Separator />}\n                </React.Fragment>\n              ))}\n            </ul>\n          </div>\n          <div className=\"rounded-3xl border border-y p-6 lg:rounded-l-none lg:border-l-0 lg:p-12\">\n            <h3 className=\"text-2xl font-medium\">New Features</h3>\n            <ul className=\"mt-9 space-y-3\">\n              {newFeatures.map((feature, idx) => (\n                <React.Fragment key={idx}>\n                  <li className=\"flex items-center gap-2 text-sm\">\n                    <span className=\"text-lg\">{feature.emoji}</span>\n                    {feature.text}\n                  </li>\n                  {idx !== newFeatures.length - 1 && <Separator />}\n                </React.Fragment>\n              ))}\n            </ul>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Compare10 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

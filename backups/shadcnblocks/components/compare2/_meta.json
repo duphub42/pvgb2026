@@ -1,0 +1,9 @@
+{
+  "slug": "compare2",
+  "title": "Compare",
+  "description": "A component comparing two products, highlighting features using icons and text. Layout includes a central title, product feature lists in 2 columns, and detailed analysis sections.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/compare2",
+  "downloadedAt": "2026-03-19T19:40:46Z",
+  "fileCount": 1
+}

@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "community3",
+  "title": "Community",
+  "description": "A component showcasing a community invitation with social icons, descriptions, and a 1-3 column layout of cards for different platforms.",
+  "dependencies": [
+    "lucide-react",
+    "react-icons"
+  ],
+  "registryDependencies": [
+    "utils",
+    "badge",
+    "card"
+  ],
+  "files": [
+    {
+      "path": "block/community3.tsx",
+      "content": "import { Users } from \"lucide-react\";\nimport { FaDiscord, FaGithub, FaXTwitter } from \"react-icons/fa6\";\n\nimport { Badge } from \"@/components/ui/badge\";\nimport { Card } from \"@/components/ui/card\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Community3Props {\n  className?: string;\n}\n\nconst Community3 = ({ className }: Community3Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"flex flex-col items-start pb-10 md:items-center md:pb-14 xl:pb-[60px]\">\n          <Badge>\n            <Users className=\"h-4 w-4\" />\n            Community\n          </Badge>\n\n          {/* Heading */}\n          <h4 className=\"mt-4 text-[28px] leading-[36px] font-semibold tracking-tight text-foreground md:text-center md:text-3xl xl:text-[48px] xl:leading-[56px]\">\n            Be part of our network\n          </h4>\n\n          {/* Description */}\n          <p className=\"mt-2 text-lg text-muted-foreground md:text-center xl:mt-3 xl:text-xl\">\n            Engage, <span className=\"font-medium text-foreground\">explore</span>\n            , and <span className=\"font-medium text-foreground\">evolve</span>{\" \"}\n            with like-minded creators and coders.\n          </p>\n\n          {/* Social Cards */}\n          <div className=\"mt-6 grid w-full grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3 xl:mt-12 xl:gap-6\">\n            <Card className=\"rounded-2xl transition-all hover:shadow-md\">\n              <a\n                href=\"#\"\n                target=\"_blank\"\n                className=\"flex h-full flex-col items-center p-6 md:p-8 xl:p-10\"\n              >\n                <FaXTwitter className=\"mb-4 h-8 w-8 md:h-12 md:w-12 xl:h-16 xl:w-16\" />\n                <div className=\"space-y-2 text-center\">\n                  <h5 className=\"text-sm font-medium md:text-lg\">Twitter</h5>\n                  <p className=\"text-sm text-balance text-muted-foreground\">\n                    Get the latest updates, insights, and news\n                  </p>\n                </div>\n              </a>\n            </Card>\n\n            {/* GitHub Card */}\n            <Card className=\"rounded-2xl transition-all hover:shadow-md\">\n              <a\n                href=\"#\"\n                target=\"_blank\"\n                className=\"flex h-full flex-col items-center p-6 md:p-8 xl:p-10\"\n              >\n                <FaGithub className=\"mb-4 h-8 w-8 md:h-12 md:w-12 xl:h-16 xl:w-16\" />\n                <div className=\"space-y-2 text-center\">\n                  <h5 className=\"text-sm font-medium md:text-lg\">GitHub</h5>\n                  <p className=\"text-sm text-balance text-muted-foreground\">\n                    Collaborate, report issues, and enhance the project\n                  </p>\n                </div>\n              </a>\n            </Card>\n\n            {/* Discord Card */}\n            <Card className=\"rounded-2xl transition-all hover:shadow-md\">\n              <a\n                href=\"#\"\n                target=\"_blank\"\n                rel=\"noopener nofollow\"\n                className=\"flex h-full flex-col items-center p-6 md:p-8 xl:p-10\"\n              >\n                <FaDiscord className=\"mb-4 h-8 w-8 md:h-12 md:w-12 xl:h-16 xl:w-16\" />\n                <div className=\"space-y-2 text-center\">\n                  <h5 className=\"text-sm font-medium md:text-lg\">Discord</h5>\n                  <p className=\"text-sm text-balance text-muted-foreground\">\n                    Chat, share ideas, and get support from the community\n                  </p>\n                </div>\n              </a>\n            </Card>\n          </div>\n\n          <div className=\"mt-8 hidden max-w-[330px] text-center text-muted-foreground xl:block\">\n            Join a network that collaborates, innovates, and thrives together.\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Community3 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

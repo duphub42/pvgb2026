@@ -1,0 +1,9 @@
+{
+  "slug": "companies-create1",
+  "title": "Companies-create",
+  "description": "A multi-section company creation form with categorized fields for basic info, location, social links, metrics, and additional details using combobox and tag inputs.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/companies-create1",
+  "downloadedAt": "2026-03-19T19:40:42Z",
+  "fileCount": 1
+}

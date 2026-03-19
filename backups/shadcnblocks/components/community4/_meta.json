@@ -1,0 +1,9 @@
+{
+  "slug": "community4",
+  "title": "Community",
+  "description": "A component with a title, description, and a grid of links to social platforms, each with an icon, a unique color background, headings, and descriptions.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/community4",
+  "downloadedAt": "2026-03-19T19:40:40Z",
+  "fileCount": 1
+}

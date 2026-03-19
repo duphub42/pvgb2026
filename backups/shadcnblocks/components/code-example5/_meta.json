@@ -1,0 +1,9 @@
+{
+  "slug": "code-example5",
+  "title": "Code-example",
+  "description": "This component provides a code explorer, allowing users to interactively select and view code examples for different API integrations including REST, GraphQL, and WebSocket. It features language switching tabs, displays code snippets with syntax highlighting, and offers a copy-to-clipboard functionality.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/code-example5",
+  "downloadedAt": "2026-03-19T19:40:39Z",
+  "fileCount": 1
+}

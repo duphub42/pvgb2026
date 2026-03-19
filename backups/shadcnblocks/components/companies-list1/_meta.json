@@ -1,0 +1,9 @@
+{
+  "slug": "companies-list1",
+  "title": "Companies-list",
+  "description": "A feature-rich company data table with TanStack Table, sortable columns, row selection, column filtering, and filter popover for industry and funding filters.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/companies-list1",
+  "downloadedAt": "2026-03-19T19:40:44Z",
+  "fileCount": 1
+}

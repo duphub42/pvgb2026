@@ -1,0 +1,9 @@
+{
+  "slug": "compare-products1",
+  "title": "Compare-products",
+  "description": "This component allows users to compare multiple products side-by-side by displaying their specifications and key features in a tabular format. It includes interactive elements such as badges, pricing details, product ratings, and an option to directly add items to the cart.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/compare-products1",
+  "downloadedAt": "2026-03-19T19:40:44Z",
+  "fileCount": 1
+}
