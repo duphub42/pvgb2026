@@ -11,6 +11,8 @@ function getSiteOrigin(): string | null {
   return v ? `https://${v}` : null
 }
 
+const mediaDebugSeen = new Set<string>()
+
 /**
  * Processes media resource URL to ensure proper formatting.
  * Uses relative URLs for same-origin paths so server and client render the same src (avoids hydration mismatch).
@@ -30,13 +32,6 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
 
   const appendTag = (base: string): string =>
     encodedTag ? `${base}${base.includes('?') ? '&' : '?'}${encodedTag}` : base
-  const rewriteApiMediaPath = (pathWithSearch: string): string => {
-    const [pathPart, queryPart] = pathWithSearch.split('?')
-    const match = pathPart?.match(/^\/api\/media\/file\/(.+)$/)
-    if (!match?.[1]) return pathWithSearch
-    const normalized = `/media/${match[1]}`
-    return queryPart != null && queryPart !== '' ? `${normalized}?${queryPart}` : normalized
-  }
 
   // ExactDN-Rewrite deaktiviert (EXACTDN_DOMAIN = undefined). Für CDN: EXACTDN_DOMAIN aus env setzen und Block aktivieren.
   // if (exactdn) {
@@ -64,13 +59,24 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
         parsed.pathname.startsWith('/api/media/') ||
         parsed.pathname.startsWith('/media/')
       ) {
-        return appendTag(rewriteApiMediaPath(mediaPath))
+        if (
+          (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1') &&
+          mediaDebugSeen.size < 30 &&
+          !mediaDebugSeen.has(url)
+        ) {
+          mediaDebugSeen.add(url)
+          console.info('[debug-media][normalize-absolute-local]', {
+            input: url,
+            output: mediaPath,
+          })
+        }
+        return appendTag(mediaPath)
       }
     } catch {
       // keep original URL below if parsing fails
     }
     return appendTag(url)
   }
-  if (url.startsWith('/api/media/')) return appendTag(rewriteApiMediaPath(url))
+  if (url.startsWith('/api/media/')) return appendTag(url)
   return appendTag(url)
 }
