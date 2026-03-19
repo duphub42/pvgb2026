@@ -38,7 +38,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
     const stickyEnterThresholdPx = 12
     const stickyLeaveThresholdPx = 0
     const minDeltaForTogglePx = 6
-    const nonStickyRevealBufferPx = 24
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY
@@ -59,28 +58,23 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
         : currentScrollY >= stickyEnterThresholdPx
 
       if (nextPastFold !== wasPastFold) {
-        const headerEl = document.querySelector('.site-header') as HTMLElement | null
-        const mainEl = document.querySelector('main') as HTMLElement | null
-        const headerRect = headerEl?.getBoundingClientRect()
-        const mainRect = mainEl?.getBoundingClientRect()
-        // #region agent log
-        fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'initial',hypothesisId:'H1',location:'src/Header/Component.client.tsx:fold-transition',message:'Header fold transition',data:{currentScrollY,prevScrollY,delta,scrollingDown,scrollingUp,wasPastFold,nextPastFold,stickyEnterThresholdPx,stickyLeaveThresholdPx,headerTop:headerRect?.top??null,headerBottom:headerRect?.bottom??null,mainTop:mainRect?.top??null},timestamp:Date.now()})}).catch(()=>{})
-        // #endregion
+        if (wasPastFold && !nextPastFold) {
+          setHideToTop(false)
+          setRevealFromTop(false)
+          setHeaderVisible(true)
+        }
         isPastFoldRef.current = nextPastFold
         setIsPastFold(nextPastFold)
       }
 
       setHeaderVisible((prev) => {
         let next = prev
-        const hideAfterPx = stickyEnterThresholdPx + 48
+        const hideAfterPx = Math.max(stickyEnterThresholdPx + 48, 180)
 
         if (!nextPastFold) {
           if (wasPastFold && !nextPastFold) {
             setHideToTop(false)
             setRevealFromTop(false)
-            // #region agent log
-            fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'post-fix',hypothesisId:'H6',location:'src/Header/Component.client.tsx:sticky-exit-normalize',message:'Header sticky exit normalized to visible and animations reset',data:{currentScrollY,prevScrollY,delta,prevVisible:prev,nextVisible:true,wasPastFold,nextPastFold,resetHideToTop:true,resetRevealFromTop:true},timestamp:Date.now()})}).catch(()=>{})
-            // #endregion
           }
           next = true
         } else {
@@ -93,9 +87,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
 
         if (prev === next) return prev
 
-        // #region agent log
-        fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'initial',hypothesisId:'H3',location:'src/Header/Component.client.tsx:visible-transition',message:'Header visibility transition',data:{currentScrollY,prevScrollY,delta,scrollingDown,scrollingUp,absDelta,prevVisible:prev,nextVisible:next,wasPastFold,nextPastFold,revealFromTop:prev===false&&next===true&&nextPastFold&&scrollingUp,hideToTop:prev===true&&next===false&&nextPastFold&&scrollingDown},timestamp:Date.now()})}).catch(()=>{})
-        // #endregion
         setRevealFromTop(prev === false && next === true && nextPastFold && scrollingUp)
         setHideToTop(prev === true && next === false && nextPastFold && scrollingDown)
 
@@ -104,9 +95,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
-    // #region agent log
-    fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'initial',hypothesisId:'H4',location:'src/Header/Component.client.tsx:effect-init',message:'Header scroll effect initialized',data:{initialScrollY:window.scrollY,pathname},timestamp:Date.now()})}).catch(()=>{})
-    // #endregion
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
@@ -231,7 +219,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
         'site-header z-50 w-full transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)] will-change-transform',
         revealFromTop && 'header-reveal-from-top',
         hideToTop && 'header-hide-to-top',
-        isPastFold ? 'fixed top-0 left-0 right-0' : 'relative',
+        'fixed top-0 left-0 right-0',
         headerVisible || hideToTop
           ? 'translate-y-0 opacity-100 visible'
           : '-translate-y-[115%] opacity-0 pointer-events-none invisible',

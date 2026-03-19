@@ -480,7 +480,6 @@ export function MegaMenu({
     const stickyEnterThresholdPx = 12
     const stickyLeaveThresholdPx = 0
     const minDeltaForTogglePx = 6
-    const nonStickyRevealBufferPx = 24
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY
@@ -500,13 +499,11 @@ export function MegaMenu({
         : currentScrollY >= stickyEnterThresholdPx
 
       if (nextPastFold !== wasPastFold) {
-        const headerEl = document.querySelector('.megamenu') as HTMLElement | null
-        const mainEl = document.querySelector('main') as HTMLElement | null
-        const headerRect = headerEl?.getBoundingClientRect()
-        const mainRect = mainEl?.getBoundingClientRect()
-        // #region agent log
-        fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'initial',hypothesisId:'H1',location:'src/components/MegaMenu/index.tsx:fold-transition',message:'MegaMenu fold transition',data:{currentScrollY,prevScrollY,delta,scrollingDown,scrollingUp,wasPastFold,nextPastFold,stickyEnterThresholdPx,stickyLeaveThresholdPx,activeMenu,headerTop:headerRect?.top??null,headerBottom:headerRect?.bottom??null,mainTop:mainRect?.top??null},timestamp:Date.now()})}).catch(()=>{})
-        // #endregion
+        if (wasPastFold && !nextPastFold) {
+          setHideToTop(false)
+          setRevealFromTop(false)
+          setIsVisible(true)
+        }
         isPastFoldRef.current = nextPastFold
         setIsPastFold(nextPastFold)
       }
@@ -514,21 +511,15 @@ export function MegaMenu({
       setIsVisible((prev) => {
         // Keep visible while dropdown is open.
         if (activeMenu != null) {
-          // #region agent log
-          fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'initial',hypothesisId:'H5',location:'src/components/MegaMenu/index.tsx:active-menu-keep-visible',message:'MegaMenu kept visible because dropdown active',data:{currentScrollY,prevVisible:prev,activeMenu,nextPastFold},timestamp:Date.now()})}).catch(()=>{})
-          // #endregion
           return true
         }
         let next = prev
-        const hideAfterPx = stickyEnterThresholdPx + 48
+        const hideAfterPx = Math.max(stickyEnterThresholdPx + 48, 180)
 
         if (!nextPastFold) {
           if (wasPastFold && !nextPastFold) {
             setHideToTop(false)
             setRevealFromTop(false)
-            // #region agent log
-            fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'post-fix',hypothesisId:'H6',location:'src/components/MegaMenu/index.tsx:sticky-exit-normalize',message:'MegaMenu sticky exit normalized to visible and animations reset',data:{currentScrollY,prevScrollY,delta,prevVisible:prev,nextVisible:true,wasPastFold,nextPastFold,activeMenu,resetHideToTop:true,resetRevealFromTop:true},timestamp:Date.now()})}).catch(()=>{})
-            // #endregion
           }
           next = true
         } else {
@@ -541,9 +532,6 @@ export function MegaMenu({
 
         if (prev === next) return prev
 
-        // #region agent log
-        fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'initial',hypothesisId:'H3',location:'src/components/MegaMenu/index.tsx:visible-transition',message:'MegaMenu visibility transition',data:{currentScrollY,prevScrollY,delta,scrollingDown,scrollingUp,absDelta,prevVisible:prev,nextVisible:next,wasPastFold,nextPastFold,activeMenu,revealFromTop:prev===false&&next===true&&nextPastFold&&scrollingUp,hideToTop:prev===true&&next===false&&nextPastFold&&scrollingDown},timestamp:Date.now()})}).catch(()=>{})
-        // #endregion
         setRevealFromTop(prev === false && next === true && nextPastFold && scrollingUp)
         setHideToTop(prev === true && next === false && nextPastFold && scrollingDown)
 
@@ -553,9 +541,6 @@ export function MegaMenu({
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
-    // #region agent log
-    fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'initial',hypothesisId:'H4',location:'src/components/MegaMenu/index.tsx:effect-init',message:'MegaMenu scroll effect initialized',data:{initialScrollY:window.scrollY,activeMenu},timestamp:Date.now()})}).catch(()=>{})
-    // #endregion
     return () => window.removeEventListener('scroll', handleScroll)
   }, [activeMenu])
 

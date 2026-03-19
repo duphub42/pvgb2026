@@ -138,14 +138,14 @@
   /* Hero-Offset: sorgt dafür, dass Hero-Content erst unterhalb der Header-Höhe + 10vh beginnt,
      damit sich Header- und Hero-Inhalte nicht überlappen. */
   .hero-offset {
-    padding-top: max(calc(var(--header-height) + 10vh), 180px);
+    padding-top: max(calc((var(--header-height) + 10vh) * 1.05), calc(180px * 1.05));
   }
 
   /* Sehr kleine Viewports (< 430px): Abstand etwas reduzieren,
      damit mehr Platz für den Hero-Content bleibt. */
   @media (max-width: 429px) {
     .hero-offset {
-      padding-top: calc(var(--header-height) + 1vh);
+      padding-top: calc((var(--header-height) + 1vh) * 1.05);
     }
   }
 
@@ -2434,12 +2434,17 @@ html.theme-fallback {
   border-bottom-color: rgba(255, 255, 255, 0.12) !important;
   color: #fafafa;
 }
+
+/* Dark mode: without scroll keep header transparent; only hover adds background. */
+[data-theme='dark'] .megamenu[data-sticky='true']:not([data-scrolled='true']):not(:hover),
+[data-theme='dark'] .site-header[data-sticky='true']:not([data-scrolled='true']):not(:hover) {
+  background-color: transparent !important;
+  border-bottom-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
 /* Megamenu-Dropdown exakt auf Unterkante des Headers: Positionierung relativ zum Header */
 .megamenu {
-  position: relative;
-}
-
-.megamenu[data-sticky='true'] {
   position: fixed;
   top: 0;
   left: 0;
@@ -3031,15 +3036,15 @@ header .header-tool-toggle--theme:hover {
 
 /* Dark: Farben invertiert (dunkler Header/Dropdown, helle Texte) */
 [data-theme='dark'] .megamenu {
-  background-color: rgba(10, 10, 10, 0.55) !important;
-  border-bottom-color: rgba(255, 255, 255, 0.12) !important;
+  background-color: transparent !important;
+  border-bottom-color: transparent !important;
   box-shadow: none;
   color: #fafafa;
   transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 [data-theme='dark'] .site-header {
-  background-color: rgba(10, 10, 10, 0.55) !important;
-  border-bottom-color: rgba(255, 255, 255, 0.12) !important;
+  background-color: transparent !important;
+  border-bottom-color: transparent !important;
   box-shadow: none;
   color: #fafafa;
   transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
