@@ -28,13 +28,18 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
   const [revealFromTop, setRevealFromTop] = useState(false)
   const [hideToTop, setHideToTop] = useState(false)
   const lastScrollYRef = useRef(0)
-  const prevPastFoldRef = useRef<boolean | null>(null)
+  const isPastFoldRef = useRef(false)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const { theme: globalTheme } = useTheme()
   const pathname = usePathname()
   const useMegaMenu = (data as Header & { useMegaMenu?: boolean })?.useMegaMenu === true && megaMenuItems.length > 0
 
   useEffect(() => {
+    const stickyEnterThresholdPx = 12
+    const stickyLeaveThresholdPx = 0
+    const minDeltaForTogglePx = 6
+    const nonStickyRevealBufferPx = 24
+
     const handleScroll = () => {
       const currentScrollY = window.scrollY
       const prevScrollY = lastScrollYRef.current
@@ -46,36 +51,62 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
 
       setIsScrolled(currentScrollY > 20)
 
-      // Over-the-fold handling:
-      const fullFoldThresholdPx = window.innerHeight
-      const pastFold = currentScrollY > fullFoldThresholdPx
+      // Sticky handling starts at page top instead of over-the-fold.
 
-      if (prevPastFoldRef.current !== pastFold) {
-        prevPastFoldRef.current = pastFold
-        setIsPastFold(pastFold)
+      const wasPastFold = isPastFoldRef.current
+      const nextPastFold = wasPastFold
+        ? currentScrollY > stickyLeaveThresholdPx
+        : currentScrollY >= stickyEnterThresholdPx
+
+      if (nextPastFold !== wasPastFold) {
+        const headerEl = document.querySelector('.site-header') as HTMLElement | null
+        const mainEl = document.querySelector('main') as HTMLElement | null
+        const headerRect = headerEl?.getBoundingClientRect()
+        const mainRect = mainEl?.getBoundingClientRect()
+        // #region agent log
+        fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'initial',hypothesisId:'H1',location:'src/Header/Component.client.tsx:fold-transition',message:'Header fold transition',data:{currentScrollY,prevScrollY,delta,scrollingDown,scrollingUp,wasPastFold,nextPastFold,stickyEnterThresholdPx,stickyLeaveThresholdPx,headerTop:headerRect?.top??null,headerBottom:headerRect?.bottom??null,mainTop:mainRect?.top??null},timestamp:Date.now()})}).catch(()=>{})
+        // #endregion
+        isPastFoldRef.current = nextPastFold
+        setIsPastFold(nextPastFold)
       }
+
       setHeaderVisible((prev) => {
         let next = prev
+        const hideAfterPx = stickyEnterThresholdPx + 48
 
-        if (!pastFold) {
+        if (!nextPastFold) {
+          if (wasPastFold && !nextPastFold) {
+            setHideToTop(false)
+            setRevealFromTop(false)
+            // #region agent log
+            fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'post-fix',hypothesisId:'H6',location:'src/Header/Component.client.tsx:sticky-exit-normalize',message:'Header sticky exit normalized to visible and animations reset',data:{currentScrollY,prevScrollY,delta,prevVisible:prev,nextVisible:true,wasPastFold,nextPastFold,resetHideToTop:true,resetRevealFromTop:true},timestamp:Date.now()})}).catch(()=>{})
+            // #endregion
+          }
           next = true
         } else {
-          const minDeltaForTogglePx = 6
-          if (absDelta >= minDeltaForTogglePx) {
-            if (scrollingDown) next = false
-            else if (scrollingUp) next = true
+          if (scrollingDown && absDelta >= minDeltaForTogglePx && currentScrollY >= hideAfterPx) {
+            next = false
+          } else if (scrollingUp && absDelta >= minDeltaForTogglePx) {
+            next = true
           }
         }
 
         if (prev === next) return prev
 
-        setRevealFromTop(prev === false && next === true && pastFold && scrollingUp)
-        setHideToTop(prev === true && next === false && pastFold && scrollingDown)
+        // #region agent log
+        fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'initial',hypothesisId:'H3',location:'src/Header/Component.client.tsx:visible-transition',message:'Header visibility transition',data:{currentScrollY,prevScrollY,delta,scrollingDown,scrollingUp,absDelta,prevVisible:prev,nextVisible:next,wasPastFold,nextPastFold,revealFromTop:prev===false&&next===true&&nextPastFold&&scrollingUp,hideToTop:prev===true&&next===false&&nextPastFold&&scrollingDown},timestamp:Date.now()})}).catch(()=>{})
+        // #endregion
+        setRevealFromTop(prev === false && next === true && nextPastFold && scrollingUp)
+        setHideToTop(prev === true && next === false && nextPastFold && scrollingDown)
 
         return next
       })
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
+    handleScroll()
+    // #region agent log
+    fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'f78f70'},body:JSON.stringify({sessionId:'f78f70',runId:'initial',hypothesisId:'H4',location:'src/Header/Component.client.tsx:effect-init',message:'Header scroll effect initialized',data:{initialScrollY:window.scrollY,pathname},timestamp:Date.now()})}).catch(()=>{})
+    // #endregion
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 

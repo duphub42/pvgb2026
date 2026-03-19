@@ -2369,11 +2369,20 @@ html.theme-fallback {
   color: #171717;
   backdrop-filter: none;
   -webkit-backdrop-filter: none;
-  transition-property: transform, opacity, background-color, box-shadow, border-color;
-  transition-duration: 1200ms, 1200ms, 0.2s, 0.2s, 0.2s;
+  transition-property:
+    transform,
+    opacity,
+    background-color,
+    box-shadow,
+    border-color,
+    backdrop-filter,
+    -webkit-backdrop-filter;
+  transition-duration: 900ms, 900ms, 260ms, 260ms, 260ms, 260ms, 260ms;
   transition-timing-function:
     cubic-bezier(0.12, 0.95, 0.22, 1),
     cubic-bezier(0.12, 0.95, 0.22, 1),
+    ease,
+    ease,
     ease,
     ease,
     ease;
