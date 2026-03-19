@@ -22,6 +22,7 @@ const nextConfig = {
   typescript: { ignoreBuildErrors: true },
   // PageSpeed: tree-shake large packages so less JS is shipped
   experimental: {
+    // Critical CSS: Next.js hat kein built-in optimizeCss; bei Bedarf z. B. next-critical-css oder critters als Plugin.
     // Weniger Script-Größe: nur genutzte Exports aus großen Paketen laden
     optimizePackageImports: [
       '@radix-ui/react-navigation-menu',

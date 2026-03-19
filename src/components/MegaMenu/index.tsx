@@ -357,9 +357,12 @@ export function MegaMenu({
   const cardStyle = highlightCardStyle ?? defaultCardStyle
   const pathname = usePathname()
   const [isVisible, setIsVisible] = useState(true)
+  const [isPastFold, setIsPastFold] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [revealFromTop, setRevealFromTop] = useState(false)
+  const [hideToTop, setHideToTop] = useState(false)
   const lastScrollYRef = React.useRef(0)
-  const scrollReadyRef = React.useRef(false)
+  const prevPastFoldRef = React.useRef<boolean | null>(null)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const navListWrapRef = useRef<HTMLDivElement>(null)
   const viewportWrapperRef = useRef<HTMLDivElement>(null)
@@ -388,15 +391,6 @@ export function MegaMenu({
   const featuredCols = columnWidths?.featured ?? 3
 
   const sortedItems = [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-    lastScrollYRef.current = window.scrollY
-    const t = setTimeout(() => {
-      scrollReadyRef.current = true
-    }, 500)
-    return () => clearTimeout(t)
-  }, [])
 
   useLayoutEffect(() => {
     const wrap = navListWrapRef.current
@@ -485,26 +479,46 @@ export function MegaMenu({
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
-      const lastScrollY = lastScrollYRef.current
-      const delta = currentScrollY - lastScrollY
+      const prevScrollY = lastScrollYRef.current
+      const delta = currentScrollY - prevScrollY
       lastScrollYRef.current = currentScrollY
+      const scrollingDown = delta > 0
+      const scrollingUp = delta < 0
+      const absDelta = Math.abs(delta)
       setIsScrolled(currentScrollY > 20)
-      if (activeMenu != null) {
-        setIsVisible(true)
-        return
+
+      // Sticky activation happens at full over-the-fold.
+      const fullFoldThresholdPx = window.innerHeight
+      const pastFold = currentScrollY > fullFoldThresholdPx
+
+      if (prevPastFoldRef.current !== pastFold) {
+        prevPastFoldRef.current = pastFold
+        setIsPastFold(pastFold)
       }
-      const nearTop = currentScrollY < 100
-      const scrollingDown = delta > 10
-      const scrollingUp = delta < -10
-      const pastThreshold = currentScrollY > 100
-      const mayHide = scrollReadyRef.current
-      if (nearTop || scrollingUp) {
-        setIsVisible(true)
-      } else if (mayHide && scrollingDown && pastThreshold) {
-        setIsVisible(false)
-      } else {
-        setIsVisible(true)
-      }
+
+      setIsVisible((prev) => {
+        // Keep visible while dropdown is open.
+        if (activeMenu != null) return true
+        let next = prev
+
+        if (!pastFold) {
+          next = true
+        } else {
+          const minDeltaForTogglePx = 6
+          if (absDelta >= minDeltaForTogglePx) {
+            if (scrollingDown) next = false
+            else if (scrollingUp) next = true
+          }
+        }
+
+        if (prev === next) return prev
+
+        setRevealFromTop(prev === false && next === true && pastFold && scrollingUp)
+        setHideToTop(prev === true && next === false && pastFold && scrollingDown)
+
+        return next
+      })
+
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
@@ -522,21 +536,27 @@ export function MegaMenu({
 
       <header
         className={cn(
-          'megamenu sticky top-0 z-50 w-full transition-all duration-300 ease-out',
-          'bg-[var(--background)]',
-          isVisible
+          'megamenu z-50 w-full transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)] will-change-transform',
+          revealFromTop && 'header-reveal-from-top',
+          hideToTop && 'header-hide-to-top',
+          isVisible || hideToTop
             ? 'translate-y-0 opacity-100 visible'
-            : '-translate-y-full opacity-0 pointer-events-none invisible',
+            : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
           className,
         )}
         data-scrolled={isScrolled ? 'true' : undefined}
+        data-sticky={isPastFold ? 'true' : undefined}
+        onAnimationEnd={() => {
+          setRevealFromTop(false)
+          setHideToTop(false)
+        }}
       >
         <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
           <div className="flex flex-1 items-center justify-between">
             <div className="flex items-center">{logo}</div>
             <div className="megamenu-nav-wrap flex h-full items-stretch gap-4">
           <NavigationMenu
-            className="megamenu-nav hidden md:flex md:h-full md:flex-initial md:ml-auto"
+            className="megamenu-nav hidden lg:flex lg:h-full lg:flex-initial lg:ml-auto"
             value={activeMenu ?? ''}
             onValueChange={(value) => {
               const next = value || null
@@ -1014,10 +1034,15 @@ export function MegaMenu({
                 />
               </div>
             </NavigationMenu>
-            <div className="hidden md:flex items-center gap-0">
-              <HeaderActions />
+            <div className="hidden lg:flex items-center gap-0">
+              <HeaderActions
+                contactCta={{
+                  whatsapp: megaMenuCta?.whatsapp,
+                  callback: megaMenuCta?.callback,
+                }}
+              />
             </div>
-            <div className="flex md:hidden shrink-0 items-center">
+            <div className="flex lg:hidden shrink-0 items-center">
               <Sheet>
                 <SheetTrigger asChild>
                   <span className="inline-flex shrink-0">

@@ -30,6 +30,15 @@ export const generateMeta = async (args: {
     ? doc?.meta?.title + ' | Payload Website Template'
     : 'Payload Website Template'
 
+  const rawSlug = (doc as any)?.slug
+  let path = '/'
+  if (Array.isArray(rawSlug)) {
+    const parts = rawSlug.filter(Boolean)
+    if (parts.length > 0) path = `/${parts.join('/')}`
+  } else if (typeof rawSlug === 'string' && rawSlug && rawSlug !== 'home') {
+    path = `/${rawSlug}`
+  }
+
   return {
     description: doc?.meta?.description,
     openGraph: mergeOpenGraph({
@@ -42,8 +51,11 @@ export const generateMeta = async (args: {
           ]
         : undefined,
       title,
-      url: Array.isArray(doc?.slug) ? doc?.slug.join('/') : '/',
+      url: path,
     }),
+    alternates: {
+      canonical: path,
+    },
     title,
   }
 }

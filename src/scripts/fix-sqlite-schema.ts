@@ -180,6 +180,45 @@ function main() {
         block_name TEXT
       );`,
     },
+    // Shadcn Block: Content-Gruppe (headline, subheadline, body, images, links)
+    { name: 'site_pages_blocks_shadcn_block: content_headline', sql: 'ALTER TABLE site_pages_blocks_shadcn_block ADD COLUMN content_headline TEXT;' },
+    { name: 'site_pages_blocks_shadcn_block: content_subheadline', sql: 'ALTER TABLE site_pages_blocks_shadcn_block ADD COLUMN content_subheadline TEXT;' },
+    { name: 'site_pages_blocks_shadcn_block: content_body', sql: 'ALTER TABLE site_pages_blocks_shadcn_block ADD COLUMN content_body TEXT;' },
+    {
+      name: 'site_pages_blocks_shadcn_block_content_images: table',
+      sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_shadcn_block_content_images (
+        _order INTEGER NOT NULL,
+        _parent_id TEXT NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        media_id INTEGER REFERENCES media(id)
+      );`,
+    },
+    {
+      name: 'lnks: table (ShadcnBlock content links)',
+      sql: `CREATE TABLE IF NOT EXISTS lnks (
+        _order INTEGER NOT NULL,
+        _parent_id TEXT NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        link_type TEXT DEFAULT 'reference',
+        link_new_tab INTEGER DEFAULT 0,
+        link_url TEXT,
+        link_label TEXT,
+        link_appearance TEXT DEFAULT 'default'
+      );`,
+    },
+    // Shadcn Block Content: Version-Tabellen (Drafts)
+    { name: '_site_pages_v_blocks_shadcn_block: content_headline', sql: 'ALTER TABLE _site_pages_v_blocks_shadcn_block ADD COLUMN content_headline TEXT;' },
+    { name: '_site_pages_v_blocks_shadcn_block: content_subheadline', sql: 'ALTER TABLE _site_pages_v_blocks_shadcn_block ADD COLUMN content_subheadline TEXT;' },
+    { name: '_site_pages_v_blocks_shadcn_block: content_body', sql: 'ALTER TABLE _site_pages_v_blocks_shadcn_block ADD COLUMN content_body TEXT;' },
+    {
+      name: '_site_pages_v_blocks_shadcn_block_content_images: table',
+      sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_shadcn_block_content_images (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        media_id INTEGER REFERENCES media(id)
+      );`,
+    },
     // Version-Tabellen für Drafts (gleiche Spalten)
     { name: '_site_pages_v_blocks_content: block_background', sql: "ALTER TABLE _site_pages_v_blocks_content ADD COLUMN block_background TEXT DEFAULT 'none';" },
     { name: '_site_pages_v_blocks_content: block_overlay_enabled', sql: 'ALTER TABLE _site_pages_v_blocks_content ADD COLUMN block_overlay_enabled INTEGER DEFAULT 0;' },

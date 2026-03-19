@@ -9,9 +9,8 @@ import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 
-// Preview/Draft: dynamic. Published pages: cached 60s for PageSpeed.
-export const dynamic = 'force-dynamic'
-export const revalidate = 0
+// ISR: Published pages cached 60s (besserer TTFB). Draft/Preview bleibt dynamisch durch draftMode().
+export const revalidate = 60
 
 type PageProps = {
   params: Promise<{ slug?: string }>
@@ -151,7 +150,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
         <HeroErrorBoundary>
           <RenderHero {...heroProps} />
         </HeroErrorBoundary>
-        <div className="relative z-20 pt-24 hero-following-section-mask">
+        <div className="relative z-20 md:z-[31] pt-24 md:-mt-16 hero-following-section-mask">
           <RenderBlocks blocks={Array.isArray(page.layout) ? page.layout : []} />
         </div>
       </article>
@@ -222,7 +221,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
       { revalidate: 60, tags: ['site-pages', `page-${slugKey}`] },
     )
     const pages = await getCachedMetaPage(slugKey)
-    return generateMeta({ doc: pages.docs[0] })
+    const meta = await generateMeta({ doc: pages.docs[0] })
+
+    return meta
   } catch (err) {
     const e = err as Error & { cause?: Error }
     const causeMsg = e?.cause instanceof Error ? e.cause.message : String(e?.cause ?? '')

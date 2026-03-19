@@ -6,7 +6,7 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { getMediaUrlSafe } from '@/utils/media'
 import { Marquee } from '@/components/ui/marquee'
 import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
-import React, { useEffect, useMemo, useRef, useState } from 'react'
+import React, { useMemo } from 'react'
 import type { ComponentProps } from 'react'
 import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 import type { HeroBackground } from '@/payload-types'
@@ -102,70 +102,6 @@ const SECTION_STYLE: React.CSSProperties = {
 // Helper: Portrait-Transform berechnen
 // -------------------------------
 
-function debounce<T extends (...args: any[]) => void>(fn: T, delay: number): T {
-  let timeoutId: number | undefined
-
-  return function debounced(this: unknown, ...args: any[]) {
-    if (timeoutId !== undefined) {
-      window.clearTimeout(timeoutId)
-    }
-    timeoutId = window.setTimeout(() => {
-      fn.apply(this, args)
-    }, delay)
-  } as T
-}
-
-function computePortraitTransform(imgRect: DOMRect, viewportWidth: number): string {
-  const isVeryNarrow = viewportWidth < 555
-
-  // Kleine Viewports: Bild nicht nach oben oder nach links verschieben, keine zusätzliche Skalierung.
-  // So bleibt der Kopf sichtbar und die Beschneidung kann höchstens unten oder rechts passieren.
-  if (isVeryNarrow) {
-    return 'translateY(40px)'
-  }
-
-  // Große Viewports: nur nach links clampen wenn Overflow
-  const overflowRight = imgRect.right - viewportWidth
-  if (overflowRight > 0) {
-    return `translate(${-overflowRight}px, 40px)`
-  }
-
-  return 'translateY(40px)'
-}
-
-function usePortraitTransform() {
-  const [portraitTransform, setPortraitTransform] = useState<string>('translateY(40px)')
-  const imgRef = useRef<HTMLImageElement | null>(null)
-
-  useEffect(() => {
-    const img = imgRef.current
-    if (!img) return
-
-    function updateTransform() {
-      const current = imgRef.current
-      if (!current) return
-      const rect = current.getBoundingClientRect()
-      setPortraitTransform(computePortraitTransform(rect, window.innerWidth))
-    }
-
-    const debouncedUpdate = debounce(updateTransform, 100)
-
-    // Initial berechnen (nach Paint)
-    const rafId = requestAnimationFrame(debouncedUpdate)
-
-    // Bei Resize neu berechnen (z. B. Orientierungswechsel)
-    const observer = new ResizeObserver(() => debouncedUpdate())
-    observer.observe(document.documentElement)
-
-    return () => {
-      cancelAnimationFrame(rafId)
-      observer.disconnect()
-    }
-  }, [])
-
-  return { imgRef, portraitTransform }
-}
-
 // -------------------------------
 // Einfache Hero-Komponente (Copy-Paste-Referenz, Tailwind-only)
 // -------------------------------
@@ -192,7 +128,6 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   const hasLines = lines.length > 0
   const headlineText = hasLines ? undefined : headline
 
-  const { imgRef, portraitTransform } = usePortraitTransform()
   const foregroundImageUrl = foregroundImage ? getMediaUrlSafe(foregroundImage) : null
   const overlayStyle = useMemo(
     () => ({ opacity: overlayOpacity ?? 0.42 }),
@@ -249,7 +184,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       />
 
       {/* Haupt-Content */}
-      <div className="relative z-[40] container max-w-6xl mx-auto px-4 md:px-6 py-8 sm:py-10 md:py-12 lg:py-16 text-left flex flex-col items-start justify-center w-full gap-0 hero-box-gradient md:translate-y-[4vh]">
+      <div className="relative z-[40] container max-w-6xl mx-auto px-4 md:px-6 py-8 sm:py-10 md:py-12 lg:py-16 lg:pr-[34%] xl:pr-[32%] text-left flex flex-col items-start justify-center w-full gap-0 hero-box-gradient md:translate-y-[4vh]">
         {/* Subheadline: blendet als Letztes von unten nach oben ein */}
         {subheadline && (
           <p
@@ -383,22 +318,25 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Vordergrundbild (Portrait): langsamer Fade-in von unten nach oben */}
       {foregroundImageUrl && (
         <div className="pointer-events-none w-full">
-          <div className="relative max-w-6xl mx-auto hero-foreground-container">
+          <div
+            className="relative max-w-6xl mx-auto hero-foreground-container"
+          >
             <div
-              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(28rem,48vw)] box-content h-fit md:z-20"
+              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(24rem,40vw)] box-content h-fit md:z-20"
               style={{
                 animationDelay: `${HERO_ANIM.portraitDelayMs}ms`,
                 animationDuration: `${HERO_ANIM.portraitDurationMs}ms`,
               }}
             >
               <Image
-                ref={imgRef}
                 src={foregroundImageUrl}
                 alt={headlineText || subheadline || 'Portrait'}
                 width={414}
                 height={600}
-                className="hero-simple-portrait-img hero-portrait-sm hero-simple-portrait w-full h-fit object-contain object-bottom"
-                style={{ transform: portraitTransform }}
+                priority
+                fetchPriority="high"
+                sizes="(max-width: 555px) 88vw, (max-width: 768px) 48vw, 28rem"
+                className="hero-simple-portrait-img hero-portrait-sm w-full h-fit object-contain object-bottom"
               />
             </div>
           </div>

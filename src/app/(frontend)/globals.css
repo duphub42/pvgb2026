@@ -160,6 +160,12 @@
   [data-theme='dark'] .hero-foreground-container {
     filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.9));
   }
+  @media (min-width: 1024px) {
+    /* Desktop: Schatten nur nach oben, damit unter dem Portrait kein Schatten sichtbar wird. */
+    [data-theme='dark'] .hero-foreground-container {
+      filter: drop-shadow(0 -20px 40px rgba(0, 0, 0, 0.75));
+    }
+  }
 
   /* Mask auf dem Portrait-Wrapper (hat reale Höhe), weicher Übergang unten in den Shape-Divider. */
   .hero-portrait-fade-up {
@@ -191,11 +197,11 @@
     padding-top: calc(var(--header-height) + 1.5rem);
   }
 
-  /* Desktop: Herobild soll nicht in den Header hineinragen:
-     zusätzlicher Top-Padding-Abstand entsprechend Header-Höhe. */
+  /* Desktop: Herobild soll nicht in den Header hineinragen, aber vollständig sichtbar bleiben. */
   @media (min-width: 1024px) {
     .hero-simple-portrait {
-      padding-top: calc(var(--header-height) + 6rem);
+      /* Ensure the portrait has at least ~3% viewport-height gap to the header. */
+      padding-top: calc(var(--header-height) + 3vh);
     }
   }
 
@@ -203,22 +209,40 @@
      - drop-shadow sitzt auf .hero-foreground-container (nicht hier), damit clip-path den Schatten nicht abschneidet
      - clip-path nur auf dem Bild: unten 3.5rem für Shape-Divider, seitlich -20% Luft
   */
+  /* Transform nur in CSS (kein JS) → vermeidet CLS durch Hydration. */
   .hero-simple-portrait-img {
+    transform: translateY(40px);
     transition: transform 200ms ease-out;
     box-sizing: content-box;
     vertical-align: top;
     box-shadow: none;
     filter: none;
-    clip-path: inset(0 -20% 3.5rem -20%);
+    /* Weniger starker Beschnitt unten, damit das Portrait bei großen Auflösungen nicht „halbiert“ wirkt. */
+    clip-path: inset(0 -20% 1.75rem -20%);
   }
 
-  /* Desktop: Bild-Mittelpunkt bei ca. 65% der Hero-Breite (50% Mitte + 15% nach rechts),
-     ohne über den rechten Inhaltsrand hinauszuragen. */
+  /* Desktop: Portrait soll vollständig sichtbar sein.
+     Die bestehende mask-image (Fade-out unten) und der Bottom-clip können ab ~1024px wie „halbiert“ wirken. */
   @media (min-width: 1024px) {
-    .hero-simple-portrait {
-      right: auto;
-      left: 72%;
-      transform: translateX(-50%);
+    .hero-portrait-fade-up {
+      mask-image: none;
+      -webkit-mask-image: none;
+      /* Unter beiden Shape-Dividern halten, damit unten kein Portrait-Schatten darueber sichtbar ist. */
+      z-index: 28;
+      top: auto;
+      bottom: 0;
+      right: 0;
+      left: auto;
+      max-width: min(30rem, 45vw);
+    }
+
+    .hero-simple-portrait-img {
+      clip-path: inset(0 -20% 0rem -20%);
+      max-height: calc(100vh - var(--header-height) - 3vh);
+      width: auto;
+      max-width: 100%;
+      transform: translateY(0);
+      margin-left: auto;
     }
   }
 
@@ -230,6 +254,17 @@
       transparent 1.25rem,
       var(--background) 2.75rem
     );
+  }
+  @media (min-width: 1024px) {
+    /* Desktop: frueher deckend werden, damit der untere Portrait-Schatten sicher verborgen bleibt. */
+    .hero-following-section-mask {
+      background: linear-gradient(
+        to bottom,
+        transparent 0,
+        transparent 0.4rem,
+        var(--background) 1.1rem
+      );
+    }
   }
 
   /* Hero-Verlauf + Schatten/Glow auf ::before (verdoppelte Intensität), Mask nur auf ::before,
@@ -276,7 +311,7 @@
       }
     }
     .hero-portrait-sm {
-      transform: scale(1.11);
+      transform: translateY(40px) scale(1.11);
       transform-origin: bottom right;
     }
     .hero-box-gradient {
@@ -307,7 +342,7 @@
   /* iPhone SE und kleiner: Hero-Bild nicht vergrößern (100% Skalierung). */
   @media (max-width: 375px) {
     .hero-portrait-sm {
-      transform: scale(1);
+      transform: translateY(40px) scale(1);
       transform-origin: bottom right;
     }
   }
@@ -793,6 +828,22 @@
   .hero-portrait-fade-up {
     opacity: 0;
     animation: hero-portrait-fade-up 1.8s ease-out both;
+  }
+  @media (min-width: 1024px) {
+    @keyframes hero-portrait-fade-up-desktop {
+      from {
+        opacity: 0;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Desktop: kein vertikaler Motion-Offset, damit das Portrait nicht unter dem Hero aufblitzt. */
+    .hero-portrait-fade-up {
+      animation-name: hero-portrait-fade-up-desktop;
+    }
   }
 
   /* Hero-Hintergrundmuster (Graustufen, 50 % Intensität).
@@ -2316,11 +2367,74 @@ html.theme-fallback {
   outline: none !important;
   box-shadow: none !important;
   color: #171717;
-  transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition-property: transform, opacity, background-color, box-shadow, border-color;
+  transition-duration: 1200ms, 1200ms, 0.2s, 0.2s, 0.2s;
+  transition-timing-function:
+    cubic-bezier(0.12, 0.95, 0.22, 1),
+    cubic-bezier(0.12, 0.95, 0.22, 1),
+    ease,
+    ease,
+    ease;
+}
+
+@keyframes header-reveal-from-top {
+  from {
+    transform: translateY(-115%);
+    opacity: 0.15;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.site-header.header-reveal-from-top,
+.megamenu.header-reveal-from-top {
+  animation: header-reveal-from-top 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes header-hide-to-top {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-115%);
+    opacity: 0.15;
+  }
+}
+
+.site-header.header-hide-to-top,
+.megamenu.header-hide-to-top {
+  animation: header-hide-to-top 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.megamenu[data-sticky='true'],
+.site-header[data-sticky='true'] {
+  background-color: rgba(255, 255, 255, 0.55) !important;
+  border-bottom-color: rgba(0, 0, 0, 0.08) !important;
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+}
+
+[data-theme='dark'] .megamenu[data-sticky='true'],
+[data-theme='dark'] .site-header[data-sticky='true'] {
+  background-color: rgba(10, 10, 10, 0.55) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.12) !important;
+  color: #fafafa;
 }
 /* Megamenu-Dropdown exakt auf Unterkante des Headers: Positionierung relativ zum Header */
 .megamenu {
   position: relative;
+}
+
+.megamenu[data-sticky='true'] {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 .megamenu .megamenu-nav {
   position: static;
@@ -2495,20 +2609,35 @@ html.theme-fallback {
 /* Hover: unterer Rand = gleiche Farbe/Dicke wie Megamenu-Dropdown (1px solid #e5e5e5) */
 .megamenu:hover,
 .site-header:hover {
-  background-color: #ffffff !important;
-  border-bottom: 1px solid #e5e5e5 !important;
+  background-color: rgba(255, 255, 255, 0.75) !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important;
+}
+
+[data-theme='dark'] .megamenu:hover,
+[data-theme='dark'] .site-header:hover {
+  background-color: rgba(10, 10, 10, 0.75) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important;
 }
 /* Mobile: kein Hover-Hintergrund – Hintergrund nur beim Scrollen (sticky) */
 @media (width < 48rem) {
-  .megamenu:hover,
-  .site-header:hover {
-    background-color: transparent !important;
+  .megamenu[data-sticky='true']:hover,
+  .site-header[data-sticky='true']:hover {
+    background-color: rgba(255, 255, 255, 0.55) !important;
   }
   .megamenu[data-scrolled='true'],
   .site-header[data-scrolled='true'] {
-    background-color: #ffffff !important;
+    background-color: rgba(255, 255, 255, 0.65) !important;
     box-shadow: none;
-    border-bottom: 1px solid #e5e5e5 !important; /* wie Megamenu-Dropdown */
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important; /* wie Megamenu-Dropdown */
+  }
+  [data-theme='dark'] .megamenu[data-sticky='true']:hover,
+  [data-theme='dark'] .site-header[data-sticky='true']:hover {
+    background-color: rgba(10, 10, 10, 0.55) !important;
+  }
+  [data-theme='dark'] .megamenu[data-scrolled='true'],
+  [data-theme='dark'] .site-header[data-scrolled='true'] {
+    background-color: rgba(10, 10, 10, 0.65) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important; /* wie Megamenu-Dropdown */
   }
   [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link img,
   [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link svg,
@@ -2893,15 +3022,15 @@ header .header-tool-toggle--theme:hover {
 
 /* Dark: Farben invertiert (dunkler Header/Dropdown, helle Texte) */
 [data-theme='dark'] .megamenu {
-  background-color: transparent !important;
-  border-bottom-color: transparent;
+  background-color: rgba(10, 10, 10, 0.55) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.12) !important;
   box-shadow: none;
   color: #fafafa;
   transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 [data-theme='dark'] .site-header {
-  background-color: transparent !important;
-  border-bottom-color: transparent;
+  background-color: rgba(10, 10, 10, 0.55) !important;
+  border-bottom-color: rgba(255, 255, 255, 0.12) !important;
   box-shadow: none;
   color: #fafafa;
   transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
@@ -2914,7 +3043,7 @@ header .header-tool-toggle--theme:hover {
 /* Dark: unterer Rand = gleiche Farbe/Dicke wie Megamenu-Dropdown (1px solid #262626) */
 [data-theme='dark'] .megamenu:hover,
 [data-theme='dark'] .site-header:hover {
-  background-color: #0a0a0a !important;
+  background-color: rgba(10, 10, 10, 0.75) !important;
   box-shadow: none;
   border-bottom: 1px solid #262626 !important;
 }

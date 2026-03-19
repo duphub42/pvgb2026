@@ -36,5 +36,31 @@
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit"
     }
+  },
+  "shadcnblocks.apiKey": "sk_live_LfxNIF7vSej8mmkTNVP6Nb8CK8KjOgvG",
+  "piny.project_settings": {
+    "open-pages": [
+      "pinyfakepage.html"
+    ],
+    "ai-project-brief": null,
+    "app-routes": {
+      "routes": [
+        "/",
+        "/(frontend)",
+        "/(frontend)/posts",
+        "/(frontend)/search",
+        "/_app",
+        "/_document",
+        "/hooks/normalizeLayout",
+        "/hooks/revalidatePage",
+        "/hooks/stripIdOnUpdate"
+      ],
+      "current_route": "/"
+    },
+    "tw-external-config": {
+      "external_source_url": "src/app/%28frontend%29/globals.css"
+    },
+    "source-folders": null,
+    "preview-url": "http://localhost:3000"
   }
 }

@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next'
+import Script from 'next/script'
 
 /** Layout nutzt cookies() für Locale – alle Routen unter (frontend) sind dynamisch. */
 export const dynamic = 'force-dynamic'
@@ -73,6 +74,9 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             {children}
             <Footer locale={locale} />
           </Providers>
+          {process.env.NODE_ENV === 'development' && process.env.PINY_VISUAL_SELECT === 'true' && (
+            <Script src="/_piny/piny.phone.js" strategy="beforeInteractive" />
+          )}
         </body>
       </html>
     )

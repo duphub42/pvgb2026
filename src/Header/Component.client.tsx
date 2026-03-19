@@ -23,43 +23,57 @@ interface HeaderClientProps {
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems = [] }) => {
   const [theme, setTheme] = useState<string | null>(null)
   const [headerVisible, setHeaderVisible] = useState(true)
+  const [isPastFold, setIsPastFold] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [revealFromTop, setRevealFromTop] = useState(false)
+  const [hideToTop, setHideToTop] = useState(false)
   const lastScrollYRef = useRef(0)
-  const scrollReadyRef = useRef(false)
+  const prevPastFoldRef = useRef<boolean | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const { theme: globalTheme } = useTheme()
   const pathname = usePathname()
   const useMegaMenu = (data as Header & { useMegaMenu?: boolean })?.useMegaMenu === true && megaMenuItems.length > 0
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      lastScrollYRef.current = window.scrollY
-      const t = setTimeout(() => {
-        scrollReadyRef.current = true
-      }, 500)
-      return () => clearTimeout(t)
-    }
-  }, [])
-
-  useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
-      const lastScrollY = lastScrollYRef.current
-      const delta = currentScrollY - lastScrollY
+      const prevScrollY = lastScrollYRef.current
+      const delta = currentScrollY - prevScrollY
       lastScrollYRef.current = currentScrollY
+      const scrollingDown = delta > 0
+      const scrollingUp = delta < 0
+      const absDelta = Math.abs(delta)
+
       setIsScrolled(currentScrollY > 20)
-      const nearTop = currentScrollY < 100
-      const scrollingDown = delta > 10
-      const scrollingUp = delta < -10
-      const pastThreshold = currentScrollY > 100
-      const mayHide = scrollReadyRef.current
-      if (nearTop || scrollingUp) {
-        setHeaderVisible(true)
-      } else if (mayHide && scrollingDown && pastThreshold) {
-        setHeaderVisible(false)
-      } else {
-        setHeaderVisible(true)
+
+      // Over-the-fold handling:
+      const fullFoldThresholdPx = window.innerHeight
+      const pastFold = currentScrollY > fullFoldThresholdPx
+
+      if (prevPastFoldRef.current !== pastFold) {
+        prevPastFoldRef.current = pastFold
+        setIsPastFold(pastFold)
       }
+      setHeaderVisible((prev) => {
+        let next = prev
+
+        if (!pastFold) {
+          next = true
+        } else {
+          const minDeltaForTogglePx = 6
+          if (absDelta >= minDeltaForTogglePx) {
+            if (scrollingDown) next = false
+            else if (scrollingUp) next = true
+          }
+        }
+
+        if (prev === next) return prev
+
+        setRevealFromTop(prev === false && next === true && pastFold && scrollingUp)
+        setHideToTop(prev === true && next === false && pastFold && scrollingDown)
+
+        return next
+      })
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
@@ -183,13 +197,21 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
   return (
     <header
       className={cn(
-        'site-header sticky top-0 z-50 w-full transition-[transform,opacity] duration-300 ease-out',
-        headerVisible
+        'site-header z-50 w-full transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)] will-change-transform',
+        revealFromTop && 'header-reveal-from-top',
+        hideToTop && 'header-hide-to-top',
+        isPastFold ? 'fixed top-0 left-0 right-0' : 'relative',
+        headerVisible || hideToTop
           ? 'translate-y-0 opacity-100 visible'
-          : '-translate-y-full opacity-0 pointer-events-none invisible',
+          : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
       )}
       {...(resolvedTheme ? { 'data-theme': resolvedTheme } : {})}
       data-scrolled={isScrolled ? 'true' : undefined}
+      data-sticky={isPastFold ? 'true' : undefined}
+      onAnimationEnd={() => {
+        setRevealFromTop(false)
+        setHideToTop(false)
+      }}
     >
       <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
         <div className="flex flex-1 items-center justify-between">

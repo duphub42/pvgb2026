@@ -1,6 +1,7 @@
 import type { Block } from 'payload'
 
 import { blockStyleFields } from '@/blocks/blockStyleFields'
+import { linkGroup } from '@/fields/linkGroup'
 
 /** Optionen für Shadcn-Block-Varianten (müssen in ShadcnBlock/Component.tsx gerendert werden). */
 export const SHADCN_BLOCK_VARIANTS = [
@@ -30,6 +31,78 @@ export const SHADCN_BLOCK_VARIANTS = [
 
 export type ShadcnBlockVariant = (typeof SHADCN_BLOCK_VARIANTS)[number]['value']
 
+/**
+ * Gemeinsame Inhaltsfelder für Shadcn-Blöcke. Viele Varianten nutzen Überschrift, Bilder oder Links.
+ * Komponenten lesen content.* und verwenden die Werte, sofern gesetzt; sonst Fallback auf Hardcoded.
+ */
+const shadcnBlockContentFields = [
+  {
+    name: 'variant',
+    type: 'select',
+    required: true,
+    options: [...SHADCN_BLOCK_VARIANTS],
+    admin: {
+      description: 'Welche Shadcnblocks-Komponente angezeigt werden soll.',
+    },
+  },
+  {
+    name: 'content',
+    type: 'group',
+    dbName: 'ct',
+    label: 'Inhalt (optional überschreiben)',
+    admin: {
+      description:
+        'Optional: Texte, Bilder und Links hier pflegen. Nur ausgefüllte Felder ersetzen die Standard-Inhalte der Block-Variante.',
+    },
+    fields: [
+      {
+        name: 'headline',
+        type: 'text',
+        label: 'Überschrift',
+        admin: { description: 'Ersetzt die Standard-Überschrift der Komponente.' },
+      },
+      {
+        name: 'subheadline',
+        type: 'text',
+        label: 'Unterüberschrift / Badge-Text',
+      },
+      {
+        name: 'body',
+        type: 'textarea',
+        label: 'Fließtext',
+        admin: { description: 'Kurzer Beschreibungstext.' },
+      },
+      {
+        name: 'images',
+        type: 'array',
+        label: 'Bilder',
+        admin: {
+          description: 'Bilder für Galerien, Marquees etc. Reihenfolge = Anzeige.',
+          initCollapsed: true,
+        },
+        fields: [
+          {
+            name: 'media',
+            type: 'upload',
+            relationTo: 'media',
+            required: true,
+            label: 'Bild',
+          },
+        ],
+      },
+      linkGroup({
+        appearances: ['default', 'outline'],
+        overrides: {
+          name: 'links',
+          dbName: 'lnks',
+          maxRows: 2,
+          admin: { description: 'Optional: Buttons/Links (z. B. CTA).' },
+        },
+      }),
+    ],
+  },
+]
+
 export const ShadcnBlock: Block = {
   slug: 'shadcnBlock',
   interfaceName: 'ShadcnBlock',
@@ -37,16 +110,5 @@ export const ShadcnBlock: Block = {
     singular: 'Shadcn Block',
     plural: 'Shadcn Blocks',
   },
-  fields: [
-    ...blockStyleFields,
-    {
-      name: 'variant',
-      type: 'select',
-      required: true,
-      options: [...SHADCN_BLOCK_VARIANTS],
-      admin: {
-        description: 'Welche Shadcnblocks-Komponente angezeigt werden soll.',
-      },
-    },
-  ],
+  fields: [...blockStyleFields, ...shadcnBlockContentFields],
 }

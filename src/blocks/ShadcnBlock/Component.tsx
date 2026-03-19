@@ -85,7 +85,7 @@ export const ShadcnBlockComponent: React.FC<Props> = (props) => {
   if (!Block) return null
   return (
     <Suspense fallback={<div className="min-h-[200px] animate-pulse bg-muted/30" aria-hidden />}>
-      <Block />
+      <Block {...props} />
     </Suspense>
   )
 }

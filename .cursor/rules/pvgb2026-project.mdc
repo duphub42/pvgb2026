@@ -1,0 +1,367 @@
+# Cursor Rules – pvgb2026
+# Stack: Next.js 15 App Router · Payload CMS 3 · Tailwind CSS v4 · TypeScript · shadcn/ui · Drizzle ORM · SQLite/Neon
+
+---
+
+## 1. PROJEKT-ÜBERBLICK
+
+Du arbeitest an einer persönlichen Website/Portfolio für Philipp Bacher (Digital Consultant, Marketing, Webdesign).
+- Frontend: Next.js 15 App Router (src/app/)
+- CMS: Payload CMS 3 (Collections: Pages, Posts, Media, Categories, Users)
+- Styling: Tailwind CSS v4 + globals.css mit umfangreichen Custom Utilities
+- Komponenten: shadcn/ui + eigene Hero/Layout-Blöcke
+- DB: Neon (Postgres) in Production, SQLite lokal (optional)
+- Deployment: Vercel
+
+---
+
+## 2. DATEISTRUKTUR
+
+```
+src/
+  app/                    # Next.js App Router (Pages, Layouts, API Routes)
+  collections/            # Payload Collections (Pages, Posts, Media, ...)
+  components/             # Wiederverwendbare React-Komponenten
+    ui/                   # shadcn/ui Basiskomponenten
+    Link/                 # CMSLink Wrapper
+  heros/                  # Hero-Blöcke (PhilippBacherHeroSimple, etc.)
+  blocks/                 # Layout-Builder Blöcke
+  theme/                  # colors.css, Design-Tokens
+  utilities/              # Helper (getMediaUrl, etc.)
+  utils/                  # Weitere Utils (getMediaUrlSafe, etc.)
+  globals.css             # Alle Custom CSS Utilities (sehr groß, ~150KB)
+tailwind.config.mjs       # Tailwind Konfiguration
+```
+
+---
+
+## 3. DESIGN SYSTEM & CSS
+
+### Breakpoints (Tailwind v4)
+
+#### Mobile – 3 Stufen (additiv, kein Umbenennen bestehender!)
+```
+xs:   23.5rem  ( 376px)  – iPhone SE und kleiner
+sm:   26.5rem  ( 424px)  – Standard Phones (iPhone 14, Pixel)
+ml:   30rem    ( 480px)  – Große Phones (Pro Max, Samsung S)
+```
+
+#### Tablet + Desktop – unverändert
+```
+md:   40rem    ( 640px)  – Tablet Portrait klein / großes Phone Landscape
+lg:   48rem    ( 768px)  – Tablet Portrait
+xl:   64rem    (1024px)  – Tablet Landscape / kleines Desktop
+2xl:  80rem    (1280px)  – Desktop
+3xl:  86rem    (1376px)  – Großes Desktop
+```
+
+#### Verwendung in JSX/Tailwind
+```html
+<!-- Mobile-first, von klein nach groß -->
+<div class="text-sm xs:text-base sm:text-lg ml:text-xl md:text-2xl lg:text-3xl">
+
+<!-- Abstände responsiv -->
+<section class="py-8 sm:py-10 ml:py-12 md:py-16 lg:py-20">
+
+<!-- Spalten responsiv -->
+<div class="grid grid-cols-1 ml:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+```
+
+#### Implementierung in globals.css (@theme Block)
+```css
+@theme {
+  /* Mobile */
+  --breakpoint-xs:  23.5rem;   /*  376px */
+  --breakpoint-sm:  26.5rem;   /*  424px */
+  --breakpoint-ml:  30rem;     /*  480px */
+
+  /* Tablet + Desktop – bestehende Werte NICHT ändern */
+  --breakpoint-md:  40rem;     /*  640px */
+  --breakpoint-lg:  48rem;     /*  768px */
+  --breakpoint-xl:  64rem;     /* 1024px */
+  --breakpoint-2xl: 80rem;     /* 1280px */
+  --breakpoint-3xl: 86rem;     /* 1376px */
+
+  --header-height: 6rem;
+  --font-mono: var(--font-outfit);
+  --font-sans: var(--font-outfit);
+}
+```
+
+#### ⚠️ WICHTIG für Cursor beim Breakpoint-Einsatz
+- `xs:`, `sm:`, `ml:` → NUR für Mobile-spezifische Anpassungen (Schriftgröße, Padding, sichtbar/unsichtbar)
+- `md:` ist der primäre Breakpoint für "ab Tablet" – hier beginnt das Desktop-Layout
+- NIEMALS gerätenamen in Klassen verwenden (`hero-se:`, `hero-pro-max:` etc. sind deprecated)
+- Reihenfolge immer: **kein Prefix (mobile) → xs → sm → ml → md → lg → xl → 2xl → 3xl**
+
+#### Custom Variants (nur für spezielle Fälle, nicht für normales Layout)
+```
+landscape-short:   landscape + max-height: 40rem   (Querformat Mobile)
+landscape-narrow:  landscape + max-width: 44rem + max-height: 40rem
+```
+
+### CSS Custom Properties (Theme)
+```css
+--header-height: 6rem
+--font-body:    var(--font-outfit)
+--font-heading: var(--font-outfit)
+--background, --foreground, --primary, --muted, --border, ...
+```
+
+### Dark Mode
+- Über `data-theme="dark"` auf `<html>` gesteuert (KEIN Tailwind dark: Prefix!)
+- CSS-Selektoren: `[data-theme='dark'] .meine-klasse { ... }`
+- In JSX: `className="bg-background text-foreground"` → folgt Theme automatisch
+
+### Wichtige Custom CSS Klassen
+```
+.hero-offset              Padding-top für Hero (unterhalb Header)
+.hero-box-gradient        Verlauf links unten (Light/Dark)
+.hero-background-overlay  Radial-Glow Hintergrund
+.hero-simple-portrait     Clip-Path + Overflow für Portrait-Bild
+.hero-simple-portrait-img drop-shadow entlang Figur-Alpha
+.hero-pattern-bg          Honeycomb-Hintergrundmuster
+.hero-shape-divider       SVG-Wellen am Hero-Unterteil
+.megamenu                 Header/Nav (transparent → weiß on hover)
+.footer-gradient          Footer-Hintergrund mit Radial-Verlauf
+.logo-glitch-wrapper      Logo Glitch-Effekt
+.hero-css-halo            Animierte Halo-Blobs (CSS only)
+```
+
+---
+
+## 4. KOMPONENTEN-KONVENTIONEN
+
+### Next.js Image
+- IMMER `width` und `height` setzen (CLS-Prävention)
+- LCP-Bilder: `priority` und `fetchPriority="high"` setzen
+- `sizes` immer angeben für responsive Bilder:
+  ```tsx
+  sizes="(max-width: 554px) 88vw, (max-width: 768px) 48vw, 28rem"
+  ```
+- NIEMALS `loading="lazy"` auf Hero/Above-the-fold Bilder
+
+### Media URLs
+```tsx
+import { getMediaUrl } from '@/utilities/getMediaUrl'    // für Payload Media Objekte
+import { getMediaUrlSafe } from '@/utils/media'           // für nullable Media mit Fallback
+```
+
+### CMS Links
+```tsx
+import { CMSLink } from '@/components/Link'
+// Nicht direkt <a> oder <Link> für CMS-Daten verwenden
+```
+
+### Server vs. Client Components
+- Default: Server Components (kein 'use client')
+- 'use client' NUR wenn: useState, useEffect, Event Handler, Browser APIs
+- Payload-Daten IMMER server-seitig fetchen (nie im Client)
+
+### TypeScript
+- Payload-Typen aus `@/payload-types` importieren
+- Kein `as any` – lieber Typen erweitern oder Wrapper bauen
+- `richText` hat Typ `SerializedEditorState` (nicht `any`)
+
+---
+
+## 5. PAYLOAD CMS PATTERNS
+
+### Daten fetchen (Server Component)
+```tsx
+import { getPayload } from 'payload'
+import configPromise from '@payload-config'
+
+const payload = await getPayload({ config: configPromise })
+const page = await payload.find({
+  collection: 'pages',
+  where: { slug: { equals: slug } },
+})
+```
+
+### Revalidation
+```tsx
+// Seiten die sich selten ändern: ISR nutzen
+export const revalidate = 3600
+
+// Komplett statisch:
+export const dynamic = 'force-static'
+
+// NIEMALS force-dynamic für öffentliche Seiten (TTFB-Killer!)
+```
+
+### Media
+- Bilder werden in Vercel Blob gespeichert
+- URLs immer über `getMediaUrl()` ausgeben (EWWW/ExactDN CDN Support)
+- Lokale Entwicklung: `BLOB_READ_WRITE_TOKEN` in `.env` nötig
+
+---
+
+## 6. PERFORMANCE-REGELN (PageSpeed)
+
+### LCP optimieren
+```tsx
+// Hero-Bild immer so:
+<Image
+  src={url}
+  priority
+  fetchPriority="high"
+  sizes="(max-width: 554px) 88vw, (max-width: 768px) 48vw, 28rem"
+  width={414}
+  height={600}
+/>
+```
+
+### CSS-Animationen: NUR Compositor-Properties
+```css
+/* ✅ Korrekt – läuft auf GPU, blockiert Main Thread NICHT */
+transform: translateX(), translateY(), scale(), rotate()
+opacity
+
+/* ❌ Falsch – triggert Layout, blockiert Main Thread */
+max-width, max-height, width, height, top, left, margin, padding
+```
+
+### will-change sparsam einsetzen
+```css
+/* Nur für Elemente die sich tatsächlich animieren */
+.hero-css-halo .halo { will-change: transform; }
+```
+
+### Lazy Loading
+- Alles unterhalb des Folds: `loading="lazy"` auf `<img>`
+- Marquee-Logos, Footer-Icons, Blog-Thumbnails → immer lazy
+
+---
+
+## 7. DESIGN-WORKFLOW IN CURSOR
+
+### Wenn du visuelle Änderungen machst:
+1. Gib den **genauen Selektor** an (Klasse, Component-Name)
+2. Sag **was du siehst** (z.B. "zu viel Abstand oben auf Mobile")
+3. Sag **Ziel-Viewport** (Mobile 390px / Tablet 768px / Desktop 1280px)
+4. Bei responsiven Änderungen: alle Breakpoints nennen
+
+### Für neue Sektionen/Blöcke:
+- Immer Tailwind-Klassen nutzen (kein Inline-Style außer für dynamische Werte)
+- Dynamische Werte (aus CMS, State) → `style={{ prop: value }}`
+- Statisches Styling → immer Tailwind
+
+### Farben
+```
+bg-background / text-foreground    (Theme-aware, automatisch Light/Dark)
+bg-primary / text-primary-foreground
+bg-muted / text-muted-foreground
+bg-card / text-card-foreground
+border-border
+```
+Keine hardcodierten Hex/RGB-Werte in JSX – immer CSS-Variables über Tailwind nutzen.
+
+---
+
+## 8. HÄUFIGE FEHLER VERMEIDEN
+
+```tsx
+// ❌ Falsch: layout-triggernde Animation
+@keyframes expand { from { max-width: 0 } to { max-width: 20rem } }
+
+// ✅ Richtig: transform-basiert
+@keyframes expand { from { transform: scaleX(0) } to { transform: scaleX(1) } }
+
+// ❌ Falsch: drop-shadow und clip-path auf selbes Element
+<div style={{ clipPath: 'inset(...)', filter: 'drop-shadow(...)' }}>
+
+// ✅ Richtig: auf verschiedene DOM-Ebenen aufteilen
+<div style={{ filter: 'drop-shadow(...)' }}>        // äußerer Container
+  <div style={{ clipPath: 'inset(...)' }}>           // innerer Clip
+    <img />
+  </div>
+</div>
+
+// ❌ Falsch: Dark Mode mit Tailwind dark: Prefix
+<div className="dark:bg-black">
+
+// ✅ Richtig: data-theme Selektor in CSS oder CSS Variable
+<div className="bg-background">   // folgt automatisch dem Theme
+```
+
+---
+
+## 9. SHELL-BEFEHLE
+
+```bash
+pnpm dev          # Lokal mit SQLite
+pnpm dev:neon     # Lokal mit Neon (empfohlen, gleiche DB wie Prod)
+pnpm build        # Production Build
+pnpm lint         # ESLint
+pnpm typecheck    # TypeScript Check
+
+ANALYZE=true pnpm build   # Bundle Analyzer
+```
+
+---
+
+## 10. WICHTIGE EXTERNE ABHÄNGIGKEITEN
+
+```
+payload ^3        CMS Framework
+next ^15          React Framework
+tailwindcss ^4    Styling (v4 Syntax! Kein tailwind.config theme.extend nötig)
+shadcn/ui         UI Komponenten (via @/components/ui/)
+drizzle-orm       ORM für SQLite/Postgres
+@radix-ui/*       Headless UI Primitives
+lucide-react      Icons
+framer-motion     Animationen (sparsam einsetzen, Performance!)
+```
+
+---
+
+## 11. OFFENE IMPLEMENTIERUNGSAUFGABEN
+
+### Breakpoints einrichten (NOCH NICHT ERLEDIGT)
+Cursor soll folgende Änderungen vornehmen wenn der User "Breakpoints implementieren" sagt:
+
+**Schritt 1 – globals.css `@theme` Block aktualisieren:**
+Den bestehenden `@theme` Block suchen und Mobile-Breakpoints `xs`, `sm`, `ml` ergänzen.
+`md`, `lg`, `xl`, `2xl` bleiben auf ihren aktuellen Werten – NICHT umbenennen.
+
+```css
+@theme {
+  --breakpoint-xs:  23.5rem;
+  --breakpoint-sm:  26.5rem;
+  --breakpoint-ml:  30rem;
+  /* md/lg/xl/2xl unverändert lassen */
+}
+```
+
+**Schritt 2 – Alte hero-* Custom Variants entfernen:**
+```css
+/* LÖSCHEN: */
+@custom-variant hero-se (...)
+@custom-variant hero-pro-max (...)
+@custom-variant hero-playbook (...)
+@custom-variant hero-ipad (...)
+@custom-variant hero-se-landscape (...)
+@custom-variant hero-pro-max-landscape (...)
+@custom-variant hero-playbook-landscape (...)
+@custom-variant hero-ipad-landscape (...)
+```
+
+**Schritt 3 – Verwendungen der alten Variants ersetzen:**
+| Alt | Neu |
+|-----|-----|
+| `hero-se:` | `xs:` |
+| `hero-pro-max:` | `sm:` |
+| `hero-playbook:` | `ml:` |
+| `hero-ipad:` | `lg:` bis `xl:` |
+
+**Schritt 4 – tailwind.config.mjs:** Falls Breakpoints dort definiert sind, identische Werte eintragen.
+
+---
+
+## 12. NICHT ANFASSEN OHNE RÜCKFRAGE
+
+- `src/collections/` – Payload Schema-Änderungen erfordern DB-Migration
+- `drizzle/` – Migrationen nicht manuell editieren
+- `globals.css` Zeilen 1–50 (Tailwind Imports + Config)
+- `.env` Variablen – niemals committen

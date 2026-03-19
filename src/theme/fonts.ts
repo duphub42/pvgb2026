@@ -1,5 +1,6 @@
 /**
  * Eine Schriftfamilie: Outfit (lokal, DSGVO). ~16 KB.
+ * next/font/local: self-hosted, automatisches Preload, display: 'swap' gegen FOUT – PageSpeed-optimiert.
  * font-weight: 500/600/700 im CSS werden vom Browser synthetisiert.
  */
 import localFont from 'next/font/local'
@@ -10,6 +11,7 @@ export const fontOutfit = localFont({
   ],
   variable: '--font-outfit',
   display: 'swap',
+  preload: true,
 })
 
 /** CSS-Klasse für Layout (html): setzt --font-outfit. */

@@ -666,6 +666,56 @@ export interface ShadcnBlock {
     | 'feature253'
     | 'feature256'
     | 'feature261';
+  /**
+   * Optional: Texte, Bilder und Links hier pflegen. Nur ausgefüllte Felder ersetzen die Standard-Inhalte der Block-Variante.
+   */
+  content?: {
+    /**
+     * Ersetzt die Standard-Überschrift der Komponente.
+     */
+    headline?: string | null;
+    subheadline?: string | null;
+    /**
+     * Kurzer Beschreibungstext.
+     */
+    body?: string | null;
+    /**
+     * Bilder für Galerien, Marquees etc. Reihenfolge = Anzeige.
+     */
+    images?:
+      | {
+          media: number | Media;
+          id?: string | null;
+        }[]
+      | null;
+    /**
+     * Optional: Buttons/Links (z. B. CTA).
+     */
+    links?:
+      | {
+          link: {
+            type?: ('reference' | 'custom') | null;
+            newTab?: boolean | null;
+            reference?:
+              | ({
+                  relationTo: 'site-pages';
+                  value: number | SitePage;
+                } | null)
+              | ({
+                  relationTo: 'blog-posts';
+                  value: number | BlogPost;
+                } | null);
+            url?: string | null;
+            label: string;
+            /**
+             * Choose how the link should be rendered.
+             */
+            appearance?: ('default' | 'outline') | null;
+          };
+          id?: string | null;
+        }[]
+      | null;
+  };
   id?: string | null;
   blockName?: string | null;
   blockType: 'shadcnBlock';
@@ -1675,6 +1725,34 @@ export interface ShadcnBlockSelect<T extends boolean = true> {
         opacity?: T;
       };
   variant?: T;
+  content?:
+    | T
+    | {
+        headline?: T;
+        subheadline?: T;
+        body?: T;
+        images?:
+          | T
+          | {
+              media?: T;
+              id?: T;
+            };
+        links?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                    appearance?: T;
+                  };
+              id?: T;
+            };
+      };
   id?: T;
   blockName?: T;
 }

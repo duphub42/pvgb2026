@@ -14,16 +14,8 @@ interface Feature250Props {
 
 const Feature250 = ({ className }: Feature250Props) => {
   return (
-    <section className={cn("py-32", className)}>
-      <div className="container">
-        <p className="mx-auto mb-4 max-w-sm text-center text-muted-foreground md:text-xl">
-          Bridging Developers, Building the Future
-        </p>
-        <h1 className="mx-auto -mb-12 max-w-3xl text-center text-4xl font-medium tracking-tighter md:text-6xl lg:mb-5 lg:text-7xl">
-          Connecting Developers Worldwide
-        </h1>
-        <AnimatedBeamIllustration />
-      </div>
+    <section className={cn(className)}>
+      <AnimatedBeamIllustration />
     </section>
   );
 };
