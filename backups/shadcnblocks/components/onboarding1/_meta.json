@@ -1,0 +1,9 @@
+{
+  "slug": "onboarding1",
+  "title": "Onboarding",
+  "description": "A five-step onboarding wizard with profile setup, workspace configuration, account linking, role selection, and team invites featuring animated dashboard preview.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/onboarding1",
+  "downloadedAt": "2026-03-19T19:42:37Z",
+  "fileCount": 1
+}

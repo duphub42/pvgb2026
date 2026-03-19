@@ -1,0 +1,9 @@
+{
+  "slug": "product-card9",
+  "title": "Product-card",
+  "description": "This component displays a product card showcasing a ceramic cup with pricing details, color variants, and customizable badges. It features interactive elements like an \"Add to cart\" button, a tooltip for color selection, and a dynamic image gallery that changes based on the selected color variant.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-card9",
+  "downloadedAt": "2026-03-19T19:42:51Z",
+  "fileCount": 2
+}

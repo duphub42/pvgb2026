@@ -1,0 +1,9 @@
+{
+  "slug": "product-list2",
+  "title": "Product-list",
+  "description": "This component is designed to display a list of product cards, each containing details such as the product image, name, description, pricing, and an optional badge. It features a grid layout to organize multiple product listings, with each card providing an \"Add to cart\" button for quick shopping actions.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-list2",
+  "downloadedAt": "2026-03-19T19:43:00Z",
+  "fileCount": 2
+}

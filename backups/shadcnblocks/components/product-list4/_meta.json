@@ -1,0 +1,9 @@
+{
+  "slug": "product-list4",
+  "title": "Product-list",
+  "description": "This component displays a dynamic product showcase with promotional information, allowing users to view a collection of products with details such as images, prices, brands, and ratings. It includes a promo card that highlights special offers and a list of individual product cards that provide quick access through clickable links.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-list4",
+  "downloadedAt": "2026-03-19T19:43:01Z",
+  "fileCount": 3
+}

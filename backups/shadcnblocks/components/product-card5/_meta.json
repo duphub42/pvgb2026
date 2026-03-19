@@ -1,0 +1,9 @@
+{
+  "slug": "product-card5",
+  "title": "Product-card",
+  "description": "This component displays a product card featuring an image, name, collection, and price of a product, offering a sale price option. It utilizes elements like a linked image, card structure, and price formatting to create an engaging product showcase block.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-card5",
+  "downloadedAt": "2026-03-19T19:42:50Z",
+  "fileCount": 2
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "order-history3",
+  "title": "Order-history",
+  "description": "This component is designed to display a user's order history, providing details such as order number, date, total amount, and status of each item. It features a search functionality allowing users to filter orders by number or item name, and offers options to view invoices, archive orders, or purchase items again.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/order-history3",
+  "downloadedAt": "2026-03-19T19:42:38Z",
+  "fileCount": 1
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "payment-methods3",
+  "title": "Payment-methods",
+  "description": "This component allows users to manage their payment methods, including viewing, editing, or adding new credit card information. It provides functionalities such as setting a default card, editing card details, and securely displaying card information with interactive elements.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/payment-methods3",
+  "downloadedAt": "2026-03-19T19:42:41Z",
+  "fileCount": 1
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "offer-modal4",
+  "title": "Offer-modal",
+  "description": "The component renders a promotional modal that encourages users to become members and receive a discount, featuring an email subscription form with validation using Zod schema. It includes customizable titles, descriptions, and a visual image to attract users, with options to submit the form via an interactive button.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/offer-modal4",
+  "downloadedAt": "2026-03-19T19:42:36Z",
+  "fileCount": 1
+}

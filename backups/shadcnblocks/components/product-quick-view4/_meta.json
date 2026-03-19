@@ -1,0 +1,9 @@
+{
+  "slug": "product-quick-view4",
+  "title": "Product-quick-view",
+  "description": "This component provides a quick view interface for a product, showcasing images, a description, pricing details, and available options such as color and size. It features a carousel for product images and a form that allows users to select product variations and add the item to their cart, all within a dialog layout.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-quick-view4",
+  "downloadedAt": "2026-03-19T19:43:03Z",
+  "fileCount": 2
+}

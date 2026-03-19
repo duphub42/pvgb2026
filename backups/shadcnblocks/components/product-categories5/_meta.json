@@ -1,0 +1,9 @@
+{
+  "slug": "product-categories5",
+  "title": "Product-categories",
+  "description": "This component displays a selection of product categories, each with a title, description, and media content, such as images or videos, to enhance visual engagement. It includes call-to-action buttons for linking to detailed product pages, making it ideal for showcasing promotional offers or featured collections.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-categories5",
+  "downloadedAt": "2026-03-19T19:42:53Z",
+  "fileCount": 1
+}

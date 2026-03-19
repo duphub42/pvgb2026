@@ -1,0 +1,9 @@
+{
+  "slug": "project2",
+  "title": "Project",
+  "description": "A component displaying a project with a large title, metadata (year, category, client) in columns, an image, and descriptions, ending with a button.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/project2",
+  "downloadedAt": "2026-03-19T19:43:06Z",
+  "fileCount": 1
+}

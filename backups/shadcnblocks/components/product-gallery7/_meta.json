@@ -1,0 +1,9 @@
+{
+  "slug": "product-gallery7",
+  "title": "Product-gallery",
+  "description": "This component is a dynamic image gallery block that allows users to browse through product images using a carousel with thumbnail navigation and zoom features. It utilizes PhotoSwipe for lightbox functionality and manages user interactions like image selection and carousel navigation with hooks and state management in React.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-gallery7",
+  "downloadedAt": "2026-03-19T19:42:59Z",
+  "fileCount": 2
+}

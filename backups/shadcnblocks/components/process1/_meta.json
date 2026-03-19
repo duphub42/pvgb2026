@@ -1,0 +1,9 @@
+{
+  "slug": "process1",
+  "title": "Process",
+  "description": "A component displaying a 4-step process, with a unique title and an asterisk icon, a brief introduction, and a contact button. It uses a 6-column layout with illustrations for each step.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/process1",
+  "downloadedAt": "2026-03-19T19:42:46Z",
+  "fileCount": 1
+}

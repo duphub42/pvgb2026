@@ -1,0 +1,9 @@
+{
+  "slug": "offer-modal1",
+  "title": "Offer-modal",
+  "description": "This component displays a modal dialog offering a newsletter subscription with a 35% discount on a first order, featuring an input field for email entry and subscribe and close buttons. It is categorized under user interface components for promotional offers and user engagement with features like customizable dialog behavior.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/offer-modal1",
+  "downloadedAt": "2026-03-19T19:42:36Z",
+  "fileCount": 1
+}

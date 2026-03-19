@@ -1,0 +1,9 @@
+{
+  "slug": "product-card4",
+  "title": "Product-card",
+  "description": "This component displays a product card featuring an image, product name, brand, price, and rating, making it suitable for showcasing items in an online catalog. It supports price displays for regular and sale prices and allows for additional styling through customizable class names.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-card4",
+  "downloadedAt": "2026-03-19T19:42:50Z",
+  "fileCount": 3
+}

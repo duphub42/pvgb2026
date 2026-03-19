@@ -1,0 +1,9 @@
+{
+  "slug": "pricing35",
+  "title": "Pricing",
+  "description": "A component displays 2 pricing plans with features like custom/standard pricing, toggle for billing frequency, and CTA buttons. Each card offers a descriptive text and chooses between a yearly or quarterly plan.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/pricing35",
+  "downloadedAt": "2026-03-19T19:42:45Z",
+  "fileCount": 1
+}

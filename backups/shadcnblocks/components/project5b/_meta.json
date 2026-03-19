@@ -1,0 +1,9 @@
+{
+  "slug": "project5b",
+  "title": "Project5b",
+  "description": "This component displays a project with a staggered fade-in animation, divided into two columns, including images, exhibition details, a description, and specific artwork information.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/project5b",
+  "downloadedAt": "2026-03-19T19:43:10Z",
+  "fileCount": 1
+}

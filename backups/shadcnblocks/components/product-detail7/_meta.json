@@ -1,0 +1,9 @@
+{
+  "slug": "product-detail7",
+  "title": "Product-detail",
+  "description": "This component showcases detailed product information, integrating a carousel for engaging image displays and a dynamic form for quantity selection. It features an accordion for organizing sections like product details and application tips, and presents badges for promotional messages such as discounts or new arrivals.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-detail7",
+  "downloadedAt": "2026-03-19T19:42:56Z",
+  "fileCount": 2
+}

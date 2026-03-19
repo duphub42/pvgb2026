@@ -1,0 +1,9 @@
+{
+  "slug": "product-card21",
+  "title": "Product-card",
+  "description": "The component facilitates the display and selection of different product color variants with corresponding images and pricing, allowing users to explore and choose among various options through an interactive card interface. Features include a collapsible section for color options, tooltips for selection guidance, a sale price display, and an add button to include the product in a potential purchase list.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-card21",
+  "downloadedAt": "2026-03-19T19:42:48Z",
+  "fileCount": 2
+}

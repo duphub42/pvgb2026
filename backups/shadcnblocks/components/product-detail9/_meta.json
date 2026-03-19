@@ -1,0 +1,9 @@
+{
+  "slug": "product-detail9",
+  "title": "Product-detail",
+  "description": "This component is designed to display detailed product information, including images, price, and size options, providing an interactive user interface for selecting product variations and purchasing. It features an image carousel with lightbox functionality, a form for selecting product specifications, and buttons for adding the product to the cart or buying it immediately.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-detail9",
+  "downloadedAt": "2026-03-19T19:42:58Z",
+  "fileCount": 1
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "order-history5",
+  "title": "Order-history",
+  "description": "This component allows users to view, filter, and search through their order history, providing details such as order date, number, status, and items. Users can track shipments, initiate returns, and access additional order details, enhancing order management and accessibility.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/order-history5",
+  "downloadedAt": "2026-03-19T19:42:39Z",
+  "fileCount": 1
+}

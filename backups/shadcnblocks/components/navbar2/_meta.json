@@ -1,0 +1,9 @@
+{
+  "slug": "navbar2",
+  "title": "Navbar",
+  "description": "A dual-layout navigation block with dynamic accordion submenus for mobile and horizontal list for desktop, featuring authentication links and a slide-in menu.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/navbar2",
+  "downloadedAt": "2026-03-19T19:42:33Z",
+  "fileCount": 1
+}

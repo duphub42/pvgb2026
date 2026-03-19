@@ -1,0 +1,9 @@
+{
+  "slug": "product-gallery1",
+  "title": "Product-gallery",
+  "description": "This component is a product image gallery featuring a carousel with multiple images, allowing users to navigate through images using next and previous controls. It supports customization through an optional className prop, enabling users to adjust its styling according to their needs.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-gallery1",
+  "downloadedAt": "2026-03-19T19:42:58Z",
+  "fileCount": 1
+}

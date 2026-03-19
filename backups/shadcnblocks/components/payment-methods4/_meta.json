@@ -1,0 +1,9 @@
+{
+  "slug": "payment-methods4",
+  "title": "Payment-methods",
+  "description": "This component allows users to view and manage a list of payment methods, providing functionalities to edit card details and set a default card using a carousel interface. Users can add new cards and are assured that payment information is stored securely.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/payment-methods4",
+  "downloadedAt": "2026-03-19T19:42:41Z",
+  "fileCount": 1
+}

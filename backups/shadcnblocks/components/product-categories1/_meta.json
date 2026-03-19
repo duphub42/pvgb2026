@@ -1,0 +1,9 @@
+{
+  "slug": "product-categories1",
+  "title": "Product-categories",
+  "description": "This component displays a product category with a title, summary, and image, designed to highlight key features of a specific item. It uses animations to create a visually engaging experience, with text and images dynamically appearing on the screen.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-categories1",
+  "downloadedAt": "2026-03-19T19:42:51Z",
+  "fileCount": 1
+}

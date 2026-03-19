@@ -1,0 +1,9 @@
+{
+  "slug": "promo-banner1",
+  "title": "Promo-banner",
+  "description": "This component displays a promotional banner indicating progress towards unlocking a free shipping offer based on a spending threshold. It features a progress bar and dynamically updates the user's remaining balance to qualify for free shipping.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/promo-banner1",
+  "downloadedAt": "2026-03-19T19:43:15Z",
+  "fileCount": 1
+}

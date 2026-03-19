@@ -1,0 +1,9 @@
+{
+  "slug": "product-detail10",
+  "title": "Product-detail",
+  "description": "This component allows users to view detailed information about a product, including multiple images, and customize options such as material, color, and size before making a purchase. It features a carousel for product images, an accordion for additional product details, and a form for selecting product options, along with display of pricing information, including sale and regular prices.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-detail10",
+  "downloadedAt": "2026-03-19T19:42:54Z",
+  "fileCount": 1
+}

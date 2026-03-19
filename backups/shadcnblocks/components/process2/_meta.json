@@ -1,0 +1,9 @@
+{
+  "slug": "process2",
+  "title": "Process",
+  "description": "A component visualizing a 4-step process with dynamic image transitions and a contact button, spread over 2 columns in a larger view.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/process2",
+  "downloadedAt": "2026-03-19T19:42:47Z",
+  "fileCount": 1
+}

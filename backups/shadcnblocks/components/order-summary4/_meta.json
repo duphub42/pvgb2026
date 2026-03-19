@@ -1,0 +1,9 @@
+{
+  "slug": "order-summary4",
+  "title": "Order-summary",
+  "description": "This component is designed to display a comprehensive order summary, including order details, timeline tracking, payment information, and shipping address, enhancing the user experience by providing a clear overview of their purchase. It allows users to interact with various elements such as timeline steps and provides progress visualization, making it easier to track the order's status and history.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/order-summary4",
+  "downloadedAt": "2026-03-19T19:42:40Z",
+  "fileCount": 1
+}

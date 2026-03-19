@@ -1,0 +1,9 @@
+{
+  "slug": "payment-methods1",
+  "title": "Payment-methods",
+  "description": "This component allows users to manage their payment methods by adding, editing, and deleting various payment options, such as Visa, Mastercard, American Express, and PayPal. It features a user-friendly interface with the ability to designate a default payment method and view associated details like the last four digits of a card number or the linked email for PayPal accounts.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/payment-methods1",
+  "downloadedAt": "2026-03-19T19:42:41Z",
+  "fileCount": 1
+}

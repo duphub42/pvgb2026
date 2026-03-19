@@ -1,0 +1,9 @@
+{
+  "slug": "product-gallery3",
+  "title": "Product-gallery",
+  "description": "This component, named `ProductGallery3`, provides an interactive image gallery with carousel functionality to display product images dynamically from a provided list. It leverages PhotoSwipeLightbox for viewing images in a full-screen mode and includes custom navigation elements for enhanced user interaction.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-gallery3",
+  "downloadedAt": "2026-03-19T19:42:59Z",
+  "fileCount": 1
+}

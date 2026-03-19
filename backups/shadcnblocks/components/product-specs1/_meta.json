@@ -1,0 +1,9 @@
+{
+  "slug": "product-specs1",
+  "title": "Product-specs",
+  "description": "This component is a collapsible block designed to display technical specifications across various categories, such as display, performance, and connectivity. It features toggle functionality to expand or collapse categories, with visual icons and a neatly organized table format for easy specification viewing.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-specs1",
+  "downloadedAt": "2026-03-19T19:43:04Z",
+  "fileCount": 1
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "product-quick-view6",
+  "title": "Product-quick-view",
+  "description": "This React component provides a quick view feature for a product, displaying product details like images, price, reviews, and availability. It includes interactive elements such as an image carousel, quantity selector, and buttons for adding products to a cart or purchasing immediately.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-quick-view6",
+  "downloadedAt": "2026-03-19T19:43:03Z",
+  "fileCount": 4
+}

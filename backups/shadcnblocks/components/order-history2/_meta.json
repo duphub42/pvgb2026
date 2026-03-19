@@ -1,0 +1,9 @@
+{
+  "slug": "order-history2",
+  "title": "Order-history",
+  "description": "This component provides an interactive order management interface, allowing users to filter, search, and review details of their purchase history. It features collapsible order details, status indicators, and various actions that users can perform on their orders such as canceling, tracking, or reordering items.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/order-history2",
+  "downloadedAt": "2026-03-19T19:42:38Z",
+  "fileCount": 1
+}

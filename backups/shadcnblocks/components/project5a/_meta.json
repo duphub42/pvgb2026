@@ -1,0 +1,9 @@
+{
+  "slug": "project5a",
+  "title": "Project5a",
+  "description": "This component displays an art project with animated effects. It features a 3-column layout that condenses to 1 on smaller screens, descriptive text, a title, and images. Unique sections detail the project and artistic vision.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/project5a",
+  "downloadedAt": "2026-03-19T19:43:09Z",
+  "fileCount": 1
+}

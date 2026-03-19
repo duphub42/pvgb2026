@@ -1,0 +1,9 @@
+{
+  "slug": "product-detail1",
+  "title": "Product-detail",
+  "description": "This component is designed to display detailed information about a product, including its images, pricing, description, reviews, and available sizes with stock status. It features a carousel for product image navigation, form fields for selecting size options, and a section to highlight product details and specifications.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-detail1",
+  "downloadedAt": "2026-03-19T19:42:54Z",
+  "fileCount": 1
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "product-list10",
+  "title": "Product-list",
+  "description": "This component is designed for showcasing a collection of products with promotional features, including details like stock status, pricing, and special badges. It allows users to view product images, access additional options like 'Add to cart' and 'Quick View', and features a promotional card with a call-to-action button.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-list10",
+  "downloadedAt": "2026-03-19T19:43:00Z",
+  "fileCount": 2
+}

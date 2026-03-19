@@ -1,0 +1,9 @@
+{
+  "slug": "product-categories4",
+  "title": "Product-categories",
+  "description": "This component provides a customizable display block for product categories, featuring a background image, title, and description, optimized for visual appeal. It includes a breadcrumb navigation section for easy user orientation, enhancing the browsing experience with clickable links to different sections.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-categories4",
+  "downloadedAt": "2026-03-19T19:42:52Z",
+  "fileCount": 1
+}

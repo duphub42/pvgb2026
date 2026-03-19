@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "product-card5",
+  "title": "Product-card",
+  "description": "This component displays a product card featuring an image, name, collection, and price of a product, offering a sale price option. It utilizes elements like a linked image, card structure, and price formatting to create an engaging product showcase block.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "aspect-ratio",
+    "card"
+  ],
+  "files": [
+    {
+      "path": "block/product-card5.tsx",
+      "content": "import { Price, PriceValue } from \"@/components/shadcnblocks/price\";\nimport { AspectRatio } from \"@/components/ui/aspect-ratio\";\nimport { Card, CardContent, CardHeader, CardTitle } from \"@/components/ui/card\";\nimport { cn } from \"@/lib/utils\";\n\ninterface ProductPrice {\n  regular: number;\n  sale?: number;\n  currency: string;\n}\n\ninterface Product {\n  name: string;\n  image: {\n    src: string;\n    alt: string;\n  };\n  link: string;\n  collection: string;\n  price: ProductPrice;\n}\n\nconst PRODUCT_CARD: Product = {\n  collection: \"Golden Hour\",\n  name: \"Bloom & Gleam earrings\",\n  link: \"#\",\n  image: {\n    src: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/ecommerce/accessories/Elegant-Floral-Earrings-1.png\",\n    alt: \"\",\n  },\n  price: {\n    regular: 4000.0,\n    currency: \"USD\",\n  },\n};\n\ninterface ProductCard5Props {\n  className?: string;\n}\n\nconst ProductCard5 = ({ className }: ProductCard5Props) => {\n  const { regular, currency } = PRODUCT_CARD.price;\n\n  return (\n    <a\n      href={PRODUCT_CARD.link}\n      className={cn(\"block w-full max-w-108 min-w-47.5\", className)}\n    >\n      <Card className=\"group gap-3.5 rounded-md border-none bg-card p-2 shadow-none\">\n        <CardHeader className=\"block p-0\">\n          <AspectRatio ratio={1} className=\"w-full overflow-hidden rounded-2xl\">\n            <img\n              src={PRODUCT_CARD.image.src}\n              alt={PRODUCT_CARD.image.alt}\n              className=\"block size-full object-cover object-center\"\n            />\n          </AspectRatio>\n        </CardHeader>\n        <CardContent className=\"flex h-full flex-col gap-2 px-2 pb-1\">\n          <p className=\"text-xs text-muted-foreground uppercase\">\n            {PRODUCT_CARD.collection}\n          </p>\n          <CardTitle className=\"leading-tight font-medium\">\n            {PRODUCT_CARD.name}\n          </CardTitle>\n          <Price className=\"text-lg font-semibold\">\n            <PriceValue price={regular} currency={currency} variant=\"regular\" />\n            <PriceValue currency={currency} variant=\"sale\" />\n          </Price>\n        </CardContent>\n      </Card>\n    </a>\n  );\n};\n\nexport { ProductCard5 };\n",
+      "type": "registry:block"
+    },
+    {
+      "path": "components/shadcnblocks/price.tsx",
+      "content": "\"use client\";\n\nimport type { ReactNode } from \"react\";\nimport { createContext, useContext } from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\nconst PriceContext = createContext<{ onSale?: boolean }>({ onSale: false });\nexport const usePriceContext = () => useContext(PriceContext);\n\ninterface PriceProps {\n  className?: string;\n  children: ReactNode;\n  onSale?: boolean;\n}\n\ninterface PriceValueProps {\n  price?: number;\n  currency?: string;\n  variant?: \"regular\" | \"sale\";\n  className?: string;\n}\n\nexport type PriceType = {\n  currency?: string;\n  regular: number;\n  sale?: number;\n};\n\nconst formatterCache = new Map<string, Intl.NumberFormat>();\n\nfunction formatCurrency(value: number, currency = \"USD\", locale = \"en-US\") {\n  const key = `${locale}-${currency}`;\n  if (!formatterCache.has(key)) {\n    formatterCache.set(\n      key,\n      new Intl.NumberFormat(locale, { style: \"currency\", currency }),\n    );\n  }\n  return formatterCache.get(key)!.format(value);\n}\n\nconst Price = ({ className, children, onSale }: PriceProps) => {\n  return (\n    <PriceContext.Provider value={{ onSale }}>\n      <div className={cn(\"flex flex-wrap items-center gap-x-2\", className)}>\n        {children}\n      </div>\n    </PriceContext.Provider>\n  );\n};\n\nconst PriceValue = ({\n  price,\n  currency = \"USD\",\n  variant = \"regular\",\n  className,\n}: PriceValueProps) => {\n  const { onSale } = usePriceContext();\n\n  if (price == null) return null;\n\n  return (\n    <span\n      className={cn(\n        \"leading-tight\",\n        variant === \"regular\"\n          ? onSale\n            ? \"text-muted-foreground line-through\"\n            : \"text-foreground\"\n          : \"text-foreground\",\n        className,\n      )}\n    >\n      {formatCurrency(price, currency)}\n    </span>\n  );\n};\n\nexport { Price, PriceValue };\n",
+      "type": "registry:component",
+      "target": ""
+    }
+  ],
+  "type": "registry:block"
+}

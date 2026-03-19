@@ -1,0 +1,9 @@
+{
+  "slug": "product-gallery4",
+  "title": "Product-gallery",
+  "description": "The component is a versatile product image gallery block that displays images in a carousel format, allowing users to view high-quality images with zoom capabilities via a lightbox feature. It includes thumbnail navigation, customizable indicators, and interactive controls for enhanced user engagement.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/product-gallery4",
+  "downloadedAt": "2026-03-19T19:42:59Z",
+  "fileCount": 2
+}

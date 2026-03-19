@@ -6,3 +6,104 @@
  ✓ Starting...
  ✓ Compiled /instrumentation in 244ms (20 modules)
  ✓ Ready in 2.1s
+ ○ Compiling / ...
+ ✓ Compiled / in 7.1s (4921 modules)
+ ✓ Compiled in 2.4s (1646 modules)
+[20:42:44] [33mWARN[39m: [36mNo email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.[39m
+ ✓ Compiled in 1409ms (1646 modules)
+[debug-icons][footer] {
+  socialLinks: 4,
+  socialPlatforms: [ 'instagram', 'facebook', 'twitter', 'linkedin' ],
+  socialWithUrl: 0,
+  socialNumeric: 0,
+  columns: 6,
+  columnWithUrl: 6,
+  columnNumeric: 0,
+  columnUrlSamples: [
+    'http://localhost:3201/api/media/file/navigation-2.svg',
+    'http://localhost:3201/api/media/file/legal-2.svg',
+    'http://localhost:3201/api/media/file/design.svg',
+    'http://localhost:3201/api/media/file/marketing.svg',
+    'http://localhost:3201/api/media/file/Corporate-Identity-CI-2.svg',
+    'http://localhost:3201/api/media/file/portfolio-2.svg'
+  ]
+}
+ GET / 200 in 11344ms
+[debug-icons][footer] {
+  socialLinks: 4,
+  socialPlatforms: [ 'instagram', 'facebook', 'twitter', 'linkedin' ],
+  socialWithUrl: 0,
+  socialNumeric: 0,
+  columns: 6,
+  columnWithUrl: 6,
+  columnNumeric: 0,
+  columnUrlSamples: [
+    'http://localhost:3201/api/media/file/navigation-2.svg',
+    'http://localhost:3201/api/media/file/legal-2.svg',
+    'http://localhost:3201/api/media/file/design.svg',
+    'http://localhost:3201/api/media/file/marketing.svg',
+    'http://localhost:3201/api/media/file/Corporate-Identity-CI-2.svg',
+    'http://localhost:3201/api/media/file/portfolio-2.svg'
+  ]
+}
+ GET / 200 in 233ms
+ ✓ Compiled in 1150ms (1646 modules)
+ ✓ Compiled in 627ms (1646 modules)
+ ✓ Compiled in 758ms (1646 modules)
+ ✓ Compiled in 600ms (1646 modules)
+ ✓ Compiled in 616ms (1646 modules)
+ ✓ Compiled in 555ms (1646 modules)
+ ✓ Compiled in 627ms (1646 modules)
+ ✓ Compiled in 534ms (1646 modules)
+ ✓ Compiled in 528ms (1646 modules)
+ ✓ Compiled in 584ms (1646 modules)
+ ✓ Compiled in 555ms (1646 modules)
+ ✓ Compiled in 517ms (1646 modules)
+ ✓ Compiled in 612ms (1646 modules)
+ ✓ Compiled in 544ms (1646 modules)
+ ✓ Compiled in 626ms (1646 modules)
+ ✓ Compiled in 549ms (1646 modules)
+ ✓ Compiled in 562ms (1646 modules)
+ ✓ Compiled in 645ms (1646 modules)
+ ✓ Compiled in 656ms (1646 modules)
+ ✓ Compiled in 559ms (1646 modules)
+ ✓ Compiled in 626ms (1646 modules)
+ ✓ Compiled in 554ms (1646 modules)
+ ✓ Compiled in 579ms (1646 modules)
+ ✓ Compiled in 561ms (1646 modules)
+ ✓ Compiled in 571ms (1646 modules)
+ ✓ Compiled in 588ms (1646 modules)
+ ✓ Compiled in 573ms (1646 modules)
+ ✓ Compiled in 653ms (1646 modules)
+ ✓ Compiled in 623ms (1646 modules)
+ ✓ Compiled in 604ms (1646 modules)
+ ✓ Compiled in 601ms (1646 modules)
+ ✓ Compiled in 608ms (1646 modules)
+ ✓ Compiled in 673ms (1646 modules)
+ ✓ Compiled in 617ms (1646 modules)
+ ✓ Compiled in 729ms (1646 modules)
+ ✓ Compiled in 651ms (1646 modules)
+ ✓ Compiled in 584ms (1646 modules)
+ ✓ Compiled in 567ms (1646 modules)
+ ✓ Compiled in 568ms (1646 modules)
+ ✓ Compiled in 592ms (1646 modules)
+ ✓ Compiled in 576ms (1646 modules)
+ ✓ Compiled in 750ms (1646 modules)
+ ✓ Compiled in 615ms (1646 modules)
+ ✓ Compiled in 625ms (1646 modules)
+ ✓ Compiled in 585ms (1646 modules)
+ ✓ Compiled in 611ms (1646 modules)
+ ✓ Compiled in 618ms (1646 modules)
+ ✓ Compiled in 604ms (1646 modules)
+ ✓ Compiled in 639ms (1646 modules)
+ ✓ Compiled in 691ms (1646 modules)
+ ✓ Compiled in 637ms (1646 modules)
+ ✓ Compiled in 1082ms (1646 modules)
+ ✓ Compiled in 590ms (1646 modules)
+ ✓ Compiled in 624ms (1646 modules)
+ ✓ Compiled in 669ms (1646 modules)
+ ✓ Compiled in 775ms (1646 modules)
+ ✓ Compiled in 678ms (1646 modules)
+ ✓ Compiled in 679ms (1646 modules)
+ ✓ Compiled in 725ms (1646 modules)
+ ○ Compiling /api/[...slug] ...
