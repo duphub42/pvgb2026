@@ -10,6 +10,7 @@ import type { Props as MediaProps } from '../types'
 
 import { cssVariables } from '@/cssVariables'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
+import { getMediaUrlCandidates } from '@/utilities/mediaUrlCandidates'
 
 const { breakpoints } = cssVariables
 
@@ -77,6 +78,19 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   }
 
   const loading = loadingFromProps || (!priority ? 'lazy' : undefined)
+  const stringSrc = typeof src === 'string' ? src : null
+  const srcCandidates = React.useMemo(
+    () => (stringSrc ? getMediaUrlCandidates(stringSrc) : []),
+    [stringSrc],
+  )
+  const [candidateIndex, setCandidateIndex] = React.useState(0)
+
+  React.useEffect(() => {
+    setCandidateIndex(0)
+  }, [stringSrc])
+
+  const resolvedSrc: StaticImageData | string =
+    typeof src === 'string' ? srcCandidates[candidateIndex] ?? src : src
 
   // NOTE: this is used by the browser to determine which image to download at different screen sizes
   const sizes = sizeFromProps
@@ -114,8 +128,13 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         quality={72}
         loading={loading}
         sizes={sizes}
-        src={src}
+        src={resolvedSrc}
         width={!fill ? width : undefined}
+        onError={() => {
+          if (typeof src === 'string' && candidateIndex < srcCandidates.length - 1) {
+            setCandidateIndex((i) => i + 1)
+          }
+        }}
       />
     </Wrapper>
   )

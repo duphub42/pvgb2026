@@ -132,6 +132,16 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   const fullHeadlineLabel = hasLines ? lines.join(' ') : headlineText
 
   const foregroundImageUrl = foregroundImage ? getMediaUrlSafe(foregroundImage) : null
+  const backgroundImageUrl = backgroundImage?.url ? getMediaUrl(backgroundImage.url) || backgroundImage.url : null
+  const backgroundCandidates = useMemo(
+    () => getMediaUrlCandidates(backgroundImageUrl),
+    [backgroundImageUrl],
+  )
+  const [backgroundSrcIndex, setBackgroundSrcIndex] = React.useState(0)
+  const backgroundSrc = backgroundCandidates[backgroundSrcIndex] ?? backgroundImageUrl ?? ''
+  React.useEffect(() => {
+    setBackgroundSrcIndex(0)
+  }, [backgroundImageUrl])
   const foregroundCandidates = useMemo(
     () => getMediaUrlCandidates(foregroundImageUrl),
     [foregroundImageUrl],
@@ -182,10 +192,15 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Hintergrundbild */}
       {backgroundImage?.url && (
         <Image
-          src={getMediaUrl(backgroundImage.url) || backgroundImage.url}
+          src={backgroundSrc}
           alt=""
           fill
           className="object-cover -z-10"
+          onError={() => {
+            if (backgroundSrcIndex < backgroundCandidates.length - 1) {
+              setBackgroundSrcIndex((i) => i + 1)
+            }
+          }}
         />
       )}
       {/* Hintergrundvideo */}
