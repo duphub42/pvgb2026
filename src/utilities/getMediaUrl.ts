@@ -31,6 +31,16 @@ function localApiMediaToPublicMedia(pathWithSearch: string): string {
   return queryPart != null && queryPart !== '' ? `${normalizedPath}?${queryPart}` : normalizedPath
 }
 
+function stripApiMediaVersionSuffix(pathWithSearch: string): string {
+  const [pathPart, queryPart] = pathWithSearch.split('?')
+  const match = pathPart?.match(/^\/api\/media\/file\/(.+)$/)
+  if (!match?.[1]) return pathWithSearch
+  const filename = match[1]
+  const stripped = filename.replace(/-(\d+)(\.[a-z0-9]+)$/i, '$2')
+  const normalizedPath = `/api/media/file/${stripped}`
+  return queryPart != null && queryPart !== '' ? `${normalizedPath}?${queryPart}` : normalizedPath
+}
+
 /**
  * Processes media resource URL to ensure proper formatting.
  * Uses relative URLs for same-origin paths so server and client render the same src (avoids hydration mismatch).
@@ -84,8 +94,14 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
         parsed.pathname.startsWith('/api/media/') ||
         ((isLocalHost || isSameHost) && parsed.pathname.startsWith('/media/'))
       ) {
-        const normalizedPath = isLocalHost && parsed.pathname.startsWith('/api/media/file/')
-          ? localApiMediaToPublicMedia(mediaPath)
+        const normalizedPath = parsed.pathname.startsWith('/api/media/file/')
+          ? (
+              isVercelRuntime
+                ? stripApiMediaVersionSuffix(mediaPath)
+                : isLocalHost
+                  ? localApiMediaToPublicMedia(mediaPath)
+                  : mediaPath
+            )
           : mediaPath
         if (
           isLocalHost &&
@@ -105,7 +121,8 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
     }
     return appendTag(url)
   }
-  if (!isVercelRuntime && url.startsWith('/api/media/file/')) {
+  if (url.startsWith('/api/media/file/')) {
+    if (isVercelRuntime) return appendTag(stripApiMediaVersionSuffix(url))
     return appendTag(localApiMediaToPublicMedia(url))
   }
   if (url.startsWith('/api/media/')) return appendTag(url)

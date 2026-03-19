@@ -709,7 +709,7 @@ export function MegaMenu({
                                                 <use href={`/icons-sprite.svg#${iconSpriteId}`} />
                                               </svg>
                                             ) : iconUrl ? (
-                                              <img src={iconUrl} alt="" className="h-4 w-4 object-contain" decoding="async" />
+                                              <img src={iconUrl} alt="" className="h-4 w-4 object-contain" decoding="sync" />
                                             ) : undefined
                                           }
                                         >
@@ -740,7 +740,7 @@ export function MegaMenu({
                                         <use href={`/icons-sprite.svg#${iconSpriteId}`} />
                                       </svg>
                                     ) : iconUrl ? (
-                                      <img src={iconUrl} alt="" className="h-4 w-4 object-contain" decoding="async" />
+                                      <img src={iconUrl} alt="" className="h-4 w-4 object-contain" decoding="sync" />
                                     ) : undefined
                                   }
                                 >
@@ -791,8 +791,8 @@ export function MegaMenu({
                                       src={cardImageUrl}
                                       alt={cardTitle ?? ''}
                                       className="object-cover w-full h-full transition-transform duration-300 group-hover/card:scale-[1.02]"
-                                      loading="lazy"
-                                      decoding="async"
+                                      loading="eager"
+                                      decoding="sync"
                                     />
                                     <div className="absolute inset-0 bg-black/10 transition-opacity group-hover/card:bg-black/5" />
                                   </div>
@@ -809,7 +809,7 @@ export function MegaMenu({
                                         <use href={`/icons-sprite.svg#${cardIconSpriteId}`} />
                                       </svg>
                                     ) : (
-                                      <img src={cardIconUrl} alt="" decoding="async" />
+                                      <img src={cardIconUrl} alt="" decoding="sync" />
                                     )}
                                   </div>
                                 )}
