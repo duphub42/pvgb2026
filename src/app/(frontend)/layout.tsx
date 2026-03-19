@@ -71,7 +71,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             />
 
             <Header />
-            {children}
+            <main id="main-content">{children}</main>
             <Footer locale={locale} />
           </Providers>
           {process.env.NODE_ENV === 'development' && process.env.PINY_VISUAL_SELECT === 'true' && (

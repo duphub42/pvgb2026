@@ -127,6 +127,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   )
   const hasLines = lines.length > 0
   const headlineText = hasLines ? undefined : headline
+  const fullHeadlineLabel = hasLines ? lines.join(' ') : headlineText
 
   const foregroundImageUrl = foregroundImage ? getMediaUrlSafe(foregroundImage) : null
   const overlayStyle = useMemo(
@@ -197,7 +198,10 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
         {/* Headline: Scramble-Effekt, Zeile für Zeile mit Stagger */}
         {hasLines ? (
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline">
+          <h1
+            className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline"
+            aria-label={fullHeadlineLabel || undefined}
+          >
             {lines.map((line, idx) => (
               <span key={idx} className="block">
                 <ScrambleText
@@ -211,7 +215,10 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           </h1>
         ) : (
           headlineText && (
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline">
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline"
+              aria-label={fullHeadlineLabel || undefined}
+            >
               <ScrambleText
                 text={headlineText}
                 staggerMs={HERO_ANIM.headlineScramble.staggerMs}
@@ -268,11 +275,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
             style={MARQUEE_CONTAINER_STYLE}
           >
             {marqueeHeadline && (
-              <span
-                className="text-[0.47rem] font-semibold uppercase tracking-[0.25em] text-muted-foreground mt-[3px] mb-[3px] inline-flex flex-wrap"
-                role="presentation"
-                aria-label={marqueeHeadline}
-              >
+              <span className="text-[0.47rem] font-semibold uppercase tracking-[0.25em] text-muted-foreground mt-[3px] mb-[3px] inline-flex flex-wrap">
                 {marqueeHeadline.split('').map((char, idx) => (
                   <span
                     key={idx}
@@ -302,6 +305,8 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                       <img
                         src={url}
                         alt={logo?.alt ?? ''}
+                        width={88}
+                        height={33}
                         className="hero-logo-grayscale filter grayscale w-auto max-w-[88px] h-auto max-h-[33px] object-contain"
                         loading="lazy"
                         decoding="async"

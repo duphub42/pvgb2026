@@ -118,11 +118,11 @@ export function SaveButton({
   const buttonVariants =
     variant === 'footer'
       ? {
-          idle: { backgroundColor: 'rgb(0, 0, 0)', color: 'white', scale: 1 },
-          saving: { backgroundColor: 'rgb(0, 0, 0)', color: 'white', scale: 1 },
+          idle: { backgroundColor: 'rgb(0, 0, 0)', color: 'rgb(255, 255, 255)', scale: 1 },
+          saving: { backgroundColor: 'rgb(0, 0, 0)', color: 'rgb(255, 255, 255)', scale: 1 },
           saved: {
             backgroundColor: 'rgb(34, 197, 94)',
-            color: 'white',
+            color: 'rgb(255, 255, 255)',
             scale: [1, 1.1, 1] as unknown as number,
             transition: { duration: 0.2, times: [0, 0.5, 1] },
           },
@@ -130,17 +130,17 @@ export function SaveButton({
       : {
           idle: {
             backgroundColor: isDark ? 'rgb(64, 64, 64)' : 'rgb(243, 244, 246)',
-            color: isDark ? 'white' : 'black',
+            color: isDark ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)',
             scale: 1,
           },
           saving: {
             backgroundColor: 'rgb(59, 130, 246)',
-            color: 'white',
+            color: 'rgb(255, 255, 255)',
             scale: 1,
           },
           saved: {
             backgroundColor: 'rgb(34, 197, 94)',
-            color: 'white',
+            color: 'rgb(255, 255, 255)',
             scale: [1, 1.1, 1] as unknown as number,
             transition: { duration: 0.2, times: [0, 0.5, 1] },
           },
