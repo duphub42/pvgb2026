@@ -1,0 +1,9 @@
+{
+  "slug": "data-table29",
+  "title": "Data-table",
+  "description": "A virtualized data table section with inline cell editing via double-click, right-click context menus, sortable columns, and multiple input types. Built with TanStack Table and TanStack Virtual.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/data-table29",
+  "downloadedAt": "2026-03-19T19:41:04Z",
+  "fileCount": 1
+}

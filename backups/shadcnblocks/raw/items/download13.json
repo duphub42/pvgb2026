@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "download13",
+  "title": "Download",
+  "description": "This component provides a user interface for downloading a desktop application, featuring functionalities like copying installation commands and selecting specific download versions for Windows. It includes buttons for direct downloading and a visual indication of successful clipboard operations.",
+  "dependencies": [
+    "lucide-react",
+    "react-icons"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/download13.tsx",
+      "content": "\"use client\";\n\nimport { ArrowRight, Check, Copy, Download } from \"lucide-react\";\nimport { useState } from \"react\";\nimport { FaWindows } from \"react-icons/fa\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Download13Props {\n  className?: string;\n}\n\nconst Download13 = ({ className }: Download13Props) => {\n  const [copied, setCopied] = useState(false);\n\n  const handleCopy = () => {\n    navigator.clipboard.writeText(\"winget install Example.App\");\n    setCopied(true);\n    setTimeout(() => setCopied(false), 2000);\n  };\n\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <span className=\"mx-auto grid size-28 place-items-center rounded-4xl bg-primary p-4 md:size-32\">\n          <img\n            src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg\"\n            alt=\"logo\"\n            className=\"size-16 invert dark:invert-0\"\n          />\n        </span>\n        <h1 className=\"mt-10 text-center text-4xl font-semibold md:text-6xl\">\n          Download for Desktop\n        </h1>\n        <p className=\"mx-auto mt-4 max-w-5xl text-center text-muted-foreground md:mt-6 md:text-xl\">\n          Experience seamless productivity with our desktop application. Get\n          started in minutes with automatic updates and cross-platform support.\n        </p>\n        <div className=\"mt-10 flex flex-col items-center gap-4 md:mt-20\">\n          <FaWindows className=\"size-14\" />\n          <Button>\n            <Download />\n            Download for Windows\n          </Button>\n          <div className=\"flex items-center gap-1.5 rounded-lg border py-1 pr-2 pl-4\">\n            <span className=\"font-mono text-sm\">\n              winget install Example.App\n            </span>\n            <Button\n              variant=\"link\"\n              size=\"icon\"\n              onClick={handleCopy}\n              className=\"relative\"\n            >\n              <span\n                className={`absolute inset-0 grid place-items-center transition-all duration-250 ${\n                  copied\n                    ? \"scale-75 opacity-0 blur-xs\"\n                    : \"blur-0 scale-100 opacity-100\"\n                }`}\n              >\n                <Copy />\n              </span>\n              <span\n                className={`absolute inset-0 grid place-items-center transition-all duration-250 ${\n                  copied\n                    ? \"blur-0 scale-100 opacity-100\"\n                    : \"scale-75 opacity-0 blur-xs\"\n                }`}\n              >\n                <Check className=\"text-emerald-600\" />\n              </span>\n            </Button>\n          </div>\n          <a\n            href=\"#\"\n            className=\"flex items-center gap-1 text-xs text-muted-foreground hover:underline\"\n          >\n            Other Installation Methods\n            <ArrowRight className=\"size-3\" />\n          </a>\n          <div className=\"mt-10 flex flex-col items-center gap-2 md:mt-20\">\n            <p className=\"text-sm font-medium text-muted-foreground\">\n              All Windows downloads:\n            </p>\n            <div className=\"flex items-center gap-2\">\n              <Button variant=\"outline\" size=\"sm\">\n                x64\n              </Button>\n              <Button variant=\"outline\" size=\"sm\">\n                Arm64\n              </Button>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Download13 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

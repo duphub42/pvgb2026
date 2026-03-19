@@ -1,0 +1,9 @@
+{
+  "slug": "data-table6",
+  "title": "Data-table",
+  "description": "A data table section with sortable columns, minimal pagination controls showing previous/next buttons and row count. Built with TanStack Table.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/data-table6",
+  "downloadedAt": "2026-03-19T19:41:06Z",
+  "fileCount": 1
+}

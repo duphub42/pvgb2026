@@ -1,0 +1,9 @@
+{
+  "slug": "data-table31",
+  "title": "Data-table",
+  "description": "A virtualized data table section with add, edit, and delete row functionality, sticky footer for new rows, inline editing, and sortable columns. Built with TanStack Table and TanStack Virtual.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/data-table31",
+  "downloadedAt": "2026-03-19T19:41:05Z",
+  "fileCount": 1
+}

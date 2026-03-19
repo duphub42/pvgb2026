@@ -1,0 +1,9 @@
+{
+  "slug": "download13",
+  "title": "Download",
+  "description": "This component provides a user interface for downloading a desktop application, featuring functionalities like copying installation commands and selecting specific download versions for Windows. It includes buttons for direct downloading and a visual indication of successful clipboard operations.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/download13",
+  "downloadedAt": "2026-03-19T19:41:08Z",
+  "fileCount": 1
+}

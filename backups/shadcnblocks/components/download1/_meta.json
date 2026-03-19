@@ -1,0 +1,9 @@
+{
+  "slug": "download1",
+  "title": "Download",
+  "description": "A component with a heading and description, containing three cards for different platforms (desktop, iOS, android) each with titles, subtitles, descriptions, and download options.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/download1",
+  "downloadedAt": "2026-03-19T19:41:07Z",
+  "fileCount": 1
+}

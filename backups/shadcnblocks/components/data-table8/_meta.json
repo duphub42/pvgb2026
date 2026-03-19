@@ -1,0 +1,9 @@
+{
+  "slug": "data-table8",
+  "title": "Data-table",
+  "description": "A data table section with sortable columns, single-column text filter input, and full pagination controls. Built with TanStack Table.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/data-table8",
+  "downloadedAt": "2026-03-19T19:41:07Z",
+  "fileCount": 1
+}
