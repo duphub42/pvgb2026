@@ -1,0 +1,9 @@
+{
+  "slug": "logos8",
+  "title": "Logos",
+  "description": "A logos showcase component with a title, subtitle, and a grid of logos from various companies, customizable via props.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/logos8",
+  "downloadedAt": "2026-03-19T19:42:31Z",
+  "fileCount": 1
+}

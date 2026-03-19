@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "logos2",
+  "title": "Logos",
+  "description": "A two-column block featuring certifications with text and a button on one side and a 3x2 grid of logos on the other.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/logos2.tsx",
+      "content": "import { ArrowRight } from \"lucide-react\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\nconst logos = [\n  {\n    id: \"logo-1\",\n    description: \"Logo 1\",\n    image:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-1.svg\",\n  },\n  {\n    id: \"logo-2\",\n    description: \"Logo 2\",\n    image:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-2.svg\",\n  },\n  {\n    id: \"logo-3\",\n    description: \"Logo 3\",\n    image:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-3.svg\",\n  },\n  {\n    id: \"logo-4\",\n    description: \"Logo 4\",\n    image:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-4.svg\",\n  },\n  {\n    id: \"logo-5\",\n    description: \"Logo 5\",\n    image:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-5.svg\",\n  },\n  {\n    id: \"logo-6\",\n    description: \"Logo 6\",\n    image:\n      \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/block-6.svg\",\n  },\n];\n\ninterface Logos2Props {\n  className?: string;\n}\n\nconst Logos2 = ({ className }: Logos2Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"grid overflow-hidden rounded-xl border border-border md:grid-cols-2\">\n          <div className=\"my-auto px-6 py-10 sm:px-10 sm:py-12 lg:p-16\">\n            <div className=\"w-full md:max-w-md\">\n              <h2 className=\"mb-4 text-2xl font-semibold lg:text-3xl\">\n                Our certifications say it all.\n              </h2>\n              <p className=\"mb-6 text-lg\">\n                In non libero bibendum odio pellentesque ullamcorper. Aenean\n                condimentum, dolor commodo pulvinar bibendum.\n              </p>\n              <Button className=\"w-full md:w-fit\">\n                <ArrowRight className=\"mr-2 size-5\" />\n                Get in touch\n              </Button>\n            </div>\n          </div>\n          <div className=\"grid grid-cols-3 border-t border-border md:border-t-0 md:border-l\">\n            {logos.map((logo) => (\n              <div\n                key={logo.id}\n                className=\"-mb-px flex items-center justify-center border-r border-b border-border p-5 nth-[3n]:border-r-0 sm:p-6\"\n              >\n                <img\n                  src={logo.image}\n                  alt={logo.description}\n                  className=\"size-12 object-cover object-center sm:size-16 lg:size-24\"\n                ></img>\n              </div>\n            ))}\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Logos2 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

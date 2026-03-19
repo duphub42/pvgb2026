@@ -1,0 +1,9 @@
+{
+  "slug": "logos4",
+  "title": "Logos",
+  "description": "A component displays a section with a title, description, button, and a grid of logos. It includes a badge, central text block, and logos arranged in up to 4 columns.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/logos4",
+  "downloadedAt": "2026-03-19T19:42:30Z",
+  "fileCount": 1
+}

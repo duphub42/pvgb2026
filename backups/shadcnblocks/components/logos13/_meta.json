@@ -1,0 +1,9 @@
+{
+  "slug": "logos13",
+  "title": "Logos",
+  "description": "A component displays partner logos in a grid with years; features a sticky description column and dynamic image inversion in dark mode.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/logos13",
+  "downloadedAt": "2026-03-19T19:42:28Z",
+  "fileCount": 1
+}

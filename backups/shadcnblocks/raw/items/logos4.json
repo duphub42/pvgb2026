@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "logos4",
+  "title": "Logos",
+  "description": "A component displays a section with a title, description, button, and a grid of logos. It includes a badge, central text block, and logos arranged in up to 4 columns.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "badge",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/logos4.tsx",
+      "content": "import { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\nconst logos = [\n  {\n    name: \"Astro\",\n    logo: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/astro-wordmark.svg\",\n  },\n  {\n    name: \"Vercel\",\n    logo: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/vercel-wordmark.svg\",\n  },\n  {\n    name: \"Supabase\",\n    logo: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/supabase-wordmark.svg\",\n  },\n  {\n    name: \"Figma\",\n    logo: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/figma-wordmark.svg\",\n  },\n  {\n    name: \"Astro\",\n    logo: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/nextjs-wordmark.svg\",\n  },\n  {\n    name: \"Vercel\",\n    logo: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/github-wordmark.svg\",\n  },\n  {\n    name: \"Astro\",\n    logo: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/sketch-wordmark.svg\",\n  },\n  {\n    name: \"Supabase\",\n    logo: \"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/logos/tailwind-wordmark.svg\",\n  },\n];\n\ninterface Logos4Props {\n  className?: string;\n}\n\nconst Logos4 = ({ className }: Logos4Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"text-center\">\n          <Badge variant=\"outline\">Referral Partners</Badge>\n          <h1 className=\"mx-auto mt-8 mb-5 max-w-3xl text-4xl font-bold text-balance md:text-6xl\">\n            Join our partner network. Grow together with us.\n          </h1>\n          <p className=\"mx-auto max-w-3xl text-xl font-medium text-balance\">\n            Partner with leading companies in the industry, unlock new\n            opportunities, and accelerate your business growth.\n          </p>\n          <Button size=\"lg\" className=\"mt-8\">\n            Become a partner\n          </Button>\n        </div>\n      </div>\n      <div className=\"mx-auto mt-24 grid max-w-5xl grid-cols-2 place-items-center gap-x-4 gap-y-6 md:grid-cols-3 lg:grid-cols-4 lg:gap-6\">\n        {logos.map((logo) => (\n          <img\n            className=\"grayscale\"\n            src={logo.logo}\n            key={logo.name}\n            alt={logo.name}\n            width={144}\n            height={80}\n          />\n        ))}\n      </div>\n    </section>\n  );\n};\n\nexport { Logos4 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}
