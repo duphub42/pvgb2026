@@ -138,14 +138,14 @@
   /* Hero-Offset: sorgt dafür, dass Hero-Content erst unterhalb der Header-Höhe + 10vh beginnt,
      damit sich Header- und Hero-Inhalte nicht überlappen. */
   .hero-offset {
-    padding-top: max(calc((var(--header-height) + 10vh) * 1.05), calc(180px * 1.05));
+    padding-top: max(calc((var(--header-height) + 10vh) * 1.12), calc(180px * 1.12));
   }
 
   /* Sehr kleine Viewports (< 430px): Abstand etwas reduzieren,
      damit mehr Platz für den Hero-Content bleibt. */
   @media (max-width: 429px) {
     .hero-offset {
-      padding-top: calc((var(--header-height) + 1vh) * 1.05);
+      padding-top: calc((var(--header-height) + 1vh) * 1.12);
     }
   }
 
