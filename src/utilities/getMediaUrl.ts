@@ -13,6 +13,16 @@ function getSiteOrigin(): string | null {
 
 const mediaDebugSeen = new Set<string>()
 
+function getSiteHost(): string | null {
+  const origin = getSiteOrigin()
+  if (!origin) return null
+  try {
+    return new URL(origin).hostname
+  } catch {
+    return null
+  }
+}
+
 /**
  * Processes media resource URL to ensure proper formatting.
  * Uses relative URLs for same-origin paths so server and client render the same src (avoids hydration mismatch).
@@ -53,14 +63,20 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
     try {
       const parsed = new URL(url)
       const mediaPath = `${parsed.pathname}${parsed.search}`
+      const siteHost = getSiteHost()
+      const isLocalHost =
+        parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1'
+      const isSameHost = siteHost != null && parsed.hostname === siteHost
       // Normalize media URLs to same-origin relative paths.
-      // This avoids broken absolute localhost URLs stored in content exports.
+      // This avoids broken absolute localhost URLs stored in content exports,
+      // but keeps external Blob/CDN URLs intact.
       if (
+        (isLocalHost || isSameHost) &&
         parsed.pathname.startsWith('/api/media/') ||
-        parsed.pathname.startsWith('/media/')
+        ((isLocalHost || isSameHost) && parsed.pathname.startsWith('/media/'))
       ) {
         if (
-          (parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1') &&
+          isLocalHost &&
           mediaDebugSeen.size < 30 &&
           !mediaDebugSeen.has(url)
         ) {
