@@ -1,0 +1,9 @@
+{
+  "slug": "faq12",
+  "title": "Faq",
+  "description": "An FAQ component displaying questions under categories with a clickable sidebar for navigation. Features include dynamic active state updates and smooth scrolling.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/faq12",
+  "downloadedAt": "2026-03-19T19:41:16Z",
+  "fileCount": 1
+}

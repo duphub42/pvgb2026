@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "faq16",
+  "title": "Faq",
+  "description": "An accordion-style FAQ block with a title and expandable question items, set in a centered layout with a max-width.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "accordion"
+  ],
+  "files": [
+    {
+      "path": "block/faq16.tsx",
+      "content": "\"use client\";\n\nimport * as React from \"react\";\n\nimport {\n  Accordion,\n  AccordionContent,\n  AccordionItem,\n  AccordionTrigger,\n} from \"@/components/ui/accordion\";\nimport { cn } from \"@/lib/utils\";\n\nconst FAQ_QUESTIONS = [\n  {\n    question: \"What is a FAQ?\",\n    answer:\n      \"A FAQ is a list of frequently asked questions and answers on a particular topic.\",\n  },\n  {\n    question: \"What is the purpose of a FAQ?\",\n    answer:\n      \"The purpose of a FAQ is to provide answers to common questions and help users find the information they need quickly and easily.\",\n  },\n  {\n    question: \"How do I create a FAQ?\",\n    answer:\n      \"To create a FAQ, you need to compile a list of common questions and answers on a particular topic and organize them in a clear and easy-to-navigate format.\",\n  },\n  {\n    question: \"What are the benefits of a FAQ?\",\n    answer:\n      \"The benefits of a FAQ include providing quick and easy access to information, reducing the number of support requests, and improving the overall user experience.\",\n  },\n  {\n    question: \"What is a FAQ?\",\n    answer:\n      \"A FAQ is a list of frequently asked questions and answers on a particular topic.\",\n  },\n  {\n    question: \"What is the purpose of a FAQ?\",\n    answer:\n      \"The purpose of a FAQ is to provide answers to common questions and help users find the information they need quickly and easily.\",\n  },\n  {\n    question: \"How do I create a FAQ?\",\n    answer:\n      \"To create a FAQ, you need to compile a list of common questions and answers on a particular topic and organize them in a clear and easy-to-navigate format.\",\n  },\n  {\n    question: \"What are the benefits of a FAQ?\",\n    answer:\n      \"The benefits of a FAQ include providing quick and easy access to information, reducing the number of support requests, and improving the overall user experience.\",\n  },\n];\n\ninterface Faq16Props {\n  className?: string;\n}\n\nconst Faq16 = ({ className }: Faq16Props) => {\n  return (\n    <section className={cn(\"bg-background py-32\", className)}>\n      <div className=\"container\">\n        <h1 className=\"mb-10 text-center text-6xl font-bold tracking-tighter text-foreground\">\n          FAQs\n        </h1>\n        <div className=\"z-20 mx-auto max-w-2xl rounded-2xl border border-border bg-background p-3\">\n          <Accordion\n            type=\"single\"\n            collapsible\n            className=\"flex w-full flex-col items-center justify-center gap-3\"\n          >\n            {FAQ_QUESTIONS.map((item, index) => (\n              <AccordionItem\n                value={index.toString()}\n                key={index}\n                className=\"m-0 w-full rounded-xl bg-muted px-4 py-2\"\n              >\n                <AccordionTrigger className=\"flex flex-1 justify-between text-left font-semibold transition-all hover:no-underline\">\n                  {item.question}\n                </AccordionTrigger>\n                <AccordionContent className=\"mt-2 text-muted-foreground\">\n                  {item.answer}\n                </AccordionContent>\n              </AccordionItem>\n            ))}\n          </Accordion>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Faq16 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "faq15",
+  "title": "Faq",
+  "description": "An FAQ component with a title and a 2-column layout of items, each featuring an icon, heading, and description.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/faq15",
+  "downloadedAt": "2026-03-19T19:41:16Z",
+  "fileCount": 1
+}

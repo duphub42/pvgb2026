@@ -1,0 +1,9 @@
+{
+  "slug": "faq17",
+  "title": "Faq",
+  "description": "A component comprising FAQs with an accordion layout, personal profile section, and a contact link. Features a 5-column layout, customizable questions, answers, and profile info.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/faq17",
+  "downloadedAt": "2026-03-19T19:41:17Z",
+  "fileCount": 1
+}

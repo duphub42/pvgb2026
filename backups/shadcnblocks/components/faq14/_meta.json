@@ -1,0 +1,9 @@
+{
+  "slug": "faq14",
+  "title": "Faq",
+  "description": "An FAQ component with a central heading, a subtitle, and grouped questions within collapsible cards, each representing a category. Includes a decorative background.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/faq14",
+  "downloadedAt": "2026-03-19T19:41:16Z",
+  "fileCount": 1
+}

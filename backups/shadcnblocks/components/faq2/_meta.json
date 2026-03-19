@@ -1,0 +1,9 @@
+{
+  "slug": "faq2",
+  "title": "Faq",
+  "description": "A FAQ component displaying questions and answers in a column, with a customizable heading and dynamic content.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/faq2",
+  "downloadedAt": "2026-03-19T19:41:17Z",
+  "fileCount": 1
+}

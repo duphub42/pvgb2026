@@ -1,0 +1,9 @@
+{
+  "slug": "faq10",
+  "title": "Faq",
+  "description": "An FAQ component with a title, intro text, and accordion-style questions. It includes a badge icon and a bordered layout.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/faq10",
+  "downloadedAt": "2026-03-19T19:41:15Z",
+  "fileCount": 1
+}
