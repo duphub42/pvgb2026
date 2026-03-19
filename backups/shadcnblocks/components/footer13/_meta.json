@@ -1,0 +1,9 @@
+{
+  "slug": "footer13",
+  "title": "Footer",
+  "description": "This component is a multi-section footer block featuring a call-to-action, newsletter signup, navigational links, and social media connections. It includes 4 columns of navigation links and uses buttons and input for interactions.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/footer13",
+  "downloadedAt": "2026-03-19T19:41:57Z",
+  "fileCount": 1
+}

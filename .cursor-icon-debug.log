@@ -8,3 +8,68 @@
  ✓ Ready in 2.3s
  ○ Compiling / ...
  ✓ Compiled / in 8.5s (4956 modules)
+[20:41:45] [33mWARN[39m: [36mNo email adapter provided. Email will be written to console. More info at https://payloadcms.com/docs/email/overview.[39m
+[debug-icons][mega-menu] {
+  items: 6,
+  totalMediaRefs: 9,
+  numericRefs: 0,
+  objectWithUrl: 9,
+  objectWithFilledUrl: 9,
+  samples: [
+    'http://localhost:3201/api/media/file/webdesign-3.svg',
+    'http://localhost:3201/api/media/file/printmedien.svg',
+    'http://localhost:3201/api/media/file/keynotes-3.svg',
+    'http://localhost:3201/api/media/file/Seo-Suchmaschinenoptimierung.svg',
+    'http://localhost:3201/api/media/file/SEM-Suchmaschinenmarketing.svg'
+  ]
+}
+[debug-icons][footer] {
+  socialLinks: 4,
+  socialPlatforms: [ 'instagram', 'facebook', 'twitter', 'linkedin' ],
+  socialWithUrl: 0,
+  socialNumeric: 0,
+  columns: 6,
+  columnWithUrl: 6,
+  columnNumeric: 0,
+  columnUrlSamples: [
+    'http://localhost:3000/api/media/file/navigation-2.svg',
+    'http://localhost:3000/api/media/file/legal-2.svg',
+    'http://localhost:3000/api/media/file/design.svg',
+    'http://localhost:3000/api/media/file/marketing.svg',
+    'http://localhost:3000/api/media/file/Corporate-Identity-CI-2.svg',
+    'http://localhost:3000/api/media/file/portfolio-2.svg'
+  ]
+}
+ GET / 200 in 12167ms
+[debug-icons][footer] {
+  socialLinks: 4,
+  socialPlatforms: [ 'instagram', 'facebook', 'twitter', 'linkedin' ],
+  socialWithUrl: 0,
+  socialNumeric: 0,
+  columns: 6,
+  columnWithUrl: 6,
+  columnNumeric: 0,
+  columnUrlSamples: [
+    'http://localhost:3201/api/media/file/navigation-2.svg',
+    'http://localhost:3201/api/media/file/legal-2.svg',
+    'http://localhost:3201/api/media/file/design.svg',
+    'http://localhost:3201/api/media/file/marketing.svg',
+    'http://localhost:3201/api/media/file/Corporate-Identity-CI-2.svg',
+    'http://localhost:3201/api/media/file/portfolio-2.svg'
+  ]
+}
+ GET / 200 in 144ms
+ ✓ Compiled in 799ms (1646 modules)
+ ✓ Compiled in 537ms (1646 modules)
+ ✓ Compiled in 490ms (1646 modules)
+ ✓ Compiled in 450ms (1646 modules)
+ ✓ Compiled in 471ms (1646 modules)
+ ✓ Compiled in 546ms (1646 modules)
+ ✓ Compiled in 490ms (1646 modules)
+ ✓ Compiled in 575ms (1646 modules)
+ ✓ Compiled in 613ms (1646 modules)
+ ✓ Compiled in 464ms (1646 modules)
+ ✓ Compiled in 498ms (1646 modules)
+ ✓ Compiled in 506ms (1646 modules)
+ ✓ Compiled in 516ms (1646 modules)
+ ✓ Compiled in 554ms (1646 modules)
