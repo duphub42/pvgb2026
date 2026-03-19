@@ -1,0 +1,9 @@
+{
+  "slug": "compliance5",
+  "title": "Compliance",
+  "description": "A component displays enterprise compliance details, with a bold title, a paragraph, 4 badges in 2 or 4 columns depending on device, and a 'Learn more' button.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/compliance5",
+  "downloadedAt": "2026-03-19T19:40:48Z",
+  "fileCount": 1
+}

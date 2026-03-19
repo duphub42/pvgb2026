@@ -1,0 +1,9 @@
+{
+  "slug": "compare9",
+  "title": "Compare",
+  "description": "A comparative component showcases metrics & technical analysis of 3 models with status indicators, hover effects on data rows, and a detailed breakdown of each model's performance in a grid layout.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/compare9",
+  "downloadedAt": "2026-03-19T19:40:48Z",
+  "fileCount": 1
+}
