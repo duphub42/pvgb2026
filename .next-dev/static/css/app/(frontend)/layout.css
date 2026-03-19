@@ -11305,10 +11305,6 @@ font-style: normal;
     --tw-outline-style: none;
     outline-style: none;
   }
-  .select-all {
-    -webkit-user-select: all;
-    user-select: all;
-  }
   .select-none {
     -webkit-user-select: none;
     user-select: none;
@@ -28027,6 +28023,7 @@ font-style: normal;
     vertical-align: top;
     box-shadow: none;
     filter: none;
+    max-height: calc(100dvh - var(--header-height) - 33px);
     clip-path: inset(0 -20% 1.75rem -20%);
   }
   @media (min-width: 1024px) {
@@ -28134,6 +28131,17 @@ font-style: normal;
     .hero-portrait-sm {
       transform: translateY(40px) scale(1);
       transform-origin: bottom right;
+    }
+  }
+  @media (max-height: 860px) {
+    .hero-portrait-fade-up {
+      bottom: 0;
+    }
+    .hero-portrait-sm {
+      transform: translateY(0) scale(1);
+    }
+    .hero-simple-portrait-img {
+      clip-path: inset(0 -20% 0.75rem -20%);
     }
   }
   .hero-background-overlay {
