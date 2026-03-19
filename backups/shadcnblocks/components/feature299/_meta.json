@@ -1,0 +1,9 @@
+{
+  "slug": "feature299",
+  "title": "Feature",
+  "description": "This component provides a comprehensive visualization of a system's architecture, detailing key features such as data hubs, contributor networks, and authorization processes, enhanced by icon representations for each element. It helps users understand connections and dependencies within the infrastructure, with an illustrative browser mockup for contextual reference.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/feature299",
+  "downloadedAt": "2026-03-19T19:41:25Z",
+  "fileCount": 1
+}

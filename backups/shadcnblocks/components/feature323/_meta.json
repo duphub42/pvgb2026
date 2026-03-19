@@ -1,0 +1,9 @@
+{
+  "slug": "feature323",
+  "title": "Feature",
+  "description": "This component enables users to browse a collection of features, displaying an animated card layout that reveals detailed information upon selection. It includes navigational controls for both desktop and mobile views, allowing users to easily switch between different items.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/feature323",
+  "downloadedAt": "2026-03-19T19:41:27Z",
+  "fileCount": 2
+}

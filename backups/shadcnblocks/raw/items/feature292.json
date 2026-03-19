@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "feature292",
+  "title": "Feature",
+  "description": "A component featuring a hiring tag, a large title with dynamic highlighting, a brief description, and an email signup form alongside a full-cover image in a two-column layout.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button",
+    "input",
+    "https://ui.aceternity.com/registry/pointer-highlight.json"
+  ],
+  "files": [
+    {
+      "path": "block/feature292.tsx",
+      "content": "import { ArrowRight } from \"lucide-react\";\nimport React from \"react\";\n\nimport { PointerHighlight } from \"@/components/aceternity/pointer-highlight\";\nimport { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Feature292Props {\n  className?: string;\n}\n\nconst Feature292 = ({ className }: Feature292Props) => {\n  return (\n    <section\n      className={cn(\"relative grid w-screen overflow-hidden py-32\", className)}\n    >\n      <div className=\"relative z-10 container h-full grid-cols-1 items-center justify-center gap-6 lg:grid lg:grid-cols-2\">\n        <div className=\"flex flex-col items-center justify-center text-center lg:items-start lg:text-left\">\n          <div className=\"mb-12 flex items-center justify-center gap-3 rounded-full bg-muted-foreground/5 p-1 pr-4 text-sm font-medium tracking-tight text-muted-foreground\">\n            <div className=\"flex items-center gap-3 rounded-full bg-muted-foreground/10 px-4 py-1.5\">\n              <span className=\"inline-block size-2 rounded-full bg-blue-500\" />\n              <span>We're Hiring</span>\n            </div>\n            <div className=\"flex items-center gap-2\">\n              Join Our Team <ArrowRight className=\"size-4\" />\n            </div>\n          </div>\n          <h1 className=\"text-5xl font-semibold tracking-tighter lg:text-6xl\">\n            Elevate Your Next Project With,\n            <PointerHighlight containerClassName=\"inline-block\">\n              <span>Production-Ready</span>\n            </PointerHighlight>\n            Shadcnblocks\n          </h1>\n          <p className=\"mt-10 max-w-lg text-muted-foreground\">\n            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo sed\n            voluptate sequi molestias nam exercitationem.\n          </p>\n\n          <div className=\"mt-10 flex w-full max-w-lg gap-2\">\n            <Input\n              className=\"h-13 w-full rounded-full\"\n              placeholder=\"Enter your email\"\n            />\n            <Button className=\"h-13 rounded-full\">\n              Get Started <ArrowRight className=\"-rotate-45\" />\n            </Button>\n          </div>\n        </div>\n        <div className=\"relative mt-10 flex h-[80vh] w-full items-center justify-center overflow-hidden rounded-4xl border lg:mt-0 lg:h-[70vh]\">\n          <img\n            src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/img7.jpeg\"\n            alt=\"\"\n            className=\"size-full object-cover\"\n          />\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Feature292 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

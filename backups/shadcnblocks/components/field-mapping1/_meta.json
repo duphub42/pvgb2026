@@ -1,0 +1,9 @@
+{
+  "slug": "field-mapping1",
+  "title": "Field-mapping",
+  "description": "A data import interface with empty table state, file browse trigger, and dialog for mapping source columns to target fields with combobox selectors and data preview.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/field-mapping1",
+  "downloadedAt": "2026-03-19T19:41:28Z",
+  "fileCount": 1
+}

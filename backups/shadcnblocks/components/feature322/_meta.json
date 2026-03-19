@@ -1,0 +1,9 @@
+{
+  "slug": "feature322",
+  "title": "Feature",
+  "description": "This component, named `Feature322`, highlights several features and includes a testimonial, all enhanced with animations using \"framer-motion\" to create an engaging user experience. It consists of interactive feature cards that display dynamic content such as titles, subtitles, statistics, and visuals, along with an animated scroll progress indicator and a testimonial section to offer a comprehensive overview.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/feature322",
+  "downloadedAt": "2026-03-19T19:41:26Z",
+  "fileCount": 1
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "feature293",
+  "title": "Feature",
+  "description": "A subscription component with a headline, description, email input, button, and animated background. It spans the full screen, contains two columns in the input area, and features dynamic sparkles.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/feature293",
+  "downloadedAt": "2026-03-19T19:41:24Z",
+  "fileCount": 2
+}
