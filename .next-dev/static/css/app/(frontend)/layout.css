@@ -717,6 +717,9 @@ font-style: normal;
   .top-full {
     top: 100%;
   }
+  .-right-0\.5 {
+    right: calc(var(--spacing) * -0.5);
+  }
   .-right-1 {
     right: calc(var(--spacing) * -1);
   }
@@ -845,6 +848,9 @@ font-style: normal;
   }
   .-bottom-0 {
     bottom: calc(var(--spacing) * -0);
+  }
+  .-bottom-0\.5 {
+    bottom: calc(var(--spacing) * -0.5);
   }
   .-bottom-1 {
     bottom: calc(var(--spacing) * -1);
@@ -6760,6 +6766,9 @@ font-style: normal;
   .border-secondary {
     border-color: var(--secondary);
   }
+  .border-sidebar {
+    border-color: var(--sidebar);
+  }
   .border-sky-200 {
     border-color: var(--color-sky-200);
   }
@@ -7617,6 +7626,12 @@ font-style: normal;
   }
   .bg-sidebar-accent {
     background-color: var(--sidebar-accent);
+  }
+  .bg-sidebar-accent\/50 {
+    background-color: var(--sidebar-accent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--sidebar-accent) 50%, transparent);
+    }
   }
   .bg-sidebar-primary {
     background-color: var(--sidebar-primary);
@@ -10577,6 +10592,11 @@ font-style: normal;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
     transition-duration: var(--tw-duration, var(--default-transition-duration));
   }
+  .transition-\[width\,height\] {
+    transition-property: width,height;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
   .transition-\[width\] {
     transition-property: width;
     transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
@@ -11741,6 +11761,13 @@ font-style: normal;
       }
     }
   }
+  .group-hover\/label\:opacity-100 {
+    &:is(:where(.group\/label):hover *) {
+      @media (hover: hover) {
+        opacity: 100%;
+      }
+    }
+  }
   .group-hover\/link\:bg-background {
     &:is(:where(.group\/link):hover *) {
       @media (hover: hover) {
@@ -11807,6 +11834,11 @@ font-style: normal;
   .group-has-checked\/size\:stroke-primary-foreground {
     &:is(:where(.group\/size):has(*:checked) *) {
       stroke: hsl(var(--primary-foreground));
+    }
+  }
+  .group-has-data-\[collapsible\=icon\]\/sidebar-wrapper\:h-12 {
+    &:is(:where(.group\/sidebar-wrapper):has(*[data-collapsible="icon"]) *) {
+      height: calc(var(--spacing) * 12);
     }
   }
   .group-has-data-\[size\=lg\]\/avatar-group\:size-10 {
@@ -11953,6 +11985,11 @@ font-style: normal;
   }
   .group-data-\[state\=open\]\/collapsible\:rotate-90 {
     &:is(:where(.group\/collapsible)[data-state="open"] *) {
+      rotate: 90deg;
+    }
+  }
+  .group-data-\[state\=open\]\/label\:rotate-90 {
+    &:is(:where(.group\/label)[data-state="open"] *) {
       rotate: 90deg;
     }
   }
