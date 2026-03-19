@@ -1,0 +1,9 @@
+{
+  "slug": "checkout4",
+  "title": "Checkout",
+  "description": "This component serves as a comprehensive checkout block that handles both shopping cart management and payment processing. Users can manage item quantities, view total prices, and choose from multiple payment methods, including credit card and PayPal, while ensuring form validation using Zod and React Hook Form.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/checkout4",
+  "downloadedAt": "2026-03-19T19:40:37Z",
+  "fileCount": 3
+}

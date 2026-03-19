@@ -1,0 +1,9 @@
+{
+  "slug": "background-pattern4",
+  "title": "Background-pattern",
+  "description": "This component creates a full-screen background with a diagonal fade grid pattern using CSS gradients and masking techniques. It allows for additional styling through an optional className prop and includes a placeholder for pattern customization.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/background-pattern4",
+  "downloadedAt": "2026-03-19T19:40:06Z",
+  "fileCount": 2
+}

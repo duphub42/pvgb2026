@@ -1,0 +1,9 @@
+{
+  "slug": "changelog6",
+  "title": "Changelog",
+  "description": "A changelog component displays updates with dialogs for detailed view, including versions, dates, images, contributors, and excerpts. Features tooltip actions.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/changelog6",
+  "downloadedAt": "2026-03-19T19:40:25Z",
+  "fileCount": 1
+}

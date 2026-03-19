@@ -1,0 +1,9 @@
+{
+  "slug": "blog7",
+  "title": "Blog",
+  "description": "A blog showcase block with a header, description, and 3-column grid of posts, featuring images, titles, summaries, and read-more links.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/blog7",
+  "downloadedAt": "2026-03-19T19:40:16Z",
+  "fileCount": 1
+}

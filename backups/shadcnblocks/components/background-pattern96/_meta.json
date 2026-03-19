@@ -1,0 +1,9 @@
+{
+  "slug": "background-pattern96",
+  "title": "Background-pattern",
+  "description": "This component generates a visually dynamic background using radial gradients and a noise texture overlay, enhancing the visual depth and aesthetic of any interface. It is designed for use in areas where a unique, customizable background pattern is desired, and includes support for additional styling through optional class names.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/background-pattern96",
+  "downloadedAt": "2026-03-19T19:40:08Z",
+  "fileCount": 2
+}

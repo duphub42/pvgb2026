@@ -1,0 +1,9 @@
+{
+  "slug": "blog19",
+  "title": "Blog",
+  "description": "This component displays a block titled \"Related articles\" with a button to see all articles. It features a 1 to 4 column grid layout of article summaries.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/blog19",
+  "downloadedAt": "2026-03-19T19:40:13Z",
+  "fileCount": 1
+}

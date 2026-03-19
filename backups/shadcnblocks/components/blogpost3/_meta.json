@@ -1,0 +1,9 @@
+{
+  "slug": "blogpost3",
+  "title": "Blogpost",
+  "description": "A component featuring a central article with dynamic side navigation and a call-to-action block, including images, tables, and alerts. It&#x27;s structured in a 3-column layout for larger displays.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/blogpost3",
+  "downloadedAt": "2026-03-19T19:40:16Z",
+  "fileCount": 1
+}

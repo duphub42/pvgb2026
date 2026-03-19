@@ -1,0 +1,9 @@
+{
+  "slug": "address-book1",
+  "title": "Address-book",
+  "description": "This component provides an interactive interface for managing and editing a list of addresses, allowing users to add, edit, and delete addresses with form inputs for various details like name, street, city, and phone number. It includes features such as marking an address as default, categorizing addresses by type (home, work, other), and toggling between display and edit modes.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/address-book1",
+  "downloadedAt": "2026-03-19T19:39:58Z",
+  "fileCount": 1
+}

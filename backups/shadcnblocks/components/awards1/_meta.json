@@ -1,0 +1,9 @@
+{
+  "slug": "awards1",
+  "title": "Awards",
+  "description": "A component displaying a \"Milestones\" heading and a table listing awards with names, descriptions, and years, across 5 columns.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/awards1",
+  "downloadedAt": "2026-03-19T19:40:03Z",
+  "fileCount": 1
+}

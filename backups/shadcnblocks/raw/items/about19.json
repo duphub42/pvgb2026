@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "about19",
+  "title": "About",
+  "description": "A seven-column about section with large bordered image on the left and headline, text, quote attribution with avatar on the right.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/about19.tsx",
+      "content": "import React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\ninterface About19Props {\n  className?: string;\n}\n\nconst About19 = ({ className }: About19Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"grid grid-cols-1 gap-15 lg:grid-cols-7 lg:gap-1\">\n          <div className=\"col-span-4 h-120 border\">\n            <img\n              src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri4/img2.png\"\n              alt=\"\"\n              className=\"h-full w-full object-cover\"\n            />\n          </div>\n\n          <div className=\"col-span-3 ml-auto max-w-4xl space-y-15 lg:pl-15\">\n            <h1 className=\"text-2xl font-medium tracking-tight\">\n              We are a team of creators, thinkers, and builders who believe in\n              crafting experiences that truly connect. Our story is built on\n              passion, innovation, and the drive to bring meaningful ideas to\n              life.\n            </h1>\n            <p className=\"text-base text-foreground/40 lg:text-lg\">\n              We ask: What’s the goal? Who’s it for? How do we make it\n              effortless? we begin with why, who, and how to make it better.\n            </p>\n            <div className=\"flex flex-col justify-between gap-4 lg:flex-row lg:items-center\">\n              <p className=\"flex-1 text-sm text-foreground/40\">\n                We aim to bring diverse minds together, turning ideas into\n                experiences that matter.\n              </p>\n              <div className=\"flex w-fit items-center gap-2\">\n                <img\n                  src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/avatar1.png\"\n                  className=\"size-10\"\n                  alt=\"avatr\"\n                />\n                <div>\n                  <h3 className=\"font-medium tracking-tight\">John Doe</h3>\n                  <p className=\"text-sm text-foreground/40\">\n                    Creative Director\n                  </p>\n                </div>\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { About19 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

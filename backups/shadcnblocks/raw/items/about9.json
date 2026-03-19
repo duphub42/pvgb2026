@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "about9",
+  "title": "About",
+  "description": "A personal profile section with large team photo, role and location info with flag icon, bio text, and secondary workspace image.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/about9.tsx",
+      "content": "import React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\ninterface About9Props {\n  className?: string;\n}\n\nconst About9 = ({ className }: About9Props) => {\n  return (\n    <section className={cn(\"py-16 md:py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"mx-auto max-w-6xl\">\n          <h1 className=\"mb-6 max-w-4xl text-3xl leading-tight font-medium tracking-tight md:text-4xl\">\n            Hi, were a team of developers with a passion for building scalable\n            and efficient web applications.\n          </h1>\n\n          <div className=\"mb-8 flex justify-center\">\n            <img\n              src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/nubelson-fernandes-tAJYoec13xk-unsplash.jpg\"\n              alt=\"Team at work\"\n              className=\"w-full rounded-sm object-cover\"\n            />\n          </div>\n\n          <div className=\"mx-auto mb-16 flex w-full max-w-6xl flex-col justify-between gap-12 md:flex-row\">\n            <div className=\"text-base font-medium\">\n              <span className=\"block text-muted-foreground\">\n                Full Stack Developer\n              </span>\n              <span className=\"font-semibold text-foreground\">\n                San Francisco CA\n                <img\n                  src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/flags/united-states.png\"\n                  alt=\"United States\"\n                  className=\"h-4 w-4\"\n                />\n              </span>\n            </div>\n\n            <div className=\"mt-8 w-full md:mt-0 md:w-2/3\">\n              <p className=\"font-base w-full text-lg leading-[28px] text-muted-foreground md:w-3/4\">\n                I am a passionate and innovative Full Stack Developer with over\n                6 years of experience in building scalable web applications. My\n                journey began with a fascination for problem-solving and a deep\n                interest in emerging technologies.\n                <br />\n                <br />\n                Specializing in React, Node.js, and cloud technologies, I've\n                helped startups and enterprises build robust digital solutions.\n                From e-commerce platforms to SaaS applications, I focus on\n                creating user-centric experiences with clean, maintainable code\n                architecture.\n              </p>\n\n              <div className=\"mt-12\">\n                <img\n                  src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/photos/nastuh-abootalebi-eHD8Y1Znfpk-unsplash.jpg\"\n                  alt=\"Work environment\"\n                  className=\"w-full rounded-sm object-cover\"\n                />\n              </div>\n            </div>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { About9 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

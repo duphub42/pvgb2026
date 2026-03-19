@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "blog19",
+  "title": "Blog",
+  "description": "This component displays a block titled \"Related articles\" with a button to see all articles. It features a 1 to 4 column grid layout of article summaries.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/blog19.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\nconst data = [\n  {\n    id: 1,\n    title: \"Getting Started with Modern Web Development\",\n    description:\n      \"Discover the essential tools and frameworks needed for modern web development. Learn about the latest technologies, best practices, and workflow optimization techniques for building robust web applications.\",\n    date: \"March 15, 2024\",\n    category: \"Web Development\",\n    link: \"#\",\n  },\n  {\n    id: 2,\n    title: \"Understanding Frontend Design Principles\",\n    description:\n      \"Explore fundamental principles of frontend design and development. Learn about responsive layouts, user interface patterns, accessibility standards, and how to create engaging user experiences.\",\n    date: \"March 12, 2024\",\n    category: \"Frontend\",\n    link: \"#\",\n  },\n  {\n    id: 3,\n    title: \"Backend Development Fundamentals Guide\",\n    description:\n      \"Master the core concepts of backend development including database design, API architecture, and server management. Learn how to build secure, efficient, and scalable backend systems.\",\n    date: \"March 8, 2024\",\n    category: \"Backend\",\n    link: \"#\",\n  },\n  {\n    id: 4,\n    title: \"Advanced JavaScript Programming Concepts\",\n    description:\n      \"Deep dive into advanced JavaScript concepts including async programming, design patterns, and modern ES6+ features. Learn how to write clean, maintainable, and efficient JavaScript code.\",\n    date: \"March 5, 2024\",\n    category: \"Frontend\",\n    link: \"#\",\n  },\n];\n\ninterface Blog19Props {\n  className?: string;\n}\n\nconst Blog19 = ({ className }: Blog19Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"mb-8 flex flex-wrap items-center justify-between gap-1\">\n          <h1 className=\"text-2xl font-semibold md:text-4xl\">\n            Related articles\n          </h1>\n          <Button\n            variant=\"outline\"\n            className=\"md:h-10 md:px-4 md:py-2\"\n            size=\"sm\"\n          >\n            See all articles\n          </Button>\n        </div>\n        <div className=\"grid grid-cols-1 gap-16 md:grid-cols-2 lg:grid-cols-4 lg:gap-10\">\n          {data.map((item) => (\n            <a key={item.id} href={item.link} className=\"flex flex-col gap-2\">\n              <span className=\"text-sm font-medium text-muted-foreground\">\n                {item.category}\n              </span>\n              <h3 className=\"mb-1 text-lg font-semibold\">{item.title}</h3>\n              <p className=\"mb-4 text-sm text-muted-foreground\">\n                {item.description}\n              </p>\n              <span className=\"text-sm font-medium text-muted-foreground\">\n                {item.date}\n              </span>\n            </a>\n          ))}\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Blog19 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "careers2",
+  "title": "Careers",
+  "description": "A component showcasing job openings with a header, grid layout (single column expanding to four on large screens) for each job, including title, type, location, and an apply button.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/careers2",
+  "downloadedAt": "2026-03-19T19:40:19Z",
+  "fileCount": 1
+}

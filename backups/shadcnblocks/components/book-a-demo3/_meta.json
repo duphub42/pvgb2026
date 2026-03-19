@@ -1,0 +1,9 @@
+{
+  "slug": "book-a-demo3",
+  "title": "Book-a-demo",
+  "description": "The component combines a demo booking form with testimonial display functionality, aimed at facilitating user interaction through form inputs such as name, email, location, and more. It features customizable properties for headings, descriptions, and testimonials, making it suitable for user feedback and engagement with multiple selection options.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/book-a-demo3",
+  "downloadedAt": "2026-03-19T19:40:18Z",
+  "fileCount": 1
+}

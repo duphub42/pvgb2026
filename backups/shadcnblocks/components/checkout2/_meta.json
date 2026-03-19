@@ -1,0 +1,9 @@
+{
+  "slug": "checkout2",
+  "title": "Checkout",
+  "description": "This component facilitates a comprehensive e-commerce checkout process, allowing users to input contact information, shipping address, choose a shipping method, and select a payment method. It includes an order summary where users can view, modify quantities, and remove items from their shopping cart before finalizing their purchase.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/checkout2",
+  "downloadedAt": "2026-03-19T19:40:37Z",
+  "fileCount": 4
+}

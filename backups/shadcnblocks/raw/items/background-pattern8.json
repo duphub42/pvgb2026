@@ -1,0 +1,26 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "background-pattern8",
+  "title": "Background-pattern",
+  "description": "This component, named BackgroundPattern8, is designed to create a visually appealing full-screen background with a fade grid pattern effect. It includes a customizable className prop for flexible styling and incorporates a radial gradient mask to enhance the design.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "badge",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/background-pattern8.tsx",
+      "content": "import { PatternPlaceholder } from \"@/components/shadcnblocks/pattern-placeholder\";\nimport { cn } from \"@/lib/utils\";\n\ninterface BackgroundPattern8Props {\n  className?: string;\n}\n\nconst BackgroundPattern8 = ({ className }: BackgroundPattern8Props) => {\n  return (\n    <section\n      className={cn(\n        \"relative flex min-h-screen w-full items-center justify-center\",\n        className,\n      )}\n    >\n      <PatternPlaceholder />\n      {/* Background Pattern */}\n      {/* Bottom Left Fade Grid Pattern */}\n      <div\n        className=\"absolute inset-0 z-0 bg-[linear-gradient(to_right,_var(--muted)_1px,_transparent_1px),linear-gradient(to_bottom,_var(--muted)_1px,_transparent_1px)] bg-[length:32px_32px]\"\n        style={{\n          WebkitMaskImage:\n            \"radial-gradient(ellipse 80% 80% at 0% 100%, #000 50%, transparent 90%)\",\n          maskImage:\n            \"radial-gradient(ellipse 80% 80% at 0% 100%, #000 50%, transparent 90%)\",\n        }}\n      />\n    </section>\n  );\n};\n\nexport { BackgroundPattern8 };\n",
+      "type": "registry:block"
+    },
+    {
+      "path": "components/shadcnblocks/pattern-placeholder.tsx",
+      "content": "import { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\n\nconst PatternPlaceholder = () => {\n  return (\n    <div className=\"relative z-10\">\n      <div className=\"container py-28 md:py-32\">\n        <div className=\"mx-auto flex max-w-5xl flex-col items-center gap-6 text-center\">\n          <Badge variant=\"secondary\">Shadcnblocks.com</Badge>\n          <div className=\"max-w-3xl\">\n            <h1 className=\"mb-6 text-4xl font-medium tracking-tight text-pretty text-foreground md:text-5xl lg:text-6xl\">\n              Modern background patterns for any section.\n            </h1>\n            <p className=\"mx-auto max-w-2xl font-light tracking-tighter text-pretty text-muted-foreground md:text-lg lg:text-xl\">\n              Easily insertable background patterns that use Tailwind CSS and\n              SVGs. Copy and paste as an absolute positioned div in any section.\n            </p>\n          </div>\n\n          <div className=\"flex items-center gap-2\">\n            <Button>Get Started</Button>\n            <Button variant=\"secondary\">Learn More</Button>\n          </div>\n        </div>\n      </div>\n    </div>\n  );\n};\n\nexport { PatternPlaceholder };\n",
+      "type": "registry:component",
+      "target": ""
+    }
+  ],
+  "type": "registry:block"
+}

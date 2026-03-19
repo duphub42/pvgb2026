@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "about13",
+  "title": "About",
+  "description": "A six-column about section with large story headline, team intro text, avatar profile card, philosophy paragraph, and full-width image.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/about13.tsx",
+      "content": "import React from \"react\";\n\nimport { cn } from \"@/lib/utils\";\n\ninterface About13Props {\n  className?: string;\n}\n\nconst About13 = ({ className }: About13Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container space-y-10 lg:space-y-20\">\n        <div className=\"w-full grid-cols-6 gap-10 lg:grid\">\n          <div />\n          <h1 className=\"col-span-4 text-5xl font-semibold tracking-tighter lg:pr-24 lg:pl-10 lg:text-8xl\">\n            Our story\n          </h1>\n        </div>\n        <div className=\"grid-cols-6 space-y-12 lg:grid lg:space-y-0 xl:gap-10\">\n          <p className=\"hidden text-foreground/40 lg:block\">\n            Our Crew, Our story\n          </p>\n          <div className=\"col-span-2 lg:pr-24 lg:pl-10\">\n            <p className=\"text-foreground/40\">\n              We aim to bring diverse minds together, turning ideas into\n              experiences that matter.\n            </p>\n            <div className=\"mt-5 flex items-center gap-5 lg:mt-20\">\n              <img\n                src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri3/avatar1.png\"\n                className=\"size-12\"\n                alt=\"avatr\"\n              />\n              <div>\n                <h3 className=\"text-lg font-medium tracking-tight\">John Doe</h3>\n                <p className=\"text-sm text-foreground/40\">Creative Director</p>\n              </div>\n            </div>\n          </div>\n          <div className=\"col-span-3 mt-32 lg:mt-0 lg:pl-10\">\n            <h2 className=\"text-2xl font-medium tracking-tight lg:text-3xl\">\n              We are a team of creators, thinkers, and builders who believe in\n              crafting experiences that truly connect. Our story is built on\n              passion, innovation, and the drive to bring meaningful ideas to\n              life.\n            </h2>\n            <p className=\"mt-6 text-base text-foreground/40 lg:mt-18 lg:text-lg\">\n              We ask: What&apos;s the goal? Who&apos;s it for? How do we make it\n              effortless? We begin with why, who, and how to make it better.\n            </p>\n          </div>\n        </div>\n        <div>\n          <img\n            src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/guri4/img10.png\"\n            alt=\"about us iamge\"\n            className=\"mt-4 h-150 w-full object-cover\"\n          />\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { About13 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

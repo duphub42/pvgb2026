@@ -1,0 +1,9 @@
+{
+  "slug": "changelog5",
+  "title": "Changelog",
+  "description": "A component that displays changelogs with features like a sticky timeline navigation, vertical separators, and scroll-spy functionality for active section highlighting.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/changelog5",
+  "downloadedAt": "2026-03-19T19:40:25Z",
+  "fileCount": 1
+}

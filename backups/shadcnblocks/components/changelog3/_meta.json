@@ -1,0 +1,9 @@
+{
+  "slug": "changelog3",
+  "title": "Changelog",
+  "description": "A component displaying updates with sections for dates, tags (e.g., &#x27;Maintenance&#x27;), and content including images. Uses a two-column layout on desktop.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/changelog3",
+  "downloadedAt": "2026-03-19T19:40:24Z",
+  "fileCount": 1
+}

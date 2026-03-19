@@ -1,0 +1,9 @@
+{
+  "slug": "blog27",
+  "title": "Blog",
+  "description": "A component displaying blog articles with filters, featuring a breadcrumb navigator, an email form, and a \"Load More\" button, arranged in up to three columns.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/blog27",
+  "downloadedAt": "2026-03-19T19:40:15Z",
+  "fileCount": 1
+}

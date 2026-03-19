@@ -1,0 +1,9 @@
+{
+  "slug": "banner5",
+  "title": "Banner",
+  "description": "A dismissible banner component with an icon, title, description, and external link button. Features a close button, adapts layout from column to row on wider screens.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/banner5",
+  "downloadedAt": "2026-03-19T19:40:10Z",
+  "fileCount": 1
+}

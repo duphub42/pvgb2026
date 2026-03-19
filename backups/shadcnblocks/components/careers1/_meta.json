@@ -1,0 +1,9 @@
+{
+  "slug": "careers1",
+  "title": "Careers",
+  "description": "A component displaying career opportunities by department, with clickable roles that reveal more via an arrow icon animation.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/careers1",
+  "downloadedAt": "2026-03-19T19:40:19Z",
+  "fileCount": 1
+}

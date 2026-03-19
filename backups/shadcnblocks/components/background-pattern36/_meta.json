@@ -1,0 +1,9 @@
+{
+  "slug": "background-pattern36",
+  "title": "Background-pattern",
+  "description": "A component that creates a visually interesting background pattern using a combination of linear gradients and radial masks, designed to mimic a circuit board appearance. Ideal for adding dynamic visual flair to a full-page layout while allowing custom styling through class name overrides.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/background-pattern36",
+  "downloadedAt": "2026-03-19T19:40:05Z",
+  "fileCount": 2
+}

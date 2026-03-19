@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "careers9",
+  "title": "Careers",
+  "description": "A component listing job openings with department, role, location, and a link, featuring a heading, introduction, and a call-to-action for unsolicited applications.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "badge",
+    "separator"
+  ],
+  "files": [
+    {
+      "path": "block/careers9.tsx",
+      "content": "import { ArrowRight } from \"lucide-react\";\nimport React from \"react\";\n\nimport { Badge } from \"@/components/ui/badge\";\nimport { Separator } from \"@/components/ui/separator\";\nimport { cn } from \"@/lib/utils\";\n\nconst jobs = [\n  {\n    department: \"Engineering\",\n    role: \"Senior Full Stack Developer\",\n    location: \"Remote\",\n    link: \"#\",\n  },\n  {\n    department: \"Product\",\n    role: \"Product Manager\",\n    location: \"Hybrid\",\n    link: \"#\",\n  },\n  {\n    department: \"Design\",\n    role: \"UI/UX Designer\",\n    location: \"Remote\",\n    link: \"#\",\n  },\n  {\n    department: \"Data\",\n    role: \"Data Scientist\",\n    location: \"On-site\",\n    link: \"#\",\n  },\n  {\n    department: \"Marketing\",\n    role: \"Growth Marketing Specialist\",\n    location: \"Remote\",\n    link: \"#\",\n  },\n];\n\ninterface Careers9Props {\n  className?: string;\n}\n\nconst Careers9 = ({ className }: Careers9Props) => {\n  return (\n    <section\n      className={cn(\n        \"bg-gradient-to-b from-background to-muted/20 py-24\",\n        className,\n      )}\n    >\n      <div className=\"container max-w-6xl\">\n        <div className=\"mb-16 text-center\">\n          <h2 className=\"text-4xl font-bold md:text-5xl\">Current Openings</h2>\n          <p className=\"mx-auto mt-4 max-w-2xl text-lg text-muted-foreground\">\n            Join our team and help shape the future. We're looking for\n            passionate people who are excited to tackle challenging problems and\n            build amazing products.\n          </p>\n        </div>\n        <div className=\"hidden grid-cols-1 items-center gap-1.5 py-6 text-xs uppercase sm:grid sm:grid-cols-4 sm:gap-10\">\n          <span className=\"text-muted-foreground\">DEPARTMENT</span>\n          <span className=\"col-span-2 text-muted-foreground\">ROLE</span>\n          <span className=\"text-muted-foreground uppercase\">LOCATION</span>\n        </div>\n        <Separator />\n        {jobs.map((job, idx) => (\n          <React.Fragment key={idx}>\n            <a\n              href={job.link}\n              className=\"group relative grid grid-cols-1 items-center gap-1.5 py-6 sm:grid-cols-4 sm:gap-10\"\n            >\n              <Badge variant=\"outline\">{job.department}</Badge>\n              <span className=\"col-span-2 text-lg font-semibold\">\n                {job.role}\n              </span>\n              <div className=\"flex items-center justify-between gap-2\">\n                <span className=\"text-muted-foreground\">{job.location}</span>\n                <ArrowRight className=\"absolute top-6 right-6 size-4.5 text-muted-foreground transition-all duration-300 group-hover:translate-x-1 group-hover:text-primary sm:static\" />\n              </div>\n            </a>\n            <Separator />\n          </React.Fragment>\n        ))}\n        <div className=\"mt-12 text-center\">\n          <p className=\"mb-4 text-muted-foreground\">\n            Don't see a role that fits? We're always looking for great talent.\n          </p>\n          <a\n            href=\"#contact\"\n            className=\"inline-flex items-center gap-2 font-medium text-primary transition-colors hover:text-primary/80\"\n          >\n            Send us your resume\n            <ArrowRight className=\"mt-0.5 size-4\" />\n          </a>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Careers9 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

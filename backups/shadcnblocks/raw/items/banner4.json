@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "banner4",
+  "title": "Banner",
+  "description": "An informational banner component with a title, description, and link button. Includes an icon and close function.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/banner4.tsx",
+      "content": "\"use client\";\n\nimport { X } from \"lucide-react\";\nimport { useState } from \"react\";\n\nimport { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Banner4Props {\n  title: string;\n  description: string;\n  buttonText: string;\n  buttonUrl: string;\n  defaultVisible?: boolean;\n  className?: string;\n}\n\nconst Banner4 = ({\n  title = \"Black Friday Sale! 🎉\",\n  description = \"Up to 70% off on all components. Limited time only!\",\n  defaultVisible = true,\n  className,\n}: Banner4Props) => {\n  const [isVisible, setIsVisible] = useState(defaultVisible);\n\n  const handleClose = () => {\n    setIsVisible(false);\n  };\n\n  if (!isVisible) return null;\n\n  return (\n    <section className={cn(\"w-full bg-primary p-4\", className)}>\n      <div className=\"container\">\n        <div className=\"relative flex flex-col gap-4 text-center md:flex-row md:items-center md:justify-center\">\n          <Button\n            variant=\"ghost\"\n            size=\"icon\"\n            className=\"absolute top-0 right-0 h-8 w-8 md:hidden\"\n            onClick={handleClose}\n          >\n            <X className=\"h-4 w-4\" />\n          </Button>\n\n          <div className=\"flex flex-col items-center gap-3 pt-2 text-primary-foreground md:flex-row md:items-center md:pt-0\">\n            <div className=\"flex flex-col gap-1 md:flex-row md:items-center\">\n              <p className=\"text-sm font-medium\">{title}</p>\n              <p className=\"text-sm text-primary-foreground/80\">\n                {description}\n              </p>\n            </div>\n          </div>\n\n          <div className=\"flex items-center gap-2\">\n            <Button\n              variant=\"ghost\"\n              size=\"icon\"\n              className=\"hidden h-8 w-8 invert md:inline-flex\"\n              onClick={handleClose}\n            >\n              <X className=\"h-4 w-4\" />\n            </Button>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Banner4 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

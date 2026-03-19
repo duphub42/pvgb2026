@@ -1,0 +1,9 @@
+{
+  "slug": "blog1",
+  "title": "Blog",
+  "description": "A component with a blog posts layout, featuring a category filter and a 1-3 column grid of posts with summaries, images, and labels.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/blog1",
+  "downloadedAt": "2026-03-19T19:40:11Z",
+  "fileCount": 1
+}

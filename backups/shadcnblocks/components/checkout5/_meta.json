@@ -1,0 +1,9 @@
+{
+  "slug": "checkout5",
+  "title": "Checkout",
+  "description": "The component provides a detailed checkout form that includes order summary, email input, card payment details, and promo code application, using react-hook-form and zod for validation. It allows users to input billing information, apply a coupon code, and choose payment methods like card or Apple Pay.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/checkout5",
+  "downloadedAt": "2026-03-19T19:40:38Z",
+  "fileCount": 1
+}

@@ -1,0 +1,9 @@
+{
+  "slug": "case-study8",
+  "title": "Case-study",
+  "description": "The component \"CaseStudy8\" is designed to present a detailed narrative with accompanying visuals, including an image and structured text sections for titles, paragraphs, and lists. It also incorporates an informational sidebar that displays company-related details such as logo, size, location, and website, offering users comprehensive content and context in one cohesive block.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/case-study8",
+  "downloadedAt": "2026-03-19T19:40:23Z",
+  "fileCount": 1
+}

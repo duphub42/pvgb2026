@@ -1,0 +1,9 @@
+{
+  "slug": "changelog1",
+  "title": "Changelog",
+  "description": "A component displaying a changelog with entries including version info, date, and details. Features badges, buttons, and conditional rendering of lists and images.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/changelog1",
+  "downloadedAt": "2026-03-19T19:40:23Z",
+  "fileCount": 1
+}

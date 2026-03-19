@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-card14",
+  "title": "Chart-card",
+  "description": "An area chart showing a min/max range band with an average line overlay.",
+  "dependencies": [
+    "recharts"
+  ],
+  "registryDependencies": [
+    "utils",
+    "card",
+    "chart"
+  ],
+  "files": [
+    {
+      "path": "block/chart-card14.tsx",
+      "content": "\"use client\";\n\nimport { Area, AreaChart, CartesianGrid, XAxis, YAxis } from \"recharts\";\n\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\";\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\nimport { cn } from \"@/lib/utils\";\n\ninterface ChartCard14Props {\n  title?: string;\n  description?: string;\n  className?: string;\n}\n\nconst chartData = [\n  { month: \"Jan\", min: 120, max: 180, avg: 150 },\n  { month: \"Feb\", min: 140, max: 220, avg: 175 },\n  { month: \"Mar\", min: 130, max: 195, avg: 160 },\n  { month: \"Apr\", min: 155, max: 240, avg: 190 },\n  { month: \"May\", min: 145, max: 210, avg: 175 },\n  { month: \"Jun\", min: 160, max: 250, avg: 200 },\n  { month: \"Jul\", min: 170, max: 260, avg: 215 },\n  { month: \"Aug\", min: 165, max: 245, avg: 205 },\n];\n\nconst chartConfig = {\n  range: {\n    label: \"Range\",\n    color: \"var(--chart-1)\",\n  },\n  avg: {\n    label: \"Average\",\n    color: \"var(--chart-2)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartCard14 = ({\n  title = \"Response Time Range\",\n  description = \"Min, max, and average response times\",\n  className,\n}: ChartCard14Props) => {\n  return (\n    <Card className={cn(\"w-full max-w-2xl\", className)}>\n      <CardHeader>\n        <CardTitle>{title}</CardTitle>\n        <CardDescription>{description}</CardDescription>\n      </CardHeader>\n      <CardContent>\n        <ChartContainer config={chartConfig} className=\"h-64 w-full\">\n          <AreaChart\n            data={chartData}\n            margin={{ top: 10, right: 10, left: 0, bottom: 0 }}\n          >\n            <defs>\n              <linearGradient id=\"rangeGradient14\" x1=\"0\" y1=\"0\" x2=\"0\" y2=\"1\">\n                <stop\n                  offset=\"0%\"\n                  stopColor=\"var(--chart-1)\"\n                  stopOpacity={0.3}\n                />\n                <stop\n                  offset=\"100%\"\n                  stopColor=\"var(--chart-1)\"\n                  stopOpacity={0.1}\n                />\n              </linearGradient>\n            </defs>\n            <CartesianGrid strokeDasharray=\"3 3\" vertical={false} />\n            <XAxis\n              dataKey=\"month\"\n              axisLine={false}\n              tickLine={false}\n              tickMargin={8}\n              fontSize={12}\n            />\n            <YAxis\n              axisLine={false}\n              tickLine={false}\n              tickMargin={8}\n              fontSize={12}\n              tickFormatter={(value) => `${value}ms`}\n            />\n            <ChartTooltip\n              content={\n                <ChartTooltipContent\n                  formatter={(value, name) => {\n                    if (name === \"min\") return `Min: ${value}ms`;\n                    if (name === \"max\") return `Max: ${value}ms`;\n                    if (name === \"avg\") return `Avg: ${value}ms`;\n                    return `${value}ms`;\n                  }}\n                />\n              }\n            />\n            <Area\n              type=\"monotone\"\n              dataKey=\"max\"\n              stackId=\"1\"\n              stroke=\"var(--chart-1)\"\n              fill=\"url(#rangeGradient14)\"\n              strokeWidth={0}\n            />\n            <Area\n              type=\"monotone\"\n              dataKey=\"min\"\n              stackId=\"1\"\n              stroke=\"var(--chart-1)\"\n              fill=\"var(--background)\"\n              strokeWidth={0}\n            />\n            <Area\n              type=\"monotone\"\n              dataKey=\"avg\"\n              stroke=\"var(--chart-2)\"\n              fill=\"none\"\n              strokeWidth={2}\n              strokeDasharray=\"4 4\"\n            />\n          </AreaChart>\n        </ChartContainer>\n      </CardContent>\n    </Card>\n  );\n};\n\nexport { ChartCard14 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

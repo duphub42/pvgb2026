@@ -1,0 +1,19 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "accept-invite2",
+  "title": "Accept-invite",
+  "description": "A compact centered invitation card with host avatar initial, personalized message, and accept/decline buttons with expiration notice.",
+  "dependencies": [],
+  "registryDependencies": [
+    "utils",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/accept-invite2.tsx",
+      "content": "import { Button } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\ninterface AcceptInvite2Props {\n  className?: string;\n  hostName?: string;\n  description?: string;\n}\n\nconst AcceptInvite2 = ({\n  className,\n  hostName = \"Sarah Johnson\",\n  description = \"Join their workspace to collaborate and get access to their resources.\",\n}: AcceptInvite2Props) => {\n  return (\n    <section className=\"py-32\">\n      <div className=\"container\">\n        <div\n          className={cn(\n            \"mx-auto w-fit space-y-12 rounded-xl border px-6 pt-12 pb-10 shadow-lg\",\n            className,\n          )}\n        >\n          <div className=\"mx-auto flex max-w-md flex-col items-center gap-2 text-center\">\n            <span className=\"flex size-32 items-center justify-center rounded-full bg-muted text-6xl font-medium\">\n              {hostName.charAt(0)}\n            </span>\n            <p className=\"mt-2 text-2xl\">\n              <span className=\"font-medium\">{hostName}</span>\n              <span className=\"font-light\">\n                {\" \"}\n                invited you to join their workspace.\n              </span>\n            </p>\n            <p className=\"max-w-sm text-muted-foreground\">{description}</p>\n          </div>\n\n          <div className=\"space-y-3\">\n            <div className=\"flex items-center justify-center gap-2\">\n              <Button size=\"lg\" variant=\"outline\">\n                Decline\n              </Button>\n              <Button size=\"lg\">Accept Invite</Button>\n            </div>\n            <p className=\"text-center text-xs text-muted-foreground\">\n              Invitation expires in 24 hours\n            </p>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { AcceptInvite2 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

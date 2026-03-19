@@ -1,0 +1,9 @@
+{
+  "slug": "code-example1",
+  "title": "Code-example",
+  "description": "This component serves as a versatile code example block that allows users to explore and copy multi-language database query examples, such as JavaScript, Python, Go, and Ruby, with integration for ORMs and raw SQL. It features tabbed navigation to switch between languages, a copy button for ease of use, and displays relevant file names for each example.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/code-example1",
+  "downloadedAt": "2026-03-19T19:40:38Z",
+  "fileCount": 1
+}

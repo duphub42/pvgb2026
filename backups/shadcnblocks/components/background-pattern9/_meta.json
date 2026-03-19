@@ -1,0 +1,9 @@
+{
+  "slug": "background-pattern9",
+  "title": "Background-pattern",
+  "description": "This component, BackgroundPattern9, creates a visually appealing background with a grid pattern and a radial fade effect in the bottom right corner, which serves as a decorative element. It allows for customizable styling through an optional className prop, ensuring integration with different design systems.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/background-pattern9",
+  "downloadedAt": "2026-03-19T19:40:08Z",
+  "fileCount": 2
+}

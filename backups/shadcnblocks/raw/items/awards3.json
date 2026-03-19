@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "awards3",
+  "title": "Awards",
+  "description": "An awards list component with a hover animation, featuring award titles, categories, and years. Uses colored indicators per award.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/awards3.tsx",
+      "content": "import { MoveUpRight } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nconst awards = [\n  {\n    title: \"Pixel Perfect Award\",\n    categories: [\"Digital Design\", \"UI/UX\"],\n    year: \"2023\",\n    color: \"bg-amber-300\",\n  },\n  {\n    title: \"Code & Craft Trophy\",\n    categories: [\"Web Development\", \"Innovation\"],\n    year: \"2023\",\n    color: \"bg-red-500\",\n  },\n  {\n    title: \"The Strategist Prize\",\n    categories: [\"Product Strategy\", \"Market Impact\"],\n    year: \"2022\",\n    color: \"bg-blue-500\",\n  },\n];\n\ninterface Awards3Props {\n  className?: string;\n}\n\nconst Awards3 = ({ className }: Awards3Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <h2 className=\"mb-6 text-4xl font-semibold tracking-tighter text-foreground sm:text-4xl lg:text-3xl\">\n          Awards & Recognition\n        </h2>\n        <p className=\"mb-6 max-w-3xl text-base text-muted-foreground\">\n          Our commitment to excellence hasn't gone unnoticed. We are proud of\n          the work we do and the industry recognition it has received,\n          showcasing our dedication to pushing creative boundaries\n        </p>\n\n        {awards.map((award, index) => (\n          <div\n            key={index}\n            className=\"group relative flex items-start gap-4 overflow-hidden border-b border-border p-4\"\n          >\n            <div className=\"absolute inset-0 z-0 translate-y-full bg-accent transition-transform duration-300 ease-in-out group-hover:translate-y-0\" />\n\n            <div className=\"relative z-10 flex-1 space-y-2 pb-4\">\n              <div className=\"flex items-center gap-4\">\n                <div\n                  className={`h-5 w-5 rounded-md ${award.color} flex items-center justify-center`}\n                ></div>\n                <h3 className=\"rounded-md font-medium\">{award.title}</h3>\n              </div>\n              <p className=\"flex gap-x-2 pl-9 text-sm text-muted-foreground\">\n                {award.categories.map((category, index) => (\n                  <span key={index}>{category}</span>\n                ))}\n              </p>\n              <p className=\"pl-9 text-sm text-muted-foreground\">{award.year}</p>\n            </div>\n\n            <MoveUpRight className=\"relative z-10 mt-1 h-4 w-4 text-muted-foreground\" />\n          </div>\n        ))}\n      </div>\n    </section>\n  );\n};\n\nexport { Awards3 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "careers5",
+  "title": "Careers",
+  "description": "A component displaying job openings with titles, categories, descriptions, and details on type and location. It has a header and lists jobs in a single column.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils"
+  ],
+  "files": [
+    {
+      "path": "block/careers5.tsx",
+      "content": "import { Map } from \"lucide-react\";\n\nimport { cn } from \"@/lib/utils\";\n\nconst jobs = [\n  {\n    title: \"Senior Software Engineer\",\n    category: \"Engineering\",\n    description:\n      \"You will be responsible for the development of new and existing software products.\",\n    location: \"Remote\",\n    type: \"Full-time\",\n    salary: \"$120k - $180k\",\n    link: \"#\",\n  },\n  {\n    title: \"Product Manager\",\n    category: \"Engineering\",\n    description: \"Help us build the next generation of Acme products.\",\n    location: \"Remote\",\n    type: \"Full-time\",\n    salary: \"$100k - $150k\",\n    link: \"#\",\n  },\n  {\n    title: \"QA Engineer\",\n    category: \"Engineering\",\n    description:\n      \"Ensure the quality of our software products through testing and automation.\",\n    location: \"Remote\",\n    type: \"Full-time\",\n    salary: \"$80k - $120k\",\n    link: \"#\",\n  },\n  {\n    title: \"Technical Support Specialist\",\n    category: \"Engineering\",\n    description:\n      \"Provide technical support to our customers and internal teams.\",\n    location: \"Remote\",\n    type: \"Full-time\",\n    salary: \"$60k - $90k\",\n    link: \"#\",\n  },\n  {\n    title: \"Content Writer\",\n    category: \"Marketing\",\n    description:\n      \"Create engaging content for our blog, website, and social media channels.\",\n    location: \"Remote\",\n    type: \"Full-time\",\n    salary: \"$50k - $80k\",\n    link: \"#\",\n  },\n  {\n    title: \"Social Media Manager\",\n    category: \"Marketing\",\n    description:\n      \"Manage our social media presence and engage with our followers.\",\n    location: \"Remote\",\n    type: \"Full-time\",\n    salary: \"$45k - $75k\",\n    link: \"#\",\n  },\n];\n\ninterface Careers5Props {\n  className?: string;\n}\n\nconst Careers5 = ({ className }: Careers5Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"mx-auto max-w-5xl\">\n          <div className=\"mb-12 text-center\">\n            <h1 className=\"mb-3 text-4xl font-semibold\">Careers</h1>\n          </div>\n          <div>\n            {jobs.map((job) => (\n              <div key={job.title} className=\"border-t py-6\">\n                <div className=\"flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between\">\n                  <div>\n                    <a\n                      href={job.link}\n                      className=\"mb-1 text-lg font-semibold hover:underline\"\n                    >\n                      {job.title}\n                    </a>\n                    <p className=\"text-muted-foreground\">{job.description}</p>\n                  </div>\n                  <div className=\"flex gap-4 text-sm text-muted-foreground\">\n                    <div className=\"flex gap-2\">\n                      <Map className=\"h-auto w-4\" />\n                      {job.location}\n                    </div>\n                    <div className=\"flex gap-2\">{job.salary}</div>\n                  </div>\n                </div>\n              </div>\n            ))}\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Careers5 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

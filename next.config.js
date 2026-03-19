@@ -16,6 +16,9 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Keep dev and prod build artifacts isolated to prevent manifest races
+  // when running `next dev` (3000) and `next build/start` (3100/other) in parallel.
+  distDir: process.env.NODE_ENV === 'development' ? '.next-dev' : '.next',
   // Pingdom F0: Gzip-Kompression explizit aktivieren (Next.js macht das standardmäßig bei next start)
   compress: true,
   // So "pnpm run build" completes after "rm -rf .next"; remove once lint/type errors are fixed

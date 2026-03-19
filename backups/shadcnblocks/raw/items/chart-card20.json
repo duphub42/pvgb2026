@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-card20",
+  "title": "Chart-card",
+  "description": "A radar/spider chart showing multiple dimensions as a polygon shape for multi-attribute comparison.",
+  "dependencies": [
+    "recharts"
+  ],
+  "registryDependencies": [
+    "utils",
+    "card",
+    "chart"
+  ],
+  "files": [
+    {
+      "path": "block/chart-card20.tsx",
+      "content": "\"use client\";\n\nimport {\n  PolarAngleAxis,\n  PolarGrid,\n  PolarRadiusAxis,\n  Radar,\n  RadarChart,\n} from \"recharts\";\n\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\";\nimport {\n  type ChartConfig,\n  ChartContainer,\n  ChartTooltip,\n  ChartTooltipContent,\n} from \"@/components/ui/chart\";\nimport { cn } from \"@/lib/utils\";\n\ninterface ChartCard20Props {\n  title?: string;\n  description?: string;\n  className?: string;\n}\n\nconst chartData = [\n  { skill: \"Design\", value: 85 },\n  { skill: \"Frontend\", value: 92 },\n  { skill: \"Backend\", value: 78 },\n  { skill: \"DevOps\", value: 65 },\n  { skill: \"Testing\", value: 70 },\n  { skill: \"Communication\", value: 88 },\n];\n\nconst chartConfig = {\n  value: {\n    label: \"Score\",\n    color: \"var(--chart-1)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartCard20 = ({\n  title = \"Skill Assessment\",\n  description = \"Competency scores across areas\",\n  className,\n}: ChartCard20Props) => {\n  return (\n    <Card className={cn(\"w-full max-w-2xl\", className)}>\n      <CardHeader>\n        <CardTitle>{title}</CardTitle>\n        <CardDescription>{description}</CardDescription>\n      </CardHeader>\n      <CardContent className=\"flex justify-center\">\n        <ChartContainer\n          config={chartConfig}\n          className=\"mx-auto aspect-square h-64\"\n        >\n          <RadarChart data={chartData} cx=\"50%\" cy=\"50%\" outerRadius=\"80%\">\n            <PolarGrid gridType=\"polygon\" />\n            <PolarAngleAxis\n              dataKey=\"skill\"\n              tick={{ fontSize: 12, fill: \"var(--muted-foreground)\" }}\n            />\n            <PolarRadiusAxis\n              angle={30}\n              domain={[0, 100]}\n              tick={{ fontSize: 10 }}\n              axisLine={false}\n            />\n            <ChartTooltip content={<ChartTooltipContent />} />\n            <Radar\n              name=\"Score\"\n              dataKey=\"value\"\n              stroke=\"var(--chart-1)\"\n              fill=\"var(--chart-1)\"\n              fillOpacity={0.3}\n              strokeWidth={2}\n            />\n          </RadarChart>\n        </ChartContainer>\n      </CardContent>\n    </Card>\n  );\n};\n\nexport { ChartCard20 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

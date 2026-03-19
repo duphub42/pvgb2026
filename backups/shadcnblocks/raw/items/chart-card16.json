@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "chart-card16",
+  "title": "Chart-card",
+  "description": "A circular progress ring showing percentage completion toward a goal with centered value display.",
+  "dependencies": [
+    "recharts"
+  ],
+  "registryDependencies": [
+    "utils",
+    "card",
+    "chart"
+  ],
+  "files": [
+    {
+      "path": "block/chart-card16.tsx",
+      "content": "\"use client\";\n\nimport { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from \"recharts\";\n\nimport {\n  Card,\n  CardContent,\n  CardDescription,\n  CardHeader,\n  CardTitle,\n} from \"@/components/ui/card\";\nimport { type ChartConfig, ChartContainer } from \"@/components/ui/chart\";\nimport { cn } from \"@/lib/utils\";\n\ninterface ChartCard16Props {\n  title?: string;\n  description?: string;\n  value?: number;\n  max?: number;\n  className?: string;\n}\n\nconst chartConfig = {\n  value: {\n    label: \"Progress\",\n    color: \"var(--chart-1)\",\n  },\n} satisfies ChartConfig;\n\nconst ChartCard16 = ({\n  title = \"Goal Progress\",\n  description = \"Monthly target completion\",\n  value = 72,\n  max = 100,\n  className,\n}: ChartCard16Props) => {\n  const chartData = [{ value, fill: \"var(--chart-1)\" }];\n  const percentage = Math.round((value / max) * 100);\n\n  return (\n    <Card className={cn(\"w-full max-w-2xl\", className)}>\n      <CardHeader>\n        <CardTitle>{title}</CardTitle>\n        <CardDescription>{description}</CardDescription>\n      </CardHeader>\n      <CardContent className=\"flex justify-center\">\n        <ChartContainer\n          config={chartConfig}\n          className=\"mx-auto aspect-square h-52\"\n        >\n          <RadialBarChart\n            data={chartData}\n            startAngle={90}\n            endAngle={90 - (360 * value) / max}\n            innerRadius={80}\n            outerRadius={110}\n          >\n            <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>\n              <Label\n                content={({ viewBox }) => {\n                  if (viewBox && \"cx\" in viewBox && \"cy\" in viewBox) {\n                    return (\n                      <text\n                        x={viewBox.cx}\n                        y={viewBox.cy}\n                        textAnchor=\"middle\"\n                        dominantBaseline=\"middle\"\n                      >\n                        <tspan\n                          x={viewBox.cx}\n                          y={viewBox.cy}\n                          className=\"fill-foreground text-4xl font-bold\"\n                        >\n                          {percentage}%\n                        </tspan>\n                        <tspan\n                          x={viewBox.cx}\n                          y={(viewBox.cy || 0) + 24}\n                          className=\"fill-muted-foreground text-sm\"\n                        >\n                          of target\n                        </tspan>\n                      </text>\n                    );\n                  }\n                }}\n              />\n            </PolarRadiusAxis>\n            <RadialBar\n              dataKey=\"value\"\n              background={{ fill: \"var(--muted)\" }}\n              cornerRadius={10}\n            />\n          </RadialBarChart>\n        </ChartContainer>\n      </CardContent>\n    </Card>\n  );\n};\n\nexport { ChartCard16 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

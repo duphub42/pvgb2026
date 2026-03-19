@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "careers2",
+  "title": "Careers",
+  "description": "A component showcasing job openings with a header, grid layout (single column expanding to four on large screens) for each job, including title, type, location, and an apply button.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "badge",
+    "button"
+  ],
+  "files": [
+    {
+      "path": "block/careers2.tsx",
+      "content": "import { ArrowRight, Clock, MapPin, Target } from \"lucide-react\";\n\nimport { Badge } from \"@/components/ui/badge\";\nimport { buttonVariants } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\nconst jobs = [\n  {\n    title: \"Senior Software Engineer\",\n    location: \"Remote\",\n    city: \"Vancouver, BC\",\n    type: \"Full-time\",\n    link: \"#\",\n  },\n  {\n    title: \"Product Manager\",\n    location: \"Remote\",\n    city: \"Vienna, Austria\",\n    type: \"Full-time\",\n    link: \"#\",\n  },\n];\n\ninterface Careers2Props {\n  className?: string;\n}\n\nconst Careers2 = ({ className }: Careers2Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container px-1\">\n        <div className=\"border-x border-dashed\">\n          <div className=\"relative flex flex-col gap-6 border-b border-dashed px-4 pt-10 pb-10 sm:items-center md:pb-20\">\n            <div className=\"absolute inset-0 -z-10 h-full w-full bg-[linear-gradient(to_right,hsl(var(--muted))_1px,transparent_1px),linear-gradient(to_bottom,hsl(var(--muted))_1px,transparent_1px)] [mask-image:radial-gradient(ellipse_50%_100%_at_50%_50%,transparent_60%,#000_100%)] bg-[size:64px_64px]\"></div>\n            <Badge variant=\"outline\" className=\"w-fit\">\n              Job openings\n            </Badge>\n            <h1 className=\"text-2xl font-bold md:text-4xl\">Openings at Acme</h1>\n            <p className=\"text-muted-foreground\">\n              Don&apos;t see a role for you?\n              <a href=\"#\" className=\"ml-1 underline\">\n                Reach out anyways.\n              </a>\n            </p>\n          </div>\n          <div>\n            {jobs.map((job) => (\n              <div\n                key={job.title}\n                className=\"grid items-center gap-6 border-b border-dashed px-6 py-10 lg:grid-cols-4\"\n              >\n                <h2 className=\"text-lg\">{job.title}</h2>\n                <div className=\"col-span-2 flex flex-col gap-4 text-sm text-muted-foreground sm:flex-row sm:gap-8 lg:justify-center\">\n                  <div className=\"flex gap-2\">\n                    <Clock className=\"h-auto w-4\" />\n                    {job.type}\n                  </div>\n                  <div className=\"flex gap-2\">\n                    <MapPin className=\"h-auto w-4\" />\n                    {job.city}\n                  </div>\n                  <div className=\"flex gap-2\">\n                    <Target className=\"h-auto w-4\" />\n                    {job.location}\n                  </div>\n                </div>\n                <a\n                  href={job.link}\n                  className={cn(buttonVariants(), \"w-fit gap-1 lg:ml-auto\")}\n                >\n                  Apply\n                  <ArrowRight className=\"h-auto w-4\" />\n                </a>\n              </div>\n            ))}\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Careers2 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

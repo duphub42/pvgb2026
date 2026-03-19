@@ -15,6 +15,45 @@ export async function Footer({ locale = 'de' }: { locale?: Locale }) {
       getCachedGlobal('footer', 4)(),
       getCachedGlobal('header', 1)(),
     ])
+    const f = (footerData ?? {}) as Record<string, unknown>
+    const socialLinks = Array.isArray(f.socialLinks) ? (f.socialLinks as Array<Record<string, unknown>>) : []
+    const columns = Array.isArray(f.columns) ? (f.columns as Array<Record<string, unknown>>) : []
+    let socialWithUrl = 0
+    let socialNumeric = 0
+    let columnWithUrl = 0
+    let columnNumeric = 0
+    const socialPlatforms: string[] = []
+    for (const s of socialLinks) {
+      const iconUpload = s?.iconUpload as unknown
+      const platform = typeof s?.platform === 'string' ? s.platform : ''
+      if (platform) socialPlatforms.push(platform)
+      if (iconUpload == null) continue
+      if (typeof iconUpload === 'number') socialNumeric += 1
+      if (
+        typeof iconUpload === 'object' &&
+        iconUpload != null &&
+        'url' in iconUpload &&
+        typeof (iconUpload as { url?: unknown }).url === 'string' &&
+        (iconUpload as { url?: string }).url!.trim() !== ''
+      ) {
+        socialWithUrl += 1
+      }
+    }
+    for (const c of columns) {
+      const iconUpload = c?.columnIconUpload as unknown
+      if (iconUpload == null) continue
+      if (typeof iconUpload === 'number') columnNumeric += 1
+      if (typeof iconUpload === 'object' && iconUpload != null && 'url' in iconUpload) columnWithUrl += 1
+    }
+    console.info('[debug-icons][footer]', {
+      socialLinks: socialLinks.length,
+      socialPlatforms,
+      socialWithUrl,
+      socialNumeric,
+      columns: columns.length,
+      columnWithUrl,
+      columnNumeric,
+    })
   } catch (err) {
     console.error('[Footer] Failed to load footer/header globals:', err)
   }

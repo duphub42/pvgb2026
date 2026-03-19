@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "changelog2",
+  "title": "Changelog",
+  "description": "A changelog component with a title, NEW badge, description, email signup, and dated entries with images, headlines, and text links.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "utils",
+    "badge",
+    "button",
+    "input"
+  ],
+  "files": [
+    {
+      "path": "block/changelog2.tsx",
+      "content": "import { ArrowRight } from \"lucide-react\";\n\nimport { Badge } from \"@/components/ui/badge\";\nimport { Button } from \"@/components/ui/button\";\nimport { Input } from \"@/components/ui/input\";\nimport { cn } from \"@/lib/utils\";\n\ninterface Changelog2Props {\n  className?: string;\n}\n\nconst Changelog2 = ({ className }: Changelog2Props) => {\n  return (\n    <section className={cn(\"py-32\", className)}>\n      <div className=\"container\">\n        <div className=\"text-center\">\n          <h1 className=\"mb-6 text-6xl font-semibold md:text-7xl\">\n            Changelog\n            <sup>\n              <Badge className=\"ml-2 bg-emerald-400 hover:bg-emerald-400\">\n                NEW\n              </Badge>\n            </sup>\n          </h1>\n          <p className=\"mx-auto max-w-lg text-lg\">\n            Everything that's new and improved now available on any plan and\n            everywhere on the platform\n          </p>\n          <div className=\"mx-auto mt-10 flex w-full max-w-xs items-center space-x-2\">\n            <Input type=\"email\" placeholder=\"Enter your email for updates\" />\n            <Button type=\"submit\">\n              <ArrowRight className=\"h-4 w-4\" />\n            </Button>\n          </div>\n        </div>\n        <div className=\"mx-auto mt-20 max-w-xl space-y-10 border-l border-dashed border-border pl-6\">\n          <div>\n            <p className=\"relative font-mono text-sm text-muted-foreground\">\n              <time className=\"absolute top-1 -left-6 h-3 w-3 -translate-x-1/2 rounded-full bg-emerald-400\"></time>\n              January 11, 2025\n            </p>\n            <img\n              src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-1.svg\"\n              alt=\"placeholder\"\n              className=\"my-4 aspect-8/7 rounded-md object-cover\"\n            />\n            <h2 className=\"mb-2 text-3xl font-semibold\">\n              Better export options\n            </h2>\n            <p className=\"prose text-primary/80 dark:prose-invert\">\n              We've added a <a href=\"#\">components</a> and{\" \"}\n              <a href=\"#\">analytics</a> to help you track your website's\n              performance. You can now see your website's performance over time,\n              and get insights into your users.\n              <br />\n              <br />\n              As with all of our <a href=\"#\">integrations</a>, we do the heavy\n              lifting for you. It's easy to set up, privacy-focused, performant,\n              and secure. We also handle cookie consent where required, in a\n              very Supertape way.\n            </p>\n          </div>\n          <div>\n            <p className=\"relative font-mono text-sm text-muted-foreground\">\n              <time className=\"absolute top-1 -left-6 h-3 w-3 -translate-x-1/2 rounded-full bg-emerald-400\"></time>\n              December 23, 2024\n            </p>\n            <img\n              src=\"https://deifkwefumgah.cloudfront.net/shadcnblocks/block/placeholder-2.svg\"\n              alt=\"placeholder\"\n              className=\"my-4 aspect-8/7 rounded-md object-cover\"\n            />\n            <h2 className=\"mb-2 text-3xl font-semibold\">\n              New dashboard and analytics\n            </h2>\n            <p className=\"prose text-primary/80 dark:prose-invert\">\n              We've added a <a href=\"#\">components</a> and{\" \"}\n              <a href=\"#\">analytics</a> to help you track your website's\n              performance. You can now see your website's performance over time,\n              and get insights into your users.\n              <br />\n              <br />\n              As with all of our <a href=\"#\">integrations</a>, we do the heavy\n              lifting for you. It's easy to set up, privacy-focused, performant,\n              and secure. We also handle cookie consent where required, in a\n              very Supertape way.\n            </p>\n          </div>\n        </div>\n      </div>\n    </section>\n  );\n};\n\nexport { Changelog2 };\n",
+      "type": "registry:block"
+    }
+  ],
+  "type": "registry:block"
+}

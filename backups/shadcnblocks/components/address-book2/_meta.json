@@ -1,0 +1,9 @@
+{
+  "slug": "address-book2",
+  "title": "Address-book",
+  "description": "The AddressBook2 component is designed to manage a collection of addresses, allowing users to view, edit, add, and delete addresses within a card-based layout. It provides options to define addresses as home or work, and features tools to select a default address for streamlined address management.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/address-book2",
+  "downloadedAt": "2026-03-19T19:39:58Z",
+  "fileCount": 1
+}

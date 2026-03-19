@@ -1,0 +1,9 @@
+{
+  "slug": "blogpost6",
+  "title": "Blogpost",
+  "description": "A blog post component with dynamic breadcrumb navigation, author bio, social sharing, and interactive chapter selection.",
+  "type": "registry:block",
+  "sourceUrl": "https://www.shadcnblocks.com/r/blogpost6",
+  "downloadedAt": "2026-03-19T19:40:17Z",
+  "fileCount": 1
+}
