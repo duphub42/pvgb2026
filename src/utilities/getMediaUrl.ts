@@ -31,15 +31,6 @@ function localApiMediaToPublicMedia(pathWithSearch: string): string {
   return queryPart != null && queryPart !== '' ? `${normalizedPath}?${queryPart}` : normalizedPath
 }
 
-function stripApiMediaVersionSuffix(pathWithSearch: string): string {
-  const [pathPart, queryPart] = pathWithSearch.split('?')
-  const match = pathPart?.match(/^\/api\/media\/file\/(.+)$/)
-  if (!match?.[1]) return pathWithSearch
-  const filename = match[1]
-  const stripped = filename.replace(/-(\d+)(\.[a-z0-9]+)$/i, '$2')
-  const normalizedPath = `/api/media/file/${stripped}`
-  return queryPart != null && queryPart !== '' ? `${normalizedPath}?${queryPart}` : normalizedPath
-}
 
 /**
  * Processes media resource URL to ensure proper formatting.
@@ -96,9 +87,7 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
       ) {
         const normalizedPath = parsed.pathname.startsWith('/api/media/file/')
           ? (
-              isVercelRuntime
-                ? stripApiMediaVersionSuffix(mediaPath)
-                : isLocalHost
+              isLocalHost
                   ? localApiMediaToPublicMedia(mediaPath)
                   : mediaPath
             )
@@ -122,7 +111,7 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
     return appendTag(url)
   }
   if (url.startsWith('/api/media/file/')) {
-    if (isVercelRuntime) return appendTag(stripApiMediaVersionSuffix(url))
+    if (isVercelRuntime) return appendTag(url)
     return appendTag(localApiMediaToPublicMedia(url))
   }
   if (url.startsWith('/api/media/')) return appendTag(url)
