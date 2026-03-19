@@ -1,9 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import Script from 'next/script'
 
-/** Layout nutzt cookies() für Locale – alle Routen unter (frontend) sind dynamisch. */
-export const dynamic = 'force-dynamic'
-
 import { fontClassNames } from '@/theme/fonts'
 import { AdminBarGate } from '@/components/AdminBar/AdminBarGate'
 import { Footer } from '@/Footer/Component'
@@ -11,7 +8,7 @@ import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { draftMode, cookies } from 'next/headers'
+import { draftMode } from 'next/headers'
 import React from 'react'
 
 import './globals.css'
@@ -20,13 +17,12 @@ import { getCachedGlobal } from '@/utilities/getGlobals'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { DesignStyles } from '@/components/DesignStyles'
 import { ThemeSettingsStyles } from '@/components/ThemeSettingsStyles'
-import { getLocale } from '@/utilities/locale'
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   try {
-    const { isEnabled } = await draftMode()
-    const cookieStore = await cookies()
-    const locale = getLocale(cookieStore)
+    // Keep frontend layout cache-friendly in production. Draft mode is only read in development.
+    const isEnabled = process.env.NODE_ENV === 'development' ? (await draftMode()).isEnabled : false
+    const locale = 'de'
 
     let design: Awaited<ReturnType<ReturnType<typeof getCachedGlobal>>> | null = null
     let themeSettings: { cssString?: string | null } | null = null
@@ -49,8 +45,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     return (
       <html className={fontClassNames} lang={locale} suppressHydrationWarning>
         <head>
-          {/* Three.js für Vanta-Hero von jsDelivr CDN → früher Verbindungsaufbau */}
-          <link rel="preconnect" href="https://cdn.jsdelivr.net" crossOrigin="anonymous" />
           <InitTheme />
           <DesignStyles design={design ?? null} />
           <ThemeSettingsStyles themeSettings={themeSettings ?? null} />

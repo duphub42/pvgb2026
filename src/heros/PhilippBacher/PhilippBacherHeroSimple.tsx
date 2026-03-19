@@ -6,7 +6,7 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { getMediaUrlSafe } from '@/utils/media'
 import { Marquee } from '@/components/ui/marquee'
 import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
-import React, { useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import type { ComponentProps } from 'react'
 import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 import type { HeroBackground } from '@/payload-types'
@@ -134,6 +134,24 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
     () => ({ opacity: overlayOpacity ?? 0.42 }),
     [overlayOpacity],
   )
+  const [isMobile, setIsMobile] = useState(false)
+  const [reducedMotion, setReducedMotion] = useState(false)
+
+  useEffect(() => {
+    const mobileMql = window.matchMedia('(max-width: 767px)')
+    const motionMql = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => {
+      setIsMobile(mobileMql.matches)
+      setReducedMotion(motionMql.matches)
+    }
+    update()
+    mobileMql.addEventListener('change', update)
+    motionMql.addEventListener('change', update)
+    return () => {
+      mobileMql.removeEventListener('change', update)
+      motionMql.removeEventListener('change', update)
+    }
+  }, [])
 
   const sectionAriaLabel =
     headlineText || headlineLine1 || headlineLine2 || headlineLine3 || subheadline || 'Hero section'
@@ -160,7 +178,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         />
       )}
       {/* Hintergrundvideo */}
-      {backgroundVideo?.url && (
+      {backgroundVideo?.url && !isMobile && !reducedMotion && (
         <video
           className="absolute inset-0 w-full h-full object-cover -z-20"
           autoPlay
@@ -204,12 +222,16 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           >
             {lines.map((line, idx) => (
               <span key={idx} className="block">
-                <ScrambleText
-                  text={line}
-                  staggerMs={HERO_ANIM.headlineScramble.staggerMs}
-                  scrambleDurationMs={HERO_ANIM.headlineScramble.scrambleDurationMs}
-                  delayMs={idx * HERO_ANIM.headlineScramble.lineDelayMs}
-                />
+                {isMobile || reducedMotion ? (
+                  line
+                ) : (
+                  <ScrambleText
+                    text={line}
+                    staggerMs={HERO_ANIM.headlineScramble.staggerMs}
+                    scrambleDurationMs={HERO_ANIM.headlineScramble.scrambleDurationMs}
+                    delayMs={idx * HERO_ANIM.headlineScramble.lineDelayMs}
+                  />
+                )}
               </span>
             ))}
           </h1>
@@ -219,17 +241,21 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
               className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline"
               aria-label={fullHeadlineLabel || undefined}
             >
-              <ScrambleText
-                text={headlineText}
-                staggerMs={HERO_ANIM.headlineScramble.staggerMs}
-                scrambleDurationMs={HERO_ANIM.headlineScramble.scrambleDurationMs}
-              />
+              {isMobile || reducedMotion ? (
+                headlineText
+              ) : (
+                <ScrambleText
+                  text={headlineText}
+                  staggerMs={HERO_ANIM.headlineScramble.staggerMs}
+                  scrambleDurationMs={HERO_ANIM.headlineScramble.scrambleDurationMs}
+                />
+              )}
             </h1>
           )
         )}
 
         {/* Beschreibung: Wort für Wort von links nach rechts */}
-        {description && (
+        {description && !isMobile && !reducedMotion && (
           <p className="text-base md:text-lg text-muted-foreground text-left max-w-[345px] mx-0 w-fit h-fit mt-4 mb-4 flex flex-wrap gap-x-[0.35em] gap-y-0">
             {description.split(/\s+/).map((word, idx) => (
               <span
@@ -240,6 +266,11 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                 {word}
               </span>
             ))}
+          </p>
+        )}
+        {description && (isMobile || reducedMotion) && (
+          <p className="text-base md:text-lg text-muted-foreground text-left max-w-[345px] mx-0 w-fit h-fit mt-4 mb-4">
+            {description}
           </p>
         )}
 
@@ -289,7 +320,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                 ))}
               </span>
             )}
-            {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && (
+            {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && !isMobile && !reducedMotion && (
               <Marquee duration={40} pauseOnHover fadeEdges gapClassName="gap-6" className="py-0 -mx-1">
                 {marqueeLogos.map((logo, idx) => {
                   const url = logo?.logo != null ? getMediaUrlSafe(logo.logo) : ''
@@ -315,6 +346,26 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                   )
                 })}
               </Marquee>
+            )}
+            {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && (isMobile || reducedMotion) && (
+              <div className="flex flex-wrap gap-4 py-1">
+                {marqueeLogos.slice(0, 6).map((logo, idx) => {
+                  const url = logo?.logo != null ? getMediaUrlSafe(logo.logo) : ''
+                  if (!url) return null
+                  return (
+                    <img
+                      key={idx}
+                      src={url}
+                      alt={logo?.alt ?? ''}
+                      width={88}
+                      height={33}
+                      className="hero-logo-grayscale filter grayscale w-auto max-w-[88px] h-auto max-h-[33px] object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )
+                })}
+              </div>
             )}
           </div>
         )}

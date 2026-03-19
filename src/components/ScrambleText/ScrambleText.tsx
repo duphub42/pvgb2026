@@ -41,6 +41,7 @@ export function ScrambleText({
   delayMs = 0,
 }: ScrambleTextProps) {
   const [display, setDisplay] = useState(text)
+  const [reducedMotion, setReducedMotion] = useState(false)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const startTimeRef = useRef<number>(0)
 
@@ -83,8 +84,20 @@ export function ScrambleText({
   }, [text, chars, staggerMs, scrambleDurationMs, tickMs])
 
   useEffect(() => {
+    const mql = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const update = () => setReducedMotion(mql.matches)
+    update()
+    mql.addEventListener('change', update)
+    return () => mql.removeEventListener('change', update)
+  }, [])
+
+  useEffect(() => {
     if (!text) {
       setDisplay('')
+      return
+    }
+    if (reducedMotion) {
+      setDisplay(text)
       return
     }
     setDisplay(' '.repeat(text.length))
@@ -97,7 +110,7 @@ export function ScrambleText({
         intervalRef.current = null
       }
     }
-  }, [text, delayMs, run])
+  }, [text, delayMs, run, reducedMotion])
 
   return (
     <span className={cn('inline-block', className)} aria-label={text}>

@@ -1,19 +1,7 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import React from 'react'
-import { HighImpactHero } from '@/heros/HighImpact'
-import { MediumImpactHero } from '@/heros/MediumImpact'
-import { LowImpactHero } from '@/heros/LowImpact'
-import { PhilippBacherHeroSimple } from '@/heros/PhilippBacher/PhilippBacherHeroSimple'
-import { GridHero } from '@/heros/GridHero'
-import SimpleHero from '@/heros/SimpleHero'
-import { Hero75 } from '@/components/hero75'
-import { Hero215 } from '@/components/hero215'
-import { Hero238 } from '@/components/hero238'
-import { Hero242 } from '@/components/hero242'
-import { Hero243 } from '@/components/hero243'
-import { Hero244 } from '@/components/hero244'
-import { Hero256 } from '@/components/hero256'
 
 const SHADCN_HERO_TYPES = new Set(['hero75', 'hero215', 'hero238', 'hero242', 'hero243', 'hero244', 'hero256'])
 
@@ -54,19 +42,21 @@ class ShadcnHeroErrorBoundary extends React.Component<
 }
 
 const heroes = {
-  highImpact: HighImpactHero,
-  mediumImpact: MediumImpactHero,
-  lowImpact: LowImpactHero,
-  philippBacher: PhilippBacherHeroSimple,
-  gridHero: GridHero,
-  simpleHero: SimpleHero,
-  hero75: Hero75,
-  hero215: Hero215,
-  hero238: Hero238,
-  hero242: Hero242,
-  hero243: Hero243,
-  hero244: Hero244,
-  hero256: Hero256,
+  highImpact: dynamic(() => import('@/heros/HighImpact').then((m) => m.HighImpactHero)),
+  mediumImpact: dynamic(() => import('@/heros/MediumImpact').then((m) => m.MediumImpactHero)),
+  lowImpact: dynamic(() => import('@/heros/LowImpact').then((m) => m.LowImpactHero)),
+  philippBacher: dynamic(() =>
+    import('@/heros/PhilippBacher/PhilippBacherHeroSimple').then((m) => m.PhilippBacherHeroSimple),
+  ),
+  gridHero: dynamic(() => import('@/heros/GridHero').then((m) => m.GridHero)),
+  simpleHero: dynamic(() => import('@/heros/SimpleHero')),
+  hero75: dynamic(() => import('@/components/hero75').then((m) => m.Hero75)),
+  hero215: dynamic(() => import('@/components/hero215').then((m) => m.Hero215)),
+  hero238: dynamic(() => import('@/components/hero238').then((m) => m.Hero238)),
+  hero242: dynamic(() => import('@/components/hero242').then((m) => m.Hero242)),
+  hero243: dynamic(() => import('@/components/hero243').then((m) => m.Hero243)),
+  hero244: dynamic(() => import('@/components/hero244').then((m) => m.Hero244)),
+  hero256: dynamic(() => import('@/components/hero256').then((m) => m.Hero256)),
 }
 
 export type HeroType = keyof typeof heroes

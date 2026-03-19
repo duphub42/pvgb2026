@@ -87,7 +87,7 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
       ) {
         const normalizedPath = parsed.pathname.startsWith('/api/media/file/')
           ? (
-              isLocalHost
+              !isVercelRuntime && isLocalHost
                   ? localApiMediaToPublicMedia(mediaPath)
                   : mediaPath
             )

@@ -1,7 +1,9 @@
 {
   "blocks/BlockRenderer.tsx -> @/blocks/CallToAction/Component": {
     "id": "blocks/BlockRenderer.tsx -> @/blocks/CallToAction/Component",
-    "files": []
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_RichText_index_tsx.js"
+    ]
   },
   "blocks/BlockRenderer.tsx -> @/blocks/Content/Component": {
     "id": "blocks/BlockRenderer.tsx -> @/blocks/Content/Component",
@@ -23,7 +25,9 @@
   },
   "blocks/BlockRenderer.tsx -> @/blocks/MediaBlock/Component": {
     "id": "blocks/BlockRenderer.tsx -> @/blocks/MediaBlock/Component",
-    "files": []
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_RichText_index_tsx.js"
+    ]
   },
   "blocks/BlockRenderer.tsx -> @/blocks/ShadcnBlock/Component": {
     "id": "blocks/BlockRenderer.tsx -> @/blocks/ShadcnBlock/Component",
@@ -153,11 +157,15 @@
   },
   "blocks/ShadcnBlock/Component.tsx -> @/components/hero238": {
     "id": "blocks/ShadcnBlock/Component.tsx -> @/components/hero238",
-    "files": []
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_hero238_tsx.js"
+    ]
   },
   "blocks/ShadcnBlock/Component.tsx -> @/components/hero256": {
     "id": "blocks/ShadcnBlock/Component.tsx -> @/components/hero256",
-    "files": []
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_hero256_tsx.js"
+    ]
   },
   "components/AdminBar/AdminBarGate.tsx -> ./AdminBarInner": {
     "id": "components/AdminBar/AdminBarGate.tsx -> ./AdminBarInner",
@@ -170,6 +178,84 @@
     "id": "components/ui/save-button.tsx -> canvas-confetti",
     "files": [
       "static/chunks/_app-pages-browser_node_modules_pnpm_canvas-confetti_1_9_4_node_modules_canvas-confetti_dist_-77ae8c.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/components/hero215": {
+    "id": "heros/RenderHero.tsx -> @/components/hero215",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_hero215_tsx.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/components/hero238": {
+    "id": "heros/RenderHero.tsx -> @/components/hero238",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_hero238_tsx.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/components/hero242": {
+    "id": "heros/RenderHero.tsx -> @/components/hero242",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_hero242_tsx.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/components/hero243": {
+    "id": "heros/RenderHero.tsx -> @/components/hero243",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_hero243_tsx.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/components/hero244": {
+    "id": "heros/RenderHero.tsx -> @/components/hero244",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_hero244_tsx.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/components/hero256": {
+    "id": "heros/RenderHero.tsx -> @/components/hero256",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_hero256_tsx.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/components/hero75": {
+    "id": "heros/RenderHero.tsx -> @/components/hero75",
+    "files": [
+      "static/chunks/_app-pages-browser_src_components_hero75_tsx.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/heros/GridHero": {
+    "id": "heros/RenderHero.tsx -> @/heros/GridHero",
+    "files": [
+      "static/chunks/_app-pages-browser_src_heros_GridHero_tsx.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/heros/HighImpact": {
+    "id": "heros/RenderHero.tsx -> @/heros/HighImpact",
+    "files": [
+      "static/chunks/_app-pages-browser_src_heros_HighImpact_index_tsx.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/heros/LowImpact": {
+    "id": "heros/RenderHero.tsx -> @/heros/LowImpact",
+    "files": [
+      "static/chunks/_app-pages-browser_src_heros_LowImpact_index_tsx.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/heros/MediumImpact": {
+    "id": "heros/RenderHero.tsx -> @/heros/MediumImpact",
+    "files": [
+      "static/chunks/_app-pages-browser_src_heros_MediumImpact_index_tsx.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/heros/PhilippBacher/PhilippBacherHeroSimple": {
+    "id": "heros/RenderHero.tsx -> @/heros/PhilippBacher/PhilippBacherHeroSimple",
+    "files": [
+      "static/chunks/_app-pages-browser_src_heros_PhilippBacher_PhilippBacherHeroSimple_tsx.js"
+    ]
+  },
+  "heros/RenderHero.tsx -> @/heros/SimpleHero": {
+    "id": "heros/RenderHero.tsx -> @/heros/SimpleHero",
+    "files": [
+      "static/chunks/_app-pages-browser_src_heros_SimpleHero_index_tsx.js"
     ]
   }
 }

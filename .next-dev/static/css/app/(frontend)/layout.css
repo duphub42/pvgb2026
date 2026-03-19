@@ -28009,11 +28009,11 @@ font-style: normal;
     background: transparent;
     overflow: visible;
     clip-path: none;
-    padding-top: calc(var(--header-height) + 1.5rem);
+    padding-top: calc(var(--header-height) + max(33px, 3vh));
   }
   @media (min-width: 1024px) {
     .hero-simple-portrait {
-      padding-top: calc(var(--header-height) + 3vh);
+      padding-top: calc(var(--header-height) + max(33px, 3vh));
     }
   }
   .hero-simple-portrait-img {
@@ -28038,7 +28038,7 @@ font-style: normal;
     }
     .hero-simple-portrait-img {
       clip-path: inset(0 -20% 0rem -20%);
-      max-height: calc(100vh - var(--header-height) - 3vh);
+      max-height: calc(100vh - var(--header-height) - max(33px, 3vh));
       width: auto;
       max-width: 100%;
       transform: translateY(0);

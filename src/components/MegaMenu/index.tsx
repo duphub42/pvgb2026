@@ -23,7 +23,7 @@ import { getClientSideURL } from '@/utilities/getURL'
 import { ChevronRight, Menu, MessageCircle, Phone, Mail } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useEffect, useLayoutEffect, useRef, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 import { HeaderActions } from '@/components/HeaderActions/HeaderActions'
 import { PathsBackground } from '@/components/PathsBackground/PathsBackground'
@@ -202,6 +202,41 @@ const COL_SPAN_CLASS: Record<number, string> = {
 
 function colSpan(n: number): string {
   return COL_SPAN_CLASS[Math.min(12, Math.max(1, n))] ?? 'col-span-3'
+}
+
+function collectPreloadMediaUrls(items: MegaMenuItem[]): string[] {
+  const urls = new Set<string>()
+  const add = (media?: MediaRef) => {
+    if (!media) return
+    const url = mediaUrl(media)
+    if (url) urls.add(url)
+  }
+
+  for (const item of items) {
+    add(item.icon)
+    add(item.image)
+    for (const sub of item.subItems ?? []) {
+      add(sub.icon)
+      add(sub.image)
+    }
+    for (const col of item.columns ?? []) {
+      for (const sub of col.items ?? []) {
+        add(sub.icon)
+        add(sub.image)
+      }
+    }
+    const h = item.highlight
+    if (h) {
+      add(h.icon)
+      add(h.image)
+      for (const card of h.cards ?? []) {
+        add(card.icon)
+        add(card.image)
+      }
+    }
+  }
+
+  return [...urls]
 }
 
 function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
@@ -390,6 +425,27 @@ export function MegaMenu({
   const featuredCols = columnWidths?.featured ?? 3
 
   const sortedItems = [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+  const preloadMediaUrls = useMemo(() => collectPreloadMediaUrls(sortedItems), [sortedItems])
+
+  useEffect(() => {
+    if (typeof window === 'undefined' || preloadMediaUrls.length === 0) return
+    const preloaded: HTMLImageElement[] = []
+
+    for (const url of preloadMediaUrls) {
+      const img = new window.Image()
+      img.decoding = 'async'
+      img.src = url
+      preloaded.push(img)
+    }
+
+    return () => {
+      // Prevent stale handlers from hanging around if menu data changes.
+      for (const img of preloaded) {
+        img.onload = null
+        img.onerror = null
+      }
+    }
+  }, [preloadMediaUrls])
 
   useLayoutEffect(() => {
     const wrap = navListWrapRef.current
