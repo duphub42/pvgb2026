@@ -272,11 +272,15 @@ function main() {
       );`,
     },
     {
+      name: 'site_pages_blocks_consulting_overview_benefit_items: drop (id TEXT)',
+      sql: 'DROP TABLE IF EXISTS site_pages_blocks_consulting_overview_benefit_items;',
+    },
+    {
       name: 'site_pages_blocks_consulting_overview_benefit_items: table',
       sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_consulting_overview_benefit_items (
         _order INTEGER NOT NULL,
         _parent_id TEXT NOT NULL,
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT PRIMARY KEY,
         title TEXT,
         text TEXT
       );`,
