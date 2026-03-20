@@ -244,6 +244,81 @@ function main() {
         media_id INTEGER REFERENCES media(id)
       );`,
     },
+    // Consulting Overview Block
+    {
+      name: 'site_pages_blocks_consulting_overview: table',
+      sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_consulting_overview (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL,
+        _path TEXT NOT NULL,
+        id TEXT PRIMARY KEY,
+        block_background TEXT DEFAULT 'none',
+        block_overlay_enabled INTEGER DEFAULT 0,
+        block_overlay_color TEXT DEFAULT 'dark',
+        block_overlay_opacity INTEGER DEFAULT 30,
+        headline TEXT,
+        intro_text TEXT,
+        strategy_label TEXT,
+        strategy_sub_label TEXT,
+        strategy_title TEXT,
+        strategy_text TEXT,
+        benefits_label TEXT,
+        benefits_sub_label TEXT,
+        benefits_title TEXT,
+        experience_label TEXT,
+        experience_sub_label TEXT,
+        experience_title TEXT,
+        block_name TEXT
+      );`,
+    },
+    {
+      name: 'site_pages_blocks_consulting_overview_benefit_items: table',
+      sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_consulting_overview_benefit_items (
+        _order INTEGER NOT NULL,
+        _parent_id TEXT NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        text TEXT
+      );`,
+    },
+    {
+      name: '_site_pages_v_blocks_consulting_overview: table',
+      sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_consulting_overview (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL,
+        _path TEXT NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        block_background TEXT DEFAULT 'none',
+        block_overlay_enabled INTEGER DEFAULT 0,
+        block_overlay_color TEXT DEFAULT 'dark',
+        block_overlay_opacity INTEGER DEFAULT 30,
+        headline TEXT,
+        intro_text TEXT,
+        strategy_label TEXT,
+        strategy_sub_label TEXT,
+        strategy_title TEXT,
+        strategy_text TEXT,
+        benefits_label TEXT,
+        benefits_sub_label TEXT,
+        benefits_title TEXT,
+        experience_label TEXT,
+        experience_sub_label TEXT,
+        experience_title TEXT,
+        _uuid TEXT,
+        block_name TEXT
+      );`,
+    },
+    {
+      name: '_site_pages_v_blocks_consulting_overview_benefit_items: table',
+      sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_consulting_overview_benefit_items (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT,
+        text TEXT,
+        _uuid TEXT
+      );`,
+    },
     // Version-Tabellen für Drafts (gleiche Spalten)
     { name: '_site_pages_v_blocks_content: block_background', sql: "ALTER TABLE _site_pages_v_blocks_content ADD COLUMN block_background TEXT DEFAULT 'none';" },
     { name: '_site_pages_v_blocks_content: block_overlay_enabled', sql: 'ALTER TABLE _site_pages_v_blocks_content ADD COLUMN block_overlay_enabled INTEGER DEFAULT 0;' },

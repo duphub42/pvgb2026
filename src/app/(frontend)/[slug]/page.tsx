@@ -17,6 +17,45 @@ type PageProps = {
   searchParams: Promise<{ previewId?: string }>
 }
 
+async function findPublishedPageBySlug(slugParam: string, depth: 1 | 2) {
+  const p = await getPayload({ config: configPromise })
+  let pages = await p.find({
+    collection: 'site-pages',
+    limit: 1,
+    depth,
+    where: {
+      and: [{ slug: { equals: slugParam } }, { _status: { equals: 'published' } }],
+    },
+    draft: false,
+  })
+
+  if (pages.docs.length === 0 && (slugParam === 'home' || !slugParam)) {
+    pages = await p.find({
+      collection: 'site-pages',
+      limit: 1,
+      depth,
+      where: {
+        and: [{ slug: { in: ['home', 'Home'] } }, { _status: { equals: 'published' } }],
+      },
+      draft: false,
+    })
+  }
+
+  return pages
+}
+
+const getCachedPublishedPageDepth2 = unstable_cache(
+  async (slugParam: string) => findPublishedPageBySlug(slugParam, 2),
+  ['site-pages', 'published', 'depth-2'],
+  { revalidate: 60, tags: ['site-pages'] },
+)
+
+const getCachedPublishedPageDepth1 = unstable_cache(
+  async (slugParam: string) => findPublishedPageBySlug(slugParam, 1),
+  ['site-pages', 'published', 'depth-1'],
+  { revalidate: 60, tags: ['site-pages'] },
+)
+
 export default async function Page({ params: paramsPromise, searchParams: searchParamsPromise }: PageProps) {
   const { slug = 'home' } = await paramsPromise
   const searchParams = await searchParamsPromise
@@ -84,42 +123,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
         draft: true,
       })
     } else {
-      const slugKey = resolvedSlug
-      const getCachedPage = unstable_cache(
-        async (slug: string) => {
-          const p = await getPayload({ config: configPromise })
-          let result = await p.find({
-            collection: 'site-pages',
-            limit: 1,
-            depth: 2,
-            where: {
-              and: [
-                { slug: { equals: slug } },
-                { _status: { equals: 'published' } },
-              ],
-            },
-            draft: false,
-          })
-          if (result.docs.length === 0 && (slug === 'home' || !slug)) {
-            result = await p.find({
-              collection: 'site-pages',
-              limit: 1,
-              depth: 2,
-              where: {
-                and: [
-                  { slug: { in: ['home', 'Home'] } },
-                  { _status: { equals: 'published' } },
-                ],
-              },
-              draft: false,
-            })
-          }
-          return result
-        },
-        ['page', slugKey],
-        { revalidate: 60, tags: ['site-pages', `page-${slugKey}`] },
-      )
-      pages = await getCachedPage(slugKey)
+      pages = await getCachedPublishedPageDepth2(resolvedSlug)
     }
 
     const page = pages.docs[0]
@@ -191,36 +195,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   const { slug: slugParam = 'home' } = await params
   const slug = slugParam || 'home'
   try {
-    const slugKey = slug || 'home'
-    const getCachedMetaPage = unstable_cache(
-      async (slugParam: string) => {
-        const p = await getPayload({ config: configPromise })
-        let pages = await p.find({
-          collection: 'site-pages',
-          limit: 1,
-          depth: 1,
-          where: {
-            and: [{ slug: { equals: slugParam } }, { _status: { equals: 'published' } }],
-          },
-          draft: false,
-        })
-        if (pages.docs.length === 0 && (slugParam === 'home' || !slugParam)) {
-          pages = await p.find({
-            collection: 'site-pages',
-            limit: 1,
-            depth: 1,
-            where: {
-              and: [{ slug: { in: ['home', 'Home'] } }, { _status: { equals: 'published' } }],
-            },
-            draft: false,
-          })
-        }
-        return pages
-      },
-      ['meta', slugKey],
-      { revalidate: 60, tags: ['site-pages', `page-${slugKey}`] },
-    )
-    const pages = await getCachedMetaPage(slugKey)
+    const pages = await getCachedPublishedPageDepth1(slug)
     const meta = await generateMeta({ doc: pages.docs[0] })
 
     return meta

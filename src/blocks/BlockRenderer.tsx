@@ -11,6 +11,9 @@ const blockLoaders: Record<
   string,
   React.LazyExoticComponent<React.ComponentType<Record<string, unknown> & { disableInnerContainer?: boolean }>>
 > = {
+  consultingOverview: lazy(() =>
+    import('@/blocks/ConsultingOverview/Component').then((m) => ({ default: m.ConsultingOverviewBlock })),
+  ),
   content: lazy(() => import('@/blocks/Content/Component').then((m) => ({ default: m.ContentBlock }))),
   heroMarketing: lazy(() =>
     import('@/blocks/HeroMarketing/Component').then((m) => ({ default: m.HeroMarketingBlock })),

@@ -10,6 +10,7 @@ import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { HeroMarketing } from '../../blocks/HeroMarketing/config'
 import { ShadcnBlock } from '../../blocks/ShadcnBlock/config'
+import { ConsultingOverview } from '../../blocks/ConsultingOverview/config'
 import {
   createClearOrphanedRefsAfterReadHook,
   createClearOrphanedRefsBeforeChangeHook,
@@ -65,6 +66,7 @@ export const Pages: CollectionConfig = {
               type: 'blocks',
               blocks: [
                 HeroMarketing,
+                ConsultingOverview,
                 ShadcnBlock,
                 CallToAction,
                 Content,

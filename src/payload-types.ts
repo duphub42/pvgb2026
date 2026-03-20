@@ -315,7 +315,16 @@ export interface SitePage {
    * Mindestens einen Block hinzufügen, damit die Seite Inhalt hat.
    */
   layout?:
-    | (HeroMarketingBlock | ShadcnBlock | CallToActionBlock | ContentBlock | MediaBlock | ArchiveBlock | FormBlock)[]
+    | (
+        | HeroMarketingBlock
+        | ConsultingOverviewBlock
+        | ShadcnBlock
+        | CallToActionBlock
+        | ContentBlock
+        | MediaBlock
+        | ArchiveBlock
+        | FormBlock
+      )[]
     | null;
   /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
@@ -619,6 +628,49 @@ export interface HeroMarketingBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroMarketing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ConsultingOverviewBlock".
+ */
+export interface ConsultingOverviewBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  headline?: string | null;
+  introText?: string | null;
+  strategyLabel?: string | null;
+  strategySubLabel?: string | null;
+  strategyTitle?: string | null;
+  strategyText?: string | null;
+  benefitsLabel?: string | null;
+  benefitsSubLabel?: string | null;
+  benefitsTitle?: string | null;
+  benefitItems?:
+    | {
+        title: string;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  experienceLabel?: string | null;
+  experienceSubLabel?: string | null;
+  experienceTitle?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'consultingOverview';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1666,6 +1718,7 @@ export interface SitePagesSelect<T extends boolean = true> {
     | T
     | {
         heroMarketing?: T | HeroMarketingBlockSelect<T>;
+        consultingOverview?: T | ConsultingOverviewBlockSelect<T>;
         shadcnBlock?: T | ShadcnBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
@@ -1708,6 +1761,41 @@ export interface HeroMarketingBlockSelect<T extends boolean = true> {
   primaryCtaUrl?: T;
   secondaryCtaLabel?: T;
   secondaryCtaUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ConsultingOverviewBlock_select".
+ */
+export interface ConsultingOverviewBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  headline?: T;
+  introText?: T;
+  strategyLabel?: T;
+  strategySubLabel?: T;
+  strategyTitle?: T;
+  strategyText?: T;
+  benefitsLabel?: T;
+  benefitsSubLabel?: T;
+  benefitsTitle?: T;
+  benefitItems?:
+    | T
+    | {
+        title?: T;
+        text?: T;
+        id?: T;
+      };
+  experienceLabel?: T;
+  experienceSubLabel?: T;
+  experienceTitle?: T;
   id?: T;
   blockName?: T;
 }

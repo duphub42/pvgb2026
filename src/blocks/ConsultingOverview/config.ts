@@ -1,6 +1,69 @@
 import type { Block } from 'payload'
 
-import { blockStyleFields } from '@/blocks/blockStyleFields'
+const consultingBlockStyleFields: Block['fields'] = [
+  {
+    name: 'blockBackground',
+    dbName: 'bg',
+    type: 'select',
+    label: 'Hintergrund',
+    defaultValue: 'none',
+    options: [
+      { label: 'Keiner', value: 'none' },
+      { label: 'Hell (muted)', value: 'muted' },
+      { label: 'Abgesetzt (accent)', value: 'accent' },
+      { label: 'Sehr hell', value: 'light' },
+      { label: 'Dunkel', value: 'dark' },
+    ],
+    admin: {
+      description: 'Optionaler Hintergrund für den gesamten Block.',
+    },
+  },
+  {
+    name: 'blockOverlay',
+    dbName: 'ov',
+    type: 'group',
+    label: 'Overlay-Filter',
+    admin: {
+      description: 'Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).',
+    },
+    fields: [
+      {
+        name: 'enabled',
+        dbName: 'en',
+        type: 'checkbox',
+        label: 'Overlay aktiv',
+        defaultValue: false,
+      },
+      {
+        name: 'color',
+        dbName: 'c',
+        type: 'select',
+        label: 'Farbe',
+        defaultValue: 'dark',
+        options: [
+          { label: 'Dunkel', value: 'dark' },
+          { label: 'Hell', value: 'light' },
+        ],
+        admin: {
+          condition: (_, siblingData) => Boolean(siblingData?.enabled),
+        },
+      },
+      {
+        name: 'opacity',
+        dbName: 'op',
+        type: 'number',
+        label: 'Deckkraft (%)',
+        min: 0,
+        max: 100,
+        defaultValue: 30,
+        admin: {
+          condition: (_, siblingData) => Boolean(siblingData?.enabled),
+          description: '0 = transparent, 100 = voll deckend.',
+        },
+      },
+    ],
+  },
+]
 
 export const ConsultingOverview: Block = {
   slug: 'consultingOverview',
@@ -10,7 +73,7 @@ export const ConsultingOverview: Block = {
     plural: 'Consulting Overviews',
   },
   fields: [
-    ...blockStyleFields,
+    ...consultingBlockStyleFields,
     {
       name: 'headline',
       type: 'text',
