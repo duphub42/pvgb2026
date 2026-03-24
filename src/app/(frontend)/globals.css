@@ -135,6 +135,11 @@
     overflow-x: visible;
   }
 
+  /* Marquee-Band (absolut am unteren Rand): nicht durch .container overflow-x beschneiden */
+  .hero-marquee-band.container {
+    overflow-x: visible;
+  }
+
   /* Hero-Offset: sorgt dafür, dass Hero-Content erst unterhalb der Header-Höhe + 10vh beginnt,
      damit sich Header- und Hero-Inhalte nicht überlappen. */
   .hero-offset {
@@ -157,6 +162,14 @@
     overflow: visible;
     padding-top: 66px;
     filter: drop-shadow(0 -22px 44px rgba(15, 23, 42, 0.42));
+  }
+
+  /* Portrait nur absolut: kein Flex-Platzhalter (padding-top würde sonst eine Lücke unter der Hero-Box erzeugen). */
+  .hero-foreground-container.hero-foreground-no-inset-height {
+    padding-top: 0;
+    height: 0;
+    min-height: 0;
+    overflow: visible;
   }
   [data-theme='dark'] .hero-foreground-container {
     filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.9));
@@ -315,9 +328,10 @@
         bottom: 15vh;
       }
     }
+    /* Weniger Scale + zentrierte Origin: vermeidet, dass das Portrait nach oben „übersteht“ und oben beschnitten wirkt (Logs: matrix 1.11 + origin bottom-right). */
     .hero-portrait-sm {
-      transform: translateY(40px) scale(1.11);
-      transform-origin: bottom right;
+      transform: translateY(28px) scale(1.04);
+      transform-origin: bottom center;
     }
     .hero-box-gradient {
       margin-top: 0;
@@ -347,8 +361,8 @@
   /* iPhone SE und kleiner: Hero-Bild nicht vergrößern (100% Skalierung). */
   @media (max-width: 375px) {
     .hero-portrait-sm {
-      transform: translateY(40px) scale(1);
-      transform-origin: bottom right;
+      transform: translateY(24px) scale(1);
+      transform-origin: bottom center;
     }
   }
 
