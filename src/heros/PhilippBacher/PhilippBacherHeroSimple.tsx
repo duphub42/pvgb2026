@@ -11,6 +11,7 @@ import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 import type { HeroBackground } from '@/payload-types'
 import { ResilientImage } from '@/components/ui/resilient-image'
 import { getMediaUrlCandidates } from '@/utilities/mediaUrlCandidates'
+import { cn } from '@/utilities/ui'
 
 /** Verzögerungen (ms) für die Hero-Enter-Animationen: Headline (Scramble) → Beschreibung (Wort für Wort) → CTAs (Pop) → Marquee-Überschrift (Buchstabe) → Marquee-Logos (Pop) → Subheadline (Slide up). */
 const HERO_ANIM = {
@@ -184,126 +185,11 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
     }
   }, [])
 
-  useEffect(() => {
-    if (!foregroundImageUrl) return
-
-    const emit = (message: string, data: Record<string, unknown>, hypothesisId: string) => {
-      // #region agent log
-      fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'e6137c' },
-        body: JSON.stringify({
-          sessionId: 'e6137c',
-          runId: 'post-fix',
-          hypothesisId,
-          location: 'PhilippBacherHeroSimple.tsx:hero-debug',
-          message,
-          data,
-          timestamp: Date.now(),
-        }),
-      }).catch(() => {})
-      // #endregion
-    }
-
-    const capture = () => {
-      const header = document.querySelector('header') as HTMLElement | null
-      const section = document.querySelector('section.hero-offset') as HTMLElement | null
-      const portraitWrap = document.querySelector('.hero-portrait-fade-up') as HTMLElement | null
-      const portraitImg = document.querySelector('.hero-simple-portrait-img') as HTMLElement | null
-      const unusedClassNode = document.querySelector('.hero-simple-portrait') as HTMLElement | null
-
-      const headerRect = header?.getBoundingClientRect()
-      const sectionRect = section?.getBoundingClientRect()
-      const portraitRect = portraitWrap?.getBoundingClientRect()
-      const portraitImgRect = portraitImg?.getBoundingClientRect()
-      const portraitStyle = portraitImg ? window.getComputedStyle(portraitImg) : null
-      const wrapStyle = portraitWrap ? window.getComputedStyle(portraitWrap) : null
-      const rootStyle = window.getComputedStyle(document.documentElement)
-      const headerHeightVar = rootStyle.getPropertyValue('--header-height').trim()
-
-      const overflowChain: { overflow: string; overflowY: string; tag: string }[] = []
-      let el: HTMLElement | null = portraitImg
-      for (let i = 0; i < 8 && el; i++) {
-        const s = window.getComputedStyle(el)
-        overflowChain.push({
-          tag: el.tagName,
-          overflow: s.overflow,
-          overflowY: s.overflowY,
-        })
-        el = el.parentElement
-      }
-
-      const imgTop = portraitImgRect?.top ?? null
-      const hdrBot = headerRect?.bottom ?? null
-      const headPossiblyUnderFixedHeader =
-        imgTop != null && hdrBot != null ? imgTop < hdrBot - 2 : null
-
-      emit(
-        'Hero portrait geometry + styles',
-        {
-          viewport: {
-            width: window.innerWidth,
-            height: window.innerHeight,
-            narrowMobile: window.matchMedia('(max-width: 554px)').matches,
-            shortViewport: window.matchMedia('(max-height: 860px)').matches,
-          },
-          classes: {
-            hasPortraitWrap: Boolean(portraitWrap),
-            hasPortraitImage: Boolean(portraitImg),
-            hasHeroSimplePortraitWrapper: Boolean(unusedClassNode),
-          },
-          geometry: {
-            headerBottom: headerRect ? Math.round(headerRect.bottom) : null,
-            sectionTop: sectionRect ? Math.round(sectionRect.top) : null,
-            portraitWrapTop: portraitRect ? Math.round(portraitRect.top) : null,
-            portraitImgTop: portraitImgRect ? Math.round(portraitImgRect.top) : null,
-            portraitImgBottom: portraitImgRect ? Math.round(portraitImgRect.bottom) : null,
-            portraitImgHeight: portraitImgRect ? Math.round(portraitImgRect.height) : null,
-            gapPortraitImgTopMinusHeaderBottom:
-              imgTop != null && hdrBot != null ? Math.round(imgTop - hdrBot) : null,
-            headPossiblyUnderFixedHeader,
-          },
-          imgComputed: portraitStyle
-            ? {
-                objectFit: portraitStyle.objectFit,
-                objectPosition: portraitStyle.objectPosition,
-                maxHeight: portraitStyle.maxHeight,
-                transform: portraitStyle.transform,
-                clipPath: portraitStyle.clipPath,
-              }
-            : null,
-          imgElement:
-            portraitImg && 'naturalWidth' in portraitImg
-              ? {
-                  naturalWidth: (portraitImg as HTMLImageElement).naturalWidth,
-                  naturalHeight: (portraitImg as HTMLImageElement).naturalHeight,
-                  clientWidth: portraitImg.clientWidth,
-                  clientHeight: portraitImg.clientHeight,
-                }
-              : null,
-          wrapMask: wrapStyle
-            ? { maskImage: wrapStyle.maskImage?.slice(0, 80) ?? null, bottom: wrapStyle.bottom }
-            : null,
-          headerHeightVar,
-          overflowChain,
-        },
-        'H1-H5',
-      )
-    }
-
-    capture()
-    const t = window.setTimeout(capture, 600)
-    window.addEventListener('resize', capture)
-    window.addEventListener('load', capture)
-    return () => {
-      window.clearTimeout(t)
-      window.removeEventListener('resize', capture)
-      window.removeEventListener('load', capture)
-    }
-  }, [foregroundImageUrl])
-
   const sectionAriaLabel =
     headlineText || headlineLine1 || headlineLine2 || headlineLine3 || subheadline || 'Hero section'
+
+  const hasMarqueeBand =
+    Boolean(marqueeHeadline) || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)
 
   return (
     <section
@@ -357,7 +243,12 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       />
 
       {/* Haupt-Content (ohne Marquee auf Mobile: Marquee liegt absolut über Shape-Divider) */}
-      <div className="relative z-[35] container max-w-6xl mx-auto px-4 md:px-6 pt-8 sm:pt-10 md:pt-12 lg:pt-16 pb-0 md:pb-12 lg:pb-16 lg:pr-[34%] xl:pr-[32%] text-left flex flex-col items-start justify-center w-full gap-0 hero-box-gradient md:translate-y-[4vh] md:z-[40]">
+      <div
+        className={cn(
+          'relative z-[35] container max-w-6xl mx-auto px-4 md:px-6 pt-8 sm:pt-10 md:pt-12 lg:pt-16 md:pb-12 lg:pb-16 lg:pr-[34%] xl:pr-[32%] text-left flex flex-col items-start justify-center w-full gap-2 max-md:gap-3 md:gap-0 hero-box-gradient md:translate-y-[4vh] md:z-[40]',
+          hasMarqueeBand ? 'max-md:pb-[min(12.5rem,34vh)]' : 'max-md:pb-8',
+        )}
+      >
         {/* Subheadline: blendet als Letztes von unten nach oben ein */}
         {subheadline && (
           <p
@@ -371,11 +262,11 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         {/* Headline: Scramble-Effekt, Zeile für Zeile mit Stagger */}
         {hasLines ? (
           <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline"
+            className="text-4xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline flex flex-col max-md:gap-y-1"
             aria-label={fullHeadlineLabel || undefined}
           >
             {lines.map((line, idx) => (
-              <span key={idx} className="block">
+              <span key={idx} className="block min-h-[1.15em]">
                 {reducedMotion ? (
                   line
                 ) : (
@@ -392,7 +283,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         ) : (
           headlineText && (
             <h1
-              className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline"
+              className="text-4xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline"
               aria-label={fullHeadlineLabel || undefined}
             >
               {reducedMotion ? (
@@ -457,11 +348,11 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Marquee: Mobile absolut am unteren Hero-Rand, über Shape-Divider (z-38); Desktop im Fluss unter der Box */}
       {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
         <div
-          className="hero-marquee-band container max-w-6xl mx-auto px-4 md:px-6 lg:pr-[34%] xl:pr-[32%] w-full flex flex-col items-stretch gap-3 box-content max-md:absolute max-md:left-1/2 max-md:-translate-x-1/2 max-md:bottom-0 max-md:z-[38] max-md:pb-[max(0.75rem,2.5vh)] max-md:pointer-events-auto md:relative md:z-[40] md:mt-8 md:translate-x-0 md:pb-0"
+          className="hero-marquee-band container max-w-6xl mx-auto px-4 md:px-6 lg:pr-[34%] xl:pr-[32%] w-full flex flex-col items-start text-left gap-3 max-md:absolute max-md:left-1/2 max-md:-translate-x-1/2 max-md:bottom-0 max-md:z-[38] max-md:pb-[max(0.75rem,2.5vh)] max-md:pointer-events-auto md:relative md:z-[40] md:mt-8 md:translate-x-0 md:pb-0"
           style={MARQUEE_CONTAINER_STYLE}
         >
           {marqueeHeadline && (
-            <span className="text-[0.47rem] font-semibold uppercase tracking-[0.25em] text-muted-foreground mt-[3px] mb-[3px] inline-flex flex-wrap">
+            <span className="text-[0.47rem] font-semibold uppercase tracking-[0.25em] text-muted-foreground mt-[3px] mb-[3px] inline-flex flex-wrap self-start">
               {marqueeHeadline.split('').map((char, idx) => (
                 <span
                   key={idx}
@@ -476,7 +367,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
             </span>
           )}
           {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && !reducedMotion && (
-            <Marquee duration={40} pauseOnHover fadeEdges gapClassName="gap-6" className="py-0 -mx-1">
+            <Marquee duration={40} pauseOnHover fadeEdges gapClassName="gap-6" className="w-full min-w-0 py-0 -mx-1 self-stretch">
               {marqueeLogos.map((logo, idx) => {
                 const url = logo?.logo != null ? getMediaUrlSafe(logo.logo) : ''
                 if (!url) return null
@@ -503,7 +394,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
             </Marquee>
           )}
           {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && reducedMotion && (
-            <div className="flex flex-wrap gap-4 py-1">
+            <div className="flex w-full min-w-0 flex-wrap gap-4 py-1 self-stretch">
               {marqueeLogos.slice(0, 6).map((logo, idx) => {
                 const url = logo?.logo != null ? getMediaUrlSafe(logo.logo) : ''
                 if (!url) return null
@@ -588,7 +479,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           Mobile unter dem Content, ab Desktop/iPad darüber (z-Index höher als Hero-Content). */}
       <div
         className="pointer-events-none absolute bottom-0 left-0 right-0 z-[30] md:z-[30] w-full hero-shape-divider"
-        style={{ height: '10vh' }}
+        style={{ height: 'calc(10vh + 33px)' }}
         aria-hidden
       >
         <svg
@@ -597,15 +488,15 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           preserveAspectRatio="none"
           style={{ height: '100%' }}
         >
-          {/* Welle 1: größere Amplitude, steigt von rechts (y groß) nach links (y klein) – fill folgt Theme (--background) */}
+          {/* Welle 1: größere Amplitude – sichtbar aber nicht deckend (kein Streifen), geschichtete Transparenz */}
           <path
             d="M0,28 C250,55 500,18 750,52 C1000,22 1200,58 1200,58 L1200,120 L0,120 Z"
-            style={{ fill: 'var(--background)', opacity: 1, visibility: 'hidden' }}
+            style={{ fill: 'var(--background)', opacity: 0.62 }}
           />
           {/* Welle 2: kleinere Amplitude, versetzt für Tiefe */}
           <path
             d="M0,48 C300,68 600,42 900,65 C1100,50 1200,78 1200,78 L1200,120 L0,120 Z"
-            style={{ fill: 'var(--background)', opacity: 0.7 }}
+            style={{ fill: 'var(--background)', opacity: 0.72 }}
           />
         </svg>
       </div>
