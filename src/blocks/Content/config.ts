@@ -1,6 +1,7 @@
 import type { Block, Field } from 'payload'
 
 import {
+  BlocksFeature,
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
@@ -8,6 +9,7 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
+import { HtmlEmbed } from '@/blocks/HtmlEmbed/config'
 import { link } from '@/fields/link'
 import { blockStyleFields } from '@/blocks/blockStyleFields'
 
@@ -44,6 +46,7 @@ const columnFields: Field[] = [
           ...rootFeatures,
           HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
           UploadFeature({ enabledCollections: ['media'] }),
+          BlocksFeature({ blocks: [HtmlEmbed] }),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
         ]

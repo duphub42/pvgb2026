@@ -3317,6 +3317,19 @@ export interface TaskSchedulePublish {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HtmlEmbedBlock".
+ */
+export interface HtmlEmbedBlock {
+  /**
+   * Vollständiges Markup inkl. optionaler <style>-Blöcke. Wird ungefiltert ausgegeben — nur vertrauenswürdige Inhalte einfügen.
+   */
+  html: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'htmlEmbed';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "BannerBlock".
  */
 export interface BannerBlock {

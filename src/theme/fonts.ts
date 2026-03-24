@@ -12,6 +12,8 @@ export const fontOutfit = localFont({
   variable: '--font-outfit',
   display: 'swap',
   preload: true,
+  /** Reduziert CLS beim Font-Swap (Fallback-Metrik angleichen). */
+  adjustFontFallback: 'Arial',
 })
 
 /** CSS-Klasse für Layout (html): setzt --font-outfit. */

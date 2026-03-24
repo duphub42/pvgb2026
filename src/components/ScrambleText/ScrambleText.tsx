@@ -25,6 +25,8 @@ type ScrambleTextProps = {
   tickMs?: number
   /** Verzögerung bis die Animation startet */
   delayMs?: number
+  /** Kein Scramble beim Mount — vermeidet Breitenwechsel (CLS), z. B. im Footer */
+  disableAnimation?: boolean
 }
 
 /**
@@ -39,6 +41,7 @@ export function ScrambleText({
   scrambleDurationMs = 450,
   tickMs = 40,
   delayMs = 0,
+  disableAnimation = false,
 }: ScrambleTextProps) {
   const [display, setDisplay] = useState(text)
   const [reducedMotion, setReducedMotion] = useState(false)
@@ -92,6 +95,10 @@ export function ScrambleText({
   }, [])
 
   useEffect(() => {
+    if (disableAnimation) {
+      setDisplay(text || '')
+      return
+    }
     if (!text) {
       setDisplay('')
       return
@@ -110,7 +117,7 @@ export function ScrambleText({
         intervalRef.current = null
       }
     }
-  }, [text, delayMs, run, reducedMotion])
+  }, [text, delayMs, run, reducedMotion, disableAnimation])
 
   return (
     <span className={cn('inline-block', className)} aria-label={text}>

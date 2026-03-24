@@ -320,6 +320,8 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                                 // FIX: footer-icon-img statt filter-invert hardkodiert
                                 className="footer-icon-img h-6 w-6 object-contain"
                                 aria-hidden="true"
+                                width={24}
+                                height={24}
                                 loading="lazy"
                                 decoding="async"
                               />
@@ -371,6 +373,8 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                               alt=""
                               className="footer-icon-img h-6 w-6 object-contain"
                               aria-hidden="true"
+                              width={24}
+                              height={24}
                               loading="lazy"
                               decoding="async"
                             />

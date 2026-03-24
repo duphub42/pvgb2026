@@ -18,6 +18,7 @@ import {
   createClearOrphanedRefsBeforeValidateHook,
 } from '../../hooks/clearOrphanedRefs'
 import { Code } from '../../blocks/Code/config'
+import { HtmlEmbed } from '../../blocks/HtmlEmbed/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { populateAuthors } from './hooks/populateAuthors'
 import { revalidateDelete, revalidatePost } from './hooks/revalidatePost'
@@ -80,7 +81,7 @@ export const Posts: CollectionConfig<'blog-posts'> = {
                   return [
                     ...rootFeatures,
                     HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                    BlocksFeature({ blocks: [Banner, Code, MediaBlock, HtmlEmbed] }),
                     FixedToolbarFeature(),
                     InlineToolbarFeature(),
                     HorizontalRuleFeature(),

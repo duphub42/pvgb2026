@@ -91,9 +91,11 @@ export function LogoWithGlitch({
   }, [runGlitch, textLogo])
 
   useEffect(() => {
+    // Footer: kein Auto-Glitch beim Laden (clip-path / overflow → CLS neben Kontakt/Adresse)
+    if (variant === 'footer') return
     runGlitch(textLogo != null)
     return () => {}
-  }, [runGlitch, textLogo])
+  }, [runGlitch, textLogo, variant])
 
   const scrambleProps = {
     text: textLogo ?? '',
@@ -102,6 +104,7 @@ export function LogoWithGlitch({
     scrambleDurationMs: 380,
     tickMs: 30,
     delayMs: 0,
+    ...(variant === 'footer' ? { disableAnimation: true as const } : {}),
   }
 
   const textSizeClass = variant === 'footer' ? 'text-base sm:text-lg md:text-xl' : 'text-xl sm:text-2xl'

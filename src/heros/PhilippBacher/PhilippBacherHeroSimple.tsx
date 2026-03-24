@@ -211,6 +211,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
       const headerRect = header?.getBoundingClientRect()
       const portraitRect = portraitWrap?.getBoundingClientRect()
+      const portraitImgRect = portraitImg?.getBoundingClientRect()
       const portraitStyle = portraitImg ? window.getComputedStyle(portraitImg) : null
       const wrapStyle = portraitWrap ? window.getComputedStyle(portraitWrap) : null
       const rootStyle = window.getComputedStyle(document.documentElement)
@@ -232,18 +233,36 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           geometry: {
             headerBottom: headerRect ? Math.round(headerRect.bottom) : null,
             portraitTop: portraitRect ? Math.round(portraitRect.top) : null,
+            portraitHeight: portraitRect ? Math.round(portraitRect.height) : null,
+            portraitImgTop: portraitImgRect ? Math.round(portraitImgRect.top) : null,
+            portraitImgHeight: portraitImgRect ? Math.round(portraitImgRect.height) : null,
             gapPx:
               headerRect && portraitRect ? Math.round(portraitRect.top - headerRect.bottom) : null,
+            portraitInViewport: Boolean(
+              portraitRect &&
+                portraitRect.bottom > 0 &&
+                portraitRect.top < window.innerHeight &&
+                portraitRect.height > 0,
+            ),
+            portraitImgInViewport: Boolean(
+              portraitImgRect &&
+                portraitImgRect.bottom > 0 &&
+                portraitImgRect.top < window.innerHeight &&
+                portraitImgRect.height > 0,
+            ),
           },
           css: {
             headerHeightVar,
             portraitTransform: portraitStyle?.transform ?? null,
             portraitMaxHeight: portraitStyle?.maxHeight ?? null,
             portraitClipPath: portraitStyle?.clipPath ?? null,
+            portraitDisplay: portraitStyle?.display ?? null,
+            portraitOpacity: portraitStyle?.opacity ?? null,
+            portraitVisibility: portraitStyle?.visibility ?? null,
             wrapBottom: wrapStyle?.bottom ?? null,
           },
         },
-        'H1-H4',
+        'H5-H6',
       )
     }
 
