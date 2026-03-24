@@ -53,6 +53,7 @@ import * as migration_20260301_100000_hero_type_shadcn_blocks from './20260301_1
 import * as migration_20260319_220000_shadcn_links_versions_tables from './20260319_220000_shadcn_links_versions_tables'
 import * as migration_20260320_110000_site_pages_consulting_overview_block from './20260320_110000_site_pages_consulting_overview_block'
 import * as migration_20260320_121000_site_pages_consulting_overview_benefit_items_id_varchar from './20260320_121000_site_pages_consulting_overview_benefit_items_id_varchar'
+import * as migration_20260320_123000_consulting_overview_pixel_layout_and_colors from './20260320_123000_consulting_overview_pixel_layout_and_colors'
 
 export const migrations = [
   {
@@ -329,5 +330,10 @@ export const migrations = [
     up: migration_20260320_121000_site_pages_consulting_overview_benefit_items_id_varchar.up,
     down: migration_20260320_121000_site_pages_consulting_overview_benefit_items_id_varchar.down,
     name: '20260320_121000_site_pages_consulting_overview_benefit_items_id_varchar',
+  },
+  {
+    up: migration_20260320_123000_consulting_overview_pixel_layout_and_colors.up,
+    down: migration_20260320_123000_consulting_overview_pixel_layout_and_colors.down,
+    name: '20260320_123000_consulting_overview_pixel_layout_and_colors',
   },
 ]

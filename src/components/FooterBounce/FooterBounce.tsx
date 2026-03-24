@@ -1,7 +1,7 @@
 'use client'
 
 import { cn } from '@/utilities/ui'
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 
 /**
  * Wrapper für Footer-Inhalt: Bounce-Effekt beim Erscheinen im Viewport
@@ -14,31 +14,8 @@ export function FooterBounce({
   children: React.ReactNode
   className?: string
 }) {
-  const ref = useRef<HTMLDivElement>(null)
-  const [inView, setInView] = useState(false)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const io = new IntersectionObserver(
-      (entries) => {
-        if (entries[0]?.isIntersecting) setInView(true)
-      },
-      { rootMargin: '0px 0px -80px 0px', threshold: 0.1 },
-    )
-    io.observe(el)
-    return () => io.disconnect()
-  }, [])
-
   return (
-    <div
-      ref={ref}
-      className={cn(
-        'footer-bounce-root',
-        inView && 'footer-bounce-visible',
-        className,
-      )}
-    >
+    <div className={cn('footer-bounce-root footer-bounce-visible', className)}>
       {children}
     </div>
   )

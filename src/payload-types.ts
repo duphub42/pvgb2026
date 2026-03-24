@@ -651,6 +651,11 @@ export interface ConsultingOverviewBlock {
   };
   headline?: string | null;
   introText?: string | null;
+  /**
+   * Ab 1280px Breite: Raster ~1440px, Blobs und Pfad näher an Figma. Darunter weiter gestapelt und lesbar.
+   */
+  pixelLayoutDesktop?: boolean | null;
+  colors?: ConsultingOverviewTheme;
   strategyLabel?: string | null;
   strategySubLabel?: string | null;
   strategyTitle?: string | null;
@@ -671,6 +676,28 @@ export interface ConsultingOverviewBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'consultingOverview';
+}
+/**
+ * Hex-Farben (z. B. #DED9FF). Leere Felder nutzen die Figma-Standards.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ConsultingOverviewTheme".
+ */
+export interface ConsultingOverviewTheme {
+  gradientLavender?: string | null;
+  gradientLime?: string | null;
+  /**
+   * Hinter Headline/Einleitung; gleicher Verlauf wie Flieder-Blob.
+   */
+  introBlob?: string | null;
+  strategyBadge?: string | null;
+  benefitsBadge?: string | null;
+  experienceBadge?: string | null;
+  timelineStroke?: string | null;
+  divider?: string | null;
+  headline?: string | null;
+  body?: string | null;
+  muted?: string | null;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1779,6 +1806,8 @@ export interface ConsultingOverviewBlockSelect<T extends boolean = true> {
       };
   headline?: T;
   introText?: T;
+  pixelLayoutDesktop?: T;
+  colors?: T | ConsultingOverviewThemeSelect<T>;
   strategyLabel?: T;
   strategySubLabel?: T;
   strategyTitle?: T;
@@ -1798,6 +1827,23 @@ export interface ConsultingOverviewBlockSelect<T extends boolean = true> {
   experienceTitle?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ConsultingOverviewTheme_select".
+ */
+export interface ConsultingOverviewThemeSelect<T extends boolean = true> {
+  gradientLavender?: T;
+  gradientLime?: T;
+  introBlob?: T;
+  strategyBadge?: T;
+  benefitsBadge?: T;
+  experienceBadge?: T;
+  timelineStroke?: T;
+  divider?: T;
+  headline?: T;
+  body?: T;
+  muted?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

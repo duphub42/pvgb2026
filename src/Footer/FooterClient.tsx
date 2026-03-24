@@ -32,40 +32,11 @@ function mediaUrl(media: { url?: string | null } | number | null | undefined): s
   return ''
 }
 
-/**
- * Some imported media files are 1x1 SVG placeholders (e.g. design.svg, marketing.svg).
- * Remap those known broken file names to real icon assets so footer icons stay visible.
- */
 function normalizeKnownBrokenFooterIconUrl(url: string): string {
-  if (!url) return url
-
-  const rewritePathname = (pathname: string): string => {
-    if (pathname.endsWith('/design.svg')) return pathname.replace(/\/design\.svg$/, '/design-leistungen.svg')
-    if (pathname.endsWith('/marketing.svg')) return pathname.replace(/\/marketing\.svg$/, '/marketing-leistungen.svg')
-    return pathname
-  }
-
-  // Relative paths used across app.
-  if (url.startsWith('/media/') || url.startsWith('/api/media/file/')) {
-    const [pathPart, queryPart] = url.split('?')
-    const rewrittenPath = rewritePathname(pathPart ?? url)
-    return queryPart != null && queryPart !== '' ? `${rewrittenPath}?${queryPart}` : rewrittenPath
-  }
-
-  // Absolute URL case (e.g. API returns full URL).
-  if (url.startsWith('http://') || url.startsWith('https://')) {
-    try {
-      const parsed = new URL(url)
-      const rewrittenPath = rewritePathname(parsed.pathname)
-      if (rewrittenPath !== parsed.pathname) {
-        parsed.pathname = rewrittenPath
-        return parsed.toString()
-      }
-    } catch {
-      return url
-    }
-  }
-
+  if (!url) return ''
+  // Avoid repeat 404 requests for known missing icon files.
+  if (url.includes('/api/media/file/marketing-leistungen.svg')) return ''
+  if (url.includes('/api/media/file/design-leistungen.svg')) return ''
   return url
 }
 

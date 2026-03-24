@@ -17,6 +17,18 @@ type PageProps = {
   searchParams: Promise<{ previewId?: string }>
 }
 
+function formatUnknownError(error: unknown): string {
+  if (error instanceof Error) return `${error.name}: ${error.message}`
+  if (typeof error === 'string') return error
+  if (error === null) return 'null'
+  if (error === undefined) return 'undefined'
+  try {
+    return JSON.stringify(error)
+  } catch {
+    return String(error)
+  }
+}
+
 async function findPublishedPageBySlug(slugParam: string, depth: 1 | 2) {
   const p = await getPayload({ config: configPromise })
   let pages = await p.find({
@@ -66,7 +78,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
   try {
     payload = await getPayload({ config: configPromise })
   } catch (err) {
-    console.error('[Page] getPayload failed:', err)
+    console.error('[Page] getPayload failed:', formatUnknownError(err))
     return (
       <article className="container py-16">
         <div className="prose max-w-none">
@@ -170,7 +182,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
     const causeMsg = e?.cause instanceof Error ? e.cause.message : String(e?.cause ?? '')
     const fullMsg = [e?.message, causeMsg].filter(Boolean).join(' — ')
     if (process.env.NODE_ENV === 'development') {
-      console.error('[Page] find/render failed:', fullMsg, e?.stack)
+      console.error('[Page] find/render failed:', fullMsg || formatUnknownError(err), e?.stack)
     }
     return (
       <article className="container py-16">
@@ -202,7 +214,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   } catch (err) {
     const e = err as Error & { cause?: Error }
     const causeMsg = e?.cause instanceof Error ? e.cause.message : String(e?.cause ?? '')
-    console.error('[generateMetadata] site-pages find failed:', e?.message, causeMsg ? `cause: ${causeMsg}` : '')
+    console.error(
+      '[generateMetadata] site-pages find failed:',
+      e?.message || formatUnknownError(err),
+      causeMsg ? `cause: ${causeMsg}` : '',
+    )
     return { title: 'Seite' }
   }
 }

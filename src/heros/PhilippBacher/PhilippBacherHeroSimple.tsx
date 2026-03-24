@@ -155,21 +155,17 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
     () => ({ opacity: overlayOpacity ?? 0.42 }),
     [overlayOpacity],
   )
-  const [isMobile, setIsMobile] = useState(false)
+  const hasBackgroundImage = Boolean(backgroundImage?.url)
   const [reducedMotion, setReducedMotion] = useState(false)
 
   useEffect(() => {
-    const mobileMql = window.matchMedia('(max-width: 767px)')
     const motionMql = window.matchMedia('(prefers-reduced-motion: reduce)')
     const update = () => {
-      setIsMobile(mobileMql.matches)
       setReducedMotion(motionMql.matches)
     }
     update()
-    mobileMql.addEventListener('change', update)
     motionMql.addEventListener('change', update)
     return () => {
-      mobileMql.removeEventListener('change', update)
       motionMql.removeEventListener('change', update)
     }
   }, [])
@@ -204,9 +200,9 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         />
       )}
       {/* Hintergrundvideo */}
-      {backgroundVideo?.url && !isMobile && !reducedMotion && (
+      {backgroundVideo?.url && !reducedMotion && (
         <video
-          className="absolute inset-0 w-full h-full object-cover -z-20"
+          className={`absolute inset-0 w-full h-full object-cover -z-20 ${hasBackgroundImage ? 'hidden md:block' : 'block'}`}
           autoPlay
           loop
           muted
@@ -248,7 +244,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           >
             {lines.map((line, idx) => (
               <span key={idx} className="block">
-                {isMobile || reducedMotion ? (
+                {reducedMotion ? (
                   line
                 ) : (
                   <ScrambleText
@@ -267,7 +263,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
               className="text-4xl md:text-5xl lg:text-6xl font-medium leading-tight md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline"
               aria-label={fullHeadlineLabel || undefined}
             >
-              {isMobile || reducedMotion ? (
+              {reducedMotion ? (
                 headlineText
               ) : (
                 <ScrambleText
@@ -281,7 +277,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         )}
 
         {/* Beschreibung: Wort für Wort von links nach rechts */}
-        {description && !isMobile && !reducedMotion && (
+        {description && !reducedMotion && (
           <p className="text-base md:text-lg text-muted-foreground text-left max-w-[345px] mx-0 w-fit h-fit mt-4 mb-4 flex flex-wrap gap-x-[0.35em] gap-y-0">
             {description.split(/\s+/).map((word, idx) => (
               <span
@@ -294,7 +290,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
             ))}
           </p>
         )}
-        {description && (isMobile || reducedMotion) && (
+        {description && reducedMotion && (
           <p className="text-base md:text-lg text-muted-foreground text-left max-w-[345px] mx-0 w-fit h-fit mt-4 mb-4">
             {description}
           </p>
@@ -346,7 +342,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                 ))}
               </span>
             )}
-            {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && !isMobile && !reducedMotion && (
+            {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && !reducedMotion && (
               <Marquee duration={40} pauseOnHover fadeEdges gapClassName="gap-6" className="py-0 -mx-1">
                 {marqueeLogos.map((logo, idx) => {
                   const url = logo?.logo != null ? getMediaUrlSafe(logo.logo) : ''
@@ -373,7 +369,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                 })}
               </Marquee>
             )}
-            {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && (isMobile || reducedMotion) && (
+            {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && reducedMotion && (
               <div className="flex flex-wrap gap-4 py-1">
                 {marqueeLogos.slice(0, 6).map((logo, idx) => {
                   const url = logo?.logo != null ? getMediaUrlSafe(logo.logo) : ''
@@ -404,7 +400,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
             className="relative max-w-6xl mx-auto hero-foreground-container"
           >
             <div
-              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(24rem,40vw)] box-content h-fit md:z-20"
+              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(24rem,40vw)] box-content h-fit z-20"
               style={{
                 animationDelay: `${HERO_ANIM.portraitDelayMs}ms`,
                 animationDuration: `${HERO_ANIM.portraitDurationMs}ms`,

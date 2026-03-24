@@ -89,6 +89,96 @@ export const ConsultingOverview: Block = {
         'Ich realisiere moderne, nutzerzentrierte Websites, konsistente Markenauftritte und unterstütze Unternehmen dabei, Ihre Prozesse digital zu automatisieren - effizient, fundiert und ergebnisorientiert.',
     },
     {
+      name: 'pixelLayoutDesktop',
+      type: 'checkbox',
+      label: 'Desktop-Layout wie Figma (ab 1280px)',
+      defaultValue: true,
+      admin: {
+        description:
+          'Ab 1280px Breite: Raster ~1440px, Blobs und Pfad näher an Figma. Darunter weiter gestapelt und lesbar.',
+      },
+    },
+    {
+      name: 'colors',
+      type: 'group',
+      interfaceName: 'ConsultingOverviewTheme',
+      label: 'Farbschema',
+      admin: {
+        description: 'Hex-Farben (z. B. #DED9FF). Leere Felder nutzen die Figma-Standards.',
+      },
+      fields: [
+        {
+          name: 'gradientLavender',
+          type: 'text',
+          label: 'Radial Flieder (Strategie-Spalte)',
+          defaultValue: '#DED9FF',
+        },
+        {
+          name: 'gradientLime',
+          type: 'text',
+          label: 'Radial Limette (Vorteile-Spalte)',
+          defaultValue: '#F3FFD9',
+        },
+        {
+          name: 'introBlob',
+          type: 'text',
+          label: 'Radial über Intro (optional, Flieder)',
+          defaultValue: '#DED9FF',
+          admin: {
+            description: 'Hinter Headline/Einleitung; gleicher Verlauf wie Flieder-Blob.',
+          },
+        },
+        {
+          name: 'strategyBadge',
+          type: 'text',
+          label: 'Badge Strategie',
+          defaultValue: '#08D3BB',
+        },
+        {
+          name: 'benefitsBadge',
+          type: 'text',
+          label: 'Badge Vorteile',
+          defaultValue: '#1090CB',
+        },
+        {
+          name: 'experienceBadge',
+          type: 'text',
+          label: 'Badge Erfahrung',
+          defaultValue: '#9208D3',
+        },
+        {
+          name: 'timelineStroke',
+          type: 'text',
+          label: 'Pfad-Linie (gestrichelt)',
+          defaultValue: '#999999',
+        },
+        {
+          name: 'divider',
+          type: 'text',
+          label: 'Trennlinie',
+          defaultValue: '#C7C7C7',
+        },
+        {
+          name: 'headline',
+          type: 'text',
+          label: 'Überschriften',
+          defaultValue: '#252525',
+        },
+        {
+          name: 'body',
+          type: 'text',
+          label: 'Fließtext',
+          defaultValue: '#545454',
+        },
+        {
+          name: 'muted',
+          type: 'text',
+          label: 'Sekundärtext',
+          defaultValue: '#868686',
+        },
+      ],
+    },
+    {
       name: 'strategyLabel',
       type: 'text',
       label: 'Label Strategie',

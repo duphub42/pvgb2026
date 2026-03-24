@@ -18,6 +18,18 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { DesignStyles } from '@/components/DesignStyles'
 import { ThemeSettingsStyles } from '@/components/ThemeSettingsStyles'
 
+function formatUnknownError(error: unknown): string {
+  if (error instanceof Error) return `${error.name}: ${error.message}`
+  if (typeof error === 'string') return error
+  if (error === null) return 'null'
+  if (error === undefined) return 'undefined'
+  try {
+    return JSON.stringify(error)
+  } catch {
+    return String(error)
+  }
+}
+
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   try {
     // Keep frontend layout cache-friendly in production. Draft mode is only read in development.
@@ -75,7 +87,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       </html>
     )
   } catch (err) {
-    console.error('[Layout] Error rendering layout:', err)
+    console.error('[Layout] Error rendering layout:', formatUnknownError(err))
     return (
       <html lang="de">
         <body>
