@@ -4750,9 +4750,6 @@ font-style: normal;
   .max-w-\[516px\] {
     max-width: 516px;
   }
-  .max-w-\[560px\] {
-    max-width: 560px;
-  }
   .max-w-\[568px\] {
     max-width: 568px;
   }
@@ -4761,12 +4758,6 @@ font-style: normal;
   }
   .max-w-\[616px\] {
     max-width: 616px;
-  }
-  .max-w-\[640px\] {
-    max-width: 640px;
-  }
-  .max-w-\[680px\] {
-    max-width: 680px;
   }
   .max-w-\[692px\] {
     max-width: 692px;
@@ -4785,9 +4776,6 @@ font-style: normal;
   }
   .max-w-\[880px\] {
     max-width: 880px;
-  }
-  .max-w-\[900px\] {
-    max-width: 900px;
   }
   .max-w-\[1000px\] {
     max-width: 1000px;
@@ -6869,9 +6857,6 @@ font-style: normal;
   .border-\(--color-border\) {
     border-color: var(--color-border);
   }
-  .border-\[\#C7C7C7\] {
-    border-color: #C7C7C7;
-  }
   .border-\[var\(--chart-2\)\] {
     border-color: var(--chart-2);
   }
@@ -8255,12 +8240,6 @@ font-style: normal;
   }
   .bg-\[radial-gradient\(ellipse_30\%_60\%_at_100\%_80\%\,var\(--color-gray-200\)\,transparent\)\] {
     background-image: radial-gradient(ellipse 30% 60% at 100% 80%,var(--color-gray-200),transparent);
-  }
-  .bg-\[radial-gradient\(ellipse_74\.47\%_74\.36\%_at_50\%_50\%\,\#DED9FF_0\%\,rgba\(255\,255\,255\,0\)_100\%\)\] {
-    background-image: radial-gradient(ellipse 74.47% 74.36% at 50% 50%,#DED9FF 0%,rgba(255,255,255,0) 100%);
-  }
-  .bg-\[radial-gradient\(ellipse_74\.47\%_74\.36\%_at_50\%_50\%\,\#F3FFD9_0\%\,rgba\(255\,255\,255\,0\)_100\%\)\] {
-    background-image: radial-gradient(ellipse 74.47% 74.36% at 50% 50%,#F3FFD9 0%,rgba(255,255,255,0) 100%);
   }
   .bg-\[radial-gradient\(var\(--muted-foreground\)_1px\,transparent_1px\)\] {
     background-image: radial-gradient(var(--muted-foreground) 1px,transparent 1px);
@@ -10144,15 +10123,6 @@ font-style: normal;
   }
   .text-\[\#38bdf8\] {
     color: #38bdf8;
-  }
-  .text-\[\#252525\] {
-    color: #252525;
-  }
-  .text-\[\#545454\] {
-    color: #545454;
-  }
-  .text-\[\#868686\] {
-    color: #868686;
   }
   .text-accent-foreground {
     color: hsl(var(--accent-foreground));
@@ -21284,11 +21254,6 @@ font-style: normal;
   .md\:text-\[5rem\] {
     @media (width >= 48rem) {
       font-size: 5rem;
-    }
-  }
-  .md\:text-\[33px\] {
-    @media (width >= 48rem) {
-      font-size: 33px;
     }
   }
   .md\:text-\[90px\] {
