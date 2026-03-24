@@ -10,4 +10,5 @@ export const CLIENT_BLOCK_TYPES = new Set([
   'heroMarketing',
   'mediaBlock',
   'shadcnBlock',
+  'whyWorkWithMe',
 ])

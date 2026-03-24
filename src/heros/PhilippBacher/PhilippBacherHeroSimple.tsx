@@ -488,15 +488,17 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           preserveAspectRatio="none"
           style={{ height: '100%' }}
         >
-          {/* Welle 1: größere Amplitude – sichtbar aber nicht deckend (kein Streifen), geschichtete Transparenz */}
+          {/* Volle Breite unten: gleiche Flächenfarbe wie Seite, darüber halbtransparente Wellen → weniger „Moiré“ zur Hero-Box */}
+          <rect x="0" y="76" width="1200" height="44" fill="var(--background)" />
+          {/* Welle 1: größere Amplitude */}
           <path
             d="M0,28 C250,55 500,18 750,52 C1000,22 1200,58 1200,58 L1200,120 L0,120 Z"
-            style={{ fill: 'var(--background)', opacity: 0.62 }}
+            style={{ fill: 'var(--background)', opacity: 0.74 }}
           />
           {/* Welle 2: kleinere Amplitude, versetzt für Tiefe */}
           <path
             d="M0,48 C300,68 600,42 900,65 C1100,50 1200,78 1200,78 L1200,120 L0,120 Z"
-            style={{ fill: 'var(--background)', opacity: 0.72 }}
+            style={{ fill: 'var(--background)', opacity: 0.82 }}
           />
         </svg>
       </div>
@@ -513,6 +515,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           preserveAspectRatio="none"
           style={{ height: '100%', opacity: 0.5 }}
         >
+          <rect x="0" y="76" width="1200" height="44" fill="var(--background)" />
           <path
             d="M0,32 C250,59 500,22 750,56 C1000,26 1200,62 1200,62 L1200,120 L0,120 Z"
             style={{ fill: 'var(--background)' }}

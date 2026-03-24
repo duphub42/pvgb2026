@@ -319,6 +319,7 @@ export interface SitePage {
         | HeroMarketingBlock
         | ConsultingOverviewBlock
         | ShadcnBlock
+        | WhyWorkWithMeBlock
         | CallToActionBlock
         | ContentBlock
         | MediaBlock
@@ -798,6 +799,15 @@ export interface ShadcnBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'shadcnBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhyWorkWithMeBlock".
+ */
+export interface WhyWorkWithMeBlock {
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'whyWorkWithMe';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1747,6 +1757,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         heroMarketing?: T | HeroMarketingBlockSelect<T>;
         consultingOverview?: T | ConsultingOverviewBlockSelect<T>;
         shadcnBlock?: T | ShadcnBlockSelect<T>;
+        whyWorkWithMe?: T | WhyWorkWithMeBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -1887,6 +1898,14 @@ export interface ShadcnBlockSelect<T extends boolean = true> {
               id?: T;
             };
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "WhyWorkWithMeBlock_select".
+ */
+export interface WhyWorkWithMeBlockSelect<T extends boolean = true> {
   id?: T;
   blockName?: T;
 }

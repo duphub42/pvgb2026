@@ -11,6 +11,7 @@ import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { HeroMarketing } from '../../blocks/HeroMarketing/config'
 import { ShadcnBlock } from '../../blocks/ShadcnBlock/config'
 import { ConsultingOverview } from '../../blocks/ConsultingOverview/config'
+import { WhyWorkWithMe } from '../../blocks/WhyWorkWithMe/config'
 import {
   createClearOrphanedRefsAfterReadHook,
   createClearOrphanedRefsBeforeChangeHook,
@@ -68,6 +69,7 @@ export const Pages: CollectionConfig = {
                 HeroMarketing,
                 ConsultingOverview,
                 ShadcnBlock,
+                WhyWorkWithMe,
                 CallToAction,
                 Content,
                 MediaBlock,

@@ -6,11 +6,12 @@ import type { SitePage } from '@/payload-types'
 
 import { CLIENT_BLOCK_TYPES } from '@/blocks/clientBlockTypes'
 
+type LazyBlockComponent = React.LazyExoticComponent<
+  React.ComponentType<Record<string, unknown> & { disableInnerContainer?: boolean }>
+>
+
 /** Lazy-Load pro Block-Typ. ArchiveBlock wird in RenderBlocks direkt gerendert (Server). */
-const blockLoaders: Record<
-  string,
-  React.LazyExoticComponent<React.ComponentType<Record<string, unknown> & { disableInnerContainer?: boolean }>>
-> = {
+const blockLoaders = {
   consultingOverview: lazy(() =>
     import('@/blocks/ConsultingOverview/Component').then((m) => ({ default: m.ConsultingOverviewBlock })),
   ),
@@ -24,7 +25,10 @@ const blockLoaders: Record<
   shadcnBlock: lazy(() =>
     import('@/blocks/ShadcnBlock/Component').then((m) => ({ default: m.ShadcnBlockComponent })),
   ),
-}
+  whyWorkWithMe: lazy(() =>
+    import('@/blocks/WhyWorkWithMe/Component').then((m) => ({ default: m.WhyWorkWithMeBlock })),
+  ),
+} as unknown as Record<string, LazyBlockComponent>
 
 export const SUPPORTED_BLOCK_TYPES = CLIENT_BLOCK_TYPES
 

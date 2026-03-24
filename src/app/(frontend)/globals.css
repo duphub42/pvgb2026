@@ -264,23 +264,28 @@
     }
   }
 
-  /* Folgesection: oberer Rand transparent (Shape-Divider sichtbar), darunter Verlauf → deckend, kaschiert nur den Schatten unterhalb des Heros. */
+  /* Folgesection: background-color füllt „Lücken“ unter dem Gradient (gleiche Fläche wie Body/Wellen-Ende).
+     Zusätzlicher Verlauf kaschiert Portrait-Schatten; Shape-Divider (z-30) bleibt darüber sichtbar. */
   .hero-following-section-mask {
-    background: linear-gradient(
+    background-color: var(--background);
+    background-image: linear-gradient(
       to bottom,
       transparent 0,
-      transparent 1.25rem,
-      var(--background) 2.75rem
+      transparent 1.75rem,
+      color-mix(in srgb, var(--background) 22%, transparent) 2.5rem,
+      color-mix(in srgb, var(--background) 55%, transparent) 3rem,
+      var(--background) 3.75rem
     );
   }
   @media (min-width: 1024px) {
-    /* Desktop: frueher deckend werden, damit der untere Portrait-Schatten sicher verborgen bleibt. */
     .hero-following-section-mask {
-      background: linear-gradient(
+      background-image: linear-gradient(
         to bottom,
         transparent 0,
-        transparent 0.4rem,
-        var(--background) 1.1rem
+        transparent 0.25rem,
+        color-mix(in srgb, var(--background) 28%, transparent) 0.65rem,
+        color-mix(in srgb, var(--background) 65%, transparent) 1rem,
+        var(--background) 1.5rem
       );
     }
   }
@@ -296,7 +301,8 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background: linear-gradient(39deg, rgba(255, 255, 255, 1) 37%, rgba(0, 0, 0, 0) 60%);
+    /* var(--background) wie Shape-Divider / Body – vermeidet helle Kante zu den Wellen */
+    background: linear-gradient(39deg, var(--background) 37%, transparent 60%);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
     mask-image: linear-gradient(39deg, black 0%, black 48%, transparent 68%);
     -webkit-mask-image: linear-gradient(39deg, black 0%, black 48%, transparent 68%);
@@ -306,7 +312,7 @@
     -webkit-mask-position: 0 0;
   }
   [data-theme='dark'] .hero-box-gradient::before {
-    background: linear-gradient(39deg, rgba(10, 10, 10, 1) 2%, rgba(0, 0, 0, 0) 78%);
+    background: linear-gradient(39deg, var(--background) 2%, transparent 78%);
     box-shadow: 0 0 32px rgba(255, 255, 255, 0.08), 0 0 12px rgba(255, 255, 255, 0.04);
   }
 
@@ -339,22 +345,22 @@
     .hero-box-gradient::before {
       background: linear-gradient(
         8.1deg,
-        rgba(255, 255, 255, 1) 55%,
-        rgba(255, 255, 255, 0.7) 78%,
-        rgba(223, 17, 17, 0) 94%
+        var(--background) 52%,
+        color-mix(in srgb, var(--background) 72%, transparent) 80%,
+        transparent 94%
       );
-      mask-image: linear-gradient(8.1deg, black 0%, black 75%, transparent 92%);
-      -webkit-mask-image: linear-gradient(8.1deg, black 0%, black 75%, transparent 92%);
+      mask-image: linear-gradient(8.1deg, black 0%, black 76%, transparent 93%);
+      -webkit-mask-image: linear-gradient(8.1deg, black 0%, black 76%, transparent 93%);
     }
     [data-theme='dark'] .hero-box-gradient::before {
       background: linear-gradient(
         8.4deg,
-        rgba(10, 10, 10, 1) 51%,
-        rgba(10, 10, 10, 0.7) 82%,
-        rgba(10, 10, 10, 0) 93%
+        var(--background) 48%,
+        color-mix(in srgb, var(--background) 68%, transparent) 82%,
+        transparent 93%
       );
-      mask-image: linear-gradient(8.4deg, black 0%, black 78%, transparent 92%);
-      -webkit-mask-image: linear-gradient(8.4deg, black 0%, black 78%, transparent 92%);
+      mask-image: linear-gradient(8.4deg, black 0%, black 79%, transparent 93%);
+      -webkit-mask-image: linear-gradient(8.4deg, black 0%, black 79%, transparent 93%);
     }
   }
 
@@ -496,9 +502,11 @@
     }
   }
 
-  /* Shape-Divider 1px Überlappung mit Content – fest in CSS, gleiches Markup für Hydration */
+  /* Shape-Divider: Überlappung nach unten + eigener Layer, reduziert Subpixel-Spalte */
   .hero-shape-divider {
-    bottom: -1px;
+    bottom: -5px;
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 
   /* HeroBox Slide-Up: Keyframes für Wrapper (.hero-box-animate) – Tailwind-kompatibel (auch in tailwind.config.mjs). */
