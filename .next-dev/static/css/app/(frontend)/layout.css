@@ -11410,10 +11410,6 @@ font-style: normal;
     --tw-outline-style: none;
     outline-style: none;
   }
-  .select-all {
-    -webkit-user-select: all;
-    user-select: all;
-  }
   .select-none {
     -webkit-user-select: none;
     user-select: none;
@@ -18872,11 +18868,6 @@ font-style: normal;
       left: var(--stick-left);
     }
   }
-  .md\:z-20 {
-    @media (width >= 48rem) {
-      z-index: 20;
-    }
-  }
   .md\:z-\[29\] {
     @media (width >= 48rem) {
       z-index: 29;
@@ -25132,11 +25123,6 @@ font-style: normal;
       font-size: 3.125rem;
     }
   }
-  .xl\:text-\[16px\] {
-    @media (width >= 80rem) {
-      font-size: 16px;
-    }
-  }
   .xl\:text-\[33px\] {
     @media (width >= 80rem) {
       font-size: 33px;
@@ -25151,12 +25137,6 @@ font-style: normal;
     @media (width >= 80rem) {
       --tw-leading: 1.6;
       line-height: 1.6;
-    }
-  }
-  .xl\:leading-\[1\.7\] {
-    @media (width >= 80rem) {
-      --tw-leading: 1.7;
-      line-height: 1.7;
     }
   }
   .xl\:leading-\[1\.75\] {

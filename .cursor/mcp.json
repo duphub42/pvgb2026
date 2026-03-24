@@ -1,11 +1,9 @@
 {
   "mcpServers": {
     "figma": {
-      "command": "npx",
+      "command": "node",
       "args": [
-        "-y",
-        "figma-developer-mcp",
-        "--figma-api-key=${FIGMA_API_KEY}"
+        "/Users/horus/Desktop/pvgb2026/pvgb2026/figma-mcp-server/dist/index.js"
       ]
     },
     "chrome-devtools": {

@@ -2,7 +2,6 @@
 
 import Image from 'next/image'
 import { CMSLink } from '@/components/Link'
-import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { getMediaUrlSafe } from '@/utils/media'
 import { Marquee } from '@/components/ui/marquee'
 import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
@@ -73,6 +72,19 @@ export interface PhilippBacherHeroSimpleProps {
   backgroundPreset?: HeroBackground | number | null
 }
 
+function resolveMediaSrc(media: unknown): string | null {
+  if (media == null) return null
+  if (typeof media === 'number' && Number.isFinite(media)) return `/api/media/stream/${media}`
+  if (typeof media === 'object' && media !== null && 'id' in media) {
+    const idValue = (media as { id?: unknown }).id
+    if (typeof idValue === 'number' && Number.isFinite(idValue)) {
+      return `/api/media/stream/${idValue}`
+    }
+  }
+  const safe = getMediaUrlSafe(media)
+  return safe || null
+}
+
 /** Prozentbasierte Positionen – skaliert mit Section, keine festen rem/px. */
 const POSITION_CLASSES: Record<FloatingElement['position'], string> = {
   topLeft: 'top-[10%] left-[8%]',
@@ -131,8 +143,8 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   const headlineText = hasLines ? undefined : headline
   const fullHeadlineLabel = hasLines ? lines.join(' ') : headlineText
 
-  const foregroundImageUrl = foregroundImage ? getMediaUrlSafe(foregroundImage) : null
-  const backgroundImageUrl = backgroundImage?.url ? getMediaUrl(backgroundImage.url) || backgroundImage.url : null
+  const foregroundImageUrl = resolveMediaSrc(foregroundImage)
+  const backgroundImageUrl = resolveMediaSrc(backgroundImage)
   const backgroundCandidates = useMemo(
     () => getMediaUrlCandidates(backgroundImageUrl),
     [backgroundImageUrl],
@@ -148,8 +160,10 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   )
   const [foregroundSrcIndex, setForegroundSrcIndex] = React.useState(0)
   const foregroundSrc = foregroundCandidates[foregroundSrcIndex] ?? foregroundImageUrl ?? ''
+  const [foregroundUseNativeImg, setForegroundUseNativeImg] = React.useState(false)
   React.useEffect(() => {
     setForegroundSrcIndex(0)
+    setForegroundUseNativeImg(false)
   }, [foregroundImageUrl])
   const overlayStyle = useMemo(
     () => ({ opacity: overlayOpacity ?? 0.42 }),
@@ -186,7 +200,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       <div className="hero-pattern-bg absolute inset-0 -z-[21]" aria-hidden />
 
       {/* Hintergrundbild */}
-      {backgroundImage?.url && (
+      {backgroundImageUrl && (
         <Image
           src={backgroundSrc}
           alt=""
@@ -200,7 +214,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         />
       )}
       {/* Hintergrundvideo */}
-      {backgroundVideo?.url && !reducedMotion && (
+      {resolveMediaSrc(backgroundVideo) && !reducedMotion && (
         <video
           className={`absolute inset-0 w-full h-full object-cover -z-20 ${hasBackgroundImage ? 'hidden md:block' : 'block'}`}
           autoPlay
@@ -210,7 +224,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           aria-hidden
           title="Background video"
         >
-          <source src={getMediaUrl(backgroundVideo.url) || backgroundVideo.url} type="video/mp4" />
+          <source src={resolveMediaSrc(backgroundVideo) || ''} type="video/mp4" />
         </video>
       )}
 
@@ -406,21 +420,35 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                 animationDuration: `${HERO_ANIM.portraitDurationMs}ms`,
               }}
             >
-              <Image
-                src={foregroundSrc}
-                alt={headlineText || subheadline || 'Portrait'}
-                width={414}
-                height={600}
-                priority
-                fetchPriority="high"
-                sizes="(max-width: 555px) 88vw, (max-width: 768px) 48vw, 28rem"
-                className="hero-simple-portrait-img hero-portrait-sm w-full h-fit object-contain object-bottom"
-                onError={() => {
-                  if (foregroundSrcIndex < foregroundCandidates.length - 1) {
-                    setForegroundSrcIndex((i) => i + 1)
-                  }
-                }}
-              />
+              {foregroundUseNativeImg ? (
+                <ResilientImage
+                  src={foregroundSrc}
+                  alt={headlineText || subheadline || 'Portrait'}
+                  width={414}
+                  height={600}
+                  className="hero-simple-portrait-img hero-portrait-sm w-full h-fit object-contain object-bottom"
+                  loading="eager"
+                  decoding="async"
+                />
+              ) : (
+                <Image
+                  src={foregroundSrc}
+                  alt={headlineText || subheadline || 'Portrait'}
+                  width={414}
+                  height={600}
+                  priority
+                  fetchPriority="high"
+                  sizes="(max-width: 555px) 88vw, (max-width: 768px) 48vw, 28rem"
+                  className="hero-simple-portrait-img hero-portrait-sm w-full h-fit object-contain object-bottom"
+                  onError={() => {
+                    if (foregroundSrcIndex < foregroundCandidates.length - 1) {
+                      setForegroundSrcIndex((i) => i + 1)
+                      return
+                    }
+                    setForegroundUseNativeImg(true)
+                  }}
+                />
+              )}
             </div>
           </div>
         </div>
