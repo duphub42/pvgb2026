@@ -155,6 +155,7 @@
   /* Light: Schatten nur nach oben (negatives Y), halbe Intensität. */
   .hero-foreground-container {
     overflow: visible;
+    padding-top: 66px;
     filter: drop-shadow(0 -22px 44px rgba(15, 23, 42, 0.42));
   }
   [data-theme='dark'] .hero-foreground-container {
@@ -185,6 +186,8 @@
     -webkit-mask-size: 100% 100%;
     mask-position: 0 0;
     -webkit-mask-position: 0 0;
+    top: auto;
+    bottom: 0;
   }
 
   /* Wrapper: kein clip-path mehr hier (liegt auf .hero-simple-portrait-img), damit Schatten nicht geclippt wird. */
@@ -1895,6 +1898,13 @@ footer a[href='/']:hover .logo-animate {
 
 /* Link-Stile: link-hover-underline für Content/Footer */
 @layer utilities {
+  /* Payload RichText: imported/legacy strike formatting can appear unintentionally.
+     Disable strikethrough globally for frontend richtext rendering. */
+  .payload-richtext del,
+  .payload-richtext s {
+    text-decoration: none;
+  }
+
   /* Content (Prose): Link-Farbe aus Design-Global (--link / --link-hover) */
   .prose a {
     position: relative;

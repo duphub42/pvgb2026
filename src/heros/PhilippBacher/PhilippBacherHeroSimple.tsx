@@ -184,6 +184,74 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
     }
   }, [])
 
+  useEffect(() => {
+    const emit = (message: string, data: Record<string, unknown>, hypothesisId: string) => {
+      // #region agent log
+      fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'c24006' },
+        body: JSON.stringify({
+          sessionId: 'c24006',
+          runId: 'hero-gap-baseline',
+          hypothesisId,
+          location: 'PhilippBacherHeroSimple.tsx:188',
+          message,
+          data,
+          timestamp: Date.now(),
+        }),
+      }).catch(() => {})
+      // #endregion
+    }
+
+    const capture = () => {
+      const header = document.querySelector('header') as HTMLElement | null
+      const portraitWrap = document.querySelector('.hero-portrait-fade-up') as HTMLElement | null
+      const portraitImg = document.querySelector('.hero-simple-portrait-img') as HTMLElement | null
+      const unusedClassNode = document.querySelector('.hero-simple-portrait') as HTMLElement | null
+
+      const headerRect = header?.getBoundingClientRect()
+      const portraitRect = portraitWrap?.getBoundingClientRect()
+      const portraitStyle = portraitImg ? window.getComputedStyle(portraitImg) : null
+      const wrapStyle = portraitWrap ? window.getComputedStyle(portraitWrap) : null
+      const rootStyle = window.getComputedStyle(document.documentElement)
+      const headerHeightVar = rootStyle.getPropertyValue('--header-height').trim()
+
+      emit(
+        'Hero/header gap snapshot',
+        {
+          viewport: {
+            width: window.innerWidth,
+            height: window.innerHeight,
+            shortViewportRuleActive: window.matchMedia('(max-height: 860px)').matches,
+          },
+          classes: {
+            hasPortraitWrap: Boolean(portraitWrap),
+            hasPortraitImage: Boolean(portraitImg),
+            hasHeroSimplePortraitClassNode: Boolean(unusedClassNode),
+          },
+          geometry: {
+            headerBottom: headerRect ? Math.round(headerRect.bottom) : null,
+            portraitTop: portraitRect ? Math.round(portraitRect.top) : null,
+            gapPx:
+              headerRect && portraitRect ? Math.round(portraitRect.top - headerRect.bottom) : null,
+          },
+          css: {
+            headerHeightVar,
+            portraitTransform: portraitStyle?.transform ?? null,
+            portraitMaxHeight: portraitStyle?.maxHeight ?? null,
+            portraitClipPath: portraitStyle?.clipPath ?? null,
+            wrapBottom: wrapStyle?.bottom ?? null,
+          },
+        },
+        'H1-H4',
+      )
+    }
+
+    capture()
+    window.addEventListener('resize', capture)
+    return () => window.removeEventListener('resize', capture)
+  }, [])
+
   const sectionAriaLabel =
     headlineText || headlineLine1 || headlineLine2 || headlineLine3 || subheadline || 'Hero section'
 
