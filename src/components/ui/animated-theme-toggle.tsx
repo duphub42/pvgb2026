@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import { motion, useMotionValue, useTransform } from 'motion/react'
 
-import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { useTheme } from '@/providers/Theme'
 import { cn } from '@/utilities/ui'
@@ -25,19 +25,19 @@ export function AnimatedThemeToggle({ className }: { className?: string }) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <span className="inline-flex shrink-0">
-          <Button
-            type="button"
-            variant="outline"
-            size="icon"
-            onClick={toggle}
-            title="Toggle theme"
-            aria-label="Toggle theme"
-            className={cn('header-tool-toggle header-tool-toggle--theme px-2.5', className)}
-          >
-            <SolarSwitch isDark={isDark} />
-          </Button>
-        </span>
+        <button
+          type="button"
+          onClick={toggle}
+          title="Toggle theme"
+          aria-label="Toggle theme"
+          className={cn(
+            buttonVariants({ variant: 'outline', size: 'icon' }),
+            'header-tool-toggle header-tool-toggle--theme px-2.5 touch-manipulation',
+            className,
+          )}
+        >
+          <SolarSwitch isDark={isDark} />
+        </button>
       </TooltipTrigger>
       <TooltipContent side="bottom" sideOffset={6}>
         {resolved === 'light' ? 'Dunkelmodus' : 'Hellmodus'}

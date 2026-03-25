@@ -139,6 +139,21 @@
   .hero-marquee-band.container {
     overflow-x: visible;
   }
+  /*
+   * .container setzt overflow-x: hidden → Spezifikation wertet overflow-y oft als auto aus.
+   * .hero-box-gradient::after ragt nach unten; dann bekommt der Hero-Textblock eine vertikale Scrollbar.
+   */
+  .hero-offset .hero-box-gradient.container {
+    overflow-x: visible;
+    overflow-y: visible;
+  }
+
+  /* Hell: Marquee nicht über die volle Zeilenbreite (inline-Breite ~ Headline) – max. 50 % des Hero-Abschnitts. */
+  @media (min-width: 768px) {
+    [data-theme='light'] .hero-marquee-band.container {
+      max-width: 50%;
+    }
+  }
 
   /* Hero-Offset: sorgt dafür, dass Hero-Content erst unterhalb der Header-Höhe + 10vh beginnt,
      damit sich Header- und Hero-Inhalte nicht überlappen. */
@@ -264,29 +279,14 @@
     }
   }
 
-  /* Folgesection: background-color füllt „Lücken“ unter dem Gradient (gleiche Fläche wie Body/Wellen-Ende).
-     Zusätzlicher Verlauf kaschiert Portrait-Schatten; Shape-Divider (z-30) bleibt darüber sichtbar. */
+  /* Folgesection: kurzer Verlauf, weniger Stufen = weniger sichtbare Kanten */
   .hero-following-section-mask {
     background-color: var(--background);
-    background-image: linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent 1.75rem,
-      color-mix(in srgb, var(--background) 22%, transparent) 2.5rem,
-      color-mix(in srgb, var(--background) 55%, transparent) 3rem,
-      var(--background) 3.75rem
-    );
+    background-image: linear-gradient(to bottom, transparent 0, var(--background) 2.25rem);
   }
   @media (min-width: 1024px) {
     .hero-following-section-mask {
-      background-image: linear-gradient(
-        to bottom,
-        transparent 0,
-        transparent 0.25rem,
-        color-mix(in srgb, var(--background) 28%, transparent) 0.65rem,
-        color-mix(in srgb, var(--background) 65%, transparent) 1rem,
-        var(--background) 1.5rem
-      );
+      background-image: linear-gradient(to bottom, transparent 0, var(--background) 1.15rem);
     }
   }
 
@@ -304,8 +304,8 @@
     /* var(--background) wie Shape-Divider / Body – vermeidet helle Kante zu den Wellen */
     background: linear-gradient(39deg, var(--background) 37%, transparent 60%);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
-    mask-image: linear-gradient(39deg, black 0%, black 48%, transparent 68%);
-    -webkit-mask-image: linear-gradient(39deg, black 0%, black 48%, transparent 68%);
+    mask-image: linear-gradient(39deg, black 0%, black 48%, transparent 70%);
+    -webkit-mask-image: linear-gradient(39deg, black 0%, black 48%, transparent 70%);
     mask-size: 100% 100%;
     -webkit-mask-size: 100% 100%;
     mask-position: 0 0;
@@ -314,6 +314,23 @@
   [data-theme='dark'] .hero-box-gradient::before {
     background: linear-gradient(39deg, var(--background) 2%, transparent 78%);
     box-shadow: 0 0 32px rgba(255, 255, 255, 0.08), 0 0 12px rgba(255, 255, 255, 0.04);
+  }
+  /* Unmaskierter Verlauf nur unten an der Content-Box – schließt zur Welle ohne extra Section-Layer */
+  .hero-box-gradient::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: min(14vh, 130px);
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      var(--background) 0%,
+      color-mix(in srgb, var(--background) 50%, transparent) 45%,
+      transparent 100%
+    );
   }
 
   /* Viewports unter 555px: Hero-Portrait skalieren und Verlauf anpassen:
@@ -341,6 +358,9 @@
     }
     .hero-box-gradient {
       margin-top: 0;
+    }
+    .hero-box-gradient::after {
+      height: min(17vh, 155px);
     }
     .hero-box-gradient::before {
       background: linear-gradient(
@@ -502,11 +522,8 @@
     }
   }
 
-  /* Shape-Divider: Überlappung nach unten + eigener Layer, reduziert Subpixel-Spalte */
   .hero-shape-divider {
-    bottom: -5px;
-    transform: translateZ(0);
-    backface-visibility: hidden;
+    bottom: -10px;
   }
 
   /* HeroBox Slide-Up: Keyframes für Wrapper (.hero-box-animate) – Tailwind-kompatibel (auch in tailwind.config.mjs). */

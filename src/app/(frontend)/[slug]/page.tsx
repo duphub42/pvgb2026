@@ -17,6 +17,12 @@ type PageProps = {
   searchParams: Promise<{ previewId?: string }>
 }
 
+function debugLog(runId: string, hypothesisId: string, location: string, message: string, data: Record<string, unknown>) {
+  // #region agent log
+  fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3b44f6'},body:JSON.stringify({sessionId:'3b44f6',runId,hypothesisId,location,message,data,timestamp:Date.now()})}).catch(()=>{})
+  // #endregion
+}
+
 function formatUnknownError(error: unknown): string {
   if (error instanceof Error) return `${error.name}: ${error.message}`
   if (typeof error === 'string') return error
@@ -31,6 +37,11 @@ function formatUnknownError(error: unknown): string {
 
 async function findPublishedPageBySlug(slugParam: string, depth: 1 | 2) {
   const p = await getPayload({ config: configPromise })
+  debugLog('run-2', 'H1', 'src/app/(frontend)/[slug]/page.tsx:findPublishedPageBySlug', 'findPublishedPageBySlug entry', {
+    slugParam,
+    depth,
+    nodeEnv: process.env.NODE_ENV ?? null,
+  })
   let pages = await p.find({
     collection: 'site-pages',
     limit: 1,
@@ -53,6 +64,10 @@ async function findPublishedPageBySlug(slugParam: string, depth: 1 | 2) {
     })
   }
 
+  debugLog('run-2', 'H4', 'src/app/(frontend)/[slug]/page.tsx:findPublishedPageBySlug', 'findPublishedPageBySlug result', {
+    slugParam,
+    docsCount: pages.docs.length,
+  })
   return pages
 }
 
@@ -181,6 +196,15 @@ export default async function Page({ params: paramsPromise, searchParams: search
     }
     const causeMsg = e?.cause instanceof Error ? e.cause.message : String(e?.cause ?? '')
     const fullMsg = [e?.message, causeMsg].filter(Boolean).join(' — ')
+    debugLog('run-2', 'H2-H3', 'src/app/(frontend)/[slug]/page.tsx:Page catch', 'page find/render failed', {
+      resolvedSlug,
+      message: e?.message ?? null,
+      cause: causeMsg || null,
+      includesNoSuchTable:
+        typeof fullMsg === 'string' && fullMsg.includes('no such table'),
+      includesWhyTable:
+        typeof fullMsg === 'string' && fullMsg.includes('site_pages_blocks_why_work_with_me'),
+    })
     if (process.env.NODE_ENV === 'development') {
       console.error('[Page] find/render failed:', fullMsg || formatUnknownError(err), e?.stack)
     }
@@ -214,6 +238,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   } catch (err) {
     const e = err as Error & { cause?: Error }
     const causeMsg = e?.cause instanceof Error ? e.cause.message : String(e?.cause ?? '')
+    debugLog('run-2', 'H5', 'src/app/(frontend)/[slug]/page.tsx:generateMetadata catch', 'generateMetadata find failed', {
+      slug,
+      message: e?.message ?? null,
+      cause: causeMsg || null,
+    })
     console.error(
       '[generateMetadata] site-pages find failed:',
       e?.message || formatUnknownError(err),

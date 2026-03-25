@@ -137,6 +137,10 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   overlayOpacity = 0.42,
   backgroundPreset,
 }) => {
+  const heroHeadlineRef = React.useRef<HTMLHeadingElement | null>(null)
+  const [heroHeadlineWidth, setHeroHeadlineWidth] = useState<number | null>(null)
+  const [isLgUp, setIsLgUp] = useState(false)
+
   const lines = [headlineLine1, headlineLine2, headlineLine3].filter(
     (l): l is string => Boolean(l),
   )
@@ -184,6 +188,29 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       motionMql.removeEventListener('change', update)
     }
   }, [])
+
+  useEffect(() => {
+    const mql = window.matchMedia('(min-width: 1024px)')
+    const update = () => setIsLgUp(mql.matches)
+    update()
+    mql.addEventListener('change', update)
+    return () => mql.removeEventListener('change', update)
+  }, [])
+
+  useEffect(() => {
+    const el = heroHeadlineRef.current
+    if (!el) return
+
+    const update = () => {
+      // Width of widest headline line (h1 wraps each line block).
+      setHeroHeadlineWidth(el.getBoundingClientRect().width)
+    }
+    update()
+
+    const ro = new ResizeObserver(() => update())
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [reducedMotion, hasLines, headlineText, headlineLine1, headlineLine2, headlineLine3, subheadline])
 
   const sectionAriaLabel =
     headlineText || headlineLine1 || headlineLine2 || headlineLine3 || subheadline || 'Hero section'
@@ -262,6 +289,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         {/* Headline: Scramble-Effekt, Zeile für Zeile mit Stagger */}
         {hasLines ? (
           <h1
+            ref={heroHeadlineRef}
             className="text-4xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline flex flex-col max-md:gap-y-1"
             aria-label={fullHeadlineLabel || undefined}
           >
@@ -283,6 +311,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         ) : (
           headlineText && (
             <h1
+              ref={heroHeadlineRef}
               className="text-4xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline"
               aria-label={fullHeadlineLabel || undefined}
             >
@@ -348,8 +377,12 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Marquee: Mobile absolut am unteren Hero-Rand, über Shape-Divider (z-38); Desktop im Fluss unter der Box */}
       {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
         <div
-          className="hero-marquee-band container max-w-6xl mx-auto px-4 md:px-6 lg:pr-[34%] xl:pr-[32%] w-full flex flex-col items-start text-left gap-3 max-md:absolute max-md:left-1/2 max-md:-translate-x-1/2 max-md:bottom-0 max-md:z-[38] max-md:pb-[max(0.75rem,2.5vh)] max-md:pointer-events-auto md:relative md:z-[40] md:mt-8 md:translate-x-0 md:pb-0"
-          style={MARQUEE_CONTAINER_STYLE}
+          className="hero-marquee-band container max-w-6xl mx-auto px-4 md:px-6 flex flex-col items-start text-left gap-3 max-md:absolute max-md:left-1/2 max-md:-translate-x-1/2 max-md:bottom-0 max-md:z-[38] max-md:pb-[max(0.75rem,2.5vh)] max-md:pointer-events-auto md:relative md:z-[40] md:mt-8 md:translate-x-0 md:pb-0 lg:px-0 lg:pr-0 lg:mx-0 lg:ml-0"
+          style={
+            isLgUp && heroHeadlineWidth
+              ? { ...MARQUEE_CONTAINER_STYLE, width: heroHeadlineWidth }
+              : MARQUEE_CONTAINER_STYLE
+          }
         >
           {marqueeHeadline && (
             <span className="text-[0.47rem] font-semibold uppercase tracking-[0.25em] text-muted-foreground mt-[3px] mb-[3px] inline-flex flex-wrap self-start">
@@ -488,41 +521,24 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           preserveAspectRatio="none"
           style={{ height: '100%' }}
         >
-          {/* Volle Breite unten: gleiche Flächenfarbe wie Seite, darüber halbtransparente Wellen → weniger „Moiré“ zur Hero-Box */}
-          <rect x="0" y="76" width="1200" height="44" fill="var(--background)" />
-          {/* Welle 1: größere Amplitude */}
-          <path
-            d="M0,28 C250,55 500,18 750,52 C1000,22 1200,58 1200,58 L1200,120 L0,120 Z"
-            style={{ fill: 'var(--background)', opacity: 0.74 }}
-          />
-          {/* Welle 2: kleinere Amplitude, versetzt für Tiefe */}
-          <path
-            d="M0,48 C300,68 600,42 900,65 C1100,50 1200,78 1200,78 L1200,120 L0,120 Z"
-            style={{ fill: 'var(--background)', opacity: 0.82 }}
-          />
-        </svg>
-      </div>
-
-      {/* Zweiter Shape-Divider: leicht größer, halbtransparent, horizontal versetzt */}
-      <div
-        className="pointer-events-none absolute bottom-0 left-0 right-0 z-[29] md:z-[29] w-full hero-shape-divider"
-        style={{ height: 'calc(10vh + 33px)' }}
-        aria-hidden
-      >
-        <svg
-          className="absolute bottom-0 left-0 w-full"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-          style={{ height: '100%', opacity: 0.5 }}
-        >
-          <rect x="0" y="76" width="1200" height="44" fill="var(--background)" />
+          {/* Leicht versetzte „Schatten“-Wellen zuerst zeichnen (liegen unter den Hauptwellen) */}
           <path
             d="M0,32 C250,59 500,22 750,56 C1000,26 1200,62 1200,62 L1200,120 L0,120 Z"
-            style={{ fill: 'var(--background)' }}
+            style={{ fill: 'var(--background)', opacity: 0.24 }}
           />
           <path
             d="M0,52 C300,72 600,46 900,69 C1100,54 1200,82 1200,82 L1200,120 L0,120 Z"
-            style={{ fill: 'var(--background)' }}
+            style={{ fill: 'var(--background)', opacity: 0.24 }}
+          />
+          {/* Welle 1: deckend */}
+          <path
+            d="M0,28 C250,55 500,18 750,52 C1000,22 1200,58 1200,58 L1200,120 L0,120 Z"
+            style={{ fill: 'var(--background)', opacity: 1 }}
+          />
+          {/* Welle 2: leichte Transparenz für Tiefe */}
+          <path
+            d="M0,48 C300,68 600,42 900,65 C1100,50 1200,78 1200,78 L1200,120 L0,120 Z"
+            style={{ fill: 'var(--background)', opacity: 0.9 }}
           />
         </svg>
       </div>

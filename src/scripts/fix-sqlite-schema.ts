@@ -347,6 +347,28 @@ function main() {
         _uuid TEXT
       );`,
     },
+    // Warum mit mir Block (statischer Inhalt; nur optional block_name)
+    {
+      name: 'site_pages_blocks_why_work_with_me: table',
+      sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_why_work_with_me (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL REFERENCES site_pages(id) ON DELETE CASCADE,
+        _path TEXT NOT NULL,
+        id TEXT PRIMARY KEY,
+        block_name TEXT
+      );`,
+    },
+    {
+      name: '_site_pages_v_blocks_why_work_with_me: table',
+      sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_why_work_with_me (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL REFERENCES _site_pages_v(id) ON DELETE CASCADE,
+        _path TEXT NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        _uuid TEXT,
+        block_name TEXT
+      );`,
+    },
     { name: 'site_pages_blocks_consulting_overview: pixel_layout_desktop', sql: 'ALTER TABLE site_pages_blocks_consulting_overview ADD COLUMN pixel_layout_desktop INTEGER DEFAULT 1;' },
     { name: 'site_pages_blocks_consulting_overview: colors_gradient_lavender', sql: "ALTER TABLE site_pages_blocks_consulting_overview ADD COLUMN colors_gradient_lavender TEXT DEFAULT '#DED9FF';" },
     { name: 'site_pages_blocks_consulting_overview: colors_gradient_lime', sql: "ALTER TABLE site_pages_blocks_consulting_overview ADD COLUMN colors_gradient_lime TEXT DEFAULT '#F3FFD9';" },

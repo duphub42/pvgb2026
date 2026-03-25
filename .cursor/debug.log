@@ -1,1 +1,2 @@
 {"sessionId":"6e3cf1","location":"probe","message":"probe","timestamp":0}
+{"sessionId":"3b44f6","runId":"probe","hypothesisId":"probe","location":"test","message":"test","data":{},"timestamp":Date.now()}
