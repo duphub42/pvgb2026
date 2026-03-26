@@ -63,7 +63,7 @@ const nextConfig = {
       { protocol: 'https', hostname: 'placehold.co', pathname: '/**' },
     ],
   },
-  webpack: (webpackConfig, { isServer }) => {
+  webpack: (webpackConfig, { isServer, dev }) => {
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
       '.js': ['.ts', '.tsx', '.js', '.jsx'],
@@ -75,12 +75,23 @@ const nextConfig = {
       buffer: path.resolve(__dirname, 'node_modules/buffer'),
       uuid: path.resolve(__dirname, 'node_modules/uuid'),
     }
+    // Mitigate ChunkLoadError "(timeout: ...layout.js)" in next dev (webpack) on slow compiles — see vercel/next.js#66526
+    if (dev && !isServer && webpackConfig.output) {
+      webpackConfig.output = {
+        ...webpackConfig.output,
+        chunkLoadTimeout: 300_000,
+      }
+    }
     return webpackConfig
   },
   reactStrictMode: true,
   redirects,
   // Pingdom F32: Lange Cache-Header für Build-Assets → weniger effektive Requests bei Wiederbesuchen
+  // Skip in development: immutable caching of /_next/static can worsen stale chunks / ChunkLoadError with HMR.
   async headers() {
+    if (process.env.NODE_ENV === 'development') {
+      return []
+    }
     return [
       {
         source: '/_next/static/:path*',

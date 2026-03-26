@@ -12,7 +12,7 @@
  * Aufruf: pnpm run fix:sqlite-schema
  */
 
-import { execSync } from 'child_process'
+import { execFileSync } from 'child_process'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
@@ -40,8 +40,21 @@ function runSqlite3(dbPath: string, sql: string): void {
     console.error('DB-Datei nicht gefunden:', dbPath)
     process.exit(1)
   }
-  const quoted = sql.replace(/'/g, "'\"'\"'")
-  execSync(`sqlite3 "${dbPath}" "${quoted}"`, { stdio: 'inherit' })
+  try {
+    // SQL über stdin: keine Shell-Escaping-Probleme bei Spalten wie "order".
+    execFileSync('sqlite3', [dbPath], {
+      input: sql.trim() + '\n',
+      stdio: ['pipe', 'inherit', 'pipe'],
+      encoding: 'utf8',
+      maxBuffer: 10 * 1024 * 1024,
+    })
+  } catch (e) {
+    const err = e as { stderr?: string }
+    const detail = typeof err.stderr === 'string' ? err.stderr.trim() : ''
+    const wrapped = new Error(detail || (e as Error).message) as Error & { stderr?: string }
+    if (detail) wrapped.stderr = detail
+    throw wrapped
+  }
 }
 
 function main() {
@@ -347,7 +360,7 @@ function main() {
         _uuid TEXT
       );`,
     },
-    // Warum mit mir Block (statischer Inhalt; nur optional block_name)
+    // Warum mit mir: Überschrift, Einleitung, reasons-Array (Postgres: Migration 20260325)
     {
       name: 'site_pages_blocks_why_work_with_me: table',
       sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_why_work_with_me (
@@ -355,7 +368,9 @@ function main() {
         _parent_id INTEGER NOT NULL REFERENCES site_pages(id) ON DELETE CASCADE,
         _path TEXT NOT NULL,
         id TEXT PRIMARY KEY,
-        block_name TEXT
+        block_name TEXT,
+        heading TEXT,
+        intro TEXT
       );`,
     },
     {
@@ -366,9 +381,46 @@ function main() {
         _path TEXT NOT NULL,
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         _uuid TEXT,
-        block_name TEXT
+        block_name TEXT,
+        heading TEXT,
+        intro TEXT
       );`,
     },
+    {
+      name: 'site_pages_blocks_why_work_with_me_reasons: table',
+      sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_why_work_with_me_reasons (
+        _order INTEGER NOT NULL,
+        _parent_id TEXT NOT NULL REFERENCES site_pages_blocks_why_work_with_me(id) ON DELETE CASCADE,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        icon TEXT DEFAULT 'user',
+        title TEXT,
+        description TEXT
+      );`,
+    },
+    {
+      name: '_site_pages_v_blocks_why_work_with_me_reasons: table',
+      sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_reasons (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_why_work_with_me(id) ON DELETE CASCADE,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        icon TEXT DEFAULT 'user',
+        title TEXT,
+        description TEXT,
+        _uuid TEXT
+      );`,
+    },
+    {
+      name: 'site_pages_blocks_why_work_with_me_reasons: indexes',
+      sql: 'CREATE INDEX IF NOT EXISTS site_pages_blocks_why_work_with_me_reasons_order_idx ON site_pages_blocks_why_work_with_me_reasons (_order); CREATE INDEX IF NOT EXISTS site_pages_blocks_why_work_with_me_reasons_parent_id_idx ON site_pages_blocks_why_work_with_me_reasons (_parent_id);',
+    },
+    {
+      name: '_site_pages_v_blocks_why_work_with_me_reasons: indexes',
+      sql: 'CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_reasons_order_idx ON _site_pages_v_blocks_why_work_with_me_reasons (_order); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_reasons_parent_id_idx ON _site_pages_v_blocks_why_work_with_me_reasons (_parent_id);',
+    },
+    { name: 'site_pages_blocks_why_work_with_me: heading', sql: 'ALTER TABLE site_pages_blocks_why_work_with_me ADD COLUMN heading TEXT;' },
+    { name: 'site_pages_blocks_why_work_with_me: intro', sql: 'ALTER TABLE site_pages_blocks_why_work_with_me ADD COLUMN intro TEXT;' },
+    { name: '_site_pages_v_blocks_why_work_with_me: heading', sql: 'ALTER TABLE _site_pages_v_blocks_why_work_with_me ADD COLUMN heading TEXT;' },
+    { name: '_site_pages_v_blocks_why_work_with_me: intro', sql: 'ALTER TABLE _site_pages_v_blocks_why_work_with_me ADD COLUMN intro TEXT;' },
     { name: 'site_pages_blocks_consulting_overview: pixel_layout_desktop', sql: 'ALTER TABLE site_pages_blocks_consulting_overview ADD COLUMN pixel_layout_desktop INTEGER DEFAULT 1;' },
     { name: 'site_pages_blocks_consulting_overview: colors_gradient_lavender', sql: "ALTER TABLE site_pages_blocks_consulting_overview ADD COLUMN colors_gradient_lavender TEXT DEFAULT '#DED9FF';" },
     { name: 'site_pages_blocks_consulting_overview: colors_gradient_lime', sql: "ALTER TABLE site_pages_blocks_consulting_overview ADD COLUMN colors_gradient_lime TEXT DEFAULT '#F3FFD9';" },
@@ -565,17 +617,20 @@ function main() {
       runSqlite3(dbPath, step.sql)
       console.log('OK:', step.name)
     } catch (e) {
-      const err = e as { status?: number; message?: string }
-      const msg = err.message ?? ''
+      const err = e as { message?: string; stderr?: string }
+      const msg = `${err.message ?? ''}\n${typeof err.stderr === 'string' ? err.stderr : ''}`
+      // Nicht mehr err.status === 1: sonst würden echte CREATE-Fehler verschluckt.
       const skip =
-        err.status === 1 ||
         msg.includes('no such table') ||
         msg.includes('no such column') ||
         msg.includes('duplicate column name') ||
         msg.includes('already exists')
       if (skip) {
+        const line = msg.split('\n').find((l) => l.includes('Error:')) ?? msg.split('\n')[0]
+        if (line) console.warn(line)
         console.warn('Übersprungen:', step.name)
       } else {
+        console.error(msg.trim())
         throw e
       }
     }

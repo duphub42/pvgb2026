@@ -136,7 +136,7 @@
   }
 
   /* Marquee-Band (absolut am unteren Rand): nicht durch .container overflow-x beschneiden */
-  .hero-marquee-band.container {
+  .hero-marquee-band {
     overflow-x: visible;
   }
   /*
@@ -150,7 +150,7 @@
 
   /* Hell: Marquee nicht über die volle Zeilenbreite (inline-Breite ~ Headline) – max. 50 % des Hero-Abschnitts. */
   @media (min-width: 768px) {
-    [data-theme='light'] .hero-marquee-band.container {
+    [data-theme='light'] .hero-marquee-band {
       max-width: 50%;
     }
   }

@@ -1,7 +1,7 @@
 import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-vercel-postgres'
 
 /**
- * Block „Warum mit mir“ (whyWorkWithMe): nur block_name im CMS, Inhalt statisch im Frontend.
+ * Block „Warum mit mir“ (whyWorkWithMe): Basis-Tabelle; editierbare Felder folgen in 20260325_100000_why_work_with_me_editable.
  */
 export async function up({ db }: MigrateUpArgs): Promise<void> {
   await db.execute(sql.raw(`

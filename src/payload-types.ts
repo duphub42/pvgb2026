@@ -805,6 +805,25 @@ export interface ShadcnBlock {
  * via the `definition` "WhyWorkWithMeBlock".
  */
 export interface WhyWorkWithMeBlock {
+  /**
+   * Hauptüberschrift über dem Kartenraster (optional leer lassen zum Ausblenden).
+   */
+  heading?: string | null;
+  /**
+   * Optionaler Text unter der Überschrift.
+   */
+  intro?: string | null;
+  /**
+   * Karten mit Icon, Titel und Text — Breite passt sich der Anzahl und dem Viewport an.
+   */
+  reasons?:
+    | {
+        icon: 'user' | 'zap' | 'trending-up' | 'globe' | 'target' | 'briefcase' | 'heart' | 'shield';
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'whyWorkWithMe';
@@ -1906,6 +1925,16 @@ export interface ShadcnBlockSelect<T extends boolean = true> {
  * via the `definition` "WhyWorkWithMeBlock_select".
  */
 export interface WhyWorkWithMeBlockSelect<T extends boolean = true> {
+  heading?: T;
+  intro?: T;
+  reasons?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }

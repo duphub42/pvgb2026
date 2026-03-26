@@ -171,7 +171,7 @@ export function HeaderActions({
   contactCta?: HeaderContactCta
 }) {
   return (
-    <div className={cn('flex items-center gap-0.5', className)}>
+    <div className={cn('relative z-20 flex items-center gap-0.5', className)}>
       <AnimatedThemeToggle />
       <HeaderContactModal cta={contactCta} />
       <SearchCommand />

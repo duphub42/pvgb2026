@@ -28,6 +28,8 @@ const HERO_ANIM = {
   portraitDurationMs: 1800,
 } as const
 
+const getDelay = (ms: number, reduced: boolean) => (reduced ? 0 : ms)
+
 // -------------------------------
 // Typdefinitionen für Props (Payload-kompatibel)
 // -------------------------------
@@ -174,6 +176,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
     () => ({ opacity: overlayOpacity ?? 0.42 }),
     [overlayOpacity],
   )
+  const mobileOverlayOpacity = Math.min((overlayOpacity ?? 0.42) + 0.15, 0.85)
   const hasBackgroundImage = Boolean(backgroundImage?.url)
   const [reducedMotion, setReducedMotion] = useState(false)
 
@@ -220,7 +223,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
   return (
     <section
-      className="relative w-full min-h-0 h-fit flex flex-col justify-end md:justify-start items-start overflow-visible text-foreground hero-offset"
+      className="relative w-full min-h-[85dvh] md:min-h-0 h-fit flex flex-col justify-end md:justify-start items-start overflow-visible text-foreground hero-offset"
       style={SECTION_STYLE}
       aria-label={sectionAriaLabel ?? undefined}
     >
@@ -262,9 +265,14 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Radial-Glow-Overlay */}
       <div className="hero-background-overlay" aria-hidden />
 
-      {/* Deckkraft-Overlay */}
+      {/* Deckkraft-Overlay: Mobile etwas stärker für Lesbarkeit */}
       <div
-        className="absolute top-0 left-0 right-0 w-full h-fit -z-[5] bg-background"
+        className="absolute top-0 left-0 right-0 w-full h-fit -z-[5] bg-background md:hidden"
+        style={{ opacity: mobileOverlayOpacity }}
+        aria-hidden
+      />
+      <div
+        className="absolute top-0 left-0 right-0 w-full h-fit -z-[5] bg-background hidden md:block"
         style={overlayStyle}
         aria-hidden
       />
@@ -272,15 +280,16 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Haupt-Content (ohne Marquee auf Mobile: Marquee liegt absolut über Shape-Divider) */}
       <div
         className={cn(
-          'relative z-[35] container max-w-6xl mx-auto px-4 md:px-6 pt-8 sm:pt-10 md:pt-12 lg:pt-16 md:pb-12 lg:pb-16 lg:pr-[34%] xl:pr-[32%] text-left flex flex-col items-start justify-center w-full gap-2 max-md:gap-3 md:gap-0 hero-box-gradient md:translate-y-[4vh] md:z-[40]',
+          'relative z-[35] container max-w-6xl mx-auto px-4 md:px-6 pt-8 sm:pt-10 md:pt-12 lg:pt-16 md:pb-12 lg:pb-16 text-left flex flex-col items-start justify-center w-full gap-2 max-md:gap-3 md:gap-0 hero-box-gradient md:translate-y-[4vh] md:z-[40]',
+          foregroundImageUrl && 'lg:pr-[34%] xl:pr-[32%]',
           hasMarqueeBand ? 'max-md:pb-[min(12.5rem,34vh)]' : 'max-md:pb-8',
         )}
       >
         {/* Subheadline: blendet als Letztes von unten nach oben ein */}
         {subheadline && (
           <p
-            className="hero-subheadline-badge hero-reveal-subheadline text-[1rem] md:text-[1.167rem] min-[555px]:text-[0.67rem] min-[555px]:md:text-[0.78rem] uppercase tracking-[0.25em] text-muted-foreground w-fit"
-            style={{ animationDelay: `${HERO_ANIM.subheadlineStartMs}ms` }}
+            className="hero-subheadline-badge hero-reveal-subheadline text-[1rem] max-md:text-[0.6rem] md:text-[1.167rem] min-[555px]:text-[0.67rem] min-[555px]:md:text-[0.78rem] uppercase tracking-[0.25em] text-muted-foreground w-fit"
+            style={{ animationDelay: `${getDelay(HERO_ANIM.subheadlineStartMs, reducedMotion)}ms` }}
           >
             {subheadline}
           </p>
@@ -290,7 +299,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         {hasLines ? (
           <h1
             ref={heroHeadlineRef}
-            className="text-4xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline flex flex-col max-md:gap-y-1"
+            className="text-5xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline flex flex-col max-md:gap-y-0.5"
             aria-label={fullHeadlineLabel || undefined}
           >
             {lines.map((line, idx) => (
@@ -302,7 +311,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                     text={line}
                     staggerMs={HERO_ANIM.headlineScramble.staggerMs}
                     scrambleDurationMs={HERO_ANIM.headlineScramble.scrambleDurationMs}
-                    delayMs={idx * HERO_ANIM.headlineScramble.lineDelayMs}
+                    delayMs={getDelay(idx * HERO_ANIM.headlineScramble.lineDelayMs, reducedMotion)}
                   />
                 )}
               </span>
@@ -312,7 +321,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           headlineText && (
             <h1
               ref={heroHeadlineRef}
-              className="text-4xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline"
+              className="text-5xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline"
               aria-label={fullHeadlineLabel || undefined}
             >
               {reducedMotion ? (
@@ -330,12 +339,14 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
         {/* Beschreibung: Wort für Wort von links nach rechts */}
         {description && !reducedMotion && (
-          <p className="text-base md:text-lg text-muted-foreground text-left max-w-[345px] mx-0 w-fit h-fit mt-4 mb-4 flex flex-wrap gap-x-[0.35em] gap-y-0">
+          <p className="text-base md:text-lg text-muted-foreground text-left max-md:max-w-full md:max-w-[345px] mx-0 w-fit h-fit mt-4 mb-4 flex flex-wrap gap-x-[0.35em] gap-y-0">
             {description.split(/\s+/).map((word, idx) => (
               <span
                 key={idx}
                 className="hero-reveal-word inline-block"
-                style={{ animationDelay: `${HERO_ANIM.descStartMs + idx * HERO_ANIM.descWordMs}ms` }}
+                style={{
+                  animationDelay: `${getDelay(HERO_ANIM.descStartMs + idx * HERO_ANIM.descWordMs, reducedMotion)}ms`,
+                }}
               >
                 {word}
               </span>
@@ -343,7 +354,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
           </p>
         )}
         {description && reducedMotion && (
-          <p className="text-base md:text-lg text-muted-foreground text-left max-w-[345px] mx-0 w-fit h-fit mt-4 mb-4">
+          <p className="text-base md:text-lg text-muted-foreground text-left max-md:max-w-full md:max-w-[345px] mx-0 w-fit h-fit mt-4 mb-4">
             {description}
           </p>
         )}
@@ -351,8 +362,8 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         {/* CTA-Links: poppen nach der Beschreibung */}
         {Array.isArray(links) && links.length > 0 && (
           <div
-            className="flex flex-wrap gap-3 sm:gap-4 justify-center md:justify-start w-fit hero-reveal-pop"
-            style={{ animationDelay: `${HERO_ANIM.ctaStartMs}ms` }}
+            className="flex flex-wrap gap-3 sm:gap-4 justify-start w-fit hero-reveal-pop"
+            style={{ animationDelay: `${getDelay(HERO_ANIM.ctaStartMs, reducedMotion)}ms` }}
           >
             {links.map((linkItem, idx) => {
               if (!linkItem?.link) return null
@@ -376,14 +387,15 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
 
       {/* Marquee: Mobile absolut am unteren Hero-Rand, über Shape-Divider (z-38); Desktop im Fluss unter der Box */}
       {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
-        <div
-          className="hero-marquee-band container max-w-6xl mx-auto px-4 md:px-6 flex flex-col items-start text-left gap-3 max-md:absolute max-md:left-1/2 max-md:-translate-x-1/2 max-md:bottom-0 max-md:z-[38] max-md:pb-[max(0.75rem,2.5vh)] max-md:pointer-events-auto md:relative md:z-[40] md:mt-8 md:translate-x-0 md:pb-0 lg:px-0 lg:pr-0 lg:mx-0 lg:ml-0"
-          style={
-            isLgUp && heroHeadlineWidth
-              ? { ...MARQUEE_CONTAINER_STYLE, width: heroHeadlineWidth }
-              : MARQUEE_CONTAINER_STYLE
-          }
-        >
+        <div className="container max-w-6xl mx-auto px-4 md:px-6 lg:pr-[34%] xl:pr-[32%]">
+          <div
+            className="hero-marquee-band flex flex-col items-start text-left gap-3 max-md:absolute max-md:left-1/2 max-md:-translate-x-1/2 max-md:bottom-[2vh] max-md:z-[38] max-md:pb-[max(0.75rem,2.5vh)] max-md:pointer-events-auto md:relative md:z-[40] md:mt-8 md:translate-x-0 md:pb-0"
+            style={
+              isLgUp && heroHeadlineWidth
+                ? { ...MARQUEE_CONTAINER_STYLE, width: heroHeadlineWidth }
+                : MARQUEE_CONTAINER_STYLE
+            }
+          >
           {marqueeHeadline && (
             <span className="text-[0.47rem] font-semibold uppercase tracking-[0.25em] text-muted-foreground mt-[3px] mb-[3px] inline-flex flex-wrap self-start">
               {marqueeHeadline.split('').map((char, idx) => (
@@ -391,7 +403,10 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                   key={idx}
                   className="hero-reveal-letter inline-block"
                   style={{
-                    animationDelay: `${HERO_ANIM.marqueeHeadlineStartMs + idx * HERO_ANIM.marqueeLetterMs}ms`,
+                    animationDelay: `${getDelay(
+                      HERO_ANIM.marqueeHeadlineStartMs + idx * HERO_ANIM.marqueeLetterMs,
+                      reducedMotion,
+                    )}ms`,
                   }}
                 >
                   {char === ' ' ? '\u00A0' : char}
@@ -409,7 +424,10 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                     key={idx}
                     className="hero-logo-marquee-item hero-reveal-logo flex h-8 md:h-10 min-w-[4rem] shrink-0 items-center justify-center"
                     style={{
-                      animationDelay: `${HERO_ANIM.marqueeLogosStartMs + idx * HERO_ANIM.marqueeLogoMs}ms`,
+                      animationDelay: `${getDelay(
+                        HERO_ANIM.marqueeLogosStartMs + idx * HERO_ANIM.marqueeLogoMs,
+                        reducedMotion,
+                      )}ms`,
                     }}
                   >
                     <ResilientImage
@@ -446,6 +464,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
               })}
             </div>
           )}
+          </div>
         </div>
       )}
 
@@ -454,10 +473,10 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         <div className="pointer-events-none absolute inset-x-0 bottom-0 w-full z-[18] h-0 min-h-0 overflow-visible">
           <div className="relative max-w-6xl mx-auto hero-foreground-container hero-foreground-no-inset-height">
             <div
-              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(20rem,88vw)] md:max-w-[min(24rem,40vw)] box-content h-fit z-[34] md:z-20"
+              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(16rem,72vw)] md:max-w-[min(24rem,40vw)] box-content h-fit z-[34] md:z-20"
               style={{
-                animationDelay: `${HERO_ANIM.portraitDelayMs}ms`,
-                animationDuration: `${HERO_ANIM.portraitDurationMs}ms`,
+                animationDelay: `${getDelay(HERO_ANIM.portraitDelayMs, reducedMotion)}ms`,
+                animationDuration: `${isLgUp ? HERO_ANIM.portraitDurationMs : Math.round(HERO_ANIM.portraitDurationMs * 0.6)}ms`,
               }}
             >
               {foregroundUseNativeImg ? (
@@ -499,9 +518,11 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         floatingElements.map((f, idx) => (
           <div
             key={idx}
-            className={`absolute z-20 font-semibold bg-white/95 text-neutral-900 px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap ${POSITION_CLASSES[f.position] ?? 'bottom-[10%] right-[8%]'}`}
+            className={`absolute z-20 font-semibold bg-white/95 text-neutral-900 px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap animate-in fade-in slide-in-from-bottom-2 duration-500 ${POSITION_CLASSES[f.position] ?? 'bottom-[10%] right-[8%]'}`}
             style={{
               transform: `translate(${f.offsetX ?? 0}px, ${f.offsetY ?? 0}px)`,
+              animationDelay: `${getDelay(800 + idx * 150, reducedMotion)}ms`,
+              animationFillMode: 'both',
             }}
           >
             {f.label}

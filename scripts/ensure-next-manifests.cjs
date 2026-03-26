@@ -1,13 +1,16 @@
 /**
- * Ensures .next/routes-manifest.json and .next/prerender-manifest.json exist
- * before next dev runs. Fixes ENOENT when Payload/Next dev server reads them
- * before the dev bundler has written them. Always writes at dev start so
- * they exist even after hot reload or a fresh .next.
+ * Ensures routes-manifest.json and prerender-manifest.json exist under each
+ * Next output dir before `next dev` runs. Fixes ENOENT when Payload/Next reads
+ * them before the dev bundler has written them.
+ *
+ * Dev uses distDir `.next-dev` (see next.config.js); production uses `.next`.
+ * We seed both so tooling that still looks at `.next` does not race empty dirs.
  */
 const fs = require('fs')
 const path = require('path')
 
-const dir = path.join(__dirname, '..', '.next')
+const root = path.join(__dirname, '..')
+const dirs = [path.join(root, '.next'), path.join(root, '.next-dev')]
 
 const routesManifest = {
   version: 3,
@@ -34,13 +37,12 @@ const prerenderManifest = {
   },
 }
 
-if (!fs.existsSync(dir)) {
-  fs.mkdirSync(dir, { recursive: true })
+for (const dir of dirs) {
+  if (!fs.existsSync(dir)) {
+    fs.mkdirSync(dir, { recursive: true })
+  }
+  const routesPath = path.join(dir, 'routes-manifest.json')
+  const prerenderPath = path.join(dir, 'prerender-manifest.json')
+  fs.writeFileSync(routesPath, JSON.stringify(routesManifest, null, 0))
+  fs.writeFileSync(prerenderPath, JSON.stringify(prerenderManifest, null, 0))
 }
-
-const routesPath = path.join(dir, 'routes-manifest.json')
-const prerenderPath = path.join(dir, 'prerender-manifest.json')
-
-// Always write at dev start so manifests exist (e.g. after rm -rf .next or hot reload)
-fs.writeFileSync(routesPath, JSON.stringify(routesManifest, null, 0))
-fs.writeFileSync(prerenderPath, JSON.stringify(prerenderManifest, null, 0))
