@@ -63,11 +63,10 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
         aria-hidden
       />
       <div className="hero-section-foreground-tint hero-section-foreground-tint--above-decor" aria-hidden />
-      <div className="hero-bottom-edge-light hero-bottom-edge-light--above-decor" aria-hidden />
-      {/* Kein .container: globale .container setzt overflow-x:hidden und erzeugt oft overflow-y:auto (Scroll-Rahmen). */}
-      <div className="relative z-[10] mx-auto w-full min-w-0 max-w-6xl px-4 pt-12 pb-14 sm:pt-16 md:pt-36 md:pb-20 lg:pt-32 lg:pb-24">
-        <div className="grid min-w-0 gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end lg:gap-8">
-          <div className="min-w-0 space-y-5">
+      {/* Gleiche horizontale Hülle wie MegaMenu-Header: container + px-4 (nie breiter als Header-.container). Overflow: globals.css. */}
+      <div className="relative z-[2] container flex w-full min-w-0 flex-col px-4 pt-12 pb-14 sm:pt-16 md:pt-36 md:pb-20 lg:pt-32 lg:pb-24">
+        <div className="grid min-w-0 gap-0 lg:gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
+          <div className="hero-mobile-glass relative min-w-0 space-y-5 max-md:-mt-[18vw] max-md:z-10 max-md:rounded-t-2xl max-md:px-5 max-md:pt-6 max-md:pb-8">
             <div className="flex flex-col gap-1">
               <p className="inline-flex w-fit items-center rounded-full border border-border bg-card px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] text-muted-foreground">
                 {subheadline || defaultSubheadline}

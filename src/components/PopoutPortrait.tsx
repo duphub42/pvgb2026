@@ -25,10 +25,20 @@ export default function PopoutPortrait({
   const clipId = `${uid}-clip`
   const decorMaskId = `${uid}-decor-mask`
   const decorOutsideClipId = `${uid}-decor-outside`
+  const diskGradId = `${uid}-disk-grad`
+  const diskGroundShadowGradId = `${uid}-disk-ground-shadow-grad`
+  const diskGroundShadowGradDarkId = `${uid}-disk-ground-shadow-grad-dark`
+  const diskGroundShadowBlurId = `${uid}-disk-ground-shadow-blur`
+  const diskRimGradId = `${uid}-disk-rim-grad`
   const cx = 225
   const cy = 340
   /** Base radius 175, +10% */
   const r = 175 * 1.1
+  /** Bodenschatten: klar unter dem Kreis, nicht am Rand (viewBox-Einheiten). */
+  const diskShadowGap = 14.5
+  const diskShadowRx = r * 1.52
+  const diskShadowRy = r * 0.21
+  const diskShadowCy = cy + r + diskShadowGap + diskShadowRy
   const imgW = 300
   const imgH = 500
   /** Horizontally center the image slot on the popout circle */
@@ -101,6 +111,7 @@ export default function PopoutPortrait({
   return (
     <div
       ref={rootRef}
+      className="pb-popout-root"
       style={{
         position: 'relative',
         width: '100%',
@@ -112,6 +123,15 @@ export default function PopoutPortrait({
       }}
     >
       <style>{`
+        .pb-disk-dark {
+          display: none;
+        }
+        [data-theme='dark'] .pb-popout-root .pb-disk-light {
+          display: none;
+        }
+        [data-theme='dark'] .pb-popout-root .pb-disk-dark {
+          display: block;
+        }
         @keyframes pb-floatA { 0%,100%{translate:0 0} 50%{translate:0 -7px} }
         @keyframes pb-floatB { 0%,100%{translate:0 0} 50%{translate:0 -6px} }
         @keyframes pb-floatC { 0%,100%{translate:0 0} 50%{translate:0 -8px} }
@@ -133,7 +153,7 @@ export default function PopoutPortrait({
           .pb-card { scale: 0.64; }
           .pb-card.pb-cA { transform-origin: top right; right: 0px !important; }
           .pb-card.pb-cB { transform-origin: top left; left: 0px !important; }
-          .pb-card.pb-cC { transform-origin: bottom left; left: 0px !important; }
+          .pb-card.pb-cC { transform-origin: top left; left: 0px !important; bottom: auto !important; top: 260px !important; }
           .pb-card.pb-cD { transform-origin: top right; right: 0px !important; }
         }
         .pb-card {
@@ -206,7 +226,7 @@ export default function PopoutPortrait({
         }
         .pb-decor-squiggle {
           fill: none;
-          stroke: #1f2b3d;
+          stroke: #24254a;
           stroke-width: 3.25;
           stroke-linecap: round;
           stroke-linejoin: round;
@@ -246,21 +266,21 @@ export default function PopoutPortrait({
                 cx={decorGridOrigin.x + col * decorGridStep}
                 cy={decorGridOrigin.y + row * decorGridStep}
                 r={decorGridR}
-                fill="#1f2b3d"
+                fill="#24254a"
                 opacity={Math.max(0.35, 1 - row * 0.14)}
               />
             )),
           ).flat()}
 
-          <path d={arcPathD} stroke="#6a8299" strokeWidth={2.5} fill="none" strokeLinecap="round" />
+          <path d={arcPathD} stroke="#8284b8" strokeWidth={2.5} fill="none" strokeLinecap="round" />
         </g>
 
         <g clipPath={`url(#${decorOutsideClipId})`}>
-          <circle cx={decorDotL.cx} cy={decorDotL.cy} r={decorDotLRadius} fill="#1f2b3d" />
+          <circle cx={decorDotL.cx} cy={decorDotL.cy} r={decorDotLRadius} fill="#24254a" />
         </g>
       </svg>
 
-      {/* z-1: purple disk */}
+      {/* z-1: Bodenschatten (Ellipse unter dem Kreis) + indigo Kreis mit Verlauf */}
       <svg
         width="100%"
         height="100%"
@@ -269,7 +289,91 @@ export default function PopoutPortrait({
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
-        <circle cx={cx} cy={cy} r={r} fill="#34435a" />
+        <defs>
+          <radialGradient id={diskGradId} cx="38%" cy="32%" r="68%" fx="35%" fy="28%">
+            <stop offset="0%" stopColor="#55568f" />
+            <stop offset="45%" stopColor="#3f4078" />
+            <stop offset="100%" stopColor="#262752" />
+          </radialGradient>
+          <radialGradient
+            id={diskGroundShadowGradId}
+            gradientUnits="objectBoundingBox"
+            cx="50%"
+            cy="50%"
+            r="50%"
+          >
+            <stop offset="0%" stopColor="#080812" stopOpacity="0.52" />
+            <stop offset="45%" stopColor="#10101c" stopOpacity="0.28" />
+            <stop offset="100%" stopColor="#10101c" stopOpacity="0" />
+          </radialGradient>
+          <radialGradient
+            id={diskGroundShadowGradDarkId}
+            gradientUnits="objectBoundingBox"
+            cx="50%"
+            cy="50%"
+            r="50%"
+          >
+            <stop offset="0%" stopColor="#c8cae8" stopOpacity="0.14" />
+            <stop offset="40%" stopColor="#a8abce" stopOpacity="0.07" />
+            <stop offset="100%" stopColor="#a8abce" stopOpacity="0" />
+          </radialGradient>
+          <filter
+            id={diskGroundShadowBlurId}
+            x={cx - diskShadowRx - 56}
+            y={cy + r + diskShadowGap - 12}
+            width={2 * diskShadowRx + 112}
+            height={2 * diskShadowRy + 88}
+            filterUnits="userSpaceOnUse"
+            colorInterpolationFilters="sRGB"
+          >
+            <feGaussianBlur in="SourceGraphic" stdDeviation="14" />
+          </filter>
+          <linearGradient
+            id={diskRimGradId}
+            gradientUnits="userSpaceOnUse"
+            x1={cx - r * 0.55}
+            y1={cy - r * 0.9}
+            x2={cx + r * 0.65}
+            y2={cy + r * 0.75}
+          >
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.58" />
+            <stop offset="20%" stopColor="#eef0ff" stopOpacity="0.32" />
+            <stop offset="48%" stopColor="#c8cce8" stopOpacity="0.12" />
+            <stop offset="100%" stopColor="#262752" stopOpacity="0" />
+          </linearGradient>
+        </defs>
+        <g className="pb-disk-light">
+          <ellipse
+            cx={cx}
+            cy={diskShadowCy}
+            rx={diskShadowRx}
+            ry={diskShadowRy}
+            fill={`url(#${diskGroundShadowGradId})`}
+            filter={`url(#${diskGroundShadowBlurId})`}
+          />
+        </g>
+        <g className="pb-disk-dark">
+          <ellipse
+            cx={cx}
+            cy={diskShadowCy}
+            rx={diskShadowRx}
+            ry={diskShadowRy}
+            fill={`url(#${diskGroundShadowGradDarkId})`}
+            filter={`url(#${diskGroundShadowBlurId})`}
+          />
+        </g>
+        <g className="pb-disk-core">
+          <circle cx={cx} cy={cy} r={r} fill={`url(#${diskGradId})`} />
+          <circle
+            cx={cx}
+            cy={cy}
+            r={r}
+            fill="none"
+            stroke={`url(#${diskRimGradId})`}
+            strokeWidth={2.65}
+            vectorEffect="nonScalingStroke"
+          />
+        </g>
       </svg>
 
       {/* z-2: floating cards (over circle, under portrait); Automatisierung: own layer z-5 after portrait */}
@@ -294,16 +398,16 @@ export default function PopoutPortrait({
             Web Vitals
           </p>
           <ScoreBar label="Performance" value={92} color="#27ae60" />
-          <ScoreBar label="SEO" value={97} color="#5a7088" />
+          <ScoreBar label="SEO" value={97} color="#5f61a0" />
           <ScoreBar label="Accessibility" value={88} color="#f39c12" />
         </div>
 
-        <div className="pb-card pb-cD" style={{ top: 252, right: 7 - cardSpread - 10, width: 130 }}>
+        <div className="pb-card pb-cD" style={{ top: 252, right: 7 - cardSpread - 20, width: 130 }}>
           <p className="pb-card-title" style={{ margin: '0 0 6px' }}>
             Funnel
           </p>
-          <FunnelRow label="Besucher" value="12.4k" pct={100} color="#34435a" />
-          <FunnelRow label="Leads" value="3.1k" pct={62} color="#5a7088" />
+          <FunnelRow label="Besucher" value="12.4k" pct={100} color="#3f4078" />
+          <FunnelRow label="Leads" value="3.1k" pct={62} color="#5f61a0" />
           <FunnelRow label="Kunden" value="486" pct={25} color="#27ae60" valueColor="#27ae60" />
         </div>
       </div>
@@ -370,7 +474,7 @@ export default function PopoutPortrait({
           </div>
           <div style={{ display: 'flex', gap: 12, marginBottom: 7 }}>
             <Stat label="Workflows" value="24" />
-            <Stat label="Zeitersparnis" value="38h" valueColor="#5a7088" />
+            <Stat label="Zeitersparnis" value="38h" valueColor="#5f61a0" />
           </div>
           <svg width="100%" height="20" viewBox="0 0 140 20">
             <rect className="pb-flow-rect" x="0" y="5" width="30" height="11" rx="5.5" />

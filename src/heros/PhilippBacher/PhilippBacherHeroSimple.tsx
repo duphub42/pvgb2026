@@ -89,8 +89,8 @@ const POSITION_CLASSES: Record<FloatingElement['position'], string> = {
   topRight: 'top-[10%] right-[8%]',
   midLeft: 'top-1/2 -translate-y-1/2 left-[8%]',
   midRight: 'top-1/2 -translate-y-1/2 right-[8%]',
-  bottomLeft: 'bottom-[10%] left-[8%] max-md:bottom-auto max-md:top-[28%]',
-  bottomRight: 'bottom-[10%] right-[8%] max-md:bottom-auto max-md:top-[28%]',
+  bottomLeft: 'bottom-[10%] left-[8%]',
+  bottomRight: 'bottom-[10%] right-[8%]',
 }
 
 const SECTION_STYLE: React.CSSProperties = {
@@ -155,7 +155,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
     () => ({ opacity: overlayOpacity ?? 0.42 }),
     [overlayOpacity],
   )
-  const mobileOverlayOpacity = Math.min((overlayOpacity ?? 0.42) - 0.05, 0.55)
+  const mobileOverlayOpacity = Math.min((overlayOpacity ?? 0.42) + 0.15, 0.85)
   const hasBackgroundImage = Boolean(backgroundImage?.url)
   const [reducedMotion, setReducedMotion] = useState(false)
 
@@ -232,10 +232,10 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         aria-hidden
       />
 
-      {/* Deckkraft-Overlay: Mobile entfernt – Lesbarkeit kommt vom Milchglas auf hero-box-gradient */}
+      {/* Deckkraft-Overlay: Mobile etwas stärker für Lesbarkeit */}
       <div
-        className="absolute top-0 left-0 right-0 w-full h-full -z-[5] bg-background md:hidden"
-        style={{ opacity: 0 }}
+        className="absolute top-0 left-0 right-0 w-full h-fit -z-[5] bg-background md:hidden"
+        style={{ opacity: mobileOverlayOpacity }}
         aria-hidden
       />
       <div
@@ -249,7 +249,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Haupt-Content inkl. Logo-Marquee direkt unter dem CTA */}
       <div
         className={cn(
-          'relative z-[35] container max-w-6xl mx-auto px-4 md:px-6 pt-8 sm:pt-10 md:pt-12 lg:pt-16 md:pb-12 lg:pb-16 text-left flex flex-col items-start justify-center w-full gap-2 max-md:gap-3 md:gap-0 hero-box-gradient md:translate-y-[4vh] md:z-[40]',
+          'relative z-[35] container pt-8 sm:pt-10 md:pt-12 lg:pt-16 md:pb-12 lg:pb-16 text-left flex flex-col items-start justify-center w-full gap-2 max-md:gap-3 md:gap-0 hero-box-gradient md:translate-y-[4vh] md:z-[40]',
           foregroundImageUrl && 'lg:pr-[34%] xl:pr-[32%]',
           'max-md:pb-8',
         )}
@@ -362,7 +362,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Vordergrundbild (Portrait): aus Flex-Flow, sonst Lücke durch padding-top auf .hero-foreground-container */}
       {foregroundImageUrl && (
         <div className="pointer-events-none absolute inset-x-0 bottom-0 w-full z-[18] h-0 min-h-0 overflow-visible">
-          <div className="relative max-w-6xl mx-auto hero-foreground-container hero-foreground-no-inset-height">
+          <div className="relative container hero-foreground-container hero-foreground-no-inset-height">
             <div
               className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(18rem,78vw)] md:max-w-[min(26rem,44vw)] box-content h-fit z-[34] md:z-20"
               style={{
@@ -405,8 +405,6 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
             {f.label}
           </div>
         ))}
-
-      <div className="hero-bottom-edge-light" aria-hidden />
 
       {/* Wellen-Shape-Divider: 2 Wellen, unterschiedliche Amplituden, steigt von rechts nach links, 10vh.
           Mobile unter dem Content, ab Desktop/iPad darüber (z-Index höher als Hero-Content). */}
