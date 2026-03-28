@@ -31,6 +31,7 @@ import { ThreadsBackground } from '@/components/ThreadsBackground/ThreadsBackgro
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { AnimatedThemeToggle } from '@/components/ui/animated-theme-toggle'
 import { ResilientImage } from '@/components/ui/resilient-image'
+import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
 
 /** Konfiguration für WhatsApp, Rückruf und Newsletter im Mega-Menü (aus Header-Global) */
 export type MegaMenuCta = {
@@ -602,6 +603,12 @@ export function MegaMenu({
 
   return (
     <>
+      <HeaderGlassPlate
+        glassActive={isPastFold || isScrolled}
+        hideToTop={hideToTop}
+        isVisible={isVisible}
+        revealFromTop={revealFromTop}
+      />
       {/* Background Blur Overlay – 1:1 test2 */}
       <div
         className={cn(
@@ -611,22 +618,25 @@ export function MegaMenu({
       />
 
       <header
-        className={cn(
-          'megamenu z-50 w-full transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)] will-change-transform',
-          revealFromTop && 'header-reveal-from-top',
-          hideToTop && 'header-hide-to-top',
-          isVisible || hideToTop
-            ? 'translate-y-0 opacity-100 visible'
-            : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
-          className,
-        )}
+        className={cn('megamenu z-50 w-full', className)}
         data-scrolled={isScrolled ? 'true' : undefined}
         data-sticky={isPastFold ? 'true' : undefined}
-        onAnimationEnd={() => {
-          setRevealFromTop(false)
-          setHideToTop(false)
-        }}
       >
+        <div
+          className={cn(
+            'header-slide-layer transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)]',
+            (isPastFold || isScrolled) && 'header-glass-border',
+            revealFromTop && 'header-reveal-from-top',
+            hideToTop && 'header-hide-to-top',
+            isVisible || hideToTop
+              ? 'translate-y-0 opacity-100 visible'
+              : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
+          )}
+          onAnimationEnd={() => {
+            setRevealFromTop(false)
+            setHideToTop(false)
+          }}
+        >
         <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
           <div className="flex flex-1 items-center justify-between">
             <div className="flex items-center">{logo}</div>
@@ -1190,6 +1200,7 @@ export function MegaMenu({
             </div>
           </div>
           </div>
+        </div>
         </div>
       </header>
     </>

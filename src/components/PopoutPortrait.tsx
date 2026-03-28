@@ -206,7 +206,7 @@ export default function PopoutPortrait({
         }
         .pb-decor-squiggle {
           fill: none;
-          stroke: #1a2a45;
+          stroke: #1f2b3d;
           stroke-width: 3.25;
           stroke-linecap: round;
           stroke-linejoin: round;
@@ -246,17 +246,17 @@ export default function PopoutPortrait({
                 cx={decorGridOrigin.x + col * decorGridStep}
                 cy={decorGridOrigin.y + row * decorGridStep}
                 r={decorGridR}
-                fill="#1a2a45"
+                fill="#1f2b3d"
                 opacity={Math.max(0.35, 1 - row * 0.14)}
               />
             )),
           ).flat()}
 
-          <path d={arcPathD} stroke="#5a7fa8" strokeWidth={2.5} fill="none" strokeLinecap="round" />
+          <path d={arcPathD} stroke="#6a8299" strokeWidth={2.5} fill="none" strokeLinecap="round" />
         </g>
 
         <g clipPath={`url(#${decorOutsideClipId})`}>
-          <circle cx={decorDotL.cx} cy={decorDotL.cy} r={decorDotLRadius} fill="#1a2a45" />
+          <circle cx={decorDotL.cx} cy={decorDotL.cy} r={decorDotLRadius} fill="#1f2b3d" />
         </g>
       </svg>
 
@@ -269,7 +269,7 @@ export default function PopoutPortrait({
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
-        <circle cx={cx} cy={cy} r={r} fill="#2a3f5f" />
+        <circle cx={cx} cy={cy} r={r} fill="#34435a" />
       </svg>
 
       {/* z-2: floating cards (over circle, under portrait); Automatisierung: own layer z-5 after portrait */}
@@ -294,7 +294,7 @@ export default function PopoutPortrait({
             Web Vitals
           </p>
           <ScoreBar label="Performance" value={92} color="#27ae60" />
-          <ScoreBar label="SEO" value={97} color="#4a6d94" />
+          <ScoreBar label="SEO" value={97} color="#5a7088" />
           <ScoreBar label="Accessibility" value={88} color="#f39c12" />
         </div>
 
@@ -302,8 +302,8 @@ export default function PopoutPortrait({
           <p className="pb-card-title" style={{ margin: '0 0 6px' }}>
             Funnel
           </p>
-          <FunnelRow label="Besucher" value="12.4k" pct={100} color="#2a3f5f" />
-          <FunnelRow label="Leads" value="3.1k" pct={62} color="#4a6d94" />
+          <FunnelRow label="Besucher" value="12.4k" pct={100} color="#34435a" />
+          <FunnelRow label="Leads" value="3.1k" pct={62} color="#5a7088" />
           <FunnelRow label="Kunden" value="486" pct={25} color="#27ae60" valueColor="#27ae60" />
         </div>
       </div>
@@ -370,7 +370,7 @@ export default function PopoutPortrait({
           </div>
           <div style={{ display: 'flex', gap: 12, marginBottom: 7 }}>
             <Stat label="Workflows" value="24" />
-            <Stat label="Zeitersparnis" value="38h" valueColor="#4a6d94" />
+            <Stat label="Zeitersparnis" value="38h" valueColor="#5a7088" />
           </div>
           <svg width="100%" height="20" viewBox="0 0 140 20">
             <rect className="pb-flow-rect" x="0" y="5" width="30" height="11" rx="5.5" />

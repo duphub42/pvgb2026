@@ -178,9 +178,12 @@ export default async function Page({ params: paramsPromise, searchParams: search
     const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
     return (
       <article>
-        <HeroErrorBoundary>
-          <RenderHero {...heroProps} />
-        </HeroErrorBoundary>
+        {/* z-[32] > Folgesection z-[31], damit Popout/Foreground nicht von .hero-following-section-mask überdeckt wird */}
+        <div className="relative z-[32] isolate">
+          <HeroErrorBoundary>
+            <RenderHero {...heroProps} />
+          </HeroErrorBoundary>
+        </div>
         <div className="relative z-20 md:z-[31] max-md:-mt-16 max-md:pt-8 pt-24 md:-mt-16 hero-following-section-mask">
           <RenderBlocks blocks={Array.isArray(page.layout) ? page.layout : []} />
         </div>

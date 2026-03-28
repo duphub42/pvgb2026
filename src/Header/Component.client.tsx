@@ -12,6 +12,7 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 import { Logo } from '@/components/Logo/Logo'
 import { LogoWithGlitch } from '@/components/Logo/LogoWithGlitch'
+import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
 import { MegaMenu, type MegaMenuCta, type MegaMenuItem } from '@/components/MegaMenu'
 import { HeaderNav } from './Nav'
 
@@ -214,30 +215,42 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
   }
 
   return (
+    <>
+      <HeaderGlassPlate
+        glassActive={isPastFold || isScrolled}
+        hideToTop={hideToTop}
+        isVisible={headerVisible}
+        revealFromTop={revealFromTop}
+      />
     <header
-      className={cn(
-        'site-header z-50 w-full transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)] will-change-transform',
-        revealFromTop && 'header-reveal-from-top',
-        hideToTop && 'header-hide-to-top',
-        'fixed top-0 left-0 right-0',
-        headerVisible || hideToTop
-          ? 'translate-y-0 opacity-100 visible'
-          : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
-      )}
+      className={cn('site-header z-50 w-full fixed top-0 left-0 right-0')}
       {...(resolvedTheme ? { 'data-theme': resolvedTheme } : {})}
       data-scrolled={isScrolled ? 'true' : undefined}
       data-sticky={isPastFold ? 'true' : undefined}
-      onAnimationEnd={() => {
-        setRevealFromTop(false)
-        setHideToTop(false)
-      }}
     >
-      <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
-        <div className="flex flex-1 items-center justify-between">
-          {logoEl}
-          <HeaderNav data={data} />
+      <div
+        className={cn(
+          'header-slide-layer transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)]',
+          (isPastFold || isScrolled) && 'header-glass-border',
+          revealFromTop && 'header-reveal-from-top',
+          hideToTop && 'header-hide-to-top',
+          headerVisible || hideToTop
+            ? 'translate-y-0 opacity-100 visible'
+            : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
+        )}
+        onAnimationEnd={() => {
+          setRevealFromTop(false)
+          setHideToTop(false)
+        }}
+      >
+        <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
+          <div className="flex flex-1 items-center justify-between">
+            {logoEl}
+            <HeaderNav data={data} />
+          </div>
         </div>
       </div>
     </header>
+    </>
   )
 }

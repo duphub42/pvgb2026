@@ -25,6 +25,10 @@ interface MarqueeProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   fadeEdges?: boolean
   /**
+   * Wenn fadeEdges: Breite des Verlaufs von links bzw. rechts in rem (größer = weicher Rand).
+   */
+  fadeEdgeInsetRem?: { start?: number; end?: number }
+  /**
    * Vertical alignment of items (default 'center').
    */
   verticalAlign?: 'top' | 'center' | 'bottom'
@@ -44,6 +48,7 @@ export function Marquee({
   reverse = false,
   pauseOnHover = true,
   fadeEdges = true,
+  fadeEdgeInsetRem,
   verticalAlign = 'center',
   gapClassName = 'gap-12',
   startAfterMs,
@@ -79,12 +84,17 @@ export function Marquee({
       className={cn('relative w-full overflow-hidden', className)}
       style={
         fadeEdges
-          ? {
-              maskImage: 'linear-gradient(to right, transparent 0, black 5rem, black calc(100% - 5rem), transparent 100%)',
-              WebkitMaskImage: 'linear-gradient(to right, transparent 0, black 5rem, black calc(100% - 5rem), transparent 100%)',
-              maskSize: '100% 100%',
-              WebkitMaskSize: '100% 100%',
-            }
+          ? (() => {
+              const start = fadeEdgeInsetRem?.start ?? 5
+              const end = fadeEdgeInsetRem?.end ?? 5
+              const grad = `linear-gradient(to right, transparent 0, black ${start}rem, black calc(100% - ${end}rem), transparent 100%)`
+              return {
+                maskImage: grad,
+                WebkitMaskImage: grad,
+                maskSize: '100% 100%',
+                WebkitMaskSize: '100% 100%',
+              }
+            })()
           : undefined
       }
       onMouseEnter={handleMouseEnter}

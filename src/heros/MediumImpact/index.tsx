@@ -1,18 +1,21 @@
 import React from 'react'
 
-import type { Page } from '@/payload-types'
+import type { SitePage } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
+import { HeroLogoMarquee } from '@/heros/HeroLogoMarquee'
 
-export const MediumImpactHero: React.FC<Page['hero']> = ({
+export const MediumImpactHero: React.FC<SitePage['hero']> = ({
   links,
   media,
   richText,
   subheadline,
   headline,
   description,
+  marqueeHeadline,
+  marqueeLogos,
 }) => {
   const hasHeadings = subheadline || headline || description
 
@@ -43,6 +46,11 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({
             })}
           </ul>
         )}
+        <HeroLogoMarquee
+          marqueeHeadline={marqueeHeadline}
+          marqueeLogos={marqueeLogos}
+          className="mt-8"
+        />
       </div>
       <div className="container">
         {media && typeof media === 'object' && (

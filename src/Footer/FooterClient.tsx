@@ -96,7 +96,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
   if (!hasNewStructure) {
     return (
       <footer
-        className={`mt-auto border-0 pt-16 pb-8 ${!hasCustomBg ? 'footer-gradient' : ''}`}
+        className={`footer-elevated mt-auto border-0 pt-16 pb-8 ${!hasCustomBg ? 'footer-gradient' : ''}`}
         style={style}
       >
         <FooterBounce>
@@ -148,7 +148,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
 
   return (
     <footer
-      className={`mt-auto border-0 pt-20 pb-10 md:pt-24 md:pb-12 footer-custom ${!hasCustomBg ? 'footer-gradient' : ''}`}
+      className={`footer-elevated mt-auto border-0 pt-20 pb-10 md:pt-24 md:pb-12 footer-custom ${!hasCustomBg ? 'footer-gradient' : ''}`}
       style={style}
     >
       <FooterBounce>

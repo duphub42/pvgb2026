@@ -173,6 +173,7 @@ export interface SitePage {
           | 'mediumImpact'
           | 'lowImpact'
           | 'philippBacher'
+          | 'heroStylePreview'
           | 'gridHero'
           | 'hero75'
           | 'hero215'
@@ -270,11 +271,11 @@ export interface SitePage {
      */
     marqueeHeadline?: string | null;
     /**
-     * Marquee = Endlos-Laufzeile. Logo Carousel = wechselnde Logos in Spalten (Cult UI).
+     * Marquee = Endlos-Laufzeile. Logo Carousel = nur bei Philipp-Bacher-Layout (Cult UI); Impact-Heros nutzen die Laufzeile.
      */
     logoDisplayType?: ('marquee' | 'logoCarousel') | null;
     /**
-     * Logos für Marquee oder Logo Carousel. Gleiche Quelle für beide Anzeigen.
+     * Logos für die Laufzeile (Philipp Bacher + High/Medium/Low Impact).
      */
     marqueeLogos?:
       | {

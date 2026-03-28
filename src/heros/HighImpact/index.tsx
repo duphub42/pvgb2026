@@ -2,19 +2,22 @@
 import { useHeaderTheme } from '@/providers/HeaderTheme'
 import React, { useEffect } from 'react'
 
-import type { Page } from '@/payload-types'
+import type { SitePage } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
+import { HeroLogoMarquee } from '@/heros/HeroLogoMarquee'
 
-export const HighImpactHero: React.FC<Page['hero']> = ({
+export const HighImpactHero: React.FC<SitePage['hero']> = ({
   links,
   media,
   richText,
   subheadline,
   headline,
   description,
+  marqueeHeadline,
+  marqueeLogos,
 }) => {
   const { setHeaderTheme } = useHeaderTheme()
 
@@ -54,6 +57,12 @@ export const HighImpactHero: React.FC<Page['hero']> = ({
               })}
             </ul>
           )}
+          <HeroLogoMarquee
+            marqueeHeadline={marqueeHeadline}
+            marqueeLogos={marqueeLogos}
+            align="center"
+            className="mt-8 w-full max-w-none md:max-w-3xl"
+          />
         </div>
       </div>
       {media && typeof media === 'object' && (

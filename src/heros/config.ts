@@ -12,6 +12,7 @@ const HERO_TYPES_WITH_EDITABLE_CONTENT = [
   'mediumImpact',
   'lowImpact',
   'philippBacher',
+  'heroStylePreview',
   'hero75',
   'hero215',
   'hero238',
@@ -23,6 +24,11 @@ const HERO_TYPES_WITH_EDITABLE_CONTENT = [
 
 const hasEditableContent = (type: string | undefined) =>
   type != null && (HERO_TYPES_WITH_EDITABLE_CONTENT as readonly string[]).includes(type)
+
+const heroTypesWithLogoMarquee = (type: string | undefined) =>
+  ['philippBacher', 'highImpact', 'mediumImpact', 'lowImpact', 'heroStylePreview'].includes(
+    String(type ?? ''),
+  )
 
 export const hero: Field = {
   name: 'hero',
@@ -39,6 +45,7 @@ export const hero: Field = {
         { label: 'Medium Impact', value: 'mediumImpact' },
         { label: 'Low Impact', value: 'lowImpact' },
         { label: 'Philipp Bacher (Custom)', value: 'philippBacher' },
+        { label: 'Style Preview (Test)', value: 'heroStylePreview' },
         { label: 'Grid Hero (Smoothui)', value: 'gridHero' },
         { label: 'Shadcn Hero 75', value: 'hero75' },
         { label: 'Shadcn Hero 215', value: 'hero215' },
@@ -74,7 +81,7 @@ export const hero: Field = {
           const t = String(siblingData?.type ?? '')
           return (
             ['highImpact', 'mediumImpact', 'lowImpact'].includes(t) ||
-            ['hero75', 'hero215', 'hero238', 'hero242', 'hero243', 'hero244', 'hero256'].includes(t)
+            ['heroStylePreview', 'hero75', 'hero215', 'hero238', 'hero242', 'hero243', 'hero244', 'hero256'].includes(t)
           )
         },
         description: 'Bei Shadcn-Blocks: optionales Bild für den Hero (z. B. rechts).',
@@ -314,7 +321,7 @@ export const hero: Field = {
       label: 'Logo-Bereich Überschrift',
       defaultValue: 'ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN',
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        condition: (_, siblingData) => heroTypesWithLogoMarquee(siblingData?.type as string | undefined),
         description: 'Überschrift über den Logos (wie auf philippbacher.com).',
       },
     },
@@ -328,8 +335,9 @@ export const hero: Field = {
         { label: 'Logo Carousel (Cult UI)', value: 'logoCarousel' },
       ],
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
-        description: 'Marquee = Endlos-Laufzeile. Logo Carousel = wechselnde Logos in Spalten (Cult UI).',
+        condition: (_, siblingData) => heroTypesWithLogoMarquee(siblingData?.type as string | undefined),
+        description:
+          'Marquee = Endlos-Laufzeile. Logo Carousel = nur bei Philipp-Bacher-Layout (Cult UI); Impact-Heros nutzen die Laufzeile.',
       },
     },
     {
@@ -337,8 +345,8 @@ export const hero: Field = {
       type: 'array',
       label: 'Logos',
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
-        description: 'Logos für Marquee oder Logo Carousel. Gleiche Quelle für beide Anzeigen.',
+        condition: (_, siblingData) => heroTypesWithLogoMarquee(siblingData?.type as string | undefined),
+        description: 'Logos für die Laufzeile (Philipp Bacher + High/Medium/Low Impact).',
       },
       fields: [
         {

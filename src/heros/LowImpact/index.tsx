@@ -1,10 +1,12 @@
 import React from 'react'
 
-import type { Page } from '@/payload-types'
+import type { SitePage } from '@/payload-types'
 
+import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
+import { HeroLogoMarquee } from '@/heros/HeroLogoMarquee'
 
-type LowImpactHeroType = Page['hero'] & { children?: React.ReactNode }
+type LowImpactHeroType = SitePage['hero'] & { children?: React.ReactNode }
 
 export const LowImpactHero: React.FC<LowImpactHeroType> = ({
   children,
@@ -12,6 +14,9 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
   subheadline,
   headline,
   description,
+  links,
+  marqueeHeadline,
+  marqueeLogos,
 }) => {
   const hasHeadings = subheadline || headline || description
 
@@ -32,6 +37,20 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
                 <RichText data={richText} enableGutter={false} />
               </div>
             ))}
+          {Array.isArray(links) && links.length > 0 && (
+            <ul className="mt-6 flex flex-wrap gap-4">
+              {links.map(({ link }, i) => (
+                <li key={i}>
+                  <CMSLink {...link} />
+                </li>
+              ))}
+            </ul>
+          )}
+          <HeroLogoMarquee
+            marqueeHeadline={marqueeHeadline}
+            marqueeLogos={marqueeLogos}
+            className="mt-8"
+          />
         </div>
       </div>
     </div>

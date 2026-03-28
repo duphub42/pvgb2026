@@ -3,26 +3,21 @@
 import Image from 'next/image'
 import { CMSLink } from '@/components/Link'
 import { getMediaUrlSafe } from '@/utils/media'
-import { Marquee } from '@/components/ui/marquee'
 import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
 import React, { useEffect, useMemo, useState } from 'react'
 import type { ComponentProps } from 'react'
 import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
+import { HeroLogoMarquee } from '@/heros/HeroLogoMarquee'
 import type { HeroBackground } from '@/payload-types'
-import { ResilientImage } from '@/components/ui/resilient-image'
 import { getMediaUrlCandidates } from '@/utilities/mediaUrlCandidates'
 import { cn } from '@/utilities/ui'
 
-/** Verzögerungen (ms) für die Hero-Enter-Animationen: Headline (Scramble) → Beschreibung (Wort für Wort) → CTAs (Pop) → Marquee-Überschrift (Buchstabe) → Marquee-Logos (Pop) → Subheadline (Slide up). */
+/** Verzögerungen (ms) für die Hero-Enter-Animationen: Headline (Scramble) → Beschreibung → CTAs → Subheadline (Marquee-Zeiten in HeroLogoMarquee). */
 const HERO_ANIM = {
   headlineScramble: { staggerMs: 48, scrambleDurationMs: 420, lineDelayMs: 680 },
   descStartMs: 2600,
   descWordMs: 88,
   ctaStartMs: 3800,
-  marqueeHeadlineStartMs: 4200,
-  marqueeLetterMs: 38,
-  marqueeLogosStartMs: 6000,
-  marqueeLogoMs: 95,
   subheadlineStartMs: 7200,
   portraitDelayMs: 280,
   portraitDurationMs: 1800,
@@ -94,20 +89,8 @@ const POSITION_CLASSES: Record<FloatingElement['position'], string> = {
   topRight: 'top-[10%] right-[8%]',
   midLeft: 'top-1/2 -translate-y-1/2 left-[8%]',
   midRight: 'top-1/2 -translate-y-1/2 right-[8%]',
-  bottomLeft: 'bottom-[10%] left-[8%]',
-  bottomRight: 'bottom-[10%] right-[8%]',
-}
-
-/** Inline-Style für den Marquee-Container – stable reference, kein Re-Create pro Render. */
-const MARQUEE_CONTAINER_STYLE: React.CSSProperties = {
-  backdropFilter: 'none',
-  background: 'unset',
-  backgroundColor: 'rgba(255,255,255,0)',
-  color: 'rgba(10, 10, 10, 1)',
-  borderTopWidth: 0,
-  borderTopStyle: 'none',
-  borderTopColor: 'rgba(0, 0, 0, 0)',
-  borderImage: 'none',
+  bottomLeft: 'bottom-[10%] left-[8%] max-md:bottom-auto max-md:top-[28%]',
+  bottomRight: 'bottom-[10%] right-[8%] max-md:bottom-auto max-md:top-[28%]',
 }
 
 const SECTION_STYLE: React.CSSProperties = {
@@ -139,8 +122,6 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   overlayOpacity = 0.42,
   backgroundPreset,
 }) => {
-  const heroHeadlineRef = React.useRef<HTMLHeadingElement | null>(null)
-  const [heroHeadlineWidth, setHeroHeadlineWidth] = useState<number | null>(null)
   const [isLgUp, setIsLgUp] = useState(false)
 
   const lines = [headlineLine1, headlineLine2, headlineLine3].filter(
@@ -167,16 +148,14 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   )
   const [foregroundSrcIndex, setForegroundSrcIndex] = React.useState(0)
   const foregroundSrc = foregroundCandidates[foregroundSrcIndex] ?? foregroundImageUrl ?? ''
-  const [foregroundUseNativeImg, setForegroundUseNativeImg] = React.useState(false)
   React.useEffect(() => {
     setForegroundSrcIndex(0)
-    setForegroundUseNativeImg(false)
   }, [foregroundImageUrl])
   const overlayStyle = useMemo(
     () => ({ opacity: overlayOpacity ?? 0.42 }),
     [overlayOpacity],
   )
-  const mobileOverlayOpacity = Math.min((overlayOpacity ?? 0.42) + 0.15, 0.85)
+  const mobileOverlayOpacity = Math.min((overlayOpacity ?? 0.42) - 0.05, 0.55)
   const hasBackgroundImage = Boolean(backgroundImage?.url)
   const [reducedMotion, setReducedMotion] = useState(false)
 
@@ -200,26 +179,8 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
     return () => mql.removeEventListener('change', update)
   }, [])
 
-  useEffect(() => {
-    const el = heroHeadlineRef.current
-    if (!el) return
-
-    const update = () => {
-      // Width of widest headline line (h1 wraps each line block).
-      setHeroHeadlineWidth(el.getBoundingClientRect().width)
-    }
-    update()
-
-    const ro = new ResizeObserver(() => update())
-    ro.observe(el)
-    return () => ro.disconnect()
-  }, [reducedMotion, hasLines, headlineText, headlineLine1, headlineLine2, headlineLine3, subheadline])
-
   const sectionAriaLabel =
     headlineText || headlineLine1 || headlineLine2 || headlineLine3 || subheadline || 'Hero section'
-
-  const hasMarqueeBand =
-    Boolean(marqueeHeadline) || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)
 
   return (
     <section
@@ -227,6 +188,9 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       style={SECTION_STYLE}
       aria-label={sectionAriaLabel ?? undefined}
     >
+      {/* Dezente Basisfläche: leichter Farbverlauf vs. restliche Seite (s. globals.css) */}
+      <div className="hero-section-surface" aria-hidden />
+
       {/* Hintergrund-Preset-Layer (z. B. cssHalo, patternSquare) */}
       <HeroBackgroundPresetLayer preset={backgroundPreset} />
 
@@ -262,13 +226,16 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         </video>
       )}
 
-      {/* Radial-Glow-Overlay */}
-      <div className="hero-background-overlay" aria-hidden />
-
-      {/* Deckkraft-Overlay: Mobile etwas stärker für Lesbarkeit */}
+      {/* Radial-Glow-Overlay: Zentrum hinter Portrait, wenn Vordergrundbild gesetzt */}
       <div
-        className="absolute top-0 left-0 right-0 w-full h-fit -z-[5] bg-background md:hidden"
-        style={{ opacity: mobileOverlayOpacity }}
+        className={cn('hero-background-overlay', foregroundImageUrl && 'hero-background-overlay--behind-portrait')}
+        aria-hidden
+      />
+
+      {/* Deckkraft-Overlay: Mobile entfernt – Lesbarkeit kommt vom Milchglas auf hero-box-gradient */}
+      <div
+        className="absolute top-0 left-0 right-0 w-full h-full -z-[5] bg-background md:hidden"
+        style={{ opacity: 0 }}
         aria-hidden
       />
       <div
@@ -277,12 +244,14 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         aria-hidden
       />
 
-      {/* Haupt-Content (ohne Marquee auf Mobile: Marquee liegt absolut über Shape-Divider) */}
+      <div className="hero-section-foreground-tint" aria-hidden />
+
+      {/* Haupt-Content inkl. Logo-Marquee direkt unter dem CTA */}
       <div
         className={cn(
           'relative z-[35] container max-w-6xl mx-auto px-4 md:px-6 pt-8 sm:pt-10 md:pt-12 lg:pt-16 md:pb-12 lg:pb-16 text-left flex flex-col items-start justify-center w-full gap-2 max-md:gap-3 md:gap-0 hero-box-gradient md:translate-y-[4vh] md:z-[40]',
           foregroundImageUrl && 'lg:pr-[34%] xl:pr-[32%]',
-          hasMarqueeBand ? 'max-md:pb-[min(12.5rem,34vh)]' : 'max-md:pb-8',
+          'max-md:pb-8',
         )}
       >
         {/* Subheadline: blendet als Letztes von unten nach oben ein */}
@@ -298,7 +267,6 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         {/* Headline: Scramble-Effekt, Zeile für Zeile mit Stagger */}
         {hasLines ? (
           <h1
-            ref={heroHeadlineRef}
             className="text-5xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline flex flex-col max-md:gap-y-0.5"
             aria-label={fullHeadlineLabel || undefined}
           >
@@ -320,7 +288,6 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         ) : (
           headlineText && (
             <h1
-              ref={heroHeadlineRef}
               className="text-5xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline"
               aria-label={fullHeadlineLabel || undefined}
             >
@@ -383,131 +350,41 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
             })}
           </div>
         )}
-      </div>
 
-      {/* Marquee: Mobile absolut am unteren Hero-Rand, über Shape-Divider (z-38); Desktop im Fluss unter der Box */}
-      {(marqueeHeadline || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)) && (
-        <div className="container max-w-6xl mx-auto px-4 md:px-6 lg:pr-[34%] xl:pr-[32%]">
-          <div
-            className="hero-marquee-band flex flex-col items-start text-left gap-3 max-md:absolute max-md:left-1/2 max-md:-translate-x-1/2 max-md:bottom-[2vh] max-md:z-[38] max-md:pb-[max(0.75rem,2.5vh)] max-md:pointer-events-auto md:relative md:z-[40] md:mt-8 md:translate-x-0 md:pb-0"
-            style={
-              isLgUp && heroHeadlineWidth
-                ? { ...MARQUEE_CONTAINER_STYLE, width: heroHeadlineWidth }
-                : MARQUEE_CONTAINER_STYLE
-            }
-          >
-          {marqueeHeadline && (
-            <span className="text-[0.47rem] font-semibold uppercase tracking-[0.25em] text-muted-foreground mt-[3px] mb-[3px] inline-flex flex-wrap self-start">
-              {marqueeHeadline.split('').map((char, idx) => (
-                <span
-                  key={idx}
-                  className="hero-reveal-letter inline-block"
-                  style={{
-                    animationDelay: `${getDelay(
-                      HERO_ANIM.marqueeHeadlineStartMs + idx * HERO_ANIM.marqueeLetterMs,
-                      reducedMotion,
-                    )}ms`,
-                  }}
-                >
-                  {char === ' ' ? '\u00A0' : char}
-                </span>
-              ))}
-            </span>
-          )}
-          {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && !reducedMotion && (
-            <Marquee duration={40} pauseOnHover fadeEdges gapClassName="gap-6" className="w-full min-w-0 py-0 -mx-1 self-stretch">
-              {marqueeLogos.map((logo, idx) => {
-                const url = logo?.logo != null ? getMediaUrlSafe(logo.logo) : ''
-                if (!url) return null
-                return (
-                  <div
-                    key={idx}
-                    className="hero-logo-marquee-item hero-reveal-logo flex h-8 md:h-10 min-w-[4rem] shrink-0 items-center justify-center"
-                    style={{
-                      animationDelay: `${getDelay(
-                        HERO_ANIM.marqueeLogosStartMs + idx * HERO_ANIM.marqueeLogoMs,
-                        reducedMotion,
-                      )}ms`,
-                    }}
-                  >
-                    <ResilientImage
-                      src={url}
-                      alt={logo?.alt ?? ''}
-                      width={88}
-                      height={33}
-                      className="hero-logo-grayscale filter grayscale w-auto max-w-[88px] h-auto max-h-[33px] object-contain"
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </div>
-                )
-              })}
-            </Marquee>
-          )}
-          {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && reducedMotion && (
-            <div className="flex w-full min-w-0 flex-wrap gap-4 py-1 self-stretch">
-              {marqueeLogos.slice(0, 6).map((logo, idx) => {
-                const url = logo?.logo != null ? getMediaUrlSafe(logo.logo) : ''
-                if (!url) return null
-                return (
-                  <img
-                    key={idx}
-                    src={url}
-                    alt={logo?.alt ?? ''}
-                    width={88}
-                    height={33}
-                    className="hero-logo-grayscale filter grayscale w-auto max-w-[88px] h-auto max-h-[33px] object-contain"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                )
-              })}
-            </div>
-          )}
-          </div>
-        </div>
-      )}
+        <HeroLogoMarquee
+          marqueeHeadline={marqueeHeadline}
+          marqueeLogos={marqueeLogos}
+          className="mt-6 md:mt-8"
+          syncWithPhilippBacherTimeline
+        />
+      </div>
 
       {/* Vordergrundbild (Portrait): aus Flex-Flow, sonst Lücke durch padding-top auf .hero-foreground-container */}
       {foregroundImageUrl && (
         <div className="pointer-events-none absolute inset-x-0 bottom-0 w-full z-[18] h-0 min-h-0 overflow-visible">
           <div className="relative max-w-6xl mx-auto hero-foreground-container hero-foreground-no-inset-height">
             <div
-              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(16rem,72vw)] md:max-w-[min(24rem,40vw)] box-content h-fit z-[34] md:z-20"
+              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(18rem,78vw)] md:max-w-[min(26rem,44vw)] box-content h-fit z-[34] md:z-20"
               style={{
                 animationDelay: `${getDelay(HERO_ANIM.portraitDelayMs, reducedMotion)}ms`,
                 animationDuration: `${isLgUp ? HERO_ANIM.portraitDurationMs : Math.round(HERO_ANIM.portraitDurationMs * 0.6)}ms`,
               }}
             >
-              {foregroundUseNativeImg ? (
-                <ResilientImage
-                  src={foregroundSrc}
-                  alt={headlineText || subheadline || 'Portrait'}
-                  width={414}
-                  height={600}
-                  className="hero-simple-portrait-img hero-portrait-sm w-full h-fit object-contain object-top lg:object-bottom"
-                  loading="eager"
-                  decoding="async"
-                />
-              ) : (
-                <Image
-                  src={foregroundSrc}
-                  alt={headlineText || subheadline || 'Portrait'}
-                  width={414}
-                  height={600}
-                  priority
-                  fetchPriority="high"
-                  sizes="(max-width: 555px) 88vw, (max-width: 768px) 48vw, 28rem"
-                  className="hero-simple-portrait-img hero-portrait-sm w-full h-fit object-contain object-top lg:object-bottom"
-                  onError={() => {
-                    if (foregroundSrcIndex < foregroundCandidates.length - 1) {
-                      setForegroundSrcIndex((i) => i + 1)
-                      return
-                    }
-                    setForegroundUseNativeImg(true)
-                  }}
-                />
-              )}
+              <Image
+                src={foregroundSrc}
+                alt={headlineText || subheadline || 'Portrait'}
+                width={414}
+                height={600}
+                priority
+                fetchPriority="high"
+                sizes="(max-width: 555px) 88vw, (max-width: 768px) 48vw, 28rem"
+                className="hero-simple-portrait-img hero-portrait-sm w-full h-fit object-contain object-top lg:object-bottom"
+                onError={() => {
+                  if (foregroundSrcIndex < foregroundCandidates.length - 1) {
+                    setForegroundSrcIndex((i) => i + 1)
+                  }
+                }}
+              />
             </div>
           </div>
         </div>
@@ -528,6 +405,8 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
             {f.label}
           </div>
         ))}
+
+      <div className="hero-bottom-edge-light" aria-hidden />
 
       {/* Wellen-Shape-Divider: 2 Wellen, unterschiedliche Amplituden, steigt von rechts nach links, 10vh.
           Mobile unter dem Content, ab Desktop/iPad darüber (z-Index höher als Hero-Content). */}
