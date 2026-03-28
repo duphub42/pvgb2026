@@ -16,6 +16,9 @@ interface LinkItem {
 interface StylePreviewHeroProps {
   subheadline?: string | null
   headline?: string | null
+  headlineLine1?: string | null
+  headlineLine2?: string | null
+  headlineLine3?: string | null
   description?: string | null
   links?: LinkItem[] | null
   media?: number | { id?: number | null; url?: string | null; alt?: string | null } | null
@@ -41,12 +44,19 @@ function resolveMediaSrc(media: StylePreviewHeroProps['media']): string | null {
 export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
   subheadline,
   headline,
+  headlineLine1,
+  headlineLine2,
+  headlineLine3,
   description,
   links,
   media,
   marqueeHeadline,
   marqueeLogos,
 }) => {
+  const lines = [headlineLine1, headlineLine2, headlineLine3].filter(
+    (l): l is string => Boolean(l),
+  )
+  const resolvedHeadline = lines.length > 0 ? null : (headline || defaultHeadline)
   const ctaLinks = Array.isArray(links) ? links.filter((entry) => Boolean(entry?.link?.label)) : []
   const mediaUrl = resolveMediaSrc(media)
   const directMediaUrl = getMediaUrlSafe(media)
@@ -64,15 +74,25 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
       />
       <div className="hero-section-foreground-tint hero-section-foreground-tint--above-decor" aria-hidden />
       {/* Gleiche horizontale Hülle wie MegaMenu-Header: container + px-4 (nie breiter als Header-.container). Overflow: globals.css. */}
-      <div className="relative z-[2] container flex w-full min-w-0 flex-col px-4 pt-12 pb-14 sm:pt-16 md:pt-36 md:pb-20 lg:pt-32 lg:pb-24">
-        <div className="grid min-w-0 gap-0 lg:gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-end">
-          <div className="hero-mobile-glass relative min-w-0 space-y-5 max-md:-mt-[18vw] max-md:z-10 max-md:rounded-t-2xl max-md:px-5 max-md:pt-6 max-md:pb-8">
+      <div className="relative z-[2] container flex w-full min-w-0 flex-col px-4 pt-12 pb-14 sm:pt-16 md:pt-44 md:pb-20 lg:pt-44 lg:pb-24">
+        <div className="grid min-w-0 gap-0 md:grid-cols-[minmax(0,45%)_1fr] md:items-stretch md:gap-6 lg:gap-12 xl:gap-16">
+          {/*
+            max-md: Glaskasten über dem Portrait (z-16 > Spalte z-6), starker -mt ≈ unteres Portrait-Drittel
+            (Aspect ~460/560 → Höhe/3 ≈ 0,41× Breite; vw-Näherung mit Cap für große Viewports).
+          */}
+          <div className="hero-mobile-glass relative min-w-0 space-y-5 max-md:z-[16] max-md:-mt-[min(40vw,13.5rem)] max-md:-mx-4 max-md:px-4 max-md:pt-8 max-md:pb-10 max-md:rounded-t-2xl">
             <div className="flex flex-col gap-1">
               <p className="inline-flex w-fit items-center rounded-full border border-border bg-card px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] text-muted-foreground">
                 {subheadline || defaultSubheadline}
               </p>
-              <h1 className="text-balance text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl">
-                {headline || defaultHeadline}
+              <h1 className="text-pretty text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl">
+                {lines.length > 0
+                  ? lines.map((line, idx) => (
+                      <span key={idx} className="block">
+                        {line}
+                      </span>
+                    ))
+                  : resolvedHeadline}
               </h1>
             </div>
 
@@ -103,11 +123,11 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
             />
           </div>
 
-          <div className="relative min-w-0 pt-0 order-first lg:order-none">
-            <div className="relative overflow-visible">
+          <div className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:h-full md:min-h-0">
+            <div className="relative overflow-visible max-md:pb-6 md:h-full md:min-h-0 md:pb-0 md:flex md:items-end md:justify-center">
               {portraitSrc ? (
-                <div className="relative w-full max-w-[min(100%,506px)] lg:max-w-[min(100%,440px)] mx-auto">
-                  <PopoutPortrait imageSrc={portraitSrc} />
+                <div className="relative w-full max-w-[min(100%,556px)] md:max-w-none md:h-full md:max-h-full md:min-h-0 md:flex md:items-end md:justify-center mx-auto">
+                  <PopoutPortrait imageSrc={portraitSrc} fillRowHeight />
                 </div>
               ) : (
                 <div className="flex aspect-[4/3] w-full items-center justify-center bg-muted/50 p-6 text-center text-sm text-muted-foreground">

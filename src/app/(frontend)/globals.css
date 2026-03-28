@@ -149,7 +149,8 @@
    * .container setzt overflow-x: hidden → Spezifikation wertet overflow-y oft als auto aus.
    * .hero-box-gradient::after ragt nach unten; dann bekommt der Hero-Textblock eine vertikale Scrollbar.
    */
-  .hero-offset .hero-box-gradient.container {
+  .hero-offset .hero-box-gradient.container,
+  .hero-offset .container .hero-box-gradient {
     overflow-x: visible;
     overflow-y: visible;
   }
@@ -162,6 +163,21 @@
     /* Fluss unter CTA: bis 42rem nutzbar (50 % + schmale Headline + Kanten-Masken wirkten „leer“). */
     [data-theme='light'] .hero-marquee-band.hero-marquee-band--cta {
       max-width: min(42rem, 100%);
+    }
+  }
+
+  /* Philipp-Bacher: Spaltenbreite folgt der Headline — CTA-Marquee nicht breiter als die Spalte (schlägt 42rem-Light-Regel). */
+  @media (min-width: 1024px) {
+    .hero-philipp-text-column .hero-marquee-band.hero-marquee-band--cta {
+      max-width: 100% !important;
+    }
+  }
+
+  /* Portrait-Hero: ab Tablet keine Wortumbrüche innerhalb einer CMS-Headline-Zeile (Tailwind + min-w-0 am Stack). */
+  @media (min-width: 768px) {
+    .hero-philipp-text-column .hero-headline,
+    .hero-philipp-text-column .hero-headline > span {
+      white-space: nowrap;
     }
   }
 
@@ -283,7 +299,7 @@
       bottom: 0;
       right: 0;
       left: auto;
-      max-width: min(30rem, 45vw);
+      max-width: 50%;
     }
 
     .hero-simple-portrait-img {
@@ -462,7 +478,7 @@
     z-index: 1;
   }
 
-  /* Milchglas-Effekt: Mobile-Textbereich über Portrait (StylePreviewHero) */
+  /* Milchglas-Effekt: sobald der Hero einspaltig ist (gleicher Breakpoint wie Tailwind md / grid md:grid-cols-2) */
   @media (max-width: 767px) {
     .hero-mobile-glass {
       background: color-mix(in srgb, var(--background) 42%, transparent);
@@ -560,7 +576,7 @@
       radial-gradient(ellipse 78% 39% at 48% 70%, color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%, transparent 62%);
   }
 
-  @media (min-width: 640px) {
+  @media (min-width: 600px) {
     .hero-background-overlay--style-preview-portrait {
       background-image:
         radial-gradient(ellipse 68% 35% at 58% 58%, hsl(var(--primary) / 0.07) 0%, transparent 66%),
@@ -2420,30 +2436,28 @@ footer a[href='/']:hover .logo-animate {
   z-index: 0;
   overflow: visible;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.026),
-    0 -10px 36px -8px rgba(0, 0, 0, 0.22);
+    inset 0 1px 0 rgba(255, 255, 255, 0.018),
+    0 -12px 44px -6px rgba(0, 0, 0, 0.07);
 }
 
 .footer-elevated::after {
   content: '';
   position: absolute;
-  left: 0;
-  right: 0;
+  left: -5%;
+  right: -5%;
   top: 0;
-  width: 100%;
+  width: 110%;
   transform: translateY(-100%);
-  height: 4rem;
+  height: 6rem;
   pointer-events: none;
   z-index: 0;
-  background:
-    linear-gradient(to top, hsl(var(--primary) / 0.022) 0%, transparent 100%),
-    linear-gradient(
-      to top,
-      rgba(210, 218, 255, 0.034) 0%,
-      rgba(210, 218, 255, 0.007) 54%,
-      transparent 100%
-    );
-  filter: blur(28px);
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.045) 0%,
+    rgba(0, 0, 0, 0.012) 50%,
+    transparent 100%
+  );
+  filter: blur(40px);
 }
 
 .footer-elevated > * {

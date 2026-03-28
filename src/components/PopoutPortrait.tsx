@@ -13,14 +13,28 @@ interface PopoutPortraitProps {
   width?: number
   /** Rendered CSS pixel height (viewBox stays VIEWBOX_H). */
   height?: number
+  /**
+   * Size from available height (width follows aspect ratio), capped by max-width.
+   * Parent chain should give a definite height (e.g. grid row + h-full flex).
+   */
+  fillRowHeight?: boolean
 }
 
 export default function PopoutPortrait({
   imageSrc = '/assets/philippbacher.png',
   width = Math.round(VIEWBOX_W * DEFAULT_DISPLAY_SCALE),
   height = Math.round(VIEWBOX_H * DEFAULT_DISPLAY_SCALE),
+  fillRowHeight = false,
 }: PopoutPortraitProps) {
-  const rootRef = React.useRef<HTMLDivElement | null>(null)
+  const [isSingleCol, setIsSingleCol] = React.useState(false)
+  React.useEffect(() => {
+    const mql = window.matchMedia('(max-width: 767px)')
+    const update = () => setIsSingleCol(mql.matches)
+    update()
+    mql.addEventListener('change', update)
+    return () => mql.removeEventListener('change', update)
+  }, [])
+
   const uid = React.useId().replace(/:/g, '')
   const clipId = `${uid}-clip`
   const decorMaskId = `${uid}-decor-mask`
@@ -65,14 +79,14 @@ export default function PopoutPortrait({
   /** Push floating stat cards outward from the portrait; left ↔ negative left, right ↔ negative right. */
   const cardSpread = 22
 
-  /** Left dot: inside viewBox (cx − r ≥ margin), outside popout circle */
-  const decorDotL = { cx: 44, cy: 88 }
+  /** Left dot: inside viewBox, outside popout circle; pulled closer in single-column view */
+  const decorDotL = isSingleCol ? { cx: 93, cy: 156 } : { cx: 44, cy: 88 }
   /** Grid: original dot size & spacing; more cells via denser rows/cols */
   const decorGridStep = 16
   const decorGridR = 3.5
   const decorGridCols = 5
   const decorGridRows = 5
-  const decorGridOrigin = { x: 338, y: 52 }
+  const decorGridOrigin = isSingleCol ? { x: 319, y: 89 } : { x: 338, y: 52 }
   /** Left decor dot: 3× base radius 7 */
   const decorDotLRadius = 7 * 3
   /** Squiggle path centroid (original coords), for vertical alignment */
@@ -85,44 +99,51 @@ export default function PopoutPortrait({
   const decorSquiggleTy = (gapMidPx / height) * VIEWBOX_H - decorSquigglePathCy
   /** Extra shift left in CSS px → viewBox units (scales with `width`) */
   const squiggleShiftLeftPx = 20
-  const decorSquiggleTx = -148 - (squiggleShiftLeftPx / width) * VIEWBOX_W
+  const decorSquiggleTxBase = -148 - (squiggleShiftLeftPx / width) * VIEWBOX_W
+  const decorSquiggleTx = isSingleCol ? decorSquiggleTxBase + 16 : decorSquiggleTxBase
   const decorSquiggleScale = 0.72
   const decorSquigglePivot = { x: 137, y: decorSquigglePathCy }
   /** ViewBox minus circle — clip shows only outside popout (squiggle + dot stay visible) */
   const decorOutsideClipD = `M 0 0 L ${VIEWBOX_W} 0 L ${VIEWBOX_W} ${VIEWBOX_H} L 0 ${VIEWBOX_H} Z M ${cx} ${cy} m ${-r},0 a ${r},${r} 0 1 0 ${2 * r},0 a ${r},${r} 0 1 0 ${-2 * r},0`
 
-  React.useEffect(() => {
-    // #region agent log
-    fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3b44f6'},body:JSON.stringify({sessionId:'3b44f6',runId:'initial',hypothesisId:'H2',location:'PopoutPortrait.tsx:31',message:'PopoutPortrait v2 mounted',data:{imageSrc,width,height,imgX,imgY,imgW,imgH,circleTop,upperFreeY,upperFreeH},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
-  }, [imageSrc, width, height, imgX, imgY, imgW, imgH, circleTop, upperFreeY, upperFreeH])
-  React.useEffect(() => {
-    const el = rootRef.current
-    const rect = el?.getBoundingClientRect()
-    // #region agent log
-    fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3b44f6'},body:JSON.stringify({sessionId:'3b44f6',runId:'rerun-2',hypothesisId:'H9',location:'PopoutPortrait.tsx:38',message:'PopoutPortrait rendered box geometry',data:{clientWidth:el?.clientWidth??null,clientHeight:el?.clientHeight??null,boundingWidth:rect?.width??null,boundingHeight:rect?.height??null,parentWidth:el?.parentElement?.clientWidth??null},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
-  }, [])
-  React.useEffect(() => {
-    // #region agent log
-    fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3b44f6'},body:JSON.stringify({sessionId:'3b44f6',runId:'rerun-7',hypothesisId:'H15',location:'PopoutPortrait.tsx:45',message:'PopoutPortrait clip strategy updated to upper-free-plus-circle',data:{imgX,imgY,imgW,imgH,circleTop,upperFreeY,upperFreeH},timestamp:Date.now()})}).catch(()=>{});
-    // #endregion
-  }, [imgX, imgY, imgW, imgH, circleTop, upperFreeY, upperFreeH])
   return (
     <div
-      ref={rootRef}
       className="pb-popout-root"
-      style={{
-        position: 'relative',
-        width: '100%',
-        maxWidth: width,
-        aspectRatio: `${VIEWBOX_W} / ${VIEWBOX_H}`,
-        flexShrink: 0,
-        overflow: 'visible',
-        margin: '0 auto',
-      }}
+      {...(fillRowHeight ? { 'data-pb-fill-row': '' } : {})}
+      style={
+        fillRowHeight
+          ? {
+              position: 'relative',
+              flexShrink: 0,
+              overflow: 'visible',
+              margin: '0 auto',
+              ['--pb-popout-max-w' as string]: `${width}px`,
+            }
+          : {
+              position: 'relative',
+              width: '100%',
+              maxWidth: width,
+              aspectRatio: `${VIEWBOX_W} / ${VIEWBOX_H}`,
+              flexShrink: 0,
+              overflow: 'visible',
+              margin: '0 auto',
+            }
+      }
     >
       <style>{`
+        .pb-popout-root[data-pb-fill-row] {
+          aspect-ratio: ${VIEWBOX_W} / ${VIEWBOX_H};
+          width: 100%;
+          max-width: var(--pb-popout-max-w, ${VIEWBOX_W * DEFAULT_DISPLAY_SCALE}px);
+        }
+        @media (min-width: 768px) {
+          .pb-popout-root[data-pb-fill-row] {
+            width: auto;
+            max-width: 100%;
+            height: 100%;
+            max-height: 100%;
+          }
+        }
         .pb-disk-dark {
           display: none;
         }
@@ -140,21 +161,74 @@ export default function PopoutPortrait({
         .pb-cB { animation: pb-floatB 3.8s ease-in-out infinite 0.8s; }
         .pb-cC { animation: pb-floatC 3.5s ease-in-out infinite 0.4s; }
         .pb-cD { animation: pb-floatD 4.0s ease-in-out infinite 1.1s; }
+        /*
+         * Web Vitals (pb-cB): top 124px, feste Innenhöhe im JSX — Außen­höhe für Mindestabstand
+         * zur Automatisierungskarte (pb-cC). Bei Layout-Änderungen an pb-cB anpassen.
+         */
+        .pb-popout-root {
+          --pb-webvitals-top: 124px;
+          --pb-webvitals-card-outer-h: 124px;
+          --pb-webvitals-automatisierung-gap: 22px;
+          --pb-automatisierung-min-top: calc(
+            var(--pb-webvitals-top) + var(--pb-webvitals-card-outer-h) + var(--pb-webvitals-automatisierung-gap)
+          );
+        }
         .pb-cards-wrap {
           position: absolute;
           inset: 0;
           z-index: 2;
           pointer-events: none;
         }
+        /* Funnel + Automatisierung über Portrait (z-3), unter Squiggle (z-6) — kein inline-z, sonst <768px Karten zu tief */
+        .pb-popout-root > .pb-cards-wrap.pb-cards-wrap--layer-front {
+          z-index: 5;
+        }
+        @media (min-width: 768px) {
+          .pb-popout-root {
+            --pb-cA-top: calc(104px - 15%);
+          }
+        }
+        /* Unter 800px: Karten vor Portrait (z-3). Unter 768px extra hoch (14), über Squiggle (6) + äußere Überlagerungen */
+        @media (max-width: 799px) {
+          .pb-popout-root .pb-cards-wrap {
+            z-index: 10 !important;
+          }
+        }
         @media (max-width: 767px) {
-          .pb-cards-wrap { z-index: 10; }
+          .pb-popout-root .pb-cards-wrap {
+            z-index: 14 !important;
+          }
         }
         @media (max-width: 599px) {
           .pb-card { scale: 0.64; }
           .pb-card.pb-cA { transform-origin: top right; right: 0px !important; }
           .pb-card.pb-cB { transform-origin: top left; left: 0px !important; }
-          .pb-card.pb-cC { transform-origin: top left; left: 0px !important; bottom: auto !important; top: 260px !important; }
+          .pb-card.pb-cC {
+            transform-origin: top left;
+            left: 0px !important;
+            bottom: auto !important;
+            top: max(272px, var(--pb-automatisierung-min-top)) !important;
+          }
           .pb-card.pb-cD { transform-origin: top right; right: 0px !important; }
+        }
+        /* Schmale Tablet-Breite (592–704px): Automatisierung von unten lösen */
+        @media (min-width: 37rem) and (max-width: 44rem) {
+          .pb-popout-root .pb-card.pb-cC {
+            bottom: auto !important;
+            top: max(272px, var(--pb-automatisierung-min-top)) !important;
+            transform-origin: top left;
+          }
+        }
+        /*
+         * 705–767px: o. g. Regel endet bei 44rem (704px) — sonst bleibt pb-cC bei bottom:42 und
+         * verschwindet hinter hero-mobile-glass — Mindestabstand Web Vitals + Puffer (s. --pb-*).
+         */
+        @media (min-width: 44.0625rem) and (max-width: 767px) {
+          .pb-popout-root .pb-card.pb-cC {
+            bottom: auto !important;
+            top: max(272px, var(--pb-automatisierung-min-top)) !important;
+            transform-origin: top left;
+          }
         }
         .pb-card {
           background: var(--card);
@@ -378,7 +452,10 @@ export default function PopoutPortrait({
 
       {/* z-2: floating cards (over circle, under portrait); Automatisierung: own layer z-5 after portrait */}
       <div className="pb-cards-wrap">
-        <div className="pb-card pb-cA" style={{ top: 104, right: -cardSpread, width: 182 }}>
+        <div
+          className="pb-card pb-cA"
+          style={{ top: 'var(--pb-cA-top, 104px)', right: -cardSpread, width: 182 }}
+        >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
             <span className="pb-card-title">Ads Performance</span>
             <Pill variant="danger">↓ CPC</Pill>
@@ -393,6 +470,7 @@ export default function PopoutPortrait({
           </svg>
         </div>
 
+        {/* top/Höhe mit --pb-webvitals-top / --pb-webvitals-card-outer-h in <style> (Abstand zu pb-cC) abstimmen */}
         <div className="pb-card pb-cB" style={{ top: 124, left: -(cardSpread + 27), width: 170 }}>
           <p className="pb-card-title" style={{ margin: '0 0 7px' }}>
             Web Vitals
@@ -402,14 +480,6 @@ export default function PopoutPortrait({
           <ScoreBar label="Accessibility" value={88} color="#f39c12" />
         </div>
 
-        <div className="pb-card pb-cD" style={{ top: 252, right: 7 - cardSpread - 20, width: 130 }}>
-          <p className="pb-card-title" style={{ margin: '0 0 6px' }}>
-            Funnel
-          </p>
-          <FunnelRow label="Besucher" value="12.4k" pct={100} color="#3f4078" />
-          <FunnelRow label="Leads" value="3.1k" pct={62} color="#5f61a0" />
-          <FunnelRow label="Kunden" value="486" pct={25} color="#27ae60" valueColor="#27ae60" />
-        </div>
       </div>
 
       {/* Squiggle: no outside-circle clip so stroke isn’t cut; z above cards; overflow visible for negative x */}
@@ -457,16 +527,20 @@ export default function PopoutPortrait({
           height={imgH}
           clipPath={`url(#${clipId})`}
           preserveAspectRatio="xMidYMax meet"
-          onError={() => {
-            // #region agent log
-            fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'3b44f6'},body:JSON.stringify({sessionId:'3b44f6',runId:'rerun-1',hypothesisId:'H7',location:'PopoutPortrait.tsx:86',message:'PopoutPortrait body image load failed',data:{imageSrc},timestamp:Date.now()})}).catch(()=>{});
-            // #endregion
-          }}
+          onError={() => {}}
         />
       </svg>
 
-      {/* z-5: Automatisierung über dem Portrait (z-3); unter Squiggle (z-6) */}
-      <div className="pb-cards-wrap" style={{ zIndex: 5 }}>
+      {/* Karten über Portrait (z-3); z über Squiggle siehe max-width 767px */}
+      <div className="pb-cards-wrap pb-cards-wrap--layer-front">
+        <div className="pb-card pb-cD" style={{ top: 252, right: 7 - cardSpread - 20, width: 130 }}>
+          <p className="pb-card-title" style={{ margin: '0 0 6px' }}>
+            Funnel
+          </p>
+          <FunnelRow label="Besucher" value="12.4k" pct={100} color="#3f4078" />
+          <FunnelRow label="Leads" value="3.1k" pct={62} color="#5f61a0" />
+          <FunnelRow label="Kunden" value="486" pct={25} color="#27ae60" valueColor="#27ae60" />
+        </div>
         <div className="pb-card pb-cC" style={{ bottom: 42, left: 8 - cardSpread, width: 170 }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
             <span className="pb-card-title">Automatisierung</span>

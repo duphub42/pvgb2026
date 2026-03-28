@@ -4,7 +4,7 @@ import Image from 'next/image'
 import { CMSLink } from '@/components/Link'
 import { getMediaUrlSafe } from '@/utils/media'
 import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import type { ComponentProps } from 'react'
 import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 import { HeroLogoMarquee } from '@/heros/HeroLogoMarquee'
@@ -93,6 +93,16 @@ const POSITION_CLASSES: Record<FloatingElement['position'], string> = {
   bottomRight: 'bottom-[10%] right-[8%]',
 }
 
+/** Ab 1250px: Floating-Elemente sternförmig vom Portrait-Zentrum weg, rechte Spalte ausfüllend. */
+const STAR_POSITION_CLASSES: Record<FloatingElement['position'], string> = {
+  topLeft: 'top-[10%] right-[42%]',
+  topRight: 'top-[6%] right-[4%]',
+  midLeft: 'top-[44%] right-[50%]',
+  midRight: 'top-[40%] right-[1%]',
+  bottomLeft: 'bottom-[22%] right-[40%]',
+  bottomRight: 'bottom-[26%] right-[5%]',
+}
+
 const SECTION_STYLE: React.CSSProperties = {
   backgroundColor: 'unset',
   background: 'unset',
@@ -123,9 +133,11 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   backgroundPreset,
 }) => {
   const [isLgUp, setIsLgUp] = useState(false)
+  const [isWideUp, setIsWideUp] = useState(false)
 
-  const lines = [headlineLine1, headlineLine2, headlineLine3].filter(
-    (l): l is string => Boolean(l),
+  const lines = useMemo(
+    () => [headlineLine1, headlineLine2, headlineLine3].filter((l): l is string => Boolean(l)),
+    [headlineLine1, headlineLine2, headlineLine3],
   )
   const hasLines = lines.length > 0
   const headlineText = hasLines ? undefined : headline
@@ -172,12 +184,58 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
   }, [])
 
   useEffect(() => {
-    const mql = window.matchMedia('(min-width: 1024px)')
-    const update = () => setIsLgUp(mql.matches)
+    const lgMql = window.matchMedia('(min-width: 1024px)')
+    const wideMql = window.matchMedia('(min-width: 1250px)')
+    const update = () => {
+      setIsLgUp(lgMql.matches)
+      setIsWideUp(wideMql.matches)
+    }
     update()
-    mql.addEventListener('change', update)
-    return () => mql.removeEventListener('change', update)
+    lgMql.addEventListener('change', update)
+    wideMql.addEventListener('change', update)
+    return () => {
+      lgMql.removeEventListener('change', update)
+      wideMql.removeEventListener('change', update)
+    }
   }, [])
+
+  const textStackRef = useRef<HTMLDivElement>(null)
+  const [headlineColumnWidthPx, setHeadlineColumnWidthPx] = useState<number | null>(null)
+
+  useLayoutEffect(() => {
+    if (!foregroundImageUrl) {
+      setHeadlineColumnWidthPx(null)
+      return
+    }
+
+    const stack = textStackRef.current
+    if (!stack) return
+
+    const measure = () => {
+      const mql = window.matchMedia('(min-width: 1024px)')
+      if (!mql.matches) {
+        setHeadlineColumnWidthPx(null)
+        return
+      }
+      const containerEl = stack.closest('.container')
+      const capPx = containerEl ? containerEl.clientWidth * 0.45 : Number.POSITIVE_INFINITY
+      const w = Math.ceil(stack.getBoundingClientRect().width)
+      setHeadlineColumnWidthPx(Math.min(w, capPx))
+    }
+
+    measure()
+    const ro = new ResizeObserver(measure)
+    ro.observe(stack)
+    const containerEl = stack.closest('.container')
+    if (containerEl) ro.observe(containerEl)
+
+    const mql = window.matchMedia('(min-width: 1024px)')
+    mql.addEventListener('change', measure)
+    return () => {
+      ro.disconnect()
+      mql.removeEventListener('change', measure)
+    }
+  }, [foregroundImageUrl, subheadline, headlineText, hasLines, lines, description, links])
 
   const sectionAriaLabel =
     headlineText || headlineLine1 || headlineLine2 || headlineLine3 || subheadline || 'Hero section'
@@ -247,116 +305,151 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       <div className="hero-section-foreground-tint" aria-hidden />
 
       {/* Haupt-Content inkl. Logo-Marquee direkt unter dem CTA */}
-      <div
-        className={cn(
-          'relative z-[35] container pt-8 sm:pt-10 md:pt-12 lg:pt-16 md:pb-12 lg:pb-16 text-left flex flex-col items-start justify-center w-full gap-2 max-md:gap-3 md:gap-0 hero-box-gradient md:translate-y-[4vh] md:z-[40]',
-          foregroundImageUrl && 'lg:pr-[34%] xl:pr-[32%]',
-          'max-md:pb-8',
-        )}
-      >
-        {/* Subheadline: blendet als Letztes von unten nach oben ein */}
-        {subheadline && (
-          <p
-            className="hero-subheadline-badge hero-reveal-subheadline text-[1rem] max-md:text-[0.6rem] md:text-[1.167rem] min-[555px]:text-[0.67rem] min-[555px]:md:text-[0.78rem] uppercase tracking-[0.25em] text-muted-foreground w-fit"
-            style={{ animationDelay: `${getDelay(HERO_ANIM.subheadlineStartMs, reducedMotion)}ms` }}
-          >
-            {subheadline}
-          </p>
-        )}
-
-        {/* Headline: Scramble-Effekt, Zeile für Zeile mit Stagger */}
-        {hasLines ? (
-          <h1
-            className="text-5xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline flex flex-col max-md:gap-y-0.5"
-            aria-label={fullHeadlineLabel || undefined}
-          >
-            {lines.map((line, idx) => (
-              <span key={idx} className="block min-h-[1.15em]">
-                {reducedMotion ? (
-                  line
-                ) : (
-                  <ScrambleText
-                    text={line}
-                    staggerMs={HERO_ANIM.headlineScramble.staggerMs}
-                    scrambleDurationMs={HERO_ANIM.headlineScramble.scrambleDurationMs}
-                    delayMs={getDelay(idx * HERO_ANIM.headlineScramble.lineDelayMs, reducedMotion)}
-                  />
-                )}
-              </span>
-            ))}
-          </h1>
-        ) : (
-          headlineText && (
-            <h1
-              className="text-5xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline"
-              aria-label={fullHeadlineLabel || undefined}
-            >
-              {reducedMotion ? (
-                headlineText
-              ) : (
-                <ScrambleText
-                  text={headlineText}
-                  staggerMs={HERO_ANIM.headlineScramble.staggerMs}
-                  scrambleDurationMs={HERO_ANIM.headlineScramble.scrambleDurationMs}
-                />
-              )}
-            </h1>
-          )
-        )}
-
-        {/* Beschreibung: Wort für Wort von links nach rechts */}
-        {description && !reducedMotion && (
-          <p className="text-base md:text-lg text-muted-foreground text-left max-md:max-w-full md:max-w-[345px] mx-0 w-fit h-fit mt-4 mb-4 flex flex-wrap gap-x-[0.35em] gap-y-0">
-            {description.split(/\s+/).map((word, idx) => (
-              <span
-                key={idx}
-                className="hero-reveal-word inline-block"
-                style={{
-                  animationDelay: `${getDelay(HERO_ANIM.descStartMs + idx * HERO_ANIM.descWordMs, reducedMotion)}ms`,
-                }}
-              >
-                {word}
-              </span>
-            ))}
-          </p>
-        )}
-        {description && reducedMotion && (
-          <p className="text-base md:text-lg text-muted-foreground text-left max-md:max-w-full md:max-w-[345px] mx-0 w-fit h-fit mt-4 mb-4">
-            {description}
-          </p>
-        )}
-
-        {/* CTA-Links: poppen nach der Beschreibung */}
-        {Array.isArray(links) && links.length > 0 && (
+      <div className="relative z-[35] container pt-8 sm:pt-10 md:pt-12 lg:pt-16 md:pb-12 lg:pb-16 text-left flex flex-col w-full md:translate-y-[4vh] md:z-[40] max-md:pb-8">
+        <div
+          className={cn(
+            'hero-philipp-text-column flex flex-col items-start justify-center min-w-0 hero-box-gradient',
+            foregroundImageUrl &&
+              'w-full md:max-lg:w-[55%] md:max-lg:max-w-[55%] lg:max-w-[45%]',
+            foregroundImageUrl && headlineColumnWidthPx == null && 'lg:w-fit',
+            !foregroundImageUrl && 'w-full',
+          )}
+          style={
+            foregroundImageUrl && isLgUp && headlineColumnWidthPx != null
+              ? { width: headlineColumnWidthPx, maxWidth: '45%' }
+              : undefined
+          }
+        >
           <div
-            className="flex flex-wrap gap-3 sm:gap-4 justify-start w-fit hero-reveal-pop"
-            style={{ animationDelay: `${getDelay(HERO_ANIM.ctaStartMs, reducedMotion)}ms` }}
+            ref={textStackRef}
+            className={cn(
+              'flex min-w-0 max-w-full flex-col items-start gap-2 max-md:gap-3 md:gap-0',
+              foregroundImageUrl ? 'w-full max-md:max-w-full lg:w-max' : 'w-full',
+            )}
           >
-            {links.map((linkItem, idx) => {
-              if (!linkItem?.link) return null
-              const { reference: _ref, ...link } = linkItem.link
-              const isOutline = link.appearance === 'outline'
-              return (
-                <CMSLink
-                  key={idx}
-                  {...link}
-                  className={
-                    isOutline
-                      ? 'border border-border text-foreground hover:bg-accent hover:text-accent-foreground px-6 py-3 rounded-full font-medium transition'
-                      : 'bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-full font-medium transition'
-                  }
-                />
-              )
-            })}
-          </div>
-        )}
+            {/* Subheadline: blendet als Letztes von unten nach oben ein */}
+            {subheadline && (
+              <p
+                className="hero-subheadline-badge hero-reveal-subheadline text-[1rem] max-md:text-[0.6rem] md:text-[1.167rem] min-[555px]:text-[0.67rem] min-[555px]:md:text-[0.78rem] uppercase tracking-[0.25em] text-muted-foreground w-fit"
+                style={{ animationDelay: `${getDelay(HERO_ANIM.subheadlineStartMs, reducedMotion)}ms` }}
+              >
+                {subheadline}
+              </p>
+            )}
 
-        <HeroLogoMarquee
-          marqueeHeadline={marqueeHeadline}
-          marqueeLogos={marqueeLogos}
-          className="mt-6 md:mt-8"
-          syncWithPhilippBacherTimeline
-        />
+            {/* Headline: Scramble-Effekt — ab md (iPad) keine Zeilenumbrüche pro CMS-Zeile bei Portrait */}
+            {hasLines ? (
+              <h1
+                className={cn(
+                  'text-5xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline flex flex-col max-md:gap-y-0.5',
+                  foregroundImageUrl && 'md:shrink-0 md:whitespace-nowrap',
+                )}
+                aria-label={fullHeadlineLabel || undefined}
+              >
+                {lines.map((line, idx) => (
+                  <span
+                    key={idx}
+                    className={cn(
+                      'block min-h-[1.15em] max-w-none',
+                      foregroundImageUrl && 'md:whitespace-nowrap',
+                    )}
+                  >
+                    {reducedMotion ? (
+                      line
+                    ) : (
+                      <ScrambleText
+                        text={line}
+                        className={
+                          foregroundImageUrl ? 'max-md:whitespace-normal md:whitespace-nowrap' : undefined
+                        }
+                        staggerMs={HERO_ANIM.headlineScramble.staggerMs}
+                        scrambleDurationMs={HERO_ANIM.headlineScramble.scrambleDurationMs}
+                        delayMs={getDelay(idx * HERO_ANIM.headlineScramble.lineDelayMs, reducedMotion)}
+                      />
+                    )}
+                  </span>
+                ))}
+              </h1>
+            ) : (
+              headlineText && (
+                <h1
+                  className={cn(
+                    'text-5xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] tracking-tighter text-foreground w-fit hero-headline',
+                    foregroundImageUrl && 'md:shrink-0 md:whitespace-nowrap',
+                  )}
+                  aria-label={fullHeadlineLabel || undefined}
+                >
+                  {reducedMotion ? (
+                    headlineText
+                  ) : (
+                    <ScrambleText
+                      text={headlineText}
+                      className={
+                        foregroundImageUrl ? 'max-md:whitespace-normal md:whitespace-nowrap' : undefined
+                      }
+                      staggerMs={HERO_ANIM.headlineScramble.staggerMs}
+                      scrambleDurationMs={HERO_ANIM.headlineScramble.scrambleDurationMs}
+                    />
+                  )}
+                </h1>
+              )
+            )}
+
+            {/* Beschreibung: Wort für Wort von links nach rechts */}
+            {description && !reducedMotion && (
+              <p className="text-base md:text-lg text-muted-foreground text-left max-md:max-w-full md:max-w-[345px] mx-0 w-fit h-fit mt-4 mb-4 flex flex-wrap gap-x-[0.35em] gap-y-0">
+                {description.split(/\s+/).map((word, idx) => (
+                  <span
+                    key={idx}
+                    className="hero-reveal-word inline-block"
+                    style={{
+                      animationDelay: `${getDelay(HERO_ANIM.descStartMs + idx * HERO_ANIM.descWordMs, reducedMotion)}ms`,
+                    }}
+                  >
+                    {word}
+                  </span>
+                ))}
+              </p>
+            )}
+            {description && reducedMotion && (
+              <p className="text-base md:text-lg text-muted-foreground text-left max-md:max-w-full md:max-w-[345px] mx-0 w-fit h-fit mt-4 mb-4">
+                {description}
+              </p>
+            )}
+
+            {/* CTA-Links: poppen nach der Beschreibung */}
+            {Array.isArray(links) && links.length > 0 && (
+              <div
+                className="flex flex-wrap gap-3 sm:gap-4 justify-start w-fit hero-reveal-pop"
+                style={{ animationDelay: `${getDelay(HERO_ANIM.ctaStartMs, reducedMotion)}ms` }}
+              >
+                {links.map((linkItem, idx) => {
+                  if (!linkItem?.link) return null
+                  const { reference: _ref, ...link } = linkItem.link
+                  const isOutline = link.appearance === 'outline'
+                  return (
+                    <CMSLink
+                      key={idx}
+                      {...link}
+                      className={
+                        isOutline
+                          ? 'border border-border text-foreground hover:bg-accent hover:text-accent-foreground px-6 py-3 rounded-full font-medium transition'
+                          : 'bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-full font-medium transition'
+                      }
+                    />
+                  )
+                })}
+              </div>
+            )}
+          </div>
+
+          <HeroLogoMarquee
+            marqueeHeadline={marqueeHeadline}
+            marqueeLogos={marqueeLogos}
+            className="mt-6 md:mt-8 w-full min-w-0 max-w-full md:!max-w-full"
+            syncWithPhilippBacherTimeline
+          />
+        </div>
       </div>
 
       {/* Vordergrundbild (Portrait): aus Flex-Flow, sonst Lücke durch padding-top auf .hero-foreground-container */}
@@ -364,7 +457,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         <div className="pointer-events-none absolute inset-x-0 bottom-0 w-full z-[18] h-0 min-h-0 overflow-visible">
           <div className="relative container hero-foreground-container hero-foreground-no-inset-height">
             <div
-              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(18rem,78vw)] md:max-w-[min(26rem,44vw)] box-content h-fit z-[34] md:z-20"
+              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(18rem,78vw)] md:max-w-[min(28rem,46vw)] lg:max-w-[50%] box-content h-fit z-[34] md:z-20"
               style={{
                 animationDelay: `${getDelay(HERO_ANIM.portraitDelayMs, reducedMotion)}ms`,
                 animationDuration: `${isLgUp ? HERO_ANIM.portraitDurationMs : Math.round(HERO_ANIM.portraitDurationMs * 0.6)}ms`,
@@ -377,7 +470,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                 height={600}
                 priority
                 fetchPriority="high"
-                sizes="(max-width: 555px) 88vw, (max-width: 768px) 48vw, 28rem"
+                sizes="(max-width: 555px) 88vw, (max-width: 1023px) 46vw, 50vw"
                 className="hero-simple-portrait-img hero-portrait-sm w-full h-fit object-contain object-top lg:object-bottom"
                 onError={() => {
                   if (foregroundSrcIndex < foregroundCandidates.length - 1) {
@@ -390,21 +483,26 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         </div>
       )}
 
-      {/* Floating Elements */}
+      {/* Floating Elements — ab 1250px sternförmig vom Portrait verteilt */}
       {Array.isArray(floatingElements) &&
-        floatingElements.map((f, idx) => (
-          <div
-            key={idx}
-            className={`absolute z-20 font-semibold bg-white/95 text-neutral-900 px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap animate-in fade-in slide-in-from-bottom-2 duration-500 ${POSITION_CLASSES[f.position] ?? 'bottom-[10%] right-[8%]'}`}
-            style={{
-              transform: `translate(${f.offsetX ?? 0}px, ${f.offsetY ?? 0}px)`,
-              animationDelay: `${getDelay(800 + idx * 150, reducedMotion)}ms`,
-              animationFillMode: 'both',
-            }}
-          >
-            {f.label}
-          </div>
-        ))}
+        floatingElements.map((f, idx) => {
+          const posClasses = isWideUp
+            ? (STAR_POSITION_CLASSES[f.position] ?? 'bottom-[10%] right-[8%]')
+            : (POSITION_CLASSES[f.position] ?? 'bottom-[10%] right-[8%]')
+          return (
+            <div
+              key={idx}
+              className={`absolute z-20 font-semibold bg-white/95 text-neutral-900 px-3 py-1.5 rounded-full shadow-lg whitespace-nowrap animate-in fade-in slide-in-from-bottom-2 duration-500 ${posClasses}`}
+              style={{
+                transform: `translate(${f.offsetX ?? 0}px, ${f.offsetY ?? 0}px)`,
+                animationDelay: `${getDelay(800 + idx * 150, reducedMotion)}ms`,
+                animationFillMode: 'both',
+              }}
+            >
+              {f.label}
+            </div>
+          )
+        })}
 
       {/* Wellen-Shape-Divider: 2 Wellen, unterschiedliche Amplituden, steigt von rechts nach links, 10vh.
           Mobile unter dem Content, ab Desktop/iPad darüber (z-Index höher als Hero-Content). */}
