@@ -2713,7 +2713,8 @@ html.theme-fallback {
   }
   to {
     transform: translateY(-115%);
-    opacity: 0.15;
+    /* 0 statt 0.15: sonst bleibt der untere Header-/Glas-Rand (ca. Resthöhe nach -115%) im Dark Mode sichtbar */
+    opacity: 0;
   }
 }
 

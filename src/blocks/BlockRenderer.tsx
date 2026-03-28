@@ -19,9 +19,15 @@ const blockLoaders = {
   heroMarketing: lazy(() =>
     import('@/blocks/HeroMarketing/Component').then((m) => ({ default: m.HeroMarketingBlock })),
   ),
+  introduction: lazy(() =>
+    import('@/blocks/Introduction/Component').then((m) => ({ default: m.IntroductionBlock })),
+  ),
   cta: lazy(() => import('@/blocks/CallToAction/Component').then((m) => ({ default: m.CallToActionBlock }))),
   formBlock: lazy(() => import('@/blocks/Form/Component').then((m) => ({ default: m.FormBlock }))),
   mediaBlock: lazy(() => import('@/blocks/MediaBlock/Component').then((m) => ({ default: m.MediaBlock }))),
+  servicesOverview: lazy(() =>
+    import('@/blocks/ServicesOverview/Component').then((m) => ({ default: m.ServicesOverviewBlock })),
+  ),
   shadcnBlock: lazy(() =>
     import('@/blocks/ShadcnBlock/Component').then((m) => ({ default: m.ShadcnBlockComponent })),
   ),

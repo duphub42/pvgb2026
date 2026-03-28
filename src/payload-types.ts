@@ -318,8 +318,10 @@ export interface SitePage {
   layout?:
     | (
         | HeroMarketingBlock
+        | IntroductionBlock
         | ConsultingOverviewBlock
         | ShadcnBlock
+        | ServicesOverviewBlock
         | WhyWorkWithMeBlock
         | CallToActionBlock
         | ContentBlock
@@ -633,6 +635,43 @@ export interface HeroMarketingBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IntroductionBlock".
+ */
+export interface IntroductionBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  heading: string;
+  /**
+   * Haupttext der Einleitung.
+   */
+  body: string;
+  /**
+   * Optionaler Zusatztext unter dem Hauptinhalt (z. B. persönliches Statement).
+   */
+  tagline?: string | null;
+  /**
+   * Optionales Bild neben dem Text (z. B. Porträt oder Illustration).
+   */
+  image?: (number | null) | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'introduction';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ConsultingOverviewBlock".
  */
 export interface ConsultingOverviewBlock {
@@ -800,6 +839,46 @@ export interface ShadcnBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'shadcnBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesOverviewBlock".
+ */
+export interface ServicesOverviewBlock {
+  /**
+   * Hauptüberschrift über den Leistungskarten.
+   */
+  heading?: string | null;
+  /**
+   * Optionaler Text unter der Überschrift.
+   */
+  intro?: string | null;
+  /**
+   * Karten mit Icon, Titel und Beschreibung.
+   */
+  services?:
+    | {
+        icon:
+          | 'compass'
+          | 'code'
+          | 'palette'
+          | 'megaphone'
+          | 'zap'
+          | 'globe'
+          | 'trending-up'
+          | 'settings'
+          | 'monitor'
+          | 'rocket'
+          | 'heart'
+          | 'shield';
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesOverview';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1775,8 +1854,10 @@ export interface SitePagesSelect<T extends boolean = true> {
     | T
     | {
         heroMarketing?: T | HeroMarketingBlockSelect<T>;
+        introduction?: T | IntroductionBlockSelect<T>;
         consultingOverview?: T | ConsultingOverviewBlockSelect<T>;
         shadcnBlock?: T | ShadcnBlockSelect<T>;
+        servicesOverview?: T | ServicesOverviewBlockSelect<T>;
         whyWorkWithMe?: T | WhyWorkWithMeBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
@@ -1819,6 +1900,26 @@ export interface HeroMarketingBlockSelect<T extends boolean = true> {
   primaryCtaUrl?: T;
   secondaryCtaLabel?: T;
   secondaryCtaUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "IntroductionBlock_select".
+ */
+export interface IntroductionBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  heading?: T;
+  body?: T;
+  tagline?: T;
+  image?: T;
   id?: T;
   blockName?: T;
 }
@@ -1917,6 +2018,24 @@ export interface ShadcnBlockSelect<T extends boolean = true> {
                   };
               id?: T;
             };
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesOverviewBlock_select".
+ */
+export interface ServicesOverviewBlockSelect<T extends boolean = true> {
+  heading?: T;
+  intro?: T;
+  services?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        description?: T;
+        id?: T;
       };
   id?: T;
   blockName?: T;

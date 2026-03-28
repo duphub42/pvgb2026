@@ -55,7 +55,7 @@ const STATIC_FALLBACK: Array<{ icon: string; title: string; description: string 
 type WhyWorkWithMeProps = WhyWorkWithMeBlockData & { disableInnerContainer?: boolean }
 
 export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = ({
-  disableInnerContainer,
+  disableInnerContainer: _disableInnerContainer,
   heading,
   intro,
   reasons,
@@ -90,7 +90,13 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = ({
   const headingText = headingUnset ? 'Warum mit mir' : headingTrimmed
 
   return (
-    <section className={cn('py-12 w-full', !disableInnerContainer && 'container')}>
+    <section
+      className={cn(
+        'py-12 w-full min-w-0',
+        /* BlockRenderer setzt immer disableInnerContainer — ohne .container randlos ultrabreit. */
+        'container overflow-x-visible overflow-y-visible',
+      )}
+    >
       {showHeading ? (
         <h2 className="mb-2 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">{headingText}</h2>
       ) : null}
