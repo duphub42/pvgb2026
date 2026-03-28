@@ -1,5 +1,32 @@
 import type { Block } from 'payload'
 
+const defaultIntroIconList = [
+  {
+    icon: 'brain' as const,
+    text: 'Ich denke unternehmerisch, nicht in einzelnen Leistungen.',
+  },
+  {
+    icon: 'target' as const,
+    text: 'Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.',
+  },
+  {
+    icon: 'search' as const,
+    text: 'Ich hinterfrage alles — auch bestehende Strategien.',
+  },
+  {
+    icon: 'zap' as const,
+    text: 'Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.',
+  },
+  {
+    icon: 'handshake' as const,
+    text: 'Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.',
+  },
+  {
+    icon: 'trending-up' as const,
+    text: 'Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.',
+  },
+]
+
 const defaultReasons = [
   {
     icon: 'user',
@@ -50,6 +77,51 @@ export const WhyWorkWithMe: Block = {
       admin: {
         description: 'Optionaler Text unter der Überschrift.',
       },
+    },
+    {
+      name: 'introIconList',
+      type: 'array',
+      label: 'Icon-Liste (unter Einleitung)',
+      minRows: 0,
+      maxRows: 12,
+      defaultValue: defaultIntroIconList,
+      admin: {
+        description:
+          'Kompakte Punkte mit Icon direkt unter dem Einleitungstext (linke Spalte). Leer lassen zum Ausblenden.',
+      },
+      fields: [
+        {
+          name: 'icon',
+          type: 'select',
+          label: 'Icon',
+          required: true,
+          defaultValue: 'brain',
+          options: [
+            { label: 'Gehirn', value: 'brain' },
+            { label: 'Glühbirne', value: 'lightbulb' },
+            { label: 'Ziel / Fokus', value: 'target' },
+            { label: 'Suche / Analyse', value: 'search' },
+            { label: 'Blitz', value: 'zap' },
+            { label: 'Handschlag', value: 'handshake' },
+            { label: 'User-Check', value: 'user-check' },
+            { label: 'Trend steigend', value: 'trending-up' },
+            { label: 'Person', value: 'user' },
+            { label: 'Globus', value: 'globe' },
+            { label: 'Aktentasche', value: 'briefcase' },
+            { label: 'Herz', value: 'heart' },
+            { label: 'Schild', value: 'shield' },
+          ],
+        },
+        {
+          name: 'text',
+          type: 'textarea',
+          required: true,
+          label: 'Text',
+          admin: {
+            description: 'Ein Satz pro Zeile — wird als Listenpunkt mit Icon angezeigt.',
+          },
+        },
+      ],
     },
     {
       name: 'reasons',

@@ -894,6 +894,32 @@ export interface WhyWorkWithMeBlock {
    */
   intro?: string | null;
   /**
+   * Kompakte Punkte mit Icon direkt unter dem Einleitungstext (linke Spalte). Leer lassen zum Ausblenden.
+   */
+  introIconList?:
+    | {
+        icon:
+          | 'brain'
+          | 'lightbulb'
+          | 'target'
+          | 'search'
+          | 'zap'
+          | 'handshake'
+          | 'user-check'
+          | 'trending-up'
+          | 'user'
+          | 'globe'
+          | 'briefcase'
+          | 'heart'
+          | 'shield';
+        /**
+         * Ein Satz pro Zeile — wird als Listenpunkt mit Icon angezeigt.
+         */
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
    * Karten mit Icon, Titel und Text — Breite passt sich der Anzahl und dem Viewport an.
    */
   reasons?:
@@ -2047,6 +2073,13 @@ export interface ServicesOverviewBlockSelect<T extends boolean = true> {
 export interface WhyWorkWithMeBlockSelect<T extends boolean = true> {
   heading?: T;
   intro?: T;
+  introIconList?:
+    | T
+    | {
+        icon?: T;
+        text?: T;
+        id?: T;
+      };
   reasons?:
     | T
     | {
