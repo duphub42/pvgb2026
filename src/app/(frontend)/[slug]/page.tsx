@@ -8,6 +8,7 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
+import { cn } from '@/utilities/ui'
 
 // ISR: Published pages cached 60s (besserer TTFB). Draft/Preview bleibt dynamisch durch draftMode().
 export const revalidate = 60
@@ -176,16 +177,35 @@ export default async function Page({ params: paramsPromise, searchParams: search
     }
 
     const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
+    const layoutBlocks = Array.isArray(page.layout) ? page.layout : []
+    const firstBlock = layoutBlocks[0]
+    const firstBlockIsServices =
+      firstBlock &&
+      typeof firstBlock === 'object' &&
+      firstBlock !== null &&
+      'blockType' in firstBlock &&
+      (firstBlock as { blockType?: string }).blockType === 'servicesOverview'
+
     return (
       <article>
-        {/* z-[32] > Folgesection z-[31], damit Popout/Foreground nicht von .hero-following-section-mask überdeckt wird */}
+        {/*
+          Hero z-32. Standard-Folgesection z-31, damit Mask nicht über Hero-Popout liegt.
+          Erster Block servicesOverview: z-33 + flacher Hintergrund — Karten können nach oben in den Hero ragen und bei Hover darüber liegen.
+        */}
         <div className="relative z-[32] isolate">
           <HeroErrorBoundary>
             <RenderHero {...heroProps} />
           </HeroErrorBoundary>
         </div>
-        <div className="relative z-20 md:z-[31] w-full min-w-0 max-md:-mt-16 max-md:pt-8 pt-24 md:-mt-16 hero-following-section-mask">
-          <RenderBlocks blocks={Array.isArray(page.layout) ? page.layout : []} />
+        <div
+          className={cn(
+            'relative w-full min-w-0 hero-following-section-mask',
+            firstBlockIsServices
+              ? 'hero-following-section--services-flush z-[33] max-md:-mt-20 max-md:pt-2 pt-6 md:-mt-28 md:pt-2'
+              : 'z-20 max-md:-mt-16 max-md:pt-8 pt-24 md:z-[31] md:-mt-16',
+          )}
+        >
+          <RenderBlocks blocks={layoutBlocks} />
         </div>
       </article>
     )

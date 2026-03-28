@@ -194,10 +194,17 @@
     padding-top: max(calc((var(--header-height) + 10vh) * 1.12), calc(180px * 1.12));
   }
 
+  /* Desktop: mehr Luft unter festem MegaMenu (main beginnt bei y=0); max-height des Simple-Portrait anpassen. */
+  @media (min-width: 1024px) {
+    .hero-offset {
+      padding-top: max(calc((var(--header-height) + 18vh) * 1.12), calc(232px * 1.12));
+    }
+  }
+
   /* Sehr kleine Viewports (< 430px): Abstand etwas reduzieren,
      damit mehr Platz für den Hero-Content bleibt. */
   @media (max-width: 429px) {
-    .hero-offset {
+    .hero-offset:not([aria-label='Style Preview Hero']) {
       padding-top: calc((var(--header-height) + 1vh) * 1.12);
     }
   }
@@ -299,12 +306,18 @@
       bottom: 0;
       right: 0;
       left: auto;
-      max-width: 50%;
+      max-width: 60.5%;
     }
 
+    /*
+     * Breitere max-width am Wrapper wirkt oft nicht: Bei object-contain + hohem Portrait begrenzt
+     * max-height die Darstellung — die Breite folgt dem Seitenverhältnis. Daher Höhe ~21% höher
+     * (1,1²), damit die gewünschte Desktop-Vergrößerung sichtbar wird.
+     */
     .hero-simple-portrait-img {
       clip-path: inset(0 -20% 0rem -20%);
-      max-height: calc(100vh - var(--header-height) - max(33px, 3vh));
+      /* Zusätzlicher Abzug wie bei .hero-offset lg+ (header + 18vh), damit der Fuß im ersten Viewport bleibt */
+      max-height: calc((100dvh - var(--header-height) - max(33px, 3vh) - 8vh) * 1.21);
       width: auto;
       max-width: 100%;
       transform: translateY(0);
@@ -321,6 +334,11 @@
     .hero-following-section-mask {
       background-image: linear-gradient(to bottom, transparent 0, var(--background) 1.15rem);
     }
+  }
+
+  /* Erste Section = nur Service-Karten: kein Verlauf, harter Anschluss an den Hero */
+  .hero-following-section-mask.hero-following-section--services-flush {
+    background-image: none;
   }
 
   /* Hero-Verlauf + Schatten/Glow auf ::before (verdoppelte Intensität), Mask nur auf ::before,
@@ -370,9 +388,14 @@
      radialer Verlauf von der oberen rechten Ecke, die vollständig transparent ist.
      Der transparente Bereich reicht bis zur Hälfte der Box, danach wird der Verlauf deckend. */
   @media (max-width: 554px) {
-    .hero-offset {
+    /* PhilippBacherHeroSimple (Mobile): volle Mindesthöhe + minimales pt — nicht auf Style Preview anwenden (fester Header). */
+    .hero-offset:not([aria-label='Style Preview Hero']) {
       min-height: calc(100vh - var(--header-height));
       padding-top: 0.5rem;
+    }
+    [aria-label='Style Preview Hero'].hero-offset {
+      min-height: 0;
+      padding-top: max(calc(var(--header-height) + 1rem), 5.75rem);
     }
 
     .hero-portrait-fade-up {
@@ -435,6 +458,11 @@
     }
     .hero-simple-portrait-img {
       clip-path: inset(0 -20% 0.75rem -20%);
+    }
+    @media (min-width: 1024px) {
+      .hero-simple-portrait-img {
+        max-height: calc(100vh - var(--header-height) - max(33px, 3vh));
+      }
     }
   }
 

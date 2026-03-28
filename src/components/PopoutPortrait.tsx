@@ -96,7 +96,10 @@ export default function PopoutPortrait({
   const autoCardApproxHPx = 160
   const autoCardTopPx = height - 42 - autoCardApproxHPx
   const gapMidPx = (webCardBottomPx + autoCardTopPx) / 2
-  const decorSquiggleTy = (gapMidPx / height) * VIEWBOX_H - decorSquigglePathCy
+  /** Nach oben in CSS px → viewBox-Y (skaliert mit `height` wie das SVG gerendert wird) */
+  const squiggleShiftUpPx = 30
+  const decorSquiggleTy =
+    (gapMidPx / height) * VIEWBOX_H - decorSquigglePathCy - (squiggleShiftUpPx / height) * VIEWBOX_H
   /** Extra shift left in CSS px → viewBox units (scales with `width`) */
   const squiggleShiftLeftPx = 20
   const decorSquiggleTxBase = -148 - (squiggleShiftLeftPx / width) * VIEWBOX_W
@@ -172,20 +175,40 @@ export default function PopoutPortrait({
           --pb-automatisierung-min-top: calc(
             var(--pb-webvitals-top) + var(--pb-webvitals-card-outer-h) + var(--pb-webvitals-automatisierung-gap)
           );
+          --pb-cA-ipad-up: 0px;
+          --pb-cA-desktop-up: 0px;
+        }
+        /* iPad / Tablet: Ads Performance zusätzlich ~100px nach oben (schließt 1024px-Breite z. B. iPad Pro Portrait ein) */
+        @media (min-width: 768px) and (max-width: 1024px) {
+          .pb-popout-root {
+            --pb-cA-ipad-up: 100px;
+          }
+        }
+        /* Desktop (ab 1025px): weitere ~100px nach oben — getrennt von iPad, damit 1024px nicht doppelt zählt */
+        @media (min-width: 1025px) {
+          .pb-popout-root {
+            --pb-cA-desktop-up: 100px;
+          }
         }
         .pb-cards-wrap {
           position: absolute;
           inset: 0;
-          z-index: 2;
+          z-index: 3;
           pointer-events: none;
         }
-        /* Funnel + Automatisierung über Portrait (z-3), unter Squiggle (z-6) — kein inline-z, sonst <768px Karten zu tief */
+        /* Funnel + Automatisierung über Portrait; Squiggle liegt im Hintergrund (z-1) */
         .pb-popout-root > .pb-cards-wrap.pb-cards-wrap--layer-front {
           z-index: 5;
         }
+        /* Ads Performance (pb-cA): genug Abstand nach unten, damit die Karte nicht unter/in den fixen Header rutscht */
         @media (min-width: 768px) {
           .pb-popout-root {
-            --pb-cA-top: calc(104px - 15%);
+            --pb-cA-top: max(168px, calc(118px + 12%));
+          }
+        }
+        @media (min-width: 1024px) {
+          .pb-popout-root {
+            --pb-cA-top: max(188px, calc(128px + 14%));
           }
         }
         /* Unter 800px: Karten vor Portrait (z-3). Unter 768px extra hoch (14), über Squiggle (6) + äußere Überlagerungen */
@@ -450,11 +473,37 @@ export default function PopoutPortrait({
         </g>
       </svg>
 
-      {/* z-2: floating cards (over circle, under portrait); Automatisierung: own layer z-5 after portrait */}
+      {/* z-2: Squiggle im Hintergrund — über Kreisfläche sichtbar, unter Karten und Portrait */}
+      <svg
+        width="100%"
+        height="100%"
+        viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
+        style={{ position: 'absolute', inset: 0, zIndex: 2, overflow: 'visible', pointerEvents: 'none' }}
+        xmlns="http://www.w3.org/2000/svg"
+        aria-hidden
+      >
+        <g
+          transform={`translate(${decorSquiggleTx} ${decorSquiggleTy}) translate(${decorSquigglePivot.x} ${decorSquigglePivot.y}) scale(${decorSquiggleScale}) translate(${-decorSquigglePivot.x} ${-decorSquigglePivot.y})`}
+        >
+          <path
+            className="pb-decor-squiggle"
+            vectorEffect="nonScalingStroke"
+            d="M 92 258 C 102 238, 116 232, 124 248
+               C 132 264, 146 256, 154 240
+               C 162 224, 176 228, 182 244"
+          />
+        </g>
+      </svg>
+
+      {/* z-3: floating cards (über Kreis, unter Portrait); Automatisierung: eigene Layer z-5 */}
       <div className="pb-cards-wrap">
         <div
           className="pb-card pb-cA"
-          style={{ top: 'var(--pb-cA-top, 104px)', right: -cardSpread, width: 182 }}
+          style={{
+            top: 'calc(var(--pb-cA-top, 124px) - 30px - var(--pb-cA-ipad-up, 0px) - var(--pb-cA-desktop-up, 0px))',
+            right: -(cardSpread + 30),
+            width: 182,
+          }}
         >
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
             <span className="pb-card-title">Ads Performance</span>
@@ -482,34 +531,12 @@ export default function PopoutPortrait({
 
       </div>
 
-      {/* Squiggle: no outside-circle clip so stroke isn’t cut; z above cards; overflow visible for negative x */}
+      {/* z-4: clipped portrait (über Karten) */}
       <svg
         width="100%"
         height="100%"
         viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        style={{ position: 'absolute', inset: 0, zIndex: 6, overflow: 'visible', pointerEvents: 'none' }}
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden
-      >
-        <g
-          transform={`translate(${decorSquiggleTx} ${decorSquiggleTy}) translate(${decorSquigglePivot.x} ${decorSquigglePivot.y}) scale(${decorSquiggleScale}) translate(${-decorSquigglePivot.x} ${-decorSquigglePivot.y})`}
-        >
-          <path
-            className="pb-decor-squiggle"
-            vectorEffect="nonScalingStroke"
-            d="M 92 258 C 102 238, 116 232, 124 248
-               C 132 264, 146 256, 154 240
-               C 162 224, 176 228, 182 244"
-          />
-        </g>
-      </svg>
-
-      {/* z-3: clipped portrait (over cards) */}
-      <svg
-        width="100%"
-        height="100%"
-        viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        style={{ position: 'absolute', inset: 0, zIndex: 3, overflow: 'visible', pointerEvents: 'none' }}
+        style={{ position: 'absolute', inset: 0, zIndex: 4, overflow: 'visible', pointerEvents: 'none' }}
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
@@ -531,9 +558,9 @@ export default function PopoutPortrait({
         />
       </svg>
 
-      {/* Karten über Portrait (z-3); z über Squiggle siehe max-width 767px */}
+      {/* Karten über Portrait; Mobile z-index siehe max-width 767px */}
       <div className="pb-cards-wrap pb-cards-wrap--layer-front">
-        <div className="pb-card pb-cD" style={{ top: 252, right: 7 - cardSpread - 20, width: 130 }}>
+        <div className="pb-card pb-cD" style={{ top: 282, right: 7 - cardSpread - 20, width: 130 }}>
           <p className="pb-card-title" style={{ margin: '0 0 6px' }}>
             Funnel
           </p>

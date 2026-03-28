@@ -78,9 +78,8 @@ export const RenderBlocks: React.FC<{
 
           return (
               <div
-                // Erster Block: minimal nach oben ziehen, damit Shape-Divider des Heros ohne sichtbare Lücke
-                // an den folgenden Content anschließt; pt-[8vh] = Abstand zur Hero-Box (orientiert an Hero-Abständen).
-                className={index === 0 ? 'mt-[-1px] pt-[8vh] mb-16' : 'my-16'}
+                // Erster Block: mt-[-1px] schließt an den Hero-Shape-Divider an; kein pt-[8vh], damit kein großer Leerraum oberhalb des Contents.
+                className={index === 0 ? 'mt-[-1px] mb-16' : 'my-16'}
                 key={index}
                 style={
                   hasBackground

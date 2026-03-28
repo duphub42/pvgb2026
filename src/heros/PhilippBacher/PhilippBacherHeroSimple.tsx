@@ -305,7 +305,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       <div className="hero-section-foreground-tint" aria-hidden />
 
       {/* Haupt-Content inkl. Logo-Marquee direkt unter dem CTA */}
-      <div className="relative z-[35] container pt-8 sm:pt-10 md:pt-12 lg:pt-16 md:pb-12 lg:pb-16 text-left flex flex-col w-full md:translate-y-[4vh] md:z-[40] max-md:pb-8">
+      <div className="relative z-[35] container pt-8 sm:pt-10 md:pt-12 lg:pt-20 xl:pt-24 md:pb-12 lg:pb-16 text-left flex flex-col w-full md:translate-y-[4vh] md:z-[40] max-md:pb-8">
         <div
           className={cn(
             'hero-philipp-text-column flex flex-col items-start justify-center min-w-0 hero-box-gradient',
@@ -457,7 +457,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
         <div className="pointer-events-none absolute inset-x-0 bottom-0 w-full z-[18] h-0 min-h-0 overflow-visible">
           <div className="relative container hero-foreground-container hero-foreground-no-inset-height">
             <div
-              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(18rem,78vw)] md:max-w-[min(28rem,46vw)] lg:max-w-[50%] box-content h-fit z-[34] md:z-20"
+              className="hero-portrait-fade-up absolute bottom-0 right-0 lg:right-6 w-full max-w-[min(18rem,78vw)] md:max-w-[min(28rem,46vw)] lg:max-w-[60.5%] box-content h-fit z-[34] md:z-20"
               style={{
                 animationDelay: `${getDelay(HERO_ANIM.portraitDelayMs, reducedMotion)}ms`,
                 animationDuration: `${isLgUp ? HERO_ANIM.portraitDurationMs : Math.round(HERO_ANIM.portraitDurationMs * 0.6)}ms`,
@@ -470,7 +470,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
                 height={600}
                 priority
                 fetchPriority="high"
-                sizes="(max-width: 555px) 88vw, (max-width: 1023px) 46vw, 50vw"
+                sizes="(max-width: 555px) 88vw, (max-width: 1023px) 46vw, 60.5vw"
                 className="hero-simple-portrait-img hero-portrait-sm w-full h-fit object-contain object-top lg:object-bottom"
                 onError={() => {
                   if (foregroundSrcIndex < foregroundCandidates.length - 1) {

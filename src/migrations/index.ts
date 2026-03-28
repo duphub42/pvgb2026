@@ -56,6 +56,7 @@ import * as migration_20260320_121000_site_pages_consulting_overview_benefit_ite
 import * as migration_20260320_123000_consulting_overview_pixel_layout_and_colors from './20260320_123000_consulting_overview_pixel_layout_and_colors'
 import * as migration_20260324_100000_site_pages_blocks_why_work_with_me from './20260324_100000_site_pages_blocks_why_work_with_me'
 import * as migration_20260325_100000_why_work_with_me_editable from './20260325_100000_why_work_with_me_editable'
+import * as migration_20260328_100000_site_pages_blocks_introduction from './20260328_100000_site_pages_blocks_introduction'
 
 export const migrations = [
   {
@@ -347,5 +348,10 @@ export const migrations = [
     up: migration_20260325_100000_why_work_with_me_editable.up,
     down: migration_20260325_100000_why_work_with_me_editable.down,
     name: '20260325_100000_why_work_with_me_editable',
+  },
+  {
+    up: migration_20260328_100000_site_pages_blocks_introduction.up,
+    down: migration_20260328_100000_site_pages_blocks_introduction.down,
+    name: '20260328_100000_site_pages_blocks_introduction',
   },
 ]

@@ -1,0 +1,188 @@
+/**
+ * Fine pointer: fester Grid-Slot (min-height), Karte absolute bottom-0 → Wachstum nach oben,
+ * kein Layout-Shift unterhalb der Sektion. Touch / reduced-motion: normaler Fluss, kein Slot-Zwang.
+ */
+
+.services-overview-card-codepen {
+  position: relative;
+  z-index: 0;
+  transform-origin: bottom center;
+  transition:
+    box-shadow 0.35s ease,
+    border-color 0.35s ease;
+  box-shadow: 0 0 6px 0 rgb(32 32 36 / 0.08);
+}
+
+[data-theme='dark'] .services-overview-card-codepen {
+  box-shadow: none;
+}
+
+.services-overview-card-codepen:hover {
+  /* Über Hero-Text (Parent-Folgesection md:z-[33]) und Nachbarkarten */
+  z-index: 50;
+  box-shadow: 0 10px 20px 0 rgb(32 32 36 / 0.12);
+}
+
+[data-theme='dark'] .services-overview-card-codepen:hover {
+  box-shadow:
+    0 2px 12px rgb(0 0 0 / 0.35),
+    0 0 48px -16px hsl(var(--primary) / 0.1);
+}
+
+.services-overview-card-codepen::before,
+.services-overview-card-codepen::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  pointer-events: none;
+  border-radius: inherit;
+  border-top-left-radius: 1.5rem;
+  border-top-right-radius: 1.5rem;
+}
+
+.services-overview-card-codepen::before {
+  background: hsl(var(--foreground));
+  width: 0;
+  opacity: 0;
+  z-index: 15;
+  transition:
+    opacity 0s ease,
+    width 0s ease;
+  transition-delay: 0.5s;
+}
+
+.services-overview-card-codepen::after {
+  background: hsl(var(--card));
+  z-index: 16;
+  transition: width 0.5s ease;
+}
+
+.services-overview-card-codepen:hover::before {
+  width: 100%;
+  opacity: 1;
+  transition:
+    opacity 0.5s ease,
+    width 0.5s ease;
+  transition-delay: 0s;
+}
+
+.services-overview-card-codepen:hover::after {
+  width: 0;
+  opacity: 0;
+  transition:
+    width 0s ease,
+    opacity 0s ease;
+}
+
+.services-overview-card-reveal .services-overview-card-desc {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.services-overview-card-reveal {
+  margin-top: 0.35rem;
+}
+
+/* Fine pointer + Hover: Slot-Höhe reserviert, Karte unten verankert */
+@media (hover: hover) and (pointer: fine) {
+  .services-overview-card-slot {
+    /* Reservierter Platz ~halbiert ggü. voriger Stufe; vh und max rem entsprechend gesenkt */
+    min-height: clamp(14.75rem, 7.5vh, 16.25rem);
+    overflow: visible;
+  }
+
+  .services-overview-card-slot .services-overview-card-codepen {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    max-height: 100%;
+  }
+
+  .services-overview-card-content {
+    overflow: hidden;
+  }
+
+  @media (min-width: 40rem) {
+    .services-overview-card-slot {
+      min-height: clamp(15rem, 6.5vh, 16.75rem);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .services-overview-card-slot {
+      min-height: clamp(15.25rem, 6vh, 17.25rem);
+    }
+  }
+
+  .services-overview-card-reveal {
+    margin-top: 0;
+    overflow: hidden;
+    max-height: 0;
+    opacity: 0;
+    transform: translateY(0.35rem);
+    transition:
+      max-height 0.5s ease,
+      opacity 0.35s ease,
+      transform 0.42s ease,
+      margin-top 0.35s ease;
+  }
+
+  .services-overview-card-codepen:hover .services-overview-card-reveal {
+    margin-top: 0.45rem;
+    max-height: min(7.5rem, 22vh);
+    opacity: 1;
+    transform: translateY(0);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Touch / grober Pointer: kein hoher Slot, Karte im Fluss */
+@media (hover: none), (pointer: coarse) {
+  .services-overview-card-slot {
+    min-height: 0;
+  }
+
+  .services-overview-card-slot .services-overview-card-codepen {
+    position: static;
+    max-height: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .services-overview-card-codepen,
+  .services-overview-card-codepen:hover {
+    transition: none;
+    z-index: 0;
+  }
+
+  .services-overview-card-codepen::before,
+  .services-overview-card-codepen::after {
+    display: none;
+  }
+
+  .services-overview-card-slot {
+    min-height: 0 !important;
+  }
+
+  .services-overview-card-slot .services-overview-card-codepen {
+    position: static !important;
+    max-height: none !important;
+  }
+
+  .services-overview-card-content {
+    overflow: visible !important;
+  }
+
+  .services-overview-card-codepen .services-overview-card-reveal {
+    margin-top: 0.35rem !important;
+    max-height: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    overflow: visible !important;
+  }
+}

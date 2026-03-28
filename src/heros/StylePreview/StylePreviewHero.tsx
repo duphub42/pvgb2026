@@ -63,7 +63,10 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
   const portraitSrc = mediaUrl || directMediaUrl
 
   return (
-    <section aria-label="Style Preview Hero" className="relative overflow-visible bg-background text-foreground">
+    <section
+      aria-label="Style Preview Hero"
+      className="hero-offset relative overflow-visible bg-background text-foreground"
+    >
       <div className="hero-section-surface" aria-hidden />
       <div
         className={cn(
@@ -74,7 +77,8 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
       />
       <div className="hero-section-foreground-tint hero-section-foreground-tint--above-decor" aria-hidden />
       {/* Gleiche horizontale Hülle wie MegaMenu-Header: container + px-4 (nie breiter als Header-.container). Overflow: globals.css. */}
-      <div className="relative z-[2] container flex w-full min-w-0 flex-col px-4 pt-12 pb-14 sm:pt-16 md:pt-44 md:pb-20 lg:pt-44 lg:pb-24">
+      {/* Abstand unter festem MegaMenu: .hero-offset auf der Section; hier nur feines Innenpadding ab md */}
+      <div className="relative z-[2] container flex w-full min-w-0 flex-col px-4 pt-8 pb-14 sm:pt-10 md:pt-6 md:pb-20 lg:pt-8 lg:pb-24 xl:pt-10">
         <div className="grid min-w-0 gap-0 md:grid-cols-[minmax(0,45%)_1fr] md:items-stretch md:gap-6 lg:gap-12 xl:gap-16">
           {/*
             max-md: Glaskasten über dem Portrait (z-16 > Spalte z-6), starker -mt ≈ unteres Portrait-Drittel
@@ -125,8 +129,9 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
 
           <div className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:h-full md:min-h-0">
             <div className="relative overflow-visible max-md:pb-6 md:h-full md:min-h-0 md:pb-0 md:flex md:items-end md:justify-center">
+              {/* CMS-Typ philippBacher rendert StylePreviewHero + PopoutPortrait (nicht PhilippBacherHeroSimple). */}
               {portraitSrc ? (
-                <div className="relative w-full max-w-[min(100%,556px)] md:max-w-none md:h-full md:max-h-full md:min-h-0 md:flex md:items-end md:justify-center mx-auto">
+                <div className="relative mx-auto w-full max-w-[min(100%,556px)] md:flex md:h-full md:max-h-full md:min-h-0 md:max-w-none md:items-end md:justify-center lg:origin-bottom lg:scale-[1.21]">
                   <PopoutPortrait imageSrc={portraitSrc} fillRowHeight />
                 </div>
               ) : (

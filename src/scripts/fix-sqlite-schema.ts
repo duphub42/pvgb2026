@@ -57,6 +57,87 @@ function runSqlite3(dbPath: string, sql: string): void {
   }
 }
 
+/** Einzel-SQL-Abfrage (nur für Schema-Checks). */
+function sqlite3Scalar(dbPath: string, sql: string): string {
+  return execFileSync('sqlite3', [dbPath, sql], {
+    encoding: 'utf8',
+    maxBuffer: 1024 * 1024,
+  }).trim()
+}
+
+/**
+ * Payload speichert Array-Zeilen-IDs als Text (ObjectId/UUID). INTEGER-PK → LibSQL „datatype mismatch“.
+ */
+function rebuildServicesOverviewServicesIfIntegerId(dbPath: string): void {
+  const tables: { name: string; rebuildSql: string }[] = [
+    {
+      name: 'site_pages_blocks_services_overview_services',
+      rebuildSql: `
+BEGIN;
+DROP INDEX IF EXISTS site_pages_blocks_services_overview_services_order_idx;
+DROP INDEX IF EXISTS site_pages_blocks_services_overview_services_parent_id_idx;
+DROP TABLE IF EXISTS site_pages_blocks_services_overview_services_fixtmp;
+ALTER TABLE site_pages_blocks_services_overview_services RENAME TO site_pages_blocks_services_overview_services_fixtmp;
+CREATE TABLE site_pages_blocks_services_overview_services (
+  _order INTEGER NOT NULL,
+  _parent_id TEXT NOT NULL REFERENCES site_pages_blocks_services_overview(id) ON DELETE CASCADE,
+  id TEXT PRIMARY KEY,
+  icon TEXT DEFAULT 'compass',
+  title TEXT,
+  description TEXT
+);
+INSERT INTO site_pages_blocks_services_overview_services (_order, _parent_id, id, icon, title, description)
+SELECT _order, _parent_id, CAST(id AS TEXT), icon, title, description FROM site_pages_blocks_services_overview_services_fixtmp;
+DROP TABLE site_pages_blocks_services_overview_services_fixtmp;
+CREATE INDEX IF NOT EXISTS site_pages_blocks_services_overview_services_order_idx ON site_pages_blocks_services_overview_services (_order);
+CREATE INDEX IF NOT EXISTS site_pages_blocks_services_overview_services_parent_id_idx ON site_pages_blocks_services_overview_services (_parent_id);
+COMMIT;
+`,
+    },
+    {
+      name: '_site_pages_v_blocks_services_overview_services',
+      rebuildSql: `
+BEGIN;
+DROP INDEX IF EXISTS _site_pages_v_blocks_services_overview_services_order_idx;
+DROP INDEX IF EXISTS _site_pages_v_blocks_services_overview_services_parent_id_idx;
+DROP TABLE IF EXISTS _site_pages_v_blocks_services_overview_services_fixtmp;
+ALTER TABLE _site_pages_v_blocks_services_overview_services RENAME TO _site_pages_v_blocks_services_overview_services_fixtmp;
+CREATE TABLE _site_pages_v_blocks_services_overview_services (
+  _order INTEGER NOT NULL,
+  _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_services_overview(id) ON DELETE CASCADE,
+  id TEXT PRIMARY KEY,
+  icon TEXT DEFAULT 'compass',
+  title TEXT,
+  description TEXT,
+  _uuid TEXT
+);
+INSERT INTO _site_pages_v_blocks_services_overview_services (_order, _parent_id, id, icon, title, description, _uuid)
+SELECT _order, _parent_id, CAST(id AS TEXT), icon, title, description, _uuid FROM _site_pages_v_blocks_services_overview_services_fixtmp;
+DROP TABLE _site_pages_v_blocks_services_overview_services_fixtmp;
+CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_services_order_idx ON _site_pages_v_blocks_services_overview_services (_order);
+CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_services_parent_id_idx ON _site_pages_v_blocks_services_overview_services (_parent_id);
+COMMIT;
+`,
+    },
+  ]
+
+  for (const { name, rebuildSql } of tables) {
+    let idType: string
+    try {
+      idType = sqlite3Scalar(
+        dbPath,
+        `SELECT lower(type) FROM pragma_table_info('${name.replace(/'/g, "''")}') WHERE name = 'id';`,
+      )
+    } catch {
+      continue
+    }
+    if (!idType || idType === 'text') continue
+    if (!idType.includes('int')) continue
+    console.log(`Repariere ${name}: id-Spalte INTEGER → TEXT (Payload-kompatibel)`)
+    runSqlite3(dbPath, rebuildSql)
+  }
+}
+
 function main() {
   const dbPath = getDbPath()
   console.log('SQLite-DB:', dbPath)
@@ -257,6 +338,52 @@ function main() {
         media_id INTEGER REFERENCES media(id)
       );`,
     },
+    // Introduction block (Einleitung)
+    {
+      name: 'site_pages_blocks_introduction: table',
+      sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_introduction (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL REFERENCES site_pages(id) ON DELETE CASCADE,
+        _path TEXT NOT NULL,
+        id TEXT PRIMARY KEY,
+        block_background TEXT DEFAULT 'none',
+        block_overlay_enabled INTEGER DEFAULT 0,
+        block_overlay_color TEXT DEFAULT 'dark',
+        block_overlay_opacity INTEGER DEFAULT 30,
+        heading TEXT,
+        body TEXT,
+        tagline TEXT,
+        image_id INTEGER REFERENCES media(id),
+        block_name TEXT
+      );`,
+    },
+    {
+      name: 'site_pages_blocks_introduction: indexes',
+      sql: 'CREATE INDEX IF NOT EXISTS site_pages_blocks_introduction_order_idx ON site_pages_blocks_introduction (_order); CREATE INDEX IF NOT EXISTS site_pages_blocks_introduction_parent_id_idx ON site_pages_blocks_introduction (_parent_id); CREATE INDEX IF NOT EXISTS site_pages_blocks_introduction_path_idx ON site_pages_blocks_introduction (_path);',
+    },
+    {
+      name: '_site_pages_v_blocks_introduction: table',
+      sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_introduction (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL REFERENCES _site_pages_v(id) ON DELETE CASCADE,
+        _path TEXT NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        block_background TEXT DEFAULT 'none',
+        block_overlay_enabled INTEGER DEFAULT 0,
+        block_overlay_color TEXT DEFAULT 'dark',
+        block_overlay_opacity INTEGER DEFAULT 30,
+        heading TEXT,
+        body TEXT,
+        tagline TEXT,
+        image_id INTEGER REFERENCES media(id),
+        _uuid TEXT,
+        block_name TEXT
+      );`,
+    },
+    {
+      name: '_site_pages_v_blocks_introduction: indexes',
+      sql: 'CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_introduction_order_idx ON _site_pages_v_blocks_introduction (_order); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_introduction_parent_id_idx ON _site_pages_v_blocks_introduction (_parent_id); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_introduction_path_idx ON _site_pages_v_blocks_introduction (_path);',
+    },
     // Consulting Overview Block
     {
       name: 'site_pages_blocks_consulting_overview: table',
@@ -416,6 +543,71 @@ function main() {
     {
       name: '_site_pages_v_blocks_why_work_with_me_reasons: indexes',
       sql: 'CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_reasons_order_idx ON _site_pages_v_blocks_why_work_with_me_reasons (_order); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_reasons_parent_id_idx ON _site_pages_v_blocks_why_work_with_me_reasons (_parent_id);',
+    },
+    // Leistungen Überblick (servicesOverview-Block)
+    {
+      name: 'site_pages_blocks_services_overview: table',
+      sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_services_overview (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL REFERENCES site_pages(id) ON DELETE CASCADE,
+        _path TEXT NOT NULL,
+        id TEXT PRIMARY KEY,
+        block_name TEXT,
+        heading TEXT,
+        intro TEXT
+      );`,
+    },
+    {
+      name: 'site_pages_blocks_services_overview: indexes',
+      sql: 'CREATE INDEX IF NOT EXISTS site_pages_blocks_services_overview_order_idx ON site_pages_blocks_services_overview (_order); CREATE INDEX IF NOT EXISTS site_pages_blocks_services_overview_parent_id_idx ON site_pages_blocks_services_overview (_parent_id); CREATE INDEX IF NOT EXISTS site_pages_blocks_services_overview_path_idx ON site_pages_blocks_services_overview (_path);',
+    },
+    {
+      name: 'site_pages_blocks_services_overview_services: table',
+      sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_services_overview_services (
+        _order INTEGER NOT NULL,
+        _parent_id TEXT NOT NULL REFERENCES site_pages_blocks_services_overview(id) ON DELETE CASCADE,
+        id TEXT PRIMARY KEY,
+        icon TEXT DEFAULT 'compass',
+        title TEXT,
+        description TEXT
+      );`,
+    },
+    {
+      name: 'site_pages_blocks_services_overview_services: indexes',
+      sql: 'CREATE INDEX IF NOT EXISTS site_pages_blocks_services_overview_services_order_idx ON site_pages_blocks_services_overview_services (_order); CREATE INDEX IF NOT EXISTS site_pages_blocks_services_overview_services_parent_id_idx ON site_pages_blocks_services_overview_services (_parent_id);',
+    },
+    {
+      name: '_site_pages_v_blocks_services_overview: table',
+      sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_services_overview (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL REFERENCES _site_pages_v(id) ON DELETE CASCADE,
+        _path TEXT NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        _uuid TEXT,
+        block_name TEXT,
+        heading TEXT,
+        intro TEXT
+      );`,
+    },
+    {
+      name: '_site_pages_v_blocks_services_overview: indexes',
+      sql: 'CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_order_idx ON _site_pages_v_blocks_services_overview (_order); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_parent_id_idx ON _site_pages_v_blocks_services_overview (_parent_id); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_path_idx ON _site_pages_v_blocks_services_overview (_path);',
+    },
+    {
+      name: '_site_pages_v_blocks_services_overview_services: table',
+      sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_services_overview_services (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_services_overview(id) ON DELETE CASCADE,
+        id TEXT PRIMARY KEY,
+        icon TEXT DEFAULT 'compass',
+        title TEXT,
+        description TEXT,
+        _uuid TEXT
+      );`,
+    },
+    {
+      name: '_site_pages_v_blocks_services_overview_services: indexes',
+      sql: 'CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_services_order_idx ON _site_pages_v_blocks_services_overview_services (_order); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_services_parent_id_idx ON _site_pages_v_blocks_services_overview_services (_parent_id);',
     },
     { name: 'site_pages_blocks_why_work_with_me: heading', sql: 'ALTER TABLE site_pages_blocks_why_work_with_me ADD COLUMN heading TEXT;' },
     { name: 'site_pages_blocks_why_work_with_me: intro', sql: 'ALTER TABLE site_pages_blocks_why_work_with_me ADD COLUMN intro TEXT;' },
@@ -635,6 +827,8 @@ function main() {
       }
     }
   }
+
+  rebuildServicesOverviewServicesIfIntegerId(dbPath)
 
   console.log('Fertig.')
   console.log('Falls Header/Footer/Design im Admin „Nothing found“ zeigten: Globals wurden per Seed angelegt. Dev-Server neu starten.')

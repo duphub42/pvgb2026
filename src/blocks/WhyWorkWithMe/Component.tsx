@@ -13,6 +13,7 @@ import {
 
 import type { WhyWorkWithMeBlock as WhyWorkWithMeBlockData } from '@/payload-types'
 
+import { ReasonCard } from '@/blocks/WhyWorkWithMe/ReasonCard'
 import { cn } from '@/utilities/ui'
 
 const ICON_MAP: Record<string, LucideIcon> = {
@@ -88,6 +89,7 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = ({
   const headingTrimmed = typeof heading === 'string' ? heading.trim() : ''
   const showHeading = headingUnset || headingTrimmed.length > 0
   const headingText = headingUnset ? 'Warum mit mir' : headingTrimmed
+  const hasTextColumn = showHeading || showIntro
 
   return (
     <section
@@ -97,35 +99,39 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = ({
         'container overflow-x-visible overflow-y-visible',
       )}
     >
-      {showHeading ? (
-        <h2 className="mb-2 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">{headingText}</h2>
-      ) : null}
-      {showIntro ? (
-        <p className="mb-8 max-w-prose text-base leading-relaxed text-muted-foreground">{introTrimmed}</p>
-      ) : null}
+      <div
+        className={cn(
+          'grid min-w-0 gap-10',
+          hasTextColumn && 'lg:grid-cols-2 lg:items-start lg:gap-12 xl:gap-16',
+        )}
+      >
+        {hasTextColumn ? (
+          <div className="min-w-0 max-w-prose lg:max-w-none lg:pt-1">
+            {showHeading ? (
+              <h2 className="mb-2 text-2xl font-semibold tracking-tight text-foreground md:text-3xl">
+                {headingText}
+              </h2>
+            ) : null}
+            {showIntro ? (
+              <p className="text-base leading-relaxed text-muted-foreground lg:mb-0">{introTrimmed}</p>
+            ) : null}
+          </div>
+        ) : null}
 
-      {/*
-        Kein festes lg:grid-cols-4: Spaltenanzahl richtet sich nach Platz (auto-fit) —
-        Karten wirken bei weniger Einträgen oder kürzerem Text nicht unnötig gequetscht.
-      */}
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))]">
-        {items.map(({ key, iconKey, title, description }) => {
-          const Icon = ICON_MAP[iconKey] ?? User
-          return (
-            <div
-              key={key}
-              className="flex min-w-0 flex-col gap-4 rounded-xl border border-border bg-card p-5"
-            >
-              <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-md border border-border bg-muted">
-                <Icon className="h-4 w-4 text-muted-foreground" aria-hidden />
-              </div>
-              <div className="min-w-0">
-                <p className="mb-1.5 text-sm font-medium text-card-foreground">{title}</p>
-                <p className="text-sm leading-relaxed text-muted-foreground">{description}</p>
-              </div>
-            </div>
-          )
-        })}
+        <div
+          className={cn(
+            'grid min-w-0 gap-4',
+            /* Rechte Spalte: Karten als Block (2×2 ab sm); ohne Textspalte wie bisher auto-fit. */
+            hasTextColumn
+              ? 'sm:grid-cols-2'
+              : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))]',
+          )}
+        >
+          {items.map(({ key, iconKey, title, description }) => {
+            const Icon = ICON_MAP[iconKey] ?? User
+            return <ReasonCard key={key} title={title} description={description} Icon={Icon} />
+          })}
+        </div>
       </div>
     </section>
   )
