@@ -1,4 +1,4 @@
 'use client'
 
-export { PhilippBacherHeroSimple as PhilippBacherHero } from './PhilippBacherHeroSimple'
+export { StylePreviewHero as PhilippBacherHero } from '@/heros/StylePreview/StylePreviewHero'
 

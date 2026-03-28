@@ -39,16 +39,16 @@ class ShadcnHeroErrorBoundary extends React.Component<
   }
 }
 
+const StylePreviewHeroLazy = dynamic(() =>
+  import('@/heros/StylePreview/StylePreviewHero').then((m) => m.StylePreviewHero),
+)
+
 const heroes = {
   highImpact: dynamic(() => import('@/heros/HighImpact').then((m) => m.HighImpactHero)),
   mediumImpact: dynamic(() => import('@/heros/MediumImpact').then((m) => m.MediumImpactHero)),
   lowImpact: dynamic(() => import('@/heros/LowImpact').then((m) => m.LowImpactHero)),
-  heroStylePreview: dynamic(() =>
-    import('@/heros/StylePreview/StylePreviewHero').then((m) => m.StylePreviewHero),
-  ),
-  philippBacher: dynamic(() =>
-    import('@/heros/PhilippBacher/PhilippBacherHeroSimple').then((m) => m.PhilippBacherHeroSimple),
-  ),
+  heroStylePreview: StylePreviewHeroLazy,
+  philippBacher: StylePreviewHeroLazy,
   gridHero: dynamic(() => import('@/heros/GridHero').then((m) => m.GridHero)),
   simpleHero: dynamic(() => import('@/heros/SimpleHero')),
   hero75: dynamic(() => import('@/components/hero75').then((m) => m.Hero75)),
