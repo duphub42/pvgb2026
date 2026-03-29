@@ -336,9 +336,15 @@
     }
   }
 
-  /* Erste Section = nur Service-Karten: kein Verlauf, harter Anschluss an den Hero */
+  /* Erste Section = nur Service-Karten: kein Verlauf, harter Anschluss an den Hero (nur lg+).
+     Unter lg: wieder weicher Übergang, passt zu „Karten unter dem Hero“. */
   .hero-following-section-mask.hero-following-section--services-flush {
     background-image: none;
+  }
+  @media (max-width: 1023px) {
+    .hero-following-section-mask.hero-following-section--services-flush {
+      background-image: linear-gradient(to bottom, transparent 0, var(--background) 2.25rem);
+    }
   }
 
   /* Hero-Verlauf + Schatten/Glow auf ::before (verdoppelte Intensität), Mask nur auf ::before,

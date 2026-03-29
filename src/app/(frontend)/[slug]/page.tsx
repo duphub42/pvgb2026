@@ -190,7 +190,8 @@ export default async function Page({ params: paramsPromise, searchParams: search
       <article>
         {/*
           Hero z-32. Standard-Folgesection z-31, damit Mask nicht über Hero-Popout liegt.
-          Erster Block servicesOverview: z-33 + flacher Hintergrund — Karten können nach oben in den Hero ragen und bei Hover darüber liegen.
+          servicesOverview: Unter lg (Umbruch 1–2 Spalten) z-20 + kein Negativ-Margin — Karten liegen unter dem Hero.
+          Ab lg (4 Spalten): z-33 + Flush — Karten dürfen in den Hero ragen / Hover darüber (s. globals services-flush).
         */}
         <div className="relative z-[32] isolate">
           <HeroErrorBoundary>
@@ -201,7 +202,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
           className={cn(
             'relative w-full min-w-0 hero-following-section-mask',
             firstBlockIsServices
-              ? 'hero-following-section--services-flush z-[33] max-md:-mt-20 max-md:pt-2 pt-6 md:-mt-28 md:pt-2'
+              ? 'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:z-[33] lg:-mt-28 lg:pt-2'
               : 'z-20 max-md:-mt-16 max-md:pt-8 pt-24 md:z-[31] md:-mt-16',
           )}
         >

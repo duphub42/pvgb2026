@@ -100,7 +100,7 @@ export const RenderBlocks: React.FC<{
                 )}
                 <div
                   className={
-                    hasBackground || hasOverlay ? 'relative z-10 py-8' : ''
+                    hasBackground || hasOverlay ? 'relative z-10 py-8' : 'bg-white/0'
                   }
                 >
                   {isArchive ? (

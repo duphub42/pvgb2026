@@ -1,6 +1,7 @@
 /**
- * Fine pointer: fester Grid-Slot (min-height), Karte absolute bottom-0 → Wachstum nach oben,
- * kein Layout-Shift unterhalb der Sektion. Touch / reduced-motion: normaler Fluss, kein Slot-Zwang.
+ * Fine pointer ab lg (4 Spalten): fester Grid-Slot, Karte absolute bottom-0, Beschreibung per Hover.
+ * Unter lg (Umbruch auf 1–2 Spalten): Fließtext sichtbar, kein reservierter Slot, kein Hover-Resize.
+ * Touch / reduced-motion: normaler Fluss, kein Slot-Zwang.
  */
 
 .services-overview-card-codepen {
@@ -18,8 +19,6 @@
 }
 
 .services-overview-card-codepen:hover {
-  /* Über Hero-Text (Parent-Folgesection md:z-[33]) und Nachbarkarten */
-  z-index: 50;
   box-shadow: 0 10px 20px 0 rgb(32 32 36 / 0.12);
 }
 
@@ -27,6 +26,14 @@
   box-shadow:
     0 2px 12px rgb(0 0 0 / 0.35),
     0 0 48px -16px hsl(var(--primary) / 0.1);
+}
+
+/* Stacking über Nachbarn nur im 4-Spalten-Hover-Layout */
+@media (min-width: 64rem) {
+  .services-overview-card-codepen:hover {
+    /* Über Hero-Text (Parent-Folgesection md:z-[33]) und Nachbarkarten */
+    z-index: 50;
+  }
 }
 
 .services-overview-card-codepen::before,
@@ -86,58 +93,48 @@
   margin-top: 0.35rem;
 }
 
-/* Fine pointer + Hover: Slot-Höhe reserviert, Karte unten verankert */
+/* Fine pointer + lg+: Slot-Höhe, Karte unten verankert, Beschreibung ein-/ausklappbar */
 @media (hover: hover) and (pointer: fine) {
-  .services-overview-card-slot {
-    /* Reservierter Platz ~halbiert ggü. voriger Stufe; vh und max rem entsprechend gesenkt */
-    min-height: clamp(14.75rem, 7.5vh, 16.25rem);
-    overflow: visible;
-  }
-
-  .services-overview-card-slot .services-overview-card-codepen {
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    max-height: 100%;
-  }
-
-  .services-overview-card-content {
-    overflow: hidden;
-  }
-
-  @media (min-width: 40rem) {
-    .services-overview-card-slot {
-      min-height: clamp(15rem, 6.5vh, 16.75rem);
-    }
-  }
-
   @media (min-width: 64rem) {
     .services-overview-card-slot {
+      /* Nur 4-Spalten-Layout: fester Slot für Hover-Wachstum nach oben */
       min-height: clamp(15.25rem, 6vh, 17.25rem);
+      overflow: visible;
     }
-  }
 
-  .services-overview-card-reveal {
-    margin-top: 0;
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    transform: translateY(0.35rem);
-    transition:
-      max-height 0.5s ease,
-      opacity 0.35s ease,
-      transform 0.42s ease,
-      margin-top 0.35s ease;
-  }
+    .services-overview-card-slot .services-overview-card-codepen {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      max-height: 100%;
+    }
 
-  .services-overview-card-codepen:hover .services-overview-card-reveal {
-    margin-top: 0.45rem;
-    max-height: min(7.5rem, 22vh);
-    opacity: 1;
-    transform: translateY(0);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
+    .services-overview-card-content {
+      overflow: hidden;
+    }
+
+    .services-overview-card-reveal {
+      margin-top: 0;
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transform: translateY(0.35rem);
+      transition:
+        max-height 0.5s ease,
+        opacity 0.35s ease,
+        transform 0.42s ease,
+        margin-top 0.35s ease;
+    }
+
+    .services-overview-card-codepen:hover .services-overview-card-reveal {
+      margin-top: 0.45rem;
+      max-height: min(7.5rem, 22vh);
+      opacity: 1;
+      transform: translateY(0);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    }
   }
 }
 

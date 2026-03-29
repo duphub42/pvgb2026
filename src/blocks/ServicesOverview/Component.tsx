@@ -103,19 +103,20 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = ({
       className={cn(
         'services-overview-section relative z-10 w-full min-w-0 overflow-visible',
         'container',
-        /* Direkt unter den Hero ziehen; zusätzlich mit page.tsx services-flush-Abständen */
-        '-mt-12 max-md:-mt-10 sm:-mt-14 md:-mt-16 lg:-mt-20',
+        /* Negativzug nur ab lg (4 Spalten); darunter unter dem Hero ohne Überlagerung */
+        'max-lg:mt-0 lg:-mt-20',
         'pb-16 pt-0 md:pb-20',
       )}
     >
-      <div className="relative z-10 grid grid-cols-1 items-stretch gap-4 overflow-visible sm:grid-cols-2 sm:gap-5 lg:grid-cols-4 lg:gap-6">
+      <div className="relative z-10 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:items-stretch lg:gap-6">
         {items.map(({ key, iconKey, title, description }) => {
           const Icon = ICON_MAP[iconKey] ?? Compass
           return (
             <div key={key} className="services-overview-card-slot relative w-full min-w-0">
               <div
                 className={cn(
-                  'services-overview-card-codepen group relative flex min-h-[6.25rem] w-full min-w-0 flex-col overflow-hidden rounded-3xl border border-border/90 bg-card p-5 pb-6',
+                  'services-overview-card-codepen group relative flex min-h-0 w-full min-w-0 flex-col overflow-hidden rounded-3xl border border-border/90 bg-card p-5 pb-6',
+                  'lg:min-h-[6.25rem]',
                   'hover:border-primary/25 dark:border-border dark:hover:border-primary/30',
                 )}
               >
@@ -133,7 +134,7 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = ({
                   className={cn(
                     'pointer-events-none absolute right-0 bottom-0 z-[1] flex size-[5.25rem] translate-x-[20%] translate-y-[20%] items-center justify-center sm:size-[5.75rem] sm:translate-x-[22%] sm:translate-y-[22%]',
                     'transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
-                    'group-hover:scale-[1.1] group-hover:-rotate-[7deg]',
+                    'lg:group-hover:scale-[1.1] lg:group-hover:-rotate-[7deg]',
                   )}
                   aria-hidden
                 >
