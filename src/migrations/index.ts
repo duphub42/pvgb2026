@@ -61,6 +61,8 @@ import * as migration_20260329_100000_why_work_with_me_intro_icon_list from './2
 import * as migration_20260329_200000_site_pages_blocks_services_overview from './20260329_200000_site_pages_blocks_services_overview'
 import * as migration_20260329_300000_site_pages_blocks_profil_bacher from './20260329_300000_site_pages_blocks_profil_bacher'
 import * as migration_20260329_400000_site_pages_profil_blocks_editable from './20260329_400000_site_pages_profil_blocks_editable'
+import * as migration_20260329_600000_price_calculator_tables from './20260329_600000_price_calculator_tables'
+import * as migration_20260329_700000_rename_profil_block_tables_match_db_name from './20260329_700000_rename_profil_block_tables_match_db_name'
 
 export const migrations = [
   {
@@ -377,5 +379,15 @@ export const migrations = [
     up: migration_20260329_400000_site_pages_profil_blocks_editable.up,
     down: migration_20260329_400000_site_pages_profil_blocks_editable.down,
     name: '20260329_400000_site_pages_profil_blocks_editable',
+  },
+  {
+    up: migration_20260329_600000_price_calculator_tables.up,
+    down: migration_20260329_600000_price_calculator_tables.down,
+    name: '20260329_600000_price_calculator_tables',
+  },
+  {
+    up: migration_20260329_700000_rename_profil_block_tables_match_db_name.up,
+    down: migration_20260329_700000_rename_profil_block_tables_match_db_name.down,
+    name: '20260329_700000_rename_profil_block_tables_match_db_name',
   },
 ]

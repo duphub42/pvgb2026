@@ -1,8 +1,12 @@
 import React, { Fragment } from 'react'
 
-import type { SitePage } from '@/payload-types'
+import type { PriceCalculatorBlock, SitePage } from '@/payload-types'
 
-import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
+import {
+  ArchiveBlockComponent,
+  type ArchiveBlockComponentProps,
+} from '@/blocks/ArchiveBlock/Component'
+import { PriceCalculatorBlockComponent } from '@/blocks/PriceCalculator/Component'
 import { BlockRenderer } from '@/blocks/BlockRenderer'
 import { CLIENT_BLOCK_TYPES } from '@/blocks/clientBlockTypes'
 
@@ -68,8 +72,9 @@ export const RenderBlocks: React.FC<{
 
           if (!blockType) return null
           const isArchive = blockType === 'archive'
+          const isPriceCalculator = blockType === 'priceCalculator'
           const isClientBlock = CLIENT_BLOCK_TYPES.has(blockType)
-          if (!isArchive && !isClientBlock) return null
+          if (!isArchive && !isClientBlock && !isPriceCalculator) return null
 
           const bg = b.blockBackground
           const overlay = b.blockOverlay
@@ -104,7 +109,12 @@ export const RenderBlocks: React.FC<{
                   }
                 >
                   {isArchive ? (
-                    <ArchiveBlock {...b} disableInnerContainer />
+                    <ArchiveBlockComponent
+                      {...(b as ArchiveBlockComponentProps)}
+                      disableInnerContainer
+                    />
+                  ) : isPriceCalculator ? (
+                    <PriceCalculatorBlockComponent {...(b as PriceCalculatorBlock)} disableInnerContainer />
                   ) : (
                     <BlockRenderer blockType={blockType} block={b} />
                   )}

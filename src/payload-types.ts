@@ -74,6 +74,8 @@ export interface Config {
     users: User;
     'mega-menu': MegaMenu;
     'hero-backgrounds': HeroBackground;
+    'price-calc-categories': PriceCalcCategory;
+    'price-calc-items': PriceCalcItem;
     redirects: Redirect;
     forms: Form;
     'form-submissions': FormSubmission;
@@ -98,6 +100,8 @@ export interface Config {
     users: UsersSelect<false> | UsersSelect<true>;
     'mega-menu': MegaMenuSelect<false> | MegaMenuSelect<true>;
     'hero-backgrounds': HeroBackgroundsSelect<false> | HeroBackgroundsSelect<true>;
+    'price-calc-categories': PriceCalcCategoriesSelect<false> | PriceCalcCategoriesSelect<true>;
+    'price-calc-items': PriceCalcItemsSelect<false> | PriceCalcItemsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
@@ -118,12 +122,14 @@ export interface Config {
     footer: Footer;
     design: Design;
     'theme-settings': ThemeSetting;
+    'price-calculator': PriceCalculator;
   };
   globalsSelect: {
     header: HeaderSelect<false> | HeaderSelect<true>;
     footer: FooterSelect<false> | FooterSelect<true>;
     design: DesignSelect<false> | DesignSelect<true>;
     'theme-settings': ThemeSettingsSelect<false> | ThemeSettingsSelect<true>;
+    'price-calculator': PriceCalculatorSelect<false> | PriceCalculatorSelect<true>;
   };
   locale: null;
   user: User;
@@ -331,6 +337,7 @@ export interface SitePage {
         | ProfilToolsBlock
         | ProfilLangZertBlock
         | ProfilCtaBandBlock
+        | PriceCalculatorBlock
         | CallToActionBlock
         | ContentBlock
         | MediaBlock
@@ -1228,6 +1235,22 @@ export interface ProfilCtaBandBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PriceCalculatorBlock".
+ */
+export interface PriceCalculatorBlock {
+  showRatesSection?: boolean | null;
+  /**
+   * Leer = Wert aus Global „Preisrechner“.
+   */
+  sectionLabel?: string | null;
+  heading?: string | null;
+  sub?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'priceCalculator';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
@@ -1825,6 +1848,42 @@ export interface MegaMenu {
   createdAt: string;
 }
 /**
+ * Kategorien für den Preisrechner (z. B. Website & Webdesign, SEO).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "price-calc-categories".
+ */
+export interface PriceCalcCategory {
+  id: number;
+  title: string;
+  /**
+   * Niedrigere Zahlen erscheinen zuerst.
+   */
+  sortOrder?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * Einzelne Leistungen mit Preisspannen (einmalig und/oder monatlich).
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "price-calc-items".
+ */
+export interface PriceCalcItem {
+  id: number;
+  category: number | PriceCalcCategory;
+  title: string;
+  description: string;
+  sortOrder?: number | null;
+  pricingType: 'once' | 'monthly' | 'both';
+  onceMin?: number | null;
+  onceMax?: number | null;
+  monthlyMin?: number | null;
+  monthlyMax?: number | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
@@ -2043,6 +2102,14 @@ export interface PayloadLockedDocument {
         value: number | HeroBackground;
       } | null)
     | ({
+        relationTo: 'price-calc-categories';
+        value: number | PriceCalcCategory;
+      } | null)
+    | ({
+        relationTo: 'price-calc-items';
+        value: number | PriceCalcItem;
+      } | null)
+    | ({
         relationTo: 'redirects';
         value: number | Redirect;
       } | null)
@@ -2185,6 +2252,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         profilTools?: T | ProfilToolsBlockSelect<T>;
         profilLangZert?: T | ProfilLangZertBlockSelect<T>;
         profilCtaBand?: T | ProfilCtaBandBlockSelect<T>;
+        priceCalculator?: T | PriceCalculatorBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -2607,6 +2675,18 @@ export interface ProfilCtaBandBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PriceCalculatorBlock_select".
+ */
+export interface PriceCalculatorBlockSelect<T extends boolean = true> {
+  showRatesSection?: T;
+  sectionLabel?: T;
+  heading?: T;
+  sub?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock_select".
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
@@ -2991,6 +3071,33 @@ export interface HeroBackgroundsSelect<T extends boolean = true> {
   patternColor1?: T;
   patternColor2?: T;
   customCss?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "price-calc-categories_select".
+ */
+export interface PriceCalcCategoriesSelect<T extends boolean = true> {
+  title?: T;
+  sortOrder?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "price-calc-items_select".
+ */
+export interface PriceCalcItemsSelect<T extends boolean = true> {
+  category?: T;
+  title?: T;
+  description?: T;
+  sortOrder?: T;
+  pricingType?: T;
+  onceMin?: T;
+  onceMax?: T;
+  monthlyMin?: T;
+  monthlyMax?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -3809,6 +3916,32 @@ export interface ThemeSetting {
   createdAt?: string | null;
 }
 /**
+ * Standard-Texte für den Preisrechner-Block und die Sektion Stundensatz / Tagessatz. Kategorien und Leistungen pflegen Sie unter „Preisrechner“ in den Collections.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "price-calculator".
+ */
+export interface PriceCalculator {
+  id: number;
+  sectionLabel?: string | null;
+  heading?: string | null;
+  sub?: string | null;
+  offerButtonLabel?: string | null;
+  /**
+   * z. B. /kontakt oder mailto:…
+   */
+  offerLink?: string | null;
+  emptyBreakdownMessage?: string | null;
+  ratesSectionLabel?: string | null;
+  ratesHeading?: string | null;
+  hourlyRate: number;
+  dayRate: number;
+  weekRate: number;
+  ratesNote?: string | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "header_select".
  */
@@ -4009,6 +4142,27 @@ export interface ThemeSettingsSelect<T extends boolean = true> {
   themeMode?: T;
   generatedTheme?: T;
   cssString?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "price-calculator_select".
+ */
+export interface PriceCalculatorSelect<T extends boolean = true> {
+  sectionLabel?: T;
+  heading?: T;
+  sub?: T;
+  offerButtonLabel?: T;
+  offerLink?: T;
+  emptyBreakdownMessage?: T;
+  ratesSectionLabel?: T;
+  ratesHeading?: T;
+  hourlyRate?: T;
+  dayRate?: T;
+  weekRate?: T;
+  ratesNote?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

@@ -1,18 +1,21 @@
 'use client'
 
 import { CMSLink } from '@/components/Link'
-import { getMediaUrlSafe } from '@/utils/media'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import React, { type ComponentProps } from 'react'
 import PopoutPortrait from '@/components/PopoutPortrait'
 import { HeroLogoMarquee, type HeroMarqueeLogoRow } from '@/heros/HeroLogoMarquee'
+import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 import { cn } from '@/utilities/ui'
 
 type CMSLinkProps = ComponentProps<typeof CMSLink>
 
 interface LinkItem {
-  link?: Pick<CMSLinkProps, 'url' | 'label' | 'appearance' | 'newTab' | 'type'>
+  link?: Pick<
+    CMSLinkProps,
+    'url' | 'label' | 'appearance' | 'newTab' | 'type' | 'reference'
+  >
 }
 
 interface StylePreviewHeroProps {
@@ -24,6 +27,8 @@ interface StylePreviewHeroProps {
   description?: string | null
   links?: LinkItem[] | null
   media?: number | { id?: number | null; url?: string | null; alt?: string | null } | null
+  /** Philipp-Bacher-Typ im CMS: Popout-Bild liegt hier statt in „Media“. */
+  foregroundImage?: number | { id?: number | null; url?: string | null; alt?: string | null } | null
   marqueeHeadline?: string | null
   marqueeLogos?: HeroMarqueeLogoRow[] | null
 }
@@ -37,16 +42,6 @@ const defaultDescription =
 const PORTFOLIO_CLOUD_SRC =
   'https://philippbacher.com/wp-content/uploads/2026/02/powderparty.png'
 const PORTFOLIO_SKI_SRC = 'https://philippbacher.com/wp-content/uploads/2026/02/skijump-1.png'
-
-function resolveMediaSrc(media: StylePreviewHeroProps['media']): string | null {
-  if (media == null) return null
-  if (typeof media === 'number' && Number.isFinite(media)) return `/api/media/stream/${media}`
-  if (typeof media === 'object' && media !== null && typeof media.id === 'number' && Number.isFinite(media.id)) {
-    return `/api/media/stream/${media.id}`
-  }
-  const safe = getMediaUrlSafe(media)
-  return safe || null
-}
 
 /**
  * Mehrschichtige S-Wellen (sinusartige Kubiken), leicht phasenversetzt → Fächereffekt durch Überlagerung.
@@ -158,6 +153,7 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
   description,
   links,
   media,
+  foregroundImage,
   marqueeHeadline,
   marqueeLogos,
 }) => {
@@ -170,13 +166,12 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
   )
   const resolvedHeadline = lines.length > 0 ? null : (headline || defaultHeadline)
   const ctaLinks = Array.isArray(links) ? links.filter((entry) => Boolean(entry?.link?.label)) : []
-  const mediaUrl = resolveMediaSrc(media)
-  const directMediaUrl = getMediaUrlSafe(media)
-  const portraitSrc = mediaUrl || directMediaUrl
+  const portraitSrc =
+    resolveHeroImageSrc(media) || resolveHeroImageSrc(foregroundImage)
 
   return (
     <section
-      aria-label={isProfilPage ? 'Profil Hero' : 'Style Preview Hero'}
+      aria-label={isProfilPage ? 'Profil Hero' : 'Hero'}
       className={cn(
         'hero-offset relative overflow-visible text-foreground',
         isProfilPage ? 'profil-hero-paper' : 'bg-background',
@@ -230,6 +225,7 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
                     key={`${item?.link?.label ?? 'cta'}-${index}`}
                     type={item?.link?.type}
                     url={item?.link?.url}
+                    reference={item?.link?.reference}
                     label={item?.link?.label}
                     newTab={item?.link?.newTab}
                     appearance={item?.link?.appearance || (index === 0 ? 'default' : 'outline')}
@@ -256,7 +252,8 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
                 </div>
               ) : (
                 <div className="flex aspect-[4/3] w-full items-center justify-center bg-muted/50 p-6 text-center text-sm text-muted-foreground">
-                  Kein Hero-Bild gesetzt. Im Backend das Feld "Media / Hintergrundbild" befuellen.
+                  Kein Hero-Bild gesetzt. Im Backend „Media / Hintergrundbild“ (Style Preview) oder
+                  „Vordergrund Bild“ (Philipp Bacher) befüllen.
                 </div>
               )}
             </div>

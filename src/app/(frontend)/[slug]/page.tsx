@@ -7,6 +7,7 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
+import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { cn } from '@/utilities/ui'
 
 // ISR: Published pages cached 60s (besserer TTFB). Draft/Preview bleibt dynamisch durch draftMode().
@@ -112,7 +113,12 @@ export default async function Page({ params: paramsPromise, searchParams: search
           <article>
             <RenderHero {...pageById.hero} />
             <div className="relative z-0 pt-24">
-              <RenderBlocks blocks={Array.isArray(pageById.layout) ? pageById.layout : []} />
+              <RenderBlocks
+              blocks={resolveLayoutBlocks(
+                typeof pageById.slug === 'string' ? pageById.slug : '',
+                pageById.layout,
+              )}
+            />
             </div>
           </article>
         )
@@ -164,7 +170,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
     }
 
     const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
-    const layoutBlocks = Array.isArray(page.layout) ? page.layout : []
+    const layoutBlocks = resolveLayoutBlocks(resolvedSlug, page.layout)
     const firstBlock = layoutBlocks[0]
     const firstBlockIsServices =
       firstBlock &&

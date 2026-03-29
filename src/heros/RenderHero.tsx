@@ -48,6 +48,7 @@ const heroes = {
   mediumImpact: dynamic(() => import('@/heros/MediumImpact').then((m) => m.MediumImpactHero)),
   lowImpact: dynamic(() => import('@/heros/LowImpact').then((m) => m.LowImpactHero)),
   heroStylePreview: StylePreviewHeroLazy,
+  /** Popout-Portrait-Hero (Glas-Panel + PopoutPortrait); gleiche Komponente wie Style Preview. */
   philippBacher: StylePreviewHeroLazy,
   gridHero: dynamic(() => import('@/heros/GridHero').then((m) => m.GridHero)),
   simpleHero: dynamic(() => import('@/heros/SimpleHero')),

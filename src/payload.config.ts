@@ -13,8 +13,11 @@ import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 import { Users } from './collections/Users'
 import { HeroBackgrounds } from './collections/HeroBackgrounds'
+import { PriceCalculatorCategories } from './collections/PriceCalculatorCategories'
+import { PriceCalculatorItems } from './collections/PriceCalculatorItems'
 import { Design } from './globals/Design/config'
 import { ThemeSettings } from './globals/ThemeSettings/config'
+import { PriceCalculatorGlobal } from './globals/PriceCalculator/config'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
@@ -115,7 +118,17 @@ export default buildConfig({
           },
           push: process.env.PAYLOAD_SKIP_PUSH !== 'true',
         }),
-  collections: [Pages, Posts, Media, Categories, Users, MegaMenu, HeroBackgrounds],
+  collections: [
+    Pages,
+    Posts,
+    Media,
+    Categories,
+    Users,
+    MegaMenu,
+    HeroBackgrounds,
+    PriceCalculatorCategories,
+    PriceCalculatorItems,
+  ],
   cors: [serverURL].filter(Boolean),
   // CSRF: erlaubte Origins für Admin-Requests (Cookie wird sonst abgelehnt → 401 auf Vercel).
   // Auf Vercel: NEXT_PUBLIC_SERVER_URL = https://pvgb2026.vercel.app setzen, damit serverURL mit dem Request-Origin übereinstimmt.
@@ -152,9 +165,9 @@ export default buildConfig({
         ]
       : []),
   ],
-  globals: [Header, Footer, Design, ThemeSettings],
+  globals: [Header, Footer, Design, ThemeSettings, PriceCalculatorGlobal],
   onInit: async (payload) => {
-    const slugs = ['header', 'footer', 'design', 'theme-settings'] as const
+    const slugs = ['header', 'footer', 'design', 'theme-settings', 'price-calculator'] as const
     for (const slug of slugs) {
       try {
         let hasDoc = false

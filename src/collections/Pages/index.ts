@@ -22,6 +22,7 @@ import { ProfilZahlenFakten } from '../../blocks/ProfilZahlenFakten/config'
 import { ProfilTools } from '../../blocks/ProfilTools/config'
 import { ProfilLangZert } from '../../blocks/ProfilLangZert/config'
 import { ProfilCtaBand } from '../../blocks/ProfilCtaBand/config'
+import { PriceCalculator } from '../../blocks/PriceCalculator/config'
 import {
   createClearOrphanedRefsAfterReadHook,
   createClearOrphanedRefsBeforeChangeHook,
@@ -90,6 +91,7 @@ export const Pages: CollectionConfig = {
                 ProfilTools,
                 ProfilLangZert,
                 ProfilCtaBand,
+                PriceCalculator,
                 CallToAction,
                 Content,
                 MediaBlock,
