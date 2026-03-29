@@ -68,7 +68,7 @@ function sqlite3Scalar(dbPath: string, sql: string): string {
 /**
  * Payload speichert Array-Zeilen-IDs als Text (ObjectId/UUID). INTEGER-PK → LibSQL „datatype mismatch“.
  */
-function rebuildServicesOverviewServicesIfIntegerId(dbPath: string): void {
+function rebuildPayloadArrayRowIdColumnsIfInteger(dbPath: string): void {
   const tables: { name: string; rebuildSql: string }[] = [
     {
       name: 'site_pages_blocks_services_overview_services',
@@ -116,6 +116,102 @@ SELECT _order, _parent_id, CAST(id AS TEXT), icon, title, description, _uuid FRO
 DROP TABLE _site_pages_v_blocks_services_overview_services_fixtmp;
 CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_services_order_idx ON _site_pages_v_blocks_services_overview_services (_order);
 CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_services_parent_id_idx ON _site_pages_v_blocks_services_overview_services (_parent_id);
+COMMIT;
+`,
+    },
+    {
+      name: 'site_pages_blocks_why_work_with_me_intro_icon_list',
+      rebuildSql: `
+BEGIN;
+DROP INDEX IF EXISTS site_pages_blocks_why_work_with_me_intro_icon_list_order_idx;
+DROP INDEX IF EXISTS site_pages_blocks_why_work_with_me_intro_icon_list_parent_id_idx;
+DROP TABLE IF EXISTS site_pages_blocks_why_work_with_me_intro_icon_list_fixtmp;
+ALTER TABLE site_pages_blocks_why_work_with_me_intro_icon_list RENAME TO site_pages_blocks_why_work_with_me_intro_icon_list_fixtmp;
+CREATE TABLE site_pages_blocks_why_work_with_me_intro_icon_list (
+  _order INTEGER NOT NULL,
+  _parent_id TEXT NOT NULL REFERENCES site_pages_blocks_why_work_with_me(id) ON DELETE CASCADE,
+  id TEXT PRIMARY KEY,
+  icon TEXT DEFAULT 'brain',
+  text TEXT
+);
+INSERT INTO site_pages_blocks_why_work_with_me_intro_icon_list (_order, _parent_id, id, icon, text)
+SELECT _order, _parent_id, CAST(id AS TEXT), icon, text FROM site_pages_blocks_why_work_with_me_intro_icon_list_fixtmp;
+DROP TABLE site_pages_blocks_why_work_with_me_intro_icon_list_fixtmp;
+CREATE INDEX IF NOT EXISTS site_pages_blocks_why_work_with_me_intro_icon_list_order_idx ON site_pages_blocks_why_work_with_me_intro_icon_list (_order);
+CREATE INDEX IF NOT EXISTS site_pages_blocks_why_work_with_me_intro_icon_list_parent_id_idx ON site_pages_blocks_why_work_with_me_intro_icon_list (_parent_id);
+COMMIT;
+`,
+    },
+    {
+      name: '_site_pages_v_blocks_why_work_with_me_intro_icon_list',
+      rebuildSql: `
+BEGIN;
+DROP INDEX IF EXISTS _site_pages_v_blocks_why_work_with_me_intro_icon_list_order_idx;
+DROP INDEX IF EXISTS _site_pages_v_blocks_why_work_with_me_intro_icon_list_parent_id_idx;
+DROP TABLE IF EXISTS _site_pages_v_blocks_why_work_with_me_intro_icon_list_fixtmp;
+ALTER TABLE _site_pages_v_blocks_why_work_with_me_intro_icon_list RENAME TO _site_pages_v_blocks_why_work_with_me_intro_icon_list_fixtmp;
+CREATE TABLE _site_pages_v_blocks_why_work_with_me_intro_icon_list (
+  _order INTEGER NOT NULL,
+  _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_why_work_with_me(id) ON DELETE CASCADE,
+  id TEXT PRIMARY KEY,
+  icon TEXT DEFAULT 'brain',
+  text TEXT,
+  _uuid TEXT
+);
+INSERT INTO _site_pages_v_blocks_why_work_with_me_intro_icon_list (_order, _parent_id, id, icon, text, _uuid)
+SELECT _order, _parent_id, CAST(id AS TEXT), icon, text, _uuid FROM _site_pages_v_blocks_why_work_with_me_intro_icon_list_fixtmp;
+DROP TABLE _site_pages_v_blocks_why_work_with_me_intro_icon_list_fixtmp;
+CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_intro_icon_list_order_idx ON _site_pages_v_blocks_why_work_with_me_intro_icon_list (_order);
+CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_intro_icon_list_parent_id_idx ON _site_pages_v_blocks_why_work_with_me_intro_icon_list (_parent_id);
+COMMIT;
+`,
+    },
+    {
+      name: 'site_pages_blocks_why_work_with_me_reasons',
+      rebuildSql: `
+BEGIN;
+DROP INDEX IF EXISTS site_pages_blocks_why_work_with_me_reasons_order_idx;
+DROP INDEX IF EXISTS site_pages_blocks_why_work_with_me_reasons_parent_id_idx;
+DROP TABLE IF EXISTS site_pages_blocks_why_work_with_me_reasons_fixtmp;
+ALTER TABLE site_pages_blocks_why_work_with_me_reasons RENAME TO site_pages_blocks_why_work_with_me_reasons_fixtmp;
+CREATE TABLE site_pages_blocks_why_work_with_me_reasons (
+  _order INTEGER NOT NULL,
+  _parent_id TEXT NOT NULL REFERENCES site_pages_blocks_why_work_with_me(id) ON DELETE CASCADE,
+  id TEXT PRIMARY KEY,
+  icon TEXT DEFAULT 'user',
+  title TEXT,
+  description TEXT
+);
+INSERT INTO site_pages_blocks_why_work_with_me_reasons (_order, _parent_id, id, icon, title, description)
+SELECT _order, _parent_id, CAST(id AS TEXT), icon, title, description FROM site_pages_blocks_why_work_with_me_reasons_fixtmp;
+DROP TABLE site_pages_blocks_why_work_with_me_reasons_fixtmp;
+CREATE INDEX IF NOT EXISTS site_pages_blocks_why_work_with_me_reasons_order_idx ON site_pages_blocks_why_work_with_me_reasons (_order);
+CREATE INDEX IF NOT EXISTS site_pages_blocks_why_work_with_me_reasons_parent_id_idx ON site_pages_blocks_why_work_with_me_reasons (_parent_id);
+COMMIT;
+`,
+    },
+    {
+      name: '_site_pages_v_blocks_why_work_with_me_reasons',
+      rebuildSql: `
+BEGIN;
+DROP INDEX IF EXISTS _site_pages_v_blocks_why_work_with_me_reasons_order_idx;
+DROP INDEX IF EXISTS _site_pages_v_blocks_why_work_with_me_reasons_parent_id_idx;
+DROP TABLE IF EXISTS _site_pages_v_blocks_why_work_with_me_reasons_fixtmp;
+ALTER TABLE _site_pages_v_blocks_why_work_with_me_reasons RENAME TO _site_pages_v_blocks_why_work_with_me_reasons_fixtmp;
+CREATE TABLE _site_pages_v_blocks_why_work_with_me_reasons (
+  _order INTEGER NOT NULL,
+  _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_why_work_with_me(id) ON DELETE CASCADE,
+  id TEXT PRIMARY KEY,
+  icon TEXT DEFAULT 'user',
+  title TEXT,
+  description TEXT,
+  _uuid TEXT
+);
+INSERT INTO _site_pages_v_blocks_why_work_with_me_reasons (_order, _parent_id, id, icon, title, description, _uuid)
+SELECT _order, _parent_id, CAST(id AS TEXT), icon, title, description, _uuid FROM _site_pages_v_blocks_why_work_with_me_reasons_fixtmp;
+DROP TABLE _site_pages_v_blocks_why_work_with_me_reasons_fixtmp;
+CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_reasons_order_idx ON _site_pages_v_blocks_why_work_with_me_reasons (_order);
+CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_reasons_parent_id_idx ON _site_pages_v_blocks_why_work_with_me_reasons (_parent_id);
 COMMIT;
 `,
     },
@@ -518,7 +614,7 @@ function main() {
       sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_why_work_with_me_reasons (
         _order INTEGER NOT NULL,
         _parent_id TEXT NOT NULL REFERENCES site_pages_blocks_why_work_with_me(id) ON DELETE CASCADE,
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT PRIMARY KEY,
         icon TEXT DEFAULT 'user',
         title TEXT,
         description TEXT
@@ -529,7 +625,7 @@ function main() {
       sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_reasons (
         _order INTEGER NOT NULL,
         _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_why_work_with_me(id) ON DELETE CASCADE,
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT PRIMARY KEY,
         icon TEXT DEFAULT 'user',
         title TEXT,
         description TEXT,
@@ -550,7 +646,7 @@ function main() {
       sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_why_work_with_me_intro_icon_list (
         _order INTEGER NOT NULL,
         _parent_id TEXT NOT NULL REFERENCES site_pages_blocks_why_work_with_me(id) ON DELETE CASCADE,
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT PRIMARY KEY,
         icon TEXT DEFAULT 'brain',
         text TEXT
       );`,
@@ -560,7 +656,7 @@ function main() {
       sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_intro_icon_list (
         _order INTEGER NOT NULL,
         _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_why_work_with_me(id) ON DELETE CASCADE,
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT PRIMARY KEY,
         icon TEXT DEFAULT 'brain',
         text TEXT,
         _uuid TEXT
@@ -858,7 +954,7 @@ function main() {
     }
   }
 
-  rebuildServicesOverviewServicesIfIntegerId(dbPath)
+  rebuildPayloadArrayRowIdColumnsIfInteger(dbPath)
 
   console.log('Fertig.')
   console.log('Falls Header/Footer/Design im Admin „Nothing found“ zeigten: Globals wurden per Seed angelegt. Dev-Server neu starten.')
