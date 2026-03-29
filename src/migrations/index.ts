@@ -58,6 +58,7 @@ import * as migration_20260324_100000_site_pages_blocks_why_work_with_me from '.
 import * as migration_20260325_100000_why_work_with_me_editable from './20260325_100000_why_work_with_me_editable'
 import * as migration_20260328_100000_site_pages_blocks_introduction from './20260328_100000_site_pages_blocks_introduction'
 import * as migration_20260329_100000_why_work_with_me_intro_icon_list from './20260329_100000_why_work_with_me_intro_icon_list'
+import * as migration_20260329_200000_site_pages_blocks_services_overview from './20260329_200000_site_pages_blocks_services_overview'
 
 export const migrations = [
   {
@@ -359,5 +360,10 @@ export const migrations = [
     up: migration_20260329_100000_why_work_with_me_intro_icon_list.up,
     down: migration_20260329_100000_why_work_with_me_intro_icon_list.down,
     name: '20260329_100000_why_work_with_me_intro_icon_list',
+  },
+  {
+    up: migration_20260329_200000_site_pages_blocks_services_overview.up,
+    down: migration_20260329_200000_site_pages_blocks_services_overview.down,
+    name: '20260329_200000_site_pages_blocks_services_overview',
   },
 ]

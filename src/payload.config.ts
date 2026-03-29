@@ -95,7 +95,12 @@ export default buildConfig({
             connectionString:
               process.env.DATABASE_URL || process.env.POSTGRES_URL || '',
           },
-          push: process.env.NODE_ENV !== 'production',
+          // Kein Drizzle-Push ohne Opt-in: bei Schema-Drift kann Push Tabellen/Spalten droppen oder Daten gefährden.
+          // Sicher: `pnpm run migrate:neon` / `pnpm run push:neon` (nur Migrationen).
+          // Opt-in Drizzle: PAYLOAD_ALLOW_DRIZZLE_PUSH=true (z. B. mit `pnpm run push:neon:drizzle` + Bestätigung).
+          push:
+            process.env.NODE_ENV !== 'production' &&
+            process.env.PAYLOAD_ALLOW_DRIZZLE_PUSH === 'true',
         })
       : sqliteAdapter({
           client: {

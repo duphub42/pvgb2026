@@ -215,6 +215,115 @@ CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_reasons_parent_
 COMMIT;
 `,
     },
+    {
+      name: 'site_pages_blocks_shadcn_block_content_images',
+      rebuildSql: `
+BEGIN;
+DROP TABLE IF EXISTS site_pages_blocks_shadcn_block_content_images_fixtmp;
+ALTER TABLE site_pages_blocks_shadcn_block_content_images RENAME TO site_pages_blocks_shadcn_block_content_images_fixtmp;
+CREATE TABLE site_pages_blocks_shadcn_block_content_images (
+  _order INTEGER NOT NULL,
+  _parent_id TEXT NOT NULL REFERENCES site_pages_blocks_shadcn_block(id) ON DELETE CASCADE,
+  id TEXT PRIMARY KEY,
+  media_id INTEGER REFERENCES media(id)
+);
+INSERT INTO site_pages_blocks_shadcn_block_content_images (_order, _parent_id, id, media_id)
+SELECT _order, _parent_id, CAST(id AS TEXT), media_id FROM site_pages_blocks_shadcn_block_content_images_fixtmp;
+DROP TABLE site_pages_blocks_shadcn_block_content_images_fixtmp;
+COMMIT;
+`,
+    },
+    {
+      name: 'lnks',
+      rebuildSql: `
+BEGIN;
+DROP TABLE IF EXISTS lnks_fixtmp;
+ALTER TABLE lnks RENAME TO lnks_fixtmp;
+CREATE TABLE lnks (
+  _order INTEGER NOT NULL,
+  _parent_id TEXT NOT NULL REFERENCES site_pages_blocks_shadcn_block(id) ON DELETE CASCADE,
+  id TEXT PRIMARY KEY,
+  link_type TEXT DEFAULT 'reference',
+  link_new_tab INTEGER DEFAULT 0,
+  link_url TEXT,
+  link_label TEXT,
+  link_appearance TEXT DEFAULT 'default'
+);
+INSERT INTO lnks (_order, _parent_id, id, link_type, link_new_tab, link_url, link_label, link_appearance)
+SELECT _order, _parent_id, CAST(id AS TEXT), link_type, link_new_tab, link_url, link_label, link_appearance FROM lnks_fixtmp;
+DROP TABLE lnks_fixtmp;
+COMMIT;
+`,
+    },
+    {
+      name: '_site_pages_v_blocks_shadcn_block_content_images',
+      rebuildSql: `
+BEGIN;
+DROP TABLE IF EXISTS _site_pages_v_blocks_shadcn_block_content_images_fixtmp;
+ALTER TABLE _site_pages_v_blocks_shadcn_block_content_images RENAME TO _site_pages_v_blocks_shadcn_block_content_images_fixtmp;
+CREATE TABLE _site_pages_v_blocks_shadcn_block_content_images (
+  _order INTEGER NOT NULL,
+  _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_shadcn_block(id) ON DELETE CASCADE,
+  id TEXT PRIMARY KEY,
+  media_id INTEGER REFERENCES media(id)
+);
+INSERT INTO _site_pages_v_blocks_shadcn_block_content_images (_order, _parent_id, id, media_id)
+SELECT _order, _parent_id, CAST(id AS TEXT), media_id FROM _site_pages_v_blocks_shadcn_block_content_images_fixtmp;
+DROP TABLE _site_pages_v_blocks_shadcn_block_content_images_fixtmp;
+COMMIT;
+`,
+    },
+    {
+      name: '_lnks_v',
+      rebuildSql: `
+BEGIN;
+DROP INDEX IF EXISTS _lnks_v_order_idx;
+DROP INDEX IF EXISTS _lnks_v_parent_id_idx;
+DROP TABLE IF EXISTS _lnks_v_fixtmp;
+ALTER TABLE _lnks_v RENAME TO _lnks_v_fixtmp;
+CREATE TABLE _lnks_v (
+  _order INTEGER NOT NULL,
+  _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_shadcn_block(id) ON DELETE CASCADE,
+  id TEXT PRIMARY KEY,
+  link_type TEXT DEFAULT 'reference',
+  link_new_tab INTEGER DEFAULT 0,
+  link_url TEXT,
+  link_label TEXT,
+  link_appearance TEXT DEFAULT 'default',
+  _uuid TEXT
+);
+INSERT INTO _lnks_v (_order, _parent_id, id, link_type, link_new_tab, link_url, link_label, link_appearance, _uuid)
+SELECT _order, _parent_id, CAST(id AS TEXT), link_type, link_new_tab, link_url, link_label, link_appearance, _uuid FROM _lnks_v_fixtmp;
+DROP TABLE _lnks_v_fixtmp;
+CREATE INDEX IF NOT EXISTS _lnks_v_order_idx ON _lnks_v (_order);
+CREATE INDEX IF NOT EXISTS _lnks_v_parent_id_idx ON _lnks_v (_parent_id);
+COMMIT;
+`,
+    },
+    {
+      name: '_site_pages_v_blocks_consulting_overview_benefit_items',
+      rebuildSql: `
+BEGIN;
+DROP INDEX IF EXISTS _site_pages_v_blocks_consulting_overview_benefit_items_order_idx;
+DROP INDEX IF EXISTS _site_pages_v_blocks_consulting_overview_benefit_items_parent_id_idx;
+DROP TABLE IF EXISTS _site_pages_v_blocks_consulting_overview_benefit_items_fixtmp;
+ALTER TABLE _site_pages_v_blocks_consulting_overview_benefit_items RENAME TO _site_pages_v_blocks_consulting_overview_benefit_items_fixtmp;
+CREATE TABLE _site_pages_v_blocks_consulting_overview_benefit_items (
+  _order INTEGER NOT NULL,
+  _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_consulting_overview(id) ON DELETE CASCADE,
+  id TEXT PRIMARY KEY,
+  title TEXT,
+  text TEXT,
+  _uuid TEXT
+);
+INSERT INTO _site_pages_v_blocks_consulting_overview_benefit_items (_order, _parent_id, id, title, text, _uuid)
+SELECT _order, _parent_id, CAST(id AS TEXT), title, text, _uuid FROM _site_pages_v_blocks_consulting_overview_benefit_items_fixtmp;
+DROP TABLE _site_pages_v_blocks_consulting_overview_benefit_items_fixtmp;
+CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_consulting_overview_benefit_items_order_idx ON _site_pages_v_blocks_consulting_overview_benefit_items (_order);
+CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_consulting_overview_benefit_items_parent_id_idx ON _site_pages_v_blocks_consulting_overview_benefit_items (_parent_id);
+COMMIT;
+`,
+    },
   ]
 
   for (const { name, rebuildSql } of tables) {
@@ -299,7 +408,7 @@ function main() {
       sql: `CREATE TABLE IF NOT EXISTS mega_menu_highlight_cards (
         _order INTEGER NOT NULL,
         _parent_id INTEGER NOT NULL,
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        id TEXT PRIMARY KEY,
         title TEXT,
         description TEXT,
         icon_id INTEGER,
@@ -378,8 +487,8 @@ function main() {
       name: 'site_pages_blocks_shadcn_block_content_images: table',
       sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_shadcn_block_content_images (
         _order INTEGER NOT NULL,
-        _parent_id TEXT NOT NULL,
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        _parent_id TEXT NOT NULL REFERENCES site_pages_blocks_shadcn_block(id) ON DELETE CASCADE,
+        id TEXT PRIMARY KEY,
         media_id INTEGER REFERENCES media(id)
       );`,
     },
@@ -387,8 +496,8 @@ function main() {
       name: 'lnks: table (ShadcnBlock content links)',
       sql: `CREATE TABLE IF NOT EXISTS lnks (
         _order INTEGER NOT NULL,
-        _parent_id TEXT NOT NULL,
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        _parent_id TEXT NOT NULL REFERENCES site_pages_blocks_shadcn_block(id) ON DELETE CASCADE,
+        id TEXT PRIMARY KEY,
         link_type TEXT DEFAULT 'reference',
         link_new_tab INTEGER DEFAULT 0,
         link_url TEXT,
@@ -400,8 +509,8 @@ function main() {
       name: '_lnks_v: table (ShadcnBlock content links versions)',
       sql: `CREATE TABLE IF NOT EXISTS _lnks_v (
         _order INTEGER NOT NULL,
-        _parent_id INTEGER NOT NULL,
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_shadcn_block(id) ON DELETE CASCADE,
+        id TEXT PRIMARY KEY,
         link_type TEXT DEFAULT 'reference',
         link_new_tab INTEGER DEFAULT 0,
         link_url TEXT,
@@ -429,8 +538,8 @@ function main() {
       name: '_site_pages_v_blocks_shadcn_block_content_images: table',
       sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_shadcn_block_content_images (
         _order INTEGER NOT NULL,
-        _parent_id INTEGER NOT NULL,
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_shadcn_block(id) ON DELETE CASCADE,
+        id TEXT PRIMARY KEY,
         media_id INTEGER REFERENCES media(id)
       );`,
     },
@@ -576,8 +685,8 @@ function main() {
       name: '_site_pages_v_blocks_consulting_overview_benefit_items: table',
       sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_consulting_overview_benefit_items (
         _order INTEGER NOT NULL,
-        _parent_id INTEGER NOT NULL,
-        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_consulting_overview(id) ON DELETE CASCADE,
+        id TEXT PRIMARY KEY,
         title TEXT,
         text TEXT,
         _uuid TEXT

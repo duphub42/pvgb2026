@@ -1,31 +1,39 @@
 /**
- * Drizzle-Schema einmalig gegen Neon pushen (erzeugt fehlende Tabellen z. B. für site_pages-Blöcke).
- * Vor dem ersten Import nach Neon ausführen: pnpm run push:neon
+ * Neon: **nur Payload-Migrationen** aus `src/migrations` (additiv: neue Tabellen/Spalten).
+ * Überschreibt keine bestehenden Zeilen; kein Drizzle-Push.
  *
- * Setzt USE_NEON=true und PAYLOAD_FORCE_DRIZZLE_PUSH=true, lädt .env (DATABASE_URL),
- * initialisiert Payload – der Vercel-Postgres-Adapter führt dann den Schema-Push aus.
+ * Aufruf: pnpm run push:neon
+ *
+ * Destruktiver Drizzle-Push (nur mit Bestätigung): pnpm run push:neon:drizzle
  */
 import './load-env'
 
-process.env.USE_NEON = 'true'
-process.env.PAYLOAD_FORCE_DRIZZLE_PUSH = 'true'
-process.env.NODE_ENV = 'development'
+import { execFileSync } from 'child_process'
+import path from 'path'
+import { fileURLToPath } from 'url'
 
-import { getPayload } from 'payload'
-import config from '@payload-config'
+const __dirnameScript = path.dirname(fileURLToPath(import.meta.url))
+const projectRoot = path.resolve(__dirnameScript, '../..')
 
-async function main() {
+function main() {
   if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
     console.error('DATABASE_URL oder POSTGRES_URL fehlt (z. B. in .env).')
     process.exit(1)
   }
-  console.log('Schema-Push gegen Neon (Postgres)...')
-  const payload = await getPayload({ config })
-  console.log('Payload initialisiert – Schema-Push wurde vom Adapter ausgeführt.')
-  process.exit(0)
+
+  console.log('Neon: Payload-Migrationen ausführen (additiv, keine Datenüberschreibung durch Drizzle-Push).')
+
+  execFileSync('pnpm', ['exec', 'payload', 'migrate'], {
+    cwd: projectRoot,
+    stdio: 'inherit',
+    env: {
+      ...process.env,
+      USE_NEON: 'true',
+      NODE_OPTIONS: [process.env.NODE_OPTIONS, '--no-deprecation'].filter(Boolean).join(' '),
+    },
+  })
+
+  console.log('Fertig.')
 }
 
-main().catch((err) => {
-  console.error(err)
-  process.exit(1)
-})
+main()
