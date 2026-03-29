@@ -5,6 +5,7 @@
 export const CLIENT_BLOCK_TYPES = new Set([
   'consultingOverview',
   'content',
+  'profilBacher',
   'cta',
   'formBlock',
   'heroMarketing',

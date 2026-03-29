@@ -323,6 +323,7 @@ export interface SitePage {
         | ShadcnBlock
         | ServicesOverviewBlock
         | WhyWorkWithMeBlock
+        | ProfilBacherBlock
         | CallToActionBlock
         | ContentBlock
         | MediaBlock
@@ -933,6 +934,30 @@ export interface WhyWorkWithMeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'whyWorkWithMe';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilBacherBlock".
+ */
+export interface ProfilBacherBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'profilBacher';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1885,6 +1910,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         shadcnBlock?: T | ShadcnBlockSelect<T>;
         servicesOverview?: T | ServicesOverviewBlockSelect<T>;
         whyWorkWithMe?: T | WhyWorkWithMeBlockSelect<T>;
+        profilBacher?: T | ProfilBacherBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -2087,6 +2113,22 @@ export interface WhyWorkWithMeBlockSelect<T extends boolean = true> {
         title?: T;
         description?: T;
         id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilBacherBlock_select".
+ */
+export interface ProfilBacherBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
       };
   id?: T;
   blockName?: T;

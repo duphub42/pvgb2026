@@ -132,12 +132,14 @@
     overflow-x: hidden;
   }
   [aria-label="Hero"] .container,
-  [aria-label="Style Preview Hero"] .container {
+  [aria-label="Style Preview Hero"] .container,
+  [aria-label="Profil Hero"] .container {
     overflow-x: visible;
   }
 
-  /* Style Preview: wie .hero-box-gradient – sonst wird overflow-y zu auto (innerer Scroll-Rahmen). */
-  [aria-label="Style Preview Hero"] .container {
+  /* Style Preview / Profil: wie .hero-box-gradient – sonst wird overflow-y zu auto (innerer Scroll-Rahmen). */
+  [aria-label="Style Preview Hero"] .container,
+  [aria-label="Profil Hero"] .container {
     overflow-y: visible;
   }
 
@@ -204,7 +206,7 @@
   /* Sehr kleine Viewports (< 430px): Abstand etwas reduzieren,
      damit mehr Platz für den Hero-Content bleibt. */
   @media (max-width: 429px) {
-    .hero-offset:not([aria-label='Style Preview Hero']) {
+    .hero-offset:not([aria-label='Style Preview Hero']):not([aria-label='Profil Hero']) {
       padding-top: calc((var(--header-height) + 1vh) * 1.12);
     }
   }
@@ -395,11 +397,12 @@
      Der transparente Bereich reicht bis zur Hälfte der Box, danach wird der Verlauf deckend. */
   @media (max-width: 554px) {
     /* PhilippBacherHeroSimple (Mobile): volle Mindesthöhe + minimales pt — nicht auf Style Preview anwenden (fester Header). */
-    .hero-offset:not([aria-label='Style Preview Hero']) {
+    .hero-offset:not([aria-label='Style Preview Hero']):not([aria-label='Profil Hero']) {
       min-height: calc(100vh - var(--header-height));
       padding-top: 0.5rem;
     }
-    [aria-label='Style Preview Hero'].hero-offset {
+    [aria-label='Style Preview Hero'].hero-offset,
+    [aria-label='Profil Hero'].hero-offset {
       min-height: 0;
       padding-top: max(calc(var(--header-height) + 1rem), 5.75rem);
     }
@@ -728,6 +731,75 @@
 
   .hero-shape-divider {
     bottom: -10px;
+  }
+
+  /* Profil-Hero (/profil): kariertes Papier + schwebende Portfolio-Dekorbilder */
+  .profil-hero-paper {
+    background-color: var(--background);
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--foreground) 6.5%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--foreground) 6.5%, transparent) 1px,
+        transparent 1px
+      );
+    background-size: 16px 16px;
+    background-position: 0 0;
+  }
+
+  [data-theme='dark'] .profil-hero-paper {
+    background-image:
+      linear-gradient(
+        to right,
+        color-mix(in srgb, var(--foreground) 10%, transparent) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--foreground) 10%, transparent) 1px,
+        transparent 1px
+      );
+  }
+
+  @keyframes profil-hero-float-ski {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(-0.25deg);
+    }
+    50% {
+      transform: translate3d(0, -14px, 0) rotate(0.35deg);
+    }
+  }
+
+  @keyframes profil-hero-float-cloud {
+    0%,
+    100% {
+      transform: translate3d(2%, 6px, 0) scale(1.02);
+    }
+    50% {
+      transform: translate3d(-1%, -10px, 0) scale(1.05);
+    }
+  }
+
+  .profil-hero-float-ski {
+    animation: profil-hero-float-ski 7s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .profil-hero-float-cloud {
+    animation: profil-hero-float-cloud 9s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .profil-hero-float-ski,
+    .profil-hero-float-cloud {
+      animation: none;
+    }
   }
 
   /* HeroBox Slide-Up: Keyframes für Wrapper (.hero-box-animate) – Tailwind-kompatibel (auch in tailwind.config.mjs). */

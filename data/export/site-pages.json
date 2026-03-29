@@ -2048,12 +2048,12 @@
       "type": "lowImpact",
       "richText": null,
       "media": null,
-      "subheadline": null,
-      "headline": null,
+      "subheadline": "Digital Business Partner – Strategie · Design · Umsetzung",
+      "headline": "Philipp V.G. Bacher",
       "headlineLine1": null,
       "headlineLine2": null,
       "headlineLine3": null,
-      "description": null,
+      "description": "Seit 2010 selbstständig als Unternehmer, Berater und Umsetzer an der Schnittstelle von Marketing, Webentwicklung und Business Development. International erprobt, fundiert ausgebildet – und mit einem direkten Draht zu dem, was KMUs im digitalen Raum wirklich weiterbringt.",
       "mediaType": "image",
       "backgroundImage": null,
       "backgroundVideo": null,
@@ -2081,42 +2081,10 @@
     },
     "layout": [
       {
-        "id": "import-4-block",
+        "id": "profil-bacher-block",
         "blockBackground": "none",
         "blockName": null,
-        "columns": [
-          {
-            "id": "import-4-col",
-            "size": "full",
-            "richText": {
-              "root": {
-                "type": "root",
-                "format": "",
-                "indent": 0,
-                "version": 1,
-                "children": [
-                  {
-                    "type": "paragraph",
-                    "format": "",
-                    "indent": 0,
-                    "version": 1,
-                    "children": [],
-                    "direction": null
-                  }
-                ]
-              }
-            },
-            "enableLink": null,
-            "link": {
-              "type": "reference",
-              "newTab": null,
-              "url": null,
-              "label": null,
-              "appearance": "default"
-            }
-          }
-        ],
-        "blockType": "content",
+        "blockType": "profilBacher",
         "blockOverlay": {
           "enabled": false,
           "color": "dark",
@@ -2129,8 +2097,8 @@
     "parent": null,
     "publishedAt": "2026-02-18T22:22:57.297Z",
     "meta": {
-      "title": null,
-      "description": null,
+      "title": "Philipp V.G. Bacher – Digital Business Partner | Marketing, Design & Webentwicklung",
+      "description": "Philipp V.G. Bacher: 15+ Jahre selbstständiger Digital Business Partner für KMUs. Marketing, Webentwicklung, Corporate Design, ERP-Beratung und Vertrieb – aus einer Hand, direkt und messbar.",
       "image": null
     },
     "updatedAt": "2026-02-21T19:37:56.261Z",

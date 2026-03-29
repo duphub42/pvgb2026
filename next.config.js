@@ -61,6 +61,8 @@ const nextConfig = {
         : []),
       // Placeholder-Bilder (Hero/Logo) für Entwicklung und Copy-Paste-Hero
       { protocol: 'https', hostname: 'placehold.co', pathname: '/**' },
+      // Portfolio-Dekor (Ski-Sprung + Farbwolke) für Profil-Hero – Quelle philippbacher.com/portfolio/
+      { protocol: 'https', hostname: 'philippbacher.com', pathname: '/wp-content/uploads/**' },
     ],
   },
   webpack: (webpackConfig, { isServer, dev }) => {

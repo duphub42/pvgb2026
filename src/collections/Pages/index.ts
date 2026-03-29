@@ -14,6 +14,7 @@ import { ConsultingOverview } from '../../blocks/ConsultingOverview/config'
 import { Introduction } from '../../blocks/Introduction/config'
 import { ServicesOverview } from '../../blocks/ServicesOverview/config'
 import { WhyWorkWithMe } from '../../blocks/WhyWorkWithMe/config'
+import { ProfilBacher } from '../../blocks/ProfilBacher/config'
 import {
   createClearOrphanedRefsAfterReadHook,
   createClearOrphanedRefsBeforeChangeHook,
@@ -74,6 +75,7 @@ export const Pages: CollectionConfig = {
                 ShadcnBlock,
                 ServicesOverview,
                 WhyWorkWithMe,
+                ProfilBacher,
                 CallToAction,
                 Content,
                 MediaBlock,

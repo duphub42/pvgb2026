@@ -25,6 +25,9 @@ const blockLoaders = {
   cta: lazy(() => import('@/blocks/CallToAction/Component').then((m) => ({ default: m.CallToActionBlock }))),
   formBlock: lazy(() => import('@/blocks/Form/Component').then((m) => ({ default: m.FormBlock }))),
   mediaBlock: lazy(() => import('@/blocks/MediaBlock/Component').then((m) => ({ default: m.MediaBlock }))),
+  profilBacher: lazy(() =>
+    import('@/blocks/ProfilBacher/Component').then((m) => ({ default: m.ProfilBacherBlock })),
+  ),
   servicesOverview: lazy(() =>
     import('@/blocks/ServicesOverview/Component').then((m) => ({ default: m.ServicesOverviewBlock })),
   ),

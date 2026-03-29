@@ -45,6 +45,16 @@ if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') {
 
 const serverURL = getServerSideURL()
 
+// SQLite: kein DATABASE_URL/POSTGRES_URL, oder lokal mit USE_SQLITE=true (offline, payload.db).
+// Postgres/Neon: Production immer; lokal sobald DATABASE_URL/POSTGRES_URL gesetzt ist (gleiche DB wie Vercel → gleicher Hero/Inhalt).
+// USE_NEON=true bleibt kompatibel (z. B. dev:neon); ohne USE_NEON reicht DATABASE_URL in .env für Parität mit Vercel.
+const hasPostgresUrl = Boolean(
+  process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim(),
+)
+const isProduction = process.env.NODE_ENV === 'production'
+const useSqliteAdapter =
+  !hasPostgresUrl || (!isProduction && process.env.USE_SQLITE === 'true')
+
 export default buildConfig({
   serverURL,
   admin: {
@@ -85,11 +95,8 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
-  // Lokal (pnpm run dev): SQLite (payload.db), damit die lokale Seite unverändert läuft.
-  // Production/Vercel oder USE_NEON=true: Postgres/Neon (DATABASE_URL). Vercel-Adapter nötig für Migrationen (db.execute).
-  db:
-    (process.env.DATABASE_URL || process.env.POSTGRES_URL) &&
-    (process.env.NODE_ENV === 'production' || process.env.USE_NEON === 'true')
+  // Vercel-Adapter: Migrationen (db.execute). Push nur mit PAYLOAD_ALLOW_DRIZZLE_PUSH (s. unten).
+  db: !useSqliteAdapter
       ? vercelPostgresAdapter({
           pool: {
             connectionString:

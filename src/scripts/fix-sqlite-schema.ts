@@ -844,6 +844,44 @@ function main() {
       name: '_site_pages_v_blocks_services_overview_services: indexes',
       sql: 'CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_services_order_idx ON _site_pages_v_blocks_services_overview_services (_order); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_services_parent_id_idx ON _site_pages_v_blocks_services_overview_services (_parent_id);',
     },
+    // Profil Philipp Bacher (profilBacher-Block, nur Layout-Felder)
+    {
+      name: 'site_pages_blocks_profil_bacher: table',
+      sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_profil_bacher (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL REFERENCES site_pages(id) ON DELETE CASCADE,
+        _path TEXT NOT NULL,
+        id TEXT PRIMARY KEY,
+        block_background TEXT DEFAULT 'none',
+        block_overlay_enabled INTEGER DEFAULT 0,
+        block_overlay_color TEXT DEFAULT 'dark',
+        block_overlay_opacity INTEGER DEFAULT 30,
+        block_name TEXT
+      );`,
+    },
+    {
+      name: 'site_pages_blocks_profil_bacher: indexes',
+      sql: 'CREATE INDEX IF NOT EXISTS site_pages_blocks_profil_bacher_order_idx ON site_pages_blocks_profil_bacher (_order); CREATE INDEX IF NOT EXISTS site_pages_blocks_profil_bacher_parent_id_idx ON site_pages_blocks_profil_bacher (_parent_id); CREATE INDEX IF NOT EXISTS site_pages_blocks_profil_bacher_path_idx ON site_pages_blocks_profil_bacher (_path);',
+    },
+    {
+      name: '_site_pages_v_blocks_profil_bacher: table',
+      sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_profil_bacher (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL REFERENCES _site_pages_v(id) ON DELETE CASCADE,
+        _path TEXT NOT NULL,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        block_background TEXT DEFAULT 'none',
+        block_overlay_enabled INTEGER DEFAULT 0,
+        block_overlay_color TEXT DEFAULT 'dark',
+        block_overlay_opacity INTEGER DEFAULT 30,
+        _uuid TEXT,
+        block_name TEXT
+      );`,
+    },
+    {
+      name: '_site_pages_v_blocks_profil_bacher: indexes',
+      sql: 'CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_profil_bacher_order_idx ON _site_pages_v_blocks_profil_bacher (_order); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_profil_bacher_parent_id_idx ON _site_pages_v_blocks_profil_bacher (_parent_id); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_profil_bacher_path_idx ON _site_pages_v_blocks_profil_bacher (_path);',
+    },
     { name: 'site_pages_blocks_why_work_with_me: heading', sql: 'ALTER TABLE site_pages_blocks_why_work_with_me ADD COLUMN heading TEXT;' },
     { name: 'site_pages_blocks_why_work_with_me: intro', sql: 'ALTER TABLE site_pages_blocks_why_work_with_me ADD COLUMN intro TEXT;' },
     { name: '_site_pages_v_blocks_why_work_with_me: heading', sql: 'ALTER TABLE _site_pages_v_blocks_why_work_with_me ADD COLUMN heading TEXT;' },
