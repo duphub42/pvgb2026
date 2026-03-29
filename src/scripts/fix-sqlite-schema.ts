@@ -544,6 +544,36 @@ function main() {
       name: '_site_pages_v_blocks_why_work_with_me_reasons: indexes',
       sql: 'CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_reasons_order_idx ON _site_pages_v_blocks_why_work_with_me_reasons (_order); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_reasons_parent_id_idx ON _site_pages_v_blocks_why_work_with_me_reasons (_parent_id);',
     },
+    // Warum mit mir: introIconList (Postgres: Migration 20260329_100000_why_work_with_me_intro_icon_list)
+    {
+      name: 'site_pages_blocks_why_work_with_me_intro_icon_list: table',
+      sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_why_work_with_me_intro_icon_list (
+        _order INTEGER NOT NULL,
+        _parent_id TEXT NOT NULL REFERENCES site_pages_blocks_why_work_with_me(id) ON DELETE CASCADE,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        icon TEXT DEFAULT 'brain',
+        text TEXT
+      );`,
+    },
+    {
+      name: '_site_pages_v_blocks_why_work_with_me_intro_icon_list: table',
+      sql: `CREATE TABLE IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_intro_icon_list (
+        _order INTEGER NOT NULL,
+        _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_why_work_with_me(id) ON DELETE CASCADE,
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        icon TEXT DEFAULT 'brain',
+        text TEXT,
+        _uuid TEXT
+      );`,
+    },
+    {
+      name: 'site_pages_blocks_why_work_with_me_intro_icon_list: indexes',
+      sql: 'CREATE INDEX IF NOT EXISTS site_pages_blocks_why_work_with_me_intro_icon_list_order_idx ON site_pages_blocks_why_work_with_me_intro_icon_list (_order); CREATE INDEX IF NOT EXISTS site_pages_blocks_why_work_with_me_intro_icon_list_parent_id_idx ON site_pages_blocks_why_work_with_me_intro_icon_list (_parent_id);',
+    },
+    {
+      name: '_site_pages_v_blocks_why_work_with_me_intro_icon_list: indexes',
+      sql: 'CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_intro_icon_list_order_idx ON _site_pages_v_blocks_why_work_with_me_intro_icon_list (_order); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_why_work_with_me_intro_icon_list_parent_id_idx ON _site_pages_v_blocks_why_work_with_me_intro_icon_list (_parent_id);',
+    },
     // Leistungen Überblick (servicesOverview-Block)
     {
       name: 'site_pages_blocks_services_overview: table',

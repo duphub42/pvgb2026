@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
@@ -72,18 +71,6 @@ async function findPublishedPageBySlug(slugParam: string, depth: 1 | 2) {
   return pages
 }
 
-const getCachedPublishedPageDepth2 = unstable_cache(
-  async (slugParam: string) => findPublishedPageBySlug(slugParam, 2),
-  ['site-pages', 'published', 'depth-2'],
-  { revalidate: 60, tags: ['site-pages'] },
-)
-
-const getCachedPublishedPageDepth1 = unstable_cache(
-  async (slugParam: string) => findPublishedPageBySlug(slugParam, 1),
-  ['site-pages', 'published', 'depth-1'],
-  { revalidate: 60, tags: ['site-pages'] },
-)
-
 export default async function Page({ params: paramsPromise, searchParams: searchParamsPromise }: PageProps) {
   const { slug = 'home' } = await paramsPromise
   const searchParams = await searchParamsPromise
@@ -151,7 +138,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
         draft: true,
       })
     } else {
-      pages = await getCachedPublishedPageDepth2(resolvedSlug)
+      pages = await findPublishedPageBySlug(resolvedSlug, 2)
     }
 
     const page = pages.docs[0]
@@ -255,7 +242,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug?: st
   const { slug: slugParam = 'home' } = await params
   const slug = slugParam || 'home'
   try {
-    const pages = await getCachedPublishedPageDepth1(slug)
+    const pages = await findPublishedPageBySlug(slug, 1)
     const meta = await generateMeta({ doc: pages.docs[0] })
 
     return meta
