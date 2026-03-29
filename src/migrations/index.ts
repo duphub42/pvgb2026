@@ -60,6 +60,7 @@ import * as migration_20260328_100000_site_pages_blocks_introduction from './202
 import * as migration_20260329_100000_why_work_with_me_intro_icon_list from './20260329_100000_why_work_with_me_intro_icon_list'
 import * as migration_20260329_200000_site_pages_blocks_services_overview from './20260329_200000_site_pages_blocks_services_overview'
 import * as migration_20260329_300000_site_pages_blocks_profil_bacher from './20260329_300000_site_pages_blocks_profil_bacher'
+import * as migration_20260329_400000_site_pages_profil_blocks_editable from './20260329_400000_site_pages_profil_blocks_editable'
 
 export const migrations = [
   {
@@ -371,5 +372,10 @@ export const migrations = [
     up: migration_20260329_300000_site_pages_blocks_profil_bacher.up,
     down: migration_20260329_300000_site_pages_blocks_profil_bacher.down,
     name: '20260329_300000_site_pages_blocks_profil_bacher',
+  },
+  {
+    up: migration_20260329_400000_site_pages_profil_blocks_editable.up,
+    down: migration_20260329_400000_site_pages_profil_blocks_editable.down,
+    name: '20260329_400000_site_pages_profil_blocks_editable',
   },
 ]

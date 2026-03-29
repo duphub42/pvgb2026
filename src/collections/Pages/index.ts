@@ -14,7 +14,14 @@ import { ConsultingOverview } from '../../blocks/ConsultingOverview/config'
 import { Introduction } from '../../blocks/Introduction/config'
 import { ServicesOverview } from '../../blocks/ServicesOverview/config'
 import { WhyWorkWithMe } from '../../blocks/WhyWorkWithMe/config'
-import { ProfilBacher } from '../../blocks/ProfilBacher/config'
+import { ProfilUeberMich } from '../../blocks/ProfilUeberMich/config'
+import { ProfilKernkompetenz } from '../../blocks/ProfilKernkompetenz/config'
+import { ProfilKompetenzen } from '../../blocks/ProfilKompetenzen/config'
+import { ProfilWerdegang } from '../../blocks/ProfilWerdegang/config'
+import { ProfilZahlenFakten } from '../../blocks/ProfilZahlenFakten/config'
+import { ProfilTools } from '../../blocks/ProfilTools/config'
+import { ProfilLangZert } from '../../blocks/ProfilLangZert/config'
+import { ProfilCtaBand } from '../../blocks/ProfilCtaBand/config'
 import {
   createClearOrphanedRefsAfterReadHook,
   createClearOrphanedRefsBeforeChangeHook,
@@ -75,7 +82,14 @@ export const Pages: CollectionConfig = {
                 ShadcnBlock,
                 ServicesOverview,
                 WhyWorkWithMe,
-                ProfilBacher,
+                ProfilUeberMich,
+                ProfilKernkompetenz,
+                ProfilKompetenzen,
+                ProfilWerdegang,
+                ProfilZahlenFakten,
+                ProfilTools,
+                ProfilLangZert,
+                ProfilCtaBand,
                 CallToAction,
                 Content,
                 MediaBlock,

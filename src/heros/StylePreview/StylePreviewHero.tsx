@@ -48,34 +48,70 @@ function resolveMediaSrc(media: StylePreviewHeroProps['media']): string | null {
   return safe || null
 }
 
-/** Asymmetrische Doppelwelle: Übergang Hero → Seiteninhalt (Füllung = Seitenhintergrund). */
+/**
+ * Mehrschichtige S-Wellen (sinusartige Kubiken), leicht phasenversetzt → Fächereffekt durch Überlagerung.
+ * Füllung = Seitenhintergrund (--background über currentColor).
+ */
 function ProfilHeroShapeDivider() {
+  const waves: { d: string; opacity: number; tx: number }[] = [
+    {
+      d: 'M-60,112 C140,58 340,138 540,86 C740,38 940,118 1260,68 L1260,200 L-60,200 Z',
+      opacity: 0.1,
+      tx: 0,
+    },
+    {
+      d: 'M-40,104 C160,64 360,132 560,90 C760,48 960,112 1240,74 L1240,200 L-40,200 Z',
+      opacity: 0.16,
+      tx: 18,
+    },
+    {
+      d: 'M-20,98 C180,52 380,128 580,84 C780,44 980,108 1220,70 L1220,200 L-20,200 Z',
+      opacity: 0.22,
+      tx: 36,
+    },
+    {
+      d: 'M0,92 C200,48 400,124 600,80 C800,38 1000,104 1200,66 L1200,200 L0,200 Z',
+      opacity: 0.3,
+      tx: 54,
+    },
+    {
+      d: 'M20,86 C220,56 420,118 620,76 C820,36 1020,98 1180,62 L1180,200 L20,200 Z',
+      opacity: 0.4,
+      tx: 72,
+    },
+    {
+      d: 'M40,82 C240,50 440,114 640,72 C840,34 1040,94 1160,58 L1160,200 L40,200 Z',
+      opacity: 0.55,
+      tx: 90,
+    },
+    {
+      d: 'M0,78 C240,42 480,108 720,68 C960,32 1080,88 1200,54 L1200,200 L0,200 Z',
+      opacity: 0.92,
+      tx: 0,
+    },
+  ]
+
   return (
     <div
       className="pointer-events-none absolute bottom-0 left-0 right-0 z-[30] w-full hero-shape-divider"
-      style={{ height: 'calc(10vh + 36px)' }}
+      style={{ height: 'calc(11vh + 44px)' }}
       aria-hidden
     >
       <svg
         className="absolute bottom-0 left-0 w-full text-background"
-        viewBox="0 0 1440 140"
+        viewBox="-80 0 1360 200"
         preserveAspectRatio="none"
         style={{ height: '100%' }}
       >
-        <path
-          fill="currentColor"
-          fillOpacity={0.22}
-          d="M0,96 C120,52 280,118 420,78 C560,38 700,102 880,64 C1040,32 1220,88 1440,44 L1440,140 L0,140 Z"
-        />
-        <path
-          fill="currentColor"
-          fillOpacity={0.92}
-          d="M0,108 C160,62 340,128 520,82 C720,34 900,96 1120,58 C1280,36 1380,72 1440,56 L1440,140 L0,140 Z"
-        />
-        <path
-          fill="currentColor"
-          d="M0,118 C200,78 380,132 580,88 C780,44 980,108 1200,70 C1320,52 1400,84 1440,74 L1440,140 L0,140 Z"
-        />
+        {waves.map((w, i) => (
+          <path
+            key={i}
+            fill="currentColor"
+            fillOpacity={w.opacity}
+            transform={`translate(${w.tx} 0)`}
+            d={w.d}
+          />
+        ))}
       </svg>
     </div>
   )

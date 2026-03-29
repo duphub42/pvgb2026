@@ -2081,15 +2081,52 @@
     },
     "layout": [
       {
-        "id": "profil-bacher-block",
         "blockBackground": "none",
         "blockName": null,
-        "blockType": "profilBacher",
-        "blockOverlay": {
-          "enabled": false,
-          "color": "dark",
-          "opacity": 30
-        }
+        "blockType": "profilUeberMich",
+        "blockOverlay": { "enabled": false, "color": "dark", "opacity": 30 }
+      },
+      {
+        "blockBackground": "none",
+        "blockName": null,
+        "blockType": "profilKernkompetenz",
+        "blockOverlay": { "enabled": false, "color": "dark", "opacity": 30 }
+      },
+      {
+        "blockBackground": "none",
+        "blockName": null,
+        "blockType": "profilKompetenzen",
+        "blockOverlay": { "enabled": false, "color": "dark", "opacity": 30 }
+      },
+      {
+        "blockBackground": "none",
+        "blockName": null,
+        "blockType": "profilWerdegang",
+        "blockOverlay": { "enabled": false, "color": "dark", "opacity": 30 }
+      },
+      {
+        "blockBackground": "none",
+        "blockName": null,
+        "blockType": "profilZahlenFakten",
+        "blockOverlay": { "enabled": false, "color": "dark", "opacity": 30 }
+      },
+      {
+        "blockBackground": "none",
+        "blockName": null,
+        "blockType": "profilTools",
+        "blockOverlay": { "enabled": false, "color": "dark", "opacity": 30 }
+      },
+      {
+        "blockBackground": "none",
+        "blockName": null,
+        "blockType": "profilLangZert",
+        "blockOverlay": { "enabled": false, "color": "dark", "opacity": 30 }
+      },
+      {
+        "blockBackground": "none",
+        "blockName": null,
+        "blockType": "profilCtaBand",
+        "blockOverlay": { "enabled": false, "color": "dark", "opacity": 30 }
       }
     ],
     "generateSlug": false,

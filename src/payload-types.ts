@@ -323,7 +323,14 @@ export interface SitePage {
         | ShadcnBlock
         | ServicesOverviewBlock
         | WhyWorkWithMeBlock
-        | ProfilBacherBlock
+        | ProfilUeberMichBlock
+        | ProfilKernkompetenzBlock
+        | ProfilKompetenzenBlock
+        | ProfilWerdegangBlock
+        | ProfilZahlenFaktenBlock
+        | ProfilToolsBlock
+        | ProfilLangZertBlock
+        | ProfilCtaBandBlock
         | CallToActionBlock
         | ContentBlock
         | MediaBlock
@@ -937,9 +944,9 @@ export interface WhyWorkWithMeBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ProfilBacherBlock".
+ * via the `definition` "ProfilUeberMichBlock".
  */
-export interface ProfilBacherBlock {
+export interface ProfilUeberMichBlock {
   /**
    * Optionaler Hintergrund für den gesamten Block.
    */
@@ -955,9 +962,269 @@ export interface ProfilBacherBlock {
      */
     opacity?: number | null;
   };
+  sectionTitle?: string | null;
+  /**
+   * Absätze mit einer Leerzeile trennen.
+   */
+  einleitung?: string | null;
+  werte?:
+    | {
+        icon: 'strategy' | 'global' | 'depth' | 'direct';
+        wert: string;
+        beschreibung: string;
+        id?: string | null;
+      }[]
+    | null;
   id?: string | null;
   blockName?: string | null;
-  blockType: 'profilBacher';
+  blockType: 'profilUeberMich';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilKernkompetenzBlock".
+ */
+export interface ProfilKernkompetenzBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  ueberschrift?: string | null;
+  einleitung?: string | null;
+  bereiche?:
+    | {
+        titel: string;
+        text: string;
+        details?:
+          | {
+              line: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'profilKernkompetenz';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilKompetenzenBlock".
+ */
+export interface ProfilKompetenzenBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  sectionTitle?: string | null;
+  sectionIntro?: string | null;
+  spalten?:
+    | {
+        bereich: string;
+        skills?:
+          | {
+              skill: string;
+              level: 'expert' | 'advanced' | 'basic';
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'profilKompetenzen';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilWerdegangBlock".
+ */
+export interface ProfilWerdegangBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  sectionTitle?: string | null;
+  eintraege?:
+    | {
+        zeitraum: string;
+        position: string;
+        unternehmen: string;
+        beschreibung?: string | null;
+        typ: 'freelance' | 'education';
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'profilWerdegang';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilZahlenFaktenBlock".
+ */
+export interface ProfilZahlenFaktenBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  /**
+   * Leer lassen, wenn keine Überschrift angezeigt werden soll.
+   */
+  sectionTitle?: string | null;
+  items?:
+    | {
+        zahl: string;
+        bezeichnung: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'profilZahlenFakten';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilToolsBlock".
+ */
+export interface ProfilToolsBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  sectionTitle?: string | null;
+  tools?:
+    | {
+        name: string;
+        kategorie: 'dev' | 'design' | 'analytics' | 'marketing' | 'automation';
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'profilTools';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilLangZertBlock".
+ */
+export interface ProfilLangZertBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  sprachenSectionTitle?: string | null;
+  zertifikateSectionTitle?: string | null;
+  sprachen?:
+    | {
+        sprache: string;
+        niveau: string;
+        id?: string | null;
+      }[]
+    | null;
+  zertifikate?:
+    | {
+        bezeichnung: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'profilLangZert';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilCtaBandBlock".
+ */
+export interface ProfilCtaBandBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  headline?: string | null;
+  text?: string | null;
+  buttonLabel?: string | null;
+  buttonLink?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'profilCtaBand';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1910,7 +2177,14 @@ export interface SitePagesSelect<T extends boolean = true> {
         shadcnBlock?: T | ShadcnBlockSelect<T>;
         servicesOverview?: T | ServicesOverviewBlockSelect<T>;
         whyWorkWithMe?: T | WhyWorkWithMeBlockSelect<T>;
-        profilBacher?: T | ProfilBacherBlockSelect<T>;
+        profilUeberMich?: T | ProfilUeberMichBlockSelect<T>;
+        profilKernkompetenz?: T | ProfilKernkompetenzBlockSelect<T>;
+        profilKompetenzen?: T | ProfilKompetenzenBlockSelect<T>;
+        profilWerdegang?: T | ProfilWerdegangBlockSelect<T>;
+        profilZahlenFakten?: T | ProfilZahlenFaktenBlockSelect<T>;
+        profilTools?: T | ProfilToolsBlockSelect<T>;
+        profilLangZert?: T | ProfilLangZertBlockSelect<T>;
+        profilCtaBand?: T | ProfilCtaBandBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -2119,9 +2393,9 @@ export interface WhyWorkWithMeBlockSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ProfilBacherBlock_select".
+ * via the `definition` "ProfilUeberMichBlock_select".
  */
-export interface ProfilBacherBlockSelect<T extends boolean = true> {
+export interface ProfilUeberMichBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockOverlay?:
     | T
@@ -2130,6 +2404,204 @@ export interface ProfilBacherBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  sectionTitle?: T;
+  einleitung?: T;
+  werte?:
+    | T
+    | {
+        icon?: T;
+        wert?: T;
+        beschreibung?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilKernkompetenzBlock_select".
+ */
+export interface ProfilKernkompetenzBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  ueberschrift?: T;
+  einleitung?: T;
+  bereiche?:
+    | T
+    | {
+        titel?: T;
+        text?: T;
+        details?:
+          | T
+          | {
+              line?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilKompetenzenBlock_select".
+ */
+export interface ProfilKompetenzenBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  sectionTitle?: T;
+  sectionIntro?: T;
+  spalten?:
+    | T
+    | {
+        bereich?: T;
+        skills?:
+          | T
+          | {
+              skill?: T;
+              level?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilWerdegangBlock_select".
+ */
+export interface ProfilWerdegangBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  sectionTitle?: T;
+  eintraege?:
+    | T
+    | {
+        zeitraum?: T;
+        position?: T;
+        unternehmen?: T;
+        beschreibung?: T;
+        typ?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilZahlenFaktenBlock_select".
+ */
+export interface ProfilZahlenFaktenBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  sectionTitle?: T;
+  items?:
+    | T
+    | {
+        zahl?: T;
+        bezeichnung?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilToolsBlock_select".
+ */
+export interface ProfilToolsBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  sectionTitle?: T;
+  tools?:
+    | T
+    | {
+        name?: T;
+        kategorie?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilLangZertBlock_select".
+ */
+export interface ProfilLangZertBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  sprachenSectionTitle?: T;
+  zertifikateSectionTitle?: T;
+  sprachen?:
+    | T
+    | {
+        sprache?: T;
+        niveau?: T;
+        id?: T;
+      };
+  zertifikate?:
+    | T
+    | {
+        bezeichnung?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProfilCtaBandBlock_select".
+ */
+export interface ProfilCtaBandBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  headline?: T;
+  text?: T;
+  buttonLabel?: T;
+  buttonLink?: T;
   id?: T;
   blockName?: T;
 }

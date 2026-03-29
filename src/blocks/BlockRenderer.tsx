@@ -26,7 +26,31 @@ const blockLoaders = {
   formBlock: lazy(() => import('@/blocks/Form/Component').then((m) => ({ default: m.FormBlock }))),
   mediaBlock: lazy(() => import('@/blocks/MediaBlock/Component').then((m) => ({ default: m.MediaBlock }))),
   profilBacher: lazy(() =>
-    import('@/blocks/ProfilBacher/Component').then((m) => ({ default: m.ProfilBacherBlock })),
+    import('@/blocks/ProfilBacherLegacy/Component').then((m) => ({ default: m.ProfilBacherLegacyBlock })),
+  ),
+  profilUeberMich: lazy(() =>
+    import('@/blocks/ProfilUeberMich/Component').then((m) => ({ default: m.ProfilUeberMichBlock })),
+  ),
+  profilKernkompetenz: lazy(() =>
+    import('@/blocks/ProfilKernkompetenz/Component').then((m) => ({ default: m.ProfilKernkompetenzBlock })),
+  ),
+  profilKompetenzen: lazy(() =>
+    import('@/blocks/ProfilKompetenzen/Component').then((m) => ({ default: m.ProfilKompetenzenBlock })),
+  ),
+  profilWerdegang: lazy(() =>
+    import('@/blocks/ProfilWerdegang/Component').then((m) => ({ default: m.ProfilWerdegangBlock })),
+  ),
+  profilZahlenFakten: lazy(() =>
+    import('@/blocks/ProfilZahlenFakten/Component').then((m) => ({ default: m.ProfilZahlenFaktenBlock })),
+  ),
+  profilTools: lazy(() =>
+    import('@/blocks/ProfilTools/Component').then((m) => ({ default: m.ProfilToolsBlock })),
+  ),
+  profilLangZert: lazy(() =>
+    import('@/blocks/ProfilLangZert/Component').then((m) => ({ default: m.ProfilLangZertBlock })),
+  ),
+  profilCtaBand: lazy(() =>
+    import('@/blocks/ProfilCtaBand/Component').then((m) => ({ default: m.ProfilCtaBandBlock })),
   ),
   servicesOverview: lazy(() =>
     import('@/blocks/ServicesOverview/Component').then((m) => ({ default: m.ServicesOverviewBlock })),

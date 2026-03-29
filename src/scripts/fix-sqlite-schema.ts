@@ -844,7 +844,7 @@ function main() {
       name: '_site_pages_v_blocks_services_overview_services: indexes',
       sql: 'CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_services_order_idx ON _site_pages_v_blocks_services_overview_services (_order); CREATE INDEX IF NOT EXISTS _site_pages_v_blocks_services_overview_services_parent_id_idx ON _site_pages_v_blocks_services_overview_services (_parent_id);',
     },
-    // Profil Philipp Bacher (profilBacher-Block, nur Layout-Felder)
+    // Legacy: profilBacher (entfernt). Aktuelle Profil-Blöcke: prof_* Tabellen via Migration 20260329_400000 / Payload migrate.
     {
       name: 'site_pages_blocks_profil_bacher: table',
       sql: `CREATE TABLE IF NOT EXISTS site_pages_blocks_profil_bacher (
