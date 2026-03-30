@@ -507,6 +507,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
       {/* Wellen-Shape-Divider: 2 Wellen, unterschiedliche Amplituden, steigt von rechts nach links, 10vh.
           Mobile unter dem Content, ab Desktop/iPad darüber (z-Index höher als Hero-Content). */}
       <div
+        data-full-bleed="viewport"
         className="pointer-events-none absolute bottom-0 z-[30] md:z-[30] hero-shape-divider hero-shape-divider--viewport"
         style={{ height: 'calc(10vh + 33px)' }}
         aria-hidden

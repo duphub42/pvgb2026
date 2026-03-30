@@ -177,7 +177,7 @@ const ListItem = React.forwardRef<
           <div className="text-sm font-semibold leading-tight group-hover:text-primary dark:group-hover:text-foreground transition-colors">
             {title}
           </div>
-          <p className="line-clamp-2 text-sm leading-snug opacity-20 group-hover:opacity-70 transition-opacity">
+          <p className="break-words whitespace-normal text-sm leading-snug opacity-20 group-hover:opacity-70 transition-opacity">
             {children}
           </p>
         </div>
@@ -243,6 +243,19 @@ const LG_COL_SPAN_CLASS: Record<number, string> = {
 
 function lgColSpan(n: number): string {
   return LG_COL_SPAN_CLASS[Math.min(12, Math.max(1, n))] ?? 'lg:col-span-6'
+}
+
+/** Nach programmatischem Panel-Close Inline-Styles entfernen (öffnet wieder sauber mit Radix/CSS-Keyframes). */
+function resetMegamenuViewportWrapperMotion(el: HTMLElement | null) {
+  if (!el) return
+  el.style.animation = ''
+  el.style.transition = ''
+  el.style.transform = ''
+  el.style.opacity = ''
+  el.style.height = ''
+  el.style.minHeight = ''
+  el.style.maxHeight = ''
+  el.style.overflow = ''
 }
 
 function collectPreloadMediaUrls(items: MegaMenuItem[]): string[] {
@@ -436,6 +449,7 @@ export function MegaMenu({
   const prevViewportHeightRef = useRef<number>(0)
   const prevActiveMenuRef = useRef<string | null>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const removePanelCloseTransitionRef = useRef<(() => void) | null>(null)
   const [underlineStyle, setUnderlineStyle] = useState<{ left: number; width: number } | null>(null)
   const [mouseEntrySide, setMouseEntrySide] = useState<'left' | 'right'>('left')
 
@@ -451,6 +465,13 @@ export function MegaMenu({
     }
     wrapper.addEventListener('pointerenter', onEnter)
     return () => wrapper.removeEventListener('pointerenter', onEnter)
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      removePanelCloseTransitionRef.current?.()
+      removePanelCloseTransitionRef.current = null
+    }
   }, [])
 
   const contentCols = columnWidths?.content ?? 6
@@ -534,8 +555,8 @@ export function MegaMenu({
 
     const viewport = wrapper.firstElementChild as HTMLElement | null
     const oldHeight = prevViewportHeightRef.current || wrapper.offsetHeight
-    const duration = 480
-    const ease = 'cubic-bezier(0.32, 0.72, 0, 1)' /* smooth slide ease-out */
+    const duration = 320
+    const ease = 'cubic-bezier(0.25, 0.1, 0.25, 1)' /* match panel + Radix (Apple-like) */
 
     /* Wrapper sofort auf alte Höhe fixieren, damit kein Sprung sichtbar ist */
     wrapper.style.minHeight = '0'
@@ -642,7 +663,7 @@ export function MegaMenu({
       {/* Background Blur Overlay – 1:1 test2 */}
       <div
         className={cn(
-          'megamenu-overlay fixed inset-0 z-50 bg-background/20 backdrop-blur-md transition-all duration-500 pointer-events-none opacity-0',
+          'megamenu-overlay fixed inset-0 z-50 bg-background/20 backdrop-blur-md pointer-events-none opacity-0 transition-[opacity] duration-[320ms] ease-[cubic-bezier(0.25,0.1,0.25,1)]',
           activeMenu != null && 'opacity-100 pointer-events-auto',
         )}
       />
@@ -677,6 +698,9 @@ export function MegaMenu({
             onValueChange={(value) => {
               const next = value || null
               if (next !== '' && next !== null) {
+                removePanelCloseTransitionRef.current?.()
+                removePanelCloseTransitionRef.current = null
+                resetMegamenuViewportWrapperMotion(viewportWrapperRef.current)
                 if (closeTimeoutRef.current) {
                   clearTimeout(closeTimeoutRef.current)
                   closeTimeoutRef.current = null
@@ -689,7 +713,50 @@ export function MegaMenu({
               /* Schließen um 300ms verzögern, damit Cursor vom Link ins Dropdown kann */
               if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
               closeTimeoutRef.current = setTimeout(() => {
-                setActiveMenu(null)
+                removePanelCloseTransitionRef.current?.()
+                removePanelCloseTransitionRef.current = null
+
+                const wrapper = viewportWrapperRef.current
+                const frozen =
+                  wrapper != null ? Math.round(wrapper.getBoundingClientRect().height) : 0
+
+                if (!wrapper || frozen < 2) {
+                  setActiveMenu(null)
+                  closeTimeoutRef.current = null
+                  return
+                }
+
+                wrapper.style.animation = 'none'
+                /* Inline maxHeight: globales .megamenu-viewport-wrapper hat max-height:0 — sonst kollabiert die Box trotz height. */
+                wrapper.style.maxHeight = `${frozen}px`
+                wrapper.style.height = `${frozen}px`
+                wrapper.style.overflow = 'hidden'
+                wrapper.style.transform = 'translateZ(0) translateY(0)'
+                wrapper.style.opacity = '1'
+                void wrapper.offsetHeight
+
+                requestAnimationFrame(() => {
+                  setActiveMenu(null)
+                  requestAnimationFrame(() => {
+                    const w = viewportWrapperRef.current
+                    if (!w) return
+
+                    const ease = 'cubic-bezier(0.25, 0.1, 0.25, 1)'
+                    const onEnd = (e: TransitionEvent) => {
+                      if (e.target !== w || e.propertyName !== 'transform') return
+                      w.removeEventListener('transitionend', onEnd)
+                      removePanelCloseTransitionRef.current = null
+                      resetMegamenuViewportWrapperMotion(w)
+                    }
+                    w.addEventListener('transitionend', onEnd)
+                    removePanelCloseTransitionRef.current = () => {
+                      w.removeEventListener('transitionend', onEnd)
+                    }
+                    w.style.transition = `transform 320ms ${ease}, opacity 280ms ${ease}`
+                    w.style.transform = 'translateZ(0) translateY(-100%)'
+                    w.style.opacity = '0'
+                  })
+                })
                 closeTimeoutRef.current = null
               }, 300)
             }}
@@ -910,7 +977,7 @@ export function MegaMenu({
                                     </h4>
                                   )}
                                   {cardDesc && (
-                                    <p className="text-sm text-muted-foreground leading-snug line-clamp-2">
+                                    <p className="max-h-48 min-h-0 overflow-y-auto break-words text-sm text-muted-foreground leading-snug">
                                       {cardDesc}
                                     </p>
                                   )}
@@ -1015,7 +1082,7 @@ export function MegaMenu({
                         >
                           {item.label}
                         </NavigationMenuTrigger>
-                        <NavigationMenuContent key={`${value}-${activeMenu === value ? 'open' : 'closed'}`}>
+                        <NavigationMenuContent>
                           <div
                             className="w-full"
                             onPointerEnter={(e) => {
@@ -1029,6 +1096,8 @@ export function MegaMenu({
                               const totalPF = Math.max(1, contentSpan + featuredSpan)
                               const xlMainCols = Math.max(1, Math.min(11, Math.round((12 * contentSpan) / totalPF)))
                               const xlSideCols = 12 - xlMainCols
+                              const highlightColsFlex = Math.min(3, xlSideCols)
+                              const itemsColsFlex = 12 - highlightColsFlex
                               return (
                                 <div className="megamenu-dropdown-panel">
                                   {showCategoryIntro && catDesc && (
@@ -1060,10 +1129,10 @@ export function MegaMenu({
                                           /* Nur eine Spalte (z. B. nur Links): volle Dropdown-Breite statt contentCols/6 */
                                           if (visibleColumns.length === 1) return 'col-span-12'
                                           if (isItemsCol && flexMiddle)
-                                            return cn('col-span-12', lgColSpan(xlMainCols))
+                                            return cn('col-span-12', lgColSpan(itemsColsFlex))
                                           if (isItemsCol) return colSpan(col.span)
                                           if (isHighlightCol && flexMiddle)
-                                            return cn('col-span-12', lgColSpan(xlSideCols))
+                                            return cn('col-span-12', lgColSpan(highlightColsFlex))
                                           if (isHighlightCol) return colSpan(col.span)
                                           return colSpan(col.span)
                                         }

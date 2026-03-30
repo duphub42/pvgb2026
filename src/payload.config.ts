@@ -1,6 +1,7 @@
 import { postgresAdapter } from '@payloadcms/db-postgres'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
+import { config as dotenvConfig } from 'dotenv'
 import sharp from 'sharp'
 import path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
@@ -27,6 +28,9 @@ import { s3Storage } from '@payloadcms/storage-s3'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+const projectRoot = path.resolve(dirname, '..')
+dotenvConfig({ path: path.join(projectRoot, '.env') })
+dotenvConfig({ path: path.join(projectRoot, '.env.local'), override: true })
 
 // Production (z. B. Vercel): Fehlende Env-Variablen sofort melden, damit das Admin nicht weiß bleibt
 if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') {

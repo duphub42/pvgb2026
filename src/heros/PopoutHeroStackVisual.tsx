@@ -67,7 +67,7 @@ export function PopoutHeroStackVisual({
                 alt=""
                 width={1024}
                 height={958}
-                className="h-auto max-h-[min(68vh,720px)] w-full object-contain object-bottom md:max-h-[min(76vh,820px)] md:translate-y-[clamp(1.75rem,9vh,6.5rem)] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
+                className="h-auto max-h-[min(88vh,920px)] w-full object-contain object-bottom md:max-h-[min(92vh,960px)] md:translate-y-[clamp(1.75rem,9vh,6.5rem)] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
                 sizes="(max-width: 768px) 80vw, 520px"
                 priority
               />

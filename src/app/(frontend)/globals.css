@@ -154,13 +154,17 @@
   }
   [aria-label="Hero"] .container,
   [aria-label="Style Preview Hero"] .container,
-  [aria-label="Profil Hero"] .container {
+  [aria-label="Profil Hero"] .container,
+  [aria-label="Superhero"] .container,
+  section[data-hero-type='superhero'] .container {
     overflow-x: visible;
   }
 
   /* Style Preview / Profil: wie .hero-box-gradient – sonst wird overflow-y zu auto (innerer Scroll-Rahmen). */
   [aria-label="Style Preview Hero"] .container,
-  [aria-label="Profil Hero"] .container {
+  [aria-label="Profil Hero"] .container,
+  [aria-label="Superhero"] .container,
+  section[data-hero-type='superhero'] .container {
     overflow-y: visible;
   }
 
@@ -221,6 +225,17 @@
   @media (min-width: 1024px) {
     .hero-offset {
       padding-top: max(calc((var(--header-height) + 18vh) * 1.12), calc(232px * 1.12));
+    }
+  }
+
+  /* Profil-Hero: Inhalt näher unter dem festen Header — ohne die große hero-offset-Viewport-Luft (10vh/18vh). */
+  [aria-label='Profil Hero'].hero-offset {
+    padding-top: max(calc(var(--header-height) + 0.5rem), 4.5rem);
+  }
+
+  @media (min-width: 1024px) {
+    [aria-label='Profil Hero'].hero-offset {
+      padding-top: max(calc(var(--header-height) + 0.75rem), 5rem);
     }
   }
 
@@ -754,13 +769,14 @@
     bottom: -10px;
   }
 
-  /* Volle Viewport-Breite ohne seitlichen Spalt (scrollbar-sicherer als 100vw allein) */
+  /* Volle Viewport-Breite: 50% = Breite des positionierten Vorfahren, 50dvw = halbe Viewport-Breite —
+     linke Kante der Welle am Viewport-Rand, auch wenn die Section schmaler/versetzt ist (nicht nur zentriert auf Section). */
   .hero-shape-divider--viewport {
-    left: 50%;
+    left: calc(50% - 50dvw);
     right: auto;
     width: 100dvw;
     max-width: 100dvw;
-    transform: translateX(-50%);
+    transform: none;
   }
 
   /* CMS: Hero-Oberflächenmuster (Popout) — eigene Ebene, niedriger z-index */
@@ -1521,21 +1537,64 @@
     }
   }
 
-  /* Popout-Hero (Style Preview / Superhero): dezentes Diagonal-Raster, nach unten ausgeblendet */
+  /* Popout-Hero (Style Preview / Superhero): weiche Lichtflecken, keine Raster-Linien */
   .hero-popout-structure-layer {
-    background-image: repeating-linear-gradient(
-      -14deg,
-      transparent 0,
-      transparent 14px,
-      color-mix(in srgb, var(--foreground) 3.2%, transparent) 14px,
-      color-mix(in srgb, var(--foreground) 3.2%, transparent) 15px
-    );
+    background-image:
+      radial-gradient(ellipse 120% 80% at 45% 18%, hsl(var(--primary) / 0.07) 0%, transparent 58%),
+      radial-gradient(ellipse 95% 72% at 82% 42%, hsl(var(--foreground) / 0.04) 0%, transparent 52%);
     mask-image: linear-gradient(to bottom, black 0%, black 35%, transparent 82%);
     -webkit-mask-image: linear-gradient(to bottom, black 0%, black 35%, transparent 82%);
-    opacity: 0.55;
+    opacity: 0.9;
   }
   [data-theme='dark'] .hero-popout-structure-layer {
-    opacity: 0.4;
+    opacity: 0.8;
+  }
+
+  @keyframes hero-portrait-gradient-rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Rotierender, stark weichgezeichneter Verlauf hinter Popout-Portrait (rechte Spalte) */
+  .hero-portrait-gradient-blob {
+    --size: 750px;
+    --speed: 50s;
+    --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+    position: absolute;
+    left: 50%;
+    bottom: clamp(-3rem, -10vh, 0px);
+    z-index: 0;
+    width: var(--size);
+    height: var(--size);
+    margin-left: calc(var(--size) * -0.5);
+    pointer-events: none;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    background-image: linear-gradient(135deg, hsl(222 84% 60%), hsl(164 79% 71%));
+    filter: blur(calc(var(--size) / 5));
+    opacity: 0.55;
+    animation: hero-portrait-gradient-rotate var(--speed) var(--easing) alternate infinite;
+    will-change: transform;
+  }
+
+  [data-theme='light'] .hero-portrait-gradient-blob {
+    opacity: 0.42;
+  }
+
+  @media (min-width: 720px) {
+    .hero-portrait-gradient-blob {
+      --size: 500px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-portrait-gradient-blob {
+      animation: none;
+      will-change: auto;
+    }
   }
 
   .hero-portrait-fade-up {
@@ -3656,15 +3715,14 @@ html.theme-fallback {
   background: transparent !important;
   color: inherit;
 }
-/* Apple-Style: Panel slided von oben runter / nach oben raus – langsamer, weicher (nicht linear) */
-/* Easing: weiches ease-out (Cocoa/SwiftUI-ähnlich); Dauer etwas über 1s für sanfteren Verlauf */
+/* Panel: gleiche Größenordnung wie Radix Content (navigation-menu.tsx ~280ms) – öffnen/schließen wirkt einheitlich */
 /* Breakpoint: Ab wann Kategoriebeschreibung ausgeblendet + Highlight unter Inhalt (stacked). xl = 1280px. */
 .megamenu {
-  --megamenu-panel-duration: 640ms;
-  --megamenu-panel-ease: cubic-bezier(0.25, 0.08, 0.25, 1);
+  --megamenu-panel-duration: 320ms;
+  --megamenu-panel-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --megamenu-stack-max-width: 1279px; /* < 1280px = xl: Highlight unter Inhalt, Desc ausgeblendet */
-  --megamenu-content-duration: 0.52s;
-  --megamenu-content-stagger: 72ms;
+  --megamenu-content-duration: 0.28s;
+  --megamenu-content-stagger: 40ms;
 }
 /* Öffnen: Höhe und Transform gemeinsam animieren, damit kein Sprung durch sofortiges max-height entsteht */
 @keyframes megamenu-slide-down {
@@ -3731,7 +3789,7 @@ html.theme-fallback {
 @keyframes megamenu-content-in {
   from {
     opacity: 0;
-    transform: translateY(2px);
+    transform: translateY(1px);
   }
   to {
     opacity: 1;
@@ -3747,10 +3805,14 @@ html.theme-fallback {
     opacity: 1;
   }
 }
+/* Rubrik/Kategoriebeschreibung: statisch, kein gestaffeltes Einblenden (kein Link) */
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel > .megamenu-dropdown-intro {
-  opacity: 0;
-  animation: megamenu-content-in var(--megamenu-content-duration) var(--megamenu-panel-ease) forwards;
-  animation-delay: calc(var(--megamenu-content-stagger) * 1.25);
+  opacity: 1;
+  animation: none;
+}
+.megamenu-dropdown-intro h2,
+.megamenu-dropdown-intro p {
+  transition: none !important;
 }
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > * {
   opacity: 0;
@@ -3802,11 +3864,11 @@ html.theme-fallback {
 }
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='left'] {
   opacity: 0;
-  animation: megamenu-wipe-from-left 0.58s var(--megamenu-panel-ease) calc(var(--megamenu-content-stagger) * 2) forwards;
+  animation: megamenu-wipe-from-left 0.32s var(--megamenu-panel-ease) calc(var(--megamenu-content-stagger) * 1.5) forwards;
 }
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='right'] {
   opacity: 0;
-  animation: megamenu-wipe-from-right 0.58s var(--megamenu-panel-ease) calc(var(--megamenu-content-stagger) * 2) forwards;
+  animation: megamenu-wipe-from-right 0.32s var(--megamenu-panel-ease) calc(var(--megamenu-content-stagger) * 1.5) forwards;
 }
 /* Highlight innen: weiches Fade statt Wipe (höhere Spezifität) */
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-featured .megamenu-highlight-wipe-wrap[data-wipe='left'],
@@ -3817,11 +3879,11 @@ html.theme-fallback {
 .megamenu-viewport-wrapper:has([data-state='open'])
   .megamenu-dropdown-content-footer
   .megamenu-highlight-wipe-wrap[data-wipe='right'] {
-  animation: megamenu-featured-in 0.42s cubic-bezier(0.22, 0, 0.2, 1) calc(var(--megamenu-content-stagger) * 0.75) forwards;
+  animation: megamenu-featured-in 0.28s var(--megamenu-panel-ease) calc(var(--megamenu-content-stagger) * 0.5) forwards;
 }
 /* Grid-Zelle Featured: gleiches minimales Fade, kurze Verzögerung */
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel .megamenu-dropdown-content > div.megamenu-featured {
-  animation: megamenu-featured-in 0.42s cubic-bezier(0.22, 0, 0.2, 1) calc(var(--megamenu-content-stagger) * 1) forwards;
+  animation: megamenu-featured-in 0.28s var(--megamenu-panel-ease) calc(var(--megamenu-content-stagger) * 0.75) forwards;
 }
 
 /* PathsBackground: shadcn/ui Style – animierte Bezierkurven (stroke-dashoffset) */
@@ -3853,11 +3915,11 @@ html.theme-fallback {
   border-color: #e5e5e5;
 }
 
-/* Featured-Spalte: ~10 % dunkler als Dropdown-Weiß; Typo wie Rest des Panels */
+/* Featured-Spalte: dezenter Ton + weicher Verlauf + filigranes Gitter (edel/minimal) */
 .megamenu .megamenu-featured {
   position: relative;
   isolation: isolate;
-  background-color: color-mix(in srgb, #171717 10%, #ffffff 90%);
+  background-color: color-mix(in srgb, #171717 8%, #ffffff 92%);
   color: #171717;
   border-color: color-mix(in srgb, #171717 8%, #e5e5e5 92%);
 }
@@ -3867,12 +3929,41 @@ html.theme-fallback {
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background: radial-gradient(
-    ellipse 120% 85% at 100% 0%,
-    color-mix(in srgb, #171717 6%, transparent) 0%,
-    transparent 70%
-  );
-  opacity: 0.22;
+  background:
+    radial-gradient(
+      ellipse 115% 90% at 100% 0%,
+      color-mix(in srgb, #171717 5%, transparent) 0%,
+      transparent 58%
+    ),
+    linear-gradient(
+      155deg,
+      color-mix(in srgb, #ffffff 88%, #171717 12%) 0%,
+      transparent 52%
+    );
+  opacity: 0.55;
+}
+.megamenu .megamenu-featured::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 27px,
+      rgba(23, 23, 23, 0.035) 27px,
+      rgba(23, 23, 23, 0.035) 28px
+    ),
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent 27px,
+      rgba(23, 23, 23, 0.035) 27px,
+      rgba(23, 23, 23, 0.035) 28px
+    );
+  opacity: 0.5;
 }
 .megamenu .megamenu-featured > * {
   position: relative;
@@ -4132,17 +4223,41 @@ header .header-tool-toggle--theme:hover {
 
 /* Dark-UI: ~10 % heller als Dropdown-Dunkel; Typo wie Rest */
 [data-theme='dark'] .megamenu .megamenu-featured {
-  background-color: color-mix(in srgb, #fafafa 10%, #0a0a0a 90%);
+  background-color: color-mix(in srgb, #fafafa 8%, #0a0a0a 92%);
   color: #fafafa;
   border-color: color-mix(in srgb, #fafafa 10%, #262626 90%);
 }
 [data-theme='dark'] .megamenu .megamenu-featured::before {
-  background: radial-gradient(
-    ellipse 115% 85% at 96% 6%,
-    color-mix(in srgb, #ffffff 5%, transparent) 0%,
-    transparent 72%
-  );
-  opacity: 0.2;
+  background:
+    radial-gradient(
+      ellipse 115% 90% at 96% 4%,
+      color-mix(in srgb, #ffffff 6%, transparent) 0%,
+      transparent 58%
+    ),
+    linear-gradient(
+      155deg,
+      color-mix(in srgb, #fafafa 8%, #0a0a0a 92%) 0%,
+      transparent 50%
+    );
+  opacity: 0.45;
+}
+[data-theme='dark'] .megamenu .megamenu-featured::after {
+  background-image:
+    repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 27px,
+      rgba(255, 255, 255, 0.04) 27px,
+      rgba(255, 255, 255, 0.04) 28px
+    ),
+    repeating-linear-gradient(
+      to right,
+      transparent 0,
+      transparent 27px,
+      rgba(255, 255, 255, 0.04) 27px,
+      rgba(255, 255, 255, 0.04) 28px
+    );
+  opacity: 0.4;
 }
 [data-theme='dark'] .megamenu .megamenu-featured h2,
 [data-theme='dark'] .megamenu .megamenu-featured h3,

@@ -36,7 +36,6 @@ export default function PopoutPortrait({
   }, [])
 
   const uid = React.useId().replace(/:/g, '')
-  const clipId = `${uid}-clip`
   const decorMaskId = `${uid}-decor-mask`
   const decorOutsideClipId = `${uid}-decor-outside`
   const diskGradId = `${uid}-disk-grad`
@@ -59,9 +58,6 @@ export default function PopoutPortrait({
   const imgX = cx - imgW / 2
   /** Bottom of image slot = bottom of circle; xMidYMax meet pins the figure to that edge */
   const imgY = cy + r - imgH
-  const circleTop = cy - r
-  const upperFreeY = 0
-  const upperFreeH = cy
 
   /** Concentric arc outside the portrait circle (same center, r + pad). */
   const arcPad = 26
@@ -143,8 +139,9 @@ export default function PopoutPortrait({
           .pb-popout-root[data-pb-fill-row] {
             width: auto;
             max-width: 100%;
-            height: 100%;
-            max-height: 100%;
+            height: auto;
+            max-height: none;
+            min-height: min(58vh, 640px);
           }
         }
         .pb-disk-dark {
@@ -531,7 +528,7 @@ export default function PopoutPortrait({
 
       </div>
 
-      {/* z-4: clipped portrait (über Karten) */}
+      {/* z-4: Portrait ohne SVG-clipPath, damit das Motiv vollständig sichtbar bleibt (xMidYMax meet im Slot) */}
       <svg
         width="100%"
         height="100%"
@@ -540,19 +537,12 @@ export default function PopoutPortrait({
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
-        <defs>
-          <clipPath id={clipId}>
-            <rect x={imgX} y={upperFreeY} width={imgW} height={upperFreeH} />
-            <circle cx={cx} cy={cy} r={r} />
-          </clipPath>
-        </defs>
         <image
           href={imageSrc}
           x={imgX}
           y={imgY}
           width={imgW}
           height={imgH}
-          clipPath={`url(#${clipId})`}
           preserveAspectRatio="xMidYMax meet"
           onError={() => {}}
         />

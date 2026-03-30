@@ -132,6 +132,7 @@ function ProfilHeroShapeDivider() {
 
   return (
     <div
+      data-full-bleed="viewport"
       className="pointer-events-none absolute bottom-0 z-[30] hero-shape-divider hero-shape-divider--viewport"
       style={{ height: 'calc(11vh + 44px)' }}
       aria-hidden
@@ -326,6 +327,12 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
     ? 'Profil Hero'
     : (sectionAriaLabel ?? 'Hero')
 
+  const showPortraitGradientBlob = isProfilPage
+    ? profilLayers.length > 0
+    : usePopoutStack
+      ? popoutLayers.length > 0
+      : Boolean(portraitSrc)
+
   return (
     <section
       aria-label={sectionLabel}
@@ -392,11 +399,18 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
           <div className="hero-popout-structure-layer pointer-events-none absolute inset-0 z-[1]" aria-hidden />
         </>
       ) : null}
-      <div className="relative z-[2] container flex w-full min-w-0 flex-col px-4 pt-8 pb-14 sm:pt-10 md:pt-6 md:pb-24 lg:pt-8 lg:pb-28 xl:pt-10">
-        <div className="grid min-w-0 gap-0 md:grid-cols-[minmax(0,45%)_1fr] md:items-stretch md:gap-6 md:min-h-[min(58vh,640px)] lg:gap-12 lg:min-h-[min(62vh,680px)] xl:gap-16">
+      <div
+        className={cn(
+          'relative z-[2] container flex w-full min-w-0 flex-col px-4 pb-14 md:pb-24 lg:pb-28',
+          isProfilPage
+            ? 'pt-3 sm:pt-4 md:pt-2 lg:pt-3 xl:pt-4'
+            : 'pt-8 sm:pt-10 md:pt-6 lg:pt-8 xl:pt-10',
+        )}
+      >
+        <div className="grid min-w-0 gap-0 md:grid-cols-[minmax(0,45%)_1fr] md:items-end md:gap-6 lg:gap-12 xl:gap-16">
           <div
             className={cn(
-              'hero-mobile-glass relative min-w-0 space-y-5 max-md:z-[16] max-md:-mx-4 max-md:px-4 max-md:pt-8 max-md:pb-10 max-md:rounded-t-2xl',
+              'hero-mobile-glass relative min-w-0 space-y-5 max-md:z-[16] max-md:-mx-4 max-md:px-4 max-md:pt-8 max-md:pb-10 max-md:rounded-t-2xl md:min-h-[min(58vh,640px)] lg:min-h-[min(62vh,680px)]',
               !isProfilPage && 'max-md:-mt-[min(40vw,13.5rem)]',
             )}
           >
@@ -449,16 +463,19 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
             ) : null}
           </div>
 
-          <div className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:h-full md:min-h-[min(58vh,640px)] lg:min-h-[min(62vh,680px)]">
-            <div className="relative overflow-visible max-md:pb-6 md:flex md:h-full md:min-h-0 md:items-end md:justify-center md:pb-8 md:pt-4">
+          <div className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:self-end">
+            <div className="relative overflow-visible max-md:pb-6 md:flex md:items-end md:justify-center md:pb-8 md:pt-4">
+              {showPortraitGradientBlob ? (
+                <div className="hero-portrait-gradient-blob" aria-hidden />
+              ) : null}
               {isProfilPage ? (
-                <PopoutHeroStackVisual layers={profilLayers} />
+                <PopoutHeroStackVisual layers={profilLayers} className="relative z-[1]" />
               ) : usePopoutStack ? (
-                <div className="relative mx-auto w-full max-w-[min(100%,556px)] md:flex md:h-full md:max-h-full md:min-h-0 md:max-w-none md:items-end md:justify-center lg:origin-bottom lg:scale-[1.21]">
+                <div className="relative z-[1] mx-auto w-full max-w-[min(100%,556px)] md:flex md:max-w-none md:items-end md:justify-center">
                   <PopoutHeroStackVisual layers={popoutLayers} />
                 </div>
               ) : portraitSrc ? (
-                <div className="relative mx-auto w-full max-w-[min(100%,556px)] md:flex md:h-full md:max-h-full md:min-h-0 md:max-w-none md:items-end md:justify-center lg:origin-bottom lg:scale-[1.21]">
+                <div className="relative z-[1] mx-auto w-full max-w-[min(100%,556px)] md:flex md:max-w-none md:items-end md:justify-center">
                   <PopoutPortrait imageSrc={portraitSrc} fillRowHeight />
                 </div>
               ) : (
@@ -474,6 +491,7 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
       {!isProfilPage && floats.length > 0 ? (
         <PopoutHeroFloatingElementsAbsolute elements={floats} />
       ) : null}
+      {/* Shape-Divider absichtlich Geschwister von .container: Viewport-Breite via .hero-shape-divider--viewport */}
       {isProfilPage ? <ProfilHeroShapeDivider /> : null}
     </section>
   )

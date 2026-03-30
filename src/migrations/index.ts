@@ -68,6 +68,8 @@ import * as migration_20260330_115500_hero_superhero_enum_values from './2026033
 import * as migration_20260330_120000_hero_superhero_and_floating_description from './20260330_120000_hero_superhero_and_floating_description'
 import * as migration_20260330_130000_prof_array_row_ids_varchar from './20260330_130000_prof_array_row_ids_varchar'
 import * as migration_20260330_140000_site_pages_hero_stack_surface_pattern from './20260330_140000_site_pages_hero_stack_surface_pattern'
+import * as migration_20260331_000000_repair_site_pages_hero_stack_columns from './20260331_000000_repair_site_pages_hero_stack_columns'
+import * as migration_20260331_100000_prof_nested_varchar_id_default from './20260331_100000_prof_nested_varchar_id_default'
 
 export const migrations = [
   {
@@ -419,5 +421,15 @@ export const migrations = [
     up: migration_20260330_140000_site_pages_hero_stack_surface_pattern.up,
     down: migration_20260330_140000_site_pages_hero_stack_surface_pattern.down,
     name: '20260330_140000_site_pages_hero_stack_surface_pattern',
+  },
+  {
+    up: migration_20260331_000000_repair_site_pages_hero_stack_columns.up,
+    down: migration_20260331_000000_repair_site_pages_hero_stack_columns.down,
+    name: '20260331_000000_repair_site_pages_hero_stack_columns',
+  },
+  {
+    up: migration_20260331_100000_prof_nested_varchar_id_default.up,
+    down: migration_20260331_100000_prof_nested_varchar_id_default.down,
+    name: '20260331_100000_prof_nested_varchar_id_default',
   },
 ]

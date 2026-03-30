@@ -57,7 +57,7 @@ const NavigationMenuTrigger = React.forwardRef<
     {children}
     {' '}
     <ChevronDown
-      className="relative top-[1px] ml-1 h-4 w-4 transition duration-200 group-data-[state=open]:rotate-180"
+      className="relative top-[1px] ml-1 h-4 w-4 transition-[transform] duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-data-[state=open]:rotate-180"
       aria-hidden="true"
     />
   </NavigationMenuPrimitive.Trigger>
@@ -71,7 +71,13 @@ const NavigationMenuContent = React.forwardRef<
   <NavigationMenuPrimitive.Content
     ref={ref}
     className={cn(
-      'left-0 top-0 w-full data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out data-[motion^=from-]:fade-in-0 data-[motion^=from-]:duration-200 data-[motion^=to-]:fade-out-0 data-[motion^=to-]:duration-150 data-[motion=from-end]:slide-in-from-right-2 data-[motion=from-start]:slide-in-from-left-2 data-[motion=to-end]:slide-out-to-right-2 data-[motion=to-start]:slide-out-to-left-2 md:absolute md:w-full',
+      /* Symmetrische Ein-/Ausblendung (kein horizontales Slide): gleiche Dauer/Easing wie Megamenu-Panel */
+      'left-0 top-0 w-full md:absolute md:w-full',
+      'data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out',
+      'data-[motion^=from-]:fade-in-0 data-[motion^=from-]:zoom-in-95',
+      'data-[motion^=from-]:duration-[280ms] data-[motion^=from-]:ease-[cubic-bezier(0.25,0.1,0.25,1)]',
+      'data-[motion^=to-]:fade-out-0 data-[motion^=to-]:zoom-out-95',
+      'data-[motion^=to-]:duration-[280ms] data-[motion^=to-]:ease-[cubic-bezier(0.25,0.1,0.25,1)]',
       className,
     )}
     {...props}
