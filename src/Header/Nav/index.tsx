@@ -1,13 +1,37 @@
 'use client'
 
 import React from 'react'
+import { usePathname } from 'next/navigation'
 
 import type { Header as HeaderType } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import { HeaderActions } from '@/components/HeaderActions/HeaderActions'
+import { cn } from '@/utilities/ui'
+import { isNavLinkActive } from '@/utilities/navLinkActive'
+
+type HeaderNavLink = NonNullable<HeaderType['navItems']>[number]['link']
+
+function getHeaderNavHref(link: HeaderNavLink): string | null {
+  const { type, reference, url } = link
+  const relationTo = reference?.relationTo
+  const pathPrefix =
+    relationTo === 'site-pages' ? '' : relationTo === 'blog-posts' ? '/posts' : ''
+  const val = reference?.value
+  if (
+    type === 'reference' &&
+    val &&
+    typeof val === 'object' &&
+    'slug' in val &&
+    val.slug
+  ) {
+    return `${pathPrefix}/${val.slug}`
+  }
+  return url ?? null
+}
 
 export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
+  const pathname = usePathname() ?? ''
   const navItems = data?.navItems || []
   const callbackFormId =
     typeof data?.megaMenuCallbackForm === 'object' &&
@@ -37,9 +61,18 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
 
   return (
     <nav className="header-nav flex h-full items-stretch gap-1">
-      {navItems.map(({ link }, i) => (
-        <CMSLink key={i} {...link} appearance="link" />
-      ))}
+      {navItems.map(({ link }, i) => {
+        const href = getHeaderNavHref(link)
+        const active = href != null && isNavLinkActive(pathname, href)
+        return (
+          <CMSLink
+            key={i}
+            {...link}
+            appearance="link"
+            className={cn(active && 'header-nav-link--active')}
+          />
+        )
+      })}
       <HeaderActions contactCta={contactCta} />
     </nav>
   )

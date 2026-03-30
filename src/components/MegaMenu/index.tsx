@@ -20,6 +20,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 import { getClientSideURL } from '@/utilities/getURL'
+import { isNavLinkActive } from '@/utilities/navLinkActive'
 import { ChevronRight, Menu, MessageCircle, Phone, Mail } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -206,6 +207,25 @@ function colSpan(n: number): string {
   return COL_SPAN_CLASS[Math.min(12, Math.max(1, n))] ?? 'col-span-3'
 }
 
+const XL_COL_SPAN_CLASS: Record<number, string> = {
+  1: 'xl:col-span-1',
+  2: 'xl:col-span-2',
+  3: 'xl:col-span-3',
+  4: 'xl:col-span-4',
+  5: 'xl:col-span-5',
+  6: 'xl:col-span-6',
+  7: 'xl:col-span-7',
+  8: 'xl:col-span-8',
+  9: 'xl:col-span-9',
+  10: 'xl:col-span-10',
+  11: 'xl:col-span-11',
+  12: 'xl:col-span-12',
+}
+
+function xlColSpan(n: number): string {
+  return XL_COL_SPAN_CLASS[Math.min(12, Math.max(1, n))] ?? 'xl:col-span-6'
+}
+
 function collectPreloadMediaUrls(items: MegaMenuItem[]): string[] {
   const urls = new Set<string>()
   const add = (media?: MediaRef) => {
@@ -372,14 +392,6 @@ const defaultCardStyle: HighlightCardStyle = {
   shadow: 'shadow-sm',
   hoverShadow: 'hover:shadow-md',
   hoverBorder: 'hover:border-primary/40',
-}
-
-/** Prüft, ob die aktuelle Route diesem Menü-Item entspricht (Vercel: Underline nur bei aktiver Seite) */
-function isItemActive(pathname: string, itemUrl: string): boolean {
-  const path = itemUrl.startsWith('http') ? new URL(itemUrl).pathname : itemUrl
-  if (pathname === path) return true
-  if (path !== '/' && pathname.startsWith(path + '/')) return true
-  return false
 }
 
 export function MegaMenu({
@@ -600,6 +612,65 @@ export function MegaMenu({
     return () => window.removeEventListener('scroll', handleScroll)
   }, [activeMenu])
 
+  // #region agent log
+  useLayoutEffect(() => {
+    if (activeMenu == null || typeof window === 'undefined') return
+    let raf2Id = 0
+    const raf1Id = window.requestAnimationFrame(() => {
+      raf2Id = window.requestAnimationFrame(() => {
+        const sorted = [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+        const item = sorted.find((i) => String(i.id) === activeMenu)
+        const nonEmpty = item?.columns?.filter((c) => (c.items?.length ?? 0) > 0) ?? []
+        const cw = item?.columnWidths
+        const cs = cw?.col2 != null ? Number(cw.col2) : contentCols
+        const fs = cw?.col3 != null ? Number(cw.col3) : featuredCols
+        const totalPF = Math.max(1, cs + fs)
+        const xlMainColsProbe = Math.max(1, Math.min(11, Math.round((12 * cs) / totalPF)))
+        const outer = viewportWrapperRef.current?.closest('.megamenu-viewport-outer') as HTMLElement | null
+        const itemsCell = document.querySelector('.megamenu-col-items') as HTMLElement | null
+        const innerGrid = itemsCell?.querySelector('.grid.grid-cols-12') as HTMLElement | null
+        const firstChild = innerGrid?.firstElementChild as HTMLElement | null
+        const ow = outer?.getBoundingClientRect().width ?? 0
+        const iw = itemsCell?.getBoundingClientRect().width ?? 0
+        const gw = innerGrid?.getBoundingClientRect().width ?? 0
+        const fw = firstChild?.getBoundingClientRect().width ?? 0
+        fetch('http://127.0.0.1:7646/ingest/6544e770-4473-4618-987d-1af9330a68c0', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': '60fccf' },
+          body: JSON.stringify({
+            sessionId: '60fccf',
+            location: 'MegaMenu/index.tsx:layoutProbe',
+            message: 'megamenu open layout',
+            data: {
+              activeMenu,
+              nonEmptyColCount: nonEmpty.length,
+              firstColWidthSetting: nonEmpty[0]?.columnWidth ?? null,
+              contentSpanProbe: cs,
+              featuredSpanProbe: fs,
+              xlMainColsProbe,
+              xlSideColsProbe: 12 - xlMainColsProbe,
+              outerW: Math.round(ow),
+              itemsCellW: Math.round(iw),
+              innerGridW: Math.round(gw),
+              firstGroupW: Math.round(fw),
+              firstToInnerRatio: gw > 0 ? Math.round((fw / gw) * 1000) / 1000 : null,
+              itemsToOuterRatio: ow > 0 ? Math.round((iw / ow) * 1000) / 1000 : null,
+              hasInner12Grid: Boolean(innerGrid),
+            },
+            timestamp: Date.now(),
+            runId: 'post-fix',
+            hypothesisId: 'H1',
+          }),
+        }).catch(() => {})
+      })
+    })
+    return () => {
+      window.cancelAnimationFrame(raf1Id)
+      if (raf2Id) window.cancelAnimationFrame(raf2Id)
+    }
+  }, [activeMenu, items, contentCols, featuredCols])
+  // #endregion
+
   return (
     <>
       <HeaderGlassPlate
@@ -678,6 +749,8 @@ export function MegaMenu({
                     const allItemsFromColumns = cols.flatMap((col) => (col.items ?? []).map((sub) => ({ ...sub, _groupTitle: col.title })))
                     const listItems = allItemsFromColumns.length > 0 ? allItemsFromColumns : (item.subItems ?? []).map((s) => ({ ...s, _groupTitle: null }))
                     const hasGroupTitles = listItems.some((x: { _groupTitle?: string | null }) => x._groupTitle != null && x._groupTitle !== '')
+                    const nonEmptyMegaCols = cols.filter((c) => (c.items?.length ?? 0) > 0)
+                    const singleMegaColumnGroup = nonEmptyMegaCols.length === 1
 
                     // Nur Spalten mit Inhalt anzeigen; Breiten aus Backend (Header → Mega-Menü Spaltenbreiten)
                     const catDesc = item.categoryDescription
@@ -729,7 +802,17 @@ export function MegaMenu({
                           <div className="grid grid-cols-12 gap-6">
                             {cols.map((col, colIdx) =>
                               (col.items?.length ?? 0) > 0 ? (
-                                <div key={colIdx} className={cn('space-y-3 min-w-0', colSpan(Math.min(12, Math.max(1, col.columnWidth ?? 4))))}>
+                                <div
+                                  key={colIdx}
+                                  className={cn(
+                                    'space-y-3 min-w-0',
+                                    colSpan(
+                                      singleMegaColumnGroup
+                                        ? 12
+                                        : Math.min(12, Math.max(1, col.columnWidth ?? 4)),
+                                    ),
+                                  )}
+                                >
                                   {(col.title != null && col.title !== '') && (
                                     <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
                                       {col.title}
@@ -959,10 +1042,12 @@ export function MegaMenu({
                       })
                     }
 
+                    const triggerActive = isNavLinkActive(pathname ?? '', item.url)
                     return (
                       <NavigationMenuItem key={item.id} value={value}>
                         <NavigationMenuTrigger
                           className="megamenu-top-item"
+                          data-active={triggerActive ? 'true' : undefined}
                           onPointerEnter={(e) => {
                             const rect = e.currentTarget.getBoundingClientRect()
                             setMouseEntrySide(e.clientX < rect.left + rect.width / 2 ? 'left' : 'right')
@@ -981,7 +1066,9 @@ export function MegaMenu({
                             {((showCategoryIntro && catDesc) || visibleColumns.length > 0) && (() => {
                               const hasHighlightInRow = visibleColumns.some((c) => c.key === 'highlight')
                               const twoColsInRow = visibleColumns.length === 2 && hasHighlightInRow
-                              const flexMiddleGrid = twoColsInRow ? 'xl:grid-cols-[1fr_minmax(10rem,18rem)]' : null
+                              const totalPF = Math.max(1, contentSpan + featuredSpan)
+                              const xlMainCols = Math.max(1, Math.min(11, Math.round((12 * contentSpan) / totalPF)))
+                              const xlSideCols = 12 - xlMainCols
                               return (
                                 <div className="megamenu-dropdown-panel">
                                   {showCategoryIntro && catDesc && (
@@ -1004,20 +1091,17 @@ export function MegaMenu({
                                     </div>
                                   )}
                                   {visibleColumns.length > 0 && (
-                                    <div
-                                      className={cn(
-                                        'megamenu-dropdown-content grid grid-cols-12',
-                                        flexMiddleGrid,
-                                      )}
-                                    >
+                                    <div className="megamenu-dropdown-content grid grid-cols-12">
                                       {visibleColumns.map((col, idx) => {
                                         const flexMiddle = twoColsInRow
                                         const isItemsCol = col.key === 'items'
                                         const isHighlightCol = col.key === 'highlight'
                                         const getSpan = () => {
-                                          if (isItemsCol && flexMiddle) return 'col-span-12 xl:col-auto'
+                                          if (isItemsCol && flexMiddle)
+                                            return cn('col-span-12', xlColSpan(xlMainCols))
                                           if (isItemsCol) return colSpan(col.span)
-                                          if (isHighlightCol && flexMiddle) return 'col-span-12 xl:col-auto'
+                                          if (isHighlightCol && flexMiddle)
+                                            return cn('col-span-12', xlColSpan(xlSideCols))
                                           if (isHighlightCol) return colSpan(col.span)
                                           return colSpan(col.span)
                                         }
@@ -1080,7 +1164,7 @@ export function MegaMenu({
                     )
                   }
 
-                  const linkActive = isItemActive(pathname ?? '', item.url)
+                  const linkActive = isNavLinkActive(pathname ?? '', item.url)
                   return (
                     <NavigationMenuItem key={item.id}>
                       <NavigationMenuLink asChild>
