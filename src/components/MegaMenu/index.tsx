@@ -637,7 +637,7 @@ export function MegaMenu({
           }}
         >
         <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
-          <div className="flex flex-1 items-center justify-between">
+          <div className="header-main-row flex flex-1 items-stretch justify-between">
             <div className="flex items-center">{logo}</div>
             <div className="megamenu-nav-wrap flex h-full items-stretch gap-4">
           <NavigationMenu
@@ -1097,7 +1097,7 @@ export function MegaMenu({
                 })}
               </NavigationMenuList>
                 <div
-                  className="megamenu-sliding-underline pointer-events-none absolute -bottom-2 left-0 h-0.5"
+                  className="megamenu-sliding-underline pointer-events-none absolute left-0 h-0.5 bottom-[calc(-0.5rem-1px)]"
                   style={{
                     left: underlineStyle?.left ?? 0,
                     width: underlineStyle?.width ?? 0,

@@ -244,7 +244,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
         }}
       >
         <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
-          <div className="flex flex-1 items-center justify-between">
+          <div className="header-main-row flex flex-1 items-stretch justify-between">
             {logoEl}
             <HeaderNav data={data} />
           </div>
