@@ -28,7 +28,11 @@ class ShadcnHeroErrorBoundary extends React.Component<
       return (
         <section className="relative min-h-[40vh] bg-neutral-950 px-4 py-24 text-white" aria-label="Hero">
           <div className="container mx-auto max-w-2xl">
-            {headline ? <h1 className="text-3xl font-semibold tracking-tight md:text-4xl">{headline}</h1> : null}
+            {headline ? (
+              <h1 className="text-hero-display-sm hero-heading-gradient hero-heading-gradient--inverse tracking-tight">
+                {headline}
+              </h1>
+            ) : null}
             {description ? <p className="mt-4 text-white/80">{description}</p> : null}
             {!headline && !description && fallback}
           </div>

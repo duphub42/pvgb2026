@@ -51,7 +51,8 @@
   --theme-text: var(--theme-elevation-800);
   --theme-input-bg: var(--theme-elevation-0);
   --font-body: var(--font-outfit);
-  --font-heading: var(--font-outfit);
+  /* Inter via next/font auf <html> (--font-inter); Fallback Outfit */
+  --font-heading: var(--font-inter, var(--font-outfit));
   --font-mono: var(--font-outfit);
   --link: var(--primary);
   --link-hover: var(--primary);

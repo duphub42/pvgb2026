@@ -33,7 +33,10 @@ export const Design: GlobalConfig = {
       name: 'fonts',
       type: 'group',
       label: 'Schriften',
-      admin: { description: 'CSS font-family. Leer = Geist Sans / Geist Mono.' },
+      admin: {
+        description:
+          'CSS font-family. Leer = Standard: Fließtext Outfit, Überschriften Inter (next/font auf der Website).',
+      },
       fields: [
         {
           name: 'body',
@@ -50,7 +53,7 @@ export const Design: GlobalConfig = {
           label: 'Überschriften',
           admin: {
             description:
-              'z. B. var(--font-outfit). Wirkt auf h1–h6.',
+              'z. B. var(--font-inter) oder var(--font-outfit). Standard: Inter für h1–h6.',
           },
         },
         {

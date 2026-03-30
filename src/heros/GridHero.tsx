@@ -163,10 +163,10 @@ export const GridHero: React.FC<GridHeroProps> = ({ headline, description }) => 
         className="relative z-10 mx-auto flex max-w-5xl flex-col items-center gap-6 px-6 text-center"
       >
         <motion.div variants={transitionVariants.item}>
-          <h1 className="mb-6 text-pretty text-3xl font-bold tracking-tight lg:text-5xl">
+          <h1 className="mb-6 text-pretty text-hero-display hero-heading-gradient tracking-tight lg:leading-tight">
             {title.split('Smoothui')[0] || title}{' '}
             {title.includes('Smoothui') && (
-              <span className="text-primary">
+              <span className="hero-heading-gradient-exempt text-primary">
                 Smoothui
               </span>
             )}

@@ -27,7 +27,9 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
           {hasHeadings && (
             <div className="mb-6">
               {subheadline && <p className="text-lg text-foreground/90 mb-2">{subheadline}</p>}
-              {headline && <h1 className="text-2xl md:text-3xl font-bold text-foreground mb-4">{headline}</h1>}
+              {headline && (
+                <h1 className="text-hero-display-sm hero-heading-gradient text-foreground mb-4">{headline}</h1>
+              )}
               {description && <p className="text-base text-foreground/90">{description}</p>}
             </div>
           )}

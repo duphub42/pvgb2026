@@ -37,7 +37,11 @@ export const HighImpactHero: React.FC<SitePage['hero']> = ({
           {hasHeadings && (
             <div className="mb-6">
               {subheadline && <p className="text-lg opacity-90 mb-2">{subheadline}</p>}
-              {headline && <h1 className="text-4xl md:text-5xl font-bold mb-4">{headline}</h1>}
+              {headline && (
+                <h1 className="text-hero-display hero-heading-gradient hero-heading-gradient--inverse mb-4">
+                  {headline}
+                </h1>
+              )}
               {description && <p className="text-base opacity-90">{description}</p>}
             </div>
           )}

@@ -25,7 +25,9 @@ export const MediumImpactHero: React.FC<SitePage['hero']> = ({
         {hasHeadings && (
           <div className="mb-6">
             {subheadline && <p className="text-lg text-foreground/90 mb-2">{subheadline}</p>}
-            {headline && <h1 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{headline}</h1>}
+            {headline && (
+              <h1 className="text-hero-display hero-heading-gradient text-foreground mb-4">{headline}</h1>
+            )}
             {description && <p className="text-base text-foreground/90">{description}</p>}
           </div>
         )}

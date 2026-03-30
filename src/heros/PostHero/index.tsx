@@ -39,7 +39,9 @@ export const PostHero: React.FC<{
           </div>
 
           <div className="">
-            <h1 className="mb-6 text-3xl md:text-5xl lg:text-6xl">{title}</h1>
+            <h1 className="mb-6 text-hero-display hero-heading-gradient hero-heading-gradient--inverse">
+              {title}
+            </h1>
           </div>
 
           <div className="flex flex-col md:flex-row gap-4 md:gap-16">

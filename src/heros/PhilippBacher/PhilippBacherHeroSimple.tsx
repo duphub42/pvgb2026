@@ -341,7 +341,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
             {hasLines ? (
               <h1
                 className={cn(
-                  'text-5xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] max-md:tracking-[-0.062em] md:tracking-[-0.055em] text-foreground w-fit hero-headline flex flex-col max-md:gap-y-0.5',
+                  'hero-headline text-hero-display hero-heading-gradient leading-snug max-md:leading-[1.18] md:leading-[1.1] max-md:tracking-[-0.062em] text-foreground w-fit flex flex-col max-md:gap-y-0.5',
                   foregroundImageUrl && 'md:shrink-0 md:whitespace-nowrap',
                 )}
                 aria-label={fullHeadlineLabel || undefined}
@@ -374,7 +374,7 @@ export const PhilippBacherHeroSimple: React.FC<PhilippBacherHeroSimpleProps> = (
               headlineText && (
                 <h1
                   className={cn(
-                    'text-5xl md:text-5xl lg:text-6xl font-medium leading-snug max-md:leading-[1.18] md:leading-[1.1] max-md:tracking-[-0.062em] md:tracking-[-0.055em] text-foreground w-fit hero-headline',
+                    'hero-headline text-hero-display hero-heading-gradient leading-snug max-md:leading-[1.18] md:leading-[1.1] max-md:tracking-[-0.062em] text-foreground w-fit',
                     foregroundImageUrl && 'md:shrink-0 md:whitespace-nowrap',
                   )}
                   aria-label={fullHeadlineLabel || undefined}

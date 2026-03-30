@@ -39,7 +39,7 @@ export default function Hero() {
             <div className="uppercase text-neutral-400 text-sm sm:text-base font-medium tracking-wide">
               Discover Endless Possibilities
             </div>
-            <h1 className="hero-headline text-white text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-5xl font-semibold leading-tight">
+            <h1 className="hero-headline text-hero-display hero-heading-gradient hero-heading-gradient--inverse text-white leading-tight">
               Your Journey Begins Here
             </h1>
             <p className="text-white text-base sm:text-lg md:text-xl max-w-xl">

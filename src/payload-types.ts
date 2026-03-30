@@ -3857,7 +3857,7 @@ export interface Design {
     megaMenuDescription?: string | null;
   };
   /**
-   * CSS font-family. Leer = Geist Sans / Geist Mono.
+   * CSS font-family. Leer = Standard: Fließtext Outfit, Überschriften Inter (next/font auf der Website).
    */
   fonts?: {
     /**
@@ -3865,7 +3865,7 @@ export interface Design {
      */
     body?: string | null;
     /**
-     * z. B. var(--font-outfit). Wirkt auf h1–h6.
+     * z. B. var(--font-inter) oder var(--font-outfit). Standard: Inter für h1–h6.
      */
     heading?: string | null;
     /**

@@ -203,7 +203,7 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
               <p className="inline-flex w-fit items-center rounded-full border border-border bg-card px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] text-muted-foreground">
                 {subheadline || defaultSubheadline}
               </p>
-              <h1 className="text-pretty text-4xl font-semibold tracking-tight md:text-5xl lg:text-6xl">
+              <h1 className="text-pretty text-hero-display hero-heading-gradient tracking-tight">
                 {lines.length > 0
                   ? lines.map((line, idx) => (
                       <span key={idx} className="block">
