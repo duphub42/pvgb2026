@@ -3,8 +3,9 @@
 import { CMSLink } from '@/components/Link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import React, { type ComponentProps } from 'react'
+import React, { type ComponentProps, useEffect, useMemo, useState } from 'react'
 import PopoutPortrait from '@/components/PopoutPortrait'
+import { HeroBackgroundPresetLayer } from '@/heros/HeroBackgroundPresetLayer'
 import { HeroLogoMarquee, type HeroMarqueeLogoRow } from '@/heros/HeroLogoMarquee'
 import {
   filterPopoutFloatingElements,
@@ -12,6 +13,11 @@ import {
   PopoutHeroFloatingElementsFlow,
   type PopoutHeroFloatingItem,
 } from '@/heros/PopoutHeroFloatingElements'
+import {
+  PopoutHeroStackVisual,
+  type HeroStackResolvedLayer,
+} from '@/heros/PopoutHeroStackVisual'
+import type { HeroBackgrounds } from '@/payload-types'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 import { cn } from '@/utilities/ui'
 
@@ -35,6 +41,8 @@ interface StylePreviewHeroProps {
   media?: number | { id?: number | null; url?: string | null; alt?: string | null } | null
   /** Philipp-Bacher-Typ im CMS: Popout-Bild liegt hier statt in „Media“. */
   foregroundImage?: number | { id?: number | null; url?: string | null; alt?: string | null } | null
+  /** Popout-Hero mit mediaType „Bild“: wird auf der Profilseite hinter dem Vordergrund-Motiv genutzt. */
+  backgroundImage?: number | { id?: number | null; url?: string | null; alt?: string | null } | null
   marqueeHeadline?: string | null
   marqueeLogos?: HeroMarqueeLogoRow[] | null
   floatingElements?: PopoutHeroFloatingItem[] | null
@@ -42,6 +50,25 @@ interface StylePreviewHeroProps {
   sectionAriaLabel?: string | null
   /** e.g. `superhero` for analytics / debugging */
   dataHeroType?: string | null
+  /** Resolved site-page slug from server rendering. */
+  pageSlug?: string | null
+  mediaType?: ('cssHalo' | 'image' | 'video' | 'animation') | null
+  mediaTypeMobile?: ('auto' | 'cssHalo' | 'image' | 'video' | 'animation') | null
+  backgroundPreset?: HeroBackgrounds | number | null
+  overlayOpacity?: number | null
+  backgroundVideo?: number | { id?: number | null; url?: string | null } | null
+  surfacePattern?:
+    | ('none' | 'honeycomb' | 'checker' | 'mmPaper' | 'dots' | 'linesHorizontal' | 'linesVertical' | 'gridLines')
+    | null
+  stackBackImage?: number | { id?: number | null; url?: string | null } | null
+  stackBackOffsetX?: number | null
+  stackBackOffsetY?: number | null
+  stackMidImage?: number | { id?: number | null; url?: string | null } | null
+  stackMidOffsetX?: number | null
+  stackMidOffsetY?: number | null
+  stackFrontImage?: number | { id?: number | null; url?: string | null } | null
+  stackFrontOffsetX?: number | null
+  stackFrontOffsetY?: number | null
 }
 
 const defaultSubheadline = 'Style Concept Test'
@@ -55,67 +82,72 @@ const PORTFOLIO_CLOUD_SRC =
 const PORTFOLIO_SKI_SRC = 'https://philippbacher.com/wp-content/uploads/2026/02/skijump-1.png'
 
 /**
- * Mehrschichtige S-Wellen (sinusartige Kubiken), leicht phasenversetzt → Fächereffekt durch Überlagerung.
- * Füllung = Seitenhintergrund (--background über currentColor).
+ * S-förmige Welle: links oben (y≈50) → rechts unten (y≈150) = ~50 % der ViewBox-Höhe (200).
+ * Mehrere Pfade mit Versatz → Fächereffekt. Full-bleed über Wrapper (w-screen, zentriert).
  */
+const HERO_SURFACE_PATTERN_CLASS: Record<
+  NonNullable<StylePreviewHeroProps['surfacePattern']>,
+  string
+> = {
+  none: '',
+  honeycomb: 'hero-surface-pattern hero-surface-pattern--honeycomb',
+  checker: 'hero-surface-pattern hero-surface-pattern--checker',
+  mmPaper: 'hero-surface-pattern hero-surface-pattern--mmPaper',
+  dots: 'hero-surface-pattern hero-surface-pattern--dots',
+  linesHorizontal: 'hero-surface-pattern hero-surface-pattern--linesHorizontal',
+  linesVertical: 'hero-surface-pattern hero-surface-pattern--linesVertical',
+  gridLines: 'hero-surface-pattern hero-surface-pattern--gridLines',
+}
+
+function buildHeroStackLayers(
+  specs: Array<{ src: string | null; ox: number; oy: number; wide?: boolean }>,
+): HeroStackResolvedLayer[] {
+  const out: HeroStackResolvedLayer[] = []
+  let order = 0
+  for (const s of specs) {
+    if (!s.src) continue
+    out.push({
+      src: s.src,
+      offsetX: s.ox,
+      offsetY: s.oy,
+      z: order,
+      wide: s.wide,
+    })
+    order += 1
+  }
+  return out
+}
+
 function ProfilHeroShapeDivider() {
-  const waves: { d: string; opacity: number; tx: number }[] = [
-    {
-      d: 'M-60,112 C140,58 340,138 540,86 C740,38 940,118 1260,68 L1260,200 L-60,200 Z',
-      opacity: 0.1,
-      tx: 0,
-    },
-    {
-      d: 'M-40,104 C160,64 360,132 560,90 C760,48 960,112 1240,74 L1240,200 L-40,200 Z',
-      opacity: 0.16,
-      tx: 18,
-    },
-    {
-      d: 'M-20,98 C180,52 380,128 580,84 C780,44 980,108 1220,70 L1220,200 L-20,200 Z',
-      opacity: 0.22,
-      tx: 36,
-    },
-    {
-      d: 'M0,92 C200,48 400,124 600,80 C800,38 1000,104 1200,66 L1200,200 L0,200 Z',
-      opacity: 0.3,
-      tx: 54,
-    },
-    {
-      d: 'M20,86 C220,56 420,118 620,76 C820,36 1020,98 1180,62 L1180,200 L20,200 Z',
-      opacity: 0.4,
-      tx: 72,
-    },
-    {
-      d: 'M40,82 C240,50 440,114 640,72 C840,34 1040,94 1160,58 L1160,200 L40,200 Z',
-      opacity: 0.55,
-      tx: 90,
-    },
-    {
-      d: 'M0,78 C240,42 480,108 720,68 C960,32 1080,88 1200,54 L1200,200 L0,200 Z',
-      opacity: 0.92,
-      tx: 0,
-    },
+  const baseD =
+    'M0,50 C360,22 640,178 960,102 C1080,72 1140,148 1200,150 L1200,200 L0,200 Z'
+  const layers: { tx: number; ty: number; opacity: number }[] = [
+    { tx: 16, ty: -6, opacity: 0.08 },
+    { tx: 32, ty: -12, opacity: 0.12 },
+    { tx: 48, ty: -18, opacity: 0.18 },
+    { tx: 64, ty: -24, opacity: 0.28 },
+    { tx: 80, ty: -30, opacity: 0.4 },
+    { tx: 0, ty: 0, opacity: 0.9 },
   ]
 
   return (
     <div
-      className="pointer-events-none absolute bottom-0 left-0 right-0 z-[30] w-full hero-shape-divider"
+      className="pointer-events-none absolute bottom-0 z-[30] hero-shape-divider hero-shape-divider--viewport"
       style={{ height: 'calc(11vh + 44px)' }}
       aria-hidden
     >
       <svg
-        className="absolute bottom-0 left-0 w-full text-background"
-        viewBox="-80 0 1360 200"
+        className="absolute bottom-0 left-0 h-full w-full text-background"
+        viewBox="-40 0 1280 200"
         preserveAspectRatio="none"
-        style={{ height: '100%' }}
       >
-        {waves.map((w, i) => (
+        {layers.map((w, i) => (
           <path
             key={i}
             fill="currentColor"
             fillOpacity={w.opacity}
-            transform={`translate(${w.tx} 0)`}
-            d={w.d}
+            transform={`translate(${w.tx} ${w.ty})`}
+            d={baseD}
           />
         ))}
       </svg>
@@ -123,36 +155,8 @@ function ProfilHeroShapeDivider() {
   )
 }
 
-function ProfilPortfolioHeroVisual() {
-  return (
-    <div className="relative mx-auto flex w-full max-w-[min(100%,540px)] items-end justify-center md:h-full md:max-h-[min(74vh,680px)] md:min-h-[280px]">
-      <div
-        className="profil-hero-float-cloud pointer-events-none absolute -right-[6%] bottom-[8%] z-0 w-[108%] max-w-none opacity-95 md:-right-[4%] md:bottom-[10%] md:w-[102%]"
-        aria-hidden
-      >
-        <Image
-          src={PORTFOLIO_CLOUD_SRC}
-          alt=""
-          width={1005}
-          height={438}
-          className="h-auto w-full object-contain drop-shadow-sm"
-          sizes="(max-width: 768px) 96vw, 540px"
-          priority
-        />
-      </div>
-      <div className="profil-hero-float-ski relative z-[2] w-[86%] md:w-[92%]">
-        <Image
-          src={PORTFOLIO_SKI_SRC}
-          alt=""
-          width={1024}
-          height={958}
-          className="h-auto w-full object-contain drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
-          sizes="(max-width: 768px) 78vw, 500px"
-          priority
-        />
-      </div>
-    </div>
-  )
+function numPx(v: unknown): number {
+  return typeof v === 'number' && Number.isFinite(v) ? v : 0
 }
 
 export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
@@ -165,15 +169,74 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
   links,
   media,
   foregroundImage,
+  backgroundImage,
   marqueeHeadline,
   marqueeLogos,
   floatingElements,
   sectionAriaLabel,
   dataHeroType,
+  pageSlug,
+  mediaType,
+  mediaTypeMobile,
+  backgroundPreset,
+  overlayOpacity,
+  backgroundVideo,
+  surfacePattern,
+  stackBackImage,
+  stackBackOffsetX,
+  stackBackOffsetY,
+  stackMidImage,
+  stackMidOffsetX,
+  stackMidOffsetY,
+  stackFrontImage,
+  stackFrontOffsetX,
+  stackFrontOffsetY,
 }) => {
   const pathname = usePathname()
   const pathNorm = (pathname ?? '/').replace(/\/$/, '') || '/'
-  const isProfilPage = pathNorm === '/profil'
+  const pageSlugNorm = (pageSlug ?? '').trim().replace(/^\/+|\/+$/g, '')
+  const isProfilPage = pathNorm === '/profil' || pageSlugNorm.toLowerCase() === 'profil'
+
+  const [viewportMobile, setViewportMobile] = useState(false)
+  const [reducedMotion, setReducedMotion] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 767px)')
+    const rm = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const sync = () => {
+      setViewportMobile(mq.matches)
+      setReducedMotion(rm.matches)
+    }
+    sync()
+    mq.addEventListener('change', sync)
+    rm.addEventListener('change', sync)
+    return () => {
+      mq.removeEventListener('change', sync)
+      rm.removeEventListener('change', sync)
+    }
+  }, [])
+
+  const effectiveMediaType = useMemo(() => {
+    const mob = mediaTypeMobile
+    if (viewportMobile && mob && mob !== 'auto') return mob
+    return mediaType ?? 'cssHalo'
+  }, [mediaType, mediaTypeMobile, viewportMobile])
+
+  const showPresetLayer =
+    (effectiveMediaType === 'cssHalo' || effectiveMediaType === 'animation') &&
+    backgroundPreset != null &&
+    typeof backgroundPreset === 'object'
+
+  const fullBleedBgSrc = resolveHeroImageSrc(backgroundImage)
+  const showBgImage = effectiveMediaType === 'image' && Boolean(fullBleedBgSrc)
+  const videoSrc = resolveHeroImageSrc(backgroundVideo)
+  const showVideo = effectiveMediaType === 'video' && Boolean(videoSrc) && !reducedMotion
+
+  const patternKey = surfacePattern ?? 'none'
+  const patternClass =
+    patternKey !== 'none' ? (HERO_SURFACE_PATTERN_CLASS[patternKey] ?? '') : ''
+
+  const overlayOp = overlayOpacity ?? 0.5
+  const mobileOverlayOp = Math.min(overlayOp + 0.15, 0.85)
 
   const lines = [headlineLine1, headlineLine2, headlineLine3].filter(
     (l): l is string => Boolean(l),
@@ -183,6 +246,81 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
   const portraitSrc =
     resolveHeroImageSrc(media) || resolveHeroImageSrc(foregroundImage)
   const floats = filterPopoutFloatingElements(floatingElements)
+
+  const profilBackgroundSrc =
+    resolveHeroImageSrc(backgroundImage) || resolveHeroImageSrc(media)
+  const profilForegroundSrc = resolveHeroImageSrc(foregroundImage)
+
+  const stackBack = resolveHeroImageSrc(stackBackImage)
+  const stackMid = resolveHeroImageSrc(stackMidImage)
+  const stackFrontOnly = resolveHeroImageSrc(stackFrontImage)
+
+  const oxBack = numPx(stackBackOffsetX)
+  const oyBack = numPx(stackBackOffsetY)
+  const oxMid = numPx(stackMidOffsetX)
+  const oyMid = numPx(stackMidOffsetY)
+  const oxFront = numPx(stackFrontOffsetX)
+  const oyFront = numPx(stackFrontOffsetY)
+
+  const profilLayers = useMemo(
+    () =>
+      buildHeroStackLayers([
+        {
+          src: stackBack || profilBackgroundSrc || PORTFOLIO_CLOUD_SRC,
+          ox: oxBack,
+          oy: oyBack,
+          wide: true,
+        },
+        { src: stackMid, ox: oxMid, oy: oyMid, wide: false },
+        {
+          src: stackFrontOnly || profilForegroundSrc || PORTFOLIO_SKI_SRC,
+          ox: oxFront,
+          oy: oyFront,
+          wide: false,
+        },
+      ]),
+    [
+      stackBack,
+      stackMid,
+      stackFrontOnly,
+      profilBackgroundSrc,
+      profilForegroundSrc,
+      oxBack,
+      oyBack,
+      oxMid,
+      oyMid,
+      oxFront,
+      oyFront,
+    ],
+  )
+
+  const popoutStackExplicit = Boolean(stackBack || stackMid || stackFrontOnly)
+
+  const popoutLayers = useMemo(() => {
+    const front =
+      stackFrontOnly ||
+      resolveHeroImageSrc(foregroundImage) ||
+      resolveHeroImageSrc(media)
+    return buildHeroStackLayers([
+      { src: stackBack, ox: oxBack, oy: oyBack, wide: true },
+      { src: stackMid, ox: oxMid, oy: oyMid, wide: false },
+      { src: front, ox: oxFront, oy: oyFront, wide: false },
+    ])
+  }, [
+    stackBack,
+    stackMid,
+    stackFrontOnly,
+    foregroundImage,
+    media,
+    oxBack,
+    oyBack,
+    oxMid,
+    oyMid,
+    oxFront,
+    oyFront,
+  ])
+
+  const usePopoutStack = popoutStackExplicit && popoutLayers.length > 0
 
   const sectionLabel = isProfilPage
     ? 'Profil Hero'
@@ -198,6 +336,47 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
       data-profil-hero={isProfilPage ? 'true' : undefined}
       data-hero-type={!isProfilPage && dataHeroType ? dataHeroType : undefined}
     >
+      {showPresetLayer ? <HeroBackgroundPresetLayer preset={backgroundPreset} /> : null}
+      {showBgImage && fullBleedBgSrc ? (
+        <Image
+          src={fullBleedBgSrc}
+          alt=""
+          fill
+          className="pointer-events-none absolute inset-0 -z-10 object-cover"
+          sizes="100vw"
+          priority
+        />
+      ) : null}
+      {showVideo && videoSrc ? (
+        <video
+          className={`pointer-events-none absolute inset-0 -z-20 h-full w-full object-cover ${
+            showBgImage ? 'hidden md:block' : 'block'
+          }`}
+          autoPlay
+          loop
+          muted
+          playsInline
+          aria-hidden
+          title="Hero Hintergrundvideo"
+        >
+          <source src={videoSrc} type="video/mp4" />
+        </video>
+      ) : null}
+      {patternClass ? <div className={patternClass} aria-hidden /> : null}
+      {showBgImage ? (
+        <>
+          <div
+            className="pointer-events-none absolute inset-0 -z-[5] bg-background md:hidden"
+            style={{ opacity: mobileOverlayOp }}
+            aria-hidden
+          />
+          <div
+            className="pointer-events-none absolute inset-0 -z-[5] hidden bg-background md:block"
+            style={{ opacity: overlayOp }}
+            aria-hidden
+          />
+        </>
+      ) : null}
       {!isProfilPage ? (
         <>
           <div className="hero-section-surface" aria-hidden />
@@ -205,6 +384,7 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
             className={cn(
               'hero-background-overlay hero-background-overlay--style-preview-stack',
               portraitSrc && 'hero-background-overlay--style-preview-portrait',
+              showBgImage && 'opacity-40',
             )}
             aria-hidden
           />
@@ -213,7 +393,7 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
         </>
       ) : null}
       <div className="relative z-[2] container flex w-full min-w-0 flex-col px-4 pt-8 pb-14 sm:pt-10 md:pt-6 md:pb-24 lg:pt-8 lg:pb-28 xl:pt-10">
-        <div className="grid min-w-0 gap-0 md:grid-cols-[minmax(0,45%)_1fr] md:items-stretch md:gap-6 lg:gap-12 xl:gap-16">
+        <div className="grid min-w-0 gap-0 md:grid-cols-[minmax(0,45%)_1fr] md:items-stretch md:gap-6 md:min-h-[min(58vh,640px)] lg:gap-12 lg:min-h-[min(62vh,680px)] xl:gap-16">
           <div
             className={cn(
               'hero-mobile-glass relative min-w-0 space-y-5 max-md:z-[16] max-md:-mx-4 max-md:px-4 max-md:pt-8 max-md:pb-10 max-md:rounded-t-2xl',
@@ -260,17 +440,23 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
               <PopoutHeroFloatingElementsFlow elements={floats} />
             ) : null}
 
-            <HeroLogoMarquee
-              marqueeHeadline={marqueeHeadline}
-              marqueeLogos={marqueeLogos}
-              className="mt-1 pt-3 border-t border-border/60"
-            />
+            {!isProfilPage ? (
+              <HeroLogoMarquee
+                marqueeHeadline={marqueeHeadline}
+                marqueeLogos={marqueeLogos}
+                className="mt-1 pt-3 border-t border-border/60"
+              />
+            ) : null}
           </div>
 
-          <div className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:h-full md:min-h-0">
-            <div className="relative overflow-visible max-md:pb-6 md:h-full md:min-h-0 md:pb-0 md:flex md:items-end md:justify-center">
+          <div className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:h-full md:min-h-[min(58vh,640px)] lg:min-h-[min(62vh,680px)]">
+            <div className="relative overflow-visible max-md:pb-6 md:flex md:h-full md:min-h-0 md:items-end md:justify-center md:pb-8 md:pt-4">
               {isProfilPage ? (
-                <ProfilPortfolioHeroVisual />
+                <PopoutHeroStackVisual layers={profilLayers} />
+              ) : usePopoutStack ? (
+                <div className="relative mx-auto w-full max-w-[min(100%,556px)] md:flex md:h-full md:max-h-full md:min-h-0 md:max-w-none md:items-end md:justify-center lg:origin-bottom lg:scale-[1.21]">
+                  <PopoutHeroStackVisual layers={popoutLayers} />
+                </div>
               ) : portraitSrc ? (
                 <div className="relative mx-auto w-full max-w-[min(100%,556px)] md:flex md:h-full md:max-h-full md:min-h-0 md:max-w-none md:items-end md:justify-center lg:origin-bottom lg:scale-[1.21]">
                   <PopoutPortrait imageSrc={portraitSrc} fillRowHeight />

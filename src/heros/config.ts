@@ -6,8 +6,8 @@ import {
 } from '@payloadcms/richtext-lexical'
 import { linkGroup } from '@/fields/linkGroup'
 
-/** Popout-Portrait-Layout (Philipp Bacher Legacy + Superhero): gleiche CMS-Felder. */
-export const POPOUT_LAYOUT_HERO_TYPES = ['philippBacher', 'superhero'] as const
+/** Popout-Portrait-Layout (Legacy, Superhero, Style Preview): gleiche CMS-Felder inkl. Stack/Muster. */
+export const POPOUT_LAYOUT_HERO_TYPES = ['philippBacher', 'superhero', 'heroStylePreview'] as const
 
 const isPopoutLayoutHero = (type: string | undefined) =>
   POPOUT_LAYOUT_HERO_TYPES.includes(type as (typeof POPOUT_LAYOUT_HERO_TYPES)[number])
@@ -89,10 +89,11 @@ export const hero: Field = {
           const t = String(siblingData?.type ?? '')
           return (
             ['highImpact', 'mediumImpact', 'lowImpact'].includes(t) ||
-            ['heroStylePreview', 'hero75', 'hero215', 'hero238', 'hero242', 'hero243', 'hero244', 'hero256'].includes(t)
+            ['philippBacher', 'heroStylePreview', 'hero75', 'hero215', 'hero238', 'hero242', 'hero243', 'hero244', 'hero256'].includes(t)
           )
         },
-        description: 'Bei Shadcn-Blocks: optionales Bild für den Hero (z. B. rechts).',
+        description:
+          'Optionales Bild rechts (Popout/Style Preview). Bei Profil-Hero zusätzlich nutzbar, wenn kein separates „Hintergrund Bild“ (mediaType Bild) gesetzt ist.',
       },
     },
     {
@@ -199,6 +200,8 @@ export const hero: Field = {
       admin: {
         condition: (_, siblingData) =>
           isPopoutLayoutHero(String(siblingData?.type ?? '')) && siblingData?.mediaType === 'image',
+        description:
+          'Nur sichtbar, wenn „Hintergrund“ = Bild. Vollflächig hinter dem Hero (object-cover). Zusätzlich nutzbar als hintere Ebene im rechten Bild-Stack, wenn „Bild hinten“ leer ist.',
       },
     },
     {
@@ -218,7 +221,132 @@ export const hero: Field = {
       label: 'Vordergrund Bild',
       admin: {
         condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+        description:
+          'Hauptmotiv rechts (vorderste Ebene), sofern kein separates „Stack vorn“ gesetzt ist.',
       },
+    },
+    {
+      name: 'surfacePattern',
+      type: 'select',
+      label: 'Oberflächenmuster',
+      defaultValue: 'none',
+      options: [
+        { label: 'Keins', value: 'none' },
+        { label: 'Waben (Honeycomb)', value: 'honeycomb' },
+        { label: 'Karo', value: 'checker' },
+        { label: 'Millimeterpapier', value: 'mmPaper' },
+        { label: 'Punkte', value: 'dots' },
+        { label: 'Linien horizontal', value: 'linesHorizontal' },
+        { label: 'Linien vertikal', value: 'linesVertical' },
+        { label: 'Gitter (Linien)', value: 'gridLines' },
+      ],
+      admin: {
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+        description: 'Dezentes Muster über der Hero-Fläche (unter Text/Bildern).',
+      },
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'stackBackImage',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Stack: Bild hinten (Ebene 3)',
+          admin: {
+            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+          },
+        },
+        {
+          name: 'stackBackOffsetX',
+          type: 'number',
+          label: 'Hinten ΔX (px)',
+          defaultValue: 0,
+          admin: {
+            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            width: '50%',
+          },
+        },
+        {
+          name: 'stackBackOffsetY',
+          type: 'number',
+          label: 'Hinten ΔY (px)',
+          defaultValue: 0,
+          admin: {
+            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            width: '50%',
+          },
+        },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'stackMidImage',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Stack: Bild Mitte (Ebene 2)',
+          admin: {
+            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+          },
+        },
+        {
+          name: 'stackMidOffsetX',
+          type: 'number',
+          label: 'Mitte ΔX (px)',
+          defaultValue: 0,
+          admin: {
+            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            width: '50%',
+          },
+        },
+        {
+          name: 'stackMidOffsetY',
+          type: 'number',
+          label: 'Mitte ΔY (px)',
+          defaultValue: 0,
+          admin: {
+            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            width: '50%',
+          },
+        },
+      ],
+    },
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'stackFrontImage',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Stack: Bild vorn (Ebene 1)',
+          admin: {
+            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            description: 'Optional. Leer = „Vordergrund Bild“ wird als vordere Ebene genutzt.',
+          },
+        },
+        {
+          name: 'stackFrontOffsetX',
+          type: 'number',
+          label: 'Vorn ΔX (px)',
+          defaultValue: 0,
+          admin: {
+            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            width: '50%',
+          },
+        },
+        {
+          name: 'stackFrontOffsetY',
+          type: 'number',
+          label: 'Vorn ΔY (px)',
+          defaultValue: 0,
+          admin: {
+            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            width: '50%',
+          },
+        },
+      ],
     },
     {
       name: 'overlayOpacity',

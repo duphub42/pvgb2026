@@ -66,6 +66,8 @@ import * as migration_20260329_700000_rename_profil_block_tables_match_db_name f
 import * as migration_20260330_100000_rename_profil_version_tables_match_db_name from './20260330_100000_rename_profil_version_tables_match_db_name'
 import * as migration_20260330_115500_hero_superhero_enum_values from './20260330_115500_hero_superhero_enum_values'
 import * as migration_20260330_120000_hero_superhero_and_floating_description from './20260330_120000_hero_superhero_and_floating_description'
+import * as migration_20260330_130000_prof_array_row_ids_varchar from './20260330_130000_prof_array_row_ids_varchar'
+import * as migration_20260330_140000_site_pages_hero_stack_surface_pattern from './20260330_140000_site_pages_hero_stack_surface_pattern'
 
 export const migrations = [
   {
@@ -407,5 +409,15 @@ export const migrations = [
     up: migration_20260330_120000_hero_superhero_and_floating_description.up,
     down: migration_20260330_120000_hero_superhero_and_floating_description.down,
     name: '20260330_120000_hero_superhero_and_floating_description',
+  },
+  {
+    up: migration_20260330_130000_prof_array_row_ids_varchar.up,
+    down: migration_20260330_130000_prof_array_row_ids_varchar.down,
+    name: '20260330_130000_prof_array_row_ids_varchar',
+  },
+  {
+    up: migration_20260330_140000_site_pages_hero_stack_surface_pattern.up,
+    down: migration_20260330_140000_site_pages_hero_stack_surface_pattern.down,
+    name: '20260330_140000_site_pages_hero_stack_surface_pattern',
   },
 ]

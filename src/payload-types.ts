@@ -207,7 +207,7 @@ export interface SitePage {
       [k: string]: unknown;
     } | null;
     /**
-     * Bei Shadcn-Blocks: optionales Bild für den Hero (z. B. rechts).
+     * Optionales Bild rechts (Popout/Style Preview). Bei Profil-Hero zusätzlich nutzbar, wenn kein separates „Hintergrund Bild“ (mediaType Bild) gesetzt ist.
      */
     media?: (number | null) | Media;
     subheadline?: string | null;
@@ -231,9 +231,33 @@ export interface SitePage {
      * Optionaler Override für Mobilgeräte. „Wie Desktop-Einstellung“ übernimmt die normale Auswahl.
      */
     mediaTypeMobile?: ('auto' | 'cssHalo' | 'image' | 'video' | 'animation') | null;
+    /**
+     * Nur sichtbar, wenn „Hintergrund“ = Bild. Vollflächig hinter dem Hero (object-cover). Zusätzlich nutzbar als hintere Ebene im rechten Bild-Stack, wenn „Bild hinten“ leer ist.
+     */
     backgroundImage?: (number | null) | Media;
     backgroundVideo?: (number | null) | Media;
+    /**
+     * Hauptmotiv rechts (vorderste Ebene), sofern kein separates „Stack vorn“ gesetzt ist.
+     */
     foregroundImage?: (number | null) | Media;
+    /**
+     * Dezentes Muster über der Hero-Fläche (unter Text/Bildern).
+     */
+    surfacePattern?:
+      | ('none' | 'honeycomb' | 'checker' | 'mmPaper' | 'dots' | 'linesHorizontal' | 'linesVertical' | 'gridLines')
+      | null;
+    stackBackImage?: (number | null) | Media;
+    stackBackOffsetX?: number | null;
+    stackBackOffsetY?: number | null;
+    stackMidImage?: (number | null) | Media;
+    stackMidOffsetX?: number | null;
+    stackMidOffsetY?: number | null;
+    /**
+     * Optional. Leer = „Vordergrund Bild“ wird als vordere Ebene genutzt.
+     */
+    stackFrontImage?: (number | null) | Media;
+    stackFrontOffsetX?: number | null;
+    stackFrontOffsetY?: number | null;
     overlayOpacity?: number | null;
     /**
      * Wie stark die schwebenden Elemente dem Cursor ausweichen (0 = aus, 6.5 = Standard).
@@ -2200,6 +2224,16 @@ export interface SitePagesSelect<T extends boolean = true> {
         backgroundImage?: T;
         backgroundVideo?: T;
         foregroundImage?: T;
+        surfacePattern?: T;
+        stackBackImage?: T;
+        stackBackOffsetX?: T;
+        stackBackOffsetY?: T;
+        stackMidImage?: T;
+        stackMidOffsetX?: T;
+        stackMidOffsetY?: T;
+        stackFrontImage?: T;
+        stackFrontOffsetX?: T;
+        stackFrontOffsetY?: T;
         overlayOpacity?: T;
         floatingMouseStrength?: T;
         floatingIdleAmplitude?: T;

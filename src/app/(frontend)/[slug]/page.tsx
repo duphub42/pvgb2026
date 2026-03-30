@@ -111,7 +111,10 @@ export default async function Page({ params: paramsPromise, searchParams: search
       if (pageById) {
         return (
           <article>
-            <RenderHero {...pageById.hero} />
+            <RenderHero
+              {...pageById.hero}
+              pageSlug={typeof pageById.slug === 'string' ? pageById.slug : ''}
+            />
             <div className="relative z-0 pt-24">
               <RenderBlocks
               blocks={resolveLayoutBlocks(
@@ -188,7 +191,7 @@ export default async function Page({ params: paramsPromise, searchParams: search
         */}
         <div className="relative z-[32] isolate">
           <HeroErrorBoundary>
-            <RenderHero {...heroProps} />
+            <RenderHero {...heroProps} pageSlug={resolvedSlug} />
           </HeroErrorBoundary>
         </div>
         <div
