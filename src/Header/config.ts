@@ -32,19 +32,22 @@ export const Header: GlobalConfig = {
       label: 'Mega-Menü Spaltenbreiten',
       admin: {
         description:
-          'Aufteilung des Dropdowns im 12-Spalten-Grid (Kategoriebeschreibung | Unterpunkte | Highlight). Die drei Werte müssen zusammen 12 ergeben. Spalten ohne Inhalt werden automatisch ausgeblendet.',
+          'Rubrik-Titel und -Text erscheinen oben im Dropdown; das Grid nutzt nur Unterpunkte und optional Highlight. „Unterpunkte“ und „Highlight“ bestimmen die Spaltenbreiten (12er-Grid). Die drei Zahlen müssen weiterhin zusammen 12 ergeben (erstes Feld ist Legacy, wird im Layout nicht mehr verwendet).',
         condition: (data) => Boolean((data as { useMegaMenu?: boolean })?.useMegaMenu),
       },
       fields: [
         {
           name: 'sidebarCols',
           type: 'number',
-          label: 'Spalten Kategoriebeschreibung',
+          label: 'Spalten Kategoriebeschreibung (Legacy)',
           defaultValue: 3,
           min: 1,
           max: 12,
           required: true,
-          admin: { description: 'Linke Spalte: Kategoriebeschreibung (12er-Grid).' },
+          admin: {
+            description:
+              'Wird im Frontend nicht mehr für Spalten genutzt; für bestehende Daten beibehalten. Zusammen mit den anderen beiden Werten weiter 12 ergeben.',
+          },
         },
         {
           name: 'contentCols',
@@ -54,7 +57,7 @@ export const Header: GlobalConfig = {
           min: 1,
           max: 12,
           required: true,
-          admin: { description: 'Mitte: Alle Menü-Unterpunkte (12er-Grid).' },
+          admin: { description: 'Breite der Link-Liste im Dropdown (12er-Grid, zusammen mit Highlight = 12 minus Legacy-Spalte).' },
         },
         {
           name: 'featuredCols',
@@ -64,7 +67,7 @@ export const Header: GlobalConfig = {
           min: 1,
           max: 12,
           required: true,
-          admin: { description: 'Rechte Spalte: Highlight/CTA (12er-Grid). Die drei Werte müssen zusammen 12 ergeben.' },
+          admin: { description: 'Breite des Highlight-Bereichs neben den Unterpunkten (12er-Grid).' },
         },
       ],
     },

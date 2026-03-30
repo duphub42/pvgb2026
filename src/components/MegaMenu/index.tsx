@@ -132,7 +132,7 @@ type MegaMenuProps = {
   items: MegaMenuItem[]
   logo?: React.ReactNode
   className?: string
-  /** Spaltenbreiten im 12er-Grid (Sidebar | Inhalt | Highlight). Default: 3 | 6 | 3 */
+  /** Spaltenbreiten: Inhalt und Highlight (12er-Grid). `sidebar` wird nicht mehr fürs Layout genutzt. */
   columnWidths?: {
     sidebar?: number
     content?: number
@@ -422,7 +422,6 @@ export function MegaMenu({
     return () => wrapper.removeEventListener('pointerenter', onEnter)
   }, [])
 
-  const sidebarCols = columnWidths?.sidebar ?? 3
   const contentCols = columnWidths?.content ?? 6
   const featuredCols = columnWidths?.featured ?? 3
 
@@ -674,18 +673,15 @@ export function MegaMenu({
                   if (hasDrop) {
                     const cols = item.columns ?? []
                     const cw = item.columnWidths
-                    const columnSpans = [
-                      cw?.col1 != null ? Number(cw.col1) : sidebarCols,
-                      cw?.col2 != null ? Number(cw.col2) : contentCols,
-                      cw?.col3 != null ? Number(cw.col3) : featuredCols,
-                    ]
+                    const contentSpan = cw?.col2 != null ? Number(cw.col2) : contentCols
+                    const featuredSpan = cw?.col3 != null ? Number(cw.col3) : featuredCols
                     const allItemsFromColumns = cols.flatMap((col) => (col.items ?? []).map((sub) => ({ ...sub, _groupTitle: col.title })))
                     const listItems = allItemsFromColumns.length > 0 ? allItemsFromColumns : (item.subItems ?? []).map((s) => ({ ...s, _groupTitle: null }))
                     const hasGroupTitles = listItems.some((x: { _groupTitle?: string | null }) => x._groupTitle != null && x._groupTitle !== '')
 
                     // Nur Spalten mit Inhalt anzeigen; Breiten aus Backend (Header → Mega-Menü Spaltenbreiten)
                     const catDesc = item.categoryDescription
-                    const hasCol1 =
+                    const showCategoryIntro =
                       catDesc != null &&
                       (Boolean(catDesc.title && String(catDesc.title).trim()) ||
                         Boolean(catDesc.description && String(catDesc.description).trim()))
@@ -725,29 +721,9 @@ export function MegaMenu({
                         : []
 
                     const visibleColumns: Array<{ span: number; key: string; content: React.ReactNode }> = []
-                    if (hasCol1 && catDesc) {
-                      visibleColumns.push({
-                        span: columnSpans[0] ?? sidebarCols,
-                        key: 'desc',
-                        content: (
-                          <div className="space-y-3">
-                            {catDesc.title != null && String(catDesc.title).trim() !== '' && (
-                              <h4 className="text-base font-semibold text-muted-foreground uppercase tracking-wider">
-                                {catDesc.title}
-                              </h4>
-                            )}
-                            {catDesc.description != null && String(catDesc.description).trim() !== '' && (
-                              <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap">
-                                {catDesc.description}
-                              </p>
-                            )}
-                          </div>
-                        ),
-                      })
-                    }
                     if (hasCol2) {
                       visibleColumns.push({
-                        span: columnSpans[1] ?? contentCols,
+                        span: contentSpan,
                         key: 'items',
                         content: hasGroupTitles ? (
                           <div className="grid grid-cols-12 gap-6">
@@ -941,7 +917,7 @@ export function MegaMenu({
                       const useGradientBg = item.highlight?.background === 'gradient'
                       const useCustomBg = usePathsBg || useThreadsBg || useGradientBg
                       visibleColumns.push({
-                        span: columnSpans[2] ?? featuredCols,
+                        span: featuredSpan,
                         key: 'highlight',
                         content: (
                           <div className="megamenu-highlight-wipe-wrap overflow-hidden" data-wipe={mouseEntrySide}>
@@ -1002,59 +978,69 @@ export function MegaMenu({
                               setMouseEntrySide(e.clientX < rect.left + rect.width / 2 ? 'left' : 'right')
                             }}
                           >
-                            {visibleColumns.length > 0 && (() => {
-                              const hasDescColumn = visibleColumns.some((c) => c.key === 'desc')
+                            {((showCategoryIntro && catDesc) || visibleColumns.length > 0) && (() => {
                               const hasHighlightInRow = visibleColumns.some((c) => c.key === 'highlight')
-                              const threeColsInRow = hasDescColumn && hasHighlightInRow
-                              const twoColsInRow = visibleColumns.length === 2 && (hasDescColumn || hasHighlightInRow)
-                              /* Responsive: Ab xl (1280px) = Highlight neben Inhalt; unter xl = Highlight unter Inhalt, Desc ausgeblendet. */
-                              /* Mittlere Spalte (Unterpunkte) bekommt maximale Breite; Seiten-Spalten begrenzt */
-                              const flexMiddleGrid =
-                                threeColsInRow
-                                  ? 'xl:grid-cols-[minmax(10rem,18rem)_1fr_minmax(10rem,18rem)]'
-                                  : twoColsInRow && hasDescColumn
-                                    ? 'xl:grid-cols-[minmax(10rem,18rem)_1fr]'
-                                    : twoColsInRow && hasHighlightInRow
-                                      ? 'xl:grid-cols-[1fr_minmax(10rem,18rem)]'
-                                      : null
+                              const twoColsInRow = visibleColumns.length === 2 && hasHighlightInRow
+                              const flexMiddleGrid = twoColsInRow ? 'xl:grid-cols-[1fr_minmax(10rem,18rem)]' : null
                               return (
-                              <div
-                                className={cn(
-                                  'megamenu-dropdown-content grid grid-cols-12',
-                                  flexMiddleGrid,
-                                )}
-                              >
-                                {visibleColumns.map((col, idx) => {
-                                  const flexMiddle = threeColsInRow || twoColsInRow
-                                  const isItemsCol = col.key === 'items'
-                                  const isHighlightCol = col.key === 'highlight'
-                                  const getSpan = () => {
-                                    if (col.key === 'desc') return flexMiddle ? 'xl:col-auto' : colSpan(col.span)
-                                    if (isItemsCol && flexMiddle) return 'col-span-12 xl:col-auto'
-                                    if (isItemsCol) return 'col-span-12 xl:col-span-6'
-                                    if (isHighlightCol && flexMiddle) return 'col-span-12 xl:col-auto'
-                                    if (isHighlightCol) return 'col-span-12 xl:col-span-3'
-                                    return colSpan(col.span)
-                                  }
-                                  return (
+                                <div className="megamenu-dropdown-panel">
+                                  {showCategoryIntro && catDesc && (
+                                    <div className="megamenu-dropdown-intro px-8 pt-8 pb-4 border-b border-border/60">
+                                      {catDesc.title != null && String(catDesc.title).trim() !== '' && (
+                                        <h2 className="text-lg font-semibold tracking-tight text-foreground">
+                                          {catDesc.title}
+                                        </h2>
+                                      )}
+                                      {catDesc.description != null && String(catDesc.description).trim() !== '' && (
+                                        <p
+                                          className={cn(
+                                            'text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap',
+                                            catDesc.title != null && String(catDesc.title).trim() !== '' && 'mt-2',
+                                          )}
+                                        >
+                                          {catDesc.description}
+                                        </p>
+                                      )}
+                                    </div>
+                                  )}
+                                  {visibleColumns.length > 0 && (
                                     <div
-                                      key={col.key}
                                       className={cn(
-                                        'p-8 flex flex-col min-w-0',
-                                        col.key === 'desc' && 'megamenu-sidebar megamenu-col-desc bg-muted/40 hidden xl:flex',
-                                        col.key === 'highlight' && 'megamenu-featured',
-                                        col.key === 'items' && 'megamenu-col-items',
-                                        idx < visibleColumns.length - 1 && 'border-r border-border megamenu-col-divider',
-                                        isItemsCol && flexMiddle && 'max-xl:border-r-0',
-                                        isHighlightCol && flexMiddle && 'max-xl:border-t max-xl:border-border',
-                                        getSpan(),
+                                        'megamenu-dropdown-content grid grid-cols-12',
+                                        flexMiddleGrid,
                                       )}
                                     >
-                                      {col.content}
+                                      {visibleColumns.map((col, idx) => {
+                                        const flexMiddle = twoColsInRow
+                                        const isItemsCol = col.key === 'items'
+                                        const isHighlightCol = col.key === 'highlight'
+                                        const getSpan = () => {
+                                          if (isItemsCol && flexMiddle) return 'col-span-12 xl:col-auto'
+                                          if (isItemsCol) return colSpan(col.span)
+                                          if (isHighlightCol && flexMiddle) return 'col-span-12 xl:col-auto'
+                                          if (isHighlightCol) return colSpan(col.span)
+                                          return colSpan(col.span)
+                                        }
+                                        return (
+                                          <div
+                                            key={col.key}
+                                            className={cn(
+                                              'p-8 flex flex-col min-w-0',
+                                              col.key === 'highlight' && 'megamenu-featured',
+                                              col.key === 'items' && 'megamenu-col-items',
+                                              idx < visibleColumns.length - 1 && 'border-r border-border megamenu-col-divider',
+                                              isItemsCol && flexMiddle && 'max-xl:border-r-0',
+                                              isHighlightCol && flexMiddle && 'max-xl:border-t max-xl:border-border',
+                                              getSpan(),
+                                            )}
+                                          >
+                                            {col.content}
+                                          </div>
+                                        )
+                                      })}
                                     </div>
-                                  )
-                                })}
-                              </div>
+                                  )}
+                                </div>
                               )
                             })()}
                             {(hasCol3 && item.highlight != null && highlightPosition === 'below' && highlightContent) || megaMenuCta ? (

@@ -3387,19 +3387,19 @@ export interface Header {
    */
   useMegaMenu?: boolean | null;
   /**
-   * Aufteilung des Dropdowns im 12-Spalten-Grid (Kategoriebeschreibung | Unterpunkte | Highlight). Die drei Werte müssen zusammen 12 ergeben. Spalten ohne Inhalt werden automatisch ausgeblendet.
+   * Rubrik-Titel und -Text erscheinen oben im Dropdown; das Grid nutzt nur Unterpunkte und optional Highlight. „Unterpunkte“ und „Highlight“ bestimmen die Spaltenbreiten (12er-Grid). Die drei Zahlen müssen weiterhin zusammen 12 ergeben (erstes Feld ist Legacy, wird im Layout nicht mehr verwendet).
    */
   megaMenuLayout?: {
     /**
-     * Linke Spalte: Kategoriebeschreibung (12er-Grid).
+     * Wird im Frontend nicht mehr für Spalten genutzt; für bestehende Daten beibehalten. Zusammen mit den anderen beiden Werten weiter 12 ergeben.
      */
     sidebarCols: number;
     /**
-     * Mitte: Alle Menü-Unterpunkte (12er-Grid).
+     * Breite der Link-Liste im Dropdown (12er-Grid, zusammen mit Highlight = 12 minus Legacy-Spalte).
      */
     contentCols: number;
     /**
-     * Rechte Spalte: Highlight/CTA (12er-Grid). Die drei Werte müssen zusammen 12 ergeben.
+     * Breite des Highlight-Bereichs neben den Unterpunkten (12er-Grid).
      */
     featuredCols: number;
   };

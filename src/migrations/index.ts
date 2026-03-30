@@ -63,6 +63,7 @@ import * as migration_20260329_300000_site_pages_blocks_profil_bacher from './20
 import * as migration_20260329_400000_site_pages_profil_blocks_editable from './20260329_400000_site_pages_profil_blocks_editable'
 import * as migration_20260329_600000_price_calculator_tables from './20260329_600000_price_calculator_tables'
 import * as migration_20260329_700000_rename_profil_block_tables_match_db_name from './20260329_700000_rename_profil_block_tables_match_db_name'
+import * as migration_20260330_100000_rename_profil_version_tables_match_db_name from './20260330_100000_rename_profil_version_tables_match_db_name'
 
 export const migrations = [
   {
@@ -389,5 +390,10 @@ export const migrations = [
     up: migration_20260329_700000_rename_profil_block_tables_match_db_name.up,
     down: migration_20260329_700000_rename_profil_block_tables_match_db_name.down,
     name: '20260329_700000_rename_profil_block_tables_match_db_name',
+  },
+  {
+    up: migration_20260330_100000_rename_profil_version_tables_match_db_name.up,
+    down: migration_20260330_100000_rename_profil_version_tables_match_db_name.down,
+    name: '20260330_100000_rename_profil_version_tables_match_db_name',
   },
 ]
