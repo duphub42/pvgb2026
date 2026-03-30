@@ -6,12 +6,19 @@ import {
 } from '@payloadcms/richtext-lexical'
 import { linkGroup } from '@/fields/linkGroup'
 
+/** Popout-Portrait-Layout (Philipp Bacher Legacy + Superhero): gleiche CMS-Felder. */
+export const POPOUT_LAYOUT_HERO_TYPES = ['philippBacher', 'superhero'] as const
+
+const isPopoutLayoutHero = (type: string | undefined) =>
+  POPOUT_LAYOUT_HERO_TYPES.includes(type as (typeof POPOUT_LAYOUT_HERO_TYPES)[number])
+
 /** Hero-Typen, die Headline/Beschreibung/Links/Media im Backend bearbeitbar haben (inkl. Shadcn Blocks). */
 const HERO_TYPES_WITH_EDITABLE_CONTENT = [
   'highImpact',
   'mediumImpact',
   'lowImpact',
   'philippBacher',
+  'superhero',
   'heroStylePreview',
   'hero75',
   'hero215',
@@ -26,7 +33,7 @@ const hasEditableContent = (type: string | undefined) =>
   type != null && (HERO_TYPES_WITH_EDITABLE_CONTENT as readonly string[]).includes(type)
 
 const heroTypesWithLogoMarquee = (type: string | undefined) =>
-  ['philippBacher', 'highImpact', 'mediumImpact', 'lowImpact', 'heroStylePreview'].includes(
+  ['philippBacher', 'superhero', 'highImpact', 'mediumImpact', 'lowImpact', 'heroStylePreview'].includes(
     String(type ?? ''),
   )
 
@@ -44,7 +51,8 @@ export const hero: Field = {
         { label: 'High Impact', value: 'highImpact' },
         { label: 'Medium Impact', value: 'mediumImpact' },
         { label: 'Low Impact', value: 'lowImpact' },
-        { label: 'Philipp Bacher (Custom)', value: 'philippBacher' },
+        { label: 'Superhero (Popout-Portrait)', value: 'superhero' },
+        { label: 'Legacy — Philipp Bacher (Popout)', value: 'philippBacher' },
         { label: 'Style Preview (Test)', value: 'heroStylePreview' },
         { label: 'Grid Hero (Smoothui)', value: 'gridHero' },
         { label: 'Shadcn Hero 75', value: 'hero75' },
@@ -108,8 +116,9 @@ export const hero: Field = {
       type: 'text',
       label: 'Überschrift Zeile 1',
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
-        description: 'Optional. Wenn gesetzt: 3-Zeilen-Überschrift mit Scramble-Effekt. Sonst wird „Haupt-Überschrift“ verwendet.',
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+        description:
+          'Optional. Wenn gesetzt: mehrzeilige Überschrift. Sonst wird „Haupt-Überschrift“ verwendet.',
       },
     },
     {
@@ -117,7 +126,7 @@ export const hero: Field = {
       type: 'text',
       label: 'Überschrift Zeile 2',
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -125,7 +134,7 @@ export const hero: Field = {
       type: 'text',
       label: 'Überschrift Zeile 3',
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -159,7 +168,7 @@ export const hero: Field = {
         { label: 'Animation', value: 'animation' },
       ],
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
         description:
           'Halo (CSS) = weiche Farb-Halos ohne WebGL. Bei „Bild/Video/Animation“ erscheinen die Spezial-Hintergründe nicht.',
       },
@@ -177,7 +186,7 @@ export const hero: Field = {
         { label: 'Animation', value: 'animation' },
       ],
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
         description:
           'Optionaler Override für Mobilgeräte. „Wie Desktop-Einstellung“ übernimmt die normale Auswahl.',
       },
@@ -189,7 +198,7 @@ export const hero: Field = {
       label: 'Hintergrund Bild',
       admin: {
         condition: (_, siblingData) =>
-          siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'image',
+          isPopoutLayoutHero(String(siblingData?.type ?? '')) && siblingData?.mediaType === 'image',
       },
     },
     {
@@ -199,7 +208,7 @@ export const hero: Field = {
       label: 'Hintergrund Video',
       admin: {
         condition: (_, siblingData) =>
-          siblingData?.type === 'philippBacher' && siblingData?.mediaType === 'video',
+          isPopoutLayoutHero(String(siblingData?.type ?? '')) && siblingData?.mediaType === 'video',
       },
     },
     {
@@ -208,7 +217,7 @@ export const hero: Field = {
       relationTo: 'media',
       label: 'Vordergrund Bild',
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -217,7 +226,7 @@ export const hero: Field = {
       defaultValue: 0.5,
       label: 'Overlay Deckkraft',
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -231,7 +240,7 @@ export const hero: Field = {
           min: 0,
           max: 20,
           admin: {
-            condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
             description: 'Wie stark die schwebenden Elemente dem Cursor ausweichen (0 = aus, 6.5 = Standard).',
           },
         },
@@ -243,7 +252,7 @@ export const hero: Field = {
           min: 0,
           max: 20,
           admin: {
-            condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
             description: 'Amplitude der leichten Bewegung ohne Maus (0 = statisch).',
           },
         },
@@ -254,15 +263,23 @@ export const hero: Field = {
       type: 'array',
       label: 'Floating Elements',
       admin: {
-        condition: (_, siblingData) => siblingData?.type === 'philippBacher',
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
         description: 'Kleine Elemente (Badges, Icons), die über dem Hero schweben. Position über Preset wählen.',
       },
       fields: [
         {
           name: 'label',
           type: 'text',
-          label: 'Label / Text',
-          admin: { description: 'Optional. Ein Bild/Icon genügt; mit Text wird beides angezeigt.' },
+          label: 'Überschrift',
+          admin: { description: 'Optional. Kurztitel der Karte; Icon allein reicht auch.' },
+        },
+        {
+          name: 'floatingDescription',
+          type: 'text',
+          label: 'Kurzbeschreibung',
+          admin: {
+            description: 'Optional. Eine Zeile unter der Überschrift (max. 2 Zeilen im Layout).',
+          },
         },
         {
           name: 'icon',

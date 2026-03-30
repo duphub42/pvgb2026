@@ -329,6 +329,7 @@ export const enum_site_pages_hero_type = pgEnum('enum_site_pages_hero_type', [
   'mediumImpact',
   'lowImpact',
   'philippBacher',
+  'superhero',
   'gridHero',
 ])
 export const enum_site_pages_hero_media_type = pgEnum('enum_site_pages_hero_media_type', [
@@ -651,6 +652,7 @@ export const enum__site_pages_v_version_hero_type = pgEnum('enum__site_pages_v_v
   'mediumImpact',
   'lowImpact',
   'philippBacher',
+  'superhero',
   'gridHero',
 ])
 export const enum__site_pages_v_version_hero_media_type = pgEnum(
@@ -763,6 +765,7 @@ export const site_pages_hero_floating_elements = pgTable(
     _parentID: integer('_parent_id').notNull(),
     id: varchar('id').primaryKey(),
     label: varchar('label'),
+    floatingDescription: varchar('floating_description'),
     icon: integer('icon_id').references(() => media.id, {
       onDelete: 'set null',
     }),
@@ -2266,6 +2269,7 @@ export const _site_pages_v_version_hero_floating_elements = pgTable(
     _parentID: integer('_parent_id').notNull(),
     id: serial('id').primaryKey(),
     label: varchar('label'),
+    floatingDescription: varchar('floating_description'),
     icon: integer('icon_id').references(() => media.id, {
       onDelete: 'set null',
     }),

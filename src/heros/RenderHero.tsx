@@ -47,13 +47,19 @@ const StylePreviewHeroLazy = dynamic(() =>
   import('@/heros/StylePreview/StylePreviewHero').then((m) => m.StylePreviewHero),
 )
 
+const SuperheroHeroLazy = dynamic(() =>
+  import('@/heros/Superhero/SuperheroHero').then((m) => m.SuperheroHero),
+)
+
 const heroes = {
   highImpact: dynamic(() => import('@/heros/HighImpact').then((m) => m.HighImpactHero)),
   mediumImpact: dynamic(() => import('@/heros/MediumImpact').then((m) => m.MediumImpactHero)),
   lowImpact: dynamic(() => import('@/heros/LowImpact').then((m) => m.LowImpactHero)),
   heroStylePreview: StylePreviewHeroLazy,
-  /** Popout-Portrait-Hero (Glas-Panel + PopoutPortrait); gleiche Komponente wie Style Preview. */
+  /** Popout-Portrait (Legacy-Alias); bevorzugt CMS-Typ `superhero`. */
   philippBacher: StylePreviewHeroLazy,
+  /** Popout-Portrait — klarer Produktiv-Typ (StylePreviewHero + aria/data). */
+  superhero: SuperheroHeroLazy,
   gridHero: dynamic(() => import('@/heros/GridHero').then((m) => m.GridHero)),
   simpleHero: dynamic(() => import('@/heros/SimpleHero')),
   hero75: dynamic(() => import('@/components/hero75').then((m) => m.Hero75)),

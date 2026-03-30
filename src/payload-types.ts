@@ -178,6 +178,7 @@ export interface SitePage {
           | 'highImpact'
           | 'mediumImpact'
           | 'lowImpact'
+          | 'superhero'
           | 'philippBacher'
           | 'heroStylePreview'
           | 'gridHero'
@@ -212,7 +213,7 @@ export interface SitePage {
     subheadline?: string | null;
     headline?: string | null;
     /**
-     * Optional. Wenn gesetzt: 3-Zeilen-Überschrift mit Scramble-Effekt. Sonst wird „Haupt-Überschrift“ verwendet.
+     * Optional. Wenn gesetzt: mehrzeilige Überschrift. Sonst wird „Haupt-Überschrift“ verwendet.
      */
     headlineLine1?: string | null;
     headlineLine2?: string | null;
@@ -248,9 +249,13 @@ export interface SitePage {
     floatingElements?:
       | {
           /**
-           * Optional. Ein Bild/Icon genügt; mit Text wird beides angezeigt.
+           * Optional. Kurztitel der Karte; Icon allein reicht auch.
            */
           label?: string | null;
+          /**
+           * Optional. Eine Zeile unter der Überschrift (max. 2 Zeilen im Layout).
+           */
+          floatingDescription?: string | null;
           /**
            * Optional. Mit oder ohne Label – mindestens eines von beiden angeben.
            */
@@ -2202,6 +2207,7 @@ export interface SitePagesSelect<T extends boolean = true> {
           | T
           | {
               label?: T;
+              floatingDescription?: T;
               icon?: T;
               linkUrl?: T;
               linkNewTab?: T;

@@ -6,6 +6,12 @@ import { usePathname } from 'next/navigation'
 import React, { type ComponentProps } from 'react'
 import PopoutPortrait from '@/components/PopoutPortrait'
 import { HeroLogoMarquee, type HeroMarqueeLogoRow } from '@/heros/HeroLogoMarquee'
+import {
+  filterPopoutFloatingElements,
+  PopoutHeroFloatingElementsAbsolute,
+  PopoutHeroFloatingElementsFlow,
+  type PopoutHeroFloatingItem,
+} from '@/heros/PopoutHeroFloatingElements'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 import { cn } from '@/utilities/ui'
 
@@ -31,6 +37,11 @@ interface StylePreviewHeroProps {
   foregroundImage?: number | { id?: number | null; url?: string | null; alt?: string | null } | null
   marqueeHeadline?: string | null
   marqueeLogos?: HeroMarqueeLogoRow[] | null
+  floatingElements?: PopoutHeroFloatingItem[] | null
+  /** Overrides default section aria-label (e.g. Superhero). */
+  sectionAriaLabel?: string | null
+  /** e.g. `superhero` for analytics / debugging */
+  dataHeroType?: string | null
 }
 
 const defaultSubheadline = 'Style Concept Test'
@@ -156,6 +167,9 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
   foregroundImage,
   marqueeHeadline,
   marqueeLogos,
+  floatingElements,
+  sectionAriaLabel,
+  dataHeroType,
 }) => {
   const pathname = usePathname()
   const pathNorm = (pathname ?? '/').replace(/\/$/, '') || '/'
@@ -168,15 +182,21 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
   const ctaLinks = Array.isArray(links) ? links.filter((entry) => Boolean(entry?.link?.label)) : []
   const portraitSrc =
     resolveHeroImageSrc(media) || resolveHeroImageSrc(foregroundImage)
+  const floats = filterPopoutFloatingElements(floatingElements)
+
+  const sectionLabel = isProfilPage
+    ? 'Profil Hero'
+    : (sectionAriaLabel ?? 'Hero')
 
   return (
     <section
-      aria-label={isProfilPage ? 'Profil Hero' : 'Hero'}
+      aria-label={sectionLabel}
       className={cn(
         'hero-offset relative overflow-visible text-foreground',
-        isProfilPage ? 'profil-hero-paper' : 'bg-background',
+        isProfilPage ? 'profil-hero-paper' : 'bg-background hero-offset--popout',
       )}
       data-profil-hero={isProfilPage ? 'true' : undefined}
+      data-hero-type={!isProfilPage && dataHeroType ? dataHeroType : undefined}
     >
       {!isProfilPage ? (
         <>
@@ -189,6 +209,7 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
             aria-hidden
           />
           <div className="hero-section-foreground-tint hero-section-foreground-tint--above-decor" aria-hidden />
+          <div className="hero-popout-structure-layer pointer-events-none absolute inset-0 z-[1]" aria-hidden />
         </>
       ) : null}
       <div className="relative z-[2] container flex w-full min-w-0 flex-col px-4 pt-8 pb-14 sm:pt-10 md:pt-6 md:pb-24 lg:pt-8 lg:pb-28 xl:pt-10">
@@ -235,6 +256,10 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
               </div>
             ) : null}
 
+            {!isProfilPage && floats.length > 0 ? (
+              <PopoutHeroFloatingElementsFlow elements={floats} />
+            ) : null}
+
             <HeroLogoMarquee
               marqueeHeadline={marqueeHeadline}
               marqueeLogos={marqueeLogos}
@@ -253,13 +278,16 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
               ) : (
                 <div className="flex aspect-[4/3] w-full items-center justify-center bg-muted/50 p-6 text-center text-sm text-muted-foreground">
                   Kein Hero-Bild gesetzt. Im Backend „Media / Hintergrundbild“ (Style Preview) oder
-                  „Vordergrund Bild“ (Philipp Bacher) befüllen.
+                  „Vordergrund Bild“ (Superhero / Legacy Philipp Bacher) befüllen.
                 </div>
               )}
             </div>
           </div>
         </div>
       </div>
+      {!isProfilPage && floats.length > 0 ? (
+        <PopoutHeroFloatingElementsAbsolute elements={floats} />
+      ) : null}
       {isProfilPage ? <ProfilHeroShapeDivider /> : null}
     </section>
   )

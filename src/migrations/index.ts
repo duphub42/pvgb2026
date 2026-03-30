@@ -64,6 +64,8 @@ import * as migration_20260329_400000_site_pages_profil_blocks_editable from './
 import * as migration_20260329_600000_price_calculator_tables from './20260329_600000_price_calculator_tables'
 import * as migration_20260329_700000_rename_profil_block_tables_match_db_name from './20260329_700000_rename_profil_block_tables_match_db_name'
 import * as migration_20260330_100000_rename_profil_version_tables_match_db_name from './20260330_100000_rename_profil_version_tables_match_db_name'
+import * as migration_20260330_115500_hero_superhero_enum_values from './20260330_115500_hero_superhero_enum_values'
+import * as migration_20260330_120000_hero_superhero_and_floating_description from './20260330_120000_hero_superhero_and_floating_description'
 
 export const migrations = [
   {
@@ -395,5 +397,15 @@ export const migrations = [
     up: migration_20260330_100000_rename_profil_version_tables_match_db_name.up,
     down: migration_20260330_100000_rename_profil_version_tables_match_db_name.down,
     name: '20260330_100000_rename_profil_version_tables_match_db_name',
+  },
+  {
+    up: migration_20260330_115500_hero_superhero_enum_values.up,
+    down: migration_20260330_115500_hero_superhero_enum_values.down,
+    name: '20260330_115500_hero_superhero_enum_values',
+  },
+  {
+    up: migration_20260330_120000_hero_superhero_and_floating_description.up,
+    down: migration_20260330_120000_hero_superhero_and_floating_description.down,
+    name: '20260330_120000_hero_superhero_and_floating_description',
   },
 ]

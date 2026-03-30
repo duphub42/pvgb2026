@@ -530,7 +530,7 @@
     "id": 4,
     "title": "Home",
     "hero": {
-      "type": "philippBacher",
+      "type": "superhero",
       "richText": {
         "root": {
           "children": [

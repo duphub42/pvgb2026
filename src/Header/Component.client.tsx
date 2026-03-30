@@ -231,7 +231,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
       <div
         className={cn(
           'header-slide-layer transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)]',
-          (isPastFold || isScrolled) && 'header-glass-border',
+          'header-glass-border',
           revealFromTop && 'header-reveal-from-top',
           hideToTop && 'header-hide-to-top',
           headerVisible || hideToTop
