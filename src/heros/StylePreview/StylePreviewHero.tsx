@@ -392,8 +392,8 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
         <div className="grid min-w-0 gap-0 md:grid-cols-[minmax(0,45%)_1fr] md:items-end md:gap-6 lg:gap-12 xl:gap-16">
           <div
             className={cn(
-              'hero-mobile-glass relative min-w-0 space-y-5 max-md:z-[16] max-md:-mx-4 max-md:px-4 max-md:pt-8 max-md:pb-10 max-md:rounded-t-2xl md:min-h-[min(58vh,640px)] lg:min-h-[min(62vh,680px)]',
-              !isProfilVariant && 'max-md:-mt-[min(40vw,13.5rem)]',
+              'hero-mobile-glass relative min-w-0 space-y-5 max-md:z-[16] max-md:-mx-4 max-md:px-4 max-md:pt-8 max-md:pb-10 max-md:rounded-t-2xl md:min-h-0 lg:min-h-[min(62vh,680px)]',
+              !isProfilVariant && 'max-md:-mt-[min(24vw,9.5rem)]',
             )}
           >
             {subheadline && (

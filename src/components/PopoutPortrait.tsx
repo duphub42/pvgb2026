@@ -141,6 +141,10 @@ export default function PopoutPortrait({
             max-width: 100%;
             height: auto;
             max-height: none;
+          }
+        }
+        @media (min-width: 1025px) {
+          .pb-popout-root[data-pb-fill-row] {
             min-height: min(58vh, 640px);
           }
         }
@@ -335,16 +339,18 @@ export default function PopoutPortrait({
         width="100%"
         height="100%"
         viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        style={{ position: 'absolute', inset: 0, zIndex: 0, overflow: 'visible', pointerEvents: 'none' }}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 0,
+          overflow: 'visible',
+          pointerEvents: 'none',
+        }}
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
         <defs>
-          <mask
-            id={decorMaskId}
-            maskUnits="userSpaceOnUse"
-            maskContentUnits="userSpaceOnUse"
-          >
+          <mask id={decorMaskId} maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse">
             <rect x={0} y={0} width={VIEWBOX_W} height={VIEWBOX_H} fill="white" />
             <circle cx={cx} cy={cy} r={r} fill="black" />
           </mask>
@@ -379,7 +385,13 @@ export default function PopoutPortrait({
         width="100%"
         height="100%"
         viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        style={{ position: 'absolute', inset: 0, zIndex: 1, overflow: 'visible', pointerEvents: 'none' }}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 1,
+          overflow: 'visible',
+          pointerEvents: 'none',
+        }}
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
@@ -475,7 +487,13 @@ export default function PopoutPortrait({
         width="100%"
         height="100%"
         viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        style={{ position: 'absolute', inset: 0, zIndex: 2, overflow: 'visible', pointerEvents: 'none' }}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 2,
+          overflow: 'visible',
+          pointerEvents: 'none',
+        }}
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
@@ -502,7 +520,14 @@ export default function PopoutPortrait({
             width: 182,
           }}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 5 }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 5,
+            }}
+          >
             <span className="pb-card-title">Ads Performance</span>
             <Pill variant="danger">↓ CPC</Pill>
           </div>
@@ -525,7 +550,6 @@ export default function PopoutPortrait({
           <ScoreBar label="SEO" value={97} color="#5f61a0" />
           <ScoreBar label="Accessibility" value={88} color="#f39c12" />
         </div>
-
       </div>
 
       {/* z-4: Portrait ohne SVG-clipPath, damit das Motiv vollständig sichtbar bleibt (xMidYMax meet im Slot) */}
@@ -533,10 +557,43 @@ export default function PopoutPortrait({
         width="100%"
         height="100%"
         viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        style={{ position: 'absolute', inset: 0, zIndex: 4, overflow: 'visible', pointerEvents: 'none' }}
+        style={{
+          position: 'absolute',
+          inset: 0,
+          zIndex: 4,
+          overflow: 'visible',
+          pointerEvents: 'none',
+        }}
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
+        <defs>
+          <linearGradient
+            id={`${uid}-portrait-fade-grad`}
+            x1="0"
+            y1={imgY}
+            x2="0"
+            y2={imgY + imgH}
+            gradientUnits="userSpaceOnUse"
+          >
+            <stop offset="0%" stopColor="#fff" stopOpacity="1" />
+            <stop offset="85%" stopColor="#fff" stopOpacity="1" />
+            <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+          </linearGradient>
+          <mask
+            id={`${uid}-portrait-fade-mask`}
+            maskUnits="userSpaceOnUse"
+            maskContentUnits="userSpaceOnUse"
+          >
+            <rect
+              x={imgX}
+              y={imgY}
+              width={imgW}
+              height={imgH}
+              fill={`url(#${uid}-portrait-fade-grad)`}
+            />
+          </mask>
+        </defs>
         <image
           href={imageSrc}
           x={imgX}
@@ -544,6 +601,7 @@ export default function PopoutPortrait({
           width={imgW}
           height={imgH}
           preserveAspectRatio="xMidYMax meet"
+          mask={`url(#${uid}-portrait-fade-mask)`}
           onError={() => {}}
         />
       </svg>
@@ -559,7 +617,14 @@ export default function PopoutPortrait({
           <FunnelRow label="Kunden" value="486" pct={25} color="#27ae60" valueColor="#27ae60" />
         </div>
         <div className="pb-card pb-cC" style={{ bottom: 42, left: 8 - cardSpread, width: 170 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginBottom: 6,
+            }}
+          >
             <span className="pb-card-title">Automatisierung</span>
             <Pill variant="success">● Live</Pill>
           </div>
@@ -634,7 +699,14 @@ function Stat({ label, value, valueColor }: { label: string; value: string; valu
       }}
     >
       <div className="pb-card-muted">{label}</div>
-      <div className={valueColor ? undefined : 'pb-card-value'} style={valueColor ? { fontSize: 17, fontWeight: 700, color: valueColor } : { fontSize: 17, fontWeight: 700 }}>
+      <div
+        className={valueColor ? undefined : 'pb-card-value'}
+        style={
+          valueColor
+            ? { fontSize: 17, fontWeight: 700, color: valueColor }
+            : { fontSize: 17, fontWeight: 700 }
+        }
+      >
         {value}
       </div>
     </div>
@@ -681,4 +753,3 @@ function FunnelRow({
     </div>
   )
 }
-
