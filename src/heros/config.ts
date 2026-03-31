@@ -20,13 +20,6 @@ const HERO_TYPES_WITH_EDITABLE_CONTENT = [
   'philippBacher',
   'superhero',
   'heroStylePreview',
-  'hero75',
-  'hero215',
-  'hero238',
-  'hero242',
-  'hero243',
-  'hero244',
-  'hero256',
 ] as const
 
 const hasEditableContent = (type: string | undefined) =>
@@ -46,22 +39,14 @@ export const hero: Field = {
       type: 'select',
       defaultValue: 'lowImpact',
       label: 'Hero Design Typ',
+      // Hidden legacy values `philippBacher` and `heroStylePreview` are still supported for existing data,
+      // but new pages may only select the clean `superhero` type.
       options: [
         { label: 'None', value: 'none' },
         { label: 'High Impact', value: 'highImpact' },
         { label: 'Medium Impact', value: 'mediumImpact' },
         { label: 'Low Impact', value: 'lowImpact' },
         { label: 'Superhero (Popout-Portrait)', value: 'superhero' },
-        { label: 'Legacy — Philipp Bacher (Popout)', value: 'philippBacher' },
-        { label: 'Style Preview (Test)', value: 'heroStylePreview' },
-        { label: 'Grid Hero (Smoothui)', value: 'gridHero' },
-        { label: 'Shadcn Hero 75', value: 'hero75' },
-        { label: 'Shadcn Hero 215', value: 'hero215' },
-        { label: 'Shadcn Hero 238', value: 'hero238' },
-        { label: 'Shadcn Hero 242', value: 'hero242' },
-        { label: 'Shadcn Hero 243', value: 'hero243' },
-        { label: 'Shadcn Hero 244', value: 'hero244' },
-        { label: 'Shadcn Hero 256', value: 'hero256' },
       ],
     },
     {
@@ -89,7 +74,7 @@ export const hero: Field = {
           const t = String(siblingData?.type ?? '')
           return (
             ['highImpact', 'mediumImpact', 'lowImpact'].includes(t) ||
-            ['philippBacher', 'heroStylePreview', 'hero75', 'hero215', 'hero238', 'hero242', 'hero243', 'hero244', 'hero256'].includes(t)
+            ['philippBacher', 'heroStylePreview'].includes(t)
           )
         },
         description:

@@ -26,12 +26,6 @@ const variantLoaders: Record<
   about3: lazy(() =>
     import('@/components/about3').then((m) => ({ default: m.About3 })),
   ),
-  hero238: lazy(() =>
-    import('@/components/hero238').then((m) => ({ default: m.Hero238 })),
-  ),
-  hero256: lazy(() =>
-    import('@/components/hero256').then((m) => ({ default: m.Hero256 })),
-  ),
   feature268: lazy(() =>
     import('@/components/feature268').then((m) => ({ default: m.Feature268 })),
   ),

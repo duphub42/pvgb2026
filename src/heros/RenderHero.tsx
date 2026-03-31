@@ -3,7 +3,7 @@
 import dynamic from 'next/dynamic'
 import React from 'react'
 
-const SHADCN_HERO_TYPES = new Set(['hero75', 'hero215', 'hero238', 'hero242', 'hero243', 'hero244', 'hero256'])
+const SHADCN_HERO_TYPES = new Set<string>()
 
 /** Fängt Laufzeitfehler in Shadcn-Heros ab und zeigt einen einfachen Fallback statt „Hero konnte nicht geladen werden“. */
 class ShadcnHeroErrorBoundary extends React.Component<
@@ -60,15 +60,7 @@ const heroes = {
   philippBacher: StylePreviewHeroLazy,
   /** Popout-Portrait — klarer Produktiv-Typ (StylePreviewHero + aria/data). */
   superhero: SuperheroHeroLazy,
-  gridHero: dynamic(() => import('@/heros/GridHero').then((m) => m.GridHero)),
   simpleHero: dynamic(() => import('@/heros/SimpleHero')),
-  hero75: dynamic(() => import('@/components/hero75').then((m) => m.Hero75)),
-  hero215: dynamic(() => import('@/components/hero215').then((m) => m.Hero215)),
-  hero238: dynamic(() => import('@/components/hero238').then((m) => m.Hero238)),
-  hero242: dynamic(() => import('@/components/hero242').then((m) => m.Hero242)),
-  hero243: dynamic(() => import('@/components/hero243').then((m) => m.Hero243)),
-  hero244: dynamic(() => import('@/components/hero244').then((m) => m.Hero244)),
-  hero256: dynamic(() => import('@/components/hero256').then((m) => m.Hero256)),
 }
 
 export type HeroType = keyof typeof heroes

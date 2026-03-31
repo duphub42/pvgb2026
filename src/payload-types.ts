@@ -175,25 +175,7 @@ export interface SitePage {
   id: number;
   title: string;
   hero?: {
-    type?:
-      | (
-          | 'none'
-          | 'highImpact'
-          | 'mediumImpact'
-          | 'lowImpact'
-          | 'superhero'
-          | 'philippBacher'
-          | 'heroStylePreview'
-          | 'gridHero'
-          | 'hero75'
-          | 'hero215'
-          | 'hero238'
-          | 'hero242'
-          | 'hero243'
-          | 'hero244'
-          | 'hero256'
-        )
-      | null;
+    type?: ('none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'superhero') | null;
     richText?: {
       root: {
         type: string;
@@ -816,8 +798,6 @@ export interface ShadcnBlock {
     | 'about15'
     | 'about8'
     | 'about3'
-    | 'hero238'
-    | 'hero256'
     | 'feature268'
     | 'feature267'
     | 'feature271'

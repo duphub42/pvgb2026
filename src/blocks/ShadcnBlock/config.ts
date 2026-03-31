@@ -10,8 +10,6 @@ export const SHADCN_BLOCK_VARIANTS = [
   { label: 'About 15', value: 'about15' },
   { label: 'About 8', value: 'about8' },
   { label: 'About 3', value: 'about3' },
-  { label: 'Hero 238', value: 'hero238' },
-  { label: 'Hero 256', value: 'hero256' },
   { label: 'Feature 268', value: 'feature268' },
   { label: 'Feature 267', value: 'feature267' },
   { label: 'Feature 271', value: 'feature271' },
