@@ -6,15 +6,19 @@ import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-vercel-postg
  * which breaks Payload inserts and cross-table referential integrity.
  */
 export async function up({ db }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     ALTER TABLE "site_pages_blocks_services_overview_services"
     ALTER COLUMN "id" TYPE text USING "id"::text;
-  `))
+  `),
+  )
 
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     ALTER TABLE "site_pages_blocks_services_overview_services"
     ALTER COLUMN "_parent_id" TYPE text USING "_parent_id"::text;
-  `))
+  `),
+  )
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {

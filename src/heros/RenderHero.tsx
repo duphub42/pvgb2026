@@ -26,7 +26,10 @@ class ShadcnHeroErrorBoundary extends React.Component<
       const headline = typeof heroData?.headline === 'string' ? heroData.headline : null
       const description = typeof heroData?.description === 'string' ? heroData.description : null
       return (
-        <section className="relative min-h-[40vh] bg-neutral-950 px-4 py-24 text-white" aria-label="Hero">
+        <section
+          className="relative min-h-[40vh] bg-neutral-950 px-4 py-24 text-white"
+          aria-label="Hero"
+        >
           <div className="container mx-auto max-w-2xl">
             {headline ? (
               <h1 className="text-hero-display-sm hero-heading-gradient hero-heading-gradient--inverse tracking-tight">
@@ -43,10 +46,6 @@ class ShadcnHeroErrorBoundary extends React.Component<
   }
 }
 
-const StylePreviewHeroLazy = dynamic(() =>
-  import('@/heros/StylePreview/StylePreviewHero').then((m) => m.StylePreviewHero),
-)
-
 const SuperheroHeroLazy = dynamic(() =>
   import('@/heros/Superhero/SuperheroHero').then((m) => m.SuperheroHero),
 )
@@ -55,12 +54,8 @@ const heroes = {
   highImpact: dynamic(() => import('@/heros/HighImpact').then((m) => m.HighImpactHero)),
   mediumImpact: dynamic(() => import('@/heros/MediumImpact').then((m) => m.MediumImpactHero)),
   lowImpact: dynamic(() => import('@/heros/LowImpact').then((m) => m.LowImpactHero)),
-  heroStylePreview: StylePreviewHeroLazy,
-  /** Popout-Portrait (Legacy-Alias); bevorzugt CMS-Typ `superhero`. */
-  philippBacher: StylePreviewHeroLazy,
-  /** Popout-Portrait — klarer Produktiv-Typ (StylePreviewHero + aria/data). */
+  /** Popout-Portrait — klarer Produktiv-Typ. */
   superhero: SuperheroHeroLazy,
-  simpleHero: dynamic(() => import('@/heros/SimpleHero')),
 }
 
 export type HeroType = keyof typeof heroes

@@ -7,7 +7,7 @@ import {
 import { linkGroup } from '@/fields/linkGroup'
 
 /** Popout-Portrait-Layout (Legacy, Superhero, Style Preview): gleiche CMS-Felder inkl. Stack/Muster. */
-export const POPOUT_LAYOUT_HERO_TYPES = ['philippBacher', 'superhero', 'heroStylePreview'] as const
+export const POPOUT_LAYOUT_HERO_TYPES = ['superhero'] as const
 
 const isPopoutLayoutHero = (type: string | undefined) =>
   POPOUT_LAYOUT_HERO_TYPES.includes(type as (typeof POPOUT_LAYOUT_HERO_TYPES)[number])
@@ -17,18 +17,14 @@ const HERO_TYPES_WITH_EDITABLE_CONTENT = [
   'highImpact',
   'mediumImpact',
   'lowImpact',
-  'philippBacher',
   'superhero',
-  'heroStylePreview',
 ] as const
 
 const hasEditableContent = (type: string | undefined) =>
   type != null && (HERO_TYPES_WITH_EDITABLE_CONTENT as readonly string[]).includes(type)
 
 const heroTypesWithLogoMarquee = (type: string | undefined) =>
-  ['philippBacher', 'superhero', 'highImpact', 'mediumImpact', 'lowImpact', 'heroStylePreview'].includes(
-    String(type ?? ''),
-  )
+  ['superhero', 'highImpact', 'mediumImpact', 'lowImpact'].includes(String(type ?? ''))
 
 export const hero: Field = {
   name: 'hero',
@@ -39,8 +35,7 @@ export const hero: Field = {
       type: 'select',
       defaultValue: 'lowImpact',
       label: 'Hero Design Typ',
-      // Hidden legacy values `philippBacher` and `heroStylePreview` are still supported for existing data,
-      // but new pages may only select the clean `superhero` type.
+      // Neue Seiten wählen nur den aktuellen `superhero` Typ für Popout-Portraits.
       options: [
         { label: 'None', value: 'none' },
         { label: 'High Impact', value: 'highImpact' },
@@ -61,7 +56,8 @@ export const hero: Field = {
         ],
       }),
       admin: {
-        condition: (_, siblingData) => ['highImpact', 'mediumImpact', 'lowImpact'].includes(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) =>
+          ['highImpact', 'mediumImpact', 'lowImpact'].includes(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -72,10 +68,7 @@ export const hero: Field = {
       admin: {
         condition: (_, siblingData) => {
           const t = String(siblingData?.type ?? '')
-          return (
-            ['highImpact', 'mediumImpact', 'lowImpact'].includes(t) ||
-            ['philippBacher', 'heroStylePreview'].includes(t)
-          )
+          return ['highImpact', 'mediumImpact', 'lowImpact', 'superhero'].includes(t)
         },
         description:
           'Optionales Bild rechts (Popout/Style Preview). Bei Profil-Hero zusätzlich nutzbar, wenn kein separates „Hintergrund Bild“ (mediaType Bild) gesetzt ist.',
@@ -354,7 +347,8 @@ export const hero: Field = {
           max: 20,
           admin: {
             condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
-            description: 'Wie stark die schwebenden Elemente dem Cursor ausweichen (0 = aus, 6.5 = Standard).',
+            description:
+              'Wie stark die schwebenden Elemente dem Cursor ausweichen (0 = aus, 6.5 = Standard).',
           },
         },
         {
@@ -377,7 +371,8 @@ export const hero: Field = {
       label: 'Floating Elements',
       admin: {
         condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
-        description: 'Kleine Elemente (Badges, Icons), die über dem Hero schweben. Position über Preset wählen.',
+        description:
+          'Kleine Elemente (Badges, Icons), die über dem Hero schweben. Position über Preset wählen.',
       },
       fields: [
         {
@@ -399,7 +394,9 @@ export const hero: Field = {
           type: 'upload',
           relationTo: 'media',
           label: 'Icon / Bild',
-          admin: { description: 'Optional. Mit oder ohne Label – mindestens eines von beiden angeben.' },
+          admin: {
+            description: 'Optional. Mit oder ohne Label – mindestens eines von beiden angeben.',
+          },
         },
         {
           name: 'linkUrl',
@@ -451,7 +448,8 @@ export const hero: Field = {
       label: 'Logo-Bereich Überschrift',
       defaultValue: 'ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN',
       admin: {
-        condition: (_, siblingData) => heroTypesWithLogoMarquee(siblingData?.type as string | undefined),
+        condition: (_, siblingData) =>
+          heroTypesWithLogoMarquee(siblingData?.type as string | undefined),
         description: 'Überschrift über den Logos (wie auf philippbacher.com).',
       },
     },
@@ -465,7 +463,8 @@ export const hero: Field = {
         { label: 'Logo Carousel (Cult UI)', value: 'logoCarousel' },
       ],
       admin: {
-        condition: (_, siblingData) => heroTypesWithLogoMarquee(siblingData?.type as string | undefined),
+        condition: (_, siblingData) =>
+          heroTypesWithLogoMarquee(siblingData?.type as string | undefined),
         description:
           'Marquee = Endlos-Laufzeile. Logo Carousel = nur bei Philipp-Bacher-Layout (Cult UI); Impact-Heros nutzen die Laufzeile.',
       },
@@ -475,7 +474,8 @@ export const hero: Field = {
       type: 'array',
       label: 'Logos',
       admin: {
-        condition: (_, siblingData) => heroTypesWithLogoMarquee(siblingData?.type as string | undefined),
+        condition: (_, siblingData) =>
+          heroTypesWithLogoMarquee(siblingData?.type as string | undefined),
         description: 'Logos für die Laufzeile (Philipp Bacher + High/Medium/Low Impact).',
       },
       fields: [
