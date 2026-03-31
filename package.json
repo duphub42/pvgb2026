@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=\"--no-deprecation -r ./scripts/load-env-for-payload.cjs\" sh -c 'tsx src/scripts/generate-icon-sprite.ts && payload migrate && payload generate:types && next build'",
+    "build": "cross-env NODE_OPTIONS=--no-deprecation sh -c 'tsx src/scripts/generate-icon-sprite.ts && node -r ./scripts/load-env-for-payload.cjs ./node_modules/payload/dist/bin/index.js migrate && node -r ./scripts/load-env-for-payload.cjs ./node_modules/payload/dist/bin/index.js generate:types && next build'",
     "analyze": "cross-env ANALYZE=true NODE_OPTIONS=--no-deprecation next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "dev": "node scripts/ensure-next-manifests.cjs && cross-env NODE_OPTIONS=\"--no-deprecation -r ./scripts/load-env-for-payload.cjs\" payload migrate && cross-env NODE_OPTIONS=\"--no-deprecation --max-old-space-size=4096\" next dev -p 3000 --turbo",
@@ -53,7 +53,7 @@
     "test": "pnpm run test:int && pnpm run test:e2e",
     "test:e2e": "cross-env NODE_OPTIONS=\"--no-deprecation --import=tsx/esm\" playwright test --config=playwright.config.ts",
     "test:int": "cross-env NODE_OPTIONS=--no-deprecation vitest run --config ./vitest.config.mts",
-    "ci": "payload migrate && next build",
+    "ci": "node -r ./scripts/load-env-for-payload.cjs ./node_modules/payload/dist/bin/index.js migrate && next build",
     "postinstall": "node scripts/link-richtext-lexical-uuid.cjs"
   },
   "dependencies": {
