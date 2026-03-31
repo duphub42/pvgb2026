@@ -1566,7 +1566,7 @@
     --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
     position: absolute;
     left: 50%;
-    bottom: clamp(-3rem, -10vh, 0px);
+    bottom: clamp(-1.5rem, -8vh, 0px);
     z-index: 0;
     width: var(--size);
     height: var(--size);

@@ -13,10 +13,7 @@ import {
   PopoutHeroFloatingElementsFlow,
   type PopoutHeroFloatingItem,
 } from '@/heros/PopoutHeroFloatingElements'
-import {
-  PopoutHeroStackVisual,
-  type HeroStackResolvedLayer,
-} from '@/heros/PopoutHeroStackVisual'
+import { PopoutHeroStackVisual, type HeroStackResolvedLayer } from '@/heros/PopoutHeroStackVisual'
 import type { HeroBackgrounds } from '@/payload-types'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 import { cn } from '@/utilities/ui'
@@ -24,10 +21,7 @@ import { cn } from '@/utilities/ui'
 type CMSLinkProps = ComponentProps<typeof CMSLink>
 
 interface LinkItem {
-  link?: Pick<
-    CMSLinkProps,
-    'url' | 'label' | 'appearance' | 'newTab' | 'type' | 'reference'
-  >
+  link?: Pick<CMSLinkProps, 'url' | 'label' | 'appearance' | 'newTab' | 'type' | 'reference'>
 }
 
 interface StylePreviewHeroProps {
@@ -58,7 +52,16 @@ interface StylePreviewHeroProps {
   overlayOpacity?: number | null
   backgroundVideo?: number | { id?: number | null; url?: string | null } | null
   surfacePattern?:
-    | ('none' | 'honeycomb' | 'checker' | 'mmPaper' | 'dots' | 'linesHorizontal' | 'linesVertical' | 'gridLines')
+    | (
+        | 'none'
+        | 'honeycomb'
+        | 'checker'
+        | 'mmPaper'
+        | 'dots'
+        | 'linesHorizontal'
+        | 'linesVertical'
+        | 'gridLines'
+      )
     | null
   stackBackImage?: number | { id?: number | null; url?: string | null } | null
   stackBackOffsetX?: number | null
@@ -77,8 +80,7 @@ const defaultDescription =
   'Dieser Hero ist bewusst isoliert, damit Typografie, Farben, Radius und CTA-Hierarchie getestet werden koennen, ohne bestehende Komponenten zu veraendern.'
 
 /** Quelle: https://philippbacher.com/portfolio/ (Lazy-Load data-src / gleiche Assets) */
-const PORTFOLIO_CLOUD_SRC =
-  'https://philippbacher.com/wp-content/uploads/2026/02/powderparty.png'
+const PORTFOLIO_CLOUD_SRC = 'https://philippbacher.com/wp-content/uploads/2026/02/powderparty.png'
 const PORTFOLIO_SKI_SRC = 'https://philippbacher.com/wp-content/uploads/2026/02/skijump-1.png'
 
 /**
@@ -119,8 +121,7 @@ function buildHeroStackLayers(
 }
 
 function ProfilHeroShapeDivider() {
-  const baseD =
-    'M0,50 C360,22 640,178 960,102 C1080,72 1140,148 1200,150 L1200,200 L0,200 Z'
+  const baseD = 'M0,50 C360,22 640,178 960,102 C1080,72 1140,148 1200,150 L1200,200 L0,200 Z'
   const layers: { tx: number; ty: number; opacity: number }[] = [
     { tx: 16, ty: -6, opacity: 0.08 },
     { tx: 32, ty: -12, opacity: 0.12 },
@@ -233,23 +234,18 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
   const showVideo = effectiveMediaType === 'video' && Boolean(videoSrc) && !reducedMotion
 
   const patternKey = surfacePattern ?? 'none'
-  const patternClass =
-    patternKey !== 'none' ? (HERO_SURFACE_PATTERN_CLASS[patternKey] ?? '') : ''
+  const patternClass = patternKey !== 'none' ? (HERO_SURFACE_PATTERN_CLASS[patternKey] ?? '') : ''
 
   const overlayOp = overlayOpacity ?? 0.5
   const mobileOverlayOp = Math.min(overlayOp + 0.15, 0.85)
 
-  const lines = [headlineLine1, headlineLine2, headlineLine3].filter(
-    (l): l is string => Boolean(l),
-  )
-  const resolvedHeadline = lines.length > 0 ? null : (headline || defaultHeadline)
+  const lines = [headlineLine1, headlineLine2, headlineLine3].filter((l): l is string => Boolean(l))
+  const resolvedHeadline = lines.length > 0 ? null : headline || defaultHeadline
   const ctaLinks = Array.isArray(links) ? links.filter((entry) => Boolean(entry?.link?.label)) : []
-  const portraitSrc =
-    resolveHeroImageSrc(media) || resolveHeroImageSrc(foregroundImage)
+  const portraitSrc = resolveHeroImageSrc(media) || resolveHeroImageSrc(foregroundImage)
   const floats = filterPopoutFloatingElements(floatingElements)
 
-  const profilBackgroundSrc =
-    resolveHeroImageSrc(backgroundImage) || resolveHeroImageSrc(media)
+  const profilBackgroundSrc = resolveHeroImageSrc(backgroundImage) || resolveHeroImageSrc(media)
   const profilForegroundSrc = resolveHeroImageSrc(foregroundImage)
 
   const stackBack = resolveHeroImageSrc(stackBackImage)
@@ -299,9 +295,7 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
 
   const popoutLayers = useMemo(() => {
     const front =
-      stackFrontOnly ||
-      resolveHeroImageSrc(foregroundImage) ||
-      resolveHeroImageSrc(media)
+      stackFrontOnly || resolveHeroImageSrc(foregroundImage) || resolveHeroImageSrc(media)
     return buildHeroStackLayers([
       { src: stackBack, ox: oxBack, oy: oyBack, wide: true },
       { src: stackMid, ox: oxMid, oy: oyMid, wide: false },
@@ -323,9 +317,7 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
 
   const usePopoutStack = popoutStackExplicit && popoutLayers.length > 0
 
-  const sectionLabel = isProfilPage
-    ? 'Profil Hero'
-    : (sectionAriaLabel ?? 'Hero')
+  const sectionLabel = isProfilPage ? 'Profil Hero' : (sectionAriaLabel ?? 'Hero')
 
   const showPortraitGradientBlob = isProfilPage
     ? profilLayers.length > 0
@@ -395,8 +387,14 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
             )}
             aria-hidden
           />
-          <div className="hero-section-foreground-tint hero-section-foreground-tint--above-decor" aria-hidden />
-          <div className="hero-popout-structure-layer pointer-events-none absolute inset-0 z-[1]" aria-hidden />
+          <div
+            className="hero-section-foreground-tint hero-section-foreground-tint--above-decor"
+            aria-hidden
+          />
+          <div
+            className="hero-popout-structure-layer pointer-events-none absolute inset-0 z-[1]"
+            aria-hidden
+          />
         </>
       ) : null}
       <div
@@ -463,8 +461,8 @@ export const StylePreviewHero: React.FC<StylePreviewHeroProps> = ({
             ) : null}
           </div>
 
-          <div className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:self-end">
-            <div className="relative overflow-visible max-md:pb-6 md:flex md:items-end md:justify-center md:pb-8 md:pt-4">
+          <div className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:self-end md:h-full md:flex md:flex-col md:justify-end">
+            <div className="relative overflow-visible max-md:pb-6 md:flex md:items-end md:justify-center md:pb-0 md:pt-0">
               {showPortraitGradientBlob ? (
                 <div className="hero-portrait-gradient-blob" aria-hidden />
               ) : null}
