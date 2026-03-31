@@ -44,124 +44,199 @@ export const enum_site_pages_blocks_hero_marketing_block_overlay_color = pgEnum(
   'enum_site_pages_blocks_hero_marketing_block_overlay_color',
   ['dark', 'light'],
 )
-export const enum_site_pages_blocks_hero_grid_block_background = pgEnum(
-  'enum_site_pages_blocks_hero_grid_block_background',
+export const enum_site_pages_blocks_introduction_block_background = pgEnum(
+  'enum_site_pages_blocks_introduction_block_background',
   ['none', 'muted', 'accent', 'light', 'dark'],
 )
-export const enum_site_pages_blocks_hero_grid_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_hero_grid_block_overlay_color',
+export const enum_site_pages_blocks_introduction_block_overlay_color = pgEnum(
+  'enum_site_pages_blocks_introduction_block_overlay_color',
   ['dark', 'light'],
 )
-export const enum_collab_cur_block_background = pgEnum('enum_collab_cur_block_background', [
+export const bg = pgEnum('bg', ['none', 'muted', 'accent', 'light', 'dark'])
+export const c = pgEnum('c', ['dark', 'light'])
+export const enum_lnks_link_type = pgEnum('enum_lnks_link_type', ['reference', 'custom'])
+export const enum_lnks_link_appearance = pgEnum('enum_lnks_link_appearance', ['default', 'outline'])
+export const enum_site_pages_blocks_shadcn_block_block_background = pgEnum(
+  'enum_site_pages_blocks_shadcn_block_block_background',
+  ['none', 'muted', 'accent', 'light', 'dark'],
+)
+export const enum_site_pages_blocks_shadcn_block_block_overlay_color = pgEnum(
+  'enum_site_pages_blocks_shadcn_block_block_overlay_color',
+  ['dark', 'light'],
+)
+export const enum_site_pages_blocks_shadcn_block_variant = pgEnum(
+  'enum_site_pages_blocks_shadcn_block_variant',
+  [
+    'feature215b',
+    'feature210',
+    'about15',
+    'about8',
+    'about3',
+    'feature268',
+    'feature267',
+    'feature271',
+    'feature270',
+    'feature282',
+    'feature294',
+    'feature147',
+    'feature148',
+    'feature190',
+    'feature229',
+    'feature250',
+    'feature251',
+    'feature253',
+    'feature256',
+    'feature261',
+  ],
+)
+export const enum_site_pages_blocks_services_overview_services_icon = pgEnum(
+  'enum_site_pages_blocks_services_overview_services_icon',
+  [
+    'compass',
+    'code',
+    'palette',
+    'megaphone',
+    'zap',
+    'globe',
+    'trending-up',
+    'settings',
+    'monitor',
+    'rocket',
+    'heart',
+    'shield',
+  ],
+)
+export const enum_site_pages_blocks_why_work_with_me_intro_icon_list_icon = pgEnum(
+  'enum_site_pages_blocks_why_work_with_me_intro_icon_list_icon',
+  [
+    'brain',
+    'lightbulb',
+    'target',
+    'search',
+    'zap',
+    'handshake',
+    'user-check',
+    'trending-up',
+    'user',
+    'globe',
+    'briefcase',
+    'heart',
+    'shield',
+  ],
+)
+export const enum_site_pages_blocks_why_work_with_me_reasons_icon = pgEnum(
+  'enum_site_pages_blocks_why_work_with_me_reasons_icon',
+  ['user', 'zap', 'trending-up', 'globe', 'target', 'briefcase', 'heart', 'shield'],
+)
+export const enum_prof_ueber_werte_icon = pgEnum('enum_prof_ueber_werte_icon', [
+  'strategy',
+  'global',
+  'depth',
+  'direct',
+])
+export const enum_prof_ueber_block_background = pgEnum('enum_prof_ueber_block_background', [
   'none',
   'muted',
   'accent',
   'light',
   'dark',
 ])
-export const enum_collab_cur_block_overlay_color = pgEnum('enum_collab_cur_block_overlay_color', [
+export const enum_prof_ueber_block_overlay_color = pgEnum('enum_prof_ueber_block_overlay_color', [
   'dark',
   'light',
 ])
-export const enum_site_pages_blocks_scroll_morph_hero_block_background = pgEnum(
-  'enum_site_pages_blocks_scroll_morph_hero_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_scroll_morph_hero_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_scroll_morph_hero_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_feat_adv_block_background = pgEnum('enum_feat_adv_block_background', [
+export const enum_prof_kern_block_background = pgEnum('enum_prof_kern_block_background', [
   'none',
   'muted',
   'accent',
   'light',
   'dark',
 ])
-export const enum_feat_adv_block_overlay_color = pgEnum('enum_feat_adv_block_overlay_color', [
+export const enum_prof_kern_block_overlay_color = pgEnum('enum_prof_kern_block_overlay_color', [
   'dark',
   'light',
 ])
-export const enum_site_pages_blocks_feature1_items_icon = pgEnum(
-  'enum_site_pages_blocks_feature1_items_icon',
-  ['sparkles', 'shield', 'truck', 'clock'],
+export const enum_prof_skills_spalten_skills_level = pgEnum(
+  'enum_prof_skills_spalten_skills_level',
+  ['expert', 'advanced', 'basic'],
 )
-export const enum_site_pages_blocks_feature1_block_background = pgEnum(
-  'enum_site_pages_blocks_feature1_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_feature1_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_feature1_block_overlay_color',
+export const enum_prof_skills_block_background = pgEnum('enum_prof_skills_block_background', [
+  'none',
+  'muted',
+  'accent',
+  'light',
+  'dark',
+])
+export const enum_prof_skills_block_overlay_color = pgEnum('enum_prof_skills_block_overlay_color', [
+  'dark',
+  'light',
+])
+export const enum_prof_weg_eintraege_typ = pgEnum('enum_prof_weg_eintraege_typ', [
+  'freelance',
+  'education',
+])
+export const enum_prof_weg_block_background = pgEnum('enum_prof_weg_block_background', [
+  'none',
+  'muted',
+  'accent',
+  'light',
+  'dark',
+])
+export const enum_prof_weg_block_overlay_color = pgEnum('enum_prof_weg_block_overlay_color', [
+  'dark',
+  'light',
+])
+export const enum_prof_zahl_block_background = pgEnum('enum_prof_zahl_block_background', [
+  'none',
+  'muted',
+  'accent',
+  'light',
+  'dark',
+])
+export const enum_prof_zahl_block_overlay_color = pgEnum('enum_prof_zahl_block_overlay_color', [
+  'dark',
+  'light',
+])
+export const enum_prof_tools_tools_kategorie = pgEnum('enum_prof_tools_tools_kategorie', [
+  'dev',
+  'design',
+  'analytics',
+  'marketing',
+  'automation',
+])
+export const enum_prof_tools_block_background = pgEnum('enum_prof_tools_block_background', [
+  'none',
+  'muted',
+  'accent',
+  'light',
+  'dark',
+])
+export const enum_prof_tools_block_overlay_color = pgEnum('enum_prof_tools_block_overlay_color', [
+  'dark',
+  'light',
+])
+export const enum_prof_lang_zert_block_background = pgEnum('enum_prof_lang_zert_block_background', [
+  'none',
+  'muted',
+  'accent',
+  'light',
+  'dark',
+])
+export const enum_prof_lang_zert_block_overlay_color = pgEnum(
+  'enum_prof_lang_zert_block_overlay_color',
   ['dark', 'light'],
 )
-export const enum_site_pages_blocks_feature2_items_icon = pgEnum(
-  'enum_site_pages_blocks_feature2_items_icon',
-  ['heart', 'zap', 'clock', 'users'],
-)
-export const enum_site_pages_blocks_feature2_block_background = pgEnum(
-  'enum_site_pages_blocks_feature2_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_feature2_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_feature2_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_site_pages_blocks_faq_simple_block_background = pgEnum(
-  'enum_site_pages_blocks_faq_simple_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_faq_simple_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_faq_simple_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_site_pages_blocks_pricing_block_background = pgEnum(
-  'enum_site_pages_blocks_pricing_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_pricing_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_pricing_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_site_pages_blocks_pricing_cards_plans_button_icon = pgEnum(
-  'enum_site_pages_blocks_pricing_cards_plans_button_icon',
-  ['arrow', 'phone'],
-)
-export const enum_site_pages_blocks_pricing_cards_block_background = pgEnum(
-  'enum_site_pages_blocks_pricing_cards_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_pricing_cards_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_pricing_cards_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_site_pages_blocks_contact_section1_block_background = pgEnum(
-  'enum_site_pages_blocks_contact_section1_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_contact_section1_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_contact_section1_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_site_pages_blocks_cta_section3_right_cards_icon = pgEnum(
-  'enum_site_pages_blocks_cta_section3_right_cards_icon',
-  ['bookOpen', 'playCircle', 'rocket', 'zap'],
-)
-export const enum_site_pages_blocks_cta_section3_block_background = pgEnum(
-  'enum_site_pages_blocks_cta_section3_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_cta_section3_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_cta_section3_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_site_pages_blocks_cta_section3_badge_icon = pgEnum(
-  'enum_site_pages_blocks_cta_section3_badge_icon',
-  ['rocket', 'zap', 'bookOpen', 'playCircle'],
-)
-export const enum_site_pages_blocks_cta_section3_primary_button_icon = pgEnum(
-  'enum_site_pages_blocks_cta_section3_primary_button_icon',
-  ['none', 'zap', 'rocket', 'arrowRight'],
-)
+export const enum_prof_cta_block_background = pgEnum('enum_prof_cta_block_background', [
+  'none',
+  'muted',
+  'accent',
+  'light',
+  'dark',
+])
+export const enum_prof_cta_block_overlay_color = pgEnum('enum_prof_cta_block_overlay_color', [
+  'dark',
+  'light',
+])
 export const enum_site_pages_blocks_cta_links_link_type = pgEnum(
   'enum_site_pages_blocks_cta_links_link_type',
   ['reference', 'custom'],
@@ -198,99 +273,6 @@ export const enum_site_pages_blocks_content_block_overlay_color = pgEnum(
   'enum_site_pages_blocks_content_block_overlay_color',
   ['dark', 'light'],
 )
-export const enum_site_pages_blocks_serp_content_block_background = pgEnum(
-  'enum_site_pages_blocks_serp_content_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_serp_content_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_serp_content_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_site_pages_blocks_lyra_content_block_background = pgEnum(
-  'enum_site_pages_blocks_lyra_content_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_lyra_content_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_lyra_content_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_site_pages_blocks_lyra_content_button_link_type = pgEnum(
-  'enum_site_pages_blocks_lyra_content_button_link_type',
-  ['reference', 'custom'],
-)
-export const enum_site_pages_blocks_lyra_content_button_link_appearance = pgEnum(
-  'enum_site_pages_blocks_lyra_content_button_link_appearance',
-  ['default', 'outline'],
-)
-export const enum_site_pages_blocks_lyra_feature_block_background = pgEnum(
-  'enum_site_pages_blocks_lyra_feature_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_lyra_feature_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_lyra_feature_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_site_pages_blocks_features_grid_items_icon = pgEnum(
-  'enum_site_pages_blocks_features_grid_items_icon',
-  ['zap', 'settings2', 'sparkles'],
-)
-export const enum_site_pages_blocks_features_grid_block_background = pgEnum(
-  'enum_site_pages_blocks_features_grid_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_features_grid_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_features_grid_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_site_pages_blocks_service_ux_ui_block_background = pgEnum(
-  'enum_site_pages_blocks_service_ux_ui_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_service_ux_ui_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_service_ux_ui_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_site_pages_blocks_services4_services_icon = pgEnum(
-  'enum_site_pages_blocks_services4_services_icon',
-  ['cog', 'penTool', 'code', 'shrub'],
-)
-export const enum_site_pages_blocks_services4_block_background = pgEnum(
-  'enum_site_pages_blocks_services4_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_services4_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_services4_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_site_pages_blocks_features_scaling_features_icon = pgEnum(
-  'enum_site_pages_blocks_features_scaling_features_icon',
-  ['mail', 'zap', 'activity', 'draftingCompass'],
-)
-export const enum_site_pages_blocks_features_scaling_block_background = pgEnum(
-  'enum_site_pages_blocks_features_scaling_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum_site_pages_blocks_features_scaling_block_overlay_color = pgEnum(
-  'enum_site_pages_blocks_features_scaling_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum_feat_ai_acc_items_icon = pgEnum('enum_feat_ai_acc_items_icon', [
-  'database',
-  'fingerprint',
-  'idCard',
-  'chart',
-])
-export const enum_feat_ai_acc_block_background = pgEnum('enum_feat_ai_acc_block_background', [
-  'none',
-  'muted',
-  'accent',
-  'light',
-  'dark',
-])
-export const enum_feat_ai_acc_block_overlay_color = pgEnum('enum_feat_ai_acc_block_overlay_color', [
-  'dark',
-  'light',
-])
 export const enum_site_pages_blocks_media_block_block_background = pgEnum(
   'enum_site_pages_blocks_media_block_block_background',
   ['none', 'muted', 'accent', 'light', 'dark'],
@@ -328,21 +310,29 @@ export const enum_site_pages_hero_type = pgEnum('enum_site_pages_hero_type', [
   'highImpact',
   'mediumImpact',
   'lowImpact',
-  'philippBacher',
   'superhero',
   'proAthlete',
-  'gridHero',
 ])
 export const enum_site_pages_hero_media_type = pgEnum('enum_site_pages_hero_media_type', [
-  'halo',
+  'cssHalo',
   'image',
   'video',
   'animation',
 ])
-export const enum_site_pages_hero_halo_overlay_grid_variant = pgEnum(
-  'enum_site_pages_hero_halo_overlay_grid_variant',
-  ['static', 'wave', 'custom'],
+export const enum_site_pages_hero_media_type_mobile = pgEnum(
+  'enum_site_pages_hero_media_type_mobile',
+  ['auto', 'cssHalo', 'image', 'video', 'animation'],
 )
+export const enum_site_pages_hero_surface_pattern = pgEnum('enum_site_pages_hero_surface_pattern', [
+  'none',
+  'honeycomb',
+  'checker',
+  'mmPaper',
+  'dots',
+  'linesHorizontal',
+  'linesVertical',
+  'gridLines',
+])
 export const enum_site_pages_hero_logo_display_type = pgEnum(
   'enum_site_pages_hero_logo_display_type',
   ['marquee', 'logoCarousel'],
@@ -368,124 +358,197 @@ export const enum__site_pages_v_blocks_hero_marketing_block_overlay_color = pgEn
   'enum__site_pages_v_blocks_hero_marketing_block_overlay_color',
   ['dark', 'light'],
 )
-export const enum__site_pages_v_blocks_hero_grid_block_background = pgEnum(
-  'enum__site_pages_v_blocks_hero_grid_block_background',
+export const enum__site_pages_v_blocks_introduction_block_background = pgEnum(
+  'enum__site_pages_v_blocks_introduction_block_background',
   ['none', 'muted', 'accent', 'light', 'dark'],
 )
-export const enum__site_pages_v_blocks_hero_grid_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_hero_grid_block_overlay_color',
+export const enum__site_pages_v_blocks_introduction_block_overlay_color = pgEnum(
+  'enum__site_pages_v_blocks_introduction_block_overlay_color',
   ['dark', 'light'],
 )
-export const enum__collab_cur_v_block_background = pgEnum('enum__collab_cur_v_block_background', [
+export const enum__lnks_v_link_type = pgEnum('enum__lnks_v_link_type', ['reference', 'custom'])
+export const enum__lnks_v_link_appearance = pgEnum('enum__lnks_v_link_appearance', [
+  'default',
+  'outline',
+])
+export const enum__site_pages_v_blocks_shadcn_block_block_background = pgEnum(
+  'enum__site_pages_v_blocks_shadcn_block_block_background',
+  ['none', 'muted', 'accent', 'light', 'dark'],
+)
+export const enum__site_pages_v_blocks_shadcn_block_block_overlay_color = pgEnum(
+  'enum__site_pages_v_blocks_shadcn_block_block_overlay_color',
+  ['dark', 'light'],
+)
+export const enum__site_pages_v_blocks_shadcn_block_variant = pgEnum(
+  'enum__site_pages_v_blocks_shadcn_block_variant',
+  [
+    'feature215b',
+    'feature210',
+    'about15',
+    'about8',
+    'about3',
+    'feature268',
+    'feature267',
+    'feature271',
+    'feature270',
+    'feature282',
+    'feature294',
+    'feature147',
+    'feature148',
+    'feature190',
+    'feature229',
+    'feature250',
+    'feature251',
+    'feature253',
+    'feature256',
+    'feature261',
+  ],
+)
+export const enum__site_pages_v_blocks_services_overview_services_icon = pgEnum(
+  'enum__site_pages_v_blocks_services_overview_services_icon',
+  [
+    'compass',
+    'code',
+    'palette',
+    'megaphone',
+    'zap',
+    'globe',
+    'trending-up',
+    'settings',
+    'monitor',
+    'rocket',
+    'heart',
+    'shield',
+  ],
+)
+export const enum__site_pages_v_blocks_why_work_with_me_intro_icon_list_icon = pgEnum(
+  'enum__site_pages_v_blocks_why_work_with_me_intro_icon_list_icon',
+  [
+    'brain',
+    'lightbulb',
+    'target',
+    'search',
+    'zap',
+    'handshake',
+    'user-check',
+    'trending-up',
+    'user',
+    'globe',
+    'briefcase',
+    'heart',
+    'shield',
+  ],
+)
+export const enum__site_pages_v_blocks_why_work_with_me_reasons_icon = pgEnum(
+  'enum__site_pages_v_blocks_why_work_with_me_reasons_icon',
+  ['user', 'zap', 'trending-up', 'globe', 'target', 'briefcase', 'heart', 'shield'],
+)
+export const enum__prof_ueber_v_werte_icon = pgEnum('enum__prof_ueber_v_werte_icon', [
+  'strategy',
+  'global',
+  'depth',
+  'direct',
+])
+export const enum__prof_ueber_v_block_background = pgEnum('enum__prof_ueber_v_block_background', [
   'none',
   'muted',
   'accent',
   'light',
   'dark',
 ])
-export const enum__collab_cur_v_block_overlay_color = pgEnum(
-  'enum__collab_cur_v_block_overlay_color',
+export const enum__prof_ueber_v_block_overlay_color = pgEnum(
+  'enum__prof_ueber_v_block_overlay_color',
   ['dark', 'light'],
 )
-export const enum__site_pages_v_blocks_scroll_morph_hero_block_background = pgEnum(
-  'enum__site_pages_v_blocks_scroll_morph_hero_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_scroll_morph_hero_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_scroll_morph_hero_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__feat_adv_v_block_background = pgEnum('enum__feat_adv_v_block_background', [
+export const enum__prof_kern_v_block_background = pgEnum('enum__prof_kern_v_block_background', [
   'none',
   'muted',
   'accent',
   'light',
   'dark',
 ])
-export const enum__feat_adv_v_block_overlay_color = pgEnum('enum__feat_adv_v_block_overlay_color', [
+export const enum__prof_kern_v_block_overlay_color = pgEnum(
+  'enum__prof_kern_v_block_overlay_color',
+  ['dark', 'light'],
+)
+export const enum__prof_skills_v_spalten_skills_level = pgEnum(
+  'enum__prof_skills_v_spalten_skills_level',
+  ['expert', 'advanced', 'basic'],
+)
+export const enum__prof_skills_v_block_background = pgEnum('enum__prof_skills_v_block_background', [
+  'none',
+  'muted',
+  'accent',
+  'light',
+  'dark',
+])
+export const enum__prof_skills_v_block_overlay_color = pgEnum(
+  'enum__prof_skills_v_block_overlay_color',
+  ['dark', 'light'],
+)
+export const enum__prof_weg_v_eintraege_typ = pgEnum('enum__prof_weg_v_eintraege_typ', [
+  'freelance',
+  'education',
+])
+export const enum__prof_weg_v_block_background = pgEnum('enum__prof_weg_v_block_background', [
+  'none',
+  'muted',
+  'accent',
+  'light',
+  'dark',
+])
+export const enum__prof_weg_v_block_overlay_color = pgEnum('enum__prof_weg_v_block_overlay_color', [
   'dark',
   'light',
 ])
-export const enum__site_pages_v_blocks_feature1_items_icon = pgEnum(
-  'enum__site_pages_v_blocks_feature1_items_icon',
-  ['sparkles', 'shield', 'truck', 'clock'],
-)
-export const enum__site_pages_v_blocks_feature1_block_background = pgEnum(
-  'enum__site_pages_v_blocks_feature1_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_feature1_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_feature1_block_overlay_color',
+export const enum__prof_zahl_v_block_background = pgEnum('enum__prof_zahl_v_block_background', [
+  'none',
+  'muted',
+  'accent',
+  'light',
+  'dark',
+])
+export const enum__prof_zahl_v_block_overlay_color = pgEnum(
+  'enum__prof_zahl_v_block_overlay_color',
   ['dark', 'light'],
 )
-export const enum__site_pages_v_blocks_feature2_items_icon = pgEnum(
-  'enum__site_pages_v_blocks_feature2_items_icon',
-  ['heart', 'zap', 'clock', 'users'],
-)
-export const enum__site_pages_v_blocks_feature2_block_background = pgEnum(
-  'enum__site_pages_v_blocks_feature2_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_feature2_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_feature2_block_overlay_color',
+export const enum__prof_tools_v_tools_kategorie = pgEnum('enum__prof_tools_v_tools_kategorie', [
+  'dev',
+  'design',
+  'analytics',
+  'marketing',
+  'automation',
+])
+export const enum__prof_tools_v_block_background = pgEnum('enum__prof_tools_v_block_background', [
+  'none',
+  'muted',
+  'accent',
+  'light',
+  'dark',
+])
+export const enum__prof_tools_v_block_overlay_color = pgEnum(
+  'enum__prof_tools_v_block_overlay_color',
   ['dark', 'light'],
 )
-export const enum__site_pages_v_blocks_faq_simple_block_background = pgEnum(
-  'enum__site_pages_v_blocks_faq_simple_block_background',
+export const enum__prof_lang_zert_v_block_background = pgEnum(
+  'enum__prof_lang_zert_v_block_background',
   ['none', 'muted', 'accent', 'light', 'dark'],
 )
-export const enum__site_pages_v_blocks_faq_simple_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_faq_simple_block_overlay_color',
+export const enum__prof_lang_zert_v_block_overlay_color = pgEnum(
+  'enum__prof_lang_zert_v_block_overlay_color',
   ['dark', 'light'],
 )
-export const enum__site_pages_v_blocks_pricing_block_background = pgEnum(
-  'enum__site_pages_v_blocks_pricing_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_pricing_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_pricing_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__site_pages_v_blocks_pricing_cards_plans_button_icon = pgEnum(
-  'enum__site_pages_v_blocks_pricing_cards_plans_button_icon',
-  ['arrow', 'phone'],
-)
-export const enum__site_pages_v_blocks_pricing_cards_block_background = pgEnum(
-  'enum__site_pages_v_blocks_pricing_cards_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_pricing_cards_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_pricing_cards_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__site_pages_v_blocks_contact_section1_block_background = pgEnum(
-  'enum__site_pages_v_blocks_contact_section1_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_contact_section1_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_contact_section1_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__site_pages_v_blocks_cta_section3_right_cards_icon = pgEnum(
-  'enum__site_pages_v_blocks_cta_section3_right_cards_icon',
-  ['bookOpen', 'playCircle', 'rocket', 'zap'],
-)
-export const enum__site_pages_v_blocks_cta_section3_block_background = pgEnum(
-  'enum__site_pages_v_blocks_cta_section3_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_cta_section3_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_cta_section3_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__site_pages_v_blocks_cta_section3_badge_icon = pgEnum(
-  'enum__site_pages_v_blocks_cta_section3_badge_icon',
-  ['rocket', 'zap', 'bookOpen', 'playCircle'],
-)
-export const enum__site_pages_v_blocks_cta_section3_primary_button_icon = pgEnum(
-  'enum__site_pages_v_blocks_cta_section3_primary_button_icon',
-  ['none', 'zap', 'rocket', 'arrowRight'],
-)
+export const enum__prof_cta_v_block_background = pgEnum('enum__prof_cta_v_block_background', [
+  'none',
+  'muted',
+  'accent',
+  'light',
+  'dark',
+])
+export const enum__prof_cta_v_block_overlay_color = pgEnum('enum__prof_cta_v_block_overlay_color', [
+  'dark',
+  'light',
+])
 export const enum__site_pages_v_blocks_cta_links_link_type = pgEnum(
   'enum__site_pages_v_blocks_cta_links_link_type',
   ['reference', 'custom'],
@@ -520,99 +583,6 @@ export const enum__site_pages_v_blocks_content_block_background = pgEnum(
 )
 export const enum__site_pages_v_blocks_content_block_overlay_color = pgEnum(
   'enum__site_pages_v_blocks_content_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__site_pages_v_blocks_serp_content_block_background = pgEnum(
-  'enum__site_pages_v_blocks_serp_content_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_serp_content_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_serp_content_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__site_pages_v_blocks_lyra_content_block_background = pgEnum(
-  'enum__site_pages_v_blocks_lyra_content_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_lyra_content_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_lyra_content_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__site_pages_v_blocks_lyra_content_button_link_type = pgEnum(
-  'enum__site_pages_v_blocks_lyra_content_button_link_type',
-  ['reference', 'custom'],
-)
-export const enum__site_pages_v_blocks_lyra_content_button_link_appearance = pgEnum(
-  'enum__site_pages_v_blocks_lyra_content_button_link_appearance',
-  ['default', 'outline'],
-)
-export const enum__site_pages_v_blocks_lyra_feature_block_background = pgEnum(
-  'enum__site_pages_v_blocks_lyra_feature_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_lyra_feature_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_lyra_feature_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__site_pages_v_blocks_features_grid_items_icon = pgEnum(
-  'enum__site_pages_v_blocks_features_grid_items_icon',
-  ['zap', 'settings2', 'sparkles'],
-)
-export const enum__site_pages_v_blocks_features_grid_block_background = pgEnum(
-  'enum__site_pages_v_blocks_features_grid_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_features_grid_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_features_grid_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__site_pages_v_blocks_service_ux_ui_block_background = pgEnum(
-  'enum__site_pages_v_blocks_service_ux_ui_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_service_ux_ui_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_service_ux_ui_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__site_pages_v_blocks_services4_services_icon = pgEnum(
-  'enum__site_pages_v_blocks_services4_services_icon',
-  ['cog', 'penTool', 'code', 'shrub'],
-)
-export const enum__site_pages_v_blocks_services4_block_background = pgEnum(
-  'enum__site_pages_v_blocks_services4_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_services4_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_services4_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__site_pages_v_blocks_features_scaling_features_icon = pgEnum(
-  'enum__site_pages_v_blocks_features_scaling_features_icon',
-  ['mail', 'zap', 'activity', 'draftingCompass'],
-)
-export const enum__site_pages_v_blocks_features_scaling_block_background = pgEnum(
-  'enum__site_pages_v_blocks_features_scaling_block_background',
-  ['none', 'muted', 'accent', 'light', 'dark'],
-)
-export const enum__site_pages_v_blocks_features_scaling_block_overlay_color = pgEnum(
-  'enum__site_pages_v_blocks_features_scaling_block_overlay_color',
-  ['dark', 'light'],
-)
-export const enum__feat_ai_acc_v_items_icon = pgEnum('enum__feat_ai_acc_v_items_icon', [
-  'database',
-  'fingerprint',
-  'idCard',
-  'chart',
-])
-export const enum__feat_ai_acc_v_block_background = pgEnum('enum__feat_ai_acc_v_block_background', [
-  'none',
-  'muted',
-  'accent',
-  'light',
-  'dark',
-])
-export const enum__feat_ai_acc_v_block_overlay_color = pgEnum(
-  'enum__feat_ai_acc_v_block_overlay_color',
   ['dark', 'light'],
 )
 export const enum__site_pages_v_blocks_media_block_block_background = pgEnum(
@@ -652,18 +622,29 @@ export const enum__site_pages_v_version_hero_type = pgEnum('enum__site_pages_v_v
   'highImpact',
   'mediumImpact',
   'lowImpact',
-  'philippBacher',
   'superhero',
   'proAthlete',
-  'gridHero',
 ])
 export const enum__site_pages_v_version_hero_media_type = pgEnum(
   'enum__site_pages_v_version_hero_media_type',
-  ['halo', 'image', 'video', 'animation'],
+  ['cssHalo', 'image', 'video', 'animation'],
 )
-export const enum__site_pages_v_version_hero_halo_overlay_grid_variant = pgEnum(
-  'enum__site_pages_v_version_hero_halo_overlay_grid_variant',
-  ['static', 'wave', 'custom'],
+export const enum__site_pages_v_version_hero_media_type_mobile = pgEnum(
+  'enum__site_pages_v_version_hero_media_type_mobile',
+  ['auto', 'cssHalo', 'image', 'video', 'animation'],
+)
+export const enum__site_pages_v_version_hero_surface_pattern = pgEnum(
+  'enum__site_pages_v_version_hero_surface_pattern',
+  [
+    'none',
+    'honeycomb',
+    'checker',
+    'mmPaper',
+    'dots',
+    'linesHorizontal',
+    'linesVertical',
+    'gridLines',
+  ],
 )
 export const enum__site_pages_v_version_hero_logo_display_type = pgEnum(
   'enum__site_pages_v_version_hero_logo_display_type',
@@ -703,6 +684,17 @@ export const enum_mega_menu_highlight_background = pgEnum('enum_mega_menu_highli
   'paths',
   'threads',
   'gradient',
+])
+export const enum_hero_backgrounds_type = pgEnum('enum_hero_backgrounds_type', [
+  'cssHalo',
+  'patternSquare',
+  'goldRadial',
+  'gradient',
+])
+export const enum_price_calc_items_pricing_type = pgEnum('enum_price_calc_items_pricing_type', [
+  'once',
+  'monthly',
+  'both',
 ])
 export const enum_redirects_to_type = pgEnum('enum_redirects_to_type', ['reference', 'custom'])
 export const enum_forms_confirmation_type = pgEnum('enum_forms_confirmation_type', [
@@ -759,6 +751,26 @@ export const enum_theme_settings_theme_mode = pgEnum('enum_theme_settings_theme_
   'light',
   'dark',
 ])
+
+export const site_pages_hero_stats = pgTable(
+  'site_pages_hero_stats',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    value: varchar('value'),
+    label: varchar('label'),
+  },
+  (columns) => [
+    index('site_pages_hero_stats_order_idx').on(columns._order),
+    index('site_pages_hero_stats_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'site_pages_hero_stats_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
 
 export const site_pages_hero_floating_elements = pgTable(
   'site_pages_hero_floating_elements',
@@ -874,244 +886,27 @@ export const site_pages_blocks_hero_marketing = pgTable(
   ],
 )
 
-export const site_pages_blocks_hero_grid = pgTable(
-  'site_pages_blocks_hero_grid',
+export const site_pages_blocks_introduction = pgTable(
+  'site_pages_blocks_introduction',
   {
     _order: integer('_order').notNull(),
     _parentID: integer('_parent_id').notNull(),
     _path: text('_path').notNull(),
     id: varchar('id').primaryKey(),
     blockBackground:
-      enum_site_pages_blocks_hero_grid_block_background('block_background').default('none'),
+      enum_site_pages_blocks_introduction_block_background('block_background').default('none'),
     blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
     blockOverlay_color:
-      enum_site_pages_blocks_hero_grid_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('Build your next project with Smoothui'),
-    highlight: varchar('highlight').default('Smoothui'),
-    subtitle: varchar('subtitle').default(
-      'Smoothui gives you the building blocks to create stunning, animated interfaces in minutes.',
-    ),
-    primaryCtaLabel: varchar('primary_cta_label').default('Get Started'),
-    primaryCtaUrl: varchar('primary_cta_url').default('#get-started'),
-    secondaryCtaLabel: varchar('secondary_cta_label').default('Learn more'),
-    secondaryCtaUrl: varchar('secondary_cta_url').default('#learn-more'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_hero_grid_order_idx').on(columns._order),
-    index('site_pages_blocks_hero_grid_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_hero_grid_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_hero_grid_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const collab_cur = pgTable(
-  'collab_cur',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground: enum_collab_cur_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color: enum_collab_cur_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('collab_cur_order_idx').on(columns._order),
-    index('collab_cur_parent_id_idx').on(columns._parentID),
-    index('collab_cur_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'collab_cur_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_scroll_morph_hero = pgTable(
-  'site_pages_blocks_scroll_morph_hero',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_scroll_morph_hero_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_scroll_morph_hero_block_overlay_color('block_overlay_color').default(
+      enum_site_pages_blocks_introduction_block_overlay_color('block_overlay_color').default(
         'dark',
       ),
     blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    introHeadline: varchar('intro_headline').default('The future is built on AI.'),
-    introSubline: varchar('intro_subline').default('SCROLL TO EXPLORE'),
-    activeHeadline: varchar('active_headline').default('Explore Our Vision'),
-    activeText: varchar('active_text').default(
-      'Discover a world where technology meets creativity. Scroll through our curated collection of innovations designed to shape the future.',
+    heading: varchar('heading').default('Automatisierung, Marketing & Webdesign'),
+    body: varchar('body').default(
+      'Ich begleite Unternehmen bei der Entwicklung klarer digitaler Strategien – von Positionierung und Marketing bis zur technischen Umsetzung moderner Weblösungen. Der Fokus liegt auf messbaren Ergebnissen: strukturierte Prozesse, performante Kampagnen und Websites, die nicht nur gut aussehen, sondern verkaufen.',
     ),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_scroll_morph_hero_order_idx').on(columns._order),
-    index('site_pages_blocks_scroll_morph_hero_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_scroll_morph_hero_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_scroll_morph_hero_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const feat_adv_items = pgTable(
-  'feat_adv_items',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: varchar('_parent_id').notNull(),
-    id: varchar('id').primaryKey(),
-    title: varchar('title'),
-    description: varchar('description'),
-  },
-  (columns) => [
-    index('feat_adv_items_order_idx').on(columns._order),
-    index('feat_adv_items_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [feat_adv.id],
-      name: 'feat_adv_items_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const feat_adv = pgTable(
-  'feat_adv',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground: enum_feat_adv_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color: enum_feat_adv_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    badgeLabel: varchar('badge_label').default('Platform'),
-    title: varchar('title').default('Something new!'),
-    subtitle: varchar('subtitle').default('Managing a small business today is already tough.'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('feat_adv_order_idx').on(columns._order),
-    index('feat_adv_parent_id_idx').on(columns._parentID),
-    index('feat_adv_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'feat_adv_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_feature1_items = pgTable(
-  'site_pages_blocks_feature1_items',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: varchar('_parent_id').notNull(),
-    id: varchar('id').primaryKey(),
-    icon: enum_site_pages_blocks_feature1_items_icon('icon').default('sparkles'),
-    title: varchar('title'),
-    description: varchar('description'),
-    linkLabel: varchar('link_label').default('Learn more'),
-    linkUrl: varchar('link_url').default('#'),
-  },
-  (columns) => [
-    index('site_pages_blocks_feature1_items_order_idx').on(columns._order),
-    index('site_pages_blocks_feature1_items_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_feature1.id],
-      name: 'site_pages_blocks_feature1_items_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_feature1 = pgTable(
-  'site_pages_blocks_feature1',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_feature1_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_feature1_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    badge: varchar('badge').default('Why Choose Us'),
-    title: varchar('title').default('Experience the Difference'),
-    description: varchar('description').default(
-      'Discover why thousands of customers trust us for their shopping needs. We combine quality, convenience, and exceptional service.',
-    ),
-    ctaLabel: varchar('cta_label').default('Start Shopping'),
-    ctaUrl: varchar('cta_url').default('#'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_feature1_order_idx').on(columns._order),
-    index('site_pages_blocks_feature1_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_feature1_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_feature1_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_feature2_items = pgTable(
-  'site_pages_blocks_feature2_items',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: varchar('_parent_id').notNull(),
-    id: varchar('id').primaryKey(),
-    icon: enum_site_pages_blocks_feature2_items_icon('icon').default('heart'),
-    title: varchar('title'),
-    description: varchar('description'),
-  },
-  (columns) => [
-    index('site_pages_blocks_feature2_items_order_idx').on(columns._order),
-    index('site_pages_blocks_feature2_items_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_feature2.id],
-      name: 'site_pages_blocks_feature2_items_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_feature2 = pgTable(
-  'site_pages_blocks_feature2',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_feature2_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_feature2_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('Why Choose Us'),
-    description: varchar('description').default(
-      'We deliver exceptional quality and service that sets us apart. Experience the difference with our dedicated approach.',
+    tagline: varchar('tagline').default(
+      'Persönlich. Effizient. Mit Blick auf langfristiges Wachstum.\nAls Freelancer in Halle (Saale) stehe ich für direkte Zusammenarbeit und transparente Umsetzung.',
     ),
     image: integer('image_id').references(() => media.id, {
       onDelete: 'set null',
@@ -1119,370 +914,735 @@ export const site_pages_blocks_feature2 = pgTable(
     blockName: varchar('block_name'),
   },
   (columns) => [
-    index('site_pages_blocks_feature2_order_idx').on(columns._order),
-    index('site_pages_blocks_feature2_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_feature2_path_idx').on(columns._path),
-    index('site_pages_blocks_feature2_image_idx').on(columns.image),
+    index('site_pages_blocks_introduction_order_idx').on(columns._order),
+    index('site_pages_blocks_introduction_parent_id_idx').on(columns._parentID),
+    index('site_pages_blocks_introduction_path_idx').on(columns._path),
+    index('site_pages_blocks_introduction_image_idx').on(columns.image),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_feature2_parent_id_fk',
+      name: 'site_pages_blocks_introduction_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
 
-export const site_pages_blocks_faq_simple_faqs = pgTable(
-  'site_pages_blocks_faq_simple_faqs',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: varchar('_parent_id').notNull(),
-    id: varchar('id').primaryKey(),
-    question: varchar('question'),
-    answer: varchar('answer'),
-  },
-  (columns) => [
-    index('site_pages_blocks_faq_simple_faqs_order_idx').on(columns._order),
-    index('site_pages_blocks_faq_simple_faqs_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_faq_simple.id],
-      name: 'site_pages_blocks_faq_simple_faqs_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_faq_simple = pgTable(
-  'site_pages_blocks_faq_simple',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_faq_simple_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_faq_simple_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    badge: varchar('badge').default('FAQ'),
-    heading: varchar('heading').default('Common Questions & Answers'),
-    description: varchar('description').default(
-      'Find out all the essential details about our platform and how it can serve your needs.',
-    ),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_faq_simple_order_idx').on(columns._order),
-    index('site_pages_blocks_faq_simple_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_faq_simple_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_faq_simple_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_pricing_plans_features = pgTable(
-  'site_pages_blocks_pricing_plans_features',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: varchar('_parent_id').notNull(),
-    id: varchar('id').primaryKey(),
-    feature: varchar('feature'),
-  },
-  (columns) => [
-    index('site_pages_blocks_pricing_plans_features_order_idx').on(columns._order),
-    index('site_pages_blocks_pricing_plans_features_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_pricing_plans.id],
-      name: 'site_pages_blocks_pricing_plans_features_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_pricing_plans = pgTable(
-  'site_pages_blocks_pricing_plans',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: varchar('_parent_id').notNull(),
-    id: varchar('id').primaryKey(),
-    name: varchar('name'),
-    price: varchar('price'),
-    yearlyPrice: varchar('yearly_price'),
-    period: varchar('period').default('per month'),
-    description: varchar('description'),
-    buttonText: varchar('button_text').default('Get started'),
-    href: varchar('href').default('/contact'),
-    isPopular: boolean('is_popular').default(false),
-  },
-  (columns) => [
-    index('site_pages_blocks_pricing_plans_order_idx').on(columns._order),
-    index('site_pages_blocks_pricing_plans_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_pricing.id],
-      name: 'site_pages_blocks_pricing_plans_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_pricing = pgTable(
-  'site_pages_blocks_pricing',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_pricing_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_pricing_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('Simple, Transparent Pricing'),
-    description: varchar('description').default(
-      'Choose the plan that works for you.\nAll plans include access to our platform, lead generation tools, and dedicated support.',
-    ),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_pricing_order_idx').on(columns._order),
-    index('site_pages_blocks_pricing_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_pricing_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_pricing_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_pricing_cards_plans_features = pgTable(
-  'site_pages_blocks_pricing_cards_plans_features',
+export const site_pages_blocks_consulting_overview_benefit_items = pgTable(
+  'site_pages_blocks_consulting_overview_benefit_items',
   {
     _order: integer('_order').notNull(),
     _parentID: varchar('_parent_id').notNull(),
     id: varchar('id').primaryKey(),
     title: varchar('title'),
-    description: varchar('description'),
+    text: varchar('text'),
   },
   (columns) => [
-    index('site_pages_blocks_pricing_cards_plans_features_order_idx').on(columns._order),
-    index('site_pages_blocks_pricing_cards_plans_features_parent_id_idx').on(columns._parentID),
+    index('site_pages_blocks_consulting_overview_benefit_items_order_idx').on(columns._order),
+    index('site_pages_blocks_consulting_overview_benefit_items_parent_id_idx').on(
+      columns._parentID,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_pricing_cards_plans.id],
-      name: 'site_pages_blocks_pricing_cards_plans_features_parent_id_fk',
+      foreignColumns: [site_pages_blocks_consulting_overview.id],
+      name: 'site_pages_blocks_consulting_overview_benefit_items_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
 
-export const site_pages_blocks_pricing_cards_plans = pgTable(
-  'site_pages_blocks_pricing_cards_plans',
+export const site_pages_blocks_consulting_overview = pgTable(
+  'site_pages_blocks_consulting_overview',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: varchar('id').primaryKey(),
+    blockBackground: bg('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color: c('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    headline: varchar('headline').default(
+      'Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing & Webdesign',
+    ),
+    introText: varchar('intro_text').default(
+      'Ich realisiere moderne, nutzerzentrierte Websites, konsistente Markenauftritte und unterstütze Unternehmen dabei, Ihre Prozesse digital zu automatisieren - effizient, fundiert und ergebnisorientiert.',
+    ),
+    pixelLayoutDesktop: boolean('pixel_layout_desktop').default(true),
+    colors_gradientLavender: varchar('colors_gradient_lavender').default('#DED9FF'),
+    colors_gradientLime: varchar('colors_gradient_lime').default('#F3FFD9'),
+    colors_introBlob: varchar('colors_intro_blob').default('#DED9FF'),
+    colors_strategyBadge: varchar('colors_strategy_badge').default('#08D3BB'),
+    colors_benefitsBadge: varchar('colors_benefits_badge').default('#1090CB'),
+    colors_experienceBadge: varchar('colors_experience_badge').default('#9208D3'),
+    colors_timelineStroke: varchar('colors_timeline_stroke').default('#999999'),
+    colors_divider: varchar('colors_divider').default('#C7C7C7'),
+    colors_headline: varchar('colors_headline').default('#252525'),
+    colors_body: varchar('colors_body').default('#545454'),
+    colors_muted: varchar('colors_muted').default('#868686'),
+    strategyLabel: varchar('strategy_label').default('Digital Consulting, Marketing & Webdesign'),
+    strategySubLabel: varchar('strategy_sub_label').default('für Unternehmen und Organisationen'),
+    strategyTitle: varchar('strategy_title').default(
+      'Ich begleite Unternehmen bei der Entwicklung klarer digitaler Strategien',
+    ),
+    strategyText: varchar('strategy_text').default(
+      'Von Positionierung und Marketing bis zur technischen Umsetzung moderner Weblösungen. Der Fokus liegt auf messbaren Ergebnissen: strukturierte Prozesse, performante Kampagnen und Websites, die nicht nur gut aussehen, sondern verkaufen. Persönlich. Effizient. Mit Blick auf langfristiges Wachstum. Als Freelancer in Halle (Saale) stehe ich für direkte Zusammenarbeit und transparente Umsetzung.',
+    ),
+    benefitsLabel: varchar('benefits_label').default('Darum arbeiten andere Macher mit mir'),
+    benefitsSubLabel: varchar('benefits_sub_label').default('Schnelle, effiziente Umsetzung'),
+    benefitsTitle: varchar('benefits_title').default('Vorteile in der Übersicht'),
+    experienceLabel: varchar('experience_label').default('Wissen was funktioniert'),
+    experienceSubLabel: varchar('experience_sub_label').default(
+      'Profitieren Sie von meinen Erfahrungen',
+    ),
+    experienceTitle: varchar('experience_title').default(
+      'Seit über 20 Jahren Erfahrung im digitalen Marketing & Vertrieb',
+    ),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('site_pages_blocks_consulting_overview_order_idx').on(columns._order),
+    index('site_pages_blocks_consulting_overview_parent_id_idx').on(columns._parentID),
+    index('site_pages_blocks_consulting_overview_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'site_pages_blocks_consulting_overview_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const site_pages_blocks_shadcn_block_content_images = pgTable(
+  'site_pages_blocks_shadcn_block_content_images',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    media: integer('media_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+  },
+  (columns) => [
+    index('site_pages_blocks_shadcn_block_content_images_order_idx').on(columns._order),
+    index('site_pages_blocks_shadcn_block_content_images_parent_id_idx').on(columns._parentID),
+    index('site_pages_blocks_shadcn_block_content_images_media_idx').on(columns.media),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages_blocks_shadcn_block.id],
+      name: 'site_pages_blocks_shadcn_block_content_images_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const lnks = pgTable(
+  'lnks',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    link_type: enum_lnks_link_type('link_type').default('reference'),
+    link_newTab: boolean('link_new_tab'),
+    link_url: varchar('link_url'),
+    link_label: varchar('link_label'),
+    link_appearance: enum_lnks_link_appearance('link_appearance').default('default'),
+  },
+  (columns) => [
+    index('lnks_order_idx').on(columns._order),
+    index('lnks_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages_blocks_shadcn_block.id],
+      name: 'lnks_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const site_pages_blocks_shadcn_block = pgTable(
+  'site_pages_blocks_shadcn_block',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: varchar('id').primaryKey(),
+    blockBackground:
+      enum_site_pages_blocks_shadcn_block_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color:
+      enum_site_pages_blocks_shadcn_block_block_overlay_color('block_overlay_color').default(
+        'dark',
+      ),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    variant: enum_site_pages_blocks_shadcn_block_variant('variant'),
+    content_headline: varchar('content_headline'),
+    content_subheadline: varchar('content_subheadline'),
+    content_body: varchar('content_body'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('site_pages_blocks_shadcn_block_order_idx').on(columns._order),
+    index('site_pages_blocks_shadcn_block_parent_id_idx').on(columns._parentID),
+    index('site_pages_blocks_shadcn_block_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'site_pages_blocks_shadcn_block_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const site_pages_blocks_services_overview_services = pgTable(
+  'site_pages_blocks_services_overview_services',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    icon: enum_site_pages_blocks_services_overview_services_icon('icon').default('compass'),
+    title: varchar('title'),
+    description: varchar('description'),
+  },
+  (columns) => [
+    index('site_pages_blocks_services_overview_services_order_idx').on(columns._order),
+    index('site_pages_blocks_services_overview_services_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages_blocks_services_overview.id],
+      name: 'site_pages_blocks_services_overview_services_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const site_pages_blocks_services_overview = pgTable(
+  'site_pages_blocks_services_overview',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: varchar('id').primaryKey(),
+    heading: varchar('heading').default('Meine Leistungen im Überblick'),
+    intro: varchar('intro'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('site_pages_blocks_services_overview_order_idx').on(columns._order),
+    index('site_pages_blocks_services_overview_parent_id_idx').on(columns._parentID),
+    index('site_pages_blocks_services_overview_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'site_pages_blocks_services_overview_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const site_pages_blocks_why_work_with_me_intro_icon_list = pgTable(
+  'site_pages_blocks_why_work_with_me_intro_icon_list',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    icon: enum_site_pages_blocks_why_work_with_me_intro_icon_list_icon('icon').default('brain'),
+    text: varchar('text'),
+  },
+  (columns) => [
+    index('site_pages_blocks_why_work_with_me_intro_icon_list_order_idx').on(columns._order),
+    index('site_pages_blocks_why_work_with_me_intro_icon_list_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages_blocks_why_work_with_me.id],
+      name: 'site_pages_blocks_why_work_with_me_intro_icon_list_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const site_pages_blocks_why_work_with_me_reasons = pgTable(
+  'site_pages_blocks_why_work_with_me_reasons',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    icon: enum_site_pages_blocks_why_work_with_me_reasons_icon('icon').default('user'),
+    title: varchar('title'),
+    description: varchar('description'),
+  },
+  (columns) => [
+    index('site_pages_blocks_why_work_with_me_reasons_order_idx').on(columns._order),
+    index('site_pages_blocks_why_work_with_me_reasons_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages_blocks_why_work_with_me.id],
+      name: 'site_pages_blocks_why_work_with_me_reasons_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const site_pages_blocks_why_work_with_me = pgTable(
+  'site_pages_blocks_why_work_with_me',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: varchar('id').primaryKey(),
+    heading: varchar('heading').default('Warum mit mir'),
+    intro: varchar('intro'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('site_pages_blocks_why_work_with_me_order_idx').on(columns._order),
+    index('site_pages_blocks_why_work_with_me_parent_id_idx').on(columns._parentID),
+    index('site_pages_blocks_why_work_with_me_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'site_pages_blocks_why_work_with_me_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_ueber_werte = pgTable(
+  'prof_ueber_werte',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    icon: enum_prof_ueber_werte_icon('icon').default('strategy'),
+    wert: varchar('wert'),
+    beschreibung: varchar('beschreibung'),
+  },
+  (columns) => [
+    index('prof_ueber_werte_order_idx').on(columns._order),
+    index('prof_ueber_werte_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [prof_ueber.id],
+      name: 'prof_ueber_werte_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_ueber = pgTable(
+  'prof_ueber',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: varchar('id').primaryKey(),
+    blockBackground: enum_prof_ueber_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color: enum_prof_ueber_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    sectionTitle: varchar('section_title').default('Über mich'),
+    einleitung: varchar('einleitung').default(
+      'Ich bin Philipp Bacher – und mein Ansatz ist einfach: Ich denke strategisch und handle operativ. Für meine Kunden bedeutet das, dass sie nicht zwischen Berater und Umsetzer wählen müssen. Ich bin beides.\n\nSeit 2010 arbeite ich selbstständig für Unternehmen in DACH, Benelux, Hongkong, Malaysia und Indonesien – in den Bereichen Webentwicklung, digitales Marketing, Corporate Design, Vertriebsaufbau und ERP-Beratung. Mein Studium der Betriebswirtschaft (BBA cum laude, Moskau & Groningen) und der Wirtschaftsinformatik (MLU Halle) bildet das analytische Fundament. Was daraus entstanden ist: ein Generalist mit echter Tiefe – und der Fähigkeit, komplexe digitale Projekte von der Strategie bis zur Übergabe zu verantworten.\n\nIch arbeite bevorzugt mit KMUs, die klare Ergebnisse erwarten, keine Umwege brauchen und einen Ansprechpartner schätzen, der mitdenkt – nicht nur ausführt.',
+    ),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('prof_ueber_order_idx').on(columns._order),
+    index('prof_ueber_parent_id_idx').on(columns._parentID),
+    index('prof_ueber_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'prof_ueber_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_kern_bereiche_details = pgTable(
+  'prof_kern_bereiche_details',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    line: varchar('line'),
+  },
+  (columns) => [
+    index('prof_kern_bereiche_details_order_idx').on(columns._order),
+    index('prof_kern_bereiche_details_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [prof_kern_bereiche.id],
+      name: 'prof_kern_bereiche_details_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_kern_bereiche = pgTable(
+  'prof_kern_bereiche',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    titel: varchar('titel'),
+    text: varchar('text'),
+  },
+  (columns) => [
+    index('prof_kern_bereiche_order_idx').on(columns._order),
+    index('prof_kern_bereiche_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [prof_kern.id],
+      name: 'prof_kern_bereiche_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_kern = pgTable(
+  'prof_kern',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: varchar('id').primaryKey(),
+    blockBackground: enum_prof_kern_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color: enum_prof_kern_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    ueberschrift: varchar('ueberschrift').default('Was ich für Sie leiste'),
+    einleitung: varchar('einleitung').default(
+      'Als Digital Business Partner übernehme ich die Verantwortung für Ihren digitalen Auftritt und Ihre digitalen Prozesse – ganzheitlich, messbar und ohne Schnittstellenverluste. Meine Arbeit bewegt sich in vier eng verzahnten Bereichen:',
+    ),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('prof_kern_order_idx').on(columns._order),
+    index('prof_kern_parent_id_idx').on(columns._parentID),
+    index('prof_kern_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'prof_kern_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_skills_spalten_skills = pgTable(
+  'prof_skills_spalten_skills',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    skill: varchar('skill'),
+    level: enum_prof_skills_spalten_skills_level('level').default('expert'),
+  },
+  (columns) => [
+    index('prof_skills_spalten_skills_order_idx').on(columns._order),
+    index('prof_skills_spalten_skills_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [prof_skills_spalten.id],
+      name: 'prof_skills_spalten_skills_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_skills_spalten = pgTable(
+  'prof_skills_spalten',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    bereich: varchar('bereich'),
+  },
+  (columns) => [
+    index('prof_skills_spalten_order_idx').on(columns._order),
+    index('prof_skills_spalten_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [prof_skills.id],
+      name: 'prof_skills_spalten_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_skills = pgTable(
+  'prof_skills',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: varchar('id').primaryKey(),
+    blockBackground: enum_prof_skills_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color: enum_prof_skills_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    sectionTitle: varchar('section_title').default('Kompetenzen'),
+    sectionIntro: varchar('section_intro').default(
+      'Erfahrung nach Bereichen – von der Strategie bis zur technischen Umsetzung.',
+    ),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('prof_skills_order_idx').on(columns._order),
+    index('prof_skills_parent_id_idx').on(columns._parentID),
+    index('prof_skills_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'prof_skills_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_weg_eintraege = pgTable(
+  'prof_weg_eintraege',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    zeitraum: varchar('zeitraum'),
+    position: varchar('position'),
+    unternehmen: varchar('unternehmen'),
+    beschreibung: varchar('beschreibung'),
+    typ: enum_prof_weg_eintraege_typ('typ').default('freelance'),
+  },
+  (columns) => [
+    index('prof_weg_eintraege_order_idx').on(columns._order),
+    index('prof_weg_eintraege_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [prof_weg.id],
+      name: 'prof_weg_eintraege_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_weg = pgTable(
+  'prof_weg',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: varchar('id').primaryKey(),
+    blockBackground: enum_prof_weg_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color: enum_prof_weg_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    sectionTitle: varchar('section_title').default('Werdegang'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('prof_weg_order_idx').on(columns._order),
+    index('prof_weg_parent_id_idx').on(columns._parentID),
+    index('prof_weg_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'prof_weg_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_zahl_items = pgTable(
+  'prof_zahl_items',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    zahl: varchar('zahl'),
+    bezeichnung: varchar('bezeichnung'),
+  },
+  (columns) => [
+    index('prof_zahl_items_order_idx').on(columns._order),
+    index('prof_zahl_items_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [prof_zahl.id],
+      name: 'prof_zahl_items_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_zahl = pgTable(
+  'prof_zahl',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: varchar('id').primaryKey(),
+    blockBackground: enum_prof_zahl_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color: enum_prof_zahl_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    sectionTitle: varchar('section_title'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('prof_zahl_order_idx').on(columns._order),
+    index('prof_zahl_parent_id_idx').on(columns._parentID),
+    index('prof_zahl_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'prof_zahl_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_tools_tools = pgTable(
+  'prof_tools_tools',
   {
     _order: integer('_order').notNull(),
     _parentID: varchar('_parent_id').notNull(),
     id: varchar('id').primaryKey(),
     name: varchar('name'),
-    description: varchar('description'),
-    price: varchar('price'),
-    period: varchar('period').default('month'),
-    buttonText: varchar('button_text').default('Sign up today'),
-    href: varchar('href').default('/sign-up'),
-    isHighlighted: boolean('is_highlighted').default(false),
-    buttonIcon:
-      enum_site_pages_blocks_pricing_cards_plans_button_icon('button_icon').default('arrow'),
+    kategorie: enum_prof_tools_tools_kategorie('kategorie').default('dev'),
   },
   (columns) => [
-    index('site_pages_blocks_pricing_cards_plans_order_idx').on(columns._order),
-    index('site_pages_blocks_pricing_cards_plans_parent_id_idx').on(columns._parentID),
+    index('prof_tools_tools_order_idx').on(columns._order),
+    index('prof_tools_tools_parent_id_idx').on(columns._parentID),
     foreignKey({
       columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_pricing_cards.id],
-      name: 'site_pages_blocks_pricing_cards_plans_parent_id_fk',
+      foreignColumns: [prof_tools.id],
+      name: 'prof_tools_tools_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
 
-export const site_pages_blocks_pricing_cards = pgTable(
-  'site_pages_blocks_pricing_cards',
+export const prof_tools = pgTable(
+  'prof_tools',
   {
     _order: integer('_order').notNull(),
     _parentID: integer('_parent_id').notNull(),
     _path: text('_path').notNull(),
     id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_pricing_cards_block_background('block_background').default('none'),
+    blockBackground: enum_prof_tools_block_background('block_background').default('none'),
     blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_pricing_cards_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
+    blockOverlay_color: enum_prof_tools_block_overlay_color('block_overlay_color').default('dark'),
     blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    badge: varchar('badge').default('Pricing'),
-    title: varchar('title').default('Prices that make sense!'),
-    description: varchar('description').default(
-      'Managing a small business today is already tough.',
-    ),
+    sectionTitle: varchar('section_title').default('Tools & Plattformen'),
     blockName: varchar('block_name'),
   },
   (columns) => [
-    index('site_pages_blocks_pricing_cards_order_idx').on(columns._order),
-    index('site_pages_blocks_pricing_cards_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_pricing_cards_path_idx').on(columns._path),
+    index('prof_tools_order_idx').on(columns._order),
+    index('prof_tools_parent_id_idx').on(columns._parentID),
+    index('prof_tools_path_idx').on(columns._path),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_pricing_cards_parent_id_fk',
+      name: 'prof_tools_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
 
-export const site_pages_blocks_contact_section1_hours_rows = pgTable(
-  'site_pages_blocks_contact_section1_hours_rows',
+export const prof_lang_zert_sprachen = pgTable(
+  'prof_lang_zert_sprachen',
   {
     _order: integer('_order').notNull(),
     _parentID: varchar('_parent_id').notNull(),
     id: varchar('id').primaryKey(),
-    label: varchar('label'),
-    value: varchar('value'),
+    sprache: varchar('sprache'),
+    niveau: varchar('niveau'),
   },
   (columns) => [
-    index('site_pages_blocks_contact_section1_hours_rows_order_idx').on(columns._order),
-    index('site_pages_blocks_contact_section1_hours_rows_parent_id_idx').on(columns._parentID),
+    index('prof_lang_zert_sprachen_order_idx').on(columns._order),
+    index('prof_lang_zert_sprachen_parent_id_idx').on(columns._parentID),
     foreignKey({
       columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_contact_section1.id],
-      name: 'site_pages_blocks_contact_section1_hours_rows_parent_id_fk',
+      foreignColumns: [prof_lang_zert.id],
+      name: 'prof_lang_zert_sprachen_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
 
-export const site_pages_blocks_contact_section1 = pgTable(
-  'site_pages_blocks_contact_section1',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_contact_section1_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_contact_section1_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    heading: varchar('heading').default('Get in Touch'),
-    description: varchar('description').default(
-      "Have a question or want to work together? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
-    ),
-    formTitle: varchar('form_title').default('Send us a Message'),
-    formFirstNameLabel: varchar('form_first_name_label').default('First name'),
-    formFirstNamePlaceholder: varchar('form_first_name_placeholder').default('John'),
-    formLastNameLabel: varchar('form_last_name_label').default('Last name'),
-    formLastNamePlaceholder: varchar('form_last_name_placeholder').default('Doe'),
-    formEmailLabel: varchar('form_email_label').default('Email'),
-    formEmailPlaceholder: varchar('form_email_placeholder').default('john@example.com'),
-    formSubjectLabel: varchar('form_subject_label').default('Subject'),
-    formSubjectPlaceholder: varchar('form_subject_placeholder').default('How can we help?'),
-    formMessageLabel: varchar('form_message_label').default('Message'),
-    formMessagePlaceholder: varchar('form_message_placeholder').default(
-      'Tell us more about your project...',
-    ),
-    formButtonText: varchar('form_button_text').default('Send Message'),
-    formActionUrl: varchar('form_action_url'),
-    contactCardTitle: varchar('contact_card_title').default('Contact Information'),
-    contactEmailLabel: varchar('contact_email_label').default('Email'),
-    contactEmailValue: varchar('contact_email_value').default('hello@company.com'),
-    contactPhoneLabel: varchar('contact_phone_label').default('Phone'),
-    contactPhoneValue: varchar('contact_phone_value').default('+1 (555) 123-4567'),
-    contactOfficeLabel: varchar('contact_office_label').default('Office'),
-    contactOfficeValue: varchar('contact_office_value').default(
-      '123 Business Ave, Suite 100\nSan Francisco, CA 94105',
-    ),
-    hoursCardTitle: varchar('hours_card_title').default('Business Hours'),
-    altCardTitle: varchar('alt_card_title').default('Prefer to Call?'),
-    altCardDescription: varchar('alt_card_description').default(
-      'Speak directly with our team for immediate assistance.',
-    ),
-    altCardButtonText: varchar('alt_card_button_text').default('Schedule a Call'),
-    altCardButtonUrl: varchar('alt_card_button_url').default('#'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_contact_section1_order_idx').on(columns._order),
-    index('site_pages_blocks_contact_section1_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_contact_section1_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_contact_section1_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_cta_section3_right_cards = pgTable(
-  'site_pages_blocks_cta_section3_right_cards',
+export const prof_lang_zert_zertifikate = pgTable(
+  'prof_lang_zert_zertifikate',
   {
     _order: integer('_order').notNull(),
     _parentID: varchar('_parent_id').notNull(),
     id: varchar('id').primaryKey(),
-    icon: enum_site_pages_blocks_cta_section3_right_cards_icon('icon').default('bookOpen'),
-    title: varchar('title'),
-    description: varchar('description'),
-    href: varchar('href').default('#'),
+    bezeichnung: varchar('bezeichnung'),
   },
   (columns) => [
-    index('site_pages_blocks_cta_section3_right_cards_order_idx').on(columns._order),
-    index('site_pages_blocks_cta_section3_right_cards_parent_id_idx').on(columns._parentID),
+    index('prof_lang_zert_zertifikate_order_idx').on(columns._order),
+    index('prof_lang_zert_zertifikate_parent_id_idx').on(columns._parentID),
     foreignKey({
       columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_cta_section3.id],
-      name: 'site_pages_blocks_cta_section3_right_cards_parent_id_fk',
+      foreignColumns: [prof_lang_zert.id],
+      name: 'prof_lang_zert_zertifikate_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
 
-export const site_pages_blocks_cta_section3 = pgTable(
-  'site_pages_blocks_cta_section3',
+export const prof_lang_zert = pgTable(
+  'prof_lang_zert',
   {
     _order: integer('_order').notNull(),
     _parentID: integer('_parent_id').notNull(),
     _path: text('_path').notNull(),
     id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_cta_section3_block_background('block_background').default('none'),
+    blockBackground: enum_prof_lang_zert_block_background('block_background').default('none'),
     blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
     blockOverlay_color:
-      enum_site_pages_blocks_cta_section3_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
+      enum_prof_lang_zert_block_overlay_color('block_overlay_color').default('dark'),
     blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    badgeIcon: enum_site_pages_blocks_cta_section3_badge_icon('badge_icon').default('rocket'),
-    badgeText: varchar('badge_text').default('Launch Your Success'),
-    title: varchar('title').default('Accelerate your digital transformation journey'),
-    description: varchar('description').default(
-      'Join thousands of innovative companies using our cutting-edge platform to automate workflows, boost team productivity, and deliver exceptional results faster than ever before.',
+    sprachenSectionTitle: varchar('sprachen_section_title').default('Sprachen'),
+    zertifikateSectionTitle: varchar('zertifikate_section_title').default(
+      'Zertifikate & Qualifikationen',
     ),
-    primaryButtonIcon:
-      enum_site_pages_blocks_cta_section3_primary_button_icon('primary_button_icon').default('zap'),
-    primaryButtonLabel: varchar('primary_button_label').default('Start Free Trial'),
-    primaryButtonHref: varchar('primary_button_href').default('#'),
-    secondaryButtonLabel: varchar('secondary_button_label').default('Watch Demo'),
-    secondaryButtonHref: varchar('secondary_button_href').default('#'),
     blockName: varchar('block_name'),
   },
   (columns) => [
-    index('site_pages_blocks_cta_section3_order_idx').on(columns._order),
-    index('site_pages_blocks_cta_section3_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_cta_section3_path_idx').on(columns._path),
+    index('prof_lang_zert_order_idx').on(columns._order),
+    index('prof_lang_zert_parent_id_idx').on(columns._parentID),
+    index('prof_lang_zert_path_idx').on(columns._path),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_cta_section3_parent_id_fk',
+      name: 'prof_lang_zert_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const prof_cta = pgTable(
+  'prof_cta',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: varchar('id').primaryKey(),
+    blockBackground: enum_prof_cta_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color: enum_prof_cta_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    headline: varchar('headline').default('Ein Ansprechpartner. Alle Kompetenzen.'),
+    text: varchar('text').default(
+      'Sie brauchen keinen Dienstleister für jede Subdisziplin. Sie brauchen jemanden, der das Gesamtbild versteht und umsetzt. Sprechen Sie mit mir – unverbindlich, konkret und auf Augenhöhe.',
+    ),
+    buttonLabel: varchar('button_label').default('Gespräch vereinbaren'),
+    buttonLink: varchar('button_link').default('/kontakt'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('prof_cta_order_idx').on(columns._order),
+    index('prof_cta_parent_id_idx').on(columns._parentID),
+    index('prof_cta_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'prof_cta_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const site_pages_blocks_price_calculator = pgTable(
+  'site_pages_blocks_price_calculator',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: varchar('id').primaryKey(),
+    showRatesSection: boolean('show_rates_section').default(true),
+    sectionLabel: varchar('section_label'),
+    heading: varchar('heading'),
+    sub: varchar('sub'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('site_pages_blocks_price_calculator_order_idx').on(columns._order),
+    index('site_pages_blocks_price_calculator_parent_id_idx').on(columns._parentID),
+    index('site_pages_blocks_price_calculator_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'site_pages_blocks_price_calculator_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
@@ -1593,450 +1753,6 @@ export const site_pages_blocks_content = pgTable(
   ],
 )
 
-export const site_pages_blocks_serp_content_bullets = pgTable(
-  'site_pages_blocks_serp_content_bullets',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: varchar('_parent_id').notNull(),
-    id: varchar('id').primaryKey(),
-    label: varchar('label'),
-    description: varchar('description'),
-  },
-  (columns) => [
-    index('site_pages_blocks_serp_content_bullets_order_idx').on(columns._order),
-    index('site_pages_blocks_serp_content_bullets_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_serp_content.id],
-      name: 'site_pages_blocks_serp_content_bullets_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_serp_content = pgTable(
-  'site_pages_blocks_serp_content',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_serp_content_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_serp_content_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    eyebrow: varchar('eyebrow').default('Free Plan'),
-    title: varchar('title').default('A Workflow Revolution'),
-    description: varchar('description').default(
-      "Transform your team's productivity with our intuitive platform. Seamlessly integrate tasks, communication, and project tracking in one powerful solution.",
-    ),
-    sectionTitle: varchar('section_title').default('Flexibility at Your Fingertips'),
-    sectionDescription: varchar('section_description').default(
-      "Whether you're a startup or an enterprise, our scalable solution grows with you. Customize workflows, integrate with your favorite tools, and automate repetitive tasks.",
-    ),
-    cardTitle: varchar('card_title').default('Revolutionize your workflow'),
-    cardSubtitle: varchar('card_subtitle').default('Professional headshot portrait'),
-    cardBadge: varchar('card_badge').default('20+ expert services at your fingertips'),
-    statPrimaryLabel: varchar('stat_primary_label').default('Teams onboarded'),
-    statPrimaryValue: varchar('stat_primary_value').default('500+'),
-    statSecondaryLabel: varchar('stat_secondary_label').default('Average productivity gain'),
-    statSecondaryValue: varchar('stat_secondary_value').default('35%'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_serp_content_order_idx').on(columns._order),
-    index('site_pages_blocks_serp_content_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_serp_content_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_serp_content_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_lyra_content = pgTable(
-  'site_pages_blocks_lyra_content',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_lyra_content_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_lyra_content_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default(
-      'The Lyra ecosystem brings together our models, products and platforms.',
-    ),
-    paragraphOne: varchar('paragraph_one').default(
-      'Lyra is evolving to be more than just the models. It supports an entire ecosystem — from products to the APIs and platforms helping developers and businesses innovate.',
-    ),
-    paragraphTwo: varchar('paragraph_two').default(
-      'Tailark. It supports an entire ecosystem — from products innovate. Sit minus, quod debitis autem quia aspernatur delectus impedit modi, neque non id ad dignissimos? Saepe deleniti perferendis beatae.',
-    ),
-    buttonLabel: varchar('button_label').default('Learn More'),
-    button_link_type:
-      enum_site_pages_blocks_lyra_content_button_link_type('button_link_type').default('reference'),
-    button_link_newTab: boolean('button_link_new_tab'),
-    button_link_url: varchar('button_link_url'),
-    button_link_label: varchar('button_link_label'),
-    button_link_appearance:
-      enum_site_pages_blocks_lyra_content_button_link_appearance('button_link_appearance').default(
-        'default',
-      ),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_lyra_content_order_idx').on(columns._order),
-    index('site_pages_blocks_lyra_content_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_lyra_content_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_lyra_content_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_lyra_feature = pgTable(
-  'site_pages_blocks_lyra_feature',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_lyra_feature_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_lyra_feature_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('The Lyra ecosystem brings together our models.'),
-    paragraphOne: varchar('paragraph_one').default(
-      'Lyra is evolving to be more than just the models. It supports an entire ecosystem — from products innovate.',
-    ),
-    paragraphTwo: varchar('paragraph_two').default(
-      'It supports an entire ecosystem — from products to the APIs and platforms helping developers and businesses innovate.',
-    ),
-    featureFastTitle: varchar('feature_fast_title').default('Faaast'),
-    featureFastText: varchar('feature_fast_text').default(
-      'It supports an entire helping developers and innovate.',
-    ),
-    featurePowerfulTitle: varchar('feature_powerful_title').default('Powerful'),
-    featurePowerfulText: varchar('feature_powerful_text').default(
-      'It supports an entire helping developers and businesses.',
-    ),
-    darkImage: integer('dark_image_id').references(() => media.id, {
-      onDelete: 'set null',
-    }),
-    lightImage: integer('light_image_id').references(() => media.id, {
-      onDelete: 'set null',
-    }),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_lyra_feature_order_idx').on(columns._order),
-    index('site_pages_blocks_lyra_feature_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_lyra_feature_path_idx').on(columns._path),
-    index('site_pages_blocks_lyra_feature_dark_image_idx').on(columns.darkImage),
-    index('site_pages_blocks_lyra_feature_light_image_idx').on(columns.lightImage),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_lyra_feature_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_features_grid_items = pgTable(
-  'site_pages_blocks_features_grid_items',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: varchar('_parent_id').notNull(),
-    id: varchar('id').primaryKey(),
-    icon: enum_site_pages_blocks_features_grid_items_icon('icon').default('zap'),
-    title: varchar('title'),
-    description: varchar('description'),
-  },
-  (columns) => [
-    index('site_pages_blocks_features_grid_items_order_idx').on(columns._order),
-    index('site_pages_blocks_features_grid_items_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_features_grid.id],
-      name: 'site_pages_blocks_features_grid_items_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_features_grid = pgTable(
-  'site_pages_blocks_features_grid',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_features_grid_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_features_grid_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('Built to cover your needs'),
-    subtitle: varchar('subtitle').default(
-      'Libero sapiente aliquam quibusdam aspernatur, praesentium iusto repellendus.',
-    ),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_features_grid_order_idx').on(columns._order),
-    index('site_pages_blocks_features_grid_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_features_grid_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_features_grid_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_service_ux_ui = pgTable(
-  'site_pages_blocks_service_ux_ui',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_service_ux_ui_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_service_ux_ui_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('UX/UI Design'),
-    introHeadline: varchar('intro_headline').default('User-Centered Design That Converts'),
-    introText: varchar('intro_text').default(
-      "We believe that great design should be intuitive, accessible, and purposeful for every user who interacts with your product. Our UX/UI design approach focuses on understanding your users' needs, behaviors, and pain points to create interfaces that not only look beautiful but function seamlessly.",
-    ),
-    body: jsonb('body'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_service_ux_ui_order_idx').on(columns._order),
-    index('site_pages_blocks_service_ux_ui_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_service_ux_ui_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_service_ux_ui_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_services4_services_items = pgTable(
-  'site_pages_blocks_services4_services_items',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: varchar('_parent_id').notNull(),
-    id: varchar('id').primaryKey(),
-    label: varchar('label'),
-  },
-  (columns) => [
-    index('site_pages_blocks_services4_services_items_order_idx').on(columns._order),
-    index('site_pages_blocks_services4_services_items_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_services4_services.id],
-      name: 'site_pages_blocks_services4_services_items_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_services4_services = pgTable(
-  'site_pages_blocks_services4_services',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: varchar('_parent_id').notNull(),
-    id: varchar('id').primaryKey(),
-    icon: enum_site_pages_blocks_services4_services_icon('icon').default('cog'),
-    title: varchar('title'),
-    description: varchar('description'),
-  },
-  (columns) => [
-    index('site_pages_blocks_services4_services_order_idx').on(columns._order),
-    index('site_pages_blocks_services4_services_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_services4.id],
-      name: 'site_pages_blocks_services4_services_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_services4 = pgTable(
-  'site_pages_blocks_services4',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_services4_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_services4_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('Services'),
-    subtitle: varchar('subtitle').default(
-      'We craft digital experiences that captivate and convert, bringing your vision to life.',
-    ),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_services4_order_idx').on(columns._order),
-    index('site_pages_blocks_services4_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_services4_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_services4_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_features_scaling_features = pgTable(
-  'site_pages_blocks_features_scaling_features',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: varchar('_parent_id').notNull(),
-    id: varchar('id').primaryKey(),
-    icon: enum_site_pages_blocks_features_scaling_features_icon('icon').default('mail'),
-    label: varchar('label'),
-  },
-  (columns) => [
-    index('site_pages_blocks_features_scaling_features_order_idx').on(columns._order),
-    index('site_pages_blocks_features_scaling_features_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages_blocks_features_scaling.id],
-      name: 'site_pages_blocks_features_scaling_features_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const site_pages_blocks_features_scaling = pgTable(
-  'site_pages_blocks_features_scaling',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground:
-      enum_site_pages_blocks_features_scaling_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum_site_pages_blocks_features_scaling_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('Built for Scaling teams'),
-    subtitle: varchar('subtitle').default(
-      'Orrupti aut temporibus assumenda atque ab, accusamus sit, molestiae veniam laboriosam pariatur.',
-    ),
-    darkImage: integer('dark_image_id').references(() => media.id, {
-      onDelete: 'set null',
-    }),
-    lightImage: integer('light_image_id').references(() => media.id, {
-      onDelete: 'set null',
-    }),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_features_scaling_order_idx').on(columns._order),
-    index('site_pages_blocks_features_scaling_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_features_scaling_path_idx').on(columns._path),
-    index('site_pages_blocks_features_scaling_dark_image_idx').on(columns.darkImage),
-    index('site_pages_blocks_features_scaling_light_image_idx').on(columns.lightImage),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_features_scaling_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const feat_ai_acc_items = pgTable(
-  'feat_ai_acc_items',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: varchar('_parent_id').notNull(),
-    id: varchar('id').primaryKey(),
-    icon: enum_feat_ai_acc_items_icon('icon').default('database'),
-    title: varchar('title'),
-    content: varchar('content'),
-    darkImage: integer('dark_image_id').references(() => media.id, {
-      onDelete: 'set null',
-    }),
-    lightImage: integer('light_image_id').references(() => media.id, {
-      onDelete: 'set null',
-    }),
-  },
-  (columns) => [
-    index('feat_ai_acc_items_order_idx').on(columns._order),
-    index('feat_ai_acc_items_parent_id_idx').on(columns._parentID),
-    index('feat_ai_acc_items_dark_image_idx').on(columns.darkImage),
-    index('feat_ai_acc_items_light_image_idx').on(columns.lightImage),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [feat_ai_acc.id],
-      name: 'feat_ai_acc_items_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const feat_ai_acc = pgTable(
-  'feat_ai_acc',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: varchar('id').primaryKey(),
-    blockBackground: enum_feat_ai_acc_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color: enum_feat_ai_acc_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('The foundation for AI'),
-    subtitle: varchar('subtitle').default(
-      'Lyra is evolving to be more than just the models. It supports an entire to the APIs and platforms helping developers and businesses innovate.',
-    ),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('feat_ai_acc_order_idx').on(columns._order),
-    index('feat_ai_acc_parent_id_idx').on(columns._parentID),
-    index('feat_ai_acc_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'feat_ai_acc_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
 export const site_pages_blocks_media_block = pgTable(
   'site_pages_blocks_media_block',
   {
@@ -2143,41 +1859,47 @@ export const site_pages = pgTable(
       onDelete: 'set null',
     }),
     hero_subheadline: varchar('hero_subheadline'),
+    hero_badge: varchar('hero_badge'),
     hero_headline: varchar('hero_headline'),
     hero_headlineLine1: varchar('hero_headline_line1'),
     hero_headlineLine2: varchar('hero_headline_line2'),
     hero_headlineLine3: varchar('hero_headline_line3'),
     hero_description: varchar('hero_description'),
-    hero_mediaType: enum_site_pages_hero_media_type('hero_media_type').default('halo'),
+    hero_backgroundPreset: integer('hero_background_preset_id').references(
+      () => hero_backgrounds.id,
+      {
+        onDelete: 'set null',
+      },
+    ),
+    hero_mediaType: enum_site_pages_hero_media_type('hero_media_type').default('cssHalo'),
+    hero_mediaTypeMobile:
+      enum_site_pages_hero_media_type_mobile('hero_media_type_mobile').default('auto'),
     hero_backgroundImage: integer('hero_background_image_id').references(() => media.id, {
       onDelete: 'set null',
     }),
     hero_backgroundVideo: integer('hero_background_video_id').references(() => media.id, {
       onDelete: 'set null',
     }),
-    hero_haloAmplitudeFactor: numeric('hero_halo_amplitude_factor', { mode: 'number' }).default(
-      1.8,
-    ),
-    hero_haloSize: numeric('hero_halo_size', { mode: 'number' }).default(2.1),
-    hero_haloSpeed: numeric('hero_halo_speed', { mode: 'number' }).default(1),
-    hero_haloColor2: numeric('hero_halo_color2', { mode: 'number' }).default(15918901),
-    hero_haloXOffset: numeric('hero_halo_x_offset', { mode: 'number' }).default(0.15),
-    hero_haloYOffset: numeric('hero_halo_y_offset', { mode: 'number' }).default(-0.03),
-    hero_useHaloBackground: boolean('hero_use_halo_background').default(true),
-    hero_haloOverlayGradient: numeric('hero_halo_overlay_gradient', { mode: 'number' }).default(
-      0.68,
-    ),
-    hero_haloOverlayGrid: numeric('hero_halo_overlay_grid', { mode: 'number' }).default(0.08),
-    hero_haloOverlayGridSize: numeric('hero_halo_overlay_grid_size', { mode: 'number' }).default(
-      12,
-    ),
-    hero_haloOverlayGridVariant: enum_site_pages_hero_halo_overlay_grid_variant(
-      'hero_halo_overlay_grid_variant',
-    ).default('static'),
-    hero_haloOverlayGridCustomCode: varchar('hero_halo_overlay_grid_custom_code'),
     hero_foregroundImage: integer('hero_foreground_image_id').references(() => media.id, {
       onDelete: 'set null',
     }),
+    hero_surfacePattern:
+      enum_site_pages_hero_surface_pattern('hero_surface_pattern').default('none'),
+    hero_stackBackImage: integer('hero_stack_back_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    hero_stackBackOffsetX: numeric('hero_stack_back_offset_x', { mode: 'number' }).default(0),
+    hero_stackBackOffsetY: numeric('hero_stack_back_offset_y', { mode: 'number' }).default(0),
+    hero_stackMidImage: integer('hero_stack_mid_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    hero_stackMidOffsetX: numeric('hero_stack_mid_offset_x', { mode: 'number' }).default(0),
+    hero_stackMidOffsetY: numeric('hero_stack_mid_offset_y', { mode: 'number' }).default(0),
+    hero_stackFrontImage: integer('hero_stack_front_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    hero_stackFrontOffsetX: numeric('hero_stack_front_offset_x', { mode: 'number' }).default(0),
+    hero_stackFrontOffsetY: numeric('hero_stack_front_offset_y', { mode: 'number' }).default(0),
     hero_overlayOpacity: numeric('hero_overlay_opacity', { mode: 'number' }).default(0.5),
     hero_floatingMouseStrength: numeric('hero_floating_mouse_strength', { mode: 'number' }).default(
       6.5,
@@ -2211,9 +1933,13 @@ export const site_pages = pgTable(
   },
   (columns) => [
     index('site_pages_hero_hero_media_idx').on(columns.hero_media),
+    index('site_pages_hero_hero_background_preset_idx').on(columns.hero_backgroundPreset),
     index('site_pages_hero_hero_background_image_idx').on(columns.hero_backgroundImage),
     index('site_pages_hero_hero_background_video_idx').on(columns.hero_backgroundVideo),
     index('site_pages_hero_hero_foreground_image_idx').on(columns.hero_foregroundImage),
+    index('site_pages_hero_hero_stack_back_image_idx').on(columns.hero_stackBackImage),
+    index('site_pages_hero_hero_stack_mid_image_idx').on(columns.hero_stackMidImage),
+    index('site_pages_hero_hero_stack_front_image_idx').on(columns.hero_stackFrontImage),
     uniqueIndex('site_pages_slug_idx').on(columns.slug),
     index('site_pages_parent_idx').on(columns.parent),
     index('site_pages_meta_meta_image_idx').on(columns.meta_image),
@@ -2260,6 +1986,27 @@ export const site_pages_rels = pgTable(
       columns: [columns['categoriesID']],
       foreignColumns: [categories.id],
       name: 'site_pages_rels_categories_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _site_pages_v_version_hero_stats = pgTable(
+  '_site_pages_v_version_hero_stats',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    value: varchar('value'),
+    label: varchar('label'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_site_pages_v_version_hero_stats_order_idx').on(columns._order),
+    index('_site_pages_v_version_hero_stats_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_site_pages_v_version_hero_stats_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
@@ -2383,257 +2130,27 @@ export const _site_pages_v_blocks_hero_marketing = pgTable(
   ],
 )
 
-export const _site_pages_v_blocks_hero_grid = pgTable(
-  '_site_pages_v_blocks_hero_grid',
+export const _site_pages_v_blocks_introduction = pgTable(
+  '_site_pages_v_blocks_introduction',
   {
     _order: integer('_order').notNull(),
     _parentID: integer('_parent_id').notNull(),
     _path: text('_path').notNull(),
     id: serial('id').primaryKey(),
     blockBackground:
-      enum__site_pages_v_blocks_hero_grid_block_background('block_background').default('none'),
+      enum__site_pages_v_blocks_introduction_block_background('block_background').default('none'),
     blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
     blockOverlay_color:
-      enum__site_pages_v_blocks_hero_grid_block_overlay_color('block_overlay_color').default(
+      enum__site_pages_v_blocks_introduction_block_overlay_color('block_overlay_color').default(
         'dark',
       ),
     blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('Build your next project with Smoothui'),
-    highlight: varchar('highlight').default('Smoothui'),
-    subtitle: varchar('subtitle').default(
-      'Smoothui gives you the building blocks to create stunning, animated interfaces in minutes.',
+    heading: varchar('heading').default('Automatisierung, Marketing & Webdesign'),
+    body: varchar('body').default(
+      'Ich begleite Unternehmen bei der Entwicklung klarer digitaler Strategien – von Positionierung und Marketing bis zur technischen Umsetzung moderner Weblösungen. Der Fokus liegt auf messbaren Ergebnissen: strukturierte Prozesse, performante Kampagnen und Websites, die nicht nur gut aussehen, sondern verkaufen.',
     ),
-    primaryCtaLabel: varchar('primary_cta_label').default('Get Started'),
-    primaryCtaUrl: varchar('primary_cta_url').default('#get-started'),
-    secondaryCtaLabel: varchar('secondary_cta_label').default('Learn more'),
-    secondaryCtaUrl: varchar('secondary_cta_url').default('#learn-more'),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_hero_grid_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_hero_grid_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_hero_grid_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_hero_grid_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _collab_cur_v = pgTable(
-  '_collab_cur_v',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground: enum__collab_cur_v_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__collab_cur_v_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_collab_cur_v_order_idx').on(columns._order),
-    index('_collab_cur_v_parent_id_idx').on(columns._parentID),
-    index('_collab_cur_v_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_collab_cur_v_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_scroll_morph_hero = pgTable(
-  '_site_pages_v_blocks_scroll_morph_hero',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_scroll_morph_hero_block_background('block_background').default(
-        'none',
-      ),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_scroll_morph_hero_block_overlay_color(
-        'block_overlay_color',
-      ).default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    introHeadline: varchar('intro_headline').default('The future is built on AI.'),
-    introSubline: varchar('intro_subline').default('SCROLL TO EXPLORE'),
-    activeHeadline: varchar('active_headline').default('Explore Our Vision'),
-    activeText: varchar('active_text').default(
-      'Discover a world where technology meets creativity. Scroll through our curated collection of innovations designed to shape the future.',
-    ),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_scroll_morph_hero_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_scroll_morph_hero_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_scroll_morph_hero_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_scroll_morph_hero_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _feat_adv_v_items = pgTable(
-  '_feat_adv_v_items',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    title: varchar('title'),
-    description: varchar('description'),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_feat_adv_v_items_order_idx').on(columns._order),
-    index('_feat_adv_v_items_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_feat_adv_v.id],
-      name: '_feat_adv_v_items_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _feat_adv_v = pgTable(
-  '_feat_adv_v',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground: enum__feat_adv_v_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color: enum__feat_adv_v_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    badgeLabel: varchar('badge_label').default('Platform'),
-    title: varchar('title').default('Something new!'),
-    subtitle: varchar('subtitle').default('Managing a small business today is already tough.'),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_feat_adv_v_order_idx').on(columns._order),
-    index('_feat_adv_v_parent_id_idx').on(columns._parentID),
-    index('_feat_adv_v_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_feat_adv_v_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_feature1_items = pgTable(
-  '_site_pages_v_blocks_feature1_items',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    icon: enum__site_pages_v_blocks_feature1_items_icon('icon').default('sparkles'),
-    title: varchar('title'),
-    description: varchar('description'),
-    linkLabel: varchar('link_label').default('Learn more'),
-    linkUrl: varchar('link_url').default('#'),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_feature1_items_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_feature1_items_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_feature1.id],
-      name: '_site_pages_v_blocks_feature1_items_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_feature1 = pgTable(
-  '_site_pages_v_blocks_feature1',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_feature1_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_feature1_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    badge: varchar('badge').default('Why Choose Us'),
-    title: varchar('title').default('Experience the Difference'),
-    description: varchar('description').default(
-      'Discover why thousands of customers trust us for their shopping needs. We combine quality, convenience, and exceptional service.',
-    ),
-    ctaLabel: varchar('cta_label').default('Start Shopping'),
-    ctaUrl: varchar('cta_url').default('#'),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_feature1_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_feature1_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_feature1_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_feature1_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_feature2_items = pgTable(
-  '_site_pages_v_blocks_feature2_items',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    icon: enum__site_pages_v_blocks_feature2_items_icon('icon').default('heart'),
-    title: varchar('title'),
-    description: varchar('description'),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_feature2_items_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_feature2_items_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_feature2.id],
-      name: '_site_pages_v_blocks_feature2_items_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_feature2 = pgTable(
-  '_site_pages_v_blocks_feature2',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_feature2_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_feature2_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('Why Choose Us'),
-    description: varchar('description').default(
-      'We deliver exceptional quality and service that sets us apart. Experience the difference with our dedicated approach.',
+    tagline: varchar('tagline').default(
+      'Persönlich. Effizient. Mit Blick auf langfristiges Wachstum.\nAls Freelancer in Halle (Saale) stehe ich für direkte Zusammenarbeit und transparente Umsetzung.',
     ),
     image: integer('image_id').references(() => media.id, {
       onDelete: 'set null',
@@ -2642,388 +2159,771 @@ export const _site_pages_v_blocks_feature2 = pgTable(
     blockName: varchar('block_name'),
   },
   (columns) => [
-    index('_site_pages_v_blocks_feature2_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_feature2_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_feature2_path_idx').on(columns._path),
-    index('_site_pages_v_blocks_feature2_image_idx').on(columns.image),
+    index('_site_pages_v_blocks_introduction_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_introduction_parent_id_idx').on(columns._parentID),
+    index('_site_pages_v_blocks_introduction_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_introduction_image_idx').on(columns.image),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_feature2_parent_id_fk',
+      name: '_site_pages_v_blocks_introduction_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
 
-export const _site_pages_v_blocks_faq_simple_faqs = pgTable(
-  '_site_pages_v_blocks_faq_simple_faqs',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    question: varchar('question'),
-    answer: varchar('answer'),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_faq_simple_faqs_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_faq_simple_faqs_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_faq_simple.id],
-      name: '_site_pages_v_blocks_faq_simple_faqs_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_faq_simple = pgTable(
-  '_site_pages_v_blocks_faq_simple',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_faq_simple_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_faq_simple_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    badge: varchar('badge').default('FAQ'),
-    heading: varchar('heading').default('Common Questions & Answers'),
-    description: varchar('description').default(
-      'Find out all the essential details about our platform and how it can serve your needs.',
-    ),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_faq_simple_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_faq_simple_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_faq_simple_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_faq_simple_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_pricing_plans_features = pgTable(
-  '_site_pages_v_blocks_pricing_plans_features',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    feature: varchar('feature'),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_pricing_plans_features_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_pricing_plans_features_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_pricing_plans.id],
-      name: '_site_pages_v_blocks_pricing_plans_features_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_pricing_plans = pgTable(
-  '_site_pages_v_blocks_pricing_plans',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    name: varchar('name'),
-    price: varchar('price'),
-    yearlyPrice: varchar('yearly_price'),
-    period: varchar('period').default('per month'),
-    description: varchar('description'),
-    buttonText: varchar('button_text').default('Get started'),
-    href: varchar('href').default('/contact'),
-    isPopular: boolean('is_popular').default(false),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_pricing_plans_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_pricing_plans_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_pricing.id],
-      name: '_site_pages_v_blocks_pricing_plans_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_pricing = pgTable(
-  '_site_pages_v_blocks_pricing',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_pricing_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_pricing_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('Simple, Transparent Pricing'),
-    description: varchar('description').default(
-      'Choose the plan that works for you.\nAll plans include access to our platform, lead generation tools, and dedicated support.',
-    ),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_pricing_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_pricing_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_pricing_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_pricing_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_pricing_cards_plans_features = pgTable(
-  '_site_pages_v_blocks_pricing_cards_plans_features',
+export const _site_pages_v_blocks_consulting_overview_benefit_items = pgTable(
+  '_site_pages_v_blocks_consulting_overview_benefit_items',
   {
     _order: integer('_order').notNull(),
     _parentID: integer('_parent_id').notNull(),
     id: serial('id').primaryKey(),
     title: varchar('title'),
-    description: varchar('description'),
+    text: varchar('text'),
     _uuid: varchar('_uuid'),
   },
   (columns) => [
-    index('_site_pages_v_blocks_pricing_cards_plans_features_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_pricing_cards_plans_features_parent_id_idx').on(columns._parentID),
+    index('_site_pages_v_blocks_consulting_overview_benefit_items_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_consulting_overview_benefit_items_parent_id_idx').on(
+      columns._parentID,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_pricing_cards_plans.id],
-      name: '_site_pages_v_blocks_pricing_cards_plans_features_parent_id_fk',
+      foreignColumns: [_site_pages_v_blocks_consulting_overview.id],
+      name: '_site_pages_v_blocks_consulting_overview_benefit_items_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
 
-export const _site_pages_v_blocks_pricing_cards_plans = pgTable(
-  '_site_pages_v_blocks_pricing_cards_plans',
+export const _site_pages_v_blocks_consulting_overview = pgTable(
+  '_site_pages_v_blocks_consulting_overview',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: serial('id').primaryKey(),
+    blockBackground: bg('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color: c('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    headline: varchar('headline').default(
+      'Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing & Webdesign',
+    ),
+    introText: varchar('intro_text').default(
+      'Ich realisiere moderne, nutzerzentrierte Websites, konsistente Markenauftritte und unterstütze Unternehmen dabei, Ihre Prozesse digital zu automatisieren - effizient, fundiert und ergebnisorientiert.',
+    ),
+    pixelLayoutDesktop: boolean('pixel_layout_desktop').default(true),
+    colors_gradientLavender: varchar('colors_gradient_lavender').default('#DED9FF'),
+    colors_gradientLime: varchar('colors_gradient_lime').default('#F3FFD9'),
+    colors_introBlob: varchar('colors_intro_blob').default('#DED9FF'),
+    colors_strategyBadge: varchar('colors_strategy_badge').default('#08D3BB'),
+    colors_benefitsBadge: varchar('colors_benefits_badge').default('#1090CB'),
+    colors_experienceBadge: varchar('colors_experience_badge').default('#9208D3'),
+    colors_timelineStroke: varchar('colors_timeline_stroke').default('#999999'),
+    colors_divider: varchar('colors_divider').default('#C7C7C7'),
+    colors_headline: varchar('colors_headline').default('#252525'),
+    colors_body: varchar('colors_body').default('#545454'),
+    colors_muted: varchar('colors_muted').default('#868686'),
+    strategyLabel: varchar('strategy_label').default('Digital Consulting, Marketing & Webdesign'),
+    strategySubLabel: varchar('strategy_sub_label').default('für Unternehmen und Organisationen'),
+    strategyTitle: varchar('strategy_title').default(
+      'Ich begleite Unternehmen bei der Entwicklung klarer digitaler Strategien',
+    ),
+    strategyText: varchar('strategy_text').default(
+      'Von Positionierung und Marketing bis zur technischen Umsetzung moderner Weblösungen. Der Fokus liegt auf messbaren Ergebnissen: strukturierte Prozesse, performante Kampagnen und Websites, die nicht nur gut aussehen, sondern verkaufen. Persönlich. Effizient. Mit Blick auf langfristiges Wachstum. Als Freelancer in Halle (Saale) stehe ich für direkte Zusammenarbeit und transparente Umsetzung.',
+    ),
+    benefitsLabel: varchar('benefits_label').default('Darum arbeiten andere Macher mit mir'),
+    benefitsSubLabel: varchar('benefits_sub_label').default('Schnelle, effiziente Umsetzung'),
+    benefitsTitle: varchar('benefits_title').default('Vorteile in der Übersicht'),
+    experienceLabel: varchar('experience_label').default('Wissen was funktioniert'),
+    experienceSubLabel: varchar('experience_sub_label').default(
+      'Profitieren Sie von meinen Erfahrungen',
+    ),
+    experienceTitle: varchar('experience_title').default(
+      'Seit über 20 Jahren Erfahrung im digitalen Marketing & Vertrieb',
+    ),
+    _uuid: varchar('_uuid'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('_site_pages_v_blocks_consulting_overview_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_consulting_overview_parent_id_idx').on(columns._parentID),
+    index('_site_pages_v_blocks_consulting_overview_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_site_pages_v_blocks_consulting_overview_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _site_pages_v_blocks_shadcn_block_content_images = pgTable(
+  '_site_pages_v_blocks_shadcn_block_content_images',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    media: integer('media_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_site_pages_v_blocks_shadcn_block_content_images_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_shadcn_block_content_images_parent_id_idx').on(columns._parentID),
+    index('_site_pages_v_blocks_shadcn_block_content_images_media_idx').on(columns.media),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v_blocks_shadcn_block.id],
+      name: '_site_pages_v_blocks_shadcn_block_content_images_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _lnks_v = pgTable(
+  '_lnks_v',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    link_type: enum__lnks_v_link_type('link_type').default('reference'),
+    link_newTab: boolean('link_new_tab'),
+    link_url: varchar('link_url'),
+    link_label: varchar('link_label'),
+    link_appearance: enum__lnks_v_link_appearance('link_appearance').default('default'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_lnks_v_order_idx').on(columns._order),
+    index('_lnks_v_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v_blocks_shadcn_block.id],
+      name: '_lnks_v_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _site_pages_v_blocks_shadcn_block = pgTable(
+  '_site_pages_v_blocks_shadcn_block',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: serial('id').primaryKey(),
+    blockBackground:
+      enum__site_pages_v_blocks_shadcn_block_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color:
+      enum__site_pages_v_blocks_shadcn_block_block_overlay_color('block_overlay_color').default(
+        'dark',
+      ),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    variant: enum__site_pages_v_blocks_shadcn_block_variant('variant'),
+    content_headline: varchar('content_headline'),
+    content_subheadline: varchar('content_subheadline'),
+    content_body: varchar('content_body'),
+    _uuid: varchar('_uuid'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('_site_pages_v_blocks_shadcn_block_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_shadcn_block_parent_id_idx').on(columns._parentID),
+    index('_site_pages_v_blocks_shadcn_block_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_site_pages_v_blocks_shadcn_block_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _site_pages_v_blocks_services_overview_services = pgTable(
+  '_site_pages_v_blocks_services_overview_services',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    icon: enum__site_pages_v_blocks_services_overview_services_icon('icon').default('compass'),
+    title: varchar('title'),
+    description: varchar('description'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_site_pages_v_blocks_services_overview_services_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_services_overview_services_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v_blocks_services_overview.id],
+      name: '_site_pages_v_blocks_services_overview_services_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _site_pages_v_blocks_services_overview = pgTable(
+  '_site_pages_v_blocks_services_overview',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: serial('id').primaryKey(),
+    heading: varchar('heading').default('Meine Leistungen im Überblick'),
+    intro: varchar('intro'),
+    _uuid: varchar('_uuid'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('_site_pages_v_blocks_services_overview_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_services_overview_parent_id_idx').on(columns._parentID),
+    index('_site_pages_v_blocks_services_overview_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_site_pages_v_blocks_services_overview_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _site_pages_v_blocks_why_work_with_me_intro_icon_list = pgTable(
+  '_site_pages_v_blocks_why_work_with_me_intro_icon_list',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    icon: enum__site_pages_v_blocks_why_work_with_me_intro_icon_list_icon('icon').default('brain'),
+    text: varchar('text'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_site_pages_v_blocks_why_work_with_me_intro_icon_list_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_why_work_with_me_intro_icon_list_parent_id_idx').on(
+      columns._parentID,
+    ),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v_blocks_why_work_with_me.id],
+      name: '_site_pages_v_blocks_why_work_with_me_intro_icon_list_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _site_pages_v_blocks_why_work_with_me_reasons = pgTable(
+  '_site_pages_v_blocks_why_work_with_me_reasons',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    icon: enum__site_pages_v_blocks_why_work_with_me_reasons_icon('icon').default('user'),
+    title: varchar('title'),
+    description: varchar('description'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_site_pages_v_blocks_why_work_with_me_reasons_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_why_work_with_me_reasons_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v_blocks_why_work_with_me.id],
+      name: '_site_pages_v_blocks_why_work_with_me_reasons_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _site_pages_v_blocks_why_work_with_me = pgTable(
+  '_site_pages_v_blocks_why_work_with_me',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: serial('id').primaryKey(),
+    heading: varchar('heading').default('Warum mit mir'),
+    intro: varchar('intro'),
+    _uuid: varchar('_uuid'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('_site_pages_v_blocks_why_work_with_me_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_why_work_with_me_parent_id_idx').on(columns._parentID),
+    index('_site_pages_v_blocks_why_work_with_me_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_site_pages_v_blocks_why_work_with_me_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_ueber_v_werte = pgTable(
+  '_prof_ueber_v_werte',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    icon: enum__prof_ueber_v_werte_icon('icon').default('strategy'),
+    wert: varchar('wert'),
+    beschreibung: varchar('beschreibung'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_prof_ueber_v_werte_order_idx').on(columns._order),
+    index('_prof_ueber_v_werte_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_prof_ueber_v.id],
+      name: '_prof_ueber_v_werte_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_ueber_v = pgTable(
+  '_prof_ueber_v',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: serial('id').primaryKey(),
+    blockBackground: enum__prof_ueber_v_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color:
+      enum__prof_ueber_v_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    sectionTitle: varchar('section_title').default('Über mich'),
+    einleitung: varchar('einleitung').default(
+      'Ich bin Philipp Bacher – und mein Ansatz ist einfach: Ich denke strategisch und handle operativ. Für meine Kunden bedeutet das, dass sie nicht zwischen Berater und Umsetzer wählen müssen. Ich bin beides.\n\nSeit 2010 arbeite ich selbstständig für Unternehmen in DACH, Benelux, Hongkong, Malaysia und Indonesien – in den Bereichen Webentwicklung, digitales Marketing, Corporate Design, Vertriebsaufbau und ERP-Beratung. Mein Studium der Betriebswirtschaft (BBA cum laude, Moskau & Groningen) und der Wirtschaftsinformatik (MLU Halle) bildet das analytische Fundament. Was daraus entstanden ist: ein Generalist mit echter Tiefe – und der Fähigkeit, komplexe digitale Projekte von der Strategie bis zur Übergabe zu verantworten.\n\nIch arbeite bevorzugt mit KMUs, die klare Ergebnisse erwarten, keine Umwege brauchen und einen Ansprechpartner schätzen, der mitdenkt – nicht nur ausführt.',
+    ),
+    _uuid: varchar('_uuid'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('_prof_ueber_v_order_idx').on(columns._order),
+    index('_prof_ueber_v_parent_id_idx').on(columns._parentID),
+    index('_prof_ueber_v_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_prof_ueber_v_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_kern_v_bereiche_details = pgTable(
+  '_prof_kern_v_bereiche_details',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    line: varchar('line'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_prof_kern_v_bereiche_details_order_idx').on(columns._order),
+    index('_prof_kern_v_bereiche_details_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_prof_kern_v_bereiche.id],
+      name: '_prof_kern_v_bereiche_details_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_kern_v_bereiche = pgTable(
+  '_prof_kern_v_bereiche',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    titel: varchar('titel'),
+    text: varchar('text'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_prof_kern_v_bereiche_order_idx').on(columns._order),
+    index('_prof_kern_v_bereiche_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_prof_kern_v.id],
+      name: '_prof_kern_v_bereiche_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_kern_v = pgTable(
+  '_prof_kern_v',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: serial('id').primaryKey(),
+    blockBackground: enum__prof_kern_v_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color:
+      enum__prof_kern_v_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    ueberschrift: varchar('ueberschrift').default('Was ich für Sie leiste'),
+    einleitung: varchar('einleitung').default(
+      'Als Digital Business Partner übernehme ich die Verantwortung für Ihren digitalen Auftritt und Ihre digitalen Prozesse – ganzheitlich, messbar und ohne Schnittstellenverluste. Meine Arbeit bewegt sich in vier eng verzahnten Bereichen:',
+    ),
+    _uuid: varchar('_uuid'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('_prof_kern_v_order_idx').on(columns._order),
+    index('_prof_kern_v_parent_id_idx').on(columns._parentID),
+    index('_prof_kern_v_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_prof_kern_v_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_skills_v_spalten_skills = pgTable(
+  '_prof_skills_v_spalten_skills',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    skill: varchar('skill'),
+    level: enum__prof_skills_v_spalten_skills_level('level').default('expert'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_prof_skills_v_spalten_skills_order_idx').on(columns._order),
+    index('_prof_skills_v_spalten_skills_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_prof_skills_v_spalten.id],
+      name: '_prof_skills_v_spalten_skills_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_skills_v_spalten = pgTable(
+  '_prof_skills_v_spalten',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    bereich: varchar('bereich'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_prof_skills_v_spalten_order_idx').on(columns._order),
+    index('_prof_skills_v_spalten_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_prof_skills_v.id],
+      name: '_prof_skills_v_spalten_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_skills_v = pgTable(
+  '_prof_skills_v',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: serial('id').primaryKey(),
+    blockBackground: enum__prof_skills_v_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color:
+      enum__prof_skills_v_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    sectionTitle: varchar('section_title').default('Kompetenzen'),
+    sectionIntro: varchar('section_intro').default(
+      'Erfahrung nach Bereichen – von der Strategie bis zur technischen Umsetzung.',
+    ),
+    _uuid: varchar('_uuid'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('_prof_skills_v_order_idx').on(columns._order),
+    index('_prof_skills_v_parent_id_idx').on(columns._parentID),
+    index('_prof_skills_v_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_prof_skills_v_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_weg_v_eintraege = pgTable(
+  '_prof_weg_v_eintraege',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    zeitraum: varchar('zeitraum'),
+    position: varchar('position'),
+    unternehmen: varchar('unternehmen'),
+    beschreibung: varchar('beschreibung'),
+    typ: enum__prof_weg_v_eintraege_typ('typ').default('freelance'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_prof_weg_v_eintraege_order_idx').on(columns._order),
+    index('_prof_weg_v_eintraege_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_prof_weg_v.id],
+      name: '_prof_weg_v_eintraege_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_weg_v = pgTable(
+  '_prof_weg_v',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: serial('id').primaryKey(),
+    blockBackground: enum__prof_weg_v_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color: enum__prof_weg_v_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    sectionTitle: varchar('section_title').default('Werdegang'),
+    _uuid: varchar('_uuid'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('_prof_weg_v_order_idx').on(columns._order),
+    index('_prof_weg_v_parent_id_idx').on(columns._parentID),
+    index('_prof_weg_v_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_prof_weg_v_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_zahl_v_items = pgTable(
+  '_prof_zahl_v_items',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    zahl: varchar('zahl'),
+    bezeichnung: varchar('bezeichnung'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_prof_zahl_v_items_order_idx').on(columns._order),
+    index('_prof_zahl_v_items_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_prof_zahl_v.id],
+      name: '_prof_zahl_v_items_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_zahl_v = pgTable(
+  '_prof_zahl_v',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: serial('id').primaryKey(),
+    blockBackground: enum__prof_zahl_v_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color:
+      enum__prof_zahl_v_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    sectionTitle: varchar('section_title'),
+    _uuid: varchar('_uuid'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('_prof_zahl_v_order_idx').on(columns._order),
+    index('_prof_zahl_v_parent_id_idx').on(columns._parentID),
+    index('_prof_zahl_v_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_prof_zahl_v_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_tools_v_tools = pgTable(
+  '_prof_tools_v_tools',
   {
     _order: integer('_order').notNull(),
     _parentID: integer('_parent_id').notNull(),
     id: serial('id').primaryKey(),
     name: varchar('name'),
-    description: varchar('description'),
-    price: varchar('price'),
-    period: varchar('period').default('month'),
-    buttonText: varchar('button_text').default('Sign up today'),
-    href: varchar('href').default('/sign-up'),
-    isHighlighted: boolean('is_highlighted').default(false),
-    buttonIcon:
-      enum__site_pages_v_blocks_pricing_cards_plans_button_icon('button_icon').default('arrow'),
+    kategorie: enum__prof_tools_v_tools_kategorie('kategorie').default('dev'),
     _uuid: varchar('_uuid'),
   },
   (columns) => [
-    index('_site_pages_v_blocks_pricing_cards_plans_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_pricing_cards_plans_parent_id_idx').on(columns._parentID),
+    index('_prof_tools_v_tools_order_idx').on(columns._order),
+    index('_prof_tools_v_tools_parent_id_idx').on(columns._parentID),
     foreignKey({
       columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_pricing_cards.id],
-      name: '_site_pages_v_blocks_pricing_cards_plans_parent_id_fk',
+      foreignColumns: [_prof_tools_v.id],
+      name: '_prof_tools_v_tools_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
 
-export const _site_pages_v_blocks_pricing_cards = pgTable(
-  '_site_pages_v_blocks_pricing_cards',
+export const _prof_tools_v = pgTable(
+  '_prof_tools_v',
   {
     _order: integer('_order').notNull(),
     _parentID: integer('_parent_id').notNull(),
     _path: text('_path').notNull(),
     id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_pricing_cards_block_background('block_background').default('none'),
+    blockBackground: enum__prof_tools_v_block_background('block_background').default('none'),
     blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
     blockOverlay_color:
-      enum__site_pages_v_blocks_pricing_cards_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
+      enum__prof_tools_v_block_overlay_color('block_overlay_color').default('dark'),
     blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    badge: varchar('badge').default('Pricing'),
-    title: varchar('title').default('Prices that make sense!'),
-    description: varchar('description').default(
-      'Managing a small business today is already tough.',
-    ),
+    sectionTitle: varchar('section_title').default('Tools & Plattformen'),
     _uuid: varchar('_uuid'),
     blockName: varchar('block_name'),
   },
   (columns) => [
-    index('_site_pages_v_blocks_pricing_cards_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_pricing_cards_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_pricing_cards_path_idx').on(columns._path),
+    index('_prof_tools_v_order_idx').on(columns._order),
+    index('_prof_tools_v_parent_id_idx').on(columns._parentID),
+    index('_prof_tools_v_path_idx').on(columns._path),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_pricing_cards_parent_id_fk',
+      name: '_prof_tools_v_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
 
-export const _site_pages_v_blocks_contact_section1_hours_rows = pgTable(
-  '_site_pages_v_blocks_contact_section1_hours_rows',
+export const _prof_lang_zert_v_sprachen = pgTable(
+  '_prof_lang_zert_v_sprachen',
   {
     _order: integer('_order').notNull(),
     _parentID: integer('_parent_id').notNull(),
     id: serial('id').primaryKey(),
-    label: varchar('label'),
-    value: varchar('value'),
+    sprache: varchar('sprache'),
+    niveau: varchar('niveau'),
     _uuid: varchar('_uuid'),
   },
   (columns) => [
-    index('_site_pages_v_blocks_contact_section1_hours_rows_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_contact_section1_hours_rows_parent_id_idx').on(columns._parentID),
+    index('_prof_lang_zert_v_sprachen_order_idx').on(columns._order),
+    index('_prof_lang_zert_v_sprachen_parent_id_idx').on(columns._parentID),
     foreignKey({
       columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_contact_section1.id],
-      name: '_site_pages_v_blocks_contact_section1_hours_rows_parent_id_fk',
+      foreignColumns: [_prof_lang_zert_v.id],
+      name: '_prof_lang_zert_v_sprachen_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
 
-export const _site_pages_v_blocks_contact_section1 = pgTable(
-  '_site_pages_v_blocks_contact_section1',
+export const _prof_lang_zert_v_zertifikate = pgTable(
+  '_prof_lang_zert_v_zertifikate',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    bezeichnung: varchar('bezeichnung'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_prof_lang_zert_v_zertifikate_order_idx').on(columns._order),
+    index('_prof_lang_zert_v_zertifikate_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_prof_lang_zert_v.id],
+      name: '_prof_lang_zert_v_zertifikate_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _prof_lang_zert_v = pgTable(
+  '_prof_lang_zert_v',
   {
     _order: integer('_order').notNull(),
     _parentID: integer('_parent_id').notNull(),
     _path: text('_path').notNull(),
     id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_contact_section1_block_background('block_background').default(
-        'none',
-      ),
+    blockBackground: enum__prof_lang_zert_v_block_background('block_background').default('none'),
     blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
     blockOverlay_color:
-      enum__site_pages_v_blocks_contact_section1_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
+      enum__prof_lang_zert_v_block_overlay_color('block_overlay_color').default('dark'),
     blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    heading: varchar('heading').default('Get in Touch'),
-    description: varchar('description').default(
-      "Have a question or want to work together? We'd love to hear from you. Send us a message and we'll respond as soon as possible.",
+    sprachenSectionTitle: varchar('sprachen_section_title').default('Sprachen'),
+    zertifikateSectionTitle: varchar('zertifikate_section_title').default(
+      'Zertifikate & Qualifikationen',
     ),
-    formTitle: varchar('form_title').default('Send us a Message'),
-    formFirstNameLabel: varchar('form_first_name_label').default('First name'),
-    formFirstNamePlaceholder: varchar('form_first_name_placeholder').default('John'),
-    formLastNameLabel: varchar('form_last_name_label').default('Last name'),
-    formLastNamePlaceholder: varchar('form_last_name_placeholder').default('Doe'),
-    formEmailLabel: varchar('form_email_label').default('Email'),
-    formEmailPlaceholder: varchar('form_email_placeholder').default('john@example.com'),
-    formSubjectLabel: varchar('form_subject_label').default('Subject'),
-    formSubjectPlaceholder: varchar('form_subject_placeholder').default('How can we help?'),
-    formMessageLabel: varchar('form_message_label').default('Message'),
-    formMessagePlaceholder: varchar('form_message_placeholder').default(
-      'Tell us more about your project...',
-    ),
-    formButtonText: varchar('form_button_text').default('Send Message'),
-    formActionUrl: varchar('form_action_url'),
-    contactCardTitle: varchar('contact_card_title').default('Contact Information'),
-    contactEmailLabel: varchar('contact_email_label').default('Email'),
-    contactEmailValue: varchar('contact_email_value').default('hello@company.com'),
-    contactPhoneLabel: varchar('contact_phone_label').default('Phone'),
-    contactPhoneValue: varchar('contact_phone_value').default('+1 (555) 123-4567'),
-    contactOfficeLabel: varchar('contact_office_label').default('Office'),
-    contactOfficeValue: varchar('contact_office_value').default(
-      '123 Business Ave, Suite 100\nSan Francisco, CA 94105',
-    ),
-    hoursCardTitle: varchar('hours_card_title').default('Business Hours'),
-    altCardTitle: varchar('alt_card_title').default('Prefer to Call?'),
-    altCardDescription: varchar('alt_card_description').default(
-      'Speak directly with our team for immediate assistance.',
-    ),
-    altCardButtonText: varchar('alt_card_button_text').default('Schedule a Call'),
-    altCardButtonUrl: varchar('alt_card_button_url').default('#'),
     _uuid: varchar('_uuid'),
     blockName: varchar('block_name'),
   },
   (columns) => [
-    index('_site_pages_v_blocks_contact_section1_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_contact_section1_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_contact_section1_path_idx').on(columns._path),
+    index('_prof_lang_zert_v_order_idx').on(columns._order),
+    index('_prof_lang_zert_v_parent_id_idx').on(columns._parentID),
+    index('_prof_lang_zert_v_path_idx').on(columns._path),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_contact_section1_parent_id_fk',
+      name: '_prof_lang_zert_v_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
 
-export const _site_pages_v_blocks_cta_section3_right_cards = pgTable(
-  '_site_pages_v_blocks_cta_section3_right_cards',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    icon: enum__site_pages_v_blocks_cta_section3_right_cards_icon('icon').default('bookOpen'),
-    title: varchar('title'),
-    description: varchar('description'),
-    href: varchar('href').default('#'),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_cta_section3_right_cards_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_cta_section3_right_cards_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_cta_section3.id],
-      name: '_site_pages_v_blocks_cta_section3_right_cards_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_cta_section3 = pgTable(
-  '_site_pages_v_blocks_cta_section3',
+export const _prof_cta_v = pgTable(
+  '_prof_cta_v',
   {
     _order: integer('_order').notNull(),
     _parentID: integer('_parent_id').notNull(),
     _path: text('_path').notNull(),
     id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_cta_section3_block_background('block_background').default('none'),
+    blockBackground: enum__prof_cta_v_block_background('block_background').default('none'),
     blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_cta_section3_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
+    blockOverlay_color: enum__prof_cta_v_block_overlay_color('block_overlay_color').default('dark'),
     blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    badgeIcon: enum__site_pages_v_blocks_cta_section3_badge_icon('badge_icon').default('rocket'),
-    badgeText: varchar('badge_text').default('Launch Your Success'),
-    title: varchar('title').default('Accelerate your digital transformation journey'),
-    description: varchar('description').default(
-      'Join thousands of innovative companies using our cutting-edge platform to automate workflows, boost team productivity, and deliver exceptional results faster than ever before.',
+    headline: varchar('headline').default('Ein Ansprechpartner. Alle Kompetenzen.'),
+    text: varchar('text').default(
+      'Sie brauchen keinen Dienstleister für jede Subdisziplin. Sie brauchen jemanden, der das Gesamtbild versteht und umsetzt. Sprechen Sie mit mir – unverbindlich, konkret und auf Augenhöhe.',
     ),
-    primaryButtonIcon:
-      enum__site_pages_v_blocks_cta_section3_primary_button_icon('primary_button_icon').default(
-        'zap',
-      ),
-    primaryButtonLabel: varchar('primary_button_label').default('Start Free Trial'),
-    primaryButtonHref: varchar('primary_button_href').default('#'),
-    secondaryButtonLabel: varchar('secondary_button_label').default('Watch Demo'),
-    secondaryButtonHref: varchar('secondary_button_href').default('#'),
+    buttonLabel: varchar('button_label').default('Gespräch vereinbaren'),
+    buttonLink: varchar('button_link').default('/kontakt'),
     _uuid: varchar('_uuid'),
     blockName: varchar('block_name'),
   },
   (columns) => [
-    index('_site_pages_v_blocks_cta_section3_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_cta_section3_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_cta_section3_path_idx').on(columns._path),
+    index('_prof_cta_v_order_idx').on(columns._order),
+    index('_prof_cta_v_parent_id_idx').on(columns._parentID),
+    index('_prof_cta_v_path_idx').on(columns._path),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_cta_section3_parent_id_fk',
+      name: '_prof_cta_v_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _site_pages_v_blocks_price_calculator = pgTable(
+  '_site_pages_v_blocks_price_calculator',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: serial('id').primaryKey(),
+    showRatesSection: boolean('show_rates_section').default(true),
+    sectionLabel: varchar('section_label'),
+    heading: varchar('heading'),
+    sub: varchar('sub'),
+    _uuid: varchar('_uuid'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('_site_pages_v_blocks_price_calculator_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_price_calculator_parent_id_idx').on(columns._parentID),
+    index('_site_pages_v_blocks_price_calculator_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_site_pages_v_blocks_price_calculator_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
@@ -3137,471 +3037,6 @@ export const _site_pages_v_blocks_content = pgTable(
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
       name: '_site_pages_v_blocks_content_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_serp_content_bullets = pgTable(
-  '_site_pages_v_blocks_serp_content_bullets',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    label: varchar('label'),
-    description: varchar('description'),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_serp_content_bullets_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_serp_content_bullets_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_serp_content.id],
-      name: '_site_pages_v_blocks_serp_content_bullets_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_serp_content = pgTable(
-  '_site_pages_v_blocks_serp_content',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_serp_content_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_serp_content_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    eyebrow: varchar('eyebrow').default('Free Plan'),
-    title: varchar('title').default('A Workflow Revolution'),
-    description: varchar('description').default(
-      "Transform your team's productivity with our intuitive platform. Seamlessly integrate tasks, communication, and project tracking in one powerful solution.",
-    ),
-    sectionTitle: varchar('section_title').default('Flexibility at Your Fingertips'),
-    sectionDescription: varchar('section_description').default(
-      "Whether you're a startup or an enterprise, our scalable solution grows with you. Customize workflows, integrate with your favorite tools, and automate repetitive tasks.",
-    ),
-    cardTitle: varchar('card_title').default('Revolutionize your workflow'),
-    cardSubtitle: varchar('card_subtitle').default('Professional headshot portrait'),
-    cardBadge: varchar('card_badge').default('20+ expert services at your fingertips'),
-    statPrimaryLabel: varchar('stat_primary_label').default('Teams onboarded'),
-    statPrimaryValue: varchar('stat_primary_value').default('500+'),
-    statSecondaryLabel: varchar('stat_secondary_label').default('Average productivity gain'),
-    statSecondaryValue: varchar('stat_secondary_value').default('35%'),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_serp_content_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_serp_content_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_serp_content_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_serp_content_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_lyra_content = pgTable(
-  '_site_pages_v_blocks_lyra_content',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_lyra_content_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_lyra_content_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default(
-      'The Lyra ecosystem brings together our models, products and platforms.',
-    ),
-    paragraphOne: varchar('paragraph_one').default(
-      'Lyra is evolving to be more than just the models. It supports an entire ecosystem — from products to the APIs and platforms helping developers and businesses innovate.',
-    ),
-    paragraphTwo: varchar('paragraph_two').default(
-      'Tailark. It supports an entire ecosystem — from products innovate. Sit minus, quod debitis autem quia aspernatur delectus impedit modi, neque non id ad dignissimos? Saepe deleniti perferendis beatae.',
-    ),
-    buttonLabel: varchar('button_label').default('Learn More'),
-    button_link_type:
-      enum__site_pages_v_blocks_lyra_content_button_link_type('button_link_type').default(
-        'reference',
-      ),
-    button_link_newTab: boolean('button_link_new_tab'),
-    button_link_url: varchar('button_link_url'),
-    button_link_label: varchar('button_link_label'),
-    button_link_appearance:
-      enum__site_pages_v_blocks_lyra_content_button_link_appearance(
-        'button_link_appearance',
-      ).default('default'),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_lyra_content_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_lyra_content_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_lyra_content_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_lyra_content_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_lyra_feature = pgTable(
-  '_site_pages_v_blocks_lyra_feature',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_lyra_feature_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_lyra_feature_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('The Lyra ecosystem brings together our models.'),
-    paragraphOne: varchar('paragraph_one').default(
-      'Lyra is evolving to be more than just the models. It supports an entire ecosystem — from products innovate.',
-    ),
-    paragraphTwo: varchar('paragraph_two').default(
-      'It supports an entire ecosystem — from products to the APIs and platforms helping developers and businesses innovate.',
-    ),
-    featureFastTitle: varchar('feature_fast_title').default('Faaast'),
-    featureFastText: varchar('feature_fast_text').default(
-      'It supports an entire helping developers and innovate.',
-    ),
-    featurePowerfulTitle: varchar('feature_powerful_title').default('Powerful'),
-    featurePowerfulText: varchar('feature_powerful_text').default(
-      'It supports an entire helping developers and businesses.',
-    ),
-    darkImage: integer('dark_image_id').references(() => media.id, {
-      onDelete: 'set null',
-    }),
-    lightImage: integer('light_image_id').references(() => media.id, {
-      onDelete: 'set null',
-    }),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_lyra_feature_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_lyra_feature_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_lyra_feature_path_idx').on(columns._path),
-    index('_site_pages_v_blocks_lyra_feature_dark_image_idx').on(columns.darkImage),
-    index('_site_pages_v_blocks_lyra_feature_light_image_idx').on(columns.lightImage),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_lyra_feature_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_features_grid_items = pgTable(
-  '_site_pages_v_blocks_features_grid_items',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    icon: enum__site_pages_v_blocks_features_grid_items_icon('icon').default('zap'),
-    title: varchar('title'),
-    description: varchar('description'),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_features_grid_items_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_features_grid_items_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_features_grid.id],
-      name: '_site_pages_v_blocks_features_grid_items_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_features_grid = pgTable(
-  '_site_pages_v_blocks_features_grid',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_features_grid_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_features_grid_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('Built to cover your needs'),
-    subtitle: varchar('subtitle').default(
-      'Libero sapiente aliquam quibusdam aspernatur, praesentium iusto repellendus.',
-    ),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_features_grid_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_features_grid_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_features_grid_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_features_grid_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_service_ux_ui = pgTable(
-  '_site_pages_v_blocks_service_ux_ui',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_service_ux_ui_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_service_ux_ui_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('UX/UI Design'),
-    introHeadline: varchar('intro_headline').default('User-Centered Design That Converts'),
-    introText: varchar('intro_text').default(
-      "We believe that great design should be intuitive, accessible, and purposeful for every user who interacts with your product. Our UX/UI design approach focuses on understanding your users' needs, behaviors, and pain points to create interfaces that not only look beautiful but function seamlessly.",
-    ),
-    body: jsonb('body'),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_service_ux_ui_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_service_ux_ui_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_service_ux_ui_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_service_ux_ui_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_services4_services_items = pgTable(
-  '_site_pages_v_blocks_services4_services_items',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    label: varchar('label'),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_services4_services_items_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_services4_services_items_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_services4_services.id],
-      name: '_site_pages_v_blocks_services4_services_items_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_services4_services = pgTable(
-  '_site_pages_v_blocks_services4_services',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    icon: enum__site_pages_v_blocks_services4_services_icon('icon').default('cog'),
-    title: varchar('title'),
-    description: varchar('description'),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_services4_services_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_services4_services_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_services4.id],
-      name: '_site_pages_v_blocks_services4_services_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_services4 = pgTable(
-  '_site_pages_v_blocks_services4',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_services4_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_services4_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('Services'),
-    subtitle: varchar('subtitle').default(
-      'We craft digital experiences that captivate and convert, bringing your vision to life.',
-    ),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_services4_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_services4_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_services4_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_services4_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_features_scaling_features = pgTable(
-  '_site_pages_v_blocks_features_scaling_features',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    icon: enum__site_pages_v_blocks_features_scaling_features_icon('icon').default('mail'),
-    label: varchar('label'),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_features_scaling_features_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_features_scaling_features_parent_id_idx').on(columns._parentID),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v_blocks_features_scaling.id],
-      name: '_site_pages_v_blocks_features_scaling_features_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_features_scaling = pgTable(
-  '_site_pages_v_blocks_features_scaling',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground:
-      enum__site_pages_v_blocks_features_scaling_block_background('block_background').default(
-        'none',
-      ),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__site_pages_v_blocks_features_scaling_block_overlay_color('block_overlay_color').default(
-        'dark',
-      ),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('Built for Scaling teams'),
-    subtitle: varchar('subtitle').default(
-      'Orrupti aut temporibus assumenda atque ab, accusamus sit, molestiae veniam laboriosam pariatur.',
-    ),
-    darkImage: integer('dark_image_id').references(() => media.id, {
-      onDelete: 'set null',
-    }),
-    lightImage: integer('light_image_id').references(() => media.id, {
-      onDelete: 'set null',
-    }),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_features_scaling_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_features_scaling_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_features_scaling_path_idx').on(columns._path),
-    index('_site_pages_v_blocks_features_scaling_dark_image_idx').on(columns.darkImage),
-    index('_site_pages_v_blocks_features_scaling_light_image_idx').on(columns.lightImage),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_features_scaling_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _feat_ai_acc_v_items = pgTable(
-  '_feat_ai_acc_v_items',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    id: serial('id').primaryKey(),
-    icon: enum__feat_ai_acc_v_items_icon('icon').default('database'),
-    title: varchar('title'),
-    content: varchar('content'),
-    darkImage: integer('dark_image_id').references(() => media.id, {
-      onDelete: 'set null',
-    }),
-    lightImage: integer('light_image_id').references(() => media.id, {
-      onDelete: 'set null',
-    }),
-    _uuid: varchar('_uuid'),
-  },
-  (columns) => [
-    index('_feat_ai_acc_v_items_order_idx').on(columns._order),
-    index('_feat_ai_acc_v_items_parent_id_idx').on(columns._parentID),
-    index('_feat_ai_acc_v_items_dark_image_idx').on(columns.darkImage),
-    index('_feat_ai_acc_v_items_light_image_idx').on(columns.lightImage),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_feat_ai_acc_v.id],
-      name: '_feat_ai_acc_v_items_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _feat_ai_acc_v = pgTable(
-  '_feat_ai_acc_v',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: serial('id').primaryKey(),
-    blockBackground: enum__feat_ai_acc_v_block_background('block_background').default('none'),
-    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color:
-      enum__feat_ai_acc_v_block_overlay_color('block_overlay_color').default('dark'),
-    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
-    title: varchar('title').default('The foundation for AI'),
-    subtitle: varchar('subtitle').default(
-      'Lyra is evolving to be more than just the models. It supports an entire to the APIs and platforms helping developers and businesses innovate.',
-    ),
-    _uuid: varchar('_uuid'),
-    blockName: varchar('block_name'),
-  },
-  (columns) => [
-    index('_feat_ai_acc_v_order_idx').on(columns._order),
-    index('_feat_ai_acc_v_parent_id_idx').on(columns._parentID),
-    index('_feat_ai_acc_v_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_feat_ai_acc_v_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
@@ -3723,13 +3158,23 @@ export const _site_pages_v = pgTable(
       onDelete: 'set null',
     }),
     version_hero_subheadline: varchar('version_hero_subheadline'),
+    version_hero_badge: varchar('version_hero_badge'),
     version_hero_headline: varchar('version_hero_headline'),
     version_hero_headlineLine1: varchar('version_hero_headline_line1'),
     version_hero_headlineLine2: varchar('version_hero_headline_line2'),
     version_hero_headlineLine3: varchar('version_hero_headline_line3'),
     version_hero_description: varchar('version_hero_description'),
+    version_hero_backgroundPreset: integer('version_hero_background_preset_id').references(
+      () => hero_backgrounds.id,
+      {
+        onDelete: 'set null',
+      },
+    ),
     version_hero_mediaType:
-      enum__site_pages_v_version_hero_media_type('version_hero_media_type').default('halo'),
+      enum__site_pages_v_version_hero_media_type('version_hero_media_type').default('cssHalo'),
+    version_hero_mediaTypeMobile: enum__site_pages_v_version_hero_media_type_mobile(
+      'version_hero_media_type_mobile',
+    ).default('auto'),
     version_hero_backgroundImage: integer('version_hero_background_image_id').references(
       () => media.id,
       {
@@ -3742,40 +3187,51 @@ export const _site_pages_v = pgTable(
         onDelete: 'set null',
       },
     ),
-    version_hero_haloAmplitudeFactor: numeric('version_hero_halo_amplitude_factor', {
-      mode: 'number',
-    }).default(1.8),
-    version_hero_haloSize: numeric('version_hero_halo_size', { mode: 'number' }).default(2.1),
-    version_hero_haloSpeed: numeric('version_hero_halo_speed', { mode: 'number' }).default(1),
-    version_hero_haloColor2: numeric('version_hero_halo_color2', { mode: 'number' }).default(
-      15918901,
-    ),
-    version_hero_haloXOffset: numeric('version_hero_halo_x_offset', { mode: 'number' }).default(
-      0.15,
-    ),
-    version_hero_haloYOffset: numeric('version_hero_halo_y_offset', { mode: 'number' }).default(
-      -0.03,
-    ),
-    version_hero_useHaloBackground: boolean('version_hero_use_halo_background').default(true),
-    version_hero_haloOverlayGradient: numeric('version_hero_halo_overlay_gradient', {
-      mode: 'number',
-    }).default(0.68),
-    version_hero_haloOverlayGrid: numeric('version_hero_halo_overlay_grid', {
-      mode: 'number',
-    }).default(0.08),
-    version_hero_haloOverlayGridSize: numeric('version_hero_halo_overlay_grid_size', {
-      mode: 'number',
-    }).default(12),
-    version_hero_haloOverlayGridVariant: enum__site_pages_v_version_hero_halo_overlay_grid_variant(
-      'version_hero_halo_overlay_grid_variant',
-    ).default('static'),
-    version_hero_haloOverlayGridCustomCode: varchar('version_hero_halo_overlay_grid_custom_code'),
     version_hero_foregroundImage: integer('version_hero_foreground_image_id').references(
       () => media.id,
       {
         onDelete: 'set null',
       },
     ),
+    version_hero_surfacePattern: enum__site_pages_v_version_hero_surface_pattern(
+      'version_hero_surface_pattern',
+    ).default('none'),
+    version_hero_stackBackImage: integer('version_hero_stack_back_image_id').references(
+      () => media.id,
+      {
+        onDelete: 'set null',
+      },
+    ),
+    version_hero_stackBackOffsetX: numeric('version_hero_stack_back_offset_x', {
+      mode: 'number',
+    }).default(0),
+    version_hero_stackBackOffsetY: numeric('version_hero_stack_back_offset_y', {
+      mode: 'number',
+    }).default(0),
+    version_hero_stackMidImage: integer('version_hero_stack_mid_image_id').references(
+      () => media.id,
+      {
+        onDelete: 'set null',
+      },
+    ),
+    version_hero_stackMidOffsetX: numeric('version_hero_stack_mid_offset_x', {
+      mode: 'number',
+    }).default(0),
+    version_hero_stackMidOffsetY: numeric('version_hero_stack_mid_offset_y', {
+      mode: 'number',
+    }).default(0),
+    version_hero_stackFrontImage: integer('version_hero_stack_front_image_id').references(
+      () => media.id,
+      {
+        onDelete: 'set null',
+      },
+    ),
+    version_hero_stackFrontOffsetX: numeric('version_hero_stack_front_offset_x', {
+      mode: 'number',
+    }).default(0),
+    version_hero_stackFrontOffsetY: numeric('version_hero_stack_front_offset_y', {
+      mode: 'number',
+    }).default(0),
     version_hero_overlayOpacity: numeric('version_hero_overlay_opacity', {
       mode: 'number',
     }).default(0.5),
@@ -3829,6 +3285,9 @@ export const _site_pages_v = pgTable(
   (columns) => [
     index('_site_pages_v_parent_idx').on(columns.parent),
     index('_site_pages_v_version_hero_version_hero_media_idx').on(columns.version_hero_media),
+    index('_site_pages_v_version_hero_version_hero_background_prese_idx').on(
+      columns.version_hero_backgroundPreset,
+    ),
     index('_site_pages_v_version_hero_version_hero_background_image_idx').on(
       columns.version_hero_backgroundImage,
     ),
@@ -3837,6 +3296,15 @@ export const _site_pages_v = pgTable(
     ),
     index('_site_pages_v_version_hero_version_hero_foreground_image_idx').on(
       columns.version_hero_foregroundImage,
+    ),
+    index('_site_pages_v_version_hero_version_hero_stack_back_image_idx').on(
+      columns.version_hero_stackBackImage,
+    ),
+    index('_site_pages_v_version_hero_version_hero_stack_mid_image_idx').on(
+      columns.version_hero_stackMidImage,
+    ),
+    index('_site_pages_v_version_hero_version_hero_stack_front_imag_idx').on(
+      columns.version_hero_stackFrontImage,
     ),
     index('_site_pages_v_version_version_slug_idx').on(columns.version_slug),
     index('_site_pages_v_version_version_parent_idx').on(columns.version_parent),
@@ -4454,6 +3922,80 @@ export const mega_menu = pgTable(
     index('mega_menu_highlight_highlight_image_idx').on(columns.highlight_image),
     index('mega_menu_updated_at_idx').on(columns.updatedAt),
     index('mega_menu_created_at_idx').on(columns.createdAt),
+  ],
+)
+
+export const hero_backgrounds = pgTable(
+  'hero_backgrounds',
+  {
+    id: serial('id').primaryKey(),
+    name: varchar('name').notNull(),
+    type: enum_hero_backgrounds_type('type').notNull().default('cssHalo'),
+    intensity: numeric('intensity', { mode: 'number' }).default(1),
+    hue: numeric('hue', { mode: 'number' }).default(220),
+    patternColor1: varchar('pattern_color1'),
+    patternColor2: varchar('pattern_color2'),
+    customCss: varchar('custom_css'),
+    updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => [
+    index('hero_backgrounds_updated_at_idx').on(columns.updatedAt),
+    index('hero_backgrounds_created_at_idx').on(columns.createdAt),
+  ],
+)
+
+export const price_calc_categories = pgTable(
+  'price_calc_categories',
+  {
+    id: serial('id').primaryKey(),
+    title: varchar('title').notNull(),
+    sortOrder: numeric('sort_order', { mode: 'number' }).default(0),
+    updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => [
+    index('price_calc_categories_updated_at_idx').on(columns.updatedAt),
+    index('price_calc_categories_created_at_idx').on(columns.createdAt),
+  ],
+)
+
+export const price_calc_items = pgTable(
+  'price_calc_items',
+  {
+    id: serial('id').primaryKey(),
+    category: integer('category_id')
+      .notNull()
+      .references(() => price_calc_categories.id, {
+        onDelete: 'set null',
+      }),
+    title: varchar('title').notNull(),
+    description: varchar('description').notNull(),
+    sortOrder: numeric('sort_order', { mode: 'number' }).default(0),
+    pricingType: enum_price_calc_items_pricing_type('pricing_type').notNull().default('once'),
+    onceMin: numeric('once_min', { mode: 'number' }),
+    onceMax: numeric('once_max', { mode: 'number' }),
+    monthlyMin: numeric('monthly_min', { mode: 'number' }),
+    monthlyMax: numeric('monthly_max', { mode: 'number' }),
+    updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+    createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 })
+      .defaultNow()
+      .notNull(),
+  },
+  (columns) => [
+    index('price_calc_items_category_idx').on(columns.category),
+    index('price_calc_items_updated_at_idx').on(columns.updatedAt),
+    index('price_calc_items_created_at_idx').on(columns.createdAt),
   ],
 )
 
@@ -5076,6 +4618,9 @@ export const payload_locked_documents_rels = pgTable(
     categoriesID: integer('categories_id'),
     usersID: integer('users_id'),
     'mega-menuID': integer('mega_menu_id'),
+    'hero-backgroundsID': integer('hero_backgrounds_id'),
+    'price-calc-categoriesID': integer('price_calc_categories_id'),
+    'price-calc-itemsID': integer('price_calc_items_id'),
     redirectsID: integer('redirects_id'),
     formsID: integer('forms_id'),
     'form-submissionsID': integer('form_submissions_id'),
@@ -5092,6 +4637,15 @@ export const payload_locked_documents_rels = pgTable(
     index('payload_locked_documents_rels_categories_id_idx').on(columns.categoriesID),
     index('payload_locked_documents_rels_users_id_idx').on(columns.usersID),
     index('payload_locked_documents_rels_mega_menu_id_idx').on(columns['mega-menuID']),
+    index('payload_locked_documents_rels_hero_backgrounds_id_idx').on(
+      columns['hero-backgroundsID'],
+    ),
+    index('payload_locked_documents_rels_price_calc_categories_id_idx').on(
+      columns['price-calc-categoriesID'],
+    ),
+    index('payload_locked_documents_rels_price_calc_items_id_idx').on(
+      columns['price-calc-itemsID'],
+    ),
     index('payload_locked_documents_rels_redirects_id_idx').on(columns.redirectsID),
     index('payload_locked_documents_rels_forms_id_idx').on(columns.formsID),
     index('payload_locked_documents_rels_form_submissions_id_idx').on(
@@ -5133,6 +4687,21 @@ export const payload_locked_documents_rels = pgTable(
       columns: [columns['mega-menuID']],
       foreignColumns: [mega_menu.id],
       name: 'payload_locked_documents_rels_mega_menu_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['hero-backgroundsID']],
+      foreignColumns: [hero_backgrounds.id],
+      name: 'payload_locked_documents_rels_hero_backgrounds_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['price-calc-categoriesID']],
+      foreignColumns: [price_calc_categories.id],
+      name: 'payload_locked_documents_rels_price_calc_categories_fk',
+    }).onDelete('cascade'),
+    foreignKey({
+      columns: [columns['price-calc-itemsID']],
+      foreignColumns: [price_calc_items.id],
+      name: 'payload_locked_documents_rels_price_calc_items_fk',
     }).onDelete('cascade'),
     foreignKey({
       columns: [columns['redirectsID']],
@@ -5303,6 +4872,9 @@ export const header = pgTable(
     logo: integer('logo_id').references(() => media.id, {
       onDelete: 'set null',
     }),
+    favicon: integer('favicon_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 }),
     createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 }),
   },
@@ -5310,6 +4882,7 @@ export const header = pgTable(
     index('header_mega_menu_callback_form_idx').on(columns.megaMenuCallbackForm),
     index('header_mega_menu_newsletter_form_idx').on(columns.megaMenuNewsletterForm),
     index('header_logo_idx').on(columns.logo),
+    index('header_favicon_idx').on(columns.favicon),
   ],
 )
 
@@ -5452,7 +5025,6 @@ export const footer = pgTable(
     footerDescription: jsonb('footer_description'),
     footerAddress: varchar('footer_address'),
     footerPhone: varchar('footer_phone'),
-    logoOnDarkBackground: boolean('logo_on_dark_background').default(false),
     newsletterTitle: varchar('newsletter_title'),
     newsletterIcon: varchar('newsletter_icon'),
     newsletterIconUpload: integer('newsletter_icon_upload_id').references(() => media.id, {
@@ -5605,6 +5177,37 @@ export const theme_settings = pgTable('theme_settings', {
   createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 }),
 })
 
+export const price_calculator = pgTable('price_calculator', {
+  id: serial('id').primaryKey(),
+  sectionLabel: varchar('section_label').default('Preisrechner'),
+  heading: varchar('heading').default('Was planen Sie?'),
+  sub: varchar('sub').default(
+    'Kategorie wählen, Leistungen anklicken – Richtwert erscheint sofort. Mehrere Kategorien kombinierbar.',
+  ),
+  offerButtonLabel: varchar('offer_button_label').default('Angebot anfragen ↗'),
+  offerLink: varchar('offer_link').default('/kontakt'),
+  emptyBreakdownMessage: varchar('empty_breakdown_message').default(
+    'Wählen Sie oben eine Kategorie und Leistungen aus.',
+  ),
+  ratesSectionLabel: varchar('rates_section_label').default('Stundensatz & Tagessatz'),
+  ratesHeading: varchar('rates_heading').default('Für flexible & laufende Zusammenarbeit'),
+  hourlyRate: numeric('hourly_rate', { mode: 'number' }).notNull().default(120),
+  dayRate: numeric('day_rate', { mode: 'number' }).notNull().default(890),
+  weekRate: numeric('week_rate', { mode: 'number' }).notNull().default(3200),
+  ratesNote: varchar('rates_note').default(
+    'Stundensätze gelten für Beratung, Ad-hoc-Aufgaben und Projekte ohne definierten Scope. Bei Projekten mit klarem Umfang arbeite ich grundsätzlich auf Festpreisbasis – transparenter für Sie, planbarer für beide Seiten.',
+  ),
+  updatedAt: timestamp('updated_at', { mode: 'string', withTimezone: true, precision: 3 }),
+  createdAt: timestamp('created_at', { mode: 'string', withTimezone: true, precision: 3 }),
+})
+
+export const relations_site_pages_hero_stats = relations(site_pages_hero_stats, ({ one }) => ({
+  _parentID: one(site_pages, {
+    fields: [site_pages_hero_stats._parentID],
+    references: [site_pages.id],
+    relationName: 'hero_stats',
+  }),
+}))
 export const relations_site_pages_hero_floating_elements = relations(
   site_pages_hero_floating_elements,
   ({ one }) => ({
@@ -5652,239 +5255,313 @@ export const relations_site_pages_blocks_hero_marketing = relations(
     }),
   }),
 )
-export const relations_site_pages_blocks_hero_grid = relations(
-  site_pages_blocks_hero_grid,
+export const relations_site_pages_blocks_introduction = relations(
+  site_pages_blocks_introduction,
   ({ one }) => ({
     _parentID: one(site_pages, {
-      fields: [site_pages_blocks_hero_grid._parentID],
+      fields: [site_pages_blocks_introduction._parentID],
       references: [site_pages.id],
-      relationName: '_blocks_heroGrid',
-    }),
-  }),
-)
-export const relations_collab_cur = relations(collab_cur, ({ one }) => ({
-  _parentID: one(site_pages, {
-    fields: [collab_cur._parentID],
-    references: [site_pages.id],
-    relationName: '_blocks_collabCur',
-  }),
-}))
-export const relations_site_pages_blocks_scroll_morph_hero = relations(
-  site_pages_blocks_scroll_morph_hero,
-  ({ one }) => ({
-    _parentID: one(site_pages, {
-      fields: [site_pages_blocks_scroll_morph_hero._parentID],
-      references: [site_pages.id],
-      relationName: '_blocks_scrollMorphHero',
-    }),
-  }),
-)
-export const relations_feat_adv_items = relations(feat_adv_items, ({ one }) => ({
-  _parentID: one(feat_adv, {
-    fields: [feat_adv_items._parentID],
-    references: [feat_adv.id],
-    relationName: 'items',
-  }),
-}))
-export const relations_feat_adv = relations(feat_adv, ({ one, many }) => ({
-  _parentID: one(site_pages, {
-    fields: [feat_adv._parentID],
-    references: [site_pages.id],
-    relationName: '_blocks_featureAdvantages',
-  }),
-  items: many(feat_adv_items, {
-    relationName: 'items',
-  }),
-}))
-export const relations_site_pages_blocks_feature1_items = relations(
-  site_pages_blocks_feature1_items,
-  ({ one }) => ({
-    _parentID: one(site_pages_blocks_feature1, {
-      fields: [site_pages_blocks_feature1_items._parentID],
-      references: [site_pages_blocks_feature1.id],
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_feature1 = relations(
-  site_pages_blocks_feature1,
-  ({ one, many }) => ({
-    _parentID: one(site_pages, {
-      fields: [site_pages_blocks_feature1._parentID],
-      references: [site_pages.id],
-      relationName: '_blocks_feature1',
-    }),
-    items: many(site_pages_blocks_feature1_items, {
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_feature2_items = relations(
-  site_pages_blocks_feature2_items,
-  ({ one }) => ({
-    _parentID: one(site_pages_blocks_feature2, {
-      fields: [site_pages_blocks_feature2_items._parentID],
-      references: [site_pages_blocks_feature2.id],
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_feature2 = relations(
-  site_pages_blocks_feature2,
-  ({ one, many }) => ({
-    _parentID: one(site_pages, {
-      fields: [site_pages_blocks_feature2._parentID],
-      references: [site_pages.id],
-      relationName: '_blocks_feature2',
-    }),
-    items: many(site_pages_blocks_feature2_items, {
-      relationName: 'items',
+      relationName: '_blocks_introduction',
     }),
     image: one(media, {
-      fields: [site_pages_blocks_feature2.image],
+      fields: [site_pages_blocks_introduction.image],
       references: [media.id],
       relationName: 'image',
     }),
   }),
 )
-export const relations_site_pages_blocks_faq_simple_faqs = relations(
-  site_pages_blocks_faq_simple_faqs,
+export const relations_site_pages_blocks_consulting_overview_benefit_items = relations(
+  site_pages_blocks_consulting_overview_benefit_items,
   ({ one }) => ({
-    _parentID: one(site_pages_blocks_faq_simple, {
-      fields: [site_pages_blocks_faq_simple_faqs._parentID],
-      references: [site_pages_blocks_faq_simple.id],
-      relationName: 'faqs',
+    _parentID: one(site_pages_blocks_consulting_overview, {
+      fields: [site_pages_blocks_consulting_overview_benefit_items._parentID],
+      references: [site_pages_blocks_consulting_overview.id],
+      relationName: 'benefitItems',
     }),
   }),
 )
-export const relations_site_pages_blocks_faq_simple = relations(
-  site_pages_blocks_faq_simple,
+export const relations_site_pages_blocks_consulting_overview = relations(
+  site_pages_blocks_consulting_overview,
   ({ one, many }) => ({
     _parentID: one(site_pages, {
-      fields: [site_pages_blocks_faq_simple._parentID],
+      fields: [site_pages_blocks_consulting_overview._parentID],
       references: [site_pages.id],
-      relationName: '_blocks_faqSimple',
+      relationName: '_blocks_consultingOverview',
     }),
-    faqs: many(site_pages_blocks_faq_simple_faqs, {
-      relationName: 'faqs',
+    benefitItems: many(site_pages_blocks_consulting_overview_benefit_items, {
+      relationName: 'benefitItems',
     }),
   }),
 )
-export const relations_site_pages_blocks_pricing_plans_features = relations(
-  site_pages_blocks_pricing_plans_features,
+export const relations_site_pages_blocks_shadcn_block_content_images = relations(
+  site_pages_blocks_shadcn_block_content_images,
   ({ one }) => ({
-    _parentID: one(site_pages_blocks_pricing_plans, {
-      fields: [site_pages_blocks_pricing_plans_features._parentID],
-      references: [site_pages_blocks_pricing_plans.id],
-      relationName: 'features',
+    _parentID: one(site_pages_blocks_shadcn_block, {
+      fields: [site_pages_blocks_shadcn_block_content_images._parentID],
+      references: [site_pages_blocks_shadcn_block.id],
+      relationName: 'content_images',
+    }),
+    media: one(media, {
+      fields: [site_pages_blocks_shadcn_block_content_images.media],
+      references: [media.id],
+      relationName: 'media',
     }),
   }),
 )
-export const relations_site_pages_blocks_pricing_plans = relations(
-  site_pages_blocks_pricing_plans,
-  ({ one, many }) => ({
-    _parentID: one(site_pages_blocks_pricing, {
-      fields: [site_pages_blocks_pricing_plans._parentID],
-      references: [site_pages_blocks_pricing.id],
-      relationName: 'plans',
-    }),
-    features: many(site_pages_blocks_pricing_plans_features, {
-      relationName: 'features',
-    }),
+export const relations_lnks = relations(lnks, ({ one }) => ({
+  _parentID: one(site_pages_blocks_shadcn_block, {
+    fields: [lnks._parentID],
+    references: [site_pages_blocks_shadcn_block.id],
+    relationName: 'content_links',
   }),
-)
-export const relations_site_pages_blocks_pricing = relations(
-  site_pages_blocks_pricing,
+}))
+export const relations_site_pages_blocks_shadcn_block = relations(
+  site_pages_blocks_shadcn_block,
   ({ one, many }) => ({
     _parentID: one(site_pages, {
-      fields: [site_pages_blocks_pricing._parentID],
+      fields: [site_pages_blocks_shadcn_block._parentID],
       references: [site_pages.id],
-      relationName: '_blocks_pricing',
+      relationName: '_blocks_shadcnBlock',
     }),
-    plans: many(site_pages_blocks_pricing_plans, {
-      relationName: 'plans',
+    content_images: many(site_pages_blocks_shadcn_block_content_images, {
+      relationName: 'content_images',
+    }),
+    content_links: many(lnks, {
+      relationName: 'content_links',
     }),
   }),
 )
-export const relations_site_pages_blocks_pricing_cards_plans_features = relations(
-  site_pages_blocks_pricing_cards_plans_features,
+export const relations_site_pages_blocks_services_overview_services = relations(
+  site_pages_blocks_services_overview_services,
   ({ one }) => ({
-    _parentID: one(site_pages_blocks_pricing_cards_plans, {
-      fields: [site_pages_blocks_pricing_cards_plans_features._parentID],
-      references: [site_pages_blocks_pricing_cards_plans.id],
-      relationName: 'features',
+    _parentID: one(site_pages_blocks_services_overview, {
+      fields: [site_pages_blocks_services_overview_services._parentID],
+      references: [site_pages_blocks_services_overview.id],
+      relationName: 'services',
     }),
   }),
 )
-export const relations_site_pages_blocks_pricing_cards_plans = relations(
-  site_pages_blocks_pricing_cards_plans,
-  ({ one, many }) => ({
-    _parentID: one(site_pages_blocks_pricing_cards, {
-      fields: [site_pages_blocks_pricing_cards_plans._parentID],
-      references: [site_pages_blocks_pricing_cards.id],
-      relationName: 'plans',
-    }),
-    features: many(site_pages_blocks_pricing_cards_plans_features, {
-      relationName: 'features',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_pricing_cards = relations(
-  site_pages_blocks_pricing_cards,
+export const relations_site_pages_blocks_services_overview = relations(
+  site_pages_blocks_services_overview,
   ({ one, many }) => ({
     _parentID: one(site_pages, {
-      fields: [site_pages_blocks_pricing_cards._parentID],
+      fields: [site_pages_blocks_services_overview._parentID],
       references: [site_pages.id],
-      relationName: '_blocks_pricingCards',
+      relationName: '_blocks_servicesOverview',
     }),
-    plans: many(site_pages_blocks_pricing_cards_plans, {
-      relationName: 'plans',
+    services: many(site_pages_blocks_services_overview_services, {
+      relationName: 'services',
     }),
   }),
 )
-export const relations_site_pages_blocks_contact_section1_hours_rows = relations(
-  site_pages_blocks_contact_section1_hours_rows,
+export const relations_site_pages_blocks_why_work_with_me_intro_icon_list = relations(
+  site_pages_blocks_why_work_with_me_intro_icon_list,
   ({ one }) => ({
-    _parentID: one(site_pages_blocks_contact_section1, {
-      fields: [site_pages_blocks_contact_section1_hours_rows._parentID],
-      references: [site_pages_blocks_contact_section1.id],
-      relationName: 'hoursRows',
+    _parentID: one(site_pages_blocks_why_work_with_me, {
+      fields: [site_pages_blocks_why_work_with_me_intro_icon_list._parentID],
+      references: [site_pages_blocks_why_work_with_me.id],
+      relationName: 'introIconList',
     }),
   }),
 )
-export const relations_site_pages_blocks_contact_section1 = relations(
-  site_pages_blocks_contact_section1,
+export const relations_site_pages_blocks_why_work_with_me_reasons = relations(
+  site_pages_blocks_why_work_with_me_reasons,
+  ({ one }) => ({
+    _parentID: one(site_pages_blocks_why_work_with_me, {
+      fields: [site_pages_blocks_why_work_with_me_reasons._parentID],
+      references: [site_pages_blocks_why_work_with_me.id],
+      relationName: 'reasons',
+    }),
+  }),
+)
+export const relations_site_pages_blocks_why_work_with_me = relations(
+  site_pages_blocks_why_work_with_me,
   ({ one, many }) => ({
     _parentID: one(site_pages, {
-      fields: [site_pages_blocks_contact_section1._parentID],
+      fields: [site_pages_blocks_why_work_with_me._parentID],
       references: [site_pages.id],
-      relationName: '_blocks_contactSection1',
+      relationName: '_blocks_whyWorkWithMe',
     }),
-    hoursRows: many(site_pages_blocks_contact_section1_hours_rows, {
-      relationName: 'hoursRows',
+    introIconList: many(site_pages_blocks_why_work_with_me_intro_icon_list, {
+      relationName: 'introIconList',
+    }),
+    reasons: many(site_pages_blocks_why_work_with_me_reasons, {
+      relationName: 'reasons',
     }),
   }),
 )
-export const relations_site_pages_blocks_cta_section3_right_cards = relations(
-  site_pages_blocks_cta_section3_right_cards,
+export const relations_prof_ueber_werte = relations(prof_ueber_werte, ({ one }) => ({
+  _parentID: one(prof_ueber, {
+    fields: [prof_ueber_werte._parentID],
+    references: [prof_ueber.id],
+    relationName: 'werte',
+  }),
+}))
+export const relations_prof_ueber = relations(prof_ueber, ({ one, many }) => ({
+  _parentID: one(site_pages, {
+    fields: [prof_ueber._parentID],
+    references: [site_pages.id],
+    relationName: '_blocks_profilUeberMich',
+  }),
+  werte: many(prof_ueber_werte, {
+    relationName: 'werte',
+  }),
+}))
+export const relations_prof_kern_bereiche_details = relations(
+  prof_kern_bereiche_details,
   ({ one }) => ({
-    _parentID: one(site_pages_blocks_cta_section3, {
-      fields: [site_pages_blocks_cta_section3_right_cards._parentID],
-      references: [site_pages_blocks_cta_section3.id],
-      relationName: 'rightCards',
+    _parentID: one(prof_kern_bereiche, {
+      fields: [prof_kern_bereiche_details._parentID],
+      references: [prof_kern_bereiche.id],
+      relationName: 'details',
     }),
   }),
 )
-export const relations_site_pages_blocks_cta_section3 = relations(
-  site_pages_blocks_cta_section3,
-  ({ one, many }) => ({
-    _parentID: one(site_pages, {
-      fields: [site_pages_blocks_cta_section3._parentID],
-      references: [site_pages.id],
-      relationName: '_blocks_ctaSection3',
+export const relations_prof_kern_bereiche = relations(prof_kern_bereiche, ({ one, many }) => ({
+  _parentID: one(prof_kern, {
+    fields: [prof_kern_bereiche._parentID],
+    references: [prof_kern.id],
+    relationName: 'bereiche',
+  }),
+  details: many(prof_kern_bereiche_details, {
+    relationName: 'details',
+  }),
+}))
+export const relations_prof_kern = relations(prof_kern, ({ one, many }) => ({
+  _parentID: one(site_pages, {
+    fields: [prof_kern._parentID],
+    references: [site_pages.id],
+    relationName: '_blocks_profilKernkompetenz',
+  }),
+  bereiche: many(prof_kern_bereiche, {
+    relationName: 'bereiche',
+  }),
+}))
+export const relations_prof_skills_spalten_skills = relations(
+  prof_skills_spalten_skills,
+  ({ one }) => ({
+    _parentID: one(prof_skills_spalten, {
+      fields: [prof_skills_spalten_skills._parentID],
+      references: [prof_skills_spalten.id],
+      relationName: 'skills',
     }),
-    rightCards: many(site_pages_blocks_cta_section3_right_cards, {
-      relationName: 'rightCards',
+  }),
+)
+export const relations_prof_skills_spalten = relations(prof_skills_spalten, ({ one, many }) => ({
+  _parentID: one(prof_skills, {
+    fields: [prof_skills_spalten._parentID],
+    references: [prof_skills.id],
+    relationName: 'spalten',
+  }),
+  skills: many(prof_skills_spalten_skills, {
+    relationName: 'skills',
+  }),
+}))
+export const relations_prof_skills = relations(prof_skills, ({ one, many }) => ({
+  _parentID: one(site_pages, {
+    fields: [prof_skills._parentID],
+    references: [site_pages.id],
+    relationName: '_blocks_profilKompetenzen',
+  }),
+  spalten: many(prof_skills_spalten, {
+    relationName: 'spalten',
+  }),
+}))
+export const relations_prof_weg_eintraege = relations(prof_weg_eintraege, ({ one }) => ({
+  _parentID: one(prof_weg, {
+    fields: [prof_weg_eintraege._parentID],
+    references: [prof_weg.id],
+    relationName: 'eintraege',
+  }),
+}))
+export const relations_prof_weg = relations(prof_weg, ({ one, many }) => ({
+  _parentID: one(site_pages, {
+    fields: [prof_weg._parentID],
+    references: [site_pages.id],
+    relationName: '_blocks_profilWerdegang',
+  }),
+  eintraege: many(prof_weg_eintraege, {
+    relationName: 'eintraege',
+  }),
+}))
+export const relations_prof_zahl_items = relations(prof_zahl_items, ({ one }) => ({
+  _parentID: one(prof_zahl, {
+    fields: [prof_zahl_items._parentID],
+    references: [prof_zahl.id],
+    relationName: 'items',
+  }),
+}))
+export const relations_prof_zahl = relations(prof_zahl, ({ one, many }) => ({
+  _parentID: one(site_pages, {
+    fields: [prof_zahl._parentID],
+    references: [site_pages.id],
+    relationName: '_blocks_profilZahlenFakten',
+  }),
+  items: many(prof_zahl_items, {
+    relationName: 'items',
+  }),
+}))
+export const relations_prof_tools_tools = relations(prof_tools_tools, ({ one }) => ({
+  _parentID: one(prof_tools, {
+    fields: [prof_tools_tools._parentID],
+    references: [prof_tools.id],
+    relationName: 'tools',
+  }),
+}))
+export const relations_prof_tools = relations(prof_tools, ({ one, many }) => ({
+  _parentID: one(site_pages, {
+    fields: [prof_tools._parentID],
+    references: [site_pages.id],
+    relationName: '_blocks_profilTools',
+  }),
+  tools: many(prof_tools_tools, {
+    relationName: 'tools',
+  }),
+}))
+export const relations_prof_lang_zert_sprachen = relations(prof_lang_zert_sprachen, ({ one }) => ({
+  _parentID: one(prof_lang_zert, {
+    fields: [prof_lang_zert_sprachen._parentID],
+    references: [prof_lang_zert.id],
+    relationName: 'sprachen',
+  }),
+}))
+export const relations_prof_lang_zert_zertifikate = relations(
+  prof_lang_zert_zertifikate,
+  ({ one }) => ({
+    _parentID: one(prof_lang_zert, {
+      fields: [prof_lang_zert_zertifikate._parentID],
+      references: [prof_lang_zert.id],
+      relationName: 'zertifikate',
+    }),
+  }),
+)
+export const relations_prof_lang_zert = relations(prof_lang_zert, ({ one, many }) => ({
+  _parentID: one(site_pages, {
+    fields: [prof_lang_zert._parentID],
+    references: [site_pages.id],
+    relationName: '_blocks_profilLangZert',
+  }),
+  sprachen: many(prof_lang_zert_sprachen, {
+    relationName: 'sprachen',
+  }),
+  zertifikate: many(prof_lang_zert_zertifikate, {
+    relationName: 'zertifikate',
+  }),
+}))
+export const relations_prof_cta = relations(prof_cta, ({ one }) => ({
+  _parentID: one(site_pages, {
+    fields: [prof_cta._parentID],
+    references: [site_pages.id],
+    relationName: '_blocks_profilCtaBand',
+  }),
+}))
+export const relations_site_pages_blocks_price_calculator = relations(
+  site_pages_blocks_price_calculator,
+  ({ one }) => ({
+    _parentID: one(site_pages, {
+      fields: [site_pages_blocks_price_calculator._parentID],
+      references: [site_pages.id],
+      relationName: '_blocks_priceCalculator',
     }),
   }),
 )
@@ -5934,188 +5611,6 @@ export const relations_site_pages_blocks_content = relations(
     }),
   }),
 )
-export const relations_site_pages_blocks_serp_content_bullets = relations(
-  site_pages_blocks_serp_content_bullets,
-  ({ one }) => ({
-    _parentID: one(site_pages_blocks_serp_content, {
-      fields: [site_pages_blocks_serp_content_bullets._parentID],
-      references: [site_pages_blocks_serp_content.id],
-      relationName: 'bullets',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_serp_content = relations(
-  site_pages_blocks_serp_content,
-  ({ one, many }) => ({
-    _parentID: one(site_pages, {
-      fields: [site_pages_blocks_serp_content._parentID],
-      references: [site_pages.id],
-      relationName: '_blocks_serpContent',
-    }),
-    bullets: many(site_pages_blocks_serp_content_bullets, {
-      relationName: 'bullets',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_lyra_content = relations(
-  site_pages_blocks_lyra_content,
-  ({ one }) => ({
-    _parentID: one(site_pages, {
-      fields: [site_pages_blocks_lyra_content._parentID],
-      references: [site_pages.id],
-      relationName: '_blocks_lyraContent',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_lyra_feature = relations(
-  site_pages_blocks_lyra_feature,
-  ({ one }) => ({
-    _parentID: one(site_pages, {
-      fields: [site_pages_blocks_lyra_feature._parentID],
-      references: [site_pages.id],
-      relationName: '_blocks_lyraFeature',
-    }),
-    darkImage: one(media, {
-      fields: [site_pages_blocks_lyra_feature.darkImage],
-      references: [media.id],
-      relationName: 'darkImage',
-    }),
-    lightImage: one(media, {
-      fields: [site_pages_blocks_lyra_feature.lightImage],
-      references: [media.id],
-      relationName: 'lightImage',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_features_grid_items = relations(
-  site_pages_blocks_features_grid_items,
-  ({ one }) => ({
-    _parentID: one(site_pages_blocks_features_grid, {
-      fields: [site_pages_blocks_features_grid_items._parentID],
-      references: [site_pages_blocks_features_grid.id],
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_features_grid = relations(
-  site_pages_blocks_features_grid,
-  ({ one, many }) => ({
-    _parentID: one(site_pages, {
-      fields: [site_pages_blocks_features_grid._parentID],
-      references: [site_pages.id],
-      relationName: '_blocks_featuresGrid',
-    }),
-    items: many(site_pages_blocks_features_grid_items, {
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_service_ux_ui = relations(
-  site_pages_blocks_service_ux_ui,
-  ({ one }) => ({
-    _parentID: one(site_pages, {
-      fields: [site_pages_blocks_service_ux_ui._parentID],
-      references: [site_pages.id],
-      relationName: '_blocks_serviceUxUi',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_services4_services_items = relations(
-  site_pages_blocks_services4_services_items,
-  ({ one }) => ({
-    _parentID: one(site_pages_blocks_services4_services, {
-      fields: [site_pages_blocks_services4_services_items._parentID],
-      references: [site_pages_blocks_services4_services.id],
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_services4_services = relations(
-  site_pages_blocks_services4_services,
-  ({ one, many }) => ({
-    _parentID: one(site_pages_blocks_services4, {
-      fields: [site_pages_blocks_services4_services._parentID],
-      references: [site_pages_blocks_services4.id],
-      relationName: 'services',
-    }),
-    items: many(site_pages_blocks_services4_services_items, {
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_services4 = relations(
-  site_pages_blocks_services4,
-  ({ one, many }) => ({
-    _parentID: one(site_pages, {
-      fields: [site_pages_blocks_services4._parentID],
-      references: [site_pages.id],
-      relationName: '_blocks_services4',
-    }),
-    services: many(site_pages_blocks_services4_services, {
-      relationName: 'services',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_features_scaling_features = relations(
-  site_pages_blocks_features_scaling_features,
-  ({ one }) => ({
-    _parentID: one(site_pages_blocks_features_scaling, {
-      fields: [site_pages_blocks_features_scaling_features._parentID],
-      references: [site_pages_blocks_features_scaling.id],
-      relationName: 'features',
-    }),
-  }),
-)
-export const relations_site_pages_blocks_features_scaling = relations(
-  site_pages_blocks_features_scaling,
-  ({ one, many }) => ({
-    _parentID: one(site_pages, {
-      fields: [site_pages_blocks_features_scaling._parentID],
-      references: [site_pages.id],
-      relationName: '_blocks_featuresScaling',
-    }),
-    features: many(site_pages_blocks_features_scaling_features, {
-      relationName: 'features',
-    }),
-    darkImage: one(media, {
-      fields: [site_pages_blocks_features_scaling.darkImage],
-      references: [media.id],
-      relationName: 'darkImage',
-    }),
-    lightImage: one(media, {
-      fields: [site_pages_blocks_features_scaling.lightImage],
-      references: [media.id],
-      relationName: 'lightImage',
-    }),
-  }),
-)
-export const relations_feat_ai_acc_items = relations(feat_ai_acc_items, ({ one }) => ({
-  _parentID: one(feat_ai_acc, {
-    fields: [feat_ai_acc_items._parentID],
-    references: [feat_ai_acc.id],
-    relationName: 'items',
-  }),
-  darkImage: one(media, {
-    fields: [feat_ai_acc_items.darkImage],
-    references: [media.id],
-    relationName: 'darkImage',
-  }),
-  lightImage: one(media, {
-    fields: [feat_ai_acc_items.lightImage],
-    references: [media.id],
-    relationName: 'lightImage',
-  }),
-}))
-export const relations_feat_ai_acc = relations(feat_ai_acc, ({ one, many }) => ({
-  _parentID: one(site_pages, {
-    fields: [feat_ai_acc._parentID],
-    references: [site_pages.id],
-    relationName: '_blocks_featAiAcc',
-  }),
-  items: many(feat_ai_acc_items, {
-    relationName: 'items',
-  }),
-}))
 export const relations_site_pages_blocks_media_block = relations(
   site_pages_blocks_media_block,
   ({ one }) => ({
@@ -6184,6 +5679,14 @@ export const relations_site_pages = relations(site_pages, ({ one, many }) => ({
     references: [media.id],
     relationName: 'hero_media',
   }),
+  hero_stats: many(site_pages_hero_stats, {
+    relationName: 'hero_stats',
+  }),
+  hero_backgroundPreset: one(hero_backgrounds, {
+    fields: [site_pages.hero_backgroundPreset],
+    references: [hero_backgrounds.id],
+    relationName: 'hero_backgroundPreset',
+  }),
   hero_backgroundImage: one(media, {
     fields: [site_pages.hero_backgroundImage],
     references: [media.id],
@@ -6199,6 +5702,21 @@ export const relations_site_pages = relations(site_pages, ({ one, many }) => ({
     references: [media.id],
     relationName: 'hero_foregroundImage',
   }),
+  hero_stackBackImage: one(media, {
+    fields: [site_pages.hero_stackBackImage],
+    references: [media.id],
+    relationName: 'hero_stackBackImage',
+  }),
+  hero_stackMidImage: one(media, {
+    fields: [site_pages.hero_stackMidImage],
+    references: [media.id],
+    relationName: 'hero_stackMidImage',
+  }),
+  hero_stackFrontImage: one(media, {
+    fields: [site_pages.hero_stackFrontImage],
+    references: [media.id],
+    relationName: 'hero_stackFrontImage',
+  }),
   hero_floatingElements: many(site_pages_hero_floating_elements, {
     relationName: 'hero_floatingElements',
   }),
@@ -6211,68 +5729,53 @@ export const relations_site_pages = relations(site_pages, ({ one, many }) => ({
   _blocks_heroMarketing: many(site_pages_blocks_hero_marketing, {
     relationName: '_blocks_heroMarketing',
   }),
-  _blocks_heroGrid: many(site_pages_blocks_hero_grid, {
-    relationName: '_blocks_heroGrid',
+  _blocks_introduction: many(site_pages_blocks_introduction, {
+    relationName: '_blocks_introduction',
   }),
-  _blocks_collabCur: many(collab_cur, {
-    relationName: '_blocks_collabCur',
+  _blocks_consultingOverview: many(site_pages_blocks_consulting_overview, {
+    relationName: '_blocks_consultingOverview',
   }),
-  _blocks_scrollMorphHero: many(site_pages_blocks_scroll_morph_hero, {
-    relationName: '_blocks_scrollMorphHero',
+  _blocks_shadcnBlock: many(site_pages_blocks_shadcn_block, {
+    relationName: '_blocks_shadcnBlock',
   }),
-  _blocks_featureAdvantages: many(feat_adv, {
-    relationName: '_blocks_featureAdvantages',
+  _blocks_servicesOverview: many(site_pages_blocks_services_overview, {
+    relationName: '_blocks_servicesOverview',
   }),
-  _blocks_feature1: many(site_pages_blocks_feature1, {
-    relationName: '_blocks_feature1',
+  _blocks_whyWorkWithMe: many(site_pages_blocks_why_work_with_me, {
+    relationName: '_blocks_whyWorkWithMe',
   }),
-  _blocks_feature2: many(site_pages_blocks_feature2, {
-    relationName: '_blocks_feature2',
+  _blocks_profilUeberMich: many(prof_ueber, {
+    relationName: '_blocks_profilUeberMich',
   }),
-  _blocks_faqSimple: many(site_pages_blocks_faq_simple, {
-    relationName: '_blocks_faqSimple',
+  _blocks_profilKernkompetenz: many(prof_kern, {
+    relationName: '_blocks_profilKernkompetenz',
   }),
-  _blocks_pricing: many(site_pages_blocks_pricing, {
-    relationName: '_blocks_pricing',
+  _blocks_profilKompetenzen: many(prof_skills, {
+    relationName: '_blocks_profilKompetenzen',
   }),
-  _blocks_pricingCards: many(site_pages_blocks_pricing_cards, {
-    relationName: '_blocks_pricingCards',
+  _blocks_profilWerdegang: many(prof_weg, {
+    relationName: '_blocks_profilWerdegang',
   }),
-  _blocks_contactSection1: many(site_pages_blocks_contact_section1, {
-    relationName: '_blocks_contactSection1',
+  _blocks_profilZahlenFakten: many(prof_zahl, {
+    relationName: '_blocks_profilZahlenFakten',
   }),
-  _blocks_ctaSection3: many(site_pages_blocks_cta_section3, {
-    relationName: '_blocks_ctaSection3',
+  _blocks_profilTools: many(prof_tools, {
+    relationName: '_blocks_profilTools',
+  }),
+  _blocks_profilLangZert: many(prof_lang_zert, {
+    relationName: '_blocks_profilLangZert',
+  }),
+  _blocks_profilCtaBand: many(prof_cta, {
+    relationName: '_blocks_profilCtaBand',
+  }),
+  _blocks_priceCalculator: many(site_pages_blocks_price_calculator, {
+    relationName: '_blocks_priceCalculator',
   }),
   _blocks_cta: many(site_pages_blocks_cta, {
     relationName: '_blocks_cta',
   }),
   _blocks_content: many(site_pages_blocks_content, {
     relationName: '_blocks_content',
-  }),
-  _blocks_serpContent: many(site_pages_blocks_serp_content, {
-    relationName: '_blocks_serpContent',
-  }),
-  _blocks_lyraContent: many(site_pages_blocks_lyra_content, {
-    relationName: '_blocks_lyraContent',
-  }),
-  _blocks_lyraFeature: many(site_pages_blocks_lyra_feature, {
-    relationName: '_blocks_lyraFeature',
-  }),
-  _blocks_featuresGrid: many(site_pages_blocks_features_grid, {
-    relationName: '_blocks_featuresGrid',
-  }),
-  _blocks_serviceUxUi: many(site_pages_blocks_service_ux_ui, {
-    relationName: '_blocks_serviceUxUi',
-  }),
-  _blocks_services4: many(site_pages_blocks_services4, {
-    relationName: '_blocks_services4',
-  }),
-  _blocks_featuresScaling: many(site_pages_blocks_features_scaling, {
-    relationName: '_blocks_featuresScaling',
-  }),
-  _blocks_featAiAcc: many(feat_ai_acc, {
-    relationName: '_blocks_featAiAcc',
   }),
   _blocks_mediaBlock: many(site_pages_blocks_media_block, {
     relationName: '_blocks_mediaBlock',
@@ -6297,6 +5800,16 @@ export const relations_site_pages = relations(site_pages, ({ one, many }) => ({
     relationName: '_rels',
   }),
 }))
+export const relations__site_pages_v_version_hero_stats = relations(
+  _site_pages_v_version_hero_stats,
+  ({ one }) => ({
+    _parentID: one(_site_pages_v, {
+      fields: [_site_pages_v_version_hero_stats._parentID],
+      references: [_site_pages_v.id],
+      relationName: 'version_hero_stats',
+    }),
+  }),
+)
 export const relations__site_pages_v_version_hero_floating_elements = relations(
   _site_pages_v_version_hero_floating_elements,
   ({ one }) => ({
@@ -6347,239 +5860,322 @@ export const relations__site_pages_v_blocks_hero_marketing = relations(
     }),
   }),
 )
-export const relations__site_pages_v_blocks_hero_grid = relations(
-  _site_pages_v_blocks_hero_grid,
+export const relations__site_pages_v_blocks_introduction = relations(
+  _site_pages_v_blocks_introduction,
   ({ one }) => ({
     _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_hero_grid._parentID],
+      fields: [_site_pages_v_blocks_introduction._parentID],
       references: [_site_pages_v.id],
-      relationName: '_blocks_heroGrid',
-    }),
-  }),
-)
-export const relations__collab_cur_v = relations(_collab_cur_v, ({ one }) => ({
-  _parentID: one(_site_pages_v, {
-    fields: [_collab_cur_v._parentID],
-    references: [_site_pages_v.id],
-    relationName: '_blocks_collabCur',
-  }),
-}))
-export const relations__site_pages_v_blocks_scroll_morph_hero = relations(
-  _site_pages_v_blocks_scroll_morph_hero,
-  ({ one }) => ({
-    _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_scroll_morph_hero._parentID],
-      references: [_site_pages_v.id],
-      relationName: '_blocks_scrollMorphHero',
-    }),
-  }),
-)
-export const relations__feat_adv_v_items = relations(_feat_adv_v_items, ({ one }) => ({
-  _parentID: one(_feat_adv_v, {
-    fields: [_feat_adv_v_items._parentID],
-    references: [_feat_adv_v.id],
-    relationName: 'items',
-  }),
-}))
-export const relations__feat_adv_v = relations(_feat_adv_v, ({ one, many }) => ({
-  _parentID: one(_site_pages_v, {
-    fields: [_feat_adv_v._parentID],
-    references: [_site_pages_v.id],
-    relationName: '_blocks_featureAdvantages',
-  }),
-  items: many(_feat_adv_v_items, {
-    relationName: 'items',
-  }),
-}))
-export const relations__site_pages_v_blocks_feature1_items = relations(
-  _site_pages_v_blocks_feature1_items,
-  ({ one }) => ({
-    _parentID: one(_site_pages_v_blocks_feature1, {
-      fields: [_site_pages_v_blocks_feature1_items._parentID],
-      references: [_site_pages_v_blocks_feature1.id],
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_feature1 = relations(
-  _site_pages_v_blocks_feature1,
-  ({ one, many }) => ({
-    _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_feature1._parentID],
-      references: [_site_pages_v.id],
-      relationName: '_blocks_feature1',
-    }),
-    items: many(_site_pages_v_blocks_feature1_items, {
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_feature2_items = relations(
-  _site_pages_v_blocks_feature2_items,
-  ({ one }) => ({
-    _parentID: one(_site_pages_v_blocks_feature2, {
-      fields: [_site_pages_v_blocks_feature2_items._parentID],
-      references: [_site_pages_v_blocks_feature2.id],
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_feature2 = relations(
-  _site_pages_v_blocks_feature2,
-  ({ one, many }) => ({
-    _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_feature2._parentID],
-      references: [_site_pages_v.id],
-      relationName: '_blocks_feature2',
-    }),
-    items: many(_site_pages_v_blocks_feature2_items, {
-      relationName: 'items',
+      relationName: '_blocks_introduction',
     }),
     image: one(media, {
-      fields: [_site_pages_v_blocks_feature2.image],
+      fields: [_site_pages_v_blocks_introduction.image],
       references: [media.id],
       relationName: 'image',
     }),
   }),
 )
-export const relations__site_pages_v_blocks_faq_simple_faqs = relations(
-  _site_pages_v_blocks_faq_simple_faqs,
+export const relations__site_pages_v_blocks_consulting_overview_benefit_items = relations(
+  _site_pages_v_blocks_consulting_overview_benefit_items,
   ({ one }) => ({
-    _parentID: one(_site_pages_v_blocks_faq_simple, {
-      fields: [_site_pages_v_blocks_faq_simple_faqs._parentID],
-      references: [_site_pages_v_blocks_faq_simple.id],
-      relationName: 'faqs',
+    _parentID: one(_site_pages_v_blocks_consulting_overview, {
+      fields: [_site_pages_v_blocks_consulting_overview_benefit_items._parentID],
+      references: [_site_pages_v_blocks_consulting_overview.id],
+      relationName: 'benefitItems',
     }),
   }),
 )
-export const relations__site_pages_v_blocks_faq_simple = relations(
-  _site_pages_v_blocks_faq_simple,
+export const relations__site_pages_v_blocks_consulting_overview = relations(
+  _site_pages_v_blocks_consulting_overview,
   ({ one, many }) => ({
     _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_faq_simple._parentID],
+      fields: [_site_pages_v_blocks_consulting_overview._parentID],
       references: [_site_pages_v.id],
-      relationName: '_blocks_faqSimple',
+      relationName: '_blocks_consultingOverview',
     }),
-    faqs: many(_site_pages_v_blocks_faq_simple_faqs, {
-      relationName: 'faqs',
+    benefitItems: many(_site_pages_v_blocks_consulting_overview_benefit_items, {
+      relationName: 'benefitItems',
     }),
   }),
 )
-export const relations__site_pages_v_blocks_pricing_plans_features = relations(
-  _site_pages_v_blocks_pricing_plans_features,
+export const relations__site_pages_v_blocks_shadcn_block_content_images = relations(
+  _site_pages_v_blocks_shadcn_block_content_images,
   ({ one }) => ({
-    _parentID: one(_site_pages_v_blocks_pricing_plans, {
-      fields: [_site_pages_v_blocks_pricing_plans_features._parentID],
-      references: [_site_pages_v_blocks_pricing_plans.id],
-      relationName: 'features',
+    _parentID: one(_site_pages_v_blocks_shadcn_block, {
+      fields: [_site_pages_v_blocks_shadcn_block_content_images._parentID],
+      references: [_site_pages_v_blocks_shadcn_block.id],
+      relationName: 'content_images',
+    }),
+    media: one(media, {
+      fields: [_site_pages_v_blocks_shadcn_block_content_images.media],
+      references: [media.id],
+      relationName: 'media',
     }),
   }),
 )
-export const relations__site_pages_v_blocks_pricing_plans = relations(
-  _site_pages_v_blocks_pricing_plans,
-  ({ one, many }) => ({
-    _parentID: one(_site_pages_v_blocks_pricing, {
-      fields: [_site_pages_v_blocks_pricing_plans._parentID],
-      references: [_site_pages_v_blocks_pricing.id],
-      relationName: 'plans',
-    }),
-    features: many(_site_pages_v_blocks_pricing_plans_features, {
-      relationName: 'features',
-    }),
+export const relations__lnks_v = relations(_lnks_v, ({ one }) => ({
+  _parentID: one(_site_pages_v_blocks_shadcn_block, {
+    fields: [_lnks_v._parentID],
+    references: [_site_pages_v_blocks_shadcn_block.id],
+    relationName: 'content_links',
   }),
-)
-export const relations__site_pages_v_blocks_pricing = relations(
-  _site_pages_v_blocks_pricing,
+}))
+export const relations__site_pages_v_blocks_shadcn_block = relations(
+  _site_pages_v_blocks_shadcn_block,
   ({ one, many }) => ({
     _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_pricing._parentID],
+      fields: [_site_pages_v_blocks_shadcn_block._parentID],
       references: [_site_pages_v.id],
-      relationName: '_blocks_pricing',
+      relationName: '_blocks_shadcnBlock',
     }),
-    plans: many(_site_pages_v_blocks_pricing_plans, {
-      relationName: 'plans',
+    content_images: many(_site_pages_v_blocks_shadcn_block_content_images, {
+      relationName: 'content_images',
+    }),
+    content_links: many(_lnks_v, {
+      relationName: 'content_links',
     }),
   }),
 )
-export const relations__site_pages_v_blocks_pricing_cards_plans_features = relations(
-  _site_pages_v_blocks_pricing_cards_plans_features,
+export const relations__site_pages_v_blocks_services_overview_services = relations(
+  _site_pages_v_blocks_services_overview_services,
   ({ one }) => ({
-    _parentID: one(_site_pages_v_blocks_pricing_cards_plans, {
-      fields: [_site_pages_v_blocks_pricing_cards_plans_features._parentID],
-      references: [_site_pages_v_blocks_pricing_cards_plans.id],
-      relationName: 'features',
+    _parentID: one(_site_pages_v_blocks_services_overview, {
+      fields: [_site_pages_v_blocks_services_overview_services._parentID],
+      references: [_site_pages_v_blocks_services_overview.id],
+      relationName: 'services',
     }),
   }),
 )
-export const relations__site_pages_v_blocks_pricing_cards_plans = relations(
-  _site_pages_v_blocks_pricing_cards_plans,
-  ({ one, many }) => ({
-    _parentID: one(_site_pages_v_blocks_pricing_cards, {
-      fields: [_site_pages_v_blocks_pricing_cards_plans._parentID],
-      references: [_site_pages_v_blocks_pricing_cards.id],
-      relationName: 'plans',
-    }),
-    features: many(_site_pages_v_blocks_pricing_cards_plans_features, {
-      relationName: 'features',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_pricing_cards = relations(
-  _site_pages_v_blocks_pricing_cards,
+export const relations__site_pages_v_blocks_services_overview = relations(
+  _site_pages_v_blocks_services_overview,
   ({ one, many }) => ({
     _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_pricing_cards._parentID],
+      fields: [_site_pages_v_blocks_services_overview._parentID],
       references: [_site_pages_v.id],
-      relationName: '_blocks_pricingCards',
+      relationName: '_blocks_servicesOverview',
     }),
-    plans: many(_site_pages_v_blocks_pricing_cards_plans, {
-      relationName: 'plans',
+    services: many(_site_pages_v_blocks_services_overview_services, {
+      relationName: 'services',
     }),
   }),
 )
-export const relations__site_pages_v_blocks_contact_section1_hours_rows = relations(
-  _site_pages_v_blocks_contact_section1_hours_rows,
+export const relations__site_pages_v_blocks_why_work_with_me_intro_icon_list = relations(
+  _site_pages_v_blocks_why_work_with_me_intro_icon_list,
   ({ one }) => ({
-    _parentID: one(_site_pages_v_blocks_contact_section1, {
-      fields: [_site_pages_v_blocks_contact_section1_hours_rows._parentID],
-      references: [_site_pages_v_blocks_contact_section1.id],
-      relationName: 'hoursRows',
+    _parentID: one(_site_pages_v_blocks_why_work_with_me, {
+      fields: [_site_pages_v_blocks_why_work_with_me_intro_icon_list._parentID],
+      references: [_site_pages_v_blocks_why_work_with_me.id],
+      relationName: 'introIconList',
     }),
   }),
 )
-export const relations__site_pages_v_blocks_contact_section1 = relations(
-  _site_pages_v_blocks_contact_section1,
+export const relations__site_pages_v_blocks_why_work_with_me_reasons = relations(
+  _site_pages_v_blocks_why_work_with_me_reasons,
+  ({ one }) => ({
+    _parentID: one(_site_pages_v_blocks_why_work_with_me, {
+      fields: [_site_pages_v_blocks_why_work_with_me_reasons._parentID],
+      references: [_site_pages_v_blocks_why_work_with_me.id],
+      relationName: 'reasons',
+    }),
+  }),
+)
+export const relations__site_pages_v_blocks_why_work_with_me = relations(
+  _site_pages_v_blocks_why_work_with_me,
   ({ one, many }) => ({
     _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_contact_section1._parentID],
+      fields: [_site_pages_v_blocks_why_work_with_me._parentID],
       references: [_site_pages_v.id],
-      relationName: '_blocks_contactSection1',
+      relationName: '_blocks_whyWorkWithMe',
     }),
-    hoursRows: many(_site_pages_v_blocks_contact_section1_hours_rows, {
-      relationName: 'hoursRows',
+    introIconList: many(_site_pages_v_blocks_why_work_with_me_intro_icon_list, {
+      relationName: 'introIconList',
+    }),
+    reasons: many(_site_pages_v_blocks_why_work_with_me_reasons, {
+      relationName: 'reasons',
     }),
   }),
 )
-export const relations__site_pages_v_blocks_cta_section3_right_cards = relations(
-  _site_pages_v_blocks_cta_section3_right_cards,
+export const relations__prof_ueber_v_werte = relations(_prof_ueber_v_werte, ({ one }) => ({
+  _parentID: one(_prof_ueber_v, {
+    fields: [_prof_ueber_v_werte._parentID],
+    references: [_prof_ueber_v.id],
+    relationName: 'werte',
+  }),
+}))
+export const relations__prof_ueber_v = relations(_prof_ueber_v, ({ one, many }) => ({
+  _parentID: one(_site_pages_v, {
+    fields: [_prof_ueber_v._parentID],
+    references: [_site_pages_v.id],
+    relationName: '_blocks_profilUeberMich',
+  }),
+  werte: many(_prof_ueber_v_werte, {
+    relationName: 'werte',
+  }),
+}))
+export const relations__prof_kern_v_bereiche_details = relations(
+  _prof_kern_v_bereiche_details,
   ({ one }) => ({
-    _parentID: one(_site_pages_v_blocks_cta_section3, {
-      fields: [_site_pages_v_blocks_cta_section3_right_cards._parentID],
-      references: [_site_pages_v_blocks_cta_section3.id],
-      relationName: 'rightCards',
+    _parentID: one(_prof_kern_v_bereiche, {
+      fields: [_prof_kern_v_bereiche_details._parentID],
+      references: [_prof_kern_v_bereiche.id],
+      relationName: 'details',
     }),
   }),
 )
-export const relations__site_pages_v_blocks_cta_section3 = relations(
-  _site_pages_v_blocks_cta_section3,
+export const relations__prof_kern_v_bereiche = relations(
+  _prof_kern_v_bereiche,
   ({ one, many }) => ({
-    _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_cta_section3._parentID],
-      references: [_site_pages_v.id],
-      relationName: '_blocks_ctaSection3',
+    _parentID: one(_prof_kern_v, {
+      fields: [_prof_kern_v_bereiche._parentID],
+      references: [_prof_kern_v.id],
+      relationName: 'bereiche',
     }),
-    rightCards: many(_site_pages_v_blocks_cta_section3_right_cards, {
-      relationName: 'rightCards',
+    details: many(_prof_kern_v_bereiche_details, {
+      relationName: 'details',
+    }),
+  }),
+)
+export const relations__prof_kern_v = relations(_prof_kern_v, ({ one, many }) => ({
+  _parentID: one(_site_pages_v, {
+    fields: [_prof_kern_v._parentID],
+    references: [_site_pages_v.id],
+    relationName: '_blocks_profilKernkompetenz',
+  }),
+  bereiche: many(_prof_kern_v_bereiche, {
+    relationName: 'bereiche',
+  }),
+}))
+export const relations__prof_skills_v_spalten_skills = relations(
+  _prof_skills_v_spalten_skills,
+  ({ one }) => ({
+    _parentID: one(_prof_skills_v_spalten, {
+      fields: [_prof_skills_v_spalten_skills._parentID],
+      references: [_prof_skills_v_spalten.id],
+      relationName: 'skills',
+    }),
+  }),
+)
+export const relations__prof_skills_v_spalten = relations(
+  _prof_skills_v_spalten,
+  ({ one, many }) => ({
+    _parentID: one(_prof_skills_v, {
+      fields: [_prof_skills_v_spalten._parentID],
+      references: [_prof_skills_v.id],
+      relationName: 'spalten',
+    }),
+    skills: many(_prof_skills_v_spalten_skills, {
+      relationName: 'skills',
+    }),
+  }),
+)
+export const relations__prof_skills_v = relations(_prof_skills_v, ({ one, many }) => ({
+  _parentID: one(_site_pages_v, {
+    fields: [_prof_skills_v._parentID],
+    references: [_site_pages_v.id],
+    relationName: '_blocks_profilKompetenzen',
+  }),
+  spalten: many(_prof_skills_v_spalten, {
+    relationName: 'spalten',
+  }),
+}))
+export const relations__prof_weg_v_eintraege = relations(_prof_weg_v_eintraege, ({ one }) => ({
+  _parentID: one(_prof_weg_v, {
+    fields: [_prof_weg_v_eintraege._parentID],
+    references: [_prof_weg_v.id],
+    relationName: 'eintraege',
+  }),
+}))
+export const relations__prof_weg_v = relations(_prof_weg_v, ({ one, many }) => ({
+  _parentID: one(_site_pages_v, {
+    fields: [_prof_weg_v._parentID],
+    references: [_site_pages_v.id],
+    relationName: '_blocks_profilWerdegang',
+  }),
+  eintraege: many(_prof_weg_v_eintraege, {
+    relationName: 'eintraege',
+  }),
+}))
+export const relations__prof_zahl_v_items = relations(_prof_zahl_v_items, ({ one }) => ({
+  _parentID: one(_prof_zahl_v, {
+    fields: [_prof_zahl_v_items._parentID],
+    references: [_prof_zahl_v.id],
+    relationName: 'items',
+  }),
+}))
+export const relations__prof_zahl_v = relations(_prof_zahl_v, ({ one, many }) => ({
+  _parentID: one(_site_pages_v, {
+    fields: [_prof_zahl_v._parentID],
+    references: [_site_pages_v.id],
+    relationName: '_blocks_profilZahlenFakten',
+  }),
+  items: many(_prof_zahl_v_items, {
+    relationName: 'items',
+  }),
+}))
+export const relations__prof_tools_v_tools = relations(_prof_tools_v_tools, ({ one }) => ({
+  _parentID: one(_prof_tools_v, {
+    fields: [_prof_tools_v_tools._parentID],
+    references: [_prof_tools_v.id],
+    relationName: 'tools',
+  }),
+}))
+export const relations__prof_tools_v = relations(_prof_tools_v, ({ one, many }) => ({
+  _parentID: one(_site_pages_v, {
+    fields: [_prof_tools_v._parentID],
+    references: [_site_pages_v.id],
+    relationName: '_blocks_profilTools',
+  }),
+  tools: many(_prof_tools_v_tools, {
+    relationName: 'tools',
+  }),
+}))
+export const relations__prof_lang_zert_v_sprachen = relations(
+  _prof_lang_zert_v_sprachen,
+  ({ one }) => ({
+    _parentID: one(_prof_lang_zert_v, {
+      fields: [_prof_lang_zert_v_sprachen._parentID],
+      references: [_prof_lang_zert_v.id],
+      relationName: 'sprachen',
+    }),
+  }),
+)
+export const relations__prof_lang_zert_v_zertifikate = relations(
+  _prof_lang_zert_v_zertifikate,
+  ({ one }) => ({
+    _parentID: one(_prof_lang_zert_v, {
+      fields: [_prof_lang_zert_v_zertifikate._parentID],
+      references: [_prof_lang_zert_v.id],
+      relationName: 'zertifikate',
+    }),
+  }),
+)
+export const relations__prof_lang_zert_v = relations(_prof_lang_zert_v, ({ one, many }) => ({
+  _parentID: one(_site_pages_v, {
+    fields: [_prof_lang_zert_v._parentID],
+    references: [_site_pages_v.id],
+    relationName: '_blocks_profilLangZert',
+  }),
+  sprachen: many(_prof_lang_zert_v_sprachen, {
+    relationName: 'sprachen',
+  }),
+  zertifikate: many(_prof_lang_zert_v_zertifikate, {
+    relationName: 'zertifikate',
+  }),
+}))
+export const relations__prof_cta_v = relations(_prof_cta_v, ({ one }) => ({
+  _parentID: one(_site_pages_v, {
+    fields: [_prof_cta_v._parentID],
+    references: [_site_pages_v.id],
+    relationName: '_blocks_profilCtaBand',
+  }),
+}))
+export const relations__site_pages_v_blocks_price_calculator = relations(
+  _site_pages_v_blocks_price_calculator,
+  ({ one }) => ({
+    _parentID: one(_site_pages_v, {
+      fields: [_site_pages_v_blocks_price_calculator._parentID],
+      references: [_site_pages_v.id],
+      relationName: '_blocks_priceCalculator',
     }),
   }),
 )
@@ -6629,188 +6225,6 @@ export const relations__site_pages_v_blocks_content = relations(
     }),
   }),
 )
-export const relations__site_pages_v_blocks_serp_content_bullets = relations(
-  _site_pages_v_blocks_serp_content_bullets,
-  ({ one }) => ({
-    _parentID: one(_site_pages_v_blocks_serp_content, {
-      fields: [_site_pages_v_blocks_serp_content_bullets._parentID],
-      references: [_site_pages_v_blocks_serp_content.id],
-      relationName: 'bullets',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_serp_content = relations(
-  _site_pages_v_blocks_serp_content,
-  ({ one, many }) => ({
-    _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_serp_content._parentID],
-      references: [_site_pages_v.id],
-      relationName: '_blocks_serpContent',
-    }),
-    bullets: many(_site_pages_v_blocks_serp_content_bullets, {
-      relationName: 'bullets',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_lyra_content = relations(
-  _site_pages_v_blocks_lyra_content,
-  ({ one }) => ({
-    _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_lyra_content._parentID],
-      references: [_site_pages_v.id],
-      relationName: '_blocks_lyraContent',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_lyra_feature = relations(
-  _site_pages_v_blocks_lyra_feature,
-  ({ one }) => ({
-    _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_lyra_feature._parentID],
-      references: [_site_pages_v.id],
-      relationName: '_blocks_lyraFeature',
-    }),
-    darkImage: one(media, {
-      fields: [_site_pages_v_blocks_lyra_feature.darkImage],
-      references: [media.id],
-      relationName: 'darkImage',
-    }),
-    lightImage: one(media, {
-      fields: [_site_pages_v_blocks_lyra_feature.lightImage],
-      references: [media.id],
-      relationName: 'lightImage',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_features_grid_items = relations(
-  _site_pages_v_blocks_features_grid_items,
-  ({ one }) => ({
-    _parentID: one(_site_pages_v_blocks_features_grid, {
-      fields: [_site_pages_v_blocks_features_grid_items._parentID],
-      references: [_site_pages_v_blocks_features_grid.id],
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_features_grid = relations(
-  _site_pages_v_blocks_features_grid,
-  ({ one, many }) => ({
-    _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_features_grid._parentID],
-      references: [_site_pages_v.id],
-      relationName: '_blocks_featuresGrid',
-    }),
-    items: many(_site_pages_v_blocks_features_grid_items, {
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_service_ux_ui = relations(
-  _site_pages_v_blocks_service_ux_ui,
-  ({ one }) => ({
-    _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_service_ux_ui._parentID],
-      references: [_site_pages_v.id],
-      relationName: '_blocks_serviceUxUi',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_services4_services_items = relations(
-  _site_pages_v_blocks_services4_services_items,
-  ({ one }) => ({
-    _parentID: one(_site_pages_v_blocks_services4_services, {
-      fields: [_site_pages_v_blocks_services4_services_items._parentID],
-      references: [_site_pages_v_blocks_services4_services.id],
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_services4_services = relations(
-  _site_pages_v_blocks_services4_services,
-  ({ one, many }) => ({
-    _parentID: one(_site_pages_v_blocks_services4, {
-      fields: [_site_pages_v_blocks_services4_services._parentID],
-      references: [_site_pages_v_blocks_services4.id],
-      relationName: 'services',
-    }),
-    items: many(_site_pages_v_blocks_services4_services_items, {
-      relationName: 'items',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_services4 = relations(
-  _site_pages_v_blocks_services4,
-  ({ one, many }) => ({
-    _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_services4._parentID],
-      references: [_site_pages_v.id],
-      relationName: '_blocks_services4',
-    }),
-    services: many(_site_pages_v_blocks_services4_services, {
-      relationName: 'services',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_features_scaling_features = relations(
-  _site_pages_v_blocks_features_scaling_features,
-  ({ one }) => ({
-    _parentID: one(_site_pages_v_blocks_features_scaling, {
-      fields: [_site_pages_v_blocks_features_scaling_features._parentID],
-      references: [_site_pages_v_blocks_features_scaling.id],
-      relationName: 'features',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_features_scaling = relations(
-  _site_pages_v_blocks_features_scaling,
-  ({ one, many }) => ({
-    _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_features_scaling._parentID],
-      references: [_site_pages_v.id],
-      relationName: '_blocks_featuresScaling',
-    }),
-    features: many(_site_pages_v_blocks_features_scaling_features, {
-      relationName: 'features',
-    }),
-    darkImage: one(media, {
-      fields: [_site_pages_v_blocks_features_scaling.darkImage],
-      references: [media.id],
-      relationName: 'darkImage',
-    }),
-    lightImage: one(media, {
-      fields: [_site_pages_v_blocks_features_scaling.lightImage],
-      references: [media.id],
-      relationName: 'lightImage',
-    }),
-  }),
-)
-export const relations__feat_ai_acc_v_items = relations(_feat_ai_acc_v_items, ({ one }) => ({
-  _parentID: one(_feat_ai_acc_v, {
-    fields: [_feat_ai_acc_v_items._parentID],
-    references: [_feat_ai_acc_v.id],
-    relationName: 'items',
-  }),
-  darkImage: one(media, {
-    fields: [_feat_ai_acc_v_items.darkImage],
-    references: [media.id],
-    relationName: 'darkImage',
-  }),
-  lightImage: one(media, {
-    fields: [_feat_ai_acc_v_items.lightImage],
-    references: [media.id],
-    relationName: 'lightImage',
-  }),
-}))
-export const relations__feat_ai_acc_v = relations(_feat_ai_acc_v, ({ one, many }) => ({
-  _parentID: one(_site_pages_v, {
-    fields: [_feat_ai_acc_v._parentID],
-    references: [_site_pages_v.id],
-    relationName: '_blocks_featAiAcc',
-  }),
-  items: many(_feat_ai_acc_v_items, {
-    relationName: 'items',
-  }),
-}))
 export const relations__site_pages_v_blocks_media_block = relations(
   _site_pages_v_blocks_media_block,
   ({ one }) => ({
@@ -6884,6 +6298,14 @@ export const relations__site_pages_v = relations(_site_pages_v, ({ one, many }) 
     references: [media.id],
     relationName: 'version_hero_media',
   }),
+  version_hero_stats: many(_site_pages_v_version_hero_stats, {
+    relationName: 'version_hero_stats',
+  }),
+  version_hero_backgroundPreset: one(hero_backgrounds, {
+    fields: [_site_pages_v.version_hero_backgroundPreset],
+    references: [hero_backgrounds.id],
+    relationName: 'version_hero_backgroundPreset',
+  }),
   version_hero_backgroundImage: one(media, {
     fields: [_site_pages_v.version_hero_backgroundImage],
     references: [media.id],
@@ -6899,6 +6321,21 @@ export const relations__site_pages_v = relations(_site_pages_v, ({ one, many }) 
     references: [media.id],
     relationName: 'version_hero_foregroundImage',
   }),
+  version_hero_stackBackImage: one(media, {
+    fields: [_site_pages_v.version_hero_stackBackImage],
+    references: [media.id],
+    relationName: 'version_hero_stackBackImage',
+  }),
+  version_hero_stackMidImage: one(media, {
+    fields: [_site_pages_v.version_hero_stackMidImage],
+    references: [media.id],
+    relationName: 'version_hero_stackMidImage',
+  }),
+  version_hero_stackFrontImage: one(media, {
+    fields: [_site_pages_v.version_hero_stackFrontImage],
+    references: [media.id],
+    relationName: 'version_hero_stackFrontImage',
+  }),
   version_hero_floatingElements: many(_site_pages_v_version_hero_floating_elements, {
     relationName: 'version_hero_floatingElements',
   }),
@@ -6911,68 +6348,53 @@ export const relations__site_pages_v = relations(_site_pages_v, ({ one, many }) 
   _blocks_heroMarketing: many(_site_pages_v_blocks_hero_marketing, {
     relationName: '_blocks_heroMarketing',
   }),
-  _blocks_heroGrid: many(_site_pages_v_blocks_hero_grid, {
-    relationName: '_blocks_heroGrid',
+  _blocks_introduction: many(_site_pages_v_blocks_introduction, {
+    relationName: '_blocks_introduction',
   }),
-  _blocks_collabCur: many(_collab_cur_v, {
-    relationName: '_blocks_collabCur',
+  _blocks_consultingOverview: many(_site_pages_v_blocks_consulting_overview, {
+    relationName: '_blocks_consultingOverview',
   }),
-  _blocks_scrollMorphHero: many(_site_pages_v_blocks_scroll_morph_hero, {
-    relationName: '_blocks_scrollMorphHero',
+  _blocks_shadcnBlock: many(_site_pages_v_blocks_shadcn_block, {
+    relationName: '_blocks_shadcnBlock',
   }),
-  _blocks_featureAdvantages: many(_feat_adv_v, {
-    relationName: '_blocks_featureAdvantages',
+  _blocks_servicesOverview: many(_site_pages_v_blocks_services_overview, {
+    relationName: '_blocks_servicesOverview',
   }),
-  _blocks_feature1: many(_site_pages_v_blocks_feature1, {
-    relationName: '_blocks_feature1',
+  _blocks_whyWorkWithMe: many(_site_pages_v_blocks_why_work_with_me, {
+    relationName: '_blocks_whyWorkWithMe',
   }),
-  _blocks_feature2: many(_site_pages_v_blocks_feature2, {
-    relationName: '_blocks_feature2',
+  _blocks_profilUeberMich: many(_prof_ueber_v, {
+    relationName: '_blocks_profilUeberMich',
   }),
-  _blocks_faqSimple: many(_site_pages_v_blocks_faq_simple, {
-    relationName: '_blocks_faqSimple',
+  _blocks_profilKernkompetenz: many(_prof_kern_v, {
+    relationName: '_blocks_profilKernkompetenz',
   }),
-  _blocks_pricing: many(_site_pages_v_blocks_pricing, {
-    relationName: '_blocks_pricing',
+  _blocks_profilKompetenzen: many(_prof_skills_v, {
+    relationName: '_blocks_profilKompetenzen',
   }),
-  _blocks_pricingCards: many(_site_pages_v_blocks_pricing_cards, {
-    relationName: '_blocks_pricingCards',
+  _blocks_profilWerdegang: many(_prof_weg_v, {
+    relationName: '_blocks_profilWerdegang',
   }),
-  _blocks_contactSection1: many(_site_pages_v_blocks_contact_section1, {
-    relationName: '_blocks_contactSection1',
+  _blocks_profilZahlenFakten: many(_prof_zahl_v, {
+    relationName: '_blocks_profilZahlenFakten',
   }),
-  _blocks_ctaSection3: many(_site_pages_v_blocks_cta_section3, {
-    relationName: '_blocks_ctaSection3',
+  _blocks_profilTools: many(_prof_tools_v, {
+    relationName: '_blocks_profilTools',
+  }),
+  _blocks_profilLangZert: many(_prof_lang_zert_v, {
+    relationName: '_blocks_profilLangZert',
+  }),
+  _blocks_profilCtaBand: many(_prof_cta_v, {
+    relationName: '_blocks_profilCtaBand',
+  }),
+  _blocks_priceCalculator: many(_site_pages_v_blocks_price_calculator, {
+    relationName: '_blocks_priceCalculator',
   }),
   _blocks_cta: many(_site_pages_v_blocks_cta, {
     relationName: '_blocks_cta',
   }),
   _blocks_content: many(_site_pages_v_blocks_content, {
     relationName: '_blocks_content',
-  }),
-  _blocks_serpContent: many(_site_pages_v_blocks_serp_content, {
-    relationName: '_blocks_serpContent',
-  }),
-  _blocks_lyraContent: many(_site_pages_v_blocks_lyra_content, {
-    relationName: '_blocks_lyraContent',
-  }),
-  _blocks_lyraFeature: many(_site_pages_v_blocks_lyra_feature, {
-    relationName: '_blocks_lyraFeature',
-  }),
-  _blocks_featuresGrid: many(_site_pages_v_blocks_features_grid, {
-    relationName: '_blocks_featuresGrid',
-  }),
-  _blocks_serviceUxUi: many(_site_pages_v_blocks_service_ux_ui, {
-    relationName: '_blocks_serviceUxUi',
-  }),
-  _blocks_services4: many(_site_pages_v_blocks_services4, {
-    relationName: '_blocks_services4',
-  }),
-  _blocks_featuresScaling: many(_site_pages_v_blocks_features_scaling, {
-    relationName: '_blocks_featuresScaling',
-  }),
-  _blocks_featAiAcc: many(_feat_ai_acc_v, {
-    relationName: '_blocks_featAiAcc',
   }),
   _blocks_mediaBlock: many(_site_pages_v_blocks_media_block, {
     relationName: '_blocks_mediaBlock',
@@ -7238,6 +6660,15 @@ export const relations_mega_menu = relations(mega_menu, ({ one, many }) => ({
     relationName: 'highlight_image',
   }),
 }))
+export const relations_hero_backgrounds = relations(hero_backgrounds, () => ({}))
+export const relations_price_calc_categories = relations(price_calc_categories, () => ({}))
+export const relations_price_calc_items = relations(price_calc_items, ({ one }) => ({
+  category: one(price_calc_categories, {
+    fields: [price_calc_items.category],
+    references: [price_calc_categories.id],
+    relationName: 'category',
+  }),
+}))
 export const relations_redirects_rels = relations(redirects_rels, ({ one }) => ({
   parent: one(redirects, {
     fields: [redirects_rels.parent],
@@ -7498,6 +6929,21 @@ export const relations_payload_locked_documents_rels = relations(
       references: [mega_menu.id],
       relationName: 'mega-menu',
     }),
+    'hero-backgroundsID': one(hero_backgrounds, {
+      fields: [payload_locked_documents_rels['hero-backgroundsID']],
+      references: [hero_backgrounds.id],
+      relationName: 'hero-backgrounds',
+    }),
+    'price-calc-categoriesID': one(price_calc_categories, {
+      fields: [payload_locked_documents_rels['price-calc-categoriesID']],
+      references: [price_calc_categories.id],
+      relationName: 'price-calc-categories',
+    }),
+    'price-calc-itemsID': one(price_calc_items, {
+      fields: [payload_locked_documents_rels['price-calc-itemsID']],
+      references: [price_calc_items.id],
+      relationName: 'price-calc-items',
+    }),
     redirectsID: one(redirects, {
       fields: [payload_locked_documents_rels.redirectsID],
       references: [redirects.id],
@@ -7593,6 +7039,11 @@ export const relations_header = relations(header, ({ one, many }) => ({
     fields: [header.logo],
     references: [media.id],
     relationName: 'logo',
+  }),
+  favicon: one(media, {
+    fields: [header.favicon],
+    references: [media.id],
+    relationName: 'favicon',
   }),
   navItems: many(header_nav_items, {
     relationName: 'navItems',
@@ -7690,6 +7141,7 @@ export const relations_footer = relations(footer, ({ one, many }) => ({
 }))
 export const relations_design = relations(design, () => ({}))
 export const relations_theme_settings = relations(theme_settings, () => ({}))
+export const relations_price_calculator = relations(price_calculator, () => ({}))
 
 type DatabaseSchema = {
   enum_site_pages_hero_floating_elements_position: typeof enum_site_pages_hero_floating_elements_position
@@ -7697,34 +7149,38 @@ type DatabaseSchema = {
   enum_site_pages_hero_links_link_appearance: typeof enum_site_pages_hero_links_link_appearance
   enum_site_pages_blocks_hero_marketing_block_background: typeof enum_site_pages_blocks_hero_marketing_block_background
   enum_site_pages_blocks_hero_marketing_block_overlay_color: typeof enum_site_pages_blocks_hero_marketing_block_overlay_color
-  enum_site_pages_blocks_hero_grid_block_background: typeof enum_site_pages_blocks_hero_grid_block_background
-  enum_site_pages_blocks_hero_grid_block_overlay_color: typeof enum_site_pages_blocks_hero_grid_block_overlay_color
-  enum_collab_cur_block_background: typeof enum_collab_cur_block_background
-  enum_collab_cur_block_overlay_color: typeof enum_collab_cur_block_overlay_color
-  enum_site_pages_blocks_scroll_morph_hero_block_background: typeof enum_site_pages_blocks_scroll_morph_hero_block_background
-  enum_site_pages_blocks_scroll_morph_hero_block_overlay_color: typeof enum_site_pages_blocks_scroll_morph_hero_block_overlay_color
-  enum_feat_adv_block_background: typeof enum_feat_adv_block_background
-  enum_feat_adv_block_overlay_color: typeof enum_feat_adv_block_overlay_color
-  enum_site_pages_blocks_feature1_items_icon: typeof enum_site_pages_blocks_feature1_items_icon
-  enum_site_pages_blocks_feature1_block_background: typeof enum_site_pages_blocks_feature1_block_background
-  enum_site_pages_blocks_feature1_block_overlay_color: typeof enum_site_pages_blocks_feature1_block_overlay_color
-  enum_site_pages_blocks_feature2_items_icon: typeof enum_site_pages_blocks_feature2_items_icon
-  enum_site_pages_blocks_feature2_block_background: typeof enum_site_pages_blocks_feature2_block_background
-  enum_site_pages_blocks_feature2_block_overlay_color: typeof enum_site_pages_blocks_feature2_block_overlay_color
-  enum_site_pages_blocks_faq_simple_block_background: typeof enum_site_pages_blocks_faq_simple_block_background
-  enum_site_pages_blocks_faq_simple_block_overlay_color: typeof enum_site_pages_blocks_faq_simple_block_overlay_color
-  enum_site_pages_blocks_pricing_block_background: typeof enum_site_pages_blocks_pricing_block_background
-  enum_site_pages_blocks_pricing_block_overlay_color: typeof enum_site_pages_blocks_pricing_block_overlay_color
-  enum_site_pages_blocks_pricing_cards_plans_button_icon: typeof enum_site_pages_blocks_pricing_cards_plans_button_icon
-  enum_site_pages_blocks_pricing_cards_block_background: typeof enum_site_pages_blocks_pricing_cards_block_background
-  enum_site_pages_blocks_pricing_cards_block_overlay_color: typeof enum_site_pages_blocks_pricing_cards_block_overlay_color
-  enum_site_pages_blocks_contact_section1_block_background: typeof enum_site_pages_blocks_contact_section1_block_background
-  enum_site_pages_blocks_contact_section1_block_overlay_color: typeof enum_site_pages_blocks_contact_section1_block_overlay_color
-  enum_site_pages_blocks_cta_section3_right_cards_icon: typeof enum_site_pages_blocks_cta_section3_right_cards_icon
-  enum_site_pages_blocks_cta_section3_block_background: typeof enum_site_pages_blocks_cta_section3_block_background
-  enum_site_pages_blocks_cta_section3_block_overlay_color: typeof enum_site_pages_blocks_cta_section3_block_overlay_color
-  enum_site_pages_blocks_cta_section3_badge_icon: typeof enum_site_pages_blocks_cta_section3_badge_icon
-  enum_site_pages_blocks_cta_section3_primary_button_icon: typeof enum_site_pages_blocks_cta_section3_primary_button_icon
+  enum_site_pages_blocks_introduction_block_background: typeof enum_site_pages_blocks_introduction_block_background
+  enum_site_pages_blocks_introduction_block_overlay_color: typeof enum_site_pages_blocks_introduction_block_overlay_color
+  bg: typeof bg
+  c: typeof c
+  enum_lnks_link_type: typeof enum_lnks_link_type
+  enum_lnks_link_appearance: typeof enum_lnks_link_appearance
+  enum_site_pages_blocks_shadcn_block_block_background: typeof enum_site_pages_blocks_shadcn_block_block_background
+  enum_site_pages_blocks_shadcn_block_block_overlay_color: typeof enum_site_pages_blocks_shadcn_block_block_overlay_color
+  enum_site_pages_blocks_shadcn_block_variant: typeof enum_site_pages_blocks_shadcn_block_variant
+  enum_site_pages_blocks_services_overview_services_icon: typeof enum_site_pages_blocks_services_overview_services_icon
+  enum_site_pages_blocks_why_work_with_me_intro_icon_list_icon: typeof enum_site_pages_blocks_why_work_with_me_intro_icon_list_icon
+  enum_site_pages_blocks_why_work_with_me_reasons_icon: typeof enum_site_pages_blocks_why_work_with_me_reasons_icon
+  enum_prof_ueber_werte_icon: typeof enum_prof_ueber_werte_icon
+  enum_prof_ueber_block_background: typeof enum_prof_ueber_block_background
+  enum_prof_ueber_block_overlay_color: typeof enum_prof_ueber_block_overlay_color
+  enum_prof_kern_block_background: typeof enum_prof_kern_block_background
+  enum_prof_kern_block_overlay_color: typeof enum_prof_kern_block_overlay_color
+  enum_prof_skills_spalten_skills_level: typeof enum_prof_skills_spalten_skills_level
+  enum_prof_skills_block_background: typeof enum_prof_skills_block_background
+  enum_prof_skills_block_overlay_color: typeof enum_prof_skills_block_overlay_color
+  enum_prof_weg_eintraege_typ: typeof enum_prof_weg_eintraege_typ
+  enum_prof_weg_block_background: typeof enum_prof_weg_block_background
+  enum_prof_weg_block_overlay_color: typeof enum_prof_weg_block_overlay_color
+  enum_prof_zahl_block_background: typeof enum_prof_zahl_block_background
+  enum_prof_zahl_block_overlay_color: typeof enum_prof_zahl_block_overlay_color
+  enum_prof_tools_tools_kategorie: typeof enum_prof_tools_tools_kategorie
+  enum_prof_tools_block_background: typeof enum_prof_tools_block_background
+  enum_prof_tools_block_overlay_color: typeof enum_prof_tools_block_overlay_color
+  enum_prof_lang_zert_block_background: typeof enum_prof_lang_zert_block_background
+  enum_prof_lang_zert_block_overlay_color: typeof enum_prof_lang_zert_block_overlay_color
+  enum_prof_cta_block_background: typeof enum_prof_cta_block_background
+  enum_prof_cta_block_overlay_color: typeof enum_prof_cta_block_overlay_color
   enum_site_pages_blocks_cta_links_link_type: typeof enum_site_pages_blocks_cta_links_link_type
   enum_site_pages_blocks_cta_links_link_appearance: typeof enum_site_pages_blocks_cta_links_link_appearance
   enum_site_pages_blocks_cta_block_background: typeof enum_site_pages_blocks_cta_block_background
@@ -7734,28 +7190,6 @@ type DatabaseSchema = {
   enum_site_pages_blocks_content_columns_link_appearance: typeof enum_site_pages_blocks_content_columns_link_appearance
   enum_site_pages_blocks_content_block_background: typeof enum_site_pages_blocks_content_block_background
   enum_site_pages_blocks_content_block_overlay_color: typeof enum_site_pages_blocks_content_block_overlay_color
-  enum_site_pages_blocks_serp_content_block_background: typeof enum_site_pages_blocks_serp_content_block_background
-  enum_site_pages_blocks_serp_content_block_overlay_color: typeof enum_site_pages_blocks_serp_content_block_overlay_color
-  enum_site_pages_blocks_lyra_content_block_background: typeof enum_site_pages_blocks_lyra_content_block_background
-  enum_site_pages_blocks_lyra_content_block_overlay_color: typeof enum_site_pages_blocks_lyra_content_block_overlay_color
-  enum_site_pages_blocks_lyra_content_button_link_type: typeof enum_site_pages_blocks_lyra_content_button_link_type
-  enum_site_pages_blocks_lyra_content_button_link_appearance: typeof enum_site_pages_blocks_lyra_content_button_link_appearance
-  enum_site_pages_blocks_lyra_feature_block_background: typeof enum_site_pages_blocks_lyra_feature_block_background
-  enum_site_pages_blocks_lyra_feature_block_overlay_color: typeof enum_site_pages_blocks_lyra_feature_block_overlay_color
-  enum_site_pages_blocks_features_grid_items_icon: typeof enum_site_pages_blocks_features_grid_items_icon
-  enum_site_pages_blocks_features_grid_block_background: typeof enum_site_pages_blocks_features_grid_block_background
-  enum_site_pages_blocks_features_grid_block_overlay_color: typeof enum_site_pages_blocks_features_grid_block_overlay_color
-  enum_site_pages_blocks_service_ux_ui_block_background: typeof enum_site_pages_blocks_service_ux_ui_block_background
-  enum_site_pages_blocks_service_ux_ui_block_overlay_color: typeof enum_site_pages_blocks_service_ux_ui_block_overlay_color
-  enum_site_pages_blocks_services4_services_icon: typeof enum_site_pages_blocks_services4_services_icon
-  enum_site_pages_blocks_services4_block_background: typeof enum_site_pages_blocks_services4_block_background
-  enum_site_pages_blocks_services4_block_overlay_color: typeof enum_site_pages_blocks_services4_block_overlay_color
-  enum_site_pages_blocks_features_scaling_features_icon: typeof enum_site_pages_blocks_features_scaling_features_icon
-  enum_site_pages_blocks_features_scaling_block_background: typeof enum_site_pages_blocks_features_scaling_block_background
-  enum_site_pages_blocks_features_scaling_block_overlay_color: typeof enum_site_pages_blocks_features_scaling_block_overlay_color
-  enum_feat_ai_acc_items_icon: typeof enum_feat_ai_acc_items_icon
-  enum_feat_ai_acc_block_background: typeof enum_feat_ai_acc_block_background
-  enum_feat_ai_acc_block_overlay_color: typeof enum_feat_ai_acc_block_overlay_color
   enum_site_pages_blocks_media_block_block_background: typeof enum_site_pages_blocks_media_block_block_background
   enum_site_pages_blocks_media_block_block_overlay_color: typeof enum_site_pages_blocks_media_block_block_overlay_color
   enum_site_pages_blocks_archive_block_background: typeof enum_site_pages_blocks_archive_block_background
@@ -7766,7 +7200,8 @@ type DatabaseSchema = {
   enum_site_pages_blocks_form_block_block_overlay_color: typeof enum_site_pages_blocks_form_block_block_overlay_color
   enum_site_pages_hero_type: typeof enum_site_pages_hero_type
   enum_site_pages_hero_media_type: typeof enum_site_pages_hero_media_type
-  enum_site_pages_hero_halo_overlay_grid_variant: typeof enum_site_pages_hero_halo_overlay_grid_variant
+  enum_site_pages_hero_media_type_mobile: typeof enum_site_pages_hero_media_type_mobile
+  enum_site_pages_hero_surface_pattern: typeof enum_site_pages_hero_surface_pattern
   enum_site_pages_hero_logo_display_type: typeof enum_site_pages_hero_logo_display_type
   enum_site_pages_status: typeof enum_site_pages_status
   enum__site_pages_v_version_hero_floating_elements_position: typeof enum__site_pages_v_version_hero_floating_elements_position
@@ -7774,34 +7209,36 @@ type DatabaseSchema = {
   enum__site_pages_v_version_hero_links_link_appearance: typeof enum__site_pages_v_version_hero_links_link_appearance
   enum__site_pages_v_blocks_hero_marketing_block_background: typeof enum__site_pages_v_blocks_hero_marketing_block_background
   enum__site_pages_v_blocks_hero_marketing_block_overlay_color: typeof enum__site_pages_v_blocks_hero_marketing_block_overlay_color
-  enum__site_pages_v_blocks_hero_grid_block_background: typeof enum__site_pages_v_blocks_hero_grid_block_background
-  enum__site_pages_v_blocks_hero_grid_block_overlay_color: typeof enum__site_pages_v_blocks_hero_grid_block_overlay_color
-  enum__collab_cur_v_block_background: typeof enum__collab_cur_v_block_background
-  enum__collab_cur_v_block_overlay_color: typeof enum__collab_cur_v_block_overlay_color
-  enum__site_pages_v_blocks_scroll_morph_hero_block_background: typeof enum__site_pages_v_blocks_scroll_morph_hero_block_background
-  enum__site_pages_v_blocks_scroll_morph_hero_block_overlay_color: typeof enum__site_pages_v_blocks_scroll_morph_hero_block_overlay_color
-  enum__feat_adv_v_block_background: typeof enum__feat_adv_v_block_background
-  enum__feat_adv_v_block_overlay_color: typeof enum__feat_adv_v_block_overlay_color
-  enum__site_pages_v_blocks_feature1_items_icon: typeof enum__site_pages_v_blocks_feature1_items_icon
-  enum__site_pages_v_blocks_feature1_block_background: typeof enum__site_pages_v_blocks_feature1_block_background
-  enum__site_pages_v_blocks_feature1_block_overlay_color: typeof enum__site_pages_v_blocks_feature1_block_overlay_color
-  enum__site_pages_v_blocks_feature2_items_icon: typeof enum__site_pages_v_blocks_feature2_items_icon
-  enum__site_pages_v_blocks_feature2_block_background: typeof enum__site_pages_v_blocks_feature2_block_background
-  enum__site_pages_v_blocks_feature2_block_overlay_color: typeof enum__site_pages_v_blocks_feature2_block_overlay_color
-  enum__site_pages_v_blocks_faq_simple_block_background: typeof enum__site_pages_v_blocks_faq_simple_block_background
-  enum__site_pages_v_blocks_faq_simple_block_overlay_color: typeof enum__site_pages_v_blocks_faq_simple_block_overlay_color
-  enum__site_pages_v_blocks_pricing_block_background: typeof enum__site_pages_v_blocks_pricing_block_background
-  enum__site_pages_v_blocks_pricing_block_overlay_color: typeof enum__site_pages_v_blocks_pricing_block_overlay_color
-  enum__site_pages_v_blocks_pricing_cards_plans_button_icon: typeof enum__site_pages_v_blocks_pricing_cards_plans_button_icon
-  enum__site_pages_v_blocks_pricing_cards_block_background: typeof enum__site_pages_v_blocks_pricing_cards_block_background
-  enum__site_pages_v_blocks_pricing_cards_block_overlay_color: typeof enum__site_pages_v_blocks_pricing_cards_block_overlay_color
-  enum__site_pages_v_blocks_contact_section1_block_background: typeof enum__site_pages_v_blocks_contact_section1_block_background
-  enum__site_pages_v_blocks_contact_section1_block_overlay_color: typeof enum__site_pages_v_blocks_contact_section1_block_overlay_color
-  enum__site_pages_v_blocks_cta_section3_right_cards_icon: typeof enum__site_pages_v_blocks_cta_section3_right_cards_icon
-  enum__site_pages_v_blocks_cta_section3_block_background: typeof enum__site_pages_v_blocks_cta_section3_block_background
-  enum__site_pages_v_blocks_cta_section3_block_overlay_color: typeof enum__site_pages_v_blocks_cta_section3_block_overlay_color
-  enum__site_pages_v_blocks_cta_section3_badge_icon: typeof enum__site_pages_v_blocks_cta_section3_badge_icon
-  enum__site_pages_v_blocks_cta_section3_primary_button_icon: typeof enum__site_pages_v_blocks_cta_section3_primary_button_icon
+  enum__site_pages_v_blocks_introduction_block_background: typeof enum__site_pages_v_blocks_introduction_block_background
+  enum__site_pages_v_blocks_introduction_block_overlay_color: typeof enum__site_pages_v_blocks_introduction_block_overlay_color
+  enum__lnks_v_link_type: typeof enum__lnks_v_link_type
+  enum__lnks_v_link_appearance: typeof enum__lnks_v_link_appearance
+  enum__site_pages_v_blocks_shadcn_block_block_background: typeof enum__site_pages_v_blocks_shadcn_block_block_background
+  enum__site_pages_v_blocks_shadcn_block_block_overlay_color: typeof enum__site_pages_v_blocks_shadcn_block_block_overlay_color
+  enum__site_pages_v_blocks_shadcn_block_variant: typeof enum__site_pages_v_blocks_shadcn_block_variant
+  enum__site_pages_v_blocks_services_overview_services_icon: typeof enum__site_pages_v_blocks_services_overview_services_icon
+  enum__site_pages_v_blocks_why_work_with_me_intro_icon_list_icon: typeof enum__site_pages_v_blocks_why_work_with_me_intro_icon_list_icon
+  enum__site_pages_v_blocks_why_work_with_me_reasons_icon: typeof enum__site_pages_v_blocks_why_work_with_me_reasons_icon
+  enum__prof_ueber_v_werte_icon: typeof enum__prof_ueber_v_werte_icon
+  enum__prof_ueber_v_block_background: typeof enum__prof_ueber_v_block_background
+  enum__prof_ueber_v_block_overlay_color: typeof enum__prof_ueber_v_block_overlay_color
+  enum__prof_kern_v_block_background: typeof enum__prof_kern_v_block_background
+  enum__prof_kern_v_block_overlay_color: typeof enum__prof_kern_v_block_overlay_color
+  enum__prof_skills_v_spalten_skills_level: typeof enum__prof_skills_v_spalten_skills_level
+  enum__prof_skills_v_block_background: typeof enum__prof_skills_v_block_background
+  enum__prof_skills_v_block_overlay_color: typeof enum__prof_skills_v_block_overlay_color
+  enum__prof_weg_v_eintraege_typ: typeof enum__prof_weg_v_eintraege_typ
+  enum__prof_weg_v_block_background: typeof enum__prof_weg_v_block_background
+  enum__prof_weg_v_block_overlay_color: typeof enum__prof_weg_v_block_overlay_color
+  enum__prof_zahl_v_block_background: typeof enum__prof_zahl_v_block_background
+  enum__prof_zahl_v_block_overlay_color: typeof enum__prof_zahl_v_block_overlay_color
+  enum__prof_tools_v_tools_kategorie: typeof enum__prof_tools_v_tools_kategorie
+  enum__prof_tools_v_block_background: typeof enum__prof_tools_v_block_background
+  enum__prof_tools_v_block_overlay_color: typeof enum__prof_tools_v_block_overlay_color
+  enum__prof_lang_zert_v_block_background: typeof enum__prof_lang_zert_v_block_background
+  enum__prof_lang_zert_v_block_overlay_color: typeof enum__prof_lang_zert_v_block_overlay_color
+  enum__prof_cta_v_block_background: typeof enum__prof_cta_v_block_background
+  enum__prof_cta_v_block_overlay_color: typeof enum__prof_cta_v_block_overlay_color
   enum__site_pages_v_blocks_cta_links_link_type: typeof enum__site_pages_v_blocks_cta_links_link_type
   enum__site_pages_v_blocks_cta_links_link_appearance: typeof enum__site_pages_v_blocks_cta_links_link_appearance
   enum__site_pages_v_blocks_cta_block_background: typeof enum__site_pages_v_blocks_cta_block_background
@@ -7811,28 +7248,6 @@ type DatabaseSchema = {
   enum__site_pages_v_blocks_content_columns_link_appearance: typeof enum__site_pages_v_blocks_content_columns_link_appearance
   enum__site_pages_v_blocks_content_block_background: typeof enum__site_pages_v_blocks_content_block_background
   enum__site_pages_v_blocks_content_block_overlay_color: typeof enum__site_pages_v_blocks_content_block_overlay_color
-  enum__site_pages_v_blocks_serp_content_block_background: typeof enum__site_pages_v_blocks_serp_content_block_background
-  enum__site_pages_v_blocks_serp_content_block_overlay_color: typeof enum__site_pages_v_blocks_serp_content_block_overlay_color
-  enum__site_pages_v_blocks_lyra_content_block_background: typeof enum__site_pages_v_blocks_lyra_content_block_background
-  enum__site_pages_v_blocks_lyra_content_block_overlay_color: typeof enum__site_pages_v_blocks_lyra_content_block_overlay_color
-  enum__site_pages_v_blocks_lyra_content_button_link_type: typeof enum__site_pages_v_blocks_lyra_content_button_link_type
-  enum__site_pages_v_blocks_lyra_content_button_link_appearance: typeof enum__site_pages_v_blocks_lyra_content_button_link_appearance
-  enum__site_pages_v_blocks_lyra_feature_block_background: typeof enum__site_pages_v_blocks_lyra_feature_block_background
-  enum__site_pages_v_blocks_lyra_feature_block_overlay_color: typeof enum__site_pages_v_blocks_lyra_feature_block_overlay_color
-  enum__site_pages_v_blocks_features_grid_items_icon: typeof enum__site_pages_v_blocks_features_grid_items_icon
-  enum__site_pages_v_blocks_features_grid_block_background: typeof enum__site_pages_v_blocks_features_grid_block_background
-  enum__site_pages_v_blocks_features_grid_block_overlay_color: typeof enum__site_pages_v_blocks_features_grid_block_overlay_color
-  enum__site_pages_v_blocks_service_ux_ui_block_background: typeof enum__site_pages_v_blocks_service_ux_ui_block_background
-  enum__site_pages_v_blocks_service_ux_ui_block_overlay_color: typeof enum__site_pages_v_blocks_service_ux_ui_block_overlay_color
-  enum__site_pages_v_blocks_services4_services_icon: typeof enum__site_pages_v_blocks_services4_services_icon
-  enum__site_pages_v_blocks_services4_block_background: typeof enum__site_pages_v_blocks_services4_block_background
-  enum__site_pages_v_blocks_services4_block_overlay_color: typeof enum__site_pages_v_blocks_services4_block_overlay_color
-  enum__site_pages_v_blocks_features_scaling_features_icon: typeof enum__site_pages_v_blocks_features_scaling_features_icon
-  enum__site_pages_v_blocks_features_scaling_block_background: typeof enum__site_pages_v_blocks_features_scaling_block_background
-  enum__site_pages_v_blocks_features_scaling_block_overlay_color: typeof enum__site_pages_v_blocks_features_scaling_block_overlay_color
-  enum__feat_ai_acc_v_items_icon: typeof enum__feat_ai_acc_v_items_icon
-  enum__feat_ai_acc_v_block_background: typeof enum__feat_ai_acc_v_block_background
-  enum__feat_ai_acc_v_block_overlay_color: typeof enum__feat_ai_acc_v_block_overlay_color
   enum__site_pages_v_blocks_media_block_block_background: typeof enum__site_pages_v_blocks_media_block_block_background
   enum__site_pages_v_blocks_media_block_block_overlay_color: typeof enum__site_pages_v_blocks_media_block_block_overlay_color
   enum__site_pages_v_blocks_archive_block_background: typeof enum__site_pages_v_blocks_archive_block_background
@@ -7843,7 +7258,8 @@ type DatabaseSchema = {
   enum__site_pages_v_blocks_form_block_block_overlay_color: typeof enum__site_pages_v_blocks_form_block_block_overlay_color
   enum__site_pages_v_version_hero_type: typeof enum__site_pages_v_version_hero_type
   enum__site_pages_v_version_hero_media_type: typeof enum__site_pages_v_version_hero_media_type
-  enum__site_pages_v_version_hero_halo_overlay_grid_variant: typeof enum__site_pages_v_version_hero_halo_overlay_grid_variant
+  enum__site_pages_v_version_hero_media_type_mobile: typeof enum__site_pages_v_version_hero_media_type_mobile
+  enum__site_pages_v_version_hero_surface_pattern: typeof enum__site_pages_v_version_hero_surface_pattern
   enum__site_pages_v_version_hero_logo_display_type: typeof enum__site_pages_v_version_hero_logo_display_type
   enum__site_pages_v_version_status: typeof enum__site_pages_v_version_status
   enum_blog_posts_status: typeof enum_blog_posts_status
@@ -7854,6 +7270,8 @@ type DatabaseSchema = {
   enum_mega_menu_appearance: typeof enum_mega_menu_appearance
   enum_mega_menu_highlight_position: typeof enum_mega_menu_highlight_position
   enum_mega_menu_highlight_background: typeof enum_mega_menu_highlight_background
+  enum_hero_backgrounds_type: typeof enum_hero_backgrounds_type
+  enum_price_calc_items_pricing_type: typeof enum_price_calc_items_pricing_type
   enum_redirects_to_type: typeof enum_redirects_to_type
   enum_forms_confirmation_type: typeof enum_forms_confirmation_type
   enum_payload_jobs_log_task_slug: typeof enum_payload_jobs_log_task_slug
@@ -7868,97 +7286,89 @@ type DatabaseSchema = {
   enum_footer_social_links_platform: typeof enum_footer_social_links_platform
   enum_footer_nav_items_link_type: typeof enum_footer_nav_items_link_type
   enum_theme_settings_theme_mode: typeof enum_theme_settings_theme_mode
+  site_pages_hero_stats: typeof site_pages_hero_stats
   site_pages_hero_floating_elements: typeof site_pages_hero_floating_elements
   site_pages_hero_marquee_logos: typeof site_pages_hero_marquee_logos
   site_pages_hero_links: typeof site_pages_hero_links
   site_pages_blocks_hero_marketing: typeof site_pages_blocks_hero_marketing
-  site_pages_blocks_hero_grid: typeof site_pages_blocks_hero_grid
-  collab_cur: typeof collab_cur
-  site_pages_blocks_scroll_morph_hero: typeof site_pages_blocks_scroll_morph_hero
-  feat_adv_items: typeof feat_adv_items
-  feat_adv: typeof feat_adv
-  site_pages_blocks_feature1_items: typeof site_pages_blocks_feature1_items
-  site_pages_blocks_feature1: typeof site_pages_blocks_feature1
-  site_pages_blocks_feature2_items: typeof site_pages_blocks_feature2_items
-  site_pages_blocks_feature2: typeof site_pages_blocks_feature2
-  site_pages_blocks_faq_simple_faqs: typeof site_pages_blocks_faq_simple_faqs
-  site_pages_blocks_faq_simple: typeof site_pages_blocks_faq_simple
-  site_pages_blocks_pricing_plans_features: typeof site_pages_blocks_pricing_plans_features
-  site_pages_blocks_pricing_plans: typeof site_pages_blocks_pricing_plans
-  site_pages_blocks_pricing: typeof site_pages_blocks_pricing
-  site_pages_blocks_pricing_cards_plans_features: typeof site_pages_blocks_pricing_cards_plans_features
-  site_pages_blocks_pricing_cards_plans: typeof site_pages_blocks_pricing_cards_plans
-  site_pages_blocks_pricing_cards: typeof site_pages_blocks_pricing_cards
-  site_pages_blocks_contact_section1_hours_rows: typeof site_pages_blocks_contact_section1_hours_rows
-  site_pages_blocks_contact_section1: typeof site_pages_blocks_contact_section1
-  site_pages_blocks_cta_section3_right_cards: typeof site_pages_blocks_cta_section3_right_cards
-  site_pages_blocks_cta_section3: typeof site_pages_blocks_cta_section3
+  site_pages_blocks_introduction: typeof site_pages_blocks_introduction
+  site_pages_blocks_consulting_overview_benefit_items: typeof site_pages_blocks_consulting_overview_benefit_items
+  site_pages_blocks_consulting_overview: typeof site_pages_blocks_consulting_overview
+  site_pages_blocks_shadcn_block_content_images: typeof site_pages_blocks_shadcn_block_content_images
+  lnks: typeof lnks
+  site_pages_blocks_shadcn_block: typeof site_pages_blocks_shadcn_block
+  site_pages_blocks_services_overview_services: typeof site_pages_blocks_services_overview_services
+  site_pages_blocks_services_overview: typeof site_pages_blocks_services_overview
+  site_pages_blocks_why_work_with_me_intro_icon_list: typeof site_pages_blocks_why_work_with_me_intro_icon_list
+  site_pages_blocks_why_work_with_me_reasons: typeof site_pages_blocks_why_work_with_me_reasons
+  site_pages_blocks_why_work_with_me: typeof site_pages_blocks_why_work_with_me
+  prof_ueber_werte: typeof prof_ueber_werte
+  prof_ueber: typeof prof_ueber
+  prof_kern_bereiche_details: typeof prof_kern_bereiche_details
+  prof_kern_bereiche: typeof prof_kern_bereiche
+  prof_kern: typeof prof_kern
+  prof_skills_spalten_skills: typeof prof_skills_spalten_skills
+  prof_skills_spalten: typeof prof_skills_spalten
+  prof_skills: typeof prof_skills
+  prof_weg_eintraege: typeof prof_weg_eintraege
+  prof_weg: typeof prof_weg
+  prof_zahl_items: typeof prof_zahl_items
+  prof_zahl: typeof prof_zahl
+  prof_tools_tools: typeof prof_tools_tools
+  prof_tools: typeof prof_tools
+  prof_lang_zert_sprachen: typeof prof_lang_zert_sprachen
+  prof_lang_zert_zertifikate: typeof prof_lang_zert_zertifikate
+  prof_lang_zert: typeof prof_lang_zert
+  prof_cta: typeof prof_cta
+  site_pages_blocks_price_calculator: typeof site_pages_blocks_price_calculator
   site_pages_blocks_cta_links: typeof site_pages_blocks_cta_links
   site_pages_blocks_cta: typeof site_pages_blocks_cta
   site_pages_blocks_content_columns: typeof site_pages_blocks_content_columns
   site_pages_blocks_content: typeof site_pages_blocks_content
-  site_pages_blocks_serp_content_bullets: typeof site_pages_blocks_serp_content_bullets
-  site_pages_blocks_serp_content: typeof site_pages_blocks_serp_content
-  site_pages_blocks_lyra_content: typeof site_pages_blocks_lyra_content
-  site_pages_blocks_lyra_feature: typeof site_pages_blocks_lyra_feature
-  site_pages_blocks_features_grid_items: typeof site_pages_blocks_features_grid_items
-  site_pages_blocks_features_grid: typeof site_pages_blocks_features_grid
-  site_pages_blocks_service_ux_ui: typeof site_pages_blocks_service_ux_ui
-  site_pages_blocks_services4_services_items: typeof site_pages_blocks_services4_services_items
-  site_pages_blocks_services4_services: typeof site_pages_blocks_services4_services
-  site_pages_blocks_services4: typeof site_pages_blocks_services4
-  site_pages_blocks_features_scaling_features: typeof site_pages_blocks_features_scaling_features
-  site_pages_blocks_features_scaling: typeof site_pages_blocks_features_scaling
-  feat_ai_acc_items: typeof feat_ai_acc_items
-  feat_ai_acc: typeof feat_ai_acc
   site_pages_blocks_media_block: typeof site_pages_blocks_media_block
   site_pages_blocks_archive: typeof site_pages_blocks_archive
   site_pages_blocks_form_block: typeof site_pages_blocks_form_block
   site_pages: typeof site_pages
   site_pages_rels: typeof site_pages_rels
+  _site_pages_v_version_hero_stats: typeof _site_pages_v_version_hero_stats
   _site_pages_v_version_hero_floating_elements: typeof _site_pages_v_version_hero_floating_elements
   _site_pages_v_version_hero_marquee_logos: typeof _site_pages_v_version_hero_marquee_logos
   _site_pages_v_version_hero_links: typeof _site_pages_v_version_hero_links
   _site_pages_v_blocks_hero_marketing: typeof _site_pages_v_blocks_hero_marketing
-  _site_pages_v_blocks_hero_grid: typeof _site_pages_v_blocks_hero_grid
-  _collab_cur_v: typeof _collab_cur_v
-  _site_pages_v_blocks_scroll_morph_hero: typeof _site_pages_v_blocks_scroll_morph_hero
-  _feat_adv_v_items: typeof _feat_adv_v_items
-  _feat_adv_v: typeof _feat_adv_v
-  _site_pages_v_blocks_feature1_items: typeof _site_pages_v_blocks_feature1_items
-  _site_pages_v_blocks_feature1: typeof _site_pages_v_blocks_feature1
-  _site_pages_v_blocks_feature2_items: typeof _site_pages_v_blocks_feature2_items
-  _site_pages_v_blocks_feature2: typeof _site_pages_v_blocks_feature2
-  _site_pages_v_blocks_faq_simple_faqs: typeof _site_pages_v_blocks_faq_simple_faqs
-  _site_pages_v_blocks_faq_simple: typeof _site_pages_v_blocks_faq_simple
-  _site_pages_v_blocks_pricing_plans_features: typeof _site_pages_v_blocks_pricing_plans_features
-  _site_pages_v_blocks_pricing_plans: typeof _site_pages_v_blocks_pricing_plans
-  _site_pages_v_blocks_pricing: typeof _site_pages_v_blocks_pricing
-  _site_pages_v_blocks_pricing_cards_plans_features: typeof _site_pages_v_blocks_pricing_cards_plans_features
-  _site_pages_v_blocks_pricing_cards_plans: typeof _site_pages_v_blocks_pricing_cards_plans
-  _site_pages_v_blocks_pricing_cards: typeof _site_pages_v_blocks_pricing_cards
-  _site_pages_v_blocks_contact_section1_hours_rows: typeof _site_pages_v_blocks_contact_section1_hours_rows
-  _site_pages_v_blocks_contact_section1: typeof _site_pages_v_blocks_contact_section1
-  _site_pages_v_blocks_cta_section3_right_cards: typeof _site_pages_v_blocks_cta_section3_right_cards
-  _site_pages_v_blocks_cta_section3: typeof _site_pages_v_blocks_cta_section3
+  _site_pages_v_blocks_introduction: typeof _site_pages_v_blocks_introduction
+  _site_pages_v_blocks_consulting_overview_benefit_items: typeof _site_pages_v_blocks_consulting_overview_benefit_items
+  _site_pages_v_blocks_consulting_overview: typeof _site_pages_v_blocks_consulting_overview
+  _site_pages_v_blocks_shadcn_block_content_images: typeof _site_pages_v_blocks_shadcn_block_content_images
+  _lnks_v: typeof _lnks_v
+  _site_pages_v_blocks_shadcn_block: typeof _site_pages_v_blocks_shadcn_block
+  _site_pages_v_blocks_services_overview_services: typeof _site_pages_v_blocks_services_overview_services
+  _site_pages_v_blocks_services_overview: typeof _site_pages_v_blocks_services_overview
+  _site_pages_v_blocks_why_work_with_me_intro_icon_list: typeof _site_pages_v_blocks_why_work_with_me_intro_icon_list
+  _site_pages_v_blocks_why_work_with_me_reasons: typeof _site_pages_v_blocks_why_work_with_me_reasons
+  _site_pages_v_blocks_why_work_with_me: typeof _site_pages_v_blocks_why_work_with_me
+  _prof_ueber_v_werte: typeof _prof_ueber_v_werte
+  _prof_ueber_v: typeof _prof_ueber_v
+  _prof_kern_v_bereiche_details: typeof _prof_kern_v_bereiche_details
+  _prof_kern_v_bereiche: typeof _prof_kern_v_bereiche
+  _prof_kern_v: typeof _prof_kern_v
+  _prof_skills_v_spalten_skills: typeof _prof_skills_v_spalten_skills
+  _prof_skills_v_spalten: typeof _prof_skills_v_spalten
+  _prof_skills_v: typeof _prof_skills_v
+  _prof_weg_v_eintraege: typeof _prof_weg_v_eintraege
+  _prof_weg_v: typeof _prof_weg_v
+  _prof_zahl_v_items: typeof _prof_zahl_v_items
+  _prof_zahl_v: typeof _prof_zahl_v
+  _prof_tools_v_tools: typeof _prof_tools_v_tools
+  _prof_tools_v: typeof _prof_tools_v
+  _prof_lang_zert_v_sprachen: typeof _prof_lang_zert_v_sprachen
+  _prof_lang_zert_v_zertifikate: typeof _prof_lang_zert_v_zertifikate
+  _prof_lang_zert_v: typeof _prof_lang_zert_v
+  _prof_cta_v: typeof _prof_cta_v
+  _site_pages_v_blocks_price_calculator: typeof _site_pages_v_blocks_price_calculator
   _site_pages_v_blocks_cta_links: typeof _site_pages_v_blocks_cta_links
   _site_pages_v_blocks_cta: typeof _site_pages_v_blocks_cta
   _site_pages_v_blocks_content_columns: typeof _site_pages_v_blocks_content_columns
   _site_pages_v_blocks_content: typeof _site_pages_v_blocks_content
-  _site_pages_v_blocks_serp_content_bullets: typeof _site_pages_v_blocks_serp_content_bullets
-  _site_pages_v_blocks_serp_content: typeof _site_pages_v_blocks_serp_content
-  _site_pages_v_blocks_lyra_content: typeof _site_pages_v_blocks_lyra_content
-  _site_pages_v_blocks_lyra_feature: typeof _site_pages_v_blocks_lyra_feature
-  _site_pages_v_blocks_features_grid_items: typeof _site_pages_v_blocks_features_grid_items
-  _site_pages_v_blocks_features_grid: typeof _site_pages_v_blocks_features_grid
-  _site_pages_v_blocks_service_ux_ui: typeof _site_pages_v_blocks_service_ux_ui
-  _site_pages_v_blocks_services4_services_items: typeof _site_pages_v_blocks_services4_services_items
-  _site_pages_v_blocks_services4_services: typeof _site_pages_v_blocks_services4_services
-  _site_pages_v_blocks_services4: typeof _site_pages_v_blocks_services4
-  _site_pages_v_blocks_features_scaling_features: typeof _site_pages_v_blocks_features_scaling_features
-  _site_pages_v_blocks_features_scaling: typeof _site_pages_v_blocks_features_scaling
-  _feat_ai_acc_v_items: typeof _feat_ai_acc_v_items
-  _feat_ai_acc_v: typeof _feat_ai_acc_v
   _site_pages_v_blocks_media_block: typeof _site_pages_v_blocks_media_block
   _site_pages_v_blocks_archive: typeof _site_pages_v_blocks_archive
   _site_pages_v_blocks_form_block: typeof _site_pages_v_blocks_form_block
@@ -7980,6 +7390,9 @@ type DatabaseSchema = {
   mega_menu_columns: typeof mega_menu_columns
   mega_menu_highlight_cards: typeof mega_menu_highlight_cards
   mega_menu: typeof mega_menu
+  hero_backgrounds: typeof hero_backgrounds
+  price_calc_categories: typeof price_calc_categories
+  price_calc_items: typeof price_calc_items
   redirects: typeof redirects
   redirects_rels: typeof redirects_rels
   forms_blocks_checkbox: typeof forms_blocks_checkbox
@@ -8020,97 +7433,90 @@ type DatabaseSchema = {
   footer_rels: typeof footer_rels
   design: typeof design
   theme_settings: typeof theme_settings
+  price_calculator: typeof price_calculator
+  relations_site_pages_hero_stats: typeof relations_site_pages_hero_stats
   relations_site_pages_hero_floating_elements: typeof relations_site_pages_hero_floating_elements
   relations_site_pages_hero_marquee_logos: typeof relations_site_pages_hero_marquee_logos
   relations_site_pages_hero_links: typeof relations_site_pages_hero_links
   relations_site_pages_blocks_hero_marketing: typeof relations_site_pages_blocks_hero_marketing
-  relations_site_pages_blocks_hero_grid: typeof relations_site_pages_blocks_hero_grid
-  relations_collab_cur: typeof relations_collab_cur
-  relations_site_pages_blocks_scroll_morph_hero: typeof relations_site_pages_blocks_scroll_morph_hero
-  relations_feat_adv_items: typeof relations_feat_adv_items
-  relations_feat_adv: typeof relations_feat_adv
-  relations_site_pages_blocks_feature1_items: typeof relations_site_pages_blocks_feature1_items
-  relations_site_pages_blocks_feature1: typeof relations_site_pages_blocks_feature1
-  relations_site_pages_blocks_feature2_items: typeof relations_site_pages_blocks_feature2_items
-  relations_site_pages_blocks_feature2: typeof relations_site_pages_blocks_feature2
-  relations_site_pages_blocks_faq_simple_faqs: typeof relations_site_pages_blocks_faq_simple_faqs
-  relations_site_pages_blocks_faq_simple: typeof relations_site_pages_blocks_faq_simple
-  relations_site_pages_blocks_pricing_plans_features: typeof relations_site_pages_blocks_pricing_plans_features
-  relations_site_pages_blocks_pricing_plans: typeof relations_site_pages_blocks_pricing_plans
-  relations_site_pages_blocks_pricing: typeof relations_site_pages_blocks_pricing
-  relations_site_pages_blocks_pricing_cards_plans_features: typeof relations_site_pages_blocks_pricing_cards_plans_features
-  relations_site_pages_blocks_pricing_cards_plans: typeof relations_site_pages_blocks_pricing_cards_plans
-  relations_site_pages_blocks_pricing_cards: typeof relations_site_pages_blocks_pricing_cards
-  relations_site_pages_blocks_contact_section1_hours_rows: typeof relations_site_pages_blocks_contact_section1_hours_rows
-  relations_site_pages_blocks_contact_section1: typeof relations_site_pages_blocks_contact_section1
-  relations_site_pages_blocks_cta_section3_right_cards: typeof relations_site_pages_blocks_cta_section3_right_cards
-  relations_site_pages_blocks_cta_section3: typeof relations_site_pages_blocks_cta_section3
+  relations_site_pages_blocks_introduction: typeof relations_site_pages_blocks_introduction
+  relations_site_pages_blocks_consulting_overview_benefit_items: typeof relations_site_pages_blocks_consulting_overview_benefit_items
+  relations_site_pages_blocks_consulting_overview: typeof relations_site_pages_blocks_consulting_overview
+  relations_site_pages_blocks_shadcn_block_content_images: typeof relations_site_pages_blocks_shadcn_block_content_images
+  relations_lnks: typeof relations_lnks
+  relations_site_pages_blocks_shadcn_block: typeof relations_site_pages_blocks_shadcn_block
+  relations_site_pages_blocks_services_overview_services: typeof relations_site_pages_blocks_services_overview_services
+  relations_site_pages_blocks_services_overview: typeof relations_site_pages_blocks_services_overview
+  relations_site_pages_blocks_why_work_with_me_intro_icon_list: typeof relations_site_pages_blocks_why_work_with_me_intro_icon_list
+  relations_site_pages_blocks_why_work_with_me_reasons: typeof relations_site_pages_blocks_why_work_with_me_reasons
+  relations_site_pages_blocks_why_work_with_me: typeof relations_site_pages_blocks_why_work_with_me
+  relations_prof_ueber_werte: typeof relations_prof_ueber_werte
+  relations_prof_ueber: typeof relations_prof_ueber
+  relations_prof_kern_bereiche_details: typeof relations_prof_kern_bereiche_details
+  relations_prof_kern_bereiche: typeof relations_prof_kern_bereiche
+  relations_prof_kern: typeof relations_prof_kern
+  relations_prof_skills_spalten_skills: typeof relations_prof_skills_spalten_skills
+  relations_prof_skills_spalten: typeof relations_prof_skills_spalten
+  relations_prof_skills: typeof relations_prof_skills
+  relations_prof_weg_eintraege: typeof relations_prof_weg_eintraege
+  relations_prof_weg: typeof relations_prof_weg
+  relations_prof_zahl_items: typeof relations_prof_zahl_items
+  relations_prof_zahl: typeof relations_prof_zahl
+  relations_prof_tools_tools: typeof relations_prof_tools_tools
+  relations_prof_tools: typeof relations_prof_tools
+  relations_prof_lang_zert_sprachen: typeof relations_prof_lang_zert_sprachen
+  relations_prof_lang_zert_zertifikate: typeof relations_prof_lang_zert_zertifikate
+  relations_prof_lang_zert: typeof relations_prof_lang_zert
+  relations_prof_cta: typeof relations_prof_cta
+  relations_site_pages_blocks_price_calculator: typeof relations_site_pages_blocks_price_calculator
   relations_site_pages_blocks_cta_links: typeof relations_site_pages_blocks_cta_links
   relations_site_pages_blocks_cta: typeof relations_site_pages_blocks_cta
   relations_site_pages_blocks_content_columns: typeof relations_site_pages_blocks_content_columns
   relations_site_pages_blocks_content: typeof relations_site_pages_blocks_content
-  relations_site_pages_blocks_serp_content_bullets: typeof relations_site_pages_blocks_serp_content_bullets
-  relations_site_pages_blocks_serp_content: typeof relations_site_pages_blocks_serp_content
-  relations_site_pages_blocks_lyra_content: typeof relations_site_pages_blocks_lyra_content
-  relations_site_pages_blocks_lyra_feature: typeof relations_site_pages_blocks_lyra_feature
-  relations_site_pages_blocks_features_grid_items: typeof relations_site_pages_blocks_features_grid_items
-  relations_site_pages_blocks_features_grid: typeof relations_site_pages_blocks_features_grid
-  relations_site_pages_blocks_service_ux_ui: typeof relations_site_pages_blocks_service_ux_ui
-  relations_site_pages_blocks_services4_services_items: typeof relations_site_pages_blocks_services4_services_items
-  relations_site_pages_blocks_services4_services: typeof relations_site_pages_blocks_services4_services
-  relations_site_pages_blocks_services4: typeof relations_site_pages_blocks_services4
-  relations_site_pages_blocks_features_scaling_features: typeof relations_site_pages_blocks_features_scaling_features
-  relations_site_pages_blocks_features_scaling: typeof relations_site_pages_blocks_features_scaling
-  relations_feat_ai_acc_items: typeof relations_feat_ai_acc_items
-  relations_feat_ai_acc: typeof relations_feat_ai_acc
   relations_site_pages_blocks_media_block: typeof relations_site_pages_blocks_media_block
   relations_site_pages_blocks_archive: typeof relations_site_pages_blocks_archive
   relations_site_pages_blocks_form_block: typeof relations_site_pages_blocks_form_block
   relations_site_pages_rels: typeof relations_site_pages_rels
   relations_site_pages: typeof relations_site_pages
+  relations__site_pages_v_version_hero_stats: typeof relations__site_pages_v_version_hero_stats
   relations__site_pages_v_version_hero_floating_elements: typeof relations__site_pages_v_version_hero_floating_elements
   relations__site_pages_v_version_hero_marquee_logos: typeof relations__site_pages_v_version_hero_marquee_logos
   relations__site_pages_v_version_hero_links: typeof relations__site_pages_v_version_hero_links
   relations__site_pages_v_blocks_hero_marketing: typeof relations__site_pages_v_blocks_hero_marketing
-  relations__site_pages_v_blocks_hero_grid: typeof relations__site_pages_v_blocks_hero_grid
-  relations__collab_cur_v: typeof relations__collab_cur_v
-  relations__site_pages_v_blocks_scroll_morph_hero: typeof relations__site_pages_v_blocks_scroll_morph_hero
-  relations__feat_adv_v_items: typeof relations__feat_adv_v_items
-  relations__feat_adv_v: typeof relations__feat_adv_v
-  relations__site_pages_v_blocks_feature1_items: typeof relations__site_pages_v_blocks_feature1_items
-  relations__site_pages_v_blocks_feature1: typeof relations__site_pages_v_blocks_feature1
-  relations__site_pages_v_blocks_feature2_items: typeof relations__site_pages_v_blocks_feature2_items
-  relations__site_pages_v_blocks_feature2: typeof relations__site_pages_v_blocks_feature2
-  relations__site_pages_v_blocks_faq_simple_faqs: typeof relations__site_pages_v_blocks_faq_simple_faqs
-  relations__site_pages_v_blocks_faq_simple: typeof relations__site_pages_v_blocks_faq_simple
-  relations__site_pages_v_blocks_pricing_plans_features: typeof relations__site_pages_v_blocks_pricing_plans_features
-  relations__site_pages_v_blocks_pricing_plans: typeof relations__site_pages_v_blocks_pricing_plans
-  relations__site_pages_v_blocks_pricing: typeof relations__site_pages_v_blocks_pricing
-  relations__site_pages_v_blocks_pricing_cards_plans_features: typeof relations__site_pages_v_blocks_pricing_cards_plans_features
-  relations__site_pages_v_blocks_pricing_cards_plans: typeof relations__site_pages_v_blocks_pricing_cards_plans
-  relations__site_pages_v_blocks_pricing_cards: typeof relations__site_pages_v_blocks_pricing_cards
-  relations__site_pages_v_blocks_contact_section1_hours_rows: typeof relations__site_pages_v_blocks_contact_section1_hours_rows
-  relations__site_pages_v_blocks_contact_section1: typeof relations__site_pages_v_blocks_contact_section1
-  relations__site_pages_v_blocks_cta_section3_right_cards: typeof relations__site_pages_v_blocks_cta_section3_right_cards
-  relations__site_pages_v_blocks_cta_section3: typeof relations__site_pages_v_blocks_cta_section3
+  relations__site_pages_v_blocks_introduction: typeof relations__site_pages_v_blocks_introduction
+  relations__site_pages_v_blocks_consulting_overview_benefit_items: typeof relations__site_pages_v_blocks_consulting_overview_benefit_items
+  relations__site_pages_v_blocks_consulting_overview: typeof relations__site_pages_v_blocks_consulting_overview
+  relations__site_pages_v_blocks_shadcn_block_content_images: typeof relations__site_pages_v_blocks_shadcn_block_content_images
+  relations__lnks_v: typeof relations__lnks_v
+  relations__site_pages_v_blocks_shadcn_block: typeof relations__site_pages_v_blocks_shadcn_block
+  relations__site_pages_v_blocks_services_overview_services: typeof relations__site_pages_v_blocks_services_overview_services
+  relations__site_pages_v_blocks_services_overview: typeof relations__site_pages_v_blocks_services_overview
+  relations__site_pages_v_blocks_why_work_with_me_intro_icon_list: typeof relations__site_pages_v_blocks_why_work_with_me_intro_icon_list
+  relations__site_pages_v_blocks_why_work_with_me_reasons: typeof relations__site_pages_v_blocks_why_work_with_me_reasons
+  relations__site_pages_v_blocks_why_work_with_me: typeof relations__site_pages_v_blocks_why_work_with_me
+  relations__prof_ueber_v_werte: typeof relations__prof_ueber_v_werte
+  relations__prof_ueber_v: typeof relations__prof_ueber_v
+  relations__prof_kern_v_bereiche_details: typeof relations__prof_kern_v_bereiche_details
+  relations__prof_kern_v_bereiche: typeof relations__prof_kern_v_bereiche
+  relations__prof_kern_v: typeof relations__prof_kern_v
+  relations__prof_skills_v_spalten_skills: typeof relations__prof_skills_v_spalten_skills
+  relations__prof_skills_v_spalten: typeof relations__prof_skills_v_spalten
+  relations__prof_skills_v: typeof relations__prof_skills_v
+  relations__prof_weg_v_eintraege: typeof relations__prof_weg_v_eintraege
+  relations__prof_weg_v: typeof relations__prof_weg_v
+  relations__prof_zahl_v_items: typeof relations__prof_zahl_v_items
+  relations__prof_zahl_v: typeof relations__prof_zahl_v
+  relations__prof_tools_v_tools: typeof relations__prof_tools_v_tools
+  relations__prof_tools_v: typeof relations__prof_tools_v
+  relations__prof_lang_zert_v_sprachen: typeof relations__prof_lang_zert_v_sprachen
+  relations__prof_lang_zert_v_zertifikate: typeof relations__prof_lang_zert_v_zertifikate
+  relations__prof_lang_zert_v: typeof relations__prof_lang_zert_v
+  relations__prof_cta_v: typeof relations__prof_cta_v
+  relations__site_pages_v_blocks_price_calculator: typeof relations__site_pages_v_blocks_price_calculator
   relations__site_pages_v_blocks_cta_links: typeof relations__site_pages_v_blocks_cta_links
   relations__site_pages_v_blocks_cta: typeof relations__site_pages_v_blocks_cta
   relations__site_pages_v_blocks_content_columns: typeof relations__site_pages_v_blocks_content_columns
   relations__site_pages_v_blocks_content: typeof relations__site_pages_v_blocks_content
-  relations__site_pages_v_blocks_serp_content_bullets: typeof relations__site_pages_v_blocks_serp_content_bullets
-  relations__site_pages_v_blocks_serp_content: typeof relations__site_pages_v_blocks_serp_content
-  relations__site_pages_v_blocks_lyra_content: typeof relations__site_pages_v_blocks_lyra_content
-  relations__site_pages_v_blocks_lyra_feature: typeof relations__site_pages_v_blocks_lyra_feature
-  relations__site_pages_v_blocks_features_grid_items: typeof relations__site_pages_v_blocks_features_grid_items
-  relations__site_pages_v_blocks_features_grid: typeof relations__site_pages_v_blocks_features_grid
-  relations__site_pages_v_blocks_service_ux_ui: typeof relations__site_pages_v_blocks_service_ux_ui
-  relations__site_pages_v_blocks_services4_services_items: typeof relations__site_pages_v_blocks_services4_services_items
-  relations__site_pages_v_blocks_services4_services: typeof relations__site_pages_v_blocks_services4_services
-  relations__site_pages_v_blocks_services4: typeof relations__site_pages_v_blocks_services4
-  relations__site_pages_v_blocks_features_scaling_features: typeof relations__site_pages_v_blocks_features_scaling_features
-  relations__site_pages_v_blocks_features_scaling: typeof relations__site_pages_v_blocks_features_scaling
-  relations__feat_ai_acc_v_items: typeof relations__feat_ai_acc_v_items
-  relations__feat_ai_acc_v: typeof relations__feat_ai_acc_v
   relations__site_pages_v_blocks_media_block: typeof relations__site_pages_v_blocks_media_block
   relations__site_pages_v_blocks_archive: typeof relations__site_pages_v_blocks_archive
   relations__site_pages_v_blocks_form_block: typeof relations__site_pages_v_blocks_form_block
@@ -8132,6 +7538,9 @@ type DatabaseSchema = {
   relations_mega_menu_columns: typeof relations_mega_menu_columns
   relations_mega_menu_highlight_cards: typeof relations_mega_menu_highlight_cards
   relations_mega_menu: typeof relations_mega_menu
+  relations_hero_backgrounds: typeof relations_hero_backgrounds
+  relations_price_calc_categories: typeof relations_price_calc_categories
+  relations_price_calc_items: typeof relations_price_calc_items
   relations_redirects_rels: typeof relations_redirects_rels
   relations_redirects: typeof relations_redirects
   relations_forms_blocks_checkbox: typeof relations_forms_blocks_checkbox
@@ -8172,6 +7581,7 @@ type DatabaseSchema = {
   relations_footer: typeof relations_footer
   relations_design: typeof relations_design
   relations_theme_settings: typeof relations_theme_settings
+  relations_price_calculator: typeof relations_price_calculator
 }
 
 declare module '@payloadcms/db-vercel-postgres' {

@@ -31,13 +31,9 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
   const badgeText = badge || subheadline || undefined
   const headlineLines = headline
     ? headline.split('\n').filter(Boolean)
-    : [headlineLine1, headlineLine2, headlineLine3].filter(
-        (line): line is string => Boolean(line),
-      )
+    : [headlineLine1, headlineLine2, headlineLine3].filter((line): line is string => Boolean(line))
 
-  const ctaLinks = (links ?? [])
-    .map((item) => item?.link)
-    .filter(Boolean) as CMSLinkProps[]
+  const ctaLinks = (links ?? []).map((item) => item?.link).filter(Boolean) as CMSLinkProps[]
 
   const primaryLink = ctaLinks[0]
   const secondaryLink = ctaLinks[1]
@@ -46,10 +42,17 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
     <section className="relative w-full overflow-hidden bg-background min-h-screen flex flex-col transition-colors duration-500">
       <style jsx>{`
         @keyframes float-element {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-25px); }
+          0%,
+          100% {
+            transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-25px);
+          }
         }
-        .animate-float { animation: float-element 7s ease-in-out infinite; }
+        .animate-float {
+          animation: float-element 7s ease-in-out infinite;
+        }
         .grid-mask {
           mask-image: radial-gradient(circle at center, black 100%, transparent 100%);
           -webkit-mask-image: radial-gradient(circle at center, black 100%, transparent 100%);
@@ -97,7 +100,13 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
                   </span>
                 ))
               ) : (
-                <>Unleash the<br />Mountain<br />Within.</>
+                <>
+                  Unleash the
+                  <br />
+                  Mountain
+                  <br />
+                  Within.
+                </>
               )}
             </h1>
 
@@ -175,9 +184,18 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
 
       <div className="absolute bottom-0 left-0 w-full z-40 pointer-events-none">
         <svg viewBox="0 0 1440 200" className="w-full h-auto block" preserveAspectRatio="none">
-          <path d="M0,160 C320,260 480,10 640,110 C800,210 1120,60 1440,160 L1440,200 L0,200 Z" className="fill-background opacity-20" />
-          <path d="M0,140 C280,220 560,40 840,140 C1120,240 1260,100 1440,140 L1440,200 L0,200 Z" className="fill-background opacity-50" />
-          <path d="M0,120 C360,220 720,20 1080,120 C1240,170 1360,140 1440,120 L1440,200 L0,200 Z" className="fill-background" />
+          <path
+            d="M0,160 C320,260 480,10 640,110 C800,210 1120,60 1440,160 L1440,200 L0,200 Z"
+            className="fill-background opacity-20"
+          />
+          <path
+            d="M0,140 C280,220 560,40 840,140 C1120,240 1260,100 1440,140 L1440,200 L0,200 Z"
+            className="fill-background opacity-50"
+          />
+          <path
+            d="M0,120 C360,220 720,20 1080,120 C1240,170 1360,140 1440,120 L1440,200 L0,200 Z"
+            className="fill-background"
+          />
         </svg>
       </div>
     </section>

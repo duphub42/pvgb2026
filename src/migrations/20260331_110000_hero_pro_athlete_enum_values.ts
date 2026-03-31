@@ -9,7 +9,9 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     sql.raw(`ALTER TYPE "public"."enum_site_pages_hero_type" ADD VALUE IF NOT EXISTS 'proAthlete'`),
   )
   await db.execute(
-    sql.raw(`ALTER TYPE "public"."enum__site_pages_v_version_hero_type" ADD VALUE IF NOT EXISTS 'proAthlete'`),
+    sql.raw(
+      `ALTER TYPE "public"."enum__site_pages_v_version_hero_type" ADD VALUE IF NOT EXISTS 'proAthlete'`,
+    ),
   )
 }
 

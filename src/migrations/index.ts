@@ -72,6 +72,7 @@ import * as migration_20260330_140000_site_pages_hero_stack_surface_pattern from
 import * as migration_20260331_000000_repair_site_pages_hero_stack_columns from './20260331_000000_repair_site_pages_hero_stack_columns'
 import * as migration_20260331_100000_prof_nested_varchar_id_default from './20260331_100000_prof_nested_varchar_id_default'
 import * as migration_20260331_120000_site_pages_hero_stats from './20260331_120000_site_pages_hero_stats'
+import * as migration_20260401_100000_site_pages_hero_badge from './20260401_100000_site_pages_hero_badge'
 
 export const migrations = [
   {
@@ -443,5 +444,10 @@ export const migrations = [
     up: migration_20260331_120000_site_pages_hero_stats.up,
     down: migration_20260331_120000_site_pages_hero_stats.down,
     name: '20260331_120000_site_pages_hero_stats',
+  },
+  {
+    up: migration_20260401_100000_site_pages_hero_badge.up,
+    down: migration_20260401_100000_site_pages_hero_badge.down,
+    name: '20260401_100000_site_pages_hero_badge',
   },
 ]
