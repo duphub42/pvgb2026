@@ -330,6 +330,7 @@ export const enum_site_pages_hero_type = pgEnum('enum_site_pages_hero_type', [
   'lowImpact',
   'philippBacher',
   'superhero',
+  'proAthlete',
   'gridHero',
 ])
 export const enum_site_pages_hero_media_type = pgEnum('enum_site_pages_hero_media_type', [
@@ -653,6 +654,7 @@ export const enum__site_pages_v_version_hero_type = pgEnum('enum__site_pages_v_v
   'lowImpact',
   'philippBacher',
   'superhero',
+  'proAthlete',
   'gridHero',
 ])
 export const enum__site_pages_v_version_hero_media_type = pgEnum(

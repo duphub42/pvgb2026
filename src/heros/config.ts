@@ -18,6 +18,7 @@ const HERO_TYPES_WITH_EDITABLE_CONTENT = [
   'mediumImpact',
   'lowImpact',
   'superhero',
+  'proAthlete',
 ] as const
 
 const hasEditableContent = (type: string | undefined) =>
@@ -25,6 +26,10 @@ const hasEditableContent = (type: string | undefined) =>
 
 const heroTypesWithLogoMarquee = (type: string | undefined) =>
   ['superhero', 'highImpact', 'mediumImpact', 'lowImpact'].includes(String(type ?? ''))
+
+const isProAthleteHero = (type: string | undefined) => String(type ?? '') === 'proAthlete'
+const isHeadlineLineHero = (type: string | undefined) =>
+  isPopoutLayoutHero(type) || isProAthleteHero(type)
 
 export const hero: Field = {
   name: 'hero',
@@ -42,6 +47,7 @@ export const hero: Field = {
         { label: 'Medium Impact', value: 'mediumImpact' },
         { label: 'Low Impact', value: 'lowImpact' },
         { label: 'Superhero (Popout-Portrait)', value: 'superhero' },
+        { label: 'Pro Athlete', value: 'proAthlete' },
       ],
     },
     {
@@ -83,6 +89,15 @@ export const hero: Field = {
       },
     },
     {
+      name: 'badge',
+      type: 'text',
+      label: 'Badge',
+      admin: {
+        condition: (_, siblingData) => isProAthleteHero(String(siblingData?.type ?? '')),
+        description: 'Kurzer Label-Text über der Hauptüberschrift (z. B. Pro Athlete 2026).',
+      },
+    },
+    {
       name: 'headline',
       type: 'text',
       label: 'Haupt-Überschrift',
@@ -95,7 +110,7 @@ export const hero: Field = {
       type: 'text',
       label: 'Überschrift Zeile 1',
       admin: {
-        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isHeadlineLineHero(String(siblingData?.type ?? '')),
         description:
           'Optional. Wenn gesetzt: mehrzeilige Überschrift. Sonst wird „Haupt-Überschrift“ verwendet.',
       },
@@ -105,7 +120,7 @@ export const hero: Field = {
       type: 'text',
       label: 'Überschrift Zeile 2',
       admin: {
-        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isHeadlineLineHero(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -113,7 +128,7 @@ export const hero: Field = {
       type: 'text',
       label: 'Überschrift Zeile 3',
       admin: {
-        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isHeadlineLineHero(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -123,6 +138,29 @@ export const hero: Field = {
       admin: {
         condition: (_, siblingData) => hasEditableContent(String(siblingData?.type ?? '')),
       },
+    },
+    {
+      name: 'stats',
+      type: 'array',
+      label: 'Stats',
+      admin: {
+        condition: (_, siblingData) => isProAthleteHero(String(siblingData?.type ?? '')),
+        description: 'Statistiken, die im Hero als Zahlen-/Label-Paare angezeigt werden.',
+      },
+      fields: [
+        {
+          name: 'value',
+          type: 'text',
+          label: 'Wert',
+          required: true,
+        },
+        {
+          name: 'label',
+          type: 'text',
+          label: 'Label',
+          required: true,
+        },
+      ],
     },
     {
       name: 'backgroundPreset',

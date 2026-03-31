@@ -175,7 +175,7 @@ export interface SitePage {
   id: number;
   title: string;
   hero?: {
-    type?: ('none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'superhero') | null;
+    type?: ('none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'superhero' | 'proAthlete') | null;
     richText?: {
       root: {
         type: string;
@@ -196,6 +196,10 @@ export interface SitePage {
      */
     media?: (number | null) | Media;
     subheadline?: string | null;
+    /**
+     * Kurzer Label-Text über der Hauptüberschrift (z. B. Pro Athlete 2026).
+     */
+    badge?: string | null;
     headline?: string | null;
     /**
      * Optional. Wenn gesetzt: mehrzeilige Überschrift. Sonst wird „Haupt-Überschrift“ verwendet.
@@ -204,6 +208,16 @@ export interface SitePage {
     headlineLine2?: string | null;
     headlineLine3?: string | null;
     description?: string | null;
+    /**
+     * Statistiken, die im Hero als Zahlen-/Label-Paare angezeigt werden.
+     */
+    stats?:
+      | {
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
     /**
      * Optionales, animiertes Hintergrund-Preset (Halo CSS, Gradient). Wird hinter dem jeweiligen Hero-Layout gerendert.
      */
@@ -2196,11 +2210,19 @@ export interface SitePagesSelect<T extends boolean = true> {
         richText?: T;
         media?: T;
         subheadline?: T;
+        badge?: T;
         headline?: T;
         headlineLine1?: T;
         headlineLine2?: T;
         headlineLine3?: T;
         description?: T;
+        stats?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
         backgroundPreset?: T;
         mediaType?: T;
         mediaTypeMobile?: T;

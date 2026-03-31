@@ -54,6 +54,8 @@ const heroes = {
   highImpact: dynamic(() => import('@/heros/HighImpact').then((m) => m.HighImpactHero)),
   mediumImpact: dynamic(() => import('@/heros/MediumImpact').then((m) => m.MediumImpactHero)),
   lowImpact: dynamic(() => import('@/heros/LowImpact').then((m) => m.LowImpactHero)),
+  /** Pro Athlete – neues, editierbares Hero-Layout. */
+  proAthlete: dynamic(() => import('@/heros/ProAthlete').then((m) => m.ProAthleteHero)),
   /** Popout-Portrait — klarer Produktiv-Typ. */
   superhero: SuperheroHeroLazy,
 }
