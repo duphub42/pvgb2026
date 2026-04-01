@@ -17,6 +17,13 @@ type ProAthleteHeroType = SitePage['hero'] & {
   stats?: HeroStat[] | null
 }
 
+function resolveMediaSrc(ref: unknown): string | null {
+  if (!ref) return null
+  if (typeof ref === 'string') return ref
+  if (typeof ref === 'object' && ref !== null) return (ref as { url?: string | null }).url ?? null
+  return null
+}
+
 export const ProAthleteHero: FC<ProAthleteHeroType> = ({
   badge,
   subheadline,
@@ -26,12 +33,21 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
   headlineLine3,
   description,
   links,
+  media,
+  backgroundImage,
+  foregroundImage,
+  stackBackImage,
   stats,
 }) => {
   const badgeText = badge || subheadline || undefined
   const headlineLines = headline
     ? headline.split('\n').filter(Boolean)
     : [headlineLine1, headlineLine2, headlineLine3].filter((line): line is string => Boolean(line))
+
+  const backgroundSrc = resolveMediaSrc(backgroundImage) ?? '/images/bg-profile.png'
+  const patternSrc = resolveMediaSrc(media) ?? '/images/millimeter-paper.png'
+  const graphicSrc = resolveMediaSrc(stackBackImage) ?? '/images/powderparty.png'
+  const athleteSrc = resolveMediaSrc(foregroundImage) ?? '/images/skijump.png'
 
   const ctaLinks = (links ?? []).map((item) => item?.link).filter(Boolean) as CMSLinkProps[]
 
@@ -61,7 +77,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
 
       <div className="absolute inset-0 z-0 pointer-events-none">
         <Image
-          src="/images/bg-profile.png"
+          src={backgroundSrc}
           alt=""
           fill
           className="object-cover opacity-100 dark:opacity-40 transition-opacity duration-700"
@@ -70,7 +86,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
         <div className="absolute inset-0 bg-gradient-to-br from-slate-200/50 via-zinc-300/30 to-slate-400/50 dark:from-zinc-950/90 dark:via-zinc-900/80 dark:to-black/90 mix-blend-multiply dark:mix-blend-normal" />
         <div className="absolute inset-0 grid-mask opacity-60 dark:opacity-30 transition-opacity">
           <Image
-            src="/images/millimeter-paper.png"
+            src={patternSrc}
             alt=""
             fill
             className="object-cover invert dark:invert-0 scale-105"
@@ -159,7 +175,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
             <div className="relative w-[130%] lg:w-[150%] h-full flex items-center justify-center translate-y-[15%] lg:translate-y-0 animate-float">
               <div className="absolute w-full h-auto opacity-60 dark:opacity-40 mix-blend-multiply dark:mix-blend-screen scale-110 pointer-events-none">
                 <Image
-                  src="/images/powderparty.png"
+                  src={graphicSrc}
                   alt=""
                   width={1000}
                   height={600}
@@ -169,7 +185,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
               </div>
               <div className="relative w-full h-auto drop-shadow-[0_45px_45px_rgba(0,0,0,0.35)] dark:drop-shadow-[0_45px_45px_rgba(255,255,255,0.1)]">
                 <Image
-                  src="/images/skijump.png"
+                  src={athleteSrc}
                   alt="Athlete"
                   width={1400}
                   height={1000}

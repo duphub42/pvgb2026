@@ -760,6 +760,7 @@ export const site_pages_hero_stats = pgTable(
     id: varchar('id').primaryKey(),
     value: varchar('value'),
     label: varchar('label'),
+    _uuid: varchar('_uuid'),
   },
   (columns) => [
     index('site_pages_hero_stats_order_idx').on(columns._order),

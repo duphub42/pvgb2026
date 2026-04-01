@@ -15,8 +15,7 @@
 import './load-env-import'
 import { Pool } from 'pg'
 
-const connectionString =
-  process.env.DATABASE_URL || process.env.POSTGRES_URL
+const connectionString = process.env.DATABASE_URL || process.env.POSTGRES_URL
 
 if (!connectionString) {
   console.error('Fehler: DATABASE_URL oder POSTGRES_URL in .env setzen.')
@@ -42,8 +41,11 @@ const ARRAY_TABLES_REQUIRING_UUID = [
   '_site_pages_v_version_hero_floating_elements',
   '_site_pages_v_version_hero_marquee_logos',
   '_site_pages_v_version_hero_links',
+  '_site_pages_v_version_hero_stats',
   '_site_pages_v_blocks_cta',
   '_site_pages_v_blocks_cta_links',
+  'site_pages_hero_stats',
+  '_site_pages_v_version_hero_stats',
   '_site_pages_v_blocks_content',
   '_site_pages_v_blocks_content_columns',
   '_site_pages_v_blocks_media_block',
@@ -55,22 +57,58 @@ const ARRAY_TABLES_REQUIRING_UUID = [
 const EXPECTED_COLUMNS: Record<string, string[]> = {
   // Mega-Menu
   mega_menu_sub_items: [
-    'id', '_parent_id', '_order', 'label', 'url', 'icon_id', 'image_id',
-    'badge', 'badge_color', 'description', 'divider_before',
+    'id',
+    '_parent_id',
+    '_order',
+    'label',
+    'url',
+    'icon_id',
+    'image_id',
+    'badge',
+    'badge_color',
+    'description',
+    'divider_before',
   ],
   mega_menu_columns_items: [
-    'id', '_parent_id', '_order', 'label', 'url', 'description',
-    'icon_id', 'image_id', 'badge', 'badge_color',
+    'id',
+    '_parent_id',
+    '_order',
+    'label',
+    'url',
+    'description',
+    'icon_id',
+    'image_id',
+    'badge',
+    'badge_color',
   ],
   mega_menu_columns: [
-    'id', '_parent_id', '_order', 'title', 'column_width', 'divider_before', 'column_background',
+    'id',
+    '_parent_id',
+    '_order',
+    'title',
+    'column_width',
+    'divider_before',
+    'column_background',
   ],
   mega_menu: [
-    'id', 'label', 'url', 'order', 'icon_id', 'image_id', 'appearance',
-    'column_widths_col1', 'column_widths_col2', 'column_widths_col3',
-    'category_description_title', 'category_description_description',
-    'highlight_position', 'highlight_title', 'highlight_description',
-    'highlight_image_id', 'highlight_cta_label', 'highlight_cta_url',
+    'id',
+    'label',
+    'url',
+    'order',
+    'icon_id',
+    'image_id',
+    'appearance',
+    'column_widths_col1',
+    'column_widths_col2',
+    'column_widths_col3',
+    'category_description_title',
+    'category_description_description',
+    'highlight_position',
+    'highlight_title',
+    'highlight_description',
+    'highlight_image_id',
+    'highlight_cta_label',
+    'highlight_cta_url',
   ],
   // Site Pages: alle Array-Tabellen brauchen _uuid (Admin/Version-Cleanup)
   ...Object.fromEntries(
@@ -78,9 +116,21 @@ const EXPECTED_COLUMNS: Record<string, string[]> = {
   ),
   // Locked documents (Mega-Menu im Admin)
   payload_locked_documents_rels: [
-    'id', 'order', 'parent_id', 'path', 'site_pages_id', 'blog_posts_id', 'categories_id',
-    'media_id', 'mega_menu_id', 'payload_folders_id', 'redirects_id', 'search_id', 'users_id',
-    'forms_id', 'form_submissions_id',
+    'id',
+    'order',
+    'parent_id',
+    'path',
+    'site_pages_id',
+    'blog_posts_id',
+    'categories_id',
+    'media_id',
+    'mega_menu_id',
+    'payload_folders_id',
+    'redirects_id',
+    'search_id',
+    'users_id',
+    'forms_id',
+    'form_submissions_id',
   ],
 }
 

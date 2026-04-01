@@ -7,6 +7,7 @@ import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postg
 const VERSION_TABLES = [
   '_site_pages_v_version_hero_marquee_logos',
   '_site_pages_v_version_hero_links',
+  '_site_pages_v_version_hero_stats',
   '_site_pages_v_blocks_cta',
   '_site_pages_v_blocks_cta_links',
   '_site_pages_v_blocks_content',
@@ -19,6 +20,7 @@ const VERSION_TABLES = [
 const MAIN_TABLES = [
   'site_pages_hero_marquee_logos',
   'site_pages_hero_links',
+  'site_pages_hero_stats',
   'site_pages_blocks_cta',
   'site_pages_blocks_cta_links',
   'site_pages_blocks_content',
@@ -29,7 +31,8 @@ const MAIN_TABLES = [
 ]
 
 async function addUuidToTable(db: MigrateUpArgs['db'], table: string) {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     DO $$ BEGIN
       IF NOT EXISTS (
         SELECT 1 FROM information_schema.columns
@@ -38,7 +41,8 @@ async function addUuidToTable(db: MigrateUpArgs['db'], table: string) {
         ALTER TABLE "${table}" ADD COLUMN "_uuid" varchar;
       END IF;
     END $$;
-  `))
+  `),
+  )
 }
 
 export async function up({ db }: MigrateUpArgs): Promise<void> {

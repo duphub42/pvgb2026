@@ -33,10 +33,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const { theme: globalTheme } = useTheme()
   const pathname = usePathname()
-  const useMegaMenu = (data as Header & { useMegaMenu?: boolean })?.useMegaMenu === true && megaMenuItems.length > 0
+  const useMegaMenu =
+    (data as Header & { useMegaMenu?: boolean })?.useMegaMenu === true && megaMenuItems.length > 0
 
   useEffect(() => {
-    const stickyEnterThresholdPx = 12
+    const stickyEnterThresholdPx = 0
     const stickyLeaveThresholdPx = 0
     const minDeltaForTogglePx = 6
 
@@ -70,7 +71,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
 
       setHeaderVisible((prev) => {
         let next = prev
-        const hideAfterPx = Math.max(stickyEnterThresholdPx + 48, 180)
+        const hideAfterPx = 1
 
         if (!nextPastFold) {
           if (wasPastFold && !nextPastFold) {
@@ -124,12 +125,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
     <Link href="/" className="logo-link flex items-center shrink-0">
       {hasCustomLogo && logoUrl ? (
         <LogoWithGlitch imgSrc={logoUrl} variant="header">
-          <Logo
-            loading="eager"
-            priority="high"
-            logo={data?.logo}
-            variant="header"
-          />
+          <Logo loading="eager" priority="high" logo={data?.logo} variant="header" />
         </LogoWithGlitch>
       ) : (
         <LogoWithGlitch textLogo="Philipp Bacher" variant="header" />
@@ -168,15 +164,28 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
       megaMenuCardHoverShadow?: string | null
       megaMenuCardHoverBorder?: string | null
     }
-    const callbackFormId = typeof d?.megaMenuCallbackForm === 'object' && d?.megaMenuCallbackForm != null && 'id' in d.megaMenuCallbackForm
-      ? d.megaMenuCallbackForm.id
-      : typeof d?.megaMenuCallbackForm === 'number' ? d.megaMenuCallbackForm : null
-    const newsletterFormId = typeof d?.megaMenuNewsletterForm === 'object' && d?.megaMenuNewsletterForm != null && 'id' in d.megaMenuNewsletterForm
-      ? d.megaMenuNewsletterForm.id
-      : typeof d?.megaMenuNewsletterForm === 'number' ? d.megaMenuNewsletterForm : null
+    const callbackFormId =
+      typeof d?.megaMenuCallbackForm === 'object' &&
+      d?.megaMenuCallbackForm != null &&
+      'id' in d.megaMenuCallbackForm
+        ? d.megaMenuCallbackForm.id
+        : typeof d?.megaMenuCallbackForm === 'number'
+          ? d.megaMenuCallbackForm
+          : null
+    const newsletterFormId =
+      typeof d?.megaMenuNewsletterForm === 'object' &&
+      d?.megaMenuNewsletterForm != null &&
+      'id' in d.megaMenuNewsletterForm
+        ? d.megaMenuNewsletterForm.id
+        : typeof d?.megaMenuNewsletterForm === 'number'
+          ? d.megaMenuNewsletterForm
+          : null
     const megaMenuCta: MegaMenuCta = {}
     if (d?.megaMenuShowWhatsApp && d?.megaMenuWhatsAppUrl) {
-      megaMenuCta.whatsapp = { label: d.megaMenuWhatsAppLabel ?? 'WhatsApp', url: d.megaMenuWhatsAppUrl }
+      megaMenuCta.whatsapp = {
+        label: d.megaMenuWhatsAppLabel ?? 'WhatsApp',
+        url: d.megaMenuWhatsAppUrl,
+      }
     }
     if (d?.megaMenuShowCallback && callbackFormId != null) {
       megaMenuCta.callback = {
@@ -217,40 +226,40 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
   return (
     <>
       <HeaderGlassPlate
-        glassActive={isPastFold || isScrolled}
+        glassActive={isScrolled}
         hideToTop={hideToTop}
         isVisible={headerVisible}
         revealFromTop={revealFromTop}
       />
-    <header
-      className={cn('site-header z-50 w-full fixed top-0 left-0 right-0')}
-      {...(resolvedTheme ? { 'data-theme': resolvedTheme } : {})}
-      data-scrolled={isScrolled ? 'true' : undefined}
-      data-sticky={isPastFold ? 'true' : undefined}
-    >
-      <div
-        className={cn(
-          'header-slide-layer transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)]',
-          'header-glass-border',
-          revealFromTop && 'header-reveal-from-top',
-          hideToTop && 'header-hide-to-top',
-          headerVisible || hideToTop
-            ? 'translate-y-0 opacity-100 visible'
-            : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
-        )}
-        onAnimationEnd={() => {
-          setRevealFromTop(false)
-          setHideToTop(false)
-        }}
+      <header
+        className={cn('site-header z-50 w-full fixed top-0 left-0 right-0')}
+        {...(resolvedTheme ? { 'data-theme': resolvedTheme } : {})}
+        data-scrolled={isScrolled ? 'true' : undefined}
+        data-sticky={isPastFold ? 'true' : undefined}
       >
-        <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
-          <div className="header-main-row flex flex-1 items-stretch justify-between">
-            {logoEl}
-            <HeaderNav data={data} />
+        <div
+          className={cn(
+            'header-slide-layer transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)]',
+            'header-glass-border',
+            revealFromTop && 'header-reveal-from-top',
+            hideToTop && 'header-hide-to-top',
+            headerVisible || hideToTop
+              ? 'translate-y-0 opacity-100 visible'
+              : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
+          )}
+          onAnimationEnd={() => {
+            setRevealFromTop(false)
+            setHideToTop(false)
+          }}
+        >
+          <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
+            <div className="header-main-row flex flex-1 items-stretch justify-between">
+              {logoEl}
+              <HeaderNav data={data} />
+            </div>
           </div>
         </div>
-      </div>
-    </header>
+      </header>
     </>
   )
 }

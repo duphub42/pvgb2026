@@ -9,13 +9,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
-import {
-  Sheet,
-  SheetContent,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
@@ -149,8 +143,7 @@ function hasDropdown(item: MegaMenuItem): boolean {
   return (
     (item.subItems != null && item.subItems.length > 0) ||
     (item.columns != null && item.columns.length > 0) ||
-    (item.highlight != null &&
-      (item.highlight.title != null || item.highlight.ctaUrl != null)) ||
+    (item.highlight != null && (item.highlight.title != null || item.highlight.ctaUrl != null)) ||
     (item.image != null && mediaUrl(item.image) !== '')
   )
 }
@@ -296,8 +289,12 @@ function collectPreloadMediaUrls(items: MegaMenuItem[]): string[] {
 function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
-  const [callbackStatus, setCallbackStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [newsletterStatus, setNewsletterStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [callbackStatus, setCallbackStatus] = useState<'idle' | 'loading' | 'success' | 'error'>(
+    'idle',
+  )
+  const [newsletterStatus, setNewsletterStatus] = useState<
+    'idle' | 'loading' | 'success' | 'error'
+  >('idle')
 
   const submitCallback = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -383,11 +380,17 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
               required
             />
             <Button type="submit" size="sm" disabled={callbackStatus === 'loading'}>
-              {callbackStatus === 'loading' ? '…' : callbackStatus === 'success' ? 'Gesendet' : cta.callback.buttonText}
+              {callbackStatus === 'loading'
+                ? '…'
+                : callbackStatus === 'success'
+                  ? 'Gesendet'
+                  : cta.callback.buttonText}
             </Button>
           </form>
           {callbackStatus === 'error' && (
-            <p className="text-xs text-destructive">Fehler beim Senden. Bitte später erneut versuchen.</p>
+            <p className="text-xs text-destructive">
+              Fehler beim Senden. Bitte später erneut versuchen.
+            </p>
           )}
         </div>
       )}
@@ -407,11 +410,17 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
               required
             />
             <Button type="submit" size="sm" disabled={newsletterStatus === 'loading'}>
-              {newsletterStatus === 'loading' ? '…' : newsletterStatus === 'success' ? 'Angemeldet' : cta.newsletter.buttonText}
+              {newsletterStatus === 'loading'
+                ? '…'
+                : newsletterStatus === 'success'
+                  ? 'Angemeldet'
+                  : cta.newsletter.buttonText}
             </Button>
           </form>
           {newsletterStatus === 'error' && (
-            <p className="text-xs text-destructive">Fehler beim Anmelden. Bitte später erneut versuchen.</p>
+            <p className="text-xs text-destructive">
+              Fehler beim Anmelden. Bitte später erneut versuchen.
+            </p>
           )}
         </div>
       )}
@@ -503,7 +512,9 @@ export function MegaMenu({
   useLayoutEffect(() => {
     const wrap = navListWrapRef.current
     if (!wrap) return
-    const active = wrap.querySelector('.megamenu-top-item[data-active="true"]') as HTMLElement | null
+    const active = wrap.querySelector(
+      '.megamenu-top-item[data-active="true"]',
+    ) as HTMLElement | null
     if (!active) {
       setUnderlineStyle(null)
       return
@@ -520,7 +531,9 @@ export function MegaMenu({
     const wrap = navListWrapRef.current
     if (!wrap) return
     const ro = new ResizeObserver(() => {
-      const active = wrap.querySelector('.megamenu-top-item[data-active="true"]') as HTMLElement | null
+      const active = wrap.querySelector(
+        '.megamenu-top-item[data-active="true"]',
+      ) as HTMLElement | null
       if (!active) {
         setUnderlineStyle(null)
         return
@@ -541,7 +554,8 @@ export function MegaMenu({
     const prev = prevActiveMenuRef.current
     prevActiveMenuRef.current = activeMenu ?? null
 
-    const switching = prev != null && prev !== '' && activeMenu != null && activeMenu !== '' && prev !== activeMenu
+    const switching =
+      prev != null && prev !== '' && activeMenu != null && activeMenu !== '' && prev !== activeMenu
     if (!switching) {
       if (activeMenu != null && activeMenu !== '') {
         const wrapper = viewportWrapperRef.current
@@ -585,7 +599,7 @@ export function MegaMenu({
   }, [activeMenu])
 
   useEffect(() => {
-    const stickyEnterThresholdPx = 12
+    const stickyEnterThresholdPx = 0
     const stickyLeaveThresholdPx = 0
     const minDeltaForTogglePx = 6
 
@@ -622,7 +636,7 @@ export function MegaMenu({
           return true
         }
         let next = prev
-        const hideAfterPx = Math.max(stickyEnterThresholdPx + 48, 180)
+        const hideAfterPx = 1
 
         if (!nextPastFold) {
           if (wasPastFold && !nextPastFold) {
@@ -645,7 +659,6 @@ export function MegaMenu({
 
         return next
       })
-
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
@@ -655,7 +668,7 @@ export function MegaMenu({
   return (
     <>
       <HeaderGlassPlate
-        glassActive={isPastFold || isScrolled}
+        glassActive={isScrolled}
         hideToTop={hideToTop}
         isVisible={isVisible}
         revealFromTop={revealFromTop}
@@ -688,166 +701,242 @@ export function MegaMenu({
             setHideToTop(false)
           }}
         >
-        <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
-          <div className="header-main-row flex flex-1 items-stretch justify-between">
-            <div className="flex items-center">{logo}</div>
-            <div className="megamenu-nav-wrap flex h-full items-stretch gap-4">
-          <NavigationMenu
-            className="megamenu-nav hidden lg:flex lg:h-full lg:flex-initial lg:ml-auto"
-            value={activeMenu ?? ''}
-            onValueChange={(value) => {
-              const next = value || null
-              if (next !== '' && next !== null) {
-                removePanelCloseTransitionRef.current?.()
-                removePanelCloseTransitionRef.current = null
-                resetMegamenuViewportWrapperMotion(viewportWrapperRef.current)
-                if (closeTimeoutRef.current) {
-                  clearTimeout(closeTimeoutRef.current)
-                  closeTimeoutRef.current = null
-                }
-                if (viewportWrapperRef.current && next !== activeMenu)
-                  prevViewportHeightRef.current = viewportWrapperRef.current.offsetHeight
-                setActiveMenu(next)
-                return
-              }
-              /* Schließen um 300ms verzögern, damit Cursor vom Link ins Dropdown kann */
-              if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
-              closeTimeoutRef.current = setTimeout(() => {
-                removePanelCloseTransitionRef.current?.()
-                removePanelCloseTransitionRef.current = null
-
-                const wrapper = viewportWrapperRef.current
-                const frozen =
-                  wrapper != null ? Math.round(wrapper.getBoundingClientRect().height) : 0
-
-                if (!wrapper || frozen < 2) {
-                  setActiveMenu(null)
-                  closeTimeoutRef.current = null
-                  return
-                }
-
-                wrapper.style.animation = 'none'
-                /* Inline maxHeight: globales .megamenu-viewport-wrapper hat max-height:0 — sonst kollabiert die Box trotz height. */
-                wrapper.style.maxHeight = `${frozen}px`
-                wrapper.style.height = `${frozen}px`
-                wrapper.style.overflow = 'hidden'
-                wrapper.style.transform = 'translateZ(0) translateY(0)'
-                wrapper.style.opacity = '1'
-                void wrapper.offsetHeight
-
-                requestAnimationFrame(() => {
-                  setActiveMenu(null)
-                  requestAnimationFrame(() => {
-                    const w = viewportWrapperRef.current
-                    if (!w) return
-
-                    const ease = 'cubic-bezier(0.25, 0.1, 0.25, 1)'
-                    const onEnd = (e: TransitionEvent) => {
-                      if (e.target !== w || e.propertyName !== 'transform') return
-                      w.removeEventListener('transitionend', onEnd)
+          <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
+            <div className="header-main-row flex flex-1 items-stretch justify-between">
+              <div className="flex items-center">{logo}</div>
+              <div className="megamenu-nav-wrap flex h-full items-stretch gap-4">
+                <NavigationMenu
+                  className="megamenu-nav hidden lg:flex lg:h-full lg:flex-initial lg:ml-auto"
+                  value={activeMenu ?? ''}
+                  onValueChange={(value) => {
+                    const next = value || null
+                    if (next !== '' && next !== null) {
+                      removePanelCloseTransitionRef.current?.()
                       removePanelCloseTransitionRef.current = null
-                      resetMegamenuViewportWrapperMotion(w)
+                      resetMegamenuViewportWrapperMotion(viewportWrapperRef.current)
+                      if (closeTimeoutRef.current) {
+                        clearTimeout(closeTimeoutRef.current)
+                        closeTimeoutRef.current = null
+                      }
+                      if (viewportWrapperRef.current && next !== activeMenu)
+                        prevViewportHeightRef.current = viewportWrapperRef.current.offsetHeight
+                      setActiveMenu(next)
+                      return
                     }
-                    w.addEventListener('transitionend', onEnd)
-                    removePanelCloseTransitionRef.current = () => {
-                      w.removeEventListener('transitionend', onEnd)
-                    }
-                    w.style.transition = `transform 320ms ${ease}, opacity 280ms ${ease}`
-                    w.style.transform = 'translateZ(0) translateY(-100%)'
-                    w.style.opacity = '0'
-                  })
-                })
-                closeTimeoutRef.current = null
-              }, 300)
-            }}
-            viewportWrapperRef={viewportWrapperRef}
-          >
-              <div ref={navListWrapRef} className="megamenu-nav-list-wrap relative flex h-full flex-1 justify-end">
-                <NavigationMenuList className="megamenu-nav-list h-full justify-end">
-                {sortedItems.map((item) => {
-                  const hasDrop = hasDropdown(item)
-                  const value = String(item.id)
+                    /* Schließen um 300ms verzögern, damit Cursor vom Link ins Dropdown kann */
+                    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
+                    closeTimeoutRef.current = setTimeout(() => {
+                      removePanelCloseTransitionRef.current?.()
+                      removePanelCloseTransitionRef.current = null
 
-                  if (hasDrop) {
-                    const cols = item.columns ?? []
-                    const cw = item.columnWidths
-                    const contentSpan = cw?.col2 != null ? Number(cw.col2) : contentCols
-                    const featuredSpan = cw?.col3 != null ? Number(cw.col3) : featuredCols
-                    const allItemsFromColumns = cols.flatMap((col) => (col.items ?? []).map((sub) => ({ ...sub, _groupTitle: col.title })))
-                    const listItems = allItemsFromColumns.length > 0 ? allItemsFromColumns : (item.subItems ?? []).map((s) => ({ ...s, _groupTitle: null }))
-                    const hasGroupTitles = listItems.some((x: { _groupTitle?: string | null }) => x._groupTitle != null && x._groupTitle !== '')
-                    const nonEmptyMegaCols = cols.filter((c) => (c.items?.length ?? 0) > 0)
-                    const singleMegaColumnGroup = nonEmptyMegaCols.length === 1
+                      const wrapper = viewportWrapperRef.current
+                      const frozen =
+                        wrapper != null ? Math.round(wrapper.getBoundingClientRect().height) : 0
 
-                    // Nur Spalten mit Inhalt anzeigen; Breiten aus Backend (Header → Mega-Menü Spaltenbreiten)
-                    const catDesc = item.categoryDescription
-                    const showCategoryIntro =
-                      catDesc != null &&
-                      (Boolean(catDesc.title && String(catDesc.title).trim()) ||
-                        Boolean(catDesc.description && String(catDesc.description).trim()))
-                    const hasCol2 = listItems.length > 0
-                    const hasHighlightCards =
-                      Array.isArray(item.highlight?.cards) && item.highlight.cards.length > 0
-                    const hasLegacyHighlight =
-                      item.highlight != null &&
-                      ((item.highlight.title != null && item.highlight.title !== '') ||
-                        (item.highlight.description != null && item.highlight.description !== '') ||
-                        (item.highlight.icon != null && mediaUrl(item.highlight.icon)) ||
-                        (item.highlight.image != null && mediaUrl(item.highlight.image)) ||
-                        (item.highlight.ctaUrl != null && item.highlight.ctaUrl !== ''))
-                    const hasCol3 =
-                      item.highlight != null && (hasHighlightCards || hasLegacyHighlight)
+                      if (!wrapper || frozen < 2) {
+                        setActiveMenu(null)
+                        closeTimeoutRef.current = null
+                        return
+                      }
 
-                    const cardItems: Array<{
-                      title?: string | null
-                      description?: string | null
-                      icon?: MediaRef
-                      image?: MediaRef
-                      ctaLabel?: string | null
-                      ctaUrl?: string | null
-                    }> = hasHighlightCards
-                      ? item.highlight!.cards!
-                      : hasLegacyHighlight && item.highlight
-                        ? [
-                            {
-                              title: item.highlight.title,
-                              description: item.highlight.description,
-                              icon: item.highlight.icon,
-                              image: item.highlight.image,
-                              ctaLabel: item.highlight.ctaLabel,
-                              ctaUrl: item.highlight.ctaUrl,
-                            },
-                          ]
-                        : []
+                      wrapper.style.animation = 'none'
+                      /* Inline maxHeight: globales .megamenu-viewport-wrapper hat max-height:0 — sonst kollabiert die Box trotz height. */
+                      wrapper.style.maxHeight = `${frozen}px`
+                      wrapper.style.height = `${frozen}px`
+                      wrapper.style.overflow = 'hidden'
+                      wrapper.style.transform = 'translateZ(0) translateY(0)'
+                      wrapper.style.opacity = '1'
+                      void wrapper.offsetHeight
 
-                    const visibleColumns: Array<{ span: number; key: string; content: React.ReactNode }> = []
-                    if (hasCol2) {
-                      visibleColumns.push({
-                        span: contentSpan,
-                        key: 'items',
-                        content: hasGroupTitles ? (
-                          <div className="grid grid-cols-12 gap-6">
-                            {cols.map((col, colIdx) =>
-                              (col.items?.length ?? 0) > 0 ? (
-                                <div
-                                  key={colIdx}
+                      requestAnimationFrame(() => {
+                        setActiveMenu(null)
+                        requestAnimationFrame(() => {
+                          const w = viewportWrapperRef.current
+                          if (!w) return
+
+                          const ease = 'cubic-bezier(0.25, 0.1, 0.25, 1)'
+                          const onEnd = (e: TransitionEvent) => {
+                            if (e.target !== w || e.propertyName !== 'transform') return
+                            w.removeEventListener('transitionend', onEnd)
+                            removePanelCloseTransitionRef.current = null
+                            resetMegamenuViewportWrapperMotion(w)
+                          }
+                          w.addEventListener('transitionend', onEnd)
+                          removePanelCloseTransitionRef.current = () => {
+                            w.removeEventListener('transitionend', onEnd)
+                          }
+                          w.style.transition = `transform 320ms ${ease}, opacity 280ms ${ease}`
+                          w.style.transform = 'translateZ(0) translateY(-100%)'
+                          w.style.opacity = '0'
+                        })
+                      })
+                      closeTimeoutRef.current = null
+                    }, 300)
+                  }}
+                  viewportWrapperRef={viewportWrapperRef}
+                >
+                  <div
+                    ref={navListWrapRef}
+                    className="megamenu-nav-list-wrap relative flex h-full flex-1 justify-end"
+                  >
+                    <NavigationMenuList className="megamenu-nav-list h-full justify-end">
+                      {sortedItems.map((item) => {
+                        const hasDrop = hasDropdown(item)
+                        const value = String(item.id)
+
+                        if (hasDrop) {
+                          const cols = item.columns ?? []
+                          const cw = item.columnWidths
+                          const contentSpan = cw?.col2 != null ? Number(cw.col2) : contentCols
+                          const featuredSpan = cw?.col3 != null ? Number(cw.col3) : featuredCols
+                          const allItemsFromColumns = cols.flatMap((col) =>
+                            (col.items ?? []).map((sub) => ({ ...sub, _groupTitle: col.title })),
+                          )
+                          const listItems =
+                            allItemsFromColumns.length > 0
+                              ? allItemsFromColumns
+                              : (item.subItems ?? []).map((s) => ({ ...s, _groupTitle: null }))
+                          const hasGroupTitles = listItems.some(
+                            (x: { _groupTitle?: string | null }) =>
+                              x._groupTitle != null && x._groupTitle !== '',
+                          )
+                          const nonEmptyMegaCols = cols.filter((c) => (c.items?.length ?? 0) > 0)
+                          const singleMegaColumnGroup = nonEmptyMegaCols.length === 1
+
+                          // Nur Spalten mit Inhalt anzeigen; Breiten aus Backend (Header → Mega-Menü Spaltenbreiten)
+                          const catDesc = item.categoryDescription
+                          const showCategoryIntro =
+                            catDesc != null &&
+                            (Boolean(catDesc.title && String(catDesc.title).trim()) ||
+                              Boolean(catDesc.description && String(catDesc.description).trim()))
+                          const hasCol2 = listItems.length > 0
+                          const hasHighlightCards =
+                            Array.isArray(item.highlight?.cards) && item.highlight.cards.length > 0
+                          const hasLegacyHighlight =
+                            item.highlight != null &&
+                            ((item.highlight.title != null && item.highlight.title !== '') ||
+                              (item.highlight.description != null &&
+                                item.highlight.description !== '') ||
+                              (item.highlight.icon != null && mediaUrl(item.highlight.icon)) ||
+                              (item.highlight.image != null && mediaUrl(item.highlight.image)) ||
+                              (item.highlight.ctaUrl != null && item.highlight.ctaUrl !== ''))
+                          const hasCol3 =
+                            item.highlight != null && (hasHighlightCards || hasLegacyHighlight)
+
+                          const cardItems: Array<{
+                            title?: string | null
+                            description?: string | null
+                            icon?: MediaRef
+                            image?: MediaRef
+                            ctaLabel?: string | null
+                            ctaUrl?: string | null
+                          }> = hasHighlightCards
+                            ? item.highlight!.cards!
+                            : hasLegacyHighlight && item.highlight
+                              ? [
+                                  {
+                                    title: item.highlight.title,
+                                    description: item.highlight.description,
+                                    icon: item.highlight.icon,
+                                    image: item.highlight.image,
+                                    ctaLabel: item.highlight.ctaLabel,
+                                    ctaUrl: item.highlight.ctaUrl,
+                                  },
+                                ]
+                              : []
+
+                          const visibleColumns: Array<{
+                            span: number
+                            key: string
+                            content: React.ReactNode
+                          }> = []
+                          if (hasCol2) {
+                            visibleColumns.push({
+                              span: contentSpan,
+                              key: 'items',
+                              content: hasGroupTitles ? (
+                                <div className="grid grid-cols-12 gap-6">
+                                  {cols.map((col, colIdx) =>
+                                    (col.items?.length ?? 0) > 0 ? (
+                                      <div
+                                        key={colIdx}
+                                        className={cn(
+                                          'space-y-3 min-w-0',
+                                          colSpan(
+                                            singleMegaColumnGroup
+                                              ? 12
+                                              : Math.min(12, Math.max(1, col.columnWidth ?? 4)),
+                                          ),
+                                        )}
+                                      >
+                                        {col.title != null && col.title !== '' && (
+                                          <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                                            {col.title}
+                                          </h4>
+                                        )}
+                                        <ul
+                                          className={cn(
+                                            'grid gap-y-4',
+                                            (col.items?.length ?? 0) > 4
+                                              ? 'grid-cols-2 gap-x-8'
+                                              : 'grid-cols-1',
+                                          )}
+                                        >
+                                          {(col.items ?? []).map((sub, idx) => {
+                                            const rawMedia = sub.image ?? sub.icon ?? null
+                                            const iconUrl = rawMedia ? mediaUrl(rawMedia) : ''
+                                            const iconSpriteId = null
+
+                                            return (
+                                              <ListItem
+                                                key={idx}
+                                                title={sub.label}
+                                                href={sub.url}
+                                                icon={
+                                                  iconSpriteId ? (
+                                                    <svg className="h-4 w-4" aria-hidden="true">
+                                                      <use
+                                                        href={`/icons-sprite.svg#${iconSpriteId}`}
+                                                      />
+                                                    </svg>
+                                                  ) : iconUrl ? (
+                                                    <ResilientImage
+                                                      src={iconUrl}
+                                                      alt=""
+                                                      className="h-4 w-4 object-contain"
+                                                      decoding="sync"
+                                                    />
+                                                  ) : undefined
+                                                }
+                                              >
+                                                {sub.description ?? ''}
+                                              </ListItem>
+                                            )
+                                          })}
+                                        </ul>
+                                      </div>
+                                    ) : null,
+                                  )}
+                                </div>
+                              ) : (
+                                <ul
                                   className={cn(
-                                    'space-y-3 min-w-0',
-                                    colSpan(
-                                      singleMegaColumnGroup
-                                        ? 12
-                                        : Math.min(12, Math.max(1, col.columnWidth ?? 4)),
-                                    ),
+                                    'grid gap-y-4',
+                                    listItems.length > 4 ? 'grid-cols-2 gap-x-8' : 'grid-cols-1',
                                   )}
                                 >
-                                  {(col.title != null && col.title !== '') && (
-                                    <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
-                                      {col.title}
-                                    </h4>
-                                  )}
-                                  <ul className={cn('grid gap-y-4', (col.items?.length ?? 0) > 4 ? 'grid-cols-2 gap-x-8' : 'grid-cols-1')}>
-                                    {(col.items ?? []).map((sub, idx) => {
-                                      const rawMedia = (sub.image ?? sub.icon) ?? null
+                                  {listItems.map(
+                                    (
+                                      sub: {
+                                        label: string
+                                        url: string
+                                        description?: string | null
+                                        icon?: MediaRef
+                                        image?: MediaRef
+                                      },
+                                      idx: number,
+                                    ) => {
+                                      const rawMedia = sub.image ?? sub.icon ?? null
                                       const iconUrl = rawMedia ? mediaUrl(rawMedia) : ''
                                       const iconSpriteId = null
 
@@ -862,318 +951,198 @@ export function MegaMenu({
                                                 <use href={`/icons-sprite.svg#${iconSpriteId}`} />
                                               </svg>
                                             ) : iconUrl ? (
-                                              <ResilientImage src={iconUrl} alt="" className="h-4 w-4 object-contain" decoding="sync" />
+                                              <ResilientImage
+                                                src={iconUrl}
+                                                alt=""
+                                                className="h-4 w-4 object-contain"
+                                                decoding="sync"
+                                              />
                                             ) : undefined
                                           }
                                         >
                                           {sub.description ?? ''}
                                         </ListItem>
                                       )
-                                    })}
-                                  </ul>
-                                </div>
-                              ) : null,
-                            )}
-                          </div>
-                        ) : (
-                          <ul className={cn('grid gap-y-4', listItems.length > 4 ? 'grid-cols-2 gap-x-8' : 'grid-cols-1')}>
-                            {listItems.map((sub: { label: string; url: string; description?: string | null; icon?: MediaRef; image?: MediaRef }, idx: number) => {
-                              const rawMedia = (sub.image ?? sub.icon) ?? null
-                              const iconUrl = rawMedia ? mediaUrl(rawMedia) : ''
-                              const iconSpriteId = null
-
-                              return (
-                                <ListItem
-                                  key={idx}
-                                  title={sub.label}
-                                  href={sub.url}
-                                  icon={
-                                    iconSpriteId ? (
-                                      <svg className="h-4 w-4" aria-hidden="true">
-                                        <use href={`/icons-sprite.svg#${iconSpriteId}`} />
-                                      </svg>
-                                    ) : iconUrl ? (
-                                      <ResilientImage src={iconUrl} alt="" className="h-4 w-4 object-contain" decoding="sync" />
-                                    ) : undefined
-                                  }
-                                >
-                                  {sub.description ?? ''}
-                                </ListItem>
-                              )
-                            })}
-                          </ul>
-                        ),
-                      })
-                    }
-                    const highlightPosition = item.highlight?.position ?? 'right'
-                    const roundedT =
-                      cardStyle.borderRadius === 'rounded-xl'
-                        ? 'rounded-t-xl'
-                        : cardStyle.borderRadius === 'rounded-lg'
-                          ? 'rounded-t-lg'
-                          : 'rounded-t-none'
-                    const highlightContent =
-                      hasCol3 && cardItems.length > 0 ? (
-                        <div className={cn('grid gap-4', highlightPosition === 'below' && 'max-h-[min(50vh,420px)] overflow-y-auto')}>
-                          {cardItems.map((card, cardIdx) => {
-                            const cardTitle = card.title != null && card.title !== '' ? card.title : null
-                            const cardDesc = card.description != null && card.description !== '' ? card.description : null
-                            const cardIconUrl = card.icon != null ? mediaUrl(card.icon) : ''
-                            const cardIconSpriteId = null
-                            const cardImageUrl = card.image != null ? mediaUrl(card.image) : ''
-                            const cardCtaUrl = card.ctaUrl != null && card.ctaUrl !== '' ? card.ctaUrl : null
-                            const cardCtaLabel = card.ctaLabel ?? 'Mehr'
-                            const hasMedia = cardImageUrl || cardIconUrl
-                            const cardClassName = cn(
-                              'group/card border-0 bg-card text-card-foreground transition-all duration-200',
-                              cardStyle.borderRadius,
-                              cardStyle.shadow,
-                              cardStyle.hoverShadow,
-                              cardStyle.hoverBorder,
-                            )
-                            const mediaBlock = (
-                              <>
-                                {cardImageUrl && (
-                                  <div
-                                    className={cn(
-                                      'relative overflow-hidden bg-muted group/card',
-                                      highlightPosition === 'below' ? 'aspect-square min-w-[100px] w-[100px] shrink-0 rounded-l-lg' : cn('aspect-video w-full', roundedT),
-                                    )}
-                                  >
-                                    <img
-                                      src={cardImageUrl}
-                                      alt={cardTitle ?? ''}
-                                      className="object-cover w-full h-full transition-transform duration-300 group-hover/card:scale-[1.02]"
-                                      loading="eager"
-                                      decoding="sync"
-                                    />
-                                    <div className="absolute inset-0 bg-black/10 transition-opacity group-hover/card:bg-black/5" />
-                                  </div>
-                                )}
-                                {!cardImageUrl && cardIconUrl && (
-                                  <div
-                                    className={cn(
-                                      'flex shrink-0 items-center justify-center overflow-hidden bg-muted/60 p-2.5 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
-                                      highlightPosition === 'below' ? 'h-full min-w-[100px] w-[100px] rounded-l-lg' : 'megamenu-item-icon h-14 w-14 rounded-lg',
-                                    )}
-                                  >
-                                    {cardIconSpriteId ? (
-                                      <svg className="h-6 w-6" aria-hidden="true">
-                                        <use href={`/icons-sprite.svg#${cardIconSpriteId}`} />
-                                      </svg>
-                                    ) : (
-                                      <ResilientImage src={cardIconUrl} alt="" decoding="sync" />
-                                    )}
-                                  </div>
-                                )}
-                              </>
-                            )
-                            const textBlock = (
-                              <CardContent className={cn(hasMedia && highlightPosition !== 'below' ? 'pt-4' : hasMedia && highlightPosition === 'below' ? 'py-3 pl-4 pr-4' : 'pt-6')}>
-                                <div className="flex flex-col gap-2">
-                                  {cardTitle && (
-                                    <h4 className="text-sm font-semibold leading-tight">
-                                      {cardTitle}
-                                    </h4>
+                                    },
                                   )}
-                                  {cardDesc && (
-                                    <p className="max-h-48 min-h-0 overflow-y-auto break-words text-sm text-muted-foreground leading-snug">
-                                      {cardDesc}
-                                    </p>
-                                  )}
-                                  {cardCtaUrl && (
-                                    <span className="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                                      {cardCtaLabel}
-                                      <ChevronRight className="h-4 w-4 shrink-0" />
-                                    </span>
-                                  )}
-                                </div>
-                              </CardContent>
-                            )
-                            const inner = highlightPosition === 'below' && hasMedia ? (
-                              <div className="flex min-h-[80px] min-w-0 items-stretch">
-                                {mediaBlock}
-                                {textBlock}
-                              </div>
-                            ) : (
-                              <>
-                                {mediaBlock}
-                                {textBlock}
-                              </>
-                            )
-                            const cardEl = (
-                              <Card className={cardClassName}>
-                                {inner}
-                              </Card>
-                            )
-                            return cardCtaUrl ? (
-                              <Link
-                                key={cardIdx}
-                                href={cardCtaUrl}
-                                className="block no-underline text-left text-inherit outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                              >
-                                {cardEl}
-                              </Link>
-                            ) : (
-                              <div key={cardIdx}>{cardEl}</div>
-                            )
-                          })}
-                        </div>
-                      ) : null
-
-                    if (hasCol3 && item.highlight != null && highlightPosition === 'right') {
-                      const usePathsBg = item.highlight?.background === 'paths'
-                      const useThreadsBg = item.highlight?.background === 'threads'
-                      const useGradientBg = item.highlight?.background === 'gradient'
-                      const useCustomBg = usePathsBg || useThreadsBg || useGradientBg
-                      visibleColumns.push({
-                        span: featuredSpan,
-                        key: 'highlight',
-                        content: (
-                          <div className="megamenu-highlight-wipe-wrap overflow-hidden" data-wipe={mouseEntrySide}>
-                            {useCustomBg ? (
+                                </ul>
+                              ),
+                            })
+                          }
+                          const highlightPosition = item.highlight?.position ?? 'right'
+                          const roundedT =
+                            cardStyle.borderRadius === 'rounded-xl'
+                              ? 'rounded-t-xl'
+                              : cardStyle.borderRadius === 'rounded-lg'
+                                ? 'rounded-t-lg'
+                                : 'rounded-t-none'
+                          const highlightContent =
+                            hasCol3 && cardItems.length > 0 ? (
                               <div
-                                className="relative min-h-[200px]"
-                                style={
-                                  useGradientBg
-                                    ? {
-                                        background:
-                                          'radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)',
-                                      }
-                                    : undefined
-                                }
+                                className={cn(
+                                  'grid gap-4',
+                                  highlightPosition === 'below' &&
+                                    'max-h-[min(50vh,420px)] overflow-y-auto',
+                                )}
                               >
-                                {usePathsBg && (
-                                  <PathsBackground
-                                    strokeColor="currentColor"
-                                    strokeOpacity={0.14}
-                                    className="text-muted-foreground/60"
-                                  />
-                                )}
-                                {useThreadsBg && (
-                                  <ThreadsBackground
-                                    strokeColor="currentColor"
-                                    strokeOpacity={0.14}
-                                    amplitude={3.6}
-                                    distance={2}
-                                    className="text-muted-foreground/60"
-                                  />
-                                )}
-                                <div className="relative z-10">{highlightContent}</div>
-                              </div>
-                            ) : (
-                              highlightContent
-                            )}
-                          </div>
-                        ),
-                      })
-                    }
-
-                    const triggerActive = isNavLinkActive(pathname ?? '', item.url)
-                    return (
-                      <NavigationMenuItem key={item.id} value={value}>
-                        <NavigationMenuTrigger
-                          className="megamenu-top-item"
-                          data-active={triggerActive ? 'true' : undefined}
-                          onPointerEnter={(e) => {
-                            const rect = e.currentTarget.getBoundingClientRect()
-                            setMouseEntrySide(e.clientX < rect.left + rect.width / 2 ? 'left' : 'right')
-                          }}
-                        >
-                          {item.label}
-                        </NavigationMenuTrigger>
-                        <NavigationMenuContent>
-                          <div
-                            className="w-full"
-                            onPointerEnter={(e) => {
-                              const rect = e.currentTarget.getBoundingClientRect()
-                              setMouseEntrySide(e.clientX < rect.left + rect.width / 2 ? 'left' : 'right')
-                            }}
-                          >
-                            {((showCategoryIntro && catDesc) || visibleColumns.length > 0) && (() => {
-                              const hasHighlightInRow = visibleColumns.some((c) => c.key === 'highlight')
-                              const twoColsInRow = visibleColumns.length === 2 && hasHighlightInRow
-                              const totalPF = Math.max(1, contentSpan + featuredSpan)
-                              const xlMainCols = Math.max(1, Math.min(11, Math.round((12 * contentSpan) / totalPF)))
-                              const xlSideCols = 12 - xlMainCols
-                              const highlightColsFlex = Math.min(3, xlSideCols)
-                              const itemsColsFlex = 12 - highlightColsFlex
-                              return (
-                                <div className="megamenu-dropdown-panel">
-                                  {showCategoryIntro && catDesc && (
-                                    <div className="megamenu-dropdown-intro px-8 pt-8 pb-4 border-b border-border/60">
-                                      {catDesc.title != null && String(catDesc.title).trim() !== '' && (
-                                        <h2 className="text-lg font-semibold tracking-tight text-foreground">
-                                          {catDesc.title}
-                                        </h2>
-                                      )}
-                                      {catDesc.description != null && String(catDesc.description).trim() !== '' && (
-                                        <p
+                                {cardItems.map((card, cardIdx) => {
+                                  const cardTitle =
+                                    card.title != null && card.title !== '' ? card.title : null
+                                  const cardDesc =
+                                    card.description != null && card.description !== ''
+                                      ? card.description
+                                      : null
+                                  const cardIconUrl = card.icon != null ? mediaUrl(card.icon) : ''
+                                  const cardIconSpriteId = null
+                                  const cardImageUrl =
+                                    card.image != null ? mediaUrl(card.image) : ''
+                                  const cardCtaUrl =
+                                    card.ctaUrl != null && card.ctaUrl !== '' ? card.ctaUrl : null
+                                  const cardCtaLabel = card.ctaLabel ?? 'Mehr'
+                                  const hasMedia = cardImageUrl || cardIconUrl
+                                  const cardClassName = cn(
+                                    'group/card border-0 bg-card text-card-foreground transition-all duration-200',
+                                    cardStyle.borderRadius,
+                                    cardStyle.shadow,
+                                    cardStyle.hoverShadow,
+                                    cardStyle.hoverBorder,
+                                  )
+                                  const mediaBlock = (
+                                    <>
+                                      {cardImageUrl && (
+                                        <div
                                           className={cn(
-                                            'text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap',
-                                            catDesc.title != null && String(catDesc.title).trim() !== '' && 'mt-2',
+                                            'relative overflow-hidden bg-muted group/card',
+                                            highlightPosition === 'below'
+                                              ? 'aspect-square min-w-[100px] w-[100px] shrink-0 rounded-l-lg'
+                                              : cn('aspect-video w-full', roundedT),
                                           )}
                                         >
-                                          {catDesc.description}
-                                        </p>
+                                          <img
+                                            src={cardImageUrl}
+                                            alt={cardTitle ?? ''}
+                                            className="object-cover w-full h-full transition-transform duration-300 group-hover/card:scale-[1.02]"
+                                            loading="eager"
+                                            decoding="sync"
+                                          />
+                                          <div className="absolute inset-0 bg-black/10 transition-opacity group-hover/card:bg-black/5" />
+                                        </div>
                                       )}
-                                    </div>
-                                  )}
-                                  {visibleColumns.length > 0 && (
-                                    <div className="megamenu-dropdown-content grid grid-cols-12">
-                                      {visibleColumns.map((col, idx) => {
-                                        const flexMiddle = twoColsInRow
-                                        const isItemsCol = col.key === 'items'
-                                        const isHighlightCol = col.key === 'highlight'
-                                        const getSpan = () => {
-                                          /* Nur eine Spalte (z. B. nur Links): volle Dropdown-Breite statt contentCols/6 */
-                                          if (visibleColumns.length === 1) return 'col-span-12'
-                                          if (isItemsCol && flexMiddle)
-                                            return cn('col-span-12', lgColSpan(itemsColsFlex))
-                                          if (isItemsCol) return colSpan(col.span)
-                                          if (isHighlightCol && flexMiddle)
-                                            return cn('col-span-12', lgColSpan(highlightColsFlex))
-                                          if (isHighlightCol) return colSpan(col.span)
-                                          return colSpan(col.span)
-                                        }
-                                        return (
-                                          <div
-                                            key={col.key}
-                                            className={cn(
-                                              'p-8 flex flex-col min-w-0',
-                                              col.key === 'highlight' && 'megamenu-featured',
-                                              col.key === 'items' && 'megamenu-col-items',
-                                              idx < visibleColumns.length - 1 && 'border-r border-border megamenu-col-divider',
-                                              isItemsCol && flexMiddle && 'max-lg:border-r-0',
-                                              isHighlightCol && flexMiddle && 'max-lg:border-t max-lg:border-border',
-                                              getSpan(),
-                                            )}
-                                          >
-                                            {col.content}
-                                          </div>
-                                        )
-                                      })}
-                                    </div>
-                                  )}
-                                </div>
-                              )
-                            })()}
-                            {(hasCol3 && item.highlight != null && highlightPosition === 'below' && highlightContent) || megaMenuCta ? (
-                              <div className="megamenu-dropdown-content-footer">
-                                {hasCol3 && item.highlight != null && highlightPosition === 'below' && highlightContent && (
-                                  <div
-                                    className="megamenu-highlight-wipe-wrap megamenu-below-highlight-wrap overflow-hidden"
-                                    data-wipe={mouseEntrySide}
-                                  >
-                                    <div className="megamenu-featured relative border-t border-border p-8">
-                                      {item.highlight?.background === 'paths' && (
+                                      {!cardImageUrl && cardIconUrl && (
+                                        <div
+                                          className={cn(
+                                            'flex shrink-0 items-center justify-center overflow-hidden bg-muted/60 p-2.5 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
+                                            highlightPosition === 'below'
+                                              ? 'h-full min-w-[100px] w-[100px] rounded-l-lg'
+                                              : 'megamenu-item-icon h-14 w-14 rounded-lg',
+                                          )}
+                                        >
+                                          {cardIconSpriteId ? (
+                                            <svg className="h-6 w-6" aria-hidden="true">
+                                              <use href={`/icons-sprite.svg#${cardIconSpriteId}`} />
+                                            </svg>
+                                          ) : (
+                                            <ResilientImage
+                                              src={cardIconUrl}
+                                              alt=""
+                                              decoding="sync"
+                                            />
+                                          )}
+                                        </div>
+                                      )}
+                                    </>
+                                  )
+                                  const textBlock = (
+                                    <CardContent
+                                      className={cn(
+                                        hasMedia && highlightPosition !== 'below'
+                                          ? 'pt-4'
+                                          : hasMedia && highlightPosition === 'below'
+                                            ? 'py-3 pl-4 pr-4'
+                                            : 'pt-6',
+                                      )}
+                                    >
+                                      <div className="flex flex-col gap-2">
+                                        {cardTitle && (
+                                          <h4 className="text-sm font-semibold leading-tight">
+                                            {cardTitle}
+                                          </h4>
+                                        )}
+                                        {cardDesc && (
+                                          <p className="max-h-48 min-h-0 overflow-y-auto break-words text-sm text-muted-foreground leading-snug">
+                                            {cardDesc}
+                                          </p>
+                                        )}
+                                        {cardCtaUrl && (
+                                          <span className="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-primary">
+                                            {cardCtaLabel}
+                                            <ChevronRight className="h-4 w-4 shrink-0" />
+                                          </span>
+                                        )}
+                                      </div>
+                                    </CardContent>
+                                  )
+                                  const inner =
+                                    highlightPosition === 'below' && hasMedia ? (
+                                      <div className="flex min-h-[80px] min-w-0 items-stretch">
+                                        {mediaBlock}
+                                        {textBlock}
+                                      </div>
+                                    ) : (
+                                      <>
+                                        {mediaBlock}
+                                        {textBlock}
+                                      </>
+                                    )
+                                  const cardEl = <Card className={cardClassName}>{inner}</Card>
+                                  return cardCtaUrl ? (
+                                    <Link
+                                      key={cardIdx}
+                                      href={cardCtaUrl}
+                                      className="block no-underline text-left text-inherit outline-none focus-visible:ring-2 focus-visible:ring-ring"
+                                    >
+                                      {cardEl}
+                                    </Link>
+                                  ) : (
+                                    <div key={cardIdx}>{cardEl}</div>
+                                  )
+                                })}
+                              </div>
+                            ) : null
+
+                          if (hasCol3 && item.highlight != null && highlightPosition === 'right') {
+                            const usePathsBg = item.highlight?.background === 'paths'
+                            const useThreadsBg = item.highlight?.background === 'threads'
+                            const useGradientBg = item.highlight?.background === 'gradient'
+                            const useCustomBg = usePathsBg || useThreadsBg || useGradientBg
+                            visibleColumns.push({
+                              span: featuredSpan,
+                              key: 'highlight',
+                              content: (
+                                <div
+                                  className="megamenu-highlight-wipe-wrap overflow-hidden"
+                                  data-wipe={mouseEntrySide}
+                                >
+                                  {useCustomBg ? (
+                                    <div
+                                      className="relative min-h-[200px]"
+                                      style={
+                                        useGradientBg
+                                          ? {
+                                              background:
+                                                'radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)',
+                                            }
+                                          : undefined
+                                      }
+                                    >
+                                      {usePathsBg && (
                                         <PathsBackground
                                           strokeColor="currentColor"
                                           strokeOpacity={0.14}
                                           className="text-muted-foreground/60"
                                         />
                                       )}
-                                      {item.highlight?.background === 'threads' && (
+                                      {useThreadsBg && (
                                         <ThreadsBackground
                                           strokeColor="currentColor"
                                           strokeOpacity={0.14}
@@ -1184,124 +1153,291 @@ export function MegaMenu({
                                       )}
                                       <div className="relative z-10">{highlightContent}</div>
                                     </div>
-                                  </div>
-                                )}
-                                {megaMenuCta && <MegaMenuCtaStrip cta={megaMenuCta} />}
-                              </div>
-                            ) : null}
-                          </div>
-                        </NavigationMenuContent>
-                      </NavigationMenuItem>
-                    )
-                  }
+                                  ) : (
+                                    highlightContent
+                                  )}
+                                </div>
+                              ),
+                            })
+                          }
 
-                  const linkActive = isNavLinkActive(pathname ?? '', item.url)
-                  return (
-                    <NavigationMenuItem key={item.id}>
-                      <NavigationMenuLink asChild>
-                        <Link
-                          href={item.url}
-                          className={cn(navigationMenuTriggerStyle(), 'megamenu-top-item')}
-                          data-active={linkActive ? 'true' : undefined}
-                        >
-                          {item.label}
-                        </Link>
-                      </NavigationMenuLink>
-                    </NavigationMenuItem>
-                  )
-                })}
-              </NavigationMenuList>
-                <div
-                  className="megamenu-sliding-underline pointer-events-none absolute left-0 h-0.5 bottom-[calc(-0.5rem-1px)]"
-                  style={{
-                    left: underlineStyle?.left ?? 0,
-                    width: underlineStyle?.width ?? 0,
-                  }}
-                  aria-hidden
-                />
-              </div>
-            </NavigationMenu>
-            <div className="hidden lg:flex items-center gap-0">
-              <HeaderActions
-                contactCta={{
-                  whatsapp: megaMenuCta?.whatsapp,
-                  callback: megaMenuCta?.callback,
-                }}
-              />
-            </div>
-            <div className="flex lg:hidden shrink-0 items-center">
-              <Sheet>
-                <SheetTrigger asChild>
-                    <button
-                      type="button"
-                      className="group/button inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
-                      aria-label="Menü öffnen"
-                    >
-                      <Menu className="h-6 w-6" aria-hidden />
-                    </button>
-                </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="megamenu-sheet w-[300px] sm:w-[400px]"
-            >
-              <SheetHeader className="flex flex-row items-center justify-between gap-3">
-                <AnimatedThemeToggle className="order-first shrink-0" />
-                <SheetTitle className="text-left flex-1">Menu</SheetTitle>
-              </SheetHeader>
-              <nav className="flex flex-col gap-4 mt-8">
-                {sortedItems.map((item) => {
-                  const cols = item.columns ?? []
-                  const allItemsFromColumns = cols.flatMap((col) =>
-                    (col.items ?? []).map((sub) => ({ ...sub, _groupTitle: col.title ?? null })),
-                  )
-                  const listItems =
-                    allItemsFromColumns.length > 0
-                      ? allItemsFromColumns
-                      : (item.subItems ?? []).map((s) => ({ ...s, _groupTitle: null as string | null }))
-                  return (
-                    <div key={item.id} className="space-y-2">
-                      <Link
-                        href={item.url}
-                        className="block px-2 py-1 text-lg font-semibold transition-colors hover:text-primary"
-                      >
-                        {item.label}
-                      </Link>
-                      {hasDropdown(item) && listItems.length > 0 && (
-                        <ul className="pl-4 space-y-1 border-l border-border">
-                          {listItems.map((sub, i) => {
-                            const prevTitle = i > 0 ? (listItems[i - 1] as { _groupTitle?: string | null })._groupTitle : null
-                            const showGroupTitle =
-                              sub._groupTitle != null &&
-                              sub._groupTitle !== '' &&
-                              sub._groupTitle !== prevTitle
-                            return (
-                              <li key={i}>
-                                {showGroupTitle && (
-                                  <span className="block pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                                    {sub._groupTitle}
-                                  </span>
-                                )}
-                                <Link
-                                  href={sub.url}
-                                  className="block px-2 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                          const triggerActive = isNavLinkActive(pathname ?? '', item.url)
+                          return (
+                            <NavigationMenuItem key={item.id} value={value}>
+                              <NavigationMenuTrigger
+                                className="megamenu-top-item"
+                                data-active={triggerActive ? 'true' : undefined}
+                                onPointerEnter={(e) => {
+                                  const rect = e.currentTarget.getBoundingClientRect()
+                                  setMouseEntrySide(
+                                    e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
+                                  )
+                                }}
+                              >
+                                {item.label}
+                              </NavigationMenuTrigger>
+                              <NavigationMenuContent>
+                                <div
+                                  className="w-full"
+                                  onPointerEnter={(e) => {
+                                    const rect = e.currentTarget.getBoundingClientRect()
+                                    setMouseEntrySide(
+                                      e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
+                                    )
+                                  }}
                                 >
-                                  {sub.label}
-                                </Link>
-                              </li>
-                            )
-                          })}
-                        </ul>
-                      )}
-                    </div>
-                  )
-                })}
-              </nav>
-            </SheetContent>
-              </Sheet>
+                                  {((showCategoryIntro && catDesc) || visibleColumns.length > 0) &&
+                                    (() => {
+                                      const hasHighlightInRow = visibleColumns.some(
+                                        (c) => c.key === 'highlight',
+                                      )
+                                      const twoColsInRow =
+                                        visibleColumns.length === 2 && hasHighlightInRow
+                                      const totalPF = Math.max(1, contentSpan + featuredSpan)
+                                      const xlMainCols = Math.max(
+                                        1,
+                                        Math.min(11, Math.round((12 * contentSpan) / totalPF)),
+                                      )
+                                      const xlSideCols = 12 - xlMainCols
+                                      const highlightColsFlex = Math.min(3, xlSideCols)
+                                      const itemsColsFlex = 12 - highlightColsFlex
+                                      return (
+                                        <div className="megamenu-dropdown-panel">
+                                          {showCategoryIntro && catDesc && (
+                                            <div className="megamenu-dropdown-intro px-8 pt-8 pb-4 border-b border-border/60">
+                                              {catDesc.title != null &&
+                                                String(catDesc.title).trim() !== '' && (
+                                                  <h2 className="text-lg font-semibold tracking-tight text-foreground">
+                                                    {catDesc.title}
+                                                  </h2>
+                                                )}
+                                              {catDesc.description != null &&
+                                                String(catDesc.description).trim() !== '' && (
+                                                  <p
+                                                    className={cn(
+                                                      'text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap',
+                                                      catDesc.title != null &&
+                                                        String(catDesc.title).trim() !== '' &&
+                                                        'mt-2',
+                                                    )}
+                                                  >
+                                                    {catDesc.description}
+                                                  </p>
+                                                )}
+                                            </div>
+                                          )}
+                                          {visibleColumns.length > 0 && (
+                                            <div className="megamenu-dropdown-content grid grid-cols-12">
+                                              {visibleColumns.map((col, idx) => {
+                                                const flexMiddle = twoColsInRow
+                                                const isItemsCol = col.key === 'items'
+                                                const isHighlightCol = col.key === 'highlight'
+                                                const getSpan = () => {
+                                                  /* Nur eine Spalte (z. B. nur Links): volle Dropdown-Breite statt contentCols/6 */
+                                                  if (visibleColumns.length === 1)
+                                                    return 'col-span-12'
+                                                  if (isItemsCol && flexMiddle)
+                                                    return cn(
+                                                      'col-span-12',
+                                                      lgColSpan(itemsColsFlex),
+                                                    )
+                                                  if (isItemsCol) return colSpan(col.span)
+                                                  if (isHighlightCol && flexMiddle)
+                                                    return cn(
+                                                      'col-span-12',
+                                                      lgColSpan(highlightColsFlex),
+                                                    )
+                                                  if (isHighlightCol) return colSpan(col.span)
+                                                  return colSpan(col.span)
+                                                }
+                                                return (
+                                                  <div
+                                                    key={col.key}
+                                                    className={cn(
+                                                      'p-8 flex flex-col min-w-0',
+                                                      col.key === 'highlight' &&
+                                                        'megamenu-featured',
+                                                      col.key === 'items' && 'megamenu-col-items',
+                                                      idx < visibleColumns.length - 1 &&
+                                                        'border-r border-border megamenu-col-divider',
+                                                      isItemsCol &&
+                                                        flexMiddle &&
+                                                        'max-lg:border-r-0',
+                                                      isHighlightCol &&
+                                                        flexMiddle &&
+                                                        'max-lg:border-t max-lg:border-border',
+                                                      getSpan(),
+                                                    )}
+                                                  >
+                                                    {col.content}
+                                                  </div>
+                                                )
+                                              })}
+                                            </div>
+                                          )}
+                                        </div>
+                                      )
+                                    })()}
+                                  {(hasCol3 &&
+                                    item.highlight != null &&
+                                    highlightPosition === 'below' &&
+                                    highlightContent) ||
+                                  megaMenuCta ? (
+                                    <div className="megamenu-dropdown-content-footer">
+                                      {hasCol3 &&
+                                        item.highlight != null &&
+                                        highlightPosition === 'below' &&
+                                        highlightContent && (
+                                          <div
+                                            className="megamenu-highlight-wipe-wrap megamenu-below-highlight-wrap overflow-hidden"
+                                            data-wipe={mouseEntrySide}
+                                          >
+                                            <div className="megamenu-featured relative border-t border-border p-8">
+                                              {item.highlight?.background === 'paths' && (
+                                                <PathsBackground
+                                                  strokeColor="currentColor"
+                                                  strokeOpacity={0.14}
+                                                  className="text-muted-foreground/60"
+                                                />
+                                              )}
+                                              {item.highlight?.background === 'threads' && (
+                                                <ThreadsBackground
+                                                  strokeColor="currentColor"
+                                                  strokeOpacity={0.14}
+                                                  amplitude={3.6}
+                                                  distance={2}
+                                                  className="text-muted-foreground/60"
+                                                />
+                                              )}
+                                              <div className="relative z-10">
+                                                {highlightContent}
+                                              </div>
+                                            </div>
+                                          </div>
+                                        )}
+                                      {megaMenuCta && <MegaMenuCtaStrip cta={megaMenuCta} />}
+                                    </div>
+                                  ) : null}
+                                </div>
+                              </NavigationMenuContent>
+                            </NavigationMenuItem>
+                          )
+                        }
+
+                        const linkActive = isNavLinkActive(pathname ?? '', item.url)
+                        return (
+                          <NavigationMenuItem key={item.id}>
+                            <NavigationMenuLink asChild>
+                              <Link
+                                href={item.url}
+                                className={cn(navigationMenuTriggerStyle(), 'megamenu-top-item')}
+                                data-active={linkActive ? 'true' : undefined}
+                              >
+                                {item.label}
+                              </Link>
+                            </NavigationMenuLink>
+                          </NavigationMenuItem>
+                        )
+                      })}
+                    </NavigationMenuList>
+                    <div
+                      className="megamenu-sliding-underline pointer-events-none absolute left-0 h-0.5 bottom-[calc(-0.5rem-1px)]"
+                      style={{
+                        left: underlineStyle?.left ?? 0,
+                        width: underlineStyle?.width ?? 0,
+                      }}
+                      aria-hidden
+                    />
+                  </div>
+                </NavigationMenu>
+                <div className="hidden lg:flex items-center gap-0">
+                  <HeaderActions
+                    contactCta={{
+                      whatsapp: megaMenuCta?.whatsapp,
+                      callback: megaMenuCta?.callback,
+                    }}
+                  />
+                </div>
+                <div className="flex lg:hidden shrink-0 items-center">
+                  <Sheet>
+                    <SheetTrigger asChild>
+                      <button
+                        type="button"
+                        className="group/button inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
+                        aria-label="Menü öffnen"
+                      >
+                        <Menu className="h-6 w-6" aria-hidden />
+                      </button>
+                    </SheetTrigger>
+                    <SheetContent side="right" className="megamenu-sheet w-[300px] sm:w-[400px]">
+                      <SheetHeader className="flex flex-row items-center justify-between gap-3">
+                        <AnimatedThemeToggle className="order-first shrink-0" />
+                        <SheetTitle className="text-left flex-1">Menu</SheetTitle>
+                      </SheetHeader>
+                      <nav className="flex flex-col gap-4 mt-8">
+                        {sortedItems.map((item) => {
+                          const cols = item.columns ?? []
+                          const allItemsFromColumns = cols.flatMap((col) =>
+                            (col.items ?? []).map((sub) => ({
+                              ...sub,
+                              _groupTitle: col.title ?? null,
+                            })),
+                          )
+                          const listItems =
+                            allItemsFromColumns.length > 0
+                              ? allItemsFromColumns
+                              : (item.subItems ?? []).map((s) => ({
+                                  ...s,
+                                  _groupTitle: null as string | null,
+                                }))
+                          return (
+                            <div key={item.id} className="space-y-2">
+                              <Link
+                                href={item.url}
+                                className="block px-2 py-1 text-lg font-semibold transition-colors hover:text-primary"
+                              >
+                                {item.label}
+                              </Link>
+                              {hasDropdown(item) && listItems.length > 0 && (
+                                <ul className="pl-4 space-y-1 border-l border-border">
+                                  {listItems.map((sub, i) => {
+                                    const prevTitle =
+                                      i > 0
+                                        ? (listItems[i - 1] as { _groupTitle?: string | null })
+                                            ._groupTitle
+                                        : null
+                                    const showGroupTitle =
+                                      sub._groupTitle != null &&
+                                      sub._groupTitle !== '' &&
+                                      sub._groupTitle !== prevTitle
+                                    return (
+                                      <li key={i}>
+                                        {showGroupTitle && (
+                                          <span className="block pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+                                            {sub._groupTitle}
+                                          </span>
+                                        )}
+                                        <Link
+                                          href={sub.url}
+                                          className="block px-2 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                                        >
+                                          {sub.label}
+                                        </Link>
+                                      </li>
+                                    )
+                                  })}
+                                </ul>
+                              )}
+                            </div>
+                          )
+                        })}
+                      </nav>
+                    </SheetContent>
+                  </Sheet>
+                </div>
+              </div>
             </div>
           </div>
-          </div>
-        </div>
         </div>
       </header>
     </>

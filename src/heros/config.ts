@@ -28,6 +28,8 @@ const heroTypesWithLogoMarquee = (type: string | undefined) =>
   ['superhero', 'highImpact', 'mediumImpact', 'lowImpact'].includes(String(type ?? ''))
 
 const isProAthleteHero = (type: string | undefined) => String(type ?? '') === 'proAthlete'
+const isPopoutOrProAthleteHero = (type: string | undefined) =>
+  isPopoutLayoutHero(type) || isProAthleteHero(type)
 const isHeadlineLineHero = (type: string | undefined) =>
   isPopoutLayoutHero(type) || isProAthleteHero(type)
 
@@ -74,7 +76,7 @@ export const hero: Field = {
       admin: {
         condition: (_, siblingData) => {
           const t = String(siblingData?.type ?? '')
-          return ['highImpact', 'mediumImpact', 'lowImpact', 'superhero'].includes(t)
+          return ['highImpact', 'mediumImpact', 'lowImpact', 'superhero', 'proAthlete'].includes(t)
         },
         description:
           'Optionales Bild rechts (Popout/Style Preview). Bei Profil-Hero zusätzlich nutzbar, wenn kein separates „Hintergrund Bild“ (mediaType Bild) gesetzt ist.',
@@ -185,7 +187,7 @@ export const hero: Field = {
         { label: 'Animation', value: 'animation' },
       ],
       admin: {
-        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
         description:
           'Halo (CSS) = weiche Farb-Halos ohne WebGL. Bei „Bild/Video/Animation“ erscheinen die Spezial-Hintergründe nicht.',
       },
@@ -203,7 +205,7 @@ export const hero: Field = {
         { label: 'Animation', value: 'animation' },
       ],
       admin: {
-        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
         description:
           'Optionaler Override für Mobilgeräte. „Wie Desktop-Einstellung“ übernimmt die normale Auswahl.',
       },
@@ -236,7 +238,7 @@ export const hero: Field = {
       relationTo: 'media',
       label: 'Vordergrund Bild',
       admin: {
-        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
         description:
           'Hauptmotiv rechts (vorderste Ebene), sofern kein separates „Stack vorn“ gesetzt ist.',
       },
@@ -257,7 +259,7 @@ export const hero: Field = {
         { label: 'Gitter (Linien)', value: 'gridLines' },
       ],
       admin: {
-        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
         description: 'Dezentes Muster über der Hero-Fläche (unter Text/Bildern).',
       },
     },
@@ -270,7 +272,7 @@ export const hero: Field = {
           relationTo: 'media',
           label: 'Stack: Bild hinten (Ebene 3)',
           admin: {
-            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
           },
         },
         {
@@ -279,7 +281,7 @@ export const hero: Field = {
           label: 'Hinten ΔX (px)',
           defaultValue: 0,
           admin: {
-            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             width: '50%',
           },
         },
@@ -289,7 +291,7 @@ export const hero: Field = {
           label: 'Hinten ΔY (px)',
           defaultValue: 0,
           admin: {
-            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             width: '50%',
           },
         },
@@ -304,7 +306,7 @@ export const hero: Field = {
           relationTo: 'media',
           label: 'Stack: Bild Mitte (Ebene 2)',
           admin: {
-            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
           },
         },
         {
@@ -313,7 +315,7 @@ export const hero: Field = {
           label: 'Mitte ΔX (px)',
           defaultValue: 0,
           admin: {
-            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             width: '50%',
           },
         },
@@ -323,7 +325,7 @@ export const hero: Field = {
           label: 'Mitte ΔY (px)',
           defaultValue: 0,
           admin: {
-            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             width: '50%',
           },
         },
@@ -338,7 +340,7 @@ export const hero: Field = {
           relationTo: 'media',
           label: 'Stack: Bild vorn (Ebene 1)',
           admin: {
-            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             description: 'Optional. Leer = „Vordergrund Bild“ wird als vordere Ebene genutzt.',
           },
         },
@@ -348,7 +350,7 @@ export const hero: Field = {
           label: 'Vorn ΔX (px)',
           defaultValue: 0,
           admin: {
-            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             width: '50%',
           },
         },
@@ -358,7 +360,7 @@ export const hero: Field = {
           label: 'Vorn ΔY (px)',
           defaultValue: 0,
           admin: {
-            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             width: '50%',
           },
         },
@@ -370,7 +372,7 @@ export const hero: Field = {
       defaultValue: 0.5,
       label: 'Overlay Deckkraft',
       admin: {
-        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
       },
     },
     {
@@ -384,7 +386,7 @@ export const hero: Field = {
           min: 0,
           max: 20,
           admin: {
-            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             description:
               'Wie stark die schwebenden Elemente dem Cursor ausweichen (0 = aus, 6.5 = Standard).',
           },
@@ -397,7 +399,7 @@ export const hero: Field = {
           min: 0,
           max: 20,
           admin: {
-            condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             description: 'Amplitude der leichten Bewegung ohne Maus (0 = statisch).',
           },
         },
@@ -408,7 +410,7 @@ export const hero: Field = {
       type: 'array',
       label: 'Floating Elements',
       admin: {
-        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
         description:
           'Kleine Elemente (Badges, Icons), die über dem Hero schweben. Position über Preset wählen.',
       },
