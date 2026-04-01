@@ -219,6 +219,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 }) => {
   const isMobile = useMediaQuery('(max-width: 767px)')
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
+  const sectionRef = React.useRef<HTMLElement | null>(null)
   const portraitRef = React.useRef<HTMLDivElement | null>(null)
 
   const variant: 'popout' | 'profil' | 'standard' =
@@ -259,6 +260,55 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       window.removeEventListener('scroll', handleScroll)
       if (rafId) window.cancelAnimationFrame(rafId)
       target.style.removeProperty('--hero-mobile-portrait-translate')
+    }
+  }, [isMobile, prefersReducedMotion])
+
+  React.useEffect(() => {
+    if (isMobile || prefersReducedMotion) return
+
+    const section = sectionRef.current
+    const target = portraitRef.current
+    if (!section || !target) return
+
+    let rafId: number | null = null
+    const collapseDistance = 420
+    const maxTranslate = 120
+    const maxBlur = 12
+
+    const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
+
+    const update = () => {
+      const rect = section.getBoundingClientRect()
+      const progress = clamp(-rect.top / collapseDistance, 0, 1)
+      const eased = Math.pow(progress, 1.2)
+
+      const translateY = eased * maxTranslate
+      const blur = eased * maxBlur
+      const opacity = clamp(1 - eased, 0, 1)
+
+      target.style.setProperty('--hero-desktop-portrait-translate', `${translateY}px`)
+      target.style.setProperty('--hero-desktop-portrait-blur', `${blur}px`)
+      target.style.setProperty('--hero-desktop-portrait-opacity', `${opacity}`)
+
+      rafId = null
+    }
+
+    const handleScroll = () => {
+      if (rafId !== null) return
+      rafId = window.requestAnimationFrame(update)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('resize', handleScroll)
+    update()
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      window.removeEventListener('resize', handleScroll)
+      if (rafId) window.cancelAnimationFrame(rafId)
+      target.style.removeProperty('--hero-desktop-portrait-translate')
+      target.style.removeProperty('--hero-desktop-portrait-blur')
+      target.style.removeProperty('--hero-desktop-portrait-opacity')
     }
   }, [isMobile, prefersReducedMotion])
 
@@ -323,6 +373,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
   return (
     <section
+      ref={sectionRef}
       aria-label={sectionLabel}
       className={cn(
         'hero-offset relative overflow-visible text-foreground',
@@ -469,7 +520,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
           <div
             ref={portraitRef}
-            className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:self-end hero-mobile-sticky-portrait"
+            className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:self-end hero-mobile-sticky-portrait hero-desktop-sticky-portrait"
           >
             <div className="relative overflow-visible max-md:pb-6 md:flex md:items-end md:justify-center md:pb-8 md:pt-4">
               {hasVisual && <div className="hero-portrait-gradient-blob" aria-hidden />}

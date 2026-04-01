@@ -637,6 +637,22 @@
       border-top: none;
       box-shadow: none;
     }
+
+    .hero-desktop-sticky-portrait {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      top: auto;
+      width: min(100vw, 556px);
+      max-width: 100vw;
+      transform: translate3d(-50%, var(--hero-desktop-portrait-translate, 0px), 0);
+      z-index: 20;
+      pointer-events: none;
+      will-change: transform, filter, opacity;
+      filter: blur(var(--hero-desktop-portrait-blur, 0px));
+      opacity: var(--hero-desktop-portrait-opacity, 1);
+      transition: transform 0.25s ease-out, filter 0.25s ease-out, opacity 0.25s ease-out;
+    }
   }
 
   /* Hero-Hintergrund: gleiche Primary-Alphas Light/Dark (früher war Default = Dark stärker) */
@@ -3755,22 +3771,32 @@ html.theme-fallback {
 /* Rahmen/Shadow nur wenn Dropdown geöffnet – sonst keine Linie unter dem Header */
 .megamenu-dropdown-bg,
 .megamenu-viewport-wrapper {
-  background-color: rgba(255, 255, 255, 0.05) !important;
+  background-color: rgba(255, 255, 255, 0.95) !important;
   color: #171717;
   border: none !important;
   box-shadow: none !important;
 }
 .megamenu-viewport-wrapper:has([data-state='open']) {
-  border: 1px solid rgba(229, 229, 229, 0.3) !important;
+  border: 1px solid rgba(229, 229, 229, 0.85) !important;
   border-top: none !important;
   border-radius: 0 0 8px 8px;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.12), 0 2px 4px -2px rgba(0, 0, 0, 0.08);
 }
 .megamenu-viewport,
 .megamenu .megamenu-viewport {
-  background: transparent !important;
+  background: rgba(255, 255, 255, 0.99) !important;
   color: inherit;
 }
+
+/* Ensure feature column remains milchglas transparent while all other dropdown areas are opaque */
+.megamenu .megamenu-featured {
+  background-color: rgba(255, 255, 255, 0.22) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(14px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+}
+
 /* Panel: gleiche Größenordnung wie Radix Content (navigation-menu.tsx ~280ms) – öffnen/schließen wirkt einheitlich */
 /* Breakpoint: Ab wann Kategoriebeschreibung ausgeblendet + Highlight unter Inhalt (stacked). xl = 1280px. */
 .megamenu {
@@ -3783,21 +3809,25 @@ html.theme-fallback {
 /* Öffnen: Höhe und Transform gemeinsam animieren, damit kein Sprung durch sofortiges max-height entsteht */
 @keyframes megamenu-slide-down {
   from {
-    transform: translateY(-100%);
+    transform: translateY(-8px);
+    opacity: 0;
     max-height: 0;
   }
   to {
     transform: translateY(0);
+    opacity: 1;
     max-height: 85vh;
   }
 }
 @keyframes megamenu-slide-up {
   from {
     transform: translateY(0);
+    opacity: 1;
     max-height: 85vh;
   }
   to {
-    transform: translateY(-100%);
+    transform: translateY(-8px);
+    opacity: 0;
     max-height: 0;
   }
 }
@@ -3814,7 +3844,7 @@ html.theme-fallback {
   height: auto;
   overflow-x: hidden;
   overflow-y: auto;
-  animation: megamenu-slide-down var(--megamenu-panel-duration) var(--megamenu-panel-ease) forwards;
+  animation: megamenu-slide-down 220ms ease-out forwards;
 }
 /* Viewport-Höhe: Radix-Variable mit Fallback, wächst mit Inhalt */
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-viewport {
@@ -3832,7 +3862,7 @@ html.theme-fallback {
   }
 }
 .megamenu-viewport-wrapper:not(:has([data-state='open'])) {
-  animation: megamenu-slide-up var(--megamenu-panel-duration) var(--megamenu-panel-ease) forwards;
+  animation: megamenu-slide-up 180ms ease-in 100ms forwards;
 }
 /* Viewport selbst nicht animieren – bewegt sich mit dem Wrapper */
 .megamenu-viewport,
@@ -4339,20 +4369,33 @@ header .header-tool-toggle--theme:hover {
 }
 [data-theme='dark'] .megamenu-viewport,
 [data-theme='dark'] .megamenu .megamenu-viewport {
-  background: transparent !important;
+  background: rgba(10, 12, 18, 0.94) !important;
   color: inherit;
 }
+
+[data-theme='dark'] .megamenu .megamenu-featured {
+  background-color: rgba(12, 16, 24, 0.38) !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(14px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+}
+
 [data-theme='dark'] .megamenu .megamenu-sidebar {
   background-color: #141414;
   border-color: #262626;
 }
 
-/* Dark-UI: ~10 % heller als Dropdown-Dunkel; Typo wie Rest */
+/* Dark-UI: milchglas für die Spezialspalte */
 [data-theme='dark'] .megamenu .megamenu-featured {
-  background-color: color-mix(in srgb, #fafafa 8%, #0a0a0a 92%);
+  background-color: rgba(12, 16, 24, 0.36) !important;
   color: #fafafa;
-  border-color: color-mix(in srgb, #fafafa 10%, #262626 90%);
+  border: 1px solid rgba(255, 255, 255, 0.18) !important;
+  box-shadow: none;
+  backdrop-filter: blur(14px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
 }
+
 [data-theme='dark'] .megamenu .megamenu-featured::before {
   background:
     radial-gradient(

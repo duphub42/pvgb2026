@@ -30,7 +30,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     CREATE TABLE IF NOT EXISTS "site_pages_blocks_services_grid_categories" (
       "_order" integer NOT NULL,
       "_parent_id" varchar NOT NULL REFERENCES "site_pages_blocks_services_grid"("id") ON DELETE CASCADE,
-      "id" serial PRIMARY KEY,
+      "id" varchar PRIMARY KEY NOT NULL,
       "category_label" varchar
     );
     CREATE INDEX IF NOT EXISTS "site_pages_blocks_services_grid_categories_order_idx" ON "site_pages_blocks_services_grid_categories" ("_order");
@@ -42,8 +42,8 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     sql.raw(`
     CREATE TABLE IF NOT EXISTS "site_pages_blocks_services_grid_categories_services" (
       "_order" integer NOT NULL,
-      "_parent_id" integer NOT NULL REFERENCES "site_pages_blocks_services_grid_categories"("id") ON DELETE CASCADE,
-      "id" serial PRIMARY KEY,
+      "_parent_id" varchar NOT NULL REFERENCES "site_pages_blocks_services_grid_categories"("id") ON DELETE CASCADE,
+      "id" varchar PRIMARY KEY NOT NULL,
       "icon_url" varchar,
       "icon_alt" varchar,
       "title" varchar,
@@ -79,7 +79,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     CREATE TABLE IF NOT EXISTS "_site_pages_v_blocks_services_grid_categories" (
       "_order" integer NOT NULL,
       "_parent_id" integer NOT NULL REFERENCES "_site_pages_v_blocks_services_grid"("id") ON DELETE CASCADE,
-      "id" serial PRIMARY KEY,
+      "id" varchar PRIMARY KEY NOT NULL,
       "category_label" varchar
     );
     CREATE INDEX IF NOT EXISTS "_site_pages_v_blocks_services_grid_categories_order_idx" ON "_site_pages_v_blocks_services_grid_categories" ("_order");
@@ -91,8 +91,8 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     sql.raw(`
     CREATE TABLE IF NOT EXISTS "_site_pages_v_blocks_services_grid_categories_services" (
       "_order" integer NOT NULL,
-      "_parent_id" integer NOT NULL REFERENCES "_site_pages_v_blocks_services_grid_categories"("id") ON DELETE CASCADE,
-      "id" serial PRIMARY KEY,
+      "_parent_id" varchar NOT NULL REFERENCES "_site_pages_v_blocks_services_grid_categories"("id") ON DELETE CASCADE,
+      "id" varchar PRIMARY KEY NOT NULL,
       "icon_url" varchar,
       "icon_alt" varchar,
       "title" varchar,
