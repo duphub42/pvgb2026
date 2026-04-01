@@ -219,6 +219,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 }) => {
   const isMobile = useMediaQuery('(max-width: 767px)')
   const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
+  const portraitRef = React.useRef<HTMLDivElement | null>(null)
 
   const variant: 'popout' | 'profil' | 'standard' =
     variantProp ??
@@ -229,6 +230,37 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     if (isMobile && mediaTypeMobile && mediaTypeMobile !== 'auto') return mediaTypeMobile
     return mediaType ?? 'cssHalo'
   })()
+
+  React.useEffect(() => {
+    if (!isMobile || prefersReducedMotion) return
+
+    const target = portraitRef.current
+    if (!target) return
+
+    let rafId = 0
+    const maxOffset = 28
+
+    const updateTransform = () => {
+      const scrollTop = window.scrollY
+      const offset = Math.max(-maxOffset, Math.min(0, -scrollTop * 0.08))
+      target.style.setProperty('--hero-mobile-portrait-translate', `${offset}px`)
+      rafId = 0
+    }
+
+    const handleScroll = () => {
+      if (rafId) return
+      rafId = window.requestAnimationFrame(updateTransform)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    updateTransform()
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (rafId) window.cancelAnimationFrame(rafId)
+      target.style.removeProperty('--hero-mobile-portrait-translate')
+    }
+  }, [isMobile, prefersReducedMotion])
 
   const mediaSrc = resolveHeroImageSrc(media)
   const fgSrc = resolveHeroImageSrc(foregroundImage)
@@ -435,7 +467,10 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
             )}
           </div>
 
-          <div className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:self-end">
+          <div
+            ref={portraitRef}
+            className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:self-end hero-mobile-sticky-portrait"
+          >
             <div className="relative overflow-visible max-md:pb-6 md:flex md:items-end md:justify-center md:pb-8 md:pt-4">
               {hasVisual && <div className="hero-portrait-gradient-blob" aria-hidden />}
 
