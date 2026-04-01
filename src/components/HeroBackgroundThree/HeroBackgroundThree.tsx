@@ -1,90 +1,51 @@
 'use client'
 
-import React, { useRef, useEffect } from 'react'
-import * as THREE from 'three'
-
-const BG_COLOR = 0x0b0f19
-const LINE_COLOR = 0x1a2332
-const AMPLITUDE = 0.028
-const FREQ = 2.5
-const SPEED = 0.22
+import { cn } from '@/lib/utils'
 
 export function HeroBackgroundThree({ className = '' }: { className?: string }) {
-  const containerRef = useRef<HTMLDivElement>(null)
+  return (
+    <div className={cn('relative overflow-hidden', className)} aria-hidden>
+      <style jsx>{`
+        @keyframes HeroBackgroundThreeMovement {
+          0% {
+            transform: translate3d(0, 0, 0);
+            opacity: 0.95;
+          }
+          50% {
+            transform: translate3d(8px, -8px, 0);
+            opacity: 0.9;
+          }
+          100% {
+            transform: translate3d(0, 0, 0);
+            opacity: 0.95;
+          }
+        }
 
-  useEffect(() => {
-    const container = containerRef.current
-    if (!container) return
+        .hero-bg-three-grid {
+          background-image:
+            radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.08), transparent 28%),
+            radial-gradient(circle at 85% 12%, rgba(255, 255, 255, 0.08), transparent 24%),
+            linear-gradient(135deg, rgba(50, 63, 90, 0.9), rgba(10, 16, 27, 0.8));
+          filter: saturate(1.2);
+          opacity: 0.95;
+          animation: HeroBackgroundThreeMovement 12s ease-in-out infinite;
+        }
 
-    const width = container.offsetWidth
-    const height = container.offsetHeight
-    const scene = new THREE.Scene()
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10)
-    camera.position.z = 1
-    const renderer = new THREE.WebGLRenderer({ antialias: false, alpha: false })
-    renderer.setSize(width, height)
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    renderer.setClearColor(BG_COLOR, 1)
-    renderer.setAnimationLoop(null)
+        .hero-bg-three-overlay {
+          background-image: repeating-linear-gradient(
+            60deg,
+            rgba(255, 255, 255, 0.09) 0 1px,
+            transparent 1px 28px
+          );
+          opacity: 0.72;
+          mix-blend-mode: screen;
+          animation: HeroBackgroundThreeMovement 22s ease-in-out infinite;
+        }
+      `}</style>
 
-    const plane = new THREE.PlaneGeometry(2.2, 2.2, 36, 36)
-    const wireframe = new THREE.WireframeGeometry(plane)
-    plane.dispose()
-
-    const positions = wireframe.getAttribute('position')
-    const originalY = new Float32Array(positions.count)
-    for (let i = 0; i < positions.count; i++) {
-      originalY[i] = positions.getY(i)
-    }
-
-    const material = new THREE.LineBasicMaterial({
-      color: LINE_COLOR,
-      linewidth: 0.5,
-    })
-    const mesh = new THREE.LineSegments(wireframe, material)
-    scene.add(mesh)
-
-    container.appendChild(renderer.domElement)
-    renderer.domElement.style.display = 'block'
-    renderer.domElement.style.width = '100%'
-    renderer.domElement.style.height = '100%'
-
-    let rafId = 0
-    let t = 0
-
-    const animate = () => {
-      t += SPEED * 0.016
-      for (let i = 0; i < positions.count; i++) {
-        const x = positions.getX(i)
-        const y0 = originalY[i]
-        positions.setY(i, y0 + AMPLITUDE * Math.sin(t + x * FREQ))
-      }
-      positions.needsUpdate = true
-      renderer.render(scene, camera)
-      rafId = requestAnimationFrame(animate)
-    }
-    rafId = requestAnimationFrame(animate)
-
-    const onResize = () => {
-      if (!container) return
-      const w = container.offsetWidth
-      const h = container.offsetHeight
-      renderer.setSize(w, h)
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
-    }
-    window.addEventListener('resize', onResize)
-
-    return () => {
-      window.removeEventListener('resize', onResize)
-      cancelAnimationFrame(rafId)
-      renderer.dispose()
-      wireframe.dispose()
-      material.dispose()
-      if (container && renderer.domElement.parentNode === container) {
-        container.removeChild(renderer.domElement)
-      }
-    }
-  }, [])
-
-  return <div ref={containerRef} className={className} aria-hidden />
+      <div className="absolute inset-0 hero-bg-three-grid" />
+      <div className="absolute inset-0 hero-bg-three-overlay" />
+      <div className="absolute inset-0 bg-gradient-to-br from-slate-900/80 via-slate-950/65 to-black/80" />
+    </div>
+  )
 }

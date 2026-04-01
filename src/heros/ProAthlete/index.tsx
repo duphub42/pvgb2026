@@ -218,7 +218,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
           </div>
         </div>
 
-        <div className="relative z-50 order-1 lg:order-2 w-full lg:w-1/2 h-[65vh] lg:h-[70vh] flex items-center justify-center">
+        <div className="relative z-50 order-1 lg:order-2 w-full lg:w-1/2 h-[65vh] lg:h-[70vh] max-h-[666px] flex items-center justify-center">
           <div className="relative w-full h-full flex items-center justify-center overflow-visible">
             <div className="relative w-full h-full flex items-center justify-center overflow-visible -translate-y-6">
               <div className="relative w-full h-full flex items-center justify-center animate-float">

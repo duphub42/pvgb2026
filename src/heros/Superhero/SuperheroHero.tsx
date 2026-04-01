@@ -271,20 +271,20 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     if (!section || !target) return
 
     let rafId: number | null = null
-    const collapseDistance = 420
-    const maxTranslate = 120
-    const maxBlur = 12
+    const collapseDistance = 320
+    const maxTranslate = 240
+    const maxBlur = 16
 
     const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
 
     const update = () => {
       const rect = section.getBoundingClientRect()
       const progress = clamp(-rect.top / collapseDistance, 0, 1)
-      const eased = Math.pow(progress, 1.2)
+      const eased = Math.pow(progress, 1.5)
 
-      const translateY = eased * maxTranslate
+      const translateY = eased * maxTranslate + progress * 40
       const blur = eased * maxBlur
-      const opacity = clamp(1 - eased, 0, 1)
+      const opacity = clamp(1 - eased * 1.2, 0, 1)
 
       target.style.setProperty('--hero-desktop-portrait-translate', `${translateY}px`)
       target.style.setProperty('--hero-desktop-portrait-blur', `${blur}px`)
