@@ -273,7 +273,8 @@ export const hero: Field = {
           relationTo: 'media',
           label: 'Stack: Bild hinten (Ebene 3)',
           admin: {
-            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) =>
+              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
           },
         },
         {
@@ -282,7 +283,8 @@ export const hero: Field = {
           label: 'Hinten ΔX (px)',
           defaultValue: 0,
           admin: {
-            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) =>
+              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             width: '50%',
           },
         },
@@ -292,7 +294,8 @@ export const hero: Field = {
           label: 'Hinten ΔY (px)',
           defaultValue: 0,
           admin: {
-            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) =>
+              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             width: '50%',
           },
         },
@@ -307,7 +310,8 @@ export const hero: Field = {
           relationTo: 'media',
           label: 'Stack: Bild Mitte (Ebene 2)',
           admin: {
-            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) =>
+              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
           },
         },
         {
@@ -316,7 +320,8 @@ export const hero: Field = {
           label: 'Mitte ΔX (px)',
           defaultValue: 0,
           admin: {
-            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) =>
+              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             width: '50%',
           },
         },
@@ -326,7 +331,8 @@ export const hero: Field = {
           label: 'Mitte ΔY (px)',
           defaultValue: 0,
           admin: {
-            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) =>
+              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             width: '50%',
           },
         },
@@ -341,7 +347,8 @@ export const hero: Field = {
           relationTo: 'media',
           label: 'Stack: Bild vorn (Ebene 1)',
           admin: {
-            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) =>
+              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             description: 'Optional. Leer = „Vordergrund Bild“ wird als vordere Ebene genutzt.',
           },
         },
@@ -351,7 +358,8 @@ export const hero: Field = {
           label: 'Vorn ΔX (px)',
           defaultValue: 0,
           admin: {
-            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) =>
+              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             width: '50%',
           },
         },
@@ -361,7 +369,8 @@ export const hero: Field = {
           label: 'Vorn ΔY (px)',
           defaultValue: 0,
           admin: {
-            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) =>
+              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             width: '50%',
           },
         },
@@ -387,7 +396,8 @@ export const hero: Field = {
           min: 0,
           max: 20,
           admin: {
-            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) =>
+              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             description:
               'Wie stark die schwebenden Elemente dem Cursor ausweichen (0 = aus, 6.5 = Standard).',
           },
@@ -400,7 +410,8 @@ export const hero: Field = {
           min: 0,
           max: 20,
           admin: {
-            condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) =>
+              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
             description: 'Amplitude der leichten Bewegung ohne Maus (0 = statisch).',
           },
         },

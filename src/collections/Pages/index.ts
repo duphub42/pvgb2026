@@ -13,6 +13,7 @@ import { ShadcnBlock } from '../../blocks/ShadcnBlock/config'
 import { ConsultingOverview } from '../../blocks/ConsultingOverview/config'
 import { Introduction } from '../../blocks/Introduction/config'
 import { ServicesOverview } from '../../blocks/ServicesOverview/config'
+import { ServicesGrid } from '../../blocks/ServicesGrid/config'
 import { WhyWorkWithMe } from '../../blocks/WhyWorkWithMe/config'
 import { ProfilUeberMich } from '../../blocks/ProfilUeberMich/config'
 import { ProfilKernkompetenz } from '../../blocks/ProfilKernkompetenz/config'
@@ -82,6 +83,7 @@ export const Pages: CollectionConfig = {
                 ConsultingOverview,
                 ShadcnBlock,
                 ServicesOverview,
+                ServicesGrid,
                 WhyWorkWithMe,
                 ProfilUeberMich,
                 ProfilKernkompetenz,

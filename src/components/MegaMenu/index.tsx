@@ -455,12 +455,25 @@ export function MegaMenu({
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const navListWrapRef = useRef<HTMLDivElement>(null)
   const viewportWrapperRef = useRef<HTMLDivElement>(null)
-  const prevViewportHeightRef = useRef<number>(0)
-  const prevActiveMenuRef = useRef<string | null>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const removePanelCloseTransitionRef = useRef<(() => void) | null>(null)
   const [underlineStyle, setUnderlineStyle] = useState<{ left: number; width: number } | null>(null)
   const [mouseEntrySide, setMouseEntrySide] = useState<'left' | 'right'>('left')
+
+  const cancelCloseTimeout = () => {
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+  }
+
+  // CSS-first close: Active state steuert in/ausblenden, JS nur Zeitverzögerung zum Verhindern von Peeking.
+  const scheduleClose = (delay = 220) => {
+    cancelCloseTimeout()
+    closeTimeoutRef.current = setTimeout(() => {
+      setActiveMenu(null)
+      closeTimeoutRef.current = null
+    }, delay)
+  }
 
   /* Schließen verzögern (300ms): Cursor darf langsam vom Link ins Dropdown fahren, ohne dass es zugeht */
   useEffect(() => {
@@ -474,13 +487,6 @@ export function MegaMenu({
     }
     wrapper.addEventListener('pointerenter', onEnter)
     return () => wrapper.removeEventListener('pointerenter', onEnter)
-  }, [])
-
-  useEffect(() => {
-    return () => {
-      removePanelCloseTransitionRef.current?.()
-      removePanelCloseTransitionRef.current = null
-    }
   }, [])
 
   const contentCols = columnWidths?.content ?? 6
@@ -549,53 +555,21 @@ export function MegaMenu({
     return () => ro.disconnect()
   }, [pathname])
 
-  /* Beim Wechsel zwischen zwei Menüpunkten: Dropdown-Höhe per Slide up/down animieren */
+  /* Dropdown-Inhalt beim Öffnen/Wechsel wieder nach oben scrollen */
   useEffect(() => {
-    const prev = prevActiveMenuRef.current
-    prevActiveMenuRef.current = activeMenu ?? null
-
-    const switching =
-      prev != null && prev !== '' && activeMenu != null && activeMenu !== '' && prev !== activeMenu
-    if (!switching) {
-      if (activeMenu != null && activeMenu !== '') {
-        const wrapper = viewportWrapperRef.current
-        if (wrapper) prevViewportHeightRef.current = wrapper.offsetHeight
-      }
-      return
-    }
-
+    if (!activeMenu) return
     const wrapper = viewportWrapperRef.current
     if (!wrapper) return
 
-    const viewport = wrapper.firstElementChild as HTMLElement | null
-    const oldHeight = prevViewportHeightRef.current || wrapper.offsetHeight
-    const duration = 320
-    const ease = 'cubic-bezier(0.25, 0.1, 0.25, 1)' /* match panel + Radix (Apple-like) */
+    wrapper.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+  }, [activeMenu])
+  useEffect(() => {
+    if (!activeMenu) return
+    const wrapper = viewportWrapperRef.current
+    if (!wrapper) return
 
-    /* Wrapper sofort auf alte Höhe fixieren, damit kein Sprung sichtbar ist */
-    wrapper.style.minHeight = '0'
-    wrapper.style.height = `${oldHeight}px`
-    wrapper.style.transition = `height ${duration}ms ${ease}`
-
-    /* Neue Höhe erst nach Layout lesen (Radix/React brauchen einen Tick), dann weich animieren */
-    const timeoutId = setTimeout(() => {
-      const newHeightPx = viewport
-        ? parseFloat(getComputedStyle(viewport).height) || viewport.scrollHeight
-        : wrapper.scrollHeight
-      const capped = Math.min(newHeightPx, window.innerHeight * 0.85)
-      wrapper.style.height = `${capped}px`
-      prevViewportHeightRef.current = capped
-
-      const onEnd = () => {
-        wrapper.style.transition = ''
-        wrapper.style.minHeight = ''
-        wrapper.style.height = ''
-        wrapper.removeEventListener('transitionend', onEnd)
-      }
-      wrapper.addEventListener('transitionend', onEnd)
-    }, 0)
-
-    return () => clearTimeout(timeoutId)
+    // Stellt sicher, dass beim Itemwechsel nichts im unteren Bereich hängen bleibt
+    wrapper.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [activeMenu])
 
   useEffect(() => {
@@ -704,74 +678,23 @@ export function MegaMenu({
           <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
             <div className="header-main-row flex flex-1 items-stretch justify-between">
               <div className="flex items-center">{logo}</div>
-              <div className="megamenu-nav-wrap flex h-full items-stretch gap-4">
+              <div
+                className="megamenu-nav-wrap flex h-full items-stretch gap-4"
+                onPointerEnter={cancelCloseTimeout}
+                onPointerLeave={() => scheduleClose(180)}
+              >
                 <NavigationMenu
                   className="megamenu-nav hidden lg:flex lg:h-full lg:flex-initial lg:ml-auto"
                   value={activeMenu ?? ''}
                   onValueChange={(value) => {
                     const next = value || null
                     if (next !== '' && next !== null) {
-                      removePanelCloseTransitionRef.current?.()
-                      removePanelCloseTransitionRef.current = null
-                      resetMegamenuViewportWrapperMotion(viewportWrapperRef.current)
-                      if (closeTimeoutRef.current) {
-                        clearTimeout(closeTimeoutRef.current)
-                        closeTimeoutRef.current = null
-                      }
-                      if (viewportWrapperRef.current && next !== activeMenu)
-                        prevViewportHeightRef.current = viewportWrapperRef.current.offsetHeight
+                      cancelCloseTimeout()
                       setActiveMenu(next)
                       return
                     }
-                    /* Schließen um 300ms verzögern, damit Cursor vom Link ins Dropdown kann */
-                    if (closeTimeoutRef.current) clearTimeout(closeTimeoutRef.current)
-                    closeTimeoutRef.current = setTimeout(() => {
-                      removePanelCloseTransitionRef.current?.()
-                      removePanelCloseTransitionRef.current = null
 
-                      const wrapper = viewportWrapperRef.current
-                      const frozen =
-                        wrapper != null ? Math.round(wrapper.getBoundingClientRect().height) : 0
-
-                      if (!wrapper || frozen < 2) {
-                        setActiveMenu(null)
-                        closeTimeoutRef.current = null
-                        return
-                      }
-
-                      wrapper.style.animation = 'none'
-                      /* Inline maxHeight: globales .megamenu-viewport-wrapper hat max-height:0 — sonst kollabiert die Box trotz height. */
-                      wrapper.style.maxHeight = `${frozen}px`
-                      wrapper.style.height = `${frozen}px`
-                      wrapper.style.overflow = 'hidden'
-                      wrapper.style.transform = 'translateZ(0) translateY(0)'
-                      wrapper.style.opacity = '1'
-                      void wrapper.offsetHeight
-
-                      requestAnimationFrame(() => {
-                        setActiveMenu(null)
-                        requestAnimationFrame(() => {
-                          const w = viewportWrapperRef.current
-                          if (!w) return
-
-                          const ease = 'cubic-bezier(0.25, 0.1, 0.25, 1)'
-                          const onEnd = (e: TransitionEvent) => {
-                            if (e.target !== w || e.propertyName !== 'transform') return
-                            w.removeEventListener('transitionend', onEnd)
-                            removePanelCloseTransitionRef.current = null
-                            resetMegamenuViewportWrapperMotion(w)
-                          }
-                          w.addEventListener('transitionend', onEnd)
-                          removePanelCloseTransitionRef.current = () => {
-                            w.removeEventListener('transitionend', onEnd)
-                          }
-                          w.style.transition = `transform 320ms ${ease}, opacity 280ms ${ease}`
-                          w.style.transform = 'translateZ(0) translateY(-100%)'
-                          w.style.opacity = '0'
-                        })
-                      })
-                      closeTimeoutRef.current = null
-                    }, 300)
+                    scheduleClose(300)
                   }}
                   viewportWrapperRef={viewportWrapperRef}
                 >

@@ -21,12 +21,14 @@ export const MediumImpactHero: React.FC<SitePage['hero']> = ({
 
   return (
     <div className="bg-background text-foreground">
-      <div className="container mb-8">
+      <div className="container hero-safe-top mb-8">
         {hasHeadings && (
           <div className="mb-6">
             {subheadline && <p className="text-lg text-foreground/90 mb-2">{subheadline}</p>}
             {headline && (
-              <h1 className="text-hero-display hero-heading-gradient text-foreground mb-4">{headline}</h1>
+              <h1 className="text-hero-display hero-heading-gradient text-foreground mb-4">
+                {headline}
+              </h1>
             )}
             {description && <p className="text-base text-foreground/90">{description}</p>}
           </div>

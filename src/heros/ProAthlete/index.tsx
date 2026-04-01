@@ -135,9 +135,10 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
         </div>
       </div>
 
-      <div className="relative z-10 flex flex-col lg:flex-row w-full min-h-screen">
-        <div className="relative z-30 order-2 lg:order-1 w-full lg:w-1/2 flex flex-col justify-center px-6 py-16 lg:px-20 bg-white/40 dark:bg-zinc-900/70 backdrop-blur-3xl border-t lg:border-t-0 lg:border-r border-white/40 dark:border-white/10 shadow-2xl">
-          <div className="max-w-xl mx-auto lg:mx-0">
+      <div className="relative z-10 flex flex-col lg:flex-row w-full max-w-[1200px] mx-auto px-4 lg:px-8 py-16 min-h-screen">
+        <div className="relative z-30 order-2 lg:order-1 w-full lg:w-1/2 flex flex-col justify-center px-4 py-12 lg:px-10 lg:py-16">
+          <div className="w-full flex justify-center">
+            <div className="w-full max-w-xl bg-white/20 dark:bg-zinc-950/60 backdrop-blur-xl border-t lg:border-t-0 lg:border-r border-white/25 dark:border-white/20 shadow-2xl p-6 lg:p-8 rounded-2xl">
             {badgeText ? (
               <Badge
                 variant="outline"
@@ -210,19 +211,22 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
             ) : null}
           </div>
         </div>
+      </div>
 
-        <div className="relative z-10 order-1 lg:order-2 w-full lg:w-[60%] h-[55vh] lg:h-auto flex items-center justify-center lg:-ml-[10%]">
+        <div className="relative z-50 order-1 lg:order-2 w-full lg:w-1/2 h-[65vh] lg:h-[70vh] flex items-center justify-center">
           <div className="relative w-full h-full flex items-center justify-center overflow-visible">
-            <div className="relative w-full h-full flex items-center justify-center overflow-visible">
-              <div className="relative w-full h-full flex items-center justify-center translate-y-[15%] lg:translate-y-0 animate-float">
-                <PopoutHeroStackVisual layers={stackLayers} className="relative z-0" />
+            <div className="relative w-full h-full flex items-center justify-center overflow-visible -translate-y-6">
+              <div className="relative w-full h-full flex items-center justify-center animate-float">
+                <div className="w-full max-w-[560px]">
+                  <PopoutHeroStackVisual layers={stackLayers} className="relative z-0" />
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 w-full z-40 pointer-events-none">
+      <div className="absolute bottom-0 left-0 w-full z-10 pointer-events-none">
         <svg viewBox="0 0 1440 200" className="w-full h-auto block" preserveAspectRatio="none">
           <path
             d="M0,160 C320,260 480,10 640,110 C800,210 1120,60 1440,160 L1440,200 L0,200 Z"

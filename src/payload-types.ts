@@ -356,6 +356,7 @@ export interface SitePage {
         | ConsultingOverviewBlock
         | ShadcnBlock
         | ServicesOverviewBlock
+        | ServicesGridBlock
         | WhyWorkWithMeBlock
         | ProfilUeberMichBlock
         | ProfilKernkompetenzBlock
@@ -920,6 +921,59 @@ export interface ServicesOverviewBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'servicesOverview';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesGridBlock".
+ */
+export interface ServicesGridBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  /**
+   * Titel für dieses Sektion.
+   */
+  heading?: string | null;
+  /**
+   * Optionaler Text unter der Überschrift.
+   */
+  intro?: string | null;
+  categories?:
+    | {
+        categoryLabel: string;
+        services?:
+          | {
+              icon?: {
+                url?: string | null;
+                alt?: string | null;
+              };
+              title: string;
+              description: string;
+              link: {
+                slug: string;
+              };
+              featured?: boolean | null;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'servicesGrid';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2288,6 +2342,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         consultingOverview?: T | ConsultingOverviewBlockSelect<T>;
         shadcnBlock?: T | ShadcnBlockSelect<T>;
         servicesOverview?: T | ServicesOverviewBlockSelect<T>;
+        servicesGrid?: T | ServicesGridBlockSelect<T>;
         whyWorkWithMe?: T | WhyWorkWithMeBlockSelect<T>;
         profilUeberMich?: T | ProfilUeberMichBlockSelect<T>;
         profilKernkompetenz?: T | ProfilKernkompetenzBlockSelect<T>;
@@ -2474,6 +2529,49 @@ export interface ServicesOverviewBlockSelect<T extends boolean = true> {
         icon?: T;
         title?: T;
         description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServicesGridBlock_select".
+ */
+export interface ServicesGridBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  heading?: T;
+  intro?: T;
+  categories?:
+    | T
+    | {
+        categoryLabel?: T;
+        services?:
+          | T
+          | {
+              icon?:
+                | T
+                | {
+                    url?: T;
+                    alt?: T;
+                  };
+              title?: T;
+              description?: T;
+              link?:
+                | T
+                | {
+                    slug?: T;
+                  };
+              featured?: T;
+              id?: T;
+            };
         id?: T;
       };
   id?: T;

@@ -211,6 +211,15 @@
   .hero-marquee-band--cta .hero-logo-grayscale {
     opacity: 0.92;
   }
+
+  /* Hero-Safe-Top: sorgt für Header-Abstand für alle Nicht-Offset-Heros */
+  .hero-safe-top {
+    padding-top: calc(var(--header-height) * 2);
+  }
+
+  .hero-safe-top--extra {
+    padding-top: calc(var(--header-height) + 1rem);
+  }
   [data-theme='dark'] .hero-marquee-band--cta .hero-logo-grayscale {
     opacity: 0.95;
   }
@@ -3746,13 +3755,13 @@ html.theme-fallback {
 /* Rahmen/Shadow nur wenn Dropdown geöffnet – sonst keine Linie unter dem Header */
 .megamenu-dropdown-bg,
 .megamenu-viewport-wrapper {
-  background-color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.05) !important;
   color: #171717;
   border: none !important;
   box-shadow: none !important;
 }
 .megamenu-viewport-wrapper:has([data-state='open']) {
-  border: 1px solid #e5e5e5 !important;
+  border: 1px solid rgba(229, 229, 229, 0.3) !important;
   border-top: none !important;
   border-radius: 0 0 8px 8px;
   box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.06);
@@ -3829,6 +3838,88 @@ html.theme-fallback {
 .megamenu-viewport,
 .megamenu .megamenu-viewport {
   animation: none !important;
+}
+
+/* ─── PANEL-WECHSEL: eleganter Cross-Fade ohne Zoom ─────────────────────── */
+/* Der Compound-Selektor greift NUR wenn gleichzeitig ein ausgehendes Panel   */
+/* (data-motion="to-*") und ein eingehendes Panel (data-motion="from-*")      */
+/* vorhanden sind – also ausschließlich beim Wechsel zwischen zwei Panels.    */
+/* Beim initialen Öffnen oder Schließen liegt immer nur from- ODER to- vor.   */
+
+@keyframes megamenu-panel-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes megamenu-panel-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Eingehendes Panel: reines Fade statt zoom-in-95 → kein Skalierungs-Flash */
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  [data-motion^='from-'] {
+  animation: megamenu-panel-fade-in 200ms cubic-bezier(0.25, 0.1, 0.25, 1) both !important;
+}
+/* Ausgehendes Panel: reines Fade statt zoom-out-95 */
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  [data-motion^='to-'] {
+  animation: megamenu-panel-fade-out 160ms cubic-bezier(0.25, 0.1, 0.25, 1) both !important;
+}
+/* Stagger-Verzögerungen auf 0 reduzieren: Inhalt erscheint sofort,           */
+/* kein Leer-Frame zwischen ausblendendem und einblendendem Panel              */
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  .megamenu-dropdown-content > *,
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  .megamenu-dropdown-content-footer > *,
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  .megamenu-highlight-wipe-wrap {
+  animation-delay: 0ms !important;
+  animation-duration: 160ms !important;
+}
+/* ──────────────────────────────────────────────────────────────────────────── */
+
+/* Switch-Zustand: keine Radix-Transform-Zooms, konsequenter Cross-Fade */
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-panel {
+  animation: none !important;
+  /* Sorgt dafür, dass beide Panel-Layer exakt übereinander liegen */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  overflow: hidden;
+}
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  [data-motion^='from-'] {
+  z-index: 2;
+  pointer-events: auto;
+  animation: megamenu-panel-apple-in 260ms cubic-bezier(0.22, 0.14, 0.26, 0.96) both !important;
+}
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  [data-motion^='to-'] {
+  z-index: 1;
+  pointer-events: none;
+  animation: megamenu-panel-apple-out 260ms cubic-bezier(0.22, 0.14, 0.26, 0.96) both !important;
+}
+
+@keyframes megamenu-panel-apple-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes megamenu-panel-apple-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
 }
 
 /* Apple-Style: Inhalte bauen sich gestaffelt auf (reines Fade-in, langsame Transition wie Apple) */
@@ -3962,55 +4053,32 @@ html.theme-fallback {
   border-color: #e5e5e5;
 }
 
-/* Featured-Spalte: dezenter Ton + weicher Verlauf + filigranes Gitter (edel/minimal) */
+/* Featured-Spalte: milchglas-Effekt, rechte Spezial-Säule */
 .megamenu .megamenu-featured {
   position: relative;
   isolation: isolate;
-  background-color: color-mix(in srgb, #171717 8%, #ffffff 92%);
+  background-color: rgba(255, 255, 255, 0.22);
   color: #171717;
-  border-color: color-mix(in srgb, #171717 8%, #e5e5e5 92%);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  overflow: hidden;
 }
-.megamenu .megamenu-featured::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(
-      ellipse 115% 90% at 100% 0%,
-      color-mix(in srgb, #171717 5%, transparent) 0%,
-      transparent 58%
-    ),
-    linear-gradient(
-      155deg,
-      color-mix(in srgb, #ffffff 88%, #171717 12%) 0%,
-      transparent 52%
-    );
-  opacity: 0.55;
+[data-theme='dark'] .megamenu .megamenu-featured {
+  background-color: rgba(12, 18, 28, 0.14); /* weniger opak für echten Milcheffekt */
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #f6f6f6;
 }
+.megamenu .megamenu-featured::before,
 .megamenu .megamenu-featured::after {
   content: '';
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  background-image:
-    repeating-linear-gradient(
-      to bottom,
-      transparent 0,
-      transparent 27px,
-      rgba(23, 23, 23, 0.035) 27px,
-      rgba(23, 23, 23, 0.035) 28px
-    ),
-    repeating-linear-gradient(
-      to right,
-      transparent 0,
-      transparent 27px,
-      rgba(23, 23, 23, 0.035) 27px,
-      rgba(23, 23, 23, 0.035) 28px
-    );
-  opacity: 0.5;
+  background: transparent;
+  opacity: 0;
 }
 .megamenu .megamenu-featured > * {
   position: relative;
@@ -4036,21 +4104,32 @@ html.theme-fallback {
   background-color: rgba(0, 0, 0, 0.05);
   color: #171717;
 }
-.megamenu .megamenu-featured .bg-card {
-  background-color: color-mix(in srgb, #171717 10%, #ffffff 90%) !important;
-  color: #171717 !important;
-  border: 1px solid color-mix(in srgb, #171717 10%, #e5e5e5 90%) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35);
-  transition:
-    background-color 0.32s cubic-bezier(0.22, 0, 0.2, 1),
-    border-color 0.32s cubic-bezier(0.22, 0, 0.2, 1);
+.megamenu .megamenu-featured .bg-card,
+.megamenu .megamenu-featured .card,
+.megamenu .megamenu-featured .megamenu-highlight-wipe-wrap .card,
+[data-theme='dark'] .megamenu .megamenu-featured .bg-card,
+[data-theme='dark'] .megamenu .megamenu-featured .card {
+  background-color: transparent !important;
+  color: inherit !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
 }
-.megamenu .megamenu-featured a:has(.bg-card):hover {
+.megamenu .megamenu-featured::before,
+.megamenu .megamenu-featured::after,
+[data-theme='dark'] .megamenu .megamenu-featured::before,
+[data-theme='dark'] .megamenu .megamenu-featured::after {
+  background: transparent !important;
+  opacity: 0 !important;
+}
+.megamenu .megamenu-featured a:has(.bg-card):hover,
+[data-theme='dark'] .megamenu .megamenu-featured a:has(.bg-card):hover {
   background-color: transparent;
 }
-.megamenu .megamenu-featured a:hover .bg-card {
-  background-color: color-mix(in srgb, #171717 12%, #ffffff 88%) !important;
-  border-color: color-mix(in srgb, #171717 12%, #e5e5e5 88%) !important;
+.megamenu .megamenu-featured a:hover .bg-card,
+[data-theme='dark'] .megamenu .megamenu-featured a:hover .bg-card {
+  background-color: transparent !important;
+  border-color: transparent !important;
 }
 .megamenu .megamenu-featured .megamenu-item-icon {
   transition:
@@ -4323,19 +4402,21 @@ header .header-tool-toggle--theme:hover {
   background-color: rgba(255, 255, 255, 0.06);
   color: #fafafa;
 }
-[data-theme='dark'] .megamenu .megamenu-featured .bg-card {
-  background-color: color-mix(in srgb, #fafafa 10%, #0a0a0a 90%) !important;
-  color: #fafafa !important;
-  border: 1px solid color-mix(in srgb, #fafafa 12%, #262626 88%) !important;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
+[data-theme='dark'] .megamenu .megamenu-featured .bg-card,
+[data-theme='dark'] .megamenu .megamenu-featured .card,
+[data-theme='dark'] .megamenu .megamenu-featured .megamenu-highlight-wipe-wrap .card {
+  background-color: transparent !important;
+  color: inherit !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
 }
-[data-theme='dark'] .megamenu .megamenu-featured a:has(.bg-card):hover {
-  background-color: transparent;
-}
+[data-theme='dark'] .megamenu .megamenu-featured a:has(.bg-card):hover,
 [data-theme='dark'] .megamenu .megamenu-featured a:hover .bg-card {
-  background-color: color-mix(in srgb, #fafafa 12%, #0a0a0a 88%) !important;
-  border-color: color-mix(in srgb, #fafafa 14%, #262626 86%) !important;
+  background-color: transparent !important;
+  border-color: transparent !important;
 }
+
 [data-theme='dark'] .megamenu .megamenu-featured .megamenu-item-icon {
   background-image:
     linear-gradient(to right, rgba(255, 255, 255, 0.06) 1px, transparent 1px),
@@ -4479,11 +4560,13 @@ header .header-tool-toggle--theme:hover {
 }
 [data-theme='dark'] .megamenu-dropdown-bg,
 [data-theme='dark'] .megamenu-viewport-wrapper {
-  background-color: #0a0a0a !important;
+  background-color: rgba(5, 8, 15, 0.42) !important;
   color: #fafafa;
+  backdrop-filter: blur(8px) !important;
+  -webkit-backdrop-filter: blur(8px) !important;
 }
 [data-theme='dark'] .megamenu-viewport-wrapper:has([data-state='open']) {
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
   border-top: none !important;
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
 }

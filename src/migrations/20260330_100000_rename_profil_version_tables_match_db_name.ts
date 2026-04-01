@@ -15,6 +15,12 @@ const RENAMES_UP: [string, string][] = [
   ['_site_pages_v_blocks_prof_tools_tools', '_prof_tools_v_tools'],
   ['_site_pages_v_blocks_prof_lang_zert_sprachen', '_prof_lang_zert_v_sprachen'],
   ['_site_pages_v_blocks_prof_lang_zert_zertifikate', '_prof_lang_zert_v_zertifikate'],
+  ['_site_pages_v_blocks_services_grid', '_services_grid_v'],
+  ['_site_pages_v_blocks_services_grid_categories', '_services_grid_v_categories'],
+  [
+    '_site_pages_v_blocks_services_grid_categories_services',
+    '_services_grid_v_categories_services',
+  ],
   ['_site_pages_v_blocks_prof_kern_bereiche', '_prof_kern_v_bereiche'],
   ['_site_pages_v_blocks_prof_skills_spalten', '_prof_skills_v_spalten'],
   ['_site_pages_v_blocks_prof_ueber', '_prof_ueber_v'],
@@ -29,7 +35,8 @@ const RENAMES_UP: [string, string][] = [
 
 export async function up({ db }: MigrateUpArgs): Promise<void> {
   for (const [from, to] of RENAMES_UP) {
-    await db.execute(sql.raw(`
+    await db.execute(
+      sql.raw(`
       DO $$ BEGIN
         IF EXISTS (
           SELECT 1 FROM information_schema.tables
@@ -41,14 +48,16 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
           ALTER TABLE "${from}" RENAME TO "${to}";
         END IF;
       END $$;
-    `))
+    `),
+    )
   }
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {
   for (let i = RENAMES_UP.length - 1; i >= 0; i--) {
     const [from, to] = RENAMES_UP[i]!
-    await db.execute(sql.raw(`
+    await db.execute(
+      sql.raw(`
       DO $$ BEGIN
         IF EXISTS (
           SELECT 1 FROM information_schema.tables
@@ -60,6 +69,7 @@ export async function down({ db }: MigrateDownArgs): Promise<void> {
           ALTER TABLE "${to}" RENAME TO "${from}";
         END IF;
       END $$;
-    `))
+    `),
+    )
   }
 }

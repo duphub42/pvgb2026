@@ -15,6 +15,9 @@ const VERSION_TABLES = [
   '_site_pages_v_blocks_media_block',
   '_site_pages_v_blocks_archive',
   '_site_pages_v_blocks_form_block',
+  '_services_grid_v',
+  '_services_grid_v_categories',
+  '_services_grid_v_categories_services',
 ]
 
 const MAIN_TABLES = [
@@ -28,6 +31,9 @@ const MAIN_TABLES = [
   'site_pages_blocks_media_block',
   'site_pages_blocks_archive',
   'site_pages_blocks_form_block',
+  'services_grid',
+  'services_grid_categories',
+  'services_grid_categories_services',
 ]
 
 async function addUuidToTable(db: MigrateUpArgs['db'], table: string) {

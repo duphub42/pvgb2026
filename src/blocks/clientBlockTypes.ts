@@ -21,6 +21,7 @@ export const CLIENT_BLOCK_TYPES = new Set([
   'introduction',
   'mediaBlock',
   'servicesOverview',
+  'servicesGrid',
   'shadcnBlock',
   'whyWorkWithMe',
 ])

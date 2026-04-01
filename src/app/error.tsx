@@ -14,7 +14,7 @@ export default function Error({
   }, [error])
 
   return (
-    <div style={{ padding: '2rem', textAlign: 'center' }}>
+    <div className="hero-safe-top" style={{ padding: '2rem', textAlign: 'center' }}>
       <h2>Etwas ist schiefgelaufen</h2>
       <button
         type="button"

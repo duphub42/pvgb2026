@@ -30,10 +30,7 @@ const NavigationMenuList = React.forwardRef<
 >(({ className, ...props }, ref) => (
   <NavigationMenuPrimitive.List
     ref={ref}
-    className={cn(
-      'group flex flex-1 list-none items-center justify-center space-x-1',
-      className,
-    )}
+    className={cn('group flex flex-1 list-none items-center justify-center space-x-1', className)}
     {...props}
   />
 ))
@@ -54,8 +51,7 @@ const NavigationMenuTrigger = React.forwardRef<
     className={cn(navigationMenuTriggerStyle(), 'group', className)}
     {...props}
   >
-    {children}
-    {' '}
+    {children}{' '}
     <ChevronDown
       className="relative top-[1px] ml-1 h-4 w-4 transition-[transform] duration-300 ease-[cubic-bezier(0.25,0.1,0.25,1)] group-data-[state=open]:rotate-180"
       aria-hidden="true"
@@ -74,9 +70,9 @@ const NavigationMenuContent = React.forwardRef<
       /* Symmetrische Ein-/Ausblendung (kein horizontales Slide): gleiche Dauer/Easing wie Megamenu-Panel */
       'left-0 top-0 w-full md:absolute md:w-full',
       'data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out',
-      'data-[motion^=from-]:fade-in-0 data-[motion^=from-]:zoom-in-95',
+      'data-[motion^=from-]:fade-in-0',
       'data-[motion^=from-]:duration-[280ms] data-[motion^=from-]:ease-[cubic-bezier(0.25,0.1,0.25,1)]',
-      'data-[motion^=to-]:fade-out-0 data-[motion^=to-]:zoom-out-95',
+      'data-[motion^=to-]:fade-out-0',
       'data-[motion^=to-]:duration-[280ms] data-[motion^=to-]:ease-[cubic-bezier(0.25,0.1,0.25,1)]',
       className,
     )}
@@ -94,17 +90,13 @@ const NavigationMenuViewport = React.forwardRef<
   <div className="megamenu-viewport-outer absolute left-0 right-0 top-full w-full overflow-hidden">
     <div ref={ref} className="megamenu-dropdown-bg megamenu-viewport-wrapper origin-top">
       <NavigationMenuPrimitive.Viewport
-        className={cn(
-          'megamenu-viewport origin-top relative w-full',
-          className,
-        )}
+        className={cn('megamenu-viewport origin-top relative w-full', className)}
         {...props}
       />
     </div>
   </div>
 ))
-NavigationMenuViewport.displayName =
-  NavigationMenuPrimitive.Viewport.displayName
+NavigationMenuViewport.displayName = NavigationMenuPrimitive.Viewport.displayName
 
 const NavigationMenuIndicator = React.forwardRef<
   React.ElementRef<typeof NavigationMenuPrimitive.Indicator>,
@@ -121,8 +113,7 @@ const NavigationMenuIndicator = React.forwardRef<
     <div className="relative top-[60%] h-2 w-2 rotate-45 rounded-tl-sm bg-border shadow-md" />
   </NavigationMenuPrimitive.Indicator>
 ))
-NavigationMenuIndicator.displayName =
-  NavigationMenuPrimitive.Indicator.displayName
+NavigationMenuIndicator.displayName = NavigationMenuPrimitive.Indicator.displayName
 
 export {
   navigationMenuTriggerStyle,
