@@ -171,6 +171,7 @@ export const hero: Field = {
       relationTo: 'hero-backgrounds',
       hasMany: false,
       admin: {
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
         description:
           'Optionales, animiertes Hintergrund-Preset (Halo CSS, Gradient). Wird hinter dem jeweiligen Hero-Layout gerendert.',
       },
@@ -187,7 +188,7 @@ export const hero: Field = {
         { label: 'Animation', value: 'animation' },
       ],
       admin: {
-        condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
         description:
           'Halo (CSS) = weiche Farb-Halos ohne WebGL. Bei „Bild/Video/Animation“ erscheinen die Spezial-Hintergründe nicht.',
       },
@@ -205,7 +206,7 @@ export const hero: Field = {
         { label: 'Animation', value: 'animation' },
       ],
       admin: {
-        condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
         description:
           'Optionaler Override für Mobilgeräte. „Wie Desktop-Einstellung“ übernimmt die normale Auswahl.',
       },
@@ -259,7 +260,7 @@ export const hero: Field = {
         { label: 'Gitter (Linien)', value: 'gridLines' },
       ],
       admin: {
-        condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
         description: 'Dezentes Muster über der Hero-Fläche (unter Text/Bildern).',
       },
     },
@@ -372,7 +373,7 @@ export const hero: Field = {
       defaultValue: 0.5,
       label: 'Overlay Deckkraft',
       admin: {
-        condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isPopoutLayoutHero(String(siblingData?.type ?? '')),
       },
     },
     {

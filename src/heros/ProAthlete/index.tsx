@@ -3,6 +3,7 @@ import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import { CMSLink } from '@/components/Link'
 import { ArrowRight, Zap } from 'lucide-react'
+import { PopoutHeroStackVisual, type HeroStackResolvedLayer } from '@/heros/PopoutHeroStackVisual'
 import type { SitePage } from '@/payload-types'
 
 type HeroStat = {
@@ -24,6 +25,10 @@ function resolveMediaSrc(ref: unknown): string | null {
   return null
 }
 
+function toPx(value: unknown): number {
+  return typeof value === 'number' && Number.isFinite(value) ? value : 0
+}
+
 export const ProAthleteHero: FC<ProAthleteHeroType> = ({
   badge,
   subheadline,
@@ -37,6 +42,14 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
   backgroundImage,
   foregroundImage,
   stackBackImage,
+  stackBackOffsetX,
+  stackBackOffsetY,
+  stackMidImage,
+  stackMidOffsetX,
+  stackMidOffsetY,
+  stackFrontImage,
+  stackFrontOffsetX,
+  stackFrontOffsetY,
   stats,
 }) => {
   const badgeText = badge || subheadline || undefined
@@ -46,8 +59,36 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
 
   const backgroundSrc = resolveMediaSrc(backgroundImage) ?? '/images/bg-profile.png'
   const patternSrc = resolveMediaSrc(media) ?? '/images/millimeter-paper.png'
-  const graphicSrc = resolveMediaSrc(stackBackImage) ?? '/images/powderparty.png'
-  const athleteSrc = resolveMediaSrc(foregroundImage) ?? '/images/skijump.png'
+  const stackBackSrc = resolveMediaSrc(stackBackImage) ?? backgroundSrc ?? '/images/powderparty.png'
+  const stackMidSrc = resolveMediaSrc(stackMidImage)
+  const stackFrontSrc = resolveMediaSrc(stackFrontImage) ?? resolveMediaSrc(foregroundImage)
+  const athleteSrc = stackFrontSrc ?? '/images/skijump.png'
+
+  const stackLayers: HeroStackResolvedLayer[] = [
+    {
+      src: stackBackSrc,
+      offsetX: toPx(stackBackOffsetX),
+      offsetY: toPx(stackBackOffsetY),
+      z: 0,
+      wide: true,
+    },
+    ...(stackMidSrc
+      ? [
+          {
+            src: stackMidSrc,
+            offsetX: toPx(stackMidOffsetX),
+            offsetY: toPx(stackMidOffsetY),
+            z: 1,
+          },
+        ]
+      : []),
+    {
+      src: athleteSrc,
+      offsetX: toPx(stackFrontOffsetX),
+      offsetY: toPx(stackFrontOffsetY),
+      z: 2,
+    },
+  ]
 
   const ctaLinks = (links ?? []).map((item) => item?.link).filter(Boolean) as CMSLinkProps[]
 
@@ -172,26 +213,9 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
 
         <div className="relative z-10 order-1 lg:order-2 w-full lg:w-[60%] h-[55vh] lg:h-auto flex items-center justify-center lg:-ml-[10%]">
           <div className="relative w-full h-full flex items-center justify-center overflow-visible">
-            <div className="relative w-[130%] lg:w-[150%] h-full flex items-center justify-center translate-y-[15%] lg:translate-y-0 animate-float">
-              <div className="absolute w-full h-auto opacity-60 dark:opacity-40 mix-blend-multiply dark:mix-blend-screen scale-110 pointer-events-none">
-                <Image
-                  src={graphicSrc}
-                  alt=""
-                  width={1000}
-                  height={600}
-                  priority
-                  className="w-full h-auto"
-                />
-              </div>
-              <div className="relative w-full h-auto drop-shadow-[0_45px_45px_rgba(0,0,0,0.35)] dark:drop-shadow-[0_45px_45px_rgba(255,255,255,0.1)]">
-                <Image
-                  src={athleteSrc}
-                  alt="Athlete"
-                  width={1400}
-                  height={1000}
-                  className="object-contain w-full h-auto scale-110 lg:scale-[1.3] origin-bottom transition-transform duration-700"
-                  priority
-                />
+            <div className="relative w-full h-full flex items-center justify-center overflow-visible">
+              <div className="relative w-full h-full flex items-center justify-center translate-y-[15%] lg:translate-y-0 animate-float">
+                <PopoutHeroStackVisual layers={stackLayers} className="relative z-0" />
               </div>
             </div>
           </div>
