@@ -34,16 +34,16 @@ const consultingBlockStyleFields: Block['fields'] = [
       },
       {
         name: 'color',
-        dbName: 'c',
-        type: 'select',
+        type: 'text',
         label: 'Farbe',
         defaultValue: 'dark',
-        options: [
-          { label: 'Dunkel', value: 'dark' },
-          { label: 'Hell', value: 'light' },
-        ],
+        validate: (value: string | null | undefined) =>
+          value == null || value === '' || value === 'dark' || value === 'light'
+            ? true
+            : 'Erlaubte Werte: dark oder light',
         admin: {
           condition: (_, siblingData) => Boolean(siblingData?.enabled),
+          description: 'Erlaubte Werte: dark oder light',
         },
       },
       {

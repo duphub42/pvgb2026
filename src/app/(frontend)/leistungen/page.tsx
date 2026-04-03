@@ -2,6 +2,10 @@ import type { Metadata } from 'next'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
+import { RenderHero } from '@/heros/RenderHero'
+import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
+import { cn } from '@/utilities/ui'
 
 export const metadata: Metadata = {
   title: 'Leistungen',
@@ -9,7 +13,6 @@ export const metadata: Metadata = {
 }
 
 export default async function LeistungenPage() {
-  console.log('[LeistungenPage] render start')
   const payload = await getPayload({ config: configPromise })
 
   const pages = await payload.find({
@@ -33,11 +36,33 @@ export default async function LeistungenPage() {
     )
   }
 
-  const layout = Array.isArray(page.layout) ? page.layout : []
+  const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
+  const layoutBlocks = resolveLayoutBlocks('leistungen', page.layout)
+  const firstBlock = layoutBlocks[0]
+  const firstBlockIsServices =
+    firstBlock &&
+    typeof firstBlock === 'object' &&
+    firstBlock !== null &&
+    'blockType' in firstBlock &&
+    (firstBlock as { blockType?: string }).blockType === 'servicesOverview'
 
   return (
-    <main>
-      <RenderBlocks blocks={layout} />
-    </main>
+    <article>
+      <div className="relative z-[32] isolate">
+        <HeroErrorBoundary>
+          <RenderHero {...heroProps} pageSlug="leistungen" />
+        </HeroErrorBoundary>
+      </div>
+      <div
+        className={cn(
+          'relative w-full min-w-0 hero-following-section-mask',
+          firstBlockIsServices
+            ? 'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:z-[33] lg:-mt-28 lg:pt-2'
+            : 'z-20 max-md:-mt-16 max-md:pt-8 pt-24 md:z-[31] md:-mt-16',
+        )}
+      >
+        <RenderBlocks blocks={layoutBlocks} />
+      </div>
+    </article>
   )
 }

@@ -42,7 +42,12 @@ export function PopoutHeroStackVisual({
                 transform: `translate(${layer.offsetX}px, ${layer.offsetY}px)`,
               }}
             >
-              <div className="relative h-full min-h-[10rem] w-full">
+              <div
+                className={cn(
+                  'relative h-full min-h-[10rem] w-full',
+                  layer.z <= 0 ? 'hero-stack-float-back' : 'hero-stack-float-mid',
+                )}
+              >
                 <Image
                   src={layer.src}
                   alt=""
@@ -62,19 +67,86 @@ export function PopoutHeroStackVisual({
                 transform: `translate(calc(-50% + ${layer.offsetX}px), calc(${layer.offsetY}px + clamp(1rem, 6vh, 4.5rem)))`,
               }}
             >
-              <Image
-                src={layer.src}
-                alt=""
-                width={1024}
-                height={958}
-                className="h-auto max-h-[min(88vh,920px)] w-full object-contain object-bottom md:max-h-[min(92vh,960px)] md:translate-y-[clamp(1rem,6vh,4rem)] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
-                sizes="(max-width: 768px) 80vw, 520px"
-                priority
-              />
+              <div
+                className={cn(
+                  'w-full',
+                  layer.z <= 0
+                    ? 'hero-stack-float-back'
+                    : layer.z === 1
+                      ? 'hero-stack-float-mid'
+                      : 'hero-stack-float-front',
+                )}
+              >
+                <Image
+                  src={layer.src}
+                  alt=""
+                  width={1024}
+                  height={958}
+                  className="h-auto max-h-[min(88vh,920px)] w-full object-contain object-bottom md:max-h-[min(92vh,960px)] md:translate-y-[clamp(1rem,6vh,4rem)] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
+                  sizes="(max-width: 768px) 80vw, 520px"
+                  priority
+                />
+              </div>
             </div>
           ),
         )}
       </div>
+      <style jsx>{`
+        @keyframes hero-stack-float-back {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0) rotate(-0.25deg);
+          }
+          50% {
+            transform: translate3d(-14px, -10px, 0) rotate(0.85deg);
+          }
+        }
+
+        @keyframes hero-stack-float-mid {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0) rotate(0deg);
+          }
+          50% {
+            transform: translate3d(11px, -18px, 0) rotate(-0.65deg);
+          }
+        }
+
+        @keyframes hero-stack-float-front {
+          0%,
+          100% {
+            transform: translate3d(0, 0, 0) rotate(0.35deg);
+          }
+          50% {
+            transform: translate3d(2px, -22px, 0) rotate(-0.85deg);
+          }
+        }
+
+        .hero-stack-float-back {
+          animation: hero-stack-float-back 9.8s ease-in-out infinite;
+          will-change: transform;
+        }
+
+        .hero-stack-float-mid {
+          animation: hero-stack-float-mid 7.8s ease-in-out infinite;
+          animation-delay: -1s;
+          will-change: transform;
+        }
+
+        .hero-stack-float-front {
+          animation: hero-stack-float-front 6.6s ease-in-out infinite;
+          animation-delay: -0.7s;
+          will-change: transform;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          .hero-stack-float-back,
+          .hero-stack-float-mid,
+          .hero-stack-float-front {
+            animation: none;
+          }
+        }
+      `}</style>
     </div>
   )
 }

@@ -9,15 +9,16 @@
   min-width: 2.5rem;
   border-radius: 9999px;
   background: transparent;
-  border: 1px solid transparent;
+  border: 0;
   color: inherit;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  transition: background 0.15s, color 0.15s, transform 0.16s cubic-bezier(0.2, 0.8, 0.2, 1);
   cursor: pointer;
 }
 
 .site-header .header-icon-btn,
 .megamenu .header-icon-btn {
   border-color: transparent;
+  box-shadow: none;
 }
 
 .header-icon-btn:focus-visible {
@@ -27,17 +28,14 @@
 
 .header-icon-btn:hover {
   background: #f5f5f5;
-  border-color: #d4d4d4;
   color: #171717;
 }
 
 [data-theme='dark'] .header-icon-btn {
-  border-color: #404040;
   color: #fafafa;
 }
 [data-theme='dark'] .header-icon-btn:hover {
   background: #262626;
-  border-color: #525252;
   color: #fafafa;
 }
 
@@ -49,7 +47,7 @@
   min-height: 1.5em;
   flex-shrink: 0;
   color: inherit;
-  fill: currentColor;
+  fill: none;
   stroke: currentColor;
 }
 
@@ -179,12 +177,6 @@
 @source inline("border-success");
 @source inline("bg-success/30");
 
-/* PlayBook-Bereich: Footer-Navigation immer mit 3 Spalten (Media Query statt ungültiger @hero-playbook) */
-@media (min-width: 37rem) and (max-width: 44rem) {
-  .footer-nav-grid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-}
 @source inline("border-warning");
 @source inline("bg-warning/30");
 
@@ -1568,26 +1560,6 @@
   }
 
   /* ========== Hero-Enter-Animationen (PhilippBacherHeroSimple) ========== */
-  @keyframes hero-reveal-word {
-    from {
-      opacity: 0;
-      transform: translateX(-0.5em);
-    }
-    to {
-      opacity: 1;
-      transform: translateX(0);
-    }
-  }
-  @keyframes hero-reveal-pop {
-    from {
-      opacity: 0;
-      transform: scale(0.85);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
   @keyframes hero-reveal-letter {
     from {
       opacity: 0;
@@ -1608,16 +1580,6 @@
       transform: translateY(0);
     }
   }
-  @keyframes hero-reveal-subheadline {
-    from {
-      opacity: 0;
-      transform: translateY(10px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
   @keyframes hero-portrait-fade-up {
     from {
       opacity: 0;
@@ -1628,14 +1590,6 @@
       transform: translateY(0);
     }
   }
-  .hero-reveal-word {
-    opacity: 0;
-    animation: hero-reveal-word 0.35s ease-out both;
-  }
-  .hero-reveal-pop {
-    opacity: 0;
-    animation: hero-reveal-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
   .hero-reveal-letter {
     opacity: 0;
     animation: hero-reveal-letter 0.25s ease-out both;
@@ -1644,11 +1598,6 @@
     opacity: 0;
     animation: hero-reveal-logo 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
-  .hero-reveal-subheadline {
-    opacity: 0;
-    animation: hero-reveal-subheadline 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
   @keyframes hero-floating-card-reveal {
     from {
       opacity: 0;

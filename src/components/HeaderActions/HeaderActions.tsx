@@ -9,7 +9,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from '@/components/ui/sheet'
-import { AnimatedThemeToggle } from '@/components/ui/animated-theme-toggle'
+import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher'
 import { SearchCommand } from '@/components/SearchCommand/SearchCommand'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { getClientSideURL } from '@/utilities/getURL'
@@ -547,7 +547,7 @@ export function HeaderActions({
 }) {
   return (
     <div className={cn('relative z-20 flex items-center gap-0.5', className)}>
-      <AnimatedThemeToggle />
+      <ThemeSwitcher />
       <HeaderContactModal cta={contactCta} />
       <SearchCommand />
     </div>

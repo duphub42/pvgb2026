@@ -13,14 +13,8 @@ const initialContext: ThemeContextType = {
 
 const ThemeContext = createContext(initialContext)
 
-const THEME_SWITCH_CLASS = 'theme-switching'
-const THEME_SWITCH_DURATION_MS = 170
-const THEME_SWITCH_SWAP_DELAY_MS = 70
-
 let currentTheme: Theme | undefined
 const listeners = new Set<() => void>()
-let clearThemeSwitchClassTimeout: number | undefined
-let pendingThemeApplyTimeout: number | undefined
 
 const subscribe = (listener: () => void) => {
   listeners.add(listener)
@@ -58,39 +52,9 @@ const applyTheme = (themeToSet: Theme | null) => {
   setCurrentTheme(nextTheme)
 }
 
-const applyThemeSwitchClass = () => {
-  const root = document.documentElement
-  const body = document.body
-  const bodyBackground = window.getComputedStyle(body).backgroundColor
-
-  if (bodyBackground) {
-    root.style.setProperty('--theme-switch-overlay-color', bodyBackground)
-  }
-
-  root.classList.add(THEME_SWITCH_CLASS)
-  if (clearThemeSwitchClassTimeout) window.clearTimeout(clearThemeSwitchClassTimeout)
-  clearThemeSwitchClassTimeout = window.setTimeout(() => {
-    root.classList.remove(THEME_SWITCH_CLASS)
-    root.style.removeProperty('--theme-switch-overlay-color')
-    clearThemeSwitchClassTimeout = undefined
-  }, THEME_SWITCH_DURATION_MS)
-}
-
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const setTheme = useCallback((themeToSet: Theme | null) => {
-    applyThemeSwitchClass()
-    if (pendingThemeApplyTimeout) {
-      window.clearTimeout(pendingThemeApplyTimeout)
-      pendingThemeApplyTimeout = undefined
-    }
-    window.requestAnimationFrame(() => {
-      window.requestAnimationFrame(() => {
-        pendingThemeApplyTimeout = window.setTimeout(() => {
-          applyTheme(themeToSet)
-          pendingThemeApplyTimeout = undefined
-        }, THEME_SWITCH_SWAP_DELAY_MS)
-      })
-    })
+    applyTheme(themeToSet)
   }, [])
 
   useEffect(() => {

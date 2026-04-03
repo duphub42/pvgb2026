@@ -53,7 +53,6 @@ export const enum_site_pages_blocks_introduction_block_overlay_color = pgEnum(
   ['dark', 'light'],
 )
 export const bg = pgEnum('bg', ['none', 'muted', 'accent', 'light', 'dark'])
-export const c = pgEnum('c', ['dark', 'light'])
 export const enum_lnks_link_type = pgEnum('enum_lnks_link_type', ['reference', 'custom'])
 export const enum_lnks_link_appearance = pgEnum('enum_lnks_link_appearance', ['default', 'outline'])
 export const enum_site_pages_blocks_shadcn_block_block_background = pgEnum(
@@ -105,6 +104,25 @@ export const enum_site_pages_blocks_services_overview_services_icon = pgEnum(
     'heart',
     'shield',
   ],
+)
+export const enum_services_grid_block_background = pgEnum('enum_services_grid_block_background', [
+  'none',
+  'muted',
+  'accent',
+  'light',
+  'dark',
+])
+export const enum_services_grid_block_overlay_color = pgEnum(
+  'enum_services_grid_block_overlay_color',
+  ['dark', 'light'],
+)
+export const enum_services_grid_intro_image_position = pgEnum(
+  'enum_services_grid_intro_image_position',
+  ['left', 'right'],
+)
+export const enum_services_grid_radial_background_variant = pgEnum(
+  'enum_services_grid_radial_background_variant',
+  ['default', 'blue', 'orange'],
 )
 export const enum_site_pages_blocks_why_work_with_me_intro_icon_list_icon = pgEnum(
   'enum_site_pages_blocks_why_work_with_me_intro_icon_list_icon',
@@ -420,6 +438,22 @@ export const enum__site_pages_v_blocks_services_overview_services_icon = pgEnum(
     'heart',
     'shield',
   ],
+)
+export const enum__services_grid_v_block_background = pgEnum(
+  'enum__services_grid_v_block_background',
+  ['none', 'muted', 'accent', 'light', 'dark'],
+)
+export const enum__services_grid_v_block_overlay_color = pgEnum(
+  'enum__services_grid_v_block_overlay_color',
+  ['dark', 'light'],
+)
+export const enum__services_grid_v_intro_image_position = pgEnum(
+  'enum__services_grid_v_intro_image_position',
+  ['left', 'right'],
+)
+export const enum__services_grid_v_radial_background_variant = pgEnum(
+  'enum__services_grid_v_radial_background_variant',
+  ['default', 'blue', 'orange'],
 )
 export const enum__site_pages_v_blocks_why_work_with_me_intro_icon_list_icon = pgEnum(
   'enum__site_pages_v_blocks_why_work_with_me_intro_icon_list_icon',
@@ -760,7 +794,6 @@ export const site_pages_hero_stats = pgTable(
     id: varchar('id').primaryKey(),
     value: varchar('value'),
     label: varchar('label'),
-    _uuid: varchar('_uuid'),
   },
   (columns) => [
     index('site_pages_hero_stats_order_idx').on(columns._order),
@@ -958,7 +991,7 @@ export const site_pages_blocks_consulting_overview = pgTable(
     id: varchar('id').primaryKey(),
     blockBackground: bg('block_background').default('none'),
     blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color: c('block_overlay_color').default('dark'),
+    blockOverlay_color: varchar('block_overlay_color').default('dark'),
     blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
     headline: varchar('headline').default(
       'Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing & Webdesign',
@@ -1128,6 +1161,108 @@ export const site_pages_blocks_services_overview = pgTable(
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
       name: 'site_pages_blocks_services_overview_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const services_grid_intro_icon_list = pgTable(
+  'services_grid_intro_icon_list',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    icon: varchar('icon').default('zap'),
+    text: varchar('text'),
+  },
+  (columns) => [
+    index('services_grid_intro_icon_list_order_idx').on(columns._order),
+    index('services_grid_intro_icon_list_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [services_grid.id],
+      name: 'services_grid_intro_icon_list_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const services_grid_categories_services = pgTable(
+  'services_grid_categories_services',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    icon_url: varchar('icon_url'),
+    icon_alt: varchar('icon_alt'),
+    title: varchar('title'),
+    description: varchar('description'),
+    link_slug: varchar('link_slug'),
+    featured: boolean('featured'),
+  },
+  (columns) => [
+    index('services_grid_categories_services_order_idx').on(columns._order),
+    index('services_grid_categories_services_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [services_grid_categories.id],
+      name: 'services_grid_categories_services_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const services_grid_categories = pgTable(
+  'services_grid_categories',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: varchar('_parent_id').notNull(),
+    id: varchar('id').primaryKey(),
+    categoryLabel: varchar('category_label'),
+  },
+  (columns) => [
+    index('services_grid_categories_order_idx').on(columns._order),
+    index('services_grid_categories_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [services_grid.id],
+      name: 'services_grid_categories_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const services_grid = pgTable(
+  'services_grid',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: varchar('id').primaryKey(),
+    blockBackground: enum_services_grid_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color:
+      enum_services_grid_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    heading: varchar('heading').default('Leistungen'),
+    intro: varchar('intro'),
+    tagline: varchar('tagline'),
+    introImage: integer('intro_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    introImagePosition:
+      enum_services_grid_intro_image_position('intro_image_position').default('left'),
+    radialBackground: boolean('radial_background'),
+    radialBackgroundVariant: enum_services_grid_radial_background_variant(
+      'radial_background_variant',
+    ).default('default'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('services_grid_order_idx').on(columns._order),
+    index('services_grid_parent_id_idx').on(columns._parentID),
+    index('services_grid_path_idx').on(columns._path),
+    index('services_grid_intro_image_idx').on(columns.introImage),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'services_grid_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
@@ -2204,7 +2339,7 @@ export const _site_pages_v_blocks_consulting_overview = pgTable(
     id: serial('id').primaryKey(),
     blockBackground: bg('block_background').default('none'),
     blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
-    blockOverlay_color: c('block_overlay_color').default('dark'),
+    blockOverlay_color: varchar('block_overlay_color').default('dark'),
     blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
     headline: varchar('headline').default(
       'Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing & Webdesign',
@@ -2380,6 +2515,112 @@ export const _site_pages_v_blocks_services_overview = pgTable(
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
       name: '_site_pages_v_blocks_services_overview_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _services_grid_v_intro_icon_list = pgTable(
+  '_services_grid_v_intro_icon_list',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    icon: varchar('icon').default('zap'),
+    text: varchar('text'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_services_grid_v_intro_icon_list_order_idx').on(columns._order),
+    index('_services_grid_v_intro_icon_list_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_services_grid_v.id],
+      name: '_services_grid_v_intro_icon_list_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _services_grid_v_categories_services = pgTable(
+  '_services_grid_v_categories_services',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    icon_url: varchar('icon_url'),
+    icon_alt: varchar('icon_alt'),
+    title: varchar('title'),
+    description: varchar('description'),
+    link_slug: varchar('link_slug'),
+    featured: boolean('featured'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_services_grid_v_categories_services_order_idx').on(columns._order),
+    index('_services_grid_v_categories_services_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_services_grid_v_categories.id],
+      name: '_services_grid_v_categories_services_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _services_grid_v_categories = pgTable(
+  '_services_grid_v_categories',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: serial('id').primaryKey(),
+    categoryLabel: varchar('category_label'),
+    _uuid: varchar('_uuid'),
+  },
+  (columns) => [
+    index('_services_grid_v_categories_order_idx').on(columns._order),
+    index('_services_grid_v_categories_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_services_grid_v.id],
+      name: '_services_grid_v_categories_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _services_grid_v = pgTable(
+  '_services_grid_v',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: serial('id').primaryKey(),
+    blockBackground: enum__services_grid_v_block_background('block_background').default('none'),
+    blockOverlay_enabled: boolean('block_overlay_enabled').default(false),
+    blockOverlay_color:
+      enum__services_grid_v_block_overlay_color('block_overlay_color').default('dark'),
+    blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
+    heading: varchar('heading').default('Leistungen'),
+    intro: varchar('intro'),
+    tagline: varchar('tagline'),
+    introImage: integer('intro_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    introImagePosition:
+      enum__services_grid_v_intro_image_position('intro_image_position').default('left'),
+    radialBackground: boolean('radial_background'),
+    radialBackgroundVariant: enum__services_grid_v_radial_background_variant(
+      'radial_background_variant',
+    ).default('default'),
+    _uuid: varchar('_uuid'),
+    blockName: varchar('block_name'),
+  },
+  (columns) => [
+    index('_services_grid_v_order_idx').on(columns._order),
+    index('_services_grid_v_parent_id_idx').on(columns._parentID),
+    index('_services_grid_v_path_idx').on(columns._path),
+    index('_services_grid_v_intro_image_idx').on(columns.introImage),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_services_grid_v_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
@@ -5355,6 +5596,57 @@ export const relations_site_pages_blocks_services_overview = relations(
     }),
   }),
 )
+export const relations_services_grid_intro_icon_list = relations(
+  services_grid_intro_icon_list,
+  ({ one }) => ({
+    _parentID: one(services_grid, {
+      fields: [services_grid_intro_icon_list._parentID],
+      references: [services_grid.id],
+      relationName: 'introIconList',
+    }),
+  }),
+)
+export const relations_services_grid_categories_services = relations(
+  services_grid_categories_services,
+  ({ one }) => ({
+    _parentID: one(services_grid_categories, {
+      fields: [services_grid_categories_services._parentID],
+      references: [services_grid_categories.id],
+      relationName: 'services',
+    }),
+  }),
+)
+export const relations_services_grid_categories = relations(
+  services_grid_categories,
+  ({ one, many }) => ({
+    _parentID: one(services_grid, {
+      fields: [services_grid_categories._parentID],
+      references: [services_grid.id],
+      relationName: 'categories',
+    }),
+    services: many(services_grid_categories_services, {
+      relationName: 'services',
+    }),
+  }),
+)
+export const relations_services_grid = relations(services_grid, ({ one, many }) => ({
+  _parentID: one(site_pages, {
+    fields: [services_grid._parentID],
+    references: [site_pages.id],
+    relationName: '_blocks_servicesGrid',
+  }),
+  introIconList: many(services_grid_intro_icon_list, {
+    relationName: 'introIconList',
+  }),
+  introImage: one(media, {
+    fields: [services_grid.introImage],
+    references: [media.id],
+    relationName: 'introImage',
+  }),
+  categories: many(services_grid_categories, {
+    relationName: 'categories',
+  }),
+}))
 export const relations_site_pages_blocks_why_work_with_me_intro_icon_list = relations(
   site_pages_blocks_why_work_with_me_intro_icon_list,
   ({ one }) => ({
@@ -5742,6 +6034,9 @@ export const relations_site_pages = relations(site_pages, ({ one, many }) => ({
   _blocks_servicesOverview: many(site_pages_blocks_services_overview, {
     relationName: '_blocks_servicesOverview',
   }),
+  _blocks_servicesGrid: many(services_grid, {
+    relationName: '_blocks_servicesGrid',
+  }),
   _blocks_whyWorkWithMe: many(site_pages_blocks_why_work_with_me, {
     relationName: '_blocks_whyWorkWithMe',
   }),
@@ -5960,6 +6255,57 @@ export const relations__site_pages_v_blocks_services_overview = relations(
     }),
   }),
 )
+export const relations__services_grid_v_intro_icon_list = relations(
+  _services_grid_v_intro_icon_list,
+  ({ one }) => ({
+    _parentID: one(_services_grid_v, {
+      fields: [_services_grid_v_intro_icon_list._parentID],
+      references: [_services_grid_v.id],
+      relationName: 'introIconList',
+    }),
+  }),
+)
+export const relations__services_grid_v_categories_services = relations(
+  _services_grid_v_categories_services,
+  ({ one }) => ({
+    _parentID: one(_services_grid_v_categories, {
+      fields: [_services_grid_v_categories_services._parentID],
+      references: [_services_grid_v_categories.id],
+      relationName: 'services',
+    }),
+  }),
+)
+export const relations__services_grid_v_categories = relations(
+  _services_grid_v_categories,
+  ({ one, many }) => ({
+    _parentID: one(_services_grid_v, {
+      fields: [_services_grid_v_categories._parentID],
+      references: [_services_grid_v.id],
+      relationName: 'categories',
+    }),
+    services: many(_services_grid_v_categories_services, {
+      relationName: 'services',
+    }),
+  }),
+)
+export const relations__services_grid_v = relations(_services_grid_v, ({ one, many }) => ({
+  _parentID: one(_site_pages_v, {
+    fields: [_services_grid_v._parentID],
+    references: [_site_pages_v.id],
+    relationName: '_blocks_servicesGrid',
+  }),
+  introIconList: many(_services_grid_v_intro_icon_list, {
+    relationName: 'introIconList',
+  }),
+  introImage: one(media, {
+    fields: [_services_grid_v.introImage],
+    references: [media.id],
+    relationName: 'introImage',
+  }),
+  categories: many(_services_grid_v_categories, {
+    relationName: 'categories',
+  }),
+}))
 export const relations__site_pages_v_blocks_why_work_with_me_intro_icon_list = relations(
   _site_pages_v_blocks_why_work_with_me_intro_icon_list,
   ({ one }) => ({
@@ -6360,6 +6706,9 @@ export const relations__site_pages_v = relations(_site_pages_v, ({ one, many }) 
   }),
   _blocks_servicesOverview: many(_site_pages_v_blocks_services_overview, {
     relationName: '_blocks_servicesOverview',
+  }),
+  _blocks_servicesGrid: many(_services_grid_v, {
+    relationName: '_blocks_servicesGrid',
   }),
   _blocks_whyWorkWithMe: many(_site_pages_v_blocks_why_work_with_me, {
     relationName: '_blocks_whyWorkWithMe',
@@ -7153,13 +7502,16 @@ type DatabaseSchema = {
   enum_site_pages_blocks_introduction_block_background: typeof enum_site_pages_blocks_introduction_block_background
   enum_site_pages_blocks_introduction_block_overlay_color: typeof enum_site_pages_blocks_introduction_block_overlay_color
   bg: typeof bg
-  c: typeof c
   enum_lnks_link_type: typeof enum_lnks_link_type
   enum_lnks_link_appearance: typeof enum_lnks_link_appearance
   enum_site_pages_blocks_shadcn_block_block_background: typeof enum_site_pages_blocks_shadcn_block_block_background
   enum_site_pages_blocks_shadcn_block_block_overlay_color: typeof enum_site_pages_blocks_shadcn_block_block_overlay_color
   enum_site_pages_blocks_shadcn_block_variant: typeof enum_site_pages_blocks_shadcn_block_variant
   enum_site_pages_blocks_services_overview_services_icon: typeof enum_site_pages_blocks_services_overview_services_icon
+  enum_services_grid_block_background: typeof enum_services_grid_block_background
+  enum_services_grid_block_overlay_color: typeof enum_services_grid_block_overlay_color
+  enum_services_grid_intro_image_position: typeof enum_services_grid_intro_image_position
+  enum_services_grid_radial_background_variant: typeof enum_services_grid_radial_background_variant
   enum_site_pages_blocks_why_work_with_me_intro_icon_list_icon: typeof enum_site_pages_blocks_why_work_with_me_intro_icon_list_icon
   enum_site_pages_blocks_why_work_with_me_reasons_icon: typeof enum_site_pages_blocks_why_work_with_me_reasons_icon
   enum_prof_ueber_werte_icon: typeof enum_prof_ueber_werte_icon
@@ -7218,6 +7570,10 @@ type DatabaseSchema = {
   enum__site_pages_v_blocks_shadcn_block_block_overlay_color: typeof enum__site_pages_v_blocks_shadcn_block_block_overlay_color
   enum__site_pages_v_blocks_shadcn_block_variant: typeof enum__site_pages_v_blocks_shadcn_block_variant
   enum__site_pages_v_blocks_services_overview_services_icon: typeof enum__site_pages_v_blocks_services_overview_services_icon
+  enum__services_grid_v_block_background: typeof enum__services_grid_v_block_background
+  enum__services_grid_v_block_overlay_color: typeof enum__services_grid_v_block_overlay_color
+  enum__services_grid_v_intro_image_position: typeof enum__services_grid_v_intro_image_position
+  enum__services_grid_v_radial_background_variant: typeof enum__services_grid_v_radial_background_variant
   enum__site_pages_v_blocks_why_work_with_me_intro_icon_list_icon: typeof enum__site_pages_v_blocks_why_work_with_me_intro_icon_list_icon
   enum__site_pages_v_blocks_why_work_with_me_reasons_icon: typeof enum__site_pages_v_blocks_why_work_with_me_reasons_icon
   enum__prof_ueber_v_werte_icon: typeof enum__prof_ueber_v_werte_icon
@@ -7300,6 +7656,10 @@ type DatabaseSchema = {
   site_pages_blocks_shadcn_block: typeof site_pages_blocks_shadcn_block
   site_pages_blocks_services_overview_services: typeof site_pages_blocks_services_overview_services
   site_pages_blocks_services_overview: typeof site_pages_blocks_services_overview
+  services_grid_intro_icon_list: typeof services_grid_intro_icon_list
+  services_grid_categories_services: typeof services_grid_categories_services
+  services_grid_categories: typeof services_grid_categories
+  services_grid: typeof services_grid
   site_pages_blocks_why_work_with_me_intro_icon_list: typeof site_pages_blocks_why_work_with_me_intro_icon_list
   site_pages_blocks_why_work_with_me_reasons: typeof site_pages_blocks_why_work_with_me_reasons
   site_pages_blocks_why_work_with_me: typeof site_pages_blocks_why_work_with_me
@@ -7344,6 +7704,10 @@ type DatabaseSchema = {
   _site_pages_v_blocks_shadcn_block: typeof _site_pages_v_blocks_shadcn_block
   _site_pages_v_blocks_services_overview_services: typeof _site_pages_v_blocks_services_overview_services
   _site_pages_v_blocks_services_overview: typeof _site_pages_v_blocks_services_overview
+  _services_grid_v_intro_icon_list: typeof _services_grid_v_intro_icon_list
+  _services_grid_v_categories_services: typeof _services_grid_v_categories_services
+  _services_grid_v_categories: typeof _services_grid_v_categories
+  _services_grid_v: typeof _services_grid_v
   _site_pages_v_blocks_why_work_with_me_intro_icon_list: typeof _site_pages_v_blocks_why_work_with_me_intro_icon_list
   _site_pages_v_blocks_why_work_with_me_reasons: typeof _site_pages_v_blocks_why_work_with_me_reasons
   _site_pages_v_blocks_why_work_with_me: typeof _site_pages_v_blocks_why_work_with_me
@@ -7448,6 +7812,10 @@ type DatabaseSchema = {
   relations_site_pages_blocks_shadcn_block: typeof relations_site_pages_blocks_shadcn_block
   relations_site_pages_blocks_services_overview_services: typeof relations_site_pages_blocks_services_overview_services
   relations_site_pages_blocks_services_overview: typeof relations_site_pages_blocks_services_overview
+  relations_services_grid_intro_icon_list: typeof relations_services_grid_intro_icon_list
+  relations_services_grid_categories_services: typeof relations_services_grid_categories_services
+  relations_services_grid_categories: typeof relations_services_grid_categories
+  relations_services_grid: typeof relations_services_grid
   relations_site_pages_blocks_why_work_with_me_intro_icon_list: typeof relations_site_pages_blocks_why_work_with_me_intro_icon_list
   relations_site_pages_blocks_why_work_with_me_reasons: typeof relations_site_pages_blocks_why_work_with_me_reasons
   relations_site_pages_blocks_why_work_with_me: typeof relations_site_pages_blocks_why_work_with_me
@@ -7492,6 +7860,10 @@ type DatabaseSchema = {
   relations__site_pages_v_blocks_shadcn_block: typeof relations__site_pages_v_blocks_shadcn_block
   relations__site_pages_v_blocks_services_overview_services: typeof relations__site_pages_v_blocks_services_overview_services
   relations__site_pages_v_blocks_services_overview: typeof relations__site_pages_v_blocks_services_overview
+  relations__services_grid_v_intro_icon_list: typeof relations__services_grid_v_intro_icon_list
+  relations__services_grid_v_categories_services: typeof relations__services_grid_v_categories_services
+  relations__services_grid_v_categories: typeof relations__services_grid_v_categories
+  relations__services_grid_v: typeof relations__services_grid_v
   relations__site_pages_v_blocks_why_work_with_me_intro_icon_list: typeof relations__site_pages_v_blocks_why_work_with_me_intro_icon_list
   relations__site_pages_v_blocks_why_work_with_me_reasons: typeof relations__site_pages_v_blocks_why_work_with_me_reasons
   relations__site_pages_v_blocks_why_work_with_me: typeof relations__site_pages_v_blocks_why_work_with_me

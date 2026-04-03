@@ -502,44 +502,6 @@
   }
 }
 
-html {
-  opacity: 0;
-  /* Transition nur für Theme-Wechsel (sehr kurz), kein Flackern beim Load */
-  transition: opacity 0.15s ease;
-}
-html[data-theme='dark'],
-html[data-theme='light'] {
-  opacity: 1;
-}
-/* Fallback: Nach 500ms sowieso einblenden, falls JS hängt oder
-   data-theme nie gesetzt wird (verhindert dauerhaft weiße Seite).
-   Wird via <script> im <head> gesetzt — siehe Kommentar unten. */
-html.theme-fallback {
-  opacity: 1 !important;
-}
-/*
-  ⚠️  WICHTIG: Diesen Inline-Script-Block in dein <head>-Tag einfügen
-  (direkt nach dem <html>-Tag, VOR allen Stylesheets):
-
-  <script>
-    (function() {
-      try {
-        var t = localStorage.getItem('theme') || 'light';
-        document.documentElement.setAttribute('data-theme', t);
-      } catch(e) {
-        document.documentElement.setAttribute('data-theme', 'light');
-      }
-      // Fallback: nach 400ms sowieso einblenden
-      setTimeout(function() {
-        document.documentElement.classList.add('theme-fallback');
-      }, 400);
-    })();
-  </script>
-
-  Damit wird data-theme synchron VOR dem ersten Paint gesetzt →
-  kein FOUC, kein opacity:0 Flash.
-*/
-
 /* View Transition API: Theme-Wechsel mit Kreisfade (animated theme toggler) */
 ::view-transition-old(root),
 ::view-transition-new(root) {
@@ -748,7 +710,6 @@ html.theme-fallback {
   .megamenu .header-tool-toggle svg,
   .site-header .header-tool-toggle svg {
     color: var(--foreground) !important;
-    fill: currentColor !important;
     stroke: currentColor !important;
   }
   /* Explizite Light/Dark-Theme-Prio, damit Icons sichtbar bleiben */

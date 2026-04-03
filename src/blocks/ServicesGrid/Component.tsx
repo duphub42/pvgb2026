@@ -7,9 +7,9 @@ import * as LucideIcons from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { cn } from '@/utilities/ui'
 import type { Media as MediaType } from '@/payload-types'
+import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 import type { ServicesGridBlock as ServicesGridBlockData } from '@/payload-types'
-import { Media } from '@/components/Media'
 
 type ServicesGridProps = ServicesGridBlockData & { disableInnerContainer?: boolean }
 
@@ -66,17 +66,17 @@ const getRadialStyles = (variant?: string): React.CSSProperties => {
     case 'blue':
       return {
         background:
-          'radial-gradient(130% 120% at 14% 14%, hsl(var(--primary) / 0.2), transparent 64%), radial-gradient(95% 95% at 86% 82%, hsl(var(--foreground) / 0.12), transparent 72%)',
+          'radial-gradient(68% 54% at 14% 16%, hsl(var(--foreground) / 0.26) 0%, hsl(var(--foreground) / 0.16) 38%, transparent 78%), radial-gradient(92% 82% at 84% 84%, hsl(var(--foreground) / 0.12) 0%, transparent 76%)',
       }
     case 'orange':
       return {
         background:
-          'radial-gradient(130% 120% at 86% 16%, hsl(var(--primary) / 0.2), transparent 64%), radial-gradient(95% 95% at 14% 84%, hsl(var(--foreground) / 0.12), transparent 72%)',
+          'radial-gradient(68% 54% at 86% 16%, hsl(var(--foreground) / 0.26) 0%, hsl(var(--foreground) / 0.16) 38%, transparent 78%), radial-gradient(92% 82% at 16% 84%, hsl(var(--foreground) / 0.12) 0%, transparent 76%)',
       }
     default:
       return {
         background:
-          'radial-gradient(126% 116% at 50% 16%, hsl(var(--primary) / 0.18), transparent 64%), radial-gradient(92% 92% at 50% 86%, hsl(var(--foreground) / 0.12), transparent 72%)',
+          'radial-gradient(72% 56% at 50% 14%, hsl(var(--foreground) / 0.24) 0%, hsl(var(--foreground) / 0.14) 40%, transparent 80%), radial-gradient(90% 82% at 50% 86%, hsl(var(--foreground) / 0.12) 0%, transparent 76%)',
       }
   }
 }
@@ -93,6 +93,19 @@ const getIntroImageAspectRatio = (resource: MediaType | null | undefined): strin
   return `${ratio.toFixed(3)} / 1`
 }
 
+const isSvgIntroImage = (
+  media: ServicesGridBlockData['introImage'],
+  src: string | null,
+): boolean => {
+  if (typeof media === 'object' && media && 'mimeType' in media) {
+    const mimeType = String(media.mimeType ?? '').toLowerCase()
+    if (mimeType.includes('svg')) return true
+  }
+
+  if (typeof src === 'string' && /\.svg(?:$|\?)/i.test(src)) return true
+  return false
+}
+
 export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
   heading,
   intro,
@@ -105,8 +118,14 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
   categories,
 }) => {
   const servicesData = categories ?? []
-  const hasIntroImage = Boolean(introImage)
+  const introImageSrc = resolveHeroImageSrc(introImage)
+  const hasIntroImage = Boolean(introImageSrc)
+  const introImageIsSvg = isSvgIntroImage(introImage, introImageSrc)
   const hasIconList = Array.isArray(introIconList) && introIconList.length > 0
+  const introLayoutClass =
+    introImagePosition === 'left'
+      ? 'lg:grid-cols-[auto_minmax(0,1fr)]'
+      : 'lg:grid-cols-[minmax(0,1fr)_auto]'
   const taglineLines =
     typeof tagline === 'string' && tagline.trim()
       ? tagline.split('\n').filter((l) => l.trim())
@@ -121,7 +140,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
         <>
           <div
             aria-hidden
-            className="pointer-events-none absolute -inset-x-24 -inset-y-20 z-0 opacity-95 blur-[74px]"
+            className="pointer-events-none absolute -inset-x-24 -inset-y-20 z-0 opacity-95 blur-[42px]"
             style={getRadialStyles(radialBackgroundVariant ?? 'default')}
           />
           <div
@@ -129,7 +148,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
             className="pointer-events-none absolute inset-0 z-0 opacity-55"
             style={{
               background:
-                'radial-gradient(100% 72% at 50% 20%, hsl(var(--foreground) / 0.09), transparent 72%)',
+                'radial-gradient(110% 78% at 50% 18%, hsl(var(--foreground) / 0.12), transparent 74%)',
             }}
           />
         </>
@@ -137,7 +156,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
 
       <div className="relative z-10 container">
         {(heading || intro || tagline || hasIconList || hasIntroImage) && (
-          <div className="mx-auto grid items-center gap-8 lg:grid-cols-[1fr_auto]">
+          <div className={cn('mx-auto grid items-start gap-8', hasIntroImage && introLayoutClass)}>
             <div className="min-w-0 lg:max-w-2xl">
               {heading && <h2 className="text-3xl font-bold tracking-tight">{heading}</h2>}
               {intro && <p className="mt-4 text-lg text-muted-foreground">{intro}</p>}
@@ -181,17 +200,21 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
 
             {hasIntroImage ? (
               <div
-                className={cn(
-                  'relative w-full max-w-[min(34rem,92vw)] shrink-0 overflow-hidden rounded-2xl border border-border/70 bg-muted/40',
-                  introImagePosition === 'left' ? 'order-first lg:mr-8' : 'order-last lg:ml-8',
-                )}
+                className="relative w-full max-w-[min(34rem,92vw)] shrink-0 overflow-hidden"
                 style={{ aspectRatio: getIntroImageAspectRatio(introImage as MediaType) }}
               >
-                <Media
-                  resource={introImage as MediaType}
-                  fill
-                  size="(max-width: 1024px) 92vw, 540px"
-                  imgClassName="h-full w-full object-cover"
+                <img
+                  src={introImageSrc || ''}
+                  alt={
+                    typeof introImage === 'object' && introImage && 'alt' in introImage
+                      ? String(introImage.alt || heading || 'Einleitungsbild')
+                      : String(heading || 'Einleitungsbild')
+                  }
+                  className={cn(
+                    'services-grid-intro-image h-full w-full object-contain',
+                    introImageIsSvg && 'services-grid-intro-image--svg',
+                  )}
+                  loading="lazy"
                 />
               </div>
             ) : null}
@@ -231,13 +254,13 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
                         )}
                       >
                         <div className="flex items-end gap-3">
-                          <div className="relative h-12 w-12 shrink-0 self-end overflow-hidden rounded-lg border border-border/70 bg-muted/55">
+                          <div className="services-grid-card-icon-wrap relative h-12 w-12 shrink-0 self-end overflow-hidden">
                             {service.icon?.url ? (
                               <Image
                                 src={service.icon.url}
                                 alt={service.icon.alt ?? service.title}
                                 fill
-                                className="object-contain p-1"
+                                className="services-grid-card-icon-img object-contain"
                               />
                             ) : (
                               <div className="flex h-full w-full items-center justify-center text-xs text-muted-foreground">

@@ -22,6 +22,7 @@ interface HeaderClientProps {
 }
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems = [] }) => {
+  const [isHydrated, setIsHydrated] = useState(false)
   const [theme, setTheme] = useState<string | null>(null)
   const [headerVisible, setHeaderVisible] = useState(true)
   const [isPastFold, setIsPastFold] = useState(false)
@@ -35,6 +36,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
   const pathname = usePathname()
   const useMegaMenu =
     (data as Header & { useMegaMenu?: boolean })?.useMegaMenu === true && megaMenuItems.length > 0
+
+  useEffect(() => {
+    setIsHydrated(true)
+  }, [])
 
   useEffect(() => {
     const stickyEnterThresholdPx = 0
@@ -133,7 +138,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
     </Link>
   )
 
-  if (useMegaMenu) {
+  if (useMegaMenu && isHydrated) {
     const layout = data?.megaMenuLayout
     const columnWidths =
       layout != null

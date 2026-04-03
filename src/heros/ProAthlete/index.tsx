@@ -58,9 +58,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
     : [headlineLine1, headlineLine2, headlineLine3].filter((line): line is string => Boolean(line))
 
   const backgroundSrc = resolveMediaSrc(backgroundImage) ?? '/images/bg-profile.png'
-  const patternCss =
-    resolveMediaSrc(media) ??
-    'radial-gradient(circle at 50% 40%, rgba(255,255,255,0.24), rgba(255,255,255,0.08) 25%, transparent 55%), linear-gradient(45deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 40px), linear-gradient(-45deg, rgba(255,255,255,0.05) 0 2px, transparent 2px 40px)'
+  const customPatternCss = resolveMediaSrc(media)
   const stackBackSrc = resolveMediaSrc(stackBackImage) ?? backgroundSrc ?? '/images/powderparty.png'
   const stackMidSrc = resolveMediaSrc(stackMidImage)
   const stackFrontSrc = resolveMediaSrc(stackFrontImage) ?? resolveMediaSrc(foregroundImage)
@@ -98,23 +96,77 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
   const secondaryLink = ctaLinks[1]
 
   return (
-    <section className="relative w-full overflow-hidden bg-background min-h-screen flex flex-col transition-colors duration-500">
+    <section className="relative w-full overflow-hidden bg-background min-h-screen lg:min-h-0 lg:max-h-[666px] flex flex-col transition-colors duration-500">
       <style jsx>{`
-        @keyframes float-element {
-          0%,
-          100% {
-            transform: translateY(0);
+        @keyframes pro-athlete-speed-shift {
+          0% {
+            transform: translate3d(0, 0, 0);
+            opacity: 0.18;
           }
           50% {
-            transform: translateY(-25px);
+            transform: translate3d(22px, -22px, 0);
+            opacity: 0.26;
+          }
+          100% {
+            transform: translate3d(0, 0, 0);
+            opacity: 0.18;
           }
         }
-        .animate-float {
-          animation: float-element 7s ease-in-out infinite;
-        }
+
         .grid-mask {
-          mask-image: radial-gradient(circle at center, black 100%, transparent 100%);
-          -webkit-mask-image: radial-gradient(circle at center, black 100%, transparent 100%);
+          mask-image: linear-gradient(to bottom, black 8%, rgba(0, 0, 0, 0.85) 62%, transparent 100%);
+          -webkit-mask-image: linear-gradient(
+            to bottom,
+            black 8%,
+            rgba(0, 0, 0, 0.85) 62%,
+            transparent 100%
+          );
+        }
+        .pro-athlete-checker {
+          background-image:
+            linear-gradient(45deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%),
+            linear-gradient(-45deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%),
+            linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.06) 75%),
+            linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.06) 75%);
+          background-size: 150px 150px;
+          background-position:
+            0 0,
+            0 75px,
+            75px -75px,
+            -75px 0;
+        }
+        .pro-athlete-speed-lines {
+          background-image: repeating-linear-gradient(
+            -45deg,
+            rgba(255, 255, 255, 0.12) 0,
+            rgba(255, 255, 255, 0.12) 2px,
+            transparent 2px,
+            transparent 36px
+          );
+          animation: pro-athlete-speed-shift 6.8s cubic-bezier(0.33, 1, 0.68, 1) infinite;
+          mix-blend-mode: soft-light;
+        }
+        [data-theme='light'] .pro-athlete-checker {
+          background-image:
+            linear-gradient(45deg, rgba(15, 15, 15, 0.07) 25%, transparent 25%),
+            linear-gradient(-45deg, rgba(15, 15, 15, 0.07) 25%, transparent 25%),
+            linear-gradient(45deg, transparent 75%, rgba(15, 15, 15, 0.07) 75%),
+            linear-gradient(-45deg, transparent 75%, rgba(15, 15, 15, 0.07) 75%);
+        }
+        [data-theme='light'] .pro-athlete-speed-lines {
+          background-image: repeating-linear-gradient(
+            -45deg,
+            rgba(10, 10, 10, 0.08) 0,
+            rgba(10, 10, 10, 0.08) 2px,
+            transparent 2px,
+            transparent 36px
+          );
+          mix-blend-mode: multiply;
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .pro-athlete-speed-lines {
+            animation: none;
+          }
         }
       `}</style>
 
@@ -127,20 +179,20 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
           priority
         />
         <div className="absolute inset-0 bg-gradient-to-br from-slate-200/50 via-zinc-300/30 to-slate-400/50 dark:from-zinc-950/90 dark:via-zinc-900/80 dark:to-black/90 mix-blend-multiply dark:mix-blend-normal" />
-        <div className="absolute inset-0 grid-mask opacity-60 dark:opacity-30 transition-opacity">
+        <div className="absolute inset-0 grid-mask opacity-65 dark:opacity-40 transition-opacity">
           <div
-            className="absolute inset-0"
+            className="absolute inset-0 pro-athlete-checker"
             style={{
-              backgroundImage: patternCss,
-              backgroundSize: '20px 20px',
-              opacity: 0.6,
-              mixBlendMode: 'screen',
+              ...(customPatternCss ? { backgroundImage: customPatternCss } : {}),
+              opacity: customPatternCss ? 0.36 : 1,
+              mixBlendMode: 'normal',
             }}
           />
+          <div className="absolute inset-0 pro-athlete-speed-lines" />
         </div>
       </div>
 
-      <div className="relative z-10 flex flex-col lg:flex-row w-full max-w-[1200px] mx-auto px-4 lg:px-8 py-16 min-h-screen">
+      <div className="relative z-10 flex flex-col lg:flex-row w-full max-w-[1200px] mx-auto px-4 lg:px-8 py-16 min-h-screen lg:min-h-0 lg:h-full">
         <div className="relative z-30 order-2 lg:order-1 w-full lg:w-1/2 flex flex-col justify-center px-4 py-12 lg:px-10 lg:py-16">
           <div className="w-full flex justify-center">
             <div className="w-full max-w-xl bg-white/20 dark:bg-zinc-950/60 backdrop-blur-xl border-t lg:border-t-0 lg:border-r border-white/25 dark:border-white/20 shadow-2xl p-6 lg:p-8 rounded-2xl">
@@ -221,7 +273,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
         <div className="relative z-50 order-1 lg:order-2 w-full lg:w-1/2 h-[65vh] lg:h-[70vh] max-h-[666px] flex items-center justify-center">
           <div className="relative w-full h-full flex items-center justify-center overflow-visible">
             <div className="relative w-full h-full flex items-center justify-center overflow-visible -translate-y-6">
-              <div className="relative w-full h-full flex items-center justify-center animate-float">
+              <div className="relative w-full h-full flex items-center justify-center">
                 <div className="w-full max-w-[560px] lg:scale-[1.5] lg:origin-center">
                   <PopoutHeroStackVisual layers={stackLayers} className="relative z-0" />
                 </div>

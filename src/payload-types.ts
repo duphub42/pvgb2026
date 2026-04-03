@@ -728,7 +728,10 @@ export interface ConsultingOverviewBlock {
    */
   blockOverlay?: {
     enabled?: boolean | null;
-    color?: ('dark' | 'light') | null;
+    /**
+     * Erlaubte Werte: dark oder light
+     */
+    color?: string | null;
     /**
      * 0 = transparent, 100 = voll deckend.
      */
