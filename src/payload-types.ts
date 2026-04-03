@@ -976,6 +976,9 @@ export interface ServicesGridBlock {
    * Optional: Ein dezenter radialer Glow/Hintergrund für diese Section.
    */
   radialBackground?: boolean | null;
+  /**
+   * Wählt die Position des radialen Verlaufs. Interne Werte bleiben für Bestandsdaten kompatibel.
+   */
   radialBackgroundVariant?: ('default' | 'blue' | 'orange') | null;
   categories?:
     | {

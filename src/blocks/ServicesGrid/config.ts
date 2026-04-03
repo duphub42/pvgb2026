@@ -95,15 +95,16 @@ export const ServicesGrid: Block = {
     {
       name: 'radialBackgroundVariant',
       type: 'select',
-      label: 'Radialer Hintergrundstil',
+      label: 'Radialer Hintergrund (Position)',
       defaultValue: 'default',
       options: [
-        { label: 'Standard', value: 'default' },
-        { label: 'Kalt / blau', value: 'blue' },
-        { label: 'Warm / orange', value: 'orange' },
+        { label: 'Mitte', value: 'default' },
+        { label: 'Links oben', value: 'blue' },
+        { label: 'Rechts oben', value: 'orange' },
       ],
       admin: {
         condition: (_, siblingData) => Boolean(siblingData?.radialBackground),
+        description: 'Wählt die Position des radialen Verlaufs. Interne Werte bleiben für Bestandsdaten kompatibel.',
       },
     },
     {

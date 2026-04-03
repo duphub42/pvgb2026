@@ -1,0 +1,816 @@
+/* Auf Touch-Geräten (hover:none): Header immer transparent bis scrolled,
+   dann white/dark per data-scrolled. Keine :not(:hover)-Tricks. */
+@media (hover: none) {
+  .megamenu .logo-link img,
+  .megamenu .logo-link svg,
+  .site-header .logo-link img,
+  .site-header .logo-link svg {
+    filter: brightness(0) invert(1) !important;
+  }
+  .megamenu .megamenu-top-item,
+  .megamenu .megamenu-top-item [class*='lucide'] {
+    color: #fafafa !important;
+  }
+  .megamenu .header-tool-toggle,
+  .site-header .header-tool-toggle {
+    color: #fafafa !important;
+    border-color: transparent !important;
+    background-color: transparent !important;
+  }
+  .site-header a {
+    color: #fafafa !important;
+  }
+  /* Light Mode auf Touch: Header komplett invertiert (dunkel), damit auf hellem Grund erkennbar */
+  [data-theme='light'] .megamenu .logo-link img,
+  [data-theme='light'] .megamenu .logo-link svg,
+  [data-theme='light'] .site-header .logo-link img,
+  [data-theme='light'] .site-header .logo-link svg {
+    filter: none !important;
+  }
+  [data-theme='light'] .megamenu .megamenu-top-item,
+  [data-theme='light'] .megamenu .megamenu-top-item [class*='lucide'],
+  [data-theme='light'] .megamenu .header-tool-toggle,
+  [data-theme='light'] .site-header .header-tool-toggle,
+  [data-theme='light'] .site-header a {
+    color: #171717 !important;
+  }
+  [data-theme='light'] .megamenu .header-tool-toggle,
+  [data-theme='light'] .site-header .header-tool-toggle {
+    border-color: rgba(0, 0, 0, 0.1) !important;
+  }
+  /* scrolled-State überschreibt die Touch-Defaults */
+  .megamenu[data-scrolled='true'] .megamenu-top-item,
+  .megamenu[data-scrolled='true'] .header-tool-toggle,
+  .site-header[data-scrolled='true'] a,
+  .site-header[data-scrolled='true'] .header-tool-toggle {
+    color: #404040 !important;
+  }
+  .megamenu[data-scrolled='true'] .logo-link img,
+  .megamenu[data-scrolled='true'] .logo-link svg,
+  .site-header[data-scrolled='true'] .logo-link img,
+  .site-header[data-scrolled='true'] .logo-link svg {
+    filter: none !important;
+  }
+  [data-theme='dark'] .megamenu[data-scrolled='true'] .megamenu-top-item,
+  [data-theme='dark'] .megamenu[data-scrolled='true'] .header-tool-toggle,
+  [data-theme='dark'] .site-header[data-scrolled='true'] a,
+  [data-theme='dark'] .site-header[data-scrolled='true'] .header-tool-toggle {
+    color: #d4d4d4 !important;
+  }
+  [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link img,
+  [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link svg,
+  [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link img,
+  [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link svg {
+    filter: brightness(0) invert(1) !important;
+  }
+}
+/* Header-Nav-Links: 25% größer */
+.site-header nav a,
+.megamenu nav a {
+  font-size: 1rem; /* text-base statt text-sm */
+}
+
+/* Nav-Links: 2px-Unterstrich auf Höhe der Header-Unterkante (Container pb-2 + 1px Rahmen) */
+.site-header nav.header-nav > a[data-slot='button'] {
+  position: relative;
+  align-self: stretch;
+  display: inline-flex !important;
+  align-items: center !important;
+  height: auto !important;
+  min-height: 100%;
+  text-decoration: none !important;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.site-header nav.header-nav > a[data-slot='button']:hover {
+  text-decoration: none !important;
+}
+.site-header nav.header-nav > a[data-slot='button']::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(-0.5rem - 1px);
+  height: 2px;
+  background-color: var(--header-line);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition:
+    transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.2s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Aktiver Menüpunkt: Unterstrich 3× so dick (6px), immer sichtbar */
+.site-header nav.header-nav > a[data-slot='button'].header-nav-link--active::after {
+  height: 6px;
+  transform: scaleX(1);
+}
+.site-header nav.header-nav > a[data-slot='button']:hover::after,
+.site-header nav.header-nav > a[data-slot='button']:focus-visible::after {
+  transform: scaleX(1);
+}
+@media (hover: hover) {
+  [data-theme='light'] .site-header nav.header-nav > a[data-slot='button']:hover {
+    background-color: rgba(0, 0, 0, 0.11) !important;
+    border-radius: 9999px;
+  }
+  [data-theme='dark'] .site-header nav.header-nav > a[data-slot='button']:hover {
+    background-color: rgba(255, 255, 255, 0.1) !important;
+    border-radius: 9999px;
+  }
+}
+[data-theme='light'] .site-header nav.header-nav > a[data-slot='button']:focus-visible {
+  background-color: rgba(0, 0, 0, 0.11) !important;
+  border-radius: 9999px;
+}
+[data-theme='dark'] .site-header nav.header-nav > a[data-slot='button']:focus-visible {
+  background-color: rgba(255, 255, 255, 0.1) !important;
+  border-radius: 9999px;
+}
+/* Hover: nur Hintergrund am äußeren Header — die sichtbare Trennlinie ist allein am .header-slide-layer (1px, keine Doppelung) */
+.megamenu:hover,
+.site-header:hover {
+  background-color: rgba(255, 255, 255, 0.36) !important;
+  border-bottom-color: transparent !important;
+}
+
+[data-theme='dark'] .megamenu:hover,
+[data-theme='dark'] .site-header:hover {
+  background-color: rgba(24, 24, 24, 0.4) !important;
+  border-bottom-color: transparent !important;
+}
+/* Mobile: kein Hover-Hintergrund – Hintergrund nur beim Scrollen (sticky) */
+@media (width < 48rem) {
+  .megamenu[data-sticky='true']:hover,
+  .site-header[data-sticky='true']:hover {
+    background-color: rgba(255, 255, 255, 0.55) !important;
+  }
+  .megamenu[data-scrolled='true'],
+  .site-header[data-scrolled='true'] {
+    box-shadow: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1) !important; /* wie Megamenu-Dropdown */
+  }
+  [data-theme='dark'] .megamenu[data-sticky='true']:hover,
+  [data-theme='dark'] .site-header[data-sticky='true']:hover {
+    background-color: rgba(10, 10, 10, 0.55) !important;
+  }
+  [data-theme='dark'] .megamenu[data-scrolled='true'],
+  [data-theme='dark'] .site-header[data-scrolled='true'] {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.14) !important; /* wie Megamenu-Dropdown */
+  }
+  [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link img,
+  [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link svg,
+  [data-theme='light'] .site-header[data-scrolled='true'] .logo-link img,
+  [data-theme='light'] .site-header[data-scrolled='true'] .logo-link svg {
+    filter: none !important;
+  }
+  .megamenu[data-scrolled='true'] .megamenu-top-item,
+  .megamenu[data-scrolled='true'] .header-tool-toggle,
+  .site-header[data-scrolled='true'] a,
+  .site-header[data-scrolled='true'] .header-tool-toggle {
+    color: #404040 !important;
+  }
+  .megamenu[data-scrolled='true'] button[aria-label='Menü öffnen'],
+  .site-header[data-scrolled='true'] button[aria-label='Menü öffnen'] {
+    color: #404040 !important;
+  }
+}
+/* Hover: Logo gleiche Farbe wie Links – Light = dunkel, Dark = hell. */
+[data-theme='light'] .megamenu:hover .logo-link img,
+[data-theme='light'] .megamenu:hover .logo-link svg,
+[data-theme='light'] .site-header:hover .logo-link img,
+[data-theme='light'] .site-header:hover .logo-link svg {
+  filter: none !important;
+}
+[data-theme='dark'] .megamenu:hover .logo-link img,
+[data-theme='dark'] .megamenu:hover .logo-link svg,
+[data-theme='dark'] .site-header:hover .logo-link img,
+[data-theme='dark'] .site-header:hover .logo-link svg {
+  filter: brightness(0) invert(1) !important;
+}
+.megamenu .logo-link:hover {
+  background-color: transparent !important;
+  color: inherit;
+}
+.megamenu .megamenu-nav-wrap {
+  min-height: 100%;
+}
+.megamenu .megamenu-nav-list {
+  align-items: center;
+}
+.megamenu .megamenu-nav-list > * {
+  height: auto;
+}
+.megamenu .megamenu-top-item {
+  background: none !important;
+  color: #404040;
+  position: relative;
+  border-radius: 9999px; /* Label-/Pill-Effekt */
+  height: 2.5rem; /* bündig mit Toggle-Buttons, kein margin-block */
+  padding: 0 1.125rem;
+  margin-block: 0;
+  font-size: 1rem;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+/* Vercel-Style: Sliding-Underline am unteren Rand des Items (= Header-Unterkante) */
+.megamenu .megamenu-top-item::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: calc(-0.5rem - 1px);
+  height: 2px;
+  background-color: var(--header-line);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition:
+    transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+    height 0.2s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+/* Einheitlicher Hover/Fokus-Effekt ohne Hintergrund */
+.megamenu .megamenu-top-item:hover,
+.megamenu .megamenu-top-item:focus-visible {
+  background-color: transparent !important;
+  color: #171717 !important;
+}
+.megamenu .megamenu-top-item::after,
+.megamenu .megamenu-top-item:hover::after,
+.megamenu .megamenu-top-item:focus-visible::after,
+.megamenu .megamenu-top-item[data-active='true']::after,
+.megamenu .megamenu-top-item[data-state='open']::after {
+  transform: scaleX(0);
+  opacity: 0;
+}
+/* Sliding Underline: gleiche Farbe wie Header-Rand (2px), Opacity nur leicht */
+.megamenu .megamenu-sliding-underline {
+  background-color: var(--header-line);
+  opacity: 0.55;
+  transition:
+    opacity 0.2s ease,
+    height 0.2s ease,
+    left 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+/* Aktiver Megamenü-Punkt: Indikator 3× so hoch wie Standard (2px → 6px) */
+.megamenu-nav-list-wrap:has(.megamenu-top-item[data-active='true']) .megamenu-sliding-underline {
+  height: 6px !important;
+}
+.megamenu:hover .megamenu-sliding-underline {
+  opacity: 1;
+}
+.megamenu .megamenu-top-item:hover,
+.megamenu .megamenu-top-item:focus-visible {
+  color: #171717;
+  background-color: #f5f5f5 !important;
+}
+.megamenu .megamenu-top-item[data-state='open'] {
+  color: #171717;
+  background-color: #f5f5f5 !important;
+}
+[data-theme='light'] .megamenu .megamenu-top-item:hover,
+[data-theme='light'] .megamenu .megamenu-top-item:focus-visible,
+[data-theme='light'] .megamenu .megamenu-top-item[data-state='open'] {
+  background-color: rgba(0, 0, 0, 0.11) !important;
+}
+.megamenu .megamenu-top-item [class*='lucide'] {
+  color: #737373;
+  transition: color 0.15s ease;
+}
+.megamenu .megamenu-top-item:hover [class*='lucide'],
+.megamenu .megamenu-top-item[data-state='open'] [class*='lucide'] {
+  color: #171717;
+}
+/* Rahmen/Shadow nur wenn Dropdown geöffnet – sonst keine Linie unter dem Header */
+.megamenu-dropdown-bg,
+.megamenu-viewport-wrapper {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  color: #171717;
+  border: none !important;
+  box-shadow: none !important;
+}
+.megamenu-viewport-wrapper:has([data-state='open']) {
+  border: 1px solid rgba(229, 229, 229, 0.85) !important;
+  border-top: none !important;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.12), 0 2px 4px -2px rgba(0, 0, 0, 0.08);
+}
+.megamenu-viewport,
+.megamenu .megamenu-viewport {
+  background: rgba(255, 255, 255, 0.99) !important;
+  color: inherit;
+}
+
+/* Light mode: standard colors from light menu */
+[data-theme='light'] .megamenu-dropdown-bg,
+[data-theme='light'] .megamenu-viewport-wrapper {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  color: #171717;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+[data-theme='light'] .megamenu-viewport,
+[data-theme='light'] .megamenu .megamenu-viewport {
+  background: rgba(255, 255, 255, 0.99) !important;
+  color: inherit;
+}
+[data-theme='light'] .megamenu .megamenu-featured {
+  background-color: rgba(255, 255, 255, 0.22) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(14px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+}
+
+/* Dark mode: adapt colors from light theme to dark context */
+[data-theme='dark'] .megamenu-dropdown-bg,
+[data-theme='dark'] .megamenu-viewport-wrapper {
+  background-color: #0a0a0a !important;
+  color: #fafafa;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+[data-theme='dark'] .megamenu-viewport,
+[data-theme='dark'] .megamenu .megamenu-viewport {
+  background: #0a0a0a !important;
+  color: inherit;
+}
+[data-theme='dark'] .megamenu .megamenu-featured {
+  background-color: #070707 !important;
+  border: 1px solid #1f1f1f !important;
+  color: #fafafa;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Panel: gleiche Größenordnung wie Radix Content (navigation-menu.tsx ~280ms) – öffnen/schließen wirkt einheitlich */
+/* Breakpoint: Ab wann Kategoriebeschreibung ausgeblendet + Highlight unter Inhalt (stacked). xl = 1280px. */
+.megamenu {
+  --megamenu-panel-duration: 320ms;
+  --megamenu-panel-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --megamenu-stack-max-width: 1279px; /* < 1280px = xl: Highlight unter Inhalt, Desc ausgeblendet */
+  --megamenu-content-duration: 0.28s;
+  --megamenu-content-stagger: 40ms;
+}
+/* Öffnen: Höhe und Transform gemeinsam animieren, damit kein Sprung durch sofortiges max-height entsteht */
+@keyframes megamenu-slide-down {
+  from {
+    transform: translateY(-8px);
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+    max-height: 85vh;
+  }
+}
+@keyframes megamenu-slide-up {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+    max-height: 85vh;
+  }
+  to {
+    transform: translateY(-8px);
+    opacity: 0;
+    max-height: 0;
+  }
+}
+.megamenu-viewport-wrapper {
+  overflow: hidden;
+  max-height: 0;
+  min-height: 0;
+  /* Transform-Animation auf Composite-Layer für flüssigere Wiedergabe */
+  will-change: transform;
+}
+/* Dropdown geöffnet: Höhe nur per Keyframe (slide-down), kein sofortiges max-height → kein Sprung */
+.megamenu-viewport-wrapper:has([data-state='open']) {
+  min-height: 0;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: auto;
+  animation: megamenu-slide-down 220ms ease-out forwards;
+}
+/* Viewport-Höhe: Radix-Variable mit Fallback, wächst mit Inhalt */
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-viewport {
+  min-height: var(--radix-navigation-menu-viewport-height, 15rem);
+  height: fit-content;
+}
+/* Responsive: Grid-Inhalt oben ausrichten, volle Breite nutzen */
+.megamenu-dropdown-content {
+  width: 100%;
+  min-width: 0;
+}
+@media (max-width: 1279px) {
+  .megamenu-dropdown-content {
+    align-items: start;
+  }
+}
+.megamenu-viewport-wrapper:not(:has([data-state='open'])) {
+  animation: megamenu-slide-up 180ms ease-in 100ms forwards;
+}
+/* Viewport selbst nicht animieren – bewegt sich mit dem Wrapper */
+.megamenu-viewport,
+.megamenu .megamenu-viewport {
+  animation: none !important;
+}
+
+/* ─── PANEL-WECHSEL: eleganter Cross-Fade ohne Zoom ─────────────────────── */
+/* Der Compound-Selektor greift NUR wenn gleichzeitig ein ausgehendes Panel   */
+/* (data-motion="to-*") und ein eingehendes Panel (data-motion="from-*")      */
+/* vorhanden sind – also ausschließlich beim Wechsel zwischen zwei Panels.    */
+/* Beim initialen Öffnen oder Schließen liegt immer nur from- ODER to- vor.   */
+
+@keyframes megamenu-panel-fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes megamenu-panel-fade-out {
+  from { opacity: 1; }
+  to   { opacity: 0; }
+}
+
+/* Eingehendes Panel: reines Fade statt zoom-in-95 → kein Skalierungs-Flash */
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  [data-motion^='from-'] {
+  animation: megamenu-panel-fade-in 200ms cubic-bezier(0.25, 0.1, 0.25, 1) both !important;
+}
+/* Ausgehendes Panel: reines Fade statt zoom-out-95 */
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  [data-motion^='to-'] {
+  animation: megamenu-panel-fade-out 160ms cubic-bezier(0.25, 0.1, 0.25, 1) both !important;
+}
+/* Stagger-Verzögerungen auf 0 reduzieren: Inhalt erscheint sofort,           */
+/* kein Leer-Frame zwischen ausblendendem und einblendendem Panel              */
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  .megamenu-dropdown-content > *,
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  .megamenu-dropdown-content-footer > *,
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  .megamenu-highlight-wipe-wrap {
+  animation-delay: 0ms !important;
+  animation-duration: 160ms !important;
+}
+/* ──────────────────────────────────────────────────────────────────────────── */
+
+/* Switch-Zustand: keine Radix-Transform-Zooms, konsequenter Cross-Fade */
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-panel {
+  animation: none !important;
+  /* Sorgt dafür, dass beide Panel-Layer exakt übereinander liegen */
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  overflow: hidden;
+}
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  [data-motion^='from-'] {
+  z-index: 2;
+  pointer-events: auto;
+  animation: megamenu-panel-apple-in 260ms cubic-bezier(0.22, 0.14, 0.26, 0.96) both !important;
+}
+.megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-'])
+  [data-motion^='to-'] {
+  z-index: 1;
+  pointer-events: none;
+  animation: megamenu-panel-apple-out 260ms cubic-bezier(0.22, 0.14, 0.26, 0.96) both !important;
+}
+
+@keyframes megamenu-panel-apple-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes megamenu-panel-apple-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+/* Apple-Style: Inhalte bauen sich gestaffelt auf (reines Fade-in, langsame Transition wie Apple) */
+/* Stagger: exakt 200 ms Abstand (200, 400, 600, …) wie in Apple-Nachbauten beschrieben */
+@keyframes megamenu-content-in {
+  from {
+    opacity: 0;
+    transform: translateY(1px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+/* Featured-Spalte / Highlight: nur minimales Fade, kein Clip-Wipe */
+@keyframes megamenu-featured-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+/* Rubrik/Kategoriebeschreibung: statisch, kein gestaffeltes Einblenden (kein Link) */
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel > .megamenu-dropdown-intro {
+  opacity: 1;
+  animation: none;
+}
+.megamenu-dropdown-intro h2,
+.megamenu-dropdown-intro p {
+  transition: none !important;
+}
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > * {
+  opacity: 0;
+  animation: megamenu-content-in var(--megamenu-content-duration) var(--megamenu-panel-ease) forwards;
+}
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(1) { animation-delay: calc(var(--megamenu-content-stagger) * 2.5); }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(2) { animation-delay: calc(var(--megamenu-content-stagger) * 3.5); }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(3) { animation-delay: calc(var(--megamenu-content-stagger) * 4.5); }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(4) { animation-delay: calc(var(--megamenu-content-stagger) * 5.5); }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(5) { animation-delay: calc(var(--megamenu-content-stagger) * 6.5); }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(n+6) { animation-delay: calc(var(--megamenu-content-stagger) * 7.5); }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > * {
+  opacity: 0;
+  animation: megamenu-content-in var(--megamenu-content-duration) var(--megamenu-panel-ease) forwards;
+}
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(1) { animation-delay: calc(var(--megamenu-content-stagger) * 1.25); }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(2) { animation-delay: calc(var(--megamenu-content-stagger) * 2.25); }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(3) { animation-delay: calc(var(--megamenu-content-stagger) * 3.25); }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(4) { animation-delay: calc(var(--megamenu-content-stagger) * 4.25); }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(5) { animation-delay: calc(var(--megamenu-content-stagger) * 5.25); }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(n+6) { animation-delay: calc(var(--megamenu-content-stagger) * 6.25); }
+/* Footer: Wipe-Wrapper hat eigene Animation */
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:not(.megamenu-highlight-wipe-wrap) {
+  opacity: 0;
+  animation: megamenu-content-in var(--megamenu-content-duration) var(--megamenu-panel-ease) forwards;
+}
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(1):not(.megamenu-highlight-wipe-wrap) { animation-delay: calc(var(--megamenu-content-stagger) * 4.25); }
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(2):not(.megamenu-highlight-wipe-wrap) { animation-delay: calc(var(--megamenu-content-stagger) * 5.5); }
+/* Wipe-Effekt für Highlight-Box (rechts + unten): Aufblenden von links oder rechts je nach Maus */
+@keyframes megamenu-wipe-from-left {
+  from {
+    opacity: 0;
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+@keyframes megamenu-wipe-from-right {
+  from {
+    opacity: 0;
+    clip-path: inset(0 0 0 100%);
+  }
+  to {
+    opacity: 1;
+    clip-path: inset(0 0 0 0);
+  }
+}
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='left'] {
+  opacity: 0;
+  animation: megamenu-wipe-from-left 0.32s var(--megamenu-panel-ease) calc(var(--megamenu-content-stagger) * 1.5) forwards;
+}
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='right'] {
+  opacity: 0;
+  animation: megamenu-wipe-from-right 0.32s var(--megamenu-panel-ease) calc(var(--megamenu-content-stagger) * 1.5) forwards;
+}
+/* Highlight innen: weiches Fade statt Wipe (höhere Spezifität) */
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-featured .megamenu-highlight-wipe-wrap[data-wipe='left'],
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-featured .megamenu-highlight-wipe-wrap[data-wipe='right'],
+.megamenu-viewport-wrapper:has([data-state='open'])
+  .megamenu-dropdown-content-footer
+  .megamenu-highlight-wipe-wrap[data-wipe='left'],
+.megamenu-viewport-wrapper:has([data-state='open'])
+  .megamenu-dropdown-content-footer
+  .megamenu-highlight-wipe-wrap[data-wipe='right'] {
+  animation: megamenu-featured-in 0.28s var(--megamenu-panel-ease) calc(var(--megamenu-content-stagger) * 0.5) forwards;
+}
+/* Grid-Zelle Featured: gleiches minimales Fade, kurze Verzögerung */
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel .megamenu-dropdown-content > div.megamenu-featured {
+  animation: megamenu-featured-in 0.28s var(--megamenu-panel-ease) calc(var(--megamenu-content-stagger) * 0.75) forwards;
+}
+
+/* PathsBackground: shadcn/ui Style – animierte Bezierkurven (stroke-dashoffset) */
+@keyframes paths-draw {
+  0% {
+    stroke-dashoffset: 0;
+  }
+  100% {
+    stroke-dashoffset: 600;
+  }
+}
+
+/* ThreadsBackground: sanfte Horizontal-Drift (React Bits-Style) */
+@keyframes threads-drift {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(8px);
+  }
+}
+.animate-threads-drift {
+  animation: threads-drift 12s ease-in-out infinite;
+}
+
+/* Featured-Spalte: milchglas-Effekt, rechte Spezial-Säule */
+.megamenu .megamenu-featured {
+  position: relative;
+  isolation: isolate;
+  background-color: rgba(245, 245, 245, 0.24); /* 10% dunkler als reines Weiß */
+  color: #171717;
+  border: 1px solid rgba(230, 230, 230, 0.65);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.10);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  overflow: hidden;
+}
+[data-theme='dark'] .megamenu .megamenu-featured {
+  background-color: rgba(20, 24, 34, 0.40); /* inverted von light mode */
+  color: #f6f6f6;
+  border: 1px solid rgba(200, 210, 225, 0.18); /* inverted-like border */
+  box-shadow: none;
+  backdrop-filter: blur(14px) saturate(180%);
+  -webkit-backdrop-filter: blur(14px) saturate(180%);
+}
+.megamenu .megamenu-featured::before,
+.megamenu .megamenu-featured::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: transparent;
+  opacity: 0;
+}
+.megamenu .megamenu-featured > * {
+  position: relative;
+  z-index: 1;
+}
+.megamenu .megamenu-featured h2,
+.megamenu .megamenu-featured h3,
+.megamenu .megamenu-featured h4,
+.megamenu .megamenu-featured .text-foreground {
+  color: #171717;
+}
+.megamenu .megamenu-featured .text-muted-foreground,
+.megamenu .megamenu-featured [class*='text-muted-foreground'] {
+  color: #737373 !important;
+}
+.megamenu .megamenu-featured a {
+  color: #171717;
+  transition:
+    background-color 0.32s cubic-bezier(0.22, 0, 0.2, 1),
+    color 0.32s cubic-bezier(0.22, 0, 0.2, 1);
+}
+.megamenu .megamenu-featured a:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+  color: #171717;
+}
+.megamenu .megamenu-featured .bg-card,
+.megamenu .megamenu-featured .card,
+.megamenu .megamenu-featured .megamenu-highlight-wipe-wrap .card,
+[data-theme='dark'] .megamenu .megamenu-featured .bg-card,
+[data-theme='dark'] .megamenu .megamenu-featured .card {
+  background-color: transparent !important;
+  color: inherit !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+}
+.megamenu .megamenu-featured::before,
+.megamenu .megamenu-featured::after,
+[data-theme='dark'] .megamenu .megamenu-featured::before,
+[data-theme='dark'] .megamenu .megamenu-featured::after {
+  background: transparent !important;
+  opacity: 0 !important;
+}
+.megamenu .megamenu-featured a:has(.bg-card):hover,
+[data-theme='dark'] .megamenu .megamenu-featured a:has(.bg-card):hover {
+  background-color: transparent;
+}
+.megamenu .megamenu-featured a:hover .bg-card,
+[data-theme='dark'] .megamenu .megamenu-featured a:hover .bg-card {
+  background-color: transparent !important;
+  border-color: transparent !important;
+}
+.megamenu .megamenu-featured .megamenu-item-icon {
+  transition:
+    transform 0.35s cubic-bezier(0.22, 0, 0.2, 1),
+    color 0.35s cubic-bezier(0.22, 0, 0.2, 1);
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  color: #999;
+}
+.megamenu .megamenu-featured .group:hover .megamenu-item-icon {
+  transform: scale(1.03) rotate(1deg);
+  color: #171717;
+}
+.megamenu .megamenu-featured .text-primary {
+  color: hsl(var(--primary)) !important;
+}
+/* Spalten-Trenner im hellen Modus dezent (an übrige Farben angepasst) */
+.megamenu .megamenu-col-divider {
+  border-color: rgba(0, 0, 0, 0.06);
+}
+.megamenu .megamenu-col-items a.rounded-xl:hover {
+  background-color: transparent !important;
+  color: #171717;
+  border-color: transparent !important;
+}
+.megamenu .megamenu-col-items .megamenu-item-icon {
+  background-image: none !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.megamenu .megamenu-col-items a.rounded-xl:hover .megamenu-item-icon {
+  background-image: none !important;
+  background-color: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Megamenu Link-Icons: transparent, Gitter-Hintergrund; Hover: scale 1.2, rotate 5deg, grey → black */
+.megamenu-item-icon {
+  background-color: transparent;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+  background-size: 12px 12px;
+  color: #999;
+  transition: transform 0.25s ease, color 0.25s ease, background-color 0.3s ease;
+}
+.group:hover .megamenu-item-icon {
+  transform: scale(1.2) rotate(5deg);
+  color: #000;
+  overflow: visible;
+}
+.megamenu-item-icon img,
+.megamenu-item-icon svg {
+  transition: opacity 0.25s ease, color 0.25s ease, stroke 0.25s ease, fill 0.25s ease;
+}
+.megamenu .megamenu-item-icon img {
+  opacity: 0.65;
+}
+.megamenu .group:hover .megamenu-item-icon img {
+  opacity: 1;
+}
+.megamenu .megamenu-item-icon svg {
+  stroke: currentColor;
+  fill: currentColor;
+}
+.megamenu .megamenu-cta-strip {
+  background-color: #f5f5f5;
+  border-color: #e5e5e5;
+}
+.megamenu .megamenu-cta-strip input {
+  background-color: #ffffff;
+  border-color: #e5e5e5;
+  color: #171717;
+}
+.megamenu .header-tool-toggle,
+header .header-tool-toggle,
+.theme-toggle {
+  height: 2.5rem !important; /* einheitliche Höhe mit Megamenu-Items (überschreibt size-8) */
+  width: 2.5rem !important;
+  min-height: 2.5rem;
+  min-width: 2.5rem;
+  border: 1px solid var(--header-icon-border, #e5e5e5);
+  background: transparent;
+  color: var(--header-icon-fg, #404040);
+  border-radius: 9999px; /* wie .megamenu-top-item (Pill-Form) */
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+/* Einheitliche Icon-Größe in allen Header-Toggles (Theme, Layout, Suche) */
+.megamenu .header-tool-toggle svg,
+header .header-tool-toggle svg {
+  width: 1.25rem !important;
+  height: 1.25rem !important;
+  min-width: 1.25rem;
+  min-height: 1.25rem;
+  flex-shrink: 0;
+  color: inherit;
+  fill: currentColor;
+  stroke: currentColor;
+}

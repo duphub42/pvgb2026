@@ -47,7 +47,7 @@ export function AnimatedThemeToggle({ className }: { className?: string }) {
 }
 
 const SolarSwitch = ({ isDark }: { isDark: boolean }) => {
-  const duration = 0.7
+  const duration = 0.2
 
   const moonVariants = {
     checked: { scale: 1 },

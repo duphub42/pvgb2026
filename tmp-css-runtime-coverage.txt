@@ -1,0 +1,245 @@
+Visited pages: 24
+
+Sheet: http://127.0.0.1:3000/_next/static/chunks/src_7dd5de72._.css
+Rules: 7317, used: 6924, unused: 393
+  L19  .fontoutfit_7580f0de-module__f9hGsG__className
+  L61  .fontinter_5f768d23-module__2-l4oG__className
+  L72  *, :before, :after, ::backdrop
+  L196  .header-icon-btn:focus-visible
+  L207  [data-theme="dark"] .header-icon-btn
+  L212  [data-theme="dark"] .header-icon-btn:hover
+  L218  .header-icon-btn svg
+  L35725  [data-theme="dark"]
+  L35798  [data-theme="dark"]
+  L35803  [data-theme="dark"]
+  L35808  [data-theme="dark"]
+  L35813  [data-theme="dark"]
+  L35818  [data-theme="dark"]
+  L35823  [data-theme="dark"]
+  L35828  [data-theme="dark"]
+  L35834  .footer-nav-grid
+  L35839  [data-theme="dark"] .logo-contrast, [data-theme="dark"] .logo-contrast.logo-contrast-dark-bg
+  L35847  [data-theme="dark"] footer .logo-contrast
+  L35851  [data-theme="dark"] .site-header .logo-link img, [data-theme="dark"] .site-header .logo-link svg, [data-theme="dark"] .site-header .logo-link .logo-contrast, .site-header[data-theme="dark"] .logo-link img, .site-header[data-theme="dark"] .logo-link svg, .site-header[data-theme="dark"] .logo-link .logo-contrast
+  L35891  .logo-glitch-wrapper.logo-glitch-footer
+  L35895  .footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image
+  L35905  .footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image:hover
+  L35909  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icons
+  L35913  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main
+  L35921  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main picture, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main img
+  L35931  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-layer
+  L35943  .logo-glitch-wrapper.logo-glitch-collapsed
+  L35947  .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed
+  L35952  .logo-glitch-wrapper.logo-glitch-text.logo-glitch-text-fixed-height
+  L36052  .logo-glitch-wrapper.logo-glitch-text:not(.logo-glitch-collapsed)
+  L36057  .logo-glitch-wrapper.logo-glitch-collapsed:before
+  L36069  .logo-glitch-wrapper.logo-pixel-transition-active
+  L36073  .logo-pixel-transition
+  L36085  .logo-pixel-transition-portal
+  L36090  .logo-pixel-transition-grid
+  L36098  .logo-pixel-transition-cell
+  L36112  .logo-glitch-collapsed-dot
+  L36126  .logo-glitch-wrapper.logo-glitch-collapsed .logo-glitch-collapsed-dot
+  L36130  .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-collapsed-dot, .logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-collapsed-dot
+  L36134  .logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-collapsed-icon
+  L36141  .logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-layer
+  L36152  .logo-glitch-collapsed-icon
+  L36163  .logo-glitch-collapsed-icon-svg
+  L36169  .logo-glitch-collapsed-icon-visible
+  L36180  .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-collapsed-icon-svg
+  L36184  .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-collapsed-icon
+  L36191  .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed:after
+  L36200  .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-layer, .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-main *, .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-layer *
+  L36229  .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-layer
+  L36242  .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble
+  L36258  .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble-current
+  L36268  0%, 4%, 100%
+  L36272  5%, 9%
+  L36276  10%, 14%
+  L36280  15%, 19%
+  L36284  20%, 24%
+  L36288  25%, 29%
+  L36292  30%, 34%
+  L36296  35%, 39%
+  L36300  40%, 44%
+  L36304  45%, 49%
+  L36308  50%, 54%
+  L36312  55%, 59%
+  L36316  60%, 64%
+  L36320  65%, 69%
+  L36324  70%, 74%
+  L36328  75%, 79%
+  L36332  80%, 84%
+  L36336  85%, 89%
+  L36340  90%, 95%
+  L36344  96%, 99%
+  L36382  0%, 6%, 12%, 18%, 24%, 30%, 36%, 42%, 48%, 54%, 60%, 66%, 72%, 78%, 84%, 90%, 96%
+  L36386  3%, 9%, 15%, 21%, 27%, 33%, 39%, 45%, 51%, 57%, 63%, 69%, 75%, 81%, 87%, 93%, 99%
+  L36420  0%, 4%, 100%
+  L36425  5%, 9%
+  L36430  10%, 14%
+  L36435  15%, 19%
+  L36440  20%, 24%
+  L36445  25%, 29%
+  L36450  30%, 34%
+  L36455  35%, 39%
+  L36460  40%, 44%
+  L36465  45%, 49%
+  L36470  50%, 54%
+  L36475  55%, 59%
+  L36480  60%, 64%
+  L36485  65%, 69%
+  L36490  70%, 74%
+  L36495  75%, 79%
+  L36500  80%, 84%
+  L36505  85%, 89%
+  L36510  90%, 95%
+  L36515  96%, 99%
+  L36522  0%, 4%, 100%
+  L36527  5%, 9%
+  L36532  10%, 14%
+  L36537  15%, 19%
+  L36542  20%, 24%
+  L36547  25%, 29%
+  L36552  30%, 34%
+  L36557  35%, 39%
+  L36562  40%, 44%
+  L36567  45%, 49%
+  L36572  50%, 54%
+  L36577  55%, 59%
+  L36582  60%, 64%
+  L36587  65%, 69%
+  L36592  70%, 74%
+  L36597  75%, 79%
+  L36602  80%, 84%
+  L36607  85%, 89%
+  L36612  90%, 95%
+  L36617  96%, 99%
+  L36623  .logo-glitch-text
+  L36630  .logo-glitch-text .logo-glitch-main
+  L36635  .logo-glitch-text.logo-glitch-active .logo-glitch-main
+  L36639  .logo-glitch-text .logo-glitch-layer
+  L36648  .logo-glitch-text .logo-glitch-layer-1
+  L36654  .logo-glitch-text .logo-glitch-layer-2
+  L36660  .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
+  L36665  0%, 4%, 100%
+  L36669  5%, 9%
+  L36673  10%, 14%
+  L36677  15%, 19%
+  L36681  20%, 24%
+  L36685  25%, 29%
+  L36689  30%, 34%
+  L36693  35%, 39%
+  L36697  40%, 44%
+  L36701  45%, 49%
+  L36705  50%, 54%
+  L36709  55%, 59%
+  L36713  60%, 64%
+  L36717  65%, 69%
+  L36721  70%, 74%
+  L36725  75%, 79%
+  L36729  80%, 84%
+  L36733  85%, 89%
+  L36737  90%, 95%
+  L36741  96%, 99%
+  L36750  [data-theme="dark"] .logo-glitch-text .logo-glitch-main
+  L36754  [data-theme="dark"] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme="dark"] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme="dark"] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
+  L36759  0%, 4%, 100%
+  L36763  5%, 9%
+  L36767  10%, 14%
+  L36771  15%, 19%
+  L36775  20%, 24%
+  L36779  25%, 29%
+  L36783  30%, 34%
+  L36787  35%, 39%
+  L36791  40%, 44%
+  L36795  45%, 49%
+  L36799  50%, 54%
+  L36803  55%, 59%
+  L36807  60%, 64%
+  L36811  65%, 69%
+  L36815  70%, 74%
+  L36819  75%, 79%
+  L36823  80%, 84%
+  L36827  85%, 89%
+  L36831  90%, 95%
+  L36835  96%, 99%
+  L36845  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-text.logo-glitch-active .logo-glitch-main, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon
+  L36850  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon
+  L36854  [data-theme="dark"] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme="dark"] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme="dark"] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
+  L36859  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble
+  L36864  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble-current
+  L36870  .admin-bar
+  L36874  .hero-css-halo .halo
+  L36886  .hero-css-halo .halo-1
+  L36892  .hero-css-halo .halo-2
+  L36899  .hero-css-halo .halo-3
+  L36907  .hero-css-halo .halo
+  L36929  .hero-css-halo .halo-noise
+  L36938  .footer-custom .footer-link
+  L36945  .footer-custom .footer-heading, .footer-custom input[name="newsletter-email"]
+  L36949  .footer-newsletter-btn-wrap
+  L36981  .footer-newsletter-btn-wrap:hover button
+  L37083  [data-theme="light"] .footer-custom .footer-link:hover
+  L37116  .footer-newsletter-input:focus-visible
+  L37131  [data-theme="light"] .footer-newsletter-input:focus-visible
+  L37135  .footer-newsletter-submit
+  L37140  .footer-newsletter-submit:hover
+  L37144  [data-theme="light"] .footer-newsletter-submit
+  L37149  [data-theme="light"] .footer-newsletter-submit:hover
+  L37158  [data-theme="light"] .footer-newsletter-btn-wrap:hover button
+  L37176  [data-theme="light"] .footer-social-icon:hover
+  L37181  [data-theme="light"] .footer-custom .footer-link, [data-theme="light"] .footer-custom .footer-heading
+  L37195  html.theme-fallback
+  L37199  ::view-transition-old(root)
+  L37204  ::view-transition-new(root)
+  L37256  [data-theme="dark"] .megamenu, [data-theme="dark"] .site-header
+  L37264  [data-theme="dark"] .megamenu, [data-theme="dark"] .site-header
+  L37269  [data-theme="dark"] .megamenu, [data-theme="dark"] .site-header
+  L37274  [data-theme="dark"] .megamenu, [data-theme="dark"] .site-header
+  L37279  [data-theme="dark"] .megamenu, [data-theme="dark"] .site-header
+  L37284  [data-theme="dark"] .megamenu, [data-theme="dark"] .site-header
+  L37301  .header-glass-plate.header-reveal-from-top, .site-header > .header-slide-layer.header-reveal-from-top, .megamenu > .header-slide-layer.header-reveal-from-top
+  L37321  [data-theme="dark"] .megamenu[data-sticky="true"], [data-theme="dark"] .site-header[data-sticky="true"]
+  L37391  .megamenu:not(:hover) .header-tool-toggle:hover, .site-header:not(:hover) .header-tool-toggle:hover
+  L37406  [data-theme="dark"] .site-header .header-tool-toggle, [data-theme="dark"] .megamenu .header-tool-toggle, .site-header:not(:hover) a
+  L37410  .site-header:not(:hover) a:hover
+  L37414  [data-theme="light"] .site-header:not(:hover) .logo-link img, [data-theme="light"] .site-header:not(:hover) .logo-link svg
+  L37418  [data-theme="light"] .site-header:not(:hover) .header-tool-toggle
+  L37424  [data-theme="light"] .site-header:not(:hover) .header-tool-toggle:hover
+  L37429  [data-theme="light"] .site-header:not(:hover) a
+  L37433  [data-theme="light"] .site-header:not(:hover) a:hover
+  L37451  [data-theme="light"] .megamenu:not(:hover) .header-tool-toggle:hover
+  L37458  .megamenu .logo-link img, .megamenu .logo-link svg, .site-header .logo-link img, .site-header .logo-link svg
+  L37462  .megamenu .megamenu-top-item, .megamenu .megamenu-top-item [class*="lucide"]
+  L37466  .megamenu .header-tool-toggle, .site-header .header-tool-toggle
+  L37472  .site-header a
+  L37476  [data-theme="light"] .megamenu .logo-link img, [data-theme="light"] .megamenu .logo-link svg, [data-theme="light"] .site-header .logo-link img, [data-theme="light"] .site-header .logo-link svg
+  L37480  [data-theme="light"] .megamenu .megamenu-top-item, [data-theme="light"] .megamenu .megamenu-top-item [class*="lucide"], [data-theme="light"] .megamenu .header-tool-toggle, [data-theme="light"] .site-header .header-tool-toggle, [data-theme="light"] .site-header a
+  L37484  [data-theme="light"] .megamenu .header-tool-toggle, [data-theme="light"] .site-header .header-tool-toggle
+  L37488  .megamenu[data-scrolled="true"] .megamenu-top-item, .megamenu[data-scrolled="true"] .header-tool-toggle, .site-header[data-scrolled="true"] a, .site-header[data-scrolled="true"] .header-tool-toggle
+  L37492  .megamenu[data-scrolled="true"] .logo-link img, .megamenu[data-scrolled="true"] .logo-link svg, .site-header[data-scrolled="true"] .logo-link img, .site-header[data-scrolled="true"] .logo-link svg
+  L37496  [data-theme="dark"] .megamenu[data-scrolled="true"] .megamenu-top-item, [data-theme="dark"] .megamenu[data-scrolled="true"] .header-tool-toggle, [data-theme="dark"] .site-header[data-scrolled="true"] a, [data-theme="dark"] .site-header[data-scrolled="true"] .header-tool-toggle
+  L37500  [data-theme="dark"] .megamenu[data-scrolled="true"] .logo-link img, [data-theme="dark"] .megamenu[data-scrolled="true"] .logo-link svg, [data-theme="dark"] .site-header[data-scrolled="true"] .logo-link img, [data-theme="dark"] .site-header[data-scrolled="true"] .logo-link svg
+  L37509  .site-header nav.header-nav > a[data-slot="button"]
+  L37520  .site-header nav.header-nav > a[data-slot="button"]:hover
+  L37524  .site-header nav.header-nav > a[data-slot="button"]:after
+  L37539  .site-header nav.header-nav > a[data-slot="button"].header-nav-link--active:after
+  L37544  .site-header nav.header-nav > a[data-slot="button"]:hover:after, .site-header nav.header-nav > a[data-slot="button"]:focus-visible:after
+  L37549  [data-theme="light"] .site-header nav.header-nav > a[data-slot="button"]:hover
+  L37554  [data-theme="dark"] .site-header nav.header-nav > a[data-slot="button"]:hover
+  L37560  [data-theme="light"] .site-header nav.header-nav > a[data-slot="button"]:focus-visible
+  L37565  [data-theme="dark"] .site-header nav.header-nav > a[data-slot="button"]:focus-visible
+  L37576  .megamenu[data-sticky="true"]:hover, .site-header[data-sticky="true"]:hover
+  L37580  .megamenu[data-scrolled="true"], .site-header[data-scrolled="true"]
+  L37585  [data-theme="dark"] .megamenu[data-sticky="true"]:hover, [data-theme="dark"] .site-header[data-sticky="true"]:hover
+  L37589  [data-theme="dark"] .megamenu[data-scrolled="true"], [data-theme="dark"] .site-header[data-scrolled="true"]
+  L37593  [data-theme="light"] .megamenu[data-scrolled="true"] .logo-link img, [data-theme="light"] .megamenu[data-scrolled="true"] .logo-link svg, [data-theme="light"] .site-header[data-scrolled="true"] .logo-link img, [data-theme="light"] .site-header[data-scrolled="true"] .logo-link svg
+  L37597  .megamenu[data-scrolled="true"] .megamenu-top-item, .megamenu[data-scrolled="true"] .header-tool-toggle, .site-header[data-scrolled="true"] a, .site-header[data-scrolled="true"] .header-tool-toggle, .megamenu[data-scrolled="true"] button[aria-label="Menü öffnen"], .site-header[data-scrolled="true"] button[aria-label="Menü öffnen"]
+  L37606  [data-theme="dark"] .megamenu:hover .logo-link img, [data-theme="dark"] .megamenu:hover .logo-link svg, [data-theme="dark"] .site-header:hover .logo-link img, [data-theme="dark"] .site-header:hover .logo-link svg
+  L37667  .megamenu-nav-list-wrap:has(.megamenu-top-item[data-active="true"]) .megamenu-sliding-underline
+  L37684  .megamenu .megamenu-top-item [class*="lucide"]
+  L37689  .megamenu .megamenu-top-item:hover [class*="lucide"], .megamenu button.megamenu-top-item[data-state="open"] [class*="lucide"]
+  L37700  .megamenu-viewport-wrapper:has([data-state="open"])
+  L37707  .megamenu-viewport, .megamenu .megamenu-viewport
+  ... +153 weitere

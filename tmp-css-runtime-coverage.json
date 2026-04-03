@@ -1,0 +1,2005 @@
+{
+  "base": "http://127.0.0.1:3000",
+  "visited": [
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:3000/leistungen",
+    "http://127.0.0.1:3000/portfolio",
+    "http://127.0.0.1:3000/preise",
+    "http://127.0.0.1:3000/profil",
+    "http://127.0.0.1:3000/kontakt",
+    "http://127.0.0.1:3000/impressum",
+    "http://127.0.0.1:3000/datenschutz",
+    "http://127.0.0.1:3000/webdesign",
+    "http://127.0.0.1:3000/print",
+    "http://127.0.0.1:3000/keynotes",
+    "http://127.0.0.1:3000/seo",
+    "http://127.0.0.1:3000/sem",
+    "http://127.0.0.1:3000/content",
+    "http://127.0.0.1:3000/corporate-identity",
+    "http://127.0.0.1:3000/logo",
+    "http://127.0.0.1:3000/markenstrategie",
+    "http://127.0.0.1:3000/portfolio-webdesign",
+    "http://127.0.0.1:3000/portfolio-marketing",
+    "http://127.0.0.1:3000/portfolio-marken",
+    "http://127.0.0.1:3000/printmedien",
+    "http://127.0.0.1:3000/contentcreation",
+    "http://127.0.0.1:3000/ci",
+    "http://127.0.0.1:3000/logos"
+  ],
+  "visitedCount": 24,
+  "sheets": [
+    {
+      "sourceURL": "http://127.0.0.1:3000/_next/static/chunks/src_7dd5de72._.css",
+      "totalRules": 7317,
+      "unusedRules": 393,
+      "usedRules": 6924,
+      "unusedList": [
+        {
+          "selector": ".fontoutfit_7580f0de-module__f9hGsG__className",
+          "line": 19,
+          "used": false
+        },
+        {
+          "selector": ".fontinter_5f768d23-module__2-l4oG__className",
+          "line": 61,
+          "used": false
+        },
+        {
+          "selector": "*, :before, :after, ::backdrop",
+          "line": 72,
+          "used": false
+        },
+        {
+          "selector": ".header-icon-btn:focus-visible",
+          "line": 196,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .header-icon-btn",
+          "line": 207,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .header-icon-btn:hover",
+          "line": 212,
+          "used": false
+        },
+        {
+          "selector": ".header-icon-btn svg",
+          "line": 218,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"]",
+          "line": 35725,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"]",
+          "line": 35798,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"]",
+          "line": 35803,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"]",
+          "line": 35808,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"]",
+          "line": 35813,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"]",
+          "line": 35818,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"]",
+          "line": 35823,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"]",
+          "line": 35828,
+          "used": false
+        },
+        {
+          "selector": ".footer-nav-grid",
+          "line": 35834,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .logo-contrast, [data-theme=\"dark\"] .logo-contrast.logo-contrast-dark-bg",
+          "line": 35839,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] footer .logo-contrast",
+          "line": 35847,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .site-header .logo-link img, [data-theme=\"dark\"] .site-header .logo-link svg, [data-theme=\"dark\"] .site-header .logo-link .logo-contrast, .site-header[data-theme=\"dark\"] .logo-link img, .site-header[data-theme=\"dark\"] .logo-link svg, .site-header[data-theme=\"dark\"] .logo-link .logo-contrast",
+          "line": 35851,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-footer",
+          "line": 35891,
+          "used": false
+        },
+        {
+          "selector": ".footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image",
+          "line": 35895,
+          "used": false
+        },
+        {
+          "selector": ".footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image:hover",
+          "line": 35905,
+          "used": false
+        },
+        {
+          "selector": ".footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icons",
+          "line": 35909,
+          "used": false
+        },
+        {
+          "selector": ".footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main",
+          "line": 35913,
+          "used": false
+        },
+        {
+          "selector": ".footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main picture, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main img",
+          "line": 35921,
+          "used": false
+        },
+        {
+          "selector": ".footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-layer",
+          "line": 35931,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-collapsed",
+          "line": 35943,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed",
+          "line": 35947,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-text.logo-glitch-text-fixed-height",
+          "line": 35952,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-text:not(.logo-glitch-collapsed)",
+          "line": 36052,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-collapsed:before",
+          "line": 36057,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-pixel-transition-active",
+          "line": 36069,
+          "used": false
+        },
+        {
+          "selector": ".logo-pixel-transition",
+          "line": 36073,
+          "used": false
+        },
+        {
+          "selector": ".logo-pixel-transition-portal",
+          "line": 36085,
+          "used": false
+        },
+        {
+          "selector": ".logo-pixel-transition-grid",
+          "line": 36090,
+          "used": false
+        },
+        {
+          "selector": ".logo-pixel-transition-cell",
+          "line": 36098,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-collapsed-dot",
+          "line": 36112,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-collapsed .logo-glitch-collapsed-dot",
+          "line": 36126,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-collapsed-dot, .logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-collapsed-dot",
+          "line": 36130,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-collapsed-icon",
+          "line": 36134,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-layer",
+          "line": 36141,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-collapsed-icon",
+          "line": 36152,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-collapsed-icon-svg",
+          "line": 36163,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-collapsed-icon-visible",
+          "line": 36169,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-footer .logo-glitch-collapsed-icon-svg",
+          "line": 36180,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-collapsed-icon",
+          "line": 36184,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed:after",
+          "line": 36191,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-layer, .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-main *, .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-layer *",
+          "line": 36200,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-layer",
+          "line": 36229,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble",
+          "line": 36242,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble-current",
+          "line": 36258,
+          "used": false
+        },
+        {
+          "selector": "0%, 4%, 100%",
+          "line": 36268,
+          "used": false
+        },
+        {
+          "selector": "5%, 9%",
+          "line": 36272,
+          "used": false
+        },
+        {
+          "selector": "10%, 14%",
+          "line": 36276,
+          "used": false
+        },
+        {
+          "selector": "15%, 19%",
+          "line": 36280,
+          "used": false
+        },
+        {
+          "selector": "20%, 24%",
+          "line": 36284,
+          "used": false
+        },
+        {
+          "selector": "25%, 29%",
+          "line": 36288,
+          "used": false
+        },
+        {
+          "selector": "30%, 34%",
+          "line": 36292,
+          "used": false
+        },
+        {
+          "selector": "35%, 39%",
+          "line": 36296,
+          "used": false
+        },
+        {
+          "selector": "40%, 44%",
+          "line": 36300,
+          "used": false
+        },
+        {
+          "selector": "45%, 49%",
+          "line": 36304,
+          "used": false
+        },
+        {
+          "selector": "50%, 54%",
+          "line": 36308,
+          "used": false
+        },
+        {
+          "selector": "55%, 59%",
+          "line": 36312,
+          "used": false
+        },
+        {
+          "selector": "60%, 64%",
+          "line": 36316,
+          "used": false
+        },
+        {
+          "selector": "65%, 69%",
+          "line": 36320,
+          "used": false
+        },
+        {
+          "selector": "70%, 74%",
+          "line": 36324,
+          "used": false
+        },
+        {
+          "selector": "75%, 79%",
+          "line": 36328,
+          "used": false
+        },
+        {
+          "selector": "80%, 84%",
+          "line": 36332,
+          "used": false
+        },
+        {
+          "selector": "85%, 89%",
+          "line": 36336,
+          "used": false
+        },
+        {
+          "selector": "90%, 95%",
+          "line": 36340,
+          "used": false
+        },
+        {
+          "selector": "96%, 99%",
+          "line": 36344,
+          "used": false
+        },
+        {
+          "selector": "0%, 6%, 12%, 18%, 24%, 30%, 36%, 42%, 48%, 54%, 60%, 66%, 72%, 78%, 84%, 90%, 96%",
+          "line": 36382,
+          "used": false
+        },
+        {
+          "selector": "3%, 9%, 15%, 21%, 27%, 33%, 39%, 45%, 51%, 57%, 63%, 69%, 75%, 81%, 87%, 93%, 99%",
+          "line": 36386,
+          "used": false
+        },
+        {
+          "selector": "0%, 4%, 100%",
+          "line": 36420,
+          "used": false
+        },
+        {
+          "selector": "5%, 9%",
+          "line": 36425,
+          "used": false
+        },
+        {
+          "selector": "10%, 14%",
+          "line": 36430,
+          "used": false
+        },
+        {
+          "selector": "15%, 19%",
+          "line": 36435,
+          "used": false
+        },
+        {
+          "selector": "20%, 24%",
+          "line": 36440,
+          "used": false
+        },
+        {
+          "selector": "25%, 29%",
+          "line": 36445,
+          "used": false
+        },
+        {
+          "selector": "30%, 34%",
+          "line": 36450,
+          "used": false
+        },
+        {
+          "selector": "35%, 39%",
+          "line": 36455,
+          "used": false
+        },
+        {
+          "selector": "40%, 44%",
+          "line": 36460,
+          "used": false
+        },
+        {
+          "selector": "45%, 49%",
+          "line": 36465,
+          "used": false
+        },
+        {
+          "selector": "50%, 54%",
+          "line": 36470,
+          "used": false
+        },
+        {
+          "selector": "55%, 59%",
+          "line": 36475,
+          "used": false
+        },
+        {
+          "selector": "60%, 64%",
+          "line": 36480,
+          "used": false
+        },
+        {
+          "selector": "65%, 69%",
+          "line": 36485,
+          "used": false
+        },
+        {
+          "selector": "70%, 74%",
+          "line": 36490,
+          "used": false
+        },
+        {
+          "selector": "75%, 79%",
+          "line": 36495,
+          "used": false
+        },
+        {
+          "selector": "80%, 84%",
+          "line": 36500,
+          "used": false
+        },
+        {
+          "selector": "85%, 89%",
+          "line": 36505,
+          "used": false
+        },
+        {
+          "selector": "90%, 95%",
+          "line": 36510,
+          "used": false
+        },
+        {
+          "selector": "96%, 99%",
+          "line": 36515,
+          "used": false
+        },
+        {
+          "selector": "0%, 4%, 100%",
+          "line": 36522,
+          "used": false
+        },
+        {
+          "selector": "5%, 9%",
+          "line": 36527,
+          "used": false
+        },
+        {
+          "selector": "10%, 14%",
+          "line": 36532,
+          "used": false
+        },
+        {
+          "selector": "15%, 19%",
+          "line": 36537,
+          "used": false
+        },
+        {
+          "selector": "20%, 24%",
+          "line": 36542,
+          "used": false
+        },
+        {
+          "selector": "25%, 29%",
+          "line": 36547,
+          "used": false
+        },
+        {
+          "selector": "30%, 34%",
+          "line": 36552,
+          "used": false
+        },
+        {
+          "selector": "35%, 39%",
+          "line": 36557,
+          "used": false
+        },
+        {
+          "selector": "40%, 44%",
+          "line": 36562,
+          "used": false
+        },
+        {
+          "selector": "45%, 49%",
+          "line": 36567,
+          "used": false
+        },
+        {
+          "selector": "50%, 54%",
+          "line": 36572,
+          "used": false
+        },
+        {
+          "selector": "55%, 59%",
+          "line": 36577,
+          "used": false
+        },
+        {
+          "selector": "60%, 64%",
+          "line": 36582,
+          "used": false
+        },
+        {
+          "selector": "65%, 69%",
+          "line": 36587,
+          "used": false
+        },
+        {
+          "selector": "70%, 74%",
+          "line": 36592,
+          "used": false
+        },
+        {
+          "selector": "75%, 79%",
+          "line": 36597,
+          "used": false
+        },
+        {
+          "selector": "80%, 84%",
+          "line": 36602,
+          "used": false
+        },
+        {
+          "selector": "85%, 89%",
+          "line": 36607,
+          "used": false
+        },
+        {
+          "selector": "90%, 95%",
+          "line": 36612,
+          "used": false
+        },
+        {
+          "selector": "96%, 99%",
+          "line": 36617,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-text",
+          "line": 36623,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-text .logo-glitch-main",
+          "line": 36630,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-text.logo-glitch-active .logo-glitch-main",
+          "line": 36635,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-text .logo-glitch-layer",
+          "line": 36639,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-text .logo-glitch-layer-1",
+          "line": 36648,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-text .logo-glitch-layer-2",
+          "line": 36654,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2",
+          "line": 36660,
+          "used": false
+        },
+        {
+          "selector": "0%, 4%, 100%",
+          "line": 36665,
+          "used": false
+        },
+        {
+          "selector": "5%, 9%",
+          "line": 36669,
+          "used": false
+        },
+        {
+          "selector": "10%, 14%",
+          "line": 36673,
+          "used": false
+        },
+        {
+          "selector": "15%, 19%",
+          "line": 36677,
+          "used": false
+        },
+        {
+          "selector": "20%, 24%",
+          "line": 36681,
+          "used": false
+        },
+        {
+          "selector": "25%, 29%",
+          "line": 36685,
+          "used": false
+        },
+        {
+          "selector": "30%, 34%",
+          "line": 36689,
+          "used": false
+        },
+        {
+          "selector": "35%, 39%",
+          "line": 36693,
+          "used": false
+        },
+        {
+          "selector": "40%, 44%",
+          "line": 36697,
+          "used": false
+        },
+        {
+          "selector": "45%, 49%",
+          "line": 36701,
+          "used": false
+        },
+        {
+          "selector": "50%, 54%",
+          "line": 36705,
+          "used": false
+        },
+        {
+          "selector": "55%, 59%",
+          "line": 36709,
+          "used": false
+        },
+        {
+          "selector": "60%, 64%",
+          "line": 36713,
+          "used": false
+        },
+        {
+          "selector": "65%, 69%",
+          "line": 36717,
+          "used": false
+        },
+        {
+          "selector": "70%, 74%",
+          "line": 36721,
+          "used": false
+        },
+        {
+          "selector": "75%, 79%",
+          "line": 36725,
+          "used": false
+        },
+        {
+          "selector": "80%, 84%",
+          "line": 36729,
+          "used": false
+        },
+        {
+          "selector": "85%, 89%",
+          "line": 36733,
+          "used": false
+        },
+        {
+          "selector": "90%, 95%",
+          "line": 36737,
+          "used": false
+        },
+        {
+          "selector": "96%, 99%",
+          "line": 36741,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .logo-glitch-text .logo-glitch-main",
+          "line": 36750,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme=\"dark\"] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme=\"dark\"] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2",
+          "line": 36754,
+          "used": false
+        },
+        {
+          "selector": "0%, 4%, 100%",
+          "line": 36759,
+          "used": false
+        },
+        {
+          "selector": "5%, 9%",
+          "line": 36763,
+          "used": false
+        },
+        {
+          "selector": "10%, 14%",
+          "line": 36767,
+          "used": false
+        },
+        {
+          "selector": "15%, 19%",
+          "line": 36771,
+          "used": false
+        },
+        {
+          "selector": "20%, 24%",
+          "line": 36775,
+          "used": false
+        },
+        {
+          "selector": "25%, 29%",
+          "line": 36779,
+          "used": false
+        },
+        {
+          "selector": "30%, 34%",
+          "line": 36783,
+          "used": false
+        },
+        {
+          "selector": "35%, 39%",
+          "line": 36787,
+          "used": false
+        },
+        {
+          "selector": "40%, 44%",
+          "line": 36791,
+          "used": false
+        },
+        {
+          "selector": "45%, 49%",
+          "line": 36795,
+          "used": false
+        },
+        {
+          "selector": "50%, 54%",
+          "line": 36799,
+          "used": false
+        },
+        {
+          "selector": "55%, 59%",
+          "line": 36803,
+          "used": false
+        },
+        {
+          "selector": "60%, 64%",
+          "line": 36807,
+          "used": false
+        },
+        {
+          "selector": "65%, 69%",
+          "line": 36811,
+          "used": false
+        },
+        {
+          "selector": "70%, 74%",
+          "line": 36815,
+          "used": false
+        },
+        {
+          "selector": "75%, 79%",
+          "line": 36819,
+          "used": false
+        },
+        {
+          "selector": "80%, 84%",
+          "line": 36823,
+          "used": false
+        },
+        {
+          "selector": "85%, 89%",
+          "line": 36827,
+          "used": false
+        },
+        {
+          "selector": "90%, 95%",
+          "line": 36831,
+          "used": false
+        },
+        {
+          "selector": "96%, 99%",
+          "line": 36835,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-text.logo-glitch-active .logo-glitch-main, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon",
+          "line": 36845,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon",
+          "line": 36850,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme=\"dark\"] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme=\"dark\"] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2",
+          "line": 36854,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble",
+          "line": 36859,
+          "used": false
+        },
+        {
+          "selector": ".logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble-current",
+          "line": 36864,
+          "used": false
+        },
+        {
+          "selector": ".admin-bar",
+          "line": 36870,
+          "used": false
+        },
+        {
+          "selector": ".hero-css-halo .halo",
+          "line": 36874,
+          "used": false
+        },
+        {
+          "selector": ".hero-css-halo .halo-1",
+          "line": 36886,
+          "used": false
+        },
+        {
+          "selector": ".hero-css-halo .halo-2",
+          "line": 36892,
+          "used": false
+        },
+        {
+          "selector": ".hero-css-halo .halo-3",
+          "line": 36899,
+          "used": false
+        },
+        {
+          "selector": ".hero-css-halo .halo",
+          "line": 36907,
+          "used": false
+        },
+        {
+          "selector": ".hero-css-halo .halo-noise",
+          "line": 36929,
+          "used": false
+        },
+        {
+          "selector": ".footer-custom .footer-link",
+          "line": 36938,
+          "used": false
+        },
+        {
+          "selector": ".footer-custom .footer-heading, .footer-custom input[name=\"newsletter-email\"]",
+          "line": 36945,
+          "used": false
+        },
+        {
+          "selector": ".footer-newsletter-btn-wrap",
+          "line": 36949,
+          "used": false
+        },
+        {
+          "selector": ".footer-newsletter-btn-wrap:hover button",
+          "line": 36981,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .footer-custom .footer-link:hover",
+          "line": 37083,
+          "used": false
+        },
+        {
+          "selector": ".footer-newsletter-input:focus-visible",
+          "line": 37116,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .footer-newsletter-input:focus-visible",
+          "line": 37131,
+          "used": false
+        },
+        {
+          "selector": ".footer-newsletter-submit",
+          "line": 37135,
+          "used": false
+        },
+        {
+          "selector": ".footer-newsletter-submit:hover",
+          "line": 37140,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .footer-newsletter-submit",
+          "line": 37144,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .footer-newsletter-submit:hover",
+          "line": 37149,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .footer-newsletter-btn-wrap:hover button",
+          "line": 37158,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .footer-social-icon:hover",
+          "line": 37176,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .footer-custom .footer-link, [data-theme=\"light\"] .footer-custom .footer-heading",
+          "line": 37181,
+          "used": false
+        },
+        {
+          "selector": "html.theme-fallback",
+          "line": 37195,
+          "used": false
+        },
+        {
+          "selector": "::view-transition-old(root)",
+          "line": 37199,
+          "used": false
+        },
+        {
+          "selector": "::view-transition-new(root)",
+          "line": 37204,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu, [data-theme=\"dark\"] .site-header",
+          "line": 37256,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu, [data-theme=\"dark\"] .site-header",
+          "line": 37264,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu, [data-theme=\"dark\"] .site-header",
+          "line": 37269,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu, [data-theme=\"dark\"] .site-header",
+          "line": 37274,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu, [data-theme=\"dark\"] .site-header",
+          "line": 37279,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu, [data-theme=\"dark\"] .site-header",
+          "line": 37284,
+          "used": false
+        },
+        {
+          "selector": ".header-glass-plate.header-reveal-from-top, .site-header > .header-slide-layer.header-reveal-from-top, .megamenu > .header-slide-layer.header-reveal-from-top",
+          "line": 37301,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu[data-sticky=\"true\"], [data-theme=\"dark\"] .site-header[data-sticky=\"true\"]",
+          "line": 37321,
+          "used": false
+        },
+        {
+          "selector": ".megamenu:not(:hover) .header-tool-toggle:hover, .site-header:not(:hover) .header-tool-toggle:hover",
+          "line": 37391,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .site-header .header-tool-toggle, [data-theme=\"dark\"] .megamenu .header-tool-toggle, .site-header:not(:hover) a",
+          "line": 37406,
+          "used": false
+        },
+        {
+          "selector": ".site-header:not(:hover) a:hover",
+          "line": 37410,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .site-header:not(:hover) .logo-link img, [data-theme=\"light\"] .site-header:not(:hover) .logo-link svg",
+          "line": 37414,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .site-header:not(:hover) .header-tool-toggle",
+          "line": 37418,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .site-header:not(:hover) .header-tool-toggle:hover",
+          "line": 37424,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .site-header:not(:hover) a",
+          "line": 37429,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .site-header:not(:hover) a:hover",
+          "line": 37433,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .megamenu:not(:hover) .header-tool-toggle:hover",
+          "line": 37451,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .logo-link img, .megamenu .logo-link svg, .site-header .logo-link img, .site-header .logo-link svg",
+          "line": 37458,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-top-item, .megamenu .megamenu-top-item [class*=\"lucide\"]",
+          "line": 37462,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .header-tool-toggle, .site-header .header-tool-toggle",
+          "line": 37466,
+          "used": false
+        },
+        {
+          "selector": ".site-header a",
+          "line": 37472,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .megamenu .logo-link img, [data-theme=\"light\"] .megamenu .logo-link svg, [data-theme=\"light\"] .site-header .logo-link img, [data-theme=\"light\"] .site-header .logo-link svg",
+          "line": 37476,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .megamenu .megamenu-top-item, [data-theme=\"light\"] .megamenu .megamenu-top-item [class*=\"lucide\"], [data-theme=\"light\"] .megamenu .header-tool-toggle, [data-theme=\"light\"] .site-header .header-tool-toggle, [data-theme=\"light\"] .site-header a",
+          "line": 37480,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .megamenu .header-tool-toggle, [data-theme=\"light\"] .site-header .header-tool-toggle",
+          "line": 37484,
+          "used": false
+        },
+        {
+          "selector": ".megamenu[data-scrolled=\"true\"] .megamenu-top-item, .megamenu[data-scrolled=\"true\"] .header-tool-toggle, .site-header[data-scrolled=\"true\"] a, .site-header[data-scrolled=\"true\"] .header-tool-toggle",
+          "line": 37488,
+          "used": false
+        },
+        {
+          "selector": ".megamenu[data-scrolled=\"true\"] .logo-link img, .megamenu[data-scrolled=\"true\"] .logo-link svg, .site-header[data-scrolled=\"true\"] .logo-link img, .site-header[data-scrolled=\"true\"] .logo-link svg",
+          "line": 37492,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu[data-scrolled=\"true\"] .megamenu-top-item, [data-theme=\"dark\"] .megamenu[data-scrolled=\"true\"] .header-tool-toggle, [data-theme=\"dark\"] .site-header[data-scrolled=\"true\"] a, [data-theme=\"dark\"] .site-header[data-scrolled=\"true\"] .header-tool-toggle",
+          "line": 37496,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu[data-scrolled=\"true\"] .logo-link img, [data-theme=\"dark\"] .megamenu[data-scrolled=\"true\"] .logo-link svg, [data-theme=\"dark\"] .site-header[data-scrolled=\"true\"] .logo-link img, [data-theme=\"dark\"] .site-header[data-scrolled=\"true\"] .logo-link svg",
+          "line": 37500,
+          "used": false
+        },
+        {
+          "selector": ".site-header nav.header-nav > a[data-slot=\"button\"]",
+          "line": 37509,
+          "used": false
+        },
+        {
+          "selector": ".site-header nav.header-nav > a[data-slot=\"button\"]:hover",
+          "line": 37520,
+          "used": false
+        },
+        {
+          "selector": ".site-header nav.header-nav > a[data-slot=\"button\"]:after",
+          "line": 37524,
+          "used": false
+        },
+        {
+          "selector": ".site-header nav.header-nav > a[data-slot=\"button\"].header-nav-link--active:after",
+          "line": 37539,
+          "used": false
+        },
+        {
+          "selector": ".site-header nav.header-nav > a[data-slot=\"button\"]:hover:after, .site-header nav.header-nav > a[data-slot=\"button\"]:focus-visible:after",
+          "line": 37544,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .site-header nav.header-nav > a[data-slot=\"button\"]:hover",
+          "line": 37549,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .site-header nav.header-nav > a[data-slot=\"button\"]:hover",
+          "line": 37554,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .site-header nav.header-nav > a[data-slot=\"button\"]:focus-visible",
+          "line": 37560,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .site-header nav.header-nav > a[data-slot=\"button\"]:focus-visible",
+          "line": 37565,
+          "used": false
+        },
+        {
+          "selector": ".megamenu[data-sticky=\"true\"]:hover, .site-header[data-sticky=\"true\"]:hover",
+          "line": 37576,
+          "used": false
+        },
+        {
+          "selector": ".megamenu[data-scrolled=\"true\"], .site-header[data-scrolled=\"true\"]",
+          "line": 37580,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu[data-sticky=\"true\"]:hover, [data-theme=\"dark\"] .site-header[data-sticky=\"true\"]:hover",
+          "line": 37585,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu[data-scrolled=\"true\"], [data-theme=\"dark\"] .site-header[data-scrolled=\"true\"]",
+          "line": 37589,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .megamenu[data-scrolled=\"true\"] .logo-link img, [data-theme=\"light\"] .megamenu[data-scrolled=\"true\"] .logo-link svg, [data-theme=\"light\"] .site-header[data-scrolled=\"true\"] .logo-link img, [data-theme=\"light\"] .site-header[data-scrolled=\"true\"] .logo-link svg",
+          "line": 37593,
+          "used": false
+        },
+        {
+          "selector": ".megamenu[data-scrolled=\"true\"] .megamenu-top-item, .megamenu[data-scrolled=\"true\"] .header-tool-toggle, .site-header[data-scrolled=\"true\"] a, .site-header[data-scrolled=\"true\"] .header-tool-toggle, .megamenu[data-scrolled=\"true\"] button[aria-label=\"Menü öffnen\"], .site-header[data-scrolled=\"true\"] button[aria-label=\"Menü öffnen\"]",
+          "line": 37597,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu:hover .logo-link img, [data-theme=\"dark\"] .megamenu:hover .logo-link svg, [data-theme=\"dark\"] .site-header:hover .logo-link img, [data-theme=\"dark\"] .site-header:hover .logo-link svg",
+          "line": 37606,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-nav-list-wrap:has(.megamenu-top-item[data-active=\"true\"]) .megamenu-sliding-underline",
+          "line": 37667,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-top-item [class*=\"lucide\"]",
+          "line": 37684,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-top-item:hover [class*=\"lucide\"], .megamenu button.megamenu-top-item[data-state=\"open\"] [class*=\"lucide\"]",
+          "line": 37689,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"])",
+          "line": 37700,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport, .megamenu .megamenu-viewport",
+          "line": 37707,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .megamenu-viewport, [data-theme=\"light\"] .megamenu .megamenu-viewport",
+          "line": 37720,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"light\"] .megamenu .megamenu-featured",
+          "line": 37725,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu-dropdown-bg, [data-theme=\"dark\"] .megamenu-viewport-wrapper",
+          "line": 37732,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"])",
+          "line": 37783,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-viewport",
+          "line": 37790,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-dropdown-content",
+          "line": 37795,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-dropdown-content",
+          "line": 37801,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport, .megamenu .megamenu-viewport",
+          "line": 37810,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-motion^=\"from-\"]):has([data-motion^=\"to-\"]) [data-motion^=\"from-\"]",
+          "line": 37834,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-motion^=\"from-\"]):has([data-motion^=\"to-\"]) [data-motion^=\"to-\"]",
+          "line": 37838,
+          "used": false
+        },
+        {
+          "selector": ":is(.megamenu-viewport-wrapper:has([data-motion^=\"from-\"]):has([data-motion^=\"to-\"]) .megamenu-dropdown-content > *, .megamenu-viewport-wrapper:has([data-motion^=\"from-\"]):has([data-motion^=\"to-\"]) .megamenu-dropdown-content-footer > *, .megamenu-viewport-wrapper:has([data-motion^=\"from-\"]):has([data-motion^=\"to-\"]) .megamenu-highlight-wipe-wrap)",
+          "line": 37842,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-motion^=\"from-\"]):has([data-motion^=\"to-\"]) .megamenu-dropdown-panel",
+          "line": 37847,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-motion^=\"from-\"]):has([data-motion^=\"to-\"]) [data-motion^=\"from-\"]",
+          "line": 37855,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-motion^=\"from-\"]):has([data-motion^=\"to-\"]) [data-motion^=\"to-\"]",
+          "line": 37861,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel > .megamenu-dropdown-intro",
+          "line": 37913,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-dropdown-intro h2, .megamenu-dropdown-intro p",
+          "line": 37918,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *",
+          "line": 37922,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > :first-child",
+          "line": 37927,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > :nth-child(2)",
+          "line": 37931,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > :nth-child(3)",
+          "line": 37935,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > :nth-child(4)",
+          "line": 37939,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > :nth-child(5)",
+          "line": 37943,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > :nth-child(n+6)",
+          "line": 37947,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *",
+          "line": 37951,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > :first-child",
+          "line": 37956,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > :nth-child(2)",
+          "line": 37960,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > :nth-child(3)",
+          "line": 37964,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > :nth-child(4)",
+          "line": 37968,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > :nth-child(5)",
+          "line": 37972,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > :nth-child(n+6)",
+          "line": 37976,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-content-footer > :not(.megamenu-highlight-wipe-wrap)",
+          "line": 37980,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-content-footer > :first-child:not(.megamenu-highlight-wipe-wrap)",
+          "line": 37985,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-content-footer > :nth-child(2):not(.megamenu-highlight-wipe-wrap)",
+          "line": 37989,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-highlight-wipe-wrap[data-wipe=\"left\"]",
+          "line": 38017,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-highlight-wipe-wrap[data-wipe=\"right\"]",
+          "line": 38022,
+          "used": false
+        },
+        {
+          "selector": ":is(.megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-featured .megamenu-highlight-wipe-wrap[data-wipe=\"left\"], .megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-featured .megamenu-highlight-wipe-wrap[data-wipe=\"right\"], .megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-content-footer .megamenu-highlight-wipe-wrap[data-wipe=\"left\"], .megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-content-footer .megamenu-highlight-wipe-wrap[data-wipe=\"right\"])",
+          "line": 38027,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-viewport-wrapper:has([data-state=\"open\"]) .megamenu-dropdown-panel .megamenu-dropdown-content > div.megamenu-featured",
+          "line": 38031,
+          "used": false
+        },
+        {
+          "selector": "0%, 100%",
+          "line": 38046,
+          "used": false
+        },
+        {
+          "selector": ".animate-threads-drift",
+          "line": 38055,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-sidebar",
+          "line": 38059,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured",
+          "line": 38064,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured:before, .megamenu .megamenu-featured:after",
+          "line": 38075,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured > *",
+          "line": 38085,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured h2, .megamenu .megamenu-featured h3, .megamenu .megamenu-featured h4, .megamenu .megamenu-featured .text-foreground",
+          "line": 38090,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured .text-muted-foreground, .megamenu .megamenu-featured [class*=\"text-muted-foreground\"]",
+          "line": 38094,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured a",
+          "line": 38098,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured a:hover",
+          "line": 38103,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured .bg-card, .megamenu .megamenu-featured .card, .megamenu .megamenu-featured .megamenu-highlight-wipe-wrap .card, [data-theme=\"dark\"] .megamenu .megamenu-featured .bg-card, [data-theme=\"dark\"] .megamenu .megamenu-featured .card",
+          "line": 38108,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured:before, .megamenu .megamenu-featured:after, [data-theme=\"dark\"] .megamenu .megamenu-featured:before, [data-theme=\"dark\"] .megamenu .megamenu-featured:after",
+          "line": 38117,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured a:has(.bg-card):hover",
+          "line": 38122,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured a:has(.bg-card):hover",
+          "line": 38126,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured a:hover .bg-card, [data-theme=\"dark\"] .megamenu .megamenu-featured a:hover .bg-card",
+          "line": 38130,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured .megamenu-item-icon",
+          "line": 38135,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured .group:hover .megamenu-item-icon",
+          "line": 38141,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-featured .text-primary",
+          "line": 38146,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-col-divider",
+          "line": 38150,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-col-items a.rounded-xl:hover",
+          "line": 38154,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-col-items .megamenu-item-icon, .megamenu .megamenu-col-items a.rounded-xl:hover .megamenu-item-icon",
+          "line": 38160,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-item-icon",
+          "line": 38167,
+          "used": false
+        },
+        {
+          "selector": ".group:hover .megamenu-item-icon",
+          "line": 38175,
+          "used": false
+        },
+        {
+          "selector": ".megamenu-item-icon img, .megamenu-item-icon svg",
+          "line": 38181,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-item-icon img",
+          "line": 38185,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .group:hover .megamenu-item-icon img",
+          "line": 38189,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-item-icon svg",
+          "line": 38193,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-cta-strip",
+          "line": 38198,
+          "used": false
+        },
+        {
+          "selector": ".megamenu .megamenu-cta-strip input",
+          "line": 38203,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu, [data-theme=\"dark\"] .site-header",
+          "line": 38274,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .site-header .logo-link img, [data-theme=\"dark\"] .site-header .logo-link svg",
+          "line": 38282,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu:hover, [data-theme=\"dark\"] .site-header:hover",
+          "line": 38286,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .logo-link:hover",
+          "line": 38292,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-top-item:after",
+          "line": 38297,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-sliding-underline",
+          "line": 38301,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu:hover .megamenu-sliding-underline",
+          "line": 38307,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-top-item:hover, [data-theme=\"dark\"] .megamenu .megamenu-top-item:focus-visible, [data-theme=\"dark\"] .megamenu button.megamenu-top-item[data-state=\"open\"]",
+          "line": 38311,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-top-item [class*=\"lucide\"]",
+          "line": 38316,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-top-item:hover [class*=\"lucide\"], [data-theme=\"dark\"] .megamenu button.megamenu-top-item[data-state=\"open\"] [class*=\"lucide\"]",
+          "line": 38320,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu-dropdown-bg, [data-theme=\"dark\"] .megamenu-viewport-wrapper",
+          "line": 38324,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured",
+          "line": 38331,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-sidebar",
+          "line": 38339,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured:before",
+          "line": 38344,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured:after",
+          "line": 38349,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured h2, [data-theme=\"dark\"] .megamenu .megamenu-featured h3, [data-theme=\"dark\"] .megamenu .megamenu-featured h4, [data-theme=\"dark\"] .megamenu .megamenu-featured .text-foreground",
+          "line": 38354,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured .text-muted-foreground, [data-theme=\"dark\"] .megamenu .megamenu-featured [class*=\"text-muted-foreground\"]",
+          "line": 38358,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured a",
+          "line": 38362,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured a:hover",
+          "line": 38366,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured .bg-card, [data-theme=\"dark\"] .megamenu .megamenu-featured .card, [data-theme=\"dark\"] .megamenu .megamenu-featured .megamenu-highlight-wipe-wrap .card",
+          "line": 38371,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured a:hover .bg-card",
+          "line": 38380,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured a:has(.bg-card):hover",
+          "line": 38385,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured .megamenu-item-icon",
+          "line": 38390,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured .group:hover .megamenu-item-icon",
+          "line": 38395,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured .megamenu-item-icon img",
+          "line": 38399,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-featured .text-primary",
+          "line": 38403,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-col-divider",
+          "line": 38407,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu-item-icon img",
+          "line": 38411,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-item-icon",
+          "line": 38415,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .group:hover .megamenu-item-icon",
+          "line": 38419,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-cta-strip",
+          "line": 38423,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-cta-strip input",
+          "line": 38428,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu a",
+          "line": 38434,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu a:hover",
+          "line": 38438,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-col-items a.rounded-xl:hover",
+          "line": 38443,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-col-items .megamenu-item-icon, [data-theme=\"dark\"] .megamenu .megamenu-col-items a.rounded-xl:hover .megamenu-item-icon",
+          "line": 38449,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu-item-icon",
+          "line": 38456,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .text-muted-foreground",
+          "line": 38462,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .text-muted-foreground:hover, [data-theme=\"dark\"] .megamenu a:hover .text-muted-foreground",
+          "line": 38466,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .header-tool-toggle, [data-theme=\"dark\"] header .header-tool-toggle",
+          "line": 38470,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .header-tool-toggle--theme, [data-theme=\"dark\"] header .header-tool-toggle--theme",
+          "line": 38475,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .header-tool-toggle:hover, [data-theme=\"dark\"] header .header-tool-toggle:hover",
+          "line": 38481,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .header-tool-toggle--theme:hover, [data-theme=\"dark\"] header .header-tool-toggle--theme:hover",
+          "line": 38487,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu-sheet",
+          "line": 38493,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu-sheet a",
+          "line": 38500,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu-sheet a:hover",
+          "line": 38504,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu-overlay",
+          "line": 38509,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu, [data-theme=\"dark\"] .site-header",
+          "line": 38515,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu:hover, [data-theme=\"dark\"] .site-header:hover",
+          "line": 38519,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-top-item",
+          "line": 38524,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu .megamenu-top-item:hover, [data-theme=\"dark\"] .megamenu .megamenu-top-item:focus-visible, [data-theme=\"dark\"] .megamenu button.megamenu-top-item[data-state=\"open\"]",
+          "line": 38528,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu-dropdown-bg, [data-theme=\"dark\"] .megamenu-viewport-wrapper",
+          "line": 38533,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu-viewport-wrapper:has([data-state=\"open\"])",
+          "line": 38539,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu-viewport, [data-theme=\"dark\"] .megamenu .megamenu-viewport",
+          "line": 38545,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu[data-scrolled=\"true\"] .megamenu-top-item, [data-theme=\"dark\"] .megamenu[data-scrolled=\"true\"] .header-tool-toggle, [data-theme=\"dark\"] .site-header[data-scrolled=\"true\"] a, [data-theme=\"dark\"] .site-header[data-scrolled=\"true\"] .header-tool-toggle, [data-theme=\"dark\"] .megamenu[data-scrolled=\"true\"] button[aria-label=\"Menü öffnen\"], [data-theme=\"dark\"] .site-header[data-scrolled=\"true\"] button[aria-label=\"Menü öffnen\"]",
+          "line": 38551,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .megamenu[data-scrolled=\"true\"] .logo-link img, [data-theme=\"dark\"] .megamenu[data-scrolled=\"true\"] .logo-link svg, [data-theme=\"dark\"] .site-header[data-scrolled=\"true\"] .logo-link img, [data-theme=\"dark\"] .site-header[data-scrolled=\"true\"] .logo-link svg",
+          "line": 38555,
+          "used": false
+        },
+        {
+          "selector": ".tooltip-content-solid, [role=\"tooltip\"]",
+          "line": 38560,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .tooltip-content-solid, [data-theme=\"dark\"] [role=\"tooltip\"]",
+          "line": 38566,
+          "used": false
+        },
+        {
+          "selector": ".search-dialog",
+          "line": 38572,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .search-dialog",
+          "line": 38578,
+          "used": false
+        },
+        {
+          "selector": ".hero-reveal-word, .hero-reveal-pop, .hero-reveal-letter, .hero-reveal-logo, .hero-reveal-subheadline, .hero-portrait-fade-up",
+          "line": 38615,
+          "used": false
+        },
+        {
+          "selector": ".animate-marquee",
+          "line": 38632,
+          "used": false
+        },
+        {
+          "selector": "0%, 100%",
+          "line": 38637,
+          "used": false
+        },
+        {
+          "selector": ".hero-bg-animation",
+          "line": 38653,
+          "used": false
+        },
+        {
+          "selector": ".hero-bg-animation:before",
+          "line": 38659,
+          "used": false
+        },
+        {
+          "selector": ".hero-logo-grayscale",
+          "line": 38668,
+          "used": false
+        },
+        {
+          "selector": ".hero-logo-marquee-item:hover .hero-logo-grayscale",
+          "line": 38674,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .hero-logo-grayscale",
+          "line": 38680,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .hero-logo-marquee-item:hover .hero-logo-grayscale",
+          "line": 38685,
+          "used": false
+        },
+        {
+          "selector": "html.theme-switching, html.theme-switching body, html.theme-switching .site-header, html.theme-switching .megamenu, html.theme-switching .megamenu-sheet, html.theme-switching .header-tool-toggle, html.theme-switching .theme-toggle",
+          "line": 38690,
+          "used": false
+        },
+        {
+          "selector": "html.theme-switching body:after",
+          "line": 38705,
+          "used": false
+        },
+        {
+          "selector": "html.theme-switching .hero-mobile-glass, html.theme-switching .megamenu-overlay, html.theme-switching .megamenu-featured, html.theme-switching .header-glass-plate",
+          "line": 38709,
+          "used": false
+        },
+        {
+          "selector": "html.theme-switching .hero-logo-grayscale, html.theme-switching .logo-contrast, html.theme-switching .site-header .logo-link img, html.theme-switching .site-header .logo-link svg, html.theme-switching .megamenu .logo-link img, html.theme-switching .megamenu .logo-link svg",
+          "line": 38713,
+          "used": false
+        },
+        {
+          "selector": "html.theme-switching :not(.theme-toggle):not(.theme-toggle *)",
+          "line": 38717,
+          "used": false
+        },
+        {
+          "selector": ".theme-toggle",
+          "line": 38721,
+          "used": false
+        },
+        {
+          "selector": ".theme-toggle__expand g circle, .theme-toggle__expand g path",
+          "line": 38725,
+          "used": false
+        },
+        {
+          "selector": ".theme-toggle__expand :first-child path",
+          "line": 38730,
+          "used": false
+        },
+        {
+          "selector": ".theme-toggle--toggled:not(label).theme-toggle .theme-toggle__expand g circle",
+          "line": 38736,
+          "used": false
+        },
+        {
+          "selector": ".theme-toggle--toggled:not(label).theme-toggle .theme-toggle__expand g path",
+          "line": 38741,
+          "used": false
+        },
+        {
+          "selector": ".theme-toggle--toggled:not(label).theme-toggle .theme-toggle__expand :first-child path",
+          "line": 38746,
+          "used": false
+        },
+        {
+          "selector": ".theme-toggle--toggled:not(label).theme-toggle .theme-toggle__expand :first-child path",
+          "line": 38753,
+          "used": false
+        },
+        {
+          "selector": ".theme-toggle:not(.theme-toggle--force-motion) .theme-toggle__expand *",
+          "line": 38759,
+          "used": false
+        },
+        {
+          "selector": ".hero-float",
+          "line": 38764,
+          "used": false
+        },
+        {
+          "selector": ".hero-bg-preset",
+          "line": 38771,
+          "used": false
+        },
+        {
+          "selector": ".hero-bg-gradient",
+          "line": 38780,
+          "used": false
+        },
+        {
+          "selector": "[data-theme=\"dark\"] .header-glass-plate",
+          "line": 38797,
+          "used": false
+        },
+        {
+          "selector": "75%, 100%",
+          "line": 39288,
+          "used": false
+        }
+      ]
+    }
+  ]
+}

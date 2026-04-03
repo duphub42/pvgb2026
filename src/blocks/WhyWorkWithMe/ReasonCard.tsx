@@ -1,14 +1,45 @@
 'use client'
 
 import React, { useCallback, useRef } from 'react'
-import type { LucideIcon } from 'lucide-react'
+import {
+  Brain,
+  Briefcase,
+  Globe,
+  Handshake,
+  Heart,
+  Lightbulb,
+  Search,
+  Shield,
+  Target,
+  TrendingUp,
+  User,
+  UserCheck,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react'
 
 import { cn } from '@/utilities/ui'
 
 type ReasonCardProps = {
   title: string
   description: string
-  Icon: LucideIcon
+  iconKey: string
+}
+
+const ICON_MAP: Record<string, LucideIcon> = {
+  brain: Brain,
+  lightbulb: Lightbulb,
+  user: User,
+  zap: Zap,
+  'trending-up': TrendingUp,
+  globe: Globe,
+  target: Target,
+  search: Search,
+  handshake: Handshake,
+  'user-check': UserCheck,
+  briefcase: Briefcase,
+  heart: Heart,
+  shield: Shield,
 }
 
 /* --foreground / --border sind volle rgb()-Farben, keine HSL-Tripel — daher color-mix, nicht hsl(var(--border)/…). */
@@ -34,8 +65,9 @@ const borderGlowStyle: React.CSSProperties = {
   maskComposite: 'exclude',
 }
 
-export const ReasonCard: React.FC<ReasonCardProps> = ({ title, description, Icon }) => {
+export const ReasonCard: React.FC<ReasonCardProps> = ({ title, description, iconKey }) => {
   const rootRef = useRef<HTMLDivElement>(null)
+  const Icon = ICON_MAP[iconKey] ?? User
 
   const setPointer = useCallback((clientX: number, clientY: number) => {
     const el = rootRef.current

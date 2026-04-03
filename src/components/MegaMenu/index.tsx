@@ -1088,20 +1088,17 @@ export function MegaMenu({
                           const triggerActive = isNavLinkActive(pathname ?? '', item.url)
                           return (
                             <NavigationMenuItem key={item.id} value={value}>
-                              <NavigationMenuTrigger>
-                                <Link
-                                  href={item.url}
-                                  className={cn(navigationMenuTriggerStyle(), 'megamenu-top-item')}
-                                  data-active={triggerActive ? 'true' : undefined}
-                                  onPointerEnter={(e) => {
-                                    const rect = e.currentTarget.getBoundingClientRect()
-                                    setMouseEntrySide(
-                                      e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
-                                    )
-                                  }}
-                                >
-                                  {item.label}
-                                </Link>
+                              <NavigationMenuTrigger
+                                className={cn(navigationMenuTriggerStyle(), 'megamenu-top-item')}
+                                data-active={triggerActive ? 'true' : undefined}
+                                onPointerEnter={(e) => {
+                                  const rect = e.currentTarget.getBoundingClientRect()
+                                  setMouseEntrySide(
+                                    e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
+                                  )
+                                }}
+                              >
+                                {item.label}
                               </NavigationMenuTrigger>
                               <NavigationMenuContent>
                                 <div

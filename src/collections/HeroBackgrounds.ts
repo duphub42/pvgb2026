@@ -48,8 +48,8 @@ export const HeroBackgrounds: CollectionConfig = {
       defaultValue: 1,
       min: 0.2,
       max: 2,
-      step: 0.1,
       admin: {
+        step: 0.1,
         description: '0.2 = sehr dezent, 1 = Standard, 2 = sehr kräftig.',
         condition: (_, siblingData) => siblingData?.type === 'cssHalo',
       },
@@ -101,4 +101,3 @@ export const HeroBackgrounds: CollectionConfig = {
     },
   ],
 }
-

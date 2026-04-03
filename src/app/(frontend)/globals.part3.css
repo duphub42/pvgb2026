@@ -1,0 +1,807 @@
+/* Link-Stile: link-hover-underline für Content/Footer */
+@layer utilities {
+  /* Payload RichText: imported/legacy strike formatting can appear unintentionally.
+     Disable strikethrough globally for frontend richtext rendering. */
+  .payload-richtext del,
+  .payload-richtext s {
+    text-decoration: none;
+  }
+
+  /* Content (Prose): Link-Farbe aus Design-Global (--link / --link-hover) */
+  .prose a {
+    position: relative;
+    display: inline-block;
+    color: var(--link);
+  }
+  .prose a:hover {
+    color: var(--link-hover);
+  }
+  .prose a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .prose a:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* Einzeln nutzbar für Content: Unterstrich links → rechts */
+  .link-hover-underline {
+    position: relative;
+    display: inline-block;
+  }
+  .link-hover-underline::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.25s ease;
+  }
+  .link-hover-underline:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* Tooltips (Header-Toggles etc.): immer voll deckend, unabhängig vom Design-Global */
+  [data-radix-popper-content-wrapper] [role='tooltip'],
+  .tooltip-content-solid {
+    background-color: #ffffff !important;
+    color: #262626 !important;
+    border-color: #e5e5e5 !important;
+  }
+  [data-theme='dark'] [data-radix-popper-content-wrapper] [role='tooltip'],
+  [data-theme='dark'] .tooltip-content-solid {
+    background-color: #0d0d0d !important;
+    color: #fafafa !important;
+    border-color: #262626 !important;
+  }
+
+  /* Footer: Unterstrich nur unter dem Text (nicht unter dem Pfeil), von links nach rechts */
+  .footer-link-underline,
+  .footer-custom .footer-link-text {
+    position: relative;
+    display: inline-block;
+  }
+  .footer-link-underline::after,
+  .footer-custom .footer-link-text::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+    width: 100%;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .footer-link-underline:hover::after,
+  .footer-custom .footer-link:hover .footer-link-text::after {
+    transform: scaleX(1);
+  }
+
+  /* Footer: Links ca. 80 % Deckkraft, bei Hover weiß */
+  .footer-custom .footer-link {
+    opacity: 0.8;
+    transition: opacity 0.2s ease, color 0.2s ease;
+  }
+  .footer-custom .footer-link:hover {
+    opacity: 1;
+    color: #fff;
+  }
+  .footer-custom .footer-heading {
+    opacity: 0.5;
+  }
+
+  /* Beschreibungstexte im Footer: gleiche Schriftgröße und Farbe wie Footer-Links */
+  .footer-custom .footer-description,
+  .footer-custom .footer-description p,
+  .footer-custom .footer-description * {
+    font-size: 0.875rem;
+    opacity: 0.8;
+    color: inherit;
+  }
+  .footer-custom .footer-description {
+    line-height: 1.5;
+  }
+
+  /* Kleiner Pfeil (>) nur bei Hover, wird nicht unterstrichen */
+  .footer-custom .footer-link-arrow {
+    margin-left: 0.25em;
+    font-size: 0.85em;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .footer-custom .footer-link:hover .footer-link-arrow {
+    opacity: 0.85;
+  }
+  .footer-custom .footer-link-ext {
+    margin-left: 0.35em;
+    font-size: 0.75em;
+    opacity: 0.7;
+    text-transform: lowercase;
+  }
+
+}
+
+/* Hero: CSS Halo Background (leicht, ohne WebGL, mit Parallax-Mousemove) */
+.hero-css-halo .halo {
+  position: absolute;
+  border-radius: 50%;
+  width: 60vw;
+  height: 60vw;
+  filter: blur(120px);
+  opacity: 0.4;
+  mix-blend-mode: screen;
+  animation: hero-css-halo-float 18s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.hero-css-halo .halo-1 {
+  background: radial-gradient(circle, #0000ff80, transparent 60%);
+  top: -20%;
+  left: -10%;
+}
+
+.hero-css-halo .halo-2 {
+  background: radial-gradient(circle, #2b00ff81, transparent 60%);
+  bottom: -30%;
+  right: -20%;
+  animation-duration: 22s;
+}
+
+.hero-css-halo .halo-3 {
+  background: radial-gradient(circle, #004cff83, transparent 60%);
+  top: 30%;
+  right: 10%;
+  animation-duration: 25s;
+}
+
+/* Mobile: CSS-Halo-Glow dezenter, weicher, größer (weniger „gepresst“) */
+@media (max-width: 63.99rem) {
+  .hero-css-halo .halo {
+    width: 85vw;
+    height: 85vw;
+    filter: blur(160px);
+    opacity: 0.26;
+  }
+}
+
+@keyframes hero-css-halo-float {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  50% {
+    transform: translateY(-40px) scale(1.05);
+  }
+  100% {
+    transform: translateY(20px) scale(0.95);
+  }
+}
+
+.hero-css-halo .halo-noise {
+  position: absolute;
+  inset: 0;
+  background: url('/noise.png');
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* Mobile-only: größere Klickflächen im Footer (WCAG Target Size) */
+@media (max-width: 47.99rem) {
+  /* Footer-Links: höhere Zeilenhöhe + vertikales Padding */
+  .footer-custom .footer-link {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    font-size: 1rem; /* ~16px für bessere Lesbarkeit */
+  }
+
+  /* Footer-Heading: ebenfalls etwas größer auf Mobile */
+  .footer-custom .footer-heading {
+    font-size: 1rem; /* ~16px */
+  }
+
+  /* Newsletter-Input-Text: auf Body-Größe anheben */
+  .footer-custom input[name='newsletter-email'] {
+    font-size: 1rem;
+  }
+
+  /* Newsletter-Button: mindestens 44px hoch */
+  .footer-newsletter-btn-wrap {
+    height: 2.75rem; /* 44px */
+  }
+}
+
+/* Footer Newsletter-Button: Border-Gradient nach Vorgabe (.border-gradient) */
+@property --footer-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+.footer-newsletter-btn-wrap {
+  position: relative;
+  border-radius: 9999px;
+  --c: #0b0b0b;
+  --p: 10%;
+  padding: 1px;
+  background:
+    linear-gradient(var(--c), var(--c)) padding-box,
+    conic-gradient(
+      from var(--footer-border-angle),
+      transparent,
+      #ffffff var(--p),
+      transparent calc(var(--p) * 2)
+    ) border-box;
+  border: 1px solid transparent;
+  animation: footer-border-gradient-rotate 8s linear infinite;
+}
+.footer-newsletter-btn-wrap > * {
+  position: relative;
+  z-index: 1;
+  border-radius: 9999px;
+}
+.footer-newsletter-btn-wrap button {
+  transition: filter 0.2s ease;
+}
+.footer-newsletter-btn-wrap:hover button {
+  filter: invert(1);
+}
+@keyframes footer-border-gradient-rotate {
+  to {
+    --footer-border-angle: 360deg;
+  }
+}
+
+/* Footer: schwarz, Verlauf hellster Punkt #111111, ~10% am Rand schwarz (Grid dort unsichtbar) */
+.footer-gradient {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    #111111 0%,
+    #0a0a0a 35%,
+    #050505 60%,
+    #000 90%,
+    #000 100%
+  ) !important;
+}
+
+/* Grid: nur in der Mitte sichtbar, vom Rand zur Mitte stark reduziert */
+.footer-gradient::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(to right, var(--theme-footer-text) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--theme-footer-text) 1px, transparent 1px);
+  background-size: 2.5rem 2.5rem;
+  background-position: 0 0;
+  opacity: 0.015;
+  pointer-events: none;
+  /* Kleiner mittiger Bereich sichtbar, zum Rand hin stark ausblenden */
+  mask-image: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    white 0%,
+    white 25%,
+    transparent 70%
+  );
+  -webkit-mask-image: radial-gradient(
+    ellipse 50% 50% at 50% 50%,
+    white 0%,
+    white 25%,
+    transparent 70%
+  );
+  mask-size: 100% 100%;
+  mask-position: center;
+  -webkit-mask-size: 100% 100%;
+  -webkit-mask-position: center;
+}
+
+.footer-gradient > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Footer: 3D-Absetzung — gleichmäßig über volle Breite, nur nach oben auslaufend (::before = Grid) */
+.footer-elevated.footer-gradient {
+  overflow: visible;
+}
+
+/*
+ * Dark (Standard): dezent & edel — kein greller Weiß-Glow,
+ * kühles Licht + Primary nur als Hauch, sehr weicher Verlauf
+ */
+.footer-elevated {
+  position: relative;
+  z-index: 0;
+  overflow: visible;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.018),
+    0 -12px 44px -6px rgba(0, 0, 0, 0.07);
+}
+
+.footer-elevated::after {
+  content: '';
+  position: absolute;
+  left: -5%;
+  right: -5%;
+  top: 0;
+  width: 110%;
+  transform: translateY(-100%);
+  height: 6rem;
+  pointer-events: none;
+  z-index: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.045) 0%,
+    rgba(0, 0, 0, 0.012) 50%,
+    transparent 100%
+  );
+  filter: blur(40px);
+}
+
+.footer-elevated > * {
+  position: relative;
+  z-index: 1;
+}
+
+/*
+ * Light: dezent & edel — kühles Slate statt hartem Schwarz,
+ * eine weiche Höhenlage + ein seidiger Verlauf (keine harte Kante)
+ */
+[data-theme='light'] .footer-elevated {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.99),
+    0 -12px 44px -6px rgba(17, 24, 39, 0.055);
+}
+
+[data-theme='light'] .footer-elevated::after {
+  height: 4.5rem;
+  background: linear-gradient(
+    to top,
+    rgba(17, 24, 39, 0.07) 0%,
+    rgba(17, 24, 39, 0.022) 46%,
+    rgba(17, 24, 39, 0.004) 72%,
+    transparent 100%
+  );
+  filter: blur(20px);
+}
+
+/* ========== Footer Light-Mode (finale Version) ========== */
+[data-theme='light'] .footer-gradient {
+  background: radial-gradient(
+    ellipse 100% 100% at 50% 50%,
+    #f8f8f8 0%,
+    #f2f2f2 35%,
+    #ebebeb 60%,
+    #e5e5e5 90%,
+    #e0e0e0 100%
+  ) !important;
+}
+[data-theme='light'] .footer-gradient::before {
+  background-image:
+    linear-gradient(to right, #000 1px, transparent 1px),
+    linear-gradient(to bottom, #000 1px, transparent 1px);
+  opacity: 0.04;
+}
+.footer-custom {
+  color: var(--theme-footer-text, #fff);
+}
+[data-theme='light'] .footer-custom,
+[data-theme='light'] .footer-gradient {
+  color: #1a1a1a;
+}
+[data-theme='light'] .footer-custom .footer-link {
+  opacity: 0.70;
+  color: inherit;
+}
+[data-theme='light'] .footer-custom .footer-link:hover {
+  opacity: 1;
+  color: #000;
+}
+[data-theme='light'] .footer-custom .footer-heading {
+  opacity: 0.65;
+  color: #1a1a1a;
+}
+[data-theme='light'] .footer-custom .footer-description,
+[data-theme='light'] .footer-custom .footer-description p,
+[data-theme='light'] .footer-custom .footer-description * {
+  color: #2a2a2a;
+  opacity: 0.85;
+}
+.footer-icon-img {
+  filter: invert(1);
+}
+[data-theme='light'] .footer-icon-img {
+  filter: invert(0);
+}
+.footer-newsletter-input {
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.footer-newsletter-input::placeholder {
+  color: rgba(255, 255, 255, 0.55);
+}
+.footer-newsletter-input:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.35);
+}
+[data-theme='light'] .footer-newsletter-input {
+  background: #fff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: #1a1a1a;
+}
+[data-theme='light'] .footer-newsletter-input::placeholder {
+  color: rgba(0, 0, 0, 0.4);
+}
+[data-theme='light'] .footer-newsletter-input:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
+}
+.footer-newsletter-submit {
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.footer-newsletter-submit:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+[data-theme='light'] .footer-newsletter-submit {
+  background: rgba(0, 0, 0, 0.08);
+  color: #1a1a1a;
+}
+[data-theme='light'] .footer-newsletter-submit:hover {
+  background: rgba(0, 0, 0, 0.14);
+}
+[data-theme='light'] .footer-newsletter-btn-wrap {
+  --c: #f0f0f0;
+  background:
+    linear-gradient(var(--c), var(--c)) padding-box,
+    conic-gradient(
+      from var(--footer-border-angle),
+      transparent,
+      #555 var(--p),
+      transparent calc(var(--p) * 2)
+    ) border-box;
+}
+[data-theme='light'] .footer-newsletter-btn-wrap:hover button {
+  filter: invert(0);
+  background: #1a1a1a;
+  color: #fff;
+}
+.footer-bottom-border {
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+[data-theme='light'] .footer-bottom-border {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+[data-theme='light'] .footer-social-icon {
+  opacity: 0.6;
+}
+[data-theme='light'] .footer-social-icon:hover {
+  opacity: 1;
+}
+@media (max-width: 47.99rem) {
+  [data-theme='light'] .footer-custom .footer-link {
+    color: #1a1a1a;
+  }
+  [data-theme='light'] .footer-custom .footer-heading {
+    color: #1a1a1a;
+  }
+}
+
+html {
+  opacity: 0;
+  /* Transition nur für Theme-Wechsel (sehr kurz), kein Flackern beim Load */
+  transition: opacity 0.15s ease;
+}
+html[data-theme='dark'],
+html[data-theme='light'] {
+  opacity: 1;
+}
+/* Fallback: Nach 500ms sowieso einblenden, falls JS hängt oder
+   data-theme nie gesetzt wird (verhindert dauerhaft weiße Seite).
+   Wird via <script> im <head> gesetzt — siehe Kommentar unten. */
+html.theme-fallback {
+  opacity: 1 !important;
+}
+/*
+  ⚠️  WICHTIG: Diesen Inline-Script-Block in dein <head>-Tag einfügen
+  (direkt nach dem <html>-Tag, VOR allen Stylesheets):
+
+  <script>
+    (function() {
+      try {
+        var t = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', t);
+      } catch(e) {
+        document.documentElement.setAttribute('data-theme', 'light');
+      }
+      // Fallback: nach 400ms sowieso einblenden
+      setTimeout(function() {
+        document.documentElement.classList.add('theme-fallback');
+      }, 400);
+    })();
+  </script>
+
+  Damit wird data-theme synchron VOR dem ersten Paint gesetzt →
+  kein FOUC, kein opacity:0 Flash.
+*/
+
+/* View Transition API: Theme-Wechsel mit Kreisfade (animated theme toggler) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* ========== Megamenu: Builder.io-Style (Light) + Dark invertiert ========== */
+/* Light: weißer Header, dezente Border/Shadow; Dropdown weiß, Border, Shadow */
+/* Header ohne Rahmen/Shadow – Trennlinie nur durch Dropdown-Kopfrahmen beim Öffnen */
+.megamenu,
+.site-header {
+  --header-line: hsl(var(--primary) / 0.2);
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom-width: 1px !important;
+  border-bottom-style: solid !important;
+  border-bottom-color: transparent !important;
+  outline: none !important;
+  box-shadow: none !important;
+  color: #171717;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  transition-property:
+    transform,
+    opacity,
+    background-color,
+    box-shadow,
+    border-color,
+    backdrop-filter,
+    -webkit-backdrop-filter;
+  transition-duration: 900ms, 900ms, 260ms, 260ms, 260ms, 260ms, 260ms;
+  transition-timing-function:
+    cubic-bezier(0.12, 0.95, 0.22, 1),
+    cubic-bezier(0.12, 0.95, 0.22, 1),
+    ease,
+    ease,
+    ease,
+    ease,
+    ease;
+}
+
+/* Eine Linie für Header-Unterkante, Nav-Unterstrich und Megamenü-Indikator (dezent, gleiche Farbe) */
+[data-theme='light'] .megamenu,
+[data-theme='light'] .site-header {
+  --header-line: hsl(var(--primary) / 0.2);
+  --header-icon-fg: var(--mega-menu-nav-text);
+  --header-icon-fg-hover: var(--mega-menu-heading);
+  --header-icon-border: color-mix(in hsl, var(--mega-menu-nav-text) 22%, transparent);
+  --header-icon-bg-hover: color-mix(in hsl, var(--mega-menu-nav-text) 8%, transparent);
+  --header-icon-border-hover: color-mix(in hsl, var(--mega-menu-heading) 24%, transparent);
+}
+[data-theme='dark'] .megamenu,
+[data-theme='dark'] .site-header {
+  --header-line: hsl(var(--primary) / 0.17);
+  --header-icon-fg: var(--mega-menu-nav-text);
+  --header-icon-fg-hover: var(--mega-menu-heading);
+  --header-icon-border: color-mix(in hsl, var(--mega-menu-nav-text) 34%, transparent);
+  --header-icon-bg-hover: color-mix(in hsl, var(--mega-menu-nav-text) 14%, transparent);
+  --header-icon-border-hover: color-mix(in hsl, var(--mega-menu-heading) 30%, transparent);
+}
+
+@keyframes header-reveal-from-top {
+  from {
+    transform: translateY(-115%);
+    opacity: 0.15;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Slide-Animation auf innerer Schicht + Body-Portal .header-glass-plate (Mitfahren mit Header) */
+.header-glass-plate.header-reveal-from-top,
+.site-header > .header-slide-layer.header-reveal-from-top,
+.megamenu > .header-slide-layer.header-reveal-from-top {
+  animation: header-reveal-from-top 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes header-hide-to-top {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-115%);
+    /* 0 statt 0.15: sonst bleibt der untere Header-/Glas-Rand (ca. Resthöhe nach -115%) im Dark Mode sichtbar */
+    opacity: 0;
+  }
+}
+
+.header-glass-plate.header-hide-to-top,
+.site-header > .header-slide-layer.header-hide-to-top,
+.megamenu > .header-slide-layer.header-hide-to-top {
+  animation: header-hide-to-top 820ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.megamenu[data-sticky='true'],
+.site-header[data-sticky='true'] {
+  /* Final milkglass styles are defined in the end-of-file override block. */
+}
+
+[data-theme='dark'] .megamenu[data-sticky='true'],
+[data-theme='dark'] .site-header[data-sticky='true'] {
+  color: #fafafa;
+}
+
+/* Dark mode: without scroll keep header transparent; only hover adds background. */
+[data-theme='dark'] .megamenu[data-sticky='true']:not([data-scrolled='true']):not(:hover),
+[data-theme='dark'] .site-header[data-sticky='true']:not([data-scrolled='true']):not(:hover) {
+  /* Final milkglass styles are defined in the end-of-file override block. */
+}
+/* Megamenu-Dropdown exakt auf Unterkante des Headers: Positionierung relativ zum Header */
+.megamenu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* Zentriertes Panel; per CSS überschreibbar */
+  --megamenu-panel-max-width: min(72rem, calc(100vw - 2rem));
+}
+.megamenu .megamenu-nav {
+  position: static;
+}
+/* 1px unter Header-Unterkante; Panel nicht volle Viewport-Breite */
+.megamenu .megamenu-viewport-outer {
+  top: calc(100% + 1px);
+  left: 50%;
+  right: auto;
+  width: var(--megamenu-panel-max-width);
+  max-width: calc(100vw - 2rem);
+  transform: translateX(-50%);
+}
+/* Inhalt über der Glas-Portal-Schicht (z-[45]), Header z-50 */
+.megamenu > .header-slide-layer,
+.site-header > .header-slide-layer {
+  position: relative;
+  z-index: 1;
+}
+
+/* Unterer Header-Rahmen nur bei echtem Hover (mittransformiert mit .header-slide-layer) */
+@media (hover: hover) {
+  .megamenu > .header-slide-layer.header-glass-border,
+  .site-header > .header-slide-layer.header-glass-border {
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    border-bottom-color: transparent;
+    transition: border-color 0.35s ease;
+  }
+
+  .megamenu:hover > .header-slide-layer.header-glass-border,
+  .site-header:hover > .header-slide-layer.header-glass-border {
+    border-bottom-color: var(--header-line);
+  }
+}
+.megamenu > .header-slide-layer > .container,
+.site-header > .header-slide-layer > .container {
+  border: none !important;
+  border-width: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* Aufbau bei Mouseover: entspannte Übergänge (Logo, Links, Toggles) */
+.megamenu .logo-link img,
+.megamenu .logo-link svg,
+.site-header .logo-link img,
+.site-header .logo-link svg {
+  transition: filter 0.5s ease;
+}
+.megamenu .megamenu-top-item,
+.megamenu .megamenu-top-item [class*='lucide'],
+.site-header nav a,
+.site-header .header-tool-toggle,
+.megamenu .header-tool-toggle {
+  transition: color 0.45s ease, background-color 0.45s ease;
+}
+/* Nur auf Geräten MIT echter Hover-Unterstützung (Desktop/Maus):
+   Transparenter Modus wenn nicht gehovered. Dark-Header = heller Content (über Hero), Light-Header = dunkler Content (über hellem Bereich). */
+/* Logo im Header: immer gleiche Farbe wie Links/Toggles (überschreibt .logo-contrast). */
+@media (hover: hover) {
+  .megamenu:not(:hover) .logo-link img,
+  .megamenu:not(:hover) .logo-link svg,
+  .site-header:not(:hover) .logo-link img,
+  .site-header:not(:hover) .logo-link svg {
+    filter: brightness(0) invert(1) !important;
+  }
+  .megamenu:not(:hover) .megamenu-top-item,
+  .megamenu:not(:hover) .megamenu-top-item [class*='lucide'] {
+    color: #fafafa !important;
+  }
+  .megamenu:not(:hover) .header-tool-toggle,
+  .site-header:not(:hover) .header-tool-toggle {
+    color: var(--foreground) !important;
+    border-color: transparent !important;
+    background-color: transparent !important;
+  }
+  .megamenu:not(:hover) .header-tool-toggle:hover,
+  .site-header:not(:hover) .header-tool-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.15) !important;
+    color: var(--foreground) !important;
+  }
+  /* Fallback für alle Header-Tool-Toggle-Icons im Rahmen */
+  .megamenu .header-tool-toggle,
+  .site-header .header-tool-toggle,
+  .megamenu .header-tool-toggle svg,
+  .site-header .header-tool-toggle svg {
+    color: var(--foreground) !important;
+    fill: currentColor !important;
+    stroke: currentColor !important;
+  }
+  /* Explizite Light/Dark-Theme-Prio, damit Icons sichtbar bleiben */
+  [data-theme='light'] .site-header .header-tool-toggle,
+  [data-theme='light'] .megamenu .header-tool-toggle {
+    color: #171717 !important;
+  }
+  [data-theme='dark'] .site-header .header-tool-toggle,
+  [data-theme='dark'] .megamenu .header-tool-toggle {
+    color: #fafafa !important;
+  }
+  .site-header:not(:hover) a {
+    color: #fafafa !important;
+  }
+  .site-header:not(:hover) a:hover {
+    color: #ffffff !important;
+  }
+  /* Light-Header ohne Hover: dunkler Content (Logo, Links, Icons), damit ohne Mouseover erkennbar. */
+  [data-theme='light'] .site-header:not(:hover) .logo-link img,
+  [data-theme='light'] .site-header:not(:hover) .logo-link svg {
+    filter: none !important;
+  }
+  [data-theme='light'] .site-header:not(:hover) .header-tool-toggle {
+    color: #404040 !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    background-color: transparent !important;
+  }
+  [data-theme='light'] .site-header:not(:hover) .header-tool-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.06) !important;
+    color: #171717 !important;
+  }
+  [data-theme='light'] .site-header:not(:hover) a {
+    color: #171717 !important;
+  }
+  [data-theme='light'] .site-header:not(:hover) a:hover {
+    color: #000000 !important;
+  }
+  /* Light-Megamenu ohne Hover: Menü und Icons ebenfalls invertiert (dunkel), nicht weiß auf weiß. */
+  [data-theme='light'] .megamenu:not(:hover) .logo-link img,
+  [data-theme='light'] .megamenu:not(:hover) .logo-link svg {
+    filter: none !important;
+  }
+  [data-theme='light'] .megamenu:not(:hover) .megamenu-top-item,
+  [data-theme='light'] .megamenu:not(:hover) .megamenu-top-item [class*='lucide'] {
+    color: #171717 !important;
+  }
+  [data-theme='light'] .megamenu:not(:hover) .header-tool-toggle {
+    color: #404040 !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+    background-color: transparent !important;
+  }
+  [data-theme='light'] .megamenu:not(:hover) .header-tool-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.06) !important;
+    color: #171717 !important;
+  }
+}

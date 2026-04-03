@@ -380,7 +380,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         isProfilVariant ? 'profil-hero-paper' : 'bg-background hero-offset--popout',
       )}
       data-hero-variant={variant}
-      data-hero-type={!isProfilVariant && dataHeroType ? dataHeroType : undefined}
+      data-hero-type={!isProfilVariant ? (dataHeroType ?? 'superhero') : undefined}
     >
       {showPresetLayer && <HeroBackgroundPresetLayer preset={backgroundPreset as HeroBackground} />}
 

@@ -1,0 +1,2117 @@
+/* === Unified Header Icon Button === */
+.header-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.5rem;
+  width: 2.5rem;
+  min-height: 2.5rem;
+  min-width: 2.5rem;
+  border-radius: 9999px;
+  background: transparent;
+  border: 1px solid transparent;
+  color: inherit;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  cursor: pointer;
+}
+
+.site-header .header-icon-btn,
+.megamenu .header-icon-btn {
+  border-color: transparent;
+}
+
+.header-icon-btn:focus-visible {
+  outline: 2px solid var(--primary, #2563eb);
+  outline-offset: 2px;
+}
+
+.header-icon-btn:hover {
+  background: #f5f5f5;
+  border-color: #d4d4d4;
+  color: #171717;
+}
+
+[data-theme='dark'] .header-icon-btn {
+  border-color: #404040;
+  color: #fafafa;
+}
+[data-theme='dark'] .header-icon-btn:hover {
+  background: #262626;
+  border-color: #525252;
+  color: #fafafa;
+}
+
+/* Icon sizing and color inheritance */
+.header-icon-btn svg {
+  width: 1.5em;
+  height: 1.5em;
+  min-width: 1.5em;
+  min-height: 1.5em;
+  flex-shrink: 0;
+  color: inherit;
+  fill: currentColor;
+  stroke: currentColor;
+}
+
+/* Accessibility: hide decorative SVGs from screen readers */
+
+/* === End Unified Header Icon Button === */
+@import 'tailwindcss';
+@import 'tw-animate-css';
+@import '../../theme/colors.css';
+/* @config nach Imports ist bei Tailwind v4 üblich; bei Problemen mit Breakpoints/Variablen prüfen, ob tailwind.config.mjs erreichbar ist. */
+@config '../../../tailwind.config.mjs';
+
+@custom-variant dark (&:is([data-theme='dark'] *));
+@custom-variant sm (@media (width >= theme(--breakpoint-sm)));
+@custom-variant md (@media (width >= theme(--breakpoint-md)));
+@custom-variant lg (@media (width >= theme(--breakpoint-lg)));
+@custom-variant xl (@media (width >= theme(--breakpoint-xl)));
+@custom-variant 2xl (@media (width >= theme(--breakpoint-2xl)));
+/* Landscape-Mobile/Tablet: Querformat bis 640px Höhe (iPhone SE, 14 Pro Max, PlayBook etc.) */
+@custom-variant landscape-short (@media (orientation: landscape) and (max-height: 40rem));
+/* Landscape-Narrow: besonders schmale Landscape-Viewports (z.B. iPhone SE 667px) */
+@custom-variant landscape-narrow (@media (orientation: landscape) and (max-width: 44rem) and (max-height: 40rem));
+/* Geräte-Varianten nur für gezielte Hero-/Footer-Anpassungen (z. B. hero-se:pb-[3vh], @hero-playbook). Nicht für generelles Layout verwenden – sonst können Tailwind sm/md/lg Utilities konkurrieren. */
+@custom-variant hero-se (@media (max-width: 26.5rem));
+@custom-variant hero-se-landscape (@media (orientation: landscape) and (max-height: 26.5rem));
+@custom-variant hero-pro-max (@media (min-width: 26.5rem) and (max-width: 29rem));
+@custom-variant hero-pro-max-landscape (@media (orientation: landscape) and (min-width: 57rem) and (max-width: 59rem));
+@custom-variant hero-playbook (@media (min-width: 37rem) and (max-width: 44rem));
+@custom-variant hero-playbook-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (max-height: 44rem));
+@custom-variant hero-ipad (@media (min-width: 48rem) and (max-width: 64rem));
+@custom-variant hero-ipad-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (min-height: 44rem));
+
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    overflow-x: hidden;
+    overscroll-behavior: none;
+    max-width: 100vw;
+  }
+  body {
+    overflow-x: hidden;
+    overscroll-behavior: none;
+    font-family: var(--font-body);
+    font-size: 13px;
+    line-height: 20px;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    max-width: 100%;
+    min-width: 0;
+    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    font-weight: unset;
+    font-size: unset;
+    font-family: var(--font-heading);
+  }
+  h1 {
+    @apply font-semibold tracking-tighter leading-tight md:leading-[1.1];
+    font-size: clamp(1.875rem, 3.5vw + 0.75rem, 3.25rem);
+  }
+  @media (min-width: 64rem) {
+    h1 {
+      font-size: clamp(2rem, 2.8vw + 0.5rem, 3.75rem);
+    }
+  }
+  h2 {
+    @apply text-2xl font-semibold tracking-tight md:text-3xl md:leading-tight;
+  }
+  h3 {
+    @apply text-xl font-semibold md:text-2xl md:leading-snug;
+  }
+  h4 {
+    @apply text-lg font-medium md:text-xl;
+  }
+  h5 {
+    @apply text-base font-medium md:text-lg;
+  }
+  h6 {
+    @apply text-sm font-medium md:text-base;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+  video,
+  iframe,
+  object,
+  embed {
+    max-width: 100%;
+  }
+  pre,
+  [class*='prose'] {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  main,
+  article {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+@plugin "@tailwindcss/typography";
+
+@source inline("lg:col-span-4");
+@source inline("lg:col-span-6");
+@source inline("lg:col-span-8");
+@source inline("lg:col-span-12");
+@source inline("border-border");
+@source inline("bg-card");
+@source inline("border-error");
+@source inline("bg-error/30");
+@source inline("border-success");
+@source inline("bg-success/30");
+
+/* PlayBook-Bereich: Footer-Navigation immer mit 3 Spalten (Media Query statt ungültiger @hero-playbook) */
+@media (min-width: 37rem) and (max-width: 44rem) {
+  .footer-nav-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+@source inline("border-warning");
+@source inline("bg-warning/30");
+
+@theme {
+  --breakpoint-sm: 40rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-2xl: 86rem;
+  /** Header-Höhe (muss mit .site-header .container h-24 übereinstimmen). Hero-Abstände nutzen diese Variable. */
+  --header-height: 6rem;
+  --font-mono: var(--font-outfit);
+  --font-sans: var(--font-outfit);
+}
+
+@layer utilities {
+  /* Inhalte, die über die Containerbreite gehen, werden abgeschnitten; Hero-Box ausgenommen. */
+  .container {
+    width: 100%;
+    max-width: 100%;
+    margin-inline: auto;
+    padding-inline: 1rem;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+  [aria-label="Hero"] .container,
+  [aria-label="Style Preview Hero"] .container,
+  [aria-label="Profil Hero"] .container,
+  [aria-label="Superhero"] .container,
+  section[data-hero-type='superhero'] .container {
+    overflow-x: visible;
+  }
+
+  /* Style Preview / Profil: wie .hero-box-gradient – sonst wird overflow-y zu auto (innerer Scroll-Rahmen). */
+  [aria-label="Style Preview Hero"] .container,
+  [aria-label="Profil Hero"] .container,
+  [aria-label="Superhero"] .container,
+  section[data-hero-type='superhero'] .container {
+    overflow-y: visible;
+  }
+
+  /* Superhero: iPad + Desktop auf 81vh, Mobile unverändert. */
+  @media (min-width: 48rem) {
+    section[data-hero-type='superhero'] {
+      min-height: 81vh;
+    }
+  }
+
+  /* Marquee-Band (absolut am unteren Rand): nicht durch .container overflow-x beschneiden */
+  .hero-marquee-band {
+    overflow-x: visible;
+  }
+  /*
+   * .container setzt overflow-x: hidden → Spezifikation wertet overflow-y oft als auto aus.
+   * .hero-box-gradient::after ragt nach unten; dann bekommt der Hero-Textblock eine vertikale Scrollbar.
+   */
+  .hero-offset .hero-box-gradient.container,
+  .hero-offset .container .hero-box-gradient {
+    overflow-x: visible;
+    overflow-y: visible;
+  }
+
+  /* Hell: Marquee nicht über die volle Zeilenbreite (inline-Breite ~ Headline) – max. 50 % des Hero-Abschnitts. */
+  @media (min-width: 768px) {
+    [data-theme='light'] .hero-marquee-band {
+      max-width: 50%;
+    }
+    /* Fluss unter CTA: bis 42rem nutzbar (50 % + schmale Headline + Kanten-Masken wirkten „leer“). */
+    [data-theme='light'] .hero-marquee-band.hero-marquee-band--cta {
+      max-width: min(42rem, 100%);
+    }
+  }
+
+  /* Philipp-Bacher: Spaltenbreite folgt der Headline — CTA-Marquee nicht breiter als die Spalte (schlägt 42rem-Light-Regel). */
+  @media (min-width: 1024px) {
+    .hero-philipp-text-column .hero-marquee-band.hero-marquee-band--cta {
+      max-width: 100% !important;
+    }
+  }
+
+  /* Portrait-Hero: ab Tablet keine Wortumbrüche innerhalb einer CMS-Headline-Zeile (Tailwind + min-w-0 am Stack). */
+  @media (min-width: 768px) {
+    .hero-philipp-text-column .hero-headline,
+    .hero-philipp-text-column .hero-headline > span {
+      white-space: nowrap;
+    }
+  }
+
+  .hero-marquee-band--cta .hero-logo-grayscale {
+    opacity: 0.92;
+  }
+
+  /* Hero-Safe-Top: sorgt für Header-Abstand für alle Nicht-Offset-Heros */
+  .hero-safe-top {
+    padding-top: calc(var(--header-height) * 2);
+  }
+
+  .hero-safe-top--extra {
+    padding-top: calc(var(--header-height) + 1rem);
+  }
+  [data-theme='dark'] .hero-marquee-band--cta .hero-logo-grayscale {
+    opacity: 0.95;
+  }
+
+  /* Hero-Offset: sorgt dafür, dass Hero-Content erst unterhalb der Header-Höhe + 10vh beginnt,
+     damit sich Header- und Hero-Inhalte nicht überlappen. */
+  .hero-offset {
+    padding-top: max(calc((var(--header-height) + 10vh) * 1.12), calc(180px * 1.12));
+  }
+
+  /* Desktop: mehr Luft unter festem MegaMenu (main beginnt bei y=0); max-height des Simple-Portrait anpassen. */
+  @media (min-width: 1024px) {
+    .hero-offset {
+      padding-top: max(calc((var(--header-height) + 18vh) * 1.12), calc(232px * 1.12));
+    }
+  }
+
+  /* Profil-Hero: Inhalt näher unter dem festen Header — ohne die große hero-offset-Viewport-Luft (10vh/18vh). */
+  [aria-label='Profil Hero'].hero-offset {
+    padding-top: max(calc(var(--header-height) + 0.5rem), 4.5rem);
+  }
+
+  @media (min-width: 1024px) {
+    [aria-label='Profil Hero'].hero-offset {
+      padding-top: max(calc(var(--header-height) + 0.75rem), 5rem);
+    }
+  }
+
+  /* Sehr kleine Viewports (< 430px): Abstand etwas reduzieren,
+     damit mehr Platz für den Hero-Content bleibt. */
+  @media (max-width: 429px) {
+    .hero-offset:not([aria-label='Style Preview Hero']):not([aria-label='Profil Hero']) {
+      padding-top: calc((var(--header-height) + 1vh) * 1.12);
+    }
+  }
+
+  /* Option 1 + 2: drop-shadow auf Container (Schatten wird nicht geclippt), mask-image für weichen
+     unteren Übergang in den Shape-Divider – 75 % Grenze anpassen, wo der Übergang beginnen soll. */
+  /* Schatten auf Container, damit er nicht von clip-path/mask abgeschnitten wird. */
+  /* Light: Schatten nur nach oben (negatives Y), halbe Intensität. */
+  .hero-foreground-container {
+    overflow: visible;
+    padding-top: 66px;
+    filter: drop-shadow(0 -22px 44px rgba(15, 23, 42, 0.42));
+  }
+
+  /* Portrait nur absolut: kein Flex-Platzhalter (padding-top würde sonst eine Lücke unter der Hero-Box erzeugen). */
+  .hero-foreground-container.hero-foreground-no-inset-height {
+    padding-top: 0;
+    height: 0;
+    min-height: 0;
+    overflow: visible;
+  }
+  [data-theme='dark'] .hero-foreground-container {
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.9));
+  }
+  @media (min-width: 1024px) {
+    /* Desktop: Schatten nur nach oben, damit unter dem Portrait kein Schatten sichtbar wird. */
+    [data-theme='dark'] .hero-foreground-container {
+      filter: drop-shadow(0 -20px 40px rgba(0, 0, 0, 0.75));
+    }
+  }
+
+  /* Mask auf dem Portrait-Wrapper (hat reale Höhe), weicher Übergang unten in den Shape-Divider. */
+  .hero-portrait-fade-up {
+    mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black 75%,
+      transparent 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      black 0%,
+      black 75%,
+      transparent 100%
+    );
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-position: 0 0;
+    top: auto;
+    bottom: 0;
+  }
+
+  /* Wrapper: kein clip-path mehr hier (liegt auf .hero-simple-portrait-img), damit Schatten nicht geclippt wird. */
+  .hero-simple-portrait {
+    box-shadow: none;
+    background: transparent;
+    overflow: visible;
+    clip-path: none;
+    /* Mindestabstand zum Header immer >= 66px */
+    padding-top: calc(var(--header-height) + max(66px, 3vh));
+  }
+
+  /* Desktop: Herobild soll nicht in den Header hineinragen, aber vollständig sichtbar bleiben. */
+  @media (min-width: 1024px) {
+    .hero-simple-portrait {
+      /* Mindestabstand zum Header auch auf Desktop nie unter 66px */
+      padding-top: calc(var(--header-height) + max(66px, 3vh));
+    }
+  }
+
+  /* Einfaches Hero-Portrait (PhilippBacherHeroSimple):
+     - drop-shadow sitzt auf .hero-foreground-container (nicht hier), damit clip-path den Schatten nicht abschneidet
+     - clip-path nur auf dem Bild: unten 3.5rem für Shape-Divider, seitlich -20% Luft
+  */
+  /* Transform nur in CSS (kein JS) → vermeidet CLS durch Hydration. */
+  .hero-simple-portrait-img {
+    transform: translateY(40px);
+    transition: transform 200ms ease-out;
+    box-sizing: content-box;
+    vertical-align: top;
+    box-shadow: none;
+    filter: none;
+    /* Keep portrait reliably visible on short viewports */
+    max-height: calc(100dvh - var(--header-height) - 33px);
+    /* Weniger starker Beschnitt unten, damit das Portrait bei großen Auflösungen nicht „halbiert“ wirkt. */
+    clip-path: inset(0 -20% 1.75rem -20%);
+  }
+
+  /* Desktop: Portrait soll vollständig sichtbar sein.
+     Die bestehende mask-image (Fade-out unten) und der Bottom-clip können ab ~1024px wie „halbiert“ wirken. */
+  @media (min-width: 1024px) {
+    .hero-portrait-fade-up {
+      mask-image: none;
+      -webkit-mask-image: none;
+      /* Unter beiden Shape-Dividern halten, damit unten kein Portrait-Schatten darueber sichtbar ist. */
+      z-index: 28;
+      top: auto;
+      bottom: 0;
+      right: 0;
+      left: auto;
+      max-width: 60.5%;
+    }
+
+    /*
+     * Breitere max-width am Wrapper wirkt oft nicht: Bei object-contain + hohem Portrait begrenzt
+     * max-height die Darstellung — die Breite folgt dem Seitenverhältnis. Daher Höhe ~21% höher
+     * (1,1²), damit die gewünschte Desktop-Vergrößerung sichtbar wird.
+     */
+    .hero-simple-portrait-img {
+      clip-path: inset(0 -20% 0rem -20%);
+      /* Zusätzlicher Abzug wie bei .hero-offset lg+ (header + 18vh), damit der Fuß im ersten Viewport bleibt */
+      max-height: calc((100dvh - var(--header-height) - max(33px, 3vh) - 8vh) * 1.21);
+      width: auto;
+      max-width: 100%;
+      transform: translateY(0);
+      margin-left: auto;
+    }
+  }
+
+  /* Folgesection: kurzer Verlauf, weniger Stufen = weniger sichtbare Kanten */
+  .hero-following-section-mask {
+    background-color: var(--background);
+    background-image: linear-gradient(to bottom, transparent 0, var(--background) 2.75rem);
+  }
+  @media (min-width: 1024px) {
+    .hero-following-section-mask {
+      background-image: linear-gradient(to bottom, transparent 0, var(--background) 1.35rem);
+    }
+  }
+
+  /* Erste Section = nur Service-Karten: kein Verlauf, harter Anschluss an den Hero (nur lg+).
+     Unter lg: wieder weicher Übergang, passt zu „Karten unter dem Hero“. */
+  .hero-following-section-mask.hero-following-section--services-flush {
+    background-image: none;
+  }
+  @media (max-width: 1023px) {
+    .hero-following-section-mask.hero-following-section--services-flush {
+      background-image: linear-gradient(to bottom, transparent 0, var(--background) 2.25rem);
+    }
+  }
+
+  /* Hero-Verlauf + Schatten/Glow auf ::before (verdoppelte Intensität), Mask nur auf ::before,
+     damit in der transparenten oberen rechten Ecke kein Schatten/Glow liegt; Inhalt bleibt sichtbar. */
+  .hero-box-gradient {
+    position: relative;
+    background: transparent;
+  }
+  .hero-box-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    /* var(--background) wie Shape-Divider / Body – vermeidet helle Kante zu den Wellen */
+    background: linear-gradient(39deg, var(--background) 37%, transparent 60%);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+    mask-image: linear-gradient(39deg, black 0%, black 48%, transparent 70%);
+    -webkit-mask-image: linear-gradient(39deg, black 0%, black 48%, transparent 70%);
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-position: 0 0;
+  }
+  [data-theme='dark'] .hero-box-gradient::before {
+    background: linear-gradient(39deg, var(--background) 2%, transparent 78%);
+    box-shadow: 0 0 32px rgba(255, 255, 255, 0.08), 0 0 12px rgba(255, 255, 255, 0.04);
+  }
+  /* Unmaskierter Verlauf nur unten an der Content-Box – schließt zur Welle ohne extra Section-Layer */
+  .hero-box-gradient::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -2px;
+    height: min(14vh, 130px);
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      to top,
+      var(--background) 0%,
+      color-mix(in srgb, var(--background) 50%, transparent) 45%,
+      transparent 100%
+    );
+  }
+
+  /* Viewports unter 555px: Hero-Portrait skalieren und Verlauf anpassen:
+     radialer Verlauf von der oberen rechten Ecke, die vollständig transparent ist.
+     Der transparente Bereich reicht bis zur Hälfte der Box, danach wird der Verlauf deckend. */
+  @media (max-width: 554px) {
+    /* PhilippBacherHeroSimple (Mobile): volle Mindesthöhe + minimales pt — nicht auf Style Preview anwenden (fester Header). */
+    .hero-offset:not([aria-label='Style Preview Hero']):not([aria-label='Profil Hero']) {
+      min-height: calc(100vh - var(--header-height));
+      padding-top: 0.5rem;
+    }
+    [aria-label='Style Preview Hero'].hero-offset,
+    [aria-label='Profil Hero'].hero-offset {
+      min-height: 0;
+      padding-top: max(calc(var(--header-height) + 1rem), 5.75rem);
+    }
+
+    .hero-portrait-fade-up {
+      bottom: 18vh;
+    }
+    /* iPhone SE (≤375px): 15vh */
+    @media (max-width: 375px) {
+      .hero-portrait-fade-up {
+        bottom: 15vh;
+      }
+    }
+    /* Weniger Scale + zentrierte Origin: vermeidet, dass das Portrait nach oben „übersteht“ und oben beschnitten wirkt (Logs: matrix 1.11 + origin bottom-right). */
+    .hero-portrait-sm {
+      transform: translateY(28px) scale(1.04);
+      transform-origin: bottom center;
+    }
+    .hero-box-gradient {
+      margin-top: 0;
+    }
+    .hero-box-gradient::after {
+      height: min(17vh, 155px);
+    }
+    .hero-box-gradient::before {
+      background: linear-gradient(
+        8.1deg,
+        var(--background) 52%,
+        color-mix(in srgb, var(--background) 72%, transparent) 80%,
+        transparent 94%
+      );
+      mask-image: linear-gradient(8.1deg, black 0%, black 76%, transparent 93%);
+      -webkit-mask-image: linear-gradient(8.1deg, black 0%, black 76%, transparent 93%);
+    }
+    [data-theme='dark'] .hero-box-gradient::before {
+      background: linear-gradient(
+        8.4deg,
+        var(--background) 48%,
+        color-mix(in srgb, var(--background) 68%, transparent) 82%,
+        transparent 93%
+      );
+      mask-image: linear-gradient(8.4deg, black 0%, black 79%, transparent 93%);
+      -webkit-mask-image: linear-gradient(8.4deg, black 0%, black 79%, transparent 93%);
+    }
+  }
+
+  /* iPhone SE und kleiner: Hero-Bild nicht vergrößern (100% Skalierung). */
+  @media (max-width: 375px) {
+    .hero-portrait-sm {
+      transform: translateY(24px) scale(1);
+      transform-origin: bottom center;
+    }
+  }
+
+  /* Short viewport safeguard: keep clear separation between header and hero portrait */
+  @media (max-height: 860px) {
+    .hero-portrait-fade-up {
+      bottom: 0;
+    }
+    .hero-portrait-sm {
+      transform: translateY(0) scale(1);
+    }
+    .hero-simple-portrait-img {
+      clip-path: inset(0 -20% 0.75rem -20%);
+    }
+    @media (min-width: 1024px) {
+      .hero-simple-portrait-img {
+        max-height: calc(100vh - var(--header-height) - max(33px, 3vh));
+      }
+    }
+  }
+
+  /* Hero-Basis: gleiche Mischverhältnisse Light/Dark (nur --background unterscheidet sich) */
+  .hero-section-surface {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(-1 * var(--header-height));
+    bottom: 0;
+    z-index: -25;
+    pointer-events: none;
+    background: linear-gradient(
+      172deg,
+      color-mix(in hsl, hsl(var(--primary)) 5%, var(--background)) 0%,
+      color-mix(in hsl, hsl(var(--primary)) 1.6%, var(--background)) 54%,
+      var(--background) 90%
+    );
+  }
+
+  /* Über Lesbarkeits-Layern: einheitliche Primary-Intensität pro Theme */
+  .hero-section-foreground-tint {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(-1 * var(--header-height));
+    bottom: 0;
+    z-index: -4;
+    pointer-events: none;
+    background: linear-gradient(
+      172deg,
+      hsl(var(--primary) / 0.062) 0%,
+      hsl(var(--primary) / 0.022) 47%,
+      transparent 77%
+    );
+  }
+
+  /* Style Preview & ähnliche Heros ohne -z-[5]-Wash: Tönung über Radial-Dekor legen */
+  .hero-section-foreground-tint--above-decor {
+    top: 0;
+    z-index: 1;
+  }
+
+  /* Milchglas-Effekt: sobald der Hero einspaltig ist (gleicher Breakpoint wie Tailwind md / grid md:grid-cols-2) */
+  @media (max-width: 767px) {
+    .hero-mobile-glass {
+      background: color-mix(in srgb, var(--background) 42%, transparent);
+      backdrop-filter: blur(20px) saturate(1.8);
+      -webkit-backdrop-filter: blur(20px) saturate(1.8);
+      border-top: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
+    }
+    [data-theme='dark'] .hero-mobile-glass {
+      background: color-mix(in srgb, var(--background) 36%, transparent);
+      backdrop-filter: blur(24px) saturate(1.8);
+      -webkit-backdrop-filter: blur(24px) saturate(1.8);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35);
+    }
+    [data-theme='light'] .hero-mobile-glass {
+      background: color-mix(in srgb, var(--background) 55%, transparent);
+      border-top: 1px solid rgba(255, 255, 255, 0.45);
+      box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.05);
+    }
+
+    .hero-mobile-glass {
+      position: sticky;
+      top: calc(var(--header-height) + 1rem);
+      z-index: 18;
+      will-change: transform;
+      transform: translateZ(0);
+      scroll-margin-top: calc(var(--header-height) + 1rem);
+    }
+
+    .hero-mobile-sticky-portrait {
+      position: sticky;
+      top: calc(var(--header-height) + 20px);
+      align-self: flex-start;
+      will-change: transform;
+      transform: translate3d(0, var(--hero-mobile-portrait-translate, 0px), 0);
+    }
+  }
+  @media (max-width: 599px) {
+    .hero-mobile-glass {
+      background: color-mix(in srgb, var(--background) 56%, transparent);
+      backdrop-filter: blur(24px) saturate(1.9);
+      -webkit-backdrop-filter: blur(24px) saturate(1.9);
+      border-top: 1px solid color-mix(in srgb, var(--foreground) 18%, transparent);
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.14);
+    }
+    [data-theme='dark'] .hero-mobile-glass {
+      background: color-mix(in srgb, var(--background) 44%, transparent);
+      backdrop-filter: blur(28px) saturate(1.95);
+      -webkit-backdrop-filter: blur(28px) saturate(1.95);
+      border-top: 1px solid rgba(255, 255, 255, 0.16);
+      box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.42);
+    }
+    [data-theme='light'] .hero-mobile-glass {
+      background: color-mix(in srgb, var(--background) 60%, transparent);
+      border-top: 1px solid rgba(255, 255, 255, 0.5);
+      box-shadow: 0 -10px 32px rgba(0, 0, 0, 0.08);
+    }
+  }
+
+  @media (max-width: 767px) and (max-height: 800px) {
+    .hero-mobile-glass {
+      top: calc(var(--header-height) + 1.25rem);
+    }
+    .hero-mobile-sticky-portrait {
+      top: calc(var(--header-height) + 4rem);
+    }
+  }
+  @media (min-width: 768px) {
+    .hero-mobile-glass {
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      border-top: none;
+      box-shadow: none;
+    }
+
+    .hero-desktop-parallax-portrait {
+      position: relative;
+      transform: translate3d(0, var(--hero-desktop-portrait-translate, 0px), 0);
+      width: 100%;
+      max-width: 100%;
+      z-index: 20;
+      pointer-events: none;
+      will-change: transform, filter, opacity;
+      filter: blur(var(--hero-desktop-portrait-blur, 0px));
+      opacity: var(--hero-desktop-portrait-opacity, 1);
+      transition: transform 0.25s ease-out, filter 0.25s ease-out, opacity 0.25s ease-out;
+    }
+  }
+
+  /* Hero-Hintergrund: gleiche Primary-Alphas Light/Dark (früher war Default = Dark stärker) */
+  .hero-background-overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(-1 * var(--header-height));
+    bottom: 0;
+    z-index: -22;
+    opacity: 1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(ellipse 105% 41% at 50% 100%, hsl(var(--primary) / 0.068) 0%, transparent 70%),
+      radial-gradient(ellipse 86% 33% at 50% 100%, hsl(var(--primary) / 0.038) 0%, transparent 76%),
+      radial-gradient(ellipse 122% 50% at 50% 100%, color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%, transparent 65%);
+    background-repeat: no-repeat;
+  }
+
+  /* Portrait unten rechts → Zentren wie zuvor */
+  .hero-background-overlay--behind-portrait {
+    background-image:
+      radial-gradient(ellipse 72% 36% at 86% 88%, hsl(var(--primary) / 0.068) 0%, transparent 66%),
+      radial-gradient(ellipse 58% 28% at 84% 90%, hsl(var(--primary) / 0.04) 0%, transparent 72%),
+      radial-gradient(ellipse 88% 42% at 82% 92%, color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%, transparent 62%);
+  }
+
+  @media (min-width: 555px) {
+    .hero-background-overlay--behind-portrait {
+      background-image:
+        radial-gradient(ellipse 72% 36% at 78% 90%, hsl(var(--primary) / 0.068) 0%, transparent 66%),
+        radial-gradient(ellipse 58% 28% at 76% 92%, hsl(var(--primary) / 0.04) 0%, transparent 72%),
+        radial-gradient(ellipse 88% 42% at 74% 93%, color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%, transparent 62%);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-background-overlay--behind-portrait {
+      background-image:
+        radial-gradient(ellipse 72% 36% at 72% 91%, hsl(var(--primary) / 0.068) 0%, transparent 66%),
+        radial-gradient(ellipse 58% 28% at 70% 93%, hsl(var(--primary) / 0.04) 0%, transparent 72%),
+        radial-gradient(ellipse 88% 42% at 69% 94%, color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%, transparent 62%);
+    }
+  }
+
+  @media (max-width: 554px) {
+    .hero-background-overlay--behind-portrait {
+      background-image:
+        radial-gradient(ellipse 68% 34% at 88% 68%, hsl(var(--primary) / 0.064) 0%, transparent 64%),
+        radial-gradient(ellipse 54% 26% at 86% 70%, hsl(var(--primary) / 0.036) 0%, transparent 70%),
+        radial-gradient(ellipse 82% 38% at 84% 72%, color-mix(in hsl, hsl(var(--primary)) 3.8%, transparent) 0%, transparent 60%);
+    }
+  }
+
+  /* Style Preview: Section hat bg-background — Overlay wie früher bei z-0, nicht hinter Section-Paint. */
+  .hero-background-overlay--style-preview-stack {
+    top: 0;
+    z-index: 0;
+  }
+
+  /* Style Preview: Zentren hinter Popout-Portrait, gleiche Intensität wie Philipp-Bacher-Overlay */
+  .hero-background-overlay--style-preview-portrait {
+    background-image:
+      radial-gradient(ellipse 64% 33% at 52% 66%, hsl(var(--primary) / 0.066) 0%, transparent 66%),
+      radial-gradient(ellipse 52% 27% at 50% 68%, hsl(var(--primary) / 0.038) 0%, transparent 72%),
+      radial-gradient(ellipse 78% 39% at 48% 70%, color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%, transparent 62%);
+  }
+
+  @media (min-width: 600px) {
+    .hero-background-overlay--style-preview-portrait {
+      background-image:
+        radial-gradient(ellipse 68% 35% at 58% 58%, hsl(var(--primary) / 0.07) 0%, transparent 66%),
+        radial-gradient(ellipse 54% 27% at 56% 60%, hsl(var(--primary) / 0.04) 0%, transparent 72%),
+        radial-gradient(ellipse 82% 41% at 54% 62%, color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%, transparent 62%);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .hero-background-overlay--style-preview-portrait {
+      background-image:
+        radial-gradient(ellipse 70% 37% at 78% 36%, hsl(var(--primary) / 0.072) 0%, transparent 66%),
+        radial-gradient(ellipse 56% 29% at 76% 38%, hsl(var(--primary) / 0.042) 0%, transparent 72%),
+        radial-gradient(ellipse 86% 43% at 74% 40%, color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%, transparent 62%);
+    }
+  }
+
+  /* Hero-Box: edler Glow + im Light Mode Schlagschatten am unteren Rand.
+   * Glow bleibt überall, blendet nach oben rechts weich aus (Maske). Desktop: Maske bei 80% (Vordergrundbild weiter links). */
+  .hero-box-frame-shadow {
+    mask-image: radial-gradient(
+      ellipse 110% 90% at 100% 0%,
+      transparent 0%,
+      transparent 38%,
+      black 72%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 110% 90% at 100% 0%,
+      transparent 0%,
+      transparent 38%,
+      black 72%
+    );
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-position: 0 0;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.08),
+      0 4px 24px rgba(0, 0, 0, 0.04),
+      0 16px 40px rgba(0, 0, 0, 0.06),
+      0 28px 56px rgba(0, 0, 0, 0.04),
+      0 0 0 1px rgba(255, 255, 255, 0.06),
+      0 0 48px rgba(255, 255, 255, 0.06),
+      0 0 96px rgba(255, 255, 255, 0.04),
+      0 0 160px rgba(255, 255, 255, 0.025),
+      0 0 220px rgba(255, 255, 255, 0.012);
+  }
+  [data-theme='dark'] .hero-box-frame-shadow {
+    box-shadow:
+      0 4px 24px rgba(0, 0, 0, 0.03),
+      0 0 0 1px rgba(255, 255, 255, 0.08),
+      0 0 64px rgba(255, 255, 255, 0.04),
+      0 0 120px rgba(255, 255, 255, 0.03),
+      0 0 200px rgba(255, 255, 255, 0.018),
+      0 0 280px rgba(255, 255, 255, 0.008);
+  }
+
+  /* Mobile: Glow weicher, Schlagschatten unten etwas reduziert. */
+  @media (max-width: 63.99rem) {
+    .hero-box-frame-shadow {
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.06),
+        0 2px 16px rgba(0, 0, 0, 0.03),
+        0 12px 32px rgba(0, 0, 0, 0.05),
+        0 20px 44px rgba(0, 0, 0, 0.03),
+        0 0 0 1px rgba(255, 255, 255, 0.05),
+        0 0 40px rgba(255, 255, 255, 0.05),
+        0 0 80px rgba(255, 255, 255, 0.03),
+        0 0 140px rgba(255, 255, 255, 0.015);
+    }
+    [data-theme='dark'] .hero-box-frame-shadow {
+      box-shadow:
+        0 2px 16px rgba(0, 0, 0, 0.025),
+        0 0 0 1px rgba(255, 255, 255, 0.06),
+        0 0 48px rgba(255, 255, 255, 0.032),
+        0 0 100px rgba(255, 255, 255, 0.02),
+        0 0 180px rgba(255, 255, 255, 0.01);
+    }
+  }
+
+  /* Desktop (64rem+): Deutlicher Schatten und Glow. Glow rechts weich ausblenden, damit Hero-Bild links nicht überlagert wird. */
+  @media (min-width: 64rem) {
+    .hero-box-frame-shadow {
+      mask-image: linear-gradient(to right, black 48%, transparent 62%);
+      -webkit-mask-image: linear-gradient(to right, black 48%, transparent 62%);
+      mask-size: 100% 100%;
+      -webkit-mask-size: 100% 100%;
+      mask-position: 0 0;
+      -webkit-mask-position: 0 0;
+      mask-repeat: no-repeat;
+      -webkit-mask-repeat: no-repeat;
+      box-shadow:
+        0 20px 56px rgba(0, 0, 0, 0.12),
+        0 8px 32px rgba(0, 0, 0, 0.08),
+        0 32px 64px rgba(0, 0, 0, 0.1),
+        0 48px 88px rgba(0, 0, 0, 0.06),
+        0 0 0 1px rgba(255, 255, 255, 0.12),
+        0 0 56px rgba(255, 255, 255, 0.12),
+        0 0 112px rgba(255, 255, 255, 0.08),
+        0 0 180px rgba(255, 255, 255, 0.05),
+        0 0 260px rgba(255, 255, 255, 0.03);
+    }
+    [data-theme='dark'] .hero-box-frame-shadow {
+      box-shadow:
+        0 12px 40px rgba(0, 0, 0, 0.06),
+        0 0 0 1px rgba(255, 255, 255, 0.14),
+        0 0 72px rgba(255, 255, 255, 0.1),
+        0 0 144px rgba(255, 255, 255, 0.06),
+        0 0 240px rgba(255, 255, 255, 0.04),
+        0 0 340px rgba(255, 255, 255, 0.02);
+    }
+  }
+
+  .hero-shape-divider {
+    bottom: -10px;
+  }
+
+  /* Volle Viewport-Breite: 50% = Breite des positionierten Vorfahren, 50dvw = halbe Viewport-Breite —
+     linke Kante der Welle am Viewport-Rand, auch wenn die Section schmaler/versetzt ist (nicht nur zentriert auf Section). */
+  .hero-shape-divider--viewport {
+    left: calc(50% - 50dvw);
+    right: auto;
+    width: 100dvw;
+    max-width: 100dvw;
+    transform: none;
+  }
+
+  /* CMS: Hero-Oberflächenmuster (Popout) — eigene Ebene, niedriger z-index */
+  .hero-surface-pattern {
+    position: absolute;
+    inset: 0;
+    top: calc(-1 * var(--header-height));
+    pointer-events: none;
+    z-index: -19;
+    opacity: 0.14;
+  }
+
+  [data-theme='light'] .hero-surface-pattern {
+    opacity: 0.12;
+  }
+
+  .hero-surface-pattern--honeycomb {
+    /* gleiche Geometrie wie .hero-pattern-bg */
+    background:
+      radial-gradient(circle farthest-side at 0% 50%, #282828 23.5%, rgba(0, 0, 0, 0) 0) 21px 30px,
+      radial-gradient(circle farthest-side at 0% 50%, #4a4a4a 24%, rgba(0, 0, 0, 0) 0) 19px 30px,
+      linear-gradient(#282828 14%, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 85%, #282828 0) 0 0,
+      linear-gradient(
+          150deg,
+          #282828 24%,
+          #4a4a4a 0,
+          #4a4a4a 26%,
+          rgba(0, 0, 0, 0) 0,
+          rgba(0, 0, 0, 0) 74%,
+          #4a4a4a 0,
+          #4a4a4a 76%,
+          #282828 0
+        )
+        0 0,
+      linear-gradient(
+          30deg,
+          #282828 24%,
+          #4a4a4a 0,
+          #4a4a4a 26%,
+          rgba(0, 0, 0, 0) 0,
+          rgba(0, 0, 0, 0) 74%,
+          #4a4a4a 0,
+          #4a4a4a 76%,
+          #282828 0
+        )
+        0 0,
+      linear-gradient(90deg, #4a4a4a 2%, #282828 0, #282828 98%, #4a4a4a 0%) 0 0 #282828;
+    background-size: 40px 60px;
+  }
+
+  [data-theme='light'] .hero-surface-pattern--honeycomb {
+    background:
+      radial-gradient(circle farthest-side at 0% 50%, #d4d4d4 23.5%, rgba(255, 255, 255, 0) 0) 21px 30px,
+      radial-gradient(circle farthest-side at 0% 50%, #a3a3a3 24%, rgba(255, 255, 255, 0) 0) 19px 30px,
+      linear-gradient(#d4d4d4 14%, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0) 85%, #d4d4d4 0) 0 0,
+      linear-gradient(
+          150deg,
+          #d4d4d4 24%,
+          #a3a3a3 0,
+          #a3a3a3 26%,
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0) 74%,
+          #a3a3a3 0,
+          #a3a3a3 76%,
+          #d4d4d4 0
+        )
+        0 0,
+      linear-gradient(
+          30deg,
+          #d4d4d4 24%,
+          #a3a3a3 0,
+          #a3a3a3 26%,
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0) 74%,
+          #a3a3a3 0,
+          #a3a3a3 76%,
+          #d4d4d4 0
+        )
+        0 0,
+      linear-gradient(90deg, #a3a3a3 2%, #d4d4d4 0, #d4d4d4 98%, #a3a3a3 0%) 0 0 #e5e5e5;
+    background-size: 40px 60px;
+  }
+
+  .hero-surface-pattern--checker {
+    background-color: transparent;
+    background-image:
+      linear-gradient(45deg, hsl(var(--foreground) / 0.06) 25%, transparent 25%),
+      linear-gradient(-45deg, hsl(var(--foreground) / 0.06) 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, hsl(var(--foreground) / 0.06) 75%),
+      linear-gradient(-45deg, transparent 75%, hsl(var(--foreground) / 0.06) 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  }
+
+  .hero-surface-pattern--mmPaper {
+    background-image:
+      linear-gradient(hsl(var(--foreground) / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.07) 1px, transparent 1px),
+      linear-gradient(hsl(var(--foreground) / 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.04) 1px, transparent 1px);
+    background-size:
+      40px 40px,
+      40px 40px,
+      8px 8px,
+      8px 8px;
+  }
+
+  .hero-surface-pattern--dots {
+    background-image: radial-gradient(hsl(var(--foreground) / 0.12) 1px, transparent 1px);
+    background-size: 14px 14px;
+  }
+
+  .hero-surface-pattern--linesHorizontal {
+    background-image: linear-gradient(
+      hsl(var(--foreground) / 0.08) 1px,
+      transparent 1px
+    );
+    background-size: 100% 12px;
+  }
+
+  .hero-surface-pattern--linesVertical {
+    background-image: linear-gradient(
+      90deg,
+      hsl(var(--foreground) / 0.08) 1px,
+      transparent 1px
+    );
+    background-size: 12px 100%;
+  }
+
+  .hero-surface-pattern--gridLines {
+    background-image:
+      linear-gradient(hsl(var(--foreground) / 0.07) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground) / 0.07) 1px, transparent 1px);
+    background-size: 24px 24px;
+  }
+
+  /* Profil-Hero (/profil): Verlauf wie Hero-Basis + Gitter nur in einem „Tech“-Spot (radial maskiert) */
+  .profil-hero-paper {
+    position: relative;
+    isolation: isolate;
+    background-color: var(--background);
+    /* Oben → unten wie .hero-section-surface + .hero-background-overlay + Tönung (Reihenfolge: oben zuerst gemalt) */
+    background-image:
+      linear-gradient(
+        172deg,
+        hsl(var(--primary) / 0.062) 0%,
+        hsl(var(--primary) / 0.022) 47%,
+        transparent 77%
+      ),
+      radial-gradient(ellipse 68% 35% at 58% 58%, hsl(var(--primary) / 0.07) 0%, transparent 66%),
+      radial-gradient(ellipse 54% 27% at 56% 60%, hsl(var(--primary) / 0.04) 0%, transparent 72%),
+      radial-gradient(ellipse 82% 41% at 54% 62%, color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%, transparent 62%),
+      radial-gradient(ellipse 105% 41% at 50% 100%, hsl(var(--primary) / 0.068) 0%, transparent 70%),
+      radial-gradient(ellipse 86% 33% at 50% 100%, hsl(var(--primary) / 0.038) 0%, transparent 76%),
+      linear-gradient(
+        172deg,
+        color-mix(in hsl, hsl(var(--primary)) 5%, var(--background)) 0%,
+        color-mix(in hsl, hsl(var(--primary)) 1.6%, var(--background)) 54%,
+        var(--background) 90%
+      );
+    background-repeat: no-repeat;
+  }
+
+  @media (min-width: 1024px) {
+    .profil-hero-paper {
+      background-image:
+        linear-gradient(
+          172deg,
+          hsl(var(--primary) / 0.062) 0%,
+          hsl(var(--primary) / 0.022) 47%,
+          transparent 77%
+        ),
+        radial-gradient(ellipse 70% 37% at 78% 36%, hsl(var(--primary) / 0.072) 0%, transparent 66%),
+        radial-gradient(ellipse 56% 29% at 76% 38%, hsl(var(--primary) / 0.042) 0%, transparent 72%),
+        radial-gradient(ellipse 86% 43% at 74% 40%, color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%, transparent 62%),
+        radial-gradient(ellipse 105% 41% at 52% 100%, hsl(var(--primary) / 0.068) 0%, transparent 70%),
+        radial-gradient(ellipse 86% 33% at 50% 100%, hsl(var(--primary) / 0.038) 0%, transparent 76%),
+        linear-gradient(
+          172deg,
+          color-mix(in hsl, hsl(var(--primary)) 5%, var(--background)) 0%,
+          color-mix(in hsl, hsl(var(--primary)) 1.6%, var(--background)) 54%,
+          var(--background) 90%
+        );
+    }
+  }
+
+  /* Feines Primary-Gitter, nur im rechten oberen „Spot“ (Bildseite), weich auslaufend */
+  .profil-hero-paper::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    /* ~50 % schwächer als zuvor (0.11 → ~0.055) */
+    background-image:
+      linear-gradient(to right, hsl(var(--primary) / 0.055) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--primary) / 0.055) 1px, transparent 1px);
+    background-size: 11px 11px;
+    background-position: 0 0;
+    mask-image: radial-gradient(
+      ellipse 82% 68% at 76% 38%,
+      #000 0%,
+      #000 22%,
+      rgba(0, 0, 0, 0.25) 48%,
+      transparent 74%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 82% 68% at 76% 38%,
+      #000 0%,
+      #000 22%,
+      rgba(0, 0, 0, 0.25) 48%,
+      transparent 74%
+    );
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+  }
+
+  @media (max-width: 767px) {
+    .profil-hero-paper::before {
+      mask-image: radial-gradient(
+        ellipse 95% 58% at 52% 28%,
+        #000 0%,
+        #000 18%,
+        rgba(0, 0, 0, 0.22) 42%,
+        transparent 70%
+      );
+      -webkit-mask-image: radial-gradient(
+        ellipse 95% 58% at 52% 28%,
+        #000 0%,
+        #000 18%,
+        rgba(0, 0, 0, 0.22) 42%,
+        transparent 70%
+      );
+    }
+  }
+
+  [data-theme='dark'] .profil-hero-paper::before {
+    background-image:
+      linear-gradient(to right, hsl(var(--primary) / 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, hsl(var(--primary) / 0.08) 1px, transparent 1px);
+  }
+
+  @keyframes profil-hero-float-ski {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0) rotate(-0.25deg);
+    }
+    50% {
+      transform: translate3d(0, -14px, 0) rotate(0.35deg);
+    }
+  }
+
+  @keyframes profil-hero-float-cloud {
+    0%,
+    100% {
+      transform: translate3d(2%, 6px, 0) scale(1.02);
+    }
+    50% {
+      transform: translate3d(-1%, -10px, 0) scale(1.05);
+    }
+  }
+
+  .profil-hero-float-ski {
+    animation: profil-hero-float-ski 7s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .profil-hero-float-cloud {
+    animation: profil-hero-float-cloud 9s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .profil-hero-float-ski,
+    .profil-hero-float-cloud {
+      animation: none;
+    }
+  }
+
+  /* HeroBox Slide-Up: Keyframes für Wrapper (.hero-box-animate) – Tailwind-kompatibel (auch in tailwind.config.mjs). */
+  @keyframes hero-box-slide-up {
+    from {
+      transform: translateY(100%);
+    }
+    to {
+      transform: translateY(0);
+    }
+  }
+
+  /* HeroBox Wrapper: Animation (Slide Up), damit der gesamte Kasten einblendet. */
+  .hero-box-animate {
+    animation: hero-box-slide-up 1100ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-box-animate {
+      animation: none;
+    }
+  }
+
+  /* Philipp-Bacher-Hero: Abstand Header → Inhalt auf Mobile/iPhone/PlayBook (max-lg).
+   * Mindestabstand mit max(10vh, header-height), damit der Inhalt nie unter den Header rutscht
+   * (bei kurzer Viewport-Höhe ist 10vh < 6rem → ohne max() würde die Box überlappen).
+   *
+   * iOS-Safari behandelt 1vh dynamisch (Adressleiste ein-/ausgeblendet). Für echte Geräte verwenden wir,
+   * wenn verfügbar, die stabilere sichtbare Höhe (svh), lassen aber vh als Fallback für andere Browser. */
+  @media (max-width: 63.99rem) {
+    .hero-pb-section {
+      padding-top: calc(var(--header-height, 6rem) + max(10vh, var(--header-height, 6rem)));
+    }
+    /* Box-Höhe für normale Mobile-Viewports begrenzen, damit sie mit items-end nicht in den Padding-Bereich ragt.
+     * Für sehr kleine Geräte (z. B. iPhone SE, <=375px) heben wir diese Begrenzung weiter unten wieder auf,
+     * damit sich der Inhalt nach unten ausdehnen kann (kein Abschneiden). */
+    .hero-pb-content-wrapper {
+      max-height: calc(93vh - 2 * var(--header-height, 6rem));
+    }
+
+    /* iOS / moderne Mobile-Browser: svh = sichtbare Viewport-Höhe (ohne URL-Bar). */
+    @supports (height: 100svh) {
+      .hero-pb-section {
+        padding-top: calc(var(--header-height, 6rem) + max(10svh, var(--header-height, 6rem)));
+      }
+      .hero-pb-content-wrapper {
+        max-height: calc(93svh - 2 * var(--header-height, 6rem));
+      }
+    }
+  }
+
+  /* Mindesthöhen für Panorama/PlayBook in CSS (keine Tailwind-Varianten). */
+  @media (orientation: landscape) and (max-height: 40rem) {
+    .hero-pb-section { min-height: 32rem; }
+    .hero-pb-content-wrapper { min-height: 28rem; }
+    /* In Panorama: mehr Abstand oben in der Hero-Box, damit Inhalt nicht gestaucht wirkt. */
+    [data-hero-grid] {
+      padding-top: clamp(1.25rem, 5vh, 2.5rem);
+    }
+  }
+  @media (min-width: 37rem) and (max-width: 44rem) {
+    .hero-pb-section { min-height: 888px; }
+    /* Content-Wrapper ebenfalls 888px, sonst bleibt die Hero-Box kürzer (Section hat items-end, Container streckt nicht). */
+    .hero-pb-content-wrapper { min-height: 888px; }
+  }
+  /* iPad (48rem–64rem): Mindesthöhe 888px. */
+  @media (min-width: 48rem) and (max-width: 64rem) {
+    .hero-pb-section { min-height: 888px; }
+  }
+
+  /* iPhone SE / sehr kleine Breite (<=375px):
+   * - Hero-Box von oben nach unten wachsen lassen (keine fixed/max-height-Klammer mehr)
+   * - Wrapper nicht mehr absolute/inset-0, damit der Inhalt sich nach unten ausdehnen kann (Scroll statt Abschneiden). */
+  @media (max-width: 23.5rem) {
+    .hero-pb-content-wrapper {
+      max-height: none;
+      min-height: auto;
+    }
+    .hero-pb-content-wrapper .hero-box-animate {
+      position: static;
+      inset: auto;
+      max-height: none;
+      height: auto;
+      overflow: visible;
+    }
+  }
+
+  /* HeroBox Wrapper (hero-box-outer): gleiche obere rechte Aussparung wie .hero-box-inner, damit der Glow/Frame-Shadow dort nicht sichtbar ist. */
+  .hero-box-outer {
+    mask-image: radial-gradient(
+      ellipse 100% 85% at 100% 0%,
+      transparent 0%,
+      transparent 47%,
+      black 73%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 100% 85% at 100% 0%,
+      transparent 0%,
+      transparent 47%,
+      black 73%
+    );
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-position: 0 0;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+  }
+
+  /* HeroBox Inner: Milchglas – weicher Verlauf; linke untere Ecke fast kein Durchschimmern (deckender Aufbau).
+   * Freistellung oben rechts: Glas in der oberen rechten Ecke ausgeblendet, damit das Vordergrundbild
+   * (auf max-lg hinter der Box in z-[1]) dort scharf sichtbar bleibt. */
+  /* Deckender Hintergrund: kein scrollabhängiges „Umfärben“ durch Durchscheinen von Inhalt. */
+  .hero-box-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 1.5rem;
+    border: 0.5px solid rgba(255, 255, 255, 0.08);
+    background:
+      radial-gradient(
+        ellipse 125% 112% at 0% 100%,
+        rgba(252, 252, 252, 0.98) 0%,
+        rgba(252, 252, 252, 0.95) 50%,
+        rgba(252, 252, 252, 0.92) 88%
+      ),
+      linear-gradient(
+        to right,
+        rgba(252, 252, 252, 0.92) 0%,
+        rgba(252, 252, 252, 0.94) 40%,
+        rgba(252, 252, 252, 0.96) 70%,
+        rgba(252, 252, 252, 0.98) 100%
+      );
+    /* Nur oben rechts: Aussparung für Vordergrundbild – Blur im Eck praktisch 0 (große transparente Zone, Glas setzt erst weiter innen ein). */
+    mask-image: radial-gradient(
+      ellipse 110% 90% at 100% 0%,
+      transparent 0%,
+      transparent 65%,
+      black 90%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 110% 90% at 100% 0%,
+      transparent 0%,
+      transparent 65%,
+      black 90%
+    );
+    mask-size: 100% 100%;
+    -webkit-mask-size: 100% 100%;
+    mask-position: 0 0;
+    -webkit-mask-position: 0 0;
+    mask-repeat: no-repeat;
+    -webkit-mask-repeat: no-repeat;
+  }
+  /* iPhone / kleine Viewports: Aussparung oben rechts etwas kleiner, damit mehr Glasfläche über Text liegt. */
+  @media (max-width: 430px) {
+    .hero-box-inner {
+      mask-image: radial-gradient(
+        ellipse 95% 78% at 100% 0%,
+        transparent 0%,
+        transparent 50%,
+        black 82%
+      );
+      -webkit-mask-image: radial-gradient(
+        ellipse 95% 78% at 100% 0%,
+        transparent 0%,
+        transparent 50%,
+        black 82%
+      );
+    }
+  }
+  [data-theme='dark'] .hero-box-inner {
+    background:
+      radial-gradient(
+        ellipse 125% 112% at 0% 100%,
+        rgba(18, 18, 18, 0.98) 0%,
+        rgba(18, 18, 18, 0.96) 50%,
+        rgba(18, 18, 18, 0.94) 88%
+      ),
+      linear-gradient(
+        to right,
+        rgba(18, 18, 18, 0.94) 0%,
+        rgba(18, 18, 18, 0.95) 40%,
+        rgba(18, 18, 18, 0.96) 70%,
+        rgba(18, 18, 18, 0.98) 100%
+      );
+    border-color: rgba(255, 255, 255, 0.06);
+  }
+
+  /* ≤640px (Mobile): Milchglas stark, kleinere Ecken. */
+  @media (max-width: 640px) {
+    .hero-box-inner {
+      border-radius: 1rem;
+      backdrop-filter: blur(72px) saturate(190%);
+      -webkit-backdrop-filter: blur(72px) saturate(190%);
+    }
+  }
+
+  /* Tablet (641px–1024px): Milchglas stark, mittlere Ecken. */
+  @media (min-width: 641px) and (max-width: 1024px) {
+    .hero-box-inner {
+      border-radius: 1.25rem;
+      backdrop-filter: blur(56px) saturate(200%);
+      -webkit-backdrop-filter: blur(56px) saturate(200%);
+    }
+  }
+
+  /* Desktop (1025px+): Milchglas-Box stark. Rechts weich transparent, damit das Hero-Bild links nicht überlagert/abgeschnitten wird (Glas nur über Textbereich links). */
+  @media (min-width: 1025px) {
+    .hero-box-inner {
+      border-radius: 1.875rem;
+      backdrop-filter: blur(140px) saturate(240%);
+      -webkit-backdrop-filter: blur(140px) saturate(240%);
+      mask-image: linear-gradient(to right, black 48%, transparent 62%);
+      -webkit-mask-image: linear-gradient(to right, black 48%, transparent 62%);
+      mask-size: 100% 100%;
+      -webkit-mask-size: 100% 100%;
+      mask-position: 0 0;
+      -webkit-mask-position: 0 0;
+      mask-repeat: no-repeat;
+      -webkit-mask-repeat: no-repeat;
+    }
+  }
+
+  /* Hero-Subheadline-Badge:
+     - Desktop / ≥ 555px: kein Badge-Look, nur Marker-Klasse
+     - < 555px: wird visuell zum Badge (siehe Media Query unten)
+  */
+  .hero-subheadline-badge {
+    /* absichtlich leer für größere Viewports – Styling kommt nur im Mobile-Query */
+  }
+  /* Hero Prose: Farbe vom Section erben (Theme = --foreground) */
+  .hero-prose,
+  .hero-prose p,
+  .hero-prose strong,
+  .hero-prose a {
+    color: inherit;
+  }
+  .hero-prose a:hover {
+    opacity: 0.9;
+  }
+
+  /* Unter 555px: Subheadline als Badge darstellen (Light/Dark unterschiedlich);
+     Schrift 1/3 größer als zuvor (0.32rem → 0.43rem). */
+  @media (max-width: 554px) {
+    .hero-subheadline-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.08rem 0.35rem;
+      border-radius: 9999px;
+      font-size: 0.43rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      border: none;
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+    }
+
+    [data-theme='dark'] .hero-subheadline-badge {
+      background: rgba(0, 0, 0, 0.96);
+      color: rgba(248, 250, 252, 0.98);
+    }
+
+    [data-theme='light'] .hero-subheadline-badge {
+      background: rgba(243, 244, 246, 0.9);
+      color: rgba(23, 23, 23, 0.95);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+  }
+
+  /* Hero-Headline: nur ganze Wörter umbrechen, niemals mitten im Wort. */
+  .hero-headline {
+    word-break: normal;
+    overflow-wrap: normal;
+    hyphens: manual;
+  }
+
+  /* Hero-Display: viewport-skalierte Größe + Inter (über --font-heading) */
+  .text-hero-display {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.875rem, 4.5vw + 1rem, 3.75rem);
+    line-height: 1.12;
+    letter-spacing: -0.055em;
+  }
+  .text-hero-display-sm {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    font-size: clamp(1.5rem, 3.2vw + 0.75rem, 2.35rem);
+    line-height: 1.15;
+    letter-spacing: -0.045em;
+  }
+
+  @keyframes hero-heading-gradient-shift {
+    0%,
+    100% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+  }
+
+  /* Subtiler, langsamer Verlauf (Theme); nur mit .hero-heading-gradient auf Hero-h1 */
+  .hero-heading-gradient {
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    background-size: 220% auto;
+    background-repeat: no-repeat;
+    animation: hero-heading-gradient-shift 24s ease-in-out infinite;
+  }
+
+  [data-theme='light'] .hero-heading-gradient {
+    background-image: linear-gradient(
+      105deg,
+      var(--foreground) 0%,
+      color-mix(in srgb, var(--foreground) 86%, hsl(var(--primary)) 14%) 48%,
+      color-mix(in srgb, var(--foreground) 93%, hsl(var(--primary)) 7%) 100%
+    );
+  }
+
+  [data-theme='dark'] .hero-heading-gradient {
+    background-image: linear-gradient(
+      105deg,
+      var(--foreground) 0%,
+      color-mix(in srgb, var(--foreground) 82%, hsl(var(--primary)) 18%) 50%,
+      color-mix(in srgb, var(--foreground) 90%, hsl(var(--primary)) 10%) 100%
+    );
+  }
+
+  /* Helle Schrift auf dunklem Hero-Panel (überschreibt Theme-Gradient; immer zusammen mit .hero-heading-gradient) */
+  .hero-heading-gradient.hero-heading-gradient--inverse {
+    background-image: linear-gradient(
+      105deg,
+      rgba(255, 255, 255, 0.97) 0%,
+      rgba(248, 250, 252, 0.92) 42%,
+      rgba(226, 232, 240, 0.95) 52%,
+      rgba(255, 255, 255, 0.96) 100%
+    );
+  }
+
+  .hero-heading-gradient .hero-heading-gradient-exempt {
+    -webkit-text-fill-color: hsl(var(--primary));
+    background: none;
+    background-image: none;
+    -webkit-background-clip: border-box;
+    background-clip: border-box;
+    color: hsl(var(--primary));
+    animation: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-heading-gradient {
+      animation: none;
+      background-position: 50% 50%;
+    }
+
+    .hero-heading-gradient:not(.hero-heading-gradient--inverse) {
+      -webkit-text-fill-color: unset;
+      color: var(--foreground);
+      background-image: none;
+    }
+
+    [data-theme='light'] .hero-heading-gradient:not(.hero-heading-gradient--inverse),
+    [data-theme='dark'] .hero-heading-gradient:not(.hero-heading-gradient--inverse) {
+      color: var(--foreground);
+    }
+
+    .hero-heading-gradient.hero-heading-gradient--inverse {
+      -webkit-text-fill-color: unset;
+      color: rgba(255, 255, 255, 0.96);
+      background-image: none;
+    }
+  }
+
+  /* ========== Hero-Enter-Animationen (PhilippBacherHeroSimple) ========== */
+  @keyframes hero-reveal-word {
+    from {
+      opacity: 0;
+      transform: translateX(-0.5em);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes hero-reveal-pop {
+    from {
+      opacity: 0;
+      transform: scale(0.85);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  @keyframes hero-reveal-letter {
+    from {
+      opacity: 0;
+      transform: translateX(-4px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  @keyframes hero-reveal-logo {
+    from {
+      opacity: 0;
+      transform: translateY(12px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes hero-reveal-subheadline {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes hero-portrait-fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .hero-reveal-word {
+    opacity: 0;
+    animation: hero-reveal-word 0.35s ease-out both;
+  }
+  .hero-reveal-pop {
+    opacity: 0;
+    animation: hero-reveal-pop 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-reveal-letter {
+    opacity: 0;
+    animation: hero-reveal-letter 0.25s ease-out both;
+  }
+  .hero-reveal-logo {
+    opacity: 0;
+    animation: hero-reveal-logo 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  .hero-reveal-subheadline {
+    opacity: 0;
+    animation: hero-reveal-subheadline 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  @keyframes hero-floating-card-reveal {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .hero-floating-card-reveal {
+    opacity: 0;
+    animation: hero-floating-card-reveal 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-floating-card-reveal {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+
+  /* Popout-Hero (Style Preview / Superhero): weiche Lichtflecken, keine Raster-Linien */
+  .hero-popout-structure-layer {
+    background-image:
+      radial-gradient(ellipse 120% 80% at 45% 18%, hsl(var(--primary) / 0.07) 0%, transparent 58%),
+      radial-gradient(ellipse 95% 72% at 82% 42%, hsl(var(--foreground) / 0.04) 0%, transparent 52%);
+    mask-image: linear-gradient(to bottom, black 0%, black 35%, transparent 82%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 35%, transparent 82%);
+    opacity: 0.9;
+  }
+  [data-theme='dark'] .hero-popout-structure-layer {
+    opacity: 0.8;
+  }
+
+  @keyframes hero-portrait-gradient-rotate {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Rotierender, stark weichgezeichneter Verlauf hinter Popout-Portrait (rechte Spalte) */
+  .hero-portrait-gradient-blob {
+    --size: 750px;
+    --speed: 50s;
+    --easing: cubic-bezier(0.8, 0.2, 0.2, 0.8);
+    position: absolute;
+    left: 50%;
+    bottom: clamp(-1.5rem, -8vh, 0px);
+    z-index: 0;
+    width: var(--size);
+    height: var(--size);
+    margin-left: calc(var(--size) * -0.5);
+    pointer-events: none;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    background-image: linear-gradient(135deg, hsl(222 84% 60%), hsl(164 79% 71%));
+    filter: blur(calc(var(--size) / 5));
+    opacity: 0.55;
+    animation: hero-portrait-gradient-rotate var(--speed) var(--easing) alternate infinite;
+    will-change: transform;
+  }
+
+  [data-theme='light'] .hero-portrait-gradient-blob {
+    opacity: 0.42;
+  }
+
+  @media (min-width: 720px) {
+    .hero-portrait-gradient-blob {
+      --size: 500px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-portrait-gradient-blob {
+      animation: none;
+      will-change: auto;
+    }
+  }
+
+  .hero-portrait-fade-up {
+    opacity: 0;
+    animation: hero-portrait-fade-up 1.8s ease-out both;
+  }
+  @media (min-width: 1024px) {
+    @keyframes hero-portrait-fade-up-desktop {
+      from {
+        opacity: 0;
+        transform: translateY(0);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    /* Desktop: kein vertikaler Motion-Offset, damit das Portrait nicht unter dem Hero aufblitzt. */
+    .hero-portrait-fade-up {
+      animation-name: hero-portrait-fade-up-desktop;
+    }
+  }
+
+  /* Hero-Hintergrundmuster (Graustufen, 50 % Intensität).
+     Wird nach oben um die Header-Höhe erweitert, damit der Header optisch denselben Hintergrund teilt,
+     ohne dass das Herobild in den Header hineinragt. */
+  .hero-pattern-bg {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(-1 * var(--header-height));
+    bottom: 0;
+    opacity: 0.1;
+    background:
+      radial-gradient(
+        circle farthest-side at 0% 50%,
+        #282828 23.5%,
+        rgba(0, 0, 0, 0) 0
+      )
+      21px 30px,
+      radial-gradient(
+        circle farthest-side at 0% 50%,
+        #4a4a4a 24%,
+        rgba(0, 0, 0, 0) 0
+      )
+      19px 30px,
+      linear-gradient(
+        #282828 14%,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 85%,
+        #282828 0
+      )
+      0 0,
+      linear-gradient(
+        150deg,
+        #282828 24%,
+        #4a4a4a 0,
+        #4a4a4a 26%,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 74%,
+        #4a4a4a 0,
+        #4a4a4a 76%,
+        #282828 0
+      )
+      0 0,
+      linear-gradient(
+        30deg,
+        #282828 24%,
+        #4a4a4a 0,
+        #4a4a4a 26%,
+        rgba(0, 0, 0, 0) 0,
+        rgba(0, 0, 0, 0) 74%,
+        #4a4a4a 0,
+        #4a4a4a 76%,
+        #282828 0
+      )
+      0 0,
+      linear-gradient(90deg, #4a4a4a 2%, #282828 0, #282828 98%, #4a4a4a 0%) 0 0 #282828;
+    background-size: 40px 60px;
+  }
+  /* Hero-Pattern Light Theme: aufgehelltes Graustufen-Muster */
+  [data-theme='light'] .hero-pattern-bg {
+    opacity: 0.15;
+    background:
+      radial-gradient(
+        circle farthest-side at 0% 50%,
+        #d4d4d4 23.5%,
+        rgba(255, 255, 255, 0) 0
+      )
+      21px 30px,
+      radial-gradient(
+        circle farthest-side at 0% 50%,
+        #a3a3a3 24%,
+        rgba(255, 255, 255, 0) 0
+      )
+      19px 30px,
+      linear-gradient(
+        #d4d4d4 14%,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0) 85%,
+        #d4d4d4 0
+      )
+      0 0,
+      linear-gradient(
+        150deg,
+        #d4d4d4 24%,
+        #a3a3a3 0,
+        #a3a3a3 26%,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0) 74%,
+        #a3a3a3 0,
+        #a3a3a3 76%,
+        #d4d4d4 0
+      )
+      0 0,
+      linear-gradient(
+        30deg,
+        #d4d4d4 24%,
+        #a3a3a3 0,
+        #a3a3a3 26%,
+        rgba(255, 255, 255, 0) 0,
+        rgba(255, 255, 255, 0) 74%,
+        #a3a3a3 0,
+        #a3a3a3 76%,
+        #d4d4d4 0
+      )
+      0 0,
+      linear-gradient(90deg, #a3a3a3 2%, #d4d4d4 0, #d4d4d4 98%, #a3a3a3 0%) 0 0 #e5e5e5;
+    background-size: 40px 60px;
+  }
+
+  /* Hero-Hintergrund: Quadratmuster (Preset „Quadratmuster“, Graustufen, 50 % Intensität). Farben überschreibbar via --hero-pattern-c1, --hero-pattern-c2 */
+  .hero-pattern-square {
+    opacity: 0.5;
+    --mx: 0;
+    --my: 0;
+    --a-x: calc(var(--mx) * 8px);
+    --a-y: calc(var(--my) * 8px);
+    --b-x: calc(var(--mx) * -6px);
+    --b-y: calc(var(--my) * -6px);
+    --c-x: calc(var(--mx) * 4px);
+    --c-y: calc(var(--my) * 4px);
+    width: 100%;
+    height: 100%;
+    background:
+      repeating-linear-gradient(
+          45deg,
+          #0000 calc(-650% / 13) calc(50% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(100% / 13),
+          #0000 0 calc(150% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(200% / 13),
+          #0000 0 calc(250% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(300% / 13)
+        )
+        calc(0px + var(--c-x)) calc(0px + var(--c-y)),
+      repeating-linear-gradient(
+          45deg,
+          #0000 calc(-650% / 13) calc(50% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(100% / 13),
+          #0000 0 calc(150% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(200% / 13),
+          #0000 0 calc(250% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(300% / 13)
+        )
+        calc(32px + var(--a-x)) calc(32px + var(--a-y)),
+      repeating-linear-gradient(
+          -45deg,
+          #0000 calc(-650% / 13) calc(50% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(100% / 13),
+          #0000 0 calc(150% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(200% / 13),
+          #0000 0 calc(250% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(300% / 13)
+        )
+        calc(0px + var(--b-x)) calc(0px + var(--b-y)),
+      repeating-linear-gradient(
+          -45deg,
+          #0000 calc(-650% / 13) calc(50% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(100% / 13),
+          #0000 0 calc(150% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(200% / 13),
+          #0000 0 calc(250% / 13),
+          var(--hero-pattern-c1, #100f0f) 0 calc(300% / 13)
+        )
+        calc(32px + var(--a-x)) calc(32px + var(--a-y)) var(--hero-pattern-c2, #1e1e1e);
+    background-size: 64px 64px;
+  }
+
+  /* Hero-Hintergrund: Gold-Radial (Preset „Gold Radial“, Graustufen, 50 % Intensität). Farben überschreibbar via --hero-pattern-c1, --hero-pattern-c2 */
+  .hero-pattern-gold-radial {
+    opacity: 0.5;
+    width: 100%;
+    height: 100%;
+    --s: 200px;
+    --c1: var(--hero-pattern-c1, #a0a0a0);
+    --c2: var(--hero-pattern-c2, #121212);
+    --_g: var(--c2) 4% 14%, var(--c1) 14% 24%, var(--c2) 22% 34%,
+      var(--c1) 34% 44%, var(--c2) 44% 56%, var(--c1) 56% 66%, var(--c2) 66% 76%,
+      var(--c1) 76% 86%, var(--c2) 86% 96%;
+    background:
+      radial-gradient(
+        100% 100% at 100% 0,
+        var(--c1) 4%,
+        var(--_g),
+        #0008 96%,
+        #0000
+      ),
+      radial-gradient(
+          100% 100% at 0 100%,
+          #0000,
+          #0008 4%,
+          var(--_g),
+          var(--c1) 96%
+        )
+        var(--c1);
+    background-size: var(--s) var(--s);
+  }
+
+  /* Neon Flow blobs (angelehnt an 21st.dev Neon Flow) */
+  .neon-flow-blob {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    border-radius: 9999px;
+    filter: blur(60px);
+    opacity: 0.9;
+    mix-blend-mode: screen;
+    animation: neon-flow-pulse 16s ease-in-out infinite;
+  }
+
+  .neon-flow-blob-1 {
+    top: -60px;
+    left: -40px;
+    background: radial-gradient(circle at 30% 30%, #22c55e, transparent 55%);
+    animation-delay: 0s;
+  }
+
+  .neon-flow-blob-2 {
+    top: 40%;
+    right: -80px;
+    background: radial-gradient(circle at 70% 30%, #6366f1, transparent 55%);
+    animation-delay: -4s;
+  }
+
+  .neon-flow-blob-3 {
+    bottom: -80px;
+    left: 30%;
+    background: radial-gradient(circle at 50% 50%, #f97316, transparent 55%);
+    animation-delay: -8s;
+  }
+
+  @keyframes neon-flow-pulse {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.9;
+    }
+    25% {
+      transform: translate3d(20px, -10px, 0) scale(1.1);
+      opacity: 1;
+    }
+    50% {
+      transform: translate3d(-10px, 20px, 0) scale(0.95);
+      opacity: 0.85;
+    }
+    75% {
+      transform: translate3d(-25px, -15px, 0) scale(1.08);
+      opacity: 1;
+    }
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+      opacity: 0.9;
+    }
+  }
+
+  @keyframes tech-marquee {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-tech-marquee {
+    animation: tech-marquee 28s linear infinite;
+  }
+
+  @keyframes flip {
+    to {
+      transform: rotateY(180deg);
+    }
+  }
+
+  @keyframes rotate {
+    to {
+      transform: rotate(-90deg);
+    }
+  }
+
+  .animate-flip {
+    animation: flip 0.6s ease-in-out;
+  }
+
+  .animate-rotate {
+    animation: rotate 3s linear infinite;
+  }
+
+  @variant sm {
+    .container {
+      max-width: min(var(--breakpoint-sm), 100%);
+    }
+  }
+
+  @variant md {
+    .container {
+      max-width: min(var(--breakpoint-md), 100%);
+      padding-inline: 1.5rem;
+    }
+  }
+
+  @variant lg {
+    .container {
+      max-width: min(var(--breakpoint-lg), 100%);
+      padding-inline: 2rem;
+    }
+  }
+
+  @variant xl {
+    .container {
+      max-width: min(var(--breakpoint-xl), 100%);
+    }
+  }
+
+  @variant 2xl {
+    .container {
+      max-width: min(var(--breakpoint-2xl), 100%);
+    }
+  }
+
+  /* Layout „Breit“: Container nutzt mehr Breite */
+  [data-layout='wide'] .container {
+    max-width: min(90rem, 100%);
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+}

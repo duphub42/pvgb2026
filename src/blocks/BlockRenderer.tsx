@@ -1,88 +1,54 @@
-'use client'
-
-import React, { Suspense, lazy } from 'react'
+import React from 'react'
 
 import type { SitePage } from '@/payload-types'
 
+import { CallToActionBlock } from '@/blocks/CallToAction/Component'
+import { ConsultingOverviewBlock } from '@/blocks/ConsultingOverview/Component'
+import { ContentBlock } from '@/blocks/Content/Component'
+import { FormBlock } from '@/blocks/Form/Component'
+import { HeroMarketingBlock } from '@/blocks/HeroMarketing/Component'
+import { IntroductionBlock } from '@/blocks/Introduction/Component'
+import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { ProfilBacherLegacyBlock } from '@/blocks/ProfilBacherLegacy/Component'
+import { ProfilCtaBandBlock } from '@/blocks/ProfilCtaBand/Component'
+import { ProfilKernkompetenzBlock } from '@/blocks/ProfilKernkompetenz/Component'
+import { ProfilKompetenzenBlock } from '@/blocks/ProfilKompetenzen/Component'
+import { ProfilLangZertBlock } from '@/blocks/ProfilLangZert/Component'
+import { ProfilToolsBlock } from '@/blocks/ProfilTools/Component'
+import { ProfilUeberMichBlock } from '@/blocks/ProfilUeberMich/Component'
+import { ProfilWerdegangBlock } from '@/blocks/ProfilWerdegang/Component'
+import { ProfilZahlenFaktenBlock } from '@/blocks/ProfilZahlenFakten/Component'
+import { ServicesGridBlock } from '@/blocks/ServicesGrid/Component'
+import { ServicesOverviewBlock } from '@/blocks/ServicesOverview/Component'
+import { ShadcnBlockComponent } from '@/blocks/ShadcnBlock/Component'
+import { WhyWorkWithMeBlock } from '@/blocks/WhyWorkWithMe/Component'
+
 import { CLIENT_BLOCK_TYPES } from '@/blocks/clientBlockTypes'
 
-type LazyBlockComponent = React.LazyExoticComponent<
-  React.ComponentType<Record<string, unknown> & { disableInnerContainer?: boolean }>
->
+type BlockComponent = React.ComponentType<Record<string, unknown>>
 
-/** Lazy-Load pro Block-Typ. ArchiveBlock wird in RenderBlocks direkt gerendert (Server). */
-const blockLoaders = {
-  consultingOverview: lazy(() =>
-    import('@/blocks/ConsultingOverview/Component').then((m) => ({
-      default: m.ConsultingOverviewBlock,
-    })),
-  ),
-  content: lazy(() =>
-    import('@/blocks/Content/Component').then((m) => ({ default: m.ContentBlock })),
-  ),
-  heroMarketing: lazy(() =>
-    import('@/blocks/HeroMarketing/Component').then((m) => ({ default: m.HeroMarketingBlock })),
-  ),
-  introduction: lazy(() =>
-    import('@/blocks/Introduction/Component').then((m) => ({ default: m.IntroductionBlock })),
-  ),
-  cta: lazy(() =>
-    import('@/blocks/CallToAction/Component').then((m) => ({ default: m.CallToActionBlock })),
-  ),
-  formBlock: lazy(() => import('@/blocks/Form/Component').then((m) => ({ default: m.FormBlock }))),
-  mediaBlock: lazy(() =>
-    import('@/blocks/MediaBlock/Component').then((m) => ({ default: m.MediaBlock })),
-  ),
-  profilBacher: lazy(() =>
-    import('@/blocks/ProfilBacherLegacy/Component').then((m) => ({
-      default: m.ProfilBacherLegacyBlock,
-    })),
-  ),
-  profilUeberMich: lazy(() =>
-    import('@/blocks/ProfilUeberMich/Component').then((m) => ({ default: m.ProfilUeberMichBlock })),
-  ),
-  profilKernkompetenz: lazy(() =>
-    import('@/blocks/ProfilKernkompetenz/Component').then((m) => ({
-      default: m.ProfilKernkompetenzBlock,
-    })),
-  ),
-  profilKompetenzen: lazy(() =>
-    import('@/blocks/ProfilKompetenzen/Component').then((m) => ({
-      default: m.ProfilKompetenzenBlock,
-    })),
-  ),
-  profilWerdegang: lazy(() =>
-    import('@/blocks/ProfilWerdegang/Component').then((m) => ({ default: m.ProfilWerdegangBlock })),
-  ),
-  profilZahlenFakten: lazy(() =>
-    import('@/blocks/ProfilZahlenFakten/Component').then((m) => ({
-      default: m.ProfilZahlenFaktenBlock,
-    })),
-  ),
-  profilTools: lazy(() =>
-    import('@/blocks/ProfilTools/Component').then((m) => ({ default: m.ProfilToolsBlock })),
-  ),
-  profilLangZert: lazy(() =>
-    import('@/blocks/ProfilLangZert/Component').then((m) => ({ default: m.ProfilLangZertBlock })),
-  ),
-  profilCtaBand: lazy(() =>
-    import('@/blocks/ProfilCtaBand/Component').then((m) => ({ default: m.ProfilCtaBandBlock })),
-  ),
-  servicesOverview: lazy(() =>
-    import('@/blocks/ServicesOverview/Component').then((m) => ({
-      default: m.ServicesOverviewBlock,
-    })),
-  ),
-  servicesGrid: lazy(() =>
-    import('@/blocks/ServicesGrid/Component').then((m) => ({ default: m.ServicesGridBlock })),
-  ),
-  shadcnBlock: lazy(() =>
-    import('@/blocks/ShadcnBlock/Component').then((m) => ({ default: m.ShadcnBlockComponent })),
-  ),
-  whyWorkWithMe: lazy(() =>
-    import('@/blocks/WhyWorkWithMe/Component').then((m) => ({ default: m.WhyWorkWithMeBlock })),
-  ),
-} as unknown as Record<string, LazyBlockComponent>
+const blockComponents: Record<string, BlockComponent> = {
+  consultingOverview: ConsultingOverviewBlock as unknown as BlockComponent,
+  content: ContentBlock as unknown as BlockComponent,
+  heroMarketing: HeroMarketingBlock as unknown as BlockComponent,
+  introduction: IntroductionBlock as unknown as BlockComponent,
+  cta: CallToActionBlock as unknown as BlockComponent,
+  formBlock: FormBlock as unknown as BlockComponent,
+  mediaBlock: MediaBlock as unknown as BlockComponent,
+  profilBacher: ProfilBacherLegacyBlock as unknown as BlockComponent,
+  profilUeberMich: ProfilUeberMichBlock as unknown as BlockComponent,
+  profilKernkompetenz: ProfilKernkompetenzBlock as unknown as BlockComponent,
+  profilKompetenzen: ProfilKompetenzenBlock as unknown as BlockComponent,
+  profilWerdegang: ProfilWerdegangBlock as unknown as BlockComponent,
+  profilZahlenFakten: ProfilZahlenFaktenBlock as unknown as BlockComponent,
+  profilTools: ProfilToolsBlock as unknown as BlockComponent,
+  profilLangZert: ProfilLangZertBlock as unknown as BlockComponent,
+  profilCtaBand: ProfilCtaBandBlock as unknown as BlockComponent,
+  servicesOverview: ServicesOverviewBlock as unknown as BlockComponent,
+  servicesGrid: ServicesGridBlock as unknown as BlockComponent,
+  shadcnBlock: ShadcnBlockComponent as unknown as BlockComponent,
+  whyWorkWithMe: WhyWorkWithMeBlock as unknown as BlockComponent,
+}
 
 export const SUPPORTED_BLOCK_TYPES = CLIENT_BLOCK_TYPES
 
@@ -95,21 +61,8 @@ type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   } | null
 }
 
-const BLOCK_FALLBACK = (
-  <div className="min-h-[80px] animate-pulse rounded-md bg-muted/40" aria-hidden />
-)
-
-/**
- * Lazy-Block mit Suspense. Kein „erst nach useEffect“-Gate mehr: sonst bleibt der sichtbare Inhalt
- * bis zum Client-Mount leer („Seite passiert nichts“), obwohl die Daten da sind.
- */
 export function BlockRenderer({ blockType, block }: { blockType: string; block: BlockWithStyle }) {
-  const Block = blockLoaders[blockType]
+  const Block = blockComponents[blockType]
   if (!Block) return null
-
-  return (
-    <Suspense fallback={BLOCK_FALLBACK}>
-      <Block {...block} disableInnerContainer />
-    </Suspense>
-  )
+  return <Block {...(block as unknown as Record<string, unknown>)} disableInnerContainer />
 }

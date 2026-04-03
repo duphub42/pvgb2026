@@ -220,8 +220,7 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = ({
           )}
         >
           {items.map(({ key, iconKey, title, description }) => {
-            const Icon = ICON_MAP[iconKey] ?? User
-            return <ReasonCard key={key} title={title} description={description} Icon={Icon} />
+            return <ReasonCard key={key} title={title} description={description} iconKey={iconKey} />
           })}
         </div>
       </div>
