@@ -31,7 +31,7 @@ function ExpandToggleIcon({ cutoutId }: { cutoutId: string }) {
   )
 }
 
-export function ThemeSwitcher() {
+export function ThemeSwitcher({ className }: { className?: string }) {
   const cutoutId = useId().replace(/:/g, '-') + '-expand-cutout'
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
@@ -57,6 +57,7 @@ export function ThemeSwitcher() {
           className={cn(
             'theme-toggle header-tool-toggle header-tool-toggle--theme flex shrink-0 items-center justify-center rounded-md p-0 border-0 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
             isDark && 'theme-toggle--toggled',
+            className,
           )}
           onClick={toggle}
         >

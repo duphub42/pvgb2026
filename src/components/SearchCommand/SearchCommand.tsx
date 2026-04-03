@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/command'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import { Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
@@ -31,13 +32,10 @@ export function SearchCommand() {
     return () => document.removeEventListener('keydown', down)
   }, [])
 
-  const run = React.useCallback(
-    (fn: () => void) => {
-      setOpen(false)
-      fn()
-    },
-    [],
-  )
+  const run = React.useCallback((fn: () => void) => {
+    setOpen(false)
+    fn()
+  }, [])
 
   return (
     <>
@@ -47,13 +45,11 @@ export function SearchCommand() {
             <Button
               variant="ghost"
               size="icon"
-              className="header-tool-toggle header-tool-toggle--theme shrink-0"
+              className="header-tool-toggle header-icon-btn shrink-0 text-current"
               onClick={() => setOpen(true)}
               aria-label="Suchen"
             >
-              <svg className="size-5" aria-hidden="true">
-                <use href="/icons-sprite.svg#hf-search" />
-              </svg>
+              <Search className="h-5 w-5" aria-hidden />
             </Button>
           </span>
         </TooltipTrigger>
@@ -66,10 +62,7 @@ export function SearchCommand() {
         <CommandList>
           <CommandEmpty>{emptyText}</CommandEmpty>
           <CommandGroup heading="Seiten">
-            <CommandItem
-              onSelect={() => run(() => router.push('/'))}
-              className="cursor-pointer"
-            >
+            <CommandItem onSelect={() => run(() => router.push('/'))} className="cursor-pointer">
               Start
             </CommandItem>
             <CommandItem

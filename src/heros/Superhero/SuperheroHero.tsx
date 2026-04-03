@@ -272,19 +272,19 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
     let rafId: number | null = null
     const collapseDistance = 320
-    const maxTranslate = 240
-    const maxBlur = 16
+    const maxTranslate = 360
+    const maxBlur = 24
 
     const clamp = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max)
 
     const update = () => {
       const rect = section.getBoundingClientRect()
       const progress = clamp(-rect.top / collapseDistance, 0, 1)
-      const eased = Math.pow(progress, 1.5)
+      const eased = Math.pow(progress, 1.75)
 
-      const translateY = eased * maxTranslate + progress * 40
+      const translateY = eased * maxTranslate + progress * 60
       const blur = eased * maxBlur
-      const opacity = clamp(1 - eased * 1.2, 0, 1)
+      const opacity = clamp(1 - eased * 1.3, 0, 1)
 
       target.style.setProperty('--hero-desktop-portrait-translate', `${translateY}px`)
       target.style.setProperty('--hero-desktop-portrait-blur', `${blur}px`)
@@ -520,7 +520,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
           <div
             ref={portraitRef}
-            className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:self-end hero-mobile-sticky-portrait hero-desktop-sticky-portrait"
+            className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:self-end hero-mobile-sticky-portrait hero-desktop-parallax-portrait"
           >
             <div className="relative overflow-visible max-md:pb-6 md:flex md:items-end md:justify-center md:pb-8 md:pt-4">
               {hasVisual && <div className="hero-portrait-gradient-blob" aria-hidden />}

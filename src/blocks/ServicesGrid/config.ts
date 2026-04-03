@@ -30,6 +30,83 @@ export const ServicesGrid: Block = {
       },
     },
     {
+      name: 'tagline',
+      type: 'textarea',
+      label: 'Tagline',
+      admin: {
+        description: 'Optional: zusätzliche Einleitungssätze in einer Subline.',
+      },
+    },
+    {
+      name: 'introIconList',
+      type: 'array',
+      label: 'Icon-Liste der Einleitung',
+      minRows: 0,
+      maxRows: 12,
+      admin: {
+        description: 'Optional: Icon-Liste in der Einleitungs-Spalte (analog zum Introduction-Block).',
+      },
+      fields: [
+        {
+          name: 'icon',
+          type: 'text',
+          label: 'Icon (Lucide Iconname)',
+          required: true,
+          defaultValue: 'zap',
+        },
+        {
+          name: 'text',
+          type: 'textarea',
+          label: 'Text',
+          required: true,
+        },
+      ],
+    },
+    {
+      name: 'introImage',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Einleitungs-Bild',
+      admin: {
+        description: 'Optional: Bild in der Einleitung (links oder rechts).',
+      },
+    },
+    {
+      name: 'introImagePosition',
+      type: 'select',
+      label: 'Position des Einleitungs-Bildes',
+      defaultValue: 'left',
+      options: [
+        { label: 'Links', value: 'left' },
+        { label: 'Rechts', value: 'right' },
+      ],
+      admin: {
+        description: 'Wähle Position für das Einleitungsbild.',
+      },
+    },
+    {
+      name: 'radialBackground',
+      type: 'checkbox',
+      label: 'Radialer Hintergrund aktivieren',
+      admin: {
+        description: 'Optional: Ein dezenter radialer Glow/Hintergrund für diese Section.',
+      },
+    },
+    {
+      name: 'radialBackgroundVariant',
+      type: 'select',
+      label: 'Radialer Hintergrundstil',
+      defaultValue: 'default',
+      options: [
+        { label: 'Standard', value: 'default' },
+        { label: 'Kalt / blau', value: 'blue' },
+        { label: 'Warm / orange', value: 'orange' },
+      ],
+      admin: {
+        condition: (_, siblingData) => Boolean(siblingData?.radialBackground),
+      },
+    },
+    {
       name: 'categories',
       type: 'array',
       label: 'Leistungskategorien',
@@ -80,12 +157,19 @@ export const ServicesGrid: Block = {
             {
               name: 'link',
               type: 'group',
+              admin: {
+                description:
+                  'Optional: Füge einen Seiten-Slug hinzu, um die Karte anklickbar zu machen.',
+              },
               fields: [
                 {
                   name: 'slug',
                   type: 'text',
                   label: 'Seiten-Slug',
-                  required: true,
+                  required: false,
+                  admin: {
+                    description: 'z. B. webdesign. Leer bleibt die Karte nicht verlinkt.',
+                  },
                 },
               ],
             },

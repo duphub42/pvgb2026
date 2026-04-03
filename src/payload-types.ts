@@ -950,6 +950,33 @@ export interface ServicesGridBlock {
    * Optionaler Text unter der Überschrift.
    */
   intro?: string | null;
+  /**
+   * Optional: zusätzliche Einleitungssätze in einer Subline.
+   */
+  tagline?: string | null;
+  /**
+   * Optional: Icon-Liste in der Einleitungs-Spalte (analog zum Introduction-Block).
+   */
+  introIconList?:
+    | {
+        icon: string;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  /**
+   * Optional: Bild in der Einleitung (links oder rechts).
+   */
+  introImage?: (number | null) | Media;
+  /**
+   * Wähle Position für das Einleitungsbild.
+   */
+  introImagePosition?: ('left' | 'right') | null;
+  /**
+   * Optional: Ein dezenter radialer Glow/Hintergrund für diese Section.
+   */
+  radialBackground?: boolean | null;
+  radialBackgroundVariant?: ('default' | 'blue' | 'orange') | null;
   categories?:
     | {
         categoryLabel: string;
@@ -961,8 +988,14 @@ export interface ServicesGridBlock {
               };
               title: string;
               description: string;
-              link: {
-                slug: string;
+              /**
+               * Optional: Füge einen Seiten-Slug hinzu, um die Karte anklickbar zu machen.
+               */
+              link?: {
+                /**
+                 * z. B. webdesign. Leer bleibt die Karte nicht verlinkt.
+                 */
+                slug?: string | null;
               };
               featured?: boolean | null;
               id?: string | null;
@@ -2549,6 +2582,18 @@ export interface ServicesGridBlockSelect<T extends boolean = true> {
       };
   heading?: T;
   intro?: T;
+  tagline?: T;
+  introIconList?:
+    | T
+    | {
+        icon?: T;
+        text?: T;
+        id?: T;
+      };
+  introImage?: T;
+  introImagePosition?: T;
+  radialBackground?: T;
+  radialBackgroundVariant?: T;
   categories?:
     | T
     | {

@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/sheet'
 import { AnimatedThemeToggle } from '@/components/ui/animated-theme-toggle'
 import { SearchCommand } from '@/components/SearchCommand/SearchCommand'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { getClientSideURL } from '@/utilities/getURL'
 import { cn } from '@/utilities/ui'
 import { MessageCircle, Phone, PhoneCall } from 'lucide-react'
@@ -37,7 +38,16 @@ type FormOption = {
 }
 
 type FormField = {
-  blockType: 'text' | 'email' | 'number' | 'textarea' | 'select' | 'country' | 'state' | 'checkbox' | 'message'
+  blockType:
+    | 'text'
+    | 'email'
+    | 'number'
+    | 'textarea'
+    | 'select'
+    | 'country'
+    | 'state'
+    | 'checkbox'
+    | 'message'
   name: string
   label?: string | null
   required?: boolean | null
@@ -174,7 +184,10 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
             options: Array.isArray(field.options)
               ? field.options
                   .filter((opt) => typeof opt?.value === 'string')
-                  .map((opt) => ({ label: opt?.label ?? String(opt?.value), value: String(opt?.value) }))
+                  .map((opt) => ({
+                    label: opt?.label ?? String(opt?.value),
+                    value: String(opt?.value),
+                  }))
               : null,
             message: field.message ?? null,
           }))
@@ -186,7 +199,8 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
             for (const field of supportedFields) {
               if (field.blockType === 'message') continue
               if (field.blockType === 'checkbox') {
-                next[field.name] = (prev[field.name] as boolean | undefined) ?? Boolean(field.defaultValue)
+                next[field.name] =
+                  (prev[field.name] as boolean | undefined) ?? Boolean(field.defaultValue)
               } else {
                 next[field.name] =
                   prev[field.name] ??
@@ -263,20 +277,25 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
 
   return (
     <Sheet open={open} onOpenChange={setOpen}>
-      <SheetTrigger asChild>
-        <span className="inline-flex shrink-0">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="header-tool-toggle header-tool-toggle--theme shrink-0"
-            aria-label="Kontakt öffnen"
-          >
-            <svg className="size-5" aria-hidden="true">
-              <use href="/icons-sprite.svg#hf-phone" />
-            </svg>
-          </Button>
-        </span>
-      </SheetTrigger>
+      <Tooltip>
+        <TooltipTrigger asChild>
+          <SheetTrigger asChild>
+            <span className="inline-flex shrink-0">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="header-tool-toggle header-icon-btn text-current"
+                aria-label="Kontakt öffnen"
+              >
+                <Phone className="h-5 w-5" aria-hidden />
+              </Button>
+            </span>
+          </SheetTrigger>
+        </TooltipTrigger>
+        <TooltipContent side="bottom" sideOffset={6}>
+          Kontakt öffnen
+        </TooltipContent>
+      </Tooltip>
       <SheetContent
         side="right"
         overlayClassName="bg-background/20 backdrop-blur-md"
@@ -313,13 +332,17 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                     {callbackConfig.title}
                   </h4>
                   <p className="text-base text-muted-foreground">
-                    Hinterlassen Sie Ihre Telefonnummer und ich melde mich zeitnah persönlich bei Ihnen.
+                    Hinterlassen Sie Ihre Telefonnummer und ich melde mich zeitnah persönlich bei
+                    Ihnen.
                   </p>
                 </div>
                 <form onSubmit={submitCallback} className="flex flex-col gap-2">
                   {callbackFormFields.map((field, idx) => {
                     if (field.blockType === 'message') {
-                      const text = field.message?.root?.children?.map((child) => child?.text ?? '').join(' ').trim()
+                      const text = field.message?.root?.children
+                        ?.map((child) => child?.text ?? '')
+                        .join(' ')
+                        .trim()
                       if (!text) return null
                       return (
                         <p key={`${field.name}-${idx}`} className="text-base text-muted-foreground">
@@ -330,7 +353,8 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
 
                     if (field.blockType === 'checkbox') {
                       const checkboxField = field as FormCheckboxField
-                      const label = checkboxField.label || 'Ich stimme den Datenschutzbestimmungen zu.'
+                      const label =
+                        checkboxField.label || 'Ich stimme den Datenschutzbestimmungen zu.'
                       const parts = label.split(PRIVACY_TOKEN_REGEX)
                       const hasPrivacyToken = parts.length > 1
                       return (
@@ -355,7 +379,10 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                             {hasPrivacyToken ? (
                               <>
                                 {parts[0]}
-                                <Link href="/datenschutz" className="underline underline-offset-2 hover:no-underline">
+                                <Link
+                                  href="/datenschutz"
+                                  className="underline underline-offset-2 hover:no-underline"
+                                >
                                   Datenschutzbestimmungen
                                 </Link>
                                 {parts[1]}
@@ -387,7 +414,12 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                       )
                     }
 
-                    if ((field.blockType === 'select' || field.blockType === 'country' || field.blockType === 'state') && field.options?.length) {
+                    if (
+                      (field.blockType === 'select' ||
+                        field.blockType === 'country' ||
+                        field.blockType === 'state') &&
+                      field.options?.length
+                    ) {
                       return (
                         <select
                           key={field.name}
@@ -402,7 +434,9 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                           required={Boolean(field.required)}
                           className="h-10 w-full rounded-md border border-input bg-background px-3 text-base"
                         >
-                          <option value="">{field.placeholder ?? field.label ?? 'Bitte wählen'}</option>
+                          <option value="">
+                            {field.placeholder ?? field.label ?? 'Bitte wählen'}
+                          </option>
                           {field.options.map((opt) => (
                             <option key={opt.value} value={opt.value}>
                               {opt.label}
@@ -415,13 +449,22 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                     return (
                       <input
                         key={field.name}
-                        type={field.blockType === 'email' ? 'email' : field.blockType === 'number' ? 'number' : 'text'}
+                        type={
+                          field.blockType === 'email'
+                            ? 'email'
+                            : field.blockType === 'number'
+                              ? 'number'
+                              : 'text'
+                        }
                         name={field.name}
                         value={String(formValues[field.name] ?? '')}
                         onChange={(e) =>
                           setFormValues((prev) => ({
                             ...prev,
-                            [field.name]: field.blockType === 'number' ? Number(e.target.value) : e.target.value,
+                            [field.name]:
+                              field.blockType === 'number'
+                                ? Number(e.target.value)
+                                : e.target.value,
                           }))
                         }
                         placeholder={field.placeholder ?? field.label ?? ''}
@@ -454,7 +497,10 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
               </p>
             )}
 
-            <div className="hidden w-px self-stretch bg-border [@media(max-height:48rem)]:block" aria-hidden />
+            <div
+              className="hidden w-px self-stretch bg-border [@media(max-height:48rem)]:block"
+              aria-hidden
+            />
             <hr className="border-border [@media(max-height:48rem)]:hidden" />
 
             {resolvedWhatsApp.url ? (
@@ -465,7 +511,8 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                     Direkt per WhatsApp
                   </h4>
                   <p className="text-base text-muted-foreground">
-                    Für kurze Rückfragen können Sie mich schnell und unkompliziert per WhatsApp erreichen.
+                    Für kurze Rückfragen können Sie mich schnell und unkompliziert per WhatsApp
+                    erreichen.
                   </p>
                 </div>
                 <a

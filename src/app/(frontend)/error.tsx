@@ -35,7 +35,7 @@ export default function Error({
   const isNetwork = isNetworkError(error)
 
   return (
-    <article className="container hero-safe-top py-16">
+    <article className="container hero-safe-top py-28">
       <div className="prose max-w-none">
         <h1>Seite konnte nicht geladen werden</h1>
         {isNetwork ? (

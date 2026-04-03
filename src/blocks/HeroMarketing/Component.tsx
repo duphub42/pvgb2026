@@ -61,11 +61,7 @@ export const HeroMarketingBlock: React.FC<HeroMarketingBlockProps> = (props) => 
       {/* Einfacher Header */}
       <header className="border-b border-border/60 bg-background/80 backdrop-blur">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-3">
-          <Link
-            href="/"
-            aria-label="home"
-            className="flex items-center gap-2"
-          >
+          <Link href="/" aria-label="home" className="flex items-center gap-2">
             <Logo />
           </Link>
           <div className="hidden items-center gap-6 text-sm text-muted-foreground md:flex">
@@ -83,12 +79,7 @@ export const HeroMarketingBlock: React.FC<HeroMarketingBlockProps> = (props) => 
             </Link>
           </div>
           <div className="flex items-center gap-3">
-            <Button
-              asChild
-              variant="outline"
-              size="sm"
-              className="hidden md:inline-flex"
-            >
+            <Button asChild variant="outline" size="sm" className="hidden md:inline-flex">
               <Link href="#login">Login</Link>
             </Button>
             <Button asChild size="sm">
@@ -105,7 +96,9 @@ export const HeroMarketingBlock: React.FC<HeroMarketingBlockProps> = (props) => 
       />
 
       {/* Hero-Inhalt */}
-      <main className={cn('mx-auto max-w-7xl px-6 pt-20 md:pt-28', disableInnerContainer && 'px-6')}>
+      <main
+        className={cn('mx-auto max-w-7xl px-6 pt-20 md:pt-28', disableInnerContainer && 'px-6')}
+      >
         <div className="text-center lg:text-left">
           <div className="mx-auto max-w-xl lg:mr-auto">
             <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted px-3 py-1 text-xs font-medium shadow-sm">
@@ -124,12 +117,7 @@ export const HeroMarketingBlock: React.FC<HeroMarketingBlockProps> = (props) => 
               <Button asChild size="lg" className="rounded-xl px-5 text-base">
                 <Link href={resolvedPrimaryUrl}>{resolvedPrimaryLabel}</Link>
               </Button>
-              <Button
-                asChild
-                size="lg"
-                variant="ghost"
-                className="rounded-xl px-5 text-base"
-              >
+              <Button asChild size="lg" variant="ghost" className="rounded-xl px-5 text-base">
                 <Link href={resolvedSecondaryUrl}>{resolvedSecondaryLabel}</Link>
               </Button>
             </div>
@@ -171,11 +159,7 @@ export const HeroMarketingBlock: React.FC<HeroMarketingBlockProps> = (props) => 
                 'https://html.tailus.io/blocks/customers/openai.svg',
               ].map((src, idx) => (
                 <div key={idx} className="flex">
-                  <img
-                    className="mx-auto h-5 w-auto dark:invert"
-                    src={src}
-                    alt="Customer logo"
-                  />
+                  <img className="mx-auto h-5 w-auto dark:invert" src={src} alt="Customer logo" />
                 </div>
               ))}
             </div>
@@ -185,4 +169,3 @@ export const HeroMarketingBlock: React.FC<HeroMarketingBlockProps> = (props) => 
     </section>
   )
 }
-

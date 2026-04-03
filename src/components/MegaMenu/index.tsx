@@ -17,14 +17,14 @@ import { getClientSideURL } from '@/utilities/getURL'
 import { isNavLinkActive } from '@/utilities/navLinkActive'
 import { ChevronRight, Menu, MessageCircle, Phone, Mail } from 'lucide-react'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 import { HeaderActions } from '@/components/HeaderActions/HeaderActions'
 import { PathsBackground } from '@/components/PathsBackground/PathsBackground'
 import { ThreadsBackground } from '@/components/ThreadsBackground/ThreadsBackground'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
-import { AnimatedThemeToggle } from '@/components/ui/animated-theme-toggle'
+import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher'
 import { ResilientImage } from '@/components/ui/resilient-image'
 import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
 
@@ -158,12 +158,12 @@ const ListItem = React.forwardRef<
       <Link
         ref={ref}
         className={cn(
-          'group flex select-none items-start gap-3 rounded-xl p-4 leading-none no-underline outline-none transition-all duration-300 hover:bg-accent/20 border border-transparent hover:border-accent/10',
+          'group flex select-none items-start gap-3 rounded-xl p-4 leading-none no-underline outline-none transition-colors duration-300',
           className,
         )}
         {...props}
       >
-        <div className="megamenu-item-icon flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg p-2.5 transition-all duration-300 group-hover:bg-primary/10 group-hover:text-primary [&_img]:h-full [&_img]:w-full [&_img]:object-contain">
+        <div className="megamenu-item-icon flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg p-2.5 transition-all duration-300 group-hover:text-primary [&_img]:h-full [&_img]:w-full [&_img]:object-contain">
           {icon}
         </div>
         <div className="min-w-0 flex-1 space-y-1">
@@ -359,7 +359,7 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
             className="inline-flex items-center gap-2 rounded-lg bg-[#25D366] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#20BD5A] transition-colors"
             aria-label={cta.whatsapp.label}
           >
-            <MessageCircle className="h-5 w-5" aria-hidden />
+            <MessageCircle className="h-5 w-5 text-white" aria-hidden />
             {cta.whatsapp.label}
           </a>
         </div>
@@ -367,7 +367,7 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
       {cta.callback && (
         <div className="flex flex-col gap-2">
           <span className="text-sm font-semibold text-foreground flex items-center gap-2">
-            <Phone className="h-4 w-4" aria-hidden />
+            <Phone className="h-4 w-4 text-foreground" aria-hidden />
             {cta.callback.title}
           </span>
           <form onSubmit={submitCallback} className="flex flex-col sm:flex-row gap-2">
@@ -397,7 +397,7 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
       {cta.newsletter && (
         <div className="flex flex-col gap-2">
           <span className="text-sm font-semibold text-foreground flex items-center gap-2">
-            <Mail className="h-4 w-4" aria-hidden />
+            <Mail className="h-4 w-4 text-foreground" aria-hidden />
             {cta.newsletter.title}
           </span>
           <form onSubmit={submitNewsletter} className="flex flex-col sm:flex-row gap-2">
@@ -445,6 +445,7 @@ export function MegaMenu({
 }: MegaMenuProps) {
   const cardStyle = highlightCardStyle ?? defaultCardStyle
   const pathname = usePathname()
+  const router = useRouter()
   const [isVisible, setIsVisible] = useState(true)
   const [isPastFold, setIsPastFold] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -1087,17 +1088,20 @@ export function MegaMenu({
                           const triggerActive = isNavLinkActive(pathname ?? '', item.url)
                           return (
                             <NavigationMenuItem key={item.id} value={value}>
-                              <NavigationMenuTrigger
-                                className="megamenu-top-item"
-                                data-active={triggerActive ? 'true' : undefined}
-                                onPointerEnter={(e) => {
-                                  const rect = e.currentTarget.getBoundingClientRect()
-                                  setMouseEntrySide(
-                                    e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
-                                  )
-                                }}
-                              >
-                                {item.label}
+                              <NavigationMenuTrigger>
+                                <Link
+                                  href={item.url}
+                                  className={cn(navigationMenuTriggerStyle(), 'megamenu-top-item')}
+                                  data-active={triggerActive ? 'true' : undefined}
+                                  onPointerEnter={(e) => {
+                                    const rect = e.currentTarget.getBoundingClientRect()
+                                    setMouseEntrySide(
+                                      e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
+                                    )
+                                  }}
+                                >
+                                  {item.label}
+                                </Link>
                               </NavigationMenuTrigger>
                               <NavigationMenuContent>
                                 <div
@@ -1294,7 +1298,7 @@ export function MegaMenu({
                     </SheetTrigger>
                     <SheetContent side="right" className="megamenu-sheet w-[300px] sm:w-[400px]">
                       <SheetHeader className="flex flex-row items-center justify-between gap-3">
-                        <AnimatedThemeToggle className="order-first shrink-0" />
+                        <ThemeSwitcher className="order-first shrink-0" />
                         <SheetTitle className="text-left flex-1">Menu</SheetTitle>
                       </SheetHeader>
                       <nav className="flex flex-col gap-4 mt-8">

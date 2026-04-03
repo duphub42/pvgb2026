@@ -7,9 +7,7 @@ import React from 'react'
 import type { Page, Post } from '@/payload-types'
 
 /** Fallback wenn next/link im Client-Bundle undefined ist (verhindert "Cannot read properties of undefined (reading 'call')"). */
-function LinkFallback(
-  props: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href?: string },
-) {
+function LinkFallback(props: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href?: string }) {
   return <a {...props} href={props.href ?? '#'} />
 }
 const Link = NextLink ?? LinkFallback
@@ -60,20 +58,30 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
   /* Ensure we don't break any styles set by richText */
+  const linkContent =
+    label && children ? (
+      <span>
+        {label}
+        {children}
+      </span>
+    ) : (
+      (children ?? label)
+    )
+
+  if (!linkContent) return null
+
   if (appearance === 'inline') {
     return (
       <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {label && label}
-        {children && children}
+        {linkContent}
       </Link>
     )
   }
 
   return (
     <Button asChild className={className} size={size} variant={appearance}>
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
-        {label && label}
-        {children && children}
+      <Link href={href || url || ''} {...newTabProps}>
+        {linkContent}
       </Link>
     </Button>
   )

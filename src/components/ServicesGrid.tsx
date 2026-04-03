@@ -7,6 +7,11 @@ import { ChevronRight } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 
+const normalizeServiceSlug = (slug?: string): string => {
+  const raw = slug?.trim() ?? ''
+  return raw.replace(/^\/+|\/+$/g, '')
+}
+
 export interface ServiceItem {
   icon: { url: string; alt: string }
   title: string
@@ -49,33 +54,41 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ data }) => {
                   service.featured ? 'bg-secondary lg:col-span-1' : '',
                 )}
               >
-                <Link href={`/${service.link.slug}`} className="flex items-start gap-5">
-                  <div className="relative w-12 h-12 shrink-0 grayscale group-hover:grayscale-0 transition-all duration-300">
-                    {service.icon?.url ? (
-                      <Image
-                        src={service.icon.url}
-                        alt={service.icon.alt || service.title}
-                        fill
-                        className="object-contain"
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center w-full h-full bg-muted text-muted-foreground text-xs rounded">
-                        {service.icon?.alt ?? 'Icon'}
+                {(() => {
+                  const slug = normalizeServiceSlug(service.link?.slug)
+                  const href = slug ? `/${slug}` : undefined
+                  const content = (
+                    <div className="flex items-start gap-5">
+                      <div className="relative w-12 h-12 shrink-0 grayscale group-hover:grayscale-0 transition-all duration-300">
+                        {service.icon?.url ? (
+                          <Image
+                            src={service.icon.url}
+                            alt={service.icon?.alt || service.title}
+                            fill
+                            className="object-contain"
+                          />
+                        ) : (
+                          <div className="flex items-center justify-center w-full h-full bg-muted text-muted-foreground text-xs rounded">
+                            {service.icon?.alt ?? 'Icon'}
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                  <div className="space-y-3">
-                    <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
-                      {service.title}
-                    </h3>
-                    <p className="text-muted-foreground leading-relaxed text-sm line-clamp-5">
-                      {service.description}
-                    </p>
-                    <div className="flex items-center text-xs font-medium uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-primary">
-                      Mehr erfahren <ChevronRight className="ml-1 w-3 h-3" />
+                      <div className="space-y-3">
+                        <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
+                          {service.title}
+                        </h3>
+                        <p className="text-muted-foreground leading-relaxed text-sm line-clamp-5">
+                          {service.description}
+                        </p>
+                        <div className="flex items-center text-xs font-medium uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-primary">
+                          Mehr erfahren <ChevronRight className="ml-1 w-3 h-3" />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </Link>
+                  )
+
+                  return href ? <Link href={href}>{content}</Link> : <div>{content}</div>
+                })()}
               </motion.div>
             ))}
           </div>
