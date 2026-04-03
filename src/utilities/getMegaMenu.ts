@@ -15,8 +15,14 @@ export async function getMegaMenuItems() {
           depth: 4,
           sort: 'order',
         })
-        const docs = result.docs as Array<Record<string, unknown>>
-        const stats = docs.reduce(
+        const docs = result.docs as unknown as Array<Record<string, unknown>>
+        const stats = docs.reduce<{
+          totalMediaRefs: number
+          numericRefs: number
+          objectWithUrl: number
+          objectWithFilledUrl: number
+          samples: string[]
+        }>(
           (acc, doc) => {
             const subItems = Array.isArray(doc?.subItems) ? (doc.subItems as Array<Record<string, unknown>>) : []
             const columns = Array.isArray(doc?.columns) ? (doc.columns as Array<Record<string, unknown>>) : []

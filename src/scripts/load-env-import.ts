@@ -9,5 +9,5 @@
 import './load-env'
 
 if (process.env.DATABASE_URL || process.env.POSTGRES_URL) {
-  process.env.NODE_ENV = 'production'
+  ;(process.env as Record<string, string | undefined>).NODE_ENV = 'production'
 }

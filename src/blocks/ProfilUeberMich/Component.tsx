@@ -13,6 +13,7 @@ import { WERT_ICON_MAP } from '@/blocks/ProfilBlocks/shared'
 import { cn } from '@/utilities/ui'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
+type WertItem = NonNullable<NonNullable<BlockData['werte']>[number]>
 
 export const ProfilUeberMichBlock: React.FC<Props> = ({
   disableInnerContainer: _d,
@@ -27,7 +28,7 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
     .map((p) => p.trim())
     .filter(Boolean)
 
-  const fromCms = (werte ?? []).filter((w): w is NonNullable<(typeof werte)[number]> =>
+  const fromCms = (werte ?? []).filter((w): w is WertItem =>
     Boolean(w && String(w.wert ?? '').trim() && String(w.beschreibung ?? '').trim()),
   )
   const rows =
@@ -59,7 +60,11 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
             const Icon = WERT_ICON_MAP[iconKey] ?? Target
             return (
               <div
-                key={typeof w.id === 'string' ? w.id : `w-${idx}`}
+                key={
+                  typeof (w as { id?: unknown }).id === 'string'
+                    ? (w as { id?: string }).id
+                    : `w-${idx}`
+                }
                 className="relative rounded-2xl border border-border/80 bg-muted/30 p-6 transition-colors hover:bg-muted/50"
               >
                 <div className="mb-4 flex items-start gap-3">

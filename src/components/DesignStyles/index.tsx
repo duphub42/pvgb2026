@@ -28,7 +28,7 @@ const DESIGN_FALLBACK_CSS = `/* Design-Fallback (keine Farben im Admin gesetzt) 
   --border: #262626;
 }`
 
-export const DesignStyles: React.FC<{ design: DesignDoc }> = ({ design }) => {
+export const DesignStyles: React.FC<{ design: DesignDoc | null }> = ({ design }) => {
   const css = designToCss(design)
   const finalCss = css ? css : DESIGN_FALLBACK_CSS
   return <style dangerouslySetInnerHTML={{ __html: finalCss }} data-design-inline />

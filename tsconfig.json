@@ -49,6 +49,7 @@
   "exclude": [
     "node_modules",
     "backup",
-    "backups"
+    "backups",
+    "drizzle.config.ts"
   ]
 }

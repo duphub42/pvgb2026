@@ -1,5 +1,5 @@
 import type React from 'react'
-import type { Page, Post } from '@/payload-types'
+import type { SitePage, BlogPost } from '@/payload-types'
 
 import configPromise from '@payload-config'
 import { getPayload } from 'payload'
@@ -35,17 +35,17 @@ export const PayloadRedirects: React.FC<Props> = async ({ disableNotFound, url }
 
       let redirectUrl: string
       if (typeof ref.value === 'object' && ref.value && 'slug' in ref.value) {
-        redirectUrl = `${pathPrefix}/${(ref.value as Page | Post).slug ?? ''}`
+        redirectUrl = `${pathPrefix}/${(ref.value as SitePage | BlogPost).slug ?? ''}`
       } else if (typeof ref.value === 'number') {
         const payload = await getPayload({ config: configPromise })
         const document = (await payload.findByID({
           collection: relationTo,
           id: ref.value,
           depth: 0,
-        })) as Page | Post
+        })) as SitePage | BlogPost
         redirectUrl = `${pathPrefix}/${document?.slug ?? ''}`
       } else if (typeof ref.value === 'string') {
-        const document = (await getCachedDocument(relationTo, ref.value)()) as Page | Post
+        const document = (await getCachedDocument(relationTo, ref.value)()) as SitePage | BlogPost
         redirectUrl = `${pathPrefix}/${document?.slug ?? ''}`
       } else {
         redirectUrl = `${pathPrefix}/`

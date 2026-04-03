@@ -20,7 +20,6 @@ const consultingBlockStyleFields: Block['fields'] = [
   },
   {
     name: 'blockOverlay',
-    dbName: 'ov',
     type: 'group',
     label: 'Overlay-Filter',
     admin: {
@@ -29,7 +28,6 @@ const consultingBlockStyleFields: Block['fields'] = [
     fields: [
       {
         name: 'enabled',
-        dbName: 'en',
         type: 'checkbox',
         label: 'Overlay aktiv',
         defaultValue: false,
@@ -50,7 +48,6 @@ const consultingBlockStyleFields: Block['fields'] = [
       },
       {
         name: 'opacity',
-        dbName: 'op',
         type: 'number',
         label: 'Deckkraft (%)',
         min: 0,

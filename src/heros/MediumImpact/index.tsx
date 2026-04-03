@@ -7,7 +7,30 @@ import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
 import { HeroLogoMarquee } from '@/heros/HeroLogoMarquee'
 
-export const MediumImpactHero: React.FC<SitePage['hero']> = ({
+type MediumImpactHeroData = {
+  links?: SitePage['hero'] extends infer H
+    ? H extends { links?: infer L }
+      ? L
+      : never
+    : never
+  media?: SitePage['hero'] extends infer H ? (H extends { media?: infer M } ? M : never) : never
+  richText?: SitePage['hero'] extends infer H
+    ? H extends { richText?: infer R }
+      ? R
+      : never
+    : never
+  subheadline?: string | null
+  headline?: string | null
+  description?: string | null
+  marqueeHeadline?: string | null
+  marqueeLogos?: SitePage['hero'] extends infer H
+    ? H extends { marqueeLogos?: infer M }
+      ? M
+      : never
+    : never
+}
+
+export const MediumImpactHero: React.FC<MediumImpactHeroData> = ({
   links,
   media,
   richText,

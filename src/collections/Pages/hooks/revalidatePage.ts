@@ -2,9 +2,9 @@ import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'paylo
 
 import { revalidatePath, revalidateTag } from 'next/cache'
 
-import type { Page } from '../../../payload-types'
+import type { SitePage } from '../../../payload-types'
 
-export const revalidatePage: CollectionAfterChangeHook<Page> = ({
+export const revalidatePage: CollectionAfterChangeHook<SitePage> = ({
   doc,
   previousDoc,
   req: { payload, context },
@@ -36,7 +36,7 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
   return doc
 }
 
-export const revalidateDelete: CollectionAfterDeleteHook<Page> = ({ doc, req: { context } }) => {
+export const revalidateDelete: CollectionAfterDeleteHook<SitePage> = ({ doc, req: { context } }) => {
   if (!context?.disableRevalidate && !context?.skipRevalidate) {
     const path = doc?.slug === 'home' ? '/' : `/${doc?.slug}`
     revalidatePath(path)

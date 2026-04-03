@@ -1,4 +1,4 @@
-import type { Block } from 'payload'
+import type { Block, Field } from 'payload'
 
 import { blockStyleFields } from '@/blocks/blockStyleFields'
 import { linkGroup } from '@/fields/linkGroup'
@@ -33,7 +33,7 @@ export type ShadcnBlockVariant = (typeof SHADCN_BLOCK_VARIANTS)[number]['value']
  * Gemeinsame Inhaltsfelder für Shadcn-Blöcke. Viele Varianten nutzen Überschrift, Bilder oder Links.
  * Komponenten lesen content.* und verwenden die Werte, sofern gesetzt; sonst Fallback auf Hardcoded.
  */
-const shadcnBlockContentFields = [
+const shadcnBlockContentFields: Field[] = [
   {
     name: 'variant',
     type: 'select',
@@ -46,7 +46,6 @@ const shadcnBlockContentFields = [
   {
     name: 'content',
     type: 'group',
-    dbName: 'ct',
     label: 'Inhalt (optional überschreiben)',
     admin: {
       description:

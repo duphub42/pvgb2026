@@ -1,6 +1,6 @@
 /** ExactDN/CDN: ausgeschaltet – Bilder werden lokal (Same-Origin) ausgeliefert. Zum Aktivieren NEXT_PUBLIC_EXACTDN_DOMAIN setzen und den Block unten wieder einkommentieren. */
-const EXACTDN_DOMAIN: string | undefined = undefined
-// const EXACTDN_DOMAIN = typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_EXACTDN_DOMAIN : undefined
+const EXACTDN_DOMAIN =
+  typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_EXACTDN_DOMAIN : undefined
 
 /** Site origin for same-origin check (no trailing slash). Used only when ExactDN is enabled. */
 function getSiteOrigin(): string | null {

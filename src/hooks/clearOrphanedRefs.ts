@@ -10,6 +10,11 @@ function idKey(id: number | string): string {
   return String(id)
 }
 
+function asRecord(value: unknown): Record<string, unknown> | null {
+  if (value == null || typeof value !== 'object' || Array.isArray(value)) return null
+  return value as Record<string, unknown>
+}
+
 /**
  * Sammelt alle (collection, id)-Referenzen aus dem Dokument (ein Durchlauf, keine DB).
  */
@@ -35,7 +40,7 @@ function collectRefs(
       RELATION_COLLECTIONS.includes(obj.relationTo as RelationCollection)
     ) {
       const id = obj.value
-      if (id != null && id !== '') {
+      if (id != null && id !== '' && (typeof id === 'number' || typeof id === 'string')) {
         const coll = obj.relationTo as RelationCollection
         if (!out.has(coll)) out.set(coll, new Set())
         out.get(coll)!.add(idKey(id))
@@ -120,7 +125,7 @@ function clearOrphanedRefsInValueWithCache(
   if (Array.isArray(value)) {
     let changed = false
     for (let i = 0; i < value.length; i++) {
-      if (clearOrphanedRefsInValueWithCache(value[i], cache, { parent: value as Record<string, unknown>, parentKey: String(i) })) changed = true
+      if (clearOrphanedRefsInValueWithCache(value[i], cache)) changed = true
     }
     return changed
   }
@@ -135,7 +140,7 @@ function clearOrphanedRefsInValueWithCache(
       RELATION_COLLECTIONS.includes(obj.relationTo as RelationCollection)
     ) {
       const id = obj.value
-      if (id != null && id !== '') {
+      if (id != null && id !== '' && (typeof id === 'number' || typeof id === 'string')) {
         const coll = obj.relationTo as RelationCollection
         const existing = cache.get(coll)
         if (!existing?.has(idKey(id))) {
@@ -190,14 +195,10 @@ function clearOrphanedRefsInValueWithCache(
  * Verwendet Batch-Cache, damit viele Links nicht zu vielen DB-Roundtrips führen.
  */
 export function createClearOrphanedRefsAfterReadHook<T extends Record<string, unknown>>() {
-  return async ({
-    doc,
-    req,
-  }: {
-    doc: T
-    req: { payload: Payload }
-  }): Promise<T> => {
-    if (!doc || !req?.payload) return doc
+  return async (args: any): Promise<T> => {
+    const doc = args?.doc as T | undefined
+    const req = args?.req as { payload?: Payload } | undefined
+    if (!doc || !req?.payload) return (doc ?? {}) as T
     const cache = await buildExistenceCache(req.payload, doc as Record<string, unknown>)
     clearOrphanedRefsInValueWithCache(doc, cache)
     return doc
@@ -209,16 +210,13 @@ export function createClearOrphanedRefsAfterReadHook<T extends Record<string, un
  * Einmaliger Batch-Check statt N einzelner findByID – verhindert langsames Speichern auf Neon/Vercel.
  */
 export function createClearOrphanedRefsBeforeValidateHook() {
-  return async ({
-    data,
-    req,
-  }: {
-    data: Record<string, unknown>
-    req: { payload: Payload }
-  }): Promise<Record<string, unknown>> => {
-    if (!data || !req?.payload) return data
-    const cache = await buildExistenceCache(req.payload, data)
-    clearOrphanedRefsInValueWithCache(data, cache)
+  return async (args: any): Promise<unknown> => {
+    const data = args?.data as unknown
+    const req = args?.req as { payload?: Payload } | undefined
+    const dataRecord = asRecord(data)
+    if (!dataRecord || !req?.payload) return data
+    const cache = await buildExistenceCache(req.payload, dataRecord)
+    clearOrphanedRefsInValueWithCache(dataRecord, cache)
     return data
   }
 }
@@ -228,16 +226,13 @@ export function createClearOrphanedRefsBeforeValidateHook() {
  * Nutzt denselben Batch-Ansatz wie beforeValidate.
  */
 export function createClearOrphanedRefsBeforeChangeHook() {
-  return async ({
-    data,
-    req,
-  }: {
-    data: Record<string, unknown>
-    req: { payload: Payload }
-  }): Promise<Record<string, unknown>> => {
-    if (!data || !req?.payload) return data
-    const cache = await buildExistenceCache(req.payload, data)
-    clearOrphanedRefsInValueWithCache(data, cache)
+  return async (args: any): Promise<unknown> => {
+    const data = args?.data as unknown
+    const req = args?.req as { payload?: Payload } | undefined
+    const dataRecord = asRecord(data)
+    if (!dataRecord || !req?.payload) return data
+    const cache = await buildExistenceCache(req.payload, dataRecord)
+    clearOrphanedRefsInValueWithCache(dataRecord, cache)
     return data
   }
 }

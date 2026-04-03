@@ -9,6 +9,8 @@ import { LEVEL_PCT } from '@/blocks/ProfilBlocks/shared'
 import { cn } from '@/utilities/ui'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
+type SpalteItem = NonNullable<NonNullable<BlockData['spalten']>[number]>
+type SkillItem = NonNullable<NonNullable<SpalteItem['skills']>[number]>
 
 export const ProfilKompetenzenBlock: React.FC<Props> = ({
   disableInnerContainer: _d,
@@ -19,7 +21,7 @@ export const ProfilKompetenzenBlock: React.FC<Props> = ({
   const st = sectionTitle?.trim() || profilKompetenzenDefaults.sectionTitle
   const si = sectionIntro?.trim() || profilKompetenzenDefaults.sectionIntro
   const fromCms = (spalten ?? []).filter(
-    (c): c is NonNullable<(typeof spalten)[number]> => Boolean(c && String(c.bereich ?? '').trim()),
+    (c): c is SpalteItem => Boolean(c && String(c.bereich ?? '').trim()),
   )
   const cols =
     fromCms.length > 0
@@ -37,18 +39,30 @@ export const ProfilKompetenzenBlock: React.FC<Props> = ({
         <div className="mt-12 grid gap-10 md:grid-cols-2 xl:grid-cols-4">
             {cols.map((col, cidx) => {
               const skills = (col.skills ?? []).filter(
-                (s): s is NonNullable<(typeof col.skills)[number]> =>
+                (s): s is SkillItem =>
                   Boolean(s && String(s.skill ?? '').trim()),
               )
               return (
-                <div key={typeof col.id === 'string' ? col.id : `c-${cidx}`}>
+                <div
+                  key={
+                    typeof (col as { id?: unknown }).id === 'string'
+                      ? (col as { id?: string }).id
+                      : `c-${cidx}`
+                  }
+                >
                   <h3 className="mb-5 text-sm font-semibold uppercase tracking-wider text-primary">{col.bereich}</h3>
                   <ul className="space-y-4">
                     {skills.map((s, sidx) => {
                       const level = typeof s.level === 'string' ? s.level : 'expert'
                       const pct = LEVEL_PCT[level] ?? 50
                       return (
-                        <li key={typeof s.id === 'string' ? s.id : `s-${cidx}-${sidx}`}>
+                        <li
+                          key={
+                            typeof (s as { id?: unknown }).id === 'string'
+                              ? (s as { id?: string }).id
+                              : `s-${cidx}-${sidx}`
+                          }
+                        >
                           <div className="flex items-baseline justify-between gap-2">
                             <span className="text-sm font-medium text-foreground">{s.skill}</span>
                             <span className="text-xs capitalize text-muted-foreground">{level}</span>

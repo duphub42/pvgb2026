@@ -12,7 +12,7 @@ import './load-env-import'
 import fs from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { getPayload } from 'payload'
+import { getPayload, type CollectionSlug } from 'payload'
 import config from '@payload-config'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -238,8 +238,8 @@ function normalizeMegaMenuItem(data: Record<string, unknown>): Record<string, un
         if (bg === 'elegant') {
           bg = 'gradient'
         }
-        const allowed = new Set(['default', 'paths', 'threads', 'gradient'])
-        if (!allowed.has(bg)) {
+        const allowed = new Set<string>(['default', 'paths', 'threads', 'gradient'])
+        if (!allowed.has(String(bg))) {
           bg = 'default'
         }
       }
@@ -459,10 +459,10 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
     'forms',
   ]
 
-  for (const slug of order) {
+  for (const slug of order as Array<keyof typeof idMaps>) {
     const file = path.join(exportDir, `${slug}.json`)
     if (!fs.existsSync(file)) continue
-    if (!payload.collections[slug]) continue
+    if (!payload.collections[slug as keyof typeof payload.collections]) continue
 
     const docs = JSON.parse(fs.readFileSync(file, 'utf-8')) as Record<string, unknown>[]
     if (!Array.isArray(docs) || docs.length === 0) {
@@ -511,8 +511,10 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
         }
         // Als veröffentlicht importieren, damit sie im Admin unter „Seiten“ sichtbar sind
         if (data._status !== 'published') data._status = 'published'
-        if (!Array.isArray(data.layout)) data.layout = []
-        if (data.layout.length === 0) {
+        const currentLayout = Array.isArray((data as { layout?: unknown }).layout)
+          ? ((data as { layout?: unknown[] }).layout ?? [])
+          : []
+        if (currentLayout.length === 0) {
           data.layout = [
             {
               blockType: 'content',
@@ -610,7 +612,7 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
 
       try {
         const created = await payload.create({
-          collection: slug,
+          collection: slug as CollectionSlug,
           data: data as never,
           file,
           depth: 0,

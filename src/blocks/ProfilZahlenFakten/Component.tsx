@@ -8,6 +8,7 @@ import { profilZahlenFaktenDefaults } from '@/blocks/ProfilBlocks/defaults'
 import { cn } from '@/utilities/ui'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
+type ZahlItem = NonNullable<NonNullable<BlockData['items']>[number]>
 
 export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
   disableInnerContainer: _d,
@@ -15,7 +16,7 @@ export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
   items,
 }) => {
   const fromCms = (items ?? []).filter(
-    (z): z is NonNullable<(typeof items)[number]> =>
+    (z): z is ZahlItem =>
       Boolean(z && String(z.zahl ?? '').trim() && String(z.bezeichnung ?? '').trim()),
   )
   const rows =
@@ -35,7 +36,14 @@ export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
         ) : null}
         <div className={cn('grid gap-6', gridCols)}>
           {rows.map((z, i) => (
-            <div key={typeof z.id === 'string' ? z.id : `z-${i}`} className="text-center">
+            <div
+              key={
+                typeof (z as { id?: unknown }).id === 'string'
+                  ? (z as { id?: string }).id
+                  : `z-${i}`
+              }
+              className="text-center"
+            >
               <p className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">{z.zahl}</p>
               <p className="mt-1 text-xs text-muted-foreground md:text-sm">{z.bezeichnung}</p>
             </div>

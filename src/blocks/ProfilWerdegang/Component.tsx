@@ -10,6 +10,7 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/utilities/ui'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
+type EintragItem = NonNullable<NonNullable<BlockData['eintraege']>[number]>
 
 export const ProfilWerdegangBlock: React.FC<Props> = ({
   disableInnerContainer: _d,
@@ -18,7 +19,7 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
 }) => {
   const st = sectionTitle?.trim() || profilWerdegangDefaults.sectionTitle
   const fromCms = (eintraege ?? []).filter(
-    (e): e is NonNullable<(typeof eintraege)[number]> =>
+    (e): e is EintragItem =>
       Boolean(e && String(e.zeitraum ?? '').trim() && String(e.position ?? '').trim()),
   )
   const rows =
@@ -39,7 +40,14 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
           {rows.map((w, idx) => {
             const isWork = w.typ === 'freelance'
             return (
-              <li key={typeof w.id === 'string' ? w.id : `e-${idx}`} className="relative">
+              <li
+                key={
+                  typeof (w as { id?: unknown }).id === 'string'
+                    ? (w as { id?: string }).id
+                    : `e-${idx}`
+                }
+                className="relative"
+              >
                 <span
                   className={cn(
                     'absolute -left-[calc(0.5rem+1px)] top-1 flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full border-2 border-background',

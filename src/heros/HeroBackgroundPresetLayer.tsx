@@ -1,8 +1,8 @@
 import React from 'react'
 
-import type { HeroBackgrounds } from '@/payload-types'
+import type { HeroBackground } from '@/payload-types'
 
-type Preset = HeroBackgrounds | number | null | undefined
+type Preset = HeroBackground | number | null | undefined
 
 export function HeroBackgroundPresetLayer({ preset }: { preset: Preset }) {
   if (!preset || typeof preset === 'number') return null
@@ -43,4 +43,3 @@ export function HeroBackgroundPresetLayer({ preset }: { preset: Preset }) {
   // gradient / customCss: nur leere Ebene, CSS kommt aus globalen Styles/customCss
   return <div className="hero-gradient-bg absolute inset-0 -z-[20]" aria-hidden />
 }
-

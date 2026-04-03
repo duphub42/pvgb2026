@@ -4,7 +4,7 @@ import { ArrowRight } from 'lucide-react'
 import NextLink from 'next/link'
 import React from 'react'
 
-import type { Page, Post } from '@/payload-types'
+import type { SitePage, BlogPost } from '@/payload-types'
 
 /** Fallback wenn next/link im Client-Bundle undefined ist (verhindert "Cannot read properties of undefined (reading 'call')"). */
 function LinkFallback(props: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href?: string }) {
@@ -22,7 +22,7 @@ type CMSLinkType = {
   newTab?: boolean | null
   reference?: {
     relationTo: 'site-pages' | 'blog-posts' | 'pages' | 'posts' // 'pages'/'posts' = legacy/cache
-    value: Page | Post | string | number
+    value: SitePage | BlogPost | string | number
   } | null
   size?: ButtonProps['size'] | null
   type?: 'custom' | 'reference' | null
@@ -54,7 +54,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   if (!href) return null
 
-  const size = appearance === 'link' ? 'clear' : sizeFromProps
+  const size = appearance === 'link' ? 'default' : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
   /* Ensure we don't break any styles set by richText */

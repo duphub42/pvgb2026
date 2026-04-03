@@ -34,7 +34,7 @@ if (!process.env.DATABASE_URL && !process.env.POSTGRES_URL) {
 process.env.USE_NEON = 'true'
 process.env.PAYLOAD_ALLOW_DRIZZLE_PUSH = 'true'
 process.env.PAYLOAD_FORCE_DRIZZLE_PUSH = 'true'
-process.env.NODE_ENV = 'development'
+;(process.env as Record<string, string | undefined>).NODE_ENV = 'development'
 
 console.warn(
   '[WARN] Destruktiver Drizzle-Push gegen Neon – nur bei leerer oder replatzierbarer Datenbank sinnvoll.',

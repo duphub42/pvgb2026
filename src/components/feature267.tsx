@@ -65,7 +65,9 @@ export interface Feature267Props {
     subheadline?: string | null;
     body?: string | null;
     images?: Array<{ media?: MediaRef }> | null;
-    links?: Array<{ link?: { type?: string; url?: string | null; label?: string | null; newTab?: boolean } }> | null;
+    links?: Array<{
+      link?: { type?: "custom" | "reference" | null; url?: string | null; label?: string | null; newTab?: boolean }
+    }> | null;
   } | null;
 }
 

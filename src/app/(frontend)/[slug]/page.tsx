@@ -9,6 +9,7 @@ import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { cn } from '@/utilities/ui'
+import type { SitePage } from '@/payload-types'
 
 // ISR: Published pages cached 60s (besserer TTFB). Draft/Preview bleibt dynamisch durch draftMode().
 export const revalidate = 60
@@ -172,7 +173,7 @@ export default async function Page({
   const resolvedSlug = slug || 'home'
 
   try {
-    let pages: Awaited<ReturnType<typeof payload.find>>
+    let pages: { docs: SitePage[] }
 
     if (isDraftMode) {
       pages = await payload.find({

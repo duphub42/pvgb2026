@@ -12,7 +12,9 @@
 
 // NODE_ENV=production deaktiviert den Schema-Push (payload.config: push nur wenn !== 'production').
 // So verbindet sich das Skript nur lesend mit der DB, ohne Migrations-Abfragen.
-if (!process.env.NODE_ENV) process.env.NODE_ENV = 'production'
+if (!process.env.NODE_ENV) {
+  ;(process.env as Record<string, string | undefined>).NODE_ENV = 'production'
+}
 // Drizzle-Schema-Abfrage beim ersten DB-Connect unterdrücken (non-interactive)
 if (typeof process.env.CI === 'undefined') process.env.CI = '1'
 
@@ -201,13 +203,15 @@ async function main() {
   const globalsData: Record<string, unknown> = {}
   for (const slug of GLOBALS) {
     if (!payload.globals?.config?.find((g) => g.slug === slug)) continue
-    let data = await payload.findGlobal({
+    const globalData = await payload.findGlobal({
       slug,
       depth: 0,
     })
-    if (slug === 'header' && data && typeof data === 'object')
-      data = normalizeHeaderForExport(data as Record<string, unknown>)
-    globalsData[slug] = data
+    let normalizedGlobalData: unknown = globalData
+    if (slug === 'header' && globalData && typeof globalData === 'object') {
+      normalizedGlobalData = normalizeHeaderForExport(globalData as unknown as Record<string, unknown>)
+    }
+    globalsData[slug] = normalizedGlobalData
     manifest.globals.push(slug)
     console.log(`  Global "${slug}" exportiert`)
   }

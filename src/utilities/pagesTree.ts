@@ -1,12 +1,12 @@
-import type { Page } from '@/payload-types'
+import type { SitePage } from '@/payload-types'
 
-export type PageWithChildren = Page & { children?: PageWithChildren[] }
+export type PageWithChildren = SitePage & { children?: PageWithChildren[] }
 
 /**
  * Baut aus einer flachen Liste von Pages eine Baumstruktur (parent → children).
  * Für API, Navigation oder Admin.
  */
-export function buildPagesTree(pages: Page[]): PageWithChildren[] {
+export function buildPagesTree(pages: SitePage[]): PageWithChildren[] {
   const map = new Map<number, PageWithChildren>()
 
   pages.forEach((p) => {
@@ -38,13 +38,13 @@ export function buildPagesTree(pages: Page[]): PageWithChildren[] {
  * Erwartet bei verschachtelten Seiten parent mit depth geladen (z. B. depth: 2).
  * Nutzbar für Preview-URLs oder wenn du verschachtelte Routen ([...slug]) einführst.
  */
-export function getPagePath(page: Page): string {
+export function getPagePath(page: SitePage): string {
   const segments: string[] = []
 
-  function walk(p: Page): void {
+  function walk(p: SitePage): void {
     const parent = p.parent
     if (parent != null && typeof parent === 'object' && 'slug' in parent) {
-      walk(parent as Page)
+      walk(parent as SitePage)
     }
     if (p.slug) segments.push(p.slug)
   }
@@ -56,7 +56,7 @@ export function getPagePath(page: Page): string {
 /**
  * Erstellt eine Map pageId → slug für alle Seiten (z. B. aus find-Ergebnis).
  */
-export function buildSlugMap(pages: Page[]): Map<number, string> {
+export function buildSlugMap(pages: SitePage[]): Map<number, string> {
   const map = new Map<number, string>()
   pages.forEach((p) => {
     if (p.slug) map.set(p.id, p.slug)

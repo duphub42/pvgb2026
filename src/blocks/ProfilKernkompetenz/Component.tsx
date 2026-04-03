@@ -8,6 +8,7 @@ import { profilKernkompetenzDefaults } from '@/blocks/ProfilBlocks/defaults'
 import { cn } from '@/utilities/ui'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
+type BereichItem = NonNullable<NonNullable<BlockData['bereiche']>[number]>
 
 export const ProfilKernkompetenzBlock: React.FC<Props> = ({
   disableInnerContainer: _d,
@@ -18,7 +19,7 @@ export const ProfilKernkompetenzBlock: React.FC<Props> = ({
   const head = ueberschrift?.trim() || profilKernkompetenzDefaults.ueberschrift
   const intro = einleitung?.trim() || profilKernkompetenzDefaults.einleitung
   const fromCms = (bereiche ?? []).filter(
-    (b): b is NonNullable<(typeof bereiche)[number]> => Boolean(b && String(b.titel ?? '').trim()),
+    (b): b is BereichItem => Boolean(b && String(b.titel ?? '').trim()),
   )
   const rows =
     fromCms.length > 0
@@ -36,11 +37,11 @@ export const ProfilKernkompetenzBlock: React.FC<Props> = ({
       <div className="mt-12 grid gap-8 lg:grid-cols-2">
           {rows.map((b, idx) => {
             const details = (b.details ?? [])
-              .map((d) => (typeof d?.line === 'string' ? d.line.trim() : ''))
+              .map((d: { line?: string | null }) => (typeof d?.line === 'string' ? d.line.trim() : ''))
               .filter(Boolean)
             return (
               <article
-                key={typeof b.id === 'string' ? b.id : `b-${idx}`}
+                key={typeof (b as { id?: unknown }).id === 'string' ? (b as { id?: string }).id : `b-${idx}`}
                 className="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8"
               >
                 <h3 className="text-xl font-semibold text-foreground">{b.titel}</h3>
@@ -49,7 +50,7 @@ export const ProfilKernkompetenzBlock: React.FC<Props> = ({
                 ) : null}
                 {details.length > 0 ? (
                   <ul className="mt-5 space-y-2 border-t border-border/80 pt-5 text-sm text-foreground/90">
-                    {details.map((d) => (
+                    {details.map((d: string) => (
                       <li key={d} className="flex gap-2">
                         <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
                         <span>{d}</span>

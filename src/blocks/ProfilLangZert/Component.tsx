@@ -8,6 +8,7 @@ import { profilSprachenDefaults, profilZertifikateDefaults } from '@/blocks/Prof
 import { cn } from '@/utilities/ui'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
+type SpracheItem = NonNullable<NonNullable<BlockData['sprachen']>[number]>
 
 export const ProfilLangZertBlock: React.FC<Props> = ({
   disableInnerContainer: _d,
@@ -20,7 +21,7 @@ export const ProfilLangZertBlock: React.FC<Props> = ({
   const zertifikateTitle = zertifikateSectionTitle?.trim() || 'Zertifikate & Qualifikationen'
 
   const sprFromCms = (sprachen ?? []).filter(
-    (s): s is NonNullable<(typeof sprachen)[number]> =>
+    (s): s is SpracheItem =>
       Boolean(s && String(s.sprache ?? '').trim() && String(s.niveau ?? '').trim()),
   )
   const sprRows =
@@ -43,7 +44,11 @@ export const ProfilLangZertBlock: React.FC<Props> = ({
             <ul className={cn('mt-6 divide-y divide-border/80')}>
               {sprRows.map((s, i) => (
                 <li
-                  key={typeof s.id === 'string' ? s.id : `sp-${i}`}
+                  key={
+                    typeof (s as { id?: unknown }).id === 'string'
+                      ? (s as { id?: string }).id
+                      : `sp-${i}`
+                  }
                   className="flex justify-between gap-4 py-3 text-sm md:text-base"
                 >
                   <span className="font-medium text-foreground">{s.sprache}</span>

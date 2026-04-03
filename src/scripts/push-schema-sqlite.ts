@@ -8,7 +8,9 @@
 import './load-env'
 
 process.env.PAYLOAD_FORCE_DRIZZLE_PUSH = 'true'
-if (!process.env.NODE_ENV) process.env.NODE_ENV = 'development'
+if (!process.env.NODE_ENV) {
+  ;(process.env as Record<string, string | undefined>).NODE_ENV = 'development'
+}
 
 import { getPayload } from 'payload'
 import config from '@payload-config'

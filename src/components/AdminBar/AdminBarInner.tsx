@@ -24,7 +24,7 @@ const Title: React.FC = () => <span>Dashboard</span>
 
 export const AdminBarInner: React.FC<{ adminBarProps?: PayloadAdminBarProps }> = (props) => {
   const { adminBarProps } = props || {}
-  const segments = useSelectedLayoutSegments()
+  const segments = useSelectedLayoutSegments() ?? []
   const [show, setShow] = useState(false)
   const collection = (
     collectionLabels[segments?.[1] as keyof typeof collectionLabels] ? segments[1] : 'site-pages'

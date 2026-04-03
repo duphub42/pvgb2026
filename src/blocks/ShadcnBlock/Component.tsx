@@ -5,6 +5,7 @@ import React, { Suspense, lazy } from 'react'
 type Props = {
   variant?: string | null
   disableInnerContainer?: boolean
+  [key: string]: unknown
 }
 
 const variantLoaders: Record<
@@ -24,7 +25,9 @@ const variantLoaders: Record<
     import('@/components/about8').then((m) => ({ default: m.About8 })),
   ),
   about3: lazy(() =>
-    import('@/components/about3').then((m) => ({ default: m.About3 })),
+    import('@/components/about3').then((m) => ({
+      default: m.About3 as unknown as React.ComponentType<Record<string, unknown>>,
+    })),
   ),
   feature268: lazy(() =>
     import('@/components/feature268').then((m) => ({ default: m.Feature268 })),

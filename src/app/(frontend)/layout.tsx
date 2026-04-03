@@ -17,6 +17,7 @@ import { getCachedGlobal } from '@/utilities/getGlobals'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { DesignStyles } from '@/components/DesignStyles'
 import { ThemeSettingsStyles } from '@/components/ThemeSettingsStyles'
+import type { DesignDoc } from '@/utilities/designToCss'
 
 function formatUnknownError(error: unknown): string {
   if (error instanceof Error) return `${error.name}: ${error.message}`
@@ -36,7 +37,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     const isEnabled = process.env.NODE_ENV === 'development' ? (await draftMode()).isEnabled : false
     const locale = 'de'
 
-    let design: Awaited<ReturnType<ReturnType<typeof getCachedGlobal>>> | null = null
+    let design: DesignDoc = null
     let themeSettings: { cssString?: string | null } | null = null
     let faviconUrl: string | null = null
 
@@ -45,7 +46,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       getCachedGlobal('theme-settings', 0)(),
       getCachedGlobal('header', 1)(),
     ])
-    if (designResult.status === 'fulfilled') design = designResult.value
+    if (designResult.status === 'fulfilled') design = designResult.value as DesignDoc
     if (themeSettingsResult.status === 'fulfilled' && themeSettingsResult.value && typeof themeSettingsResult.value === 'object') {
       themeSettings = themeSettingsResult.value as { cssString?: string | null }
     }
