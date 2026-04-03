@@ -43,6 +43,9 @@ const nextConfig = {
           protocol: url.protocol.replace(':', ''),
         }
       }),
+      // Local development (Payload media URLs can be absolute localhost/127.0.0.1)
+      { protocol: 'http', hostname: 'localhost', pathname: '/**' },
+      { protocol: 'http', hostname: '127.0.0.1', pathname: '/**' },
       // Vercel Blob: hochgeladene Bilder (Backend) müssen im Frontend angezeigt werden
       {
         protocol: 'https',

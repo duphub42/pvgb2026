@@ -85,6 +85,8 @@ import * as migration_20260402_150000_services_grid_categories_force_varchar fro
 import * as migration_20260402_160000_services_grid_nested_varchar_id_default from './20260402_160000_services_grid_nested_varchar_id_default'
 import * as migration_20260403_120000_site_pages_blocks_services_grid_intro_tagline from './20260403_120000_site_pages_blocks_services_grid_intro_tagline'
 import * as migration_20260403_130000_repair_services_grid_intro_icon_list_table from './20260403_130000_repair_services_grid_intro_icon_list_table'
+import * as migration_20260403_140000_repair_shadcn_links_lnks_table from './20260403_140000_repair_shadcn_links_lnks_table'
+import * as migration_20260403_150000_services_grid_radial_background_strength from './20260403_150000_services_grid_radial_background_strength'
 
 export const migrations = [
   {
@@ -521,5 +523,15 @@ export const migrations = [
     up: migration_20260403_130000_repair_services_grid_intro_icon_list_table.up,
     down: migration_20260403_130000_repair_services_grid_intro_icon_list_table.down,
     name: '20260403_130000_repair_services_grid_intro_icon_list_table',
+  },
+  {
+    up: migration_20260403_140000_repair_shadcn_links_lnks_table.up,
+    down: migration_20260403_140000_repair_shadcn_links_lnks_table.down,
+    name: '20260403_140000_repair_shadcn_links_lnks_table',
+  },
+  {
+    up: migration_20260403_150000_services_grid_radial_background_strength.up,
+    down: migration_20260403_150000_services_grid_radial_background_strength.down,
+    name: '20260403_150000_services_grid_radial_background_strength',
   },
 ]

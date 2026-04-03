@@ -96,7 +96,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
   const secondaryLink = ctaLinks[1]
 
   return (
-    <section className="relative w-full overflow-hidden bg-background min-h-screen lg:min-h-0 lg:max-h-[666px] flex flex-col transition-colors duration-500">
+    <section className="relative z-20 w-full overflow-visible bg-background min-h-[38rem] transition-colors duration-500 lg:h-[666px] lg:min-h-0 lg:max-h-[666px]">
       <style jsx>{`
         @keyframes pro-athlete-speed-shift {
           0% {
@@ -130,21 +130,43 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
             linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.06) 75%);
           background-size: 150px 150px;
           background-position:
-            0 0,
-            0 75px,
-            75px -75px,
-            -75px 0;
-        }
-        .pro-athlete-speed-lines {
-          background-image: repeating-linear-gradient(
-            -45deg,
-            rgba(255, 255, 255, 0.12) 0,
-            rgba(255, 255, 255, 0.12) 2px,
-            transparent 2px,
-            transparent 36px
+            100% 0,
+            100% 75px,
+            calc(100% - 75px) -75px,
+            calc(100% + 75px) 0;
+          inset: -20%;
+          transform: rotate(33deg) scale(1.12);
+          transform-origin: top right;
+          mask-image: radial-gradient(
+            circle at 100% 0%,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.98) 20%,
+            rgba(0, 0, 0, 0.9) 36%,
+            rgba(0, 0, 0, 0.74) 52%,
+            rgba(0, 0, 0, 0.54) 66%,
+            rgba(0, 0, 0, 0.34) 78%,
+            rgba(0, 0, 0, 0.18) 89%,
+            rgba(0, 0, 0, 0.08) 95%,
+            transparent 100%
           );
-          animation: pro-athlete-speed-shift 6.8s cubic-bezier(0.33, 1, 0.68, 1) infinite;
-          mix-blend-mode: soft-light;
+          -webkit-mask-image: radial-gradient(
+            circle at 100% 0%,
+            rgba(0, 0, 0, 1) 0%,
+            rgba(0, 0, 0, 0.98) 20%,
+            rgba(0, 0, 0, 0.9) 36%,
+            rgba(0, 0, 0, 0.74) 52%,
+            rgba(0, 0, 0, 0.54) 66%,
+            rgba(0, 0, 0, 0.34) 78%,
+            rgba(0, 0, 0, 0.18) 89%,
+            rgba(0, 0, 0, 0.08) 95%,
+            transparent 100%
+          );
+          mask-repeat: no-repeat;
+          -webkit-mask-repeat: no-repeat;
+          mask-size: 140% 140%;
+          -webkit-mask-size: 140% 140%;
+          mask-position: 100% 0%;
+          -webkit-mask-position: 100% 0%;
         }
         [data-theme='light'] .pro-athlete-checker {
           background-image:
@@ -153,24 +175,9 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
             linear-gradient(45deg, transparent 75%, rgba(15, 15, 15, 0.07) 75%),
             linear-gradient(-45deg, transparent 75%, rgba(15, 15, 15, 0.07) 75%);
         }
-        [data-theme='light'] .pro-athlete-speed-lines {
-          background-image: repeating-linear-gradient(
-            -45deg,
-            rgba(10, 10, 10, 0.08) 0,
-            rgba(10, 10, 10, 0.08) 2px,
-            transparent 2px,
-            transparent 36px
-          );
-          mix-blend-mode: multiply;
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .pro-athlete-speed-lines {
-            animation: none;
-          }
-        }
       `}</style>
 
-      <div className="absolute inset-0 z-0 pointer-events-none">
+      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
         <Image
           src={backgroundSrc}
           alt=""
@@ -188,14 +195,13 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
               mixBlendMode: 'normal',
             }}
           />
-          <div className="absolute inset-0 pro-athlete-speed-lines" />
         </div>
       </div>
 
-      <div className="relative z-10 flex flex-col lg:flex-row w-full max-w-[1200px] mx-auto px-4 lg:px-8 py-16 min-h-screen lg:min-h-0 lg:h-full">
-        <div className="relative z-30 order-2 lg:order-1 w-full lg:w-1/2 flex flex-col justify-center px-4 py-12 lg:px-10 lg:py-16">
-          <div className="w-full flex justify-center">
-            <div className="w-full max-w-xl bg-white/20 dark:bg-zinc-950/60 backdrop-blur-xl border-t lg:border-t-0 lg:border-r border-white/25 dark:border-white/20 shadow-2xl p-6 lg:p-8 rounded-2xl">
+      <div className="relative z-30 mx-auto grid w-full max-w-[1200px] min-h-0 grid-cols-1 px-4 py-8 sm:py-10 lg:h-full lg:min-h-0 lg:grid-cols-2 lg:px-4 lg:pt-24 lg:pb-0">
+        <div className="relative z-30 order-2 flex flex-col justify-end py-6 sm:py-8 lg:order-1 lg:h-full lg:py-0">
+          <div className="w-full flex justify-start">
+            <div className="w-full max-w-xl rounded-2xl border-t border-white/35 bg-white/35 p-6 shadow-2xl backdrop-blur-xl backdrop-saturate-150 lg:border-t-0 lg:border-r lg:p-8 dark:border-white/25 dark:bg-zinc-950/55 dark:shadow-[0_0_0_1px_rgba(255,255,255,0.10),0_20px_64px_rgba(0,0,0,0.72),0_0_86px_14px_rgba(255,255,255,0.14)]">
               {badgeText ? (
                 <Badge
                   variant="outline"
@@ -270,25 +276,22 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
           </div>
         </div>
 
-        <div className="relative z-50 order-1 lg:order-2 w-full lg:w-1/2 h-[65vh] lg:h-[70vh] max-h-[666px] flex items-center justify-center">
-          <div className="relative w-full h-full flex items-center justify-center overflow-visible">
-            <div className="relative w-full h-full flex items-center justify-center overflow-visible -translate-y-6">
-              <div className="relative w-full h-full flex items-center justify-center">
-                <div className="w-full max-w-[560px] lg:scale-[1.5] lg:origin-center">
-                  <PopoutHeroStackVisual layers={stackLayers} className="relative z-0" />
-                </div>
-              </div>
-            </div>
+        <div className="relative z-[80] order-1 flex h-[42vh] max-h-[24rem] sm:h-[48vh] sm:max-h-[27rem] items-center justify-center overflow-visible lg:order-2 lg:h-full lg:max-h-[666px] lg:items-end">
+          <div className="w-full max-w-[560px] -translate-y-6 overflow-visible lg:translate-y-0 lg:scale-[1.5] lg:origin-center">
+            <PopoutHeroStackVisual
+              layers={stackLayers}
+              className="relative z-0 lg:[--hero-stack-lift:calc(var(--header-height)*0.5)] lg:[--hero-stack-base-y:32px] lg:[--hero-stack-img-base-y:28px]"
+            />
           </div>
         </div>
       </div>
 
-      <div className="absolute inset-x-0 bottom-0 h-[30vh] z-10 pointer-events-none">
+      <div className="absolute inset-x-0 bottom-0 h-[36vh] z-10 pointer-events-none">
         <div
           className="absolute inset-0"
           style={{
             backgroundImage:
-              'linear-gradient(to top, var(--background), rgba(255,255,255,0.08) 40%, transparent 85%), linear-gradient(to top, rgba(0,0,0,0.55), transparent 70%)',
+              'linear-gradient(to top, var(--background) 0%, color-mix(in srgb, var(--background) 70%, transparent) 24%, color-mix(in srgb, var(--background) 28%, transparent) 52%, transparent 88%), linear-gradient(to top, rgba(0,0,0,0.34) 0%, rgba(0,0,0,0.16) 36%, transparent 80%)',
           }}
         />
       </div>

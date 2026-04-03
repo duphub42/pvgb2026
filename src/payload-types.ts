@@ -983,6 +983,7 @@ export interface ServicesGridBlock {
    * Wählt die Position des radialen Verlaufs. Interne Werte bleiben für Bestandsdaten kompatibel.
    */
   radialBackgroundVariant?: ('default' | 'blue' | 'orange') | null;
+  radialBackgroundStrength?: ('subtle' | 'medium' | 'strong') | null;
   categories?:
     | {
         categoryLabel: string;
@@ -2600,6 +2601,7 @@ export interface ServicesGridBlockSelect<T extends boolean = true> {
   introImagePosition?: T;
   radialBackground?: T;
   radialBackgroundVariant?: T;
+  radialBackgroundStrength?: T;
   categories?:
     | T
     | {

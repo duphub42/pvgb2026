@@ -92,7 +92,7 @@ const NavigationMenuViewport = React.forwardRef<
   HTMLDivElement,
   React.ComponentPropsWithoutRef<typeof NavigationMenuPrimitive.Viewport>
 >(({ className, ...props }, ref) => (
-  <div className="megamenu-viewport-outer absolute left-0 right-0 top-full w-full overflow-hidden">
+  <div className="megamenu-viewport-outer absolute left-0 right-0 top-full w-full overflow-visible">
     <div ref={ref} className="megamenu-dropdown-bg megamenu-viewport-wrapper origin-top">
       <NavigationMenuPrimitive.Viewport
         className={cn('megamenu-viewport origin-top relative w-full', className)}

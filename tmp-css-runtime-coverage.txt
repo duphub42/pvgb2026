@@ -1,245 +1,245 @@
-Visited pages: 24
+Visited pages: 20
 
-Sheet: http://127.0.0.1:3000/_next/static/chunks/src_7dd5de72._.css
-Rules: 7317, used: 6924, unused: 393
-  L19  .fontoutfit_7580f0de-module__f9hGsG__className
-  L61  .fontinter_5f768d23-module__2-l4oG__className
-  L72  *, :before, :after, ::backdrop
-  L196  .header-icon-btn:focus-visible
-  L207  [data-theme="dark"] .header-icon-btn
-  L212  [data-theme="dark"] .header-icon-btn:hover
-  L218  .header-icon-btn svg
-  L35725  [data-theme="dark"]
-  L35798  [data-theme="dark"]
-  L35803  [data-theme="dark"]
-  L35808  [data-theme="dark"]
-  L35813  [data-theme="dark"]
-  L35818  [data-theme="dark"]
-  L35823  [data-theme="dark"]
-  L35828  [data-theme="dark"]
-  L35834  .footer-nav-grid
-  L35839  [data-theme="dark"] .logo-contrast, [data-theme="dark"] .logo-contrast.logo-contrast-dark-bg
-  L35847  [data-theme="dark"] footer .logo-contrast
-  L35851  [data-theme="dark"] .site-header .logo-link img, [data-theme="dark"] .site-header .logo-link svg, [data-theme="dark"] .site-header .logo-link .logo-contrast, .site-header[data-theme="dark"] .logo-link img, .site-header[data-theme="dark"] .logo-link svg, .site-header[data-theme="dark"] .logo-link .logo-contrast
-  L35891  .logo-glitch-wrapper.logo-glitch-footer
-  L35895  .footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image
-  L35905  .footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image:hover
-  L35909  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icons
-  L35913  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main
-  L35921  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main picture, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main img
-  L35931  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-layer
-  L35943  .logo-glitch-wrapper.logo-glitch-collapsed
-  L35947  .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed
-  L35952  .logo-glitch-wrapper.logo-glitch-text.logo-glitch-text-fixed-height
-  L36052  .logo-glitch-wrapper.logo-glitch-text:not(.logo-glitch-collapsed)
-  L36057  .logo-glitch-wrapper.logo-glitch-collapsed:before
-  L36069  .logo-glitch-wrapper.logo-pixel-transition-active
-  L36073  .logo-pixel-transition
-  L36085  .logo-pixel-transition-portal
-  L36090  .logo-pixel-transition-grid
-  L36098  .logo-pixel-transition-cell
-  L36112  .logo-glitch-collapsed-dot
-  L36126  .logo-glitch-wrapper.logo-glitch-collapsed .logo-glitch-collapsed-dot
-  L36130  .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-collapsed-dot, .logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-collapsed-dot
-  L36134  .logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-collapsed-icon
-  L36141  .logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-image.logo-glitch-collapsed .logo-glitch-layer
-  L36152  .logo-glitch-collapsed-icon
-  L36163  .logo-glitch-collapsed-icon-svg
-  L36169  .logo-glitch-collapsed-icon-visible
-  L36180  .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-collapsed-icon-svg
-  L36184  .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-collapsed-icon
-  L36191  .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed:after
-  L36200  .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-layer, .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-main *, .logo-glitch-wrapper.logo-glitch-text.logo-glitch-collapsed .logo-glitch-layer *
-  L36229  .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-layer
-  L36242  .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble
-  L36258  .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble-current
-  L36268  0%, 4%, 100%
-  L36272  5%, 9%
-  L36276  10%, 14%
-  L36280  15%, 19%
-  L36284  20%, 24%
-  L36288  25%, 29%
-  L36292  30%, 34%
-  L36296  35%, 39%
-  L36300  40%, 44%
-  L36304  45%, 49%
-  L36308  50%, 54%
-  L36312  55%, 59%
-  L36316  60%, 64%
-  L36320  65%, 69%
-  L36324  70%, 74%
-  L36328  75%, 79%
-  L36332  80%, 84%
-  L36336  85%, 89%
-  L36340  90%, 95%
-  L36344  96%, 99%
-  L36382  0%, 6%, 12%, 18%, 24%, 30%, 36%, 42%, 48%, 54%, 60%, 66%, 72%, 78%, 84%, 90%, 96%
-  L36386  3%, 9%, 15%, 21%, 27%, 33%, 39%, 45%, 51%, 57%, 63%, 69%, 75%, 81%, 87%, 93%, 99%
-  L36420  0%, 4%, 100%
-  L36425  5%, 9%
-  L36430  10%, 14%
-  L36435  15%, 19%
-  L36440  20%, 24%
-  L36445  25%, 29%
-  L36450  30%, 34%
-  L36455  35%, 39%
-  L36460  40%, 44%
-  L36465  45%, 49%
-  L36470  50%, 54%
-  L36475  55%, 59%
-  L36480  60%, 64%
-  L36485  65%, 69%
-  L36490  70%, 74%
-  L36495  75%, 79%
-  L36500  80%, 84%
-  L36505  85%, 89%
-  L36510  90%, 95%
-  L36515  96%, 99%
-  L36522  0%, 4%, 100%
-  L36527  5%, 9%
-  L36532  10%, 14%
-  L36537  15%, 19%
-  L36542  20%, 24%
-  L36547  25%, 29%
-  L36552  30%, 34%
-  L36557  35%, 39%
-  L36562  40%, 44%
-  L36567  45%, 49%
-  L36572  50%, 54%
-  L36577  55%, 59%
-  L36582  60%, 64%
-  L36587  65%, 69%
-  L36592  70%, 74%
-  L36597  75%, 79%
-  L36602  80%, 84%
-  L36607  85%, 89%
-  L36612  90%, 95%
-  L36617  96%, 99%
-  L36623  .logo-glitch-text
-  L36630  .logo-glitch-text .logo-glitch-main
-  L36635  .logo-glitch-text.logo-glitch-active .logo-glitch-main
-  L36639  .logo-glitch-text .logo-glitch-layer
-  L36648  .logo-glitch-text .logo-glitch-layer-1
-  L36654  .logo-glitch-text .logo-glitch-layer-2
-  L36660  .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
-  L36665  0%, 4%, 100%
-  L36669  5%, 9%
-  L36673  10%, 14%
-  L36677  15%, 19%
-  L36681  20%, 24%
-  L36685  25%, 29%
-  L36689  30%, 34%
-  L36693  35%, 39%
-  L36697  40%, 44%
-  L36701  45%, 49%
-  L36705  50%, 54%
-  L36709  55%, 59%
-  L36713  60%, 64%
-  L36717  65%, 69%
-  L36721  70%, 74%
-  L36725  75%, 79%
-  L36729  80%, 84%
-  L36733  85%, 89%
-  L36737  90%, 95%
-  L36741  96%, 99%
-  L36750  [data-theme="dark"] .logo-glitch-text .logo-glitch-main
-  L36754  [data-theme="dark"] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme="dark"] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme="dark"] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
-  L36759  0%, 4%, 100%
-  L36763  5%, 9%
-  L36767  10%, 14%
-  L36771  15%, 19%
-  L36775  20%, 24%
-  L36779  25%, 29%
-  L36783  30%, 34%
-  L36787  35%, 39%
-  L36791  40%, 44%
-  L36795  45%, 49%
-  L36799  50%, 54%
-  L36803  55%, 59%
-  L36807  60%, 64%
-  L36811  65%, 69%
-  L36815  70%, 74%
-  L36819  75%, 79%
-  L36823  80%, 84%
-  L36827  85%, 89%
-  L36831  90%, 95%
-  L36835  96%, 99%
-  L36845  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-text.logo-glitch-active .logo-glitch-main, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon
-  L36850  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon
-  L36854  [data-theme="dark"] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme="dark"] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme="dark"] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
-  L36859  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble
-  L36864  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble-current
-  L36870  .admin-bar
-  L36874  .hero-css-halo .halo
-  L36886  .hero-css-halo .halo-1
-  L36892  .hero-css-halo .halo-2
-  L36899  .hero-css-halo .halo-3
-  L36907  .hero-css-halo .halo
-  L36929  .hero-css-halo .halo-noise
-  L36938  .footer-custom .footer-link
-  L36945  .footer-custom .footer-heading, .footer-custom input[name="newsletter-email"]
-  L36949  .footer-newsletter-btn-wrap
-  L36981  .footer-newsletter-btn-wrap:hover button
-  L37083  [data-theme="light"] .footer-custom .footer-link:hover
-  L37116  .footer-newsletter-input:focus-visible
-  L37131  [data-theme="light"] .footer-newsletter-input:focus-visible
-  L37135  .footer-newsletter-submit
-  L37140  .footer-newsletter-submit:hover
-  L37144  [data-theme="light"] .footer-newsletter-submit
-  L37149  [data-theme="light"] .footer-newsletter-submit:hover
-  L37158  [data-theme="light"] .footer-newsletter-btn-wrap:hover button
-  L37176  [data-theme="light"] .footer-social-icon:hover
-  L37181  [data-theme="light"] .footer-custom .footer-link, [data-theme="light"] .footer-custom .footer-heading
-  L37195  html.theme-fallback
-  L37199  ::view-transition-old(root)
-  L37204  ::view-transition-new(root)
-  L37256  [data-theme="dark"] .megamenu, [data-theme="dark"] .site-header
-  L37264  [data-theme="dark"] .megamenu, [data-theme="dark"] .site-header
-  L37269  [data-theme="dark"] .megamenu, [data-theme="dark"] .site-header
-  L37274  [data-theme="dark"] .megamenu, [data-theme="dark"] .site-header
-  L37279  [data-theme="dark"] .megamenu, [data-theme="dark"] .site-header
-  L37284  [data-theme="dark"] .megamenu, [data-theme="dark"] .site-header
-  L37301  .header-glass-plate.header-reveal-from-top, .site-header > .header-slide-layer.header-reveal-from-top, .megamenu > .header-slide-layer.header-reveal-from-top
-  L37321  [data-theme="dark"] .megamenu[data-sticky="true"], [data-theme="dark"] .site-header[data-sticky="true"]
-  L37391  .megamenu:not(:hover) .header-tool-toggle:hover, .site-header:not(:hover) .header-tool-toggle:hover
-  L37406  [data-theme="dark"] .site-header .header-tool-toggle, [data-theme="dark"] .megamenu .header-tool-toggle, .site-header:not(:hover) a
-  L37410  .site-header:not(:hover) a:hover
-  L37414  [data-theme="light"] .site-header:not(:hover) .logo-link img, [data-theme="light"] .site-header:not(:hover) .logo-link svg
-  L37418  [data-theme="light"] .site-header:not(:hover) .header-tool-toggle
-  L37424  [data-theme="light"] .site-header:not(:hover) .header-tool-toggle:hover
-  L37429  [data-theme="light"] .site-header:not(:hover) a
-  L37433  [data-theme="light"] .site-header:not(:hover) a:hover
-  L37451  [data-theme="light"] .megamenu:not(:hover) .header-tool-toggle:hover
-  L37458  .megamenu .logo-link img, .megamenu .logo-link svg, .site-header .logo-link img, .site-header .logo-link svg
-  L37462  .megamenu .megamenu-top-item, .megamenu .megamenu-top-item [class*="lucide"]
-  L37466  .megamenu .header-tool-toggle, .site-header .header-tool-toggle
-  L37472  .site-header a
-  L37476  [data-theme="light"] .megamenu .logo-link img, [data-theme="light"] .megamenu .logo-link svg, [data-theme="light"] .site-header .logo-link img, [data-theme="light"] .site-header .logo-link svg
-  L37480  [data-theme="light"] .megamenu .megamenu-top-item, [data-theme="light"] .megamenu .megamenu-top-item [class*="lucide"], [data-theme="light"] .megamenu .header-tool-toggle, [data-theme="light"] .site-header .header-tool-toggle, [data-theme="light"] .site-header a
-  L37484  [data-theme="light"] .megamenu .header-tool-toggle, [data-theme="light"] .site-header .header-tool-toggle
-  L37488  .megamenu[data-scrolled="true"] .megamenu-top-item, .megamenu[data-scrolled="true"] .header-tool-toggle, .site-header[data-scrolled="true"] a, .site-header[data-scrolled="true"] .header-tool-toggle
-  L37492  .megamenu[data-scrolled="true"] .logo-link img, .megamenu[data-scrolled="true"] .logo-link svg, .site-header[data-scrolled="true"] .logo-link img, .site-header[data-scrolled="true"] .logo-link svg
-  L37496  [data-theme="dark"] .megamenu[data-scrolled="true"] .megamenu-top-item, [data-theme="dark"] .megamenu[data-scrolled="true"] .header-tool-toggle, [data-theme="dark"] .site-header[data-scrolled="true"] a, [data-theme="dark"] .site-header[data-scrolled="true"] .header-tool-toggle
-  L37500  [data-theme="dark"] .megamenu[data-scrolled="true"] .logo-link img, [data-theme="dark"] .megamenu[data-scrolled="true"] .logo-link svg, [data-theme="dark"] .site-header[data-scrolled="true"] .logo-link img, [data-theme="dark"] .site-header[data-scrolled="true"] .logo-link svg
-  L37509  .site-header nav.header-nav > a[data-slot="button"]
-  L37520  .site-header nav.header-nav > a[data-slot="button"]:hover
-  L37524  .site-header nav.header-nav > a[data-slot="button"]:after
-  L37539  .site-header nav.header-nav > a[data-slot="button"].header-nav-link--active:after
-  L37544  .site-header nav.header-nav > a[data-slot="button"]:hover:after, .site-header nav.header-nav > a[data-slot="button"]:focus-visible:after
-  L37549  [data-theme="light"] .site-header nav.header-nav > a[data-slot="button"]:hover
-  L37554  [data-theme="dark"] .site-header nav.header-nav > a[data-slot="button"]:hover
-  L37560  [data-theme="light"] .site-header nav.header-nav > a[data-slot="button"]:focus-visible
-  L37565  [data-theme="dark"] .site-header nav.header-nav > a[data-slot="button"]:focus-visible
-  L37576  .megamenu[data-sticky="true"]:hover, .site-header[data-sticky="true"]:hover
-  L37580  .megamenu[data-scrolled="true"], .site-header[data-scrolled="true"]
-  L37585  [data-theme="dark"] .megamenu[data-sticky="true"]:hover, [data-theme="dark"] .site-header[data-sticky="true"]:hover
-  L37589  [data-theme="dark"] .megamenu[data-scrolled="true"], [data-theme="dark"] .site-header[data-scrolled="true"]
-  L37593  [data-theme="light"] .megamenu[data-scrolled="true"] .logo-link img, [data-theme="light"] .megamenu[data-scrolled="true"] .logo-link svg, [data-theme="light"] .site-header[data-scrolled="true"] .logo-link img, [data-theme="light"] .site-header[data-scrolled="true"] .logo-link svg
-  L37597  .megamenu[data-scrolled="true"] .megamenu-top-item, .megamenu[data-scrolled="true"] .header-tool-toggle, .site-header[data-scrolled="true"] a, .site-header[data-scrolled="true"] .header-tool-toggle, .megamenu[data-scrolled="true"] button[aria-label="Menü öffnen"], .site-header[data-scrolled="true"] button[aria-label="Menü öffnen"]
-  L37606  [data-theme="dark"] .megamenu:hover .logo-link img, [data-theme="dark"] .megamenu:hover .logo-link svg, [data-theme="dark"] .site-header:hover .logo-link img, [data-theme="dark"] .site-header:hover .logo-link svg
-  L37667  .megamenu-nav-list-wrap:has(.megamenu-top-item[data-active="true"]) .megamenu-sliding-underline
-  L37684  .megamenu .megamenu-top-item [class*="lucide"]
-  L37689  .megamenu .megamenu-top-item:hover [class*="lucide"], .megamenu button.megamenu-top-item[data-state="open"] [class*="lucide"]
-  L37700  .megamenu-viewport-wrapper:has([data-state="open"])
-  L37707  .megamenu-viewport, .megamenu .megamenu-viewport
-  ... +153 weitere
+Sheet: http://127.0.0.1:3000/_next/static/css/app/(frontend)/layout.css?v=1775244839349
+Rules: 7999, used: 7664, unused: 335
+  L11  .__className_07fa5c
+  L41  .__className_a28744
+  L69  .header-icon-btn:focus-visible
+  L80  [data-theme='dark'] .header-icon-btn:hover
+  L29724  [data-theme='dark'] .logo-contrast.logo-contrast-dark-bg
+  L29733  [data-theme='dark'] .site-header .logo-link img, [data-theme='dark'] .site-header .logo-link svg, [data-theme='dark'] .site-header .logo-link .logo-contrast, .site-header[data-theme='dark'] .logo-link img, .site-header[data-theme='dark'] .logo-link svg, .site-header[data-theme='dark'] .logo-link .logo-contrast
+  L29766  .logo-glitch-wrapper.logo-glitch-footer
+  L29769  .footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image
+  L29778  .footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image:hover
+  L29781  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icons
+  L29784  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main
+  L29791  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main picture, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main img
+  L29800  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-layer
+  L29847  .logo-glitch-wrapper.logo-glitch-text:not(.logo-glitch-collapsed)
+  L29851  .logo-pixel-transition
+  L29865  .logo-pixel-transition-portal
+  L29869  .logo-pixel-transition-grid
+  L29876  .logo-pixel-transition-cell
+  L29895  .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-layer
+  L29906  .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble
+  L29919  .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble-current
+  L29927  0%, 4%, 100%
+  L29930  5%, 9%
+  L29933  10%, 14%
+  L29936  15%, 19%
+  L29939  20%, 24%
+  L29942  25%, 29%
+  L29945  30%, 34%
+  L29948  35%, 39%
+  L29951  40%, 44%
+  L29954  45%, 49%
+  L29957  50%, 54%
+  L29960  55%, 59%
+  L29963  60%, 64%
+  L29966  65%, 69%
+  L29969  70%, 74%
+  L29972  75%, 79%
+  L29975  80%, 84%
+  L29978  85%, 89%
+  L29981  90%, 95%
+  L29984  96%, 99%
+  L30014  0%, 6%, 12%, 18%, 24%, 30%, 36%, 42%, 48%, 54%, 60%, 66%, 72%, 78%, 84%, 90%, 96%
+  L30017  3%, 9%, 15%, 21%, 27%, 33%, 39%, 45%, 51%, 57%, 63%, 69%, 75%, 81%, 87%, 93%, 99%
+  L30045  0%, 4%, 100%
+  L30049  5%, 9%
+  L30053  10%, 14%
+  L30057  15%, 19%
+  L30061  20%, 24%
+  L30065  25%, 29%
+  L30069  30%, 34%
+  L30073  35%, 39%
+  L30077  40%, 44%
+  L30081  45%, 49%
+  L30085  50%, 54%
+  L30089  55%, 59%
+  L30093  60%, 64%
+  L30097  65%, 69%
+  L30101  70%, 74%
+  L30105  75%, 79%
+  L30109  80%, 84%
+  L30113  85%, 89%
+  L30117  90%, 95%
+  L30121  96%, 99%
+  L30127  0%, 4%, 100%
+  L30131  5%, 9%
+  L30135  10%, 14%
+  L30139  15%, 19%
+  L30143  20%, 24%
+  L30147  25%, 29%
+  L30151  30%, 34%
+  L30155  35%, 39%
+  L30159  40%, 44%
+  L30163  45%, 49%
+  L30167  50%, 54%
+  L30171  55%, 59%
+  L30175  60%, 64%
+  L30179  65%, 69%
+  L30183  70%, 74%
+  L30187  75%, 79%
+  L30191  80%, 84%
+  L30195  85%, 89%
+  L30199  90%, 95%
+  L30203  96%, 99%
+  L30208  .logo-glitch-text
+  L30214  .logo-glitch-text .logo-glitch-main
+  L30218  .logo-glitch-text.logo-glitch-active .logo-glitch-main
+  L30221  .logo-glitch-text .logo-glitch-layer
+  L30229  .logo-glitch-text .logo-glitch-layer-1
+  L30234  .logo-glitch-text .logo-glitch-layer-2
+  L30239  .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1
+  L30242  .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
+  L30246  0%, 4%, 100%
+  L30249  5%, 9%
+  L30252  10%, 14%
+  L30255  15%, 19%
+  L30258  20%, 24%
+  L30261  25%, 29%
+  L30264  30%, 34%
+  L30267  35%, 39%
+  L30270  40%, 44%
+  L30273  45%, 49%
+  L30276  50%, 54%
+  L30279  55%, 59%
+  L30282  60%, 64%
+  L30285  65%, 69%
+  L30288  70%, 74%
+  L30291  75%, 79%
+  L30294  80%, 84%
+  L30297  85%, 89%
+  L30300  90%, 95%
+  L30303  96%, 99%
+  L30310  [data-theme='dark'] .logo-glitch-text .logo-glitch-main
+  L30313  [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
+  L30317  0%, 4%, 100%
+  L30320  5%, 9%
+  L30323  10%, 14%
+  L30326  15%, 19%
+  L30329  20%, 24%
+  L30332  25%, 29%
+  L30335  30%, 34%
+  L30338  35%, 39%
+  L30341  40%, 44%
+  L30344  45%, 49%
+  L30347  50%, 54%
+  L30350  55%, 59%
+  L30353  60%, 64%
+  L30356  65%, 69%
+  L30359  70%, 74%
+  L30362  75%, 79%
+  L30365  80%, 84%
+  L30368  85%, 89%
+  L30371  90%, 95%
+  L30374  96%, 99%
+  L30382  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-text.logo-glitch-active .logo-glitch-main, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon
+  L30386  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon
+  L30389  [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
+  L30393  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble
+  L30397  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble-current
+  L30402  .admin-bar
+  L30515  .hero-css-halo .halo
+  L30526  .hero-css-halo .halo-1
+  L30531  .hero-css-halo .halo-2
+  L30537  .hero-css-halo .halo-3
+  L30544  .hero-css-halo .halo
+  L30562  .hero-css-halo .halo-noise
+  L30570  .footer-custom .footer-link
+  L30576  .footer-custom .footer-heading
+  L30579  .footer-custom input[name='newsletter-email']
+  L30582  .footer-newsletter-btn-wrap
+  L30609  .footer-newsletter-btn-wrap:hover button
+  L30695  [data-theme='light'] .footer-custom .footer-link:hover
+  L30721  .footer-newsletter-input:focus-visible
+  L30733  [data-theme='light'] .footer-newsletter-input:focus-visible
+  L30736  .footer-newsletter-submit
+  L30740  .footer-newsletter-submit:hover
+  L30743  [data-theme='light'] .footer-newsletter-submit
+  L30747  [data-theme='light'] .footer-newsletter-submit:hover
+  L30754  [data-theme='light'] .footer-newsletter-btn-wrap:hover button
+  L30768  [data-theme='light'] .footer-social-icon:hover
+  L30772  [data-theme='light'] .footer-custom .footer-link
+  L30775  [data-theme='light'] .footer-custom .footer-heading
+  L30779  ::view-transition-old(root), ::view-transition-new(root)
+  L30843  .header-glass-plate.header-reveal-from-top, .site-header > .header-slide-layer.header-reveal-from-top, .megamenu > .header-slide-layer.header-reveal-from-top
+  L30919  .megamenu:not(:hover) .header-tool-toggle:hover, .site-header:not(:hover) .header-tool-toggle:hover
+  L30936  .site-header:not(:hover) a:hover
+  L30939  [data-theme='light'] .site-header:not(:hover) .logo-link img, [data-theme='light'] .site-header:not(:hover) .logo-link svg
+  L30942  [data-theme='light'] .site-header:not(:hover) .header-tool-toggle
+  L30947  [data-theme='light'] .site-header:not(:hover) .header-tool-toggle:hover
+  L30951  [data-theme='light'] .site-header:not(:hover) a
+  L30954  [data-theme='light'] .site-header:not(:hover) a:hover
+  L30968  [data-theme='light'] .megamenu:not(:hover) .header-tool-toggle:hover
+  L30974  .megamenu .logo-link img, .megamenu .logo-link svg, .site-header .logo-link img, .site-header .logo-link svg
+  L30977  .megamenu .megamenu-top-item, .megamenu .megamenu-top-item [class*='lucide']
+  L30980  .megamenu .header-tool-toggle, .site-header .header-tool-toggle
+  L30985  .site-header a
+  L30988  [data-theme='light'] .megamenu .logo-link img, [data-theme='light'] .megamenu .logo-link svg, [data-theme='light'] .site-header .logo-link img, [data-theme='light'] .site-header .logo-link svg
+  L30991  [data-theme='light'] .megamenu .megamenu-top-item, [data-theme='light'] .megamenu .megamenu-top-item [class*='lucide'], [data-theme='light'] .megamenu .header-tool-toggle, [data-theme='light'] .site-header .header-tool-toggle, [data-theme='light'] .site-header a
+  L30994  [data-theme='light'] .megamenu .header-tool-toggle, [data-theme='light'] .site-header .header-tool-toggle
+  L30997  .megamenu[data-scrolled='true'] .megamenu-top-item, .megamenu[data-scrolled='true'] .header-tool-toggle, .site-header[data-scrolled='true'] a, .site-header[data-scrolled='true'] .header-tool-toggle
+  L31000  .megamenu[data-scrolled='true'] .logo-link img, .megamenu[data-scrolled='true'] .logo-link svg, .site-header[data-scrolled='true'] .logo-link img, .site-header[data-scrolled='true'] .logo-link svg
+  L31003  [data-theme='dark'] .megamenu[data-scrolled='true'] .megamenu-top-item, [data-theme='dark'] .megamenu[data-scrolled='true'] .header-tool-toggle, [data-theme='dark'] .site-header[data-scrolled='true'] a, [data-theme='dark'] .site-header[data-scrolled='true'] .header-tool-toggle
+  L31006  [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link img, [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link svg, [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link img, [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link svg
+  L31013  .site-header nav.header-nav > a[data-slot='button']
+  L31023  .site-header nav.header-nav > a[data-slot='button']:hover
+  L31026  .site-header nav.header-nav > a[data-slot='button']::after
+  L31040  .site-header nav.header-nav > a[data-slot='button'].header-nav-link--active::after
+  L31044  .site-header nav.header-nav > a[data-slot='button']:hover::after, .site-header nav.header-nav > a[data-slot='button']:focus-visible::after
+  L31048  [data-theme='light'] .site-header nav.header-nav > a[data-slot='button']:hover
+  L31052  [data-theme='dark'] .site-header nav.header-nav > a[data-slot='button']:hover
+  L31057  [data-theme='light'] .site-header nav.header-nav > a[data-slot='button']:focus-visible
+  L31061  [data-theme='dark'] .site-header nav.header-nav > a[data-slot='button']:focus-visible
+  L31074  .megamenu[data-sticky='true']:hover, .site-header[data-sticky='true']:hover
+  L31077  .megamenu[data-scrolled='true'], .site-header[data-scrolled='true']
+  L31081  [data-theme='dark'] .megamenu[data-sticky='true']:hover, [data-theme='dark'] .site-header[data-sticky='true']:hover
+  L31084  [data-theme='dark'] .megamenu[data-scrolled='true'], [data-theme='dark'] .site-header[data-scrolled='true']
+  L31087  [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link img, [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link svg, [data-theme='light'] .site-header[data-scrolled='true'] .logo-link img, [data-theme='light'] .site-header[data-scrolled='true'] .logo-link svg
+  L31090  .megamenu[data-scrolled='true'] .megamenu-top-item, .megamenu[data-scrolled='true'] .header-tool-toggle, .site-header[data-scrolled='true'] a, .site-header[data-scrolled='true'] .header-tool-toggle
+  L31093  .megamenu[data-scrolled='true'] button[aria-label='Menü öffnen'], .site-header[data-scrolled='true'] button[aria-label='Menü öffnen']
+  L31156  .megamenu-nav-list-wrap:has(.megamenu-top-item[data-active='true']) .megamenu-sliding-underline
+  L31166  .megamenu .megamenu-top-item[data-state='open']
+  L31177  .megamenu .megamenu-top-item:hover [class*='lucide'], .megamenu .megamenu-top-item[data-state='open'] [class*='lucide']
+  L31186  .megamenu-viewport-wrapper:has([data-state='open'])
+  L31192  .megamenu-viewport, .megamenu .megamenu-viewport
+  L31204  [data-theme='light'] .megamenu-viewport, [data-theme='light'] .megamenu .megamenu-viewport
+  L31208  [data-theme='light'] .megamenu .megamenu-featured
+  L31223  [data-theme='dark'] .megamenu-viewport, [data-theme='dark'] .megamenu .megamenu-viewport
+  L31227  [data-theme='dark'] .megamenu .megamenu-featured
+  L31272  .megamenu-viewport-wrapper:has([data-state='open'])
+  L31279  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-viewport
+  L31283  .megamenu-dropdown-content
+  L31288  .megamenu-dropdown-content
+  L31295  .megamenu-viewport, .megamenu .megamenu-viewport
+  L31314  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='from-']
+  L31317  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='to-']
+  L31320  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-content > *, .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-content-footer > *, .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-highlight-wipe-wrap
+  L31324  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-panel
+  L31331  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='from-']
+  L31336  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='to-']
+  L31379  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel > .megamenu-dropdown-intro
+  L31383  .megamenu-dropdown-intro h2, .megamenu-dropdown-intro p
+  L31386  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *
+  L31390  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(1)
+  L31393  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(2)
+  L31396  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(3)
+  L31399  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(4)
+  L31402  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(5)
+  L31405  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(n+6)
+  L31408  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *
+  L31412  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(1)
+  L31415  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(2)
+  L31418  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(3)
+  L31421  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(4)
+  L31424  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(5)
+  L31427  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(n+6)
+  L31430  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:not(.megamenu-highlight-wipe-wrap)
+  L31434  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(1):not(.megamenu-highlight-wipe-wrap)
+  L31437  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(2):not(.megamenu-highlight-wipe-wrap)
+  L31460  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='left']
+  L31464  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='right']
+  L31468  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-featured .megamenu-highlight-wipe-wrap[data-wipe='left'], .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-featured .megamenu-highlight-wipe-wrap[data-wipe='right'], .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer .megamenu-highlight-wipe-wrap[data-wipe='left'], .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer .megamenu-highlight-wipe-wrap[data-wipe='right']
+  ... +95 weitere

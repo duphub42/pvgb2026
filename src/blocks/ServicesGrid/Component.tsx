@@ -6,12 +6,12 @@ import Link from 'next/link'
 import * as LucideIcons from 'lucide-react'
 import type { LucideIcon } from 'lucide-react'
 import { cn } from '@/utilities/ui'
-import type { Media as MediaType } from '@/payload-types'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 import type { ServicesGridBlock as ServicesGridBlockData } from '@/payload-types'
 
 type ServicesGridProps = ServicesGridBlockData & { disableInnerContainer?: boolean }
+type RadialStrength = 'subtle' | 'medium' | 'strong'
 
 const normalizeServiceSlug = (slug?: string | null): string => {
   const raw = slug?.trim() ?? ''
@@ -20,7 +20,9 @@ const normalizeServiceSlug = (slug?: string | null): string => {
 }
 
 const normalizeIconInput = (raw?: string | null): string =>
-  String(raw ?? '').trim().replace(/^lucide[-_: ]*/i, '')
+  String(raw ?? '')
+    .trim()
+    .replace(/^lucide[-_: ]*/i, '')
 
 const toPascalCase = (value: string): string =>
   value
@@ -61,36 +63,58 @@ const getIconFromName = (name?: string | null): LucideIcon => {
   return LucideIcons.CircleHelp
 }
 
-const getRadialStyles = (variant?: string): React.CSSProperties => {
-  switch (variant) {
-    case 'blue':
+const strengthMultiplier: Record<RadialStrength, number> = {
+  subtle: 0.78,
+  medium: 1,
+  strong: 1.28,
+}
+
+const getStrengthClassNames = (strength: RadialStrength) => {
+  switch (strength) {
+    case 'subtle':
       return {
-        background:
-          'radial-gradient(68% 54% at 14% 16%, hsl(var(--foreground) / 0.26) 0%, hsl(var(--foreground) / 0.16) 38%, transparent 78%), radial-gradient(92% 82% at 84% 84%, hsl(var(--foreground) / 0.12) 0%, transparent 76%)',
+        glowOpacity: 'opacity-70',
+        glowBlur: 'blur-[60px]',
+        baseOpacity: 'opacity-35',
       }
-    case 'orange':
+    case 'strong':
       return {
-        background:
-          'radial-gradient(68% 54% at 86% 16%, hsl(var(--foreground) / 0.26) 0%, hsl(var(--foreground) / 0.16) 38%, transparent 78%), radial-gradient(92% 82% at 16% 84%, hsl(var(--foreground) / 0.12) 0%, transparent 76%)',
+        glowOpacity: 'opacity-100',
+        glowBlur: 'blur-[34px]',
+        baseOpacity: 'opacity-72',
       }
     default:
       return {
-        background:
-          'radial-gradient(72% 56% at 50% 14%, hsl(var(--foreground) / 0.24) 0%, hsl(var(--foreground) / 0.14) 40%, transparent 80%), radial-gradient(90% 82% at 50% 86%, hsl(var(--foreground) / 0.12) 0%, transparent 76%)',
+        glowOpacity: 'opacity-95',
+        glowBlur: 'blur-[42px]',
+        baseOpacity: 'opacity-55',
       }
   }
 }
 
-const getIntroImageAspectRatio = (resource: MediaType | null | undefined): string => {
-  const width = Number(resource?.width)
-  const height = Number(resource?.height)
+const p = (base: number, mult: number): string =>
+  `${Math.max(0, Math.min(95, base * mult)).toFixed(1)}%`
 
-  if (!Number.isFinite(width) || !Number.isFinite(height) || width <= 0 || height <= 0) {
-    return '4 / 3'
+const getRadialStyles = (
+  variant: string | undefined,
+  strength: RadialStrength,
+): React.CSSProperties => {
+  const m = strengthMultiplier[strength] ?? 1
+
+  switch (variant) {
+    case 'blue':
+      return {
+        background: `radial-gradient(68% 54% at 14% 16%, color-mix(in srgb, var(--theme-elevation-1000) ${p(26, m)}, transparent) 0%, color-mix(in srgb, var(--theme-elevation-900) ${p(16, m)}, transparent) 38%, transparent 78%), radial-gradient(92% 82% at 84% 84%, color-mix(in srgb, var(--theme-elevation-900) ${p(12, m)}, transparent) 0%, transparent 76%)`,
+      }
+    case 'orange':
+      return {
+        background: `radial-gradient(68% 54% at 86% 16%, color-mix(in srgb, var(--theme-elevation-1000) ${p(26, m)}, transparent) 0%, color-mix(in srgb, var(--theme-elevation-900) ${p(16, m)}, transparent) 38%, transparent 78%), radial-gradient(92% 82% at 16% 84%, color-mix(in srgb, var(--theme-elevation-900) ${p(12, m)}, transparent) 0%, transparent 76%)`,
+      }
+    default:
+      return {
+        background: `radial-gradient(72% 56% at 50% 14%, color-mix(in srgb, var(--theme-elevation-1000) ${p(24, m)}, transparent) 0%, color-mix(in srgb, var(--theme-elevation-900) ${p(14, m)}, transparent) 40%, transparent 80%), radial-gradient(90% 82% at 50% 86%, color-mix(in srgb, var(--theme-elevation-900) ${p(12, m)}, transparent) 0%, transparent 76%)`,
+      }
   }
-
-  const ratio = Math.min(1.8, Math.max(0.75, width / height))
-  return `${ratio.toFixed(3)} / 1`
 }
 
 const isSvgIntroImage = (
@@ -115,6 +139,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
   introImagePosition = 'left',
   radialBackground,
   radialBackgroundVariant,
+  radialBackgroundStrength,
   categories,
 }) => {
   const servicesData = categories ?? []
@@ -122,33 +147,41 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
   const hasIntroImage = Boolean(introImageSrc)
   const introImageIsSvg = isSvgIntroImage(introImage, introImageSrc)
   const hasIconList = Array.isArray(introIconList) && introIconList.length > 0
+  const effectiveStrength: RadialStrength =
+    radialBackgroundStrength === 'subtle' || radialBackgroundStrength === 'strong'
+      ? radialBackgroundStrength
+      : 'medium'
+  const radialClasses = getStrengthClassNames(effectiveStrength)
   const introLayoutClass =
     introImagePosition === 'left'
-      ? 'lg:grid-cols-[auto_minmax(0,1fr)]'
-      : 'lg:grid-cols-[minmax(0,1fr)_auto]'
+      ? 'lg:grid-cols-[minmax(24rem,36rem)_minmax(0,1fr)]'
+      : 'lg:grid-cols-[minmax(0,1fr)_minmax(24rem,36rem)]'
+  const introImagePopoutClass =
+    introImagePosition === 'right' ? 'lg:translate-x-20 lg:-translate-y-4' : 'lg:-translate-y-4'
   const taglineLines =
-    typeof tagline === 'string' && tagline.trim()
-      ? tagline.split('\n').filter((l) => l.trim())
-      : []
+    typeof tagline === 'string' && tagline.trim() ? tagline.split('\n').filter((l) => l.trim()) : []
 
   return (
     <section
       aria-label="Leistungen"
-      className={cn('relative w-full min-w-0 overflow-visible py-16')}
+      className={cn('relative w-full min-w-0 overflow-x-clip overflow-y-visible py-16 lg:pt-24')}
     >
       {radialBackground ? (
         <>
           <div
             aria-hidden
-            className="pointer-events-none absolute -inset-x-24 -inset-y-20 z-0 opacity-95 blur-[42px]"
-            style={getRadialStyles(radialBackgroundVariant ?? 'default')}
+            className={cn(
+              'pointer-events-none absolute -inset-x-24 -inset-y-20 z-0',
+              radialClasses.glowOpacity,
+              radialClasses.glowBlur,
+            )}
+            style={getRadialStyles(radialBackgroundVariant ?? 'default', effectiveStrength)}
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 z-0 opacity-55"
+            className={cn('pointer-events-none absolute inset-0 z-0', radialClasses.baseOpacity)}
             style={{
-              background:
-                'radial-gradient(110% 78% at 50% 18%, hsl(var(--foreground) / 0.12), transparent 74%)',
+              background: `radial-gradient(110% 78% at 50% 18%, color-mix(in srgb, var(--theme-elevation-1000) ${p(12, strengthMultiplier[effectiveStrength])}, transparent) 0%, transparent 74%)`,
             }}
           />
         </>
@@ -156,8 +189,14 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
 
       <div className="relative z-10 container">
         {(heading || intro || tagline || hasIconList || hasIntroImage) && (
-          <div className={cn('mx-auto grid items-start gap-8', hasIntroImage && introLayoutClass)}>
-            <div className="min-w-0 lg:max-w-2xl">
+          <div
+            className={cn(
+              'mx-auto grid items-stretch',
+              hasIntroImage ? 'gap-5 lg:gap-6' : 'gap-8',
+              hasIntroImage && introLayoutClass,
+            )}
+          >
+            <div className="min-w-0 lg:max-w-3xl">
               {heading && <h2 className="text-3xl font-bold tracking-tight">{heading}</h2>}
               {intro && <p className="mt-4 text-lg text-muted-foreground">{intro}</p>}
               {taglineLines.length > 0 && (
@@ -200,9 +239,12 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
 
             {hasIntroImage ? (
               <div
-                className="relative w-full max-w-[min(34rem,92vw)] shrink-0 overflow-hidden"
-                style={{ aspectRatio: getIntroImageAspectRatio(introImage as MediaType) }}
+                className={cn(
+                  'relative w-full max-w-none shrink-0 overflow-visible min-h-[22rem] transition-transform duration-500 ease-out lg:min-h-[30rem] lg:h-full',
+                  introImagePopoutClass,
+                )}
               >
+                <div aria-hidden className="services-grid-intro-grid absolute inset-0 z-0" />
                 <img
                   src={introImageSrc || ''}
                   alt={
@@ -211,7 +253,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
                       : String(heading || 'Einleitungsbild')
                   }
                   className={cn(
-                    'services-grid-intro-image h-full w-full object-contain',
+                    'services-grid-intro-image relative z-10 h-full w-full object-contain object-center',
                     introImageIsSvg && 'services-grid-intro-image--svg',
                   )}
                   loading="lazy"
@@ -247,7 +289,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
                     const content = (
                       <div
                         className={cn(
-                          'group block space-y-4 rounded-xl border p-5 shadow-sm backdrop-blur-[1px] transition hover:-translate-y-1 hover:shadow-xl',
+                          'services-grid-card group block space-y-4 rounded-xl border p-5 shadow-sm backdrop-blur-[1px] transition hover:-translate-y-1 hover:shadow-xl',
                           service.featured
                             ? 'border-primary/35 bg-primary/14 text-foreground'
                             : 'border-border/80 bg-card/92 text-card-foreground',

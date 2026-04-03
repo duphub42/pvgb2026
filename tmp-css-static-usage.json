@@ -1,0 +1,223 @@
+{
+  "sourceFilesScanned": 472,
+  "totalRules": 685,
+  "uniqueClasses": 181,
+  "deadClassesCount": 28,
+  "deadClassesTop": [
+    {
+      "cls": "hero-box-frame-shadow",
+      "usedInSource": false,
+      "ruleCount": 6,
+      "bytes": 2982
+    },
+    {
+      "cls": "hero-box-inner",
+      "usedInSource": false,
+      "ruleCount": 6,
+      "bytes": 2798
+    },
+    {
+      "cls": "hero-box-gradient",
+      "usedInSource": false,
+      "ruleCount": 9,
+      "bytes": 2342
+    },
+    {
+      "cls": "hero-pattern-bg",
+      "usedInSource": false,
+      "ruleCount": 2,
+      "bytes": 2298
+    },
+    {
+      "cls": "hero-background-overlay--behind-portrait",
+      "usedInSource": false,
+      "ruleCount": 4,
+      "bytes": 1613
+    },
+    {
+      "cls": "hero-portrait-fade-up",
+      "usedInSource": false,
+      "ruleCount": 8,
+      "bytes": 1209
+    },
+    {
+      "cls": "hero-simple-portrait-img",
+      "usedInSource": false,
+      "ruleCount": 4,
+      "bytes": 1040
+    },
+    {
+      "cls": "hero-subheadline-badge",
+      "usedInSource": false,
+      "ruleCount": 4,
+      "bytes": 814
+    },
+    {
+      "cls": "hero-pb-content-wrapper",
+      "usedInSource": false,
+      "ruleCount": 6,
+      "bytes": 531
+    },
+    {
+      "cls": "hero-foreground-container",
+      "usedInSource": false,
+      "ruleCount": 4,
+      "bytes": 505
+    },
+    {
+      "cls": "hero-box-outer",
+      "usedInSource": false,
+      "ruleCount": 1,
+      "bytes": 481
+    },
+    {
+      "cls": "link-hover-underline",
+      "usedInSource": false,
+      "ruleCount": 3,
+      "bytes": 406
+    },
+    {
+      "cls": "hero-simple-portrait",
+      "usedInSource": false,
+      "ruleCount": 2,
+      "bytes": 397
+    },
+    {
+      "cls": "hero-pb-section",
+      "usedInSource": false,
+      "ruleCount": 5,
+      "bytes": 356
+    },
+    {
+      "cls": "hero-box-animate",
+      "usedInSource": false,
+      "ruleCount": 3,
+      "bytes": 314
+    },
+    {
+      "cls": "hero-portrait-sm",
+      "usedInSource": false,
+      "ruleCount": 3,
+      "bytes": 285
+    },
+    {
+      "cls": "hero-heading-gradient-exempt",
+      "usedInSource": false,
+      "ruleCount": 1,
+      "bytes": 285
+    },
+    {
+      "cls": "logo-glitch-collapsed",
+      "usedInSource": false,
+      "ruleCount": 2,
+      "bytes": 271
+    },
+    {
+      "cls": "hero-philipp-text-column",
+      "usedInSource": false,
+      "ruleCount": 2,
+      "bytes": 237
+    },
+    {
+      "cls": "hero-headline",
+      "usedInSource": false,
+      "ruleCount": 2,
+      "bytes": 220
+    },
+    {
+      "cls": "profil-hero-float-cloud",
+      "usedInSource": false,
+      "ruleCount": 2,
+      "bytes": 205
+    },
+    {
+      "cls": "profil-hero-float-ski",
+      "usedInSource": false,
+      "ruleCount": 2,
+      "bytes": 201
+    },
+    {
+      "cls": "logo-contrast-dark-bg",
+      "usedInSource": false,
+      "ruleCount": 2,
+      "bytes": 195
+    },
+    {
+      "cls": "hero-foreground-no-inset-height",
+      "usedInSource": false,
+      "ruleCount": 1,
+      "bytes": 141
+    },
+    {
+      "cls": "hero-prose",
+      "usedInSource": false,
+      "ruleCount": 2,
+      "bytes": 136
+    },
+    {
+      "cls": "hero-float",
+      "usedInSource": false,
+      "ruleCount": 1,
+      "bytes": 126
+    },
+    {
+      "cls": "theme-toggle--force-motion",
+      "usedInSource": false,
+      "ruleCount": 1,
+      "bytes": 109
+    },
+    {
+      "cls": "hero-safe-top--extra",
+      "usedInSource": false,
+      "ruleCount": 1,
+      "bytes": 79
+    }
+  ],
+  "deadClassPrefixTop": [
+    {
+      "prefix": "hero",
+      "classes": 22,
+      "bytes": 19189
+    },
+    {
+      "prefix": "logo",
+      "classes": 2,
+      "bytes": 466
+    },
+    {
+      "prefix": "link",
+      "classes": 1,
+      "bytes": 406
+    },
+    {
+      "prefix": "profil",
+      "classes": 2,
+      "bytes": 406
+    },
+    {
+      "prefix": "theme",
+      "classes": 1,
+      "bytes": 109
+    }
+  ],
+  "keyframesTotal": 41,
+  "keyframesDeadCount": 2,
+  "deadKeyframes": [
+    {
+      "name": "footer-bounce-in",
+      "bytes": 255,
+      "atCount": 1,
+      "files": [
+        "src/app/(frontend)/globals.part5.css"
+      ]
+    },
+    {
+      "name": "paths-draw",
+      "bytes": 103,
+      "atCount": 1,
+      "files": [
+        "src/app/(frontend)/globals.part4.css"
+      ]
+    }
+  ]
+}

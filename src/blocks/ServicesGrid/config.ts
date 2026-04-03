@@ -44,7 +44,8 @@ export const ServicesGrid: Block = {
       minRows: 0,
       maxRows: 12,
       admin: {
-        description: 'Optional: Icon-Liste in der Einleitungs-Spalte (analog zum Introduction-Block).',
+        description:
+          'Optional: Icon-Liste in der Einleitungs-Spalte (analog zum Introduction-Block).',
       },
       fields: [
         {
@@ -104,7 +105,22 @@ export const ServicesGrid: Block = {
       ],
       admin: {
         condition: (_, siblingData) => Boolean(siblingData?.radialBackground),
-        description: 'Wählt die Position des radialen Verlaufs. Interne Werte bleiben für Bestandsdaten kompatibel.',
+        description:
+          'Wählt die Position des radialen Verlaufs. Interne Werte bleiben für Bestandsdaten kompatibel.',
+      },
+    },
+    {
+      name: 'radialBackgroundStrength',
+      type: 'select',
+      label: 'Radialer Hintergrund (Stärke)',
+      defaultValue: 'strong',
+      options: [
+        { label: 'Subtil', value: 'subtle' },
+        { label: 'Mittel', value: 'medium' },
+        { label: 'Stark', value: 'strong' },
+      ],
+      admin: {
+        condition: (_, siblingData) => Boolean(siblingData?.radialBackground),
       },
     },
     {

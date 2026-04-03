@@ -460,6 +460,19 @@ export function MegaMenu({
   const [underlineStyle, setUnderlineStyle] = useState<{ left: number; width: number } | null>(null)
   const [mouseEntrySide, setMouseEntrySide] = useState<'left' | 'right'>('left')
 
+  const navigateToTopLevel = React.useCallback(
+    (targetUrl: string) => {
+      if (!targetUrl) return
+      const isExternal = /^(?:[a-z][a-z\d+\-.]*:)?\/\//i.test(targetUrl)
+      if (isExternal) {
+        window.location.assign(targetUrl)
+        return
+      }
+      router.push(targetUrl)
+    },
+    [router],
+  )
+
   const cancelCloseTimeout = () => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current)
@@ -1089,13 +1102,23 @@ export function MegaMenu({
                           return (
                             <NavigationMenuItem key={item.id} value={value}>
                               <NavigationMenuTrigger
-                                className={cn(navigationMenuTriggerStyle(), 'megamenu-top-item')}
+                                className={cn(
+                                  navigationMenuTriggerStyle(),
+                                  'megamenu-top-item cursor-pointer',
+                                )}
                                 data-active={triggerActive ? 'true' : undefined}
                                 onPointerEnter={(e) => {
                                   const rect = e.currentTarget.getBoundingClientRect()
                                   setMouseEntrySide(
                                     e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
                                   )
+                                }}
+                                onClick={(event) => {
+                                  event.preventDefault()
+                                  event.stopPropagation()
+                                  cancelCloseTimeout()
+                                  setActiveMenu(null)
+                                  navigateToTopLevel(item.url)
                                 }}
                               >
                                 {item.label}
@@ -1254,7 +1277,10 @@ export function MegaMenu({
                             <NavigationMenuLink asChild>
                               <Link
                                 href={item.url}
-                                className={cn(navigationMenuTriggerStyle(), 'megamenu-top-item')}
+                                className={cn(
+                                  navigationMenuTriggerStyle(),
+                                  'megamenu-top-item cursor-pointer',
+                                )}
                                 data-active={linkActive ? 'true' : undefined}
                               >
                                 {item.label}

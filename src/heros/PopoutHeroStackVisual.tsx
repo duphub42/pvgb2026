@@ -45,6 +45,7 @@ export function PopoutHeroStackVisual({
               <div
                 className={cn(
                   'relative h-full min-h-[10rem] w-full',
+                  layer.z <= 0 && 'hero-stack-back-cloud',
                   layer.z <= 0 ? 'hero-stack-float-back' : 'hero-stack-float-mid',
                 )}
               >
@@ -64,7 +65,7 @@ export function PopoutHeroStackVisual({
               className="absolute bottom-[2%] left-1/2 flex w-[86%] max-w-[min(560px,92vw)] justify-center md:bottom-[0%] md:w-[90%]"
               style={{
                 zIndex: 10 + layer.z,
-                transform: `translate(calc(-50% + ${layer.offsetX}px), calc(${layer.offsetY}px + clamp(1rem, 6vh, 4.5rem)))`,
+                transform: `translate(calc(-50% + ${layer.offsetX}px), calc(${layer.offsetY}px + var(--hero-stack-base-y, clamp(1rem, 6vh, 4.5rem)) - var(--hero-stack-lift, 0px)))`,
               }}
             >
               <div
@@ -82,7 +83,7 @@ export function PopoutHeroStackVisual({
                   alt=""
                   width={1024}
                   height={958}
-                  className="h-auto max-h-[min(88vh,920px)] w-full object-contain object-bottom md:max-h-[min(92vh,960px)] md:translate-y-[clamp(1rem,6vh,4rem)] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
+                  className="h-auto max-h-[min(88vh,920px)] w-full object-contain object-bottom md:max-h-[min(92vh,960px)] md:translate-y-[calc(var(--hero-stack-img-base-y,clamp(1rem,6vh,4rem))-var(--hero-stack-lift,0px))] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
                   sizes="(max-width: 768px) 80vw, 520px"
                   priority
                 />
@@ -137,6 +138,12 @@ export function PopoutHeroStackVisual({
           animation: hero-stack-float-front 6.6s ease-in-out infinite;
           animation-delay: -0.7s;
           will-change: transform;
+        }
+
+        [data-theme='dark'] .hero-stack-back-cloud {
+          filter:
+            drop-shadow(0 24px 54px rgba(0, 0, 0, 0.55))
+            drop-shadow(0 0 48px rgba(255, 255, 255, 0.12));
         }
 
         @media (prefers-reduced-motion: reduce) {

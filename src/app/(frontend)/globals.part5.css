@@ -99,7 +99,7 @@ header .header-tool-toggle--theme:hover {
 [data-theme='dark'] .megamenu .megamenu-top-item:hover,
 [data-theme='dark'] .megamenu .megamenu-top-item:focus-visible,
 [data-theme='dark'] .megamenu .megamenu-top-item[data-state='open'] {
-  color: #fafafa;
+  color: #ffffff;
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
 [data-theme='dark'] .megamenu .megamenu-top-item [class*='lucide'] {
@@ -107,7 +107,7 @@ header .header-tool-toggle--theme:hover {
 }
 [data-theme='dark'] .megamenu .megamenu-top-item:hover [class*='lucide'],
 [data-theme='dark'] .megamenu .megamenu-top-item[data-state='open'] [class*='lucide'] {
-  color: #fafafa;
+  color: #ffffff;
 }
 [data-theme='dark'] .megamenu-dropdown-bg,
 [data-theme='dark'] .megamenu-viewport-wrapper {
@@ -119,7 +119,15 @@ header .header-tool-toggle--theme:hover {
 [data-theme='dark'] .megamenu-viewport-wrapper:has([data-state='open']) {
   border: 1px solid #262626 !important;
   border-top: none !important;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  box-shadow: none !important;
+}
+[data-theme='dark'] .megamenu .megamenu-viewport-outer:has([data-state='open']) {
+  filter: none !important;
+}
+[data-theme='dark'] .megamenu .megamenu-viewport-outer:has([data-state='open'])::after {
+  background:
+    radial-gradient(ellipse at center, rgba(0, 0, 0, 0.48) 0%, rgba(0, 0, 0, 0.22) 50%, transparent 80%),
+    radial-gradient(ellipse at center, hsl(var(--primary) / 0.2) 0%, transparent 74%);
 }
 [data-theme='dark'] .megamenu-viewport,
 [data-theme='dark'] .megamenu .megamenu-viewport {
@@ -238,16 +246,23 @@ header .header-tool-toggle--theme:hover {
   color: #fafafa;
 }
 [data-theme='dark'] .megamenu a {
-  color: #e5e5e5;
+  color: #d4d4d4;
 }
 [data-theme='dark'] .megamenu a:hover {
-  color: #fafafa;
-  background-color: #262626;
+  color: #ffffff;
+  background-color: rgba(255, 255, 255, 0.12);
 }
 [data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover {
-  background-color: transparent !important;
-  color: #fafafa;
-  border-color: transparent !important;
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  color: #ffffff !important;
+  border-color: rgba(255, 255, 255, 0.16) !important;
+}
+[data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover .text-sm {
+  color: #ffffff !important;
+}
+[data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover p {
+  color: #ffffff !important;
+  opacity: 1 !important;
 }
 [data-theme='dark'] .megamenu .megamenu-col-items .megamenu-item-icon {
   background-image: none !important;
@@ -273,7 +288,7 @@ header .header-tool-toggle--theme:hover {
 }
 [data-theme='dark'] .megamenu .text-muted-foreground:hover,
 [data-theme='dark'] .megamenu a:hover .text-muted-foreground {
-  color: #fafafa;
+  color: #ffffff;
 }
 [data-theme='dark'] .megamenu .header-tool-toggle,
 [data-theme='dark'] header .header-tool-toggle {
@@ -334,11 +349,11 @@ header .header-tool-toggle--theme:hover {
 }
 [data-theme='dark'] .megamenu .megamenu-top-item:hover,
 [data-theme='dark'] .megamenu .megamenu-top-item:focus-visible {
-  color: #fafafa;
+  color: #ffffff;
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
 [data-theme='dark'] .megamenu .megamenu-top-item[data-state='open'] {
-  color: #fafafa;
+  color: #ffffff;
   background-color: rgba(255, 255, 255, 0.1) !important;
 }
 [data-theme='dark'] .megamenu-dropdown-bg,
@@ -351,7 +366,15 @@ header .header-tool-toggle--theme:hover {
 [data-theme='dark'] .megamenu-viewport-wrapper:has([data-state='open']) {
   border: 1px solid rgba(255, 255, 255, 0.12) !important;
   border-top: none !important;
-  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: none !important;
+}
+[data-theme='dark'] .megamenu .megamenu-viewport-outer:has([data-state='open']) {
+  filter: none !important;
+}
+[data-theme='dark'] .megamenu .megamenu-viewport-outer:has([data-state='open'])::after {
+  background:
+    radial-gradient(ellipse at center, rgba(0, 0, 0, 0.48) 0%, rgba(0, 0, 0, 0.22) 50%, transparent 80%),
+    radial-gradient(ellipse at center, hsl(var(--primary) / 0.2) 0%, transparent 74%);
 }
 [data-theme='dark'] .megamenu-viewport,
 [data-theme='dark'] .megamenu .megamenu-viewport {
@@ -607,23 +630,23 @@ header .header-tool-toggle--theme:hover {
 
 /* Services Grid: theme-aware intro image + card icons */
 .services-grid-intro-image {
-  filter: grayscale(1) contrast(1.02) brightness(0.96);
-  opacity: 0.96;
+  filter: none !important;
+  opacity: 1;
 }
 
 [data-theme='dark'] .services-grid-intro-image {
-  filter: grayscale(1) contrast(0.98) brightness(1.08);
-  opacity: 0.92;
+  filter: none !important;
+  opacity: 1;
 }
 
 .services-grid-intro-image--svg {
-  filter: grayscale(1) brightness(0.42) contrast(1.06);
-  opacity: 0.95;
+  filter: none !important;
+  opacity: 1;
 }
 
 [data-theme='dark'] .services-grid-intro-image--svg {
-  filter: grayscale(1) invert(1) brightness(1.2) contrast(1.02);
-  opacity: 0.92;
+  filter: none !important;
+  opacity: 1;
 }
 
 .services-grid-card-icon-wrap {
@@ -637,7 +660,40 @@ header .header-tool-toggle--theme:hover {
   opacity: 0.9;
 }
 
-[data-theme='dark'] .services-grid-card-icon-img {
-  filter: grayscale(1) contrast(0.95) brightness(1.42);
-  opacity: 0.86;
+[data-theme='dark'] .services-grid-card-icon-img,
+html[data-theme='dark'] .services-grid-card-icon-img,
+.dark .services-grid-card-icon-img {
+  filter: grayscale(1) invert(1) brightness(1.25) contrast(0.92) !important;
+  opacity: 0.92;
+}
+
+.services-grid-intro-grid {
+  opacity: 0.44;
+  background-image:
+    linear-gradient(
+      to right,
+      color-mix(in srgb, var(--foreground) 12%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--foreground) 10%, transparent) 1px,
+      transparent 1px
+    ),
+    radial-gradient(
+      115% 88% at 50% 20%,
+      color-mix(in srgb, var(--foreground) 10%, transparent) 0%,
+      transparent 72%
+    );
+  background-size:
+    22px 22px,
+    22px 22px,
+    100% 100%;
+  background-position: center;
+  mask-image: radial-gradient(ellipse 88% 74% at 50% 44%, black 52%, transparent 100%);
+  -webkit-mask-image: radial-gradient(ellipse 88% 74% at 50% 44%, black 52%, transparent 100%);
+}
+
+[data-theme='dark'] .services-grid-intro-grid {
+  opacity: 0.34;
 }

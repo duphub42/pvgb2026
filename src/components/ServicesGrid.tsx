@@ -31,7 +31,49 @@ export interface ServicesGridProps {
 
 export const ServicesGrid: React.FC<ServicesGridProps> = ({ data }) => {
   return (
-    <section className="py-16 px-6 max-w-7xl mx-auto bg-background text-foreground">
+    <section className="relative py-16 px-6 max-w-7xl mx-auto text-foreground overflow-hidden">
+      {/* SVG Grid with radial alpha fade */}
+      <svg
+        aria-hidden
+        className="pointer-events-none absolute inset-0 -z-10"
+        width="100%"
+        height="100%"
+        viewBox="0 0 1200 600"
+        preserveAspectRatio="none"
+        style={{ width: '100%', height: '100%', display: 'block', transform: 'rotate(180deg)' }}
+      >
+        <defs>
+          <radialGradient id="grid-fade" cx="50%" cy="50%" r="50%">
+            <stop offset="50%" stopColor="#fff" stopOpacity="0.18" />
+            <stop offset="75%" stopColor="#fff" stopOpacity="0.08" />
+            <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+          </radialGradient>
+        </defs>
+        {/* Vertical lines */}
+        {Array.from({ length: 38 }).map((_, i) => (
+          <line
+            key={`v-${i}`}
+            x1={i * 32}
+            y1={0}
+            x2={i * 32}
+            y2={600}
+            stroke="url(#grid-fade)"
+            strokeWidth="1"
+          />
+        ))}
+        {/* Horizontal lines */}
+        {Array.from({ length: 19 }).map((_, i) => (
+          <line
+            key={`h-${i}`}
+            x1={0}
+            y1={i * 32}
+            x2={1200}
+            y2={i * 32}
+            stroke="url(#grid-fade)"
+            strokeWidth="1"
+          />
+        ))}
+      </svg>
       {data.map((category, catIndex) => (
         <div key={catIndex} className="mb-16">
           <div className="mb-12">
