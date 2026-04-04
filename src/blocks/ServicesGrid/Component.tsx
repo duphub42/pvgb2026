@@ -243,7 +243,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
             {hasIntroImage ? (
               <div
                 className={cn(
-                  'relative w-full max-w-none shrink-0 overflow-visible min-h-[22rem] transition-transform duration-500 ease-out lg:h-full lg:w-[36rem] lg:min-w-[36rem] lg:max-w-[36rem] lg:min-h-[30rem]',
+                  'relative flex w-full max-w-none shrink-0 items-center justify-center overflow-visible min-h-0 transition-transform duration-500 ease-out lg:w-[36rem] lg:min-w-[36rem] lg:max-w-[36rem]',
                   introImagePopoutClass,
                 )}
               >
@@ -256,7 +256,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
                       : String(heading || 'Einleitungsbild')
                   }
                   className={cn(
-                    'services-grid-intro-image relative z-10 h-full w-full object-contain object-center',
+                    'services-grid-intro-image relative z-10 block h-auto w-full object-contain object-center',
                     introImageIsSvg && 'services-grid-intro-image--svg',
                   )}
                   style={{ objectPosition: '50% 50%' }}

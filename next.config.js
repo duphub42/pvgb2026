@@ -14,6 +14,29 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   : process.env.__NEXT_PRIVATE_ORIGIN ||
     (process.env.PORT ? `http://localhost:${process.env.PORT}` : 'http://localhost:3000')
 
+const mediaFallbackRewrites = [
+  {
+    source: '/media/weblogo-philippbacher-22.svg',
+    destination: '/media/weblogo-philippbacher.svg',
+  },
+  {
+    source: '/media/Automatisierungen.svg',
+    destination: '/media/Webhook-Automatisierung.svg',
+  },
+  {
+    source: '/media/webdesign-portfolio.svg',
+    destination: '/media/portfolio-webdesign.svg',
+  },
+  {
+    source: '/media/marketing-portfolio.svg',
+    destination: '/media/portfolio-marketing.svg',
+  },
+  {
+    source: '/media/Branding-Portfolio.svg',
+    destination: '/media/portfolio-brands.svg',
+  },
+]
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Keep dev and prod build artifacts isolated to prevent manifest races
@@ -91,6 +114,9 @@ const nextConfig = {
   },
   reactStrictMode: true,
   redirects,
+  async rewrites() {
+    return mediaFallbackRewrites
+  },
   // Pingdom F32: Lange Cache-Header für Build-Assets → weniger effektive Requests bei Wiederbesuchen
   // Skip in development: immutable caching of /_next/static can worsen stale chunks / ChunkLoadError with HMR.
   async headers() {

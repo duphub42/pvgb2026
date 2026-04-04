@@ -296,26 +296,10 @@
   border: 1px solid rgba(229, 229, 229, 0.85) !important;
   border-top: none !important;
   border-radius: 0 0 8px 8px;
-  box-shadow: none !important;
-}
-.megamenu .megamenu-viewport-outer:has([data-state='open']) {
-  filter: none !important;
-  isolation: isolate;
-}
-.megamenu .megamenu-viewport-outer:has([data-state='open'])::after {
-  content: '';
-  position: absolute;
-  left: 4%;
-  right: 4%;
-  top: calc(100% + 6px);
-  height: 34px;
-  border-radius: 999px;
-  pointer-events: none;
-  z-index: -1;
-  background:
-    radial-gradient(ellipse at center, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.08) 48%, transparent 78%),
-    radial-gradient(ellipse at center, hsl(var(--primary) / 0.16) 0%, transparent 72%);
-  filter: blur(8px);
+  box-shadow:
+    14px 12px 24px -22px rgba(0, 0, 0, 0.22),
+    -14px 12px 24px -22px rgba(0, 0, 0, 0.22),
+    0 16px 30px -24px hsl(var(--primary) / 0.24) !important;
 }
 .megamenu-viewport,
 .megamenu .megamenu-viewport {

@@ -1,245 +1,245 @@
-Visited pages: 20
+Visited pages: 24
 
-Sheet: http://127.0.0.1:3000/_next/static/css/app/(frontend)/layout.css?v=1775244839349
-Rules: 7999, used: 7664, unused: 335
+Sheet: http://127.0.0.1:3000/_next/static/css/app/(frontend)/layout.css?v=1775306511291
+Rules: 8003, used: 7699, unused: 304
   L11  .__className_07fa5c
   L41  .__className_a28744
   L69  .header-icon-btn:focus-visible
   L80  [data-theme='dark'] .header-icon-btn:hover
-  L29724  [data-theme='dark'] .logo-contrast.logo-contrast-dark-bg
-  L29733  [data-theme='dark'] .site-header .logo-link img, [data-theme='dark'] .site-header .logo-link svg, [data-theme='dark'] .site-header .logo-link .logo-contrast, .site-header[data-theme='dark'] .logo-link img, .site-header[data-theme='dark'] .logo-link svg, .site-header[data-theme='dark'] .logo-link .logo-contrast
-  L29766  .logo-glitch-wrapper.logo-glitch-footer
-  L29769  .footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image
-  L29778  .footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image:hover
-  L29781  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icons
-  L29784  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main
-  L29791  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main picture, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main img
-  L29800  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-layer
-  L29847  .logo-glitch-wrapper.logo-glitch-text:not(.logo-glitch-collapsed)
-  L29851  .logo-pixel-transition
-  L29865  .logo-pixel-transition-portal
-  L29869  .logo-pixel-transition-grid
-  L29876  .logo-pixel-transition-cell
-  L29895  .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-layer
-  L29906  .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble
-  L29919  .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble-current
-  L29927  0%, 4%, 100%
-  L29930  5%, 9%
-  L29933  10%, 14%
-  L29936  15%, 19%
-  L29939  20%, 24%
-  L29942  25%, 29%
-  L29945  30%, 34%
-  L29948  35%, 39%
-  L29951  40%, 44%
-  L29954  45%, 49%
-  L29957  50%, 54%
-  L29960  55%, 59%
-  L29963  60%, 64%
-  L29966  65%, 69%
-  L29969  70%, 74%
-  L29972  75%, 79%
-  L29975  80%, 84%
-  L29978  85%, 89%
-  L29981  90%, 95%
-  L29984  96%, 99%
-  L30014  0%, 6%, 12%, 18%, 24%, 30%, 36%, 42%, 48%, 54%, 60%, 66%, 72%, 78%, 84%, 90%, 96%
-  L30017  3%, 9%, 15%, 21%, 27%, 33%, 39%, 45%, 51%, 57%, 63%, 69%, 75%, 81%, 87%, 93%, 99%
-  L30045  0%, 4%, 100%
-  L30049  5%, 9%
-  L30053  10%, 14%
-  L30057  15%, 19%
-  L30061  20%, 24%
-  L30065  25%, 29%
-  L30069  30%, 34%
-  L30073  35%, 39%
-  L30077  40%, 44%
-  L30081  45%, 49%
-  L30085  50%, 54%
-  L30089  55%, 59%
-  L30093  60%, 64%
-  L30097  65%, 69%
-  L30101  70%, 74%
-  L30105  75%, 79%
-  L30109  80%, 84%
-  L30113  85%, 89%
-  L30117  90%, 95%
-  L30121  96%, 99%
-  L30127  0%, 4%, 100%
-  L30131  5%, 9%
-  L30135  10%, 14%
-  L30139  15%, 19%
-  L30143  20%, 24%
-  L30147  25%, 29%
-  L30151  30%, 34%
-  L30155  35%, 39%
-  L30159  40%, 44%
-  L30163  45%, 49%
-  L30167  50%, 54%
-  L30171  55%, 59%
-  L30175  60%, 64%
-  L30179  65%, 69%
-  L30183  70%, 74%
-  L30187  75%, 79%
-  L30191  80%, 84%
-  L30195  85%, 89%
-  L30199  90%, 95%
-  L30203  96%, 99%
-  L30208  .logo-glitch-text
-  L30214  .logo-glitch-text .logo-glitch-main
-  L30218  .logo-glitch-text.logo-glitch-active .logo-glitch-main
-  L30221  .logo-glitch-text .logo-glitch-layer
-  L30229  .logo-glitch-text .logo-glitch-layer-1
-  L30234  .logo-glitch-text .logo-glitch-layer-2
-  L30239  .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1
-  L30242  .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
-  L30246  0%, 4%, 100%
-  L30249  5%, 9%
-  L30252  10%, 14%
-  L30255  15%, 19%
-  L30258  20%, 24%
-  L30261  25%, 29%
-  L30264  30%, 34%
-  L30267  35%, 39%
-  L30270  40%, 44%
-  L30273  45%, 49%
-  L30276  50%, 54%
-  L30279  55%, 59%
-  L30282  60%, 64%
-  L30285  65%, 69%
-  L30288  70%, 74%
-  L30291  75%, 79%
-  L30294  80%, 84%
-  L30297  85%, 89%
-  L30300  90%, 95%
-  L30303  96%, 99%
-  L30310  [data-theme='dark'] .logo-glitch-text .logo-glitch-main
-  L30313  [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
-  L30317  0%, 4%, 100%
-  L30320  5%, 9%
-  L30323  10%, 14%
-  L30326  15%, 19%
-  L30329  20%, 24%
-  L30332  25%, 29%
-  L30335  30%, 34%
-  L30338  35%, 39%
-  L30341  40%, 44%
-  L30344  45%, 49%
-  L30347  50%, 54%
-  L30350  55%, 59%
-  L30353  60%, 64%
-  L30356  65%, 69%
-  L30359  70%, 74%
-  L30362  75%, 79%
-  L30365  80%, 84%
-  L30368  85%, 89%
-  L30371  90%, 95%
-  L30374  96%, 99%
-  L30382  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-text.logo-glitch-active .logo-glitch-main, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon
-  L30386  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon
-  L30389  [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
-  L30393  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble
-  L30397  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble-current
-  L30402  .admin-bar
-  L30515  .hero-css-halo .halo
-  L30526  .hero-css-halo .halo-1
-  L30531  .hero-css-halo .halo-2
-  L30537  .hero-css-halo .halo-3
-  L30544  .hero-css-halo .halo
-  L30562  .hero-css-halo .halo-noise
-  L30570  .footer-custom .footer-link
-  L30576  .footer-custom .footer-heading
-  L30579  .footer-custom input[name='newsletter-email']
-  L30582  .footer-newsletter-btn-wrap
-  L30609  .footer-newsletter-btn-wrap:hover button
-  L30695  [data-theme='light'] .footer-custom .footer-link:hover
-  L30721  .footer-newsletter-input:focus-visible
-  L30733  [data-theme='light'] .footer-newsletter-input:focus-visible
-  L30736  .footer-newsletter-submit
-  L30740  .footer-newsletter-submit:hover
-  L30743  [data-theme='light'] .footer-newsletter-submit
-  L30747  [data-theme='light'] .footer-newsletter-submit:hover
-  L30754  [data-theme='light'] .footer-newsletter-btn-wrap:hover button
-  L30768  [data-theme='light'] .footer-social-icon:hover
-  L30772  [data-theme='light'] .footer-custom .footer-link
-  L30775  [data-theme='light'] .footer-custom .footer-heading
-  L30779  ::view-transition-old(root), ::view-transition-new(root)
-  L30843  .header-glass-plate.header-reveal-from-top, .site-header > .header-slide-layer.header-reveal-from-top, .megamenu > .header-slide-layer.header-reveal-from-top
-  L30919  .megamenu:not(:hover) .header-tool-toggle:hover, .site-header:not(:hover) .header-tool-toggle:hover
-  L30936  .site-header:not(:hover) a:hover
-  L30939  [data-theme='light'] .site-header:not(:hover) .logo-link img, [data-theme='light'] .site-header:not(:hover) .logo-link svg
-  L30942  [data-theme='light'] .site-header:not(:hover) .header-tool-toggle
-  L30947  [data-theme='light'] .site-header:not(:hover) .header-tool-toggle:hover
-  L30951  [data-theme='light'] .site-header:not(:hover) a
-  L30954  [data-theme='light'] .site-header:not(:hover) a:hover
-  L30968  [data-theme='light'] .megamenu:not(:hover) .header-tool-toggle:hover
-  L30974  .megamenu .logo-link img, .megamenu .logo-link svg, .site-header .logo-link img, .site-header .logo-link svg
-  L30977  .megamenu .megamenu-top-item, .megamenu .megamenu-top-item [class*='lucide']
-  L30980  .megamenu .header-tool-toggle, .site-header .header-tool-toggle
-  L30985  .site-header a
-  L30988  [data-theme='light'] .megamenu .logo-link img, [data-theme='light'] .megamenu .logo-link svg, [data-theme='light'] .site-header .logo-link img, [data-theme='light'] .site-header .logo-link svg
-  L30991  [data-theme='light'] .megamenu .megamenu-top-item, [data-theme='light'] .megamenu .megamenu-top-item [class*='lucide'], [data-theme='light'] .megamenu .header-tool-toggle, [data-theme='light'] .site-header .header-tool-toggle, [data-theme='light'] .site-header a
-  L30994  [data-theme='light'] .megamenu .header-tool-toggle, [data-theme='light'] .site-header .header-tool-toggle
-  L30997  .megamenu[data-scrolled='true'] .megamenu-top-item, .megamenu[data-scrolled='true'] .header-tool-toggle, .site-header[data-scrolled='true'] a, .site-header[data-scrolled='true'] .header-tool-toggle
-  L31000  .megamenu[data-scrolled='true'] .logo-link img, .megamenu[data-scrolled='true'] .logo-link svg, .site-header[data-scrolled='true'] .logo-link img, .site-header[data-scrolled='true'] .logo-link svg
-  L31003  [data-theme='dark'] .megamenu[data-scrolled='true'] .megamenu-top-item, [data-theme='dark'] .megamenu[data-scrolled='true'] .header-tool-toggle, [data-theme='dark'] .site-header[data-scrolled='true'] a, [data-theme='dark'] .site-header[data-scrolled='true'] .header-tool-toggle
-  L31006  [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link img, [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link svg, [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link img, [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link svg
-  L31013  .site-header nav.header-nav > a[data-slot='button']
-  L31023  .site-header nav.header-nav > a[data-slot='button']:hover
-  L31026  .site-header nav.header-nav > a[data-slot='button']::after
-  L31040  .site-header nav.header-nav > a[data-slot='button'].header-nav-link--active::after
-  L31044  .site-header nav.header-nav > a[data-slot='button']:hover::after, .site-header nav.header-nav > a[data-slot='button']:focus-visible::after
-  L31048  [data-theme='light'] .site-header nav.header-nav > a[data-slot='button']:hover
-  L31052  [data-theme='dark'] .site-header nav.header-nav > a[data-slot='button']:hover
-  L31057  [data-theme='light'] .site-header nav.header-nav > a[data-slot='button']:focus-visible
-  L31061  [data-theme='dark'] .site-header nav.header-nav > a[data-slot='button']:focus-visible
-  L31074  .megamenu[data-sticky='true']:hover, .site-header[data-sticky='true']:hover
-  L31077  .megamenu[data-scrolled='true'], .site-header[data-scrolled='true']
-  L31081  [data-theme='dark'] .megamenu[data-sticky='true']:hover, [data-theme='dark'] .site-header[data-sticky='true']:hover
-  L31084  [data-theme='dark'] .megamenu[data-scrolled='true'], [data-theme='dark'] .site-header[data-scrolled='true']
-  L31087  [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link img, [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link svg, [data-theme='light'] .site-header[data-scrolled='true'] .logo-link img, [data-theme='light'] .site-header[data-scrolled='true'] .logo-link svg
-  L31090  .megamenu[data-scrolled='true'] .megamenu-top-item, .megamenu[data-scrolled='true'] .header-tool-toggle, .site-header[data-scrolled='true'] a, .site-header[data-scrolled='true'] .header-tool-toggle
-  L31093  .megamenu[data-scrolled='true'] button[aria-label='Menü öffnen'], .site-header[data-scrolled='true'] button[aria-label='Menü öffnen']
-  L31156  .megamenu-nav-list-wrap:has(.megamenu-top-item[data-active='true']) .megamenu-sliding-underline
-  L31166  .megamenu .megamenu-top-item[data-state='open']
-  L31177  .megamenu .megamenu-top-item:hover [class*='lucide'], .megamenu .megamenu-top-item[data-state='open'] [class*='lucide']
-  L31186  .megamenu-viewport-wrapper:has([data-state='open'])
-  L31192  .megamenu-viewport, .megamenu .megamenu-viewport
-  L31204  [data-theme='light'] .megamenu-viewport, [data-theme='light'] .megamenu .megamenu-viewport
-  L31208  [data-theme='light'] .megamenu .megamenu-featured
-  L31223  [data-theme='dark'] .megamenu-viewport, [data-theme='dark'] .megamenu .megamenu-viewport
-  L31227  [data-theme='dark'] .megamenu .megamenu-featured
-  L31272  .megamenu-viewport-wrapper:has([data-state='open'])
-  L31279  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-viewport
-  L31283  .megamenu-dropdown-content
-  L31288  .megamenu-dropdown-content
-  L31295  .megamenu-viewport, .megamenu .megamenu-viewport
-  L31314  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='from-']
-  L31317  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='to-']
-  L31320  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-content > *, .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-content-footer > *, .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-highlight-wipe-wrap
-  L31324  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-panel
-  L31331  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='from-']
-  L31336  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='to-']
-  L31379  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel > .megamenu-dropdown-intro
-  L31383  .megamenu-dropdown-intro h2, .megamenu-dropdown-intro p
-  L31386  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *
-  L31390  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(1)
-  L31393  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(2)
-  L31396  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(3)
-  L31399  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(4)
-  L31402  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(5)
-  L31405  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(n+6)
-  L31408  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *
-  L31412  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(1)
-  L31415  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(2)
-  L31418  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(3)
-  L31421  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(4)
-  L31424  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(5)
-  L31427  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(n+6)
-  L31430  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:not(.megamenu-highlight-wipe-wrap)
-  L31434  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(1):not(.megamenu-highlight-wipe-wrap)
-  L31437  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(2):not(.megamenu-highlight-wipe-wrap)
-  L31460  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='left']
-  L31464  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='right']
-  L31468  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-featured .megamenu-highlight-wipe-wrap[data-wipe='left'], .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-featured .megamenu-highlight-wipe-wrap[data-wipe='right'], .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer .megamenu-highlight-wipe-wrap[data-wipe='left'], .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer .megamenu-highlight-wipe-wrap[data-wipe='right']
-  ... +95 weitere
+  L29738  [data-theme='dark'] .logo-contrast.logo-contrast-dark-bg
+  L29747  [data-theme='dark'] .site-header .logo-link img, [data-theme='dark'] .site-header .logo-link svg, [data-theme='dark'] .site-header .logo-link .logo-contrast, .site-header[data-theme='dark'] .logo-link img, .site-header[data-theme='dark'] .logo-link svg, .site-header[data-theme='dark'] .logo-link .logo-contrast
+  L29780  .logo-glitch-wrapper.logo-glitch-footer
+  L29783  .footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image
+  L29792  .footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image:hover
+  L29795  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icons
+  L29798  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main
+  L29805  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main picture, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main img
+  L29814  .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-layer
+  L29861  .logo-glitch-wrapper.logo-glitch-text:not(.logo-glitch-collapsed)
+  L29872  .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-layer
+  L29883  .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble
+  L29896  .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble-current
+  L29904  0%, 4%, 100%
+  L29907  5%, 9%
+  L29910  10%, 14%
+  L29913  15%, 19%
+  L29916  20%, 24%
+  L29919  25%, 29%
+  L29922  30%, 34%
+  L29925  35%, 39%
+  L29928  40%, 44%
+  L29931  45%, 49%
+  L29934  50%, 54%
+  L29937  55%, 59%
+  L29940  60%, 64%
+  L29943  65%, 69%
+  L29946  70%, 74%
+  L29949  75%, 79%
+  L29952  80%, 84%
+  L29955  85%, 89%
+  L29958  90%, 95%
+  L29961  96%, 99%
+  L29991  0%, 6%, 12%, 18%, 24%, 30%, 36%, 42%, 48%, 54%, 60%, 66%, 72%, 78%, 84%, 90%, 96%
+  L29994  3%, 9%, 15%, 21%, 27%, 33%, 39%, 45%, 51%, 57%, 63%, 69%, 75%, 81%, 87%, 93%, 99%
+  L30022  0%, 4%, 100%
+  L30026  5%, 9%
+  L30030  10%, 14%
+  L30034  15%, 19%
+  L30038  20%, 24%
+  L30042  25%, 29%
+  L30046  30%, 34%
+  L30050  35%, 39%
+  L30054  40%, 44%
+  L30058  45%, 49%
+  L30062  50%, 54%
+  L30066  55%, 59%
+  L30070  60%, 64%
+  L30074  65%, 69%
+  L30078  70%, 74%
+  L30082  75%, 79%
+  L30086  80%, 84%
+  L30090  85%, 89%
+  L30094  90%, 95%
+  L30098  96%, 99%
+  L30104  0%, 4%, 100%
+  L30108  5%, 9%
+  L30112  10%, 14%
+  L30116  15%, 19%
+  L30120  20%, 24%
+  L30124  25%, 29%
+  L30128  30%, 34%
+  L30132  35%, 39%
+  L30136  40%, 44%
+  L30140  45%, 49%
+  L30144  50%, 54%
+  L30148  55%, 59%
+  L30152  60%, 64%
+  L30156  65%, 69%
+  L30160  70%, 74%
+  L30164  75%, 79%
+  L30168  80%, 84%
+  L30172  85%, 89%
+  L30176  90%, 95%
+  L30180  96%, 99%
+  L30185  .logo-glitch-text
+  L30191  .logo-glitch-text .logo-glitch-main
+  L30195  .logo-glitch-text.logo-glitch-active .logo-glitch-main
+  L30198  .logo-glitch-text .logo-glitch-layer
+  L30206  .logo-glitch-text .logo-glitch-layer-1
+  L30211  .logo-glitch-text .logo-glitch-layer-2
+  L30216  .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1
+  L30219  .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
+  L30223  0%, 4%, 100%
+  L30226  5%, 9%
+  L30229  10%, 14%
+  L30232  15%, 19%
+  L30235  20%, 24%
+  L30238  25%, 29%
+  L30241  30%, 34%
+  L30244  35%, 39%
+  L30247  40%, 44%
+  L30250  45%, 49%
+  L30253  50%, 54%
+  L30256  55%, 59%
+  L30259  60%, 64%
+  L30262  65%, 69%
+  L30265  70%, 74%
+  L30268  75%, 79%
+  L30271  80%, 84%
+  L30274  85%, 89%
+  L30277  90%, 95%
+  L30280  96%, 99%
+  L30287  [data-theme='dark'] .logo-glitch-text .logo-glitch-main
+  L30290  [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
+  L30294  0%, 4%, 100%
+  L30297  5%, 9%
+  L30300  10%, 14%
+  L30303  15%, 19%
+  L30306  20%, 24%
+  L30309  25%, 29%
+  L30312  30%, 34%
+  L30315  35%, 39%
+  L30318  40%, 44%
+  L30321  45%, 49%
+  L30324  50%, 54%
+  L30327  55%, 59%
+  L30330  60%, 64%
+  L30333  65%, 69%
+  L30336  70%, 74%
+  L30339  75%, 79%
+  L30342  80%, 84%
+  L30345  85%, 89%
+  L30348  90%, 95%
+  L30351  96%, 99%
+  L30359  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-text.logo-glitch-active .logo-glitch-main, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon
+  L30363  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon
+  L30366  [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2
+  L30370  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble
+  L30374  .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble-current
+  L30379  .admin-bar
+  L30492  .hero-css-halo .halo
+  L30503  .hero-css-halo .halo-1
+  L30508  .hero-css-halo .halo-2
+  L30514  .hero-css-halo .halo-3
+  L30521  .hero-css-halo .halo
+  L30539  .hero-css-halo .halo-noise
+  L30547  .footer-custom .footer-link
+  L30553  .footer-custom .footer-heading
+  L30556  .footer-custom input[name='newsletter-email']
+  L30559  .footer-newsletter-btn-wrap
+  L30586  .footer-newsletter-btn-wrap:hover button
+  L30638  [data-theme='light'] .footer-gradient::before
+  L30652  [data-theme='light'] .footer-custom .footer-link:hover
+  L30678  .footer-newsletter-input:focus-visible
+  L30690  [data-theme='light'] .footer-newsletter-input:focus-visible
+  L30693  .footer-newsletter-submit
+  L30697  .footer-newsletter-submit:hover
+  L30700  [data-theme='light'] .footer-newsletter-submit
+  L30704  [data-theme='light'] .footer-newsletter-submit:hover
+  L30711  [data-theme='light'] .footer-newsletter-btn-wrap:hover button
+  L30725  [data-theme='light'] .footer-social-icon:hover
+  L30729  [data-theme='light'] .footer-custom .footer-link
+  L30732  [data-theme='light'] .footer-custom .footer-heading
+  L30736  ::view-transition-old(root), ::view-transition-new(root)
+  L30800  .header-glass-plate.header-reveal-from-top, .site-header > .header-slide-layer.header-reveal-from-top, .megamenu > .header-slide-layer.header-reveal-from-top
+  L30876  .megamenu:not(:hover) .header-tool-toggle:hover, .site-header:not(:hover) .header-tool-toggle:hover
+  L30893  .site-header:not(:hover) a:hover
+  L30896  [data-theme='light'] .site-header:not(:hover) .logo-link img, [data-theme='light'] .site-header:not(:hover) .logo-link svg
+  L30899  [data-theme='light'] .site-header:not(:hover) .header-tool-toggle
+  L30904  [data-theme='light'] .site-header:not(:hover) .header-tool-toggle:hover
+  L30908  [data-theme='light'] .site-header:not(:hover) a
+  L30911  [data-theme='light'] .site-header:not(:hover) a:hover
+  L30925  [data-theme='light'] .megamenu:not(:hover) .header-tool-toggle:hover
+  L30931  .megamenu .logo-link img, .megamenu .logo-link svg, .site-header .logo-link img, .site-header .logo-link svg
+  L30934  .megamenu .megamenu-top-item, .megamenu .megamenu-top-item [class*='lucide']
+  L30937  .megamenu .header-tool-toggle, .site-header .header-tool-toggle
+  L30942  .site-header a
+  L30945  [data-theme='light'] .megamenu .logo-link img, [data-theme='light'] .megamenu .logo-link svg, [data-theme='light'] .site-header .logo-link img, [data-theme='light'] .site-header .logo-link svg
+  L30948  [data-theme='light'] .megamenu .megamenu-top-item, [data-theme='light'] .megamenu .megamenu-top-item [class*='lucide'], [data-theme='light'] .megamenu .header-tool-toggle, [data-theme='light'] .site-header .header-tool-toggle, [data-theme='light'] .site-header a
+  L30951  [data-theme='light'] .megamenu .header-tool-toggle, [data-theme='light'] .site-header .header-tool-toggle
+  L30954  .megamenu[data-scrolled='true'] .megamenu-top-item, .megamenu[data-scrolled='true'] .header-tool-toggle, .site-header[data-scrolled='true'] a, .site-header[data-scrolled='true'] .header-tool-toggle
+  L30957  .megamenu[data-scrolled='true'] .logo-link img, .megamenu[data-scrolled='true'] .logo-link svg, .site-header[data-scrolled='true'] .logo-link img, .site-header[data-scrolled='true'] .logo-link svg
+  L30960  [data-theme='dark'] .megamenu[data-scrolled='true'] .megamenu-top-item, [data-theme='dark'] .megamenu[data-scrolled='true'] .header-tool-toggle, [data-theme='dark'] .site-header[data-scrolled='true'] a, [data-theme='dark'] .site-header[data-scrolled='true'] .header-tool-toggle
+  L30963  [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link img, [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link svg, [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link img, [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link svg
+  L30970  .site-header nav.header-nav > a[data-slot='button']
+  L30980  .site-header nav.header-nav > a[data-slot='button']:hover
+  L30983  .site-header nav.header-nav > a[data-slot='button']::after
+  L30997  .site-header nav.header-nav > a[data-slot='button'].header-nav-link--active::after
+  L31001  .site-header nav.header-nav > a[data-slot='button']:hover::after, .site-header nav.header-nav > a[data-slot='button']:focus-visible::after
+  L31005  [data-theme='light'] .site-header nav.header-nav > a[data-slot='button']:hover
+  L31009  [data-theme='dark'] .site-header nav.header-nav > a[data-slot='button']:hover
+  L31014  [data-theme='light'] .site-header nav.header-nav > a[data-slot='button']:focus-visible
+  L31018  [data-theme='dark'] .site-header nav.header-nav > a[data-slot='button']:focus-visible
+  L31031  .megamenu[data-sticky='true']:hover, .site-header[data-sticky='true']:hover
+  L31034  .megamenu[data-scrolled='true'], .site-header[data-scrolled='true']
+  L31038  [data-theme='dark'] .megamenu[data-sticky='true']:hover, [data-theme='dark'] .site-header[data-sticky='true']:hover
+  L31041  [data-theme='dark'] .megamenu[data-scrolled='true'], [data-theme='dark'] .site-header[data-scrolled='true']
+  L31044  [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link img, [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link svg, [data-theme='light'] .site-header[data-scrolled='true'] .logo-link img, [data-theme='light'] .site-header[data-scrolled='true'] .logo-link svg
+  L31047  .megamenu[data-scrolled='true'] .megamenu-top-item, .megamenu[data-scrolled='true'] .header-tool-toggle, .site-header[data-scrolled='true'] a, .site-header[data-scrolled='true'] .header-tool-toggle
+  L31050  .megamenu[data-scrolled='true'] button[aria-label='Menü öffnen'], .site-header[data-scrolled='true'] button[aria-label='Menü öffnen']
+  L31113  .megamenu-nav-list-wrap:has(.megamenu-top-item[data-active='true']) .megamenu-sliding-underline
+  L31180  [data-theme='dark'] .megamenu-viewport, [data-theme='dark'] .megamenu .megamenu-viewport
+  L31184  [data-theme='dark'] .megamenu .megamenu-featured
+  L31245  .megamenu-dropdown-content
+  L31271  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='from-']
+  L31274  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='to-']
+  L31277  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-content > *, .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-content-footer > *, .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-highlight-wipe-wrap
+  L31281  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-panel
+  L31288  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='from-']
+  L31293  .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='to-']
+  L31353  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(3)
+  L31356  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(4)
+  L31359  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(5)
+  L31362  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(n+6)
+  L31365  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *
+  L31369  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(1)
+  L31372  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(2)
+  L31375  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(3)
+  L31378  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(4)
+  L31381  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(5)
+  L31384  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(n+6)
+  L31387  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:not(.megamenu-highlight-wipe-wrap)
+  L31391  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(1):not(.megamenu-highlight-wipe-wrap)
+  L31394  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(2):not(.megamenu-highlight-wipe-wrap)
+  L31421  .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='right']
+  L31440  0%, 100%
+  L31447  .animate-threads-drift
+  L31461  [data-theme='dark'] .megamenu .megamenu-featured
+  L31492  .megamenu .megamenu-featured a:hover
+  L31507  .megamenu .megamenu-featured a:has(.bg-card):hover, [data-theme='dark'] .megamenu .megamenu-featured a:has(.bg-card):hover
+  L31510  .megamenu .megamenu-featured a:hover .bg-card, [data-theme='dark'] .megamenu .megamenu-featured a:hover .bg-card
+  L31519  .megamenu .megamenu-featured .group:hover .megamenu-item-icon
+  L31529  .megamenu .megamenu-col-items a.rounded-xl:hover
+  L31540  .megamenu .megamenu-col-items a.rounded-xl:hover .megamenu-item-icon
+  L31567  .megamenu .megamenu-item-icon svg
+  L31571  .megamenu .megamenu-cta-strip
+  L31575  .megamenu .megamenu-cta-strip input
+  L31634  [data-theme='dark'] .megamenu-dropdown-panel, [data-theme='dark'] .megamenu-sheet
+  L31651  [data-theme='dark'] .site-header
+  L31658  [data-theme='dark'] .site-header .logo-link img, [data-theme='dark'] .site-header .logo-link svg
+  L31666  [data-theme='dark'] .megamenu .logo-link:hover
+  L31684  [data-theme='dark'] .megamenu .megamenu-top-item:hover, [data-theme='dark'] .megamenu .megamenu-top-item:focus-visible, [data-theme='dark'] .megamenu .megamenu-top-item[data-state='open']
+  L31691  [data-theme='dark'] .megamenu .megamenu-top-item:hover [class*='lucide'], [data-theme='dark'] .megamenu .megamenu-top-item[data-state='open'] [class*='lucide']
+  L31700  [data-theme='dark'] .megamenu-viewport-wrapper:has([data-state='open'])
+  L31705  [data-theme='dark'] .megamenu-viewport, [data-theme='dark'] .megamenu .megamenu-viewport
+  ... +64 weitere

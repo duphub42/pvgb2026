@@ -2,8 +2,8 @@
   "base": "http://127.0.0.1:3000",
   "visited": [
     "http://127.0.0.1:3000",
-    "http://127.0.0.1:3000/profil",
     "http://127.0.0.1:3000/preise",
+    "http://127.0.0.1:3000/profil",
     "http://127.0.0.1:3000/kontakt",
     "http://127.0.0.1:3000/leistungen",
     "http://127.0.0.1:3000/portfolio",
@@ -20,15 +20,19 @@
     "http://127.0.0.1:3000/markenstrategie",
     "http://127.0.0.1:3000/portfolio-webdesign",
     "http://127.0.0.1:3000/portfolio-marketing",
-    "http://127.0.0.1:3000/portfolio-marken"
+    "http://127.0.0.1:3000/portfolio-marken",
+    "http://127.0.0.1:3000/printmedien",
+    "http://127.0.0.1:3000/contentcreation",
+    "http://127.0.0.1:3000/ci",
+    "http://127.0.0.1:3000/logos"
   ],
-  "visitedCount": 20,
+  "visitedCount": 24,
   "sheets": [
     {
-      "sourceURL": "http://127.0.0.1:3000/_next/static/css/app/(frontend)/layout.css?v=1775244839349",
-      "totalRules": 7999,
-      "unusedRules": 335,
-      "usedRules": 7664,
+      "sourceURL": "http://127.0.0.1:3000/_next/static/css/app/(frontend)/layout.css?v=1775306511291",
+      "totalRules": 8003,
+      "unusedRules": 304,
+      "usedRules": 7699,
       "unusedList": [
         {
           "selector": ".__className_07fa5c",
@@ -52,1657 +56,1502 @@
         },
         {
           "selector": "[data-theme='dark'] .logo-contrast.logo-contrast-dark-bg",
-          "line": 29724,
+          "line": 29738,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .site-header .logo-link img, [data-theme='dark'] .site-header .logo-link svg, [data-theme='dark'] .site-header .logo-link .logo-contrast, .site-header[data-theme='dark'] .logo-link img, .site-header[data-theme='dark'] .logo-link svg, .site-header[data-theme='dark'] .logo-link .logo-contrast",
-          "line": 29733,
+          "line": 29747,
           "used": false
         },
         {
           "selector": ".logo-glitch-wrapper.logo-glitch-footer",
-          "line": 29766,
+          "line": 29780,
           "used": false
         },
         {
           "selector": ".footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image",
-          "line": 29769,
+          "line": 29783,
           "used": false
         },
         {
           "selector": ".footer-custom .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-image:hover",
-          "line": 29778,
+          "line": 29792,
           "used": false
         },
         {
           "selector": ".footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icons",
-          "line": 29781,
+          "line": 29795,
           "used": false
         },
         {
           "selector": ".footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main",
-          "line": 29784,
+          "line": 29798,
           "used": false
         },
         {
           "selector": ".footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main picture, .footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-main img",
-          "line": 29791,
+          "line": 29805,
           "used": false
         },
         {
           "selector": ".footer-custom .logo-glitch-wrapper.logo-glitch-footer .logo-glitch-layer",
-          "line": 29800,
+          "line": 29814,
           "used": false
         },
         {
           "selector": ".logo-glitch-wrapper.logo-glitch-text:not(.logo-glitch-collapsed)",
-          "line": 29847,
-          "used": false
-        },
-        {
-          "selector": ".logo-pixel-transition",
-          "line": 29851,
-          "used": false
-        },
-        {
-          "selector": ".logo-pixel-transition-portal",
-          "line": 29865,
-          "used": false
-        },
-        {
-          "selector": ".logo-pixel-transition-grid",
-          "line": 29869,
-          "used": false
-        },
-        {
-          "selector": ".logo-pixel-transition-cell",
-          "line": 29876,
+          "line": 29861,
           "used": false
         },
         {
           "selector": ".logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-main, .logo-glitch-wrapper.logo-glitch-footer.logo-glitch-active .logo-glitch-layer",
-          "line": 29895,
+          "line": 29872,
           "used": false
         },
         {
           "selector": ".logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble",
-          "line": 29906,
+          "line": 29883,
           "used": false
         },
         {
           "selector": ".logo-glitch-wrapper.logo-glitch-footer .logo-glitch-icon-scramble-current",
+          "line": 29896,
+          "used": false
+        },
+        {
+          "selector": "0%, 4%, 100%",
+          "line": 29904,
+          "used": false
+        },
+        {
+          "selector": "5%, 9%",
+          "line": 29907,
+          "used": false
+        },
+        {
+          "selector": "10%, 14%",
+          "line": 29910,
+          "used": false
+        },
+        {
+          "selector": "15%, 19%",
+          "line": 29913,
+          "used": false
+        },
+        {
+          "selector": "20%, 24%",
+          "line": 29916,
+          "used": false
+        },
+        {
+          "selector": "25%, 29%",
           "line": 29919,
           "used": false
         },
         {
-          "selector": "0%, 4%, 100%",
-          "line": 29927,
-          "used": false
-        },
-        {
-          "selector": "5%, 9%",
-          "line": 29930,
-          "used": false
-        },
-        {
-          "selector": "10%, 14%",
-          "line": 29933,
-          "used": false
-        },
-        {
-          "selector": "15%, 19%",
-          "line": 29936,
-          "used": false
-        },
-        {
-          "selector": "20%, 24%",
-          "line": 29939,
-          "used": false
-        },
-        {
-          "selector": "25%, 29%",
-          "line": 29942,
-          "used": false
-        },
-        {
           "selector": "30%, 34%",
-          "line": 29945,
+          "line": 29922,
           "used": false
         },
         {
           "selector": "35%, 39%",
-          "line": 29948,
+          "line": 29925,
           "used": false
         },
         {
           "selector": "40%, 44%",
-          "line": 29951,
+          "line": 29928,
           "used": false
         },
         {
           "selector": "45%, 49%",
-          "line": 29954,
+          "line": 29931,
           "used": false
         },
         {
           "selector": "50%, 54%",
-          "line": 29957,
+          "line": 29934,
           "used": false
         },
         {
           "selector": "55%, 59%",
-          "line": 29960,
+          "line": 29937,
           "used": false
         },
         {
           "selector": "60%, 64%",
-          "line": 29963,
+          "line": 29940,
           "used": false
         },
         {
           "selector": "65%, 69%",
-          "line": 29966,
+          "line": 29943,
           "used": false
         },
         {
           "selector": "70%, 74%",
-          "line": 29969,
+          "line": 29946,
           "used": false
         },
         {
           "selector": "75%, 79%",
-          "line": 29972,
+          "line": 29949,
           "used": false
         },
         {
           "selector": "80%, 84%",
-          "line": 29975,
+          "line": 29952,
           "used": false
         },
         {
           "selector": "85%, 89%",
-          "line": 29978,
+          "line": 29955,
           "used": false
         },
         {
           "selector": "90%, 95%",
-          "line": 29981,
+          "line": 29958,
           "used": false
         },
         {
           "selector": "96%, 99%",
-          "line": 29984,
+          "line": 29961,
           "used": false
         },
         {
           "selector": "0%, 6%, 12%, 18%, 24%, 30%, 36%, 42%, 48%, 54%, 60%, 66%, 72%, 78%, 84%, 90%, 96%",
-          "line": 30014,
+          "line": 29991,
           "used": false
         },
         {
           "selector": "3%, 9%, 15%, 21%, 27%, 33%, 39%, 45%, 51%, 57%, 63%, 69%, 75%, 81%, 87%, 93%, 99%",
-          "line": 30017,
+          "line": 29994,
           "used": false
         },
         {
           "selector": "0%, 4%, 100%",
-          "line": 30045,
+          "line": 30022,
           "used": false
         },
         {
           "selector": "5%, 9%",
-          "line": 30049,
+          "line": 30026,
           "used": false
         },
         {
           "selector": "10%, 14%",
-          "line": 30053,
+          "line": 30030,
           "used": false
         },
         {
           "selector": "15%, 19%",
-          "line": 30057,
+          "line": 30034,
           "used": false
         },
         {
           "selector": "20%, 24%",
-          "line": 30061,
+          "line": 30038,
           "used": false
         },
         {
           "selector": "25%, 29%",
-          "line": 30065,
+          "line": 30042,
           "used": false
         },
         {
           "selector": "30%, 34%",
-          "line": 30069,
+          "line": 30046,
           "used": false
         },
         {
           "selector": "35%, 39%",
-          "line": 30073,
+          "line": 30050,
           "used": false
         },
         {
           "selector": "40%, 44%",
-          "line": 30077,
+          "line": 30054,
           "used": false
         },
         {
           "selector": "45%, 49%",
-          "line": 30081,
+          "line": 30058,
           "used": false
         },
         {
           "selector": "50%, 54%",
-          "line": 30085,
+          "line": 30062,
           "used": false
         },
         {
           "selector": "55%, 59%",
-          "line": 30089,
+          "line": 30066,
           "used": false
         },
         {
           "selector": "60%, 64%",
-          "line": 30093,
+          "line": 30070,
           "used": false
         },
         {
           "selector": "65%, 69%",
-          "line": 30097,
+          "line": 30074,
           "used": false
         },
         {
           "selector": "70%, 74%",
-          "line": 30101,
+          "line": 30078,
           "used": false
         },
         {
           "selector": "75%, 79%",
-          "line": 30105,
+          "line": 30082,
           "used": false
         },
         {
           "selector": "80%, 84%",
-          "line": 30109,
+          "line": 30086,
           "used": false
         },
         {
           "selector": "85%, 89%",
-          "line": 30113,
+          "line": 30090,
           "used": false
         },
         {
           "selector": "90%, 95%",
-          "line": 30117,
+          "line": 30094,
           "used": false
         },
         {
           "selector": "96%, 99%",
-          "line": 30121,
+          "line": 30098,
           "used": false
         },
         {
           "selector": "0%, 4%, 100%",
-          "line": 30127,
+          "line": 30104,
           "used": false
         },
         {
           "selector": "5%, 9%",
-          "line": 30131,
+          "line": 30108,
           "used": false
         },
         {
           "selector": "10%, 14%",
-          "line": 30135,
+          "line": 30112,
           "used": false
         },
         {
           "selector": "15%, 19%",
-          "line": 30139,
+          "line": 30116,
           "used": false
         },
         {
           "selector": "20%, 24%",
-          "line": 30143,
+          "line": 30120,
           "used": false
         },
         {
           "selector": "25%, 29%",
-          "line": 30147,
+          "line": 30124,
           "used": false
         },
         {
           "selector": "30%, 34%",
-          "line": 30151,
+          "line": 30128,
           "used": false
         },
         {
           "selector": "35%, 39%",
-          "line": 30155,
+          "line": 30132,
           "used": false
         },
         {
           "selector": "40%, 44%",
-          "line": 30159,
+          "line": 30136,
           "used": false
         },
         {
           "selector": "45%, 49%",
-          "line": 30163,
+          "line": 30140,
           "used": false
         },
         {
           "selector": "50%, 54%",
-          "line": 30167,
+          "line": 30144,
           "used": false
         },
         {
           "selector": "55%, 59%",
-          "line": 30171,
+          "line": 30148,
           "used": false
         },
         {
           "selector": "60%, 64%",
-          "line": 30175,
+          "line": 30152,
           "used": false
         },
         {
           "selector": "65%, 69%",
-          "line": 30179,
+          "line": 30156,
           "used": false
         },
         {
           "selector": "70%, 74%",
-          "line": 30183,
+          "line": 30160,
           "used": false
         },
         {
           "selector": "75%, 79%",
-          "line": 30187,
+          "line": 30164,
           "used": false
         },
         {
           "selector": "80%, 84%",
-          "line": 30191,
+          "line": 30168,
           "used": false
         },
         {
           "selector": "85%, 89%",
-          "line": 30195,
+          "line": 30172,
           "used": false
         },
         {
           "selector": "90%, 95%",
-          "line": 30199,
+          "line": 30176,
           "used": false
         },
         {
           "selector": "96%, 99%",
-          "line": 30203,
+          "line": 30180,
           "used": false
         },
         {
           "selector": ".logo-glitch-text",
-          "line": 30208,
+          "line": 30185,
           "used": false
         },
         {
           "selector": ".logo-glitch-text .logo-glitch-main",
-          "line": 30214,
+          "line": 30191,
           "used": false
         },
         {
           "selector": ".logo-glitch-text.logo-glitch-active .logo-glitch-main",
-          "line": 30218,
+          "line": 30195,
           "used": false
         },
         {
           "selector": ".logo-glitch-text .logo-glitch-layer",
-          "line": 30221,
+          "line": 30198,
           "used": false
         },
         {
           "selector": ".logo-glitch-text .logo-glitch-layer-1",
-          "line": 30229,
+          "line": 30206,
           "used": false
         },
         {
           "selector": ".logo-glitch-text .logo-glitch-layer-2",
-          "line": 30234,
+          "line": 30211,
           "used": false
         },
         {
           "selector": ".logo-glitch-text.logo-glitch-active .logo-glitch-layer-1",
-          "line": 30239,
+          "line": 30216,
           "used": false
         },
         {
           "selector": ".logo-glitch-text.logo-glitch-active .logo-glitch-layer-2",
-          "line": 30242,
+          "line": 30219,
           "used": false
         },
         {
           "selector": "0%, 4%, 100%",
-          "line": 30246,
+          "line": 30223,
           "used": false
         },
         {
           "selector": "5%, 9%",
-          "line": 30249,
+          "line": 30226,
           "used": false
         },
         {
           "selector": "10%, 14%",
-          "line": 30252,
+          "line": 30229,
           "used": false
         },
         {
           "selector": "15%, 19%",
-          "line": 30255,
+          "line": 30232,
           "used": false
         },
         {
           "selector": "20%, 24%",
-          "line": 30258,
+          "line": 30235,
           "used": false
         },
         {
           "selector": "25%, 29%",
-          "line": 30261,
+          "line": 30238,
           "used": false
         },
         {
           "selector": "30%, 34%",
-          "line": 30264,
+          "line": 30241,
           "used": false
         },
         {
           "selector": "35%, 39%",
-          "line": 30267,
+          "line": 30244,
           "used": false
         },
         {
           "selector": "40%, 44%",
-          "line": 30270,
+          "line": 30247,
           "used": false
         },
         {
           "selector": "45%, 49%",
-          "line": 30273,
+          "line": 30250,
           "used": false
         },
         {
           "selector": "50%, 54%",
-          "line": 30276,
+          "line": 30253,
           "used": false
         },
         {
           "selector": "55%, 59%",
-          "line": 30279,
+          "line": 30256,
           "used": false
         },
         {
           "selector": "60%, 64%",
-          "line": 30282,
+          "line": 30259,
           "used": false
         },
         {
           "selector": "65%, 69%",
-          "line": 30285,
+          "line": 30262,
           "used": false
         },
         {
           "selector": "70%, 74%",
-          "line": 30288,
+          "line": 30265,
           "used": false
         },
         {
           "selector": "75%, 79%",
-          "line": 30291,
+          "line": 30268,
           "used": false
         },
         {
           "selector": "80%, 84%",
-          "line": 30294,
+          "line": 30271,
           "used": false
         },
         {
           "selector": "85%, 89%",
-          "line": 30297,
+          "line": 30274,
           "used": false
         },
         {
           "selector": "90%, 95%",
-          "line": 30300,
+          "line": 30277,
           "used": false
         },
         {
           "selector": "96%, 99%",
-          "line": 30303,
+          "line": 30280,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .logo-glitch-text .logo-glitch-main",
-          "line": 30310,
+          "line": 30287,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2",
-          "line": 30313,
+          "line": 30290,
           "used": false
         },
         {
           "selector": "0%, 4%, 100%",
-          "line": 30317,
+          "line": 30294,
           "used": false
         },
         {
           "selector": "5%, 9%",
-          "line": 30320,
+          "line": 30297,
           "used": false
         },
         {
           "selector": "10%, 14%",
-          "line": 30323,
+          "line": 30300,
           "used": false
         },
         {
           "selector": "15%, 19%",
-          "line": 30326,
+          "line": 30303,
           "used": false
         },
         {
           "selector": "20%, 24%",
-          "line": 30329,
+          "line": 30306,
           "used": false
         },
         {
           "selector": "25%, 29%",
-          "line": 30332,
+          "line": 30309,
           "used": false
         },
         {
           "selector": "30%, 34%",
-          "line": 30335,
+          "line": 30312,
           "used": false
         },
         {
           "selector": "35%, 39%",
-          "line": 30338,
+          "line": 30315,
           "used": false
         },
         {
           "selector": "40%, 44%",
-          "line": 30341,
+          "line": 30318,
           "used": false
         },
         {
           "selector": "45%, 49%",
-          "line": 30344,
+          "line": 30321,
           "used": false
         },
         {
           "selector": "50%, 54%",
-          "line": 30347,
+          "line": 30324,
           "used": false
         },
         {
           "selector": "55%, 59%",
-          "line": 30350,
+          "line": 30327,
           "used": false
         },
         {
           "selector": "60%, 64%",
-          "line": 30353,
+          "line": 30330,
           "used": false
         },
         {
           "selector": "65%, 69%",
-          "line": 30356,
+          "line": 30333,
           "used": false
         },
         {
           "selector": "70%, 74%",
-          "line": 30359,
+          "line": 30336,
           "used": false
         },
         {
           "selector": "75%, 79%",
-          "line": 30362,
+          "line": 30339,
           "used": false
         },
         {
           "selector": "80%, 84%",
-          "line": 30365,
+          "line": 30342,
           "used": false
         },
         {
           "selector": "85%, 89%",
-          "line": 30368,
+          "line": 30345,
           "used": false
         },
         {
           "selector": "90%, 95%",
-          "line": 30371,
+          "line": 30348,
           "used": false
         },
         {
           "selector": "96%, 99%",
-          "line": 30374,
+          "line": 30351,
           "used": false
         },
         {
           "selector": ".logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-text.logo-glitch-active .logo-glitch-main, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2, .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon",
-          "line": 30382,
+          "line": 30359,
           "used": false
         },
         {
           "selector": ".logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon",
-          "line": 30386,
+          "line": 30363,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-main, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-1, [data-theme='dark'] .logo-glitch-text.logo-glitch-active .logo-glitch-layer-2",
-          "line": 30389,
+          "line": 30366,
           "used": false
         },
         {
           "selector": ".logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble",
-          "line": 30393,
+          "line": 30370,
           "used": false
         },
         {
           "selector": ".logo-glitch-wrapper.logo-glitch-active .logo-glitch-icon-scramble-current",
-          "line": 30397,
+          "line": 30374,
           "used": false
         },
         {
           "selector": ".admin-bar",
-          "line": 30402,
+          "line": 30379,
           "used": false
         },
         {
           "selector": ".hero-css-halo .halo",
-          "line": 30515,
+          "line": 30492,
           "used": false
         },
         {
           "selector": ".hero-css-halo .halo-1",
-          "line": 30526,
+          "line": 30503,
           "used": false
         },
         {
           "selector": ".hero-css-halo .halo-2",
-          "line": 30531,
+          "line": 30508,
           "used": false
         },
         {
           "selector": ".hero-css-halo .halo-3",
-          "line": 30537,
+          "line": 30514,
           "used": false
         },
         {
           "selector": ".hero-css-halo .halo",
-          "line": 30544,
+          "line": 30521,
           "used": false
         },
         {
           "selector": ".hero-css-halo .halo-noise",
-          "line": 30562,
+          "line": 30539,
           "used": false
         },
         {
           "selector": ".footer-custom .footer-link",
-          "line": 30570,
+          "line": 30547,
           "used": false
         },
         {
           "selector": ".footer-custom .footer-heading",
-          "line": 30576,
+          "line": 30553,
           "used": false
         },
         {
           "selector": ".footer-custom input[name='newsletter-email']",
-          "line": 30579,
+          "line": 30556,
           "used": false
         },
         {
           "selector": ".footer-newsletter-btn-wrap",
-          "line": 30582,
+          "line": 30559,
           "used": false
         },
         {
           "selector": ".footer-newsletter-btn-wrap:hover button",
-          "line": 30609,
+          "line": 30586,
+          "used": false
+        },
+        {
+          "selector": "[data-theme='light'] .footer-gradient::before",
+          "line": 30638,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .footer-custom .footer-link:hover",
-          "line": 30695,
+          "line": 30652,
           "used": false
         },
         {
           "selector": ".footer-newsletter-input:focus-visible",
-          "line": 30721,
+          "line": 30678,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .footer-newsletter-input:focus-visible",
-          "line": 30733,
+          "line": 30690,
           "used": false
         },
         {
           "selector": ".footer-newsletter-submit",
-          "line": 30736,
+          "line": 30693,
           "used": false
         },
         {
           "selector": ".footer-newsletter-submit:hover",
-          "line": 30740,
+          "line": 30697,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .footer-newsletter-submit",
-          "line": 30743,
+          "line": 30700,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .footer-newsletter-submit:hover",
-          "line": 30747,
+          "line": 30704,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .footer-newsletter-btn-wrap:hover button",
-          "line": 30754,
+          "line": 30711,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .footer-social-icon:hover",
-          "line": 30768,
+          "line": 30725,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .footer-custom .footer-link",
-          "line": 30772,
+          "line": 30729,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .footer-custom .footer-heading",
-          "line": 30775,
+          "line": 30732,
           "used": false
         },
         {
           "selector": "::view-transition-old(root), ::view-transition-new(root)",
-          "line": 30779,
+          "line": 30736,
           "used": false
         },
         {
           "selector": ".header-glass-plate.header-reveal-from-top, .site-header > .header-slide-layer.header-reveal-from-top, .megamenu > .header-slide-layer.header-reveal-from-top",
-          "line": 30843,
+          "line": 30800,
           "used": false
         },
         {
           "selector": ".megamenu:not(:hover) .header-tool-toggle:hover, .site-header:not(:hover) .header-tool-toggle:hover",
-          "line": 30919,
+          "line": 30876,
           "used": false
         },
         {
           "selector": ".site-header:not(:hover) a:hover",
-          "line": 30936,
+          "line": 30893,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .site-header:not(:hover) .logo-link img, [data-theme='light'] .site-header:not(:hover) .logo-link svg",
-          "line": 30939,
+          "line": 30896,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .site-header:not(:hover) .header-tool-toggle",
-          "line": 30942,
+          "line": 30899,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .site-header:not(:hover) .header-tool-toggle:hover",
-          "line": 30947,
+          "line": 30904,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .site-header:not(:hover) a",
-          "line": 30951,
+          "line": 30908,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .site-header:not(:hover) a:hover",
-          "line": 30954,
+          "line": 30911,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .megamenu:not(:hover) .header-tool-toggle:hover",
-          "line": 30968,
+          "line": 30925,
           "used": false
         },
         {
           "selector": ".megamenu .logo-link img, .megamenu .logo-link svg, .site-header .logo-link img, .site-header .logo-link svg",
-          "line": 30974,
+          "line": 30931,
           "used": false
         },
         {
           "selector": ".megamenu .megamenu-top-item, .megamenu .megamenu-top-item [class*='lucide']",
-          "line": 30977,
+          "line": 30934,
           "used": false
         },
         {
           "selector": ".megamenu .header-tool-toggle, .site-header .header-tool-toggle",
-          "line": 30980,
+          "line": 30937,
           "used": false
         },
         {
           "selector": ".site-header a",
-          "line": 30985,
+          "line": 30942,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .megamenu .logo-link img, [data-theme='light'] .megamenu .logo-link svg, [data-theme='light'] .site-header .logo-link img, [data-theme='light'] .site-header .logo-link svg",
-          "line": 30988,
+          "line": 30945,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .megamenu .megamenu-top-item, [data-theme='light'] .megamenu .megamenu-top-item [class*='lucide'], [data-theme='light'] .megamenu .header-tool-toggle, [data-theme='light'] .site-header .header-tool-toggle, [data-theme='light'] .site-header a",
-          "line": 30991,
+          "line": 30948,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .megamenu .header-tool-toggle, [data-theme='light'] .site-header .header-tool-toggle",
-          "line": 30994,
+          "line": 30951,
           "used": false
         },
         {
           "selector": ".megamenu[data-scrolled='true'] .megamenu-top-item, .megamenu[data-scrolled='true'] .header-tool-toggle, .site-header[data-scrolled='true'] a, .site-header[data-scrolled='true'] .header-tool-toggle",
-          "line": 30997,
+          "line": 30954,
           "used": false
         },
         {
           "selector": ".megamenu[data-scrolled='true'] .logo-link img, .megamenu[data-scrolled='true'] .logo-link svg, .site-header[data-scrolled='true'] .logo-link img, .site-header[data-scrolled='true'] .logo-link svg",
-          "line": 31000,
+          "line": 30957,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu[data-scrolled='true'] .megamenu-top-item, [data-theme='dark'] .megamenu[data-scrolled='true'] .header-tool-toggle, [data-theme='dark'] .site-header[data-scrolled='true'] a, [data-theme='dark'] .site-header[data-scrolled='true'] .header-tool-toggle",
-          "line": 31003,
+          "line": 30960,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link img, [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link svg, [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link img, [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link svg",
-          "line": 31006,
+          "line": 30963,
           "used": false
         },
         {
           "selector": ".site-header nav.header-nav > a[data-slot='button']",
-          "line": 31013,
+          "line": 30970,
           "used": false
         },
         {
           "selector": ".site-header nav.header-nav > a[data-slot='button']:hover",
-          "line": 31023,
+          "line": 30980,
           "used": false
         },
         {
           "selector": ".site-header nav.header-nav > a[data-slot='button']::after",
-          "line": 31026,
+          "line": 30983,
           "used": false
         },
         {
           "selector": ".site-header nav.header-nav > a[data-slot='button'].header-nav-link--active::after",
-          "line": 31040,
+          "line": 30997,
           "used": false
         },
         {
           "selector": ".site-header nav.header-nav > a[data-slot='button']:hover::after, .site-header nav.header-nav > a[data-slot='button']:focus-visible::after",
-          "line": 31044,
+          "line": 31001,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .site-header nav.header-nav > a[data-slot='button']:hover",
-          "line": 31048,
+          "line": 31005,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .site-header nav.header-nav > a[data-slot='button']:hover",
-          "line": 31052,
+          "line": 31009,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .site-header nav.header-nav > a[data-slot='button']:focus-visible",
-          "line": 31057,
+          "line": 31014,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .site-header nav.header-nav > a[data-slot='button']:focus-visible",
-          "line": 31061,
+          "line": 31018,
           "used": false
         },
         {
           "selector": ".megamenu[data-sticky='true']:hover, .site-header[data-sticky='true']:hover",
-          "line": 31074,
+          "line": 31031,
           "used": false
         },
         {
           "selector": ".megamenu[data-scrolled='true'], .site-header[data-scrolled='true']",
-          "line": 31077,
+          "line": 31034,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu[data-sticky='true']:hover, [data-theme='dark'] .site-header[data-sticky='true']:hover",
-          "line": 31081,
+          "line": 31038,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu[data-scrolled='true'], [data-theme='dark'] .site-header[data-scrolled='true']",
-          "line": 31084,
+          "line": 31041,
           "used": false
         },
         {
           "selector": "[data-theme='light'] .megamenu[data-scrolled='true'] .logo-link img, [data-theme='light'] .megamenu[data-scrolled='true'] .logo-link svg, [data-theme='light'] .site-header[data-scrolled='true'] .logo-link img, [data-theme='light'] .site-header[data-scrolled='true'] .logo-link svg",
-          "line": 31087,
+          "line": 31044,
           "used": false
         },
         {
           "selector": ".megamenu[data-scrolled='true'] .megamenu-top-item, .megamenu[data-scrolled='true'] .header-tool-toggle, .site-header[data-scrolled='true'] a, .site-header[data-scrolled='true'] .header-tool-toggle",
-          "line": 31090,
+          "line": 31047,
           "used": false
         },
         {
           "selector": ".megamenu[data-scrolled='true'] button[aria-label='Menü öffnen'], .site-header[data-scrolled='true'] button[aria-label='Menü öffnen']",
-          "line": 31093,
+          "line": 31050,
           "used": false
         },
         {
           "selector": ".megamenu-nav-list-wrap:has(.megamenu-top-item[data-active='true']) .megamenu-sliding-underline",
-          "line": 31156,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-top-item[data-state='open']",
-          "line": 31166,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-top-item:hover [class*='lucide'], .megamenu .megamenu-top-item[data-state='open'] [class*='lucide']",
-          "line": 31177,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-viewport-wrapper:has([data-state='open'])",
-          "line": 31186,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-viewport, .megamenu .megamenu-viewport",
-          "line": 31192,
-          "used": false
-        },
-        {
-          "selector": "[data-theme='light'] .megamenu-viewport, [data-theme='light'] .megamenu .megamenu-viewport",
-          "line": 31204,
-          "used": false
-        },
-        {
-          "selector": "[data-theme='light'] .megamenu .megamenu-featured",
-          "line": 31208,
+          "line": 31113,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu-viewport, [data-theme='dark'] .megamenu .megamenu-viewport",
-          "line": 31223,
+          "line": 31180,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured",
-          "line": 31227,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-viewport-wrapper:has([data-state='open'])",
-          "line": 31272,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-viewport",
-          "line": 31279,
+          "line": 31184,
           "used": false
         },
         {
           "selector": ".megamenu-dropdown-content",
-          "line": 31283,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-dropdown-content",
-          "line": 31288,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-viewport, .megamenu .megamenu-viewport",
-          "line": 31295,
+          "line": 31245,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='from-']",
-          "line": 31314,
+          "line": 31271,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='to-']",
-          "line": 31317,
+          "line": 31274,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-content > *, .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-content-footer > *, .megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-highlight-wipe-wrap",
-          "line": 31320,
+          "line": 31277,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) .megamenu-dropdown-panel",
-          "line": 31324,
+          "line": 31281,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='from-']",
-          "line": 31331,
+          "line": 31288,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-motion^='from-']):has([data-motion^='to-']) [data-motion^='to-']",
-          "line": 31336,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel > .megamenu-dropdown-intro",
-          "line": 31379,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-dropdown-intro h2, .megamenu-dropdown-intro p",
-          "line": 31383,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *",
-          "line": 31386,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(1)",
-          "line": 31390,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(2)",
-          "line": 31393,
+          "line": 31293,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(3)",
-          "line": 31396,
+          "line": 31353,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(4)",
-          "line": 31399,
+          "line": 31356,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(5)",
-          "line": 31402,
+          "line": 31359,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:has(.megamenu-dropdown-intro) .megamenu-dropdown-content > *:nth-child(n+6)",
-          "line": 31405,
+          "line": 31362,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *",
-          "line": 31408,
+          "line": 31365,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(1)",
-          "line": 31412,
+          "line": 31369,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(2)",
-          "line": 31415,
+          "line": 31372,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(3)",
-          "line": 31418,
+          "line": 31375,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(4)",
-          "line": 31421,
+          "line": 31378,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(5)",
-          "line": 31424,
+          "line": 31381,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel:not(:has(.megamenu-dropdown-intro)) .megamenu-dropdown-content > *:nth-child(n+6)",
-          "line": 31427,
+          "line": 31384,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:not(.megamenu-highlight-wipe-wrap)",
-          "line": 31430,
+          "line": 31387,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(1):not(.megamenu-highlight-wipe-wrap)",
-          "line": 31434,
+          "line": 31391,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer > *:nth-child(2):not(.megamenu-highlight-wipe-wrap)",
-          "line": 31437,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='left']",
-          "line": 31460,
+          "line": 31394,
           "used": false
         },
         {
           "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='right']",
-          "line": 31464,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-featured .megamenu-highlight-wipe-wrap[data-wipe='left'], .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-featured .megamenu-highlight-wipe-wrap[data-wipe='right'], .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer .megamenu-highlight-wipe-wrap[data-wipe='left'], .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content-footer .megamenu-highlight-wipe-wrap[data-wipe='right']",
-          "line": 31468,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel .megamenu-dropdown-content > div.megamenu-featured",
-          "line": 31471,
+          "line": 31421,
           "used": false
         },
         {
           "selector": "0%, 100%",
-          "line": 31483,
+          "line": 31440,
           "used": false
         },
         {
           "selector": ".animate-threads-drift",
-          "line": 31490,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-featured",
-          "line": 31493,
+          "line": 31447,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured",
-          "line": 31504,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-featured::before, .megamenu .megamenu-featured::after",
-          "line": 31512,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-featured > *",
-          "line": 31521,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-featured h2, .megamenu .megamenu-featured h3, .megamenu .megamenu-featured h4, .megamenu .megamenu-featured .text-foreground",
-          "line": 31525,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-featured .text-muted-foreground, .megamenu .megamenu-featured [class*='text-muted-foreground']",
-          "line": 31528,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-featured a",
-          "line": 31531,
+          "line": 31461,
           "used": false
         },
         {
           "selector": ".megamenu .megamenu-featured a:hover",
-          "line": 31535,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-featured .bg-card, .megamenu .megamenu-featured .card, .megamenu .megamenu-featured .megamenu-highlight-wipe-wrap .card, [data-theme='dark'] .megamenu .megamenu-featured .bg-card, [data-theme='dark'] .megamenu .megamenu-featured .card",
-          "line": 31539,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-featured::before, .megamenu .megamenu-featured::after, [data-theme='dark'] .megamenu .megamenu-featured::before, [data-theme='dark'] .megamenu .megamenu-featured::after",
-          "line": 31546,
+          "line": 31492,
           "used": false
         },
         {
           "selector": ".megamenu .megamenu-featured a:has(.bg-card):hover, [data-theme='dark'] .megamenu .megamenu-featured a:has(.bg-card):hover",
-          "line": 31550,
+          "line": 31507,
           "used": false
         },
         {
           "selector": ".megamenu .megamenu-featured a:hover .bg-card, [data-theme='dark'] .megamenu .megamenu-featured a:hover .bg-card",
-          "line": 31553,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-featured .megamenu-item-icon",
-          "line": 31557,
+          "line": 31510,
           "used": false
         },
         {
           "selector": ".megamenu .megamenu-featured .group:hover .megamenu-item-icon",
-          "line": 31562,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-featured .text-primary",
-          "line": 31566,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-col-divider",
-          "line": 31569,
+          "line": 31519,
           "used": false
         },
         {
           "selector": ".megamenu .megamenu-col-items a.rounded-xl:hover",
-          "line": 31572,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-col-items .megamenu-item-icon",
-          "line": 31577,
+          "line": 31529,
           "used": false
         },
         {
           "selector": ".megamenu .megamenu-col-items a.rounded-xl:hover .megamenu-item-icon",
-          "line": 31583,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-item-icon",
-          "line": 31589,
-          "used": false
-        },
-        {
-          "selector": ".group:hover .megamenu-item-icon",
-          "line": 31596,
-          "used": false
-        },
-        {
-          "selector": ".megamenu-item-icon img, .megamenu-item-icon svg",
-          "line": 31601,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .megamenu-item-icon img",
-          "line": 31604,
-          "used": false
-        },
-        {
-          "selector": ".megamenu .group:hover .megamenu-item-icon img",
-          "line": 31607,
+          "line": 31540,
           "used": false
         },
         {
           "selector": ".megamenu .megamenu-item-icon svg",
-          "line": 31610,
+          "line": 31567,
           "used": false
         },
         {
           "selector": ".megamenu .megamenu-cta-strip",
-          "line": 31614,
+          "line": 31571,
           "used": false
         },
         {
           "selector": ".megamenu .megamenu-cta-strip input",
-          "line": 31618,
+          "line": 31575,
+          "used": false
+        },
+        {
+          "selector": "[data-theme='dark'] .megamenu-dropdown-panel, [data-theme='dark'] .megamenu-sheet",
+          "line": 31634,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .site-header",
-          "line": 31685,
+          "line": 31651,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .site-header .logo-link img, [data-theme='dark'] .site-header .logo-link svg",
-          "line": 31692,
+          "line": 31658,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .logo-link:hover",
-          "line": 31700,
+          "line": 31666,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-top-item:hover, [data-theme='dark'] .megamenu .megamenu-top-item:focus-visible, [data-theme='dark'] .megamenu .megamenu-top-item[data-state='open']",
-          "line": 31718,
+          "line": 31684,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-top-item:hover [class*='lucide'], [data-theme='dark'] .megamenu .megamenu-top-item[data-state='open'] [class*='lucide']",
-          "line": 31725,
+          "line": 31691,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu-viewport-wrapper:has([data-state='open'])",
-          "line": 31734,
+          "line": 31700,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu-viewport, [data-theme='dark'] .megamenu .megamenu-viewport",
-          "line": 31739,
+          "line": 31705,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured",
-          "line": 31743,
+          "line": 31709,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured::before",
-          "line": 31751,
+          "line": 31717,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured::after",
-          "line": 31755,
+          "line": 31721,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured h2, [data-theme='dark'] .megamenu .megamenu-featured h3, [data-theme='dark'] .megamenu .megamenu-featured h4, [data-theme='dark'] .megamenu .megamenu-featured .text-foreground",
-          "line": 31759,
+          "line": 31725,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured .text-muted-foreground, [data-theme='dark'] .megamenu .megamenu-featured [class*='text-muted-foreground']",
-          "line": 31762,
+          "line": 31728,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured a",
-          "line": 31765,
+          "line": 31731,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured a:hover",
-          "line": 31768,
+          "line": 31734,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured .bg-card, [data-theme='dark'] .megamenu .megamenu-featured .card, [data-theme='dark'] .megamenu .megamenu-featured .megamenu-highlight-wipe-wrap .card",
-          "line": 31772,
+          "line": 31738,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured a:has(.bg-card):hover, [data-theme='dark'] .megamenu .megamenu-featured a:hover .bg-card",
-          "line": 31779,
+          "line": 31745,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured .megamenu-item-icon",
-          "line": 31783,
+          "line": 31749,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured .group:hover .megamenu-item-icon",
-          "line": 31787,
+          "line": 31753,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured .megamenu-item-icon img",
-          "line": 31790,
+          "line": 31756,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-featured .text-primary",
-          "line": 31793,
+          "line": 31759,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-col-divider",
-          "line": 31796,
+          "line": 31762,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu-item-icon img",
-          "line": 31799,
+          "line": 31765,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-item-icon",
-          "line": 31802,
+          "line": 31768,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .group:hover .megamenu-item-icon",
-          "line": 31805,
+          "line": 31771,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-cta-strip",
-          "line": 31808,
+          "line": 31774,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-cta-strip input",
-          "line": 31812,
+          "line": 31778,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu a:hover",
-          "line": 31820,
+          "line": 31786,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover",
-          "line": 31824,
+          "line": 31790,
+          "used": false
+        },
+        {
+          "selector": "[data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover .text-sm",
+          "line": 31795,
+          "used": false
+        },
+        {
+          "selector": "[data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover p",
+          "line": 31798,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-col-items .megamenu-item-icon",
-          "line": 31829,
+          "line": 31802,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover .megamenu-item-icon",
-          "line": 31835,
+          "line": 31808,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu-item-icon",
-          "line": 31841,
+          "line": 31814,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .text-muted-foreground",
-          "line": 31846,
+          "line": 31819,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .text-muted-foreground:hover, [data-theme='dark'] .megamenu a:hover .text-muted-foreground",
-          "line": 31849,
+          "line": 31822,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu-sheet",
-          "line": 31871,
+          "line": 31844,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu-sheet a",
-          "line": 31877,
+          "line": 31850,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu-sheet a:hover",
-          "line": 31880,
+          "line": 31853,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-top-item:hover, [data-theme='dark'] .megamenu .megamenu-top-item:focus-visible",
-          "line": 31898,
+          "line": 31871,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu .megamenu-top-item[data-state='open']",
-          "line": 31902,
+          "line": 31875,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu-viewport-wrapper:has([data-state='open'])",
-          "line": 31912,
+          "line": 31885,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu-viewport, [data-theme='dark'] .megamenu .megamenu-viewport",
-          "line": 31917,
+          "line": 31890,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu[data-scrolled='true'] .megamenu-top-item, [data-theme='dark'] .megamenu[data-scrolled='true'] .header-tool-toggle, [data-theme='dark'] .site-header[data-scrolled='true'] a, [data-theme='dark'] .site-header[data-scrolled='true'] .header-tool-toggle",
-          "line": 31922,
+          "line": 31895,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu[data-scrolled='true'] button[aria-label='Menü öffnen'], [data-theme='dark'] .site-header[data-scrolled='true'] button[aria-label='Menü öffnen']",
-          "line": 31925,
+          "line": 31898,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link img, [data-theme='dark'] .megamenu[data-scrolled='true'] .logo-link svg, [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link img, [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link svg",
-          "line": 31928,
+          "line": 31901,
           "used": false
         },
         {
           "selector": ".tooltip-content-solid, [role='tooltip']",
-          "line": 31932,
+          "line": 31905,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .tooltip-content-solid, [data-theme='dark'] [role='tooltip']",
-          "line": 31937,
+          "line": 31910,
           "used": false
         },
         {
           "selector": ".search-dialog",
-          "line": 31942,
+          "line": 31915,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .search-dialog",
-          "line": 31947,
+          "line": 31920,
           "used": false
         },
         {
           "selector": ".hero-reveal-letter, .hero-reveal-logo, .hero-portrait-fade-up",
-          "line": 31977,
+          "line": 31950,
           "used": false
         },
         {
           "selector": ".animate-marquee",
-          "line": 31991,
+          "line": 31964,
           "used": false
         },
         {
           "selector": ".hero-logo-grayscale",
-          "line": 31994,
+          "line": 31967,
           "used": false
         },
         {
           "selector": ".hero-logo-marquee-item:hover .hero-logo-grayscale",
-          "line": 31999,
+          "line": 31972,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .hero-logo-grayscale",
-          "line": 32004,
+          "line": 31977,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .hero-logo-marquee-item:hover .hero-logo-grayscale",
-          "line": 32008,
+          "line": 31981,
           "used": false
         },
         {
           "selector": ".theme-toggle--toggled:not(label).theme-toggle .theme-toggle__expand :first-child path",
-          "line": 32038,
+          "line": 32011,
           "used": false
         },
         {
           "selector": ".theme-toggle:not(.theme-toggle--force-motion) .theme-toggle__expand *",
-          "line": 32043,
+          "line": 32016,
           "used": false
         },
         {
           "selector": ".hero-float",
-          "line": 32047,
+          "line": 32020,
           "used": false
         },
         {
           "selector": ".services-grid-intro-image",
-          "line": 32090,
+          "line": 32063,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .services-grid-intro-image",
-          "line": 32094,
+          "line": 32067,
           "used": false
         },
         {
           "selector": ".services-grid-intro-image--svg",
-          "line": 32098,
+          "line": 32071,
           "used": false
         },
         {
           "selector": "[data-theme='dark'] .services-grid-intro-image--svg",
-          "line": 32102,
+          "line": 32075,
           "used": false
         },
         {
           "selector": ".services-grid-card-icon-wrap",
-          "line": 32106,
+          "line": 32079,
           "used": false
         },
         {
           "selector": ".services-grid-card-icon-img",
+          "line": 32083,
+          "used": false
+        },
+        {
+          "selector": "[data-theme='dark'] .services-grid-card-icon-img, html[data-theme='dark'] .services-grid-card-icon-img, .dark .services-grid-card-icon-img",
+          "line": 32088,
+          "used": false
+        },
+        {
+          "selector": ".services-grid-intro-grid",
+          "line": 32092,
+          "used": false
+        },
+        {
+          "selector": "[data-theme='dark'] .services-grid-intro-grid",
+          "line": 32103,
+          "used": false
+        },
+        {
+          "selector": "[data-theme='dark'] .services-grid-radial-subtle .services-grid-radial-glow",
           "line": 32110,
           "used": false
         },
         {
-          "selector": "[data-theme='dark'] .services-grid-card-icon-img",
-          "line": 32115,
+          "selector": "[data-theme='dark'] .services-grid-radial-subtle .services-grid-radial-base",
+          "line": 32113,
           "used": false
         },
         {
           "selector": "75%, 100%",
-          "line": 32482,
+          "line": 32479,
           "used": false
         },
         {
           "selector": "*, ::before, ::after, ::backdrop",
-          "line": 32551,
+          "line": 32548,
           "used": false
         }
       ]
