@@ -32,48 +32,6 @@ export interface ServicesGridProps {
 export const ServicesGrid: React.FC<ServicesGridProps> = ({ data }) => {
   return (
     <section className="relative py-16 px-6 max-w-7xl mx-auto text-foreground overflow-hidden">
-      {/* SVG Grid with radial alpha fade */}
-      <svg
-        aria-hidden
-        className="pointer-events-none absolute inset-0 -z-10"
-        width="100%"
-        height="100%"
-        viewBox="0 0 1200 600"
-        preserveAspectRatio="none"
-        style={{ width: '100%', height: '100%', display: 'block', transform: 'rotate(180deg)' }}
-      >
-        <defs>
-          <radialGradient id="grid-fade" cx="50%" cy="50%" r="50%">
-            <stop offset="50%" stopColor="#fff" stopOpacity="0.18" />
-            <stop offset="75%" stopColor="#fff" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="#fff" stopOpacity="0" />
-          </radialGradient>
-        </defs>
-        {/* Vertical lines */}
-        {Array.from({ length: 38 }).map((_, i) => (
-          <line
-            key={`v-${i}`}
-            x1={i * 32}
-            y1={0}
-            x2={i * 32}
-            y2={600}
-            stroke="url(#grid-fade)"
-            strokeWidth="1"
-          />
-        ))}
-        {/* Horizontal lines */}
-        {Array.from({ length: 19 }).map((_, i) => (
-          <line
-            key={`h-${i}`}
-            x1={0}
-            y1={i * 32}
-            x2={1200}
-            y2={i * 32}
-            stroke="url(#grid-fade)"
-            strokeWidth="1"
-          />
-        ))}
-      </svg>
       {data.map((category, catIndex) => (
         <div key={catIndex} className="mb-16">
           <div className="mb-12">
@@ -83,14 +41,95 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ data }) => {
             <div className="h-[1px] w-12 bg-primary mt-2" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
-            {category.services.map((service, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16 relative">
+            {/* SVG Punktmuster NUR in der ersten Spalte als Hintergrund */}
+            <div className="relative">
+              <svg
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -z-10"
+                width="100%"
+                height="100%"
+                viewBox="0 0 400 600"
+                preserveAspectRatio="none"
+                style={{ width: '100%', height: '100%', display: 'block', transform: 'rotate(180deg)' }}
+              >
+                <defs>
+                  <radialGradient id="dot-fade" cx="50%" cy="50%" r="50%">
+                    <stop offset="50%" stopColor="#fff" stopOpacity="0.18" />
+                    <stop offset="75%" stopColor="#fff" stopOpacity="0.08" />
+                    <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+                  </radialGradient>
+                </defs>
+                {Array.from({ length: 13 }).map((_, i) => (
+                  Array.from({ length: 19 }).map((_, j) => (
+                    <circle
+                      key={`d-${i}-${j}`}
+                      cx={i * 32}
+                      cy={j * 32}
+                      r={1.5}
+                      fill="url(#dot-fade)"
+                    />
+                  ))
+                ))}
+              </svg>
+              {/* Erstes Service-Item (z.B. Einleitungsbild) */}
+              {category.services[0] && (
+                <motion.div
+                  key={0}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: 0 }}
+                  className={cn(
+                    'group block space-y-4 rounded-xl transition-transform hover:-translate-y-1 hover:shadow-xl p-4',
+                    category.services[0].featured ? 'bg-secondary lg:col-span-1' : '',
+                  )}
+                >
+                  {(() => {
+                    const slug = normalizeServiceSlug(category.services[0].link?.slug)
+                    const href = slug ? `/${slug}` : undefined
+                    const content = (
+                      <div className="flex items-start gap-5">
+                        <div className="relative w-12 h-12 shrink-0 grayscale group-hover:grayscale-0 transition-all duration-300">
+                          {category.services[0].icon?.url ? (
+                            <Image
+                              src={category.services[0].icon.url}
+                              alt={category.services[0].icon?.alt || category.services[0].title}
+                              fill
+                              className="object-contain"
+                            />
+                          ) : (
+                            <div className="flex items-center justify-center w-full h-full bg-muted text-muted-foreground text-xs rounded">
+                              {category.services[0].icon?.alt ?? 'Icon'}
+                            </div>
+                          )}
+                        </div>
+                        <div className="space-y-3">
+                          <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
+                            {category.services[0].title}
+                          </h3>
+                          <p className="text-muted-foreground leading-relaxed text-sm line-clamp-5">
+                            {category.services[0].description}
+                          </p>
+                          <div className="flex items-center text-xs font-medium uppercase tracking-wider opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-primary">
+                            Mehr erfahren <ChevronRight className="ml-1 w-3 h-3" />
+                          </div>
+                        </div>
+                      </div>
+                    )
+                    return href ? <Link href={href}>{content}</Link> : <div>{content}</div>
+                  })()}
+                </motion.div>
+              )}
+            </div>
+            {/* Restliche Service-Items */}
+            {category.services.slice(1).map((service, index) => (
               <motion.div
-                key={index}
+                key={index + 1}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: (index + 1) * 0.1 }}
                 className={cn(
                   'group block space-y-4 rounded-xl transition-transform hover:-translate-y-1 hover:shadow-xl p-4',
                   service.featured ? 'bg-secondary lg:col-span-1' : '',
@@ -128,7 +167,6 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ data }) => {
                       </div>
                     </div>
                   )
-
                   return href ? <Link href={href}>{content}</Link> : <div>{content}</div>
                 })()}
               </motion.div>

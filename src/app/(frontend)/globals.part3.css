@@ -279,41 +279,7 @@
   ) !important;
 }
 
-/* Grid: nur in der Mitte sichtbar, vom Rand zur Mitte stark reduziert */
-.footer-gradient::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(to right, var(--theme-footer-text) 1px, transparent 1px),
-    linear-gradient(to bottom, var(--theme-footer-text) 1px, transparent 1px);
-  background-size: 2.5rem 2.5rem;
-  background-position: 0 0;
-  opacity: 0.015;
-  pointer-events: none;
-  /* Kleiner mittiger Bereich sichtbar, zum Rand hin stark ausblenden */
-  mask-image: radial-gradient(
-    ellipse 50% 50% at 50% 50%,
-    white 0%,
-    white 25%,
-    transparent 70%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 50% 50% at 50% 50%,
-    white 0%,
-    white 25%,
-    transparent 70%
-  );
-  mask-size: 100% 100%;
-  mask-position: center;
-  -webkit-mask-size: 100% 100%;
-  -webkit-mask-position: center;
-}
 
-.footer-gradient > * {
-  position: relative;
-  z-index: 1;
-}
 
 /* Footer: 3D-Absetzung — gleichmäßig über volle Breite, nur nach oben auslaufend (::before = Grid) */
 .footer-elevated.footer-gradient {

@@ -152,10 +152,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
       ? radialBackgroundStrength
       : 'medium'
   const radialClasses = getStrengthClassNames(effectiveStrength)
-  const introLayoutClass =
-    introImagePosition === 'left'
-      ? 'lg:grid-cols-[minmax(24rem,36rem)_minmax(0,1fr)]'
-      : 'lg:grid-cols-[minmax(0,1fr)_minmax(24rem,36rem)]'
+  const introLayoutClass = introImagePosition === 'left' ? 'lg:flex-row-reverse' : 'lg:flex-row'
   const introImagePopoutClass =
     introImagePosition === 'right' ? 'lg:translate-x-20 lg:-translate-y-4' : 'lg:-translate-y-4'
   const taglineLines =
@@ -164,14 +161,17 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
   return (
     <section
       aria-label="Leistungen"
-      className={cn('relative w-full min-w-0 overflow-x-clip overflow-y-visible py-16 lg:pt-24')}
+      className={cn(
+        'relative w-full min-w-0 overflow-x-clip overflow-y-visible py-16 lg:pt-24',
+        effectiveStrength === 'subtle' && 'services-grid-radial-subtle',
+      )}
     >
       {radialBackground ? (
         <>
           <div
             aria-hidden
             className={cn(
-              'pointer-events-none absolute -inset-x-24 -inset-y-20 z-0',
+              'services-grid-radial-glow pointer-events-none absolute -inset-x-24 -inset-y-20 z-0',
               radialClasses.glowOpacity,
               radialClasses.glowBlur,
             )}
@@ -179,7 +179,10 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
           />
           <div
             aria-hidden
-            className={cn('pointer-events-none absolute inset-0 z-0', radialClasses.baseOpacity)}
+            className={cn(
+              'services-grid-radial-base pointer-events-none absolute inset-0 z-0',
+              radialClasses.baseOpacity,
+            )}
             style={{
               background: `radial-gradient(110% 78% at 50% 18%, color-mix(in srgb, var(--theme-elevation-1000) ${p(12, strengthMultiplier[effectiveStrength])}, transparent) 0%, transparent 74%)`,
             }}
@@ -192,11 +195,11 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
           <div
             className={cn(
               'mx-auto grid items-stretch',
-              hasIntroImage ? 'gap-5 lg:gap-6' : 'gap-8',
+              hasIntroImage ? 'gap-5 lg:gap-6 lg:flex lg:items-stretch' : 'gap-8',
               hasIntroImage && introLayoutClass,
             )}
           >
-            <div className="min-w-0 lg:max-w-3xl">
+            <div className={cn('min-w-0 lg:max-w-3xl', hasIntroImage && 'lg:flex-1 lg:max-w-none')}>
               {heading && <h2 className="text-3xl font-bold tracking-tight">{heading}</h2>}
               {intro && <p className="mt-4 text-lg text-muted-foreground">{intro}</p>}
               {taglineLines.length > 0 && (
@@ -240,7 +243,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
             {hasIntroImage ? (
               <div
                 className={cn(
-                  'relative w-full max-w-none shrink-0 overflow-visible min-h-[22rem] transition-transform duration-500 ease-out lg:min-h-[30rem] lg:h-full',
+                  'relative w-full max-w-none shrink-0 overflow-visible min-h-[22rem] transition-transform duration-500 ease-out lg:h-full lg:w-[36rem] lg:min-w-[36rem] lg:max-w-[36rem] lg:min-h-[30rem]',
                   introImagePopoutClass,
                 )}
               >
@@ -256,6 +259,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
                     'services-grid-intro-image relative z-10 h-full w-full object-contain object-center',
                     introImageIsSvg && 'services-grid-intro-image--svg',
                   )}
+                  style={{ objectPosition: '50% 50%' }}
                   loading="lazy"
                 />
               </div>
