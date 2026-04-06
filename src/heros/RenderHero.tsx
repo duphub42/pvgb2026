@@ -58,6 +58,8 @@ const heroes = {
   proAthlete: dynamic(() => import('@/heros/ProAthlete').then((m) => m.ProAthleteHero)),
   /** Popout-Portrait — klarer Produktiv-Typ. */
   superhero: SuperheroHeroLazy,
+  /** Leistungen Hero – nach philippbacher.com/leistungen/ */
+  leistungenHero: dynamic(() => import('@/heros/LeistungenHero').then((m) => m.LeistungenHero)),
 }
 
 export type HeroType = keyof typeof heroes

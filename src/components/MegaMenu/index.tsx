@@ -58,6 +58,40 @@ function mediaUrl(media: MediaRef): string {
   return ''
 }
 
+function getMegaMenuItemKey(item: MegaMenuItem, index: number): string {
+  const safeId = item.id != null ? String(item.id).trim() : ''
+  return safeId !== '' ? safeId : `mega-menu-item-${index}`
+}
+
+function getMegaMenuColumnKey(
+  col: NonNullable<MegaMenuItem['columns']>[number],
+  index: number,
+): string {
+  const title = col?.title?.trim()
+  const width = col?.columnWidth != null ? String(col.columnWidth) : 'auto'
+  return title ? `mega-menu-col-${title}-${index}` : `mega-menu-col-${width}-${index}`
+}
+
+function getMegaMenuSubItemKey(
+  sub: { url?: string | null; label?: string | null },
+  index: number,
+): string {
+  const id = sub.url ?? sub.label
+  return id
+    ? `mega-menu-subitem-${String(id).trim().replace(/\s+/g, '-')}-${index}`
+    : `mega-menu-subitem-${index}`
+}
+
+function getMegaMenuCardKey(
+  card: { ctaUrl?: string | null; title?: string | null; description?: string | null },
+  index: number,
+): string {
+  const id = card.ctaUrl ?? card.title ?? card.description
+  return id
+    ? `mega-menu-card-${String(id).trim().replace(/\s+/g, '-')}-${index}`
+    : `mega-menu-card-${index}`
+}
+
 export type MegaMenuItem = {
   id: number | string
   label: string
@@ -717,9 +751,10 @@ export function MegaMenu({
                     className="megamenu-nav-list-wrap relative flex h-full flex-1 justify-end"
                   >
                     <NavigationMenuList className="megamenu-nav-list h-full justify-end">
-                      {sortedItems.map((item) => {
+                      {sortedItems.map((item, idx) => {
+                        const menuItemKey = getMegaMenuItemKey(item, idx)
                         const hasDrop = hasDropdown(item)
-                        const value = String(item.id)
+                        const value = menuItemKey
 
                         if (hasDrop) {
                           const cols = item.columns ?? []
@@ -796,7 +831,7 @@ export function MegaMenu({
                                   {cols.map((col, colIdx) =>
                                     (col.items?.length ?? 0) > 0 ? (
                                       <div
-                                        key={colIdx}
+                                        key={getMegaMenuColumnKey(col, colIdx)}
                                         className={cn(
                                           'space-y-3 min-w-0',
                                           colSpan(
@@ -823,10 +858,11 @@ export function MegaMenu({
                                             const rawMedia = sub.image ?? sub.icon ?? null
                                             const iconUrl = rawMedia ? mediaUrl(rawMedia) : ''
                                             const iconSpriteId = null
+                                            const listKey = getMegaMenuSubItemKey(sub, idx)
 
                                             return (
                                               <ListItem
-                                                key={idx}
+                                                key={listKey}
                                                 title={sub.label}
                                                 href={sub.url}
                                                 icon={
@@ -876,10 +912,11 @@ export function MegaMenu({
                                       const rawMedia = sub.image ?? sub.icon ?? null
                                       const iconUrl = rawMedia ? mediaUrl(rawMedia) : ''
                                       const iconSpriteId = null
+                                      const listKey = getMegaMenuSubItemKey(sub, idx)
 
                                       return (
                                         <ListItem
-                                          key={idx}
+                                          key={listKey}
                                           title={sub.label}
                                           href={sub.url}
                                           icon={
@@ -929,6 +966,7 @@ export function MegaMenu({
                                     card.description != null && card.description !== ''
                                       ? card.description
                                       : null
+                                  const cardKey = getMegaMenuCardKey(card, cardIdx)
                                   const cardIconUrl = card.icon != null ? mediaUrl(card.icon) : ''
                                   const cardIconSpriteId = null
                                   const cardImageUrl =
@@ -1034,14 +1072,14 @@ export function MegaMenu({
                                   const cardEl = <Card className={cardClassName}>{inner}</Card>
                                   return cardCtaUrl ? (
                                     <Link
-                                      key={cardIdx}
+                                      key={cardKey}
                                       href={cardCtaUrl}
                                       className="block no-underline text-left text-inherit outline-none focus-visible:ring-2 focus-visible:ring-ring"
                                     >
                                       {cardEl}
                                     </Link>
                                   ) : (
-                                    <div key={cardIdx}>{cardEl}</div>
+                                    <div key={cardKey}>{cardEl}</div>
                                   )
                                 })}
                               </div>
@@ -1100,7 +1138,7 @@ export function MegaMenu({
 
                           const triggerActive = isNavLinkActive(pathname ?? '', item.url)
                           return (
-                            <NavigationMenuItem key={item.id} value={value}>
+                            <NavigationMenuItem key={menuItemKey} value={value}>
                               <NavigationMenuTrigger
                                 className={cn(
                                   navigationMenuTriggerStyle(),
@@ -1273,7 +1311,7 @@ export function MegaMenu({
 
                         const linkActive = isNavLinkActive(pathname ?? '', item.url)
                         return (
-                          <NavigationMenuItem key={item.id}>
+                          <NavigationMenuItem key={menuItemKey}>
                             <NavigationMenuLink asChild>
                               <Link
                                 href={item.url}
@@ -1325,7 +1363,8 @@ export function MegaMenu({
                         <SheetTitle className="text-left flex-1">Menu</SheetTitle>
                       </SheetHeader>
                       <nav className="flex flex-col gap-4 mt-8">
-                        {sortedItems.map((item) => {
+                        {sortedItems.map((item, idx) => {
+                          const menuItemKey = getMegaMenuItemKey(item, idx)
                           const cols = item.columns ?? []
                           const allItemsFromColumns = cols.flatMap((col) =>
                             (col.items ?? []).map((sub) => ({
@@ -1341,7 +1380,7 @@ export function MegaMenu({
                                   _groupTitle: null as string | null,
                                 }))
                           return (
-                            <div key={item.id} className="space-y-2">
+                            <div key={menuItemKey} className="space-y-2">
                               <Link
                                 href={item.url}
                                 className="block px-2 py-1 text-lg font-semibold transition-colors hover:text-primary"
@@ -1356,12 +1395,13 @@ export function MegaMenu({
                                         ? (listItems[i - 1] as { _groupTitle?: string | null })
                                             ._groupTitle
                                         : null
+                                    const mobileSubKey = getMegaMenuSubItemKey(sub, i)
                                     const showGroupTitle =
                                       sub._groupTitle != null &&
                                       sub._groupTitle !== '' &&
                                       sub._groupTitle !== prevTitle
                                     return (
-                                      <li key={i}>
+                                      <li key={mobileSubKey}>
                                         {showGroupTitle && (
                                           <span className="block pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                                             {sub._groupTitle}

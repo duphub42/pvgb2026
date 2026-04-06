@@ -42,10 +42,7 @@ function getBlockOverlayStyle(
   const opacityNum = Number(blockOverlay.opacity)
   if (Number.isNaN(opacityNum)) return null
   const opacity = Math.min(1, Math.max(0, opacityNum / 100))
-  const color =
-    blockOverlay.color === 'light'
-      ? 'var(--color-base-0)'
-      : 'var(--color-base-1000)'
+  const color = blockOverlay.color === 'light' ? 'var(--color-base-0)' : 'var(--color-base-1000)'
   return {
     position: 'absolute',
     inset: 0,
@@ -82,45 +79,44 @@ export const RenderBlocks: React.FC<{
           const hasOverlay = Boolean(overlay?.enabled && overlay.opacity != null)
 
           return (
-              <div
-                // Erster Block: mt-[-1px] schließt an den Hero-Shape-Divider an; kein pt-[8vh], damit kein großer Leerraum oberhalb des Contents.
-                className={index === 0 ? 'mt-[-1px] mb-16' : 'my-16'}
-                key={index}
-                style={
-                  hasBackground
-                    ? {
-                        ...getBlockBackgroundStyle(bg),
-                        position: 'relative',
-                        isolation: 'isolate',
-                      }
-                    : undefined
-                }
-              >
-                {hasOverlay && (
-                  <div
-                    aria-hidden
-                    className="rounded-[var(--style-radius-m)]"
-                    style={getBlockOverlayStyle(overlay) ?? undefined}
-                  />
-                )}
+            <div
+              // Erster Block: mt-[-1px] schließt an den Hero-Shape-Divider an; kein pt-[8vh], damit kein großer Leerraum oberhalb des Contents.
+              className={index === 0 ? 'mt-[-1px] mb-16' : 'my-16'}
+              key={`${b.blockType ?? 'block'}-${index}`}
+              style={
+                hasBackground
+                  ? {
+                      ...getBlockBackgroundStyle(bg),
+                      position: 'relative',
+                      isolation: 'isolate',
+                    }
+                  : undefined
+              }
+            >
+              {hasOverlay && (
                 <div
-                  className={
-                    hasBackground || hasOverlay ? 'relative z-10 py-8' : 'bg-white/0'
-                  }
-                >
-                  {isArchive ? (
-                    <ArchiveBlockComponent
-                      {...(b as ArchiveBlockComponentProps)}
-                      disableInnerContainer
-                    />
-                  ) : isPriceCalculator ? (
-                    <PriceCalculatorBlockComponent {...(b as PriceCalculatorBlock)} disableInnerContainer />
-                  ) : (
-                    <BlockRenderer blockType={blockType} block={b} />
-                  )}
-                </div>
+                  aria-hidden
+                  className="rounded-[var(--style-radius-m)]"
+                  style={getBlockOverlayStyle(overlay) ?? undefined}
+                />
+              )}
+              <div className={hasBackground || hasOverlay ? 'relative z-10 py-8' : 'bg-white/0'}>
+                {isArchive ? (
+                  <ArchiveBlockComponent
+                    {...(b as ArchiveBlockComponentProps)}
+                    disableInnerContainer
+                  />
+                ) : isPriceCalculator ? (
+                  <PriceCalculatorBlockComponent
+                    {...(b as PriceCalculatorBlock)}
+                    disableInnerContainer
+                  />
+                ) : (
+                  <BlockRenderer blockType={blockType} block={b} />
+                )}
               </div>
-            )
+            </div>
+          )
         })}
       </Fragment>
     )

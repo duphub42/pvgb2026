@@ -109,8 +109,8 @@ export const Pricing: React.FC<PricingProps> = ({
             </p>
 
             <ul className="mt-5 flex flex-col gap-2 text-sm text-foreground">
-              {plan.features.map((feature) => (
-                <li key={feature} className="flex items-start gap-2 text-left">
+              {plan.features.map((feature, idx) => (
+                <li key={feature ? feature + '-' + idx : 'empty-' + idx} className="flex items-start gap-2 text-left">
                   <Check className="mt-1 h-4 w-4 flex-shrink-0 text-primary" />
                   <span>{feature}</span>
                 </li>

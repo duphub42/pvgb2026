@@ -645,6 +645,10 @@
 .megamenu .header-tool-toggle {
   transition: color 0.45s ease, background-color 0.45s ease;
 }
+/* Darkmode: Megamenu-Top-Item Hover explizit weiß */
+[data-theme='dark'] .megamenu .megamenu-top-item:hover {
+  color: #fff !important;
+}
 /* Nur auf Geräten MIT echter Hover-Unterstützung (Desktop/Maus):
    Transparenter Modus wenn nicht gehovered. Dark-Header = heller Content (über Hero), Light-Header = dunkler Content (über hellem Bereich). */
 /* Logo im Header: immer gleiche Farbe wie Links/Toggles (überschreibt .logo-contrast). */

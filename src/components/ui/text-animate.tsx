@@ -285,7 +285,7 @@ const TextAnimateBase = ({
         {accessible ? <span className="sr-only">{text}</span> : null}
         {segments.map((segment, i) => (
           <motion.span
-            key={`${by}-${segment}-${i}`}
+            key={`${by}-${i}-${segment || 'empty'}`}
             variants={finalVariants.item as Variants}
             className={cn(
               by === 'line' ? 'block' : 'inline-block whitespace-pre',

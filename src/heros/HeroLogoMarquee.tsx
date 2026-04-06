@@ -160,9 +160,10 @@ export function HeroLogoMarquee({
           {marqueeLogos.map((row, idx) => {
             const url = resolveLogoSrc(row?.logo)
             if (!url) return null
+            const key = `hero-logo-${url}-${idx}`
             return (
               <div
-                key={idx}
+                key={key}
                 className={cn(
                   'hero-logo-marquee-item flex h-10 md:h-12 min-w-[5rem] shrink-0 items-center justify-center',
                   !instantReveal && 'hero-reveal-logo',
@@ -200,9 +201,10 @@ export function HeroLogoMarquee({
           {marqueeLogos.slice(0, 6).map((row, idx) => {
             const url = resolveLogoSrc(row?.logo)
             if (!url) return null
+            const key = `hero-logo-reduced-${url}-${idx}`
             return (
               <img
-                key={idx}
+                key={key}
                 src={url}
                 alt={row?.alt ?? ''}
                 width={112}

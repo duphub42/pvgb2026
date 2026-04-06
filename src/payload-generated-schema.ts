@@ -330,6 +330,7 @@ export const enum_site_pages_hero_type = pgEnum('enum_site_pages_hero_type', [
   'lowImpact',
   'superhero',
   'proAthlete',
+  'leistungenHero',
 ])
 export const enum_site_pages_hero_media_type = pgEnum('enum_site_pages_hero_media_type', [
   'cssHalo',
@@ -658,6 +659,7 @@ export const enum__site_pages_v_version_hero_type = pgEnum('enum__site_pages_v_v
   'lowImpact',
   'superhero',
   'proAthlete',
+  'leistungenHero',
 ])
 export const enum__site_pages_v_version_hero_media_type = pgEnum(
   'enum__site_pages_v_version_hero_media_type',

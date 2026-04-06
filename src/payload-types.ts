@@ -175,7 +175,9 @@ export interface SitePage {
   id: number;
   title: string;
   hero?: {
-    type?: ('none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'superhero' | 'proAthlete') | null;
+    type?:
+      | ('none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'superhero' | 'proAthlete' | 'leistungenHero')
+      | null;
     richText?: {
       root: {
         type: string;

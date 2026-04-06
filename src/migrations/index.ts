@@ -87,6 +87,7 @@ import * as migration_20260403_120000_site_pages_blocks_services_grid_intro_tagl
 import * as migration_20260403_130000_repair_services_grid_intro_icon_list_table from './20260403_130000_repair_services_grid_intro_icon_list_table'
 import * as migration_20260403_140000_repair_shadcn_links_lnks_table from './20260403_140000_repair_shadcn_links_lnks_table'
 import * as migration_20260403_150000_services_grid_radial_background_strength from './20260403_150000_services_grid_radial_background_strength'
+import * as migration_20260405_100000_site_pages_hero_leistungen_enum_values from './20260405_100000_site_pages_hero_leistungen_enum_values'
 
 export const migrations = [
   {
@@ -533,5 +534,10 @@ export const migrations = [
     up: migration_20260403_150000_services_grid_radial_background_strength.up,
     down: migration_20260403_150000_services_grid_radial_background_strength.down,
     name: '20260403_150000_services_grid_radial_background_strength',
+  },
+  {
+    up: migration_20260405_100000_site_pages_hero_leistungen_enum_values.up,
+    down: migration_20260405_100000_site_pages_hero_leistungen_enum_values.down,
+    name: '20260405_100000_site_pages_hero_leistungen_enum_values',
   },
 ]

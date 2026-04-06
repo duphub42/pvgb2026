@@ -19,37 +19,35 @@ header .header-tool-toggle--theme:hover {
   color: var(--header-icon-fg-hover, currentColor) !important;
 }
 .megamenu-sheet {
-  background-color: #ffffff !important;
-  background-image:
-    radial-gradient(120% 90% at 12% 8%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 62%),
-    radial-gradient(95% 80% at 92% 16%, rgba(241, 245, 249, 0.55) 0%, rgba(241, 245, 249, 0) 68%),
-    linear-gradient(160deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.96) 100%);
-  color: #171717;
-  border-color: #e5e5e5;
+  background-color: var(--mega-menu-sheet-bg, #ffffff) !important;
+  background-image: var(--mega-menu-sheet-bg-image, radial-gradient(120% 90% at 12% 8%, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0) 62%), radial-gradient(95% 80% at 92% 16%, rgba(241, 245, 249, 0.55) 0%, rgba(241, 245, 249, 0) 68%), linear-gradient(160deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.96) 100%)) !important;
+  color: var(--mega-menu-sheet-text, #171717);
+  border-color: var(--mega-menu-sheet-border-color, #e5e5e5);
 }
 .megamenu-sheet a {
-  color: #171717;
+  color: var(--mega-menu-sheet-link, #171717);
 }
 .megamenu-sheet a:hover {
-  background-color: #f5f5f5;
-  color: #171717;
+  background-color: var(--mega-menu-sheet-link-hover, #f5f5f5);
+  color: var(--mega-menu-sheet-link-hover-text, #171717);
 }
 
-.megamenu-dropdown-panel,
 .megamenu-sheet {
-  border: 1px solid transparent;
-  box-shadow:
-    0 24px 56px rgba(15, 23, 42, 0.08),
-    0 10px 24px rgba(15, 23, 42, 0.06);
+  border: var(--mega-menu-sheet-border, 1px solid rgba(15, 23, 42, 0.08));
+  box-shadow: var(--mega-menu-sheet-shadow, 0 34px 84px rgba(15, 23, 42, 0.18), 0 16px 40px rgba(15, 23, 42, 0.12));
   background-clip: padding-box;
+}
+
+.megamenu-dropdown-panel {
+  box-shadow: none !important;
 }
 
 [data-theme='dark'] .megamenu-dropdown-panel,
 [data-theme='dark'] .megamenu-sheet {
   border-color: transparent !important;
   box-shadow:
-    0 24px 64px rgba(0, 0, 0, 0.28),
-    0 10px 24px rgba(0, 0, 0, 0.18);
+    0 34px 80px rgba(0, 0, 0, 0.16),
+    0 14px 38px rgba(0, 0, 0, 0.1);
 }
 
 /* Light: Header komplett invertiert (dunkle Texte/Logo), damit auf hellem Grund erkennbar */
@@ -128,9 +126,9 @@ header .header-tool-toggle--theme:hover {
 }
 [data-theme='dark'] .megamenu-dropdown-bg,
 [data-theme='dark'] .megamenu-viewport-wrapper {
-  background-color: #0a0a0a !important;
-  color: #fafafa;
-  border: none !important;
+  background-color: var(--mega-menu-dropdown-bg, #0a0a0a) !important;
+  color: var(--mega-menu-dropdown-text, #fafafa) !important;
+  border: var(--mega-menu-dropdown-border, none) !important;
   box-shadow: none !important;
 }
 [data-theme='dark'] .megamenu-viewport-wrapper:has([data-state='open']) {
@@ -325,21 +323,17 @@ header .header-tool-toggle--theme:hover {
   border-color: var(--header-icon-border-hover, transparent) !important;
   color: var(--header-icon-fg-hover, #fafafa) !important;
 }
-[data-theme='dark'] .megamenu-sheet {
-  background-color: #0a0a0a !important;
-  background-image:
-    radial-gradient(120% 90% at 10% 8%, rgba(38, 38, 38, 0.36) 0%, rgba(38, 38, 38, 0) 58%),
-    radial-gradient(100% 85% at 88% 18%, rgba(30, 41, 59, 0.24) 0%, rgba(30, 41, 59, 0) 66%),
-    linear-gradient(160deg, rgba(12, 12, 12, 0.98) 0%, rgba(18, 18, 20, 0.98) 100%);
-  border-color: #262626;
-  color: #fafafa;
-}
-[data-theme='dark'] .megamenu-sheet a {
-  color: #e5e5e5;
-}
-[data-theme='dark'] .megamenu-sheet a:hover {
-  background-color: #262626;
-  color: #fafafa;
+[data-theme='dark'] .megamenu,
+[data-theme='dark'] .site-header {
+  --mega-menu-sheet-bg: #0a0a0a;
+  --mega-menu-sheet-bg-image: radial-gradient(120% 90% at 10% 8%, rgba(38, 38, 38, 0.36) 0%, rgba(38, 38, 38, 0) 58%), radial-gradient(100% 85% at 88% 18%, rgba(30, 41, 59, 0.24) 0%, rgba(30, 41, 59, 0) 66%), linear-gradient(160deg, rgba(12, 12, 12, 0.98) 0%, rgba(18, 18, 20, 0.98) 100%);
+  --mega-menu-sheet-border-color: #262626;
+  --mega-menu-sheet-text: #fafafa;
+  --mega-menu-sheet-link: #e5e5e5;
+  --mega-menu-sheet-link-hover: #262626;
+  --mega-menu-sheet-link-hover-text: #fafafa;
+  --mega-menu-sheet-border: 1px solid rgba(255, 255, 255, 0.08);
+  --mega-menu-sheet-shadow: 0 34px 80px rgba(0, 0, 0, 0.16), 0 14px 38px rgba(0, 0, 0, 0.1);
 }
 [data-theme='dark'] .megamenu-overlay {
   background: rgba(10, 10, 10, 0.85);

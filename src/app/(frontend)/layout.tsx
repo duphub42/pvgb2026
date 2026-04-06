@@ -9,7 +9,9 @@ import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
 import { draftMode } from 'next/headers'
+
 import React from 'react'
+import { RootLayoutInner } from '@/app/(frontend)/RootLayoutInner.client'
 
 import './globals.css'
 import { getServerSideURL } from '@/utilities/getURL'
@@ -47,10 +49,21 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       getCachedGlobal('header', 1)(),
     ])
     if (designResult.status === 'fulfilled') design = designResult.value as DesignDoc
-    if (themeSettingsResult.status === 'fulfilled' && themeSettingsResult.value && typeof themeSettingsResult.value === 'object') {
+    if (
+      themeSettingsResult.status === 'fulfilled' &&
+      themeSettingsResult.value &&
+      typeof themeSettingsResult.value === 'object'
+    ) {
       themeSettings = themeSettingsResult.value as { cssString?: string | null }
     }
-    const header = headerResult.status === 'fulfilled' && headerResult.value && typeof headerResult.value === 'object' ? headerResult.value as { favicon?: { url?: string | null; updatedAt?: string } | number | null } : null
+    const header =
+      headerResult.status === 'fulfilled' &&
+      headerResult.value &&
+      typeof headerResult.value === 'object'
+        ? (headerResult.value as {
+            favicon?: { url?: string | null; updatedAt?: string } | number | null
+          })
+        : null
     if (header?.favicon && typeof header.favicon === 'object' && header.favicon?.url) {
       faviconUrl = getMediaUrl(header.favicon.url, header.favicon.updatedAt) || null
     }
@@ -72,14 +85,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </head>
         <body data-layout="default">
           <Providers initialLocale={locale}>
-            <AdminBarGate
-              preview={isEnabled}
-              adminBarProps={{ preview: isEnabled }}
-            />
-
+            <AdminBarGate preview={isEnabled} adminBarProps={{ preview: isEnabled }} />
             <Header />
-            <main id="main-content">{children}</main>
-            <Footer locale={locale} />
+            <RootLayoutInner>
+              <main id="main-content">{children}</main>
+              <Footer locale={locale} />
+            </RootLayoutInner>
           </Providers>
           {process.env.NODE_ENV === 'development' && process.env.PINY_VISUAL_SELECT === 'true' && (
             <Script src="/_piny/piny.phone.js" strategy="beforeInteractive" />

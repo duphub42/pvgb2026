@@ -13,12 +13,14 @@ const isPopoutLayoutHero = (type: string | undefined) =>
   POPOUT_LAYOUT_HERO_TYPES.includes(type as (typeof POPOUT_LAYOUT_HERO_TYPES)[number])
 
 /** Hero-Typen, die Headline/Beschreibung/Links/Media im Backend bearbeitbar haben (inkl. Shadcn Blocks). */
+
 const HERO_TYPES_WITH_EDITABLE_CONTENT = [
   'highImpact',
   'mediumImpact',
   'lowImpact',
   'superhero',
   'proAthlete',
+  'leistungenHero',
 ] as const
 
 const hasEditableContent = (type: string | undefined) =>
@@ -50,6 +52,7 @@ export const hero: Field = {
         { label: 'Low Impact', value: 'lowImpact' },
         { label: 'Superhero (Popout-Portrait)', value: 'superhero' },
         { label: 'Pro Athlete', value: 'proAthlete' },
+        { label: 'Leistungen Hero', value: 'leistungenHero' },
       ],
     },
     {

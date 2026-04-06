@@ -65,8 +65,8 @@ const Feature268 = ({ className }: Feature268Props) => {
                 ShadcnBlocks Perks
               </p>
             </li>
-            {features.map((feature) => (
-              <li key={feature.title} className="flex gap-4 lg:items-center">
+            {features.map((feature, idx) => (
+              <li key={feature.title ? feature.title + '-' + idx : 'empty-' + idx} className="flex gap-4 lg:items-center">
                 <Check className="size-4" />
                 <p className="font-medium tracking-tight">
                   {feature.title}

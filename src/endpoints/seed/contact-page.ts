@@ -32,7 +32,7 @@ export const contact: (args: ContactArgs) => RequiredDataFromCollectionSlug<'sit
                     format: 0,
                     mode: 'normal',
                     style: '',
-                    text: 'Example contact form:',
+                    text: 'Kontaktformular',
                     version: 1,
                   },
                 ],
@@ -51,6 +51,6 @@ export const contact: (args: ContactArgs) => RequiredDataFromCollectionSlug<'sit
         },
       },
     ],
-    title: 'Contact',
+    title: 'Kontakt',
   }
 }

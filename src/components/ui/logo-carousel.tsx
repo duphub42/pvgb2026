@@ -59,7 +59,7 @@ const LogoColumn = React.memo(({ logos, index, currentTime, className }: LogoCol
     <div className={cn('flex flex-col items-center justify-center py-2', className)}>
       <AnimatePresence mode="wait" initial={false}>
         <motion.div
-          key={`${currentLogo.id}-${currentIndex}`}
+          key={`${currentLogo.id || 'logo'}-${currentIndex}`}
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -10 }}

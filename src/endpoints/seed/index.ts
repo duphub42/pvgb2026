@@ -1,6 +1,7 @@
 import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from 'payload'
 
 import { contactForm as contactFormData } from './contact-form'
+import { callbackForm as callbackFormData } from './callback-form'
 import { contact as contactPageData } from './contact-page'
 import { home } from './home'
 import { image1 } from './image-1'
@@ -196,6 +197,14 @@ export const seed = async ({
     collection: 'forms',
     depth: 0,
     data: contactFormData,
+  })
+
+  payload.logger.info(`— Seeding callback form...`)
+
+  const callbackForm = await payload.create({
+    collection: 'forms',
+    depth: 0,
+    data: callbackFormData,
   })
 
   payload.logger.info(`— Seeding pages...`)

@@ -54,7 +54,7 @@ export const blockStyleFields: Field[] = [
         label: 'Deckkraft (%)',
         min: 0,
         max: 100,
-        defaultValue: 30,
+        defaultValue: 0,
         admin: {
           condition: (_, siblingData) => Boolean(siblingData?.enabled),
           description: '0 = transparent, 100 = voll deckend.',

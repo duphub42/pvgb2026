@@ -287,71 +287,59 @@
 /* Rahmen/Shadow nur wenn Dropdown geöffnet – sonst keine Linie unter dem Header */
 .megamenu-dropdown-bg,
 .megamenu-viewport-wrapper {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  color: #171717;
-  border: none !important;
-  box-shadow: none !important;
+  background-color: var(--mega-menu-dropdown-bg, rgba(255, 255, 255, 0.95)) !important;
+  color: var(--mega-menu-dropdown-text, #171717);
+  border: var(--mega-menu-dropdown-border, none) !important;
+  backdrop-filter: var(--mega-menu-dropdown-backdrop-filter, none) !important;
+  -webkit-backdrop-filter: var(--mega-menu-dropdown-backdrop-filter, none) !important;
 }
 .megamenu-viewport-wrapper:has([data-state='open']) {
   border: 1px solid rgba(229, 229, 229, 0.85) !important;
   border-top: none !important;
   border-radius: 0 0 8px 8px;
   box-shadow:
-    14px 12px 24px -22px rgba(0, 0, 0, 0.22),
-    -14px 12px 24px -22px rgba(0, 0, 0, 0.22),
-    0 16px 30px -24px hsl(var(--primary) / 0.24) !important;
+    0 26px 60px rgba(0, 0, 0, 0.12),
+    0 12px 28px rgba(0, 0, 0, 0.08) !important;
 }
 .megamenu-viewport,
 .megamenu .megamenu-viewport {
-  background: rgba(255, 255, 255, 0.99) !important;
+  background: var(--mega-menu-viewport-bg, rgba(255, 255, 255, 0.99)) !important;
   color: inherit;
+}
+.megamenu .megamenu-featured {
+  background-color: var(--mega-menu-featured-bg, rgba(255, 255, 255, 0.22)) !important;
+  border: var(--mega-menu-featured-border, 1px solid rgba(255, 255, 255, 0.35)) !important;
+  color: var(--mega-menu-featured-text, inherit);
+  box-shadow: var(--mega-menu-featured-shadow, none) !important;
+  backdrop-filter: var(--mega-menu-featured-backdrop-filter, blur(14px) saturate(180%)) !important;
+  -webkit-backdrop-filter: var(--mega-menu-featured-backdrop-filter, blur(14px) saturate(180%)) !important;
 }
 
-/* Light mode: standard colors from light menu */
-[data-theme='light'] .megamenu-dropdown-bg,
-[data-theme='light'] .megamenu-viewport-wrapper {
-  background-color: rgba(255, 255, 255, 0.95) !important;
-  color: #171717;
-  border: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+[data-theme='light'] .megamenu,
+[data-theme='light'] .site-header {
+  --mega-menu-dropdown-bg: rgba(255, 255, 255, 0.95);
+  --mega-menu-dropdown-text: #171717;
+  --mega-menu-dropdown-border: none;
+  --mega-menu-dropdown-backdrop-filter: none;
+  --mega-menu-viewport-bg: rgba(255, 255, 255, 0.99);
+  --mega-menu-featured-bg: rgba(255, 255, 255, 0.22);
+  --mega-menu-featured-border: 1px solid rgba(255, 255, 255, 0.35);
+  --mega-menu-featured-text: inherit;
+  --mega-menu-featured-shadow: none;
+  --mega-menu-featured-backdrop-filter: blur(14px) saturate(180%);
 }
-[data-theme='light'] .megamenu-viewport,
-[data-theme='light'] .megamenu .megamenu-viewport {
-  background: rgba(255, 255, 255, 0.99) !important;
-  color: inherit;
-}
-[data-theme='light'] .megamenu .megamenu-featured {
-  background-color: rgba(255, 255, 255, 0.22) !important;
-  border: 1px solid rgba(255, 255, 255, 0.35) !important;
-  box-shadow: none !important;
-  backdrop-filter: blur(14px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
-}
-
-/* Dark mode: adapt colors from light theme to dark context */
-[data-theme='dark'] .megamenu-dropdown-bg,
-[data-theme='dark'] .megamenu-viewport-wrapper {
-  background-color: #0a0a0a !important;
-  color: #fafafa;
-  border: none !important;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-[data-theme='dark'] .megamenu-viewport,
-[data-theme='dark'] .megamenu .megamenu-viewport {
-  background: #0a0a0a !important;
-  color: inherit;
-}
-[data-theme='dark'] .megamenu .megamenu-featured {
-  background-color: #070707 !important;
-  border: 1px solid #1f1f1f !important;
-  color: #fafafa;
-  box-shadow: none !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
+[data-theme='dark'] .megamenu,
+[data-theme='dark'] .site-header {
+  --mega-menu-dropdown-bg: #0a0a0a;
+  --mega-menu-dropdown-text: #fafafa;
+  --mega-menu-dropdown-border: none;
+  --mega-menu-dropdown-backdrop-filter: none;
+  --mega-menu-viewport-bg: #0a0a0a;
+  --mega-menu-featured-bg: #070707;
+  --mega-menu-featured-border: 1px solid #1f1f1f;
+  --mega-menu-featured-text: #fafafa;
+  --mega-menu-featured-shadow: none;
+  --mega-menu-featured-backdrop-filter: none;
 }
 
 /* Panel: gleiche Größenordnung wie Radix Content (navigation-menu.tsx ~280ms) – öffnen/schließen wirkt einheitlich */
