@@ -1924,7 +1924,7 @@ export function MegaMenu({
                     <SheetContent
                       side="right"
                       overlayClassName="mobile-megamenu-overlay data-[state=open]:animate-none data-[state=closed]:animate-none"
-                      className="mobile-megamenu-sheet megamenu-sheet h-[100dvh] max-h-[100dvh] w-[min(94vw,36rem)] max-w-[36rem] border-l border-border/40 p-0 data-[state=open]:animate-none data-[state=closed]:animate-none supports-[height:100svh]:h-[100svh] [&>button]:hidden"
+                      className="mobile-megamenu-sheet megamenu-sheet h-[100dvh] max-h-[100dvh] w-full max-w-full sm:w-[min(94vw,36rem)] sm:max-w-[36rem] border-l border-border/40 p-0 data-[state=open]:animate-none data-[state=closed]:animate-none supports-[height:100svh]:h-[100svh] [&>button]:hidden"
                     >
                       <SheetTitle className="sr-only">Mobilmenü</SheetTitle>
                       <div className="mobile-megamenu-shell flex h-full flex-col">
