@@ -22,6 +22,8 @@ import { PriceCalculatorGlobal } from './globals/PriceCalculator/config'
 import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { plugins } from './plugins'
+import { contactForm } from './endpoints/seed/contact-form'
+import { callbackForm } from './endpoints/seed/callback-form'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 import { s3Storage } from '@payloadcms/storage-s3'
@@ -44,7 +46,10 @@ if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') {
       '[Payload] In Production müssen DATABASE_URL oder POSTGRES_URL gesetzt sein (Vercel: Settings → Environment Variables). Ohne DB lädt das Admin nicht.',
     )
   }
-} else if (!process.env.PAYLOAD_SECRET?.trim() || process.env.PAYLOAD_SECRET === 'YOUR_SECRET_HERE') {
+} else if (
+  !process.env.PAYLOAD_SECRET?.trim() ||
+  process.env.PAYLOAD_SECRET === 'YOUR_SECRET_HERE'
+) {
   console.warn(
     '[Payload] PAYLOAD_SECRET fehlt oder ist der Platzhalter. In .env oder .env.local setzen: PAYLOAD_SECRET=<mind. 12 Zeichen>',
   )
@@ -55,24 +60,19 @@ const serverURL = getServerSideURL()
 // SQLite: kein DATABASE_URL/POSTGRES_URL, oder lokal mit USE_SQLITE=true (offline, payload.db).
 // Postgres/Neon: Production immer; lokal sobald DATABASE_URL/POSTGRES_URL gesetzt ist (gleiche DB wie Vercel → gleicher Hero/Inhalt).
 // USE_NEON=true bleibt kompatibel (z. B. dev:neon); ohne USE_NEON reicht DATABASE_URL in .env für Parität mit Vercel.
-const hasPostgresUrl = Boolean(
-  process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim(),
-)
+const hasPostgresUrl = Boolean(process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim())
 const isProduction = process.env.NODE_ENV === 'production'
-const useSqliteAdapter =
-  !hasPostgresUrl || (!isProduction && process.env.USE_SQLITE === 'true')
+const useSqliteAdapter = !hasPostgresUrl || (!isProduction && process.env.USE_SQLITE === 'true')
 
 export default buildConfig({
   serverURL,
   admin: {
     suppressHydrationWarning: true,
-    // Custom Logo/BeforeLogin/BeforeDashboard deaktiviert – Admin lädt so mit Standard-Payload-UI.
-    // components: {
-    //   graphics: { Logo: '/components/AdminLogo' },
-    //   beforeLogin: ['@/components/BeforeLogin'],
-    //   beforeDashboard: ['@/components/BeforeDashboard'],
-    //   views: { themeColors: { Component: '@/components/ThemeGeneratorPage', path: '/theme-colors' } },
-    // },
+    components: {
+      graphics: { Logo: '/components/AdminLogo' },
+      beforeLogin: ['/components/BeforeLogin'],
+      beforeDashboard: ['/components/BeforeDashboard'],
+    },
     importMap: {
       baseDir: path.resolve(dirname),
     },
@@ -104,24 +104,23 @@ export default buildConfig({
   editor: defaultLexical,
   // Vercel-Adapter: Migrationen (db.execute). Push nur mit PAYLOAD_ALLOW_DRIZZLE_PUSH (s. unten).
   db: !useSqliteAdapter
-      ? vercelPostgresAdapter({
-          pool: {
-            connectionString:
-              process.env.DATABASE_URL || process.env.POSTGRES_URL || '',
-          },
-          // Kein Drizzle-Push ohne Opt-in: bei Schema-Drift kann Push Tabellen/Spalten droppen oder Daten gefährden.
-          // Sicher: `pnpm run migrate:neon` / `pnpm run push:neon` (nur Migrationen).
-          // Opt-in Drizzle: PAYLOAD_ALLOW_DRIZZLE_PUSH=true (z. B. mit `pnpm run push:neon:drizzle` + Bestätigung).
-          push:
-            process.env.NODE_ENV !== 'production' &&
-            process.env.PAYLOAD_ALLOW_DRIZZLE_PUSH === 'true',
-        })
-      : sqliteAdapter({
-          client: {
-            url: process.env.SQLITE_URL || 'file:./payload.db',
-          },
-          push: process.env.PAYLOAD_SKIP_PUSH !== 'true',
-        }),
+    ? vercelPostgresAdapter({
+        pool: {
+          connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL || '',
+        },
+        // Kein Drizzle-Push ohne Opt-in: bei Schema-Drift kann Push Tabellen/Spalten droppen oder Daten gefährden.
+        // Sicher: `pnpm run migrate:neon` / `pnpm run push:neon` (nur Migrationen).
+        // Opt-in Drizzle: PAYLOAD_ALLOW_DRIZZLE_PUSH=true (z. B. mit `pnpm run push:neon:drizzle` + Bestätigung).
+        push:
+          process.env.NODE_ENV !== 'production' &&
+          process.env.PAYLOAD_ALLOW_DRIZZLE_PUSH === 'true',
+      })
+    : sqliteAdapter({
+        client: {
+          url: process.env.SQLITE_URL || 'file:./payload.db',
+        },
+        push: process.env.PAYLOAD_SKIP_PUSH !== 'true',
+      }),
   collections: [
     Pages,
     Posts,
@@ -139,13 +138,18 @@ export default buildConfig({
   csrf: [
     serverURL,
     'http://localhost:3000',
-    ...(process.env.PAYLOAD_CSRF_ORIGINS?.split(',').map((o) => o.trim()).filter(Boolean) ?? []),
+    ...(process.env.PAYLOAD_CSRF_ORIGINS?.split(',')
+      .map((o) => o.trim())
+      .filter(Boolean) ?? []),
   ].filter(Boolean),
   plugins: [
     ...plugins,
     // Cloudflare R2 (S3-kompatibel): Kein Vercel Blob-Limit, EWWW zieht über Origin-Proxy.
     // R2_* Env-Variablen in Vercel setzen (siehe .env.example).
-    ...(process.env.R2_ACCOUNT_ID && process.env.R2_ACCESS_KEY_ID && process.env.R2_SECRET_ACCESS_KEY && process.env.R2_BUCKET
+    ...(process.env.R2_ACCOUNT_ID &&
+    process.env.R2_ACCESS_KEY_ID &&
+    process.env.R2_SECRET_ACCESS_KEY &&
+    process.env.R2_BUCKET
       ? [
           s3Storage({
             collections: {
@@ -177,7 +181,12 @@ export default buildConfig({
         let hasDoc = false
         try {
           const existing = await payload.findGlobal({ slug, depth: 0 })
-          hasDoc = Boolean(existing && typeof existing === 'object' && 'id' in existing && (existing as { id: unknown }).id != null)
+          hasDoc = Boolean(
+            existing &&
+            typeof existing === 'object' &&
+            'id' in existing &&
+            (existing as { id: unknown }).id != null,
+          )
         } catch {
           hasDoc = false
         }
@@ -190,8 +199,48 @@ export default buildConfig({
           payload.logger?.info?.(`Global "${slug}" angelegt (Initial-Eintrag).`)
         }
       } catch (e) {
-        payload.logger?.warn?.(`onInit: Global "${slug}" – ${e instanceof Error ? e.message : String(e)}. SQLite: push: true in payload.config.ts setzen, Dev-Server starten (Schema wird angelegt), dann /api/init-globals aufrufen.`)
+        payload.logger?.warn?.(
+          `onInit: Global "${slug}" – ${e instanceof Error ? e.message : String(e)}. SQLite: push: true in payload.config.ts setzen, Dev-Server starten (Schema wird angelegt), dann /api/init-globals aufrufen.`,
+        )
       }
+    }
+
+    try {
+      const existingForms = await payload.find({
+        collection: 'forms',
+        limit: 100,
+        depth: 0,
+        overrideAccess: true,
+      })
+      const existingTitles = new Set(
+        Array.isArray(existingForms.docs)
+          ? existingForms.docs.map((form) =>
+              String((form as { title?: string }).title ?? '').toLowerCase(),
+            )
+          : [],
+      )
+
+      if (!existingTitles.has('kontaktformular')) {
+        await payload.create({
+          collection: 'forms',
+          data: contactForm,
+          overrideAccess: true,
+        })
+        payload.logger?.info?.('Formular "Kontaktformular" angelegt.')
+      }
+
+      if (!existingTitles.has('rückruf-anfrage')) {
+        await payload.create({
+          collection: 'forms',
+          data: callbackForm,
+          overrideAccess: true,
+        })
+        payload.logger?.info?.('Formular "Rückruf-Anfrage" angelegt.')
+      }
+    } catch (e) {
+      payload.logger?.warn?.(
+        `onInit: Forms anlegen fehlgeschlagen – ${e instanceof Error ? e.message : String(e)}`,
+      )
     }
   },
   secret: process.env.PAYLOAD_SECRET || '',

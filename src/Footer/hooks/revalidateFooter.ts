@@ -1,12 +1,15 @@
 import type { GlobalAfterChangeHook } from 'payload'
 
-import { revalidateTag } from 'next/cache'
+import { revalidateTag } from '@/utilities/revalidateCache'
 
-export const revalidateFooter: GlobalAfterChangeHook = ({ doc, req: { payload, context } }) => {
+export const revalidateFooter: GlobalAfterChangeHook = async ({
+  doc,
+  req: { payload, context },
+}) => {
   if (!context?.disableRevalidate && !context?.skipRevalidate) {
     payload.logger.info(`Revalidating footer`)
 
-    revalidateTag('global_footer')
+    await revalidateTag('global_footer')
   }
 
   return doc

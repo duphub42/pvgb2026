@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react'
 
 import type { PriceCalculatorBlock, SitePage } from '@/payload-types'
+import { blurryFadeIn } from '@/components/ui/animationVariants'
 
 import {
   ArchiveBlockComponent,
@@ -9,6 +10,7 @@ import {
 import { PriceCalculatorBlockComponent } from '@/blocks/PriceCalculator/Component'
 import { BlockRenderer } from '@/blocks/BlockRenderer'
 import { CLIENT_BLOCK_TYPES } from '@/blocks/clientBlockTypes'
+import { AnimateBlock } from '@/components/ui/AnimateBlock'
 
 type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   blockBackground?: 'none' | 'muted' | 'accent' | 'light' | 'dark' | null
@@ -79,10 +81,21 @@ export const RenderBlocks: React.FC<{
           const hasOverlay = Boolean(overlay?.enabled && overlay.opacity != null)
 
           return (
-            <div
+            <AnimateBlock
+              key={
+                typeof b.id === 'string' || typeof b.id === 'number'
+                  ? String(b.id)
+                  : `${blockType}-${index}`
+              }
               // Erster Block: mt-[-1px] schließt an den Hero-Shape-Divider an; kein pt-[8vh], damit kein großer Leerraum oberhalb des Contents.
               className={index === 0 ? 'mt-[-1px] mb-16' : 'my-16'}
-              key={`${b.blockType ?? 'block'}-${index}`}
+              variants={blurryFadeIn}
+              viewport={{ once: true, amount: 0.14 }}
+              transition={{
+                duration: 0.72,
+                ease: [0.4, 0, 0.2, 1],
+                delay: index * 0.06,
+              }}
               style={
                 hasBackground
                   ? {
@@ -115,7 +128,7 @@ export const RenderBlocks: React.FC<{
                   <BlockRenderer blockType={blockType} block={b} />
                 )}
               </div>
-            </div>
+            </AnimateBlock>
           )
         })}
       </Fragment>

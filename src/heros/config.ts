@@ -26,8 +26,8 @@ const HERO_TYPES_WITH_EDITABLE_CONTENT = [
 const hasEditableContent = (type: string | undefined) =>
   type != null && (HERO_TYPES_WITH_EDITABLE_CONTENT as readonly string[]).includes(type)
 
-const heroTypesWithLogoMarquee = (type: string | undefined) =>
-  ['superhero', 'highImpact', 'mediumImpact', 'lowImpact'].includes(String(type ?? ''))
+const isSuperheroHero = (type: string | undefined) => String(type ?? '') === 'superhero'
+const heroTypesWithLogoMarquee = (type: string | undefined) => isSuperheroHero(type)
 
 const isProAthleteHero = (type: string | undefined) => String(type ?? '') === 'proAthlete'
 const isPopoutOrProAthleteHero = (type: string | undefined) =>
@@ -399,8 +399,7 @@ export const hero: Field = {
           min: 0,
           max: 20,
           admin: {
-            condition: (_, siblingData) =>
-              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isSuperheroHero(String(siblingData?.type ?? '')),
             description:
               'Wie stark die schwebenden Elemente dem Cursor ausweichen (0 = aus, 6.5 = Standard).',
           },
@@ -413,8 +412,7 @@ export const hero: Field = {
           min: 0,
           max: 20,
           admin: {
-            condition: (_, siblingData) =>
-              isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+            condition: (_, siblingData) => isSuperheroHero(String(siblingData?.type ?? '')),
             description: 'Amplitude der leichten Bewegung ohne Maus (0 = statisch).',
           },
         },
@@ -425,7 +423,7 @@ export const hero: Field = {
       type: 'array',
       label: 'Floating Elements',
       admin: {
-        condition: (_, siblingData) => isPopoutOrProAthleteHero(String(siblingData?.type ?? '')),
+        condition: (_, siblingData) => isSuperheroHero(String(siblingData?.type ?? '')),
         description:
           'Kleine Elemente (Badges, Icons), die über dem Hero schweben. Position über Preset wählen.',
       },

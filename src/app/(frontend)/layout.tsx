@@ -88,8 +88,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <AdminBarGate preview={isEnabled} adminBarProps={{ preview: isEnabled }} />
             <Header />
             <RootLayoutInner>
-              <main id="main-content">{children}</main>
-              <Footer locale={locale} />
+              <main id="main-content" key="main-content">
+                {children}
+              </main>
+              <Footer key="site-footer" locale={locale} />
             </RootLayoutInner>
           </Providers>
           {process.env.NODE_ENV === 'development' && process.env.PINY_VISUAL_SELECT === 'true' && (

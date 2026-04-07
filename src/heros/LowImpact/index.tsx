@@ -4,7 +4,6 @@ import type { SitePage } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
-import { HeroLogoMarquee } from '@/heros/HeroLogoMarquee'
 
 type LowImpactHeroType = SitePage['hero'] & { children?: React.ReactNode }
 
@@ -15,8 +14,6 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
   headline,
   description,
   links,
-  marqueeHeadline,
-  marqueeLogos,
 }) => {
   const hasHeadings = subheadline || headline || description
 
@@ -50,11 +47,6 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
               ))}
             </ul>
           )}
-          <HeroLogoMarquee
-            marqueeHeadline={marqueeHeadline}
-            marqueeLogos={marqueeLogos}
-            className="mt-8"
-          />
         </div>
       </div>
     </div>

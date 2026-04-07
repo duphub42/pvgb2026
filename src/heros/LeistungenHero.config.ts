@@ -14,14 +14,14 @@ export const leistungenHeroField: Field = {
   hooks: {
     beforeValidate: [
       ({ data }) => {
-        if (!data) return data;
-        if (typeof data.media === 'undefined') data.media = null;
+        if (!data) return data
+        if (typeof data.media === 'undefined') data.media = null
         if (Array.isArray(data.marqueeLogos)) {
           data.marqueeLogos = data.marqueeLogos.map((logo) =>
-            logo && typeof logo.logo === 'undefined' ? { ...logo, logo: null } : logo
-          );
+            logo && typeof logo.logo === 'undefined' ? { ...logo, logo: null } : logo,
+          )
         }
-        return data;
+        return data
       },
     ],
   },

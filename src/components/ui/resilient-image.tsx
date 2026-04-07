@@ -18,18 +18,19 @@ export function ResilientImage({ src, onError, ...props }: ResilientImageProps) 
 
   const current = candidates[index] ?? src ?? ''
 
-  return (
-    <img
-      {...props}
-      src={current}
-      onError={(e) => {
-        if (index < candidates.length - 1) {
-          setIndex((i) => i + 1)
-        } else {
-          onError?.(e)
-        }
-      }}
-    />
-  )
-}
+  const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    if (index < candidates.length - 1) {
+      setIndex((i) => i + 1)
+      return
+    }
 
+    const maybePromise = onError?.(e)
+    if (maybePromise && typeof (maybePromise as Promise<unknown>)?.catch === 'function') {
+      ;(maybePromise as Promise<unknown>).catch((error) => {
+        console.error('[ResilientImage] onError promise rejected:', error)
+      })
+    }
+  }
+
+  return <img {...props} src={current} onError={handleError} />
+}

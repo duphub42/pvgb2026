@@ -24,6 +24,12 @@ header .header-tool-toggle--theme:hover {
   color: var(--mega-menu-sheet-text, #171717);
   border-color: var(--mega-menu-sheet-border-color, #e5e5e5);
 }
+
+[data-theme='dark'] .megamenu-sheet {
+  background-color: var(--background) !important;
+  background-image: none !important;
+  color: var(--foreground) !important;
+}
 .megamenu-sheet a {
   color: var(--mega-menu-sheet-link, #171717);
 }
@@ -42,7 +48,6 @@ header .header-tool-toggle--theme:hover {
   box-shadow: none !important;
 }
 
-[data-theme='dark'] .megamenu-dropdown-panel,
 [data-theme='dark'] .megamenu-sheet {
   border-color: transparent !important;
   box-shadow:
@@ -85,7 +90,7 @@ header .header-tool-toggle--theme:hover {
 /* Dark: Linie nur an .header-slide-layer */
 [data-theme='dark'] .megamenu:hover,
 [data-theme='dark'] .site-header:hover {
-  background-color: rgba(10, 10, 10, 0.75) !important;
+  background-color: rgba(10, 10, 10, 0.95) !important;
   box-shadow: none;
   border-bottom-color: transparent !important;
 }
@@ -94,7 +99,7 @@ header .header-tool-toggle--theme:hover {
   color: #fafafa;
 }
 [data-theme='dark'] .megamenu .megamenu-top-item {
-  color: #a3a3a3;
+  color: #d4d4d4;
 }
 [data-theme='dark'] .megamenu .megamenu-top-item::after {
   background-color: transparent;
@@ -131,18 +136,10 @@ header .header-tool-toggle--theme:hover {
   border: var(--mega-menu-dropdown-border, none) !important;
   box-shadow: none !important;
 }
-[data-theme='dark'] .megamenu-viewport-wrapper:has([data-state='open']) {
-  border: 1px solid #262626 !important;
-  border-top: none !important;
-  box-shadow:
-    16px 14px 28px -20px rgba(0, 0, 0, 0.58),
-    -16px 14px 28px -20px rgba(0, 0, 0, 0.58),
-    0 18px 34px -22px hsl(var(--primary) / 0.32) !important;
-}
 [data-theme='dark'] .megamenu-viewport,
 [data-theme='dark'] .megamenu .megamenu-viewport {
-  background: rgba(10, 12, 18, 0.94) !important;
-  color: inherit;
+  background: #0a0a0a !important;
+  color: #fafafa;
 }
 
 [data-theme='dark'] .megamenu .megamenu-featured {
@@ -340,48 +337,6 @@ header .header-tool-toggle--theme:hover {
   backdrop-filter: blur(8px);
 }
 
-/* ========== Megamenu Dark-Mode (Patch) ========== */
-[data-theme='dark'] .megamenu,
-[data-theme='dark'] .site-header {
-  color: #fafafa;
-}
-[data-theme='dark'] .megamenu:hover,
-[data-theme='dark'] .site-header:hover {
-  background-color: rgba(10, 10, 10, 0.95) !important;
-  border-bottom-color: transparent !important;
-}
-[data-theme='dark'] .megamenu .megamenu-top-item {
-  color: #d4d4d4;
-}
-[data-theme='dark'] .megamenu .megamenu-top-item:hover,
-[data-theme='dark'] .megamenu .megamenu-top-item:focus-visible {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.1) !important;
-}
-[data-theme='dark'] .megamenu .megamenu-top-item[data-state='open'] {
-  color: #ffffff;
-  background-color: rgba(255, 255, 255, 0.1) !important;
-}
-[data-theme='dark'] .megamenu-dropdown-bg,
-[data-theme='dark'] .megamenu-viewport-wrapper {
-  background-color: #0a0a0a !important;
-  color: #fafafa;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
-}
-[data-theme='dark'] .megamenu-viewport-wrapper:has([data-state='open']) {
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
-  border-top: none !important;
-  box-shadow:
-    16px 14px 28px -20px rgba(0, 0, 0, 0.58),
-    -16px 14px 28px -20px rgba(0, 0, 0, 0.58),
-    0 18px 34px -22px hsl(var(--primary) / 0.32) !important;
-}
-[data-theme='dark'] .megamenu-viewport,
-[data-theme='dark'] .megamenu .megamenu-viewport {
-  background: #0a0a0a !important;
-  color: #fafafa;
-}
 @media (width < 48rem) {
   [data-theme='dark'] .megamenu[data-scrolled='true'] .megamenu-top-item,
   [data-theme='dark'] .megamenu[data-scrolled='true'] .header-tool-toggle,
@@ -567,18 +522,53 @@ header .header-tool-toggle--theme:hover {
   border-bottom-color: transparent !important;
 }
 
-/* Sticky-Header: Portal .header-glass-plate — Light: kaum Schatten; Dark: kein Schlagschatten, minimales Primary-Glow */
+/* Sticky-Header: Portal .header-glass-plate
+   Schatten liegt bewusst NUR unterhalb der Headerkante, damit die Header-Border nicht überlagert wird. */
 .header-glass-plate {
-  box-shadow:
-    0 1px 0 rgba(15, 23, 42, 0.03),
-    0 6px 24px -16px rgba(15, 23, 42, 0.05);
+  box-shadow: none;
+  position: fixed;
+}
+
+.header-glass-plate::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  right: 0;
+  left: 0;
+  height: 22px;
+  pointer-events: none;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.08) 0%, rgba(15, 23, 42, 0) 100%);
 }
 
 [data-theme='dark'] .header-glass-plate {
+  box-shadow: none;
+}
+
+[data-theme='dark'] .header-glass-plate::after {
+  background: linear-gradient(180deg, hsl(var(--primary) / 0.14) 0%, hsl(var(--primary) / 0) 100%);
+}
+
+/* Megamenu Dropdown: finale Shadow/Glow-Regeln (höchste Priorität)
+   Ziel:
+   - Light: Schatten nur unterhalb des Panels (kein sichtbarer Shadow im Header)
+   - Dark: zusätzlicher Glow am Dropdown statt "flach" */
+.megamenu-viewport-wrapper:has([data-state='open']) {
+  border: 1px solid rgba(229, 229, 229, 0.88) !important;
+  border-top: none !important;
+  border-radius: 0 0 8px 8px;
   box-shadow:
-    0 0 28px -6px hsl(var(--primary) / 0.11),
-    0 0 48px -20px hsl(var(--primary) / 0.07),
-    0 1px 0 hsl(var(--primary) / 0.08);
+    0 24px 52px -24px rgba(15, 23, 42, 0.22),
+    0 12px 26px -18px rgba(15, 23, 42, 0.14) !important;
+}
+
+[data-theme='dark'] .megamenu-viewport-wrapper:has([data-state='open']) {
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  border-top: none !important;
+  border-radius: 0 0 8px 8px;
+  box-shadow:
+    0 24px 56px -24px rgba(0, 0, 0, 0.62),
+    0 12px 30px -18px rgba(0, 0, 0, 0.44),
+    0 18px 36px -24px hsl(var(--primary) / 0.34) !important;
 }
 
 /* Header Icon Colors: final source of truth (sync with mega menu tokens) */

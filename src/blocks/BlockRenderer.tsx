@@ -4,6 +4,7 @@ import type { SitePage } from '@/payload-types'
 
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ConsultingOverviewBlock } from '@/blocks/ConsultingOverview/Component'
+import { ContactInfoCardsBlock } from '@/blocks/ContactInfoCards/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { HeroMarketingBlock } from '@/blocks/HeroMarketing/Component'
@@ -29,6 +30,7 @@ type BlockComponent = React.ComponentType<Record<string, unknown>>
 
 const blockComponents: Record<string, BlockComponent> = {
   consultingOverview: ConsultingOverviewBlock as unknown as BlockComponent,
+  contactInfoCards: ContactInfoCardsBlock as unknown as BlockComponent,
   content: ContentBlock as unknown as BlockComponent,
   heroMarketing: HeroMarketingBlock as unknown as BlockComponent,
   introduction: IntroductionBlock as unknown as BlockComponent,

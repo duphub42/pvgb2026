@@ -1,10 +1,11 @@
 import type { ArchiveBlock as ArchiveBlockFields } from '@/payload-types'
 
-import configPromise from '@payload-config'
-import { getPayload } from 'payload'
 import RichText from '@/components/RichText'
 
-import { CollectionArchive, type Props as CollectionArchiveProps } from '@/components/CollectionArchive'
+import {
+  CollectionArchive,
+  type Props as CollectionArchiveProps,
+} from '@/components/CollectionArchive'
 
 export type ArchiveBlockComponentProps = ArchiveBlockFields & {
   id?: string
@@ -19,7 +20,10 @@ export async function ArchiveBlockComponent(props: ArchiveBlockComponentProps) {
   let posts: CollectionArchiveProps['posts'] = []
 
   if (populateBy === 'collection') {
-    const payload = await getPayload({ config: configPromise })
+    const payloadModule = await import('payload')
+    const configModule = await import('@payload-config')
+    const config = (configModule as { default?: unknown }).default ?? configModule
+    const payload = payloadModule.getPayload({ config })
 
     const flattenedCategories = categories?.map((category) => {
       if (typeof category === 'object') return category.id

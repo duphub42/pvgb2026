@@ -514,6 +514,7 @@
 [data-theme='light'] .megamenu,
 [data-theme='light'] .site-header {
   --header-line: hsl(var(--primary) / 0.2);
+  --header-border-line: rgb(212 212 212);
   --header-icon-fg: var(--mega-menu-nav-text);
   --header-icon-fg-hover: var(--mega-menu-heading);
   --header-icon-border: color-mix(in hsl, var(--mega-menu-nav-text) 22%, transparent);
@@ -523,6 +524,7 @@
 [data-theme='dark'] .megamenu,
 [data-theme='dark'] .site-header {
   --header-line: hsl(var(--primary) / 0.17);
+  --header-border-line: rgb(64 64 64);
   --header-icon-fg: var(--mega-menu-nav-text);
   --header-icon-fg-hover: var(--mega-menu-heading);
   --header-icon-border: color-mix(in hsl, var(--mega-menu-nav-text) 34%, transparent);
@@ -593,9 +595,9 @@
 .megamenu .megamenu-nav {
   position: static;
 }
-/* 1px unter Header-Unterkante; Panel nicht volle Viewport-Breite */
+/* Lückenlos an der Header-Unterkante; Panel nicht volle Viewport-Breite */
 .megamenu .megamenu-viewport-outer {
-  top: calc(100% + 1px);
+  top: 100%;
   left: 50%;
   right: auto;
   width: var(--megamenu-panel-max-width);
@@ -619,9 +621,31 @@
     transition: border-color 0.35s ease;
   }
 
+  /* Stabile Header-Unterkante: eigene Overlay-Linie oberhalb des einfahrenden Dropdown-Panels. */
+  .megamenu > .header-slide-layer.header-glass-border::after,
+  .site-header > .header-slide-layer.header-glass-border::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 1px;
+    background-color: var(--header-border-line, var(--header-line));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.22s ease;
+    z-index: 12;
+  }
+
   .megamenu:hover > .header-slide-layer.header-glass-border,
   .site-header:hover > .header-slide-layer.header-glass-border {
-    border-bottom-color: var(--header-line);
+    border-bottom-color: transparent;
+  }
+
+  .megamenu:hover > .header-slide-layer.header-glass-border::after,
+  .megamenu[data-menu-open='true'] > .header-slide-layer.header-glass-border::after,
+  .site-header:hover > .header-slide-layer.header-glass-border::after {
+    opacity: 1;
   }
 }
 .megamenu > .header-slide-layer > .container,

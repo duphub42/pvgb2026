@@ -84,7 +84,8 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ data, imagePosition 
                         <radialGradient id="dot-fade" cx="50%" cy="50%" r="50%">
                           <stop offset="65%" stopColor="#fff" stopOpacity="0.18" />
                           <stop offset="75%" stopColor="#fff" stopOpacity="0.08" />
-                          <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+                          <stop offset="90%" stopColor="var(--background, #fff)" stopOpacity="1" />
+                          <stop offset="100%" stopColor="var(--background, #fff)" stopOpacity="1" />
                         </radialGradient>
                       </defs>
                       {Array.from({ length: 13 }).map((_, i) =>

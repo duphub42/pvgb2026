@@ -44,9 +44,15 @@ export const Select: React.FC<
                 <SelectValue placeholder={label} />
               </SelectTrigger>
               <SelectContent>
-                {options.map(({ label, value }) => {
+                {options.map(({ label, value }, index) => {
+                  const rawValue =
+                    typeof value === 'string' ? value.trim() : String(value ?? '').trim()
+                  const optionKey =
+                    rawValue !== ''
+                      ? `form-select-option-${rawValue}-${index}`
+                      : `form-select-option-empty-${index}`
                   return (
-                    <SelectItem key={value} value={value}>
+                    <SelectItem key={optionKey} value={value}>
                       {label}
                     </SelectItem>
                   )

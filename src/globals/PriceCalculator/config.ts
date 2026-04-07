@@ -4,9 +4,9 @@ import { authenticated } from '../../access/authenticated'
 import { anyone } from '../../access/anyone'
 import { revalidatePriceCalculatorData } from '../../utilities/revalidatePriceCalculatorData'
 
-const afterChange: GlobalAfterChangeHook = ({ req: { context } }) => {
+const afterChange: GlobalAfterChangeHook = async ({ req: { context } }) => {
   if (!context?.disableRevalidate && !context?.skipRevalidate) {
-    revalidatePriceCalculatorData()
+    await revalidatePriceCalculatorData()
   }
 }
 

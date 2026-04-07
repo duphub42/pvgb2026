@@ -4,6 +4,8 @@ import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
+import { SectionReveal } from '@/components/ui/SectionReveal'
+import { Faq8 } from '@/components/ui/faq-8'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -17,6 +19,11 @@ export const revalidate = 60
 type PageProps = {
   params: Promise<{ slug?: string }>
   searchParams: Promise<{ previewId?: string }>
+}
+
+function isHomePageSlug(slug?: string | null): boolean {
+  if (!slug) return true
+  return slug.trim().toLowerCase() === 'home'
 }
 
 function debugLog(
@@ -148,19 +155,15 @@ export default async function Page({
         draft: true,
       })
       if (pageById) {
+        const previewSlug = typeof pageById.slug === 'string' ? pageById.slug : ''
+        const previewLayoutBlocks = resolveLayoutBlocks(previewSlug, pageById.layout)
+
         return (
           <article className="hero-safe-top">
-            <RenderHero
-              {...pageById.hero}
-              pageSlug={typeof pageById.slug === 'string' ? pageById.slug : ''}
-            />
+            <RenderHero {...pageById.hero} pageSlug={previewSlug} />
             <div className="relative z-0 pt-24">
-              <RenderBlocks
-                blocks={resolveLayoutBlocks(
-                  typeof pageById.slug === 'string' ? pageById.slug : '',
-                  pageById.layout,
-                )}
-              />
+              <RenderBlocks blocks={previewLayoutBlocks} />
+              {isHomePageSlug(previewSlug) && <Faq8 />}
             </div>
           </article>
         )
@@ -216,6 +219,7 @@ export default async function Page({
       typeof (heroProps as { type?: unknown })?.type === 'string' &&
       (heroProps as { type?: string }).type === 'proAthlete'
     const layoutBlocks = resolveLayoutBlocks(resolvedSlug, page.layout)
+    const showHomeFaq = isHomePageSlug(resolvedSlug)
     const firstBlock = layoutBlocks[0]
     const firstBlockIsServices =
       firstBlock &&
@@ -232,9 +236,11 @@ export default async function Page({
           Ab lg (4 Spalten): z-33 + Flush — Karten dürfen in den Hero ragen / Hover darüber (s. globals services-flush).
         */}
         <div className={cn('relative isolate', isProAthleteHero ? 'z-[40]' : 'z-[32]')}>
-          <HeroErrorBoundary>
-            <RenderHero {...heroProps} pageSlug={resolvedSlug} />
-          </HeroErrorBoundary>
+          <SectionReveal>
+            <HeroErrorBoundary>
+              <RenderHero {...heroProps} pageSlug={resolvedSlug} />
+            </HeroErrorBoundary>
+          </SectionReveal>
         </div>
         <div
           className={cn(
@@ -248,7 +254,10 @@ export default async function Page({
                 : 'z-20 max-md:-mt-16 max-md:pt-8 pt-24 md:z-[31] md:-mt-16',
           )}
         >
-          <RenderBlocks blocks={layoutBlocks} />
+          <SectionReveal className="relative z-0 pt-24">
+            <RenderBlocks blocks={layoutBlocks} />
+            {showHomeFaq && <Faq8 />}
+          </SectionReveal>
         </div>
       </article>
     )

@@ -8,11 +8,22 @@ export default function GlobalError({
   reset,
 }: {
   error: Error & { digest?: string }
-  reset: () => void
+  reset?: () => void
 }) {
   const isNetwork =
     typeof error?.message === 'string' &&
     /network error|failed to fetch|load failed|network request failed/i.test(error.message)
+
+  const handleReset = () => {
+    if (typeof reset === 'function') {
+      reset()
+      return
+    }
+
+    if (typeof window !== 'undefined') {
+      window.location.reload()
+    }
+  }
 
   return (
     <html lang="de">
@@ -27,7 +38,7 @@ export default function GlobalError({
           )}
           <button
             type="button"
-            onClick={() => reset()}
+            onClick={handleReset}
             style={{ marginTop: '1rem', padding: '0.5rem 1rem', cursor: 'pointer' }}
           >
             Erneut versuchen

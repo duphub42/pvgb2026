@@ -42,24 +42,8 @@ export const LeistungenHero: FC<LeistungenHeroProps> = ({
           <ul className="flex flex-wrap justify-center gap-4 mb-6">
             {links.map((item, i) => {
               if (!item || !item.link) return null
-
-              const referenceValue = item.link.reference?.value
-              const referenceSlug =
-                typeof referenceValue === 'object' &&
-                referenceValue !== null &&
-                'slug' in referenceValue &&
-                typeof referenceValue.slug === 'string'
-                  ? referenceValue.slug
-                  : undefined
-              const href = item.link.url ?? referenceSlug
-              const key = href
-                ? `hero-link-${String(href)}-${i}`
-                : item.link.label
-                  ? `hero-link-${item.link.label}-${i}`
-                  : `hero-link-${i}`
-
               return (
-                <li key={key}>
+                <li key={`hero-link-${i}`}>
                   <CMSLink {...item.link} />
                 </li>
               )

@@ -7,14 +7,9 @@ import type { SitePage } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
-import { HeroLogoMarquee } from '@/heros/HeroLogoMarquee'
 
 type HighImpactHeroData = {
-  links?: SitePage['hero'] extends infer H
-    ? H extends { links?: infer L }
-      ? L
-      : never
-    : never
+  links?: SitePage['hero'] extends infer H ? (H extends { links?: infer L } ? L : never) : never
   media?: SitePage['hero'] extends infer H ? (H extends { media?: infer M } ? M : never) : never
   richText?: SitePage['hero'] extends infer H
     ? H extends { richText?: infer R }
@@ -39,8 +34,6 @@ export const HighImpactHero: React.FC<HighImpactHeroData> = ({
   subheadline,
   headline,
   description,
-  marqueeHeadline,
-  marqueeLogos,
 }) => {
   const { setHeaderTheme } = useHeaderTheme()
 
@@ -84,12 +77,6 @@ export const HighImpactHero: React.FC<HighImpactHeroData> = ({
               })}
             </ul>
           )}
-          <HeroLogoMarquee
-            marqueeHeadline={marqueeHeadline}
-            marqueeLogos={marqueeLogos}
-            align="center"
-            className="mt-8 w-full max-w-none md:max-w-3xl"
-          />
         </div>
       </div>
       {media && typeof media === 'object' && (

@@ -370,6 +370,7 @@ export interface SitePage {
         | ProfilCtaBandBlock
         | PriceCalculatorBlock
         | CallToActionBlock
+        | ContactInfoCardsBlock
         | ContentBlock
         | MediaBlock
         | ArchiveBlock
@@ -1436,6 +1437,46 @@ export interface CallToActionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactInfoCardsBlock".
+ */
+export interface ContactInfoCardsBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  /**
+   * Eine Box pro Eintrag. Zeilen im Textfeld jeweils mit Zeilenumbruch trennen.
+   */
+  cards?:
+    | {
+        icon: 'map-pin' | 'phone' | 'clock-3' | 'mail';
+        title: string;
+        /**
+         * Eine Zeile pro Absatz (mit Enter trennen).
+         */
+        lines: string;
+        id?: string | null;
+      }[]
+    | null;
+  ctaLabel?: string | null;
+  ctaHref?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactInfoCards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContentBlock".
  */
 export interface ContentBlock {
@@ -2396,6 +2437,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         profilCtaBand?: T | ProfilCtaBandBlockSelect<T>;
         priceCalculator?: T | PriceCalculatorBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
+        contactInfoCards?: T | ContactInfoCardsBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
@@ -2912,6 +2954,32 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactInfoCardsBlock_select".
+ */
+export interface ContactInfoCardsBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  cards?:
+    | T
+    | {
+        icon?: T;
+        title?: T;
+        lines?: T;
+        id?: T;
+      };
+  ctaLabel?: T;
+  ctaHref?: T;
   id?: T;
   blockName?: T;
 }

@@ -1,10 +1,10 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from '@/utilities/revalidateCache'
 
 import type { BlogPost } from '../../../payload-types'
 
-export const revalidatePost: CollectionAfterChangeHook<BlogPost> = ({
+export const revalidatePost: CollectionAfterChangeHook<BlogPost> = async ({
   doc,
   previousDoc,
   req: { payload, context },
@@ -15,8 +15,8 @@ export const revalidatePost: CollectionAfterChangeHook<BlogPost> = ({
 
       payload.logger.info(`Revalidating post at path: ${path}`)
 
-      revalidatePath(path)
-      revalidateTag('posts-sitemap')
+      await revalidatePath(path)
+      await revalidateTag('posts-sitemap')
     }
 
     // If the post was previously published, we need to revalidate the old path
@@ -25,19 +25,22 @@ export const revalidatePost: CollectionAfterChangeHook<BlogPost> = ({
 
       payload.logger.info(`Revalidating old post at path: ${oldPath}`)
 
-      revalidatePath(oldPath)
-      revalidateTag('posts-sitemap')
+      await revalidatePath(oldPath)
+      await revalidateTag('posts-sitemap')
     }
   }
   return doc
 }
 
-export const revalidateDelete: CollectionAfterDeleteHook<BlogPost> = ({ doc, req: { context } }) => {
+export const revalidateDelete: CollectionAfterDeleteHook<BlogPost> = async ({
+  doc,
+  req: { context },
+}) => {
   if (!context?.disableRevalidate && !context?.skipRevalidate) {
     const path = `/posts/${doc?.slug}`
 
-    revalidatePath(path)
-    revalidateTag('posts-sitemap')
+    await revalidatePath(path)
+    await revalidateTag('posts-sitemap')
   }
 
   return doc

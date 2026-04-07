@@ -74,11 +74,14 @@ const NavigationMenuContent = React.forwardRef<
     className={cn(
       /* Symmetrische Ein-/Ausblendung (kein horizontales Slide): gleiche Dauer/Easing wie Megamenu-Panel */
       'left-0 top-0 w-full md:absolute md:w-full',
-      'data-[motion^=from-]:animate-in data-[motion^=to-]:animate-out',
+      'data-[state=open]:block data-[state=closed]:block data-[state=closed]:opacity-0 data-[state=closed]:pointer-events-none',
+      'data-[motion^=to-]:opacity-100',
+      'data-[motion^=from-]:animate-in',
       'data-[motion^=from-]:fade-in-0',
       'data-[motion^=from-]:duration-[280ms] data-[motion^=from-]:ease-[cubic-bezier(0.25,0.1,0.25,1)]',
+      'data-[motion^=to-]:animate-out',
       'data-[motion^=to-]:fade-out-0',
-      'data-[motion^=to-]:duration-[280ms] data-[motion^=to-]:ease-[cubic-bezier(0.25,0.1,0.25,1)]',
+      'data-[motion^=to-]:duration-[220ms] data-[motion^=to-]:ease-[cubic-bezier(0.25,0.1,0.25,1)]',
       className,
     )}
     {...props}

@@ -1,5 +1,5 @@
 import type { CollectionConfig } from 'payload'
-import { revalidateTag } from 'next/cache'
+import { revalidateTag } from '@/utilities/revalidateCache'
 
 export const MegaMenu: CollectionConfig = {
   slug: 'mega-menu',
@@ -13,8 +13,18 @@ export const MegaMenu: CollectionConfig = {
     read: () => true,
   },
   hooks: {
-    afterChange: [({ req }) => { if (req.context?.skipRevalidate) return; revalidateTag('mega-menu') }],
-    afterDelete: [({ req }) => { if (req.context?.skipRevalidate) return; revalidateTag('mega-menu') }],
+    afterChange: [
+      async ({ req }) => {
+        if (req.context?.skipRevalidate) return
+        await revalidateTag('mega-menu')
+      },
+    ],
+    afterDelete: [
+      async ({ req }) => {
+        if (req.context?.skipRevalidate) return
+        await revalidateTag('mega-menu')
+      },
+    ],
   },
   fields: [
     {
@@ -62,7 +72,8 @@ export const MegaMenu: CollectionConfig = {
         { label: 'Als Button/Badge', value: 'button' },
       ],
       admin: {
-        description: 'Top-Level-Eintrag als normalen Link oder als hervorgehobenen Button/Badge anzeigen.',
+        description:
+          'Top-Level-Eintrag als normalen Link oder als hervorgehobenen Button/Badge anzeigen.',
       },
     },
     {
@@ -158,7 +169,8 @@ export const MegaMenu: CollectionConfig = {
       type: 'group',
       label: 'Spalte 1: Kategoriebeschreibung',
       admin: {
-        description: 'Linke Spalte im Mega-Dropdown. Optional: Titel und Beschreibung. Spalte wird nur angezeigt, wenn mindestens eines ausgefüllt ist.',
+        description:
+          'Linke Spalte im Mega-Dropdown. Optional: Titel und Beschreibung. Spalte wird nur angezeigt, wenn mindestens eines ausgefüllt ist.',
       },
       fields: [
         {
@@ -171,7 +183,9 @@ export const MegaMenu: CollectionConfig = {
           name: 'description',
           type: 'textarea',
           label: 'Beschreibung',
-          admin: { description: 'Fließtext für die Kategorie (z. B. Einleitungstext zu den Unterpunkten).' },
+          admin: {
+            description: 'Fließtext für die Kategorie (z. B. Einleitungstext zu den Unterpunkten).',
+          },
         },
       ],
     },
@@ -194,7 +208,8 @@ export const MegaMenu: CollectionConfig = {
           max: 12,
           defaultValue: 4,
           admin: {
-            description: 'Breite dieser Unterpunkt-Spalte im 12er-Grid. Auf Desktop werden die Spalten nebeneinander angezeigt.',
+            description:
+              'Breite dieser Unterpunkt-Spalte im 12er-Grid. Auf Desktop werden die Spalten nebeneinander angezeigt.',
           },
         },
         {
@@ -223,7 +238,12 @@ export const MegaMenu: CollectionConfig = {
           fields: [
             { name: 'label', type: 'text', required: true, label: 'Label' },
             { name: 'url', type: 'text', required: true, label: 'URL' },
-            { name: 'description', type: 'textarea', label: 'Beschreibung', admin: { description: 'Kurzer Text unter dem Label (z. B. Attio-Stil).' } },
+            {
+              name: 'description',
+              type: 'textarea',
+              label: 'Beschreibung',
+              admin: { description: 'Kurzer Text unter dem Label (z. B. Attio-Stil).' },
+            },
             {
               name: 'icon',
               type: 'upload',
@@ -281,7 +301,8 @@ export const MegaMenu: CollectionConfig = {
             { label: 'Unter den Unterpunkten', value: 'below' },
           ],
           admin: {
-            description: 'Rechts = Highlight als rechte Spalte. Unter den Unterpunkten = Highlight als eigene Zeile unter den Menüpunkten.',
+            description:
+              'Rechts = Highlight als rechte Spalte. Unter den Unterpunkten = Highlight als eigene Zeile unter den Menüpunkten.',
           },
         },
         {
@@ -306,7 +327,8 @@ export const MegaMenu: CollectionConfig = {
           label: 'Karten',
           minRows: 0,
           admin: {
-            description: 'Mehrere Karten möglich. Jede Karte: optional Icon oder Bild, Titel, Beschreibung und Link.',
+            description:
+              'Mehrere Karten möglich. Jede Karte: optional Icon oder Bild, Titel, Beschreibung und Link.',
             initCollapsed: false,
           },
           fields: [
@@ -317,14 +339,20 @@ export const MegaMenu: CollectionConfig = {
               type: 'upload',
               relationTo: 'media',
               label: 'Icon',
-              admin: { description: 'Kleines Icon (z. B. wie bei Unterpunkten). Optional, alternativ Bild.' },
+              admin: {
+                description:
+                  'Kleines Icon (z. B. wie bei Unterpunkten). Optional, alternativ Bild.',
+              },
             },
             {
               name: 'image',
               type: 'upload',
               relationTo: 'media',
               label: 'Bild',
-              admin: { description: 'Optional. Bei Position „unter den Unterpunkten“: Bild links neben Text.' },
+              admin: {
+                description:
+                  'Optional. Bei Position „unter den Unterpunkten“: Bild links neben Text.',
+              },
             },
             { name: 'ctaLabel', type: 'text', label: 'Button-Text' },
             { name: 'ctaUrl', type: 'text', label: 'Button-URL' },
@@ -334,13 +362,19 @@ export const MegaMenu: CollectionConfig = {
           name: 'title',
           type: 'text',
           label: 'Titel (Legacy, eine Karte)',
-          admin: { condition: (_, siblingData) => !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0) },
+          admin: {
+            condition: (_, siblingData) =>
+              !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0),
+          },
         },
         {
           name: 'description',
           type: 'textarea',
           label: 'Beschreibung (Legacy)',
-          admin: { condition: (_, siblingData) => !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0) },
+          admin: {
+            condition: (_, siblingData) =>
+              !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0),
+          },
         },
         {
           name: 'icon',
@@ -349,7 +383,8 @@ export const MegaMenu: CollectionConfig = {
           label: 'Icon (Legacy)',
           admin: {
             description: 'Optional. Wie bei Unterpunkten – Icon statt oder zusätzlich zum Bild.',
-            condition: (_, siblingData) => !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0),
+            condition: (_, siblingData) =>
+              !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0),
           },
         },
         {
@@ -357,19 +392,28 @@ export const MegaMenu: CollectionConfig = {
           type: 'upload',
           relationTo: 'media',
           label: 'Bild (Legacy)',
-          admin: { condition: (_, siblingData) => !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0) },
+          admin: {
+            condition: (_, siblingData) =>
+              !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0),
+          },
         },
         {
           name: 'ctaLabel',
           type: 'text',
           label: 'Button-Text (Legacy)',
-          admin: { condition: (_, siblingData) => !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0) },
+          admin: {
+            condition: (_, siblingData) =>
+              !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0),
+          },
         },
         {
           name: 'ctaUrl',
           type: 'text',
           label: 'Button-URL (Legacy)',
-          admin: { condition: (_, siblingData) => !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0) },
+          admin: {
+            condition: (_, siblingData) =>
+              !(Array.isArray(siblingData?.cards) && siblingData.cards.length > 0),
+          },
         },
       ],
     },

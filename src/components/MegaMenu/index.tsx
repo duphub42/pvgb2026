@@ -14,6 +14,10 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 import { getClientSideURL } from '@/utilities/getURL'
+import {
+  FORM_SPAM_META_FIELDS,
+  buildFormSpamMetaSubmissionData,
+} from '@/utilities/formSpamProtection'
 import { isNavLinkActive } from '@/utilities/navLinkActive'
 import { ChevronRight, Menu, MessageCircle, Phone, Mail } from 'lucide-react'
 import Link from 'next/link'
@@ -60,7 +64,7 @@ function mediaUrl(media: MediaRef): string {
 
 function getMegaMenuItemKey(item: MegaMenuItem, index: number): string {
   const safeId = item.id != null ? String(item.id).trim() : ''
-  return safeId !== '' ? safeId : `mega-menu-item-${index}`
+  return safeId !== '' ? `mega-menu-item-${safeId}-${index}` : `mega-menu-item-${index}`
 }
 
 function getMegaMenuColumnKey(
@@ -69,7 +73,9 @@ function getMegaMenuColumnKey(
 ): string {
   const title = col?.title?.trim()
   const width = col?.columnWidth != null ? String(col.columnWidth) : 'auto'
-  return title ? `mega-menu-col-${title}-${index}` : `mega-menu-col-${width}-${index}`
+  return title
+    ? `mega-menu-col-${title.replace(/\s+/g, '-')}-${width}-${index}`
+    : `mega-menu-col-${width}-${index}`
 }
 
 function getMegaMenuSubItemKey(
@@ -78,7 +84,10 @@ function getMegaMenuSubItemKey(
 ): string {
   const id = sub.url ?? sub.label
   return id
-    ? `mega-menu-subitem-${String(id).trim().replace(/\s+/g, '-')}-${index}`
+    ? `mega-menu-subitem-${String(id)
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-zA-Z0-9-_]/g, '')}-${index}`
     : `mega-menu-subitem-${index}`
 }
 
@@ -88,7 +97,10 @@ function getMegaMenuCardKey(
 ): string {
   const id = card.ctaUrl ?? card.title ?? card.description
   return id
-    ? `mega-menu-card-${String(id).trim().replace(/\s+/g, '-')}-${index}`
+    ? `mega-menu-card-${String(id)
+        .trim()
+        .replace(/\s+/g, '-')
+        .replace(/[^a-zA-Z0-9-_]/g, '')}-${index}`
     : `mega-menu-card-${index}`
 }
 
@@ -185,9 +197,20 @@ function hasDropdown(item: MegaMenuItem): boolean {
 /* ListItem: Icon links (quadratisch, 2 Zeilen), daneben Titel + Beschreibung (kleiner, 20% Opacity) */
 const ListItem = React.forwardRef<
   React.ElementRef<typeof Link>,
-  React.ComponentPropsWithoutRef<typeof Link> & { title: string; icon?: React.ReactNode }
->(({ className, title, children, icon, ...props }, ref) => (
-  <li>
+  React.ComponentPropsWithoutRef<typeof Link> & {
+    title: string
+    icon?: React.ReactNode
+    animationIndex?: number
+  }
+>(({ className, title, children, icon, animationIndex, ...props }, ref) => (
+  <li
+    className="megamenu-block-item"
+    style={
+      animationIndex == null
+        ? undefined
+        : ({ '--megamenu-block-index': animationIndex } as React.CSSProperties)
+    }
+  >
     <NavigationMenuLink asChild>
       <Link
         ref={ref}
@@ -320,7 +343,7 @@ function collectPreloadMediaUrls(items: MegaMenuItem[]): string[] {
   return [...urls]
 }
 
-function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
+function MegaMenuCtaStrip({ cta, hideCallback }: { cta: MegaMenuCta; hideCallback?: boolean }) {
   const [phone, setPhone] = useState('')
   const [email, setEmail] = useState('')
   const [callbackStatus, setCallbackStatus] = useState<'idle' | 'loading' | 'success' | 'error'>(
@@ -329,10 +352,18 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
   const [newsletterStatus, setNewsletterStatus] = useState<
     'idle' | 'loading' | 'success' | 'error'
   >('idle')
+  const [callbackHoneypotValue, setCallbackHoneypotValue] = useState('')
+  const [newsletterHoneypotValue, setNewsletterHoneypotValue] = useState('')
+  const [callbackStartedAt, setCallbackStartedAt] = useState<number>(() => Date.now())
+  const [newsletterStartedAt, setNewsletterStartedAt] = useState<number>(() => Date.now())
 
   const submitCallback = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!cta.callback || !phone.trim()) return
+    if (callbackHoneypotValue.trim().length > 0) {
+      setCallbackStatus('success')
+      return
+    }
     setCallbackStatus('loading')
     try {
       const res = await fetch(`${getClientSideURL()}/api/form-submissions`, {
@@ -340,13 +371,21 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           form: cta.callback.formId,
-          submissionData: [{ field: cta.callback.phoneFieldName, value: phone.trim() }],
+          submissionData: [
+            { field: cta.callback.phoneFieldName, value: phone.trim() },
+            ...buildFormSpamMetaSubmissionData({
+              honeypotValue: callbackHoneypotValue,
+              startedAt: callbackStartedAt,
+            }),
+          ],
         }),
       })
       const data = await res.json()
       if (res.ok) {
         setCallbackStatus('success')
         setPhone('')
+        setCallbackHoneypotValue('')
+        setCallbackStartedAt(Date.now())
       } else {
         setCallbackStatus('error')
       }
@@ -358,6 +397,10 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
   const submitNewsletter = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!cta.newsletter || !email.trim()) return
+    if (newsletterHoneypotValue.trim().length > 0) {
+      setNewsletterStatus('success')
+      return
+    }
     setNewsletterStatus('loading')
     try {
       const res = await fetch(`${getClientSideURL()}/api/form-submissions`, {
@@ -365,12 +408,20 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           form: cta.newsletter.formId,
-          submissionData: [{ field: cta.newsletter.emailFieldName, value: email.trim() }],
+          submissionData: [
+            { field: cta.newsletter.emailFieldName, value: email.trim() },
+            ...buildFormSpamMetaSubmissionData({
+              honeypotValue: newsletterHoneypotValue,
+              startedAt: newsletterStartedAt,
+            }),
+          ],
         }),
       })
       if (res.ok) {
         setNewsletterStatus('success')
         setEmail('')
+        setNewsletterHoneypotValue('')
+        setNewsletterStartedAt(Date.now())
       } else {
         setNewsletterStatus('error')
       }
@@ -379,7 +430,7 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
     }
   }
 
-  const hasAny = cta.whatsapp || cta.callback || cta.newsletter
+  const hasAny = cta.whatsapp || (cta.callback && !hideCallback) || cta.newsletter
   if (!hasAny) return null
 
   return (
@@ -398,13 +449,23 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
           </a>
         </div>
       )}
-      {cta.callback && (
+      {cta.callback && !hideCallback && (
         <div className="flex flex-col gap-2">
           <span className="text-sm font-semibold text-foreground flex items-center gap-2">
             <Phone className="h-4 w-4 text-foreground" aria-hidden />
             {cta.callback.title}
           </span>
           <form onSubmit={submitCallback} className="flex flex-col sm:flex-row gap-2">
+            <input
+              type="text"
+              name={FORM_SPAM_META_FIELDS.honeypot}
+              value={callbackHoneypotValue}
+              onChange={(event) => setCallbackHoneypotValue(event.target.value)}
+              autoComplete="off"
+              tabIndex={-1}
+              aria-hidden="true"
+              className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden opacity-0"
+            />
             <input
               type="tel"
               value={phone}
@@ -436,6 +497,16 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
           </span>
           <form onSubmit={submitNewsletter} className="flex flex-col sm:flex-row gap-2">
             <input
+              type="text"
+              name={FORM_SPAM_META_FIELDS.honeypot}
+              value={newsletterHoneypotValue}
+              onChange={(event) => setNewsletterHoneypotValue(event.target.value)}
+              autoComplete="off"
+              tabIndex={-1}
+              aria-hidden="true"
+              className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden opacity-0"
+            />
+            <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -458,6 +529,67 @@ function MegaMenuCtaStrip({ cta }: { cta: MegaMenuCta }) {
           )}
         </div>
       )}
+    </div>
+  )
+}
+
+function MegaMenuSidebar({ callback }: { callback: NonNullable<MegaMenuCta['callback']> }) {
+  const [phone, setPhone] = useState('')
+  const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const phoneInputId = React.useId()
+
+  const submitCallback = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!callback || !phone.trim()) return
+    setStatus('loading')
+    try {
+      const res = await fetch(`${getClientSideURL()}/api/form-submissions`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          form: callback.formId,
+          submissionData: [{ field: callback.phoneFieldName, value: phone.trim() }],
+        }),
+      })
+      if (res.ok) {
+        setStatus('success')
+        setPhone('')
+      } else {
+        setStatus('error')
+      }
+    } catch {
+      setStatus('error')
+    }
+  }
+
+  return (
+    <div className="megamenu-sidebar rounded-[1.75rem] border border-border bg-background/90 p-8 shadow-[0_20px_48px_-28px_rgba(15,23,42,0.35)] dark:shadow-none">
+      <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
+        <Phone className="h-4 w-4" aria-hidden />
+        <span>{callback.title}</span>
+      </div>
+      <form onSubmit={submitCallback} className="mt-5 flex flex-col gap-3">
+        <label htmlFor={phoneInputId} className="sr-only">
+          Telefonnummer
+        </label>
+        <input
+          id={phoneInputId}
+          type="tel"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
+          placeholder={callback.placeholder}
+          className="min-w-0 rounded-2xl border border-border bg-background px-4 py-3 text-sm text-foreground outline-none transition focus:border-primary focus:ring-2 focus:ring-primary/20"
+          required
+        />
+        <Button type="submit" size="sm" disabled={status === 'loading'}>
+          {status === 'loading' ? '…' : status === 'success' ? 'Gesendet' : callback.buttonText}
+        </Button>
+        {status === 'error' && (
+          <p className="text-xs text-destructive">
+            Fehler beim Senden. Bitte später erneut versuchen.
+          </p>
+        )}
+      </form>
     </div>
   )
 }
@@ -539,6 +671,7 @@ export function MegaMenu({
 
   const contentCols = columnWidths?.content ?? 6
   const featuredCols = columnWidths?.featured ?? 3
+  const sidebarCols = columnWidths?.sidebar ?? 3
 
   const sortedItems = [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
   const preloadMediaUrls = useMemo(() => collectPreloadMediaUrls(sortedItems), [sortedItems])
@@ -707,6 +840,7 @@ export function MegaMenu({
         className={cn('megamenu z-50 w-full', className)}
         data-scrolled={isScrolled ? 'true' : undefined}
         data-sticky={isPastFold ? 'true' : undefined}
+        data-menu-open={activeMenu != null ? 'true' : undefined}
       >
         <div
           className={cn(
@@ -759,6 +893,7 @@ export function MegaMenu({
                         if (hasDrop) {
                           const cols = item.columns ?? []
                           const cw = item.columnWidths
+                          const sidebarSpan = cw?.col1 != null ? Number(cw.col1) : sidebarCols
                           const contentSpan = cw?.col2 != null ? Number(cw.col2) : contentCols
                           const featuredSpan = cw?.col3 != null ? Number(cw.col3) : featuredCols
                           const allItemsFromColumns = cols.flatMap((col) =>
@@ -772,8 +907,24 @@ export function MegaMenu({
                             (x: { _groupTitle?: string | null }) =>
                               x._groupTitle != null && x._groupTitle !== '',
                           )
+                          const blockCount = listItems.length
+                          const blockInitialDelayMs = 24
+                          const blockStaggerMs = 72
+                          const highlightStartAfterLastBlockMs = 110
+                          const highlightDelayMs =
+                            blockCount > 0
+                              ? blockInitialDelayMs +
+                                (blockCount - 1) * blockStaggerMs +
+                                highlightStartAfterLastBlockMs
+                              : blockInitialDelayMs + 80
                           const nonEmptyMegaCols = cols.filter((c) => (c.items?.length ?? 0) > 0)
                           const singleMegaColumnGroup = nonEmptyMegaCols.length === 1
+                          const columnItemStartIndices: number[] = []
+                          let runningBlockIndex = 0
+                          for (const col of cols) {
+                            columnItemStartIndices.push(runningBlockIndex)
+                            runningBlockIndex += col.items?.length ?? 0
+                          }
 
                           // Nur Spalten mit Inhalt anzeigen; Breiten aus Backend (Header → Mega-Menü Spaltenbreiten)
                           const catDesc = item.categoryDescription
@@ -794,6 +945,7 @@ export function MegaMenu({
                               (item.highlight.ctaUrl != null && item.highlight.ctaUrl !== ''))
                           const hasCol3 =
                             item.highlight != null && (hasHighlightCards || hasLegacyHighlight)
+                          const callbackSidebar = megaMenuCta?.callback ?? null
 
                           const cardItems: Array<{
                             title?: string | null
@@ -822,6 +974,13 @@ export function MegaMenu({
                             key: string
                             content: React.ReactNode
                           }> = []
+                          if (callbackSidebar) {
+                            visibleColumns.push({
+                              span: sidebarSpan,
+                              key: 'sidebar',
+                              content: <MegaMenuSidebar callback={callbackSidebar} />,
+                            })
+                          }
                           if (hasCol2) {
                             visibleColumns.push({
                               span: contentSpan,
@@ -865,6 +1024,9 @@ export function MegaMenu({
                                                 key={listKey}
                                                 title={sub.label}
                                                 href={sub.url}
+                                                animationIndex={
+                                                  (columnItemStartIndices[colIdx] ?? 0) + idx
+                                                }
                                                 icon={
                                                   iconSpriteId ? (
                                                     <svg className="h-4 w-4" aria-hidden="true">
@@ -919,6 +1081,7 @@ export function MegaMenu({
                                           key={listKey}
                                           title={sub.label}
                                           href={sub.url}
+                                          animationIndex={idx}
                                           icon={
                                             iconSpriteId ? (
                                               <svg className="h-4 w-4" aria-hidden="true">
@@ -955,8 +1118,7 @@ export function MegaMenu({
                               <div
                                 className={cn(
                                   'grid gap-4',
-                                  highlightPosition === 'below' &&
-                                    'max-h-[min(50vh,420px)] overflow-y-auto',
+                                  highlightPosition === 'below',
                                 )}
                               >
                                 {cardItems.map((card, cardIdx) => {
@@ -1212,7 +1374,16 @@ export function MegaMenu({
                                             </div>
                                           )}
                                           {visibleColumns.length > 0 && (
-                                            <div className="megamenu-dropdown-content grid grid-cols-12">
+                                            <div
+                                              className="megamenu-dropdown-content grid grid-cols-12"
+                                              style={
+                                                {
+                                                  '--megamenu-block-count': blockCount,
+                                                  '--megamenu-highlight-delay':
+                                                    `${highlightDelayMs}ms`,
+                                                } as React.CSSProperties
+                                              }
+                                            >
                                               {visibleColumns.map((col, idx) => {
                                                 const flexMiddle = twoColsInRow
                                                 const isItemsCol = col.key === 'items'
@@ -1220,7 +1391,9 @@ export function MegaMenu({
                                                 const getSpan = () => {
                                                   /* Nur eine Spalte (z. B. nur Links): volle Dropdown-Breite statt contentCols/6 */
                                                   if (visibleColumns.length === 1)
-                                                    return 'col-span-12'
+                                                    return col.key === 'sidebar'
+                                                      ? colSpan(col.span)
+                                                      : 'col-span-12'
                                                   if (isItemsCol && flexMiddle)
                                                     return cn(
                                                       'col-span-12',
@@ -1238,8 +1411,15 @@ export function MegaMenu({
                                                 return (
                                                   <div
                                                     key={col.key}
+                                                    style={
+                                                      {
+                                                        '--megamenu-col-index': idx,
+                                                        '--megamenu-fan-offset':
+                                                          idx - (visibleColumns.length - 1) / 2,
+                                                      } as React.CSSProperties
+                                                    }
                                                     className={cn(
-                                                      'p-8 flex flex-col min-w-0',
+                                                      'p-8 flex flex-col min-w-0 megamenu-fan-col',
                                                       col.key === 'highlight' &&
                                                         'megamenu-featured',
                                                       col.key === 'items' && 'megamenu-col-items',
@@ -1268,7 +1448,15 @@ export function MegaMenu({
                                     highlightPosition === 'below' &&
                                     highlightContent) ||
                                   megaMenuCta ? (
-                                    <div className="megamenu-dropdown-content-footer">
+                                    <div
+                                      className="megamenu-dropdown-content-footer"
+                                      style={
+                                        {
+                                          '--megamenu-col-count': visibleColumns.length,
+                                          '--megamenu-highlight-delay': `${highlightDelayMs}ms`,
+                                        } as React.CSSProperties
+                                      }
+                                    >
                                       {hasCol3 &&
                                         item.highlight != null &&
                                         highlightPosition === 'below' &&
@@ -1300,7 +1488,12 @@ export function MegaMenu({
                                             </div>
                                           </div>
                                         )}
-                                      {megaMenuCta && <MegaMenuCtaStrip cta={megaMenuCta} />}
+                                      {megaMenuCta && (
+                                        <MegaMenuCtaStrip
+                                          cta={megaMenuCta}
+                                          hideCallback={Boolean(megaMenuCta.callback)}
+                                        />
+                                      )}
                                     </div>
                                   ) : null}
                                 </div>

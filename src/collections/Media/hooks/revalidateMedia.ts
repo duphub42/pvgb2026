@@ -1,5 +1,5 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
-import { revalidateTag } from 'next/cache'
+import { revalidateTag } from '@/utilities/revalidateCache'
 
 /**
  * Nach Upload/Austausch/Löschen von Media: Caches invalidieren, die
@@ -16,16 +16,20 @@ const MEDIA_CACHE_TAGS = [
   'posts-sitemap',
 ] as const
 
-export const revalidateAfterMediaChange: CollectionAfterChangeHook = ({ req: { context } }) => {
+export const revalidateAfterMediaChange: CollectionAfterChangeHook = async ({
+  req: { context },
+}) => {
   if (context?.skipRevalidate) return
   for (const tag of MEDIA_CACHE_TAGS) {
-    revalidateTag(tag)
+    await revalidateTag(tag)
   }
 }
 
-export const revalidateAfterMediaDelete: CollectionAfterDeleteHook = ({ req: { context } }) => {
+export const revalidateAfterMediaDelete: CollectionAfterDeleteHook = async ({
+  req: { context },
+}) => {
   if (context?.skipRevalidate) return
   for (const tag of MEDIA_CACHE_TAGS) {
-    revalidateTag(tag)
+    await revalidateTag(tag)
   }
 }

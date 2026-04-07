@@ -200,8 +200,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
 
       <div className="relative z-30 mx-auto grid w-full max-w-[1200px] min-h-0 grid-cols-1 px-4 py-8 sm:py-10 lg:h-full lg:min-h-0 lg:grid-cols-2 lg:px-4 lg:pt-24 lg:pb-0">
         <div className="relative z-30 order-2 flex flex-col justify-end py-6 sm:py-8 lg:order-1 lg:h-full lg:py-0">
-          <div className="w-full flex justify-start">
-            <div className="w-full max-w-xl rounded-2xl border-t border-white/35 bg-white/35 p-6 shadow-2xl backdrop-blur-xl backdrop-saturate-150 lg:border-t-0 lg:border-r lg:p-8 dark:border-white/25 dark:bg-zinc-950/55 dark:shadow-[0_0_0_1px_rgba(255,255,255,0.10),0_20px_64px_rgba(0,0,0,0.72),0_0_86px_14px_rgba(255,255,255,0.14)]">
+          <div className="w-full max-w-xl">
               {badgeText ? (
                 <Badge
                   variant="outline"
@@ -272,7 +271,6 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
                   ))}
                 </div>
               ) : null}
-            </div>
           </div>
         </div>
 

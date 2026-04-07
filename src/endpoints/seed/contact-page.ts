@@ -16,6 +16,28 @@ export const contact: (args: ContactArgs) => RequiredDataFromCollectionSlug<'sit
     },
     layout: [
       {
+        blockType: 'contactInfoCards',
+        cards: [
+          {
+            icon: 'map-pin',
+            title: 'Adresse',
+            lines: 'Philipp Bacher\nMünchen & Remote',
+          },
+          {
+            icon: 'phone',
+            title: 'Kontaktdaten',
+            lines: 'Telefon: +49 3459 6393323\nE-Mail: mail@philippbacher.com',
+          },
+          {
+            icon: 'clock-3',
+            title: 'Office Hours',
+            lines: 'Mo-Fr: 09:00-18:00 Uhr\nSowie nach Terminvereinbarung',
+          },
+        ],
+        ctaLabel: 'Termin anfragen',
+        ctaHref: '#kontaktformular',
+      },
+      {
         blockType: 'formBlock',
         enableIntro: true,
         form: contactForm,

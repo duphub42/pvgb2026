@@ -1,57 +1,49 @@
-import { ArrowRight, Check } from "lucide-react";
-import React from "react";
+import { ArrowRight, Check } from 'lucide-react'
+import React from 'react'
 
-import { cn } from "@/lib/utils";
+import { cn } from '@/lib/utils'
 
-import {
-  CardBody,
-  CardContainer,
-  CardItem,
-} from "@/components/ui/3d-card";
-import { Button } from "@/components/ui/button";
+import { CardBody, CardContainer, CardItem } from '@/components/ui/3d-card'
+import { Button } from '@/components/ui/button'
 
 interface Feature268Props {
-  className?: string;
+  className?: string
 }
 
 const Feature268 = ({ className }: Feature268Props) => {
   const features = [
     {
-      title: "Instant Implementation",
-      description: "Get access to your blocks the moment you pay.",
+      title: 'Instant Implementation',
+      description: 'Get access to your blocks the moment you pay.',
     },
     {
-      title: "One-Time Payment",
-      description: "No subscriptions. Just pay once and own it forever.",
+      title: 'One-Time Payment',
+      description: 'No subscriptions. Just pay once and own it forever.',
     },
     {
-      title: "Developer Friendly",
-      description:
-        "Clean, copy-paste-ready code with full Tailwind + shadcn support.",
+      title: 'Developer Friendly',
+      description: 'Clean, copy-paste-ready code with full Tailwind + shadcn support.',
     },
     {
-      title: "Fully Responsive",
-      description:
-        "Every block looks perfect on all screen sizes, out of the box.",
+      title: 'Fully Responsive',
+      description: 'Every block looks perfect on all screen sizes, out of the box.',
     },
     {
-      title: "Production Ready",
-      description:
-        "Battle-tested components you can drop into real projects today.",
+      title: 'Production Ready',
+      description: 'Battle-tested components you can drop into real projects today.',
     },
-  ];
+  ]
 
   return (
-    <section className={cn("h-full w-screen overflow-hidden py-32", className)}>
+    <section className={cn('h-full w-screen overflow-hidden py-32', className)}>
       <div className="relative container flex h-full flex-col items-start justify-between gap-10 lg:flex-row">
         <div className="w-full space-y-5 lg:w-3/5">
           <h1 className="mt-3 w-full max-w-2xl text-5xl font-medium font-semibold tracking-tighter lg:text-6xl">
             Drop-In Ready Blocks to Supercharge Your App
           </h1>
           <p className="max-w-xl text-muted-foreground">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+            incididunt ut labore et dolore magna aliqua. Ut enim ad
           </p>
           <div className="mt-10 mb-29 flex gap-2">
             <Button className="rounded-full">Get Started</Button>
@@ -61,12 +53,13 @@ const Feature268 = ({ className }: Feature268Props) => {
           </div>
           <ul className="space-y-4">
             <li className="mb-3">
-              <p className="font-semibold tracking-tight opacity-50">
-                ShadcnBlocks Perks
-              </p>
+              <p className="font-semibold tracking-tight opacity-50">ShadcnBlocks Perks</p>
             </li>
             {features.map((feature, idx) => (
-              <li key={feature.title ? feature.title + '-' + idx : 'empty-' + idx} className="flex gap-4 lg:items-center">
+              <li
+                key={feature.title ? feature.title + '-' + idx : 'empty-' + idx}
+                className="flex gap-4 lg:items-center"
+              >
                 <Check className="size-4" />
                 <p className="font-medium tracking-tight">
                   {feature.title}
@@ -76,10 +69,7 @@ const Feature268 = ({ className }: Feature268Props) => {
             ))}
           </ul>
         </div>
-        <CardContainer
-          className="w-full"
-          containerClassName="h-full   w-full p-0 m-0 lg:w-2/5"
-        >
+        <CardContainer className="w-full" containerClassName="h-full   w-full p-0 m-0 lg:w-2/5">
           <CardBody className="group/card flex h-full !w-full flex-col items-center justify-center rounded-3xl bg-muted/70 px-5 py-15">
             <CardItem
               translateZ="60"
@@ -107,10 +97,7 @@ const Feature268 = ({ className }: Feature268Props) => {
 
             <div className="flex w-full flex-col items-center justify-center">
               <CardItem translateZ="100">
-                <Button
-                  variant="ghost"
-                  className="my-5 tracking-tight opacity-50"
-                >
+                <Button variant="ghost" className="my-5 tracking-tight opacity-50">
                   Try now <ArrowRight />
                 </Button>
               </CardItem>
@@ -125,7 +112,7 @@ const Feature268 = ({ className }: Feature268Props) => {
         </CardContainer>
       </div>
     </section>
-  );
-};
+  )
+}
 
-export { Feature268 };
+export { Feature268 }

@@ -1,10 +1,10 @@
 import type { CollectionAfterChangeHook, CollectionAfterDeleteHook } from 'payload'
 
-import { revalidatePath, revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from '@/utilities/revalidateCache'
 
 import type { SitePage } from '../../../payload-types'
 
-export const revalidatePage: CollectionAfterChangeHook<SitePage> = ({
+export const revalidatePage: CollectionAfterChangeHook<SitePage> = async ({
   doc,
   previousDoc,
   req: { payload, context },
@@ -15,10 +15,10 @@ export const revalidatePage: CollectionAfterChangeHook<SitePage> = ({
 
       payload.logger.info(`Revalidating page at path: ${path}`)
 
-      revalidatePath(path)
-      revalidateTag('pages-sitemap')
-      revalidateTag('site-pages')
-      revalidateTag(`page-${doc.slug === 'home' ? 'home' : doc.slug}`)
+      await revalidatePath(path)
+      await revalidateTag('pages-sitemap')
+      await revalidateTag('site-pages')
+      await revalidateTag(`page-${doc.slug === 'home' ? 'home' : doc.slug}`)
     }
 
     // If the page was previously published, we need to revalidate the old path
@@ -27,22 +27,25 @@ export const revalidatePage: CollectionAfterChangeHook<SitePage> = ({
 
       payload.logger.info(`Revalidating old page at path: ${oldPath}`)
 
-      revalidatePath(oldPath)
-      revalidateTag('pages-sitemap')
-      revalidateTag('site-pages')
-      revalidateTag(`page-${previousDoc.slug === 'home' ? 'home' : previousDoc.slug}`)
+      await revalidatePath(oldPath)
+      await revalidateTag('pages-sitemap')
+      await revalidateTag('site-pages')
+      await revalidateTag(`page-${previousDoc.slug === 'home' ? 'home' : previousDoc.slug}`)
     }
   }
   return doc
 }
 
-export const revalidateDelete: CollectionAfterDeleteHook<SitePage> = ({ doc, req: { context } }) => {
+export const revalidateDelete: CollectionAfterDeleteHook<SitePage> = async ({
+  doc,
+  req: { context },
+}) => {
   if (!context?.disableRevalidate && !context?.skipRevalidate) {
     const path = doc?.slug === 'home' ? '/' : `/${doc?.slug}`
-    revalidatePath(path)
-    revalidateTag('pages-sitemap')
-    revalidateTag('site-pages')
-    revalidateTag(`page-${doc?.slug === 'home' ? 'home' : doc?.slug}`)
+    await revalidatePath(path)
+    await revalidateTag('pages-sitemap')
+    await revalidateTag('site-pages')
+    await revalidateTag(`page-${doc?.slug === 'home' ? 'home' : doc?.slug}`)
   }
 
   return doc

@@ -21,7 +21,10 @@ const shuffleArray = <T,>(array: T[]): T[] => {
   return shuffled
 }
 
-const distributeLogos = (allLogos: LogoCarouselLogo[], columnCount: number): LogoCarouselLogo[][] => {
+const distributeLogos = (
+  allLogos: LogoCarouselLogo[],
+  columnCount: number,
+): LogoCarouselLogo[][] => {
   const shuffled = shuffleArray(allLogos)
   const columns: LogoCarouselLogo[][] = Array.from({ length: columnCount }, () => [])
 

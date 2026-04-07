@@ -13,6 +13,7 @@ import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher'
 import { SearchCommand } from '@/components/SearchCommand/SearchCommand'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { getClientSideURL } from '@/utilities/getURL'
+import { FORM_SPAM_META_FIELDS, buildFormSpamMetaSubmissionData } from '@/utilities/formSpamProtection'
 import { cn } from '@/utilities/ui'
 import { MessageCircle, Phone, PhoneCall } from 'lucide-react'
 import Link from 'next/link'
@@ -87,6 +88,8 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
   const [resolvedCallbackFormId, setResolvedCallbackFormId] = React.useState<number | null>(null)
   const [callbackFormFields, setCallbackFormFields] = React.useState<FormField[]>([])
   const [formValues, setFormValues] = React.useState<Record<string, string | number | boolean>>({})
+  const [callbackHoneypotValue, setCallbackHoneypotValue] = React.useState('')
+  const [callbackStartedAt, setCallbackStartedAt] = React.useState<number>(() => Date.now())
 
   const callbackConfig = React.useMemo(() => {
     if (cta?.callback) return cta.callback
@@ -133,6 +136,12 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
       isCancelled = true
     }
   }, [open, cta?.callback, resolvedCallbackFormId])
+
+  React.useEffect(() => {
+    if (!open) return
+    setCallbackStartedAt(Date.now())
+    setCallbackHoneypotValue('')
+  }, [open])
 
   const callbackFormId = callbackConfig?.formId ?? null
 
@@ -231,6 +240,10 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
   const submitCallback = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!callbackConfig) return
+    if (callbackHoneypotValue.trim().length > 0) {
+      setStatus('success')
+      return
+    }
     setStatus('loading')
     try {
       const submissionData = callbackFormFields
@@ -239,6 +252,12 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
           field: field.name,
           value: formValues[field.name] ?? (field.blockType === 'checkbox' ? false : ''),
         }))
+        .concat(
+          buildFormSpamMetaSubmissionData({
+            honeypotValue: callbackHoneypotValue,
+            startedAt: callbackStartedAt,
+          }),
+        )
 
       const res = await fetch(`${getClientSideURL()}/api/form-submissions`, {
         method: 'POST',
@@ -250,6 +269,8 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
       })
       if (res.ok) {
         setStatus('success')
+        setCallbackStartedAt(Date.now())
+        setCallbackHoneypotValue('')
         setFormValues((prev) => {
           const next = { ...prev }
           for (const field of callbackFormFields) {
@@ -337,7 +358,22 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                   </p>
                 </div>
                 <form onSubmit={submitCallback} className="flex flex-col gap-2">
+                  <input
+                    type="text"
+                    name={FORM_SPAM_META_FIELDS.honeypot}
+                    value={callbackHoneypotValue}
+                    onChange={(event) => setCallbackHoneypotValue(event.target.value)}
+                    autoComplete="off"
+                    tabIndex={-1}
+                    aria-hidden="true"
+                    className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden opacity-0"
+                  />
                   {callbackFormFields.map((field, idx) => {
+                    const rawFieldName = typeof field.name === 'string' ? field.name.trim() : ''
+                    const fieldKey =
+                      rawFieldName !== ''
+                        ? `callback-field-${rawFieldName}-${idx}`
+                        : `callback-field-${field.blockType}-${idx}`
                     if (field.blockType === 'message') {
                       const text = field.message?.root?.children
                         ?.map((child) => child?.text ?? '')
@@ -345,7 +381,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                         .trim()
                       if (!text) return null
                       return (
-                        <p key={`${field.name}-${idx}`} className="text-base text-muted-foreground">
+                        <p key={fieldKey} className="text-base text-muted-foreground">
                           {text}
                         </p>
                       )
@@ -359,7 +395,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                       const hasPrivacyToken = parts.length > 1
                       return (
                         <label
-                          key={field.name}
+                          key={fieldKey}
                           className="mt-1 grid grid-cols-[0.875rem_1fr] items-start gap-2 text-xs leading-5 text-muted-foreground"
                         >
                           <input
@@ -398,7 +434,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                     if (field.blockType === 'textarea') {
                       return (
                         <textarea
-                          key={field.name}
+                          key={fieldKey}
                           name={field.name}
                           value={String(formValues[field.name] ?? '')}
                           onChange={(e) =>
@@ -422,7 +458,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                     ) {
                       return (
                         <select
-                          key={field.name}
+                          key={fieldKey}
                           name={field.name}
                           value={String(formValues[field.name] ?? '')}
                           onChange={(e) =>
@@ -437,18 +473,28 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                           <option value="">
                             {field.placeholder ?? field.label ?? 'Bitte wählen'}
                           </option>
-                          {field.options.map((opt) => (
-                            <option key={opt.value} value={opt.value}>
-                              {opt.label}
-                            </option>
-                          ))}
+                          {field.options.map((opt, optIdx) => {
+                            const rawOptionValue =
+                              typeof opt.value === 'string'
+                                ? opt.value.trim()
+                                : String(opt.value ?? '').trim()
+                            const optionKey =
+                              rawOptionValue !== ''
+                                ? `callback-option-${rawOptionValue}-${optIdx}`
+                                : `callback-option-empty-${optIdx}`
+                            return (
+                              <option key={optionKey} value={opt.value}>
+                                {opt.label}
+                              </option>
+                            )
+                          })}
                         </select>
                       )
                     }
 
                     return (
                       <input
-                        key={field.name}
+                        key={fieldKey}
                         type={
                           field.blockType === 'email'
                             ? 'email'

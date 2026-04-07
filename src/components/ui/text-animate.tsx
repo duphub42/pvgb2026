@@ -208,7 +208,7 @@ const TextAnimateBase = ({
   const text = typeof children === 'string' ? children : children != null ? String(children) : ''
   const MotionComponent =
     typeof Component === 'string'
-      ? (motion as unknown as Record<string, ComponentType<MotionProps>>)[Component] ?? motion.div
+      ? ((motion as unknown as Record<string, ComponentType<MotionProps>>)[Component] ?? motion.div)
       : motion.div
 
   let segments: string[] = []
@@ -252,7 +252,9 @@ const TextAnimateBase = ({
         item: variants,
       }
     : (() => {
-        const base = defaultItemAnimationVariants[animation].container.show as { transition?: { delayChildren?: number; staggerChildren?: number } }
+        const base = defaultItemAnimationVariants[animation].container.show as {
+          transition?: { delayChildren?: number; staggerChildren?: number }
+        }
         return {
           container: {
             ...defaultItemAnimationVariants[animation].container,

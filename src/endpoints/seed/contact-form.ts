@@ -33,7 +33,6 @@ export const contactForm: RequiredDataFromCollectionSlug<'forms'> = {
       version: 1,
     },
   },
-  confirmationType: 'message',
   emails: [
     {
       emailFrom: '"Website" <noreply@example.com>',
