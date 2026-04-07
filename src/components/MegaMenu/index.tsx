@@ -186,7 +186,11 @@ function WhatsAppLogoIcon(props: React.SVGProps<SVGSVGElement>) {
       />
       <path
         d="M9.1 8.2c.1-.3.3-.5.6-.6l1-.3c.3-.1.7.1.8.4l.6 1.4c.1.3 0 .6-.2.8l-.5.6c.6 1.1 1.4 1.9 2.5 2.5l.6-.5c.2-.2.5-.3.8-.2l1.4.6c.3.1.5.5.4.8l-.3 1c-.1.3-.3.5-.6.6-.4.2-.9.2-1.3.1-1.5-.4-2.9-1.2-4.1-2.4-1.2-1.2-2-2.6-2.4-4.1-.1-.4-.1-.9.1-1.3Z"
-        fill="currentColor"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
       />
     </svg>
   )

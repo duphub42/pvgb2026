@@ -1025,7 +1025,7 @@ header .header-tool-toggle--theme:hover {
   stroke-width: 1.9;
   color: var(--mobile-dock-action-icon);
   stroke: currentColor;
-  fill: currentColor;
+  fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
@@ -1039,6 +1039,7 @@ header .header-tool-toggle--theme:hover {
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
+  fill: none !important;
 }
 
 .mobile-megamenu-contact-action:hover {
