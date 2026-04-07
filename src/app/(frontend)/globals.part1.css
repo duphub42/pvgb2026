@@ -1598,6 +1598,31 @@
     opacity: 0;
     animation: hero-reveal-logo 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
+  @keyframes hero-blurry-fade-in {
+    from {
+      opacity: 0;
+      filter: blur(14px);
+      transform: translate3d(0, 12px, 0);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  .hero-blurry-fade-in {
+    opacity: 0;
+    filter: blur(12px);
+    transform: translate3d(0, 10px, 0);
+    animation: hero-blurry-fade-in 0.75s cubic-bezier(0.22, 1, 0.36, 1) both;
+    will-change: opacity, transform, filter;
+  }
+  .hero-blurry-fade-in--subheading {
+    animation-delay: 0.08s;
+  }
+  .hero-blurry-fade-in--description {
+    animation-delay: 0.2s;
+  }
   @keyframes hero-floating-card-reveal {
     from {
       opacity: 0;
@@ -1613,6 +1638,14 @@
     animation: hero-floating-card-reveal 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
   }
   @media (prefers-reduced-motion: reduce) {
+    .hero-blurry-fade-in {
+      animation: none;
+      opacity: 1;
+      filter: none;
+      transform: none;
+      will-change: auto;
+    }
+
     .hero-floating-card-reveal {
       animation: none;
       opacity: 1;

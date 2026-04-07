@@ -10,7 +10,12 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 interface FaqEntry {
@@ -168,7 +173,8 @@ export function Faq8(): React.JSX.Element {
             Häufige Fragen für deinen Website-Launch und digitale Wachstumsstrategie
           </h2>
           <p className="text-muted-foreground text-lg sm:text-xl">
-            Klare Antworten zu Leistungen, Projektablauf, Budget und Support. So weißt du sofort, wie ich deine Website, SEO und Conversion nachhaltig verbessern kann.
+            Klare Antworten zu Leistungen, Projektablauf, Budget und Support. So weißt du sofort,
+            wie ich deine Website, SEO und Conversion nachhaltig verbessern kann.
           </p>
         </div>
 

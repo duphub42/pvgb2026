@@ -221,6 +221,23 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
       <MegaMenu
         items={megaMenuItems}
         logo={logoEl}
+        mobileLogo={
+          <Link href="/" className="logo-link flex items-center shrink-0">
+            {hasCustomLogo && logoUrl ? (
+              <LogoWithGlitch imgSrc={logoUrl} variant="header" disableAnimation>
+                <Logo
+                  loading="eager"
+                  priority="high"
+                  logo={data?.logo}
+                  variant="header"
+                  disableAnimation
+                />
+              </LogoWithGlitch>
+            ) : (
+              <LogoWithGlitch textLogo="Philipp Bacher" variant="header" disableAnimation />
+            )}
+          </Link>
+        }
         columnWidths={columnWidths}
         megaMenuCta={hasCta ? megaMenuCta : undefined}
         highlightCardStyle={highlightCardStyle}

@@ -4,6 +4,8 @@ import type { SitePage } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
+import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
+import { buildHeroCopyFadeStyle, getScrambleRevealDurationMs } from '@/heros/scrambleTiming'
 
 type LowImpactHeroType = SitePage['hero'] & { children?: React.ReactNode }
 
@@ -16,6 +18,9 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
   links,
 }) => {
   const hasHeadings = subheadline || headline || description
+  const headlineRevealMs = getScrambleRevealDurationMs(headline)
+  const subheadlineFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 0)
+  const descriptionFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 140)
 
   return (
     <div className="bg-background text-foreground">
@@ -23,13 +28,27 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
         <div className="max-w-[48rem]">
           {hasHeadings && (
             <div className="mb-6">
-              {subheadline && <p className="text-lg text-foreground/90 mb-2">{subheadline}</p>}
+              {subheadline && (
+                <p
+                  className="mb-2 text-lg text-foreground/90 hero-blurry-fade-in hero-blurry-fade-in--subheading"
+                  style={subheadlineFadeStyle}
+                >
+                  {subheadline}
+                </p>
+              )}
               {headline && (
                 <h1 className="text-hero-display-sm hero-heading-gradient text-foreground mb-4">
-                  {headline}
+                  <ScrambleText text={headline} />
                 </h1>
               )}
-              {description && <p className="text-base text-foreground/90">{description}</p>}
+              {description && (
+                <p
+                  className="text-base text-foreground/90 hero-blurry-fade-in hero-blurry-fade-in--description"
+                  style={descriptionFadeStyle}
+                >
+                  {description}
+                </p>
+              )}
             </div>
           )}
           {children ||

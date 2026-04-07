@@ -1,6 +1,8 @@
 import type { FC } from 'react'
 import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
+import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
+import { buildHeroCopyFadeStyle, getScrambleRevealDurationMs } from '@/heros/scrambleTiming'
 
 export type LeistungenHeroProps = {
   headline: string
@@ -21,6 +23,10 @@ export const LeistungenHero: FC<LeistungenHeroProps> = ({
   links,
   media,
 }) => {
+  const headlineRevealMs = getScrambleRevealDurationMs(headline)
+  const subheadlineFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 0)
+  const descriptionFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 140)
+
   return (
     <section className="relative flex flex-col items-center justify-center min-h-[70vh] bg-neutral-900 text-white py-20 px-4 overflow-hidden">
       <div className="container relative z-10 flex flex-col items-center text-center max-w-3xl">
@@ -31,13 +37,25 @@ export const LeistungenHero: FC<LeistungenHeroProps> = ({
         )}
         {headline && (
           <h1 className="text-4xl md:text-6xl font-bold mb-4 hero-heading-gradient hero-heading-gradient--inverse">
-            {headline}
+            <ScrambleText text={headline} />
           </h1>
         )}
         {subheadline && (
-          <h2 className="text-xl md:text-2xl font-medium mb-2 opacity-80">{subheadline}</h2>
+          <h2
+            className="mb-2 text-xl font-medium opacity-80 md:text-2xl hero-blurry-fade-in hero-blurry-fade-in--subheading"
+            style={subheadlineFadeStyle}
+          >
+            {subheadline}
+          </h2>
         )}
-        {description && <p className="mb-6 text-base md:text-lg opacity-80">{description}</p>}
+        {description && (
+          <p
+            className="mb-6 text-base opacity-80 md:text-lg hero-blurry-fade-in hero-blurry-fade-in--description"
+            style={descriptionFadeStyle}
+          >
+            {description}
+          </p>
+        )}
         {Array.isArray(links) && links.length > 0 && (
           <ul className="flex flex-wrap justify-center gap-4 mb-6">
             {links.map((item, i) => {

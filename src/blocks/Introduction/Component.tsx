@@ -27,9 +27,9 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
     backgroundPosition: 'center',
     backgroundSize: '16px 16px',
     maskImage:
-      'radial-gradient(ellipse 90% 90% at 50% 52%, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 42%, rgba(0, 0, 0, 0.35) 72%, transparent 100%)',
+      'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.72) 48%, rgba(0, 0, 0, 0.34) 74%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)',
     WebkitMaskImage:
-      'radial-gradient(ellipse 90% 90% at 50% 52%, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.8) 42%, rgba(0, 0, 0, 0.35) 72%, transparent 100%)',
+      'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.72) 48%, rgba(0, 0, 0, 0.34) 74%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)',
   }
 
   return (
@@ -37,10 +37,12 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
       <div
         className={cn(
           'grid items-center gap-10',
-          hasImage ? 'lg:grid-cols-[minmax(0,1fr)_auto]' : 'max-w-3xl',
+          hasImage
+            ? 'lg:grid-cols-[minmax(0,1fr)_minmax(16rem,34vw)] xl:relative xl:grid-cols-1 xl:min-h-[clamp(20rem,32vw,30rem)]'
+            : 'max-w-3xl',
         )}
       >
-        <div className="min-w-0">
+        <div className={cn('min-w-0', hasImage && 'xl:max-w-3xl')}>
           {heading && (
             <h2 className="mb-6 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">
               {heading}
@@ -71,7 +73,12 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
         </div>
 
         {hasImage && (
-          <div className="relative isolate mx-auto w-full max-w-sm overflow-visible lg:mx-0 lg:w-[42vw] lg:max-w-[calc(24rem+15vw)]">
+          <div
+            className={cn(
+              'relative isolate mx-auto w-full max-w-sm overflow-visible lg:mx-0 lg:max-w-[clamp(18rem,34vw,30rem)]',
+              'xl:absolute xl:top-1/2 xl:right-0 xl:mx-0 xl:w-[clamp(18rem,32vw,36rem)] xl:max-w-none xl:-translate-y-1/2 xl:translate-x-[12%]',
+            )}
+          >
             <div
               aria-hidden
               className="pointer-events-none absolute inset-0 -z-10 opacity-35"
@@ -80,7 +87,7 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
             <Media
               className="w-full"
               resource={image as MediaType}
-              imgClassName="w-full h-auto max-h-[500px] object-contain"
+              imgClassName="w-full h-auto max-h-[500px] object-contain xl:max-h-[560px]"
             />
           </div>
         )}

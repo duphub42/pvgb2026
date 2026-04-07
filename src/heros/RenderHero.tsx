@@ -2,6 +2,7 @@
 
 import dynamic from 'next/dynamic'
 import React from 'react'
+import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
 
 const SHADCN_HERO_TYPES = new Set<string>()
 
@@ -33,7 +34,7 @@ class ShadcnHeroErrorBoundary extends React.Component<
           <div className="container mx-auto max-w-2xl">
             {headline ? (
               <h1 className="text-hero-display-sm hero-heading-gradient hero-heading-gradient--inverse tracking-tight">
-                {headline}
+                <ScrambleText text={headline} />
               </h1>
             ) : null}
             {description ? <p className="mt-4 text-white/80">{description}</p> : null}

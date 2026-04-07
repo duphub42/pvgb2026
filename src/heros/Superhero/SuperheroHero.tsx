@@ -1,6 +1,7 @@
 'use client'
 
 import { CMSLink } from '@/components/Link'
+import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
 import Image from 'next/image'
 import React from 'react'
 import PopoutPortrait from '@/components/PopoutPortrait'
@@ -17,6 +18,7 @@ import type { HeroBackground } from '@/payload-types'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 import { cn } from '@/utilities/ui'
 import { useMediaQuery } from '@/hooks/useMediaQuery'
+import { buildHeroCopyFadeStyle, getScrambleLinesRevealDurationMs } from '@/heros/scrambleTiming'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -334,6 +336,11 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     if (headline) return headline.split('\n').filter(Boolean)
     return [headlineLine1, headlineLine2, headlineLine3].filter((l): l is string => Boolean(l))
   })()
+  const headlineRevealMs = getScrambleLinesRevealDurationMs(
+    headlineLines.map((line, i) => ({ text: line, delayMs: i * 120 })),
+  )
+  const subheadlineFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 0)
+  const descriptionFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 140)
 
   const ctaLinks = (links ?? []).filter((e) => Boolean(e?.link?.label)).slice(0, 2)
   const portraitSrc = mediaSrc || fgSrc
@@ -467,7 +474,10 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
             )}
           >
             {subheadline && (
-              <p className="inline-flex w-fit items-center rounded-full border border-border bg-card px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] text-muted-foreground">
+              <p
+                className="inline-flex w-fit items-center rounded-full border border-border bg-card px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] text-muted-foreground hero-blurry-fade-in hero-blurry-fade-in--subheading"
+                style={subheadlineFadeStyle}
+              >
                 {subheadline}
               </p>
             )}
@@ -476,14 +486,17 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               <h1 className="text-pretty text-hero-display hero-heading-gradient tracking-tight">
                 {headlineLines.map((line, i) => (
                   <span key={i} className="block">
-                    {line}
+                    <ScrambleText text={line} delayMs={i * 120} />
                   </span>
                 ))}
               </h1>
             )}
 
             {description && (
-              <p className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+              <p
+                className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg hero-blurry-fade-in hero-blurry-fade-in--description"
+                style={descriptionFadeStyle}
+              >
                 {description}
               </p>
             )}

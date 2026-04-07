@@ -236,27 +236,9 @@
 .megamenu .megamenu-top-item::after,
 .megamenu .megamenu-top-item:hover::after,
 .megamenu .megamenu-top-item:focus-visible::after,
-.megamenu .megamenu-top-item[data-active='true']::after,
 .megamenu .megamenu-top-item[data-state='open']::after {
   transform: scaleX(0);
   opacity: 0;
-}
-/* Sliding Underline: gleiche Farbe wie Header-Rand (2px), Opacity nur leicht */
-.megamenu .megamenu-sliding-underline {
-  background-color: var(--header-line);
-  opacity: 0.55;
-  transition:
-    opacity 0.2s ease,
-    height 0.2s ease,
-    left 0.25s cubic-bezier(0.4, 0, 0.2, 1),
-    width 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-}
-/* Aktiver Megamenü-Punkt: Indikator 3× so hoch wie Standard (2px → 6px) */
-.megamenu-nav-list-wrap:has(.megamenu-top-item[data-active='true']) .megamenu-sliding-underline {
-  height: 6px !important;
-}
-.megamenu:hover .megamenu-sliding-underline {
-  opacity: 1;
 }
 .megamenu .megamenu-top-item:hover,
 .megamenu .megamenu-top-item:focus-visible {

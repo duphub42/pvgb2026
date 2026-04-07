@@ -7,6 +7,8 @@ import type { SitePage } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
+import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
+import { buildHeroCopyFadeStyle, getScrambleRevealDurationMs } from '@/heros/scrambleTiming'
 
 type HighImpactHeroData = {
   links?: SitePage['hero'] extends infer H ? (H extends { links?: infer L } ? L : never) : never
@@ -42,6 +44,9 @@ export const HighImpactHero: React.FC<HighImpactHeroData> = ({
   })
 
   const hasHeadings = subheadline || headline || description
+  const headlineRevealMs = getScrambleRevealDurationMs(headline)
+  const subheadlineFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 0)
+  const descriptionFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 140)
 
   return (
     <div
@@ -52,13 +57,27 @@ export const HighImpactHero: React.FC<HighImpactHeroData> = ({
         <div className="max-w-[36.5rem] md:text-center">
           {hasHeadings && (
             <div className="mb-6">
-              {subheadline && <p className="text-lg opacity-90 mb-2">{subheadline}</p>}
+              {subheadline && (
+                <p
+                  className="mb-2 text-lg opacity-90 hero-blurry-fade-in hero-blurry-fade-in--subheading"
+                  style={subheadlineFadeStyle}
+                >
+                  {subheadline}
+                </p>
+              )}
               {headline && (
                 <h1 className="text-hero-display hero-heading-gradient hero-heading-gradient--inverse mb-4">
-                  {headline}
+                  <ScrambleText text={headline} />
                 </h1>
               )}
-              {description && <p className="text-base opacity-90">{description}</p>}
+              {description && (
+                <p
+                  className="text-base opacity-90 hero-blurry-fade-in hero-blurry-fade-in--description"
+                  style={descriptionFadeStyle}
+                >
+                  {description}
+                </p>
+              )}
             </div>
           )}
           {richText && (

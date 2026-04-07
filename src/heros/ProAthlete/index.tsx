@@ -2,8 +2,10 @@ import type { ComponentProps, FC } from 'react'
 import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import { CMSLink } from '@/components/Link'
+import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
 import { ArrowRight, Zap } from 'lucide-react'
 import { PopoutHeroStackVisual, type HeroStackResolvedLayer } from '@/heros/PopoutHeroStackVisual'
+import { buildHeroCopyFadeStyle, getScrambleLinesRevealDurationMs } from '@/heros/scrambleTiming'
 import type { SitePage } from '@/payload-types'
 
 type HeroStat = {
@@ -56,6 +58,13 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
   const headlineLines = headline
     ? headline.split('\n').filter(Boolean)
     : [headlineLine1, headlineLine2, headlineLine3].filter((line): line is string => Boolean(line))
+  const effectiveHeadlineLines =
+    headlineLines.length > 0 ? headlineLines : ['Unleash the', 'Mountain', 'Within.']
+  const headlineRevealMs = getScrambleLinesRevealDurationMs(
+    effectiveHeadlineLines.map((line, index) => ({ text: line, delayMs: index * 120 })),
+  )
+  const subheadlineFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 0)
+  const descriptionFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 140)
 
   const backgroundSrc = resolveMediaSrc(backgroundImage) ?? '/images/bg-profile.png'
   const customPatternCss = resolveMediaSrc(media)
@@ -204,7 +213,8 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
               {badgeText ? (
                 <Badge
                   variant="outline"
-                  className="w-fit font-mono text-[10px] tracking-[0.2em] uppercase border-zinc-500 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 mb-8 bg-white/90 dark:bg-zinc-800/90 shadow-md"
+                  className="w-fit font-mono text-[10px] tracking-[0.2em] uppercase border-zinc-500 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 mb-8 bg-white/90 dark:bg-zinc-800/90 shadow-md hero-blurry-fade-in hero-blurry-fade-in--subheading"
+                  style={subheadlineFadeStyle}
                 >
                   <Zap className="w-3 h-3 mr-2 text-zinc-500 fill-zinc-500" />
                   {badgeText}
@@ -215,22 +225,25 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
                 {headlineLines.length > 0 ? (
                   headlineLines.map((line, index) => (
                     <span key={index}>
-                      {line}
+                      <ScrambleText text={line} delayMs={index * 120} />
                       {index !== headlineLines.length - 1 ? <br /> : null}
                     </span>
                   ))
                 ) : (
                   <>
-                    Unleash the
+                    <ScrambleText text="Unleash the" />
                     <br />
-                    Mountain
+                    <ScrambleText text="Mountain" delayMs={120} />
                     <br />
-                    Within.
+                    <ScrambleText text="Within." delayMs={240} />
                   </>
                 )}
               </h1>
 
-              <p className="text-base lg:text-lg text-zinc-900 dark:text-zinc-100 mb-10 leading-relaxed max-w-[42ch] font-medium">
+              <p
+                className="text-base lg:text-lg text-zinc-900 dark:text-zinc-100 mb-10 leading-relaxed max-w-[42ch] font-medium hero-blurry-fade-in hero-blurry-fade-in--description"
+                style={descriptionFadeStyle}
+              >
                 {description ||
                   'Engineered for elite performance at altitude. Our pro-grade gear system fuses cutting-edge materials science with biomechanical precision.'}
               </p>

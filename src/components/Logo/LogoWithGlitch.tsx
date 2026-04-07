@@ -16,6 +16,7 @@ export interface LogoWithGlitchProps {
   imgSrc?: string | null
   textLogo?: string | null
   variant?: 'header' | 'footer'
+  disableAnimation?: boolean
   // FIX: darkBackground wird noch akzeptiert aber ignoriert —
   // invert läuft jetzt vollständig über CSS (data-theme).
   darkBackground?: boolean
@@ -27,6 +28,7 @@ export function LogoWithGlitch({
   imgSrc,
   textLogo,
   variant = 'header',
+  disableAnimation,
   // darkBackground ignoriert — CSS übernimmt
   children,
 }: LogoWithGlitchProps) {
@@ -92,10 +94,10 @@ export function LogoWithGlitch({
 
   useEffect(() => {
     // Footer: kein Auto-Glitch beim Laden (clip-path / overflow → CLS neben Kontakt/Adresse)
-    if (variant === 'footer') return
+    if (variant === 'footer' || disableAnimation) return
     runGlitch(textLogo != null)
     return () => {}
-  }, [runGlitch, textLogo, variant])
+  }, [runGlitch, textLogo, variant, disableAnimation])
 
   const scrambleProps = {
     text: textLogo ?? '',
@@ -104,7 +106,7 @@ export function LogoWithGlitch({
     scrambleDurationMs: 380,
     tickMs: 30,
     delayMs: 0,
-    ...(variant === 'footer' ? { disableAnimation: true as const } : {}),
+    ...(variant === 'footer' || disableAnimation ? { disableAnimation: true as const } : {}),
   }
 
   const textSizeClass = variant === 'footer' ? 'text-base sm:text-lg md:text-xl' : 'text-xl sm:text-2xl'

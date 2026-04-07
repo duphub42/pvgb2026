@@ -2,44 +2,34 @@
 
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { useTheme } from '@/providers/Theme'
+import type { Theme } from '@/providers/Theme/types'
 import { cn } from '@/utilities/ui'
-import React, { useCallback, useEffect, useId, useState } from 'react'
+import { Moon, Sun } from 'lucide-react'
+import React, { useCallback, useMemo } from 'react'
 
-/** theme-toggles "Expand": Sonne expandiert zu Mond (toggles.dev/expand, npm theme-toggles) */
-const EXPAND_RAYS_PATH =
-  'M18.3 3.2c0 1.3-1 2.3-2.3 2.3s-2.3-1-2.3-2.3S14.7.9 16 .9s2.3 1 2.3 2.3zm-4.6 25.6c0-1.3 1-2.3 2.3-2.3s2.3 1 2.3 2.3-1 2.3-2.3 2.3-2.3-1-2.3-2.3zm15.1-10.5c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zM3.2 13.7c1.3 0 2.3 1 2.3 2.3s-1 2.3-2.3 2.3S.9 17.3.9 16s1-2.3 2.3-2.3zm5.8-7C9 7.9 7.9 9 6.7 9S4.4 8 4.4 6.7s1-2.3 2.3-2.3S9 5.4 9 6.7zm16.3 21c-1.3 0-2.3-1-2.3-2.3s1-2.3 2.3-2.3 2.3 1 2.3 2.3-1 2.3-2.3 2.3zm2.4-21c0 1.3-1 2.3-2.3 2.3S23 7.9 23 6.7s1-2.3 2.3-2.3 2.4 1 2.4 2.3zM6.7 23C8 23 9 24 9 25.3s-1 2.3-2.3 2.3-2.3-1-2.3-2.3 1-2.3 2.3-2.3z'
+type ThemeSwitcherVariant = 'icon' | 'switch'
 
-function ExpandToggleIcon({ cutoutId }: { cutoutId: string }) {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-      width="1em"
-      height="1em"
-      fill="currentColor"
-      className="theme-toggle__expand"
-      viewBox="0 0 32 32"
-    >
-      <clipPath id={cutoutId}>
-        <path d="M0-11h25a1 1 0 0017 13v30H0Z" />
-      </clipPath>
-      <g clipPath={`url(#${cutoutId})`}>
-        <circle cx="16" cy="16" r="8.4" />
-        <path d={EXPAND_RAYS_PATH} />
-      </g>
-    </svg>
-  )
-}
-
-export function ThemeSwitcher({ className }: { className?: string }) {
-  const cutoutId = useId().replace(/:/g, '-') + '-expand-cutout'
+export function ThemeSwitcher({
+  className,
+  variant = 'icon',
+}: {
+  className?: string
+  variant?: ThemeSwitcherVariant
+}) {
   const { theme, setTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
+  const resolved = useMemo<Theme>(() => {
+    if (theme === 'dark' || theme === 'light') return theme
 
-  useEffect(() => setMounted(true), [])
+    if (typeof document !== 'undefined') {
+      const attrTheme = document.documentElement.getAttribute('data-theme')
+      if (attrTheme === 'dark' || attrTheme === 'light') {
+        return attrTheme
+      }
+    }
 
-  const isDark = mounted && theme === 'dark'
-  const resolved = mounted && theme ? theme : 'light'
+    return 'light'
+  }, [theme])
+  const isDark = resolved === 'dark'
 
   const toggle = useCallback(() => {
     const newTheme = resolved === 'light' ? 'dark' : 'light'
@@ -47,21 +37,69 @@ export function ThemeSwitcher({ className }: { className?: string }) {
     /* View Transition deaktiviert: Snapshot könnte animierte Hintergründe überdecken. */
   }, [resolved, setTheme])
 
+  if (variant === 'switch') {
+    return (
+      <button
+        type="button"
+        title="Toggle theme"
+        aria-label={isDark ? 'Hellmodus aktivieren' : 'Dunkelmodus aktivieren'}
+        role="switch"
+        aria-checked={isDark}
+        className={cn(
+          'theme-switch header-tool-toggle header-tool-toggle--theme inline-flex shrink-0 items-center justify-center rounded-md border-0 p-0 outline-none transition-transform duration-150 active:scale-95 focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none',
+          isDark && 'theme-switch--checked',
+          className,
+        )}
+        onClick={toggle}
+      >
+        <span className="theme-switch__track" aria-hidden="true">
+          <Sun
+            className="theme-switch__icon theme-switch__icon--sun"
+            data-active={!isDark ? 'true' : undefined}
+          />
+          <Moon
+            className="theme-switch__icon theme-switch__icon--moon"
+            data-active={isDark ? 'true' : undefined}
+          />
+          <span className="theme-switch__thumb" />
+        </span>
+      </button>
+    )
+  }
+
   return (
     <Tooltip>
       <TooltipTrigger asChild>
         <button
           type="button"
           title="Toggle theme"
-          aria-label="Toggle theme"
+          aria-label={isDark ? 'Hellmodus aktivieren' : 'Dunkelmodus aktivieren'}
           className={cn(
-            'theme-toggle header-tool-toggle header-tool-toggle--theme flex shrink-0 items-center justify-center rounded-md p-0 border-0 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2',
-            isDark && 'theme-toggle--toggled',
+            'header-tool-toggle header-tool-toggle--theme header-icon-btn shrink-0 text-current',
             className,
           )}
           onClick={toggle}
         >
-          <ExpandToggleIcon cutoutId={cutoutId} />
+          <span className="relative flex h-5 w-5 items-center justify-center overflow-hidden">
+            <Sun
+              aria-hidden
+              className={cn(
+                'absolute h-5 w-5 transform-gpu transition-all duration-300 ease-out motion-reduce:transition-none',
+                isDark
+                  ? 'opacity-100 rotate-0 scale-100'
+                  : 'pointer-events-none opacity-0 rotate-45 scale-75',
+              )}
+            />
+            <Moon
+              aria-hidden
+              className={cn(
+                'absolute h-5 w-5 transform-gpu transition-all duration-300 ease-out motion-reduce:transition-none',
+                isDark
+                  ? 'pointer-events-none opacity-0 -rotate-45 scale-75'
+                  : 'opacity-100 rotate-0 scale-100',
+              )}
+            />
+          </span>
         </button>
       </TooltipTrigger>
       <TooltipContent side="bottom" sideOffset={6}>

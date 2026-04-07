@@ -9,7 +9,7 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu'
-import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
@@ -18,11 +18,24 @@ import {
   FORM_SPAM_META_FIELDS,
   buildFormSpamMetaSubmissionData,
 } from '@/utilities/formSpamProtection'
-import { isNavLinkActive } from '@/utilities/navLinkActive'
-import { ChevronRight, Menu, MessageCircle, Phone, Mail } from 'lucide-react'
+import {
+  Briefcase,
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  Compass,
+  Home,
+  Mail,
+  MessageCircle,
+  Newspaper,
+  Phone,
+  User,
+  Wrench,
+  type LucideIcon,
+} from 'lucide-react'
 import Link from 'next/link'
 import { usePathname, useRouter } from 'next/navigation'
-import React, { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 import { HeaderActions } from '@/components/HeaderActions/HeaderActions'
 import { PathsBackground } from '@/components/PathsBackground/PathsBackground'
@@ -78,6 +91,21 @@ function getMegaMenuColumnKey(
     : `mega-menu-col-${width}-${index}`
 }
 
+function isSpecialMegaMenuColumn(
+  col: Pick<NonNullable<MegaMenuItem['columns']>[number], 'title' | 'columnBackground'>,
+): boolean {
+  const bg = String(col.columnBackground ?? '')
+    .trim()
+    .toLowerCase()
+  if (bg === 'accent') return true
+
+  const title = String(col.title ?? '')
+    .trim()
+    .toLowerCase()
+
+  return /\b(special|speacial|spezial)\b/.test(title)
+}
+
 function getMegaMenuSubItemKey(
   sub: { url?: string | null; label?: string | null },
   index: number,
@@ -102,6 +130,162 @@ function getMegaMenuCardKey(
         .replace(/\s+/g, '-')
         .replace(/[^a-zA-Z0-9-_]/g, '')}-${index}`
     : `mega-menu-card-${index}`
+}
+
+function toDomId(value: string): string {
+  return value
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_-]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+const DEFAULT_CONTACT_PHONE_E164 = '4934596393323'
+const DEFAULT_CONTACT_EMAIL = 'mail@philippbacher.com'
+const DEFAULT_WHATSAPP_URL = 'https://wa.me/4915780280163'
+const DEFAULT_BOOKING_URL = '/kontakt#kontaktformular'
+const HAM_ICON_ANIMATION_MS = 400
+
+type MobileMenuSubLink = {
+  label: string
+  url: string
+  groupTitle?: string | null
+}
+
+type MobileDockTone = 'default' | 'booking' | 'accent'
+type MobileDockIcon = React.ComponentType<React.SVGProps<SVGSVGElement>>
+
+type MobileDockAction =
+  | {
+      key: string
+      kind: 'link'
+      href: string
+      label: string
+      icon: MobileDockIcon
+      tone?: MobileDockTone
+    }
+  | {
+      key: string
+      kind: 'anchor'
+      href: string
+      label: string
+      icon: MobileDockIcon
+      tone?: MobileDockTone
+      targetBlank?: boolean
+    }
+
+function WhatsAppLogoIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <path
+        d="M20 11.5a8.5 8.5 0 0 1-12.4 7.5L4 20l1-3.6A8.5 8.5 0 1 1 20 11.5Z"
+        stroke="currentColor"
+        strokeWidth="1.8"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M9.1 8.2c.1-.3.3-.5.6-.6l1-.3c.3-.1.7.1.8.4l.6 1.4c.1.3 0 .6-.2.8l-.5.6c.6 1.1 1.4 1.9 2.5 2.5l.6-.5c.2-.2.5-.3.8-.2l1.4.6c.3.1.5.5.4.8l-.3 1c-.1.3-.3.5-.6.6-.4.2-.9.2-1.3.1-1.5-.4-2.9-1.2-4.1-2.4-1.2-1.2-2-2.6-2.4-4.1-.1-.4-.1-.9.1-1.3Z"
+        fill="currentColor"
+      />
+    </svg>
+  )
+}
+
+function collectMobileSubLinks(item: MegaMenuItem, limit = 4): MobileMenuSubLink[] {
+  const links: MobileMenuSubLink[] = []
+
+  for (const col of item.columns ?? []) {
+    for (const sub of col.items ?? []) {
+      links.push({
+        label: sub.label,
+        url: sub.url,
+        groupTitle: col.title ?? null,
+      })
+    }
+  }
+
+  if (links.length === 0) {
+    for (const sub of item.subItems ?? []) {
+      links.push({
+        label: sub.label,
+        url: sub.url,
+        groupTitle: null,
+      })
+    }
+  }
+
+  const seen = new Set<string>()
+  const deduped: MobileMenuSubLink[] = []
+
+  for (const link of links) {
+    const label = typeof link.label === 'string' ? link.label.trim() : ''
+    const url = typeof link.url === 'string' ? link.url.trim() : ''
+    if (!label || !url) continue
+    const dedupeKey = `${label}::${url}`
+    if (seen.has(dedupeKey)) continue
+    seen.add(dedupeKey)
+    deduped.push({ ...link, label, url })
+    if (deduped.length >= limit) break
+  }
+
+  return deduped
+}
+
+function extractPhoneDigitsFromWhatsApp(url?: string | null): string | null {
+  if (!url) return null
+  const match = url.match(/wa\.me\/(\d+)/i)
+  return match?.[1] ?? null
+}
+
+function getMobileMenuFallbackIcon(item: Pick<MegaMenuItem, 'label' | 'url'>): LucideIcon {
+  const haystack = `${item.label} ${item.url}`.toLocaleLowerCase('de-DE')
+
+  if (/(portfolio|projekt|referenz|case)/.test(haystack)) return Briefcase
+  if (/(leistung|service|angebot|beratung|consult|technik)/.test(haystack)) return Wrench
+  if (/(kontakt|telefon|anruf|call|whatsapp|mail)/.test(haystack)) return Phone
+  if (/(termin|buch|booking|kalender)/.test(haystack)) return CalendarDays
+  if (/(blog|news|artikel|magazin|presse)/.test(haystack)) return Newspaper
+  if (/(über|ueber|about|team|profil|unternehmen)/.test(haystack)) return User
+  if (/(start|home|index)/.test(haystack)) return Home
+  return Compass
+}
+
+type MobileMenuTriggerIconProps = {
+  active: boolean
+  onToggle?: (nextActive: boolean) => void
+  className?: string
+}
+
+function MobileMenuTriggerIcon({ active, onToggle, className }: MobileMenuTriggerIconProps) {
+  return (
+    <svg
+      className={cn(
+        'mobile-megamenu-trigger-icon ham hamRotate ham7',
+        active && 'active',
+        className,
+      )}
+      viewBox="0 0 100 100"
+      width="80"
+      aria-hidden
+      focusable="false"
+      onClick={(event) => {
+        if (!onToggle) return
+        event.stopPropagation()
+        onToggle(!active)
+      }}
+    >
+      <path
+        className="line top"
+        d="m 70,33 h -40 c 0,0 -6,1.368796 -6,8.5 0,7.131204 6,8.5013 6,8.5013 l 20,-0.0013"
+      />
+      <path className="line middle" d="m 70,50 h -40" />
+      <path
+        className="line bottom"
+        d="m 69.575405,67.073826 h -40 c -5.592752,0 -6.873604,-9.348582 1.371031,-9.348582 8.244634,0 19.053564,21.797129 19.053564,12.274756 l 0,-40"
+      />
+    </svg>
+  )
 }
 
 export type MegaMenuItem = {
@@ -172,6 +356,7 @@ export type HighlightCardStyle = {
 type MegaMenuProps = {
   items: MegaMenuItem[]
   logo?: React.ReactNode
+  mobileLogo?: React.ReactNode
   className?: string
   /** Spaltenbreiten: Inhalt und Highlight (12er-Grid). `sidebar` wird nicht mehr fürs Layout genutzt. */
   columnWidths?: {
@@ -201,8 +386,9 @@ const ListItem = React.forwardRef<
     title: string
     icon?: React.ReactNode
     animationIndex?: number
+    isButton?: boolean
   }
->(({ className, title, children, icon, animationIndex, ...props }, ref) => (
+>(({ className, title, children, icon, animationIndex, isButton = false, ...props }, ref) => (
   <li
     className="megamenu-block-item"
     style={
@@ -215,23 +401,53 @@ const ListItem = React.forwardRef<
       <Link
         ref={ref}
         className={cn(
-          'group flex select-none items-start gap-3 rounded-xl p-4 leading-none no-underline outline-none transition-colors duration-300',
+          isButton
+            ? 'group flex select-none items-start gap-3 rounded-xl border border-transparent bg-[var(--mega-menu-button-bg)] p-4 leading-none no-underline text-[var(--mega-menu-button-fg)] shadow-sm outline-none transition-[filter,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:brightness-95 hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring/50'
+            : 'group flex select-none items-start gap-3 rounded-xl p-4 leading-none no-underline outline-none transition-colors duration-300',
           className,
         )}
         {...props}
       >
-        <div className="megamenu-item-icon flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg p-2.5 transition-all duration-300 group-hover:text-primary [&_img]:h-full [&_img]:w-full [&_img]:object-contain">
+        <div
+          className={cn(
+            'megamenu-item-icon flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg p-2.5 transition-all duration-300 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
+            isButton
+              ? 'bg-black/10 text-current group-hover:bg-black/15'
+              : 'group-hover:text-primary',
+          )}
+        >
           {icon}
         </div>
         <div className="min-w-0 flex-1 space-y-1">
-          <div className="text-sm font-semibold leading-tight group-hover:text-primary dark:group-hover:text-foreground transition-colors">
+          <div
+            className={cn(
+              'text-sm font-semibold leading-tight transition-colors',
+              isButton
+                ? 'text-current'
+                : 'group-hover:text-primary dark:group-hover:text-foreground',
+            )}
+          >
             {title}
           </div>
-          <p className="break-words whitespace-normal text-sm leading-snug opacity-20 group-hover:opacity-70 transition-opacity">
+          <p
+            className={cn(
+              'break-words whitespace-normal text-sm leading-snug transition-opacity',
+              isButton
+                ? 'text-current/80 opacity-80 group-hover:opacity-100'
+                : 'opacity-20 group-hover:opacity-70',
+            )}
+          >
             {children}
           </p>
         </div>
-        <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all duration-300" />
+        <ChevronRight
+          className={cn(
+            'mt-1 h-4 w-4 shrink-0 transition-all duration-300',
+            isButton
+              ? 'text-current opacity-80 group-hover:opacity-100'
+              : 'text-primary opacity-0 -translate-x-2 group-hover:translate-x-0 group-hover:opacity-100',
+          )}
+        />
       </Link>
     </NavigationMenuLink>
   </li>
@@ -604,6 +820,7 @@ const defaultCardStyle: HighlightCardStyle = {
 export function MegaMenu({
   items,
   logo,
+  mobileLogo,
   className = '',
   columnWidths,
   megaMenuCta,
@@ -620,10 +837,14 @@ export function MegaMenu({
   const lastScrollYRef = React.useRef(0)
   const isPastFoldRef = React.useRef(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
-  const navListWrapRef = useRef<HTMLDivElement>(null)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [mobileMenuIconActive, setMobileMenuIconActive] = useState(false)
+  const [mobileActivePrimary, setMobileActivePrimary] = useState<string | null>(null)
+  const [mobileDockTooltip, setMobileDockTooltip] = useState<string | null>(null)
+  const mobileMenuCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const mobileDockTooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const viewportWrapperRef = useRef<HTMLDivElement>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const [underlineStyle, setUnderlineStyle] = useState<{ left: number; width: number } | null>(null)
   const [mouseEntrySide, setMouseEntrySide] = useState<'left' | 'right'>('left')
 
   const navigateToTopLevel = React.useCallback(
@@ -673,8 +894,203 @@ export function MegaMenu({
   const featuredCols = columnWidths?.featured ?? 3
   const sidebarCols = columnWidths?.sidebar ?? 3
 
-  const sortedItems = [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+  const sortedItems = useMemo(
+    () => [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
+    [items],
+  )
+  const mobileMenuItems = useMemo(
+    () =>
+      sortedItems.map((item, idx) => ({
+        key: getMegaMenuItemKey(item, idx),
+        item,
+        subLinks: collectMobileSubLinks(item, 8),
+      })),
+    [sortedItems],
+  )
+  const activeMobileEntry = useMemo(
+    () => mobileMenuItems.find((entry) => entry.key === mobileActivePrimary) ?? null,
+    [mobileMenuItems, mobileActivePrimary],
+  )
+  const activeMobileGroups = useMemo(() => {
+    if (!activeMobileEntry) return []
+
+    const groups: Array<{ title: string | null; links: MobileMenuSubLink[] }> = []
+
+    for (const subLink of activeMobileEntry.subLinks) {
+      const normalizedGroupTitle =
+        typeof subLink.groupTitle === 'string' && subLink.groupTitle.trim().length > 0
+          ? subLink.groupTitle.trim()
+          : null
+      const previousGroup = groups[groups.length - 1]
+
+      if (previousGroup && previousGroup.title === normalizedGroupTitle) {
+        previousGroup.links.push(subLink)
+      } else {
+        groups.push({ title: normalizedGroupTitle, links: [subLink] })
+      }
+    }
+
+    return groups
+  }, [activeMobileEntry])
+  const mobileSubmenuPanelId = 'mobile-megamenu-secondary-panel'
+  const activeMobileTriggerId = activeMobileEntry
+    ? `mobile-megamenu-trigger-${toDomId(activeMobileEntry.key)}`
+    : undefined
+  const mobileHasSecondaryOpen = Boolean(activeMobileEntry && activeMobileEntry.subLinks.length > 0)
+  const mobileWhatsAppUrl = megaMenuCta?.whatsapp?.url ?? DEFAULT_WHATSAPP_URL
+  const mobileWhatsAppLabel = megaMenuCta?.whatsapp?.label ?? 'WhatsApp'
+  const contactPhoneDigits =
+    extractPhoneDigitsFromWhatsApp(mobileWhatsAppUrl) ?? DEFAULT_CONTACT_PHONE_E164
+  const contactPhoneHref = `tel:+${contactPhoneDigits}`
+  const contactEmailHref = `mailto:${DEFAULT_CONTACT_EMAIL}`
+  const mobileDockActions = useMemo<MobileDockAction[]>(
+    () => [
+      {
+        key: 'phone',
+        kind: 'anchor',
+        href: contactPhoneHref,
+        label: 'Anrufen',
+        icon: Phone,
+      },
+      {
+        key: 'mail',
+        kind: 'anchor',
+        href: contactEmailHref,
+        label: 'E-Mail schreiben',
+        icon: Mail,
+      },
+      {
+        key: 'booking',
+        kind: 'link',
+        href: DEFAULT_BOOKING_URL,
+        label: 'Terminbuchung',
+        icon: CalendarDays,
+      },
+      {
+        key: 'whatsapp',
+        kind: 'anchor',
+        href: mobileWhatsAppUrl,
+        label: mobileWhatsAppLabel,
+        icon: WhatsAppLogoIcon,
+        targetBlank: true,
+      },
+    ],
+    [contactEmailHref, contactPhoneHref, mobileWhatsAppLabel, mobileWhatsAppUrl],
+  )
   const preloadMediaUrls = useMemo(() => collectPreloadMediaUrls(sortedItems), [sortedItems])
+
+  const clearMobileMenuCloseTimeout = React.useCallback(() => {
+    if (mobileMenuCloseTimeoutRef.current) {
+      clearTimeout(mobileMenuCloseTimeoutRef.current)
+      mobileMenuCloseTimeoutRef.current = null
+    }
+  }, [])
+
+  const clearMobileDockTooltipTimeout = React.useCallback(() => {
+    if (mobileDockTooltipTimeoutRef.current) {
+      clearTimeout(mobileDockTooltipTimeoutRef.current)
+      mobileDockTooltipTimeoutRef.current = null
+    }
+  }, [])
+
+  const showMobileDockTooltip = React.useCallback(
+    (label: string, autoHideMs?: number) => {
+      clearMobileDockTooltipTimeout()
+      setMobileDockTooltip(label)
+      if (typeof autoHideMs === 'number' && autoHideMs > 0) {
+        mobileDockTooltipTimeoutRef.current = setTimeout(() => {
+          setMobileDockTooltip(null)
+          mobileDockTooltipTimeoutRef.current = null
+        }, autoHideMs)
+      }
+    },
+    [clearMobileDockTooltipTimeout],
+  )
+
+  const clearMobileDockTooltip = React.useCallback(() => {
+    clearMobileDockTooltipTimeout()
+    setMobileDockTooltip(null)
+  }, [clearMobileDockTooltipTimeout])
+
+  const openMobileMenu = React.useCallback(() => {
+    clearMobileMenuCloseTimeout()
+    setMobileMenuIconActive(true)
+    setMobileMenuOpen(true)
+  }, [clearMobileMenuCloseTimeout])
+
+  const closeMobileMenu = React.useCallback(() => {
+    clearMobileMenuCloseTimeout()
+    clearMobileDockTooltip()
+    setMobileMenuIconActive(false)
+    mobileMenuCloseTimeoutRef.current = setTimeout(() => {
+      setMobileMenuOpen(false)
+      mobileMenuCloseTimeoutRef.current = null
+    }, HAM_ICON_ANIMATION_MS)
+  }, [clearMobileMenuCloseTimeout, clearMobileDockTooltip])
+
+  const toggleMobileMenu = React.useCallback(() => {
+    if (mobileMenuOpen) {
+      closeMobileMenu()
+      return
+    }
+    openMobileMenu()
+  }, [mobileMenuOpen, closeMobileMenu, openMobileMenu])
+
+  const handleMobileMenuOpenChange = React.useCallback(
+    (nextOpen: boolean) => {
+      if (nextOpen) {
+        openMobileMenu()
+        return
+      }
+      closeMobileMenu()
+    },
+    [openMobileMenu, closeMobileMenu],
+  )
+
+  const handleMobileMenuIconToggle = React.useCallback(
+    (nextActive: boolean) => {
+      if (nextActive) {
+        openMobileMenu()
+        return
+      }
+      closeMobileMenu()
+    },
+    [openMobileMenu, closeMobileMenu],
+  )
+
+  useEffect(() => {
+    clearMobileMenuCloseTimeout()
+    clearMobileDockTooltip()
+    setMobileMenuOpen(false)
+    setMobileMenuIconActive(false)
+    setMobileActivePrimary(null)
+  }, [pathname, clearMobileMenuCloseTimeout, clearMobileDockTooltip])
+
+  useEffect(() => {
+    return () => {
+      clearMobileMenuCloseTimeout()
+      clearMobileDockTooltipTimeout()
+    }
+  }, [clearMobileMenuCloseTimeout, clearMobileDockTooltipTimeout])
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+    setActiveMenu(null)
+  }, [mobileMenuOpen])
+
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      setMobileActivePrimary(null)
+      return
+    }
+    if (mobileActivePrimary == null) return
+    const activeStillExists = mobileMenuItems.some(
+      (entry) => entry.key === mobileActivePrimary && entry.subLinks.length > 0,
+    )
+    if (!activeStillExists) {
+      setMobileActivePrimary(null)
+    }
+  }, [mobileMenuOpen, mobileMenuItems, mobileActivePrimary])
 
   useEffect(() => {
     if (typeof window === 'undefined' || preloadMediaUrls.length === 0) return
@@ -695,46 +1111,6 @@ export function MegaMenu({
       }
     }
   }, [preloadMediaUrls])
-
-  useLayoutEffect(() => {
-    const wrap = navListWrapRef.current
-    if (!wrap) return
-    const active = wrap.querySelector(
-      '.megamenu-top-item[data-active="true"]',
-    ) as HTMLElement | null
-    if (!active) {
-      setUnderlineStyle(null)
-      return
-    }
-    const wrapRect = wrap.getBoundingClientRect()
-    const activeRect = active.getBoundingClientRect()
-    setUnderlineStyle({
-      left: activeRect.left - wrapRect.left,
-      width: activeRect.width,
-    })
-  }, [pathname])
-
-  useEffect(() => {
-    const wrap = navListWrapRef.current
-    if (!wrap) return
-    const ro = new ResizeObserver(() => {
-      const active = wrap.querySelector(
-        '.megamenu-top-item[data-active="true"]',
-      ) as HTMLElement | null
-      if (!active) {
-        setUnderlineStyle(null)
-        return
-      }
-      const wrapRect = wrap.getBoundingClientRect()
-      const activeRect = active.getBoundingClientRect()
-      setUnderlineStyle({
-        left: activeRect.left - wrapRect.left,
-        width: activeRect.width,
-      })
-    })
-    ro.observe(wrap)
-    return () => ro.disconnect()
-  }, [pathname])
 
   /* Dropdown-Inhalt beim Öffnen/Wechsel wieder nach oben scrollen */
   useEffect(() => {
@@ -880,10 +1256,7 @@ export function MegaMenu({
                   }}
                   viewportWrapperRef={viewportWrapperRef}
                 >
-                  <div
-                    ref={navListWrapRef}
-                    className="megamenu-nav-list-wrap relative flex h-full flex-1 justify-end"
-                  >
+                  <div className="megamenu-nav-list-wrap relative flex h-full flex-1 justify-end">
                     <NavigationMenuList className="megamenu-nav-list h-full justify-end">
                       {sortedItems.map((item, idx) => {
                         const menuItemKey = getMegaMenuItemKey(item, idx)
@@ -897,12 +1270,20 @@ export function MegaMenu({
                           const contentSpan = cw?.col2 != null ? Number(cw.col2) : contentCols
                           const featuredSpan = cw?.col3 != null ? Number(cw.col3) : featuredCols
                           const allItemsFromColumns = cols.flatMap((col) =>
-                            (col.items ?? []).map((sub) => ({ ...sub, _groupTitle: col.title })),
+                            (col.items ?? []).map((sub) => ({
+                              ...sub,
+                              _groupTitle: col.title,
+                              _isSpecialColumn: isSpecialMegaMenuColumn(col),
+                            })),
                           )
                           const listItems =
                             allItemsFromColumns.length > 0
                               ? allItemsFromColumns
-                              : (item.subItems ?? []).map((s) => ({ ...s, _groupTitle: null }))
+                              : (item.subItems ?? []).map((s) => ({
+                                  ...s,
+                                  _groupTitle: null,
+                                  _isSpecialColumn: false,
+                                }))
                           const hasGroupTitles = listItems.some(
                             (x: { _groupTitle?: string | null }) =>
                               x._groupTitle != null && x._groupTitle !== '',
@@ -1018,6 +1399,7 @@ export function MegaMenu({
                                             const iconUrl = rawMedia ? mediaUrl(rawMedia) : ''
                                             const iconSpriteId = null
                                             const listKey = getMegaMenuSubItemKey(sub, idx)
+                                            const isSpecialColumn = isSpecialMegaMenuColumn(col)
 
                                             return (
                                               <ListItem
@@ -1027,6 +1409,7 @@ export function MegaMenu({
                                                 animationIndex={
                                                   (columnItemStartIndices[colIdx] ?? 0) + idx
                                                 }
+                                                isButton={isSpecialColumn}
                                                 icon={
                                                   iconSpriteId ? (
                                                     <svg className="h-4 w-4" aria-hidden="true">
@@ -1068,6 +1451,7 @@ export function MegaMenu({
                                         description?: string | null
                                         icon?: MediaRef
                                         image?: MediaRef
+                                        _isSpecialColumn?: boolean
                                       },
                                       idx: number,
                                     ) => {
@@ -1082,6 +1466,7 @@ export function MegaMenu({
                                           title={sub.label}
                                           href={sub.url}
                                           animationIndex={idx}
+                                          isButton={Boolean(sub._isSpecialColumn)}
                                           icon={
                                             iconSpriteId ? (
                                               <svg className="h-4 w-4" aria-hidden="true">
@@ -1115,12 +1500,7 @@ export function MegaMenu({
                                 : 'rounded-t-none'
                           const highlightContent =
                             hasCol3 && cardItems.length > 0 ? (
-                              <div
-                                className={cn(
-                                  'grid gap-4',
-                                  highlightPosition === 'below',
-                                )}
-                              >
+                              <div className={cn('grid gap-4', highlightPosition === 'below')}>
                                 {cardItems.map((card, cardIdx) => {
                                   const cardTitle =
                                     card.title != null && card.title !== '' ? card.title : null
@@ -1298,7 +1678,6 @@ export function MegaMenu({
                             })
                           }
 
-                          const triggerActive = isNavLinkActive(pathname ?? '', item.url)
                           return (
                             <NavigationMenuItem key={menuItemKey} value={value}>
                               <NavigationMenuTrigger
@@ -1306,7 +1685,6 @@ export function MegaMenu({
                                   navigationMenuTriggerStyle(),
                                   'megamenu-top-item cursor-pointer',
                                 )}
-                                data-active={triggerActive ? 'true' : undefined}
                                 onPointerEnter={(e) => {
                                   const rect = e.currentTarget.getBoundingClientRect()
                                   setMouseEntrySide(
@@ -1379,8 +1757,7 @@ export function MegaMenu({
                                               style={
                                                 {
                                                   '--megamenu-block-count': blockCount,
-                                                  '--megamenu-highlight-delay':
-                                                    `${highlightDelayMs}ms`,
+                                                  '--megamenu-highlight-delay': `${highlightDelayMs}ms`,
                                                 } as React.CSSProperties
                                               }
                                             >
@@ -1502,7 +1879,6 @@ export function MegaMenu({
                           )
                         }
 
-                        const linkActive = isNavLinkActive(pathname ?? '', item.url)
                         return (
                           <NavigationMenuItem key={menuItemKey}>
                             <NavigationMenuLink asChild>
@@ -1512,7 +1888,6 @@ export function MegaMenu({
                                   navigationMenuTriggerStyle(),
                                   'megamenu-top-item cursor-pointer',
                                 )}
-                                data-active={linkActive ? 'true' : undefined}
                               >
                                 {item.label}
                               </Link>
@@ -1521,14 +1896,6 @@ export function MegaMenu({
                         )
                       })}
                     </NavigationMenuList>
-                    <div
-                      className="megamenu-sliding-underline pointer-events-none absolute left-0 h-0.5 bottom-[calc(-0.5rem-1px)]"
-                      style={{
-                        left: underlineStyle?.left ?? 0,
-                        width: underlineStyle?.width ?? 0,
-                      }}
-                      aria-hidden
-                    />
                   </div>
                 </NavigationMenu>
                 <div className="hidden lg:flex items-center gap-0">
@@ -1540,81 +1907,271 @@ export function MegaMenu({
                   />
                 </div>
                 <div className="flex lg:hidden shrink-0 items-center">
-                  <Sheet>
-                    <SheetTrigger asChild>
-                      <button
-                        type="button"
-                        className="group/button inline-flex shrink-0 items-center justify-center rounded-md border border-transparent bg-clip-padding text-sm font-medium whitespace-nowrap transition-all outline-none select-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 aria-invalid:border-destructive aria-invalid:ring-3 aria-invalid:ring-destructive/20 dark:aria-invalid:border-destructive/50 dark:aria-invalid:ring-destructive/40 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4 hover:bg-muted hover:text-foreground aria-expanded:bg-muted aria-expanded:text-foreground dark:hover:bg-muted/50 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
-                        aria-label="Menü öffnen"
-                      >
-                        <Menu className="h-6 w-6" aria-hidden />
-                      </button>
-                    </SheetTrigger>
-                    <SheetContent side="right" className="megamenu-sheet w-[300px] sm:w-[400px]">
-                      <SheetHeader className="flex flex-row items-center justify-between gap-3">
-                        <ThemeSwitcher className="order-first shrink-0" />
-                        <SheetTitle className="text-left flex-1">Menu</SheetTitle>
-                      </SheetHeader>
-                      <nav className="flex flex-col gap-4 mt-8">
-                        {sortedItems.map((item, idx) => {
-                          const menuItemKey = getMegaMenuItemKey(item, idx)
-                          const cols = item.columns ?? []
-                          const allItemsFromColumns = cols.flatMap((col) =>
-                            (col.items ?? []).map((sub) => ({
-                              ...sub,
-                              _groupTitle: col.title ?? null,
-                            })),
-                          )
-                          const listItems =
-                            allItemsFromColumns.length > 0
-                              ? allItemsFromColumns
-                              : (item.subItems ?? []).map((s) => ({
-                                  ...s,
-                                  _groupTitle: null as string | null,
-                                }))
-                          return (
-                            <div key={menuItemKey} className="space-y-2">
-                              <Link
-                                href={item.url}
-                                className="block px-2 py-1 text-lg font-semibold transition-colors hover:text-primary"
-                              >
-                                {item.label}
-                              </Link>
-                              {hasDropdown(item) && listItems.length > 0 && (
-                                <ul className="pl-4 space-y-1 border-l border-border">
-                                  {listItems.map((sub, i) => {
-                                    const prevTitle =
-                                      i > 0
-                                        ? (listItems[i - 1] as { _groupTitle?: string | null })
-                                            ._groupTitle
-                                        : null
-                                    const mobileSubKey = getMegaMenuSubItemKey(sub, i)
-                                    const showGroupTitle =
-                                      sub._groupTitle != null &&
-                                      sub._groupTitle !== '' &&
-                                      sub._groupTitle !== prevTitle
-                                    return (
-                                      <li key={mobileSubKey}>
-                                        {showGroupTitle && (
-                                          <span className="block pt-2 pb-0.5 text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                                            {sub._groupTitle}
-                                          </span>
-                                        )}
-                                        <Link
-                                          href={sub.url}
-                                          className="block px-2 py-1 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  <Sheet open={mobileMenuOpen} onOpenChange={handleMobileMenuOpenChange}>
+                    <button
+                      type="button"
+                      className="mobile-megamenu-trigger-btn mobile-megamenu-trigger-btn--benchmark inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
+                      aria-label={mobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
+                      aria-expanded={mobileMenuOpen}
+                      data-open={mobileMenuIconActive ? 'true' : 'false'}
+                      onClick={toggleMobileMenu}
+                    >
+                      <MobileMenuTriggerIcon
+                        active={mobileMenuIconActive}
+                        onToggle={handleMobileMenuIconToggle}
+                      />
+                    </button>
+                    <SheetContent
+                      side="right"
+                      overlayClassName="mobile-megamenu-overlay data-[state=open]:animate-none data-[state=closed]:animate-none"
+                      className="mobile-megamenu-sheet megamenu-sheet h-[100dvh] max-h-[100dvh] w-[min(94vw,36rem)] max-w-[36rem] border-l border-border/40 p-0 data-[state=open]:animate-none data-[state=closed]:animate-none supports-[height:100svh]:h-[100svh] [&>button]:hidden"
+                    >
+                      <SheetTitle className="sr-only">Mobilmenü</SheetTitle>
+                      <div className="mobile-megamenu-shell flex h-full flex-col">
+                        <div className="mobile-megamenu-utility px-4">
+                          <div className="mobile-megamenu-utility-logo flex items-center">
+                            {mobileLogo ?? logo}
+                          </div>
+                          <div className="mobile-megamenu-utility-title">
+                            <ThemeSwitcher
+                              variant="switch"
+                              className="mobile-megamenu-theme-toggle shrink-0"
+                            />
+                          </div>
+                          <button
+                            type="button"
+                            className="mobile-megamenu-close-arrow inline-flex shrink-0 items-center justify-center outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 min-h-[44px] min-w-[44px] touch-manipulation"
+                            aria-label="Menü schließen"
+                            onClick={closeMobileMenu}
+                          >
+                            <ChevronRight className="h-5 w-5" aria-hidden />
+                          </button>
+                        </div>
+
+                        <nav className="mobile-megamenu-scroll min-h-0 flex-1 overflow-hidden px-4">
+                          <div
+                            className={cn(
+                              'mobile-megamenu-columns',
+                              mobileHasSecondaryOpen && 'is-secondary-open',
+                            )}
+                          >
+                            <div className="mobile-megamenu-primary">
+                              <ul className="mobile-megamenu-primary-list">
+                                {mobileMenuItems.map((entry, idx) => {
+                                  const hasSubmenu = entry.subLinks.length > 0
+                                  const isActive = mobileActivePrimary === entry.key
+                                  const triggerId = `mobile-megamenu-trigger-${toDomId(entry.key)}`
+                                  const menuIconSrc = mediaUrl(entry.item.icon ?? null)
+                                  const FallbackIcon = getMobileMenuFallbackIcon(entry.item)
+                                  return (
+                                    <li
+                                      key={entry.key}
+                                      className="mobile-megamenu-item"
+                                      style={
+                                        {
+                                          '--mobile-mega-item-index': idx,
+                                        } as React.CSSProperties
+                                      }
+                                    >
+                                      {hasSubmenu ? (
+                                        <button
+                                          type="button"
+                                          id={triggerId}
+                                          className="mobile-megamenu-item-main mobile-megamenu-item-main--has-submenu w-full"
+                                          data-active={isActive ? 'true' : undefined}
+                                          aria-label={entry.item.label}
+                                          aria-expanded={isActive}
+                                          aria-controls={mobileSubmenuPanelId}
+                                          onClick={() =>
+                                            setMobileActivePrimary((current) =>
+                                              current === entry.key ? null : entry.key,
+                                            )
+                                          }
                                         >
-                                          {sub.label}
+                                          <span
+                                            className="mobile-megamenu-item-icon"
+                                            aria-hidden="true"
+                                          >
+                                            {menuIconSrc ? (
+                                              <ResilientImage
+                                                src={menuIconSrc}
+                                                alt=""
+                                                className="mobile-megamenu-item-icon-img"
+                                              />
+                                            ) : (
+                                              <FallbackIcon className="mobile-megamenu-item-icon-svg" />
+                                            )}
+                                          </span>
+                                          <span className="mobile-megamenu-item-label truncate font-semibold text-foreground text-left">
+                                            {entry.item.label}
+                                          </span>
+                                          <ChevronRight className="mobile-megamenu-item-arrow h-4 w-4 shrink-0 text-primary" />
+                                        </button>
+                                      ) : (
+                                        <Link
+                                          href={entry.item.url}
+                                          className="mobile-megamenu-item-main w-full"
+                                          aria-label={entry.item.label}
+                                          onClick={() => {
+                                            setMobileMenuOpen(false)
+                                          }}
+                                        >
+                                          <span
+                                            className="mobile-megamenu-item-icon"
+                                            aria-hidden="true"
+                                          >
+                                            {menuIconSrc ? (
+                                              <ResilientImage
+                                                src={menuIconSrc}
+                                                alt=""
+                                                className="mobile-megamenu-item-icon-img"
+                                              />
+                                            ) : (
+                                              <FallbackIcon className="mobile-megamenu-item-icon-svg" />
+                                            )}
+                                          </span>
+                                          <span className="mobile-megamenu-item-label truncate font-semibold text-foreground text-left">
+                                            {entry.item.label}
+                                          </span>
                                         </Link>
-                                      </li>
-                                    )
-                                  })}
-                                </ul>
-                              )}
+                                      )}
+                                      {idx < mobileMenuItems.length - 1 && (
+                                        <hr className="mobile-megamenu-divider" aria-hidden />
+                                      )}
+                                    </li>
+                                  )
+                                })}
+                              </ul>
                             </div>
-                          )
-                        })}
-                      </nav>
+                            <aside
+                              id={mobileSubmenuPanelId}
+                              className="mobile-megamenu-secondary"
+                              role="region"
+                              aria-labelledby={activeMobileTriggerId}
+                              aria-hidden={!mobileHasSecondaryOpen}
+                            >
+                              {activeMobileEntry && (
+                                <>
+                                  <div className="mobile-megamenu-secondary-head">
+                                    <Link
+                                      href={activeMobileEntry.item.url}
+                                      className="mobile-megamenu-secondary-root"
+                                      onClick={() => setMobileMenuOpen(false)}
+                                    >
+                                      {`${activeMobileEntry.item.label} anzeigen`}
+                                    </Link>
+                                    <button
+                                      type="button"
+                                      className="mobile-megamenu-secondary-back"
+                                      aria-label="Zurück"
+                                      onClick={() => setMobileActivePrimary(null)}
+                                    >
+                                      <ChevronLeft className="h-4 w-4" aria-hidden />
+                                    </button>
+                                  </div>
+                                  <div className="mobile-megamenu-secondary-list">
+                                    {activeMobileGroups.map((group, groupIdx) => (
+                                      <section
+                                        key={`mobile-sub-group-${group.title ?? 'default'}-${groupIdx}`}
+                                        className="mobile-megamenu-sub-group"
+                                      >
+                                        {group.title ? (
+                                          <p className="mobile-megamenu-sub-group-title">
+                                            {group.title}
+                                          </p>
+                                        ) : null}
+                                        <ul className="mobile-megamenu-sub-group-links">
+                                          {group.links.map((sub, subIdx) => (
+                                            <li key={getMegaMenuSubItemKey(sub, subIdx)}>
+                                              <Link
+                                                href={sub.url}
+                                                className="mobile-megamenu-sub-link"
+                                                onClick={() => setMobileMenuOpen(false)}
+                                              >
+                                                <span className="truncate">{sub.label}</span>
+                                              </Link>
+                                            </li>
+                                          ))}
+                                        </ul>
+                                      </section>
+                                    ))}
+                                  </div>
+                                </>
+                              )}
+                            </aside>
+                          </div>
+                        </nav>
+
+                        <div className="mobile-megamenu-contact-dock px-4 pt-4">
+                          <div className="mobile-megamenu-contact-tooltip" aria-live="polite">
+                            <span
+                              className={cn(
+                                'mobile-megamenu-contact-tooltip-pill',
+                                mobileDockTooltip && 'is-visible',
+                              )}
+                            >
+                              {mobileDockTooltip ?? ' '}
+                            </span>
+                          </div>
+                          <div className="mobile-megamenu-contact-actions">
+                            {mobileDockActions.map((action) => {
+                              const Icon = action.icon
+                              const tone = action.tone ?? 'default'
+                              const handleDockHintEnter = () => showMobileDockTooltip(action.label)
+                              const handleDockHintLeave = () => clearMobileDockTooltip()
+                              const handleDockHintTouch = () =>
+                                showMobileDockTooltip(action.label, 1400)
+
+                              if (action.kind === 'link') {
+                                return (
+                                  <Link
+                                    key={action.key}
+                                    href={action.href}
+                                    className="mobile-megamenu-contact-action"
+                                    data-tone={tone}
+                                    aria-label={action.label}
+                                    onFocus={handleDockHintEnter}
+                                    onBlur={handleDockHintLeave}
+                                    onMouseEnter={handleDockHintEnter}
+                                    onMouseLeave={handleDockHintLeave}
+                                    onPointerDown={handleDockHintTouch}
+                                    onClick={() => setMobileMenuOpen(false)}
+                                  >
+                                    <Icon
+                                      className="mobile-megamenu-contact-action-icon h-8 w-8"
+                                      aria-hidden
+                                    />
+                                    <span className="sr-only">{action.label}</span>
+                                  </Link>
+                                )
+                              }
+
+                              return (
+                                <a
+                                  key={action.key}
+                                  href={action.href}
+                                  target={action.targetBlank ? '_blank' : undefined}
+                                  rel={action.targetBlank ? 'noopener noreferrer' : undefined}
+                                  className="mobile-megamenu-contact-action"
+                                  data-tone={tone}
+                                  aria-label={action.label}
+                                  onFocus={handleDockHintEnter}
+                                  onBlur={handleDockHintLeave}
+                                  onMouseEnter={handleDockHintEnter}
+                                  onMouseLeave={handleDockHintLeave}
+                                  onPointerDown={handleDockHintTouch}
+                                >
+                                  <Icon
+                                    className="mobile-megamenu-contact-action-icon h-7 w-7"
+                                    aria-hidden
+                                  />
+                                  <span className="sr-only">{action.label}</span>
+                                </a>
+                              )
+                            })}
+                          </div>
+                        </div>
+                      </div>
                     </SheetContent>
                   </Sheet>
                 </div>

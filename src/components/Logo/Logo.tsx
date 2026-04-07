@@ -15,6 +15,7 @@ interface Props {
   // Theme-Anpassung läuft jetzt vollständig über CSS (data-theme).
   // Prop bleibt für Rückwärtskompatibilität erhalten.
   darkBackground?: boolean
+  disableAnimation?: boolean
   variant?: 'header' | 'footer'
 }
 
@@ -23,7 +24,14 @@ const logoSizeFooterClass =
   'max-w-[8rem] h-[36px] sm:max-w-[9.5rem] sm:h-[40px] md:max-w-[11rem] md:h-[44px]'
 
 export const Logo = (props: Props) => {
-  const { loading: loadingFromProps, priority: priorityFromProps, className, logo, variant = 'header' } = props
+  const {
+    loading: loadingFromProps,
+    priority: priorityFromProps,
+    className,
+    logo,
+    variant = 'header',
+    disableAnimation,
+  } = props
 
   const loading = loadingFromProps ?? 'lazy'
   const priority = priorityFromProps ?? 'low'
@@ -33,7 +41,7 @@ export const Logo = (props: Props) => {
   // Kein darkBackground-Prop mehr nötig.
   const invertClass = 'logo-contrast'
   const sizeClass = variant === 'footer' ? logoSizeFooterClass : logoSizeClass
-  const animateClass = 'logo-animate'
+  const animateClass = disableAnimation ? undefined : 'logo-animate'
 
   if (logo && typeof logo === 'object' && 'url' in logo) {
     return (
