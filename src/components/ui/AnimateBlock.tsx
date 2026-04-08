@@ -2,7 +2,7 @@
 
 import type { ReactNode, CSSProperties } from 'react'
 import { motion } from 'framer-motion'
-import type { Variants } from 'framer-motion'
+import type { Transition, Variants, ViewportOptions } from 'framer-motion'
 
 interface AnimateBlockProps {
   children: ReactNode
@@ -11,8 +11,8 @@ interface AnimateBlockProps {
   variants: Variants
   initial?: string
   whileInView?: string
-  viewport?: { once: boolean; amount: number }
-  transition?: { duration: number; ease: number[]; delay: number }
+  viewport?: ViewportOptions
+  transition?: Transition
 }
 
 export function AnimateBlock({

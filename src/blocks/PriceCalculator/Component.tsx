@@ -3,6 +3,8 @@ import type {
   PriceCalculator,
   PriceCalculatorBlock as PriceCalculatorBlockFields,
 } from '@/payload-types'
+import configPromise from '@payload-config'
+import { getPayload } from 'payload'
 
 import {
   PriceCalculatorClient,
@@ -72,10 +74,7 @@ export async function PriceCalculatorBlockComponent(
 ) {
   const { showRatesSection = true, disableInnerContainer } = props
 
-  const payloadModule = await import('payload')
-  const configModule = await import('@payload-config')
-  const config = (configModule as { default?: unknown }).default ?? configModule
-  const payload = payloadModule.getPayload({ config })
+  const payload = await getPayload({ config: configPromise })
 
   const [categoriesRes, itemsRes, globalDoc] = await Promise.all([
     payload.find({

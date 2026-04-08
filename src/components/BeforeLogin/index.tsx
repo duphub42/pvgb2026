@@ -13,6 +13,7 @@ const BeforeLogin: React.FC = () => {
           --login-panel-height: clamp(360px, 62vh, 640px);
           display: grid !important;
           grid-template-columns: minmax(320px, 520px) minmax(360px, 1fr) !important;
+          grid-auto-rows: var(--login-panel-height);
           align-items: stretch !important;
           gap: clamp(1rem, 2vw, 2rem) !important;
           width: 100%;
@@ -24,30 +25,36 @@ const BeforeLogin: React.FC = () => {
 
         .template-minimal__wrap > form {
           grid-column: 1 / 2;
-          align-self: center;
+          align-self: stretch;
           justify-self: center;
           width: min(100%, 520px);
-          min-height: var(--login-panel-height);
-          height: var(--login-panel-height);
+          min-height: 100%;
+          height: 100%;
           margin: 0 !important;
+          position: relative;
           display: flex !important;
           flex-direction: column !important;
           justify-content: center;
+          padding-top: 3.2rem;
         }
 
         .template-minimal__wrap > form::before {
           content: '';
-          display: block;
+          position: absolute;
+          left: 50%;
+          top: 1rem;
+          transform: translateX(-50%);
           width: min(100%, 180px);
           height: 36px;
-          margin: 0 auto 1.1rem;
           background: url('${FRONTEND_LOGO_SRC}') center / contain no-repeat;
-          flex-shrink: 0;
+          pointer-events: none;
         }
 
         .template-minimal__wrap > .custom-login-art {
           grid-column: 2 / 3;
-          min-height: var(--login-panel-height);
+          align-self: stretch;
+          min-height: 100%;
+          height: 100%;
         }
 
         .custom-login-art {
@@ -114,9 +121,11 @@ const BeforeLogin: React.FC = () => {
 
           .template-minimal__wrap > form {
             width: 100%;
+            align-self: auto;
             min-height: auto;
             height: auto;
             justify-content: flex-start;
+            padding-top: 2.9rem;
           }
 
           .custom-login-art {

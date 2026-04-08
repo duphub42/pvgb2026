@@ -126,17 +126,43 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
       ? getMediaUrl((logo as { url: string }).url, (logo as { updatedAt?: string }).updatedAt)
       : null
 
-  const logoEl = (
-    <Link href="/" className="logo-link flex items-center shrink-0">
-      {hasCustomLogo && logoUrl ? (
-        <LogoWithGlitch imgSrc={logoUrl} variant="header">
-          <Logo loading="eager" priority="high" logo={data?.logo} variant="header" />
+  const renderPrimaryLogo = (disableAnimation?: boolean) => {
+    if (hasCustomLogo && logoUrl) {
+      return (
+        <LogoWithGlitch imgSrc={logoUrl} variant="header" disableAnimation={disableAnimation}>
+          <Logo
+            loading="eager"
+            priority="high"
+            logo={data?.logo}
+            variant="header"
+            disableAnimation={disableAnimation}
+          />
         </LogoWithGlitch>
-      ) : (
-        <LogoWithGlitch textLogo="Philipp Bacher" variant="header" />
-      )}
+      )
+    }
+
+    return (
+      <LogoWithGlitch
+        textLogo="Philipp Bacher"
+        variant="header"
+        disableAnimation={disableAnimation}
+      />
+    )
+  }
+
+  const renderLogoLink = (disableAnimation?: boolean) => (
+    <Link href="/" className="logo-link relative flex items-center shrink-0">
+      <span className="header-logo-slot header-logo-slot--default">
+        {renderPrimaryLogo(disableAnimation)}
+      </span>
+      <span className="header-logo-slot header-logo-slot--sticky" aria-hidden="true">
+        <span className="header-logo-mask">{renderPrimaryLogo(true)}</span>
+      </span>
     </Link>
   )
+
+  const desktopLogoEl = renderLogoLink()
+  const mobileLogoEl = renderPrimaryLogo(true)
 
   if (useMegaMenu && isHydrated) {
     const layout = data?.megaMenuLayout
@@ -220,24 +246,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
     return (
       <MegaMenu
         items={megaMenuItems}
-        logo={logoEl}
-        mobileLogo={
-          <Link href="/" className="logo-link flex items-center shrink-0">
-            {hasCustomLogo && logoUrl ? (
-              <LogoWithGlitch imgSrc={logoUrl} variant="header" disableAnimation>
-                <Logo
-                  loading="eager"
-                  priority="high"
-                  logo={data?.logo}
-                  variant="header"
-                  disableAnimation
-                />
-              </LogoWithGlitch>
-            ) : (
-              <LogoWithGlitch textLogo="Philipp Bacher" variant="header" disableAnimation />
-            )}
-          </Link>
-        }
+        logo={desktopLogoEl}
+        mobileLogo={mobileLogoEl}
         columnWidths={columnWidths}
         megaMenuCta={hasCta ? megaMenuCta : undefined}
         highlightCardStyle={highlightCardStyle}
@@ -276,7 +286,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
         >
           <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
             <div className="header-main-row flex flex-1 items-stretch justify-between">
-              {logoEl}
+              {desktopLogoEl}
               <HeaderNav data={data} />
             </div>
           </div>

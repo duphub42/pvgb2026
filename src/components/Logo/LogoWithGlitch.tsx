@@ -135,6 +135,7 @@ export function LogoWithGlitch({
         className={cn(
           'logo-glitch-wrapper logo-glitch-text logo-contrast',
           variant === 'footer' && 'logo-glitch-footer',
+          disableAnimation && 'logo-glitch-collapsed',
           glitchActive && 'logo-glitch-active',
           className,
         )}
@@ -170,6 +171,7 @@ export function LogoWithGlitch({
         className={cn(
           'logo-glitch-wrapper relative logo-glitch-image',
           variant === 'footer' && 'logo-glitch-footer',
+          disableAnimation && 'logo-glitch-collapsed',
           imageWrapperSizeClass,
           !isFooterImage && glitchActive && 'logo-glitch-active',
           className,

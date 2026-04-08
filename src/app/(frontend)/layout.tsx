@@ -82,6 +82,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
             </>
           )}
+          <link href="/manifest.json" rel="manifest" />
+          <meta content="yes" name="apple-mobile-web-app-capable" />
+          <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" />
+          <meta content="yes" name="mobile-web-app-capable" />
+          <meta content="#f8fafc" media="(prefers-color-scheme: light)" name="theme-color" />
+          <meta content="#0b1020" media="(prefers-color-scheme: dark)" name="theme-color" />
         </head>
         <body data-layout="default">
           <Providers initialLocale={locale}>

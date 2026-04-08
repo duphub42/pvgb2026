@@ -104,7 +104,9 @@
     -webkit-font-smoothing: antialiased;
     max-width: 100%;
     min-width: 0;
-    @apply bg-background text-foreground min-h-[100vh] flex flex-col;
+    min-height: 100vh;
+    min-height: 100dvh;
+    @apply bg-background text-foreground flex flex-col;
   }
   h1,
   h2,
