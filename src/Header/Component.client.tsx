@@ -19,9 +19,14 @@ import { HeaderNav } from './Nav'
 interface HeaderClientProps {
   data: Header
   megaMenuItems?: MegaMenuItem[]
+  mobileDockPhone?: string | null
 }
 
-export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems = [] }) => {
+export const HeaderClient: React.FC<HeaderClientProps> = ({
+  data,
+  megaMenuItems = [],
+  mobileDockPhone = null,
+}) => {
   const [isHydrated, setIsHydrated] = useState(false)
   const [theme, setTheme] = useState<string | null>(null)
   const [headerVisible, setHeaderVisible] = useState(true)
@@ -251,6 +256,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data, megaMenuItems 
         columnWidths={columnWidths}
         megaMenuCta={hasCta ? megaMenuCta : undefined}
         highlightCardStyle={highlightCardStyle}
+        mobileDockPhone={mobileDockPhone}
       />
     )
   }

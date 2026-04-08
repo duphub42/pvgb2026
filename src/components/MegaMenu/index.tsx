@@ -140,11 +140,27 @@ function toDomId(value: string): string {
     .replace(/^-+|-+$/g, '')
 }
 
-const MOBILE_DOCK_PHONE_HREF = 'tel:+49123456789'
-const MOBILE_DOCK_EMAIL_HREF = 'mailto:test@mail.com'
-const MOBILE_DOCK_WHATSAPP_URL = 'https://wa.me/49123456789'
+function normalizePhoneForTel(rawValue: string | null | undefined): string | null {
+  if (typeof rawValue !== 'string') return null
+
+  const value = rawValue.trim()
+  if (!value) return null
+
+  const digits = value.replace(/\D+/g, '')
+  if (!digits) return null
+
+  if (value.startsWith('+')) return `+${digits}`
+  if (value.startsWith('00')) return `+${digits.replace(/^00/, '')}`
+
+  return digits
+}
+
+const MOBILE_DOCK_EMAIL_ADDRESS = 'hello@philippbacher.com'
+const MOBILE_DOCK_EMAIL_HREF = `mailto:${MOBILE_DOCK_EMAIL_ADDRESS}`
+const MOBILE_DOCK_WHATSAPP_E164 = '4915780280163'
+const MOBILE_DOCK_WHATSAPP_URL = `https://wa.me/${MOBILE_DOCK_WHATSAPP_E164}`
 const MOBILE_DOCK_VCARD_URL = '/contact.vcf'
-const MOBILE_DOCK_CALENDAR_URL = 'https://calendly.com/demo'
+const MOBILE_DOCK_CALENDAR_URL = '/termin'
 const MOBILE_MENU_LOGO_ICON_SRC = '/media/philippbacher-logo-b-10.svg'
 const HAM_ICON_ANIMATION_MS = 400
 const MOBILE_DOCK_LONG_PRESS_MS = 400
@@ -190,21 +206,11 @@ type MobileDockActionMetric = {
 
 function WhatsAppLogoIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" {...props}>
+    <svg viewBox="0 0 24 24" fill="currentColor" data-brand-icon="whatsapp" {...props}>
       <path
-        d="M12 3.35a8.65 8.65 0 0 1 7.66 12.67l-.53.95.57 3.28-3.34-.56-.95.53A8.65 8.65 0 1 1 12 3.35Z"
-        stroke="currentColor"
-        strokeWidth="1.85"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-      <path
-        d="M9.35 8.52c.12-.3.31-.47.57-.52l.74-.15c.29-.06.57.07.71.34l.42.81c.12.25.09.55-.11.75l-.36.41a5.22 5.22 0 0 0 2.52 2.52l.41-.36c.2-.2.5-.23.75-.11l.81.42c.27.14.4.42.34.71l-.15.74c-.05.26-.22.45-.52.57-.42.17-.9.21-1.37.09-1.29-.34-2.46-1.03-3.45-2.02-.99-.99-1.68-2.16-2.02-3.45-.12-.47-.08-.95.09-1.37Z"
-        stroke="currentColor"
-        strokeWidth="1.85"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        fill="none"
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"
       />
     </svg>
   )
@@ -213,10 +219,10 @@ function WhatsAppLogoIcon(props: React.SVGProps<SVGSVGElement>) {
 function VCardIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" {...props}>
-      <rect x="3.5" y="5" width="17" height="14" rx="3" stroke="currentColor" strokeWidth="1.8" />
-      <circle cx="9.2" cy="11" r="1.8" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M6.8 15.3c.7-1.2 1.6-1.8 2.4-1.8s1.7.6 2.4 1.8" stroke="currentColor" strokeWidth="1.8" />
-      <path d="M13.8 10h4.2M13.8 13.2H18" stroke="currentColor" strokeWidth="1.8" />
+      <rect x="3.5" y="5" width="17" height="14" rx="3" stroke="currentColor" strokeWidth="1.45" />
+      <circle cx="9.2" cy="11" r="1.8" stroke="currentColor" strokeWidth="1.45" />
+      <path d="M6.8 15.3c.7-1.2 1.6-1.8 2.4-1.8s1.7.6 2.4 1.8" stroke="currentColor" strokeWidth="1.45" />
+      <path d="M13.8 10h4.2M13.8 13.2H18" stroke="currentColor" strokeWidth="1.45" />
     </svg>
   )
 }
@@ -259,6 +265,76 @@ function collectMobileSubLinks(item: MegaMenuItem, limit = 4): MobileMenuSubLink
   }
 
   return deduped
+}
+
+function normalizeMobileMenuDescription(value: string | null | undefined): string | null {
+  if (typeof value !== 'string') return null
+  const normalized = value.replace(/\s+/g, ' ').trim()
+  return normalized.length > 0 ? normalized : null
+}
+
+function clampMobileMenuDescription(value: string, maxLength = 96): string {
+  if (value.length <= maxLength) return value
+  const clipped = value
+    .slice(0, maxLength)
+    .replace(/[.,;:!?\s-]+$/g, '')
+    .trim()
+  return clipped.length > 0 ? `${clipped}…` : value.slice(0, maxLength).trim()
+}
+
+const MOBILE_MENU_DEFAULT_DESCRIPTIONS: Record<string, string> = {
+  home: 'Startseite mit Überblick über Leistungen, Projekte und aktuelle Inhalte.',
+  preise: 'Pakete, Leistungen und transparente Konditionen im schnellen Vergleich.',
+  profil: 'Mehr über mich, meinen Werdegang und meine Arbeitsweise.',
+  kontakt: 'Direkt Kontakt aufnehmen per Formular, E-Mail, WhatsApp oder Telefon.',
+}
+
+function getDefaultMobileMenuDescription(item: MegaMenuItem): string | null {
+  const normalizedLabel = item.label.trim().toLocaleLowerCase('de-DE')
+  if (normalizedLabel in MOBILE_MENU_DEFAULT_DESCRIPTIONS) {
+    return clampMobileMenuDescription(MOBILE_MENU_DEFAULT_DESCRIPTIONS[normalizedLabel] ?? '')
+  }
+
+  const normalizedUrl = item.url.trim().toLocaleLowerCase('de-DE')
+  if (normalizedUrl === '/') {
+    return clampMobileMenuDescription(MOBILE_MENU_DEFAULT_DESCRIPTIONS.home)
+  }
+  if (normalizedUrl === '/preise') {
+    return clampMobileMenuDescription(MOBILE_MENU_DEFAULT_DESCRIPTIONS.preise)
+  }
+  if (normalizedUrl === '/profil') {
+    return clampMobileMenuDescription(MOBILE_MENU_DEFAULT_DESCRIPTIONS.profil)
+  }
+  if (normalizedUrl === '/kontakt') {
+    return clampMobileMenuDescription(MOBILE_MENU_DEFAULT_DESCRIPTIONS.kontakt)
+  }
+
+  return null
+}
+
+function getMobileMenuItemDescription(item: MegaMenuItem): string | null {
+  const fromCategory = normalizeMobileMenuDescription(item.categoryDescription?.description)
+  if (fromCategory) return clampMobileMenuDescription(fromCategory)
+
+  for (const col of item.columns ?? []) {
+    for (const sub of col.items ?? []) {
+      const fromColumnItem = normalizeMobileMenuDescription(sub.description)
+      if (fromColumnItem) return clampMobileMenuDescription(fromColumnItem)
+    }
+  }
+
+  for (const sub of item.subItems ?? []) {
+    const fromSubItem = normalizeMobileMenuDescription(sub.description)
+    if (fromSubItem) return clampMobileMenuDescription(fromSubItem)
+  }
+
+  const fromHighlight = normalizeMobileMenuDescription(item.highlight?.description)
+  if (fromHighlight) return clampMobileMenuDescription(fromHighlight)
+
+  const fallback = getDefaultMobileMenuDescription(item)
+  if (fallback) return fallback
+
+  return null
 }
 
 function getMobileDockActionTarget(action: MobileDockAction): string {
@@ -308,6 +384,44 @@ function getMobileMenuFallbackIcon(item: Pick<MegaMenuItem, 'label' | 'url'>): L
   if (/(über|ueber|about|team|profil|unternehmen)/.test(haystack)) return User
   if (/(start|home|index)/.test(haystack)) return Home
   return Compass
+}
+
+type MobileMenuItemIconProps = {
+  src?: string | null
+  FallbackIcon: LucideIcon
+}
+
+function MobileMenuItemIcon({ src, FallbackIcon }: MobileMenuItemIconProps) {
+  const [loaded, setLoaded] = React.useState(false)
+  const normalizedSrc = typeof src === 'string' && src.trim().length > 0 ? src : null
+
+  React.useEffect(() => {
+    setLoaded(false)
+  }, [normalizedSrc])
+
+  if (!normalizedSrc) {
+    return <FallbackIcon className="mobile-megamenu-item-icon-svg" />
+  }
+
+  return (
+    <>
+      <FallbackIcon
+        className={cn(
+          'mobile-megamenu-item-icon-svg mobile-megamenu-item-icon-fallback',
+          loaded && 'is-hidden',
+        )}
+      />
+      <ResilientImage
+        src={normalizedSrc}
+        alt=""
+        className={cn('mobile-megamenu-item-icon-img', loaded && 'is-loaded')}
+        loading="eager"
+        decoding="sync"
+        fetchPriority="high"
+        onLoad={() => setLoaded(true)}
+      />
+    </>
+  )
 }
 
 type MobileMenuTriggerIconProps = {
@@ -427,6 +541,8 @@ type MegaMenuProps = {
   megaMenuCta?: MegaMenuCta
   /** Optional: Stil der Highlight-Karten (aus Header-Global) */
   highlightCardStyle?: HighlightCardStyle
+  /** Telefonnummer aus dem Footer-Global für den Call-CTA im mobilen Dock */
+  mobileDockPhone?: string | null
 }
 
 function hasDropdown(item: MegaMenuItem): boolean {
@@ -895,6 +1011,7 @@ export function MegaMenu({
   columnWidths,
   megaMenuCta,
   highlightCardStyle,
+  mobileDockPhone,
 }: MegaMenuProps) {
   const cardStyle = highlightCardStyle ?? defaultCardStyle
   const pathname = usePathname()
@@ -994,10 +1111,32 @@ export function MegaMenu({
       sortedItems.map((item, idx) => ({
         key: getMegaMenuItemKey(item, idx),
         item,
+        description: getMobileMenuItemDescription(item),
         subLinks: collectMobileSubLinks(item, 8),
       })),
     [sortedItems],
   )
+  const mobileMenuIconSources = useMemo(() => {
+    const unique = new Set<string>()
+    for (const entry of mobileMenuItems) {
+      const iconSrc = mediaUrl(entry.item.icon ?? null)
+      if (iconSrc) unique.add(iconSrc)
+    }
+    return Array.from(unique)
+  }, [mobileMenuItems])
+  const preloadedMobileMenuIconsRef = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    for (const iconSrc of mobileMenuIconSources) {
+      if (!iconSrc || preloadedMobileMenuIconsRef.current.has(iconSrc)) continue
+      preloadedMobileMenuIconsRef.current.add(iconSrc)
+      const preloader = new window.Image()
+      preloader.decoding = 'async'
+      preloader.src = iconSrc
+    }
+  }, [mobileMenuIconSources])
   const activeMobileEntry = useMemo(
     () => mobileMenuItems.find((entry) => entry.key === mobileActivePrimary) ?? null,
     [mobileMenuItems, mobileActivePrimary],
@@ -1028,21 +1167,26 @@ export function MegaMenu({
     ? `mobile-megamenu-trigger-${toDomId(activeMobileEntry.key)}`
     : undefined
   const mobileHasSecondaryOpen = Boolean(activeMobileEntry && activeMobileEntry.subLinks.length > 0)
+  const mobileDockPhoneHref = useMemo(() => {
+    const normalizedPhone = normalizePhoneForTel(mobileDockPhone)
+    if (normalizedPhone) return `tel:${normalizedPhone}`
+    return `tel:+${MOBILE_DOCK_WHATSAPP_E164}`
+  }, [mobileDockPhone])
   const mobileDockActions = useMemo<MobileDockAction[]>(
     () => [
       {
         key: 'phone',
-        href: MOBILE_DOCK_PHONE_HREF,
+        href: mobileDockPhoneHref,
         label: 'Phone',
         icon: Phone,
-        iconScale: 0.92,
+        iconScale: 1.02,
       },
       {
         key: 'email',
         href: MOBILE_DOCK_EMAIL_HREF,
         label: 'Email',
         icon: Mail,
-        iconScale: 0.92,
+        iconScale: 1.02,
       },
       {
         key: 'whatsapp',
@@ -1052,7 +1196,7 @@ export function MegaMenu({
         targetBlank: true,
         rel: 'noopener noreferrer',
         tone: 'accent',
-        iconScale: 0.97,
+        iconScale: 0.96,
       },
       {
         key: 'vcard',
@@ -1060,24 +1204,24 @@ export function MegaMenu({
         label: 'vCard',
         icon: VCardIcon,
         download: true,
-        iconScale: 0.91,
+        iconScale: 0.98,
       },
       {
         key: 'calendar',
         href: MOBILE_DOCK_CALENDAR_URL,
         label: 'Calendar',
         icon: CalendarDays,
-        targetBlank: true,
-        rel: 'noopener noreferrer',
-        iconScale: 0.92,
+        isInternal: true,
+        iconScale: 1.02,
       },
     ],
-    [],
+    [mobileDockPhoneHref],
   )
   const mobileDockPendingAction = useMemo(
     () => mobileDockActions.find((action) => action.key === mobileDockPendingActionKey) ?? null,
     [mobileDockActions, mobileDockPendingActionKey],
   )
+  const isMobileDockTooltipActionable = mobileDockPendingAction != null
   const preloadMediaUrls = useMemo(() => collectPreloadMediaUrls(sortedItems), [sortedItems])
   const mobileMenuIconUrls = useMemo(() => collectMobileMenuIconUrls(sortedItems), [sortedItems])
 
@@ -1378,7 +1522,7 @@ export function MegaMenu({
   }, [])
 
   const handleDockActionPointerDown = React.useCallback(
-    (event: React.PointerEvent<HTMLElement>, action: MobileDockAction) => {
+    (event: React.PointerEvent<HTMLElement>) => {
       if (event.pointerType === 'mouse' && event.button !== 0) return
 
       const actionEl = event.currentTarget
@@ -1397,28 +1541,11 @@ export function MegaMenu({
       triggerMobileDockHaptic(6)
       clearMobileDockLongPressTimeout()
       mobileDockLongPressTriggeredKeyRef.current = null
-
-      mobileDockLongPressTimeoutRef.current = setTimeout(() => {
-        mobileDockLongPressTriggeredKeyRef.current = action.key
-        mobileDockSuppressClickKeyRef.current = action.key
-        actionEl.removeAttribute('data-pressed')
-        actionEl.setAttribute('data-active', 'true')
-        showMobileDockTooltip(action.label, actionEl, {
-          autoHideMs: MOBILE_DOCK_TOOLTIP_AUTOHIDE_MS,
-        })
-        triggerMobileDockHaptic(12)
-        window.setTimeout(() => {
-          if (mobileDockSuppressClickKeyRef.current === action.key) {
-            mobileDockSuppressClickKeyRef.current = null
-          }
-        }, 650)
-      }, MOBILE_DOCK_LONG_PRESS_MS)
     },
     [
       clearMobileDockLongPressTimeout,
       measureMobileDockMetrics,
       setMobileDockPointer,
-      showMobileDockTooltip,
       spawnMobileDockRipple,
       triggerMobileDockHaptic,
     ],
@@ -1461,6 +1588,7 @@ export function MegaMenu({
 
   const handleDockActionFocus = React.useCallback(
     (event: React.FocusEvent<HTMLElement>, action: MobileDockAction) => {
+      if (!event.currentTarget.matches(':focus-visible')) return
       event.currentTarget.setAttribute('data-active', 'true')
       showMobileDockTooltip(action.label, event.currentTarget)
     },
@@ -1476,11 +1604,10 @@ export function MegaMenu({
   )
 
   const handleDockActionMouseEnter = React.useCallback(
-    (event: React.MouseEvent<HTMLElement>, action: MobileDockAction) => {
+    (event: React.MouseEvent<HTMLElement>) => {
       event.currentTarget.setAttribute('data-active', 'true')
-      showMobileDockTooltip(action.label, event.currentTarget)
     },
-    [showMobileDockTooltip],
+    [],
   )
 
   const handleDockActionMouseLeave = React.useCallback(
@@ -1488,9 +1615,11 @@ export function MegaMenu({
       if (!event.currentTarget.matches(':focus-visible')) {
         event.currentTarget.removeAttribute('data-active')
       }
-      clearMobileDockTooltip()
+      if (!mobileDockPendingActionKey) {
+        clearMobileDockTooltip()
+      }
     },
-    [clearMobileDockTooltip],
+    [clearMobileDockTooltip, mobileDockPendingActionKey],
   )
 
   const handleDockActionClick = React.useCallback(
@@ -1663,6 +1792,7 @@ export function MegaMenu({
     setMobileMenuIconActive(false)
     mobileMenuCloseTimeoutRef.current = setTimeout(() => {
       setMobileMenuOpen(false)
+      mobileMenuTriggerRef.current?.focus({ preventScroll: true })
       mobileMenuCloseTimeoutRef.current = null
     }, HAM_ICON_ANIMATION_MS)
   }, [clearMobileMenuCloseTimeout, clearMobileMenuOpenIconTimeout, resetMobileDockState])
@@ -2645,18 +2775,24 @@ export function MegaMenu({
                       />
                     </button>
                     <SheetContent
-                      forceMount
                       ref={mobileMenuSheetRef}
                       side="right"
-                      overlayClassName="mobile-megamenu-overlay data-[state=open]:animate-none data-[state=closed]:animate-none"
-                      className="mobile-megamenu-sheet megamenu-sheet h-[100dvh] max-h-[100dvh] w-full max-w-full sm:w-[min(94vw,36rem)] sm:max-w-[36rem] border-l border-border/40 p-0 data-[state=open]:animate-none data-[state=closed]:animate-none supports-[height:100svh]:h-[100svh] [&>button]:hidden"
+                      onCloseAutoFocus={(event) => {
+                        event.preventDefault()
+                        mobileMenuTriggerRef.current?.focus({ preventScroll: true })
+                      }}
+                      overlayClassName="mobile-megamenu-overlay data-[state=open]:!animate-none data-[state=closed]:!animate-none"
+                      className="mobile-megamenu-sheet megamenu-sheet h-[100dvh] max-h-[100dvh] w-full max-w-full sm:w-[min(94vw,36rem)] sm:max-w-[36rem] border-l border-border/40 p-0 data-[state=open]:!animate-none data-[state=closed]:!animate-none supports-[height:100svh]:h-[100svh] [&>button]:hidden"
                       style={
-                        mobileMenuOrigin
-                          ? ({
-                              '--mobile-mega-origin-x': `calc(100% - ${mobileMenuOrigin.right}px)`,
-                              '--mobile-mega-origin-y': `${mobileMenuOrigin.y}px`,
-                            } as React.CSSProperties)
-                          : undefined
+                        {
+                          '--mobile-mega-item-count': String(Math.max(1, mobileMenuItems.length)),
+                          ...(mobileMenuOrigin
+                            ? {
+                                '--mobile-mega-origin-x': `calc(100% - ${mobileMenuOrigin.right}px)`,
+                                '--mobile-mega-origin-y': `${mobileMenuOrigin.y}px`,
+                              }
+                            : {}),
+                        } as React.CSSProperties
                       }
                     >
                       <SheetTitle className="sr-only">Mobilmenü</SheetTitle>
@@ -2707,6 +2843,7 @@ export function MegaMenu({
                                 {mobileMenuItems.map((entry, idx) => {
                                   const hasSubmenu = entry.subLinks.length > 0
                                   const isActive = mobileActivePrimary === entry.key
+                                  const hasDescription = Boolean(entry.description)
                                   const triggerId = `mobile-megamenu-trigger-${toDomId(entry.key)}`
                                   const menuIconSrc = mediaUrl(entry.item.icon ?? null)
                                   const FallbackIcon = getMobileMenuFallbackIcon(entry.item)
@@ -2726,6 +2863,7 @@ export function MegaMenu({
                                           id={triggerId}
                                           className="mobile-megamenu-item-main mobile-megamenu-item-main--has-submenu w-full"
                                           data-active={isActive ? 'true' : undefined}
+                                          data-has-description={hasDescription ? 'true' : undefined}
                                           aria-label={entry.item.label}
                                           aria-expanded={isActive}
                                           aria-controls={mobileSubmenuPanelId}
@@ -2739,20 +2877,20 @@ export function MegaMenu({
                                             className="mobile-megamenu-item-icon"
                                             aria-hidden="true"
                                           >
-                                            {menuIconSrc ? (
-                                              <ResilientImage
-                                                src={menuIconSrc}
-                                                alt=""
-                                                className="mobile-megamenu-item-icon-img"
-                                                loading="eager"
-                                                decoding="sync"
-                                              />
-                                            ) : (
-                                              <FallbackIcon className="mobile-megamenu-item-icon-svg" />
-                                            )}
+                                            <MobileMenuItemIcon
+                                              src={menuIconSrc}
+                                              FallbackIcon={FallbackIcon}
+                                            />
                                           </span>
-                                          <span className="mobile-megamenu-item-label truncate font-semibold text-foreground text-left">
-                                            {entry.item.label}
+                                          <span className="mobile-megamenu-item-copy">
+                                            <span className="mobile-megamenu-item-label truncate font-semibold text-foreground text-left">
+                                              {entry.item.label}
+                                            </span>
+                                            {hasDescription ? (
+                                              <span className="mobile-megamenu-item-description">
+                                                {entry.description}
+                                              </span>
+                                            ) : null}
                                           </span>
                                           <ChevronRight className="mobile-megamenu-item-arrow h-4 w-4 shrink-0 text-primary" />
                                         </button>
@@ -2760,6 +2898,7 @@ export function MegaMenu({
                                         <Link
                                           href={entry.item.url}
                                           className="mobile-megamenu-item-main w-full"
+                                          data-has-description={hasDescription ? 'true' : undefined}
                                           aria-label={entry.item.label}
                                           onClick={() => {
                                             setMobileMenuOpen(false)
@@ -2769,20 +2908,20 @@ export function MegaMenu({
                                             className="mobile-megamenu-item-icon"
                                             aria-hidden="true"
                                           >
-                                            {menuIconSrc ? (
-                                              <ResilientImage
-                                                src={menuIconSrc}
-                                                alt=""
-                                                className="mobile-megamenu-item-icon-img"
-                                                loading="eager"
-                                                decoding="sync"
-                                              />
-                                            ) : (
-                                              <FallbackIcon className="mobile-megamenu-item-icon-svg" />
-                                            )}
+                                            <MobileMenuItemIcon
+                                              src={menuIconSrc}
+                                              FallbackIcon={FallbackIcon}
+                                            />
                                           </span>
-                                          <span className="mobile-megamenu-item-label truncate font-semibold text-foreground text-left">
-                                            {entry.item.label}
+                                          <span className="mobile-megamenu-item-copy">
+                                            <span className="mobile-megamenu-item-label truncate font-semibold text-foreground text-left">
+                                              {entry.item.label}
+                                            </span>
+                                            {hasDescription ? (
+                                              <span className="mobile-megamenu-item-description">
+                                                {entry.description}
+                                              </span>
+                                            ) : null}
                                           </span>
                                         </Link>
                                       )}
@@ -2811,29 +2950,34 @@ export function MegaMenu({
                                     >
                                       {activeMobileEntry.item.label}
                                     </Link>
-                                    <ChevronLeft
-                                      className="mobile-megamenu-secondary-back-icon h-4 w-4"
-                                      role="button"
-                                      tabIndex={0}
+                                    <button
+                                      type="button"
+                                      className="mobile-megamenu-secondary-back-button"
                                       aria-label="Zurück"
                                       onClick={() => setMobileActivePrimary(null)}
-                                      onKeyDown={(event) => {
-                                        if (event.key === 'Enter' || event.key === ' ') {
-                                          event.preventDefault()
-                                          setMobileActivePrimary(null)
-                                        }
-                                      }}
-                                    />
+                                    >
+                                      <ChevronLeft
+                                        className="mobile-megamenu-secondary-back-icon h-4 w-4"
+                                        aria-hidden="true"
+                                      />
+                                    </button>
                                   </div>
                                   <div className="mobile-megamenu-secondary-list">
                                     {activeMobileGroups.map((group, groupIdx) => (
                                       <section
                                         key={`mobile-sub-group-${group.title ?? 'default'}-${groupIdx}`}
-                                        className="mobile-megamenu-sub-group"
+                                        className={cn(
+                                          'mobile-megamenu-sub-group',
+                                          group.title
+                                            ? 'mobile-megamenu-sub-group--titled'
+                                            : 'mobile-megamenu-sub-group--untitled',
+                                        )}
                                       >
                                         {group.title ? (
                                           <p className="mobile-megamenu-sub-group-title">
-                                            {group.title}
+                                            <span className="mobile-megamenu-sub-group-title-label">
+                                              {group.title}
+                                            </span>
                                           </p>
                                         ) : null}
                                         <ul className="mobile-megamenu-sub-group-links">
@@ -2878,9 +3022,11 @@ export function MegaMenu({
                                 'mobile-megamenu-contact-tooltip-pill',
                                 mobileDockTooltip && 'is-visible',
                                 mobileDockTooltip?.variant === 'click' && 'is-click',
-                                mobileDockPendingAction && 'is-actionable',
+                                isMobileDockTooltipActionable && 'is-actionable',
                               )}
-                              aria-hidden={!mobileDockPendingAction}
+                              aria-hidden={!isMobileDockTooltipActionable}
+                              tabIndex={isMobileDockTooltipActionable ? 0 : -1}
+                              disabled={!isMobileDockTooltipActionable}
                               onClick={handleDockTooltipActionClick}
                               style={
                                 mobileDockTooltip
@@ -2910,6 +3056,11 @@ export function MegaMenu({
                             {mobileDockActions.map((action) => {
                               const Icon = action.icon
                               const tone = action.tone ?? 'default'
+                              const iconClassName = cn(
+                                'mobile-megamenu-contact-action-icon',
+                                action.key === 'whatsapp' &&
+                                  'mobile-megamenu-contact-action-icon--brand-whatsapp',
+                              )
                               const iconStyle = {
                                 '--mobile-dock-icon-scale': String(action.iconScale ?? 1),
                               } as React.CSSProperties
@@ -2925,9 +3076,9 @@ export function MegaMenu({
                                     aria-label={action.label}
                                     onFocus={(event) => handleDockActionFocus(event, action)}
                                     onBlur={handleDockActionBlur}
-                                    onMouseEnter={(event) => handleDockActionMouseEnter(event, action)}
+                                    onMouseEnter={handleDockActionMouseEnter}
                                     onMouseLeave={handleDockActionMouseLeave}
-                                    onPointerDown={(event) => handleDockActionPointerDown(event, action)}
+                                    onPointerDown={handleDockActionPointerDown}
                                     onPointerUp={(event) => handleDockActionPointerUp(event, action)}
                                     onPointerCancel={handleDockActionPointerCancel}
                                     onKeyDown={(event) => handleDockActionKeyDown(event, action)}
@@ -2935,7 +3086,7 @@ export function MegaMenu({
                                     onClick={(event) => handleDockActionClick(event, action)}
                                   >
                                     <Icon
-                                      className="mobile-megamenu-contact-action-icon"
+                                      className={iconClassName}
                                       style={iconStyle}
                                       aria-hidden
                                     />
@@ -2958,9 +3109,9 @@ export function MegaMenu({
                                   aria-label={action.label}
                                   onFocus={(event) => handleDockActionFocus(event, action)}
                                   onBlur={handleDockActionBlur}
-                                  onMouseEnter={(event) => handleDockActionMouseEnter(event, action)}
+                                  onMouseEnter={handleDockActionMouseEnter}
                                   onMouseLeave={handleDockActionMouseLeave}
-                                  onPointerDown={(event) => handleDockActionPointerDown(event, action)}
+                                  onPointerDown={handleDockActionPointerDown}
                                   onPointerUp={(event) => handleDockActionPointerUp(event, action)}
                                   onPointerCancel={handleDockActionPointerCancel}
                                   onKeyDown={(event) => handleDockActionKeyDown(event, action)}
@@ -2968,7 +3119,7 @@ export function MegaMenu({
                                   onClick={(event) => handleDockActionClick(event, action)}
                                 >
                                   <Icon
-                                    className="mobile-megamenu-contact-action-icon"
+                                    className={iconClassName}
                                     style={iconStyle}
                                     aria-hidden
                                   />

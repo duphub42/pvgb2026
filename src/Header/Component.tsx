@@ -4,25 +4,47 @@ import { getMegaMenuItems } from '@/utilities/getMegaMenu'
 import React from 'react'
 
 import type { MegaMenuItem } from '@/components/MegaMenu'
-import type { Header } from '@/payload-types'
+import type { Footer, Header } from '@/payload-types'
 
 export async function Header() {
   let headerData: Header | null = null
   let megaMenuItems: MegaMenuItem[] = []
-  try {
-    headerData = (await getCachedGlobal('header', 1)()) as Header
-    const rawItems =
-      (headerData as Header & { useMegaMenu?: boolean })?.useMegaMenu === true
-        ? await getMegaMenuItems()
-        : []
-    megaMenuItems = Array.isArray(rawItems) ? (rawItems as unknown as MegaMenuItem[]) : []
-  } catch (err) {
-    console.error('[Header] Failed to load header global:', err)
+  let mobileDockPhone: string | null = null
+
+  const [headerResult, footerResult] = await Promise.allSettled([
+    getCachedGlobal('header', 1)(),
+    getCachedGlobal('footer', 0)(),
+  ])
+
+  if (headerResult.status === 'fulfilled') {
+    headerData = headerResult.value as Header
+  } else {
+    console.error('[Header] Failed to load header global:', headerResult.reason)
   }
+
+  if (footerResult.status === 'fulfilled') {
+    const footerData = footerResult.value as Footer
+    const footerPhone =
+      typeof footerData?.footerPhone === 'string' ? footerData.footerPhone.trim() : ''
+    mobileDockPhone = footerPhone || null
+  } else {
+    console.error('[Header] Failed to load footer global:', footerResult.reason)
+  }
+
+  try {
+    if ((headerData as Header & { useMegaMenu?: boolean })?.useMegaMenu === true) {
+      const rawItems = await getMegaMenuItems()
+      megaMenuItems = Array.isArray(rawItems) ? (rawItems as unknown as MegaMenuItem[]) : []
+    }
+  } catch (err) {
+    console.error('[Header] Failed to load mega-menu items:', err)
+  }
+
   return (
     <HeaderClient
       data={headerData ?? ({} as Header)}
       megaMenuItems={megaMenuItems}
+      mobileDockPhone={mobileDockPhone}
     />
   )
 }
