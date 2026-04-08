@@ -140,11 +140,16 @@ function toDomId(value: string): string {
     .replace(/^-+|-+$/g, '')
 }
 
-const DEFAULT_CONTACT_PHONE_E164 = '4934596393323'
-const DEFAULT_CONTACT_EMAIL = 'mail@philippbacher.com'
-const DEFAULT_WHATSAPP_URL = 'https://wa.me/4915780280163'
-const DEFAULT_BOOKING_URL = '/kontakt#kontaktformular'
+const MOBILE_DOCK_PHONE_HREF = 'tel:+49123456789'
+const MOBILE_DOCK_EMAIL_HREF = 'mailto:test@mail.com'
+const MOBILE_DOCK_WHATSAPP_URL = 'https://wa.me/49123456789'
+const MOBILE_DOCK_VCARD_URL = '/contact.vcf'
+const MOBILE_DOCK_CALENDAR_URL = 'https://calendly.com/demo'
+const MOBILE_MENU_LOGO_ICON_SRC = '/api/media/file/philippbacher-logo-b-16.svg'
 const HAM_ICON_ANIMATION_MS = 400
+const MOBILE_DOCK_LONG_PRESS_MS = 400
+const MOBILE_DOCK_TOOLTIP_AUTOHIDE_MS = 1500
+const MOBILE_DOCK_PROXIMITY_RADIUS = 132
 
 type MobileMenuSubLink = {
   label: string
@@ -155,43 +160,60 @@ type MobileMenuSubLink = {
 type MobileDockTone = 'default' | 'booking' | 'accent'
 type MobileDockIcon = React.ComponentType<React.SVGProps<SVGSVGElement>>
 
-type MobileDockAction =
-  | {
-      key: string
-      kind: 'link'
-      href: string
-      label: string
-      icon: MobileDockIcon
-      tone?: MobileDockTone
-    }
-  | {
-      key: string
-      kind: 'anchor'
-      href: string
-      label: string
-      icon: MobileDockIcon
-      tone?: MobileDockTone
-      targetBlank?: boolean
-    }
+type MobileDockAction = {
+  key: string
+  href: string
+  label: string
+  icon: MobileDockIcon
+  tone?: MobileDockTone
+  iconScale?: number
+  isInternal?: boolean
+  targetBlank?: boolean
+  rel?: string
+  download?: boolean
+}
+
+type MobileDockTooltipState = {
+  label: string
+  x: number
+}
+
+type MobileDockActionMetric = {
+  key: string
+  centerX: number
+  centerY: number
+  el: HTMLElement
+}
 
 function WhatsAppLogoIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" fill="none" {...props}>
       <path
-        d="M20 11.5a8.5 8.5 0 0 1-12.4 7.5L4 20l1-3.6A8.5 8.5 0 1 1 20 11.5Z"
+        d="M12 4.25a7.75 7.75 0 0 1 6.83 11.43l-.43.75.45 2.6-2.65-.44-.75.43a7.75 7.75 0 1 1-3.45-14.77Z"
         stroke="currentColor"
-        strokeWidth="1.8"
+        strokeWidth="1.9"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
       <path
-        d="M9.1 8.2c.1-.3.3-.5.6-.6l1-.3c.3-.1.7.1.8.4l.6 1.4c.1.3 0 .6-.2.8l-.5.6c.6 1.1 1.4 1.9 2.5 2.5l.6-.5c.2-.2.5-.3.8-.2l1.4.6c.3.1.5.5.4.8l-.3 1c-.1.3-.3.5-.6.6-.4.2-.9.2-1.3.1-1.5-.4-2.9-1.2-4.1-2.4-1.2-1.2-2-2.6-2.4-4.1-.1-.4-.1-.9.1-1.3Z"
+        d="M9.62 8.88c.11-.28.29-.44.54-.49l.69-.15c.28-.06.56.07.69.32l.4.77c.12.24.08.52-.1.72l-.34.39a4.9 4.9 0 0 0 2.24 2.24l.39-.34a.75.75 0 0 1 .72-.1l.77.4c.25.13.38.41.32.69l-.15.69c-.05.25-.21.43-.49.54-.4.16-.84.2-1.28.09-1.15-.31-2.2-.92-3.11-1.83s-1.52-1.96-1.83-3.11c-.11-.44-.07-.88.09-1.28Z"
         stroke="currentColor"
-        strokeWidth="1.8"
+        strokeWidth="1.9"
         strokeLinecap="round"
         strokeLinejoin="round"
         fill="none"
       />
+    </svg>
+  )
+}
+
+function VCardIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      <rect x="3.5" y="5" width="17" height="14" rx="3" stroke="currentColor" strokeWidth="1.8" />
+      <circle cx="9.2" cy="11" r="1.8" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M6.8 15.3c.7-1.2 1.6-1.8 2.4-1.8s1.7.6 2.4 1.8" stroke="currentColor" strokeWidth="1.8" />
+      <path d="M13.8 10h4.2M13.8 13.2H18" stroke="currentColor" strokeWidth="1.8" />
     </svg>
   )
 }
@@ -234,12 +256,6 @@ function collectMobileSubLinks(item: MegaMenuItem, limit = 4): MobileMenuSubLink
   }
 
   return deduped
-}
-
-function extractPhoneDigitsFromWhatsApp(url?: string | null): string | null {
-  if (!url) return null
-  const match = url.match(/wa\.me\/(\d+)/i)
-  return match?.[1] ?? null
 }
 
 function getMobileMenuFallbackIcon(item: Pick<MegaMenuItem, 'label' | 'url'>): LucideIcon {
@@ -824,7 +840,6 @@ const defaultCardStyle: HighlightCardStyle = {
 export function MegaMenu({
   items,
   logo,
-  mobileLogo,
   className = '',
   columnWidths,
   megaMenuCta,
@@ -844,9 +859,26 @@ export function MegaMenu({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mobileMenuIconActive, setMobileMenuIconActive] = useState(false)
   const [mobileActivePrimary, setMobileActivePrimary] = useState<string | null>(null)
-  const [mobileDockTooltip, setMobileDockTooltip] = useState<string | null>(null)
+  const [mobileDockTooltip, setMobileDockTooltip] = useState<MobileDockTooltipState | null>(null)
+  const [mobileMenuOrigin, setMobileMenuOrigin] = useState<{ right: number; y: number } | null>(
+    null,
+  )
+  const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null)
+  const mobileDockActionsRef = useRef<HTMLDivElement>(null)
+  const mobileDockActionRefs = useRef<Map<string, HTMLElement>>(new Map())
+  const mobileDockMetricsRef = useRef<MobileDockActionMetric[]>([])
+  const mobileDockPointerRef = useRef<{ x: number; y: number; active: boolean }>({
+    x: 0,
+    y: 0,
+    active: false,
+  })
   const mobileMenuCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const mobileMenuOpenIconTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileDockTooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const mobileDockLongPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const mobileDockLongPressTriggeredKeyRef = useRef<string | null>(null)
+  const mobileDockSuppressClickKeyRef = useRef<string | null>(null)
+  const mobileDockRafRef = useRef<number | null>(null)
   const viewportWrapperRef = useRef<HTMLDivElement>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [mouseEntrySide, setMouseEntrySide] = useState<'left' | 'right'>('left')
@@ -941,45 +973,51 @@ export function MegaMenu({
     ? `mobile-megamenu-trigger-${toDomId(activeMobileEntry.key)}`
     : undefined
   const mobileHasSecondaryOpen = Boolean(activeMobileEntry && activeMobileEntry.subLinks.length > 0)
-  const mobileWhatsAppUrl = megaMenuCta?.whatsapp?.url ?? DEFAULT_WHATSAPP_URL
-  const mobileWhatsAppLabel = megaMenuCta?.whatsapp?.label ?? 'WhatsApp'
-  const contactPhoneDigits =
-    extractPhoneDigitsFromWhatsApp(mobileWhatsAppUrl) ?? DEFAULT_CONTACT_PHONE_E164
-  const contactPhoneHref = `tel:+${contactPhoneDigits}`
-  const contactEmailHref = `mailto:${DEFAULT_CONTACT_EMAIL}`
   const mobileDockActions = useMemo<MobileDockAction[]>(
     () => [
       {
         key: 'phone',
-        kind: 'anchor',
-        href: contactPhoneHref,
-        label: 'Anrufen',
+        href: MOBILE_DOCK_PHONE_HREF,
+        label: 'Phone',
         icon: Phone,
+        iconScale: 0.92,
       },
       {
-        key: 'mail',
-        kind: 'anchor',
-        href: contactEmailHref,
-        label: 'E-Mail schreiben',
+        key: 'email',
+        href: MOBILE_DOCK_EMAIL_HREF,
+        label: 'Email',
         icon: Mail,
-      },
-      {
-        key: 'booking',
-        kind: 'link',
-        href: DEFAULT_BOOKING_URL,
-        label: 'Terminbuchung',
-        icon: CalendarDays,
+        iconScale: 0.92,
       },
       {
         key: 'whatsapp',
-        kind: 'anchor',
-        href: mobileWhatsAppUrl,
-        label: mobileWhatsAppLabel,
+        href: MOBILE_DOCK_WHATSAPP_URL,
+        label: 'WhatsApp',
         icon: WhatsAppLogoIcon,
         targetBlank: true,
+        rel: 'noopener noreferrer',
+        tone: 'accent',
+        iconScale: 0.9,
+      },
+      {
+        key: 'vcard',
+        href: MOBILE_DOCK_VCARD_URL,
+        label: 'vCard',
+        icon: VCardIcon,
+        download: true,
+        iconScale: 0.91,
+      },
+      {
+        key: 'calendar',
+        href: MOBILE_DOCK_CALENDAR_URL,
+        label: 'Calendar',
+        icon: CalendarDays,
+        targetBlank: true,
+        rel: 'noopener noreferrer',
+        iconScale: 0.92,
       },
     ],
-    [contactEmailHref, contactPhoneHref, mobileWhatsAppLabel, mobileWhatsAppUrl],
+    [],
   )
   const preloadMediaUrls = useMemo(() => collectPreloadMediaUrls(sortedItems), [sortedItems])
 
@@ -990,6 +1028,13 @@ export function MegaMenu({
     }
   }, [])
 
+  const clearMobileMenuOpenIconTimeout = React.useCallback(() => {
+    if (mobileMenuOpenIconTimeoutRef.current) {
+      clearTimeout(mobileMenuOpenIconTimeoutRef.current)
+      mobileMenuOpenIconTimeoutRef.current = null
+    }
+  }, [])
+
   const clearMobileDockTooltipTimeout = React.useCallback(() => {
     if (mobileDockTooltipTimeoutRef.current) {
       clearTimeout(mobileDockTooltipTimeoutRef.current)
@@ -997,10 +1042,133 @@ export function MegaMenu({
     }
   }, [])
 
+  const clearMobileDockLongPressTimeout = React.useCallback(() => {
+    if (mobileDockLongPressTimeoutRef.current) {
+      clearTimeout(mobileDockLongPressTimeoutRef.current)
+      mobileDockLongPressTimeoutRef.current = null
+    }
+  }, [])
+
+  const clearMobileDockRaf = React.useCallback(() => {
+    if (mobileDockRafRef.current != null) {
+      window.cancelAnimationFrame(mobileDockRafRef.current)
+      mobileDockRafRef.current = null
+    }
+  }, [])
+
+  const setMobileDockActionRef = React.useCallback((key: string, node: HTMLElement | null) => {
+    if (node) {
+      mobileDockActionRefs.current.set(key, node)
+      return
+    }
+    mobileDockActionRefs.current.delete(key)
+  }, [])
+
+  const measureMobileDockMetrics = React.useCallback(() => {
+    const metrics: MobileDockActionMetric[] = []
+
+    for (const action of mobileDockActions) {
+      const el = mobileDockActionRefs.current.get(action.key)
+      if (!el) continue
+      const rect = el.getBoundingClientRect()
+      metrics.push({
+        key: action.key,
+        centerX: rect.left + rect.width / 2,
+        centerY: rect.top + rect.height / 2,
+        el,
+      })
+    }
+
+    mobileDockMetricsRef.current = metrics
+  }, [mobileDockActions])
+
+  const applyMobileDockMotion = React.useCallback(() => {
+    mobileDockRafRef.current = null
+    const containerEl = mobileDockActionsRef.current
+    if (!containerEl) return
+
+    const pointer = mobileDockPointerRef.current
+    const metrics = mobileDockMetricsRef.current
+
+    if (metrics.length === 0) return
+
+    if (!pointer.active) {
+      containerEl.dataset.interacting = 'false'
+      for (const metric of metrics) {
+        metric.el.style.setProperty('--mobile-dock-scale', '1')
+        metric.el.style.setProperty('--mobile-dock-lift', '0px')
+        metric.el.style.setProperty('--mobile-dock-z', '1')
+      }
+      return
+    }
+
+    containerEl.dataset.interacting = 'true'
+
+    for (const metric of metrics) {
+      const dx = pointer.x - metric.centerX
+      const dy = pointer.y - metric.centerY
+      const distance = Math.hypot(dx, dy * 1.15)
+      const normalized = Math.max(0, 1 - distance / MOBILE_DOCK_PROXIMITY_RADIUS)
+      const eased = normalized * normalized * (3 - 2 * normalized)
+      const scale = 1 + eased * 0.25
+      const lift = -6 * eased
+      const z = 1 + Math.round(eased * 24)
+      metric.el.style.setProperty('--mobile-dock-scale', scale.toFixed(3))
+      metric.el.style.setProperty('--mobile-dock-lift', `${lift.toFixed(2)}px`)
+      metric.el.style.setProperty('--mobile-dock-z', String(z))
+    }
+  }, [])
+
+  const queueMobileDockMotion = React.useCallback(() => {
+    if (mobileDockRafRef.current != null) return
+    mobileDockRafRef.current = window.requestAnimationFrame(() => {
+      applyMobileDockMotion()
+    })
+  }, [applyMobileDockMotion])
+
+  const setMobileDockPointer = React.useCallback(
+    (x: number, y: number) => {
+      mobileDockPointerRef.current = { x, y, active: true }
+      queueMobileDockMotion()
+    },
+    [queueMobileDockMotion],
+  )
+
+  const clearMobileDockPointer = React.useCallback(() => {
+    mobileDockPointerRef.current.active = false
+    queueMobileDockMotion()
+  }, [queueMobileDockMotion])
+
+  const triggerMobileDockHaptic = React.useCallback((duration = 8) => {
+    if (typeof navigator !== 'undefined' && 'vibrate' in navigator) {
+      navigator.vibrate(duration)
+    }
+  }, [])
+
+  const spawnMobileDockRipple = React.useCallback((actionEl: HTMLElement, x: number, y: number) => {
+    const rect = actionEl.getBoundingClientRect()
+    const size = Math.max(rect.width, rect.height) * 1.8
+    const rippleEl = document.createElement('span')
+    rippleEl.className = 'mobile-megamenu-contact-action-ripple'
+    rippleEl.style.width = `${size}px`
+    rippleEl.style.height = `${size}px`
+    rippleEl.style.left = `${x - rect.left - size / 2}px`
+    rippleEl.style.top = `${y - rect.top - size / 2}px`
+    actionEl.appendChild(rippleEl)
+    rippleEl.addEventListener('animationend', () => rippleEl.remove(), { once: true })
+  }, [])
+
   const showMobileDockTooltip = React.useCallback(
-    (label: string, autoHideMs?: number) => {
+    (label: string, actionEl?: HTMLElement | null, autoHideMs?: number) => {
       clearMobileDockTooltipTimeout()
-      setMobileDockTooltip(label)
+      let x = 0
+      if (actionEl && mobileDockActionsRef.current) {
+        const actionRect = actionEl.getBoundingClientRect()
+        const dockRect = mobileDockActionsRef.current.getBoundingClientRect()
+        const centerX = actionRect.left + actionRect.width / 2 - dockRect.left
+        x = Math.max(20, Math.min(dockRect.width - 20, centerX))
+      }
+      setMobileDockTooltip({ label, x })
       if (typeof autoHideMs === 'number' && autoHideMs > 0) {
         mobileDockTooltipTimeoutRef.current = setTimeout(() => {
           setMobileDockTooltip(null)
@@ -1016,21 +1184,256 @@ export function MegaMenu({
     setMobileDockTooltip(null)
   }, [clearMobileDockTooltipTimeout])
 
+  const handleDockActionsPointerEnter = React.useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      measureMobileDockMetrics()
+      setMobileDockPointer(event.clientX, event.clientY)
+    },
+    [measureMobileDockMetrics, setMobileDockPointer],
+  )
+
+  const handleDockActionsPointerMove = React.useCallback(
+    (event: React.PointerEvent<HTMLDivElement>) => {
+      setMobileDockPointer(event.clientX, event.clientY)
+    },
+    [setMobileDockPointer],
+  )
+
+  const handleDockActionsPointerLeave = React.useCallback(() => {
+    clearMobileDockLongPressTimeout()
+    clearMobileDockPointer()
+  }, [clearMobileDockLongPressTimeout, clearMobileDockPointer])
+
+  const removeDockPressedState = React.useCallback((actionEl: HTMLElement) => {
+    actionEl.removeAttribute('data-pressed')
+    window.setTimeout(() => {
+      if (!actionEl.matches(':focus-visible, :hover')) {
+        actionEl.removeAttribute('data-active')
+      }
+    }, 220)
+  }, [])
+
+  const handleDockActionPointerDown = React.useCallback(
+    (event: React.PointerEvent<HTMLElement>, action: MobileDockAction) => {
+      if (event.pointerType === 'mouse' && event.button !== 0) return
+
+      const actionEl = event.currentTarget
+      actionEl.setAttribute('data-pressed', 'true')
+      actionEl.setAttribute('data-active', 'true')
+      if (actionEl.setPointerCapture) {
+        try {
+          actionEl.setPointerCapture(event.pointerId)
+        } catch {
+          // Ignore pointer capture errors on unsupported platforms.
+        }
+      }
+      measureMobileDockMetrics()
+      setMobileDockPointer(event.clientX, event.clientY)
+      spawnMobileDockRipple(actionEl, event.clientX, event.clientY)
+      triggerMobileDockHaptic(6)
+      clearMobileDockLongPressTimeout()
+      mobileDockLongPressTriggeredKeyRef.current = null
+
+      mobileDockLongPressTimeoutRef.current = setTimeout(() => {
+        mobileDockLongPressTriggeredKeyRef.current = action.key
+        mobileDockSuppressClickKeyRef.current = action.key
+        actionEl.removeAttribute('data-pressed')
+        actionEl.setAttribute('data-active', 'true')
+        showMobileDockTooltip(action.label, actionEl, MOBILE_DOCK_TOOLTIP_AUTOHIDE_MS)
+        triggerMobileDockHaptic(12)
+        window.setTimeout(() => {
+          if (mobileDockSuppressClickKeyRef.current === action.key) {
+            mobileDockSuppressClickKeyRef.current = null
+          }
+        }, 650)
+      }, MOBILE_DOCK_LONG_PRESS_MS)
+    },
+    [
+      clearMobileDockLongPressTimeout,
+      measureMobileDockMetrics,
+      setMobileDockPointer,
+      showMobileDockTooltip,
+      spawnMobileDockRipple,
+      triggerMobileDockHaptic,
+    ],
+  )
+
+  const handleDockActionPointerUp = React.useCallback(
+    (event: React.PointerEvent<HTMLElement>, action: MobileDockAction) => {
+      clearMobileDockLongPressTimeout()
+      if (event.currentTarget.releasePointerCapture) {
+        try {
+          event.currentTarget.releasePointerCapture(event.pointerId)
+        } catch {
+          // Ignore pointer capture errors on unsupported platforms.
+        }
+      }
+      removeDockPressedState(event.currentTarget)
+      clearMobileDockPointer()
+      if (mobileDockLongPressTriggeredKeyRef.current === action.key) {
+        mobileDockLongPressTriggeredKeyRef.current = null
+      }
+    },
+    [clearMobileDockLongPressTimeout, clearMobileDockPointer, removeDockPressedState],
+  )
+
+  const handleDockActionPointerCancel = React.useCallback(
+    (event: React.PointerEvent<HTMLElement>) => {
+      clearMobileDockLongPressTimeout()
+      if (event.currentTarget.releasePointerCapture) {
+        try {
+          event.currentTarget.releasePointerCapture(event.pointerId)
+        } catch {
+          // Ignore pointer capture errors on unsupported platforms.
+        }
+      }
+      removeDockPressedState(event.currentTarget)
+      clearMobileDockPointer()
+    },
+    [clearMobileDockLongPressTimeout, clearMobileDockPointer, removeDockPressedState],
+  )
+
+  const handleDockActionFocus = React.useCallback(
+    (event: React.FocusEvent<HTMLElement>, action: MobileDockAction) => {
+      event.currentTarget.setAttribute('data-active', 'true')
+      showMobileDockTooltip(action.label, event.currentTarget)
+    },
+    [showMobileDockTooltip],
+  )
+
+  const handleDockActionBlur = React.useCallback(
+    (event: React.FocusEvent<HTMLElement>) => {
+      removeDockPressedState(event.currentTarget)
+      clearMobileDockTooltip()
+    },
+    [clearMobileDockTooltip, removeDockPressedState],
+  )
+
+  const handleDockActionMouseEnter = React.useCallback(
+    (event: React.MouseEvent<HTMLElement>, action: MobileDockAction) => {
+      event.currentTarget.setAttribute('data-active', 'true')
+      showMobileDockTooltip(action.label, event.currentTarget)
+    },
+    [showMobileDockTooltip],
+  )
+
+  const handleDockActionMouseLeave = React.useCallback(
+    (event: React.MouseEvent<HTMLElement>) => {
+      if (!event.currentTarget.matches(':focus-visible')) {
+        event.currentTarget.removeAttribute('data-active')
+      }
+      clearMobileDockTooltip()
+    },
+    [clearMobileDockTooltip],
+  )
+
+  const handleDockActionClick = React.useCallback(
+    (event: React.MouseEvent<HTMLElement>, action: MobileDockAction) => {
+      if (mobileDockSuppressClickKeyRef.current === action.key) {
+        event.preventDefault()
+        event.stopPropagation()
+        mobileDockSuppressClickKeyRef.current = null
+        return
+      }
+      const actionEl = event.currentTarget
+      actionEl.setAttribute('data-active', 'true')
+      clearMobileDockTooltip()
+      // Keep the dock visible a moment so ripple/tap feedback remains perceptible.
+      window.setTimeout(() => {
+        setMobileMenuIconActive(false)
+        setMobileMenuOpen(false)
+      }, 170)
+    },
+    [clearMobileDockTooltip],
+  )
+
+  const handleDockActionKeyDown = React.useCallback(
+    (event: React.KeyboardEvent<HTMLElement>, action: MobileDockAction) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return
+
+      const actionEl = event.currentTarget
+      const rect = actionEl.getBoundingClientRect()
+      actionEl.setAttribute('data-pressed', 'true')
+      actionEl.setAttribute('data-active', 'true')
+      spawnMobileDockRipple(actionEl, rect.left + rect.width / 2, rect.top + rect.height / 2)
+      showMobileDockTooltip(action.label, actionEl, MOBILE_DOCK_TOOLTIP_AUTOHIDE_MS)
+
+      if (event.key === ' ') {
+        event.preventDefault()
+        actionEl.click()
+      }
+    },
+    [showMobileDockTooltip, spawnMobileDockRipple],
+  )
+
+  const handleDockActionKeyUp = React.useCallback(
+    (event: React.KeyboardEvent<HTMLElement>) => {
+      if (event.key !== 'Enter' && event.key !== ' ') return
+      removeDockPressedState(event.currentTarget)
+    },
+    [removeDockPressedState],
+  )
+
+  const syncMobileMenuOrigin = React.useCallback(() => {
+    if (typeof window === 'undefined') return
+    const triggerEl = mobileMenuTriggerRef.current
+    if (!triggerEl) return
+    const rect = triggerEl.getBoundingClientRect()
+    const centerX = rect.left + rect.width / 2
+    const centerY = rect.top + rect.height / 2
+    setMobileMenuOrigin({
+      right: Math.max(0, window.innerWidth - centerX),
+      y: Math.max(0, centerY),
+    })
+  }, [])
+
+  const resetMobileDockState = React.useCallback(() => {
+    clearMobileDockRaf()
+    clearMobileDockLongPressTimeout()
+    clearMobileDockTooltip()
+    clearMobileDockPointer()
+    mobileDockSuppressClickKeyRef.current = null
+    mobileDockLongPressTriggeredKeyRef.current = null
+    for (const actionEl of mobileDockActionRefs.current.values()) {
+      actionEl.removeAttribute('data-pressed')
+      actionEl.removeAttribute('data-active')
+      actionEl.style.setProperty('--mobile-dock-scale', '1')
+      actionEl.style.setProperty('--mobile-dock-lift', '0px')
+      actionEl.style.setProperty('--mobile-dock-z', '1')
+    }
+    const containerEl = mobileDockActionsRef.current
+    if (containerEl) {
+      containerEl.dataset.interacting = 'false'
+    }
+  }, [
+    clearMobileDockLongPressTimeout,
+    clearMobileDockPointer,
+    clearMobileDockTooltip,
+    clearMobileDockRaf,
+  ])
+
   const openMobileMenu = React.useCallback(() => {
+    syncMobileMenuOrigin()
     clearMobileMenuCloseTimeout()
-    setMobileMenuIconActive(true)
+    clearMobileMenuOpenIconTimeout()
     setMobileMenuOpen(true)
-  }, [clearMobileMenuCloseTimeout])
+    setMobileMenuIconActive(false)
+    mobileMenuOpenIconTimeoutRef.current = setTimeout(() => {
+      setMobileMenuIconActive(true)
+      mobileMenuOpenIconTimeoutRef.current = null
+    }, 26)
+  }, [syncMobileMenuOrigin, clearMobileMenuCloseTimeout, clearMobileMenuOpenIconTimeout])
 
   const closeMobileMenu = React.useCallback(() => {
     clearMobileMenuCloseTimeout()
-    clearMobileDockTooltip()
+    clearMobileMenuOpenIconTimeout()
+    resetMobileDockState()
     setMobileMenuIconActive(false)
     mobileMenuCloseTimeoutRef.current = setTimeout(() => {
       setMobileMenuOpen(false)
       mobileMenuCloseTimeoutRef.current = null
     }, HAM_ICON_ANIMATION_MS)
-  }, [clearMobileMenuCloseTimeout, clearMobileDockTooltip])
+  }, [clearMobileMenuCloseTimeout, clearMobileMenuOpenIconTimeout, resetMobileDockState])
 
   const toggleMobileMenu = React.useCallback(() => {
     if (mobileMenuOpen) {
@@ -1064,23 +1467,64 @@ export function MegaMenu({
 
   useEffect(() => {
     clearMobileMenuCloseTimeout()
-    clearMobileDockTooltip()
+    clearMobileMenuOpenIconTimeout()
+    resetMobileDockState()
     setMobileMenuOpen(false)
     setMobileMenuIconActive(false)
     setMobileActivePrimary(null)
-  }, [pathname, clearMobileMenuCloseTimeout, clearMobileDockTooltip])
+  }, [pathname, clearMobileMenuCloseTimeout, clearMobileMenuOpenIconTimeout, resetMobileDockState])
 
   useEffect(() => {
     return () => {
       clearMobileMenuCloseTimeout()
+      clearMobileMenuOpenIconTimeout()
       clearMobileDockTooltipTimeout()
+      clearMobileDockLongPressTimeout()
+      clearMobileDockRaf()
     }
-  }, [clearMobileMenuCloseTimeout, clearMobileDockTooltipTimeout])
+  }, [
+    clearMobileMenuCloseTimeout,
+    clearMobileMenuOpenIconTimeout,
+    clearMobileDockTooltipTimeout,
+    clearMobileDockLongPressTimeout,
+    clearMobileDockRaf,
+  ])
 
   useEffect(() => {
     if (!mobileMenuOpen) return
     setActiveMenu(null)
   }, [mobileMenuOpen])
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return
+    const handleResize = () => syncMobileMenuOrigin()
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [mobileMenuOpen, syncMobileMenuOrigin])
+
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      resetMobileDockState()
+      return
+    }
+
+    const measureDock = () => {
+      measureMobileDockMetrics()
+      queueMobileDockMotion()
+    }
+
+    measureDock()
+    const rafId = window.requestAnimationFrame(measureDock)
+    window.addEventListener('resize', measureDock)
+    window.addEventListener('orientationchange', measureDock)
+
+    return () => {
+      window.cancelAnimationFrame(rafId)
+      window.removeEventListener('resize', measureDock)
+      window.removeEventListener('orientationchange', measureDock)
+    }
+  }, [mobileMenuOpen, measureMobileDockMetrics, queueMobileDockMotion, resetMobileDockState])
 
   useEffect(() => {
     if (!mobileMenuOpen) {
@@ -1913,6 +2357,7 @@ export function MegaMenu({
                 <div className="flex lg:hidden shrink-0 items-center">
                   <Sheet open={mobileMenuOpen} onOpenChange={handleMobileMenuOpenChange}>
                     <button
+                      ref={mobileMenuTriggerRef}
                       type="button"
                       className="mobile-megamenu-trigger-btn mobile-megamenu-trigger-btn--benchmark inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
                       aria-label={mobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
@@ -1929,12 +2374,24 @@ export function MegaMenu({
                       side="right"
                       overlayClassName="mobile-megamenu-overlay data-[state=open]:animate-none data-[state=closed]:animate-none"
                       className="mobile-megamenu-sheet megamenu-sheet h-[100dvh] max-h-[100dvh] w-full max-w-full sm:w-[min(94vw,36rem)] sm:max-w-[36rem] border-l border-border/40 p-0 data-[state=open]:animate-none data-[state=closed]:animate-none supports-[height:100svh]:h-[100svh] [&>button]:hidden"
+                      style={
+                        mobileMenuOrigin
+                          ? ({
+                              '--mobile-mega-origin-x': `calc(100% - ${mobileMenuOrigin.right}px)`,
+                              '--mobile-mega-origin-y': `${mobileMenuOrigin.y}px`,
+                            } as React.CSSProperties)
+                          : undefined
+                      }
                     >
                       <SheetTitle className="sr-only">Mobilmenü</SheetTitle>
                       <div className="mobile-megamenu-shell flex h-full flex-col">
                         <div className="mobile-megamenu-utility px-4">
                           <div className="mobile-megamenu-utility-logo flex items-center">
-                            {mobileLogo ?? logo}
+                            <ResilientImage
+                              src={MOBILE_MENU_LOGO_ICON_SRC}
+                              alt="Philipp Bacher Logo"
+                              className="mobile-megamenu-utility-logo-icon"
+                            />
                           </div>
                           <div className="mobile-megamenu-utility-title">
                             <ThemeSwitcher
@@ -1944,11 +2401,15 @@ export function MegaMenu({
                           </div>
                           <button
                             type="button"
-                            className="mobile-megamenu-close-arrow inline-flex shrink-0 items-center justify-center outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 min-h-[44px] min-w-[44px] touch-manipulation"
+                            className="mobile-megamenu-trigger-btn mobile-megamenu-trigger-btn--benchmark mobile-megamenu-trigger-btn--inline inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
                             aria-label="Menü schließen"
+                            data-open={mobileMenuIconActive ? 'true' : 'false'}
                             onClick={closeMobileMenu}
                           >
-                            <ChevronRight className="h-5 w-5" aria-hidden />
+                            <MobileMenuTriggerIcon
+                              active={mobileMenuIconActive}
+                              onToggle={handleMobileMenuIconToggle}
+                            />
                           </button>
                         </div>
 
@@ -2062,16 +2523,21 @@ export function MegaMenu({
                                       className="mobile-megamenu-secondary-root"
                                       onClick={() => setMobileMenuOpen(false)}
                                     >
-                                      {`${activeMobileEntry.item.label} anzeigen`}
+                                      {activeMobileEntry.item.label}
                                     </Link>
-                                    <button
-                                      type="button"
-                                      className="mobile-megamenu-secondary-back"
+                                    <ChevronLeft
+                                      className="mobile-megamenu-secondary-back-icon h-4 w-4"
+                                      role="button"
+                                      tabIndex={0}
                                       aria-label="Zurück"
                                       onClick={() => setMobileActivePrimary(null)}
-                                    >
-                                      <ChevronLeft className="h-4 w-4" aria-hidden />
-                                    </button>
+                                      onKeyDown={(event) => {
+                                        if (event.key === 'Enter' || event.key === ' ') {
+                                          event.preventDefault()
+                                          setMobileActivePrimary(null)
+                                        }
+                                      }}
+                                    />
                                   </div>
                                   <div className="mobile-megamenu-secondary-list">
                                     {activeMobileGroups.map((group, groupIdx) => (
@@ -2107,42 +2573,64 @@ export function MegaMenu({
                         </nav>
 
                         <div className="mobile-megamenu-contact-dock px-4 pt-4">
-                          <div className="mobile-megamenu-contact-tooltip" aria-live="polite">
+                          <div
+                            className="mobile-megamenu-contact-tooltip"
+                            aria-live="polite"
+                            aria-atomic="true"
+                          >
                             <span
                               className={cn(
                                 'mobile-megamenu-contact-tooltip-pill',
                                 mobileDockTooltip && 'is-visible',
                               )}
+                              style={
+                                mobileDockTooltip
+                                  ? ({
+                                      '--mobile-dock-tooltip-x': `${mobileDockTooltip.x}px`,
+                                    } as React.CSSProperties)
+                                  : undefined
+                              }
                             >
-                              {mobileDockTooltip ?? ' '}
+                              {mobileDockTooltip?.label ?? ''}
                             </span>
                           </div>
-                          <div className="mobile-megamenu-contact-actions">
+                          <div
+                            ref={mobileDockActionsRef}
+                            className="mobile-megamenu-contact-actions"
+                            onPointerEnter={handleDockActionsPointerEnter}
+                            onPointerMove={handleDockActionsPointerMove}
+                            onPointerLeave={handleDockActionsPointerLeave}
+                          >
                             {mobileDockActions.map((action) => {
                               const Icon = action.icon
                               const tone = action.tone ?? 'default'
-                              const handleDockHintEnter = () => showMobileDockTooltip(action.label)
-                              const handleDockHintLeave = () => clearMobileDockTooltip()
-                              const handleDockHintTouch = () =>
-                                showMobileDockTooltip(action.label, 1400)
-
-                              if (action.kind === 'link') {
+                              const iconStyle = {
+                                '--mobile-dock-icon-scale': String(action.iconScale ?? 1),
+                              } as React.CSSProperties
+                              if (action.isInternal) {
                                 return (
                                   <Link
                                     key={action.key}
                                     href={action.href}
+                                    ref={(node) => setMobileDockActionRef(action.key, node)}
                                     className="mobile-megamenu-contact-action"
                                     data-tone={tone}
+                                    data-action={action.key}
                                     aria-label={action.label}
-                                    onFocus={handleDockHintEnter}
-                                    onBlur={handleDockHintLeave}
-                                    onMouseEnter={handleDockHintEnter}
-                                    onMouseLeave={handleDockHintLeave}
-                                    onPointerDown={handleDockHintTouch}
-                                    onClick={() => setMobileMenuOpen(false)}
+                                    onFocus={(event) => handleDockActionFocus(event, action)}
+                                    onBlur={handleDockActionBlur}
+                                    onMouseEnter={(event) => handleDockActionMouseEnter(event, action)}
+                                    onMouseLeave={handleDockActionMouseLeave}
+                                    onPointerDown={(event) => handleDockActionPointerDown(event, action)}
+                                    onPointerUp={(event) => handleDockActionPointerUp(event, action)}
+                                    onPointerCancel={handleDockActionPointerCancel}
+                                    onKeyDown={(event) => handleDockActionKeyDown(event, action)}
+                                    onKeyUp={handleDockActionKeyUp}
+                                    onClick={(event) => handleDockActionClick(event, action)}
                                   >
                                     <Icon
-                                      className="mobile-megamenu-contact-action-icon h-8 w-8"
+                                      className="mobile-megamenu-contact-action-icon"
+                                      style={iconStyle}
                                       aria-hidden
                                     />
                                     <span className="sr-only">{action.label}</span>
@@ -2155,18 +2643,27 @@ export function MegaMenu({
                                   key={action.key}
                                   href={action.href}
                                   target={action.targetBlank ? '_blank' : undefined}
-                                  rel={action.targetBlank ? 'noopener noreferrer' : undefined}
+                                  rel={action.rel}
+                                  download={action.download ? '' : undefined}
+                                  ref={(node) => setMobileDockActionRef(action.key, node)}
                                   className="mobile-megamenu-contact-action"
                                   data-tone={tone}
+                                  data-action={action.key}
                                   aria-label={action.label}
-                                  onFocus={handleDockHintEnter}
-                                  onBlur={handleDockHintLeave}
-                                  onMouseEnter={handleDockHintEnter}
-                                  onMouseLeave={handleDockHintLeave}
-                                  onPointerDown={handleDockHintTouch}
+                                  onFocus={(event) => handleDockActionFocus(event, action)}
+                                  onBlur={handleDockActionBlur}
+                                  onMouseEnter={(event) => handleDockActionMouseEnter(event, action)}
+                                  onMouseLeave={handleDockActionMouseLeave}
+                                  onPointerDown={(event) => handleDockActionPointerDown(event, action)}
+                                  onPointerUp={(event) => handleDockActionPointerUp(event, action)}
+                                  onPointerCancel={handleDockActionPointerCancel}
+                                  onKeyDown={(event) => handleDockActionKeyDown(event, action)}
+                                  onKeyUp={handleDockActionKeyUp}
+                                  onClick={(event) => handleDockActionClick(event, action)}
                                 >
                                   <Icon
-                                    className="mobile-megamenu-contact-action-icon h-7 w-7"
+                                    className="mobile-megamenu-contact-action-icon"
+                                    style={iconStyle}
                                     aria-hidden
                                   />
                                   <span className="sr-only">{action.label}</span>
