@@ -44,11 +44,12 @@ const BeforeLogin: React.FC = () => {
 
         .template-minimal__wrap > .custom-login-form-logo {
           grid-column: 1 / 2;
-          align-self: start;
+          align-self: center;
           justify-self: center;
           z-index: 3;
           width: min(220px, 36%);
-          margin-top: clamp(2rem, 6vh, 4.25rem);
+          margin-top: 0;
+          transform: translateY(-160px);
           pointer-events: none;
         }
 
@@ -95,7 +96,7 @@ const BeforeLogin: React.FC = () => {
             linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
             linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
           background-size: 44px 44px;
-          opacity: 0.4;
+          opacity: 0.42;
           mask-image: radial-gradient(
             circle at center,
             rgba(0, 0, 0, 0.96) 0%,
@@ -137,7 +138,7 @@ const BeforeLogin: React.FC = () => {
           height: auto;
           object-fit: contain;
           opacity: 0.1;
-          filter: grayscale(1) invert(1) contrast(1.12);
+          filter: brightness(0) invert(1);
         }
 
         @media (max-width: 980px) {
@@ -170,6 +171,7 @@ const BeforeLogin: React.FC = () => {
             grid-row: 2;
             width: min(190px, 58%);
             margin-top: 0.25rem;
+            transform: none;
           }
 
           .template-minimal__wrap > form {
@@ -191,6 +193,7 @@ const BeforeLogin: React.FC = () => {
           .template-minimal__wrap > .custom-login-form-logo {
             grid-row: 1;
             margin-top: 1.25rem;
+            transform: none;
           }
 
           .template-minimal__wrap > form {
