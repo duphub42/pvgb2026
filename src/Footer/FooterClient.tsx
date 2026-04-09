@@ -2,7 +2,7 @@
 
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { Link2 } from 'lucide-react'
 
@@ -25,6 +25,12 @@ const SOCIAL_SPRITE_IDS: Record<string, string> = {
   facebook: 'hf-facebook',
   instagram: 'hf-instagram',
 }
+const MOBILE_FOOTER_B_LOGO_SRC = '/media/philippbacher-logo-b-10.svg'
+const MOBILE_FOOTER_B_LOGO_MIN_OPACITY = 0.15
+const MOBILE_FOOTER_B_LOGO_MAX_OPACITY = 1
+const MOBILE_FOOTER_HEADING_MIN_OPACITY = MOBILE_FOOTER_B_LOGO_MIN_OPACITY
+const MOBILE_FOOTER_HEADING_MAX_OPACITY = MOBILE_FOOTER_B_LOGO_MAX_OPACITY
+const MOBILE_FOOTER_B_LOGO_FADE_ZONE_RATIO = 0.72
 
 function mediaUrl(media: { url?: string | null } | number | null | undefined): string {
   if (media == null) return ''
@@ -51,6 +57,8 @@ type NewsletterStatus = 'idle' | 'saving' | 'saved'
 export function FooterClient({ footer: footerData, header: headerData, locale }: FooterClientProps) {
   const footer = footerData ?? ({} as Footer)
   const [newsletterStatus, setNewsletterStatus] = useState<NewsletterStatus>('idle')
+  const footerRootRef = useRef<HTMLElement | null>(null)
+  const mobileFooterLogoRef = useRef<HTMLImageElement | null>(null)
   const navItems = footer?.navItems ?? []
   const columns = footer?.columns ?? []
   const hasNewStructure =
@@ -62,11 +70,12 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
     footer?.termsLink != null
 
   const logoToShow = footer?.footerLogo ?? null
-  const mobileFooterLogo = (footer as any)?.mobileFooterLogo ?? null
   const footerAddress = (footer as any)?.footerAddress as string | null | undefined
   const footerPhone = (footer as any)?.footerPhone as string | null | undefined
   const logoUrl = mediaUrl(logoToShow)
   const useTextLogo = !logoToShow
+  const mobileFooterLogoAlt = footer?.footerLogoAltText?.trim() || 'Philipp Bacher Logo'
+  const mobileFooterLogoClassName = 'mobile-footer-b-logo logo-contrast block max-w-[100%] h-16 sm:h-18 md:h-22 md:hidden'
 
   const newsletterIcon =
     (footer as any)?.newsletterIcon &&
@@ -82,6 +91,99 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
 
   const hasCustomBg = Boolean((footer?.backgroundColor as string)?.trim())
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    const footerEl = footerRootRef.current
+    if (!footerEl) return
+
+    const logoEl = mobileFooterLogoRef.current
+    if (!logoEl) return
+
+    const headingEls = Array.from(
+      footerEl.querySelectorAll<HTMLElement>('.footer-center-fade-heading'),
+    )
+    const mobileQuery = window.matchMedia('(max-width: 47.99rem)')
+    let rafId: number | null = null
+
+    const calcOpacityForRect = (rect: DOMRect, minOpacity: number, maxOpacity: number): number => {
+      const targetCenterY = rect.top + rect.height / 2
+      const viewportCenterY = window.innerHeight / 2
+      const distance = Math.abs(targetCenterY - viewportCenterY)
+      const maxDistance = Math.max(160, window.innerHeight * MOBILE_FOOTER_B_LOGO_FADE_ZONE_RATIO)
+      const linearProgress = Math.max(0, 1 - distance / maxDistance)
+      // Smoothstep for softer fade-in/out around center.
+      const smoothProgress = linearProgress * linearProgress * (3 - 2 * linearProgress)
+
+      return minOpacity + (maxOpacity - minOpacity) * smoothProgress
+    }
+
+    const applyLogoOpacity = () => {
+      rafId = null
+
+      if (!mobileQuery.matches) {
+        logoEl.style.removeProperty('--mobile-footer-logo-opacity')
+        for (const headingEl of headingEls) {
+          headingEl.style.removeProperty('--mobile-footer-heading-opacity')
+        }
+        return
+      }
+
+      const logoOpacity = calcOpacityForRect(
+        logoEl.getBoundingClientRect(),
+        MOBILE_FOOTER_B_LOGO_MIN_OPACITY,
+        MOBILE_FOOTER_B_LOGO_MAX_OPACITY,
+      )
+      logoEl.style.setProperty('--mobile-footer-logo-opacity', logoOpacity.toFixed(3))
+
+      for (const headingEl of headingEls) {
+        const rect = headingEl.getBoundingClientRect()
+        if (rect.width === 0 && rect.height === 0) continue
+        const headingOpacity = calcOpacityForRect(
+          rect,
+          MOBILE_FOOTER_HEADING_MIN_OPACITY,
+          MOBILE_FOOTER_HEADING_MAX_OPACITY,
+        )
+        headingEl.style.setProperty('--mobile-footer-heading-opacity', headingOpacity.toFixed(3))
+      }
+    }
+
+    const queueLogoOpacityUpdate = () => {
+      if (rafId != null) return
+      rafId = window.requestAnimationFrame(applyLogoOpacity)
+    }
+
+    const handleViewportChange = () => {
+      queueLogoOpacityUpdate()
+    }
+
+    if (typeof mobileQuery.addEventListener === 'function') {
+      mobileQuery.addEventListener('change', handleViewportChange)
+    } else {
+      mobileQuery.addListener(handleViewportChange)
+    }
+
+    window.addEventListener('scroll', queueLogoOpacityUpdate, { passive: true })
+    window.addEventListener('resize', queueLogoOpacityUpdate)
+    window.addEventListener('orientationchange', queueLogoOpacityUpdate)
+
+    queueLogoOpacityUpdate()
+
+    return () => {
+      if (rafId != null) {
+        window.cancelAnimationFrame(rafId)
+      }
+      window.removeEventListener('scroll', queueLogoOpacityUpdate)
+      window.removeEventListener('resize', queueLogoOpacityUpdate)
+      window.removeEventListener('orientationchange', queueLogoOpacityUpdate)
+      if (typeof mobileQuery.removeEventListener === 'function') {
+        mobileQuery.removeEventListener('change', handleViewportChange)
+      } else {
+        mobileQuery.removeListener(handleViewportChange)
+      }
+    }
+  }, [])
+
   // FIX: style ohne hartkodiertes color-Fallback — wird von CSS-Variablen übernommen
   const style: React.CSSProperties = {
     borderColor: 'var(--theme-border-color)',
@@ -96,6 +198,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
   if (!hasNewStructure) {
     return (
       <footer
+        ref={footerRootRef}
         className={`footer-elevated mt-auto border-0 pt-16 pb-8 ${!hasCustomBg ? 'footer-gradient' : ''}`}
         style={style}
       >
@@ -103,26 +206,33 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
           <div className="container flex flex-col gap-6">
             <div className="gap-8 flex flex-col md:flex-row md:justify-between">
               <Link className="logo-link flex items-center" href="/">
-                {logoToShow != null ? (
-                  <>
-                    <Logo
-                      logo={mobileFooterLogo ?? logoToShow}
-                      variant="footer"
-                      className="block max-w-[100%] h-16 sm:h-18 md:h-22 md:hidden"
-                    />
+                <>
+                  <img
+                    ref={mobileFooterLogoRef}
+                    src={MOBILE_FOOTER_B_LOGO_SRC}
+                    alt={mobileFooterLogoAlt}
+                    className={mobileFooterLogoClassName}
+                    width={48}
+                    height={48}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  {logoToShow != null ? (
                     <Logo
                       logo={logoToShow}
                       variant="footer"
                       className="hidden max-w-[100%] h-20 md:h-28 md:block"
                     />
-                  </>
-                ) : (
-                  <LogoWithGlitchWrapper
-                    useTextLogo={useTextLogo}
-                    logoUrl={logoUrl}
-                    variant="footer"
-                  />
-                )}
+                  ) : (
+                    <span className="hidden md:inline-flex">
+                      <LogoWithGlitchWrapper
+                        useTextLogo={useTextLogo}
+                        logoUrl={logoUrl}
+                        variant="footer"
+                      />
+                    </span>
+                  )}
+                </>
               </Link>
               <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
                 <ThemeSelector />
@@ -148,6 +258,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
 
   return (
     <footer
+      ref={footerRootRef}
       className={`footer-elevated mt-auto border-0 pt-20 pb-10 md:pt-24 md:pb-12 footer-custom ${!hasCustomBg ? 'footer-gradient' : ''}`}
       style={style}
     >
@@ -166,53 +277,60 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                   {/* Logo */}
                   <div className="flex items-center justify-center md:justify-start">
                     <Link href="/" className="logo-link inline-block max-w-[100%]">
-                      {logoToShow != null ? (
-                        <>
-                          <Logo
-                            logo={mobileFooterLogo ?? logoToShow}
-                            variant="footer"
-                            className="block max-w-[100%] h-16 sm:h-18 md:h-22 md:hidden"
-                          />
+                      <>
+                        <img
+                          ref={mobileFooterLogoRef}
+                          src={MOBILE_FOOTER_B_LOGO_SRC}
+                          alt={mobileFooterLogoAlt}
+                          className={mobileFooterLogoClassName}
+                          width={48}
+                          height={48}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                        {logoToShow != null ? (
                           <Logo
                             logo={logoToShow}
                             variant="footer"
                             className="hidden max-w-[100%] h-20 md:h-28 md:block"
                           />
-                        </>
-                      ) : (
-                        <LogoWithGlitchWrapper
-                          useTextLogo={useTextLogo}
-                          logoUrl={logoUrl}
-                          variant="footer"
-                        />
-                      )}
+                        ) : (
+                          <span className="hidden md:inline-flex">
+                            <LogoWithGlitchWrapper
+                              useTextLogo={useTextLogo}
+                              logoUrl={logoUrl}
+                              variant="footer"
+                            />
+                          </span>
+                        )}
+                      </>
                     </Link>
                   </div>
 
                   {/* Kontakt + Social */}
                   <div className="space-y-4">
                     {(footerAddress || footerPhone) && (
-                      <div className="space-y-1 text-sm opacity-80">
+                      <div className="footer-contact-list space-y-1 text-sm opacity-80">
                         {footerAddress && (
-                          <div className="flex items-start gap-2">
-                            <span className="mt-0.5 text-xs opacity-80">
+                          <div className="footer-contact-row flex items-start gap-2">
+                            <span className="footer-contact-icon mt-0.5 opacity-80" aria-hidden="true">
                               <svg className="inline-block size-5" aria-hidden="true">
                                 <use href="/icons-sprite.svg#hf-map-pin" />
                               </svg>
                             </span>
-                            <p className="whitespace-pre-line">{footerAddress}</p>
+                            <p className="footer-contact-text whitespace-pre-line">{footerAddress}</p>
                           </div>
                         )}
                         {footerPhone && (
-                          <div className="flex items-center gap-2">
-                            <span className="text-xs opacity-80">
+                          <div className="footer-contact-row flex items-start gap-2">
+                            <span className="footer-contact-icon mt-0.5 opacity-80" aria-hidden="true">
                               <svg className="inline-block size-5" aria-hidden="true">
                                 <use href="/icons-sprite.svg#hf-phone" />
                               </svg>
                             </span>
                             <a
                               href={`tel:${footerPhone.replace(/\s+/g, '')}`}
-                              className="footer-link text-sm"
+                              className="footer-contact-link footer-link text-sm"
                             >
                               {footerPhone}
                             </a>
@@ -332,7 +450,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                             ) : null}
                           </div>
                           <div className="min-w-[10rem] flex-1 space-y-2 lg:basis-[90%]">
-                            <h3 className="footer-heading text-sm font-semibold uppercase tracking-wider">
+                            <h3 className="footer-heading footer-center-fade-heading text-sm font-semibold uppercase tracking-wider">
                               {col.columnTitle}
                             </h3>
                             <ul className="space-y-2">
@@ -386,7 +504,7 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
                         </div>
 
                         <div className="min-w-0 flex-1 space-y-2">
-                          <h3 className="footer-heading text-sm font-semibold uppercase tracking-wider">
+                          <h3 className="footer-heading footer-center-fade-heading text-sm font-semibold uppercase tracking-wider">
                             {footer.newsletterTitle}
                           </h3>
 

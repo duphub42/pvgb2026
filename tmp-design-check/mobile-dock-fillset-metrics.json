@@ -1,0 +1,96 @@
+{
+  "default": [
+    {
+      "key": "phone",
+      "mode": "brand-fill",
+      "ratio": 0.645,
+      "opacity": "0.93",
+      "filter": "none",
+      "active": null,
+      "pending": null
+    },
+    {
+      "key": "email",
+      "mode": "brand-fill",
+      "ratio": 0.645,
+      "opacity": "0.93",
+      "filter": "none",
+      "active": null,
+      "pending": null
+    },
+    {
+      "key": "whatsapp",
+      "mode": "brand-fill",
+      "ratio": 0.624,
+      "opacity": "0.9",
+      "filter": "none",
+      "active": null,
+      "pending": null
+    },
+    {
+      "key": "vcard",
+      "mode": "brand-fill",
+      "ratio": 0.645,
+      "opacity": "0.93",
+      "filter": "none",
+      "active": null,
+      "pending": null
+    },
+    {
+      "key": "calendar",
+      "mode": "brand-fill",
+      "ratio": 0.645,
+      "opacity": "0.93",
+      "filter": "none",
+      "active": null,
+      "pending": null
+    }
+  ],
+  "active": [
+    {
+      "key": "phone",
+      "mode": "brand-fill",
+      "ratio": 0.645,
+      "opacity": "0.93",
+      "filter": "none",
+      "active": null,
+      "pending": null
+    },
+    {
+      "key": "email",
+      "mode": "brand-fill",
+      "ratio": 0.645,
+      "opacity": "0.93",
+      "filter": "none",
+      "active": null,
+      "pending": null
+    },
+    {
+      "key": "whatsapp",
+      "mode": "brand-fill",
+      "ratio": 0.624,
+      "opacity": "0.9",
+      "filter": "none",
+      "active": "true",
+      "pending": null
+    },
+    {
+      "key": "vcard",
+      "mode": "brand-fill",
+      "ratio": 0.645,
+      "opacity": "0.93",
+      "filter": "none",
+      "active": null,
+      "pending": null
+    },
+    {
+      "key": "calendar",
+      "mode": "brand-fill",
+      "ratio": 0.645,
+      "opacity": "0.93",
+      "filter": "none",
+      "active": null,
+      "pending": null
+    }
+  ]
+}

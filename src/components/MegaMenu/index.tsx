@@ -11,7 +11,6 @@ import {
 } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 import { getClientSideURL } from '@/utilities/getURL'
 import {
@@ -19,6 +18,7 @@ import {
   buildFormSpamMetaSubmissionData,
 } from '@/utilities/formSpamProtection'
 import {
+  ArrowUpRight,
   Briefcase,
   CalendarDays,
   ChevronLeft,
@@ -94,16 +94,19 @@ function getMegaMenuColumnKey(
 function isSpecialMegaMenuColumn(
   col: Pick<NonNullable<MegaMenuItem['columns']>[number], 'title' | 'columnBackground'>,
 ): boolean {
-  const bg = String(col.columnBackground ?? '')
-    .trim()
-    .toLowerCase()
-  if (bg === 'accent') return true
+  const normalize = (value: unknown): string =>
+    String(value ?? '')
+      .trim()
+      .toLowerCase()
+      .replace(/^['"]+|['"]+$/g, '')
 
-  const title = String(col.title ?? '')
-    .trim()
-    .toLowerCase()
+  const bg = normalize(col.columnBackground)
+  if (bg === 'accent' || bg.includes('special') || bg.includes('speacial') || bg.includes('spezial')) {
+    return true
+  }
 
-  return /\b(special|speacial|spezial)\b/.test(title)
+  const title = normalize(col.title)
+  return title.includes('special') || title.includes('speacial') || title.includes('spezial')
 }
 
 function getMegaMenuSubItemKey(
@@ -174,7 +177,7 @@ type MobileMenuSubLink = {
   groupTitle?: string | null
 }
 
-type MobileDockTone = 'default' | 'booking' | 'accent'
+type MobileDockIconMode = 'stroke' | 'brand-fill'
 type MobileDockIcon = React.ComponentType<React.SVGProps<SVGSVGElement>>
 
 type MobileDockAction = {
@@ -182,8 +185,9 @@ type MobileDockAction = {
   href: string
   label: string
   icon: MobileDockIcon
-  tone?: MobileDockTone
+  iconMode?: MobileDockIconMode
   iconScale?: number
+  iconOpacity?: number
   isInternal?: boolean
   targetBlank?: boolean
   rel?: string
@@ -216,13 +220,48 @@ function WhatsAppLogoIcon(props: React.SVGProps<SVGSVGElement>) {
   )
 }
 
+function PhoneSolidIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M1.5 4.5a3 3 0 0 1 3-3h1.372c.86 0 1.61.586 1.819 1.42l1.105 4.423a1.875 1.875 0 0 1-.694 1.955l-1.293.97c-.135.101-.164.249-.126.352a11.285 11.285 0 0 0 6.697 6.697c.103.038.25.009.352-.126l.97-1.293a1.875 1.875 0 0 1 1.955-.694l4.423 1.105c.834.209 1.42.959 1.42 1.82V19.5a3 3 0 0 1-3 3h-2.25C8.552 22.5 1.5 15.448 1.5 6.75V4.5Z"
+      />
+    </svg>
+  )
+}
+
+function MailSolidIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M1.5 8.67v8.58a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V8.67l-8.928 5.493a3 3 0 0 1-3.144 0L1.5 8.67Z" />
+      <path d="M22.5 6.908V6.75a3 3 0 0 0-3-3h-15a3 3 0 0 0-3 3v.158l9.714 5.978a1.5 1.5 0 0 0 1.572 0L22.5 6.908Z" />
+    </svg>
+  )
+}
+
 function VCardIcon(props: React.SVGProps<SVGSVGElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" {...props}>
-      <rect x="3.5" y="5" width="17" height="14" rx="3" stroke="currentColor" strokeWidth="1.45" />
-      <circle cx="9.2" cy="11" r="1.8" stroke="currentColor" strokeWidth="1.45" />
-      <path d="M6.8 15.3c.7-1.2 1.6-1.8 2.4-1.8s1.7.6 2.4 1.8" stroke="currentColor" strokeWidth="1.45" />
-      <path d="M13.8 10h4.2M13.8 13.2H18" stroke="currentColor" strokeWidth="1.45" />
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M4.5 3.75a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h15a3 3 0 0 0 3-3V6.75a3 3 0 0 0-3-3h-15Zm4.125 3a2.25 2.25 0 1 0 0 4.5 2.25 2.25 0 0 0 0-4.5Zm-3.873 8.703a4.126 4.126 0 0 1 7.746 0 .75.75 0 0 1-.351.92 7.47 7.47 0 0 1-3.522.877 7.47 7.47 0 0 1-3.522-.877.75.75 0 0 1-.351-.92ZM15 8.25a.75.75 0 0 0 0 1.5h3.75a.75.75 0 0 0 0-1.5H15ZM14.25 12a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H15a.75.75 0 0 1-.75-.75Zm.75 2.25a.75.75 0 0 0 0 1.5h3.75a.75.75 0 0 0 0-1.5H15Z"
+      />
+    </svg>
+  )
+}
+
+function CalendarSolidIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+      <path
+        fillRule="evenodd"
+        clipRule="evenodd"
+        d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z"
+      />
     </svg>
   )
 }
@@ -577,7 +616,7 @@ const ListItem = React.forwardRef<
         ref={ref}
         className={cn(
           isButton
-            ? 'group flex select-none items-start gap-3 rounded-xl border border-transparent bg-[var(--mega-menu-button-bg)] p-4 leading-none no-underline text-[var(--mega-menu-button-fg)] shadow-sm outline-none transition-[filter,transform,box-shadow] duration-200 hover:-translate-y-0.5 hover:brightness-95 hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring/50'
+            ? 'megamenu-special-link group relative flex select-none items-start gap-3 rounded-md border border-transparent !bg-primary p-4 leading-none no-underline !text-primary-foreground shadow-xs outline-none transition-colors duration-200 hover:!bg-primary/80 active:!bg-primary/80 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50'
             : 'group flex select-none items-start gap-3 rounded-xl p-4 leading-none no-underline outline-none transition-colors duration-300',
           className,
         )}
@@ -587,7 +626,7 @@ const ListItem = React.forwardRef<
           className={cn(
             'megamenu-item-icon flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg p-2.5 transition-all duration-300 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
             isButton
-              ? 'bg-black/10 text-current group-hover:bg-black/15'
+              ? 'megamenu-special-link-icon bg-primary-foreground/15 text-current group-hover:bg-primary-foreground/25'
               : 'group-hover:text-primary',
           )}
         >
@@ -615,14 +654,14 @@ const ListItem = React.forwardRef<
             {children}
           </p>
         </div>
-        <ChevronRight
-          className={cn(
-            'mt-1 h-4 w-4 shrink-0 transition-all duration-300',
-            isButton
-              ? 'text-current opacity-80 group-hover:opacity-100'
-              : 'text-primary opacity-0 -translate-x-2 group-hover:translate-x-0 group-hover:opacity-100',
-          )}
-        />
+        {isButton ? (
+          <span className="megamenu-special-icon-swap mt-1" aria-hidden="true">
+            <ChevronRight className="megamenu-special-icon-layer megamenu-special-icon-layer--a h-4 w-4" />
+            <ArrowUpRight className="megamenu-special-icon-layer megamenu-special-icon-layer--b h-4 w-4" />
+          </span>
+        ) : (
+          <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-primary opacity-0 -translate-x-2 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300" />
+        )}
       </Link>
     </NavigationMenuLink>
   </li>
@@ -1032,8 +1071,10 @@ export function MegaMenu({
   const [mobileMenuOrigin, setMobileMenuOrigin] = useState<{ right: number; y: number } | null>(
     null,
   )
+  const [showMobileItemDescriptions, setShowMobileItemDescriptions] = useState(true)
   const mobileMenuTriggerRef = useRef<HTMLButtonElement>(null)
   const mobileMenuSheetRef = useRef<HTMLDivElement>(null)
+  const mobileMenuPrimaryRef = useRef<HTMLDivElement>(null)
   const mobileDockActionsRef = useRef<HTMLDivElement>(null)
   const mobileDockActionRefs = useRef<Map<string, HTMLElement>>(new Map())
   const mobileDockMetricsRef = useRef<MobileDockActionMetric[]>([])
@@ -1178,41 +1219,50 @@ export function MegaMenu({
         key: 'phone',
         href: mobileDockPhoneHref,
         label: 'Phone',
-        icon: Phone,
-        iconScale: 1.02,
+        icon: PhoneSolidIcon,
+        iconMode: 'brand-fill',
+        iconScale: 0.93,
+        iconOpacity: 0.93,
       },
       {
         key: 'email',
         href: MOBILE_DOCK_EMAIL_HREF,
         label: 'Email',
-        icon: Mail,
-        iconScale: 1.02,
+        icon: MailSolidIcon,
+        iconMode: 'brand-fill',
+        iconScale: 0.93,
+        iconOpacity: 0.93,
       },
       {
         key: 'whatsapp',
         href: MOBILE_DOCK_WHATSAPP_URL,
         label: 'WhatsApp',
         icon: WhatsAppLogoIcon,
+        iconMode: 'brand-fill',
         targetBlank: true,
         rel: 'noopener noreferrer',
-        tone: 'accent',
-        iconScale: 0.96,
+        iconScale: 0.9,
+        iconOpacity: 0.9,
       },
       {
         key: 'vcard',
         href: MOBILE_DOCK_VCARD_URL,
         label: 'vCard',
         icon: VCardIcon,
+        iconMode: 'brand-fill',
         download: true,
-        iconScale: 0.98,
+        iconScale: 0.93,
+        iconOpacity: 0.93,
       },
       {
         key: 'calendar',
         href: MOBILE_DOCK_CALENDAR_URL,
         label: 'Calendar',
-        icon: CalendarDays,
+        icon: CalendarSolidIcon,
+        iconMode: 'brand-fill',
         isInternal: true,
-        iconScale: 1.02,
+        iconScale: 0.93,
+        iconOpacity: 0.93,
       },
     ],
     [mobileDockPhoneHref],
@@ -1648,6 +1698,7 @@ export function MegaMenu({
 
       event.preventDefault()
       event.stopPropagation()
+      actionEl.setAttribute('data-pending', 'true')
       armMobileDockActionConfirmation(action.key)
       const clickTooltip = getMobileDockClickTooltipCopy(action)
       showMobileDockTooltip(clickTooltip.label, actionEl, {
@@ -1766,6 +1817,29 @@ export function MegaMenu({
     sheetEl.style.setProperty('--mobile-viewport-height', `${Math.max(320, viewportHeight)}px`)
     sheetEl.style.setProperty('--mobile-browser-bottom-inset', `${browserBottomInset}px`)
   }, [])
+
+  const syncMobileDescriptionVisibility = React.useCallback(() => {
+    if (typeof window === 'undefined' || !mobileMenuOpen) return
+
+    const primaryEl = mobileMenuPrimaryRef.current
+    if (!primaryEl) return
+
+    const hasAnyDescriptions = mobileMenuItems.some((entry) => Boolean(entry.description))
+    if (!hasAnyDescriptions) {
+      primaryEl.setAttribute('data-show-descriptions', 'true')
+      setShowMobileItemDescriptions((current) => (current ? current : true))
+      return
+    }
+
+    // Always evaluate with descriptions visible first.
+    primaryEl.setAttribute('data-show-descriptions', 'true')
+    const overflowWithDescriptions = primaryEl.scrollHeight > primaryEl.clientHeight + 1
+    const shouldShowDescriptions = !overflowWithDescriptions
+    primaryEl.setAttribute('data-show-descriptions', shouldShowDescriptions ? 'true' : 'false')
+    setShowMobileItemDescriptions((current) =>
+      current === shouldShowDescriptions ? current : shouldShowDescriptions,
+    )
+  }, [mobileMenuItems, mobileMenuOpen])
 
   const openMobileMenu = React.useCallback(() => {
     collapseMobileBrowserChrome()
@@ -1922,6 +1996,32 @@ export function MegaMenu({
       setMobileActivePrimary(null)
     }
   }, [mobileMenuOpen, mobileMenuItems, mobileActivePrimary])
+
+  useEffect(() => {
+    if (!mobileMenuOpen) {
+      setShowMobileItemDescriptions(true)
+      return
+    }
+
+    const runMeasurement = () => syncMobileDescriptionVisibility()
+    const visualViewport = window.visualViewport
+
+    runMeasurement()
+    const rafId = window.requestAnimationFrame(runMeasurement)
+
+    window.addEventListener('resize', runMeasurement)
+    window.addEventListener('orientationchange', runMeasurement)
+    visualViewport?.addEventListener('resize', runMeasurement)
+    visualViewport?.addEventListener('scroll', runMeasurement)
+
+    return () => {
+      window.cancelAnimationFrame(rafId)
+      window.removeEventListener('resize', runMeasurement)
+      window.removeEventListener('orientationchange', runMeasurement)
+      visualViewport?.removeEventListener('resize', runMeasurement)
+      visualViewport?.removeEventListener('scroll', runMeasurement)
+    }
+  }, [mobileMenuOpen, mobileMenuItems, mobileHasSecondaryOpen, syncMobileDescriptionVisibility])
 
   useEffect(() => {
     if (typeof window === 'undefined' || mobileMenuIconUrls.length === 0) return
@@ -2369,19 +2469,12 @@ export function MegaMenu({
                                     card.ctaUrl != null && card.ctaUrl !== '' ? card.ctaUrl : null
                                   const cardCtaLabel = card.ctaLabel ?? 'Mehr'
                                   const hasMedia = cardImageUrl || cardIconUrl
-                                  const cardClassName = cn(
-                                    'group/card border-0 bg-card text-card-foreground transition-all duration-200',
-                                    cardStyle.borderRadius,
-                                    cardStyle.shadow,
-                                    cardStyle.hoverShadow,
-                                    cardStyle.hoverBorder,
-                                  )
                                   const mediaBlock = (
                                     <>
                                       {cardImageUrl && (
                                         <div
                                           className={cn(
-                                            'relative overflow-hidden bg-muted group/card',
+                                            'relative overflow-hidden bg-muted group/highlight',
                                             highlightPosition === 'below'
                                               ? 'aspect-square min-w-[100px] w-[100px] shrink-0 rounded-l-lg'
                                               : cn('aspect-video w-full', roundedT),
@@ -2390,11 +2483,11 @@ export function MegaMenu({
                                           <img
                                             src={cardImageUrl}
                                             alt={cardTitle ?? ''}
-                                            className="object-cover w-full h-full transition-transform duration-300 group-hover/card:scale-[1.02]"
+                                            className="object-cover w-full h-full transition-transform duration-300 group-hover/highlight:scale-[1.02]"
                                             loading="eager"
                                             decoding="sync"
                                           />
-                                          <div className="absolute inset-0 bg-black/10 transition-opacity group-hover/card:bg-black/5" />
+                                          <div className="absolute inset-0 bg-black/10 transition-opacity group-hover/highlight:bg-black/5" />
                                         </div>
                                       )}
                                       {!cardImageUrl && cardIconUrl && (
@@ -2422,13 +2515,13 @@ export function MegaMenu({
                                     </>
                                   )
                                   const textBlock = (
-                                    <CardContent
+                                    <div
                                       className={cn(
                                         hasMedia && highlightPosition !== 'below'
-                                          ? 'pt-4'
+                                          ? 'pt-3'
                                           : hasMedia && highlightPosition === 'below'
                                             ? 'py-3 pl-4 pr-4'
-                                            : 'pt-6',
+                                            : 'pt-3',
                                       )}
                                     >
                                       <div className="flex flex-col gap-2">
@@ -2443,13 +2536,22 @@ export function MegaMenu({
                                           </p>
                                         )}
                                         {cardCtaUrl && (
-                                          <span className="mt-1 inline-flex items-center gap-1 text-sm font-semibold text-primary">
-                                            {cardCtaLabel}
-                                            <ChevronRight className="h-4 w-4 shrink-0" />
-                                          </span>
+                                          <Button
+                                            asChild
+                                            size="sm"
+                                            className="megamenu-highlight-cta mt-2 w-fit !bg-primary !text-primary-foreground hover:!bg-primary/80 active:!bg-primary/80"
+                                          >
+                                            <Link href={cardCtaUrl} className="no-underline">
+                                              <span>{cardCtaLabel}</span>
+                                              <span className="megamenu-special-icon-swap" aria-hidden="true">
+                                                <ChevronRight className="megamenu-special-icon-layer megamenu-special-icon-layer--a h-4 w-4" />
+                                                <ArrowUpRight className="megamenu-special-icon-layer megamenu-special-icon-layer--b h-4 w-4" />
+                                              </span>
+                                            </Link>
+                                          </Button>
                                         )}
                                       </div>
-                                    </CardContent>
+                                    </div>
                                   )
                                   const inner =
                                     highlightPosition === 'below' && hasMedia ? (
@@ -2463,18 +2565,7 @@ export function MegaMenu({
                                         {textBlock}
                                       </>
                                     )
-                                  const cardEl = <Card className={cardClassName}>{inner}</Card>
-                                  return cardCtaUrl ? (
-                                    <Link
-                                      key={cardKey}
-                                      href={cardCtaUrl}
-                                      className="block no-underline text-left text-inherit outline-none focus-visible:ring-2 focus-visible:ring-ring"
-                                    >
-                                      {cardEl}
-                                    </Link>
-                                  ) : (
-                                    <div key={cardKey}>{cardEl}</div>
-                                  )
+                                  return <div key={cardKey}>{inner}</div>
                                 })}
                               </div>
                             ) : null
@@ -2796,7 +2887,10 @@ export function MegaMenu({
                       }
                     >
                       <SheetTitle className="sr-only">Mobilmenü</SheetTitle>
-                      <div className="mobile-megamenu-shell flex h-full flex-col">
+                      <div
+                        className="mobile-megamenu-shell flex h-full flex-col"
+                        data-secondary-open={mobileHasSecondaryOpen ? 'true' : 'false'}
+                      >
                         <div className="mobile-megamenu-utility px-4">
                           <div className="mobile-megamenu-utility-logo flex items-center">
                             {mobileLogo ? (
@@ -2838,7 +2932,11 @@ export function MegaMenu({
                               mobileHasSecondaryOpen && 'is-secondary-open',
                             )}
                           >
-                            <div className="mobile-megamenu-primary">
+                            <div
+                              ref={mobileMenuPrimaryRef}
+                              className="mobile-megamenu-primary"
+                              data-show-descriptions={showMobileItemDescriptions ? 'true' : 'false'}
+                            >
                               <ul className="mobile-megamenu-primary-list">
                                 {mobileMenuItems.map((entry, idx) => {
                                   const hasSubmenu = entry.subLinks.length > 0
@@ -3055,14 +3153,11 @@ export function MegaMenu({
                           >
                             {mobileDockActions.map((action) => {
                               const Icon = action.icon
-                              const tone = action.tone ?? 'default'
-                              const iconClassName = cn(
-                                'mobile-megamenu-contact-action-icon',
-                                action.key === 'whatsapp' &&
-                                  'mobile-megamenu-contact-action-icon--brand-whatsapp',
-                              )
+                              const iconMode = action.iconMode ?? 'stroke'
+                              const iconClassName = 'mobile-megamenu-contact-action-icon'
                               const iconStyle = {
                                 '--mobile-dock-icon-scale': String(action.iconScale ?? 1),
+                                '--mobile-dock-icon-opacity': String(action.iconOpacity ?? 1),
                               } as React.CSSProperties
                               if (action.isInternal) {
                                 return (
@@ -3071,8 +3166,10 @@ export function MegaMenu({
                                     href={action.href}
                                     ref={(node) => setMobileDockActionRef(action.key, node)}
                                     className="mobile-megamenu-contact-action"
-                                    data-tone={tone}
                                     data-action={action.key}
+                                    data-pending={
+                                      mobileDockPendingActionKey === action.key ? 'true' : undefined
+                                    }
                                     aria-label={action.label}
                                     onFocus={(event) => handleDockActionFocus(event, action)}
                                     onBlur={handleDockActionBlur}
@@ -3088,6 +3185,7 @@ export function MegaMenu({
                                     <Icon
                                       className={iconClassName}
                                       style={iconStyle}
+                                      data-icon-mode={iconMode}
                                       aria-hidden
                                     />
                                     <span className="sr-only">{action.label}</span>
@@ -3104,8 +3202,10 @@ export function MegaMenu({
                                   download={action.download ? '' : undefined}
                                   ref={(node) => setMobileDockActionRef(action.key, node)}
                                   className="mobile-megamenu-contact-action"
-                                  data-tone={tone}
                                   data-action={action.key}
+                                  data-pending={
+                                    mobileDockPendingActionKey === action.key ? 'true' : undefined
+                                  }
                                   aria-label={action.label}
                                   onFocus={(event) => handleDockActionFocus(event, action)}
                                   onBlur={handleDockActionBlur}
@@ -3121,6 +3221,7 @@ export function MegaMenu({
                                   <Icon
                                     className={iconClassName}
                                     style={iconStyle}
+                                    data-icon-mode={iconMode}
                                     aria-hidden
                                   />
                                   <span className="sr-only">{action.label}</span>

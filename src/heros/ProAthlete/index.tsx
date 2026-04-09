@@ -3,7 +3,7 @@ import Image from 'next/image'
 import { Badge } from '@/components/ui/badge'
 import { CMSLink } from '@/components/Link'
 import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
-import { ArrowRight, Zap } from 'lucide-react'
+import { ArrowRight, User } from 'lucide-react'
 import { PopoutHeroStackVisual, type HeroStackResolvedLayer } from '@/heros/PopoutHeroStackVisual'
 import { buildHeroCopyFadeStyle, getScrambleLinesRevealDurationMs } from '@/heros/scrambleTiming'
 import type { SitePage } from '@/payload-types'
@@ -216,7 +216,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
                   className="w-fit font-mono text-[10px] tracking-[0.2em] uppercase border-zinc-500 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 mb-8 bg-white/90 dark:bg-zinc-800/90 shadow-md hero-blurry-fade-in hero-blurry-fade-in--subheading"
                   style={subheadlineFadeStyle}
                 >
-                  <Zap className="w-3 h-3 mr-2 text-zinc-500 fill-zinc-500" />
+                  <User className="w-3 h-3 mr-2 text-zinc-500" />
                   {badgeText}
                 </Badge>
               ) : null}
@@ -287,11 +287,14 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
           </div>
         </div>
 
-        <div className="relative z-[80] order-1 flex h-[42vh] max-h-[24rem] sm:h-[48vh] sm:max-h-[27rem] items-center justify-center overflow-visible lg:order-2 lg:h-full lg:max-h-[666px] lg:items-end">
-          <div className="w-full max-w-[560px] -translate-y-6 overflow-visible lg:translate-y-0 lg:scale-[1.5] lg:origin-center">
+        <div className="relative z-[80] order-1 flex h-[50vh] max-h-[30rem] sm:h-[56vh] sm:max-h-[34rem] items-center justify-center overflow-visible lg:order-2 lg:h-full lg:max-h-[666px] lg:items-end">
+          <div className="w-full max-w-[clamp(22rem,96vw,46rem)] translate-y-8 sm:translate-y-10 md:translate-y-0 overflow-visible lg:translate-y-0 lg:scale-[1.5] lg:origin-center">
             <PopoutHeroStackVisual
               layers={stackLayers}
-              className="relative z-0 lg:[--hero-stack-lift:calc(var(--header-height)*0.5)] lg:[--hero-stack-base-y:32px] lg:[--hero-stack-img-base-y:28px]"
+              frontMobileWidthPercent="120vw"
+              frontMobileMaxWidth="120vw"
+              frontMobileImageScale={1.22}
+              className="relative z-0 [--hero-stack-base-y:clamp(7rem,22vh,12rem)] sm:[--hero-stack-base-y:clamp(7.5rem,18vh,12.5rem)] [--hero-stack-front-mobile-offset:clamp(4.5rem,14vh,8rem)] md:[--hero-stack-front-mobile-offset:0px] lg:[--hero-stack-lift:calc(var(--header-height)*0.5)] lg:[--hero-stack-base-y:32px] lg:[--hero-stack-img-base-y:28px]"
             />
           </div>
         </div>

@@ -1,0 +1,50 @@
+[
+  {
+    "page": "/",
+    "viewportWidth": 390,
+    "viewportHeight": 664,
+    "hasFront": false,
+    "frontWidthPx": null,
+    "frontRatioViewport": null,
+    "frontLeftPx": null,
+    "frontRightPx": null,
+    "heroTopPx": 0,
+    "heroHeightPx": 841.86
+  },
+  {
+    "page": "/leistungen",
+    "viewportWidth": 390,
+    "viewportHeight": 664,
+    "hasFront": false,
+    "frontWidthPx": null,
+    "frontRatioViewport": null,
+    "frontLeftPx": null,
+    "frontRightPx": null,
+    "heroTopPx": null,
+    "heroHeightPx": null
+  },
+  {
+    "page": "/profil",
+    "viewportWidth": 390,
+    "viewportHeight": 664,
+    "hasFront": false,
+    "frontWidthPx": null,
+    "frontRatioViewport": null,
+    "frontLeftPx": null,
+    "frontRightPx": null,
+    "heroTopPx": null,
+    "heroHeightPx": null
+  },
+  {
+    "page": "/kontakt",
+    "viewportWidth": 390,
+    "viewportHeight": 664,
+    "hasFront": false,
+    "frontWidthPx": null,
+    "frontRatioViewport": null,
+    "frontLeftPx": null,
+    "frontRightPx": null,
+    "heroTopPx": null,
+    "heroHeightPx": null
+  }
+]

@@ -1,0 +1,231 @@
+{
+  "dock": {
+    "rect": {
+      "x": 17,
+      "y": 586.28125,
+      "width": 368,
+      "height": 64.71875,
+      "left": 17,
+      "top": 586.28125
+    },
+    "gap": "7.36px",
+    "padding": "7.36px"
+  },
+  "items": [
+    {
+      "action": "phone",
+      "mode": "stroke",
+      "active": null,
+      "pending": null,
+      "btnRect": {
+        "x": 66.28125,
+        "y": 594.640625,
+        "width": 48,
+        "height": 48,
+        "left": 66.28125,
+        "top": 594.640625
+      },
+      "iconRect": {
+        "x": 73.30796813964844,
+        "y": 601.6673583984375,
+        "width": 33.930938720703125,
+        "height": 33.930908203125,
+        "left": 73.30796813964844,
+        "top": 601.6673583984375
+      },
+      "widthRatio": 0.707,
+      "heightRatio": 0.707,
+      "centerOffsetX": -0.01,
+      "centerOffsetY": -0.01,
+      "iconOpacity": "1",
+      "iconFilter": "none",
+      "svgBBox": {
+        "x": 2,
+        "y": 2,
+        "width": 20,
+        "height": 20
+      },
+      "viewBox": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 24
+      },
+      "svgBoxCenterOffsetX": 0,
+      "svgBoxCenterOffsetY": 0,
+      "svgBoxCoverage": 0.694
+    },
+    {
+      "action": "email",
+      "mode": "stroke",
+      "active": null,
+      "pending": null,
+      "btnRect": {
+        "x": 121.640625,
+        "y": 594.640625,
+        "width": 48,
+        "height": 48,
+        "left": 121.640625,
+        "top": 594.640625
+      },
+      "iconRect": {
+        "x": 128.66734313964844,
+        "y": 601.6673583984375,
+        "width": 33.930938720703125,
+        "height": 33.930908203125,
+        "left": 128.66734313964844,
+        "top": 601.6673583984375
+      },
+      "widthRatio": 0.707,
+      "heightRatio": 0.707,
+      "centerOffsetX": -0.01,
+      "centerOffsetY": -0.01,
+      "iconOpacity": "1",
+      "iconFilter": "none",
+      "svgBBox": {
+        "x": 2,
+        "y": 4,
+        "width": 20,
+        "height": 16
+      },
+      "viewBox": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 24
+      },
+      "svgBoxCenterOffsetX": 0,
+      "svgBoxCenterOffsetY": 0,
+      "svgBoxCoverage": 0.556
+    },
+    {
+      "action": "whatsapp",
+      "mode": "brand-fill",
+      "active": null,
+      "pending": null,
+      "btnRect": {
+        "x": 177,
+        "y": 594.640625,
+        "width": 48,
+        "height": 48,
+        "left": 177,
+        "top": 594.640625
+      },
+      "iconRect": {
+        "x": 186.0226593017578,
+        "y": 603.6632690429688,
+        "width": 29.939056396484375,
+        "height": 29.9390869140625,
+        "left": 186.0226593017578,
+        "top": 603.6632690429688
+      },
+      "widthRatio": 0.624,
+      "heightRatio": 0.624,
+      "centerOffsetX": -0.01,
+      "centerOffsetY": -0.01,
+      "iconOpacity": "0.9",
+      "iconFilter": "none",
+      "svgBBox": {
+        "x": 0.05700000375509262,
+        "y": -0.00004102958337171003,
+        "width": 23.886058807373047,
+        "height": 24.000041961669922
+      },
+      "viewBox": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 24
+      },
+      "svgBoxCenterOffsetX": 0,
+      "svgBoxCenterOffsetY": 0,
+      "svgBoxCoverage": 0.995
+    },
+    {
+      "action": "vcard",
+      "mode": "stroke",
+      "active": null,
+      "pending": null,
+      "btnRect": {
+        "x": 232.359375,
+        "y": 594.640625,
+        "width": 48,
+        "height": 48,
+        "left": 232.359375,
+        "top": 594.640625
+      },
+      "iconRect": {
+        "x": 239.71875,
+        "y": 602,
+        "width": 33.265625,
+        "height": 33.265625,
+        "left": 239.71875,
+        "top": 602
+      },
+      "widthRatio": 0.693,
+      "heightRatio": 0.693,
+      "centerOffsetX": -0.01,
+      "centerOffsetY": -0.01,
+      "iconOpacity": "1",
+      "iconFilter": "none",
+      "svgBBox": {
+        "x": 3.5,
+        "y": 5,
+        "width": 17,
+        "height": 14
+      },
+      "viewBox": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 24
+      },
+      "svgBoxCenterOffsetX": 0,
+      "svgBoxCenterOffsetY": 0,
+      "svgBoxCoverage": 0.413
+    },
+    {
+      "action": "calendar",
+      "mode": "stroke",
+      "active": null,
+      "pending": null,
+      "btnRect": {
+        "x": 287.71875,
+        "y": 594.640625,
+        "width": 48,
+        "height": 48,
+        "left": 287.71875,
+        "top": 594.640625
+      },
+      "iconRect": {
+        "x": 294.7454833984375,
+        "y": 601.6673583984375,
+        "width": 33.930908203125,
+        "height": 33.930908203125,
+        "left": 294.7454833984375,
+        "top": 601.6673583984375
+      },
+      "widthRatio": 0.707,
+      "heightRatio": 0.707,
+      "centerOffsetX": -0.01,
+      "centerOffsetY": -0.01,
+      "iconOpacity": "1",
+      "iconFilter": "none",
+      "svgBBox": {
+        "x": 3,
+        "y": 2,
+        "width": 18,
+        "height": 20
+      },
+      "viewBox": {
+        "x": 0,
+        "y": 0,
+        "width": 24,
+        "height": 24
+      },
+      "svgBoxCenterOffsetX": 0,
+      "svgBoxCenterOffsetY": 0,
+      "svgBoxCoverage": 0.625
+    }
+  ]
+}

@@ -7,63 +7,82 @@ const FRONTEND_LOGO_SRC = '/media/weblogo-philippbacher.svg'
 
 const BeforeLogin: React.FC = () => {
   return (
-    <div className="custom-login-art" aria-hidden="true">
+    <>
       <style>{`
+        .login.template-minimal {
+          min-height: 100vh !important;
+          height: 100vh !important;
+          margin: 0 !important;
+          padding: 0 !important;
+          display: block !important;
+          background: #eef0f2;
+        }
+
         .template-minimal__wrap {
-          --login-panel-height: clamp(360px, 62vh, 640px);
+          --login-panel-height: 100vh;
           display: grid !important;
-          grid-template-columns: minmax(320px, 520px) minmax(360px, 1fr) !important;
-          grid-auto-rows: var(--login-panel-height);
+          grid-template-columns: minmax(420px, 1fr) minmax(420px, 1fr) !important;
+          width: 100% !important;
+          max-width: none !important;
+          min-height: 100vh;
+          height: 100vh;
+          margin: 0 !important;
+          padding: 0 !important;
+          gap: 0 !important;
           align-items: stretch !important;
-          gap: clamp(1rem, 2vw, 2rem) !important;
-          width: 100%;
         }
 
         .template-minimal__wrap .login__brand {
           display: none !important;
         }
 
+        .template-minimal__wrap > .custom-login-form-logo,
+        .template-minimal__wrap > .custom-login-art,
+        .template-minimal__wrap > form {
+          grid-row: 1;
+        }
+
+        .template-minimal__wrap > .custom-login-form-logo {
+          grid-column: 1 / 2;
+          align-self: start;
+          justify-self: center;
+          z-index: 3;
+          width: min(220px, 36%);
+          margin-top: clamp(2rem, 6vh, 4.25rem);
+          pointer-events: none;
+        }
+
+        .template-minimal__wrap > .custom-login-form-logo img {
+          display: block;
+          width: 100%;
+          height: auto;
+          object-fit: contain;
+        }
+
         .template-minimal__wrap > form {
           grid-column: 1 / 2;
-          align-self: stretch;
+          align-self: center;
           justify-self: center;
-          width: min(100%, 520px);
-          min-height: 100%;
-          height: 100%;
+          width: min(460px, 74%);
+          min-height: auto;
+          height: auto;
           margin: 0 !important;
-          position: relative;
           display: flex !important;
           flex-direction: column !important;
           justify-content: center;
-          padding-top: 3.2rem;
-        }
-
-        .template-minimal__wrap > form::before {
-          content: '';
-          position: absolute;
-          left: 50%;
-          top: 1rem;
-          transform: translateX(-50%);
-          width: min(100%, 180px);
-          height: 36px;
-          background: url('${FRONTEND_LOGO_SRC}') center / contain no-repeat;
-          pointer-events: none;
+          padding-top: 0;
         }
 
         .template-minimal__wrap > .custom-login-art {
           grid-column: 2 / 3;
           align-self: stretch;
-          min-height: 100%;
-          height: 100%;
-        }
-
-        .custom-login-art {
-          position: relative;
-          min-height: clamp(360px, 62vh, 640px);
+          min-height: var(--login-panel-height);
+          height: var(--login-panel-height);
           width: 100%;
-          border-radius: 28px;
-          border: 1px solid rgba(15, 23, 42, 0.08);
-          background: #f8fafc;
+          border-radius: 0;
+          border-left: 1px solid rgba(255, 255, 255, 0.1);
+          background: #05070b;
+          position: relative;
           overflow: hidden;
           isolation: isolate;
         }
@@ -73,12 +92,24 @@ const BeforeLogin: React.FC = () => {
           position: absolute;
           inset: 0;
           background-image:
-            linear-gradient(to right, rgba(15, 23, 42, 0.12) 1px, transparent 1px),
-            linear-gradient(to bottom, rgba(15, 23, 42, 0.12) 1px, transparent 1px);
-          background-size: 40px 40px;
-          opacity: 0.48;
-          mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.72) 38%, rgba(0, 0, 0, 0.24) 66%, rgba(0, 0, 0, 0) 100%);
-          -webkit-mask-image: radial-gradient(circle at center, rgba(0, 0, 0, 0.95) 0%, rgba(0, 0, 0, 0.72) 38%, rgba(0, 0, 0, 0.24) 66%, rgba(0, 0, 0, 0) 100%);
+            linear-gradient(to right, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+            linear-gradient(to bottom, rgba(255, 255, 255, 0.08) 1px, transparent 1px);
+          background-size: 44px 44px;
+          opacity: 0.4;
+          mask-image: radial-gradient(
+            circle at center,
+            rgba(0, 0, 0, 0.96) 0%,
+            rgba(0, 0, 0, 0.74) 38%,
+            rgba(0, 0, 0, 0.24) 68%,
+            rgba(0, 0, 0, 0) 100%
+          );
+          -webkit-mask-image: radial-gradient(
+            circle at center,
+            rgba(0, 0, 0, 0.96) 0%,
+            rgba(0, 0, 0, 0.74) 38%,
+            rgba(0, 0, 0, 0.24) 68%,
+            rgba(0, 0, 0, 0) 100%
+          );
           pointer-events: none;
         }
 
@@ -86,7 +117,7 @@ const BeforeLogin: React.FC = () => {
           content: '';
           position: absolute;
           inset: 0;
-          background: radial-gradient(circle at center, rgba(15, 23, 42, 0.05) 0%, rgba(248, 250, 252, 0) 68%);
+          background: radial-gradient(circle at center, rgba(255, 255, 255, 0.06) 0%, rgba(5, 7, 11, 0) 68%);
           pointer-events: none;
         }
 
@@ -102,47 +133,82 @@ const BeforeLogin: React.FC = () => {
         }
 
         .custom-login-art__logo img {
-          width: min(68%, 420px);
+          width: min(62%, 420px);
           height: auto;
           object-fit: contain;
           opacity: 0.1;
-          filter: grayscale(1) contrast(1.08);
+          filter: grayscale(1) invert(1) contrast(1.12);
         }
 
         @media (max-width: 980px) {
-          .template-minimal__wrap {
-            grid-template-columns: 1fr !important;
+          .login.template-minimal {
+            height: auto !important;
+            min-height: 100vh !important;
           }
 
-          .template-minimal__wrap > .custom-login-art,
+          .template-minimal__wrap {
+            --login-panel-height: auto;
+            grid-template-columns: 1fr !important;
+            min-height: 100vh;
+            height: auto;
+            gap: 1rem !important;
+            width: min(560px, calc(100vw - 32px)) !important;
+            margin: 0 auto !important;
+          }
+
+          .template-minimal__wrap > .custom-login-art {
+            grid-column: 1 / -1;
+            grid-row: 1;
+            min-height: 180px;
+            height: 180px;
+            border-radius: 16px;
+            border-left: none;
+          }
+
+          .template-minimal__wrap > .custom-login-form-logo {
+            grid-column: 1 / -1;
+            grid-row: 2;
+            width: min(190px, 58%);
+            margin-top: 0.25rem;
+          }
+
           .template-minimal__wrap > form {
             grid-column: 1 / -1;
-          }
-
-          .template-minimal__wrap > form {
+            grid-row: 3;
             width: 100%;
-            align-self: auto;
             min-height: auto;
             height: auto;
             justify-content: flex-start;
-            padding-top: 2.9rem;
+            padding-top: 0;
+          }
+        }
+
+        @media (max-width: 700px) {
+          .template-minimal__wrap > .custom-login-art {
+            display: none;
           }
 
-          .custom-login-art {
-            min-height: 280px;
-            border-radius: 20px;
+          .template-minimal__wrap > .custom-login-form-logo {
+            grid-row: 1;
+            margin-top: 1.25rem;
           }
 
-          .custom-login-art__logo img {
-            width: min(75%, 320px);
+          .template-minimal__wrap > form {
+            grid-row: 2;
           }
         }
       `}</style>
 
-      <div className="custom-login-art__logo">
-        <img src={ART_LOGO_SRC} alt="" />
+      <div className="custom-login-form-logo" aria-hidden="true">
+        <img src={FRONTEND_LOGO_SRC} alt="" />
       </div>
-    </div>
+
+      <div className="custom-login-art" aria-hidden="true">
+        <div className="custom-login-art__logo">
+          <img src={ART_LOGO_SRC} alt="" />
+        </div>
+      </div>
+    </>
   )
 }
 

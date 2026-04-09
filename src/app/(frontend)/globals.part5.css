@@ -739,6 +739,11 @@ header .header-tool-toggle--theme:hover {
   align-items: flex-start;
 }
 
+.mobile-megamenu-primary[data-show-descriptions='false']
+  .mobile-megamenu-item-main[data-has-description='true'] {
+  align-items: center;
+}
+
 .mobile-megamenu-item-main--has-submenu {
   justify-content: flex-start;
 }
@@ -755,6 +760,10 @@ header .header-tool-toggle--theme:hover {
     max-width 240ms cubic-bezier(0.2, 0.95, 0.24, 1),
     opacity 180ms ease,
     transform 240ms cubic-bezier(0.2, 0.95, 0.24, 1);
+}
+
+.mobile-megamenu-primary[data-show-descriptions='false'] .mobile-megamenu-item-copy {
+  gap: 0;
 }
 
 .mobile-megamenu-item-label {
@@ -788,6 +797,10 @@ header .header-tool-toggle--theme:hover {
   transition:
     color 180ms ease,
     opacity 180ms ease;
+}
+
+.mobile-megamenu-primary[data-show-descriptions='false'] .mobile-megamenu-item-description {
+  display: none;
 }
 
 .mobile-megamenu-item-arrow {
@@ -1122,6 +1135,15 @@ header .header-tool-toggle--theme:hover {
   padding-bottom: var(--mobile-mega-secondary-list-pad-bottom);
 }
 
+.mobile-megamenu-shell[data-secondary-open='true'] .mobile-megamenu-secondary-list {
+  padding-bottom: calc(
+    var(--mobile-mega-secondary-list-pad-bottom) +
+      env(safe-area-inset-bottom, 0px) +
+      var(--mobile-browser-bottom-inset, 0px) +
+      5.6rem
+  );
+}
+
 .mobile-megamenu-scroll,
 .mobile-megamenu-primary,
 .mobile-megamenu-secondary,
@@ -1355,6 +1377,29 @@ header .header-tool-toggle--theme:hover {
     0 10px 18px -16px color-mix(in srgb, var(--mobile-mega-ink) 48%, transparent);
   --mobile-dock-action-icon: var(--mobile-mega-ink);
   --mobile-dock-action-icon-active: color-mix(in srgb, var(--foreground) 95%, var(--primary) 5%);
+  /* Tooltip inherits dock button look (same background + text + active state). */
+  --mobile-dock-tooltip-border: var(--mobile-dock-action-border);
+  --mobile-dock-tooltip-bg: var(--mobile-dock-action-bg);
+  --mobile-dock-tooltip-bg-fallback: rgba(245, 248, 252, 0.94);
+  --mobile-dock-tooltip-fg: var(--mobile-dock-action-icon);
+  --mobile-dock-tooltip-meta: color-mix(in srgb, var(--mobile-dock-tooltip-fg) 72%, transparent);
+  --mobile-dock-tooltip-shadow:
+    0 14px 20px -18px color-mix(in srgb, var(--primary) 46%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--primary) 16%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 24%, transparent);
+  --mobile-dock-tooltip-click-border: var(--mobile-dock-action-active-border);
+  --mobile-dock-tooltip-click-bg: var(--mobile-dock-action-active-bg);
+  --mobile-dock-tooltip-click-bg-fallback: rgba(236, 244, 255, 0.95);
+  --mobile-dock-tooltip-click-fg: var(--mobile-dock-action-icon-active);
+  --mobile-dock-tooltip-click-meta: color-mix(
+    in srgb,
+    var(--mobile-dock-tooltip-click-fg) 76%,
+    transparent
+  );
+  --mobile-dock-tooltip-click-shadow:
+    0 18px 24px -18px color-mix(in srgb, var(--primary) 58%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--primary) 24%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 34%, transparent);
   --mobile-dock-action-size: clamp(48px, 12vw, 56px);
   /* Safe-area + browser chrome inset keeps the dock above notches and bottom bars. */
   --mobile-dock-bottom-offset: calc(
@@ -1374,13 +1419,29 @@ header .header-tool-toggle--theme:hover {
   background: none;
 }
 
+.mobile-megamenu-shell[data-secondary-open='true'] .mobile-megamenu-contact-dock {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(0.38rem);
+}
+
+@media (max-height: 860px), (max-width: 430px) {
+  .mobile-megamenu-shell[data-secondary-open='true'] .mobile-megamenu-contact-dock {
+    display: none;
+  }
+
+  .mobile-megamenu-shell[data-secondary-open='true'] .mobile-megamenu-secondary-list {
+    padding-bottom: calc(var(--mobile-mega-secondary-list-pad-bottom) + 0.3rem);
+  }
+}
+
 .mobile-megamenu-contact-tooltip {
   position: relative;
   display: flex;
   width: min(92vw, 24rem);
   justify-content: center;
   min-height: 2.55rem;
-  margin-bottom: 0.34rem;
+  margin-bottom: 0.06rem;
   pointer-events: none;
 }
 
@@ -1401,32 +1462,24 @@ header .header-tool-toggle--theme:hover {
   justify-content: flex-start;
   gap: 0.12rem;
   border-radius: 1.02rem;
-  border: 1px solid color-mix(in srgb, var(--mobile-mega-ink) 16%, transparent);
-  background:
-    radial-gradient(
-      120% 130% at 0% 0%,
-      color-mix(in srgb, var(--primary) 14%, transparent) 0%,
-      transparent 58%
-    ),
-    linear-gradient(
-      168deg,
-      color-mix(in srgb, var(--mobile-mega-surface-0) 94%, transparent) 0%,
-      color-mix(in srgb, var(--mobile-mega-surface-1) 84%, transparent) 100%
-    );
+  border: 1px solid var(--mobile-dock-tooltip-border);
+  background-color: var(--mobile-dock-tooltip-bg-fallback);
+  background-image: linear-gradient(
+    0deg,
+    var(--mobile-dock-tooltip-bg),
+    var(--mobile-dock-tooltip-bg)
+  );
   backdrop-filter: blur(16px) saturate(1.16);
   -webkit-backdrop-filter: blur(16px) saturate(1.16);
   padding: 0.42rem 0.8rem 0.46rem;
-  color: var(--mobile-mega-ink);
+  color: var(--mobile-dock-tooltip-fg);
   opacity: 0;
-  transform: translateX(-50%) translateY(9px) scale(0.86);
+  transform: translateX(-50%) translateY(6px) scale(0.9);
   transition:
     opacity 170ms ease,
     transform 260ms cubic-bezier(0.18, 0.92, 0.22, 1.08);
   pointer-events: none;
-  box-shadow:
-    0 20px 28px -22px color-mix(in srgb, var(--mobile-mega-ink) 74%, transparent),
-    0 9px 16px -14px color-mix(in srgb, var(--primary) 44%, transparent),
-    inset 0 1px 0 color-mix(in srgb, #ffffff 44%, transparent);
+  box-shadow: var(--mobile-dock-tooltip-shadow);
 }
 
 .mobile-megamenu-contact-tooltip-pill.is-actionable {
@@ -1456,7 +1509,7 @@ header .header-tool-toggle--theme:hover {
 
 .mobile-megamenu-contact-tooltip-pill-meta {
   width: 100%;
-  color: color-mix(in srgb, var(--mobile-mega-ink) 74%, transparent);
+  color: var(--mobile-dock-tooltip-meta);
   font-size: 0.67rem;
   font-weight: 580;
   line-height: 1.08;
@@ -1466,33 +1519,6 @@ header .header-tool-toggle--theme:hover {
   overflow: hidden;
 }
 
-.mobile-megamenu-contact-tooltip-pill::after {
-  content: '';
-  position: absolute;
-  left: 50%;
-  bottom: -0.48rem;
-  width: 1.02rem;
-  height: 0.82rem;
-  border: 0;
-  border-radius: 0 0 0.6rem 0.6rem;
-  background:
-    radial-gradient(
-      126% 142% at 50% -14%,
-      color-mix(in srgb, var(--primary) 16%, transparent) 0%,
-      transparent 66%
-    ),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--mobile-mega-surface-0) 94%, transparent) 0%,
-      color-mix(in srgb, var(--mobile-mega-surface-1) 84%, transparent) 100%
-    );
-  clip-path: polygon(50% 100%, 6% 8%, 94% 8%);
-  transform: translateX(-50%);
-  box-shadow:
-    0 14px 18px -16px color-mix(in srgb, var(--mobile-mega-ink) 74%, transparent),
-    0 8px 14px -14px color-mix(in srgb, var(--primary) 44%, transparent);
-}
-
 .mobile-megamenu-contact-tooltip-pill.is-visible {
   opacity: 1;
   transform: translateX(-50%) translateY(0) scale(1);
@@ -1500,28 +1526,19 @@ header .header-tool-toggle--theme:hover {
 }
 
 .mobile-megamenu-contact-tooltip-pill.is-click {
-  border-color: color-mix(in srgb, var(--primary) 48%, transparent);
-  box-shadow:
-    0 22px 30px -20px color-mix(in srgb, var(--primary) 64%, transparent),
-    0 12px 20px -16px color-mix(in srgb, var(--mobile-mega-ink) 66%, transparent),
-    inset 0 1px 0 color-mix(in srgb, #ffffff 52%, transparent);
+  border-color: var(--mobile-dock-tooltip-click-border);
+  background-color: var(--mobile-dock-tooltip-click-bg-fallback);
+  background-image: linear-gradient(
+    0deg,
+    var(--mobile-dock-tooltip-click-bg),
+    var(--mobile-dock-tooltip-click-bg)
+  );
+  color: var(--mobile-dock-tooltip-click-fg);
+  box-shadow: var(--mobile-dock-tooltip-click-shadow);
 }
 
-.mobile-megamenu-contact-tooltip-pill.is-click::after {
-  background:
-    radial-gradient(
-      126% 142% at 50% -14%,
-      color-mix(in srgb, var(--primary) 24%, transparent) 0%,
-      transparent 62%
-    ),
-    linear-gradient(
-      180deg,
-      color-mix(in srgb, var(--mobile-mega-surface-0) 92%, transparent) 0%,
-      color-mix(in srgb, var(--mobile-mega-surface-1) 82%, transparent) 100%
-    );
-  box-shadow:
-    0 16px 22px -14px color-mix(in srgb, var(--primary) 62%, transparent),
-    0 10px 14px -14px color-mix(in srgb, var(--mobile-mega-ink) 58%, transparent);
+.mobile-megamenu-contact-tooltip-pill.is-click .mobile-megamenu-contact-tooltip-pill-meta {
+  color: var(--mobile-dock-tooltip-click-meta);
 }
 
 .mobile-megamenu-contact-actions {
@@ -1564,6 +1581,30 @@ header .header-tool-toggle--theme:hover {
   animation: none;
 }
 
+[data-theme='light'] .mobile-megamenu-contact-dock {
+  --mobile-dock-action-active-border: color-mix(in srgb, #0f172a 62%, var(--primary) 38%);
+  --mobile-dock-action-active-bg: color-mix(in srgb, #0b1220 90%, var(--primary) 10%);
+  --mobile-dock-action-icon-active: color-mix(in srgb, #f8fbff 94%, var(--primary) 6%);
+  --mobile-dock-tooltip-border: color-mix(in srgb, #0f172a 56%, transparent);
+  --mobile-dock-tooltip-bg: color-mix(in srgb, #0b1220 92%, var(--primary) 8%);
+  --mobile-dock-tooltip-bg-fallback: rgba(13, 18, 32, 0.94);
+  --mobile-dock-tooltip-fg: #f8fbff;
+  --mobile-dock-tooltip-meta: color-mix(in srgb, #f8fbff 74%, transparent);
+  --mobile-dock-tooltip-shadow:
+    0 16px 24px -18px color-mix(in srgb, #0b1220 72%, transparent),
+    0 0 0 1px color-mix(in srgb, #f8fbff 14%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #f8fbff 22%, transparent);
+  --mobile-dock-tooltip-click-border: color-mix(in srgb, #f8fbff 42%, var(--primary) 58%);
+  --mobile-dock-tooltip-click-bg: color-mix(in srgb, #0b1220 86%, var(--primary) 14%);
+  --mobile-dock-tooltip-click-bg-fallback: rgba(16, 24, 42, 0.95);
+  --mobile-dock-tooltip-click-fg: #ffffff;
+  --mobile-dock-tooltip-click-meta: color-mix(in srgb, #f8fbff 80%, transparent);
+  --mobile-dock-tooltip-click-shadow:
+    0 18px 26px -18px color-mix(in srgb, #0b1220 76%, transparent),
+    0 0 0 1px color-mix(in srgb, #f8fbff 16%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #f8fbff 28%, transparent);
+}
+
 [data-theme='dark'] .mobile-megamenu-contact-dock {
   --mobile-dock-border: color-mix(in srgb, var(--mobile-mega-ink) 22%, transparent);
   --mobile-dock-bg: color-mix(in srgb, var(--mobile-mega-surface-0) 74%, transparent);
@@ -1575,9 +1616,47 @@ header .header-tool-toggle--theme:hover {
   --mobile-dock-action-active-bg: color-mix(in srgb, #f7fbff 88%, var(--primary) 12%);
   --mobile-dock-action-icon: rgba(255, 255, 255, 0.96);
   --mobile-dock-action-icon-active: color-mix(in srgb, #0d1118 88%, var(--primary) 12%);
+  --mobile-dock-tooltip-border: color-mix(in srgb, #000000 22%, transparent);
+  --mobile-dock-tooltip-bg: rgba(255, 255, 255, 0.96);
+  --mobile-dock-tooltip-bg-fallback: rgba(255, 255, 255, 0.96);
+  --mobile-dock-tooltip-fg: #000000;
+  --mobile-dock-tooltip-meta: color-mix(in srgb, #000000 64%, transparent);
+  --mobile-dock-tooltip-shadow:
+    0 20px 30px -18px color-mix(in srgb, #000000 74%, transparent),
+    0 0 0 1px color-mix(in srgb, #000000 10%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 40%, transparent);
+  --mobile-dock-tooltip-click-border: color-mix(in srgb, #000000 26%, transparent);
+  --mobile-dock-tooltip-click-bg: rgba(245, 245, 245, 0.97);
+  --mobile-dock-tooltip-click-bg-fallback: rgba(245, 245, 245, 0.97);
+  --mobile-dock-tooltip-click-fg: #000000;
+  --mobile-dock-tooltip-click-meta: color-mix(in srgb, #000000 68%, transparent);
+  --mobile-dock-tooltip-click-shadow:
+    0 20px 30px -18px color-mix(in srgb, #000000 76%, transparent),
+    0 0 0 1px color-mix(in srgb, #000000 12%, transparent),
+    inset 0 1px 0 color-mix(in srgb, #ffffff 44%, transparent);
   --mobile-dock-pill-shadow:
     0 24px 34px -24px rgba(0, 0, 0, 0.72),
     0 14px 20px -16px rgba(0, 0, 0, 0.58);
+}
+
+[data-theme='dark'] .mobile-megamenu-contact-tooltip-pill-title {
+  color: #000000;
+}
+
+[data-theme='light'] .mobile-megamenu-contact-action[data-active='true'],
+[data-theme='light'] .mobile-megamenu-contact-action[data-pressed='true'],
+[data-theme='light'] .mobile-megamenu-contact-action[data-pending='true'] {
+  background: color-mix(in srgb, #0b1220 90%, var(--primary) 10%) !important;
+  border-color: color-mix(in srgb, #f8fbff 24%, #0f172a 76%) !important;
+}
+
+[data-theme='light'] .mobile-megamenu-contact-action[data-active='true']
+  .mobile-megamenu-contact-action-icon,
+[data-theme='light'] .mobile-megamenu-contact-action[data-pressed='true']
+  .mobile-megamenu-contact-action-icon,
+[data-theme='light'] .mobile-megamenu-contact-action[data-pending='true']
+  .mobile-megamenu-contact-action-icon {
+  color: #f8fbff !important;
 }
 
 .mobile-megamenu-contact-action {
@@ -1622,24 +1701,45 @@ header .header-tool-toggle--theme:hover {
   vertical-align: middle;
   transform: scale(var(--mobile-dock-icon-scale, 1));
   transform-origin: center;
-  stroke-width: 1.42;
+  opacity: var(--mobile-dock-icon-opacity, 1);
   color: var(--mobile-dock-action-icon);
+}
+
+.mobile-megamenu-contact-action-icon[data-icon-mode='stroke'] {
+  stroke-width: 1.56;
   stroke: currentColor;
   fill: none;
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
 }
-.mobile-megamenu-contact-action-icon:not(.mobile-megamenu-contact-action-icon--brand-whatsapp) path,
-.mobile-megamenu-contact-action-icon:not(.mobile-megamenu-contact-action-icon--brand-whatsapp) circle,
-.mobile-megamenu-contact-action-icon:not(.mobile-megamenu-contact-action-icon--brand-whatsapp) rect,
-.mobile-megamenu-contact-action-icon:not(.mobile-megamenu-contact-action-icon--brand-whatsapp) line,
-.mobile-megamenu-contact-action-icon:not(.mobile-megamenu-contact-action-icon--brand-whatsapp) polyline,
-.mobile-megamenu-contact-action-icon:not(.mobile-megamenu-contact-action-icon--brand-whatsapp) polygon {
+
+.mobile-megamenu-contact-action-icon[data-icon-mode='stroke'] path,
+.mobile-megamenu-contact-action-icon[data-icon-mode='stroke'] circle,
+.mobile-megamenu-contact-action-icon[data-icon-mode='stroke'] rect,
+.mobile-megamenu-contact-action-icon[data-icon-mode='stroke'] line,
+.mobile-megamenu-contact-action-icon[data-icon-mode='stroke'] polyline,
+.mobile-megamenu-contact-action-icon[data-icon-mode='stroke'] polygon {
+  stroke-width: 1.56px;
   stroke-linecap: round;
   stroke-linejoin: round;
   vector-effect: non-scaling-stroke;
   fill: none !important;
+}
+
+.mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'] {
+  fill: currentColor !important;
+  stroke: none !important;
+}
+
+.mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'] path,
+.mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'] circle,
+.mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'] rect,
+.mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'] line,
+.mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'] polyline,
+.mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'] polygon {
+  fill: currentColor !important;
+  stroke: none !important;
 }
 
 .mobile-megamenu-contact-action-ripple {
@@ -1671,26 +1771,77 @@ header .header-tool-toggle--theme:hover {
 }
 
 .mobile-megamenu-contact-action[data-active='true'],
-.mobile-megamenu-contact-action[data-pressed='true'] {
+.mobile-megamenu-contact-action[data-pressed='true'],
+.mobile-megamenu-contact-action[data-pending='true'] {
+  --mobile-dock-icon-opacity: 1 !important;
   z-index: 40;
   border-color: var(--mobile-dock-action-active-border);
   background: var(--mobile-dock-action-active-bg);
   box-shadow:
-    0 16px 22px -18px color-mix(in srgb, var(--primary) 68%, transparent),
-    0 0 0 1px color-mix(in srgb, var(--primary) 24%, transparent),
+    0 18px 24px -16px color-mix(in srgb, var(--primary) 70%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--primary) 26%, transparent),
+    0 0 0 3px color-mix(in srgb, var(--background) 76%, transparent),
+    0 0 0 6px color-mix(in srgb, var(--primary) 16%, transparent),
+    0 0 28px -6px color-mix(in srgb, var(--primary) 64%, transparent),
     inset 0 1px 0 color-mix(in srgb, #ffffff 28%, transparent);
 }
 
 .mobile-megamenu-contact-action[data-active='true'] .mobile-megamenu-contact-action-icon,
-.mobile-megamenu-contact-action[data-pressed='true'] .mobile-megamenu-contact-action-icon {
+.mobile-megamenu-contact-action[data-pressed='true'] .mobile-megamenu-contact-action-icon,
+.mobile-megamenu-contact-action[data-pending='true'] .mobile-megamenu-contact-action-icon {
   color: var(--mobile-dock-action-icon-active);
-  filter: drop-shadow(0 0 10px color-mix(in srgb, var(--primary) 42%, transparent));
+  filter: none;
+}
+
+.mobile-megamenu-contact-action[data-active='true']
+  .mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'],
+.mobile-megamenu-contact-action[data-pressed='true']
+  .mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'],
+.mobile-megamenu-contact-action[data-pending='true']
+  .mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'] {
+  filter: none;
 }
 
 [data-theme='dark'] .mobile-megamenu-contact-action[data-active='true'] .mobile-megamenu-contact-action-icon,
-[data-theme='dark'] .mobile-megamenu-contact-action[data-pressed='true'] .mobile-megamenu-contact-action-icon {
-  filter: drop-shadow(0 1px 0 color-mix(in srgb, #ffffff 38%, transparent))
-    drop-shadow(0 0 8px color-mix(in srgb, #0b1220 24%, transparent));
+[data-theme='dark'] .mobile-megamenu-contact-action[data-pressed='true'] .mobile-megamenu-contact-action-icon,
+[data-theme='dark'] .mobile-megamenu-contact-action[data-pending='true'] .mobile-megamenu-contact-action-icon {
+  filter: none;
+}
+
+[data-theme='dark'] .mobile-megamenu-contact-action[data-active='true']
+  .mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'],
+[data-theme='dark'] .mobile-megamenu-contact-action[data-pressed='true']
+  .mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'],
+[data-theme='dark'] .mobile-megamenu-contact-action[data-pending='true']
+  .mobile-megamenu-contact-action-icon[data-icon-mode='brand-fill'] {
+  filter: none;
+}
+
+/* Strong, predictable contrast when action is selected (click/pending/pressed). */
+[data-theme='light'] .mobile-megamenu-contact-action[data-active='true'],
+[data-theme='light'] .mobile-megamenu-contact-action[data-pressed='true'],
+[data-theme='light'] .mobile-megamenu-contact-action[data-pending='true'] {
+  background: #0b1220 !important;
+  border-color: color-mix(in srgb, #f8fbff 28%, #0f172a 72%) !important;
+}
+
+[data-theme='light'] .mobile-megamenu-contact-action[data-active='true'] .mobile-megamenu-contact-action-icon,
+[data-theme='light'] .mobile-megamenu-contact-action[data-pressed='true'] .mobile-megamenu-contact-action-icon,
+[data-theme='light'] .mobile-megamenu-contact-action[data-pending='true'] .mobile-megamenu-contact-action-icon {
+  color: #f8fbff !important;
+}
+
+[data-theme='dark'] .mobile-megamenu-contact-action[data-active='true'],
+[data-theme='dark'] .mobile-megamenu-contact-action[data-pressed='true'],
+[data-theme='dark'] .mobile-megamenu-contact-action[data-pending='true'] {
+  background: rgba(255, 255, 255, 0.96) !important;
+  border-color: color-mix(in srgb, #000000 22%, transparent) !important;
+}
+
+[data-theme='dark'] .mobile-megamenu-contact-action[data-active='true'] .mobile-megamenu-contact-action-icon,
+[data-theme='dark'] .mobile-megamenu-contact-action[data-pressed='true'] .mobile-megamenu-contact-action-icon,
+[data-theme='dark'] .mobile-megamenu-contact-action[data-pending='true'] .mobile-megamenu-contact-action-icon {
+  color: #000000 !important;
 }
 
 .mobile-megamenu-contact-action[data-pressed='true'] {
@@ -1705,94 +1856,6 @@ header .header-tool-toggle--theme:hover {
   box-shadow:
     0 0 0 2px color-mix(in srgb, var(--background) 68%, transparent),
     0 0 0 4px color-mix(in srgb, var(--primary) 34%, transparent);
-}
-
-.mobile-megamenu-contact-action[data-tone='accent'] {
-  border-color: color-mix(in srgb, #25d366 58%, transparent);
-  background: color-mix(in srgb, #25d366 22%, transparent);
-}
-
-.mobile-megamenu-contact-action[data-tone='accent']:hover {
-  border-color: color-mix(in srgb, #25d366 82%, transparent);
-  background: color-mix(in srgb, #25d366 28%, transparent);
-  box-shadow:
-    0 14px 20px -16px color-mix(in srgb, #25d366 64%, transparent),
-    0 0 0 1px color-mix(in srgb, #25d366 36%, transparent);
-}
-
-.mobile-megamenu-contact-action[data-tone='accent'][data-active='true'],
-.mobile-megamenu-contact-action[data-tone='accent'][data-pressed='true'] {
-  border-color: color-mix(in srgb, #25d366 88%, transparent);
-  background: color-mix(in srgb, #25d366 40%, var(--mobile-mega-surface-0) 60%);
-}
-
-.mobile-megamenu-contact-action[data-tone='accent'][data-active='true'] .mobile-megamenu-contact-action-icon,
-.mobile-megamenu-contact-action[data-tone='accent'][data-pressed='true'] .mobile-megamenu-contact-action-icon {
-  color: #ffffff;
-}
-
-[data-theme='dark'] .mobile-megamenu-contact-action[data-tone='accent'][data-active='true'] .mobile-megamenu-contact-action-icon,
-[data-theme='dark'] .mobile-megamenu-contact-action[data-tone='accent'][data-pressed='true'] .mobile-megamenu-contact-action-icon {
-  color: #0a1b12;
-}
-
-.mobile-megamenu-contact-action[data-action='whatsapp'] .mobile-megamenu-contact-action-icon,
-.mobile-megamenu-contact-action-icon--brand-whatsapp {
-  width: 2rem;
-  height: 2rem;
-  stroke-width: 0;
-  fill: currentColor !important;
-  stroke: none !important;
-  color: #ffffff;
-}
-
-.mobile-megamenu-contact-action[data-action='whatsapp'] .mobile-megamenu-contact-action-icon path,
-.mobile-megamenu-contact-action[data-action='whatsapp'] .mobile-megamenu-contact-action-icon circle,
-.mobile-megamenu-contact-action[data-action='whatsapp'] .mobile-megamenu-contact-action-icon rect,
-.mobile-megamenu-contact-action[data-action='whatsapp'] .mobile-megamenu-contact-action-icon line,
-.mobile-megamenu-contact-action[data-action='whatsapp'] .mobile-megamenu-contact-action-icon polyline,
-.mobile-megamenu-contact-action[data-action='whatsapp'] .mobile-megamenu-contact-action-icon polygon,
-.mobile-megamenu-contact-action-icon--brand-whatsapp path,
-.mobile-megamenu-contact-action-icon--brand-whatsapp circle,
-.mobile-megamenu-contact-action-icon--brand-whatsapp rect,
-.mobile-megamenu-contact-action-icon--brand-whatsapp line,
-.mobile-megamenu-contact-action-icon--brand-whatsapp polyline,
-.mobile-megamenu-contact-action-icon--brand-whatsapp polygon {
-  fill: currentColor !important;
-  stroke: none !important;
-}
-
-.mobile-megamenu-contact-action[data-action='whatsapp'][data-active='true'] .mobile-megamenu-contact-action-icon,
-.mobile-megamenu-contact-action[data-action='whatsapp'][data-pressed='true'] .mobile-megamenu-contact-action-icon {
-  filter: none !important;
-}
-
-[data-theme='dark'] .mobile-megamenu-contact-action[data-action='whatsapp'][data-tone='accent'][data-active='true']
-  .mobile-megamenu-contact-action-icon,
-[data-theme='dark'] .mobile-megamenu-contact-action[data-action='whatsapp'][data-tone='accent'][data-pressed='true']
-  .mobile-megamenu-contact-action-icon {
-  color: #ffffff;
-}
-
-.mobile-megamenu-contact-action[data-tone='booking'] {
-  border-color: color-mix(in srgb, var(--primary) 40%, transparent);
-  background: color-mix(in srgb, var(--primary) 16%, transparent);
-}
-
-.mobile-megamenu-contact-action[data-tone='booking']:hover {
-  border-color: color-mix(in srgb, var(--primary) 60%, transparent);
-  background: color-mix(in srgb, var(--primary) 22%, transparent);
-}
-
-.mobile-megamenu-contact-action[data-tone='booking'][data-active='true'],
-.mobile-megamenu-contact-action[data-tone='booking'][data-pressed='true'] {
-  border-color: color-mix(in srgb, var(--primary) 74%, transparent);
-  background: color-mix(in srgb, var(--primary) 34%, var(--mobile-mega-surface-0) 66%);
-}
-
-[data-theme='dark'] .mobile-megamenu-contact-action[data-tone='booking'][data-active='true'] .mobile-megamenu-contact-action-icon,
-[data-theme='dark'] .mobile-megamenu-contact-action[data-tone='booking'][data-pressed='true'] .mobile-megamenu-contact-action-icon {
-  color: #0b1220;
 }
 
 @keyframes mobile-dock-tooltip-in {
@@ -2162,29 +2225,41 @@ header .header-tool-toggle--theme:hover {
   color: #ffffff;
   background-color: rgba(255, 255, 255, 0.12);
 }
-[data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover {
+[data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover:not(.megamenu-special-link) {
   background-color: rgba(255, 255, 255, 0.08) !important;
   color: #ffffff !important;
   border-color: rgba(255, 255, 255, 0.16) !important;
 }
-[data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover .text-sm {
+[data-theme='dark']
+  .megamenu
+  .megamenu-col-items
+  a.rounded-xl:hover:not(.megamenu-special-link)
+  .text-sm {
   color: #ffffff !important;
 }
-[data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover p {
+[data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover:not(.megamenu-special-link) p {
   color: #ffffff !important;
   opacity: 1 !important;
 }
-[data-theme='dark'] .megamenu .megamenu-col-items .megamenu-item-icon {
+[data-theme='dark'] .megamenu .megamenu-col-items a:not(.megamenu-special-link) .megamenu-item-icon {
   background-image: none !important;
   background-color: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
 }
-[data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover .megamenu-item-icon {
+[data-theme='dark']
+  .megamenu
+  .megamenu-col-items
+  a.rounded-xl:hover:not(.megamenu-special-link)
+  .megamenu-item-icon {
   background-image: none !important;
   background-color: transparent !important;
   border: 0 !important;
   box-shadow: none !important;
+}
+[data-theme='dark'] .megamenu .megamenu-col-items .megamenu-special-link:hover {
+  color: var(--mega-menu-button-fg);
+  background-color: var(--mega-menu-button-bg);
 }
 [data-theme='dark'] .megamenu-item-icon {
   background-color: transparent;

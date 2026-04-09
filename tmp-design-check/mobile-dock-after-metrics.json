@@ -1,0 +1,198 @@
+{
+  "before": {
+    "dock": {
+      "rect": {
+        "x": 17,
+        "y": 586.28125,
+        "width": 368,
+        "height": 64.71875
+      },
+      "gap": "7.36px"
+    },
+    "visualRatios": [
+      {
+        "action": "phone",
+        "mode": "stroke",
+        "active": null,
+        "pressed": null,
+        "pending": null,
+        "iconOpacity": "1",
+        "iconFilter": "none",
+        "iconW": 33.93,
+        "iconH": 33.93,
+        "btnW": 48,
+        "btnH": 48,
+        "widthRatio": 0.707,
+        "heightRatio": 0.707,
+        "btnBg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+        "btnBorder": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+      },
+      {
+        "action": "email",
+        "mode": "stroke",
+        "active": null,
+        "pressed": null,
+        "pending": null,
+        "iconOpacity": "1",
+        "iconFilter": "none",
+        "iconW": 33.93,
+        "iconH": 33.93,
+        "btnW": 48,
+        "btnH": 48,
+        "widthRatio": 0.707,
+        "heightRatio": 0.707,
+        "btnBg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+        "btnBorder": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+      },
+      {
+        "action": "whatsapp",
+        "mode": "brand-fill",
+        "active": null,
+        "pressed": null,
+        "pending": null,
+        "iconOpacity": "0.9",
+        "iconFilter": "none",
+        "iconW": 29.94,
+        "iconH": 29.94,
+        "btnW": 48,
+        "btnH": 48,
+        "widthRatio": 0.624,
+        "heightRatio": 0.624,
+        "btnBg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+        "btnBorder": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+      },
+      {
+        "action": "vcard",
+        "mode": "stroke",
+        "active": null,
+        "pressed": null,
+        "pending": null,
+        "iconOpacity": "1",
+        "iconFilter": "none",
+        "iconW": 33.27,
+        "iconH": 33.27,
+        "btnW": 48,
+        "btnH": 48,
+        "widthRatio": 0.693,
+        "heightRatio": 0.693,
+        "btnBg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+        "btnBorder": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+      },
+      {
+        "action": "calendar",
+        "mode": "stroke",
+        "active": null,
+        "pressed": null,
+        "pending": null,
+        "iconOpacity": "1",
+        "iconFilter": "none",
+        "iconW": 33.93,
+        "iconH": 33.93,
+        "btnW": 48,
+        "btnH": 48,
+        "widthRatio": 0.707,
+        "heightRatio": 0.707,
+        "btnBg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+        "btnBorder": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+      }
+    ]
+  },
+  "after": {
+    "dock": {
+      "rect": {
+        "x": 17,
+        "y": 586.28125,
+        "width": 368,
+        "height": 64.71875
+      },
+      "gap": "7.36px"
+    },
+    "visualRatios": [
+      {
+        "action": "phone",
+        "mode": "stroke",
+        "active": null,
+        "pressed": null,
+        "pending": null,
+        "iconOpacity": "1",
+        "iconFilter": "none",
+        "iconW": 33.93,
+        "iconH": 33.93,
+        "btnW": 48,
+        "btnH": 48,
+        "widthRatio": 0.707,
+        "heightRatio": 0.707,
+        "btnBg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+        "btnBorder": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+      },
+      {
+        "action": "email",
+        "mode": "stroke",
+        "active": null,
+        "pressed": null,
+        "pending": null,
+        "iconOpacity": "1",
+        "iconFilter": "none",
+        "iconW": 33.93,
+        "iconH": 33.93,
+        "btnW": 48,
+        "btnH": 48,
+        "widthRatio": 0.707,
+        "heightRatio": 0.707,
+        "btnBg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+        "btnBorder": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+      },
+      {
+        "action": "whatsapp",
+        "mode": "brand-fill",
+        "active": "true",
+        "pressed": null,
+        "pending": "true",
+        "iconOpacity": "0.9",
+        "iconFilter": "none",
+        "iconW": 29.94,
+        "iconH": 29.94,
+        "btnW": 48,
+        "btnH": 48,
+        "widthRatio": 0.624,
+        "heightRatio": 0.624,
+        "btnBg": "rgb(245, 245, 245)",
+        "btnBorder": "rgb(23, 23, 23)"
+      },
+      {
+        "action": "vcard",
+        "mode": "stroke",
+        "active": null,
+        "pressed": null,
+        "pending": null,
+        "iconOpacity": "1",
+        "iconFilter": "none",
+        "iconW": 33.27,
+        "iconH": 33.27,
+        "btnW": 48,
+        "btnH": 48,
+        "widthRatio": 0.693,
+        "heightRatio": 0.693,
+        "btnBg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+        "btnBorder": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+      },
+      {
+        "action": "calendar",
+        "mode": "stroke",
+        "active": null,
+        "pressed": null,
+        "pending": null,
+        "iconOpacity": "1",
+        "iconFilter": "none",
+        "iconW": 33.93,
+        "iconH": 33.93,
+        "btnW": 48,
+        "btnH": 48,
+        "widthRatio": 0.707,
+        "heightRatio": 0.707,
+        "btnBg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+        "btnBorder": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+      }
+    ]
+  }
+}

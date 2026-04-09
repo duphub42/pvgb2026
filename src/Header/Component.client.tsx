@@ -27,7 +27,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   megaMenuItems = [],
   mobileDockPhone = null,
 }) => {
-  const [isHydrated, setIsHydrated] = useState(false)
   const [theme, setTheme] = useState<string | null>(null)
   const [headerVisible, setHeaderVisible] = useState(true)
   const [isPastFold, setIsPastFold] = useState(false)
@@ -41,10 +40,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const pathname = usePathname()
   const useMegaMenu =
     (data as Header & { useMegaMenu?: boolean })?.useMegaMenu === true && megaMenuItems.length > 0
-
-  useEffect(() => {
-    setIsHydrated(true)
-  }, [])
 
   useEffect(() => {
     const stickyEnterThresholdPx = 0
@@ -169,7 +164,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const desktopLogoEl = renderLogoLink()
   const mobileLogoEl = renderPrimaryLogo(true)
 
-  if (useMegaMenu && isHydrated) {
+  if (useMegaMenu) {
     const layout = data?.megaMenuLayout
     const columnWidths =
       layout != null

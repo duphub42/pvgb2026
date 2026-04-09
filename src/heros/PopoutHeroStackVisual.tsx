@@ -1,6 +1,7 @@
 'use client'
 
 import Image from 'next/image'
+import type { CSSProperties } from 'react'
 import { cn } from '@/utilities/ui'
 
 export type HeroStackResolvedLayer = {
@@ -18,11 +19,36 @@ export type HeroStackResolvedLayer = {
 export function PopoutHeroStackVisual({
   layers,
   className,
+  frontMobileWidthPercent = 86,
+  frontMobileMaxWidth,
+  frontMobileImageScale = 1,
 }: {
   layers: HeroStackResolvedLayer[]
   className?: string
+  /** Mobile width of the front-most non-wide layer (number = %, string = CSS width expression). */
+  frontMobileWidthPercent?: number | string
+  /** Optional max-width for the front-most non-wide layer on mobile (CSS width expression). */
+  frontMobileMaxWidth?: string
+  /** Additional mobile-only scale for the front-most image content (helps when image has transparent margins). */
+  frontMobileImageScale?: number
 }) {
   if (layers.length === 0) return null
+
+  const toMobileWidth = (value: number | string): string => {
+    if (typeof value === 'number' && Number.isFinite(value)) return `${value}%`
+    if (typeof value === 'string' && value.trim() !== '') return value
+    return '86%'
+  }
+
+  const toMobileMaxWidth = (value?: string): string => {
+    if (typeof value === 'string' && value.trim() !== '') return value
+    return 'min(560px, 92vw)'
+  }
+
+  const toMobileScale = (value?: number): string => {
+    if (typeof value === 'number' && Number.isFinite(value) && value > 0) return String(value)
+    return '1'
+  }
 
   return (
     <div
@@ -32,8 +58,17 @@ export function PopoutHeroStackVisual({
       )}
     >
       <div className="pointer-events-none relative min-h-[min(52vh,520px)] w-full md:min-h-[min(58vh,640px)]">
-        {layers.map((layer) =>
-          layer.wide ? (
+        {layers.map((layer) => {
+          const isFrontLayer = !layer.wide && layer.z >= 2
+          const mobileLayerWidth = isFrontLayer ? frontMobileWidthPercent : 86
+          const mobileLayerMaxWidth = isFrontLayer
+            ? toMobileMaxWidth(frontMobileMaxWidth)
+            : 'min(560px, 92vw)'
+          const frontMobileOffsetExpr = isFrontLayer
+            ? ' + var(--hero-stack-front-mobile-offset, 0px)'
+            : ''
+
+          return layer.wide ? (
             <div
               key={`${layer.z}-${layer.src}`}
               className="absolute inset-x-[-6%] bottom-[2%] top-[6%] md:inset-x-[-8%] md:bottom-[0%] md:top-[2%]"
@@ -62,11 +97,18 @@ export function PopoutHeroStackVisual({
           ) : (
             <div
               key={`${layer.z}-${layer.src}`}
-              className="absolute bottom-[2%] left-1/2 flex w-[86%] max-w-[min(560px,92vw)] justify-center md:bottom-[0%] md:w-[90%]"
-              style={{
-                zIndex: 10 + layer.z,
-                transform: `translate(calc(-50% + ${layer.offsetX}px), calc(${layer.offsetY}px + var(--hero-stack-base-y, clamp(1rem, 6vh, 4.5rem)) - var(--hero-stack-lift, 0px)))`,
-              }}
+              className="absolute bottom-[2%] left-1/2 flex w-[var(--hero-stack-mobile-layer-width)] max-w-[var(--hero-stack-mobile-layer-max-width)] justify-center md:bottom-[0%] md:w-[90%]"
+              style={
+                {
+                  zIndex: 10 + layer.z,
+                  transform: `translate(calc(-50% + ${layer.offsetX}px), calc(${layer.offsetY}px + var(--hero-stack-base-y, clamp(1rem, 6vh, 4.5rem)) - var(--hero-stack-lift, 0px)${frontMobileOffsetExpr}))`,
+                  '--hero-stack-mobile-layer-width': toMobileWidth(mobileLayerWidth),
+                  '--hero-stack-mobile-layer-max-width': mobileLayerMaxWidth,
+                  '--hero-stack-front-mobile-scale': isFrontLayer
+                    ? toMobileScale(frontMobileImageScale)
+                    : '1',
+                } as CSSProperties
+              }
             >
               <div
                 className={cn(
@@ -78,19 +120,21 @@ export function PopoutHeroStackVisual({
                       : 'hero-stack-float-front',
                 )}
               >
-                <Image
-                  src={layer.src}
-                  alt=""
-                  width={1024}
-                  height={958}
-                  className="h-auto max-h-[min(88vh,920px)] w-full object-contain object-bottom md:max-h-[min(92vh,960px)] md:translate-y-[calc(var(--hero-stack-img-base-y,clamp(1rem,6vh,4rem))-var(--hero-stack-lift,0px))] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
-                  sizes="(max-width: 768px) 80vw, 520px"
-                  priority
-                />
+                <div className={cn(isFrontLayer && 'hero-stack-front-mobile-scale')}>
+                  <Image
+                    src={layer.src}
+                    alt=""
+                    width={1024}
+                    height={958}
+                    className="h-auto max-h-[min(88vh,920px)] w-full object-contain object-bottom md:max-h-[min(92vh,960px)] md:translate-y-[calc(var(--hero-stack-img-base-y,clamp(1rem,6vh,4rem))-var(--hero-stack-lift,0px))] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
+                    sizes="(max-width: 768px) 88vw, 520px"
+                    priority
+                  />
+                </div>
               </div>
             </div>
-          ),
-        )}
+          )
+        })}
       </div>
       <style jsx>{`
         @keyframes hero-stack-float-back {
@@ -138,6 +182,17 @@ export function PopoutHeroStackVisual({
           animation: hero-stack-float-front 6.6s ease-in-out infinite;
           animation-delay: -0.7s;
           will-change: transform;
+        }
+
+        .hero-stack-front-mobile-scale {
+          transform: scale(var(--hero-stack-front-mobile-scale, 1));
+          transform-origin: center bottom;
+        }
+
+        @media (min-width: 768px) {
+          .hero-stack-front-mobile-scale {
+            transform: none;
+          }
         }
 
         [data-theme='dark'] .hero-stack-back-cloud {

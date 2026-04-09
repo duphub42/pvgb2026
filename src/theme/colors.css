@@ -106,8 +106,8 @@
   --theme-footer-gradient-start: var(--theme-elevation-800);
   --theme-footer-gradient-end: var(--theme-elevation-900);
   /* Mega-Menü: alle Farben von Primary abgeleitet (als HSL-Dreier für einheitliche Überschreibung aus Design) */
-  --mega-menu-button-bg: var(--primary);
-  --mega-menu-button-fg: var(--primary-foreground);
+  --mega-menu-button-bg: hsl(var(--primary));
+  --mega-menu-button-fg: hsl(var(--primary-foreground));
   --mega-menu-nav-text: color-mix(in hsl, hsl(var(--primary)) 25%, var(--foreground));
   --mega-menu-heading: color-mix(in hsl, hsl(var(--primary)) 40%, var(--foreground));
   --mega-menu-item-text: color-mix(in hsl, hsl(var(--primary)) 20%, var(--foreground));
@@ -184,8 +184,8 @@
   --theme-footer-gradient-start: var(--theme-elevation-50);
   --theme-footer-gradient-end: var(--theme-elevation-0);
   /* Mega-Menü Dark: von Primary abgeleitet */
-  --mega-menu-button-bg: var(--primary);
-  --mega-menu-button-fg: var(--primary-foreground);
+  --mega-menu-button-bg: hsl(var(--primary));
+  --mega-menu-button-fg: hsl(var(--primary-foreground));
   --mega-menu-nav-text: color-mix(in hsl, hsl(var(--primary)) 25%, var(--foreground));
   --mega-menu-heading: color-mix(in hsl, hsl(var(--primary)) 40%, var(--foreground));
   --mega-menu-item-text: color-mix(in hsl, hsl(var(--primary)) 20%, var(--foreground));

@@ -1,0 +1,180 @@
+{
+  "dock": {
+    "rect": {
+      "x": 17,
+      "y": 766.28125,
+      "width": 368,
+      "height": 64.71875,
+      "left": 17,
+      "right": 385,
+      "top": 766.28125,
+      "bottom": 831
+    },
+    "gap": "7.36px",
+    "padding": "7.36px",
+    "borderRadius": "999px"
+  },
+  "actions": [
+    {
+      "action": "phone",
+      "rect": {
+        "x": 66.28125,
+        "y": 774.640625,
+        "width": 48,
+        "height": 48,
+        "left": 66.28125,
+        "right": 114.28125,
+        "top": 774.640625,
+        "bottom": 822.640625
+      },
+      "bg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+      "border": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+    },
+    {
+      "action": "email",
+      "rect": {
+        "x": 121.640625,
+        "y": 774.640625,
+        "width": 48,
+        "height": 48,
+        "left": 121.640625,
+        "right": 169.640625,
+        "top": 774.640625,
+        "bottom": 822.640625
+      },
+      "bg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+      "border": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+    },
+    {
+      "action": "whatsapp",
+      "rect": {
+        "x": 177,
+        "y": 774.640625,
+        "width": 48,
+        "height": 48,
+        "left": 177,
+        "right": 225,
+        "top": 774.640625,
+        "bottom": 822.640625
+      },
+      "bg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+      "border": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+    },
+    {
+      "action": "vcard",
+      "rect": {
+        "x": 232.359375,
+        "y": 774.640625,
+        "width": 48,
+        "height": 48,
+        "left": 232.359375,
+        "right": 280.359375,
+        "top": 774.640625,
+        "bottom": 822.640625
+      },
+      "bg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+      "border": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+    },
+    {
+      "action": "calendar",
+      "rect": {
+        "x": 287.71875,
+        "y": 774.640625,
+        "width": 48,
+        "height": 48,
+        "left": 287.71875,
+        "right": 335.71875,
+        "top": 774.640625,
+        "bottom": 822.640625
+      },
+      "bg": "color(srgb 0.968627 0.976471 0.988235 / 0.54902)",
+      "border": "color(srgb 0.0941176 0.109804 0.133333 / 0.111529)"
+    }
+  ],
+  "shell": {
+    "x": 1,
+    "y": 0,
+    "width": 388,
+    "height": 842,
+    "left": 1,
+    "right": 389,
+    "top": 0,
+    "bottom": 842
+  },
+  "viewport": {
+    "w": 390,
+    "h": 844
+  },
+  "visualRatios": [
+    {
+      "action": "phone",
+      "mode": "stroke",
+      "opacity": "1",
+      "strokeWidth": "1.42px",
+      "transform": "matrix(1.02, 0, 0, 1.02, 0, 0)",
+      "color": "rgba(24, 28, 34, 0.93)",
+      "iconW": 33.93,
+      "iconH": 33.93,
+      "btnW": 48,
+      "btnH": 48,
+      "widthRatio": 0.707,
+      "heightRatio": 0.707
+    },
+    {
+      "action": "email",
+      "mode": "stroke",
+      "opacity": "1",
+      "strokeWidth": "1.42px",
+      "transform": "matrix(1.02, 0, 0, 1.02, 0, 0)",
+      "color": "rgba(24, 28, 34, 0.93)",
+      "iconW": 33.93,
+      "iconH": 33.93,
+      "btnW": 48,
+      "btnH": 48,
+      "widthRatio": 0.707,
+      "heightRatio": 0.707
+    },
+    {
+      "action": "whatsapp",
+      "mode": "brand-fill",
+      "opacity": "0.92",
+      "strokeWidth": "1px",
+      "transform": "matrix(0.92, 0, 0, 0.92, 0, 0)",
+      "color": "rgba(24, 28, 34, 0.93)",
+      "iconW": 30.6,
+      "iconH": 30.6,
+      "btnW": 48,
+      "btnH": 48,
+      "widthRatio": 0.638,
+      "heightRatio": 0.638
+    },
+    {
+      "action": "vcard",
+      "mode": "stroke",
+      "opacity": "1",
+      "strokeWidth": "1.42px",
+      "transform": "matrix(0.98, 0, 0, 0.98, 0, 0)",
+      "color": "rgba(24, 28, 34, 0.93)",
+      "iconW": 32.6,
+      "iconH": 32.6,
+      "btnW": 48,
+      "btnH": 48,
+      "widthRatio": 0.679,
+      "heightRatio": 0.679
+    },
+    {
+      "action": "calendar",
+      "mode": "stroke",
+      "opacity": "1",
+      "strokeWidth": "1.42px",
+      "transform": "matrix(1.02, 0, 0, 1.02, 0, 0)",
+      "color": "rgba(24, 28, 34, 0.93)",
+      "iconW": 33.93,
+      "iconH": 33.93,
+      "btnW": 48,
+      "btnH": 48,
+      "widthRatio": 0.707,
+      "heightRatio": 0.707
+    }
+  ]
+}
