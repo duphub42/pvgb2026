@@ -37,7 +37,7 @@ class ShadcnHeroErrorBoundary extends React.Component<
                 <ScrambleText text={headline} />
               </h1>
             ) : null}
-            {description ? <p className="mt-4 text-white/80">{description}</p> : null}
+            {description ? <p className="mt-4 hero-content-contrast--inverse">{description}</p> : null}
             {!headline && !description && fallback}
           </div>
         </section>
@@ -86,7 +86,7 @@ export const RenderHero: React.FC<any> = (props) => {
     return (
       <ShadcnHeroErrorBoundary
         heroData={heroData as Record<string, unknown>}
-        fallback={<p className="text-sm text-white/60">Hero</p>}
+        fallback={<p className="text-sm hero-subheading-contrast--inverse">Hero</p>}
       >
         {content}
       </ShadcnHeroErrorBoundary>

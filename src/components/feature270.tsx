@@ -39,10 +39,10 @@ const Feature270 = () => {
     <section className="h-full w-screen overflow-hidden py-32">
       <div className="relative container">
         <div className="w-full space-y-5 lg:w-3/5">
-          <h1 className="mb-6 w-full max-w-lg text-left text-5xl font-medium font-semibold tracking-tighter lg:text-6xl">
+          <h1 className="mb-6 w-full max-w-lg text-left type-display">
             Why Choose Shadcn Blocks?
           </h1>
-          <div className="flex max-w-2xl items-center gap-4 opacity-50 md:mb-20">
+          <div className="flex max-w-2xl items-center gap-4 type-body opacity-50 md:mb-20">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam
@@ -70,10 +70,10 @@ const Feature270 = () => {
                   <p className="leading-none tracking-tighter opacity-50">
                     {feature.number}
                   </p>
-                  <h2 className="my-3 text-3xl leading-none font-semibold tracking-tighter">
+                  <h2 className="my-3 type-heading-xl leading-none tracking-tighter">
                     {feature.title}
                   </h2>
-                  <p className="leading-5 opacity-50">{feature.description}</p>
+                  <p className="type-body-sm leading-5 opacity-50">{feature.description}</p>
                 </div>
               </div>
             </PinContainer>

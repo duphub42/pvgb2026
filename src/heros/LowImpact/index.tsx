@@ -30,20 +30,20 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
             <div className="mb-6">
               {subheadline && (
                 <p
-                  className="mb-2 text-lg text-foreground/90 hero-blurry-fade-in hero-blurry-fade-in--subheading"
+                  className="mb-2 text-lg hero-subheading-contrast hero-blurry-fade-in hero-blurry-fade-in--subheading"
                   style={subheadlineFadeStyle}
                 >
                   {subheadline}
                 </p>
               )}
               {headline && (
-                <h1 className="text-hero-display-sm hero-heading-gradient text-foreground mb-4">
+                <h1 className="mb-4 text-hero-display-sm hero-heading-gradient">
                   <ScrambleText text={headline} />
                 </h1>
               )}
               {description && (
                 <p
-                  className="text-base text-foreground/90 hero-blurry-fade-in hero-blurry-fade-in--description"
+                  className="text-base hero-content-contrast hero-blurry-fade-in hero-blurry-fade-in--description"
                   style={descriptionFadeStyle}
                 >
                   {description}

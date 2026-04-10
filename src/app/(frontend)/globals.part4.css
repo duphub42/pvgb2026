@@ -78,6 +78,7 @@
   align-items: center !important;
   height: auto !important;
   min-height: 100%;
+  text-transform: uppercase;
   text-decoration: none !important;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
@@ -197,6 +198,25 @@
 .megamenu .megamenu-nav-list > * {
   height: auto;
 }
+.megamenu .megamenu-nav-indicator {
+  position: absolute;
+  left: 0;
+  bottom: calc(-0.5rem - 1px); /* exakt auf Header-Rand */
+  height: 5px;
+  border-radius: 9999px;
+  background-color: var(--header-line);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 2;
+  will-change: transform, width, opacity;
+  transition:
+    transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+    width 0.22s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.14s ease;
+}
+.megamenu .megamenu-nav-indicator[data-visible='true'] {
+  opacity: 1;
+}
 .megamenu .megamenu-top-item {
   background: none !important;
   color: #404040;
@@ -208,37 +228,18 @@
   font-size: 1rem;
   display: inline-flex;
   align-items: center;
+  text-transform: uppercase;
   transition: color 0.15s ease, background 0.15s ease;
 }
-/* Vercel-Style: Sliding-Underline am unteren Rand des Items (= Header-Unterkante) */
+/* Unterstrich wird als bewegter, gemeinsamer Indikator gerendert (nicht pro Item / nicht auf Hover). */
 .megamenu .megamenu-top-item::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: calc(-0.5rem - 1px);
-  height: 2px;
-  background-color: var(--header-line);
-  transform: scaleX(0);
-  transform-origin: center;
-  transition:
-    transform 0.22s cubic-bezier(0.4, 0, 0.2, 1),
-    height 0.2s ease;
-  pointer-events: none;
-  z-index: 1;
+  display: none;
 }
 /* Einheitlicher Hover/Fokus-Effekt ohne Hintergrund */
 .megamenu .megamenu-top-item:hover,
 .megamenu .megamenu-top-item:focus-visible {
   background-color: transparent !important;
   color: #171717 !important;
-}
-.megamenu .megamenu-top-item::after,
-.megamenu .megamenu-top-item:hover::after,
-.megamenu .megamenu-top-item:focus-visible::after,
-.megamenu .megamenu-top-item[data-state='open']::after {
-  transform: scaleX(0);
-  opacity: 0;
 }
 .megamenu .megamenu-top-item:hover,
 .megamenu .megamenu-top-item:focus-visible {
@@ -323,20 +324,20 @@
 /* Panel: gleiche Größenordnung wie Radix Content (navigation-menu.tsx ~280ms) – öffnen/schließen wirkt einheitlich */
 /* Breakpoint: Ab wann Kategoriebeschreibung ausgeblendet + Highlight unter Inhalt (stacked). xl = 1280px. */
 .megamenu {
-  --megamenu-panel-duration: 320ms;
+  --megamenu-panel-duration: 220ms;
   --megamenu-panel-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --megamenu-stack-max-width: 1279px; /* < 1280px = xl: Highlight unter Inhalt, Desc ausgeblendet */
-  --megamenu-content-duration: 0.28s;
+  --megamenu-content-duration: 0.22s;
   --megamenu-content-stagger: 40ms;
-  --megamenu-col-stagger: 90ms;
-  --megamenu-col-initial-delay: 26ms;
-  --megamenu-block-stagger: 72ms;
-  --megamenu-block-initial-delay: 24ms;
-  --megamenu-close-panel-delay: 140ms;
-  --megamenu-close-block-duration: 170ms;
-  --megamenu-close-block-initial-delay: 20ms;
-  --megamenu-close-block-stagger: 18ms;
-  --megamenu-close-highlight-duration: 160ms;
+  --megamenu-col-stagger: 56ms;
+  --megamenu-col-initial-delay: 14ms;
+  --megamenu-block-stagger: 42ms;
+  --megamenu-block-initial-delay: 10ms;
+  --megamenu-close-panel-delay: 64ms;
+  --megamenu-close-block-duration: 130ms;
+  --megamenu-close-block-initial-delay: 8ms;
+  --megamenu-close-block-stagger: 12ms;
+  --megamenu-close-highlight-duration: 120ms;
 }
 /* Öffnen: keine vertikale Verschiebung an der Header-Kante, damit die Border-Linie farbstabil bleibt */
 @keyframes megamenu-slide-down {
@@ -375,7 +376,7 @@
   height: auto;
   overflow-x: hidden;
   overflow-y: hidden;
-  animation: megamenu-slide-down 220ms ease-out forwards;
+  animation: megamenu-slide-down 180ms ease-out forwards;
 }
 /* Viewport-Höhe weich zwischen Dropdowns interpolieren */
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-viewport {
@@ -393,13 +394,13 @@
   }
 }
 .megamenu-viewport-wrapper:not(:has([data-state='open'])) {
-  animation: megamenu-slide-up 180ms ease-in var(--megamenu-close-panel-delay) forwards;
+  animation: megamenu-slide-up 150ms ease-in var(--megamenu-close-panel-delay) forwards;
 }
 /* Viewport: nur Höhen-Interpolation, keine Keyframe-Animation */
 .megamenu-viewport,
 .megamenu .megamenu-viewport {
   animation: none !important;
-  transition: height 260ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  transition: height 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
   will-change: height;
   width: 100% !important;
   max-width: 100% !important;
@@ -497,7 +498,7 @@
   .megamenu-col-items
   .megamenu-block-item {
   opacity: 0;
-  animation: megamenu-block-in 240ms var(--megamenu-panel-ease) forwards;
+  animation: megamenu-block-in 180ms var(--megamenu-panel-ease) forwards;
   animation-delay: calc(
     var(--megamenu-block-initial-delay) + (var(--megamenu-block-index, 0) * var(--megamenu-block-stagger))
   );
@@ -606,7 +607,7 @@
 }
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='left'] {
   opacity: 0;
-  animation: megamenu-highlight-from-left 0.34s var(--megamenu-panel-ease)
+  animation: megamenu-highlight-from-left 0.24s var(--megamenu-panel-ease)
     var(
       --megamenu-highlight-delay,
       calc(
@@ -617,7 +618,7 @@
 }
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-highlight-wipe-wrap[data-wipe='right'] {
   opacity: 0;
-  animation: megamenu-highlight-from-right 0.34s var(--megamenu-panel-ease)
+  animation: megamenu-highlight-from-right 0.24s var(--megamenu-panel-ease)
     var(
       --megamenu-highlight-delay,
       calc(
@@ -647,7 +648,7 @@
   .megamenu-dropdown-content
   > .megamenu-featured
   .megamenu-highlight-wipe-wrap[data-wipe='right'] {
-  animation: megamenu-featured-in 0.34s var(--megamenu-panel-ease)
+  animation: megamenu-featured-in 0.24s var(--megamenu-panel-ease)
     var(
       --megamenu-highlight-delay,
       calc(
@@ -662,7 +663,7 @@
 .megamenu-viewport-wrapper:has([data-state='open'])
   .megamenu-dropdown-content-footer
   .megamenu-highlight-wipe-wrap[data-wipe='right'] {
-  animation: megamenu-featured-in 0.34s var(--megamenu-panel-ease)
+  animation: megamenu-featured-in 0.24s var(--megamenu-panel-ease)
     var(
       --megamenu-highlight-delay,
       calc(
@@ -673,7 +674,7 @@
 }
 /* Grid-Zelle Featured: gleiches minimales Fade, kurze Verzögerung */
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel .megamenu-dropdown-content > div.megamenu-featured {
-  animation: megamenu-featured-in 0.34s var(--megamenu-panel-ease)
+  animation: megamenu-featured-in 0.24s var(--megamenu-panel-ease)
     var(
       --megamenu-highlight-delay,
       calc(

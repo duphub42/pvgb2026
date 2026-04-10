@@ -59,7 +59,7 @@ export const HighImpactHero: React.FC<HighImpactHeroData> = ({
             <div className="mb-6">
               {subheadline && (
                 <p
-                  className="mb-2 text-lg opacity-90 hero-blurry-fade-in hero-blurry-fade-in--subheading"
+                  className="mb-2 text-lg hero-subheading-contrast--inverse hero-blurry-fade-in hero-blurry-fade-in--subheading"
                   style={subheadlineFadeStyle}
                 >
                   {subheadline}
@@ -72,7 +72,7 @@ export const HighImpactHero: React.FC<HighImpactHeroData> = ({
               )}
               {description && (
                 <p
-                  className="text-base opacity-90 hero-blurry-fade-in hero-blurry-fade-in--description"
+                  className="text-base hero-content-contrast--inverse hero-blurry-fade-in hero-blurry-fade-in--description"
                   style={descriptionFadeStyle}
                 >
                   {description}

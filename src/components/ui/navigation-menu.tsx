@@ -78,10 +78,10 @@ const NavigationMenuContent = React.forwardRef<
       'data-[motion^=to-]:opacity-100',
       'data-[motion^=from-]:animate-in',
       'data-[motion^=from-]:fade-in-0',
-      'data-[motion^=from-]:duration-[280ms] data-[motion^=from-]:ease-[cubic-bezier(0.25,0.1,0.25,1)]',
+      'data-[motion^=from-]:duration-[190ms] data-[motion^=from-]:ease-[cubic-bezier(0.25,0.1,0.25,1)]',
       'data-[motion^=to-]:animate-out',
       'data-[motion^=to-]:fade-out-0',
-      'data-[motion^=to-]:duration-[220ms] data-[motion^=to-]:ease-[cubic-bezier(0.25,0.1,0.25,1)]',
+      'data-[motion^=to-]:duration-[160ms] data-[motion^=to-]:ease-[cubic-bezier(0.25,0.1,0.25,1)]',
       className,
     )}
     {...props}

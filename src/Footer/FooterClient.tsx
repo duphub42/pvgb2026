@@ -105,6 +105,9 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
     )
     const mobileQuery = window.matchMedia('(max-width: 47.99rem)')
     let rafId: number | null = null
+    let listenersAttached = false
+    let lastLogoOpacity = ''
+    const lastHeadingOpacities = new Map<HTMLElement, string>()
 
     const calcOpacityForRect = (rect: DOMRect, minOpacity: number, maxOpacity: number): number => {
       const targetCenterY = rect.top + rect.height / 2
@@ -118,14 +121,25 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
       return minOpacity + (maxOpacity - minOpacity) * smoothProgress
     }
 
+    const clearMobileOpacityVars = () => {
+      if (lastLogoOpacity !== '') {
+        logoEl.style.removeProperty('--mobile-footer-logo-opacity')
+        lastLogoOpacity = ''
+      }
+
+      if (lastHeadingOpacities.size > 0) {
+        for (const headingEl of headingEls) {
+          headingEl.style.removeProperty('--mobile-footer-heading-opacity')
+        }
+        lastHeadingOpacities.clear()
+      }
+    }
+
     const applyLogoOpacity = () => {
       rafId = null
 
       if (!mobileQuery.matches) {
-        logoEl.style.removeProperty('--mobile-footer-logo-opacity')
-        for (const headingEl of headingEls) {
-          headingEl.style.removeProperty('--mobile-footer-heading-opacity')
-        }
+        clearMobileOpacityVars()
         return
       }
 
@@ -134,7 +148,11 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
         MOBILE_FOOTER_B_LOGO_MIN_OPACITY,
         MOBILE_FOOTER_B_LOGO_MAX_OPACITY,
       )
-      logoEl.style.setProperty('--mobile-footer-logo-opacity', logoOpacity.toFixed(3))
+      const nextLogoOpacity = logoOpacity.toFixed(3)
+      if (nextLogoOpacity !== lastLogoOpacity) {
+        logoEl.style.setProperty('--mobile-footer-logo-opacity', nextLogoOpacity)
+        lastLogoOpacity = nextLogoOpacity
+      }
 
       for (const headingEl of headingEls) {
         const rect = headingEl.getBoundingClientRect()
@@ -144,7 +162,11 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
           MOBILE_FOOTER_HEADING_MIN_OPACITY,
           MOBILE_FOOTER_HEADING_MAX_OPACITY,
         )
-        headingEl.style.setProperty('--mobile-footer-heading-opacity', headingOpacity.toFixed(3))
+        const nextHeadingOpacity = headingOpacity.toFixed(3)
+        if (lastHeadingOpacities.get(headingEl) !== nextHeadingOpacity) {
+          headingEl.style.setProperty('--mobile-footer-heading-opacity', nextHeadingOpacity)
+          lastHeadingOpacities.set(headingEl, nextHeadingOpacity)
+        }
       }
     }
 
@@ -154,6 +176,17 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
     }
 
     const handleViewportChange = () => {
+      if (mobileQuery.matches && !listenersAttached) {
+        window.addEventListener('scroll', queueLogoOpacityUpdate, { passive: true })
+        window.addEventListener('resize', queueLogoOpacityUpdate)
+        window.addEventListener('orientationchange', queueLogoOpacityUpdate)
+        listenersAttached = true
+      } else if (!mobileQuery.matches && listenersAttached) {
+        window.removeEventListener('scroll', queueLogoOpacityUpdate)
+        window.removeEventListener('resize', queueLogoOpacityUpdate)
+        window.removeEventListener('orientationchange', queueLogoOpacityUpdate)
+        listenersAttached = false
+      }
       queueLogoOpacityUpdate()
     }
 
@@ -163,19 +196,18 @@ export function FooterClient({ footer: footerData, header: headerData, locale }:
       mobileQuery.addListener(handleViewportChange)
     }
 
-    window.addEventListener('scroll', queueLogoOpacityUpdate, { passive: true })
-    window.addEventListener('resize', queueLogoOpacityUpdate)
-    window.addEventListener('orientationchange', queueLogoOpacityUpdate)
-
-    queueLogoOpacityUpdate()
+    handleViewportChange()
 
     return () => {
       if (rafId != null) {
         window.cancelAnimationFrame(rafId)
       }
-      window.removeEventListener('scroll', queueLogoOpacityUpdate)
-      window.removeEventListener('resize', queueLogoOpacityUpdate)
-      window.removeEventListener('orientationchange', queueLogoOpacityUpdate)
+      if (listenersAttached) {
+        window.removeEventListener('scroll', queueLogoOpacityUpdate)
+        window.removeEventListener('resize', queueLogoOpacityUpdate)
+        window.removeEventListener('orientationchange', queueLogoOpacityUpdate)
+      }
+      clearMobileOpacityVars()
       if (typeof mobileQuery.removeEventListener === 'function') {
         mobileQuery.removeEventListener('change', handleViewportChange)
       } else {

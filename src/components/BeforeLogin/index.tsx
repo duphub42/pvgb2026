@@ -158,17 +158,12 @@ const BeforeLogin: React.FC = () => {
           }
 
           .template-minimal__wrap > .custom-login-art {
-            grid-column: 1 / -1;
-            grid-row: 1;
-            min-height: 180px;
-            height: 180px;
-            border-radius: 16px;
-            border-left: none;
+            display: none;
           }
 
           .template-minimal__wrap > .custom-login-form-logo {
             grid-column: 1 / -1;
-            grid-row: 2;
+            grid-row: 1;
             width: min(190px, 58%);
             margin-top: 0.25rem;
             transform: none;
@@ -176,28 +171,12 @@ const BeforeLogin: React.FC = () => {
 
           .template-minimal__wrap > form {
             grid-column: 1 / -1;
-            grid-row: 3;
+            grid-row: 2;
             width: 100%;
             min-height: auto;
             height: auto;
             justify-content: flex-start;
             padding-top: 0;
-          }
-        }
-
-        @media (max-width: 700px) {
-          .template-minimal__wrap > .custom-login-art {
-            display: none;
-          }
-
-          .template-minimal__wrap > .custom-login-form-logo {
-            grid-row: 1;
-            margin-top: 1.25rem;
-            transform: none;
-          }
-
-          .template-minimal__wrap > form {
-            grid-row: 2;
           }
         }
       `}</style>

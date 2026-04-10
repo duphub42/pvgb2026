@@ -213,15 +213,15 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
               {badgeText ? (
                 <Badge
                   variant="outline"
-                  className="w-fit font-mono text-[10px] tracking-[0.2em] uppercase border-zinc-500 dark:border-zinc-600 text-zinc-700 dark:text-zinc-300 px-3 py-1.5 mb-8 bg-white/90 dark:bg-zinc-800/90 shadow-md hero-blurry-fade-in hero-blurry-fade-in--subheading"
+                  className="w-fit font-mono text-[10px] tracking-[0.2em] uppercase border-zinc-500 dark:border-zinc-600 hero-subheading-contrast px-3 py-1.5 mb-8 bg-white/90 dark:bg-zinc-800/90 shadow-md hero-blurry-fade-in hero-blurry-fade-in--subheading"
                   style={subheadlineFadeStyle}
                 >
-                  <User className="w-3 h-3 mr-2 text-zinc-500" />
+                  <User className="w-3 h-3 mr-2 hero-subheading-contrast" />
                   {badgeText}
                 </Badge>
               ) : null}
 
-              <h1 className="text-6xl lg:text-8xl font-black tracking-tighter leading-[0.85] text-foreground mb-8 uppercase italic drop-shadow-sm">
+              <h1 className="text-6xl lg:text-8xl font-black tracking-tighter leading-[0.85] hero-heading-gradient mb-8 uppercase italic drop-shadow-sm">
                 {headlineLines.length > 0 ? (
                   headlineLines.map((line, index) => (
                     <span key={index}>
@@ -241,7 +241,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
               </h1>
 
               <p
-                className="text-base lg:text-lg text-zinc-900 dark:text-zinc-100 mb-10 leading-relaxed max-w-[42ch] font-medium hero-blurry-fade-in hero-blurry-fade-in--description"
+                className="text-base lg:text-lg hero-content-contrast mb-10 leading-relaxed max-w-[42ch] font-medium hero-blurry-fade-in hero-blurry-fade-in--description"
                 style={descriptionFadeStyle}
               >
                 {description ||
@@ -277,7 +277,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
                       <div className="font-mono text-2xl font-bold text-foreground italic tracking-tighter">
                         {stat.value}
                       </div>
-                      <div className="text-[10px] text-zinc-500 dark:text-zinc-400 uppercase tracking-[0.2em] mt-1 font-bold">
+                      <div className="text-[10px] hero-subheading-contrast uppercase tracking-[0.2em] mt-1 font-bold">
                         {stat.label}
                       </div>
                     </div>
@@ -287,14 +287,14 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
           </div>
         </div>
 
-        <div className="relative z-[80] order-1 flex h-[50vh] max-h-[30rem] sm:h-[56vh] sm:max-h-[34rem] items-center justify-center overflow-visible lg:order-2 lg:h-full lg:max-h-[666px] lg:items-end">
+        <div className="relative order-1 z-[20] flex h-[50vh] max-h-[30rem] sm:h-[56vh] sm:max-h-[34rem] items-center justify-center overflow-visible md:z-[80] lg:order-2 lg:h-full lg:max-h-[666px] lg:items-end">
           <div className="w-full max-w-[clamp(22rem,96vw,46rem)] translate-y-8 sm:translate-y-10 md:translate-y-0 overflow-visible lg:translate-y-0 lg:scale-[1.5] lg:origin-center">
             <PopoutHeroStackVisual
               layers={stackLayers}
               frontMobileWidthPercent="120vw"
               frontMobileMaxWidth="120vw"
               frontMobileImageScale={1.22}
-              className="relative z-0 [--hero-stack-base-y:clamp(7rem,22vh,12rem)] sm:[--hero-stack-base-y:clamp(7.5rem,18vh,12.5rem)] [--hero-stack-front-mobile-offset:clamp(4.5rem,14vh,8rem)] md:[--hero-stack-front-mobile-offset:0px] lg:[--hero-stack-lift:calc(var(--header-height)*0.5)] lg:[--hero-stack-base-y:32px] lg:[--hero-stack-img-base-y:28px]"
+              className="relative z-0 [--hero-stack-base-y:clamp(7rem,22vh,12rem)] sm:[--hero-stack-base-y:clamp(7.5rem,18vh,12.5rem)] [--hero-stack-front-mobile-offset:0px] lg:[--hero-stack-lift:calc(var(--header-height)*0.5)] lg:[--hero-stack-base-y:32px] lg:[--hero-stack-img-base-y:28px]"
             />
           </div>
         </div>

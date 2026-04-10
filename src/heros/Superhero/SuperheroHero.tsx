@@ -475,7 +475,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
           >
             {subheadline && (
               <p
-                className="inline-flex w-fit items-center rounded-full border border-border bg-card px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] text-muted-foreground hero-blurry-fade-in hero-blurry-fade-in--subheading"
+                className="inline-flex w-fit items-center rounded-full border border-border bg-card px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] hero-subheading-contrast hero-blurry-fade-in hero-blurry-fade-in--subheading"
                 style={subheadlineFadeStyle}
               >
                 {subheadline}
@@ -494,7 +494,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
             {description && (
               <p
-                className="max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg hero-blurry-fade-in hero-blurry-fade-in--description"
+                className="max-w-2xl text-base leading-relaxed hero-content-contrast md:text-lg hero-blurry-fade-in hero-blurry-fade-in--description"
                 style={descriptionFadeStyle}
               >
                 {description}

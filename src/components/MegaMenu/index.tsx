@@ -44,6 +44,7 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher'
 import { ResilientImage } from '@/components/ui/resilient-image'
 import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
+import { isNavLinkActive } from '@/utilities/navLinkActive'
 
 /** Konfiguration für WhatsApp, Rückruf und Newsletter im Mega-Menü (aus Header-Global) */
 export type MegaMenuCta = {
@@ -376,39 +377,22 @@ function getMobileMenuItemDescription(item: MegaMenuItem): string | null {
   return null
 }
 
-function getMobileDockActionTarget(action: MobileDockAction): string {
-  const href = action.href?.trim()
-  if (!href) return action.label
-
-  if (href.startsWith('tel:')) return href.replace(/^tel:/, '')
-  if (href.startsWith('mailto:')) return href.replace(/^mailto:/, '')
-  if (href.startsWith('/')) return href
-
-  try {
-    const url = new URL(href)
-    const path = url.pathname && url.pathname !== '/' ? url.pathname : ''
-    return `${url.hostname}${path}`
-  } catch {
-    return href.replace(/^https?:\/\//i, '')
-  }
-}
-
 function getMobileDockClickTooltipCopy(action: MobileDockAction): { label: string; detail: string } {
-  const target = getMobileDockActionTarget(action)
+  const detail = 'Erneut tippen'
 
   switch (action.key) {
     case 'phone':
-      return { label: 'Jetzt anrufen', detail: target }
+      return { label: 'Jetzt anrufen', detail }
     case 'email':
-      return { label: 'E-Mail schreiben', detail: target }
+      return { label: 'E-Mail schreiben', detail }
     case 'whatsapp':
-      return { label: 'WhatsApp öffnen', detail: target }
+      return { label: 'WhatsApp öffnen', detail }
     case 'vcard':
-      return { label: 'Kontakt speichern', detail: target }
+      return { label: 'Kontakt speichern', detail }
     case 'calendar':
-      return { label: 'Termin buchen', detail: target }
+      return { label: 'Termin buchen', detail }
     default:
-      return { label: action.label, detail: target }
+      return { label: action.label, detail }
   }
 }
 
@@ -1092,9 +1076,17 @@ export function MegaMenu({
   const mobileDockRafRef = useRef<number | null>(null)
   const mobileDockLastRippleAtRef = useRef(0)
   const mobileDockConfirmTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const navListWrapRef = useRef<HTMLDivElement>(null)
+  const topNavItemRefs = useRef<Map<string, HTMLElement>>(new Map())
   const viewportWrapperRef = useRef<HTMLDivElement>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [mouseEntrySide, setMouseEntrySide] = useState<'left' | 'right'>('left')
+  const [selectedTopNavKey, setSelectedTopNavKey] = useState<string | null>(null)
+  const [navIndicatorStyle, setNavIndicatorStyle] = useState<{ x: number; width: number; visible: boolean }>({
+    x: 0,
+    width: 0,
+    visible: false,
+  })
 
   const navigateToTopLevel = React.useCallback(
     (targetUrl: string) => {
@@ -1109,6 +1101,25 @@ export function MegaMenu({
     [router],
   )
 
+  const isTopLevelItemActive = React.useCallback(
+    (itemUrl: string): boolean => {
+      if (!pathname || typeof itemUrl !== 'string') return false
+      const normalized = itemUrl.trim()
+      if (!normalized) return false
+      if (/^(?:[a-z][a-z\d+\-.]*:)?\/\//i.test(normalized)) return false
+      return isNavLinkActive(pathname, normalized)
+    },
+    [pathname],
+  )
+
+  const setTopNavItemRef = React.useCallback((key: string, node: HTMLElement | null) => {
+    if (node) {
+      topNavItemRefs.current.set(key, node)
+      return
+    }
+    topNavItemRefs.current.delete(key)
+  }, [])
+
   const cancelCloseTimeout = () => {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current)
@@ -1117,7 +1128,7 @@ export function MegaMenu({
   }
 
   // CSS-first close: Active state steuert in/ausblenden, JS nur Zeitverzögerung zum Verhindern von Peeking.
-  const scheduleClose = (delay = 220) => {
+  const scheduleClose = (delay = 140) => {
     cancelCloseTimeout()
     closeTimeoutRef.current = setTimeout(() => {
       setActiveMenu(null)
@@ -1125,7 +1136,7 @@ export function MegaMenu({
     }, delay)
   }
 
-  /* Schließen verzögern (300ms): Cursor darf langsam vom Link ins Dropdown fahren, ohne dass es zugeht */
+  /* Schließen kurz verzögern: Cursor darf vom Link ins Dropdown fahren, ohne dass es sofort zugeht */
   useEffect(() => {
     const wrapper = viewportWrapperRef.current
     if (!wrapper) return
@@ -1147,6 +1158,69 @@ export function MegaMenu({
     () => [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
     [items],
   )
+
+  const activeTopNavKeyFromPath = useMemo(() => {
+    for (const [idx, item] of sortedItems.entries()) {
+      if (isTopLevelItemActive(item.url)) {
+        return getMegaMenuItemKey(item, idx)
+      }
+    }
+    return null
+  }, [isTopLevelItemActive, sortedItems])
+
+  useEffect(() => {
+    setSelectedTopNavKey((previous) => {
+      if (activeTopNavKeyFromPath) return activeTopNavKeyFromPath
+      if (
+        previous &&
+        sortedItems.some((item, idx) => getMegaMenuItemKey(item, idx) === previous)
+      ) {
+        return previous
+      }
+      return null
+    })
+  }, [activeTopNavKeyFromPath, sortedItems])
+
+  const updateTopNavIndicator = React.useCallback(() => {
+    const navWrap = navListWrapRef.current
+    if (!navWrap || !selectedTopNavKey) {
+      setNavIndicatorStyle((previous) => (previous.visible ? { ...previous, visible: false } : previous))
+      return
+    }
+
+    const activeNode = topNavItemRefs.current.get(selectedTopNavKey)
+    if (!activeNode) {
+      setNavIndicatorStyle((previous) => (previous.visible ? { ...previous, visible: false } : previous))
+      return
+    }
+
+    const navWrapRect = navWrap.getBoundingClientRect()
+    const activeRect = activeNode.getBoundingClientRect()
+    const nextX = Math.max(0, activeRect.left - navWrapRect.left)
+    const nextWidth = Math.max(0, activeRect.width)
+
+    setNavIndicatorStyle((previous) => {
+      const sameX = Math.abs(previous.x - nextX) < 0.5
+      const sameWidth = Math.abs(previous.width - nextWidth) < 0.5
+      if (previous.visible && sameX && sameWidth) return previous
+      return {
+        x: nextX,
+        width: nextWidth,
+        visible: true,
+      }
+    })
+  }, [selectedTopNavKey])
+
+  React.useLayoutEffect(() => {
+    updateTopNavIndicator()
+  }, [updateTopNavIndicator])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const onResize = () => updateTopNavIndicator()
+    window.addEventListener('resize', onResize, { passive: true })
+    return () => window.removeEventListener('resize', onResize)
+  }, [updateTopNavIndicator])
   const mobileMenuItems = useMemo(
     () =>
       sortedItems.map((item, idx) => ({
@@ -1702,7 +1776,7 @@ export function MegaMenu({
       armMobileDockActionConfirmation(action.key)
       const clickTooltip = getMobileDockClickTooltipCopy(action)
       showMobileDockTooltip(clickTooltip.label, actionEl, {
-        detail: `${clickTooltip.detail} • erneut tippen`,
+        detail: clickTooltip.detail,
         variant: 'click',
         autoHideMs: MOBILE_DOCK_CONFIRM_WINDOW_MS,
       })
@@ -2159,7 +2233,7 @@ export function MegaMenu({
       {/* Background Blur Overlay – 1:1 test2 */}
       <div
         className={cn(
-          'megamenu-overlay fixed inset-0 z-50 bg-background/20 backdrop-blur-md pointer-events-none opacity-0 transition-[opacity] duration-[320ms] ease-[cubic-bezier(0.25,0.1,0.25,1)]',
+          'megamenu-overlay fixed inset-0 z-50 bg-background/20 backdrop-blur-md pointer-events-none opacity-0 transition-[opacity] duration-[220ms] ease-[cubic-bezier(0.25,0.1,0.25,1)]',
           activeMenu != null && 'opacity-100 pointer-events-auto',
         )}
       />
@@ -2191,10 +2265,12 @@ export function MegaMenu({
               <div
                 className="megamenu-nav-wrap flex h-full items-stretch gap-4"
                 onPointerEnter={cancelCloseTimeout}
-                onPointerLeave={() => scheduleClose(180)}
+                onPointerLeave={() => scheduleClose(120)}
               >
                 <NavigationMenu
                   className="megamenu-nav hidden lg:flex lg:h-full lg:flex-initial lg:ml-auto"
+                  delayDuration={70}
+                  skipDelayDuration={100}
                   value={activeMenu ?? ''}
                   onValueChange={(value) => {
                     const next = value || null
@@ -2204,11 +2280,25 @@ export function MegaMenu({
                       return
                     }
 
-                    scheduleClose(300)
+                    scheduleClose(160)
                   }}
                   viewportWrapperRef={viewportWrapperRef}
                 >
-                  <div className="megamenu-nav-list-wrap relative flex h-full flex-1 justify-end">
+                  <div
+                    ref={navListWrapRef}
+                    className="megamenu-nav-list-wrap relative flex h-full flex-1 justify-end"
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="megamenu-nav-indicator"
+                      data-visible={navIndicatorStyle.visible ? 'true' : 'false'}
+                      style={
+                        {
+                          width: `${navIndicatorStyle.width}px`,
+                          transform: `translateX(${navIndicatorStyle.x}px)`,
+                        } as React.CSSProperties
+                      }
+                    />
                     <NavigationMenuList className="megamenu-nav-list h-full justify-end">
                       {sortedItems.map((item, idx) => {
                         const menuItemKey = getMegaMenuItemKey(item, idx)
@@ -2216,6 +2306,7 @@ export function MegaMenu({
                         const value = menuItemKey
 
                         if (hasDrop) {
+                          const isActive = isTopLevelItemActive(item.url)
                           const cols = item.columns ?? []
                           const cw = item.columnWidths
                           const sidebarSpan = cw?.col1 != null ? Number(cw.col1) : sidebarCols
@@ -2624,9 +2715,13 @@ export function MegaMenu({
                           return (
                             <NavigationMenuItem key={menuItemKey} value={value}>
                               <NavigationMenuTrigger
+                                ref={(node) => {
+                                  setTopNavItemRef(menuItemKey, node)
+                                }}
                                 className={cn(
                                   navigationMenuTriggerStyle(),
                                   'megamenu-top-item cursor-pointer',
+                                  isActive && 'megamenu-top-item--active',
                                 )}
                                 onPointerEnter={(e) => {
                                   const rect = e.currentTarget.getBoundingClientRect()
@@ -2638,6 +2733,7 @@ export function MegaMenu({
                                   event.preventDefault()
                                   event.stopPropagation()
                                   cancelCloseTimeout()
+                                  setSelectedTopNavKey(menuItemKey)
                                   setActiveMenu(null)
                                   navigateToTopLevel(item.url)
                                 }}
@@ -2827,10 +2923,17 @@ export function MegaMenu({
                             <NavigationMenuLink asChild>
                               <Link
                                 href={item.url}
+                                ref={(node) => {
+                                  setTopNavItemRef(menuItemKey, node)
+                                }}
                                 className={cn(
                                   navigationMenuTriggerStyle(),
                                   'megamenu-top-item cursor-pointer',
+                                  isTopLevelItemActive(item.url) && 'megamenu-top-item--active',
                                 )}
+                                onClick={() => {
+                                  setSelectedTopNavKey(menuItemKey)
+                                }}
                               >
                                 {item.label}
                               </Link>

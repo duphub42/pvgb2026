@@ -96,14 +96,14 @@ const Feature267 = ({ className, content }: Feature267Props) => {
         <div className="flex h-full flex-col justify-center">
           <div className="flex items-center gap-2">
             <Sparkles className="size-5 fill-foreground" />
-            <p className="w-fit rounded-full py-1 font-medium tracking-tight">
+            <p className="w-fit rounded-full py-1 type-body-sm tracking-tight">
               {subheadline}
             </p>
           </div>
-          <h1 className="mt-3 mb-8 max-w-xl text-5xl font-medium font-semibold tracking-tighter lg:max-w-3xl lg:text-6xl">
+          <h1 className="mt-3 mb-8 max-w-xl type-display lg:max-w-3xl">
             {headline}
           </h1>
-          <p className="max-w-xl text-muted-foreground">{body}</p>
+          <p className="max-w-xl type-body text-muted-foreground">{body}</p>
           <div className="mt-10 flex flex-wrap gap-4">
             {links.length > 0 ? (
               links.map((item, i) =>

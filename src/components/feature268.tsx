@@ -38,10 +38,10 @@ const Feature268 = ({ className }: Feature268Props) => {
     <section className={cn('h-full w-screen overflow-hidden py-32', className)}>
       <div className="relative container flex h-full flex-col items-start justify-between gap-10 lg:flex-row">
         <div className="w-full space-y-5 lg:w-3/5">
-          <h1 className="mt-3 w-full max-w-2xl text-5xl font-medium font-semibold tracking-tighter lg:text-6xl">
+          <h1 className="mt-3 w-full max-w-2xl type-display">
             Drop-In Ready Blocks to Supercharge Your App
           </h1>
-          <p className="max-w-xl text-muted-foreground">
+          <p className="max-w-xl type-body text-muted-foreground">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
             incididunt ut labore et dolore magna aliqua. Ut enim ad
           </p>
@@ -53,7 +53,9 @@ const Feature268 = ({ className }: Feature268Props) => {
           </div>
           <ul className="space-y-4">
             <li className="mb-3">
-              <p className="font-semibold tracking-tight opacity-50">ShadcnBlocks Perks</p>
+              <p className="type-body-sm font-semibold tracking-tight opacity-50">
+                ShadcnBlocks Perks
+              </p>
             </li>
             {features.map((feature, idx) => (
               <li
@@ -61,7 +63,7 @@ const Feature268 = ({ className }: Feature268Props) => {
                 className="flex gap-4 lg:items-center"
               >
                 <Check className="size-4" />
-                <p className="font-medium tracking-tight">
+                <p className="type-body-sm font-medium tracking-tight">
                   {feature.title}
                   <span className="pl-2 opacity-30">{feature.description}</span>
                 </p>
@@ -73,14 +75,14 @@ const Feature268 = ({ className }: Feature268Props) => {
           <CardBody className="group/card flex h-full !w-full flex-col items-center justify-center rounded-3xl bg-muted/70 px-5 py-15">
             <CardItem
               translateZ="60"
-              className="mb-2 max-w-xs text-center text-3xl leading-none font-semibold tracking-tight"
+              className="mb-2 max-w-xs text-center type-heading-xl leading-none tracking-tight"
             >
               #1 Biggest Shadcn Blocks Collection
             </CardItem>
             <CardItem
               as="p"
               translateZ="25"
-              className="my-4 flex w-full max-w-sm items-center justify-center text-sm tracking-tight"
+              className="my-4 flex w-full max-w-sm items-center justify-center type-body-sm tracking-tight"
             >
               <span className="mr-2 opacity-50">Welcome to</span>
               <span className="font-semibold">SHADCN BLOCKS</span>

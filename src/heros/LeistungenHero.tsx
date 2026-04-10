@@ -42,7 +42,7 @@ export const LeistungenHero: FC<LeistungenHeroProps> = ({
         )}
         {subheadline && (
           <h2
-            className="mb-2 text-xl font-medium opacity-80 md:text-2xl hero-blurry-fade-in hero-blurry-fade-in--subheading"
+            className="mb-2 text-xl font-medium hero-subheading-contrast--inverse md:text-2xl hero-blurry-fade-in hero-blurry-fade-in--subheading"
             style={subheadlineFadeStyle}
           >
             {subheadline}
@@ -50,7 +50,7 @@ export const LeistungenHero: FC<LeistungenHeroProps> = ({
         )}
         {description && (
           <p
-            className="mb-6 text-base opacity-80 md:text-lg hero-blurry-fade-in hero-blurry-fade-in--description"
+            className="mb-6 text-base hero-content-contrast--inverse md:text-lg hero-blurry-fade-in hero-blurry-fade-in--description"
             style={descriptionFadeStyle}
           >
             {description}
@@ -76,7 +76,9 @@ export const LeistungenHero: FC<LeistungenHeroProps> = ({
                 className="flex flex-col items-center"
               >
                 <span className="text-3xl font-bold text-primary-400">{stat.value}</span>
-                <span className="text-xs uppercase tracking-wider opacity-70">{stat.label}</span>
+                <span className="text-xs uppercase tracking-wider hero-subheading-contrast--inverse">
+                  {stat.label}
+                </span>
               </div>
             ))}
           </div>

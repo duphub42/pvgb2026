@@ -1,18 +1,14 @@
-'use client'
-
 import type { ReactNode, CSSProperties } from 'react'
-import { motion } from 'framer-motion'
-import type { Transition, Variants, ViewportOptions } from 'framer-motion'
 
 interface AnimateBlockProps {
   children: ReactNode
   className?: string
   style?: CSSProperties
-  variants: Variants
+  variants?: unknown
   initial?: string
   whileInView?: string
-  viewport?: ViewportOptions
-  transition?: Transition
+  viewport?: unknown
+  transition?: unknown
 }
 
 export function AnimateBlock({
@@ -25,17 +21,11 @@ export function AnimateBlock({
   viewport,
   transition,
 }: AnimateBlockProps) {
-  return (
-    <motion.div
-      className={className}
-      style={style}
-      variants={variants}
-      initial={initial}
-      whileInView={whileInView}
-      viewport={viewport}
-      transition={transition}
-    >
-      {children}
-    </motion.div>
-  )
+  void variants
+  void initial
+  void whileInView
+  void viewport
+  void transition
+
+  return <div className={className} style={style}>{children}</div>
 }

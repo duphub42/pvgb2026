@@ -27,7 +27,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   megaMenuItems = [],
   mobileDockPhone = null,
 }) => {
-  const [theme, setTheme] = useState<string | null>(null)
   const [headerVisible, setHeaderVisible] = useState(true)
   const [isPastFold, setIsPastFold] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -35,6 +34,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const [hideToTop, setHideToTop] = useState(false)
   const lastScrollYRef = useRef(0)
   const isPastFoldRef = useRef(false)
+  const headerVisibleRef = useRef(true)
+  const isScrolledRef = useRef(false)
+  const revealFromTopRef = useRef(false)
+  const hideToTopRef = useRef(false)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const { theme: globalTheme } = useTheme()
   const pathname = usePathname()
@@ -45,8 +48,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     const stickyEnterThresholdPx = 0
     const stickyLeaveThresholdPx = 0
     const minDeltaForTogglePx = 6
+    const hideAfterPx = 1
+    let rafId: number | null = null
 
-    const handleScroll = () => {
+    const applyScroll = () => {
+      rafId = null
       const currentScrollY = window.scrollY
       const prevScrollY = lastScrollYRef.current
       const delta = currentScrollY - prevScrollY
@@ -54,66 +60,90 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
       const scrollingDown = delta > 0
       const scrollingUp = delta < 0
       const absDelta = Math.abs(delta)
+      const nextIsScrolled = currentScrollY > 20
 
-      setIsScrolled(currentScrollY > 20)
+      if (nextIsScrolled !== isScrolledRef.current) {
+        isScrolledRef.current = nextIsScrolled
+        setIsScrolled(nextIsScrolled)
+      }
 
       // Sticky handling starts at page top instead of over-the-fold.
-
       const wasPastFold = isPastFoldRef.current
       const nextPastFold = wasPastFold
         ? currentScrollY > stickyLeaveThresholdPx
         : currentScrollY >= stickyEnterThresholdPx
 
       if (nextPastFold !== wasPastFold) {
-        if (wasPastFold && !nextPastFold) {
-          setHideToTop(false)
-          setRevealFromTop(false)
-          setHeaderVisible(true)
-        }
         isPastFoldRef.current = nextPastFold
         setIsPastFold(nextPastFold)
-      }
-
-      setHeaderVisible((prev) => {
-        let next = prev
-        const hideAfterPx = 1
 
         if (!nextPastFold) {
-          if (wasPastFold && !nextPastFold) {
+          if (hideToTopRef.current) {
+            hideToTopRef.current = false
             setHideToTop(false)
+          }
+          if (revealFromTopRef.current) {
+            revealFromTopRef.current = false
             setRevealFromTop(false)
           }
-          next = true
-        } else {
-          if (scrollingDown && absDelta >= minDeltaForTogglePx && currentScrollY >= hideAfterPx) {
-            next = false
-          } else if (scrollingUp && absDelta >= minDeltaForTogglePx) {
-            next = true
+          if (!headerVisibleRef.current) {
+            headerVisibleRef.current = true
+            setHeaderVisible(true)
           }
         }
+      }
 
-        if (prev === next) return prev
+      let nextHeaderVisible = headerVisibleRef.current
 
-        setRevealFromTop(prev === false && next === true && nextPastFold && scrollingUp)
-        setHideToTop(prev === true && next === false && nextPastFold && scrollingDown)
+      if (nextPastFold) {
+        if (scrollingDown && absDelta >= minDeltaForTogglePx && currentScrollY >= hideAfterPx) {
+          nextHeaderVisible = false
+        } else if (scrollingUp && absDelta >= minDeltaForTogglePx) {
+          nextHeaderVisible = true
+        }
+      } else {
+        nextHeaderVisible = true
+      }
 
-        return next
-      })
+      if (nextHeaderVisible === headerVisibleRef.current) return
+
+      const wasVisible = headerVisibleRef.current
+      headerVisibleRef.current = nextHeaderVisible
+      setHeaderVisible(nextHeaderVisible)
+
+      const nextRevealFromTop = !wasVisible && nextHeaderVisible && nextPastFold && scrollingUp
+      if (nextRevealFromTop !== revealFromTopRef.current) {
+        revealFromTopRef.current = nextRevealFromTop
+        setRevealFromTop(nextRevealFromTop)
+      }
+
+      const nextHideToTop = wasVisible && !nextHeaderVisible && nextPastFold && scrollingDown
+      if (nextHideToTop !== hideToTopRef.current) {
+        hideToTopRef.current = nextHideToTop
+        setHideToTop(nextHideToTop)
+      }
     }
+
+    const handleScroll = () => {
+      if (rafId != null) return
+      rafId = window.requestAnimationFrame(applyScroll)
+    }
+
     window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
+    applyScroll()
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (rafId != null) {
+        window.cancelAnimationFrame(rafId)
+      }
+    }
   }, [])
 
   useEffect(() => {
     setHeaderTheme(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname])
-
-  useEffect(() => {
-    if (headerTheme && headerTheme !== theme) setTheme(headerTheme)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [headerTheme])
 
   // Resolved theme: page override (headerTheme) or global theme (reaktiv beim Toggle)
   const resolvedTheme = headerTheme ?? globalTheme ?? null
@@ -281,6 +311,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
               : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
           )}
           onAnimationEnd={() => {
+            revealFromTopRef.current = false
+            hideToTopRef.current = false
             setRevealFromTop(false)
             setHideToTop(false)
           }}

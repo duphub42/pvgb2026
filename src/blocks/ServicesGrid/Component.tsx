@@ -3,8 +3,28 @@
 import React from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
-import * as LucideIcons from 'lucide-react'
-import type { LucideIcon } from 'lucide-react'
+import {
+  Activity,
+  BarChart3,
+  BookOpen,
+  ChevronRight,
+  CircleHelp,
+  Clock3,
+  Database,
+  DraftingCompass,
+  Fingerprint,
+  Heart,
+  IdCard,
+  Mail,
+  PlayCircle,
+  Settings2,
+  Shield,
+  Sparkles,
+  Truck,
+  Users,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react'
 import { cn } from '@/utilities/ui'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
@@ -24,43 +44,34 @@ const normalizeIconInput = (raw?: string | null): string =>
     .trim()
     .replace(/^lucide[-_: ]*/i, '')
 
-const toPascalCase = (value: string): string =>
-  value
-    .split(/[^a-zA-Z0-9]+/)
-    .filter(Boolean)
-    .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-    .join('')
+const INTRO_ICON_MAP: Record<string, LucideIcon> = {
+  activity: Activity,
+  barchart: BarChart3,
+  barchart3: BarChart3,
+  bookopen: BookOpen,
+  chart: BarChart3,
+  clock: Clock3,
+  clock3: Clock3,
+  database: Database,
+  draftingcompass: DraftingCompass,
+  fingerprint: Fingerprint,
+  heart: Heart,
+  idcard: IdCard,
+  mail: Mail,
+  playcircle: PlayCircle,
+  settings2: Settings2,
+  shield: Shield,
+  sparkles: Sparkles,
+  truck: Truck,
+  users: Users,
+  zap: Zap,
+}
 
 const getIconFromName = (name?: string | null): LucideIcon => {
-  const raw = normalizeIconInput(name)
-  if (!raw) return LucideIcons.CircleHelp
-
-  const normalizedTokenized = raw.replace(/([a-z0-9])([A-Z])/g, '$1-$2')
-  const lower = normalizedTokenized.toLowerCase()
-  const kebab = lower.replace(/[_\s]+/g, '-')
-  const pascalFromRaw = toPascalCase(normalizedTokenized)
-  const pascalFromKebab = toPascalCase(kebab)
-  const compact = kebab.replace(/-/g, '')
-  const candidates = [
-    raw,
-    normalizedTokenized,
-    lower,
-    kebab,
-    pascalFromRaw,
-    pascalFromKebab,
-    compact,
-  ]
-
-  const iconSource = LucideIcons as Record<string, unknown>
-
-  for (const key of candidates) {
-    const maybeIcon = iconSource[key]
-    if (typeof maybeIcon === 'function' || typeof maybeIcon === 'object') {
-      return maybeIcon as LucideIcon
-    }
-  }
-
-  return LucideIcons.CircleHelp
+  const raw = normalizeIconInput(name).replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+  if (!raw) return CircleHelp
+  const compactKey = raw.toLowerCase().replace(/[^a-z0-9]+/g, '')
+  return INTRO_ICON_MAP[compactKey] ?? CircleHelp
 }
 
 const strengthMultiplier: Record<RadialStrength, number> = {
@@ -323,7 +334,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
                           {service.description}
                         </p>
                         <div className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-primary opacity-0 transition-opacity group-hover:opacity-100">
-                          Mehr erfahren <LucideIcons.ChevronRight className="h-3 w-3" />
+                          Mehr erfahren <ChevronRight className="h-3 w-3" />
                         </div>
                       </div>
                     )

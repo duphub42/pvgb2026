@@ -36,7 +36,7 @@ const Feature271 = ({ className }: Feature271Props) => {
             >
               Shadcnblocks
             </Badge>
-            <h1 className="w-full max-w-xl text-center text-5xl font-medium font-semibold tracking-tighter lg:text-6xl">
+            <h1 className="w-full max-w-xl text-center type-display">
               Start Using The free Blocks Now
             </h1>
           </div>

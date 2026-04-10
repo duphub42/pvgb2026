@@ -32,36 +32,43 @@ const config = {
         DEFAULT: {
           css: [
             {
-              '--tw-prose-body': 'var(--text)',
-              '--tw-prose-headings': 'var(--text)',
+              '--tw-prose-body': 'var(--foreground)',
+              '--tw-prose-headings': 'var(--foreground)',
+              p: {
+                fontFamily: 'var(--font-body)',
+                fontSize: 'var(--type-body-size)',
+                lineHeight: 'var(--type-body-line-height)',
+                letterSpacing: 'var(--type-body-letter-spacing)',
+              },
               h1: {
-                fontWeight: 'normal',
+                fontFamily: 'var(--font-heading)',
+                fontSize:
+                  'clamp(var(--type-display-size-min), var(--type-display-size-fluid), var(--type-display-size-max))',
+                lineHeight: 'var(--type-display-line-height)',
+                letterSpacing: 'var(--type-display-letter-spacing)',
+                fontWeight: 'var(--type-weight-semibold)',
                 marginBottom: '0.25em',
               },
-            },
-          ],
-        },
-        base: {
-          css: [
-            {
-              h1: {
-                fontSize: '2.5rem',
-              },
               h2: {
-                fontSize: '1.25rem',
-                fontWeight: 600,
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'var(--type-heading-lg-size)',
+                lineHeight: 'var(--type-heading-lg-line-height)',
+                letterSpacing: 'var(--type-heading-lg-letter-spacing)',
+                fontWeight: 'var(--type-weight-semibold)',
               },
-            },
-          ],
-        },
-        md: {
-          css: [
-            {
-              h1: {
-                fontSize: '3.5rem',
+              h3: {
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'var(--type-heading-md-size)',
+                lineHeight: 'var(--type-heading-md-line-height)',
+                letterSpacing: 'var(--type-heading-md-letter-spacing)',
+                fontWeight: 'var(--type-weight-semibold)',
               },
-              h2: {
-                fontSize: '1.5rem',
+              h4: {
+                fontFamily: 'var(--font-heading)',
+                fontSize: 'var(--type-heading-sm-size)',
+                lineHeight: 'var(--type-heading-sm-line-height)',
+                letterSpacing: 'var(--type-heading-sm-letter-spacing)',
+                fontWeight: 'var(--type-weight-medium)',
               },
             },
           ],

@@ -81,6 +81,63 @@
 @custom-variant hero-ipad-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (min-height: 44rem));
 
 @layer base {
+  :root {
+    --type-feature-settings: "cv01", "ss03";
+    --type-variation-settings: "opsz" auto;
+    --type-weight-regular: 400;
+    --type-weight-medium: 500;
+    --type-weight-semibold: 600;
+    --type-weight-bold: 700;
+
+    --type-body-size: 0.9375rem;
+    --type-body-line-height: 1.6;
+    --type-body-letter-spacing: -0.008em;
+    --type-body-sm-size: 0.875rem;
+    --type-body-sm-line-height: 1.5;
+    --type-body-sm-letter-spacing: -0.01em;
+    --type-body-xs-size: 0.8125rem;
+    --type-body-xs-line-height: 1.45;
+    --type-body-xs-letter-spacing: -0.008em;
+
+    --type-heading-xs-size: 1rem;
+    --type-heading-xs-line-height: 1.35;
+    --type-heading-xs-letter-spacing: -0.012em;
+    --type-heading-sm-size: 1.125rem;
+    --type-heading-sm-line-height: 1.3;
+    --type-heading-sm-letter-spacing: -0.013em;
+    --type-heading-md-size: 1.25rem;
+    --type-heading-md-line-height: 1.25;
+    --type-heading-md-letter-spacing: -0.014em;
+    --type-heading-lg-size: 1.5rem;
+    --type-heading-lg-line-height: 1.2;
+    --type-heading-lg-letter-spacing: -0.018em;
+    --type-heading-xl-size: 1.875rem;
+    --type-heading-xl-line-height: 1.14;
+    --type-heading-xl-letter-spacing: -0.022em;
+
+    --type-display-size-min: 2rem;
+    --type-display-size-max: 3.75rem;
+    --type-display-size-fluid: 3.2vw + 0.9rem;
+    --type-display-line-height: 1.08;
+    --type-display-letter-spacing: -0.028em;
+
+    --hero-heading-gradient-start: color-mix(in srgb, var(--foreground) 95%, hsl(var(--primary)) 5%);
+    --hero-heading-gradient-mid: color-mix(in srgb, var(--foreground) 86%, hsl(var(--primary)) 14%);
+    --hero-heading-gradient-end: color-mix(in srgb, var(--foreground) 94%, hsl(var(--primary)) 6%);
+    --hero-subheading-color: color-mix(in srgb, var(--foreground) 80%, transparent);
+    --hero-content-color: color-mix(in srgb, var(--foreground) 68%, transparent);
+    --hero-content-strong-color: color-mix(in srgb, var(--foreground) 86%, transparent);
+  }
+
+  [data-theme='dark'] {
+    --hero-heading-gradient-start: color-mix(in srgb, var(--foreground) 95%, hsl(var(--primary)) 5%);
+    --hero-heading-gradient-mid: color-mix(in srgb, var(--foreground) 84%, hsl(var(--primary)) 16%);
+    --hero-heading-gradient-end: color-mix(in srgb, var(--foreground) 93%, hsl(var(--primary)) 7%);
+    --hero-subheading-color: color-mix(in srgb, var(--foreground) 86%, transparent);
+    --hero-content-color: color-mix(in srgb, var(--foreground) 74%, transparent);
+    --hero-content-strong-color: color-mix(in srgb, var(--foreground) 90%, transparent);
+  }
+
   *,
   *::before,
   *::after {
@@ -98,10 +155,14 @@
     overflow-x: hidden;
     overscroll-behavior: none;
     font-family: var(--font-body);
-    font-size: 13px;
-    line-height: 20px;
-    font-weight: 400;
+    font-feature-settings: var(--type-feature-settings);
+    font-variation-settings: var(--type-variation-settings);
+    font-size: var(--type-body-size);
+    line-height: var(--type-body-line-height);
+    letter-spacing: var(--type-body-letter-spacing);
+    font-weight: var(--type-weight-regular);
     -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
     max-width: 100%;
     min-width: 0;
     min-height: 100vh;
@@ -115,33 +176,76 @@
   h5,
   h6 {
     margin: 0;
-    font-weight: unset;
-    font-size: unset;
     font-family: var(--font-heading);
+    font-feature-settings: var(--type-feature-settings);
+    font-variation-settings: var(--type-variation-settings);
   }
   h1 {
-    @apply font-semibold tracking-tighter leading-tight md:leading-[1.1];
-    font-size: clamp(1.875rem, 3.5vw + 0.75rem, 3.25rem);
-  }
-  @media (min-width: 64rem) {
-    h1 {
-      font-size: clamp(2rem, 2.8vw + 0.5rem, 3.75rem);
-    }
+    font-size: clamp(
+      var(--type-display-size-min),
+      var(--type-display-size-fluid),
+      var(--type-display-size-max)
+    );
+    line-height: var(--type-display-line-height);
+    letter-spacing: var(--type-display-letter-spacing);
+    font-weight: var(--type-weight-semibold);
   }
   h2 {
-    @apply text-2xl font-semibold tracking-tight md:text-3xl md:leading-tight;
+    font-size: var(--type-heading-lg-size);
+    line-height: var(--type-heading-lg-line-height);
+    letter-spacing: var(--type-heading-lg-letter-spacing);
+    font-weight: var(--type-weight-semibold);
   }
   h3 {
-    @apply text-xl font-semibold md:text-2xl md:leading-snug;
+    font-size: var(--type-heading-md-size);
+    line-height: var(--type-heading-md-line-height);
+    letter-spacing: var(--type-heading-md-letter-spacing);
+    font-weight: var(--type-weight-semibold);
   }
   h4 {
-    @apply text-lg font-medium md:text-xl;
+    font-size: var(--type-heading-sm-size);
+    line-height: var(--type-heading-sm-line-height);
+    letter-spacing: var(--type-heading-sm-letter-spacing);
+    font-weight: var(--type-weight-medium);
   }
   h5 {
-    @apply text-base font-medium md:text-lg;
+    font-size: var(--type-heading-xs-size);
+    line-height: var(--type-heading-xs-line-height);
+    letter-spacing: var(--type-heading-xs-letter-spacing);
+    font-weight: var(--type-weight-medium);
   }
   h6 {
-    @apply text-sm font-medium md:text-base;
+    font-size: var(--type-body-sm-size);
+    line-height: var(--type-body-sm-line-height);
+    letter-spacing: var(--type-body-sm-letter-spacing);
+    font-weight: var(--type-weight-medium);
+  }
+  @media (min-width: 48rem) {
+    h2 {
+      font-size: var(--type-heading-xl-size);
+      line-height: var(--type-heading-xl-line-height);
+      letter-spacing: var(--type-heading-xl-letter-spacing);
+    }
+    h3 {
+      font-size: var(--type-heading-lg-size);
+      line-height: var(--type-heading-lg-line-height);
+      letter-spacing: var(--type-heading-lg-letter-spacing);
+    }
+    h4 {
+      font-size: var(--type-heading-md-size);
+      line-height: var(--type-heading-md-line-height);
+      letter-spacing: var(--type-heading-md-letter-spacing);
+    }
+    h5 {
+      font-size: var(--type-heading-sm-size);
+      line-height: var(--type-heading-sm-line-height);
+      letter-spacing: var(--type-heading-sm-letter-spacing);
+    }
+    h6 {
+      font-size: var(--type-heading-xs-size);
+      line-height: var(--type-heading-xs-line-height);
+      letter-spacing: var(--type-heading-xs-letter-spacing);
+    }
   }
   img {
     max-width: 100%;
@@ -195,6 +299,67 @@
 }
 
 @layer utilities {
+  .type-body {
+    font-family: var(--font-body);
+    font-size: var(--type-body-size);
+    line-height: var(--type-body-line-height);
+    letter-spacing: var(--type-body-letter-spacing);
+    font-weight: var(--type-weight-regular);
+  }
+  .type-body-sm {
+    font-family: var(--font-body);
+    font-size: var(--type-body-sm-size);
+    line-height: var(--type-body-sm-line-height);
+    letter-spacing: var(--type-body-sm-letter-spacing);
+    font-weight: var(--type-weight-medium);
+  }
+  .type-body-xs {
+    font-family: var(--font-body);
+    font-size: var(--type-body-xs-size);
+    line-height: var(--type-body-xs-line-height);
+    letter-spacing: var(--type-body-xs-letter-spacing);
+    font-weight: var(--type-weight-medium);
+  }
+  .type-heading-sm {
+    font-family: var(--font-heading);
+    font-size: var(--type-heading-sm-size);
+    line-height: var(--type-heading-sm-line-height);
+    letter-spacing: var(--type-heading-sm-letter-spacing);
+    font-weight: var(--type-weight-semibold);
+  }
+  .type-heading-md {
+    font-family: var(--font-heading);
+    font-size: var(--type-heading-md-size);
+    line-height: var(--type-heading-md-line-height);
+    letter-spacing: var(--type-heading-md-letter-spacing);
+    font-weight: var(--type-weight-semibold);
+  }
+  .type-heading-lg {
+    font-family: var(--font-heading);
+    font-size: var(--type-heading-lg-size);
+    line-height: var(--type-heading-lg-line-height);
+    letter-spacing: var(--type-heading-lg-letter-spacing);
+    font-weight: var(--type-weight-semibold);
+  }
+  .type-heading-xl {
+    font-family: var(--font-heading);
+    font-size: var(--type-heading-xl-size);
+    line-height: var(--type-heading-xl-line-height);
+    letter-spacing: var(--type-heading-xl-letter-spacing);
+    font-weight: var(--type-weight-semibold);
+  }
+  .type-display {
+    font-family: var(--font-heading);
+    font-size: clamp(
+      var(--type-display-size-min),
+      var(--type-display-size-fluid),
+      var(--type-display-size-max)
+    );
+    line-height: var(--type-display-line-height);
+    letter-spacing: var(--type-display-letter-spacing);
+    font-weight: var(--type-weight-semibold);
+  }
+
   /* Inhalte, die über die Containerbreite gehen, werden abgeschnitten; Hero-Box ausgenommen. */
   .container {
     width: 100%;
@@ -1489,35 +1654,54 @@
 
   /* Subtiler, langsamer Verlauf (Theme); nur mit .hero-heading-gradient auf Hero-h1 */
   .hero-heading-gradient {
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    -webkit-text-fill-color: transparent;
+    color: var(--hero-heading-gradient-mid);
+    background-image: linear-gradient(
+      108deg,
+      var(--hero-heading-gradient-start) 0%,
+      var(--hero-heading-gradient-mid) 48%,
+      var(--hero-heading-gradient-end) 100%
+    );
     background-size: 220% auto;
     background-repeat: no-repeat;
     animation: hero-heading-gradient-shift 24s ease-in-out infinite;
   }
 
-  [data-theme='light'] .hero-heading-gradient {
-    background-image: linear-gradient(
-      105deg,
-      var(--foreground) 0%,
-      color-mix(in srgb, var(--foreground) 86%, hsl(var(--primary)) 14%) 48%,
-      color-mix(in srgb, var(--foreground) 93%, hsl(var(--primary)) 7%) 100%
-    );
+  @supports ((-webkit-background-clip: text) or (background-clip: text)) {
+    .hero-heading-gradient {
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+    }
   }
 
-  [data-theme='dark'] .hero-heading-gradient {
-    background-image: linear-gradient(
-      105deg,
-      var(--foreground) 0%,
-      color-mix(in srgb, var(--foreground) 82%, hsl(var(--primary)) 18%) 50%,
-      color-mix(in srgb, var(--foreground) 90%, hsl(var(--primary)) 10%) 100%
-    );
+  .hero-subheading-contrast {
+    color: var(--hero-subheading-color);
+  }
+
+  .hero-content-contrast {
+    color: var(--hero-content-color);
+  }
+
+  .hero-content-contrast strong {
+    color: var(--hero-content-strong-color);
+  }
+
+  .hero-subheading-contrast--inverse {
+    color: rgba(248, 250, 252, 0.86);
+  }
+
+  .hero-content-contrast--inverse {
+    color: rgba(248, 250, 252, 0.74);
+  }
+
+  .hero-content-contrast--inverse strong {
+    color: rgba(248, 250, 252, 0.9);
   }
 
   /* Helle Schrift auf dunklem Hero-Panel (überschreibt Theme-Gradient; immer zusammen mit .hero-heading-gradient) */
   .hero-heading-gradient.hero-heading-gradient--inverse {
+    color: rgba(255, 255, 255, 0.96);
     background-image: linear-gradient(
       105deg,
       rgba(255, 255, 255, 0.97) 0%,
@@ -1541,23 +1725,6 @@
     .hero-heading-gradient {
       animation: none;
       background-position: 50% 50%;
-    }
-
-    .hero-heading-gradient:not(.hero-heading-gradient--inverse) {
-      -webkit-text-fill-color: unset;
-      color: var(--foreground);
-      background-image: none;
-    }
-
-    [data-theme='light'] .hero-heading-gradient:not(.hero-heading-gradient--inverse),
-    [data-theme='dark'] .hero-heading-gradient:not(.hero-heading-gradient--inverse) {
-      color: var(--foreground);
-    }
-
-    .hero-heading-gradient.hero-heading-gradient--inverse {
-      -webkit-text-fill-color: unset;
-      color: rgba(255, 255, 255, 0.96);
-      background-image: none;
     }
   }
 
