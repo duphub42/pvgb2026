@@ -102,7 +102,12 @@ function isSpecialMegaMenuColumn(
       .replace(/^['"]+|['"]+$/g, '')
 
   const bg = normalize(col.columnBackground)
-  if (bg === 'accent' || bg.includes('special') || bg.includes('speacial') || bg.includes('spezial')) {
+  if (
+    bg === 'accent' ||
+    bg.includes('special') ||
+    bg.includes('speacial') ||
+    bg.includes('spezial')
+  ) {
     return true
   }
 
@@ -377,7 +382,10 @@ function getMobileMenuItemDescription(item: MegaMenuItem): string | null {
   return null
 }
 
-function getMobileDockClickTooltipCopy(action: MobileDockAction): { label: string; detail: string } {
+function getMobileDockClickTooltipCopy(action: MobileDockAction): {
+  label: string
+  detail: string
+} {
   const detail = 'Erneut tippen'
 
   switch (action.key) {
@@ -1082,7 +1090,11 @@ export function MegaMenu({
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [mouseEntrySide, setMouseEntrySide] = useState<'left' | 'right'>('left')
   const [selectedTopNavKey, setSelectedTopNavKey] = useState<string | null>(null)
-  const [navIndicatorStyle, setNavIndicatorStyle] = useState<{ x: number; width: number; visible: boolean }>({
+  const [navIndicatorStyle, setNavIndicatorStyle] = useState<{
+    x: number
+    width: number
+    visible: boolean
+  }>({
     x: 0,
     width: 0,
     visible: false,
@@ -1171,10 +1183,7 @@ export function MegaMenu({
   useEffect(() => {
     setSelectedTopNavKey((previous) => {
       if (activeTopNavKeyFromPath) return activeTopNavKeyFromPath
-      if (
-        previous &&
-        sortedItems.some((item, idx) => getMegaMenuItemKey(item, idx) === previous)
-      ) {
+      if (previous && sortedItems.some((item, idx) => getMegaMenuItemKey(item, idx) === previous)) {
         return previous
       }
       return null
@@ -1184,13 +1193,17 @@ export function MegaMenu({
   const updateTopNavIndicator = React.useCallback(() => {
     const navWrap = navListWrapRef.current
     if (!navWrap || !selectedTopNavKey) {
-      setNavIndicatorStyle((previous) => (previous.visible ? { ...previous, visible: false } : previous))
+      setNavIndicatorStyle((previous) =>
+        previous.visible ? { ...previous, visible: false } : previous,
+      )
       return
     }
 
     const activeNode = topNavItemRefs.current.get(selectedTopNavKey)
     if (!activeNode) {
-      setNavIndicatorStyle((previous) => (previous.visible ? { ...previous, visible: false } : previous))
+      setNavIndicatorStyle((previous) =>
+        previous.visible ? { ...previous, visible: false } : previous,
+      )
       return
     }
 
@@ -1727,12 +1740,9 @@ export function MegaMenu({
     [clearMobileDockTooltip, removeDockPressedState],
   )
 
-  const handleDockActionMouseEnter = React.useCallback(
-    (event: React.MouseEvent<HTMLElement>) => {
-      event.currentTarget.setAttribute('data-active', 'true')
-    },
-    [],
-  )
+  const handleDockActionMouseEnter = React.useCallback((event: React.MouseEvent<HTMLElement>) => {
+    event.currentTarget.setAttribute('data-active', 'true')
+  }, [])
 
   const handleDockActionMouseLeave = React.useCallback(
     (event: React.MouseEvent<HTMLElement>) => {
@@ -2634,7 +2644,10 @@ export function MegaMenu({
                                           >
                                             <Link href={cardCtaUrl} className="no-underline">
                                               <span>{cardCtaLabel}</span>
-                                              <span className="megamenu-special-icon-swap" aria-hidden="true">
+                                              <span
+                                                className="megamenu-special-icon-swap"
+                                                aria-hidden="true"
+                                              >
                                                 <ChevronRight className="megamenu-special-icon-layer megamenu-special-icon-layer--a h-4 w-4" />
                                                 <ArrowUpRight className="megamenu-special-icon-layer megamenu-special-icon-layer--b h-4 w-4" />
                                               </span>
@@ -2997,9 +3010,7 @@ export function MegaMenu({
                         <div className="mobile-megamenu-utility px-4">
                           <div className="mobile-megamenu-utility-logo flex items-center">
                             {mobileLogo ? (
-                              <div className="mobile-megamenu-utility-logo-mask">
-                                {mobileLogo}
-                              </div>
+                              <div className="mobile-megamenu-utility-logo-mask">{mobileLogo}</div>
                             ) : (
                               <ResilientImage
                                 src={MOBILE_MENU_LOGO_ICON_SRC}
@@ -3279,7 +3290,9 @@ export function MegaMenu({
                                     onMouseEnter={handleDockActionMouseEnter}
                                     onMouseLeave={handleDockActionMouseLeave}
                                     onPointerDown={handleDockActionPointerDown}
-                                    onPointerUp={(event) => handleDockActionPointerUp(event, action)}
+                                    onPointerUp={(event) =>
+                                      handleDockActionPointerUp(event, action)
+                                    }
                                     onPointerCancel={handleDockActionPointerCancel}
                                     onKeyDown={(event) => handleDockActionKeyDown(event, action)}
                                     onKeyUp={handleDockActionKeyUp}

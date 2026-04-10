@@ -36,8 +36,16 @@ export function ThemeSwitcher({
     return 'light'
   }, [theme, mounted])
   const isDark = resolved === 'dark'
-  const ariaLabel = mounted ? (isDark ? 'Hellmodus aktivieren' : 'Dunkelmodus aktivieren') : 'Designmodus wechseln'
-  const tooltipText = mounted ? (resolved === 'light' ? 'Dunkelmodus' : 'Hellmodus') : 'Designmodus wechseln'
+  const ariaLabel = mounted
+    ? isDark
+      ? 'Hellmodus aktivieren'
+      : 'Dunkelmodus aktivieren'
+    : 'Designmodus wechseln'
+  const tooltipText = mounted
+    ? resolved === 'light'
+      ? 'Dunkelmodus'
+      : 'Hellmodus'
+    : 'Designmodus wechseln'
 
   const toggle = useCallback(() => {
     const newTheme = resolved === 'light' ? 'dark' : 'light'

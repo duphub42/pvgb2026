@@ -87,8 +87,14 @@ export function LogoWithGlitch({
   }, [glitchActive])
 
   const startGlitch = useCallback(() => {
-    if (expandDelayRef.current) { clearTimeout(expandDelayRef.current); expandDelayRef.current = null }
-    if (stayVisibleTimeoutRef.current) { clearTimeout(stayVisibleTimeoutRef.current); stayVisibleTimeoutRef.current = null }
+    if (expandDelayRef.current) {
+      clearTimeout(expandDelayRef.current)
+      expandDelayRef.current = null
+    }
+    if (stayVisibleTimeoutRef.current) {
+      clearTimeout(stayVisibleTimeoutRef.current)
+      stayVisibleTimeoutRef.current = null
+    }
     runGlitch(textLogo != null)
   }, [runGlitch, textLogo])
 
@@ -109,22 +115,60 @@ export function LogoWithGlitch({
     ...(variant === 'footer' || disableAnimation ? { disableAnimation: true as const } : {}),
   }
 
-  const textSizeClass = variant === 'footer' ? 'text-base sm:text-lg md:text-xl' : 'text-xl sm:text-2xl'
+  const textSizeClass =
+    variant === 'footer' ? 'text-base sm:text-lg md:text-xl' : 'text-xl sm:text-2xl'
   const CurrentScrambleIcon = SCRAMBLE_ICONS[iconScrambleIndex] ?? Zap
 
   const iconScrambleLayer = (
-    <div className="logo-glitch-icon-scramble pointer-events-none absolute inset-y-0 left-0 flex items-center justify-center" aria-hidden>
-      <CurrentScrambleIcon className="logo-glitch-icon-scramble-current text-current" strokeWidth={2} />
+    <div
+      className="logo-glitch-icon-scramble pointer-events-none absolute inset-y-0 left-0 flex items-center justify-center"
+      aria-hidden
+    >
+      <CurrentScrambleIcon
+        className="logo-glitch-icon-scramble-current text-current"
+        strokeWidth={2}
+      />
     </div>
   )
 
   const hackerIcons = (
-    <div className={cn('logo-glitch-icons pointer-events-none absolute inset-0', glitchActive && 'logo-glitch-icons-visible')} aria-hidden>
-      <Code2 className="logo-glitch-icon logo-glitch-icon-1" size={14} strokeWidth={2} style={{ top: '8%', left: '12%' }} />
-      <Terminal className="logo-glitch-icon logo-glitch-icon-2" size={12} strokeWidth={2} style={{ top: '60%', left: '8%' }} />
-      <Braces className="logo-glitch-icon logo-glitch-icon-3" size={13} strokeWidth={2} style={{ top: '15%', right: '15%' }} />
-      <Binary className="logo-glitch-icon logo-glitch-icon-4" size={11} strokeWidth={2} style={{ bottom: '20%', right: '10%' }} />
-      <Code2 className="logo-glitch-icon logo-glitch-icon-5" size={10} strokeWidth={2} style={{ top: '50%', left: '45%' }} />
+    <div
+      className={cn(
+        'logo-glitch-icons pointer-events-none absolute inset-0',
+        glitchActive && 'logo-glitch-icons-visible',
+      )}
+      aria-hidden
+    >
+      <Code2
+        className="logo-glitch-icon logo-glitch-icon-1"
+        size={14}
+        strokeWidth={2}
+        style={{ top: '8%', left: '12%' }}
+      />
+      <Terminal
+        className="logo-glitch-icon logo-glitch-icon-2"
+        size={12}
+        strokeWidth={2}
+        style={{ top: '60%', left: '8%' }}
+      />
+      <Braces
+        className="logo-glitch-icon logo-glitch-icon-3"
+        size={13}
+        strokeWidth={2}
+        style={{ top: '15%', right: '15%' }}
+      />
+      <Binary
+        className="logo-glitch-icon logo-glitch-icon-4"
+        size={11}
+        strokeWidth={2}
+        style={{ bottom: '20%', right: '10%' }}
+      />
+      <Code2
+        className="logo-glitch-icon logo-glitch-icon-5"
+        size={10}
+        strokeWidth={2}
+        style={{ top: '50%', left: '45%' }}
+      />
     </div>
   )
 
@@ -141,8 +185,14 @@ export function LogoWithGlitch({
         )}
         onMouseEnter={() => startGlitch()}
         onMouseLeave={() => {
-          if (expandDelayRef.current) { clearTimeout(expandDelayRef.current); expandDelayRef.current = null }
-          if (stayVisibleTimeoutRef.current) { clearTimeout(stayVisibleTimeoutRef.current); stayVisibleTimeoutRef.current = null }
+          if (expandDelayRef.current) {
+            clearTimeout(expandDelayRef.current)
+            expandDelayRef.current = null
+          }
+          if (stayVisibleTimeoutRef.current) {
+            clearTimeout(stayVisibleTimeoutRef.current)
+            stayVisibleTimeoutRef.current = null
+          }
         }}
         role="presentation"
       >
@@ -177,10 +227,20 @@ export function LogoWithGlitch({
           className,
         )}
         onMouseEnter={isFooterImage ? undefined : () => startGlitch()}
-        onMouseLeave={isFooterImage ? undefined : () => {
-          if (expandDelayRef.current) { clearTimeout(expandDelayRef.current); expandDelayRef.current = null }
-          if (stayVisibleTimeoutRef.current) { clearTimeout(stayVisibleTimeoutRef.current); stayVisibleTimeoutRef.current = null }
-        }}
+        onMouseLeave={
+          isFooterImage
+            ? undefined
+            : () => {
+                if (expandDelayRef.current) {
+                  clearTimeout(expandDelayRef.current)
+                  expandDelayRef.current = null
+                }
+                if (stayVisibleTimeoutRef.current) {
+                  clearTimeout(stayVisibleTimeoutRef.current)
+                  stayVisibleTimeoutRef.current = null
+                }
+              }
+        }
         role="presentation"
       >
         {!isFooterImage && iconScrambleLayer}
@@ -188,13 +248,21 @@ export function LogoWithGlitch({
         {!isFooterImage && (
           <>
             {/* FIX: logo-contrast auf Glitch-Layern, kein layerInvertClass mehr */}
-            <ResilientImage src={imgSrc} alt="" aria-hidden className="logo-glitch-layer logo-glitch-layer-1 logo-contrast" />
-            <ResilientImage src={imgSrc} alt="" aria-hidden className="logo-glitch-layer logo-glitch-layer-2 logo-contrast" />
+            <ResilientImage
+              src={imgSrc}
+              alt=""
+              aria-hidden
+              className="logo-glitch-layer logo-glitch-layer-1 logo-contrast"
+            />
+            <ResilientImage
+              src={imgSrc}
+              alt=""
+              aria-hidden
+              className="logo-glitch-layer logo-glitch-layer-2 logo-contrast"
+            />
           </>
         )}
-        <div className="logo-glitch-main flex items-center shrink-0">
-          {children}
-        </div>
+        <div className="logo-glitch-main flex items-center shrink-0">{children}</div>
       </div>
     )
   }
