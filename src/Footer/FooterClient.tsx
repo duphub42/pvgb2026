@@ -6,7 +6,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { ArrowRight } from 'lucide-react'
 import { Link2 } from 'lucide-react'
 
-import type { Footer, Header } from '@/payload-types'
+import type { Footer } from '@/payload-types'
 import { SaveButton } from '@/components/ui/save-button'
 import type { Locale } from '@/utilities/locale'
 
@@ -48,13 +48,12 @@ function normalizeKnownBrokenFooterIconUrl(url: string): string {
 
 export type FooterClientProps = {
   footer: Footer | null
-  header: Header | null
   locale: Locale
 }
 
 type NewsletterStatus = 'idle' | 'saving' | 'saved'
 
-export function FooterClient({ footer: footerData, header: headerData, locale }: FooterClientProps) {
+export function FooterClient({ footer: footerData, locale }: FooterClientProps) {
   const footer = footerData ?? ({} as Footer)
   const [newsletterStatus, setNewsletterStatus] = useState<NewsletterStatus>('idle')
   const footerRootRef = useRef<HTMLElement | null>(null)

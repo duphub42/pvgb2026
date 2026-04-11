@@ -31,36 +31,48 @@ export const ProfilKernkompetenzBlock: React.FC<Props> = ({
         }))
 
   return (
-    <section className={cn('container py-16 md:py-20')}>
-      <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">{head}</h2>
-      <p className="mt-4 max-w-3xl text-base leading-relaxed text-muted-foreground md:text-lg">{intro}</p>
-      <div className="mt-12 grid gap-8 lg:grid-cols-2">
-          {rows.map((b, idx) => {
-            const details = (b.details ?? [])
-              .map((d: { line?: string | null }) => (typeof d?.line === 'string' ? d.line.trim() : ''))
-              .filter(Boolean)
-            return (
-              <article
-                key={typeof (b as { id?: unknown }).id === 'string' ? (b as { id?: string }).id : `b-${idx}`}
-                className="flex flex-col rounded-2xl border border-border bg-card p-6 shadow-sm md:p-8"
-              >
-                <h3 className="text-xl font-semibold text-foreground">{b.titel}</h3>
-                {b.text ? (
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">{b.text}</p>
-                ) : null}
-                {details.length > 0 ? (
-                  <ul className="mt-5 space-y-2 border-t border-border/80 pt-5 text-sm text-foreground/90">
-                    {details.map((d: string) => (
-                      <li key={d} className="flex gap-2">
-                        <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" aria-hidden />
-                        <span>{d}</span>
-                      </li>
-                    ))}
-                  </ul>
-                ) : null}
-              </article>
-            )
-          })}
+    <section className={cn('container py-16 md:py-24')}>
+      <div className="max-w-3xl">
+        <p className="mb-4 inline-flex w-fit items-center rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+          Leistungsprofil
+        </p>
+        <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{head}</h2>
+        <p className="mt-5 text-base leading-relaxed text-muted-foreground md:text-lg">{intro}</p>
+      </div>
+      <div className="mt-14 grid gap-6 lg:grid-cols-2">
+        {rows.map((b, idx) => {
+          const details = (b.details ?? [])
+            .map((d: { line?: string | null }) => (typeof d?.line === 'string' ? d.line.trim() : ''))
+            .filter(Boolean)
+          return (
+            <article
+              key={typeof (b as { id?: unknown }).id === 'string' ? (b as { id?: string }).id : `b-${idx}`}
+              className="group relative overflow-hidden rounded-xl border border-border/80 bg-gradient-to-b from-background/95 to-card/70 p-7 shadow-[0_14px_36px_-30px_rgba(2,6,23,0.35)] transition-all duration-300 hover:border-primary/30 hover:shadow-[0_20px_42px_-30px_rgba(2,6,23,0.4)] md:p-8"
+            >
+              <span
+                aria-hidden
+                className="absolute inset-x-7 top-0 h-px bg-gradient-to-r from-transparent via-primary/45 to-transparent"
+              />
+              <h3 className="text-xl font-semibold text-foreground">{b.titel}</h3>
+              {b.text ? (
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">{b.text}</p>
+              ) : null}
+              {details.length > 0 ? (
+                <ul className="mt-6 space-y-2.5 border-t border-border/70 pt-5 text-sm text-foreground/90">
+                  {details.map((d: string) => (
+                    <li key={d} className="flex gap-2.5">
+                      <span
+                        className="mt-[0.45rem] h-1.5 w-1.5 shrink-0 rounded-full bg-primary"
+                        aria-hidden
+                      />
+                      <span>{d}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : null}
+            </article>
+          )
+        })}
       </div>
     </section>
   )

@@ -23,13 +23,27 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
 
   const introDotPatternStyle: React.CSSProperties = {
     backgroundImage:
-      'radial-gradient(circle, color-mix(in srgb, var(--foreground) 62%, transparent) 1.35px, transparent 1.85px)',
+      'radial-gradient(circle at center, color-mix(in srgb, var(--foreground) 62%, transparent) 1.35px, transparent 1.85px)',
     backgroundPosition: 'center',
-    backgroundSize: '16px 16px',
+    backgroundSize: '20px 20px',
     maskImage:
-      'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.72) 48%, rgba(0, 0, 0, 0.34) 74%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)',
+      'radial-gradient(circle at center, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.88) 42%, rgba(0, 0, 0, 0.3) 65%, rgba(0, 0, 0, 0) 100%)',
     WebkitMaskImage:
-      'radial-gradient(ellipse 100% 100% at 50% 50%, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.72) 48%, rgba(0, 0, 0, 0.34) 74%, rgba(0, 0, 0, 0) 95%, rgba(0, 0, 0, 0) 100%)',
+      'radial-gradient(circle at center, rgba(0, 0, 0, 1) 0%, rgba(0, 0, 0, 0.88) 42%, rgba(0, 0, 0, 0.3) 65%, rgba(0, 0, 0, 0) 100%)',
+    maskRepeat: 'no-repeat',
+    WebkitMaskRepeat: 'no-repeat',
+    maskPosition: 'center',
+    WebkitMaskPosition: 'center',
+    maskSize: '100% 100%',
+    WebkitMaskSize: '100% 100%',
+    opacity: 0.55,
+  }
+
+  const introImageBlendStyle: React.CSSProperties = {
+    background:
+      'radial-gradient(circle farthest-corner at top left, transparent 0%, transparent 50%, color-mix(in srgb, var(--background) 90%, transparent) 65%, color-mix(in srgb, var(--background) 96%, transparent) 80%, var(--background) 100%)',
+    opacity: 1,
+    pointerEvents: 'none',
   }
 
   return (
@@ -84,11 +98,18 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
               className="pointer-events-none absolute inset-0 -z-10 opacity-35"
               style={introDotPatternStyle}
             />
-            <Media
-              className="w-full"
-              resource={image as MediaType}
-              imgClassName="w-full h-auto max-h-[500px] object-contain xl:max-h-[560px]"
-            />
+            <div className="relative group">
+              <Media
+                className="w-full"
+                resource={image as MediaType}
+                imgClassName="w-full h-auto max-h-[500px] object-contain xl:max-h-[560px]"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 z-10 transition-opacity duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] opacity-100 group-hover:opacity-0"
+                style={introImageBlendStyle}
+              />
+            </div>
           </div>
         )}
       </div>

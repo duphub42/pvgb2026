@@ -29,12 +29,14 @@ export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
     n <= 2 ? 'grid-cols-2' : n <= 3 ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
 
   return (
-    <section className={cn('border-t border-border/60 bg-muted/15 py-14 md:py-16')}>
+    <section className={cn('border-t border-border/60 bg-gradient-to-b from-muted/28 to-background py-14 md:py-16')}>
       <div className="container">
         {sectionTitle ? (
-          <h2 className="mb-10 text-center text-xl font-bold text-foreground md:text-2xl">{sectionTitle}</h2>
+          <h2 className="mb-10 text-center text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+            {sectionTitle}
+          </h2>
         ) : null}
-        <div className={cn('grid gap-6', gridCols)}>
+        <div className={cn('grid gap-4 md:gap-6', gridCols)}>
           {rows.map((z, i) => (
             <div
               key={
@@ -42,10 +44,12 @@ export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
                   ? (z as { id?: string }).id
                   : `z-${i}`
               }
-              className="text-center"
+              className="rounded-xl border border-border/80 bg-background/90 p-5 text-center shadow-[0_10px_24px_-24px_rgba(2,6,23,0.32)]"
             >
-              <p className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">{z.zahl}</p>
-              <p className="mt-1 text-xs text-muted-foreground md:text-sm">{z.bezeichnung}</p>
+              <p className="text-4xl font-semibold tracking-tight text-foreground md:text-5xl">{z.zahl}</p>
+              <p className="mt-1.5 text-xs uppercase tracking-[0.08em] text-muted-foreground md:text-sm">
+                {z.bezeichnung}
+              </p>
             </div>
           ))}
         </div>

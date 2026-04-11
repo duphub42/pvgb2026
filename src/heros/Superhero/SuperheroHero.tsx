@@ -469,8 +469,10 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         <div className="grid min-w-0 gap-0 md:grid-cols-[minmax(0,45%)_1fr] md:items-end md:gap-6 lg:gap-12 xl:gap-16">
           <div
             className={cn(
-              'hero-mobile-glass relative min-w-0 space-y-5 max-md:z-[16] max-md:-mx-4 max-md:px-4 max-md:pt-8 max-md:pb-10 max-md:rounded-t-2xl md:min-h-0 lg:min-h-[min(62vh,680px)]',
-              !isProfilVariant && 'max-md:-mt-[min(24vw,9.5rem)]',
+              'relative min-w-0 space-y-5 max-md:z-[16] md:min-h-0 lg:min-h-[min(62vh,680px)]',
+              isProfilVariant
+                ? 'max-md:pt-3 max-md:pb-2'
+                : 'hero-mobile-glass max-md:-mx-4 max-md:rounded-t-2xl max-md:px-4 max-md:pt-8 max-md:pb-10 max-md:-mt-[min(24vw,9.5rem)]',
             )}
           >
             {subheadline && (
@@ -533,7 +535,11 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
           <div
             ref={portraitRef}
-            className="relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:self-end hero-mobile-sticky-portrait hero-desktop-parallax-portrait"
+            className={cn(
+              'relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:self-end hero-desktop-parallax-portrait',
+              !isProfilVariant && 'hero-mobile-sticky-portrait',
+              hasPopoutStack && 'hero-desktop-parallax-portrait--stack',
+            )}
           >
             <div className="relative overflow-visible max-md:pb-6 md:flex md:items-end md:justify-center md:pb-8 md:pt-4">
               {hasVisual && <div className="hero-portrait-gradient-blob" aria-hidden />}

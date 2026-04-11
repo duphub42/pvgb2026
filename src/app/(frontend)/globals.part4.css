@@ -70,6 +70,16 @@
   font-size: 1rem; /* text-base statt text-sm */
 }
 
+/* Desktop megamenu nav items */
+nav.megamenu-nav a.megamenu-top-item {
+  font-family: var(--font-outfit);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
 /* Nav-Links: 2px-Unterstrich auf Höhe der Header-Unterkante (Container pb-2 + 1px Rahmen) */
 .site-header nav.header-nav > a[data-slot='button'] {
   position: relative;
@@ -78,6 +88,11 @@
   align-items: center !important;
   height: auto !important;
   min-height: 100%;
+  font-family: var(--font-outfit);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1;
   text-transform: uppercase;
   text-decoration: none !important;
   transition: background-color 0.2s ease, color 0.2s ease;
@@ -225,7 +240,11 @@
   height: 2.5rem; /* bündig mit Toggle-Buttons, kein margin-block */
   padding: 0 1.125rem;
   margin-block: 0;
-  font-size: 1rem;
+  font-family: var(--font-outfit);
+  font-size: 12.5px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1;
   display: inline-flex;
   align-items: center;
   text-transform: uppercase;

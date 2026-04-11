@@ -25,4 +25,5 @@ export const CLIENT_BLOCK_TYPES = new Set([
   'servicesGrid',
   'shadcnBlock',
   'whyWorkWithMe',
+  'calPopup',
 ])

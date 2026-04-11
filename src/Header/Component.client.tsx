@@ -27,11 +27,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   megaMenuItems = [],
   mobileDockPhone = null,
 }) => {
+  const [logoMorphReady, setLogoMorphReady] = useState(false)
+  const [logoPreviewActive, setLogoPreviewActive] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(true)
   const [isPastFold, setIsPastFold] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [revealFromTop, setRevealFromTop] = useState(false)
   const [hideToTop, setHideToTop] = useState(false)
+  const logoPreviewTimeoutRef = useRef<number | null>(null)
   const lastScrollYRef = useRef(0)
   const isPastFoldRef = useRef(false)
   const headerVisibleRef = useRef(true)
@@ -43,6 +46,25 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const pathname = usePathname()
   const useMegaMenu =
     (data as Header & { useMegaMenu?: boolean })?.useMegaMenu === true && megaMenuItems.length > 0
+
+  useEffect(() => {
+    const timer = window.setTimeout(() => {
+      setLogoMorphReady(true)
+    }, 5000)
+
+    return () => {
+      window.clearTimeout(timer)
+    }
+  }, [])
+
+  useEffect(() => {
+    return () => {
+      if (logoPreviewTimeoutRef.current) {
+        window.clearTimeout(logoPreviewTimeoutRef.current)
+        logoPreviewTimeoutRef.current = null
+      }
+    }
+  }, [])
 
   useEffect(() => {
     const stickyEnterThresholdPx = 0
@@ -180,8 +202,38 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     )
   }
 
+  const handleLogoMouseEnter = () => {
+    if (!logoMorphReady) return
+
+    if (logoPreviewTimeoutRef.current) {
+      window.clearTimeout(logoPreviewTimeoutRef.current)
+      logoPreviewTimeoutRef.current = null
+    }
+
+    setLogoPreviewActive(true)
+  }
+
+  const handleLogoMouseLeave = () => {
+    if (logoPreviewTimeoutRef.current) {
+      window.clearTimeout(logoPreviewTimeoutRef.current)
+      logoPreviewTimeoutRef.current = null
+    }
+
+    logoPreviewTimeoutRef.current = window.setTimeout(() => {
+      setLogoPreviewActive(false)
+      logoPreviewTimeoutRef.current = null
+    }, 1000)
+  }
+
   const renderLogoLink = (disableAnimation?: boolean) => (
-    <Link href="/" className="logo-link relative flex items-center shrink-0">
+    <Link
+      href="/"
+      className="logo-link relative flex items-center shrink-0"
+      data-logo-morph-ready={logoMorphReady ? 'true' : 'false'}
+      data-logo-preview-active={logoPreviewActive ? 'true' : 'false'}
+      onMouseEnter={handleLogoMouseEnter}
+      onMouseLeave={handleLogoMouseLeave}
+    >
       <span className="header-logo-slot header-logo-slot--default">
         {renderPrimaryLogo(disableAnimation)}
       </span>

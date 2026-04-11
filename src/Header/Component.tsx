@@ -6,14 +6,20 @@ import React from 'react'
 import type { MegaMenuItem } from '@/components/MegaMenu'
 import type { Footer, Header } from '@/payload-types'
 
-export async function Header() {
-  let headerData: Header | null = null
+type HeaderProps = {
+  headerData?: Header | null
+  footerData?: Footer | null
+}
+
+export async function Header({ headerData: initialHeaderData = null, footerData: initialFooterData = null }: HeaderProps = {}) {
+  let headerData: Header | null = initialHeaderData
+  let footerData: Footer | null = initialFooterData
   let megaMenuItems: MegaMenuItem[] = []
   let mobileDockPhone: string | null = null
 
   const [headerResult, footerResult] = await Promise.allSettled([
-    getCachedGlobal('header', 1)(),
-    getCachedGlobal('footer', 0)(),
+    headerData ? Promise.resolve(headerData) : getCachedGlobal('header', 1)(),
+    footerData ? Promise.resolve(footerData) : getCachedGlobal('footer', 0)(),
   ])
 
   if (headerResult.status === 'fulfilled') {
@@ -23,7 +29,7 @@ export async function Header() {
   }
 
   if (footerResult.status === 'fulfilled') {
-    const footerData = footerResult.value as Footer
+    footerData = footerResult.value as Footer
     const footerPhone =
       typeof footerData?.footerPhone === 'string' ? footerData.footerPhone.trim() : ''
     mobileDockPhone = footerPhone || null

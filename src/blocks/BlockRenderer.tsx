@@ -3,6 +3,7 @@ import React from 'react'
 import type { SitePage } from '@/payload-types'
 
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
+import { CalPopupBlock } from '@/blocks/CalPopup/Component.client'
 import { ConsultingOverviewBlock } from '@/blocks/ConsultingOverview/Component'
 import { ContactInfoCardsBlock } from '@/blocks/ContactInfoCards/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
@@ -35,6 +36,7 @@ const blockComponents: Record<string, BlockComponent> = {
   heroMarketing: HeroMarketingBlock as unknown as BlockComponent,
   introduction: IntroductionBlock as unknown as BlockComponent,
   cta: CallToActionBlock as unknown as BlockComponent,
+  calPopup: CalPopupBlock as unknown as BlockComponent,
   formBlock: FormBlock as unknown as BlockComponent,
   mediaBlock: MediaBlock as unknown as BlockComponent,
   profilBacher: ProfilBacherLegacyBlock as unknown as BlockComponent,

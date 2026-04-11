@@ -34,27 +34,31 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
         }))
 
   return (
-    <section className={cn('container py-16 md:py-20')}>
-      <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">{st}</h2>
-      <ol className="relative mt-10 space-y-10 border-l border-border pl-8 md:pl-10">
-          {rows.map((w, idx) => {
-            const isWork = w.typ === 'freelance'
-            return (
-              <li
-                key={
-                  typeof (w as { id?: unknown }).id === 'string'
-                    ? (w as { id?: string }).id
-                    : `e-${idx}`
-                }
-                className="relative"
-              >
-                <span
-                  className={cn(
-                    'absolute -left-[calc(0.5rem+1px)] top-1 flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full border-2 border-background',
-                    isWork ? 'bg-primary' : 'bg-muted-foreground/40',
-                  )}
-                  aria-hidden
-                />
+    <section className={cn('container py-16 md:py-24')}>
+      <p className="mb-4 inline-flex w-fit items-center rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        Erfahrung
+      </p>
+      <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{st}</h2>
+      <ol className="relative mt-12 space-y-7 border-l border-border/70 pl-8 md:pl-10">
+        {rows.map((w, idx) => {
+          const isWork = w.typ === 'freelance'
+          return (
+            <li
+              key={
+                typeof (w as { id?: unknown }).id === 'string'
+                  ? (w as { id?: string }).id
+                  : `e-${idx}`
+              }
+              className="relative"
+            >
+              <span
+                className={cn(
+                  'absolute -left-[calc(0.5rem+1px)] top-6 flex h-4 w-4 -translate-x-1/2 items-center justify-center rounded-full border-2 border-background ring-2 ring-background',
+                  isWork ? 'bg-primary' : 'bg-muted-foreground/40',
+                )}
+                aria-hidden
+              />
+              <div className="rounded-xl border border-border/80 bg-background/90 p-5 shadow-[0_12px_30px_-26px_rgba(2,6,23,0.35)] md:p-6">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-sm font-medium text-primary">{w.zeitraum}</span>
                   <Badge variant={isWork ? 'default' : 'secondary'} className="text-xs font-normal">
@@ -71,16 +75,17 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
                     )}
                   </Badge>
                 </div>
-                <h3 className="mt-2 text-lg font-semibold text-foreground">{w.position}</h3>
+                <h3 className="mt-3 text-lg font-semibold text-foreground">{w.position}</h3>
                 {w.unternehmen ? <p className="text-sm font-medium text-muted-foreground">{w.unternehmen}</p> : null}
                 {w.beschreibung ? (
-                  <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
+                  <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
                     {w.beschreibung}
                   </p>
                 ) : null}
-              </li>
-            )
-          })}
+              </div>
+            </li>
+          )
+        })}
       </ol>
     </section>
   )

@@ -73,6 +73,7 @@ export const RenderBlocks: React.FC<{
           const isArchive = blockType === 'archive'
           const isPriceCalculator = blockType === 'priceCalculator'
           const isClientBlock = CLIENT_BLOCK_TYPES.has(blockType)
+          const isProfilBlock = blockType.startsWith('profil')
           if (!isArchive && !isClientBlock && !isPriceCalculator) return null
 
           const bg = b.blockBackground
@@ -88,7 +89,15 @@ export const RenderBlocks: React.FC<{
                   : `${blockType}-${index}`
               }
               // Erster Block: mt-[-1px] schließt an den Hero-Shape-Divider an; kein pt-[8vh], damit kein großer Leerraum oberhalb des Contents.
-              className={index === 0 ? 'mt-[-1px] mb-16' : 'my-16'}
+              className={
+                index === 0
+                  ? isProfilBlock
+                    ? 'mt-[-1px] mb-6 md:mb-8'
+                    : 'mt-[-1px] mb-16'
+                  : isProfilBlock
+                    ? 'my-6 md:my-8'
+                    : 'my-16'
+              }
               variants={blurryFadeIn}
               viewport={{ once: true, amount: 0.14 }}
               transition={{

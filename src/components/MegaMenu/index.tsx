@@ -76,6 +76,65 @@ function mediaUrl(media: MediaRef): string {
   return ''
 }
 
+const warmedMediaImageUrls = new Set<string>()
+const warmingMediaImagePromises = new Map<string, Promise<void>>()
+
+function isMediaImageWarmed(url: string | null | undefined): boolean {
+  return typeof url === 'string' && url.length > 0 && warmedMediaImageUrls.has(url)
+}
+
+function markMediaImageWarmed(url: string | null | undefined): void {
+  if (!url) return
+  warmedMediaImageUrls.add(url)
+}
+
+function warmMediaImage(
+  url: string,
+  options?: { decode?: 'sync' | 'async'; fetchPriority?: 'high' | 'auto' | 'low' },
+): Promise<void> {
+  if (!url) return Promise.resolve()
+  if (warmedMediaImageUrls.has(url)) return Promise.resolve()
+  const existingPromise = warmingMediaImagePromises.get(url)
+  if (existingPromise) return existingPromise
+  if (typeof window === 'undefined') return Promise.resolve()
+
+  const promise = new Promise<void>((resolve) => {
+    const img = new window.Image()
+    let settled = false
+
+    const settle = (loaded: boolean) => {
+      if (settled) return
+      settled = true
+      if (loaded) warmedMediaImageUrls.add(url)
+      img.onload = null
+      img.onerror = null
+      warmingMediaImagePromises.delete(url)
+      resolve()
+    }
+
+    img.onload = () => settle(true)
+    img.onerror = () => settle(false)
+
+    try {
+      img.decoding = options?.decode ?? 'async'
+    } catch {
+      // Ignore unsupported decoding assignment.
+    }
+    if (options?.fetchPriority) {
+      img.setAttribute('fetchpriority', options.fetchPriority)
+    }
+
+    img.src = url
+
+    if (img.complete) {
+      settle(img.naturalWidth > 0)
+    }
+  })
+
+  warmingMediaImagePromises.set(url, promise)
+  return promise
+}
+
 function getMegaMenuItemKey(item: MegaMenuItem, index: number): string {
   const safeId = item.id != null ? String(item.id).trim() : ''
   return safeId !== '' ? `mega-menu-item-${safeId}-${index}` : `mega-menu-item-${index}`
@@ -285,14 +344,12 @@ function collectMobileSubLinks(item: MegaMenuItem, limit = 4): MobileMenuSubLink
     }
   }
 
-  if (links.length === 0) {
-    for (const sub of item.subItems ?? []) {
-      links.push({
-        label: sub.label,
-        url: sub.url,
-        groupTitle: null,
-      })
-    }
+  for (const sub of item.subItems ?? []) {
+    links.push({
+      label: sub.label,
+      url: sub.url,
+      groupTitle: null,
+    })
   }
 
   const seen = new Set<string>()
@@ -423,33 +480,51 @@ type MobileMenuItemIconProps = {
 }
 
 function MobileMenuItemIcon({ src, FallbackIcon }: MobileMenuItemIconProps) {
-  const [loaded, setLoaded] = React.useState(false)
   const normalizedSrc = typeof src === 'string' && src.trim().length > 0 ? src : null
+  const [loaded, setLoaded] = React.useState(() =>
+    normalizedSrc ? isMediaImageWarmed(normalizedSrc) : false,
+  )
+  const [hasLoadError, setHasLoadError] = React.useState(false)
 
   React.useEffect(() => {
-    setLoaded(false)
+    setHasLoadError(false)
+    setLoaded(normalizedSrc ? isMediaImageWarmed(normalizedSrc) : false)
   }, [normalizedSrc])
 
   if (!normalizedSrc) {
     return <FallbackIcon className="mobile-megamenu-item-icon-svg" />
   }
 
+  const showFallback = hasLoadError
+
   return (
     <>
       <FallbackIcon
         className={cn(
           'mobile-megamenu-item-icon-svg mobile-megamenu-item-icon-fallback',
-          loaded && 'is-hidden',
+          showFallback ? 'is-visible' : 'is-hidden',
         )}
       />
       <ResilientImage
         src={normalizedSrc}
         alt=""
-        className={cn('mobile-megamenu-item-icon-img', loaded && 'is-loaded')}
+        className={cn(
+          'mobile-megamenu-item-icon-img',
+          loaded && 'is-loaded',
+          showFallback && 'is-hidden',
+        )}
         loading="eager"
         decoding="sync"
         fetchPriority="high"
-        onLoad={() => setLoaded(true)}
+        onLoad={() => {
+          markMediaImageWarmed(normalizedSrc)
+          setHasLoadError(false)
+          setLoaded(true)
+        }}
+        onError={() => {
+          setHasLoadError(true)
+          setLoaded(false)
+        }}
       />
     </>
   )
@@ -1244,27 +1319,6 @@ export function MegaMenu({
       })),
     [sortedItems],
   )
-  const mobileMenuIconSources = useMemo(() => {
-    const unique = new Set<string>()
-    for (const entry of mobileMenuItems) {
-      const iconSrc = mediaUrl(entry.item.icon ?? null)
-      if (iconSrc) unique.add(iconSrc)
-    }
-    return Array.from(unique)
-  }, [mobileMenuItems])
-  const preloadedMobileMenuIconsRef = useRef<Set<string>>(new Set())
-
-  useEffect(() => {
-    if (typeof window === 'undefined') return
-
-    for (const iconSrc of mobileMenuIconSources) {
-      if (!iconSrc || preloadedMobileMenuIconsRef.current.has(iconSrc)) continue
-      preloadedMobileMenuIconsRef.current.add(iconSrc)
-      const preloader = new window.Image()
-      preloader.decoding = 'async'
-      preloader.src = iconSrc
-    }
-  }, [mobileMenuIconSources])
   const activeMobileEntry = useMemo(
     () => mobileMenuItems.find((entry) => entry.key === mobileActivePrimary) ?? null,
     [mobileMenuItems, mobileActivePrimary],
@@ -2109,42 +2163,15 @@ export function MegaMenu({
 
   useEffect(() => {
     if (typeof window === 'undefined' || mobileMenuIconUrls.length === 0) return
-    const preloaded: HTMLImageElement[] = []
-
     for (const url of mobileMenuIconUrls) {
-      const img = new window.Image()
-      img.loading = 'eager'
-      img.decoding = 'sync'
-      img.setAttribute('fetchpriority', 'high')
-      img.src = url
-      preloaded.push(img)
-    }
-
-    return () => {
-      for (const img of preloaded) {
-        img.onload = null
-        img.onerror = null
-      }
+      void warmMediaImage(url, { decode: 'async', fetchPriority: 'high' })
     }
   }, [mobileMenuIconUrls])
 
   useEffect(() => {
     if (typeof window === 'undefined' || preloadMediaUrls.length === 0) return
-    const preloaded: HTMLImageElement[] = []
-
     for (const url of preloadMediaUrls) {
-      const img = new window.Image()
-      img.decoding = 'async'
-      img.src = url
-      preloaded.push(img)
-    }
-
-    return () => {
-      // Prevent stale handlers from hanging around if menu data changes.
-      for (const img of preloaded) {
-        img.onload = null
-        img.onerror = null
-      }
+      void warmMediaImage(url, { decode: 'async', fetchPriority: 'auto' })
     }
   }, [preloadMediaUrls])
 
@@ -2184,7 +2211,7 @@ export function MegaMenu({
 
       const wasPastFold = isPastFoldRef.current
       const nextPastFold = wasPastFold
-        ? currentScrollY > stickyLeaveThresholdPx
+        ? currentScrollY >= stickyLeaveThresholdPx
         : currentScrollY >= stickyEnterThresholdPx
 
       if (nextPastFold !== wasPastFold) {

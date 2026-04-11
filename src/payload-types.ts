@@ -370,6 +370,7 @@ export interface SitePage {
         | ProfilCtaBandBlock
         | PriceCalculatorBlock
         | CallToActionBlock
+        | CalPopupBlock
         | ContactInfoCardsBlock
         | ContentBlock
         | MediaBlock
@@ -1437,6 +1438,40 @@ export interface CallToActionBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CalPopupBlock".
+ */
+export interface CalPopupBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  headline?: string | null;
+  /**
+   * Optionaler Text oberhalb des Buttons.
+   */
+  description?: string | null;
+  /**
+   * Gib hier den Cal.com- oder Cal.eu-Buchungs-Pfad ein, z. B. philippbacher/15min. Optional: Trage eine vollständige URL (https://cal.com/...) oder für EU "eu:philippbacher/15min" ein.
+   */
+  calLink: string;
+  buttonLabel: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'calPopup';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "ContactInfoCardsBlock".
  */
 export interface ContactInfoCardsBlock {
@@ -2437,6 +2472,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         profilCtaBand?: T | ProfilCtaBandBlockSelect<T>;
         priceCalculator?: T | PriceCalculatorBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
+        calPopup?: T | CalPopupBlockSelect<T>;
         contactInfoCards?: T | ContactInfoCardsBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -2954,6 +2990,26 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
             };
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CalPopupBlock_select".
+ */
+export interface CalPopupBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  headline?: T;
+  description?: T;
+  calLink?: T;
+  buttonLabel?: T;
   id?: T;
   blockName?: T;
 }

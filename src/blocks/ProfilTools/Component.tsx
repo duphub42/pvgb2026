@@ -31,13 +31,19 @@ export const ProfilToolsBlock: React.FC<Props> = ({ disableInnerContainer: _d, s
   const title = sectionTitle?.trim() || 'Tools & Plattformen'
 
   return (
-    <section className={cn('container py-16 md:py-20')}>
-      <h2 className="text-2xl font-bold tracking-tight text-foreground md:text-3xl">{title}</h2>
+    <section className={cn('container py-16 md:py-24')}>
+      <p className="mb-4 inline-flex w-fit items-center rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        Setup
+      </p>
+      <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{title}</h2>
       {byCat.size > 0 ? (
-        <div className="mt-10 space-y-10">
+        <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {Array.from(byCat.entries()).map(([cat, list]) => (
-            <div key={cat}>
-              <h3 className="mb-4 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
+            <div
+              key={cat}
+              className="rounded-xl border border-border/80 bg-background/90 p-6 shadow-[0_12px_28px_-24px_rgba(2,6,23,0.32)]"
+            >
+              <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                 {TOOL_CATEGORY_LABEL[cat] ?? cat}
               </h3>
               <div className="flex flex-wrap gap-2">
@@ -49,7 +55,7 @@ export const ProfilToolsBlock: React.FC<Props> = ({ disableInnerContainer: _d, s
                         : `${cat}-${i}`
                     }
                     variant="outline"
-                    className="font-normal"
+                    className="rounded-full border-border/75 bg-background px-3 py-1.5 text-[0.82rem] font-medium tracking-[0.01em]"
                   >
                     {t.name}
                   </Badge>

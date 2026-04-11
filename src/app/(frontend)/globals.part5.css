@@ -871,12 +871,17 @@ header .header-tool-toggle--theme:hover {
 }
 
 .mobile-megamenu-item-icon-fallback {
-  opacity: 0.78;
-  transform: scale(0.96);
+  opacity: 0;
+  transform: scale(0.9);
   transition:
     color 180ms ease,
     opacity 180ms ease,
     transform 200ms cubic-bezier(0.2, 0.95, 0.24, 1);
+}
+
+.mobile-megamenu-item-icon-fallback.is-visible {
+  opacity: 0.78;
+  transform: scale(0.96);
 }
 
 .mobile-megamenu-item-icon-fallback.is-hidden {
@@ -2475,17 +2480,31 @@ header .header-tool-toggle--theme:hover {
   --header-logo-mask-height: 42.5px;
   --header-logo-mask-width: 40px;
   --header-logo-mask-right-gap: 4px;
+  --header-logo-morph-duration: 920ms;
+  --header-logo-morph-ease: cubic-bezier(0.16, 0.9, 0.22, 1);
+  --header-logo-preview-duration: 420ms;
+}
+
+.logo-link[data-logo-preview-active='true'] {
+  --header-logo-morph-duration: var(--header-logo-preview-duration);
 }
 
 .logo-link .header-logo-slot {
   display: inline-flex;
   align-items: center;
-  transition: opacity 220ms ease, transform 220ms ease;
+  transition:
+    opacity var(--header-logo-morph-duration) var(--header-logo-morph-ease),
+    transform var(--header-logo-morph-duration) var(--header-logo-morph-ease),
+    filter var(--header-logo-morph-duration) var(--header-logo-morph-ease),
+    clip-path var(--header-logo-morph-duration) var(--header-logo-morph-ease);
 }
 
 .logo-link .header-logo-slot--default {
   opacity: 1;
   transform: translateY(0) scale(1);
+  transform-origin: left center;
+  clip-path: inset(0 0 0 0);
+  filter: blur(0);
 }
 
 .logo-link .header-logo-slot--sticky {
@@ -2495,6 +2514,8 @@ header .header-tool-toggle--theme:hover {
   opacity: 0;
   pointer-events: none;
   transform: translateY(-50%) scale(0.9);
+  transform-origin: left center;
+  filter: blur(2px);
 }
 
 .logo-link .header-logo-mask {
@@ -2521,16 +2542,34 @@ header .header-tool-toggle--theme:hover {
   max-height: var(--header-logo-mask-height) !important;
 }
 
-.site-header[data-sticky='true'] .logo-link .header-logo-slot--default,
-.megamenu[data-sticky='true'] .logo-link .header-logo-slot--default {
+.site-header[data-sticky='true'] .logo-link[data-logo-morph-ready='true'] .header-logo-slot--default,
+.megamenu[data-sticky='true'] .logo-link[data-logo-morph-ready='true'] .header-logo-slot--default {
   opacity: 0;
-  transform: translateY(0) scale(0.95);
+  transform: translateY(0) scale(0.9);
+  clip-path: inset(0 calc(100% - (var(--header-logo-mask-width) + var(--header-logo-mask-right-gap))) 0 0);
+  filter: blur(1.6px);
 }
 
-.site-header[data-sticky='true'] .logo-link .header-logo-slot--sticky,
-.megamenu[data-sticky='true'] .logo-link .header-logo-slot--sticky {
+.site-header[data-sticky='true'] .logo-link[data-logo-morph-ready='true'] .header-logo-slot--sticky,
+.megamenu[data-sticky='true'] .logo-link[data-logo-morph-ready='true'] .header-logo-slot--sticky {
   opacity: 1;
   transform: translateY(-50%) scale(1);
+  filter: blur(0);
+}
+
+.site-header[data-sticky='true'] .logo-link[data-logo-morph-ready='true'][data-logo-preview-active='true'] .header-logo-slot--default,
+.megamenu[data-sticky='true'] .logo-link[data-logo-morph-ready='true'][data-logo-preview-active='true'] .header-logo-slot--default {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  clip-path: inset(0 0 0 0);
+  filter: blur(0);
+}
+
+.site-header[data-sticky='true'] .logo-link[data-logo-morph-ready='true'][data-logo-preview-active='true'] .header-logo-slot--sticky,
+.megamenu[data-sticky='true'] .logo-link[data-logo-morph-ready='true'][data-logo-preview-active='true'] .header-logo-slot--sticky {
+  opacity: 0;
+  transform: translateY(-50%) scale(0.9);
+  filter: blur(1.5px);
 }
 
 /* Sticky-Header: Portal .header-glass-plate

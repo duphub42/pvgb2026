@@ -1,5 +1,4 @@
 import type { Metadata, Viewport } from 'next'
-import Script from 'next/script'
 
 import { fontClassNames } from '@/theme/fonts'
 import { AdminBarGate } from '@/components/AdminBar/AdminBarGate'
@@ -20,6 +19,7 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { DesignStyles } from '@/components/DesignStyles'
 import { ThemeSettingsStyles } from '@/components/ThemeSettingsStyles'
 import type { DesignDoc } from '@/utilities/designToCss'
+import type { Footer as FooterGlobal, Header as HeaderGlobal } from '@/payload-types'
 
 function formatUnknownError(error: unknown): string {
   if (error instanceof Error) return `${error.name}: ${error.message}`
@@ -41,12 +41,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
     let design: DesignDoc = null
     let themeSettings: { cssString?: string | null } | null = null
+    let headerData: HeaderGlobal | null = null
+    let footerData: FooterGlobal | null = null
     let faviconUrl: string | null = null
 
-    const [designResult, themeSettingsResult, headerResult] = await Promise.allSettled([
+    const [designResult, themeSettingsResult, headerResult, footerResult] = await Promise.allSettled([
       getCachedGlobal('design', 1)(),
       getCachedGlobal('theme-settings', 0)(),
       getCachedGlobal('header', 1)(),
+      // Footer icons can be nested in arrays/groups; use higher depth for media relation URLs.
+      getCachedGlobal('footer', 4)(),
     ])
     if (designResult.status === 'fulfilled') design = designResult.value as DesignDoc
     if (
@@ -56,16 +60,27 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     ) {
       themeSettings = themeSettingsResult.value as { cssString?: string | null }
     }
-    const header =
+    headerData =
       headerResult.status === 'fulfilled' &&
       headerResult.value &&
       typeof headerResult.value === 'object'
-        ? (headerResult.value as {
-            favicon?: { url?: string | null; updatedAt?: string } | number | null
-          })
+        ? (headerResult.value as HeaderGlobal)
         : null
-    if (header?.favicon && typeof header.favicon === 'object' && header.favicon?.url) {
-      faviconUrl = getMediaUrl(header.favicon.url, header.favicon.updatedAt) || null
+
+    footerData =
+      footerResult.status === 'fulfilled' &&
+      footerResult.value &&
+      typeof footerResult.value === 'object'
+        ? (footerResult.value as FooterGlobal)
+        : null
+
+    if (
+      headerData?.favicon &&
+      typeof headerData.favicon === 'object' &&
+      'url' in headerData.favicon &&
+      headerData.favicon?.url
+    ) {
+      faviconUrl = getMediaUrl(headerData.favicon.url, headerData.favicon.updatedAt) || null
     }
 
     return (
@@ -92,16 +107,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <body data-layout="default">
           <Providers initialLocale={locale}>
             <AdminBarGate preview={isEnabled} adminBarProps={{ preview: isEnabled }} />
-            <Header />
+            <Header headerData={headerData} footerData={footerData} />
             <RootLayoutInner>
               <main id="main-content" key="main-content">
                 {children}
               </main>
-              <Footer key="site-footer" locale={locale} />
+              <Footer key="site-footer" locale={locale} footerData={footerData} />
             </RootLayoutInner>
           </Providers>
           {process.env.NODE_ENV === 'development' && process.env.PINY_VISUAL_SELECT === 'true' && (
-            <Script src="/_piny/piny.phone.js" strategy="beforeInteractive" />
+            <script src="/_piny/piny.phone.js" />
           )}
         </body>
       </html>

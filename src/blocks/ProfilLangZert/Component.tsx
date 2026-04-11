@@ -36,11 +36,11 @@ export const ProfilLangZertBlock: React.FC<Props> = ({
     zertFromCms.length > 0 ? zertFromCms : profilZertifikateDefaults.map((z) => z.bezeichnung)
 
   return (
-    <section className={cn('border-t border-border/60 py-16 md:py-20')}>
+    <section className={cn('border-t border-border/60 bg-muted/15 py-16 md:py-24')}>
       <div className="container grid gap-12 lg:grid-cols-2">
         {sprRows.length > 0 ? (
-          <div className="min-w-0">
-            <h2 className="text-xl font-bold text-foreground md:text-2xl">{sprachenTitle}</h2>
+          <div className="min-w-0 rounded-xl border border-border/80 bg-background/90 p-6 shadow-[0_12px_28px_-24px_rgba(2,6,23,0.32)] md:p-8">
+            <h2 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">{sprachenTitle}</h2>
             <ul className={cn('mt-6 divide-y divide-border/80')}>
               {sprRows.map((s, i) => (
                 <li
@@ -60,8 +60,10 @@ export const ProfilLangZertBlock: React.FC<Props> = ({
         ) : null}
 
         {zertRows.length > 0 ? (
-          <div className="min-w-0">
-            <h2 className="text-xl font-bold text-foreground md:text-2xl">{zertifikateTitle}</h2>
+          <div className="min-w-0 rounded-xl border border-border/80 bg-background/90 p-6 shadow-[0_12px_28px_-24px_rgba(2,6,23,0.32)] md:p-8">
+            <h2 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+              {zertifikateTitle}
+            </h2>
             <ul className={cn('mt-6 space-y-3 text-sm text-muted-foreground md:text-base')}>
               {zertRows.map((z) => (
                 <li key={z} className="flex gap-2">

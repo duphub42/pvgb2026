@@ -41,20 +41,23 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
         }))
 
   return (
-    <section className={cn('container border-b border-border/60 py-16 md:py-20')}>
-      <div className="grid gap-10 md:grid-cols-2">
-        <div>
-          <h2 className="mb-8 text-2xl font-bold tracking-tight text-foreground md:text-3xl">
+    <section className={cn('container py-16 md:py-24')}>
+      <div className="grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start">
+        <div className="space-y-7">
+          <p className="inline-flex w-fit items-center rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+            Profil
+          </p>
+          <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
             {title}
           </h2>
-          <div className="max-w-none space-y-4 text-base leading-relaxed text-muted-foreground md:text-lg">
+          <div className="max-w-2xl space-y-5 text-base leading-relaxed text-muted-foreground md:text-lg">
             {paragraphs.map((p, i) => (
               <p key={i}>{p}</p>
             ))}
           </div>
         </div>
 
-        <div className="mt-8 md:mt-0 grid gap-6 sm:grid-cols-2 lg:gap-8">
+        <div className="grid gap-5 sm:grid-cols-2 lg:gap-6">
           {rows.map((w, idx) => {
             const iconKey = typeof w.icon === 'string' ? w.icon : 'strategy'
             const Icon = WERT_ICON_MAP[iconKey] ?? Target
@@ -65,15 +68,19 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
                     ? (w as { id?: string }).id
                     : `w-${idx}`
                 }
-                className="relative rounded-2xl border border-border/80 bg-muted/30 p-6 transition-colors hover:bg-muted/50"
+                className="group relative overflow-hidden rounded-xl border border-border/80 bg-background/90 p-6 shadow-[0_12px_30px_-26px_rgba(15,23,42,0.35)] transition-all duration-300 hover:border-primary/30 hover:shadow-[0_16px_36px_-26px_rgba(15,23,42,0.4)]"
               >
+                <span
+                  aria-hidden
+                  className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-primary/45 to-transparent"
+                />
                 <div className="mb-4 flex items-start gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center text-primary">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary ring-1 ring-primary/20 transition-colors duration-300 group-hover:bg-primary/15">
                     <Icon className="h-5 w-5" aria-hidden />
                   </div>
                   <div>
                     <h3 className="text-lg font-semibold text-foreground">{w.wert}</h3>
-                    <p className="text-sm leading-relaxed text-muted-foreground md:text-base">
+                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground md:text-base">
                       {w.beschreibung}
                     </p>
                   </div>
