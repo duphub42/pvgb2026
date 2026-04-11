@@ -360,6 +360,9 @@ export interface SitePage {
         | ServicesOverviewBlock
         | ServicesGridBlock
         | WhyWorkWithMeBlock
+        | PortfolioCaseGridBlock
+        | PortfolioKpiStripBlock
+        | BrandShowcaseBlock
         | ProfilUeberMichBlock
         | ProfilKernkompetenzBlock
         | ProfilKompetenzenBlock
@@ -388,6 +391,10 @@ export interface SitePage {
    */
   parent?: (number | null) | SitePage;
   publishedAt?: string | null;
+  /**
+   * Wenn gesetzt und das Layout leer ist, wird beim Speichern eine passende Block-Struktur fuer Webdesign, Marketing oder Branding vorgeschlagen.
+   */
+  portfolioType?: ('webdesign' | 'marketing' | 'branding') | null;
   meta?: {
     title?: string | null;
     description?: string | null;
@@ -741,10 +748,16 @@ export interface ConsultingOverviewBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Hauptüberschrift über dem Process-Flow.
+   */
   headline?: string | null;
+  /**
+   * Kurzer Einführungstext unter der Headline.
+   */
   introText?: string | null;
   /**
-   * Ab 1280px Breite: Raster ~1440px, Blobs und Pfad näher an Figma. Darunter weiter gestapelt und lesbar.
+   * Aktiviert ein breiteres Layout für große Screens. Mobile und Tablet bleiben klar gestapelt.
    */
   pixelLayoutDesktop?: boolean | null;
   colors?: ConsultingOverviewTheme;
@@ -754,7 +767,13 @@ export interface ConsultingOverviewBlock {
   strategyText?: string | null;
   benefitsLabel?: string | null;
   benefitsSubLabel?: string | null;
+  /**
+   * Wird verwendet, falls keine Step-Items gepflegt sind.
+   */
   benefitsTitle?: string | null;
+  /**
+   * Jeder Eintrag wird als eigener Prozess-Schritt dargestellt.
+   */
   benefitItems?:
     | {
         title: string;
@@ -1072,6 +1091,173 @@ export interface WhyWorkWithMeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'whyWorkWithMe';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PortfolioCaseGridBlock".
+ */
+export interface PortfolioCaseGridBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  eyebrow?: string | null;
+  heading?: string | null;
+  intro?: string | null;
+  layoutVariant?: ('editorial' | 'data' | 'visual') | null;
+  cases?:
+    | {
+        discipline?: ('webdesign' | 'marketing' | 'branding' | 'mixed') | null;
+        title: string;
+        client?: string | null;
+        industry?: string | null;
+        summary: string;
+        challenge?: string | null;
+        approach?: string | null;
+        result?: string | null;
+        coverImage?: (number | null) | Media;
+        metrics?:
+          | {
+              value: string;
+              label: string;
+              id?: string | null;
+            }[]
+          | null;
+        tags?:
+          | {
+              label: string;
+              id?: string | null;
+            }[]
+          | null;
+        cta?: {
+          label?: string | null;
+          /**
+           * Erlaubt /pfad, slug oder vollstaendige URL.
+           */
+          href?: string | null;
+        };
+        featured?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'portfolioCaseGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PortfolioKpiStripBlock".
+ */
+export interface PortfolioKpiStripBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  eyebrow?: string | null;
+  heading?: string | null;
+  intro?: string | null;
+  variant?: ('glass' | 'solid' | 'minimal') | null;
+  items?:
+    | {
+        value: string;
+        label: string;
+        context?: string | null;
+        trend?: ('up' | 'down' | 'neutral') | null;
+        /**
+         * Beispiel: +34% YoY
+         */
+        delta?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'portfolioKpiStrip';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BrandShowcaseBlock".
+ */
+export interface BrandShowcaseBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  eyebrow?: string | null;
+  heading?: string | null;
+  intro?: string | null;
+  brandStory?: string | null;
+  logo?: (number | null) | Media;
+  wordmark?: (number | null) | Media;
+  palette?:
+    | {
+        name: string;
+        /**
+         * Beispiel: #0F172A
+         */
+        hex: string;
+        usage?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  typography?:
+    | {
+        role: string;
+        family: string;
+        sample?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  principles?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  usageExamples?:
+    | {
+        image: number | Media;
+        caption?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'brandShowcase';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2462,6 +2648,9 @@ export interface SitePagesSelect<T extends boolean = true> {
         servicesOverview?: T | ServicesOverviewBlockSelect<T>;
         servicesGrid?: T | ServicesGridBlockSelect<T>;
         whyWorkWithMe?: T | WhyWorkWithMeBlockSelect<T>;
+        portfolioCaseGrid?: T | PortfolioCaseGridBlockSelect<T>;
+        portfolioKpiStrip?: T | PortfolioKpiStripBlockSelect<T>;
+        brandShowcase?: T | BrandShowcaseBlockSelect<T>;
         profilUeberMich?: T | ProfilUeberMichBlockSelect<T>;
         profilKernkompetenz?: T | ProfilKernkompetenzBlockSelect<T>;
         profilKompetenzen?: T | ProfilKompetenzenBlockSelect<T>;
@@ -2483,6 +2672,7 @@ export interface SitePagesSelect<T extends boolean = true> {
   slug?: T;
   parent?: T;
   publishedAt?: T;
+  portfolioType?: T;
   meta?:
     | T
     | {
@@ -2730,6 +2920,142 @@ export interface WhyWorkWithMeBlockSelect<T extends boolean = true> {
         icon?: T;
         title?: T;
         description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PortfolioCaseGridBlock_select".
+ */
+export interface PortfolioCaseGridBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  layoutVariant?: T;
+  cases?:
+    | T
+    | {
+        discipline?: T;
+        title?: T;
+        client?: T;
+        industry?: T;
+        summary?: T;
+        challenge?: T;
+        approach?: T;
+        result?: T;
+        coverImage?: T;
+        metrics?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              id?: T;
+            };
+        tags?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
+        cta?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
+        featured?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PortfolioKpiStripBlock_select".
+ */
+export interface PortfolioKpiStripBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  variant?: T;
+  items?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        context?: T;
+        trend?: T;
+        delta?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BrandShowcaseBlock_select".
+ */
+export interface BrandShowcaseBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  brandStory?: T;
+  logo?: T;
+  wordmark?: T;
+  palette?:
+    | T
+    | {
+        name?: T;
+        hex?: T;
+        usage?: T;
+        id?: T;
+      };
+  typography?:
+    | T
+    | {
+        role?: T;
+        family?: T;
+        sample?: T;
+        id?: T;
+      };
+  principles?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  usageExamples?:
+    | T
+    | {
+        image?: T;
+        caption?: T;
         id?: T;
       };
   id?: T;

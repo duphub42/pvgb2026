@@ -7,6 +7,7 @@ import type { Field } from 'payload'
 export const blockStyleFields: Field[] = [
   {
     name: 'blockBackground',
+    dbName: 'bg',
     type: 'select',
     label: 'Hintergrund',
     defaultValue: 'none',
@@ -20,9 +21,10 @@ export const blockStyleFields: Field[] = [
     admin: {
       description: 'Optionaler Hintergrund für den gesamten Block.',
     },
-  },
+  } as any,
   {
     name: 'blockOverlay',
+    dbName: 'bo',
     type: 'group',
     label: 'Overlay-Filter',
     admin: {
@@ -31,12 +33,14 @@ export const blockStyleFields: Field[] = [
     fields: [
       {
         name: 'enabled',
+        dbName: 'e',
         type: 'checkbox',
         label: 'Overlay aktiv',
         defaultValue: false,
-      },
+      } as any,
       {
         name: 'color',
+        dbName: 'c',
         type: 'select',
         label: 'Farbe',
         defaultValue: 'dark',
@@ -45,21 +49,24 @@ export const blockStyleFields: Field[] = [
           { label: 'Hell', value: 'light' },
         ],
         admin: {
-          condition: (_, siblingData) => Boolean(siblingData?.enabled),
+          condition: (_: unknown, siblingData: { enabled?: boolean } | null | undefined) =>
+            Boolean(siblingData?.enabled),
         },
-      },
+      } as any,
       {
         name: 'opacity',
+        dbName: 'o',
         type: 'number',
         label: 'Deckkraft (%)',
         min: 0,
         max: 100,
         defaultValue: 0,
         admin: {
-          condition: (_, siblingData) => Boolean(siblingData?.enabled),
+          condition: (_: unknown, siblingData: { enabled?: boolean } | null | undefined) =>
+            Boolean(siblingData?.enabled),
           description: '0 = transparent, 100 = voll deckend.',
         },
-      },
+      } as any,
     ],
-  },
+  } as any,
 ]

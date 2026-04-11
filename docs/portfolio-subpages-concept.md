@@ -16,7 +16,7 @@ Empfohlene Seiten:
 - `/portfolio` (Hub-Seite)
 - `/portfolio-webdesign`
 - `/portfolio-marketing`
-- `/portfolio-marken`
+- `/portfolio-branding`
 
 Hinweis:
 - Die Slugs passen zu den vorhandenen Mega-Menu-Links.
@@ -92,7 +92,7 @@ Reihenfolge:
 6. optional `PriceCalculator` (wenn auf Servicesite-Logik einzahlen soll)
 7. `FormBlock` (Lead-/Projektformular)
 
-## D) `/portfolio-marken`
+## D) `/portfolio-branding`
 
 Reihenfolge:
 1. Hero (`lowImpact`, ruhige Visual Language)
@@ -172,14 +172,14 @@ Damit Redakteure schnell arbeiten können:
 - klare Seitenvorlagen im Titel benennen:
   - `Portfolio – Webdesign (Template)`
   - `Portfolio – Marketing (Template)`
-  - `Portfolio – Marken (Template)`
+  - `Portfolio – Branding (Template)`
 - pro Seite feste Block-Reihenfolge als Start-Template anlegen
 - pro Block eine kurze „Was hier rein?“ Guideline in `admin.description`
 
 ## Rollout-Plan
 
 Phase 1 (schnell):
-1. Drei Unterseiten in `site-pages` anlegen (`portfolio-webdesign`, `portfolio-marketing`, `portfolio-marken`)
+1. Drei Unterseiten in `site-pages` anlegen (`portfolio-webdesign`, `portfolio-marketing`, `portfolio-branding`)
 2. Block-Blueprints aus diesem Dokument umsetzen
 3. Bestehende Portfolio-Assets/Icons zuweisen
 
@@ -188,7 +188,10 @@ Phase 2 (hochwertig):
 2. In `site-pages.layout` registrieren
 3. Typen generieren (`generate:types`), Importmap aktualisieren, TS prüfen
 
+Aktueller Stand:
+- Die drei dedizierten Portfolio-Blocks sind bereits im Projekt vorhanden und in `site-pages.layout` verdrahtet.
+- Preset-Templates fuer `webdesign`, `marketing`, `branding` sind in `src/collections/Pages/portfolioPresets.ts` hinterlegt.
+
 Phase 3 (optional):
 1. Falls gewünscht: verschachtelte URLs (`/portfolio/webdesign`) mit `[...slug]` Route einführen
 2. Mega-Menu-Links migrieren
-

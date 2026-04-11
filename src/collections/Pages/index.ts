@@ -16,6 +16,9 @@ import { Introduction } from '../../blocks/Introduction/config'
 import { ServicesOverview } from '../../blocks/ServicesOverview/config'
 import { ServicesGrid } from '../../blocks/ServicesGrid/config'
 import { WhyWorkWithMe } from '../../blocks/WhyWorkWithMe/config'
+import { PortfolioCaseGrid } from '../../blocks/PortfolioCaseGrid/config'
+import { PortfolioKpiStrip } from '../../blocks/PortfolioKpiStrip/config'
+import { BrandShowcase } from '../../blocks/BrandShowcase/config'
 import { ProfilUeberMich } from '../../blocks/ProfilUeberMich/config'
 import { ProfilKernkompetenz } from '../../blocks/ProfilKernkompetenz/config'
 import { ProfilKompetenzen } from '../../blocks/ProfilKompetenzen/config'
@@ -35,6 +38,8 @@ import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { normalizeLayout } from './hooks/normalizeLayout'
 import { revalidatePage } from './hooks/revalidatePage'
 import { stripIdOnUpdate } from './hooks/stripIdOnUpdate'
+import { applyPortfolioPreset } from './hooks/applyPortfolioPreset'
+import { PORTFOLIO_TYPE_OPTIONS } from './portfolioPresets'
 import { hero as heroField } from '../../heros/config'
 
 import {
@@ -87,6 +92,9 @@ export const Pages: CollectionConfig = {
                 ServicesOverview,
                 ServicesGrid,
                 WhyWorkWithMe,
+                PortfolioCaseGrid,
+                PortfolioKpiStrip,
+                BrandShowcase,
                 ProfilUeberMich,
                 ProfilKernkompetenz,
                 ProfilKompetenzen,
@@ -134,6 +142,17 @@ export const Pages: CollectionConfig = {
                 position: 'sidebar',
               },
             },
+            {
+              name: 'portfolioType',
+              type: 'select',
+              label: 'Portfolio-Typ (Preset)',
+              options: [...PORTFOLIO_TYPE_OPTIONS],
+              admin: {
+                position: 'sidebar',
+                description:
+                  'Wenn gesetzt und das Layout leer ist, wird beim Speichern eine passende Block-Struktur fuer Webdesign, Marketing oder Branding vorgeschlagen.',
+              },
+            },
           ],
         },
         {
@@ -164,7 +183,7 @@ export const Pages: CollectionConfig = {
   ],
   hooks: {
     afterRead: [normalizeLayout, createClearOrphanedRefsAfterReadHook()],
-    beforeValidate: [createClearOrphanedRefsBeforeValidateHook()],
+    beforeValidate: [applyPortfolioPreset, createClearOrphanedRefsBeforeValidateHook()],
     beforeChange: [stripIdOnUpdate, createClearOrphanedRefsBeforeChangeHook(), populatePublishedAt],
     afterChange: [revalidatePage],
   },

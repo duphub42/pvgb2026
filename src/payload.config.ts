@@ -2,8 +2,9 @@ import { postgresAdapter } from '@payloadcms/db-postgres'
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
 import { config as dotenvConfig } from 'dotenv'
+import * as fs from 'fs'
 import sharp from 'sharp'
-import path from 'path'
+import * as path from 'path'
 import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
@@ -33,6 +34,9 @@ const dirname = path.dirname(filename)
 const projectRoot = path.resolve(dirname, '..')
 dotenvConfig({ path: path.join(projectRoot, '.env') })
 dotenvConfig({ path: path.join(projectRoot, '.env.local'), override: true })
+if (fs.existsSync(path.join(projectRoot, 'env.local'))) {
+  dotenvConfig({ path: path.join(projectRoot, 'env.local'), override: false })
+}
 
 // Production (z. B. Vercel): Fehlende Env-Variablen sofort melden, damit das Admin nicht weiß bleibt
 if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') {

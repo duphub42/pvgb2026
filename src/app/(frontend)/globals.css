@@ -1,8 +1,13 @@
+@config '../../../tailwind.config.mjs';
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import '../../theme/colors.css';
-/* @config nach Imports ist bei Tailwind v4 üblich; bei Problemen mit Breakpoints/Variablen prüfen, ob tailwind.config.mjs erreichbar ist. */
-@config '../../../tailwind.config.mjs';
+@import './globals.part1.css';
+@import './globals.part2.css';
+@import './globals.part3.css';
+@import './globals.part4.css';
+@import './globals.part5.css';
+/* @config muss vor @import stehen, sonst gibt Tailwind v4 einen Parserfehler. */
 
 @custom-variant dark (&:is([data-theme='dark'] *));
 @custom-variant sm (@media (width >= theme(--breakpoint-sm)));
@@ -23,9 +28,3 @@
 @custom-variant hero-playbook-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (max-height: 44rem));
 @custom-variant hero-ipad (@media (min-width: 48rem) and (max-width: 64rem));
 @custom-variant hero-ipad-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (min-height: 44rem));
-
-@import './globals.part1.css';
-@import './globals.part2.css';
-@import './globals.part3.css';
-@import './globals.part4.css';
-@import './globals.part5.css';

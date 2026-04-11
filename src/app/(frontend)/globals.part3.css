@@ -7,17 +7,24 @@
     text-decoration: none;
   }
 
-  /* Content (Prose): Link-Farbe aus Design-Global (--link / --link-hover) */
+  /* Content (Prose): Greyscale-Link-Style */
   .prose a,
   .prose-invert a {
     position: relative;
     display: inline-block;
-    color: var(--link);
+    color: #333333;
+    opacity: 0.96;
     text-decoration: none;
+    cursor: pointer;
+    transition: color 0.22s ease, opacity 0.22s ease, font-weight 0.22s ease;
   }
   .prose a:hover,
-  .prose-invert a:hover {
-    color: var(--link-hover);
+  .prose-invert a:hover,
+  .prose a:focus-visible,
+  .prose-invert a:focus-visible {
+    color: #111111;
+    opacity: 1;
+    font-weight: 500;
     text-decoration: none;
   }
   .prose a::after,
@@ -29,13 +36,16 @@
     width: 100%;
     height: 1px;
     background: currentColor;
-    transform: scaleX(0);
+    opacity: 0.18;
+    transform: scaleX(1);
     transform-origin: left;
-    transition: transform 0.25s ease;
+    transition: opacity 0.25s ease;
   }
   .prose a:hover::after,
-  .prose-invert a:hover::after {
-    transform: scaleX(1);
+  .prose-invert a:hover::after,
+  .prose a:focus-visible::after,
+  .prose-invert a:focus-visible::after {
+    opacity: 0.45;
   }
 
   /* Einzeln nutzbar für Content: Unterstrich links → rechts */
@@ -713,16 +723,13 @@
 .site-header .header-tool-toggle,
 .megamenu .header-tool-toggle {
   transition: color 0.45s ease, background-color 0.45s ease;
-}
-
-/* Desktop Mainmenu: Uppercase, enges Letter-Spacing, fette Schrift */
-.megamenu .megamenu-top-item {
   text-transform: uppercase;
-  letter-spacing: -0.04em;
+  letter-spacing: -0.22em;
   font-weight: 700;
   font-family: var(--font-heading, 'Inter', Arial, sans-serif);
   font-size: 1.05rem;
 }
+
 /* Darkmode: Megamenu-Top-Item Hover explizit weiß */
 [data-theme='dark'] .megamenu .megamenu-top-item:hover {
   color: #fff !important;
@@ -813,4 +820,5 @@
     background-color: rgba(0, 0, 0, 0.06) !important;
     color: #171717 !important;
   }
+
 }

@@ -92,6 +92,13 @@ const nextConfig = {
     ],
   },
   webpack: (webpackConfig, { isServer, dev }) => {
+    // Tailwind/PostCSS parser errors can be cached by webpack's pack cache in dev
+    // and keep surfacing after the source has been fixed. Use memory-only caching
+    // in development to avoid stale PostCSSSyntaxError loops.
+    if (dev) {
+      webpackConfig.cache = false
+    }
+
     webpackConfig.resolve.extensionAlias = {
       '.cjs': ['.cts', '.cjs'],
       '.js': ['.ts', '.tsx', '.js', '.jsx'],

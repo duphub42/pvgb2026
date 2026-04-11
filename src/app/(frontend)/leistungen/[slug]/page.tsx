@@ -14,6 +14,7 @@ import type { SitePage } from '@/payload-types'
 import { getPagePath } from '@/utilities/pagesTree'
 
 export const revalidate = 60
+const LEISTUNGEN_HUB_SLUGS = new Set(['leistungen', 'lei'])
 
 type PageProps = {
   params: Promise<{ slug?: string }>
@@ -34,7 +35,11 @@ function formatUnknownError(error: unknown): string {
 
 function isLeistungenSubpage(page: SitePage | null | undefined): boolean {
   if (!page?.parent) return false
-  return typeof page.parent === 'object' && page.parent.slug === 'leistungen'
+  return (
+    typeof page.parent === 'object' &&
+    typeof page.parent.slug === 'string' &&
+    LEISTUNGEN_HUB_SLUGS.has(page.parent.slug.toLowerCase())
+  )
 }
 
 async function findPublishedLeistungenSubpage(slugParam: string) {
@@ -163,7 +168,7 @@ export async function generateMetadata({
   const payload = await getPayload({ config: configPromise })
   const page = await payload.find({
     collection: 'site-pages',
-    limit: 1,
+    limit: 5,
     depth: 2,
     where: {
       and: [{ slug: { equals: slug } }, { _status: { equals: 'published' } }],
@@ -171,5 +176,5 @@ export async function generateMetadata({
     draft: false,
   })
 
-  return generateMeta({ doc: page.docs[0] ?? null })
+  return generateMeta({ doc: page.docs.find(isLeistungenSubpage) ?? null })
 }

@@ -3,10 +3,12 @@ import type { CollectionSlug, GlobalSlug, Payload, PayloadRequest, File } from '
 import { contactForm as contactFormData } from './contact-form'
 import { callbackForm as callbackFormData } from './callback-form'
 import { contact as contactPageData } from './contact-page'
+import { datenschutz as datenschutzPageData } from './datenschutz-page'
 import { home } from './home'
 import { image1 } from './image-1'
 import { image2 } from './image-2'
 import { imageHero1 } from './image-hero-1'
+import { impressum as impressumPageData } from './impressum-page'
 import { post1 } from './post-1'
 import { post2 } from './post-2'
 import { post3 } from './post-3'
@@ -209,7 +211,7 @@ export const seed = async ({
 
   payload.logger.info(`— Seeding pages...`)
 
-  const [_, contactPage] = await Promise.all([
+  const [_, contactPage, privacyPage, legalPage] = await Promise.all([
     payload.create({
       collection: 'site-pages',
       depth: 0,
@@ -219,6 +221,16 @@ export const seed = async ({
       collection: 'site-pages',
       depth: 0,
       data: contactPageData({ contactForm: contactForm }),
+    }),
+    payload.create({
+      collection: 'site-pages',
+      depth: 0,
+      data: datenschutzPageData,
+    }),
+    payload.create({
+      collection: 'site-pages',
+      depth: 0,
+      data: impressumPageData,
     }),
   ])
 
@@ -251,7 +263,10 @@ export const seed = async ({
     }),
     payload.updateGlobal({
       slug: 'footer',
-      data: {},
+      data: {
+        privacyLink: '/datenschutz',
+        termsLink: '/impressum',
+      },
     }),
     payload.updateGlobal({
       slug: 'design',

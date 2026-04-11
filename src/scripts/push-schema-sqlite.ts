@@ -8,6 +8,9 @@
 import './load-env'
 
 process.env.PAYLOAD_FORCE_DRIZZLE_PUSH = 'true'
+process.env.USE_SQLITE = 'true'
+process.env.PAYLOAD_SKIP_PUSH = 'false'
+delete process.env.USE_NEON
 if (!process.env.NODE_ENV) {
   ;(process.env as Record<string, string | undefined>).NODE_ENV = 'development'
 }

@@ -35,8 +35,16 @@ type RadialStrength = 'subtle' | 'medium' | 'strong'
 
 const normalizeServiceSlug = (slug?: string | null): string => {
   const raw = slug?.trim() ?? ''
-  const normalized = raw.replace(/^\/+|\/+$/g, '')
-  return normalized
+  return raw.replace(/^\/+|\/+$/g, '')
+}
+
+const buildServiceHref = (slug?: string | null): string | undefined => {
+  const normalized = normalizeServiceSlug(slug)
+  if (!normalized) return undefined
+  if (normalized.startsWith('http://') || normalized.startsWith('https://')) return normalized
+  if (normalized.startsWith('/')) return normalized
+  if (normalized.includes('/')) return `/${normalized}`
+  return `/leistungen/${normalized}`
 }
 
 const normalizeIconInput = (raw?: string | null): string =>
@@ -299,8 +307,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {category.services?.map((service, index) => {
-                    const slug = normalizeServiceSlug(service.link?.slug)
-                    const href = slug ? `/${slug}` : undefined
+                    const href = buildServiceHref(service.link?.slug)
                     const content = (
                       <div
                         className={cn(

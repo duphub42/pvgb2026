@@ -6,6 +6,7 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { CalPopupBlock } from '@/blocks/CalPopup/Component.client'
 import { ConsultingOverviewBlock } from '@/blocks/ConsultingOverview/Component'
 import { ContactInfoCardsBlock } from '@/blocks/ContactInfoCards/Component'
+import { BrandShowcaseBlock } from '@/blocks/BrandShowcase/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { HeroMarketingBlock } from '@/blocks/HeroMarketing/Component'
@@ -22,6 +23,8 @@ import { ProfilWerdegangBlock } from '@/blocks/ProfilWerdegang/Component'
 import { ProfilZahlenFaktenBlock } from '@/blocks/ProfilZahlenFakten/Component'
 import { ServicesGridBlock } from '@/blocks/ServicesGrid/Component'
 import { ServicesOverviewBlock } from '@/blocks/ServicesOverview/Component'
+import { PortfolioCaseGridBlock } from '@/blocks/PortfolioCaseGrid/Component'
+import { PortfolioKpiStripBlock } from '@/blocks/PortfolioKpiStrip/Component'
 import { ShadcnBlockComponent } from '@/blocks/ShadcnBlock/Component'
 import { WhyWorkWithMeBlock } from '@/blocks/WhyWorkWithMe/Component'
 
@@ -32,6 +35,7 @@ type BlockComponent = React.ComponentType<Record<string, unknown>>
 const blockComponents: Record<string, BlockComponent> = {
   consultingOverview: ConsultingOverviewBlock as unknown as BlockComponent,
   contactInfoCards: ContactInfoCardsBlock as unknown as BlockComponent,
+  brandShowcase: BrandShowcaseBlock as unknown as BlockComponent,
   content: ContentBlock as unknown as BlockComponent,
   heroMarketing: HeroMarketingBlock as unknown as BlockComponent,
   introduction: IntroductionBlock as unknown as BlockComponent,
@@ -50,6 +54,8 @@ const blockComponents: Record<string, BlockComponent> = {
   profilCtaBand: ProfilCtaBandBlock as unknown as BlockComponent,
   servicesOverview: ServicesOverviewBlock as unknown as BlockComponent,
   servicesGrid: ServicesGridBlock as unknown as BlockComponent,
+  portfolioCaseGrid: PortfolioCaseGridBlock as unknown as BlockComponent,
+  portfolioKpiStrip: PortfolioKpiStripBlock as unknown as BlockComponent,
   shadcnBlock: ShadcnBlockComponent as unknown as BlockComponent,
   whyWorkWithMe: WhyWorkWithMeBlock as unknown as BlockComponent,
 }

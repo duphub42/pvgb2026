@@ -1,0 +1,1 @@
+import "../src/scripts/load-env-import.ts"; console.log("DB=", process.env.DATABASE_URL); console.log("USE_NEON=", process.env.USE_NEON);

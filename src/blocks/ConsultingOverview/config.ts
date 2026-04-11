@@ -66,8 +66,8 @@ export const ConsultingOverview: Block = {
   slug: 'consultingOverview',
   interfaceName: 'ConsultingOverviewBlock',
   labels: {
-    singular: 'Consulting Overview',
-    plural: 'Consulting Overviews',
+    singular: 'Leistungsprozess',
+    plural: 'Leistungsprozess',
   },
   fields: [
     ...consultingBlockStyleFields,
@@ -76,23 +76,29 @@ export const ConsultingOverview: Block = {
       type: 'text',
       label: 'Headline',
       defaultValue:
-        'Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing & Webdesign',
+        'So läuft die Zusammenarbeit von der Strategie bis zur Wirkung',
+      admin: {
+        description: 'Hauptüberschrift über dem Process-Flow.',
+      },
     },
     {
       name: 'introText',
       type: 'textarea',
       label: 'Einleitung',
       defaultValue:
-        'Ich realisiere moderne, nutzerzentrierte Websites, konsistente Markenauftritte und unterstütze Unternehmen dabei, Ihre Prozesse digital zu automatisieren - effizient, fundiert und ergebnisorientiert.',
+        'Transparent, strukturiert und mit klaren Ergebnissen: Jeder Schritt baut auf dem vorherigen auf.',
+      admin: {
+        description: 'Kurzer Einführungstext unter der Headline.',
+      },
     },
     {
       name: 'pixelLayoutDesktop',
       type: 'checkbox',
-      label: 'Desktop-Layout wie Figma (ab 1280px)',
+      label: 'Breites Desktop-Layout (ab 1280px)',
       defaultValue: true,
       admin: {
         description:
-          'Ab 1280px Breite: Raster ~1440px, Blobs und Pfad näher an Figma. Darunter weiter gestapelt und lesbar.',
+          'Aktiviert ein breiteres Layout für große Screens. Mobile und Tablet bleiben klar gestapelt.',
       },
     },
     {
@@ -178,45 +184,48 @@ export const ConsultingOverview: Block = {
     {
       name: 'strategyLabel',
       type: 'text',
-      label: 'Label Strategie',
-      defaultValue: 'Digital Consulting, Marketing & Webdesign',
+      label: 'Step-Label 1',
+      defaultValue: 'Analyse & Ausrichtung',
     },
     {
       name: 'strategySubLabel',
       type: 'text',
-      label: 'Sub-Label Strategie',
-      defaultValue: 'für Unternehmen und Organisationen',
+      label: 'Step-Meta 1',
+      defaultValue: 'Fundament für alle weiteren Maßnahmen',
     },
     {
       name: 'strategyTitle',
       type: 'text',
-      label: 'Titel Strategie',
-      defaultValue: 'Ich begleite Unternehmen bei der Entwicklung klarer digitaler Strategien',
+      label: 'Step-Titel 1',
+      defaultValue: 'Wir definieren Ziele, Prioritäten und den richtigen Fokus',
     },
     {
       name: 'strategyText',
       type: 'textarea',
-      label: 'Text Strategie',
+      label: 'Step-Text 1',
       defaultValue:
-        'Von Positionierung und Marketing bis zur technischen Umsetzung moderner Weblösungen. Der Fokus liegt auf messbaren Ergebnissen: strukturierte Prozesse, performante Kampagnen und Websites, die nicht nur gut aussehen, sondern verkaufen. Persönlich. Effizient. Mit Blick auf langfristiges Wachstum. Als Freelancer in Halle (Saale) stehe ich für direkte Zusammenarbeit und transparente Umsetzung.',
+        'Vor der Umsetzung klären wir, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.',
     },
     {
       name: 'benefitsLabel',
       type: 'text',
-      label: 'Label Vorteile',
-      defaultValue: 'Darum arbeiten andere Macher mit mir',
+      label: 'Step-Label 2+',
+      defaultValue: 'Umsetzung & Ergebnis',
     },
     {
       name: 'benefitsSubLabel',
       type: 'text',
-      label: 'Sub-Label Vorteile',
-      defaultValue: 'Schnelle, effiziente Umsetzung',
+      label: 'Step-Meta 2+',
+      defaultValue: 'Pragmatisch, effizient, messbar',
     },
     {
       name: 'benefitsTitle',
       type: 'text',
-      label: 'Titel Vorteile',
-      defaultValue: 'Vorteile in der Übersicht',
+      label: 'Fallback-Titel 2+',
+      defaultValue: 'Umsetzung in klaren Etappen',
+      admin: {
+        description: 'Wird verwendet, falls keine Step-Items gepflegt sind.',
+      },
     },
     {
       name: 'benefitItems',
@@ -225,54 +234,57 @@ export const ConsultingOverview: Block = {
       maxRows: 6,
       defaultValue: [
         {
-          title: '1 Persönlicher Ansprechpartner für alles',
-          text: 'Kurze Wege, kein Agentur-Wasserkopf, kein Wischi-Waschi, sondern direkte, fundierte Beratung und Umsetzung.',
+          title: 'Konzept & Architektur',
+          text: 'Informationsarchitektur, Angebotslogik, Seitenstruktur und User-Flows werden sauber vorbereitet.',
         },
         {
-          title: 'Lean & effizient',
-          text: 'Schnelle Entscheidungen, klare Prozesse, kein unnötiger Overhead.',
+          title: 'Design & Content',
+          text: 'Ein hochwertiges visuelles System plus klare Botschaften, die Zielgruppen verstehen und vertrauen.',
         },
         {
-          title: 'Performance & Resultate',
-          text: 'Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern.',
+          title: 'Technische Umsetzung',
+          text: 'Performante Entwicklung, saubere Integrationen und eine stabile Basis für Marketing und Vertrieb.',
         },
         {
-          title: 'Cross-Channel & internationale Erfahrung',
-          text: 'SEO, SEA, Social Ads, Automatisierung; Markteintritte und Launches in verschiedenen Branchen und 6 Ländern weltweit.',
+          title: 'Launch & Optimierung',
+          text: 'Nach dem Go-live wird datenbasiert optimiert, damit Reichweite, Leads und Conversion wachsen.',
         },
       ],
+      admin: {
+        description: 'Jeder Eintrag wird als eigener Prozess-Schritt dargestellt.',
+      },
       fields: [
         {
           name: 'title',
           type: 'text',
           required: true,
-          label: 'Titel',
+          label: 'Step-Titel',
         },
         {
           name: 'text',
           type: 'textarea',
           required: true,
-          label: 'Beschreibung',
+          label: 'Step-Text',
         },
       ],
     },
     {
       name: 'experienceLabel',
       type: 'text',
-      label: 'Label Erfahrung',
-      defaultValue: 'Wissen was funktioniert',
+      label: 'Finaler Step-Label',
+      defaultValue: 'Langfristige Partnerschaft',
     },
     {
       name: 'experienceSubLabel',
       type: 'text',
-      label: 'Sub-Label Erfahrung',
-      defaultValue: 'Profitieren Sie von meinen Erfahrungen',
+      label: 'Finaler Step-Meta',
+      defaultValue: 'Weiterentwicklung auf Basis realer Daten',
     },
     {
       name: 'experienceTitle',
       type: 'text',
-      label: 'Titel Erfahrung',
-      defaultValue: 'Seit über 20 Jahren Erfahrung im digitalen Marketing & Vertrieb',
+      label: 'Finaler Step-Titel',
+      defaultValue: 'Nach der Umsetzung begleite ich bei Skalierung, Tests und kontinuierlicher Verbesserung',
     },
   ],
 }

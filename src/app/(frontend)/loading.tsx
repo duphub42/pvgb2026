@@ -4,7 +4,11 @@
  */
 export default function Loading() {
   return (
-    <article className="container py-16" aria-busy="true" aria-label="Seite wird geladen">
+    <article
+      className="container page-safe-top py-16"
+      aria-busy="true"
+      aria-label="Seite wird geladen"
+    >
       <div className="mx-auto max-w-3xl space-y-6">
         <div className="h-10 w-3/4 animate-pulse rounded bg-[var(--muted)]" />
         <div className="space-y-2">

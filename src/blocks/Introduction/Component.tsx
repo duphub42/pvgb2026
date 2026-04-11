@@ -89,7 +89,7 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
         {hasImage && (
           <div
             className={cn(
-              'relative isolate mx-auto w-full max-w-sm overflow-visible lg:mx-0 lg:max-w-[clamp(18rem,34vw,30rem)]',
+              'relative isolate mx-auto w-full max-w-sm overflow-visible group lg:mx-0 lg:max-w-[clamp(18rem,34vw,30rem)]',
               'xl:absolute xl:top-1/2 xl:right-0 xl:mx-0 xl:w-[clamp(18rem,32vw,36rem)] xl:max-w-none xl:-translate-y-1/2 xl:translate-x-[12%]',
             )}
           >
@@ -98,7 +98,7 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
               className="pointer-events-none absolute inset-0 -z-10 opacity-35"
               style={introDotPatternStyle}
             />
-            <div className="relative group">
+            <div className="relative">
               <Media
                 className="w-full"
                 resource={image as MediaType}

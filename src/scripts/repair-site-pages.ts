@@ -1,6 +1,6 @@
 import './load-env-import'
 import { getPayload } from 'payload'
-import config from '../payload.config.ts'
+import config from '@payload-config'
 
 function isBlockObject(value: unknown): value is Record<string, unknown> {
   return Boolean(value && typeof value === 'object' && !Array.isArray(value))
@@ -50,7 +50,10 @@ async function main() {
 
   for (const doc of docs) {
     const normalizedLayout = normalizeLayout(doc.layout)
-    if (Array.isArray(doc.layout) && JSON.stringify(normalizedLayout) === JSON.stringify(doc.layout)) {
+    if (
+      Array.isArray(doc.layout) &&
+      JSON.stringify(normalizedLayout) === JSON.stringify(doc.layout)
+    ) {
       continue
     }
 

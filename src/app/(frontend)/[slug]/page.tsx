@@ -80,7 +80,7 @@ export default async function Page({
   } catch (err) {
     console.error('[Page] getPayload failed:', formatUnknownError(err))
     return (
-      <article className="container hero-safe-top py-16">
+      <article className="container page-safe-top py-16">
         <div className="prose max-w-none">
           <h1>{slug === 'home' || !slug ? 'Willkommen' : 'Seite'}</h1>
           <p>
@@ -152,7 +152,7 @@ export default async function Page({
       // Startseite: Fallback anzeigen statt 404, damit localhost nicht leer wirkt
       if (resolvedSlug === 'home' || !resolvedSlug) {
         return (
-          <article className="container hero-safe-top py-16">
+          <article className="container page-safe-top py-16">
             <div className="prose max-w-none">
               <h1>Willkommen</h1>
               <p>
@@ -230,7 +230,7 @@ export default async function Page({
       console.error('[Page] find/render failed:', fullMsg || formatUnknownError(err), e?.stack)
     }
     return (
-      <article className="container py-16">
+      <article className="container page-safe-top py-16">
         <div className="prose max-w-none">
           <h1>{resolvedSlug === 'home' || !resolvedSlug ? 'Willkommen' : 'Seite'}</h1>
           <p>Seite konnte nicht geladen werden. Bitte später erneut versuchen oder Admin prüfen.</p>

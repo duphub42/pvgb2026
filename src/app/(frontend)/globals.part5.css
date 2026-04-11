@@ -14,9 +14,61 @@ header .header-tool-toggle:hover {
 }
 .megamenu .header-tool-toggle--theme:hover,
 header .header-tool-toggle--theme:hover {
-  background-color: var(--header-icon-bg-hover, rgba(0, 0, 0, 0.06)) !important;
+  background-color: var(--header-icon-bg-hover, #f5f5f5) !important;
   border-color: var(--header-icon-border-hover, transparent) !important;
-  color: var(--header-icon-fg-hover, currentColor) !important;
+  color: var(--header-icon-fg-hover, #171717) !important;
+}
+
+/* Safari / specificity-safe override for desktop header theme toggle */
+[data-theme='light'] .site-header .header-tool-toggle--theme:hover,
+[data-theme='light'] .megamenu .header-tool-toggle--theme:hover,
+[data-theme='light'] header .header-tool-toggle.header-tool-toggle--theme:hover,
+[data-theme='light'] .megamenu .header-tool-toggle.header-tool-toggle--theme:hover {
+  background-color: rgba(0, 0, 0, 0.11) !important;
+  color: #171717 !important;
+  border-color: transparent !important;
+  background-image: none !important;
+}
+[data-theme='light'] .site-header .header-tool-toggle--theme:hover svg,
+[data-theme='light'] .megamenu .header-tool-toggle--theme:hover svg,
+[data-theme='light'] header .header-tool-toggle.header-tool-toggle--theme:hover svg,
+[data-theme='light'] .megamenu .header-tool-toggle.header-tool-toggle--theme:hover svg {
+  color: #171717 !important;
+  stroke: currentColor !important;
+  fill: none !important;
+}
+
+[data-theme='dark'] .site-header .header-tool-toggle--theme:hover,
+[data-theme='dark'] .megamenu .header-tool-toggle--theme:hover,
+[data-theme='dark'] header .header-tool-toggle.header-tool-toggle--theme:hover,
+[data-theme='dark'] .megamenu .header-tool-toggle.header-tool-toggle--theme:hover {
+  background-color: #262626 !important;
+  color: #fafafa !important;
+  background-image: none !important;
+}
+
+/* Highest-specificity light mode override for theme toggle inside non-hover header state */
+[data-theme='light'] .site-header:not(:hover) button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover,
+[data-theme='light'] .megamenu:not(:hover) button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover {
+  background-color: #e0e7ef !important;
+  color: #171717 !important;
+  border-color: transparent !important;
+  background-image: none !important;
+}
+[data-theme='light'] .site-header:not(:hover) button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover svg,
+[data-theme='light'] .megamenu:not(:hover) button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover svg {
+  color: #171717 !important;
+  stroke: currentColor !important;
+  fill: none !important;
+}
+
+/* Extra specificity to override desktop header `:not(:hover) .header-tool-toggle.header-icon-btn:hover` Safari conflict */
+[data-theme='light'] .site-header:not(:hover) .header-tool-toggle--theme.header-icon-btn:hover,
+[data-theme='light'] .megamenu:not(:hover) .header-tool-toggle--theme.header-icon-btn:hover,
+[data-theme='light'] header:not(:hover) .header-tool-toggle--theme.header-icon-btn:hover {
+  background-color: rgba(0, 0, 0, 0.06) !important;
+  color: #171717 !important;
+  background-image: none !important;
 }
 
 .theme-switch {
@@ -2267,9 +2319,24 @@ header .header-tool-toggle--theme:hover {
 }
 [data-theme='dark'] .megamenu .header-tool-toggle--theme:hover,
 [data-theme='dark'] header .header-tool-toggle--theme:hover {
-  background-color: var(--header-icon-bg-hover, rgba(255, 255, 255, 0.08)) !important;
+  background-color: var(--header-icon-bg-hover, #262626) !important;
   border-color: var(--header-icon-border-hover, transparent) !important;
   color: var(--header-icon-fg-hover, #fafafa) !important;
+}
+[data-theme='dark'] .site-header .header-tool-toggle--theme:hover,
+[data-theme='dark'] .megamenu .header-tool-toggle--theme:hover,
+[data-theme='dark'] header .header-tool-toggle.header-tool-toggle--theme:hover,
+[data-theme='dark'] .megamenu .header-tool-toggle.header-tool-toggle--theme:hover {
+  background-color: #262626 !important;
+  color: #fafafa !important;
+  background-image: none !important;
+}
+[data-theme='dark'] .site-header:not(:hover) .header-tool-toggle--theme.header-icon-btn:hover,
+[data-theme='dark'] .megamenu:not(:hover) .header-tool-toggle--theme.header-icon-btn:hover,
+[data-theme='dark'] header:not(:hover) .header-tool-toggle--theme.header-icon-btn:hover {
+  background-color: #262626 !important;
+  color: #fafafa !important;
+  background-image: none !important;
 }
 [data-theme='dark'] .megamenu,
 [data-theme='dark'] .site-header {
@@ -2658,6 +2725,34 @@ header .header-tool-toggle--theme:hover {
   background-color: var(--header-icon-bg-hover, color-mix(in hsl, var(--mega-menu-nav-text) 10%, transparent)) !important;
 }
 
+/* Highest-specificity override for desktop light-mode theme toggle hover */
+button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover,
+[data-theme='light'] button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover {
+  background-color: rgba(0, 0, 0, 0.11) !important;
+  color: #171717 !important;
+  border-color: transparent !important;
+  background-image: none !important;
+}
+
+button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover svg,
+[data-theme='light'] button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover svg {
+  color: #171717 !important;
+  stroke: currentColor !important;
+}
+
+/* Highest-specificity override for desktop dark-mode theme toggle hover */
+[data-theme='dark'] button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover {
+  background-color: #262626 !important;
+  color: #fafafa !important;
+  border-color: transparent !important;
+  background-image: none !important;
+}
+
+[data-theme='dark'] button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover svg {
+  color: #fafafa !important;
+  stroke: currentColor !important;
+}
+
 .megamenu .header-tool-toggle:active:not(.theme-switch),
 .site-header .header-tool-toggle:active:not(.theme-switch),
 .megamenu .header-icon-btn:active,
@@ -2681,10 +2776,40 @@ header .header-tool-toggle--theme:hover {
   stroke-width: 1.8;
 }
 
-/* Services Grid: theme-aware intro image + card icons */
-.services-grid-intro-image {
-  filter: none !important;
-  opacity: 1;
+/* Final override for desktop ThemeSwitcher hover to avoid Lightmode Safari conflicts */
+[data-theme='light'] .site-header:not(:hover) button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover,
+[data-theme='light'] .megamenu:not(:hover) button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover,
+[data-theme='light'] button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover {
+  background-color: #e0e7ef !important;
+  color: #171717 !important;
+  border-color: transparent !important;
+  background-image: none !important;
+}
+[data-theme='light'] .site-header:not(:hover) button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover svg,
+[data-theme='light'] .megamenu:not(:hover) button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover svg,
+[data-theme='light'] button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover svg {
+  color: #171717 !important;
+  stroke: currentColor !important;
+  fill: none !important;
+}
+
+/* Final light-mode hover override for all desktop header toggles */
+[data-theme='light'] .site-header .header-tool-toggle:hover,
+[data-theme='light'] .megamenu .header-tool-toggle:hover,
+[data-theme='light'] .site-header .header-icon-btn:hover,
+[data-theme='light'] .megamenu .header-icon-btn:hover {
+  background-color: rgba(0, 0, 0, 0.11) !important;
+  color: #171717 !important;
+  border-color: transparent !important;
+  background-image: none !important;
+}
+[data-theme='light'] .site-header .header-tool-toggle:hover svg,
+[data-theme='light'] .megamenu .header-tool-toggle:hover svg,
+[data-theme='light'] .site-header .header-icon-btn:hover svg,
+[data-theme='light'] .megamenu .header-icon-btn:hover svg {
+  color: #171717 !important;
+  stroke: currentColor !important;
+  fill: none !important;
 }
 
 [data-theme='dark'] .services-grid-intro-image {

@@ -46,11 +46,80 @@ const templates: ServicePageTemplate[] = [
     },
     layout: [
       {
+        blockType: 'servicesOverview',
+        heading: 'Leistungs-Hub auf einen Blick',
+        intro:
+          'Vier Kernbereiche, die als zusammenhängender Prozess funktionieren - von der strategischen Grundlage bis zur kontinuierlichen Optimierung.',
+        services: [
+          {
+            icon: 'compass',
+            title: 'Strategie & Beratung',
+            description:
+              'Positionierung, Zielbild und Prioritäten, damit jede Maßnahme auf ein klares Ergebnis einzahlt.',
+          },
+          {
+            icon: 'code',
+            title: 'Webdesign & Umsetzung',
+            description:
+              'Reduziertes, hochwertiges Design plus technische Umsetzung für schnelle, stabile und wartbare Systeme.',
+          },
+          {
+            icon: 'megaphone',
+            title: 'Marketing & Reichweite',
+            description:
+              'Gezielte Maßnahmen für Sichtbarkeit, qualifizierte Anfragen und nachvollziehbare Performance.',
+          },
+          {
+            icon: 'shield',
+            title: 'Wartung & Entwicklung',
+            description:
+              'Kontinuierliche Pflege, Verbesserungen und klare Weiterentwicklung statt punktueller Einmal-Projekte.',
+          },
+        ],
+      },
+      {
         blockType: 'introduction',
-        heading: 'Serviceerfahrung mit Digital- und Webprojekten',
+        heading: 'Ein Hub statt isolierter Einzelleistungen',
         body:
-          'Ich unterstütze Unternehmen bei anspruchsvollen Webdesign-, Marketing- und Wartungsprojekten. Die Arbeit ist bewusst klar strukturiert: präzise Strategie, reduzierte Gestaltung und nachhaltige technologische Umsetzung.',
-        tagline: 'Minimal im Auftritt. Stark in Wirkung. Technisch durchdacht für reale Ergebnisse.',
+          'Der Leistungs-Hub bündelt Strategie, Gestaltung, Technik und Vermarktung in einer klaren Journey. So entstehen keine Medienbrüche zwischen Beratung, Umsetzung und Betrieb.',
+        tagline:
+          'Edel im Auftritt. Präzise in der Ausführung. Messbar in der Wirkung.',
+      },
+      {
+        blockType: 'consultingOverview',
+        headline: 'So läuft die Zusammenarbeit - klar, strukturiert, transparent',
+        introText:
+          'Jeder Schritt baut logisch auf dem vorherigen auf. Das reduziert Reibung und schafft eine belastbare Grundlage für Wachstum.',
+        strategyLabel: 'Analyse & Ausrichtung',
+        strategySubLabel: 'Strategischer Startpunkt',
+        strategyTitle: 'Wir definieren Ziele, Prioritäten und die richtige digitale Richtung',
+        strategyText:
+          'Am Anfang stehen Zielgruppen, Angebotsschärfung und ein realistischer Maßnahmenplan. Damit wird aus Einzelideen ein konsistentes System mit klaren Prioritäten.',
+        benefitsLabel: 'Umsetzung & Ergebnis',
+        benefitsSubLabel: 'Vom Konzept zur Wirkung',
+        benefitsTitle: 'Umsetzung in präzisen Etappen',
+        benefitItems: [
+          {
+            title: 'Konzept & Informationsarchitektur',
+            text: 'Struktur, Seitenlogik und User-Flows werden klar definiert, bevor Design und Entwicklung starten.',
+          },
+          {
+            title: 'Design & Content',
+            text: 'Visuelle Sprache und Inhalte werden aufeinander abgestimmt, damit Marke und Nutzen auf den ersten Blick verständlich sind.',
+          },
+          {
+            title: 'Technische Umsetzung',
+            text: 'Performante Entwicklung mit sauberer Basis für SEO, Tracking, Erweiterungen und langfristige Wartbarkeit.',
+          },
+          {
+            title: 'Launch, Messung und Optimierung',
+            text: 'Nach dem Go-live werden Daten genutzt, um Conversions, Sichtbarkeit und Prozesse systematisch weiterzuentwickeln.',
+          },
+        ],
+        experienceLabel: 'Langfristige Partnerschaft',
+        experienceSubLabel: 'Stabilität mit Entwicklungsspielraum',
+        experienceTitle:
+          'Nach dem Launch begleite ich den Hub kontinuierlich bei Verbesserungen, Tests und Skalierung',
       },
       {
         blockType: 'servicesGrid',

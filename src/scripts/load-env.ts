@@ -10,5 +10,5 @@ const __dirnameScript = path.dirname(fileURLToPath(import.meta.url))
 const projectRoot = path.resolve(__dirnameScript, '../..')
 
 dotenv.config({ path: path.join(projectRoot, '.env') })
-dotenv.config({ path: path.join(projectRoot, '.env.local') })
-dotenv.config({ path: path.join(projectRoot, 'env.local') })
+dotenv.config({ path: path.join(projectRoot, '.env.local'), override: true })
+dotenv.config({ path: path.join(projectRoot, 'env.local'), override: false })

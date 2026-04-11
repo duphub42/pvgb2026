@@ -90,6 +90,12 @@ import * as migration_20260403_150000_services_grid_radial_background_strength f
 import * as migration_20260405_100000_site_pages_hero_leistungen_enum_values from './20260405_100000_site_pages_hero_leistungen_enum_values'
 import * as migration_20260407_100000_form_block_contact_info_cards from './20260407_100000_form_block_contact_info_cards'
 import * as migration_20260407_120000_contact_info_cards_block_and_form_cleanup from './20260407_120000_contact_info_cards_block_and_form_cleanup'
+import * as migration_20260411_120000_portfolio_blocks from './20260411_120000_portfolio_blocks'
+import * as migration_20260411_130000_site_pages_portfolio_type from './20260411_130000_site_pages_portfolio_type'
+import * as migration_20260411_131000_rename_portfolio_tables_match_db_name from './20260411_131000_rename_portfolio_tables_match_db_name'
+import * as migration_20260411_132000_repair_portfolio_dbname_tables from './20260411_132000_repair_portfolio_dbname_tables'
+import * as migration_20260411_133000_repair_portfolio_columns from './20260411_133000_repair_portfolio_columns'
+import * as migration_20260411_134000_repair_portfolio_fk_constraints from './20260411_134000_repair_portfolio_fk_constraints'
 
 export const migrations = [
   {
@@ -551,5 +557,35 @@ export const migrations = [
     up: migration_20260407_120000_contact_info_cards_block_and_form_cleanup.up,
     down: migration_20260407_120000_contact_info_cards_block_and_form_cleanup.down,
     name: '20260407_120000_contact_info_cards_block_and_form_cleanup',
+  },
+  {
+    up: migration_20260411_120000_portfolio_blocks.up,
+    down: migration_20260411_120000_portfolio_blocks.down,
+    name: '20260411_120000_portfolio_blocks',
+  },
+  {
+    up: migration_20260411_130000_site_pages_portfolio_type.up,
+    down: migration_20260411_130000_site_pages_portfolio_type.down,
+    name: '20260411_130000_site_pages_portfolio_type',
+  },
+  {
+    up: migration_20260411_131000_rename_portfolio_tables_match_db_name.up,
+    down: migration_20260411_131000_rename_portfolio_tables_match_db_name.down,
+    name: '20260411_131000_rename_portfolio_tables_match_db_name',
+  },
+  {
+    up: migration_20260411_132000_repair_portfolio_dbname_tables.up,
+    down: migration_20260411_132000_repair_portfolio_dbname_tables.down,
+    name: '20260411_132000_repair_portfolio_dbname_tables',
+  },
+  {
+    up: migration_20260411_133000_repair_portfolio_columns.up,
+    down: migration_20260411_133000_repair_portfolio_columns.down,
+    name: '20260411_133000_repair_portfolio_columns',
+  },
+  {
+    up: migration_20260411_134000_repair_portfolio_fk_constraints.up,
+    down: migration_20260411_134000_repair_portfolio_fk_constraints.down,
+    name: '20260411_134000_repair_portfolio_fk_constraints',
   },
 ]

@@ -59,6 +59,8 @@
 
 @layer base {
   :root {
+      /* Safari-Fallback: --primary als HEX für color: var(--primary) */
+      --primary: #2563eb;
     --type-feature-settings: "cv01", "ss03";
     --type-variation-settings: "opsz" auto;
     --type-weight-regular: 400;
@@ -279,6 +281,23 @@
   --font-sans: var(--font-outfit);
 }
 
+/* Header icon hover overrides must win over Tailwind button utilities, especially in Safari */
+.header-tool-toggle.header-icon-btn:hover,
+.header-icon-btn:hover {
+  background-color: #e0e7ef !important;
+  color: #171717 !important;
+}
+[data-theme='dark'] .header-tool-toggle.header-icon-btn:hover,
+[data-theme='dark'] .header-icon-btn:hover {
+  background-color: #262626 !important;
+  color: #fafafa !important;
+}
+.header-tool-toggle.header-icon-btn:hover svg,
+.header-icon-btn:hover svg {
+  color: inherit !important;
+  stroke: currentColor !important;
+}
+
 @layer utilities {
   .type-body {
     font-family: var(--font-body);
@@ -425,6 +444,11 @@
   .hero-safe-top--extra {
     padding-top: calc(var(--header-height) + 1rem);
   }
+
+  .page-safe-top {
+    padding-top: calc(var(--header-height, 6rem) + 4.5rem);
+  }
+
   [data-theme='dark'] .hero-marquee-band--cta .hero-logo-grayscale {
     opacity: 0.95;
   }
@@ -1801,6 +1825,26 @@
       opacity: 1;
       transform: none;
     }
+  }
+
+  @keyframes hero-premium-overlay-move {
+    from {
+      background-position: 0% 50%, 50% 0%, 100% 50%;
+    }
+    to {
+      background-position: 100% 50%, 0% 100%, 0% 50%;
+    }
+  }
+
+  .hero-premium-overlay {
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.08), transparent 24%),
+      linear-gradient(120deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, 0.03) 100%);
+    background-size: 240% 240%, 180% 180%;
+    background-position: 0% 0%, 100% 100%;
+    opacity: 0.05;
+    animation: hero-premium-overlay-move 32s linear infinite;
+    pointer-events: none;
   }
 
   /* Popout-Hero (Style Preview / Superhero): weiche Lichtflecken, keine Raster-Linien */

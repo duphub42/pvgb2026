@@ -178,9 +178,9 @@ export default async function DatenschutzPage({ searchParams: searchParamsPromis
             Sicherheit der Seite erforderlich sind.
           </p>
           <p>
-            Sofern optionale Dienste (z. B. Statistik oder Marketing) eingesetzt werden, erfolgt dies
-            ausschließlich nach Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO sowie § 25 Abs.
-            1 TDDDG. Technisch notwendige Speicherungen erfolgen auf Grundlage von § 25 Abs. 2
+            Sofern optionale Dienste (z. B. Statistik oder Marketing) eingesetzt werden, erfolgt
+            dies ausschließlich nach Ihrer Einwilligung gemäß Art. 6 Abs. 1 lit. a DSGVO sowie § 25
+            Abs. 1 TDDDG. Technisch notwendige Speicherungen erfolgen auf Grundlage von § 25 Abs. 2
             TDDDG.
           </p>
 
@@ -206,7 +206,9 @@ export default async function DatenschutzPage({ searchParams: searchParamsPromis
             <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
             <li>Datenübertragbarkeit (Art. 20 DSGVO)</li>
             <li>Widerspruch gegen die Verarbeitung (Art. 21 DSGVO)</li>
-            <li>Widerruf erteilter Einwilligungen mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO)</li>
+            <li>
+              Widerruf erteilter Einwilligungen mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO)
+            </li>
           </ul>
 
           <h2>8. Beschwerderecht bei einer Aufsichtsbehörde</h2>

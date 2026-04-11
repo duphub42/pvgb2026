@@ -12,6 +12,15 @@ const normalizeServiceSlug = (slug?: string): string => {
   return raw.replace(/^\/+|\/+$/g, '')
 }
 
+const buildServiceHref = (slug?: string): string | undefined => {
+  const normalized = normalizeServiceSlug(slug)
+  if (!normalized) return undefined
+  if (normalized.startsWith('http://') || normalized.startsWith('https://')) return normalized
+  if (normalized.startsWith('/')) return normalized
+  if (normalized.includes('/')) return `/${normalized}`
+  return `/leistungen/${normalized}`
+}
+
 export interface ServiceItem {
   icon: { url: string; alt: string }
   title: string
@@ -112,8 +121,7 @@ export const ServicesGrid: React.FC<ServicesGridProps> = ({ data, imagePosition 
                     )}
                   >
                     {(() => {
-                      const slug = normalizeServiceSlug(service.link?.slug)
-                      const href = slug ? `/${slug}` : undefined
+                      const href = buildServiceHref(service.link?.slug)
                       const content = (
                         <div className="flex items-stretch gap-5">
                           <div

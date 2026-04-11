@@ -15,19 +15,29 @@ export const metadata: Metadata = {
 export default async function LeistungenPage() {
   const payload = await getPayload({ config: configPromise })
 
-  const pages = await payload.find({
+  let pages = await payload.find({
     collection: 'site-pages',
-    where: { slug: { equals: 'leistungen' } },
+    where: { and: [{ slug: { equals: 'leistungen' } }, { _status: { equals: 'published' } }] },
     limit: 1,
     depth: 2,
     draft: false,
   })
 
+  if (!pages.docs[0]) {
+    pages = await payload.find({
+      collection: 'site-pages',
+      where: { and: [{ slug: { equals: 'lei' } }, { _status: { equals: 'published' } }] },
+      limit: 1,
+      depth: 2,
+      draft: false,
+    })
+  }
+
   const page = pages.docs[0]
 
   if (!page) {
     return (
-      <main className="container py-20">
+      <main className="container page-safe-top py-20">
         <div className="prose mx-auto">
           <h1>Leistungen</h1>
           <p>Die Seite wurde noch nicht angelegt oder veröffentlicht.</p>
@@ -40,6 +50,7 @@ export default async function LeistungenPage() {
   const isProAthleteHero =
     typeof (heroProps as { type?: unknown })?.type === 'string' &&
     (heroProps as { type?: string }).type === 'proAthlete'
+  const pageSlug = typeof page.slug === 'string' ? page.slug : 'leistungen'
   const layoutBlocks = resolveLayoutBlocks('leistungen', page.layout)
   const firstBlock = layoutBlocks[0]
   const firstBlockIsServices =
@@ -53,7 +64,7 @@ export default async function LeistungenPage() {
     <article>
       <div className={cn('relative isolate', isProAthleteHero ? 'z-[40]' : 'z-[32]')}>
         <HeroErrorBoundary>
-          <RenderHero {...heroProps} pageSlug="leistungen" />
+          <RenderHero {...heroProps} pageSlug={pageSlug} />
         </HeroErrorBoundary>
       </div>
       <div

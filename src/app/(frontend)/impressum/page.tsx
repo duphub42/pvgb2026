@@ -16,6 +16,7 @@ const LAST_UPDATED = '11. April 2026'
 const LEGAL_NAME = 'Philipp Bacher'
 const LEGAL_REPRESENTATIVE = 'Philipp Bacher'
 const LEGAL_EMAIL = 'mail@philippbacher.com'
+const VAT_ID = 'DE337118461'
 const FALLBACK_ADDRESS = ['Händelstr. 3', 'D-06114 Halle/Saale']
 const FALLBACK_PHONE = '+49 3459 6393323'
 
@@ -165,7 +166,7 @@ export default async function ImpressumPage({ searchParams: searchParamsPromise 
           <p>
             Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:
             <br />
-            <strong>Falls vorhanden ergänzen.</strong>
+            <strong>{VAT_ID}</strong>
           </p>
 
           <h2>Verbraucherstreitbeilegung</h2>
@@ -178,8 +179,8 @@ export default async function ImpressumPage({ searchParams: searchParamsPromise 
           <p>
             Als Diensteanbieter sind wir gemäß den allgemeinen Gesetzen für eigene Inhalte auf
             diesen Seiten verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder
-            gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die
-            auf eine rechtswidrige Tätigkeit hinweisen.
+            gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf
+            eine rechtswidrige Tätigkeit hinweisen.
           </p>
 
           <h2>Haftung für Links</h2>
