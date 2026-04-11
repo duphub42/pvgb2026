@@ -3,6 +3,7 @@ import type { Metadata } from 'next'
 import type { Media, SitePage, BlogPost, Config } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
+import { getPagePath } from './pagesTree'
 import { getServerSideURL } from './getURL'
 
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
@@ -35,8 +36,14 @@ export const generateMeta = async (args: {
   if (Array.isArray(rawSlug)) {
     const parts = rawSlug.filter(Boolean)
     if (parts.length > 0) path = `/${parts.join('/')}`
-  } else if (typeof rawSlug === 'string' && rawSlug && rawSlug !== 'home') {
-    path = `/${rawSlug}`
+  } else if (typeof rawSlug === 'string' && rawSlug) {
+    if (rawSlug === 'home') {
+      path = '/'
+    } else if ('parent' in (doc as any) && (doc as any).parent != null) {
+      path = `/${getPagePath(doc as SitePage)}`
+    } else {
+      path = `/${rawSlug}`
+    }
   }
 
   return {

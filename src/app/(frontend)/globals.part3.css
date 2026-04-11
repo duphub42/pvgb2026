@@ -8,15 +8,20 @@
   }
 
   /* Content (Prose): Link-Farbe aus Design-Global (--link / --link-hover) */
-  .prose a {
+  .prose a,
+  .prose-invert a {
     position: relative;
     display: inline-block;
     color: var(--link);
+    text-decoration: none;
   }
-  .prose a:hover {
+  .prose a:hover,
+  .prose-invert a:hover {
     color: var(--link-hover);
+    text-decoration: none;
   }
-  .prose a::after {
+  .prose a::after,
+  .prose-invert a::after {
     content: '';
     position: absolute;
     left: 0;
@@ -28,7 +33,8 @@
     transform-origin: left;
     transition: transform 0.25s ease;
   }
-  .prose a:hover::after {
+  .prose a:hover::after,
+  .prose-invert a:hover::after {
     transform: scaleX(1);
   }
 
@@ -707,6 +713,15 @@
 .site-header .header-tool-toggle,
 .megamenu .header-tool-toggle {
   transition: color 0.45s ease, background-color 0.45s ease;
+}
+
+/* Desktop Mainmenu: Uppercase, enges Letter-Spacing, fette Schrift */
+.megamenu .megamenu-top-item {
+  text-transform: uppercase;
+  letter-spacing: -0.04em;
+  font-weight: 700;
+  font-family: var(--font-heading, 'Inter', Arial, sans-serif);
+  font-size: 1.05rem;
 }
 /* Darkmode: Megamenu-Top-Item Hover explizit weiß */
 [data-theme='dark'] .megamenu .megamenu-top-item:hover {

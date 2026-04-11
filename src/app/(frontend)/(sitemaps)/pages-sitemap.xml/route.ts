@@ -2,6 +2,7 @@ import { getServerSideSitemap } from 'next-sitemap'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
+import { getPagePath } from '@/utilities/pagesTree'
 
 export const dynamic = 'force-dynamic'
 
@@ -17,7 +18,7 @@ const getPagesSitemap = unstable_cache(
       collection: 'site-pages',
       overrideAccess: false,
       draft: false,
-      depth: 0,
+      depth: 2,
       limit: 1000,
       pagination: false,
       where: {
@@ -28,6 +29,7 @@ const getPagesSitemap = unstable_cache(
       select: {
         slug: true,
         updatedAt: true,
+        parent: true,
       },
     })
 
@@ -56,8 +58,9 @@ const getPagesSitemap = unstable_cache(
       ? results.docs
           .filter((page) => Boolean(page?.slug))
           .map((page) => {
+            const url = page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${getPagePath(page as any)}`
             return {
-              loc: page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${page?.slug}`,
+              loc: url,
               lastmod: page.updatedAt || dateFallback,
             }
           })
