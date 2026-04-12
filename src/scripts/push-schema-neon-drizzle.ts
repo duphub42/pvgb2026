@@ -10,13 +10,6 @@
  */
 import './load-env'
 
-import { execFileSync } from 'child_process'
-import path from 'path'
-import { fileURLToPath } from 'url'
-
-const __dirnameScript = path.dirname(fileURLToPath(import.meta.url))
-const projectRoot = path.resolve(__dirnameScript, '../..')
-
 if (process.env.NEON_DESTRUCTIVE_DRIZZLE_PUSH_CONFIRM !== 'yes') {
   console.error(
     'Abgebrochen: Drizzle-Push kann bestehende Daten/Schema gefährden.\n' +

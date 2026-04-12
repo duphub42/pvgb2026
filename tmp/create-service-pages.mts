@@ -12,7 +12,8 @@ const servicePages = [
     hero: {
       type: 'lowImpact',
       headline: 'Webdesign für hochwertige Markenauftritte',
-      description: 'Moderne, minimalistische Websites mit klarer Struktur, Performance und technischer Zuverlässigkeit.',
+      description:
+        'Moderne, minimalistische Websites mit klarer Struktur, Performance und technischer Zuverlässigkeit.',
     },
   },
   {
@@ -30,7 +31,8 @@ const servicePages = [
     hero: {
       type: 'lowImpact',
       headline: 'Wartung und Support für langfristig stabile Websites',
-      description: 'Sicherheitsupdates, Monitoring und kontinuierliche Pflege für sorgenfreien Betrieb.',
+      description:
+        'Sicherheitsupdates, Monitoring und kontinuierliche Pflege für sorgenfreien Betrieb.',
     },
   },
 ]

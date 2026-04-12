@@ -76,7 +76,7 @@ async function main() {
             console.log(`  ${table}.${col}: ${res.rowCount} Referenz(en) entfernt`)
             totalFixed += res.rowCount
           }
-        } catch (err) {
+        } catch (_err) {
           // Spalte oder Tabelle existiert evtl. nicht – ignorieren
         }
       }

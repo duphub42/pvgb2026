@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postgres'
+import { MigrateUpArgs, sql } from '@payloadcms/db-vercel-postgres'
 
 /**
  * Adds Shadcn Blocks hero types (hero75, hero215, hero238, hero242, hero243, hero244, hero256)
@@ -13,7 +13,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   }
 }
 
-export async function down({ db }: MigrateDownArgs): Promise<void> {
+export async function down(): Promise<void> {
   // PostgreSQL does not support removing enum values; rollback would require recreating the enum.
   // No-op; new values remain in the enum.
 }

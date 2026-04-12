@@ -24,6 +24,10 @@ export const generateMeta = async (args: {
   doc: Partial<SitePage> | Partial<BlogPost> | null
 }): Promise<Metadata> => {
   const { doc } = args
+  const docWithPathFields = doc as
+    | (Partial<SitePage> & { slug?: unknown; parent?: unknown })
+    | (Partial<BlogPost> & { slug?: unknown; parent?: unknown })
+    | null
 
   const ogImage = getImageURL(doc?.meta?.image)
 
@@ -31,7 +35,7 @@ export const generateMeta = async (args: {
     ? doc?.meta?.title + ' | Payload Website Template'
     : 'Payload Website Template'
 
-  const rawSlug = (doc as any)?.slug
+  const rawSlug = docWithPathFields?.slug
   let path = '/'
   if (Array.isArray(rawSlug)) {
     const parts = rawSlug.filter(Boolean)
@@ -39,7 +43,7 @@ export const generateMeta = async (args: {
   } else if (typeof rawSlug === 'string' && rawSlug) {
     if (rawSlug === 'home') {
       path = '/'
-    } else if ('parent' in (doc as any) && (doc as any).parent != null) {
+    } else if (docWithPathFields && 'parent' in docWithPathFields && docWithPathFields.parent != null) {
       path = `/${getPagePath(doc as SitePage)}`
     } else {
       path = `/${rawSlug}`

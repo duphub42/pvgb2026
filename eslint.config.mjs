@@ -31,6 +31,30 @@ const eslintConfig = [
     },
   },
   {
+    // These UI components intentionally use plain <img> for highly dynamic image sources,
+    // fallback/error behavior, and lightweight decorative assets.
+    files: [
+      'src/Footer/FooterClient.tsx',
+      'src/blocks/HeroMarketing/Component.tsx',
+      'src/blocks/ServicesGrid/Component.tsx',
+      'src/components/AdminLogo/index.tsx',
+      'src/components/AdminLogoClient/index.tsx',
+      'src/components/BeforeLogin/index.tsx',
+      'src/components/Logo/Logo.tsx',
+      'src/components/MegaMenu/index.tsx',
+      'src/components/RichText/index.tsx',
+      'src/components/about*.tsx',
+      'src/components/feature*.tsx',
+      'src/components/skills*.tsx',
+      'src/components/ui/logo-carousel.tsx',
+      'src/components/ui/resilient-image.tsx',
+      'src/heros/HeroLogoMarquee.tsx',
+    ],
+    rules: {
+      '@next/next/no-img-element': 'off',
+    },
+  },
+  {
     ignores: ['.next/'],
   },
 ]

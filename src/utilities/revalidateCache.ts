@@ -1,11 +1,3 @@
-function isMissingStaticGenerationStoreError(error: unknown): boolean {
-  return (
-    error instanceof Error &&
-    typeof error.message === 'string' &&
-    error.message.includes('static generation store missing')
-  )
-}
-
 function isNextCacheRevalidationError(error: unknown): boolean {
   return (
     error instanceof Error &&

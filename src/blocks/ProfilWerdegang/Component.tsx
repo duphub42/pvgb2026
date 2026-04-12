@@ -7,6 +7,7 @@ import type { ProfilWerdegangBlock as BlockData } from '@/payload-types'
 
 import { profilWerdegangDefaults } from '@/blocks/ProfilBlocks/defaults'
 import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
@@ -58,7 +59,7 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
                 )}
                 aria-hidden
               />
-              <div className="surface-box surface-box-fill surface-box-shadow-strong p-5 md:p-6">
+              <Card variant="secondary" className="p-5 md:p-6">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-sm font-medium text-primary">{w.zeitraum}</span>
                   <Badge variant={isWork ? 'default' : 'secondary'} className="text-xs font-normal">
@@ -82,7 +83,7 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
                     {w.beschreibung}
                   </p>
                 ) : null}
-              </div>
+              </Card>
             </li>
           )
         })}

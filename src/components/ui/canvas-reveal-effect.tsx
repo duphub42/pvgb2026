@@ -5,8 +5,8 @@ import React from 'react'
 
 /** CSS-only reveal effect (no @react-three/fiber). Same API as before for drop-in replacement. */
 export const CanvasRevealEffect = ({
-  animationSpeed = 0.4,
-  opacities = [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1],
+  animationSpeed: _animationSpeed = 0.4,
+  opacities: _opacities = [0.3, 0.3, 0.3, 0.5, 0.5, 0.5, 0.8, 0.8, 0.8, 1],
   colors = [[0, 255, 255]],
   containerClassName,
   dotSize = 3,

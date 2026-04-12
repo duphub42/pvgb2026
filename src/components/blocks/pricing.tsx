@@ -64,7 +64,7 @@ export const Pricing: React.FC<PricingProps> = ({
       </div>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-        {plans.map((plan, index) => (
+          {plans.map((plan) => (
           <motion.div
             key={plan.name}
             initial={{ y: 40, opacity: 0 }}

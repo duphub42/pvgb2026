@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 import { getPagePath } from '@/utilities/pagesTree'
+import type { SitePage } from '@/payload-types'
 
 export const dynamic = 'force-dynamic'
 
@@ -58,7 +59,8 @@ const getPagesSitemap = unstable_cache(
       ? results.docs
           .filter((page) => Boolean(page?.slug))
           .map((page) => {
-            const url = page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${getPagePath(page as any)}`
+            const url =
+              page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${getPagePath(page as SitePage)}`
             return {
               loc: url,
               lastmod: page.updatedAt || dateFallback,

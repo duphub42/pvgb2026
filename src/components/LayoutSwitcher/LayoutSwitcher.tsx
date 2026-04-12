@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
-import { useLayout, type LayoutMode } from '@/providers/Layout'
+import { useLayout } from '@/providers/Layout'
 import React from 'react'
 
 export function LayoutSwitcher() {

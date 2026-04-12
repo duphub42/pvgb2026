@@ -78,7 +78,7 @@ async function revalidateFrontendCache(): Promise<void> {
 type IdMap = Record<number, number>
 
 function stripMeta(doc: Record<string, unknown>): Record<string, unknown> {
-  const { id, createdAt, updatedAt, ...rest } = doc
+  const { id: _id, createdAt: _createdAt, updatedAt: _updatedAt, ...rest } = doc
   return rest
 }
 
@@ -95,7 +95,7 @@ function mapRelations(
     )
   }
   if (typeof obj === 'number') {
-    for (const [coll, map] of Object.entries(idMaps)) {
+    for (const [_coll, map] of Object.entries(idMaps)) {
       if (obj in map) return map[obj as number]
     }
     return obj

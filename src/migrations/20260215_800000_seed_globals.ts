@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postgres'
+import { MigrateUpArgs, sql } from '@payloadcms/db-vercel-postgres'
 
 /**
  * Legt je einen Initial-Eintrag für die Globals Header, Footer und Design an,
@@ -22,6 +22,6 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   `)
 }
 
-export async function down({ db }: MigrateDownArgs): Promise<void> {
+export async function down(): Promise<void> {
   /* Seed-Rückgängig nicht erforderlich; Globals können weiter genutzt werden. */
 }

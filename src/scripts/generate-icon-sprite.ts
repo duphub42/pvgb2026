@@ -122,7 +122,7 @@ async function generateSprite() {
     await fs.mkdir(path.dirname(outputPath), { recursive: true })
     await fs.writeFile(outputPath, sprite, 'utf8')
 
-    // eslint-disable-next-line no-console
+     
     console.log(
       `Generated icon sprite with ${symbols.length} symbols at ${path.relative(
         projectRoot,
@@ -130,7 +130,7 @@ async function generateSprite() {
       )}`,
     )
   } catch (error) {
-    // eslint-disable-next-line no-console
+     
     console.error('Failed to generate icon sprite:', error)
     process.exitCode = 1
   }

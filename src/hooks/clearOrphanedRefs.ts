@@ -111,6 +111,9 @@ async function buildExistenceCache(
 }
 
 type TraverseContext = { parent?: Record<string, unknown>; parentKey?: string }
+type HookReq = { payload?: Payload }
+type AfterReadArgs<T> = { doc?: T; req?: HookReq }
+type BeforeDataArgs = { data?: unknown; req?: HookReq }
 
 /**
  * Entfernt Referenzen, die nicht in cache existieren (ein Durchlauf, nur Lookups, keine DB).
@@ -195,9 +198,9 @@ function clearOrphanedRefsInValueWithCache(
  * Verwendet Batch-Cache, damit viele Links nicht zu vielen DB-Roundtrips führen.
  */
 export function createClearOrphanedRefsAfterReadHook<T extends Record<string, unknown>>() {
-  return async (args: any): Promise<T> => {
+  return async (args: AfterReadArgs<T>): Promise<T> => {
     const doc = args?.doc as T | undefined
-    const req = args?.req as { payload?: Payload } | undefined
+    const req = args?.req
     if (!doc || !req?.payload) return (doc ?? {}) as T
     const cache = await buildExistenceCache(req.payload, doc as Record<string, unknown>)
     clearOrphanedRefsInValueWithCache(doc, cache)
@@ -210,9 +213,9 @@ export function createClearOrphanedRefsAfterReadHook<T extends Record<string, un
  * Einmaliger Batch-Check statt N einzelner findByID – verhindert langsames Speichern auf Neon/Vercel.
  */
 export function createClearOrphanedRefsBeforeValidateHook() {
-  return async (args: any): Promise<unknown> => {
+  return async (args: BeforeDataArgs): Promise<unknown> => {
     const data = args?.data as unknown
-    const req = args?.req as { payload?: Payload } | undefined
+    const req = args?.req
     const dataRecord = asRecord(data)
     if (!dataRecord || !req?.payload) return data
     const cache = await buildExistenceCache(req.payload, dataRecord)
@@ -226,9 +229,9 @@ export function createClearOrphanedRefsBeforeValidateHook() {
  * Nutzt denselben Batch-Ansatz wie beforeValidate.
  */
 export function createClearOrphanedRefsBeforeChangeHook() {
-  return async (args: any): Promise<unknown> => {
+  return async (args: BeforeDataArgs): Promise<unknown> => {
     const data = args?.data as unknown
-    const req = args?.req as { payload?: Payload } | undefined
+    const req = args?.req
     const dataRecord = asRecord(data)
     if (!dataRecord || !req?.payload) return data
     const cache = await buildExistenceCache(req.payload, dataRecord)

@@ -54,7 +54,9 @@ const nextConfig = {
   // DSGVO: Fonts/Skripte sind lokal (kein Google Fonts, keine CDNs). Bei Bedarf: headers() mit Content-Security-Policy script-src 'self'; font-src 'self'.
   images: {
     formats: ['image/avif', 'image/webp'],
-    minimumCacheTTL: 60,
+    // Lighthouse: /_next/image with 1m TTL triggers "Use efficient cache lifetimes".
+    // One week keeps media responsive enough for updates but improves repeat visits.
+    minimumCacheTTL: 60 * 60 * 24 * 7,
     // Kleinere Stufen für LCP/Hero auf Mobil (PageSpeed: 750w war zu groß für ~396px Anzeige)
     deviceSizes: [360, 480, 640, 768, 1024, 1280, 1536, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],

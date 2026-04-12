@@ -21,7 +21,7 @@ export const blockStyleFields: Field[] = [
     admin: {
       description: 'Optionaler Hintergrund für den gesamten Block.',
     },
-  } as any,
+  },
   {
     name: 'blockOverlay',
     dbName: 'bo',
@@ -37,7 +37,7 @@ export const blockStyleFields: Field[] = [
         type: 'checkbox',
         label: 'Overlay aktiv',
         defaultValue: false,
-      } as any,
+      } as Field,
       {
         name: 'color',
         dbName: 'c',
@@ -52,7 +52,7 @@ export const blockStyleFields: Field[] = [
           condition: (_: unknown, siblingData: { enabled?: boolean } | null | undefined) =>
             Boolean(siblingData?.enabled),
         },
-      } as any,
+      } as Field,
       {
         name: 'opacity',
         dbName: 'o',
@@ -66,7 +66,7 @@ export const blockStyleFields: Field[] = [
             Boolean(siblingData?.enabled),
           description: '0 = transparent, 100 = voll deckend.',
         },
-      } as any,
+      } as Field,
     ],
-  } as any,
+  } as Field,
 ]

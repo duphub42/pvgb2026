@@ -10,12 +10,14 @@ import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { HeroMarketing } from '../../blocks/HeroMarketing/config'
+import { HeroWithProcess } from '../../blocks/HeroWithProcess/config'
 import { ShadcnBlock } from '../../blocks/ShadcnBlock/config'
 import { ConsultingOverview } from '../../blocks/ConsultingOverview/config'
 import { Introduction } from '../../blocks/Introduction/config'
 import { ServicesOverview } from '../../blocks/ServicesOverview/config'
 import { ServicesGrid } from '../../blocks/ServicesGrid/config'
 import { WhyWorkWithMe } from '../../blocks/WhyWorkWithMe/config'
+import { RadialOrbitalTimeline } from '../../blocks/RadialOrbitalTimeline/config'
 import { PortfolioCaseGrid } from '../../blocks/PortfolioCaseGrid/config'
 import { PortfolioKpiStrip } from '../../blocks/PortfolioKpiStrip/config'
 import { BrandShowcase } from '../../blocks/BrandShowcase/config'
@@ -86,12 +88,14 @@ export const Pages: CollectionConfig = {
               type: 'blocks',
               blocks: [
                 HeroMarketing,
+                HeroWithProcess,
                 Introduction,
                 ConsultingOverview,
                 ShadcnBlock,
                 ServicesOverview,
                 ServicesGrid,
                 WhyWorkWithMe,
+                RadialOrbitalTimeline,
                 PortfolioCaseGrid,
                 PortfolioKpiStrip,
                 BrandShowcase,

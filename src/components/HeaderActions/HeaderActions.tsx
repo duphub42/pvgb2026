@@ -76,12 +76,6 @@ const CONTACT_PHONE_DISPLAY = '+49 3459 6393323'
 const CALLBACK_FORM_CANDIDATE_TITLES = ['rueckruf', 'ruckruf', 'rückruf']
 const PRIVACY_TOKEN_REGEX = /datenschutzbetimmungen|datenschutzbestimmungen/i
 
-function normalizePhoneFromWhatsApp(url?: string): string | null {
-  if (!url) return null
-  const match = url.match(/wa\.me\/(\d+)/)
-  return match?.[1] ?? null
-}
-
 function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
   const [open, setOpen] = React.useState(false)
   const [status, setStatus] = React.useState<'idle' | 'loading' | 'success' | 'error'>('idle')

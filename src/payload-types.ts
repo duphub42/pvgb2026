@@ -354,12 +354,14 @@ export interface SitePage {
   layout?:
     | (
         | HeroMarketingBlock
+        | HeroWithProcessBlock
         | IntroductionBlock
         | ConsultingOverviewBlock
         | ShadcnBlock
         | ServicesOverviewBlock
         | ServicesGridBlock
         | WhyWorkWithMeBlock
+        | RadialOrbitalTimelineBlock
         | PortfolioCaseGridBlock
         | PortfolioKpiStripBlock
         | BrandShowcaseBlock
@@ -687,6 +689,36 @@ export interface HeroMarketingBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroMarketing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroWithProcessBlock".
+ */
+export interface HeroWithProcessBlock {
+  /**
+   * Nur für SEO. Im Frontend ausgeblendet, aber für Suchmaschinen sichtbar.
+   */
+  seoH1?: string | null;
+  heroEyebrow?: string | null;
+  heroHeading?: string | null;
+  heroText?: string | null;
+  processHeading?: string | null;
+  processIntro?: string | null;
+  steps?:
+    | {
+        /**
+         * Zum Beispiel 01, 02, 03 ...
+         */
+        stepNumber: string;
+        title: string;
+        subtitle?: string | null;
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroWithProcess';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1095,6 +1127,54 @@ export interface WhyWorkWithMeBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'whyWorkWithMe';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RadialOrbitalTimelineBlock".
+ */
+export interface RadialOrbitalTimelineBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  sectionTitle: string;
+  /**
+   * Optionaler Einleitungstext für die Timeline.
+   */
+  sectionText?: string | null;
+  timelineItems?:
+    | {
+        title: string;
+        /**
+         * Z. B. Jan 2024, Q1 2025 oder April 2024.
+         */
+        date: string;
+        category?: string | null;
+        icon?: ('Calendar' | 'FileText' | 'Code' | 'User' | 'Clock') | null;
+        status?: ('completed' | 'in-progress' | 'pending') | null;
+        energy: number;
+        content: string;
+        /**
+         * Optional: IDs mit Kommas trennen, z. B. 1,2,3.
+         */
+        relatedIds?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'radialOrbitalTimeline';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2646,12 +2726,14 @@ export interface SitePagesSelect<T extends boolean = true> {
     | T
     | {
         heroMarketing?: T | HeroMarketingBlockSelect<T>;
+        heroWithProcess?: T | HeroWithProcessBlockSelect<T>;
         introduction?: T | IntroductionBlockSelect<T>;
         consultingOverview?: T | ConsultingOverviewBlockSelect<T>;
         shadcnBlock?: T | ShadcnBlockSelect<T>;
         servicesOverview?: T | ServicesOverviewBlockSelect<T>;
         servicesGrid?: T | ServicesGridBlockSelect<T>;
         whyWorkWithMe?: T | WhyWorkWithMeBlockSelect<T>;
+        radialOrbitalTimeline?: T | RadialOrbitalTimelineBlockSelect<T>;
         portfolioCaseGrid?: T | PortfolioCaseGridBlockSelect<T>;
         portfolioKpiStrip?: T | PortfolioKpiStripBlockSelect<T>;
         brandShowcase?: T | BrandShowcaseBlockSelect<T>;
@@ -2708,6 +2790,29 @@ export interface HeroMarketingBlockSelect<T extends boolean = true> {
   primaryCtaUrl?: T;
   secondaryCtaLabel?: T;
   secondaryCtaUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroWithProcessBlock_select".
+ */
+export interface HeroWithProcessBlockSelect<T extends boolean = true> {
+  seoH1?: T;
+  heroEyebrow?: T;
+  heroHeading?: T;
+  heroText?: T;
+  processHeading?: T;
+  processIntro?: T;
+  steps?:
+    | T
+    | {
+        stepNumber?: T;
+        title?: T;
+        subtitle?: T;
+        text?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -2925,6 +3030,37 @@ export interface WhyWorkWithMeBlockSelect<T extends boolean = true> {
         icon?: T;
         title?: T;
         description?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "RadialOrbitalTimelineBlock_select".
+ */
+export interface RadialOrbitalTimelineBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  sectionTitle?: T;
+  sectionText?: T;
+  timelineItems?:
+    | T
+    | {
+        title?: T;
+        date?: T;
+        category?: T;
+        icon?: T;
+        status?: T;
+        energy?: T;
+        content?: T;
+        relatedIds?: T;
         id?: T;
       };
   id?: T;

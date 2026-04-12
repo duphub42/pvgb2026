@@ -16,7 +16,7 @@
  */
 
 import './load-env-import'
-import { getPayload } from 'payload'
+import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import config from '@payload-config'
 import { execFileSync } from 'child_process'
 import path from 'path'
@@ -1164,11 +1164,11 @@ async function main() {
     })
 
     const page = existing.docs[0]
-    const data: Record<string, unknown> = {
+    const data: RequiredDataFromCollectionSlug<'site-pages'> = {
       title: template.title,
       slug: template.slug,
-      hero: template.hero,
-      layout: template.layout,
+      hero: template.hero as RequiredDataFromCollectionSlug<'site-pages'>['hero'],
+      layout: template.layout as unknown as RequiredDataFromCollectionSlug<'site-pages'>['layout'],
       meta: {
         title: template.metaTitle,
         description: template.metaDescription,
@@ -1184,10 +1184,11 @@ async function main() {
         await payload.create({
           collection: 'site-pages',
           data,
+          draft: false,
           overrideAccess: true,
           depth: 0,
           context: { skipRevalidate: true },
-        } as any)
+        })
         console.log(`create: ${template.slug}`)
       }
       created += 1
@@ -1211,7 +1212,7 @@ async function main() {
         overrideAccess: true,
         depth: 0,
         context: { skipRevalidate: true },
-      } as any)
+      })
       console.log(`update: ${template.slug}${placeholder ? ' (placeholder)' : ''}`)
     }
     updated += 1

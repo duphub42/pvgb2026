@@ -52,7 +52,7 @@ const About3 = ({ className, ...props }: About3Props) => {
     mainImage,
     secondaryImage,
     breakout,
-    companiesTitle,
+    companiesTitle: _companiesTitle,
     companies,
     achievementsTitle,
     achievementsDescription,

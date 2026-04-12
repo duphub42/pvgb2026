@@ -6,6 +6,7 @@ import type { ProfilKompetenzenBlock as BlockData } from '@/payload-types'
 
 import { profilKompetenzenDefaults } from '@/blocks/ProfilBlocks/defaults'
 import { LEVEL_PCT } from '@/blocks/ProfilBlocks/shared'
+import { Card } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
@@ -50,13 +51,14 @@ export const ProfilKompetenzenBlock: React.FC<Props> = ({
                 Boolean(s && String(s.skill ?? '').trim()),
             )
             return (
-              <div
+              <Card
                 key={
                   typeof (col as { id?: unknown }).id === 'string'
                     ? (col as { id?: string }).id
                     : `c-${cidx}`
                 }
-                className="surface-box surface-box-fill surface-box-shadow-strong p-6"
+                variant="secondary"
+                className="p-6"
               >
                 <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.12em] text-primary">{col.bereich}</h3>
                 <ul className="space-y-4">
@@ -85,7 +87,7 @@ export const ProfilKompetenzenBlock: React.FC<Props> = ({
                     )
                   })}
                 </ul>
-              </div>
+              </Card>
             )
           })}
         </div>

@@ -54,8 +54,7 @@ function normalizeLines(value?: string | null): string[] {
 }
 
 export function ContactInfoCards({ cards, ctaLabel, ctaHref }: ContactInfoCardsProps) {
-  const sourceCards =
-    !Array.isArray(cards) || cards.length === 0 ? DEFAULT_CONTACT_CARDS : cards
+  const sourceCards = !Array.isArray(cards) || cards.length === 0 ? DEFAULT_CONTACT_CARDS : cards
 
   const preparedCards = sourceCards
     .map((item) => {

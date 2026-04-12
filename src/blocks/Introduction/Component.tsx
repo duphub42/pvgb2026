@@ -1,6 +1,9 @@
 import React from 'react'
 
-import type { IntroductionBlock as IntroductionBlockData, Media as MediaType } from '@/payload-types'
+import type {
+  IntroductionBlock as IntroductionBlockData,
+  Media as MediaType,
+} from '@/payload-types'
 
 import { cn } from '@/utilities/ui'
 import { Media } from '@/components/Media'
@@ -17,9 +20,7 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
   const hasImage = image != null && typeof image === 'object'
 
   const taglineLines =
-    typeof tagline === 'string' && tagline.trim()
-      ? tagline.split('\n').filter((l) => l.trim())
-      : []
+    typeof tagline === 'string' && tagline.trim() ? tagline.split('\n').filter((l) => l.trim()) : []
 
   // Responsive, visually overflowing dot pattern background
   // Dot pattern background visually overflows the image area (now 30% larger)
@@ -56,13 +57,14 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
   }
 
   return (
-    <section className={cn('w-full min-w-0 py-16 md:py-24', 'container')}>
+    <section className={cn('w-full min-w-0 py-16 md:py-24', 'container', 'px-0 sm:px-0')}>
       <div
         className={cn(
           'grid items-center gap-10',
           hasImage
-            ? 'lg:grid-cols-[minmax(0,1fr)_minmax(16rem,34vw)] xl:relative xl:grid-cols-1 xl:min-h-[clamp(20rem,32vw,30rem)]'
+            ? 'lg:grid-cols-[minmax(0,1fr)_minmax(18rem,34rem)] xl:min-h-[clamp(20rem,32vw,30rem)]'
             : 'max-w-3xl',
+          hasImage && 'sm:px-0 px-0',
         )}
       >
         <div className={cn('min-w-0', hasImage && 'xl:max-w-3xl')}>
@@ -98,8 +100,10 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
         {hasImage && (
           <div
             className={cn(
-              'relative isolate mx-auto w-full max-w-sm overflow-visible group lg:mx-0 lg:max-w-[clamp(18rem,34vw,30rem)]',
-              'xl:absolute xl:top-1/2 xl:right-0 xl:mx-0 xl:w-[clamp(18rem,32vw,36rem)] xl:max-w-none xl:-translate-y-1/2 xl:translate-x-[12%]',
+              'relative isolate w-full overflow-visible group',
+              'sm:mx-0 sm:max-w-none',
+              'mx-auto max-w-sm lg:mx-0 lg:max-w-[34rem] lg:justify-self-end',
+              'xl:mx-0 xl:w-[38rem] xl:max-w-none xl:translate-x-[12%]',
             )}
           >
             {/*
@@ -115,7 +119,7 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
               <Media
                 className="w-full filter transition duration-500 ease-[cubic-bezier(0.4,0,0.2,1)] grayscale group-hover:grayscale-0"
                 resource={image as MediaType}
-                imgClassName="w-full h-auto max-h-[500px] object-contain xl:max-h-[560px]"
+                imgClassName="w-full h-auto max-h-[750px] object-contain xl:max-h-[840px]"
               />
               {/* Overlay blend now covers the full dot pattern overflow area */}
               <div

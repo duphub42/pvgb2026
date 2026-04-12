@@ -179,10 +179,6 @@ function ProfilShapeDivider() {
   )
 }
 
-function numPx(v: unknown): number {
-  return typeof v === 'number' && Number.isFinite(v) ? v : 0
-}
-
 export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   variant: variantProp,
   subheadline,
@@ -486,7 +482,8 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                 </div>
               ) : (
                 <div className="flex aspect-[4/3] w-full items-center justify-center bg-muted/50 p-6 text-center text-sm text-muted-foreground">
-                  Kein Hero-Bild gesetzt. Im Backend „Media" oder „Vordergrund Bild" befüllen.
+                  Kein Hero-Bild gesetzt. Im Backend &quot;Media&quot; oder &quot;Vordergrund
+                  Bild&quot; befüllen.
                 </div>
               )}
             </div>

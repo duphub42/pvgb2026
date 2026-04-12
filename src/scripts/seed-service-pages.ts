@@ -1,5 +1,5 @@
 import './load-env-import'
-import { getPayload } from 'payload'
+import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import config from '@payload-config'
 
 type PageTemplate = {
@@ -80,10 +80,8 @@ const templates: ServicePageTemplate[] = [
       {
         blockType: 'introduction',
         heading: 'Ein Hub statt isolierter Einzelleistungen',
-        body:
-          'Der Leistungs-Hub bündelt Strategie, Gestaltung, Technik und Vermarktung in einer klaren Journey. So entstehen keine Medienbrüche zwischen Beratung, Umsetzung und Betrieb.',
-        tagline:
-          'Edel im Auftritt. Präzise in der Ausführung. Messbar in der Wirkung.',
+        body: 'Der Leistungs-Hub bündelt Strategie, Gestaltung, Technik und Vermarktung in einer klaren Journey. So entstehen keine Medienbrüche zwischen Beratung, Umsetzung und Betrieb.',
+        tagline: 'Edel im Auftritt. Präzise in der Ausführung. Messbar in der Wirkung.',
       },
       {
         blockType: 'consultingOverview',
@@ -124,7 +122,8 @@ const templates: ServicePageTemplate[] = [
       {
         blockType: 'servicesGrid',
         heading: 'Meine Servicebereiche',
-        intro: 'Wähle den Bereich, der zu deinem Projekt passt. Jede Seite ist editierbar und fokussiert auf einen klaren Leistungsbereich.',
+        intro:
+          'Wähle den Bereich, der zu deinem Projekt passt. Jede Seite ist editierbar und fokussiert auf einen klaren Leistungsbereich.',
         tagline: 'Klar strukturiert. Zielgerichtet. Backend-bearbeitbar.',
         radialBackground: true,
         radialBackgroundVariant: 'blue',
@@ -223,8 +222,7 @@ const templates: ServicePageTemplate[] = [
       {
         blockType: 'introduction',
         heading: 'Minimalistisch und wirkungsvoll',
-        body:
-          'Klar strukturiertes Webdesign kombiniert professionelle Ästhetik mit einer überzeugenden User Experience. Jede Seite kann im Backend weiter angepasst werden.',
+        body: 'Klar strukturiertes Webdesign kombiniert professionelle Ästhetik mit einer überzeugenden User Experience. Jede Seite kann im Backend weiter angepasst werden.',
       },
       {
         blockType: 'servicesOverview',
@@ -234,7 +232,8 @@ const templates: ServicePageTemplate[] = [
           {
             icon: 'monitor',
             title: 'Visuelle Struktur',
-            description: 'Klare Hierarchien, reduzierte Layouts und eine ruhige Informationsarchitektur.',
+            description:
+              'Klare Hierarchien, reduzierte Layouts und eine ruhige Informationsarchitektur.',
           },
           {
             icon: 'globe',
@@ -297,8 +296,7 @@ const templates: ServicePageTemplate[] = [
       {
         blockType: 'introduction',
         heading: 'Marketing als klarer Prozess',
-        body:
-          'Ich kombiniere Strategie, Kreation und technische Umsetzung zu einem schlanken Marketing-Setup, das sich leicht steuern lässt.',
+        body: 'Ich kombiniere Strategie, Kreation und technische Umsetzung zu einem schlanken Marketing-Setup, das sich leicht steuern lässt.',
       },
       {
         blockType: 'servicesOverview',
@@ -371,8 +369,7 @@ const templates: ServicePageTemplate[] = [
       {
         blockType: 'introduction',
         heading: 'Technische Wartung, die Ruhe schafft',
-        body:
-          'Regelmäßige Wartung sorgt dafür, dass deine Website sicher, performant und aktuell bleibt – ohne manuellen Mehraufwand für dich.',
+        body: 'Regelmäßige Wartung sorgt dafür, dass deine Website sicher, performant und aktuell bleibt – ohne manuellen Mehraufwand für dich.',
       },
       {
         blockType: 'servicesOverview',
@@ -473,11 +470,11 @@ async function main() {
 
     const parentValue = parent?.docs?.[0]?.id
 
-    const data: Record<string, unknown> = {
+    const data: RequiredDataFromCollectionSlug<'site-pages'> = {
       title: template.title,
       slug: template.slug,
-      hero: template.hero,
-      layout: template.layout,
+      hero: template.hero as RequiredDataFromCollectionSlug<'site-pages'>['hero'],
+      layout: template.layout as unknown as RequiredDataFromCollectionSlug<'site-pages'>['layout'],
       meta: {
         title: template.metaTitle,
         description: template.metaDescription,
@@ -494,10 +491,11 @@ async function main() {
         await payload.create({
           collection: 'site-pages',
           data,
+          draft: false,
           overrideAccess: true,
           depth: 0,
           context: { skipRevalidate: true },
-        } as any)
+        })
         console.log(`create: ${template.slug}`)
       }
       created.push(template.slug)
@@ -521,14 +519,16 @@ async function main() {
         overrideAccess: true,
         depth: 0,
         context: { skipRevalidate: true },
-      } as any)
+      })
       console.log(`update: ${template.slug}${placeholder ? ' (placeholder)' : ''}`)
     }
     updated.push(template.slug)
   }
 
   console.log('')
-  console.log(`done: created=${created.length}, updated=${updated.length}, skipped=${skipped.length}, dryRun=${dryRun}`)
+  console.log(
+    `done: created=${created.length}, updated=${updated.length}, skipped=${skipped.length}, dryRun=${dryRun}`,
+  )
 }
 
 main()

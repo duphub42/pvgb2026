@@ -10,6 +10,7 @@ import {
   profilWerteDefaults,
 } from '@/blocks/ProfilBlocks/defaults'
 import { WERT_ICON_MAP } from '@/blocks/ProfilBlocks/shared'
+import { Card } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
@@ -62,13 +63,14 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
             const iconKey = typeof w.icon === 'string' ? w.icon : 'strategy'
             const Icon = WERT_ICON_MAP[iconKey] ?? Target
             return (
-              <div
+              <Card
                 key={
                   typeof (w as { id?: unknown }).id === 'string'
                     ? (w as { id?: string }).id
                     : `w-${idx}`
                 }
-                className="group surface-box surface-box-fill surface-box-shadow-strong surface-box-lift-md relative overflow-hidden p-6"
+                variant="secondary"
+                className="group relative overflow-hidden p-6"
               >
                 <span
                   aria-hidden
@@ -85,7 +87,7 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
                     </p>
                   </div>
                 </div>
-              </div>
+              </Card>
             )
           })}
         </div>

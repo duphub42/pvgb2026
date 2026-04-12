@@ -1,5 +1,5 @@
 /** ExactDN/CDN: ausgeschaltet – Bilder werden lokal (Same-Origin) ausgeliefert. Zum Aktivieren NEXT_PUBLIC_EXACTDN_DOMAIN setzen und den Block unten wieder einkommentieren. */
-const EXACTDN_DOMAIN =
+const _EXACTDN_DOMAIN =
   typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_EXACTDN_DOMAIN : undefined
 
 /** Site origin for same-origin check (no trailing slash). Used only when ExactDN is enabled. */
@@ -46,9 +46,6 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
   const isVercelRuntime = process.env.VERCEL === '1' || process.env.VERCEL === 'true'
 
   const encodedTag = cacheTag && cacheTag !== '' ? encodeURIComponent(cacheTag) : null
-
-  const exactdn = EXACTDN_DOMAIN?.trim()
-  const origin = exactdn ? getSiteOrigin() : null
 
   const appendTag = (base: string): string =>
     encodedTag ? `${base}${base.includes('?') ? '&' : '?'}${encodedTag}` : base

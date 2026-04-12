@@ -32,5 +32,5 @@ export function ResilientImage({ src, onError, ...props }: ResilientImageProps) 
     }
   }
 
-  return <img {...props} src={current} onError={handleError} />
+  return <img {...props} alt={props.alt ?? ''} src={current} onError={handleError} />
 }

@@ -96,6 +96,8 @@ import * as migration_20260411_131000_rename_portfolio_tables_match_db_name from
 import * as migration_20260411_132000_repair_portfolio_dbname_tables from './20260411_132000_repair_portfolio_dbname_tables'
 import * as migration_20260411_133000_repair_portfolio_columns from './20260411_133000_repair_portfolio_columns'
 import * as migration_20260411_134000_repair_portfolio_fk_constraints from './20260411_134000_repair_portfolio_fk_constraints'
+import * as migration_20260412_140000_site_pages_blocks_hero_with_process from './20260412_140000_site_pages_blocks_hero_with_process'
+import * as migration_20260412_150000_site_pages_blocks_radial_orbital_timeline from './20260412_150000_site_pages_blocks_radial_orbital_timeline'
 
 export const migrations = [
   {
@@ -587,5 +589,15 @@ export const migrations = [
     up: migration_20260411_134000_repair_portfolio_fk_constraints.up,
     down: migration_20260411_134000_repair_portfolio_fk_constraints.down,
     name: '20260411_134000_repair_portfolio_fk_constraints',
+  },
+  {
+    up: migration_20260412_140000_site_pages_blocks_hero_with_process.up,
+    down: migration_20260412_140000_site_pages_blocks_hero_with_process.down,
+    name: '20260412_140000_site_pages_blocks_hero_with_process',
+  },
+  {
+    up: migration_20260412_150000_site_pages_blocks_radial_orbital_timeline.up,
+    down: migration_20260412_150000_site_pages_blocks_radial_orbital_timeline.down,
+    name: '20260412_150000_site_pages_blocks_radial_orbital_timeline',
   },
 ]

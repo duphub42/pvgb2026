@@ -7,7 +7,16 @@ import { Logo } from '@/components/Logo/Logo'
 import { cn } from '@/utilities/ui'
 
 // Konkreter Typ kommt nach payload generate:types (HeroMarketingBlock)
-type HeroMarketingBlockProps = any
+type HeroMarketingBlockProps = {
+  disableInnerContainer?: boolean | null
+  badgeLabel?: string | null
+  title?: string | null
+  subtitle?: string | null
+  primaryCtaLabel?: string | null
+  primaryCtaUrl?: string | null
+  secondaryCtaLabel?: string | null
+  secondaryCtaUrl?: string | null
+}
 
 export const HeroMarketingBlock: React.FC<HeroMarketingBlockProps> = (props) => {
   const {

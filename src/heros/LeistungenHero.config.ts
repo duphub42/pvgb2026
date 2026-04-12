@@ -1,9 +1,4 @@
 import type { Field } from 'payload'
-import {
-  lexicalEditor,
-  FixedToolbarFeature,
-  InlineToolbarFeature,
-} from '@payloadcms/richtext-lexical'
 import { linkGroup } from '@/fields/linkGroup'
 
 export const LEISTUNGEN_HERO_TYPE = 'leistungenHero' as const

@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import {
   generateCssString,
   generateJsonTheme,
@@ -40,7 +40,7 @@ export function ThemeGeneratorClient({ initialData }: { initialData: ThemeSettin
     () => initialData?.themeMode || 'light',
   )
   const [saving, setSaving] = useState(false)
-  const [copyLabel, setCopyLabel] = useState<'Copy CSS' | 'Copy JSON' | null>(null)
+  const [_copyLabel, setCopyLabel] = useState<'Copy CSS' | 'Copy JSON' | null>(null)
   const [message, setMessage] = useState<string | null>(null)
 
   const normalizedHex = primaryHex.startsWith('#') ? primaryHex : `#${primaryHex}`

@@ -1,4 +1,4 @@
-import type { CollectionSlug, PayloadRequest } from 'payload'
+import type { PayloadRequest } from 'payload'
 import { getPayload } from 'payload'
 
 import { draftMode } from 'next/headers'
@@ -13,8 +13,6 @@ export async function GET(req: NextRequest): Promise<Response> {
   const { searchParams } = new URL(req.url)
 
   const path = searchParams.get('path')
-  const collection = searchParams.get('collection') as CollectionSlug
-  const slug = searchParams.get('slug')
   const previewId = searchParams.get('previewId')
   const previewSecret = searchParams.get('previewSecret')
   const envSecret = process.env.PREVIEW_SECRET
@@ -28,9 +26,6 @@ export async function GET(req: NextRequest): Promise<Response> {
 
   // When previewId is present, allow missing path/collection/slug (default to pages homepage)
   const resolvedPath = path && path.startsWith('/') ? path : '/'
-  const resolvedCollection = (collection || 'site-pages') as CollectionSlug
-  const resolvedSlug = slug || 'home'
-
   if (!resolvedPath.startsWith('/')) {
     return new Response('This endpoint can only be used for relative previews', { status: 500 })
   }

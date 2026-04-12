@@ -10,12 +10,6 @@
 
 import './load-env-import'
 
-import path from 'path'
-import { fileURLToPath } from 'url'
-
-const __dirnameScript = path.dirname(fileURLToPath(import.meta.url))
-const projectRoot = path.resolve(__dirnameScript, '../..')
-
 const defaultPassword = 'ChangeMeAfterImport1!'
 
 async function main() {

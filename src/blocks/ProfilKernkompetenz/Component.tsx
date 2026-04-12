@@ -6,6 +6,7 @@ import type { ProfilKernkompetenzBlock as BlockData } from '@/payload-types'
 
 import { profilKernkompetenzDefaults } from '@/blocks/ProfilBlocks/defaults'
 import { cn } from '@/utilities/ui'
+import { Card } from '@/components/ui/card'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
 type BereichItem = NonNullable<NonNullable<BlockData['bereiche']>[number]>
@@ -45,9 +46,10 @@ export const ProfilKernkompetenzBlock: React.FC<Props> = ({
             .map((d: { line?: string | null }) => (typeof d?.line === 'string' ? d.line.trim() : ''))
             .filter(Boolean)
           return (
-            <article
+            <Card
               key={typeof (b as { id?: unknown }).id === 'string' ? (b as { id?: string }).id : `b-${idx}`}
-              className="group surface-box surface-box-shadow-strong surface-box-lift-lg relative overflow-hidden bg-gradient-to-b from-background/95 to-card/70 p-7 md:p-8"
+              variant="secondary"
+              className="group relative overflow-hidden bg-gradient-to-b from-background/95 to-card/70 p-7 md:p-8"
             >
               <span
                 aria-hidden
@@ -70,7 +72,7 @@ export const ProfilKernkompetenzBlock: React.FC<Props> = ({
                   ))}
                 </ul>
               ) : null}
-            </article>
+            </Card>
           )
         })}
       </div>

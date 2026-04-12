@@ -1,7 +1,7 @@
 import path from 'path'
 import fs from 'fs'
 import { fileURLToPath } from 'url'
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postgres'
+import { MigrateUpArgs, sql } from '@payloadcms/db-vercel-postgres'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
 const sqlPath = path.resolve(__dirname, '../../drizzle/0000_add_missing_block_tables.sql')
@@ -41,7 +41,6 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   }
 }
 
-export async function down({ db }: MigrateDownArgs): Promise<void> {
+export async function down(): Promise<void> {
   // No-op: we only add missing schema pieces needed for import
 }
-

@@ -11,6 +11,28 @@ type CalPopupBlockProps = {
   buttonLabel?: string
 }
 
+type CalModalOptions = {
+  calLink: string
+  config: {
+    layout: 'month_view'
+  }
+}
+
+type CalFunction = ((action: 'modal', options: CalModalOptions) => void) & {
+  q?: unknown[][]
+  ns?: Record<string, unknown>
+  ui?: unknown
+}
+
+type CalObject = {
+  modal?: (options: CalModalOptions) => void
+  q?: unknown[][]
+  ns?: Record<string, unknown>
+  ui?: unknown
+}
+
+type CalApi = CalFunction | CalObject | null
+
 // Helper: Detect if the link is for cal.eu or cal.com
 function getCalDomain(calLink: string): 'cal.com' | 'cal.eu' {
   // Accepts full URL or just path
@@ -23,9 +45,9 @@ function getCalDomain(calLink: string): 'cal.com' | 'cal.eu' {
   return 'cal.com'
 }
 
-function getCal(): any {
+function getCal(): CalApi {
   if (typeof window === 'undefined') return null
-  return (window as any).Cal
+  return (window as Window & { Cal?: CalFunction | CalObject }).Cal ?? null
 }
 
 function ensureCalStub(): void {
@@ -33,19 +55,19 @@ function ensureCalStub(): void {
 
   const cal = getCal()
   if (!cal) {
-    const stub: any = function (...args: any[]) {
+    const stub: CalFunction = ((...args: unknown[]) => {
       ;(stub.q = stub.q || []).push(args)
-    }
+    }) as CalFunction
     stub.q = []
     stub.ns = {}
-    ;(window as any).Cal = stub
+    ;(window as Window & { Cal?: CalFunction | CalObject }).Cal = stub
   } else if (typeof cal === 'function') {
-    ;(cal as any).q = (cal as any).q || []
-    ;(cal as any).ns = (cal as any).ns || {}
+    cal.q = cal.q || []
+    cal.ns = cal.ns || {}
   }
 }
 
-function isCalStub(cal: any): boolean {
+function isCalStub(cal: CalApi): boolean {
   return typeof cal === 'function' && Array.isArray(cal.q) && typeof cal.ui === 'undefined'
 }
 
@@ -119,7 +141,7 @@ export const CalPopupBlock: FC<CalPopupBlockProps> = ({
 }) => {
   const id = useId()
   const buttonId = `open-cal-${id}`
-  const [calStatus, setCalStatus] = useState<'loading' | 'ready' | 'error'>('loading')
+  const [_calStatus, setCalStatus] = useState<'loading' | 'ready' | 'error'>('loading')
 
   // Determine domain
   const calDomain = getCalDomain(calLink)
@@ -145,7 +167,6 @@ export const CalPopupBlock: FC<CalPopupBlockProps> = ({
       },
       calDomain,
     )
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [calDomain])
 
   const handleClick = () => {
@@ -159,7 +180,7 @@ export const CalPopupBlock: FC<CalPopupBlockProps> = ({
       return
     }
 
-    const options = {
+    const options: CalModalOptions = {
       calLink: cleanedCalLink,
       config: {
         layout: 'month_view',

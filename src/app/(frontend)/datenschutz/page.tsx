@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { draftMode } from 'next/headers'
-import { getPayload } from 'payload'
+import { getPayload, type Payload } from 'payload'
 
 import configPromise from '@payload-config'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
@@ -43,7 +43,7 @@ type PageProps = {
   searchParams: Promise<{ previewId?: string }>
 }
 
-async function fetchSitePageBySlug(payload: any, slug: string, draft: boolean) {
+async function fetchSitePageBySlug(payload: Payload, slug: string, draft: boolean) {
   const pages = await payload.find({
     collection: 'site-pages',
     limit: 1,

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
@@ -106,9 +107,9 @@ export default async function Page({
             prüfen.
           </p>
           <p>
-            <a href="/admin" className="underline">
+            <Link href="/admin" className="underline">
               Zum Admin
-            </a>
+            </Link>
           </p>
         </div>
       </article>
@@ -175,9 +176,9 @@ export default async function Page({
               <h1>Willkommen</h1>
               <p>
                 Noch keine Startseite eingerichtet. Im{' '}
-                <a href="/admin" className="underline">
+                <Link href="/admin" className="underline">
                   Admin
-                </a>{' '}
+                </Link>{' '}
                 eine Seite mit Slug <strong>home</strong> anlegen und veröffentlichen.
               </p>
             </div>
@@ -258,9 +259,9 @@ export default async function Page({
             </pre>
           )}
           <p>
-            <a href="/admin" className="underline">
+            <Link href="/admin" className="underline">
               Zum Admin
-            </a>
+            </Link>
           </p>
         </div>
       </article>

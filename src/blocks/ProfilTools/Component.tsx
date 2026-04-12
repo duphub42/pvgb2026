@@ -7,6 +7,7 @@ import type { ProfilToolsBlock as BlockData } from '@/payload-types'
 import { profilToolsDefaults } from '@/blocks/ProfilBlocks/defaults'
 import { TOOL_CATEGORY_LABEL } from '@/blocks/ProfilBlocks/shared'
 import { Badge } from '@/components/ui/badge'
+import { Card } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
@@ -39,10 +40,7 @@ export const ProfilToolsBlock: React.FC<Props> = ({ disableInnerContainer: _d, s
       {byCat.size > 0 ? (
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
           {Array.from(byCat.entries()).map(([cat, list]) => (
-            <div
-              key={cat}
-              className="surface-box surface-box-fill surface-box-shadow-md p-6"
-            >
+            <Card key={cat} variant="secondary" className="p-6">
               <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                 {TOOL_CATEGORY_LABEL[cat] ?? cat}
               </h3>
@@ -61,7 +59,7 @@ export const ProfilToolsBlock: React.FC<Props> = ({ disableInnerContainer: _d, s
                   </Badge>
                 ))}
               </div>
-            </div>
+            </Card>
           ))}
         </div>
       ) : null}

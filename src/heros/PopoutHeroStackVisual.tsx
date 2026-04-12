@@ -9,8 +9,42 @@ export type HeroStackResolvedLayer = {
   offsetX: number
   offsetY: number
   z: number
+  width?: number
+  height?: number
   /** Hinten: breitere Fläche wie Profil-„Cloud“ */
   wide?: boolean
+}
+
+const DEFAULT_FRONT_IMAGE_WIDTH = 1024
+const DEFAULT_FRONT_IMAGE_HEIGHT = 958
+
+function toPositiveDimension(value: unknown): number | null {
+  if (typeof value !== 'number' || !Number.isFinite(value) || value <= 0) return null
+  return Math.round(value)
+}
+
+function getLayerDimensions(layer: HeroStackResolvedLayer): { width: number; height: number } {
+  const width = toPositiveDimension(layer.width)
+  const height = toPositiveDimension(layer.height)
+
+  if (width && height) return { width, height }
+  if (width) {
+    return {
+      width,
+      height: Math.round((width * DEFAULT_FRONT_IMAGE_HEIGHT) / DEFAULT_FRONT_IMAGE_WIDTH),
+    }
+  }
+  if (height) {
+    return {
+      width: Math.round((height * DEFAULT_FRONT_IMAGE_WIDTH) / DEFAULT_FRONT_IMAGE_HEIGHT),
+      height,
+    }
+  }
+
+  return {
+    width: DEFAULT_FRONT_IMAGE_WIDTH,
+    height: DEFAULT_FRONT_IMAGE_HEIGHT,
+  }
 }
 
 /**
@@ -62,6 +96,7 @@ export function PopoutHeroStackVisual({
         {layers.map((layer) => {
           const isFrontLayer = !layer.wide && layer.z >= 2
           const isTopLayer = layer.z === topLayerZ
+          const imageDimensions = getLayerDimensions(layer)
           const mobileLayerWidth = isFrontLayer ? frontMobileWidthPercent : 86
           const mobileLayerMaxWidth = isFrontLayer
             ? toMobileMaxWidth(frontMobileMaxWidth)
@@ -128,13 +163,16 @@ export function PopoutHeroStackVisual({
                   <Image
                     src={layer.src}
                     alt=""
-                    width={1024}
-                    height={958}
+                    width={imageDimensions.width}
+                    height={imageDimensions.height}
                     className="h-auto max-h-[min(88vh,920px)] w-full object-contain object-bottom md:max-h-[min(92vh,960px)] md:translate-y-[calc(var(--hero-stack-img-base-y,clamp(1rem,6vh,4rem))-var(--hero-stack-lift,0px))] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
                     sizes="(max-width: 768px) 88vw, 520px"
                     priority={isTopLayer}
                     fetchPriority={isTopLayer ? 'high' : undefined}
                     loading={isTopLayer ? undefined : 'lazy'}
+                    style={{
+                      aspectRatio: `${imageDimensions.width} / ${imageDimensions.height}`,
+                    }}
                   />
                 </div>
               </div>

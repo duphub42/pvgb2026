@@ -74,12 +74,6 @@ function luminance(r: number, g: number, b: number): number {
   return 0.2126 * rs + 0.7152 * gs + 0.0722 * bs
 }
 
-/** Contrast ratio (4.5+ for AA on normal text). */
-function contrastRatio(l1: number, l2: number): number {
-  const [a, b] = l1 >= l2 ? [l1, l2] : [l2, l1]
-  return (a + 0.05) / (b + 0.05)
-}
-
 /** HSL to RGB for luminance. */
 function hslToRgb(h: number, s: number, l: number): { r: number; g: number; b: number } {
   s /= 100
@@ -120,10 +114,6 @@ function hslToRgb(h: number, s: number, l: number): { r: number; g: number; b: n
 function getPrimaryForeground(primaryH: number, primaryS: number, primaryL: number): string {
   const { r, g, b } = hslToRgb(primaryH, primaryS, primaryL)
   const L = luminance(r, g, b)
-  const darkLum = luminance(23, 23, 23)   // ~0 0% 9%
-  const lightLum = luminance(250, 250, 250) // ~0 0% 98%
-  const ratioDark = contrastRatio(L, darkLum)
-  const ratioLight = contrastRatio(L, lightLum)
   if (L >= 0.5) {
     return formatHslForShadcn(0, 0, 9)
   }

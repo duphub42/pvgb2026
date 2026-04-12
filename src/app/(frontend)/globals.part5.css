@@ -1,54 +1,3 @@
-/* Theme-Toggle: gleiche Basisoptik wie andere Header-Toggles */
-.megamenu .header-tool-toggle--theme,
-header .header-tool-toggle--theme {
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-.megamenu .header-tool-toggle:hover,
-header .header-tool-toggle:hover {
-  background-color: var(--header-icon-bg-hover, #f5f5f5);
-  border-color: transparent;
-  color: var(--header-icon-fg-hover, #171717);
-}
-.megamenu .header-tool-toggle--theme:hover,
-header .header-tool-toggle--theme:hover {
-  background-color: var(--header-icon-bg-hover, #f5f5f5) !important;
-  border-color: var(--header-icon-border-hover, transparent) !important;
-  color: var(--header-icon-fg-hover, #171717) !important;
-}
-
-/* Simplified ThemeToggle hover logic */
-[data-theme='light'] .site-header .header-tool-toggle--theme:hover,
-[data-theme='light'] .megamenu .header-tool-toggle--theme:hover,
-[data-theme='light'] header .header-tool-toggle.header-tool-toggle--theme:hover,
-[data-theme='light'] .megamenu .header-tool-toggle.header-tool-toggle--theme:hover,
-[data-theme='light'] button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover {
-  background-color: rgba(0, 0, 0, 0.11) !important;
-  color: #171717 !important;
-  border-color: transparent !important;
-  background-image: none !important;
-}
-[data-theme='light'] .site-header .header-tool-toggle--theme:hover svg,
-[data-theme='light'] .megamenu .header-tool-toggle--theme:hover svg,
-[data-theme='light'] header .header-tool-toggle.header-tool-toggle--theme:hover svg,
-[data-theme='light'] .megamenu .header-tool-toggle.header-tool-toggle--theme:hover svg,
-[data-theme='light'] button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover svg {
-  color: #171717 !important;
-  stroke: currentColor !important;
-  fill: none !important;
-}
-
-[data-theme='dark'] .site-header .header-tool-toggle--theme:hover,
-[data-theme='dark'] .megamenu .header-tool-toggle--theme:hover,
-[data-theme='dark'] header .header-tool-toggle.header-tool-toggle--theme:hover,
-[data-theme='dark'] .megamenu .header-tool-toggle.header-tool-toggle--theme:hover,
-[data-theme='dark'] button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover {
-  background-color: #262626 !important;
-  color: #fafafa !important;
-  background-image: none !important;
-}
-
 .theme-switch {
   min-height: 44px;
   min-width: 44px;
@@ -90,15 +39,6 @@ header .header-tool-toggle--theme:hover {
   color: var(--foreground);
   transform: scale(1);
 }
-
-  button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn svg,
-  button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn svg.lucide {
-    background: none !important;
-    border: none !important;
-    box-shadow: none !important;
-    fill: none !important;
-    stroke: currentColor !important;
-  }
 
 .theme-switch--checked .theme-switch__thumb {
   transform: translateY(-50%) translateX(1.36rem);
@@ -2268,44 +2208,6 @@ header .header-tool-toggle--theme:hover {
 [data-theme='dark'] .megamenu a:hover .text-muted-foreground {
   color: #ffffff;
 }
-[data-theme='dark'] .megamenu .header-tool-toggle,
-[data-theme='dark'] header .header-tool-toggle {
-  border-color: transparent;
-  color: var(--header-icon-fg, #a3a3a3);
-}
-[data-theme='dark'] .megamenu .header-tool-toggle--theme,
-[data-theme='dark'] header .header-tool-toggle--theme {
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-[data-theme='dark'] .megamenu .header-tool-toggle:hover,
-[data-theme='dark'] header .header-tool-toggle:hover {
-  background-color: var(--header-icon-bg-hover, #262626);
-  border-color: transparent;
-  color: var(--header-icon-fg-hover, #fafafa);
-}
-[data-theme='dark'] .megamenu .header-tool-toggle--theme:hover,
-[data-theme='dark'] header .header-tool-toggle--theme:hover {
-  background-color: var(--header-icon-bg-hover, #262626) !important;
-  border-color: var(--header-icon-border-hover, transparent) !important;
-  color: var(--header-icon-fg-hover, #fafafa) !important;
-}
-[data-theme='dark'] .site-header .header-tool-toggle--theme:hover,
-[data-theme='dark'] .megamenu .header-tool-toggle--theme:hover,
-[data-theme='dark'] header .header-tool-toggle.header-tool-toggle--theme:hover,
-[data-theme='dark'] .megamenu .header-tool-toggle.header-tool-toggle--theme:hover {
-  background-color: #262626 !important;
-  color: #fafafa !important;
-  background-image: none !important;
-}
-[data-theme='dark'] .site-header:not(:hover) .header-tool-toggle--theme.header-icon-btn:hover,
-[data-theme='dark'] .megamenu:not(:hover) .header-tool-toggle--theme.header-icon-btn:hover,
-[data-theme='dark'] header:not(:hover) .header-tool-toggle--theme.header-icon-btn:hover {
-  background-color: #262626 !important;
-  color: #fafafa !important;
-  background-image: none !important;
-}
 [data-theme='dark'] .megamenu,
 [data-theme='dark'] .site-header {
   --mega-menu-sheet-bg: #0a0a0a;
@@ -2340,19 +2242,6 @@ header .header-tool-toggle--theme:hover {
   [data-theme='dark'] .site-header[data-scrolled='true'] .logo-link svg {
     filter: brightness(0) invert(1) !important;
   }
-}
-
-.tooltip-content-solid,
-[role='tooltip'] {
-  background-color: #ffffff !important;
-  color: #262626 !important;
-  border-color: #e5e5e5 !important;
-}
-[data-theme='dark'] .tooltip-content-solid,
-[data-theme='dark'] [role='tooltip'] {
-  background-color: #0d0d0d !important;
-  color: #fafafa !important;
-  border-color: #262626 !important;
 }
 
 /* Such-Dialog: immer klar sichtbar über Overlay (Light & Dark) */
@@ -2632,6 +2521,13 @@ header .header-tool-toggle--theme:hover {
   color: var(--header-icon-fg-hover, var(--mega-menu-heading)) !important;
   border-color: transparent !important;
   background-color: var(--header-icon-bg-hover, color-mix(in hsl, var(--mega-menu-nav-text) 10%, transparent)) !important;
+}
+
+.site-header .header-tool-toggle--theme:hover,
+.megamenu .header-tool-toggle--theme:hover,
+header .header-tool-toggle.header-tool-toggle--theme:hover,
+button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover {
+  background-image: none !important;
 }
 
 

@@ -2,7 +2,14 @@ import React from 'react'
 
 import type { ConsultingOverviewBlock as ConsultingOverviewBlockData } from '@/payload-types'
 import { Award, Compass, Layers, Sparkles, type LucideIcon } from 'lucide-react'
-import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
+import {
+  Card,
+  CardAction,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
 type Step = {
@@ -15,8 +22,7 @@ type Step = {
 }
 
 const DEFAULTS = {
-  headline:
-    'Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing & Webdesign',
+  headline: 'Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing & Webdesign',
   intro:
     'Ich realisiere moderne, nutzerzentrierte Websites, konsistente Markenauftritte und unterstütze Unternehmen bei der digitalen Umsetzung - effizient, fundiert und ergebnisorientiert.',
   strategyLabel: 'Digital Consulting, Marketing & Webdesign',
@@ -118,9 +124,7 @@ function buildProcessSteps(
   return steps
 }
 
-const StepCard: React.FC<{ step: Step }> = ({
-  step,
-}) => {
+const StepCard: React.FC<{ step: Step }> = ({ step }) => {
   const Icon = getStepIcon(step.id)
 
   return (
@@ -167,22 +171,16 @@ type ConsultingOverviewProps = ConsultingOverviewBlockData & {
   layoutMode?: 'standard' | 'stepList'
 }
 
-const stepListBackgrounds = ['#f4f6d5', '#e8f4f3', '#ededed', '#edf6ef', '#fef3f3']
-
 const StepListCard: React.FC<{ step: Step; index: number }> = ({ step, index }) => {
   const Icon = getStepIcon(step.id)
-  const backgroundColor = stepListBackgrounds[index % stepListBackgrounds.length]
 
   return (
-    <div className="relative overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-6 py-7 shadow-sm transition duration-300 hover:-translate-y-0.5 dark:border-slate-700 dark:bg-slate-950 lg:px-8 lg:py-10">
+    <div className="relative z-10 w-full lg:w-[66vw] max-w-none overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-6 py-7 shadow-sm transition duration-300 hover:-translate-y-0.5 dark:border-slate-700 dark:bg-slate-950 lg:px-8 lg:py-10">
       <span className="pointer-events-none absolute left-6 top-6 hidden text-[6rem] font-extralight leading-none text-slate-100 opacity-40 lg:block">
         {pad(index + 1)}
       </span>
       <div className="relative flex flex-col gap-6 lg:flex-row lg:items-start">
-        <div
-          className="flex flex-none items-center justify-center rounded-full border border-slate-300 text-slate-700 shadow-sm dark:border-slate-700 dark:text-slate-200"
-          style={{ background: backgroundColor }}
-        >
+        <div className="flex flex-none items-center justify-center rounded-full border border-border bg-slate-100 text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
           <div className="flex h-[36px] w-[36px] items-center justify-center rounded-full lg:h-[174px] lg:w-[174px] lg:p-[48px]">
             <Icon className="h-6 w-6 lg:h-10 lg:w-10" />
           </div>
@@ -232,21 +230,19 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   experienceTitle,
   colors,
 }) => {
-  const steps = buildProcessSteps(
-    {
-      strategyLabel,
-      strategySubLabel,
-      strategyTitle,
-      strategyText,
-      benefitsLabel,
-      benefitsSubLabel,
-      benefitsTitle,
-      benefitItems,
-      experienceLabel,
-      experienceSubLabel,
-      experienceTitle,
-    },
-  )
+  const steps = buildProcessSteps({
+    strategyLabel,
+    strategySubLabel,
+    strategyTitle,
+    strategyText,
+    benefitsLabel,
+    benefitsSubLabel,
+    benefitsTitle,
+    benefitItems,
+    experienceLabel,
+    experienceSubLabel,
+    experienceTitle,
+  })
   const title = normalizeText(headline) || DEFAULTS.headline
   const intro = normalizeText(introText) || DEFAULTS.intro
   const usePixelLayout = pixelLayoutDesktop !== false
@@ -255,23 +251,6 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
 
   const renderStepList = () => (
     <div className="relative">
-      <span aria-hidden className="hidden lg:block absolute left-1/2 top-0 h-full w-16 -translate-x-1/2">
-        <svg
-          viewBox="0 0 90 1000"
-          preserveAspectRatio="none"
-          className="h-full w-full"
-        >
-          <path
-            d="M45 0 C75 140 15 260 45 380 C75 500 15 620 45 740 C75 860 15 980 45 1000"
-            stroke={strokeColor}
-            strokeWidth="3"
-            fill="none"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeDasharray="8 14"
-          />
-        </svg>
-      </span>
       <div className="relative">
         <span
           aria-hidden
@@ -279,24 +258,111 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
           style={{ opacity: 0.55 }}
         />
       </div>
-      <ol className="space-y-10 lg:space-y-14">
+      <ol className="space-y-10 lg:space-y-[84px]">
         {steps.map((step, index) => {
           const alignLeft = index % 2 === 0
+          const isFirst = index === 0
+          const isLast = index === steps.length - 1
+          const connectorHeight = 42
+          const connectorOffset = 'calc(33.333% - 21px)'
+          const connectorReach = 'calc(33.333% - 42px)'
+          const connectorPath = alignLeft
+            ? 'M20 0 C16 18 8 36 8 50 C8 64 16 82 20 100'
+            : 'M0 0 C4 18 12 36 12 50 C12 64 4 82 0 100'
+          const connectorClass =
+            'absolute top-full mt-2 h-28 w-[12rem] left-1/2 -translate-x-1/2 overflow-visible z-0 lg:hidden'
+
           return (
             <li
               key={step.id}
-              className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_5rem_minmax(0,1fr)] items-start"
+              className="relative overflow-visible grid gap-6 lg:grid-cols-[minmax(0,1fr)_5rem_minmax(0,1fr)] items-start"
             >
-              <div className="lg:pr-8">
-                {alignLeft ? <StepListCard step={step} index={index} /> : null}
+              <div className="lg:pr-8 lg:flex lg:justify-end lg:-mr-[16vw]">
+                {alignLeft ? (
+                  <div className="relative overflow-visible">
+                    {!isFirst ? (
+                      <span
+                        className="pointer-events-none hidden lg:block absolute border-l border-t"
+                        style={{
+                          left: connectorOffset,
+                          top: `-${connectorHeight}px`,
+                          width: connectorReach,
+                          height: `${connectorHeight}px`,
+                          borderColor: strokeColor,
+                          borderTopLeftRadius: `${connectorHeight}px`,
+                        }}
+                      />
+                    ) : null}
+                    {!isLast ? (
+                      <span
+                        className="pointer-events-none hidden lg:block absolute border-l border-b"
+                        style={{
+                          left: connectorOffset,
+                          bottom: `-${connectorHeight}px`,
+                          width: connectorReach,
+                          height: `${connectorHeight}px`,
+                          borderColor: strokeColor,
+                          borderBottomLeftRadius: `${connectorHeight}px`,
+                        }}
+                      />
+                    ) : null}
+                    <StepListCard step={step} index={index} />
+                  </div>
+                ) : null}
               </div>
               <div className="relative flex justify-center">
-                <span className="mt-2 grid h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-700 shadow-sm dark:bg-slate-950 dark:border-slate-700 dark:text-slate-200">
+                <span className="relative z-20 mt-2 grid h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-700 shadow-sm dark:bg-slate-950 dark:border-slate-700 dark:text-slate-200">
                   {pad(index + 1)}
                 </span>
+                {!isLast ? (
+                  <svg
+                    className={connectorClass}
+                    viewBox="0 0 20 100"
+                    preserveAspectRatio="none"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d={connectorPath}
+                      stroke={strokeColor}
+                      strokeWidth="2"
+                      fill="none"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                ) : null}
               </div>
-              <div className="lg:pl-8">
-                {!alignLeft ? <StepListCard step={step} index={index} /> : null}
+              <div className="lg:pl-8 lg:flex lg:justify-start lg:-ml-[16vw]">
+                {!alignLeft ? (
+                  <div className="relative overflow-visible">
+                    {!isFirst ? (
+                      <span
+                        className="pointer-events-none hidden lg:block absolute border-r border-t"
+                        style={{
+                          right: connectorOffset,
+                          top: `-${connectorHeight}px`,
+                          width: connectorReach,
+                          height: `${connectorHeight}px`,
+                          borderColor: strokeColor,
+                          borderTopRightRadius: `${connectorHeight}px`,
+                        }}
+                      />
+                    ) : null}
+                    {!isLast ? (
+                      <span
+                        className="pointer-events-none hidden lg:block absolute border-r border-b"
+                        style={{
+                          right: connectorOffset,
+                          bottom: `-${connectorHeight}px`,
+                          width: connectorReach,
+                          height: `${connectorHeight}px`,
+                          borderColor: strokeColor,
+                          borderBottomRightRadius: `${connectorHeight}px`,
+                        }}
+                      />
+                    ) : null}
+                    <StepListCard step={step} index={index} />
+                  </div>
+                ) : null}
               </div>
             </li>
           )
@@ -306,7 +372,7 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   )
 
   return (
-    <section className={cn('relative overflow-hidden', !disableInnerContainer && 'container')}>
+    <section className={cn('relative overflow-x-visible overflow-y-hidden', !disableInnerContainer && 'container')}>
       <div
         aria-hidden
         className="pointer-events-none absolute -left-36 top-28 h-72 w-72 rounded-full blur-3xl"
@@ -321,7 +387,8 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-10 hidden h-[24rem] w-[24rem] -translate-x-1/2 rounded-full lg:block"
         style={{
-          background: 'radial-gradient(circle at 50% 50%, rgba(148,163,184,0.16) 0%, transparent 72%)',
+          background:
+            'radial-gradient(circle at 50% 50%, rgba(148,163,184,0.16) 0%, transparent 72%)',
           opacity: 0.34,
         }}
       />
@@ -349,11 +416,12 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
             renderStepList()
           ) : (
             <div className="relative">
-              <span
-                aria-hidden
-                className="hidden lg:block absolute left-1/2 top-0 h-full w-12"
-              >
-                <svg viewBox="0 0 60 1000" preserveAspectRatio="none" className="h-full w-full text-slate-300 dark:text-slate-600">
+              <span aria-hidden className="hidden lg:block absolute left-1/2 top-0 h-full w-12">
+                <svg
+                  viewBox="0 0 60 1000"
+                  preserveAspectRatio="none"
+                  className="h-full w-full text-slate-300 dark:text-slate-600"
+                >
                   <path
                     d="M30 0 C42 120 18 240 30 360 C42 480 18 600 30 720 C42 840 18 960 30 1000"
                     stroke="currentColor"
@@ -372,17 +440,13 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
                       key={step.id}
                       className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_5rem_minmax(0,1fr)] items-start"
                     >
-                      <div className="lg:pr-8">
-                        {alignLeft ? <StepCard step={step} /> : null}
-                      </div>
+                      <div className="lg:pr-8">{alignLeft ? <StepCard step={step} /> : null}</div>
                       <div className="relative flex justify-center">
                         <span className="mt-2 grid h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-slate-50 text-sm font-semibold uppercase tracking-[0.16em] text-slate-700">
                           {pad(index + 1)}
                         </span>
                       </div>
-                      <div className="lg:pl-8">
-                        {!alignLeft ? <StepCard step={step} /> : null}
-                      </div>
+                      <div className="lg:pl-8">{!alignLeft ? <StepCard step={step} /> : null}</div>
                     </li>
                   )
                 })}

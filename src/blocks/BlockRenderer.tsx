@@ -9,6 +9,7 @@ import { ContactInfoCardsBlock } from '@/blocks/ContactInfoCards/Component'
 import { BrandShowcaseBlock } from '@/blocks/BrandShowcase/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
+import { HeroWithProcessBlock } from '@/blocks/HeroWithProcess/Component.client'
 import { HeroMarketingBlock } from '@/blocks/HeroMarketing/Component'
 import { IntroductionBlock } from '@/blocks/Introduction/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
@@ -25,6 +26,7 @@ import { ServicesGridBlock } from '@/blocks/ServicesGrid/Component'
 import { ServicesOverviewBlock } from '@/blocks/ServicesOverview/Component'
 import { PortfolioCaseGridBlock } from '@/blocks/PortfolioCaseGrid/Component'
 import { PortfolioKpiStripBlock } from '@/blocks/PortfolioKpiStrip/Component'
+import { RadialOrbitalTimelineBlock } from '@/blocks/RadialOrbitalTimeline/Component'
 import { ShadcnBlockComponent } from '@/blocks/ShadcnBlock/Component'
 import { WhyWorkWithMeBlock } from '@/blocks/WhyWorkWithMe/Component'
 
@@ -37,6 +39,7 @@ const blockComponents: Record<string, BlockComponent> = {
   contactInfoCards: ContactInfoCardsBlock as unknown as BlockComponent,
   brandShowcase: BrandShowcaseBlock as unknown as BlockComponent,
   content: ContentBlock as unknown as BlockComponent,
+  heroWithProcess: HeroWithProcessBlock as unknown as BlockComponent,
   heroMarketing: HeroMarketingBlock as unknown as BlockComponent,
   introduction: IntroductionBlock as unknown as BlockComponent,
   cta: CallToActionBlock as unknown as BlockComponent,
@@ -56,6 +59,7 @@ const blockComponents: Record<string, BlockComponent> = {
   servicesGrid: ServicesGridBlock as unknown as BlockComponent,
   portfolioCaseGrid: PortfolioCaseGridBlock as unknown as BlockComponent,
   portfolioKpiStrip: PortfolioKpiStripBlock as unknown as BlockComponent,
+  radialOrbitalTimeline: RadialOrbitalTimelineBlock as unknown as BlockComponent,
   shadcnBlock: ShadcnBlockComponent as unknown as BlockComponent,
   whyWorkWithMe: WhyWorkWithMeBlock as unknown as BlockComponent,
 }

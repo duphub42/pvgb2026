@@ -26,11 +26,11 @@ export function HtmlEmbedBlock({ html }: Pick<HtmlEmbedBlockFields, 'html'>) {
       data-html-embed
     >
       {styles.map((css, i) => (
-        // eslint-disable-next-line react/no-danger -- bewusst für CMS-Embed
+         
         <style key={i} dangerouslySetInnerHTML={{ __html: css }} />
       ))}
       {body ? (
-        // eslint-disable-next-line react/no-danger
+         
         <div className="html-embed-block__markup" dangerouslySetInnerHTML={{ __html: body }} />
       ) : null}
     </div>

@@ -55,7 +55,7 @@ export type FooterClientProps = {
 type NewsletterStatus = 'idle' | 'saving' | 'saved'
 
 export function FooterClient({ footer: footerData, locale }: FooterClientProps) {
-  const footer = footerData ?? ({} as Footer)
+  const footer: Partial<Footer> = footerData ?? {}
   const [newsletterStatus, setNewsletterStatus] = useState<NewsletterStatus>('idle')
   const footerRootRef = useRef<HTMLElement | null>(null)
   const mobileFooterLogoRef = useRef<HTMLImageElement | null>(null)
@@ -70,19 +70,19 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
     footer?.termsLink != null
 
   const logoToShow = footer?.footerLogo ?? null
-  const footerAddress = (footer as any)?.footerAddress as string | null | undefined
-  const footerPhone = (footer as any)?.footerPhone as string | null | undefined
+  const footerAddress = footer?.footerAddress
+  const footerPhone = footer?.footerPhone
   const logoUrl = mediaUrl(logoToShow)
   const useTextLogo = !logoToShow
   const mobileFooterLogoAlt = footer?.footerLogoAltText?.trim() || 'Philipp Bacher Logo'
   const mobileFooterLogoClassName = 'mobile-footer-b-logo logo-contrast block max-w-[100%] h-16 sm:h-18 md:h-22 md:hidden'
 
   const newsletterIcon =
-    (footer as any)?.newsletterIcon &&
-    String((footer as any).newsletterIcon).trim().length > 0
-      ? String((footer as any).newsletterIcon).trim()
+    footer?.newsletterIcon &&
+    String(footer.newsletterIcon).trim().length > 0
+      ? String(footer.newsletterIcon).trim()
       : null
-  const newsletterIconUpload = (footer as any)?.newsletterIconUpload
+  const newsletterIconUpload = footer?.newsletterIconUpload
   const newsletterIconUploadUrl =
     newsletterIconUpload && typeof newsletterIconUpload === 'object' && newsletterIconUpload?.url
       ? getMediaUrl((newsletterIconUpload as { url?: string }).url)
@@ -443,11 +443,11 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                 <div className="grid gap-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                   {columns.map((col, i) => {
                     const colIcon =
-                      (col as any)?.columnIcon &&
-                      String((col as any).columnIcon).trim().length > 0
-                        ? String((col as any).columnIcon).trim()
+                      col?.columnIcon &&
+                      String(col.columnIcon).trim().length > 0
+                        ? String(col.columnIcon).trim()
                         : null
-                    const colIconUpload = (col as any)?.columnIconUpload
+                    const colIconUpload = col?.columnIconUpload
                     const colIconUploadUrl =
                       colIconUpload && typeof colIconUpload === 'object' && colIconUpload?.url
                         ? normalizeKnownBrokenFooterIconUrl(getMediaUrl((colIconUpload as { url?: string }).url))

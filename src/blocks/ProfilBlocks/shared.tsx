@@ -4,9 +4,7 @@ import type React from 'react'
 import Link from 'next/link'
 import {
   Globe2,
-  GraduationCap,
   Layers,
-  Briefcase,
   Target,
   UserRound,
   type LucideIcon,

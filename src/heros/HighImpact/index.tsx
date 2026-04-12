@@ -92,15 +92,13 @@ export const HighImpactHero: React.FC<HighImpactHeroData> = ({
           transition={{ duration: 1.2, ease: 'easeOut' }}
           className="absolute inset-0"
         >
-          <Media
-            fill
-            imgClassName="object-cover brightness-[0.88]"
-            priority
-            resource={media}
-          />
+          <Media fill imgClassName="object-cover brightness-[0.88]" priority resource={media} />
         </motion.div>
         <div className="absolute inset-0 bg-[linear-gradient(to_bottom,_rgba(0,0,0,0.45),_rgba(0,0,0,0.15))]" />
-        <div className="absolute inset-0 hero-premium-overlay pointer-events-none" aria-hidden="true" />
+        <div
+          className="absolute inset-0 hero-premium-overlay pointer-events-none"
+          aria-hidden="true"
+        />
       </div>
 
       <div className="container relative z-10 mb-8 flex items-center justify-center">

@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from 'next'
+import Link from 'next/link'
+import Script from 'next/script'
 
 import { fontClassNames } from '@/theme/fonts'
 import { AdminBarGate } from '@/components/AdminBar/AdminBarGate'
@@ -116,7 +118,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </RootLayoutInner>
           </Providers>
           {process.env.NODE_ENV === 'development' && process.env.PINY_VISUAL_SELECT === 'true' && (
-            <script src="/_piny/piny.phone.js" />
+            <Script src="/_piny/piny.phone.js" strategy="afterInteractive" />
           )}
         </body>
       </html>
@@ -130,7 +132,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <h1>Fehler beim Laden</h1>
             <p>Die Seite konnte nicht geladen werden. Bitte später erneut versuchen.</p>
             <p>
-              <a href="/admin">Zum Admin</a>
+              <Link href="/admin">Zum Admin</Link>
             </p>
           </div>
         </body>

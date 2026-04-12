@@ -1,97 +1,41 @@
-'use client'
-
-import dynamic from 'next/dynamic'
-import React from 'react'
-import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
-
-const SHADCN_HERO_TYPES = new Set<string>()
-
-/** Fängt Laufzeitfehler in Shadcn-Heros ab und zeigt einen einfachen Fallback statt „Hero konnte nicht geladen werden“. */
-class ShadcnHeroErrorBoundary extends React.Component<
-  { children: React.ReactNode; heroData: Record<string, unknown>; fallback: React.ReactNode },
-  { hasError: boolean }
-> {
-  state = { hasError: false }
-
-  static getDerivedStateFromError = () => ({ hasError: true })
-
-  componentDidCatch(error: Error) {
-    if (process.env.NODE_ENV === 'development') {
-      console.error('[ShadcnHeroErrorBoundary]', error?.message)
-    }
-  }
-
-  render() {
-    if (this.state.hasError) {
-      const { heroData, fallback } = this.props
-      const headline = typeof heroData?.headline === 'string' ? heroData.headline : null
-      const description = typeof heroData?.description === 'string' ? heroData.description : null
-      return (
-        <section
-          className="relative min-h-[40vh] bg-neutral-950 px-4 py-24 text-white"
-          aria-label="Hero"
-        >
-          <div className="container mx-auto max-w-2xl">
-            {headline ? (
-              <h1 className="text-hero-display-sm hero-heading-gradient hero-heading-gradient--inverse tracking-tight">
-                <ScrambleText text={headline} />
-              </h1>
-            ) : null}
-            {description ? <p className="mt-4 hero-content-contrast--inverse">{description}</p> : null}
-            {!headline && !description && fallback}
-          </div>
-        </section>
-      )
-    }
-    return this.props.children
-  }
-}
-
-const SuperheroHeroLazy = dynamic(() =>
-  import('@/heros/Superhero/SuperheroHero').then((m) => m.SuperheroHero),
-)
+import type { ComponentType, FC } from 'react'
+import { HighImpactHero } from '@/heros/HighImpact'
+import { LeistungenHero } from '@/heros/LeistungenHero'
+import { LowImpactHero } from '@/heros/LowImpact'
+import { MediumImpactHero } from '@/heros/MediumImpact'
+import { ProAthleteHero } from '@/heros/ProAthlete'
+import { SuperheroHero } from '@/heros/Superhero/SuperheroHero'
 
 const heroes = {
-  highImpact: dynamic(() => import('@/heros/HighImpact').then((m) => m.HighImpactHero)),
-  mediumImpact: dynamic(() => import('@/heros/MediumImpact').then((m) => m.MediumImpactHero)),
-  lowImpact: dynamic(() => import('@/heros/LowImpact').then((m) => m.LowImpactHero)),
-  /** Pro Athlete – neues, editierbares Hero-Layout. */
-  proAthlete: dynamic(() => import('@/heros/ProAthlete').then((m) => m.ProAthleteHero)),
-  /** Popout-Portrait — klarer Produktiv-Typ. */
-  superhero: SuperheroHeroLazy,
-  /** Leistungen Hero – nach philippbacher.com/leistungen/ */
-  leistungenHero: dynamic(() => import('@/heros/LeistungenHero').then((m) => m.LeistungenHero)),
+  highImpact: HighImpactHero,
+  mediumImpact: MediumImpactHero,
+  lowImpact: LowImpactHero,
+  proAthlete: ProAthleteHero,
+  superhero: SuperheroHero,
+  leistungenHero: LeistungenHero,
 }
 
 export type HeroType = keyof typeof heroes
 
-export const RenderHero: React.FC<any> = (props) => {
-  const heroData = props.hero || props
+type HeroRenderProps = {
+  hero?: Record<string, unknown> | null
+  type?: string | null
+} & Record<string, unknown>
 
-  if (!heroData?.type || heroData.type === 'none') return null
+export const RenderHero: FC<HeroRenderProps> = (props) => {
+  const heroData =
+    props.hero && typeof props.hero === 'object'
+      ? (props.hero as Record<string, unknown>)
+      : (props as Record<string, unknown>)
 
-  const typeKey = heroData.type as string
-  let HeroToRender = (heroes as Record<string, React.ComponentType<any>>)[typeKey]
-  if (!HeroToRender && typeof typeKey === 'string') {
-    const lower = typeKey.charAt(0).toLowerCase() + typeKey.slice(1)
-    HeroToRender = (heroes as Record<string, React.ComponentType<any>>)[lower]
-  }
+  const rawType = typeof heroData.type === 'string' ? heroData.type : null
+  if (!rawType || rawType === 'none') return null
 
-  if (!HeroToRender || typeof HeroToRender !== 'function') return null
+  const normalizedType =
+    rawType in heroes ? rawType : rawType.charAt(0).toLowerCase() + rawType.slice(1)
+  const HeroToRender = (heroes as unknown as Record<string, ComponentType<Record<string, unknown>>>)[normalizedType]
 
-  const isShadcn = SHADCN_HERO_TYPES.has(typeKey)
-  const content = <HeroToRender {...heroData} />
+  if (!HeroToRender) return null
 
-  if (isShadcn) {
-    return (
-      <ShadcnHeroErrorBoundary
-        heroData={heroData as Record<string, unknown>}
-        fallback={<p className="text-sm hero-subheading-contrast--inverse">Hero</p>}
-      >
-        {content}
-      </ShadcnHeroErrorBoundary>
-    )
-  }
-
-  return content
+  return <HeroToRender {...heroData} />
 }

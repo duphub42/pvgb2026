@@ -2,6 +2,11 @@ import './load-env-import'
 import { getPayload } from 'payload'
 import config from '@payload-config'
 
+function asRecord(value: unknown): Record<string, unknown> | null {
+  if (value == null || typeof value !== 'object' || Array.isArray(value)) return null
+  return value as Record<string, unknown>
+}
+
 async function main() {
   const payload = await getPayload({ config })
   const { docs } = await payload.find({
@@ -14,7 +19,8 @@ async function main() {
   const issues: unknown[] = []
 
   docs.forEach((doc) => {
-    const layout = (doc as any).layout
+    const docRecord = asRecord(doc)
+    const layout = docRecord?.layout
     if (!Array.isArray(layout)) {
       issues.push({
         id: doc.id,
@@ -60,11 +66,12 @@ async function main() {
       }
     })
 
-    const parent = (doc as any).parent
+    const parent = docRecord?.parent
     if (parent != null) {
+      const parentRecord = asRecord(parent)
       const parentId =
-        typeof parent === 'object' && parent !== null && 'id' in parent
-          ? (parent as any).id
+        parentRecord && 'id' in parentRecord
+          ? parentRecord.id
           : parent
       if (parentId != null && typeof parentId !== 'number' && typeof parentId !== 'string') {
         issues.push({

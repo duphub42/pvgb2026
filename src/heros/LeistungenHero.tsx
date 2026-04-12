@@ -1,8 +1,11 @@
-import type { FC } from 'react'
+import type { ComponentProps, FC } from 'react'
 import { Media } from '@/components/Media'
 import { CMSLink } from '@/components/Link'
 import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
 import { buildHeroCopyFadeStyle, getScrambleRevealDurationMs } from '@/heros/scrambleTiming'
+import type { Media as PayloadMedia } from '@/payload-types'
+
+type CMSLinkProps = ComponentProps<typeof CMSLink>
 
 export type LeistungenHeroProps = {
   headline: string
@@ -10,8 +13,8 @@ export type LeistungenHeroProps = {
   description?: string
   badge?: string
   stats?: { value: string; label: string }[]
-  links?: any[]
-  media?: any
+  links?: Array<{ link?: CMSLinkProps | null }>
+  media?: PayloadMedia | number | null
 }
 
 export const LeistungenHero: FC<LeistungenHeroProps> = ({
@@ -26,69 +29,84 @@ export const LeistungenHero: FC<LeistungenHeroProps> = ({
   const headlineRevealMs = getScrambleRevealDurationMs(headline)
   const subheadlineFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 0)
   const descriptionFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 140)
+  const badgeText = subheadline?.trim() || badge?.trim()
 
   return (
-    <section className="relative flex flex-col items-center justify-center min-h-[70vh] bg-neutral-900 text-white py-20 px-4 overflow-hidden">
-      <div className="container relative z-10 flex flex-col items-center text-center max-w-3xl">
-        {badge && (
-          <span className="mb-4 inline-block rounded bg-primary-600 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-white/90">
-            {badge}
-          </span>
-        )}
-        {headline && (
-          <h1 className="text-4xl md:text-6xl font-bold mb-4 hero-heading-gradient hero-heading-gradient--inverse">
-            <ScrambleText text={headline} />
-          </h1>
-        )}
-        {subheadline && (
-          <h2
-            className="mb-2 text-xl font-medium hero-subheading-contrast--inverse md:text-2xl hero-blurry-fade-in hero-blurry-fade-in--subheading"
-            style={subheadlineFadeStyle}
-          >
-            {subheadline}
-          </h2>
-        )}
-        {description && (
-          <p
-            className="mb-6 text-base hero-content-contrast--inverse md:text-lg hero-blurry-fade-in hero-blurry-fade-in--description"
-            style={descriptionFadeStyle}
-          >
-            {description}
-          </p>
-        )}
-        {Array.isArray(links) && links.length > 0 && (
-          <ul className="flex flex-wrap justify-center gap-4 mb-6">
-            {links.map((item, i) => {
-              if (!item || !item.link) return null
-              return (
-                <li key={`hero-link-${i}`}>
-                  <CMSLink {...item.link} />
-                </li>
-              )
-            })}
-          </ul>
-        )}
-        {Array.isArray(stats) && stats.length > 0 && (
-          <div className="flex flex-wrap justify-center gap-6 mb-8">
-            {stats.map((stat, i) => (
-              <div
-                key={`hero-stat-${stat.label ?? stat.value ?? i}-${i}`}
-                className="flex flex-col items-center"
-              >
-                <span className="text-3xl font-bold text-primary-400">{stat.value}</span>
-                <span className="text-xs uppercase tracking-wider hero-subheading-contrast--inverse">
-                  {stat.label}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
-      </div>
+    <section className="leistungen-hero relative isolate flex items-end overflow-hidden text-foreground">
+      <div className="leistungen-hero-base pointer-events-none absolute inset-0 z-0" aria-hidden />
+
       {media && typeof media === 'object' && 'url' in media && (
-        <div className="absolute inset-0 z-0 select-none pointer-events-none">
-          <Media fill imgClassName="object-cover opacity-30" priority resource={media} />
+        <div className="absolute inset-0 z-10 select-none pointer-events-none">
+          <Media
+            fill
+            imgClassName="leistungen-hero-media-image object-cover"
+            priority
+            resource={media}
+          />
         </div>
       )}
+
+      <div className="leistungen-hero-overlay pointer-events-none absolute inset-0 z-20" aria-hidden />
+      <div className="leistungen-hero-edge-vignette pointer-events-none absolute inset-0 z-20" aria-hidden />
+
+      <div className="container relative z-30 w-full px-4">
+        <div className="mr-auto flex w-full max-w-[56rem] flex-col items-start pt-2 text-left md:pt-3">
+          {badgeText && (
+            <span
+              className="order-1 leistungen-hero-badge mb-4 inline-flex hero-blurry-fade-in hero-blurry-fade-in--subheading"
+              style={subheadlineFadeStyle}
+            >
+              {badgeText}
+            </span>
+          )}
+
+          {headline && (
+            <h1 className="order-2 mb-4 text-hero-display hero-heading-gradient hero-headline">
+              <ScrambleText text={headline} />
+            </h1>
+          )}
+
+          {description && (
+            <p
+              className="order-3 mb-6 mr-auto max-w-[62ch] text-base hero-content-contrast md:text-lg hero-blurry-fade-in hero-blurry-fade-in--description"
+              style={descriptionFadeStyle}
+            >
+              {description}
+            </p>
+          )}
+
+          {Array.isArray(links) && links.length > 0 && (
+            <ul className="order-4 mb-6 flex flex-wrap justify-start gap-4">
+              {links.map((item, i) => {
+                if (!item || !item.link) return null
+                return (
+                  <li key={`hero-link-${i}`}>
+                    <CMSLink {...item.link} />
+                  </li>
+                )
+              })}
+            </ul>
+          )}
+
+          {Array.isArray(stats) && stats.length > 0 && (
+            <div className="order-5 mb-1 flex flex-wrap justify-start gap-x-6 gap-y-4 md:gap-x-8">
+              {stats.map((stat, i) => (
+                <div
+                  key={`hero-stat-${stat.label ?? stat.value ?? i}-${i}`}
+                  className="flex flex-col items-start"
+                >
+                  <span className="text-2xl font-semibold text-primary md:text-3xl">{stat.value}</span>
+                  <span className="text-xs uppercase tracking-[0.16em] hero-subheading-contrast">
+                    {stat.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+
+      <div className="leistungen-hero-footer-fade pointer-events-none absolute inset-x-0 bottom-0 z-20" aria-hidden />
     </section>
   )
 }

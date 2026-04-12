@@ -5,6 +5,7 @@ import React from 'react'
 import type { ProfilZahlenFaktenBlock as BlockData } from '@/payload-types'
 
 import { profilZahlenFaktenDefaults } from '@/blocks/ProfilBlocks/defaults'
+import { Card } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
@@ -38,19 +39,20 @@ export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
         ) : null}
         <div className={cn('grid gap-4 md:gap-6', gridCols)}>
           {rows.map((z, i) => (
-            <div
+            <Card
               key={
                 typeof (z as { id?: unknown }).id === 'string'
                   ? (z as { id?: string }).id
                   : `z-${i}`
               }
-              className="surface-box surface-box-fill surface-box-shadow-soft p-5 text-center"
+              variant="secondary"
+              className="p-5 text-center"
             >
               <p className="text-4xl font-semibold tracking-tight text-foreground md:text-5xl">{z.zahl}</p>
               <p className="mt-1.5 text-xs uppercase tracking-[0.08em] text-muted-foreground md:text-sm">
                 {z.bezeichnung}
               </p>
-            </div>
+            </Card>
           ))}
         </div>
       </div>

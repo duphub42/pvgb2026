@@ -231,7 +231,6 @@ const MOBILE_DOCK_VCARD_URL = '/contact.vcf'
 const MOBILE_DOCK_CALENDAR_URL = '/termin'
 const MOBILE_MENU_LOGO_ICON_SRC = '/media/philippbacher-logo-b-10.svg'
 const HAM_ICON_ANIMATION_MS = 400
-const MOBILE_DOCK_LONG_PRESS_MS = 400
 const MOBILE_DOCK_TOOLTIP_AUTOHIDE_MS = 1500
 const MOBILE_DOCK_CONFIRM_WINDOW_MS = 2600
 const MOBILE_DOCK_PROXIMITY_RADIUS = 132
@@ -754,25 +753,6 @@ function colSpan(n: number): string {
   return COL_SPAN_CLASS[Math.min(12, Math.max(1, n))] ?? 'col-span-3'
 }
 
-const XL_COL_SPAN_CLASS: Record<number, string> = {
-  1: 'xl:col-span-1',
-  2: 'xl:col-span-2',
-  3: 'xl:col-span-3',
-  4: 'xl:col-span-4',
-  5: 'xl:col-span-5',
-  6: 'xl:col-span-6',
-  7: 'xl:col-span-7',
-  8: 'xl:col-span-8',
-  9: 'xl:col-span-9',
-  10: 'xl:col-span-10',
-  11: 'xl:col-span-11',
-  12: 'xl:col-span-12',
-}
-
-function xlColSpan(n: number): string {
-  return XL_COL_SPAN_CLASS[Math.min(12, Math.max(1, n))] ?? 'xl:col-span-6'
-}
-
 const LG_COL_SPAN_CLASS: Record<number, string> = {
   1: 'lg:col-span-1',
   2: 'lg:col-span-2',
@@ -790,19 +770,6 @@ const LG_COL_SPAN_CLASS: Record<number, string> = {
 
 function lgColSpan(n: number): string {
   return LG_COL_SPAN_CLASS[Math.min(12, Math.max(1, n))] ?? 'lg:col-span-6'
-}
-
-/** Nach programmatischem Panel-Close Inline-Styles entfernen (öffnet wieder sauber mit Radix/CSS-Keyframes). */
-function resetMegamenuViewportWrapperMotion(el: HTMLElement | null) {
-  if (!el) return
-  el.style.animation = ''
-  el.style.transition = ''
-  el.style.transform = ''
-  el.style.opacity = ''
-  el.style.height = ''
-  el.style.minHeight = ''
-  el.style.maxHeight = ''
-  el.style.overflow = ''
 }
 
 function collectPreloadMediaUrls(items: MegaMenuItem[]): string[] {
@@ -888,7 +855,6 @@ function MegaMenuCtaStrip({ cta, hideCallback }: { cta: MegaMenuCta; hideCallbac
           ],
         }),
       })
-      const data = await res.json()
       if (res.ok) {
         setCallbackStatus('success')
         setPhone('')

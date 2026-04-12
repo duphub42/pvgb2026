@@ -5,6 +5,7 @@ import React from 'react'
 import type { ProfilLangZertBlock as BlockData } from '@/payload-types'
 
 import { profilSprachenDefaults, profilZertifikateDefaults } from '@/blocks/ProfilBlocks/defaults'
+import { Card } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
 type Props = BlockData & { disableInnerContainer?: boolean }
@@ -39,7 +40,7 @@ export const ProfilLangZertBlock: React.FC<Props> = ({
     <section className={cn('border-t border-border/60 bg-muted/15 py-16 md:py-24')}>
       <div className="container grid gap-12 lg:grid-cols-2">
         {sprRows.length > 0 ? (
-          <div className="surface-box surface-box-fill surface-box-shadow-md min-w-0 p-6 md:p-8">
+          <Card variant="secondary" className="min-w-0 p-6 md:p-8">
             <h2 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">{sprachenTitle}</h2>
             <ul className={cn('mt-6 divide-y divide-border/80')}>
               {sprRows.map((s, i) => (
@@ -56,11 +57,11 @@ export const ProfilLangZertBlock: React.FC<Props> = ({
                 </li>
               ))}
             </ul>
-          </div>
+          </Card>
         ) : null}
 
         {zertRows.length > 0 ? (
-          <div className="surface-box surface-box-fill surface-box-shadow-md min-w-0 p-6 md:p-8">
+          <Card variant="secondary" className="min-w-0 p-6 md:p-8">
             <h2 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
               {zertifikateTitle}
             </h2>
@@ -72,7 +73,7 @@ export const ProfilLangZertBlock: React.FC<Props> = ({
                 </li>
               ))}
             </ul>
-          </div>
+          </Card>
         ) : null}
       </div>
     </section>
