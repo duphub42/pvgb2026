@@ -760,6 +760,10 @@ export interface ConsultingOverviewBlock {
    * Aktiviert ein breiteres Layout für große Screens. Mobile und Tablet bleiben klar gestapelt.
    */
   pixelLayoutDesktop?: boolean | null;
+  /**
+   * Wähle zwischen der klassischen Consulting-Übersicht oder dem alternierenden Step-List-Layout.
+   */
+  layoutMode?: ('standard' | 'stepList') | null;
   colors?: ConsultingOverviewTheme;
   strategyLabel?: string | null;
   strategySubLabel?: string | null;
@@ -2743,6 +2747,7 @@ export interface ConsultingOverviewBlockSelect<T extends boolean = true> {
   headline?: T;
   introText?: T;
   pixelLayoutDesktop?: T;
+  layoutMode?: T;
   colors?: T | ConsultingOverviewThemeSelect<T>;
   strategyLabel?: T;
   strategySubLabel?: T;

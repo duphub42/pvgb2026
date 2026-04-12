@@ -1,6 +1,8 @@
 import React from 'react'
 
 import type { ConsultingOverviewBlock as ConsultingOverviewBlockData } from '@/payload-types'
+import { Award, Compass, Layers, Sparkles, type LucideIcon } from 'lucide-react'
+import { Card, CardAction, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
 type Step = {
@@ -35,6 +37,13 @@ const pad = (value: number) => value.toString().padStart(2, '0')
 const normalizeText = (value?: string | null): string => String(value ?? '').trim()
 
 const hasText = (value?: string | null): value is string => normalizeText(value).length > 0
+
+const getStepIcon = (stepId: string): LucideIcon => {
+  if (stepId === 'strategy') return Compass
+  if (stepId.startsWith('benefit')) return Sparkles
+  if (stepId === 'experience') return Award
+  return Layers
+}
 
 function buildProcessSteps(
   data: Pick<
@@ -112,40 +121,94 @@ function buildProcessSteps(
 const StepCard: React.FC<{ step: Step }> = ({
   step,
 }) => {
+  const Icon = getStepIcon(step.id)
+
   return (
-    <article className="overflow-hidden rounded-[2rem] border border-slate-200 bg-white p-6 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.18)] transition-transform duration-300 ease-out hover:-translate-y-0.5 dark:border-slate-700 dark:bg-slate-950 dark:shadow-[0_24px_56px_-34px_rgba(0,0,0,0.4)]">
-      <div className="mb-4 flex items-center justify-between gap-4">
-        <div className="flex flex-wrap items-center gap-3">
-          <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
-            {step.badge}
+    <Card
+      variant="secondary"
+      className="transition-transform duration-300 ease-out hover:-translate-y-0.5 shadow-[0_24px_56px_-34px_rgba(15,23,42,0.18)] dark:shadow-[0_24px_56px_-34px_rgba(0,0,0,0.4)]"
+    >
+      <CardHeader className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-border text-muted-foreground">
+            <Icon className="h-5 w-5" />
           </span>
-          {step.meta ? (
-            <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-              {step.meta}
+          <div className="flex flex-wrap items-center gap-3">
+            <span className="inline-flex items-center rounded-full border border-border bg-transparent px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground">
+              {step.badge}
             </span>
-          ) : null}
+            {step.meta ? (
+              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                {step.meta}
+              </span>
+            ) : null}
+          </div>
         </div>
-        <span className="flex h-10 w-10 items-center justify-center rounded-2xl border border-slate-200 bg-slate-100 text-slate-500 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-300">
+        <CardAction className="flex h-10 w-10 items-center justify-center rounded-2xl border border-border text-muted-foreground">
           <span className="text-sm">•</span>
-        </span>
-      </div>
-      <h3 className="text-xl font-semibold leading-tight text-slate-900 md:text-2xl dark:text-slate-100">
-        {step.title}
-      </h3>
-      {step.description ? (
-        <p className="mt-4 whitespace-pre-line text-sm leading-7 text-slate-600 md:text-base dark:text-slate-300">
-          {step.description}
-        </p>
-      ) : null}
-    </article>
+        </CardAction>
+      </CardHeader>
+      <CardContent className="space-y-4">
+        <CardTitle className="text-xl font-semibold leading-tight text-foreground md:text-2xl">
+          {step.title}
+        </CardTitle>
+        {step.description ? (
+          <CardDescription className="whitespace-pre-line text-sm leading-7 text-muted-foreground md:text-base">
+            {step.description}
+          </CardDescription>
+        ) : null}
+      </CardContent>
+    </Card>
   )
 }
 
-type ConsultingOverviewProps = ConsultingOverviewBlockData & { disableInnerContainer?: boolean }
+type ConsultingOverviewProps = ConsultingOverviewBlockData & {
+  disableInnerContainer?: boolean
+  layoutMode?: 'standard' | 'stepList'
+}
+
+const StepListCard: React.FC<{ step: Step; index: number }> = ({ step, index }) => {
+  const Icon = getStepIcon(step.id)
+
+  return (
+    <div className="group relative overflow-hidden rounded-3xl border border-slate-200 bg-white p-6 shadow-sm transition duration-300 hover:-translate-y-0.5 dark:border-slate-700 dark:bg-slate-950">
+      <span className="pointer-events-none absolute -left-6 top-4 hidden text-[6rem] font-extralight leading-none text-slate-100 opacity-40 md:block">
+        {pad(index + 1)}
+      </span>
+      <div className="relative flex flex-col gap-4 lg:flex-row lg:items-start">
+        <div className="flex h-16 w-16 flex-none items-center justify-center rounded-full bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+          <Icon className="h-6 w-6" />
+        </div>
+
+        <div className="min-w-0">
+          <div className="flex flex-wrap gap-2">
+            <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+              {step.badge}
+            </span>
+            {step.meta ? (
+              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
+                {step.meta}
+              </span>
+            ) : null}
+          </div>
+          <h3 className="mt-4 text-xl font-semibold leading-tight text-slate-900 dark:text-slate-100">
+            {step.title}
+          </h3>
+          {step.description ? (
+            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300">
+              {step.description}
+            </p>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  )
+}
 
 export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   disableInnerContainer,
   pixelLayoutDesktop,
+  layoutMode = 'standard',
   headline,
   introText,
   strategyLabel,
@@ -159,6 +222,7 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   experienceLabel,
   experienceSubLabel,
   experienceTitle,
+  colors,
 }) => {
   const steps = buildProcessSteps(
     {
@@ -178,6 +242,53 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   const title = normalizeText(headline) || DEFAULTS.headline
   const intro = normalizeText(introText) || DEFAULTS.intro
   const usePixelLayout = pixelLayoutDesktop !== false
+  const useStepList = layoutMode === 'stepList'
+  const strokeColor = colors?.timelineStroke || '#999999'
+
+  const renderStepList = () => (
+    <div className="relative">
+      <span aria-hidden className="hidden lg:block absolute left-1/2 top-0 h-full w-12">
+        <svg
+          viewBox="0 0 60 1000"
+          preserveAspectRatio="none"
+          className="h-full w-full"
+        >
+          <path
+            d="M30 0 C42 120 18 240 30 360 C42 480 18 600 30 720 C42 840 18 960 30 1000"
+            stroke={strokeColor}
+            strokeWidth="2"
+            fill="none"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeDasharray="6 12"
+          />
+        </svg>
+      </span>
+      <ol className="space-y-10 lg:space-y-14">
+        {steps.map((step, index) => {
+          const alignLeft = index % 2 === 0
+          return (
+            <li
+              key={step.id}
+              className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_5rem_minmax(0,1fr)] items-start"
+            >
+              <div className="lg:pr-8">
+                {alignLeft ? <StepListCard step={step} index={index} /> : null}
+              </div>
+              <div className="relative flex justify-center">
+                <span className="mt-2 grid h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-700 shadow-sm dark:bg-slate-950 dark:border-slate-700 dark:text-slate-200">
+                  {pad(index + 1)}
+                </span>
+              </div>
+              <div className="lg:pl-8">
+                {!alignLeft ? <StepListCard step={step} index={index} /> : null}
+              </div>
+            </li>
+          )
+        })}
+      </ol>
+    </div>
+  )
 
   return (
     <section className={cn('relative overflow-hidden', !disableInnerContainer && 'container')}>
@@ -219,46 +330,50 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
         </header>
 
         <div className="relative z-10 mt-12">
-          <div className="relative">
-            <span
-              aria-hidden
-              className="hidden lg:block absolute left-1/2 top-0 h-full w-12"
-            >
-              <svg viewBox="0 0 60 1000" preserveAspectRatio="none" className="h-full w-full text-slate-300 dark:text-slate-600">
-                <path
-                  d="M30 0 C42 120 18 240 30 360 C42 480 18 600 30 720 C42 840 18 960 30 1000"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  fill="none"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-            <ol className="space-y-10">
-              {steps.map((step, index) => {
-                const alignLeft = index % 2 === 0
-                return (
-                  <li
-                    key={step.id}
-                    className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_5rem_minmax(0,1fr)] items-start"
-                  >
-                    <div className="lg:pr-8">
-                      {alignLeft ? <StepCard step={step} /> : null}
-                    </div>
-                    <div className="relative flex justify-center">
-                      <span className="mt-2 grid h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-slate-50 text-sm font-semibold uppercase tracking-[0.16em] text-slate-700">
-                        {pad(index + 1)}
-                      </span>
-                    </div>
-                    <div className="lg:pl-8">
-                      {!alignLeft ? <StepCard step={step} /> : null}
-                    </div>
-                  </li>
-                )
-              })}
-            </ol>
-          </div>
+          {useStepList ? (
+            renderStepList()
+          ) : (
+            <div className="relative">
+              <span
+                aria-hidden
+                className="hidden lg:block absolute left-1/2 top-0 h-full w-12"
+              >
+                <svg viewBox="0 0 60 1000" preserveAspectRatio="none" className="h-full w-full text-slate-300 dark:text-slate-600">
+                  <path
+                    d="M30 0 C42 120 18 240 30 360 C42 480 18 600 30 720 C42 840 18 960 30 1000"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    fill="none"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+              <ol className="space-y-10">
+                {steps.map((step, index) => {
+                  const alignLeft = index % 2 === 0
+                  return (
+                    <li
+                      key={step.id}
+                      className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_5rem_minmax(0,1fr)] items-start"
+                    >
+                      <div className="lg:pr-8">
+                        {alignLeft ? <StepCard step={step} /> : null}
+                      </div>
+                      <div className="relative flex justify-center">
+                        <span className="mt-2 grid h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-slate-50 text-sm font-semibold uppercase tracking-[0.16em] text-slate-700">
+                          {pad(index + 1)}
+                        </span>
+                      </div>
+                      <div className="lg:pl-8">
+                        {!alignLeft ? <StepCard step={step} /> : null}
+                      </div>
+                    </li>
+                  )
+                })}
+              </ol>
+            </div>
+          )}
         </div>
       </div>
     </section>

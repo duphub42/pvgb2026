@@ -102,6 +102,20 @@ export const ConsultingOverview: Block = {
       },
     },
     {
+      name: 'layoutMode',
+      type: 'select',
+      label: 'Layout-Variante',
+      defaultValue: 'standard',
+      options: [
+        { label: 'Klassische Timeline', value: 'standard' },
+        { label: 'Step-List (alternierend)', value: 'stepList' },
+      ],
+      admin: {
+        description:
+          'Wähle zwischen der klassischen Consulting-Übersicht oder dem alternierenden Step-List-Layout.',
+      },
+    },
+    {
       name: 'colors',
       type: 'group',
       interfaceName: 'ConsultingOverviewTheme',
