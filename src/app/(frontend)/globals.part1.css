@@ -106,6 +106,12 @@
     --hero-subheading-color: color-mix(in srgb, var(--foreground) 80%, transparent);
     --hero-content-color: color-mix(in srgb, var(--foreground) 68%, transparent);
     --hero-content-strong-color: color-mix(in srgb, var(--foreground) 86%, transparent);
+
+    --surface-shadow-card-soft: 0 10px 24px -24px rgba(2, 6, 23, 0.32);
+    --surface-shadow-card-medium: 0 12px 28px -24px rgba(2, 6, 23, 0.32);
+    --surface-shadow-card-strong: 0 12px 30px -26px rgba(2, 6, 23, 0.35);
+    --surface-shadow-card-hover-md: 0 16px 36px -26px rgba(15, 23, 42, 0.4);
+    --surface-shadow-card-hover-lg: 0 20px 42px -30px rgba(2, 6, 23, 0.4);
   }
 
   [data-theme='dark'] {
@@ -115,6 +121,12 @@
     --hero-subheading-color: color-mix(in srgb, var(--foreground) 86%, transparent);
     --hero-content-color: color-mix(in srgb, var(--foreground) 74%, transparent);
     --hero-content-strong-color: color-mix(in srgb, var(--foreground) 90%, transparent);
+
+    --surface-shadow-card-soft: 0 12px 28px -24px rgba(0, 0, 0, 0.52);
+    --surface-shadow-card-medium: 0 16px 34px -26px rgba(0, 0, 0, 0.58);
+    --surface-shadow-card-strong: 0 18px 38px -30px rgba(0, 0, 0, 0.64);
+    --surface-shadow-card-hover-md: 0 22px 44px -28px rgba(0, 0, 0, 0.68);
+    --surface-shadow-card-hover-lg: 0 28px 52px -32px rgba(0, 0, 0, 0.72);
   }
 
   *,
@@ -358,6 +370,46 @@
     line-height: var(--type-display-line-height);
     letter-spacing: var(--type-display-letter-spacing);
     font-weight: var(--type-weight-semibold);
+  }
+
+  .surface-box {
+    @apply rounded-xl border border-border/80;
+  }
+
+  .surface-box-fill {
+    @apply bg-background/90;
+  }
+
+  .surface-box-shadow-soft {
+    box-shadow: var(--surface-shadow-card-soft);
+  }
+
+  .surface-box-shadow-md {
+    box-shadow: var(--surface-shadow-card-medium);
+  }
+
+  .surface-box-shadow-strong {
+    box-shadow: var(--surface-shadow-card-strong);
+  }
+
+  .surface-box-lift-md,
+  .surface-box-lift-lg {
+    transition:
+      border-color 0.3s ease,
+      box-shadow 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  .surface-box-lift-md:hover,
+  .surface-box-lift-md:focus-within {
+    border-color: color-mix(in srgb, hsl(var(--primary)) 30%, var(--border));
+    box-shadow: var(--surface-shadow-card-hover-md);
+  }
+
+  .surface-box-lift-lg:hover,
+  .surface-box-lift-lg:focus-within {
+    border-color: color-mix(in srgb, hsl(var(--primary)) 30%, var(--border));
+    box-shadow: var(--surface-shadow-card-hover-lg);
   }
 
   /* Inhalte, die über die Containerbreite gehen, werden abgeschnitten; Hero-Box ausgenommen. */

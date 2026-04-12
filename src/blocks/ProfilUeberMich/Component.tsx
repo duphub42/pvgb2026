@@ -68,7 +68,7 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
                     ? (w as { id?: string }).id
                     : `w-${idx}`
                 }
-                className="group relative overflow-hidden rounded-xl border border-border/80 bg-background/90 p-6 shadow-[0_12px_30px_-26px_rgba(15,23,42,0.35)] transition-all duration-300 hover:border-primary/30 hover:shadow-[0_16px_36px_-26px_rgba(15,23,42,0.4)]"
+                className="group surface-box surface-box-fill surface-box-shadow-strong surface-box-lift-md relative overflow-hidden p-6"
               >
                 <span
                   aria-hidden

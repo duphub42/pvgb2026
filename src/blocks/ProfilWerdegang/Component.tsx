@@ -58,7 +58,7 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
                 )}
                 aria-hidden
               />
-              <div className="rounded-xl border border-border/80 bg-background/90 p-5 shadow-[0_12px_30px_-26px_rgba(2,6,23,0.35)] md:p-6">
+              <div className="surface-box surface-box-fill surface-box-shadow-strong p-5 md:p-6">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-sm font-medium text-primary">{w.zeitraum}</span>
                   <Badge variant={isWork ? 'default' : 'secondary'} className="text-xs font-normal">

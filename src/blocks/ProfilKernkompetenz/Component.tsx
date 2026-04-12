@@ -47,7 +47,7 @@ export const ProfilKernkompetenzBlock: React.FC<Props> = ({
           return (
             <article
               key={typeof (b as { id?: unknown }).id === 'string' ? (b as { id?: string }).id : `b-${idx}`}
-              className="group relative overflow-hidden rounded-xl border border-border/80 bg-gradient-to-b from-background/95 to-card/70 p-7 shadow-[0_14px_36px_-30px_rgba(2,6,23,0.35)] transition-all duration-300 hover:border-primary/30 hover:shadow-[0_20px_42px_-30px_rgba(2,6,23,0.4)] md:p-8"
+              className="group surface-box surface-box-shadow-strong surface-box-lift-lg relative overflow-hidden bg-gradient-to-b from-background/95 to-card/70 p-7 md:p-8"
             >
               <span
                 aria-hidden

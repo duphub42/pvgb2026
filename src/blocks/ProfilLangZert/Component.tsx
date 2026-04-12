@@ -39,7 +39,7 @@ export const ProfilLangZertBlock: React.FC<Props> = ({
     <section className={cn('border-t border-border/60 bg-muted/15 py-16 md:py-24')}>
       <div className="container grid gap-12 lg:grid-cols-2">
         {sprRows.length > 0 ? (
-          <div className="min-w-0 rounded-xl border border-border/80 bg-background/90 p-6 shadow-[0_12px_28px_-24px_rgba(2,6,23,0.32)] md:p-8">
+          <div className="surface-box surface-box-fill surface-box-shadow-md min-w-0 p-6 md:p-8">
             <h2 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">{sprachenTitle}</h2>
             <ul className={cn('mt-6 divide-y divide-border/80')}>
               {sprRows.map((s, i) => (
@@ -60,7 +60,7 @@ export const ProfilLangZertBlock: React.FC<Props> = ({
         ) : null}
 
         {zertRows.length > 0 ? (
-          <div className="min-w-0 rounded-xl border border-border/80 bg-background/90 p-6 shadow-[0_12px_28px_-24px_rgba(2,6,23,0.32)] md:p-8">
+          <div className="surface-box surface-box-fill surface-box-shadow-md min-w-0 p-6 md:p-8">
             <h2 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
               {zertifikateTitle}
             </h2>

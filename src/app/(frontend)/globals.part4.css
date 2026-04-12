@@ -468,16 +468,6 @@ nav.megamenu-nav a.megamenu-top-item {
 .megamenu-dropdown-intro p {
   transition: none !important;
 }
-@keyframes megamenu-fan-col-in {
-  from {
-    opacity: 0;
-    transform: translate3d(calc(var(--megamenu-fan-offset, 0) * 6px), 3px, 0);
-  }
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0);
-  }
-}
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > .megamenu-fan-col {
   opacity: 1;
   animation: none;
@@ -966,8 +956,7 @@ nav.megamenu-nav a.megamenu-top-item {
   color: #171717;
 }
 .megamenu .header-tool-toggle,
-header .header-tool-toggle,
-.theme-toggle {
+header .header-tool-toggle {
   height: 2.5rem !important; /* einheitliche Höhe mit Megamenu-Items (überschreibt size-8) */
   width: 2.5rem !important;
   min-height: 2.5rem;

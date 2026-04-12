@@ -44,7 +44,7 @@ export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
                   ? (z as { id?: string }).id
                   : `z-${i}`
               }
-              className="rounded-xl border border-border/80 bg-background/90 p-5 text-center shadow-[0_10px_24px_-24px_rgba(2,6,23,0.32)]"
+              className="surface-box surface-box-fill surface-box-shadow-soft p-5 text-center"
             >
               <p className="text-4xl font-semibold tracking-tight text-foreground md:text-5xl">{z.zahl}</p>
               <p className="mt-1.5 text-xs uppercase tracking-[0.08em] text-muted-foreground md:text-sm">

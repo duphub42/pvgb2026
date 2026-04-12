@@ -41,7 +41,7 @@ export const ProfilToolsBlock: React.FC<Props> = ({ disableInnerContainer: _d, s
           {Array.from(byCat.entries()).map(([cat, list]) => (
             <div
               key={cat}
-              className="rounded-xl border border-border/80 bg-background/90 p-6 shadow-[0_12px_28px_-24px_rgba(2,6,23,0.32)]"
+              className="surface-box surface-box-fill surface-box-shadow-md p-6"
             >
               <h3 className="mb-4 text-sm font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                 {TOOL_CATEGORY_LABEL[cat] ?? cat}

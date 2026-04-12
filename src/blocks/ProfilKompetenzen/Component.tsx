@@ -56,7 +56,7 @@ export const ProfilKompetenzenBlock: React.FC<Props> = ({
                     ? (col as { id?: string }).id
                     : `c-${cidx}`
                 }
-                className="rounded-xl border border-border/80 bg-background/90 p-6 shadow-[0_12px_30px_-26px_rgba(2,6,23,0.35)]"
+                className="surface-box surface-box-fill surface-box-shadow-strong p-6"
               >
                 <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.12em] text-primary">{col.bereich}</h3>
                 <ul className="space-y-4">

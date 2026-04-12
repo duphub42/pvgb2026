@@ -105,7 +105,7 @@ export const ConsultingOverview: Block = {
       name: 'layoutMode',
       type: 'select',
       label: 'Layout-Variante',
-      defaultValue: 'standard',
+      defaultValue: 'stepList',
       options: [
         { label: 'Klassische Timeline', value: 'standard' },
         { label: 'Step-List (alternierend)', value: 'stepList' },
