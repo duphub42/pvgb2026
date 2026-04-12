@@ -488,7 +488,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               <h1 className="text-pretty text-hero-display hero-heading-gradient tracking-tight">
                 {headlineLines.map((line, i) => (
                   <span key={i} className="block">
-                    <ScrambleText text={line} delayMs={i * 120} />
+                    <ScrambleText text={line} delayMs={i * 120} disableAnimation={isMobile} />
                   </span>
                 ))}
               </h1>

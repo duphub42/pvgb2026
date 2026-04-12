@@ -11,16 +11,20 @@ import { useEffect, useState } from 'react'
  * const prefersReducedMotion = useMediaQuery('(prefers-reduced-motion: reduce)')
  */
 export function useMediaQuery(query: string): boolean {
-  const [matches, setMatches] = useState<boolean>(() => {
-    if (typeof window === 'undefined') return false
-    return window.matchMedia(query).matches
-  })
+  const [matches, setMatches] = useState<boolean>(false)
 
   useEffect(() => {
     const mq = window.matchMedia(query)
-    const handler = (e: MediaQueryListEvent) => setMatches(e.matches)
-    mq.addEventListener('change', handler)
-    return () => mq.removeEventListener('change', handler)
+    const update = () => setMatches(mq.matches)
+    update()
+
+    if (typeof mq.addEventListener === 'function') {
+      mq.addEventListener('change', update)
+      return () => mq.removeEventListener('change', update)
+    }
+
+    mq.addListener(update)
+    return () => mq.removeListener(update)
   }, [query])
 
   return matches

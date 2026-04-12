@@ -150,6 +150,12 @@ nav.megamenu-nav a.megamenu-top-item {
   border-bottom-color: transparent !important;
 }
 
+[data-theme='light'] .megamenu:hover,
+[data-theme='light'] .site-header:hover {
+  background-color: rgba(255, 255, 255, 0.36) !important;
+  border-bottom-color: transparent !important;
+}
+
 [data-theme='dark'] .megamenu:hover,
 [data-theme='dark'] .site-header:hover {
   background-color: rgba(24, 24, 24, 0.4) !important;

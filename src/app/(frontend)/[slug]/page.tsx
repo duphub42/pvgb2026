@@ -38,6 +38,11 @@ function formatUnknownError(error: unknown): string {
   }
 }
 
+const SLUG_ALIASES: Record<string, string[]> = {
+  'portfolio-branding': ['portfolio-marken'],
+  'portfolio-marken': ['portfolio-branding'],
+}
+
 async function findPublishedPageBySlug(slugParam: string, depth: 1 | 2) {
   const p = await getPayload({ config: configPromise })
   let pages = await p.find({
@@ -57,6 +62,19 @@ async function findPublishedPageBySlug(slugParam: string, depth: 1 | 2) {
       depth,
       where: {
         and: [{ slug: { in: ['home', 'Home'] } }, { _status: { equals: 'published' } }],
+      },
+      draft: false,
+    })
+  }
+
+  const aliases = SLUG_ALIASES[slugParam] ?? []
+  if (pages.docs.length === 0 && aliases.length > 0) {
+    pages = await p.find({
+      collection: 'site-pages',
+      limit: 1,
+      depth,
+      where: {
+        and: [{ slug: { in: aliases } }, { _status: { equals: 'published' } }],
       },
       draft: false,
     })

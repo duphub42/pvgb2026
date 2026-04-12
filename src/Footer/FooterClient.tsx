@@ -31,6 +31,7 @@ const MOBILE_FOOTER_B_LOGO_MAX_OPACITY = 1
 const MOBILE_FOOTER_HEADING_MIN_OPACITY = MOBILE_FOOTER_B_LOGO_MIN_OPACITY
 const MOBILE_FOOTER_HEADING_MAX_OPACITY = MOBILE_FOOTER_B_LOGO_MAX_OPACITY
 const MOBILE_FOOTER_B_LOGO_FADE_ZONE_RATIO = 0.72
+const ENABLE_MOBILE_FOOTER_SCROLL_FADE = false
 
 function mediaUrl(media: { url?: string | null } | number | null | undefined): string {
   if (media == null) return ''
@@ -91,6 +92,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
   const hasCustomBg = Boolean((footer?.backgroundColor as string)?.trim())
 
   useEffect(() => {
+    if (!ENABLE_MOBILE_FOOTER_SCROLL_FADE) return
     if (typeof window === 'undefined') return
 
     const footerEl = footerRootRef.current

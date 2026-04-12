@@ -67,7 +67,7 @@ export function ScrambleText({
         } else if (elapsed >= i * staggerMs) {
           next.push(randomCharFrom(scrambleChars))
         } else {
-          next.push(' ')
+          next.push('\u00A0')
         }
       }
       const str = next.join('')
@@ -107,7 +107,7 @@ export function ScrambleText({
       setDisplay(text)
       return
     }
-    setDisplay(' '.repeat(text.length))
+    setDisplay('\u00A0'.repeat(text.length))
 
     const t = setTimeout(() => run(), delayMs)
     return () => {

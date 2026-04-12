@@ -91,35 +91,33 @@ export function ThemeSwitcher({
           title="Toggle theme"
           aria-label={ariaLabel}
           className={cn(
-            'header-tool-toggle header-tool-toggle--theme header-icon-btn shrink-0 text-current',
+            'relative header-tool-toggle header-tool-toggle--theme header-icon-btn shrink-0 text-current',
             className,
           )}
           onClick={toggle}
         >
-          <span className="relative flex h-5 w-5 items-center justify-center overflow-hidden">
-            <Sun
-              aria-hidden
-              className={cn(
-                'absolute h-5 w-5 transform-gpu transition-all duration-300 ease-out motion-reduce:transition-none',
-                mounted
-                  ? isDark
-                    ? 'opacity-100 rotate-0 scale-100'
-                    : 'pointer-events-none opacity-0 rotate-45 scale-75'
-                  : 'opacity-100 rotate-0 scale-100',
-              )}
-            />
-            <Moon
-              aria-hidden
-              className={cn(
-                'absolute h-5 w-5 transform-gpu transition-all duration-300 ease-out motion-reduce:transition-none',
-                mounted
-                  ? isDark
-                    ? 'pointer-events-none opacity-0 -rotate-45 scale-75'
-                    : 'opacity-100 rotate-0 scale-100'
-                  : 'opacity-0 -rotate-45 scale-75',
-              )}
-            />
-          </span>
+          <Sun
+            aria-hidden
+            className={cn(
+              'absolute inset-0 m-auto h-5 w-5 transform-gpu transition-all duration-300 ease-out motion-reduce:transition-none',
+              mounted
+                ? isDark
+                  ? 'opacity-100 rotate-0 scale-100'
+                  : 'pointer-events-none opacity-0 rotate-45 scale-75'
+                : 'opacity-100 rotate-0 scale-100',
+            )}
+          />
+          <Moon
+            aria-hidden
+            className={cn(
+              'absolute inset-0 m-auto h-5 w-5 transform-gpu transition-all duration-300 ease-out motion-reduce:transition-none',
+              mounted
+                ? isDark
+                  ? 'pointer-events-none opacity-0 -rotate-45 scale-75'
+                  : 'opacity-100 rotate-0 scale-100'
+                : 'opacity-0 -rotate-45 scale-75',
+            )}
+          />
         </button>
       </TooltipTrigger>
       <TooltipContent side="bottom" sideOffset={6}>

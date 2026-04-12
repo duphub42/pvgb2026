@@ -68,13 +68,15 @@ function resolveLogoSrc(logoField: unknown): string {
   if (typeof logoField === 'number' && Number.isFinite(logoField)) {
     return `/api/media/stream/${logoField}`
   }
+  const directUrl = getMediaUrlSafe(logoField)
+  if (directUrl) return directUrl
   if (typeof logoField === 'object' && logoField !== null && 'id' in logoField) {
     const id = (logoField as { id?: unknown }).id
     if (typeof id === 'number' && Number.isFinite(id)) {
       return `/api/media/stream/${id}`
     }
   }
-  return getMediaUrlSafe(logoField)
+  return ''
 }
 
 /**

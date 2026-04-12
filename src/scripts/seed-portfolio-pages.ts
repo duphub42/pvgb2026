@@ -827,7 +827,7 @@ const templates: PageTemplate[] = [
                   'Markenauftritte mit klarer Identität, konsistenter Gestaltung und Wiedererkennung.',
                 iconUrl: ICONS.portfolioBrands,
                 iconAlt: 'Portfolio Branding',
-                slug: 'portfolio-marken',
+                slug: 'portfolio-branding',
               },
             ],
           },
@@ -1050,7 +1050,7 @@ const templates: PageTemplate[] = [
       'Marketing-Portfolio mit Cases aus SEO, SEM und Lead-Generierung, strukturiert nach Ziel, Maßnahmen und Ergebnis.',
   },
   {
-    slug: 'portfolio-marken',
+    slug: 'portfolio-branding',
     title: 'Portfolio Marken',
     hero: {
       type: 'lowImpact',

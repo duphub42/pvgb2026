@@ -28,6 +28,9 @@ export function resolveHeroImageSrc(media: unknown): string | null {
   }
 
   if (typeof media === 'object' && media !== null) {
+    const fromUrl = getMediaUrlSafe(media)
+    if (fromUrl) return fromUrl
+
     const idRaw = (media as { id?: unknown }).id
     const idNum =
       typeof idRaw === 'number' && Number.isFinite(idRaw) && idRaw > 0
@@ -38,8 +41,6 @@ export function resolveHeroImageSrc(media: unknown): string | null {
     if (idNum != null && idNum > 0) {
       return streamPathForId(idNum)
     }
-    const fromUrl = getMediaUrlSafe(media)
-    if (fromUrl) return fromUrl
   }
 
   return null

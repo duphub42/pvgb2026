@@ -109,7 +109,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             <AdminBarGate preview={isEnabled} adminBarProps={{ preview: isEnabled }} />
             <Header headerData={headerData} footerData={footerData} />
             <RootLayoutInner>
-              <main id="main-content" key="main-content">
+              <main id="main-content" key="main-content" className="min-h-[100svh]">
                 {children}
               </main>
               <Footer key="site-footer" locale={locale} footerData={footerData} />

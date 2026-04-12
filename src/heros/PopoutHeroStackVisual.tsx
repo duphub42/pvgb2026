@@ -33,6 +33,7 @@ export function PopoutHeroStackVisual({
   frontMobileImageScale?: number
 }) {
   if (layers.length === 0) return null
+  const topLayerZ = layers[layers.length - 1]?.z ?? 0
 
   const toMobileWidth = (value: number | string): string => {
     if (typeof value === 'number' && Number.isFinite(value)) return `${value}%`
@@ -60,6 +61,7 @@ export function PopoutHeroStackVisual({
       <div className="pointer-events-none relative min-h-[min(52vh,520px)] w-full md:min-h-[min(58vh,640px)]">
         {layers.map((layer) => {
           const isFrontLayer = !layer.wide && layer.z >= 2
+          const isTopLayer = layer.z === topLayerZ
           const mobileLayerWidth = isFrontLayer ? frontMobileWidthPercent : 86
           const mobileLayerMaxWidth = isFrontLayer
             ? toMobileMaxWidth(frontMobileMaxWidth)
@@ -90,7 +92,9 @@ export function PopoutHeroStackVisual({
                   fill
                   className="object-contain object-bottom"
                   sizes="(max-width: 768px) 96vw, 560px"
-                  priority
+                  priority={isTopLayer}
+                  fetchPriority={isTopLayer ? 'high' : undefined}
+                  loading={isTopLayer ? undefined : 'lazy'}
                 />
               </div>
             </div>
@@ -128,7 +132,9 @@ export function PopoutHeroStackVisual({
                     height={958}
                     className="h-auto max-h-[min(88vh,920px)] w-full object-contain object-bottom md:max-h-[min(92vh,960px)] md:translate-y-[calc(var(--hero-stack-img-base-y,clamp(1rem,6vh,4rem))-var(--hero-stack-lift,0px))] drop-shadow-[0_20px_50px_rgba(0,0,0,0.12)] dark:drop-shadow-[0_16px_40px_rgba(0,0,0,0.35)]"
                     sizes="(max-width: 768px) 88vw, 520px"
-                    priority
+                    priority={isTopLayer}
+                    fetchPriority={isTopLayer ? 'high' : undefined}
+                    loading={isTopLayer ? undefined : 'lazy'}
                   />
                 </div>
               </div>
@@ -206,6 +212,15 @@ export function PopoutHeroStackVisual({
           .hero-stack-float-mid,
           .hero-stack-float-front {
             animation: none;
+          }
+        }
+
+        @media (max-width: 767px) {
+          .hero-stack-float-back,
+          .hero-stack-float-mid,
+          .hero-stack-float-front {
+            animation: none;
+            will-change: auto;
           }
         }
       `}</style>
