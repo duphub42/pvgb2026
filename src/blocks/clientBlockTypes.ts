@@ -27,6 +27,7 @@ export const CLIENT_BLOCK_TYPES = new Set([
   'servicesGrid',
   'portfolioCaseGrid',
   'portfolioKpiStrip',
+  'pricingTable',
   'shadcnBlock',
   'whyWorkWithMe',
   'radialOrbitalTimeline',

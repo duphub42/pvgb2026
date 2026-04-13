@@ -5,15 +5,12 @@
   --headline-color: var(--consulting-flow-headline, #252525);
   --body-color: var(--consulting-flow-body, #545454);
   --muted-color: var(--consulting-flow-muted, #868686);
-  --strategy-badge-color: var(--consulting-flow-strategy-badge, #08d3bb);
-  --benefits-badge-color: var(--consulting-flow-benefits-badge, #1090cb);
-  --experience-badge-color: var(--consulting-flow-experience-badge, #9208d3);
   --circle-size-small: 36px;
   --circle-padding-small: 9px;
   --circle-size-large: 174px;
   --circle-padding-large: 48px;
   box-sizing: content-box;
-  max-width: 640px;
+  max-width: 100%;
   margin: 0 auto;
   padding: 0 12px;
 }
@@ -40,6 +37,14 @@
   content: counter(consulting-step-counter, decimal-leading-zero);
   font-weight: 300;
   color: var(--connector-color);
+  opacity: 0.62;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.consulting-flow-item-inner {
+  position: relative;
+  z-index: 1;
 }
 
 .consulting-flow-item + .consulting-flow-item {
@@ -61,7 +66,7 @@
   display: block;
   flex: 0 0 auto;
   border-radius: 9999px;
-  color: rgb(51 65 85);
+  color: #52525b;
 }
 
 .consulting-flow-icon svg {
@@ -86,9 +91,9 @@
   display: inline-flex;
   align-items: center;
   border-radius: 9999px;
-  background: rgb(241 245 249);
+  background: #f4f4f5;
   color: var(--body-color);
-  border: 1px solid color-mix(in srgb, var(--body-color) 20%, transparent);
+  border: 1px solid #d4d4d8;
   padding: 0.2rem 0.75rem;
   font-size: 10px;
   font-weight: 600;
@@ -127,41 +132,23 @@
 }
 
 .consulting-flow-item:nth-child(5n + 1) .consulting-flow-icon {
-  background: #f4f6d5;
+  background: #f5f5f5;
 }
 
 .consulting-flow-item:nth-child(5n + 2) .consulting-flow-icon {
-  background: #e8f4f3;
+  background: #ececec;
 }
 
 .consulting-flow-item:nth-child(5n + 3) .consulting-flow-icon {
-  background: #ededed;
+  background: #e2e2e2;
 }
 
 .consulting-flow-item:nth-child(5n + 4) .consulting-flow-icon {
-  background: #edf6ef;
+  background: #ebebeb;
 }
 
 .consulting-flow-item:nth-child(5n + 5) .consulting-flow-icon {
-  background: #fef3f3;
-}
-
-.consulting-flow-item[data-flow-tone='strategy'] .consulting-flow-badge {
-  color: var(--strategy-badge-color);
-  border-color: color-mix(in srgb, var(--strategy-badge-color) 35%, transparent);
-  background: color-mix(in srgb, var(--strategy-badge-color) 12%, white);
-}
-
-.consulting-flow-item[data-flow-tone='benefits'] .consulting-flow-badge {
-  color: var(--benefits-badge-color);
-  border-color: color-mix(in srgb, var(--benefits-badge-color) 35%, transparent);
-  background: color-mix(in srgb, var(--benefits-badge-color) 12%, white);
-}
-
-.consulting-flow-item[data-flow-tone='experience'] .consulting-flow-badge {
-  color: var(--experience-badge-color);
-  border-color: color-mix(in srgb, var(--experience-badge-color) 35%, transparent);
-  background: color-mix(in srgb, var(--experience-badge-color) 12%, white);
+  background: #f0f0f0;
 }
 
 @media (max-width: 600px) {
@@ -173,7 +160,7 @@
   .consulting-flow-item::before {
     position: relative;
     margin-right: 12px;
-    color: rgb(15 23 42);
+    color: #18181b;
     font-size: 36px;
     font-weight: 300;
     line-height: 42px;
@@ -221,12 +208,23 @@
 }
 
 @media (min-width: 601px) {
+  .consulting-flow {
+    max-width: min(100%, 1060px);
+    padding: 0 clamp(12px, 2vw, 24px);
+  }
+
+  .consulting-flow-item + .consulting-flow-item {
+    margin-top: calc(var(--connector-height) * 2.4);
+  }
+
   .consulting-flow-item::before {
     position: absolute;
     color: var(--connector-color);
-    font-size: 90px;
+    font-size: 104px;
     font-weight: 300;
     line-height: 1;
+    opacity: 0.36;
+    filter: blur(1.6px);
   }
 
   .consulting-flow-icon {
@@ -237,7 +235,8 @@
 
   .consulting-flow-body {
     margin-top: calc(var(--connector-height) * 2);
-    flex: 0 1 33.3333%;
+    flex: 0 1 35%;
+    max-width: 34rem;
   }
 
   .consulting-flow-item > .consulting-flow-item-inner {
@@ -297,7 +296,7 @@
   }
 
   .consulting-flow-item:nth-child(odd) .consulting-flow-icon {
-    margin-left: 72px;
+    margin-left: 88px;
   }
 
   .consulting-flow-item:nth-child(even) .consulting-flow-content {
@@ -329,40 +328,42 @@
   }
 
   .consulting-flow-item:nth-child(even) .consulting-flow-icon {
-    margin-right: 72px;
+    margin-right: 88px;
   }
 }
 
 [data-theme='dark'] .consulting-flow-badge {
-  background: color-mix(in srgb, var(--body-color) 20%, #0f172a);
+  background: #27272a;
   color: #e2e8f0;
+  border-color: #52525b;
 }
 
 .dark .consulting-flow-badge {
-  background: color-mix(in srgb, var(--body-color) 20%, #0f172a);
+  background: #27272a;
   color: #e2e8f0;
+  border-color: #52525b;
 }
 
 [data-theme='dark'] .consulting-flow-meta {
-  color: color-mix(in srgb, var(--muted-color) 75%, #e2e8f0);
+  color: #a1a1aa;
 }
 
 .dark .consulting-flow-meta {
-  color: color-mix(in srgb, var(--muted-color) 75%, #e2e8f0);
+  color: #a1a1aa;
 }
 
 [data-theme='dark'] .consulting-flow-title {
-  color: color-mix(in srgb, var(--headline-color) 70%, #f8fafc);
+  color: #f4f4f5;
 }
 
 .dark .consulting-flow-title {
-  color: color-mix(in srgb, var(--headline-color) 70%, #f8fafc);
+  color: #f4f4f5;
 }
 
 [data-theme='dark'] .consulting-flow-description {
-  color: color-mix(in srgb, var(--body-color) 78%, #f1f5f9);
+  color: #d4d4d8;
 }
 
 .dark .consulting-flow-description {
-  color: color-mix(in srgb, var(--body-color) 78%, #f1f5f9);
+  color: #d4d4d8;
 }

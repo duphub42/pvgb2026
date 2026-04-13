@@ -374,6 +374,7 @@ export interface SitePage {
         | ProfilLangZertBlock
         | ProfilCtaBandBlock
         | PriceCalculatorBlock
+        | PricingTableBlock
         | CallToActionBlock
         | CalPopupBlock
         | ContactInfoCardsBlock
@@ -1645,6 +1646,81 @@ export interface PriceCalculatorBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingTableBlock".
+ */
+export interface PricingTableBlock {
+  /**
+   * Optionaler Hintergrund für den gesamten Block.
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  eyebrow?: string | null;
+  heading: string;
+  description?: string | null;
+  /**
+   * Genau drei Angebote. Reihenfolge entspricht links nach rechts im Frontend.
+   */
+  plans: {
+    name: string;
+    /**
+     * Zum Beispiel: Empfohlen, Bestseller, Neu.
+     */
+    badge?: string | null;
+    description?: string | null;
+    /**
+     * Freitext erlaubt, z. B. 1.490 oder ab 5.900.
+     */
+    price: string;
+    priceSuffix?: string | null;
+    highlighted?: boolean | null;
+    /**
+     * Kurze Bullet-Points fuer das jeweilige Angebot.
+     */
+    features?:
+      | {
+          text: string;
+          id?: string | null;
+        }[]
+      | null;
+    ctaLabel: string;
+    ctaHref: string;
+    ctaNewTab?: boolean | null;
+    id?: string | null;
+  }[];
+  comparisonHeading?: string | null;
+  comparisonDescription?: string | null;
+  comparisonRows: {
+    feature: string;
+    /**
+     * Die Reihenfolge passt zu den drei Angeboten oben.
+     */
+    values: {
+      type: 'included' | 'optional' | 'excluded' | 'text';
+      /**
+       * Bei Freitext empfohlen. Sonst optional als benutzerdefinierte Beschriftung.
+       */
+      label?: string | null;
+      id?: string | null;
+    }[];
+    id?: string | null;
+  }[];
+  comparisonFootnote?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pricingTable';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
@@ -2746,6 +2822,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         profilLangZert?: T | ProfilLangZertBlockSelect<T>;
         profilCtaBand?: T | ProfilCtaBandBlockSelect<T>;
         priceCalculator?: T | PriceCalculatorBlockSelect<T>;
+        pricingTable?: T | PricingTableBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         calPopup?: T | CalPopupBlockSelect<T>;
         contactInfoCards?: T | ContactInfoCardsBlockSelect<T>;
@@ -3425,6 +3502,61 @@ export interface PriceCalculatorBlockSelect<T extends boolean = true> {
   sectionLabel?: T;
   heading?: T;
   sub?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingTableBlock_select".
+ */
+export interface PricingTableBlockSelect<T extends boolean = true> {
+  blockBackground?: T;
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  eyebrow?: T;
+  heading?: T;
+  description?: T;
+  plans?:
+    | T
+    | {
+        name?: T;
+        badge?: T;
+        description?: T;
+        price?: T;
+        priceSuffix?: T;
+        highlighted?: T;
+        features?:
+          | T
+          | {
+              text?: T;
+              id?: T;
+            };
+        ctaLabel?: T;
+        ctaHref?: T;
+        ctaNewTab?: T;
+        id?: T;
+      };
+  comparisonHeading?: T;
+  comparisonDescription?: T;
+  comparisonRows?:
+    | T
+    | {
+        feature?: T;
+        values?:
+          | T
+          | {
+              type?: T;
+              label?: T;
+              id?: T;
+            };
+        id?: T;
+      };
+  comparisonFootnote?: T;
   id?: T;
   blockName?: T;
 }

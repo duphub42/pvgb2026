@@ -30,6 +30,7 @@ import { ProfilTools } from '../../blocks/ProfilTools/config'
 import { ProfilLangZert } from '../../blocks/ProfilLangZert/config'
 import { ProfilCtaBand } from '../../blocks/ProfilCtaBand/config'
 import { PriceCalculator } from '../../blocks/PriceCalculator/config'
+import { PricingTable } from '../../blocks/PricingTable/config'
 import { CalPopup } from '../../blocks/CalPopup/config'
 import {
   createClearOrphanedRefsAfterReadHook,
@@ -108,6 +109,7 @@ export const Pages: CollectionConfig = {
                 ProfilLangZert,
                 ProfilCtaBand,
                 PriceCalculator,
+                PricingTable,
                 CallToAction,
                 CalPopup,
                 ContactInfoCardsBlockConfig,
