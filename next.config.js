@@ -160,4 +160,48 @@ const nextConfig = {
   },
 }
 
-export default withBundleAnalyzer(withPayload(nextConfig, { devBundleServerPackages: false }))
+function stripPayloadClientHintHeaders(headers = []) {
+  return headers
+    .map((header) => {
+      if (!header || typeof header !== 'object') return header
+
+      const key = typeof header.key === 'string' ? header.key.toLowerCase() : ''
+      if (key === 'accept-ch' || key === 'critical-ch') return null
+
+      if (key === 'vary' && typeof header.value === 'string') {
+        const filteredVaryValues = header.value
+          .split(',')
+          .map((value) => value.trim())
+          .filter((value) => value.length > 0)
+          .filter((value) => value.toLowerCase() !== 'sec-ch-prefers-color-scheme')
+
+        if (filteredVaryValues.length === 0) return null
+        return { ...header, value: filteredVaryValues.join(', ') }
+      }
+
+      return header
+    })
+    .filter(Boolean)
+}
+
+function withoutPayloadClientHintHeaders(config) {
+  const originalHeaders = config.headers
+
+  return {
+    ...config,
+    headers: async () => {
+      const resolvedHeaders = typeof originalHeaders === 'function' ? await originalHeaders() : []
+      return resolvedHeaders
+        .map((entry) => ({
+          ...entry,
+          headers: stripPayloadClientHintHeaders(entry.headers),
+        }))
+        .filter((entry) => !Array.isArray(entry.headers) || entry.headers.length > 0)
+    },
+  }
+}
+
+const payloadConfig = withPayload(nextConfig, { devBundleServerPackages: false })
+const sanitizedPayloadConfig = withoutPayloadClientHintHeaders(payloadConfig)
+
+export default withBundleAnalyzer(sanitizedPayloadConfig)

@@ -927,10 +927,6 @@
   .leistungen-hero-badge {
     align-items: center;
     justify-content: center;
-    border-radius: 9999px;
-    border: 1px solid hsl(var(--primary) / 0.32);
-    background: hsl(var(--primary) / 0.14);
-    color: hsl(var(--primary));
     padding: 0.28rem 0.82rem;
     font-size: 0.7rem;
     font-weight: 700;
@@ -938,12 +934,6 @@
     text-transform: uppercase;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-  }
-
-  [data-theme='dark'] .leistungen-hero-badge {
-    border-color: hsl(var(--primary) / 0.38);
-    background: hsl(var(--primary) / 0.18);
-    color: color-mix(in srgb, hsl(var(--primary)) 72%, white);
   }
 
   .leistungen-hero-footer-fade {

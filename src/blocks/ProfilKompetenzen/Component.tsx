@@ -6,6 +6,7 @@ import type { ProfilKompetenzenBlock as BlockData } from '@/payload-types'
 
 import { profilKompetenzenDefaults } from '@/blocks/ProfilBlocks/defaults'
 import { LEVEL_PCT } from '@/blocks/ProfilBlocks/shared'
+import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
@@ -43,9 +44,12 @@ export const ProfilKompetenzenBlock: React.FC<Props> = ({
         className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-primary/[0.07] to-transparent"
       />
       <div className="container relative">
-        <p className="mb-4 inline-flex w-fit items-center rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <Badge
+          variant="secondary"
+          className="mb-4 w-fit px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em]"
+        >
           Kompetenz-Matrix
-        </p>
+        </Badge>
         <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{st}</h2>
         <p className="mt-4 max-w-2xl text-muted-foreground md:text-lg">{si}</p>
         <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">

@@ -42,11 +42,9 @@ const ICONS: Record<string, LucideIcon> = {
 const statusVariant = (status?: string) => {
   switch (status) {
     case 'completed':
-      return 'secondary'
-    case 'in-progress':
-      return 'outline'
+      return 'primary'
     default:
-      return 'destructive'
+      return 'secondary'
   }
 }
 
@@ -79,9 +77,12 @@ export const RadialOrbitalTimelineBlock: React.FC<Props> = ({
     <section className="container py-16 md:py-24">
       <div className="mx-auto max-w-5xl space-y-10">
         <div className="space-y-4 text-center">
-          <p className="inline-flex w-fit items-center rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.2em] text-muted-foreground">
+          <Badge
+            variant="secondary"
+            className="w-fit px-3 py-1 text-[11px] font-medium uppercase tracking-[0.2em]"
+          >
             Timeline
-          </p>
+          </Badge>
           <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
             {sectionTitle?.trim() || 'Projekt-Timeline'}
           </h2>
@@ -97,7 +98,7 @@ export const RadialOrbitalTimelineBlock: React.FC<Props> = ({
             <div className="absolute inset-0 m-auto h-[70%] w-[70%] rounded-full border border-border/50" />
             <motion.div
               className="relative aspect-square w-full rounded-full border border-border/70 bg-muted/10 overflow-hidden"
-              animate={useReducedMotion() ? undefined : { rotate: 360 }}
+              animate={reducedMotion ? undefined : { rotate: 360 }}
               transition={{ duration: 28, ease: 'linear', repeat: Infinity }}
             >
               {items.map((item, index) => {

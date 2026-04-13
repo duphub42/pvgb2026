@@ -1,5 +1,6 @@
 import type { ComponentProps, FC } from 'react'
 import { Media } from '@/components/Media'
+import { Badge } from '@/components/ui/badge'
 import { CMSLink } from '@/components/Link'
 import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
 import { buildHeroCopyFadeStyle, getScrambleRevealDurationMs } from '@/heros/scrambleTiming'
@@ -52,12 +53,13 @@ export const LeistungenHero: FC<LeistungenHeroProps> = ({
       <div className="container relative z-30 w-full px-4">
         <div className="mr-auto flex w-full max-w-[56rem] flex-col items-start pt-2 text-left md:pt-3">
           {badgeText && (
-            <span
-              className="order-1 leistungen-hero-badge mb-4 inline-flex hero-blurry-fade-in hero-blurry-fade-in--subheading"
+            <Badge
+              variant="primary"
+              className="order-1 leistungen-hero-badge mb-4 hero-blurry-fade-in hero-blurry-fade-in--subheading"
               style={subheadlineFadeStyle}
             >
               {badgeText}
-            </span>
+            </Badge>
           )}
 
           {headline && (

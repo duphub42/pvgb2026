@@ -266,7 +266,7 @@ function ComparisonValuePill({
 
   if (value.type === 'included') {
     return (
-      <span className={cn(baseClassName, 'border-emerald-200 bg-emerald-50 text-emerald-700')}>
+      <span className={cn(baseClassName, 'border-primary/30 bg-primary/[0.12] text-primary')}>
         <Check className={compact ? 'size-3' : 'size-3.5'} />
         {value.label}
       </span>
@@ -275,7 +275,7 @@ function ComparisonValuePill({
 
   if (value.type === 'optional') {
     return (
-      <span className={cn(baseClassName, 'border-amber-200 bg-amber-50 text-amber-700')}>
+      <span className={cn(baseClassName, 'border-border/80 bg-muted/55 text-muted-foreground')}>
         <Circle className={compact ? 'size-3' : 'size-3.5'} />
         {value.label}
       </span>
@@ -283,7 +283,7 @@ function ComparisonValuePill({
   }
 
   return (
-    <span className={cn(baseClassName, 'border-border bg-muted text-muted-foreground')}>
+    <span className={cn(baseClassName, 'border-border/80 bg-muted/55 text-muted-foreground')}>
       <Minus className={compact ? 'size-3' : 'size-3.5'} />
       {value.label}
     </span>
@@ -328,7 +328,7 @@ export function PricingTableBlock({
 
         <div className="relative z-10">
           <div className="mx-auto max-w-3xl text-center">
-            <Badge variant="outline" className="border-primary/25 bg-primary/5 text-primary">
+            <Badge variant="primary">
               {sectionEyebrow}
             </Badge>
             <h2 className="mt-4 text-balance text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
@@ -358,7 +358,7 @@ export function PricingTableBlock({
                   </div>
                   {plan.badge || plan.highlighted ? (
                     <Badge
-                      variant={plan.highlighted ? 'default' : 'outline'}
+                      variant={plan.highlighted ? 'primary' : 'secondary'}
                       className={cn(
                         'shrink-0',
                         plan.highlighted && 'shadow-[0_8px_30px_-16px_rgba(0,0,0,0.35)]',

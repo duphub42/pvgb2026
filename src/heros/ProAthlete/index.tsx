@@ -167,8 +167,8 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
           <div className="w-full max-w-xl">
             {badgeText ? (
               <Badge
-                variant="outline"
-                className="w-fit font-mono text-[10px] tracking-[0.2em] uppercase border-zinc-500 dark:border-zinc-600 hero-subheading-contrast px-3 py-1.5 mb-8 bg-white/90 dark:bg-zinc-800/90 shadow-md hero-blurry-fade-in hero-blurry-fade-in--subheading"
+                variant="secondary"
+                className="mb-8 w-fit px-3 py-1.5 font-mono text-[10px] uppercase tracking-[0.2em] hero-subheading-contrast shadow-md hero-blurry-fade-in hero-blurry-fade-in--subheading"
                 style={subheadlineFadeStyle}
               >
                 <User className="w-3 h-3 mr-2 hero-subheading-contrast" />

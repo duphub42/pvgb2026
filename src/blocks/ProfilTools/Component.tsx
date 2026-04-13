@@ -37,9 +37,12 @@ export const ProfilToolsBlock: React.FC<Props> = ({
 
   return (
     <section className={cn('container py-16 md:py-24')}>
-      <p className="mb-4 inline-flex w-fit items-center rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+      <Badge
+        variant="secondary"
+        className="mb-4 w-fit px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em]"
+      >
         Setup
-      </p>
+      </Badge>
       <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{title}</h2>
       {byCat.size > 0 ? (
         <div className="mt-12 grid gap-6 lg:grid-cols-2">
@@ -56,8 +59,8 @@ export const ProfilToolsBlock: React.FC<Props> = ({
                         ? (t as { id?: string }).id
                         : `${cat}-${i}`
                     }
-                    variant="outline"
-                    className="rounded-full border-border/75 bg-background px-3 py-1.5 text-[0.82rem] font-medium tracking-[0.01em]"
+                    variant="secondary"
+                    className="px-3 py-1.5 text-[0.82rem] font-medium tracking-[0.01em]"
                   >
                     {t.name}
                   </Badge>

@@ -10,6 +10,7 @@ import {
 } from 'lucide-react'
 
 import { Media } from '@/components/Media'
+import { Badge } from '@/components/ui/badge'
 import type { Media as MediaType, PortfolioCaseGridBlock as PortfolioCaseGridBlockData } from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
@@ -22,28 +23,23 @@ const disciplineMeta: Record<
   {
     label: string
     icon: LucideIcon
-    badgeClass: string
   }
 > = {
   webdesign: {
     label: 'Webdesign',
     icon: MonitorSmartphone,
-    badgeClass: 'bg-sky-100 text-sky-900 ring-sky-200',
   },
   marketing: {
     label: 'Marketing',
     icon: Megaphone,
-    badgeClass: 'bg-amber-100 text-amber-900 ring-amber-200',
   },
   branding: {
     label: 'Branding',
     icon: Palette,
-    badgeClass: 'bg-rose-100 text-rose-900 ring-rose-200',
   },
   mixed: {
     label: 'Interdisziplinaer',
     icon: Layers3,
-    badgeClass: 'bg-emerald-100 text-emerald-900 ring-emerald-200',
   },
 }
 
@@ -89,10 +85,13 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
         <div className="relative z-10 max-w-3xl">
           {eyebrow ? (
-            <p className="mb-3 inline-flex items-center gap-2 rounded-full border border-current/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em]">
+            <Badge
+              variant="secondary"
+              className="mb-3 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em]"
+            >
               <Sparkles className="size-3.5" />
               {eyebrow}
-            </p>
+            </Badge>
           ) : null}
           {heading ? <h2 className="text-3xl font-semibold leading-tight md:text-4xl">{heading}</h2> : null}
           {intro ? <p className="mt-4 max-w-2xl text-sm leading-relaxed opacity-85 md:text-base">{intro}</p> : null}
@@ -131,15 +130,13 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
                 <div className="flex h-full flex-col px-5 pb-5 pt-5 md:px-6">
                   <div className="mb-4 flex flex-wrap items-center gap-2">
-                    <span
-                      className={cn(
-                        'inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold ring-1 ring-inset',
-                        meta.badgeClass,
-                      )}
+                    <Badge
+                      variant={item.featured ? 'primary' : 'secondary'}
+                      className="gap-1.5 px-2.5 py-1 text-xs font-semibold"
                     >
                       <DisciplineIcon className="size-3.5" />
                       {meta.label}
-                    </span>
+                    </Badge>
                     {item.client ? (
                       <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground/90">
                         {item.client}
@@ -192,12 +189,13 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
                   <div className="mt-5 flex flex-wrap items-center gap-2">
                     {tags.map((tag, tagIndex) => (
-                      <span
+                      <Badge
+                        variant="secondary"
                         key={typeof tag.id === 'string' && tag.id ? tag.id : `${key}-tag-${tagIndex}`}
-                        className="rounded-full border border-border/70 bg-background/75 px-2.5 py-1 text-xs font-medium text-muted-foreground"
+                        className="px-2.5 py-1 text-xs font-medium"
                       >
                         {tag.label}
-                      </span>
+                      </Badge>
                     ))}
                   </div>
 

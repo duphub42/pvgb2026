@@ -31,8 +31,8 @@ const Feature271 = ({ className }: Feature271Props) => {
         <div className="relative container flex h-full flex-col items-center justify-center gap-15 text-center">
           <div className="flex flex-col items-center justify-center">
             <Badge
-              variant="outline"
-              className="mb-5 w-fit rounded-full bg-background/70 px-4 py-1 text-sm tracking-tight"
+              variant="secondary"
+              className="mb-5 w-fit px-4 py-1 text-sm tracking-tight"
             >
               Shadcnblocks
             </Badge>

@@ -103,8 +103,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <meta content="yes" name="apple-mobile-web-app-capable" />
           <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" />
           <meta content="yes" name="mobile-web-app-capable" />
-          <meta content="#f5f5f5" media="(prefers-color-scheme: light)" name="theme-color" />
-          <meta content="#0a0a0a" media="(prefers-color-scheme: dark)" name="theme-color" />
+          {/* Single theme-color avoids Critical-CH navigation restarts on first request. */}
+          <meta content="#0a0a0a" name="theme-color" />
         </head>
         <body data-layout="default">
           <Providers initialLocale={locale}>

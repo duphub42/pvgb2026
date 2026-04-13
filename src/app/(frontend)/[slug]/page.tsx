@@ -14,7 +14,7 @@ import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 
-// ISR: Published pages cached 60s (besserer TTFB). Draft/Preview bleibt dynamisch durch draftMode().
+// ISR: Published pages cached 60s (besserer TTFB). Production preview uses explicit previewId.
 export const revalidate = 60
 
 type PageProps = {
@@ -91,7 +91,10 @@ export default async function Page({
   const { slug = 'home' } = await paramsPromise
   const searchParams = await searchParamsPromise
   const previewId = searchParams?.previewId
-  const { isEnabled: isDraftMode } = await draftMode()
+  // Calling draftMode() unconditionally makes the whole route dynamic/no-store.
+  // In production we rely on explicit previewId for previews and keep public pages cacheable.
+  const isDraftMode =
+    process.env.NODE_ENV === 'development' ? (await draftMode()).isEnabled : false
 
   let payload
   try {

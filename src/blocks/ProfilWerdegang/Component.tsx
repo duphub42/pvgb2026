@@ -35,9 +35,12 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
 
   return (
     <section className={cn('container py-16 md:py-24')}>
-      <p className="mb-4 inline-flex w-fit items-center rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+      <Badge
+        variant="secondary"
+        className="mb-4 w-fit px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em]"
+      >
         Erfahrung
-      </p>
+      </Badge>
       <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{st}</h2>
       <ol className="relative mt-12 space-y-7 border-l border-border/70 pl-8 md:pl-10">
         {rows.map((w, idx) => {
@@ -61,7 +64,7 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
               <Card variant="secondary" className="p-5 md:p-6">
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-sm font-medium text-primary">{w.zeitraum}</span>
-                  <Badge variant={isWork ? 'default' : 'secondary'} className="text-xs font-normal">
+                  <Badge variant={isWork ? 'primary' : 'secondary'} className="text-xs font-normal">
                     {isWork ? (
                       <>
                         <Briefcase className="mr-1 h-3 w-3" aria-hidden />

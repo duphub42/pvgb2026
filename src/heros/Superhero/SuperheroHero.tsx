@@ -2,6 +2,7 @@
 
 import { CMSLink } from '@/components/Link'
 import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
+import { Badge } from '@/components/ui/badge'
 import Image from 'next/image'
 import React from 'react'
 import PopoutPortrait from '@/components/PopoutPortrait'
@@ -472,12 +473,13 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
             )}
           >
             {subheadline && (
-              <p
-                className="inline-flex w-fit items-center rounded-full border border-border bg-card px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] hero-subheading-contrast hero-blurry-fade-in hero-blurry-fade-in--subheading"
+              <Badge
+                variant="secondary"
+                className="w-fit px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] hero-subheading-contrast hero-blurry-fade-in hero-blurry-fade-in--subheading"
                 style={subheadlineFadeStyle}
               >
                 {subheadline}
-              </p>
+              </Badge>
             )}
 
             {headlineLines.length > 0 && (

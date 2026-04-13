@@ -47,7 +47,9 @@ export const Faq5: React.FC<Faq5Props> = ({
     <section className="py-32">
       <div className="container">
         <div className="text-center">
-          <Badge className="text-xs font-medium">{badge}</Badge>
+          <Badge variant="secondary" className="text-xs font-medium">
+            {badge}
+          </Badge>
           <h2 className="mt-4 text-4xl font-semibold">{heading}</h2>
           <p className="mt-6 font-medium text-muted-foreground">{description}</p>
         </div>
@@ -74,4 +76,3 @@ export const Faq5: React.FC<Faq5Props> = ({
 export const Faq5Demo: React.FC = () => {
   return <Faq5 />
 }
-

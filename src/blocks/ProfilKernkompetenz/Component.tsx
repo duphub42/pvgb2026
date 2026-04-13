@@ -5,6 +5,7 @@ import React from 'react'
 import type { ProfilKernkompetenzBlock as BlockData } from '@/payload-types'
 
 import { profilKernkompetenzDefaults } from '@/blocks/ProfilBlocks/defaults'
+import { Badge } from '@/components/ui/badge'
 import { cn } from '@/utilities/ui'
 import { Card } from '@/components/ui/card'
 
@@ -34,9 +35,12 @@ export const ProfilKernkompetenzBlock: React.FC<Props> = ({
   return (
     <section className={cn('container py-16 md:py-24')}>
       <div className="max-w-3xl">
-        <p className="mb-4 inline-flex w-fit items-center rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+        <Badge
+          variant="secondary"
+          className="mb-4 w-fit px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em]"
+        >
           Leistungsprofil
-        </p>
+        </Badge>
         <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
           {head}
         </h2>

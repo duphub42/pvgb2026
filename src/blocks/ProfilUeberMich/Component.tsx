@@ -10,6 +10,7 @@ import {
   profilWerteDefaults,
 } from '@/blocks/ProfilBlocks/defaults'
 import { WERT_ICON_MAP } from '@/blocks/ProfilBlocks/shared'
+import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
 
@@ -45,9 +46,12 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
     <section className={cn('container py-16 md:py-24')}>
       <div className="grid gap-12 lg:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] lg:items-start">
         <div className="space-y-7">
-          <p className="inline-flex w-fit items-center rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
+          <Badge
+            variant="secondary"
+            className="w-fit px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em]"
+          >
             Profil
-          </p>
+          </Badge>
           <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
             {title}
           </h2>

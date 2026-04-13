@@ -3,6 +3,7 @@ import Image from 'next/image'
 import React from 'react'
 
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { Logo } from '@/components/Logo/Logo'
 import { cn } from '@/utilities/ui'
 
@@ -110,9 +111,9 @@ export const HeroMarketingBlock: React.FC<HeroMarketingBlockProps> = (props) => 
       >
         <div className="text-center lg:text-left">
           <div className="mx-auto max-w-xl lg:mr-auto">
-            <div className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-muted px-3 py-1 text-xs font-medium shadow-sm">
-              <span>{resolvedBadge}</span>
-            </div>
+            <Badge variant="secondary" className="px-3 py-1 text-xs font-medium shadow-sm">
+              {resolvedBadge}
+            </Badge>
 
             <h1 className="mx-auto mt-8 max-w-4xl text-balance text-4xl font-semibold md:text-6xl lg:mt-12">
               {resolvedTitle}

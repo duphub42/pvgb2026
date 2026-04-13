@@ -100,7 +100,7 @@ export function PricingCards({
     <div className="w-full py-20 lg:py-40">
       <div className="container mx-auto">
         <div className="flex flex-col items-center justify-center gap-4 text-center">
-          <Badge>{badge}</Badge>
+          <Badge variant="primary">{badge}</Badge>
           <div className="flex flex-col gap-2">
             <h2 className="max-w-xl text-center text-3xl font-normal tracking-tighter md:text-5xl">
               {title}

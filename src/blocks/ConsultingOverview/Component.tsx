@@ -10,6 +10,7 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
 import { cn } from '@/utilities/ui'
 import './consulting-overview-flow.css'
 
@@ -139,9 +140,12 @@ const StepCard: React.FC<{ step: Step }> = ({ step }) => {
             <Icon className="h-5 w-5" />
           </span>
           <div className="flex flex-wrap items-center gap-3">
-            <span className="inline-flex items-center rounded-full border border-border bg-transparent px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground">
+            <Badge
+              variant="secondary"
+              className="px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground"
+            >
               {step.badge}
-            </span>
+            </Badge>
             {step.meta ? (
               <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                 {step.meta}
@@ -224,7 +228,12 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
 
                   <div className="consulting-flow-body">
                     <div className="consulting-flow-tags">
-                      <span className="consulting-flow-badge">{step.badge}</span>
+                      <Badge
+                        variant="secondary"
+                        className="px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]"
+                      >
+                        {step.badge}
+                      </Badge>
                       {step.meta ? <span className="consulting-flow-meta">{step.meta}</span> : null}
                     </div>
                     <h3 className="consulting-flow-title">{step.title}</h3>
@@ -275,9 +284,12 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
         )}
       >
         <header className="relative z-10 mx-auto max-w-3xl text-center">
-          <p className="inline-flex items-center rounded-full border border-border bg-muted px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+          <Badge
+            variant="secondary"
+            className="px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]"
+          >
             Prozess
-          </p>
+          </Badge>
           <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-[-0.03em] text-foreground md:text-4xl lg:text-5xl">
             {title}
           </h2>

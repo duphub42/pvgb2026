@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { Badge } from '@/components/ui/badge'
 import { cn } from '@/utilities/ui'
 
 const ITEMS = [
@@ -49,16 +50,16 @@ export function TechStackMarquee({ className }: { className?: string }) {
         aria-hidden="true"
       >
         {allItems.map((item, idx) => (
-          <span
+          <Badge
+            variant="secondary"
             key={`${item}-${idx}`}
-            className="inline-flex items-center gap-2 rounded-full border border-border/50 bg-background/80 px-3 py-1 text-xs font-medium text-foreground/80 shadow-sm"
+            className="gap-2 px-3 py-1 text-xs font-medium text-foreground/80 shadow-sm"
           >
             <span className="h-1.5 w-1.5 rounded-full bg-primary/80" />
             {item}
-          </span>
+          </Badge>
         ))}
       </div>
     </div>
   )
 }
-

@@ -5,6 +5,7 @@ import React, { useCallback, useMemo, useState } from 'react'
 import { ArrowUpRight, ChevronRight } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
 import { cn } from '@/utilities/ui'
 
 export type PriceCalcItemClient = {
@@ -48,26 +49,26 @@ function fmtEuro(n: number): string {
 function TagBadges({ pricingType }: { pricingType: PriceCalcItemClient['pricingType'] }) {
   if (pricingType === 'once') {
     return (
-      <span className="mb-1.5 inline-block rounded-full bg-slate-200 px-2 py-0.5 type-body-xs text-slate-950 dark:bg-slate-950/50 dark:text-slate-100">
+      <Badge variant="primary" className="mb-1.5 px-2 py-0.5 type-body-xs">
         Einmalig
-      </span>
+      </Badge>
     )
   }
   if (pricingType === 'monthly') {
     return (
-      <span className="mb-1.5 inline-block rounded-full bg-slate-200 px-2 py-0.5 type-body-xs text-slate-950 dark:bg-slate-950/50 dark:text-slate-100">
+      <Badge variant="secondary" className="mb-1.5 px-2 py-0.5 type-body-xs">
         Monatlich
-      </span>
+      </Badge>
     )
   }
   return (
     <div className="mb-1.5 flex flex-wrap gap-1">
-      <span className="inline-block rounded-full bg-slate-200 px-2 py-0.5 type-body-xs text-slate-950 dark:bg-slate-950/50 dark:text-slate-100">
+      <Badge variant="primary" className="px-2 py-0.5 type-body-xs">
         Einmalig
-      </span>
-      <span className="inline-block rounded-full bg-slate-200 px-2 py-0.5 type-body-xs text-slate-950 dark:bg-slate-950/50 dark:text-slate-100">
+      </Badge>
+      <Badge variant="secondary" className="px-2 py-0.5 type-body-xs">
         Monatlich
-      </span>
+      </Badge>
     </div>
   )
 }
