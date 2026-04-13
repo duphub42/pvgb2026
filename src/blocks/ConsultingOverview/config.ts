@@ -1,5 +1,20 @@
 import type { Block } from 'payload'
 
+const PROCESS_STEP_ICON_OPTIONS = [
+  { label: 'Kompass', value: 'compass' },
+  { label: 'Funkeln', value: 'sparkles' },
+  { label: 'Auszeichnung', value: 'award' },
+  { label: 'Ebenen', value: 'layers' },
+  { label: 'Ziel', value: 'target' },
+  { label: 'Rakete', value: 'rocket' },
+  { label: 'Einstellungen', value: 'settings' },
+  { label: 'Globus', value: 'globe' },
+  { label: 'Blitz', value: 'zap' },
+  { label: 'Trend', value: 'trending-up' },
+  { label: 'Aktentasche', value: 'briefcase' },
+  { label: 'Idee', value: 'lightbulb' },
+]
+
 const consultingBlockStyleFields: Block['fields'] = [
   {
     name: 'blockBackground',
@@ -220,6 +235,16 @@ export const ConsultingOverview: Block = {
         'Vor der Umsetzung klären wir, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.',
     },
     {
+      name: 'strategyIcon',
+      type: 'select',
+      label: 'Step-Icon 1',
+      defaultValue: 'compass',
+      options: PROCESS_STEP_ICON_OPTIONS,
+      admin: {
+        description: 'Icon für den ersten Schritt.',
+      },
+    },
+    {
       name: 'benefitsLabel',
       type: 'text',
       label: 'Step-Label 2+',
@@ -236,6 +261,16 @@ export const ConsultingOverview: Block = {
       type: 'text',
       label: 'Fallback-Titel 2+',
       defaultValue: 'Umsetzung in klaren Etappen',
+      admin: {
+        description: 'Wird verwendet, falls keine Step-Items gepflegt sind.',
+      },
+    },
+    {
+      name: 'benefitsIcon',
+      type: 'select',
+      label: 'Fallback-Icon 2+',
+      defaultValue: 'sparkles',
+      options: PROCESS_STEP_ICON_OPTIONS,
       admin: {
         description: 'Wird verwendet, falls keine Step-Items gepflegt sind.',
       },
@@ -268,6 +303,13 @@ export const ConsultingOverview: Block = {
       },
       fields: [
         {
+          name: 'icon',
+          type: 'select',
+          label: 'Step-Icon',
+          defaultValue: 'sparkles',
+          options: PROCESS_STEP_ICON_OPTIONS,
+        },
+        {
           name: 'title',
           type: 'text',
           required: true,
@@ -299,6 +341,13 @@ export const ConsultingOverview: Block = {
       label: 'Finaler Step-Titel',
       defaultValue:
         'Nach der Umsetzung begleite ich bei Skalierung, Tests und kontinuierlicher Verbesserung',
+    },
+    {
+      name: 'experienceIcon',
+      type: 'select',
+      label: 'Finales Step-Icon',
+      defaultValue: 'award',
+      options: PROCESS_STEP_ICON_OPTIONS,
     },
   ],
 }

@@ -802,6 +802,25 @@ export interface ConsultingOverviewBlock {
   strategySubLabel?: string | null;
   strategyTitle?: string | null;
   strategyText?: string | null;
+  /**
+   * Icon für den ersten Schritt.
+   */
+  strategyIcon?:
+    | (
+        | 'compass'
+        | 'sparkles'
+        | 'award'
+        | 'layers'
+        | 'target'
+        | 'rocket'
+        | 'settings'
+        | 'globe'
+        | 'zap'
+        | 'trending-up'
+        | 'briefcase'
+        | 'lightbulb'
+      )
+    | null;
   benefitsLabel?: string | null;
   benefitsSubLabel?: string | null;
   /**
@@ -809,10 +828,45 @@ export interface ConsultingOverviewBlock {
    */
   benefitsTitle?: string | null;
   /**
+   * Wird verwendet, falls keine Step-Items gepflegt sind.
+   */
+  benefitsIcon?:
+    | (
+        | 'compass'
+        | 'sparkles'
+        | 'award'
+        | 'layers'
+        | 'target'
+        | 'rocket'
+        | 'settings'
+        | 'globe'
+        | 'zap'
+        | 'trending-up'
+        | 'briefcase'
+        | 'lightbulb'
+      )
+    | null;
+  /**
    * Jeder Eintrag wird als eigener Prozess-Schritt dargestellt.
    */
   benefitItems?:
     | {
+        icon?:
+          | (
+              | 'compass'
+              | 'sparkles'
+              | 'award'
+              | 'layers'
+              | 'target'
+              | 'rocket'
+              | 'settings'
+              | 'globe'
+              | 'zap'
+              | 'trending-up'
+              | 'briefcase'
+              | 'lightbulb'
+            )
+          | null;
         title: string;
         text: string;
         id?: string | null;
@@ -821,6 +875,22 @@ export interface ConsultingOverviewBlock {
   experienceLabel?: string | null;
   experienceSubLabel?: string | null;
   experienceTitle?: string | null;
+  experienceIcon?:
+    | (
+        | 'compass'
+        | 'sparkles'
+        | 'award'
+        | 'layers'
+        | 'target'
+        | 'rocket'
+        | 'settings'
+        | 'globe'
+        | 'zap'
+        | 'trending-up'
+        | 'briefcase'
+        | 'lightbulb'
+      )
+    | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'consultingOverview';
@@ -2935,12 +3005,15 @@ export interface ConsultingOverviewBlockSelect<T extends boolean = true> {
   strategySubLabel?: T;
   strategyTitle?: T;
   strategyText?: T;
+  strategyIcon?: T;
   benefitsLabel?: T;
   benefitsSubLabel?: T;
   benefitsTitle?: T;
+  benefitsIcon?: T;
   benefitItems?:
     | T
     | {
+        icon?: T;
         title?: T;
         text?: T;
         id?: T;
@@ -2948,6 +3021,7 @@ export interface ConsultingOverviewBlockSelect<T extends boolean = true> {
   experienceLabel?: T;
   experienceSubLabel?: T;
   experienceTitle?: T;
+  experienceIcon?: T;
   id?: T;
   blockName?: T;
 }
