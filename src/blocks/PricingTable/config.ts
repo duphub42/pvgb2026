@@ -65,7 +65,11 @@ const defaultComparisonRows = [
   },
   {
     feature: 'Anzahl Seiten',
-    values: [{ type: 'text', label: '1 bis 3' }, { type: 'text', label: 'bis 8' }, { type: 'text', label: 'frei skalierbar' }],
+    values: [
+      { type: 'text', label: '1 bis 3' },
+      { type: 'text', label: 'bis 8' },
+      { type: 'text', label: 'frei skalierbar' },
+    ],
   },
   {
     feature: 'SEO Grundlagen',
@@ -273,7 +277,8 @@ export const PricingTable: Block = {
               type: 'text',
               label: 'Freitext / Ueberschreibung',
               admin: {
-                description: 'Bei Freitext empfohlen. Sonst optional als benutzerdefinierte Beschriftung.',
+                description:
+                  'Bei Freitext empfohlen. Sonst optional als benutzerdefinierte Beschriftung.',
                 condition: (_, siblingData) => siblingData?.type === 'text',
               },
             },

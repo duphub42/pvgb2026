@@ -98,6 +98,7 @@ import * as migration_20260411_133000_repair_portfolio_columns from './20260411_
 import * as migration_20260411_134000_repair_portfolio_fk_constraints from './20260411_134000_repair_portfolio_fk_constraints'
 import * as migration_20260412_140000_site_pages_blocks_hero_with_process from './20260412_140000_site_pages_blocks_hero_with_process'
 import * as migration_20260412_150000_site_pages_blocks_radial_orbital_timeline from './20260412_150000_site_pages_blocks_radial_orbital_timeline'
+import * as migration_20260413_170000_repair_pricing_table_dbname_tables from './20260413_170000_repair_pricing_table_dbname_tables'
 
 export const migrations = [
   {
@@ -599,5 +600,10 @@ export const migrations = [
     up: migration_20260412_150000_site_pages_blocks_radial_orbital_timeline.up,
     down: migration_20260412_150000_site_pages_blocks_radial_orbital_timeline.down,
     name: '20260412_150000_site_pages_blocks_radial_orbital_timeline',
+  },
+  {
+    up: migration_20260413_170000_repair_pricing_table_dbname_tables.up,
+    down: migration_20260413_170000_repair_pricing_table_dbname_tables.down,
+    name: '20260413_170000_repair_pricing_table_dbname_tables',
   },
 ]
