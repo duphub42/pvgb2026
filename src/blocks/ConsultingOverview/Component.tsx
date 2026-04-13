@@ -207,15 +207,9 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   const intro = normalizeText(introText) || DEFAULTS.intro
   const usePixelLayout = pixelLayoutDesktop !== false
   const useStepList = layoutMode === 'stepList'
-  const flowStyle = {
-    '--consulting-flow-stroke': '#d4d4d8',
-    '--consulting-flow-headline': '#18181b',
-    '--consulting-flow-body': '#52525b',
-    '--consulting-flow-muted': '#71717a',
-  } as React.CSSProperties
 
   const renderStepList = () => (
-    <div className="consulting-flow" style={flowStyle}>
+    <div className="consulting-flow">
       <ol className="consulting-flow-list">
         {steps.map((step) => {
           const Icon = getStepIcon(step.id)
@@ -281,13 +275,13 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
         )}
       >
         <header className="relative z-10 mx-auto max-w-3xl text-center">
-          <p className="inline-flex items-center rounded-full border border-slate-200 bg-slate-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-700">
+          <p className="inline-flex items-center rounded-full border border-border bg-muted px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
             Prozess
           </p>
-          <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-[-0.03em] text-slate-900 dark:text-slate-100 md:text-4xl lg:text-5xl">
+          <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-[-0.03em] text-foreground md:text-4xl lg:text-5xl">
             {title}
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
             {intro}
           </p>
         </header>
