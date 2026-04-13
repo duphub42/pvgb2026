@@ -16,6 +16,14 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
 
 const mediaFallbackRewrites = [
   {
+    source: '/media/philippbacher-logo-b-10.svg',
+    destination: '/branding/philippbacher-logo-b-10.svg',
+  },
+  {
+    source: '/media/philippbacher-logo-b.svg',
+    destination: '/branding/philippbacher-logo-b-10.svg',
+  },
+  {
     source: '/media/weblogo-philippbacher-22.svg',
     destination: '/media/weblogo-philippbacher.svg',
   },
@@ -133,6 +141,15 @@ const nextConfig = {
       return []
     }
     return [
+      {
+        source: '/_next/image',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, s-maxage=604800, stale-while-revalidate=2592000',
+          },
+        ],
+      },
       {
         source: '/_next/static/:path*',
         headers: [

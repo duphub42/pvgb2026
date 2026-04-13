@@ -58,7 +58,7 @@ const graphPaperStyle: React.CSSProperties = {
 const borderGlowStyle: React.CSSProperties = {
   padding: 1,
   background:
-    'radial-gradient(420px circle at var(--wwm-x, 100%) var(--wwm-y, 0%), hsl(var(--primary) / 0.42), transparent 52%)',
+    'radial-gradient(420px circle at var(--wwm-x, 100%) var(--wwm-y, 0%), color-mix(in srgb, var(--foreground) 42%, transparent), transparent 52%)',
   WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
   WebkitMaskComposite: 'xor',
   mask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
@@ -129,10 +129,10 @@ export const ReasonCard: React.FC<ReasonCardProps> = ({ title, description, icon
       <div
         className={cn(
           'pointer-events-none absolute -bottom-6 -right-6 z-0 flex size-[7.5rem] items-center justify-center',
-          'text-primary/[0.14] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform',
+          'text-foreground/[0.14] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform',
           'motion-reduce:transition-none motion-reduce:group-hover:transform-none',
           'group-hover:scale-[1.22]',
-          'dark:text-primary/[0.18]',
+          'dark:text-foreground/[0.18]',
         )}
         aria-hidden
       >

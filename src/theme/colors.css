@@ -44,8 +44,8 @@
   --theme-elevation-800: var(--color-base-800);
   --theme-elevation-900: var(--color-base-900);
   --theme-elevation-1000: var(--color-base-1000);
-  --theme-success-500: rgb(21, 135, 186);
-  --theme-success-250: rgb(125, 204, 248);
+  --theme-success-500: rgb(110, 110, 110);
+  --theme-success-250: rgb(170, 170, 170);
   --theme-border-color: var(--theme-elevation-150);
   --theme-bg: var(--theme-elevation-0);
   --theme-text: var(--theme-elevation-800);
@@ -67,17 +67,17 @@
   --card-foreground: var(--theme-elevation-800);
   --popover: var(--theme-elevation-0);
   --popover-foreground: var(--theme-elevation-800);
-  /* shadcn-style: neutral base + indigo theme (Primary) */
-  --primary: 246 56% 59%;
+  /* shadcn-style: neutral base */
+  --primary: 0 0% 12%;
   --primary-foreground: 0 0% 100%;
   --secondary: var(--theme-elevation-100);
   --secondary-foreground: var(--theme-elevation-800);
   --muted: var(--theme-elevation-100);
   --muted-foreground: var(--theme-elevation-500);
-  --accent: 246 56% 59%;
+  --accent: 0 0% 12%;
   --accent-foreground: 0 0% 100%;
-  --destructive: rgb(218, 75, 72);
-  --destructive-foreground: rgb(218, 75, 72);
+  --destructive: rgb(120, 120, 120);
+  --destructive-foreground: rgb(120, 120, 120);
   --border: var(--theme-elevation-150);
   --input: var(--theme-elevation-150);
   --ring: var(--theme-elevation-400);
@@ -91,13 +91,13 @@
   --sidebar-border: var(--theme-elevation-150);
   --sidebar-ring: var(--theme-elevation-400);
   --success: var(--theme-success-500);
-  --warning: rgb(185, 108, 13);
-  --error: rgb(218, 75, 72);
+  --warning: rgb(150, 150, 150);
+  --error: rgb(120, 120, 120);
   --chart-1: var(--theme-success-500);
-  --chart-2: rgb(11, 110, 153);
+  --chart-2: rgb(96, 96, 96);
   --chart-3: var(--theme-elevation-600);
-  --chart-4: rgb(185, 108, 13);
-  --chart-5: rgb(218, 75, 72);
+  --chart-4: rgb(150, 150, 150);
+  --chart-5: rgb(120, 120, 120);
   --mega-nav-glass-bg: rgba(255, 255, 255, 0.72);
   --mega-dropdown-glass-bg: rgba(255, 255, 255, 0.92);
   /* Footer: Apple-Style-Verlauf (Light = dunkel, Dark = dunkel), elegant weicher Übergang */
@@ -134,8 +134,8 @@
   --theme-text: var(--theme-elevation-1000);
   --theme-input-bg: var(--theme-elevation-50);
   --theme-border-color: var(--theme-elevation-150);
-  --theme-success-500: rgb(125, 204, 248);
-  --theme-success-250: rgb(18, 66, 90);
+  --theme-success-500: rgb(180, 180, 180);
+  --theme-success-250: rgb(95, 95, 95);
   --link: var(--primary);
   --link-hover: var(--primary);
 
@@ -145,17 +145,17 @@
   --card-foreground: var(--theme-elevation-1000);
   --popover: var(--theme-elevation-0);
   --popover-foreground: var(--theme-elevation-1000);
-  /* shadcn-style: indigo primary in dark mode */
-  --primary: 246 56% 59%;
-  --primary-foreground: 0 0% 100%;
+  /* shadcn-style: neutral primary in dark mode */
+  --primary: 0 0% 92%;
+  --primary-foreground: 0 0% 9%;
   --secondary: var(--theme-elevation-200);
   --secondary-foreground: var(--theme-elevation-1000);
   --muted: var(--theme-elevation-200);
   --muted-foreground: var(--theme-elevation-500);
-  --accent: 246 56% 59%;
-  --accent-foreground: 0 0% 100%;
-  --destructive: rgb(253, 154, 146);
-  --destructive-foreground: rgb(253, 154, 146);
+  --accent: 0 0% 92%;
+  --accent-foreground: 0 0% 9%;
+  --destructive: rgb(205, 205, 205);
+  --destructive-foreground: rgb(205, 205, 205);
   --border: var(--theme-elevation-150);
   --input: var(--theme-elevation-200);
   --ring: var(--theme-elevation-400);
@@ -168,13 +168,13 @@
   --sidebar-border: var(--theme-elevation-150);
   --sidebar-ring: var(--theme-elevation-400);
   --success: var(--theme-success-500);
-  --warning: rgb(238, 166, 98);
-  --error: rgb(253, 154, 146);
+  --warning: rgb(190, 190, 190);
+  --error: rgb(205, 205, 205);
   --chart-1: var(--theme-success-250);
-  --chart-2: rgb(156, 216, 253);
+  --chart-2: rgb(160, 160, 160);
   --chart-3: var(--theme-elevation-400);
-  --chart-4: rgb(240, 185, 136);
-  --chart-5: rgb(253, 177, 170);
+  --chart-4: rgb(190, 190, 190);
+  --chart-5: rgb(205, 205, 205);
   /* Mega-Menü Dark: Glas-Hintergründe; Text hell für gute Lesbarkeit */
   --mega-nav-glass-bg: rgba(28, 28, 28, 0.85);
   --mega-dropdown-glass-bg: rgba(22, 22, 22, 0.96);

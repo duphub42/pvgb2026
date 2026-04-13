@@ -543,11 +543,22 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               {isProfilVariant ? (
                 <PopoutHeroStackVisual layers={profilLayers} className="relative z-[1]" />
               ) : hasPopoutStack ? (
-                <div className="relative z-[1] mx-auto w-full max-w-[min(100%,556px)] md:flex md:max-w-none md:items-end md:justify-center">
-                  <PopoutHeroStackVisual layers={popoutLayers} />
+                <div className="relative z-[1] mx-auto w-full max-w-[min(100%,640px)] md:flex md:max-w-none md:items-end md:justify-center">
+                  <PopoutHeroStackVisual
+                    layers={popoutLayers}
+                    rootMaxWidth="min(100%, 640px)"
+                    rootMinHeight="clamp(22rem, 60vh, 40rem)"
+                    rootMaxWidthMd="min(100%, 760px)"
+                    rootMinHeightMd="clamp(34rem, 76vh, 60rem)"
+                    innerMinHeight="clamp(22rem, 60vh, 40rem)"
+                    innerMinHeightMd="clamp(34rem, 78vh, 62rem)"
+                    desktopLayerWidth="100%"
+                    imageMaxHeight="clamp(24rem, 74vh, 50rem)"
+                    imageMaxHeightMd="clamp(38rem, 95vh, 72rem)"
+                  />
                 </div>
               ) : portraitSrc ? (
-                <div className="relative z-[1] mx-auto w-full max-w-[min(100%,556px)] md:flex md:max-w-none md:items-end md:justify-center">
+                <div className="relative z-[1] mx-auto w-full max-w-[min(100%,640px)] md:flex md:max-w-none md:items-end md:justify-center">
                   <PopoutPortrait imageSrc={portraitSrc} fillRowHeight />
                 </div>
               ) : (

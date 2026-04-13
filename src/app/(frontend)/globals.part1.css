@@ -23,7 +23,7 @@
 }
 
 .header-icon-btn:focus-visible {
-  outline: 2px solid var(--primary, #2563eb);
+  outline: 2px solid var(--primary, #171717);
   outline-offset: 2px;
 }
 
@@ -60,7 +60,7 @@
 @layer base {
   :root {
       /* Safari-Fallback: --primary als HEX für color: var(--primary) */
-      --primary: #2563eb;
+      --primary: #171717;
     --type-feature-settings: "cv01", "ss03";
     --type-variation-settings: "opsz" auto;
     --type-weight-regular: 400;
@@ -107,11 +107,11 @@
     --hero-content-color: color-mix(in srgb, var(--foreground) 68%, transparent);
     --hero-content-strong-color: color-mix(in srgb, var(--foreground) 86%, transparent);
 
-    --surface-shadow-card-soft: 0 10px 24px -24px rgba(2, 6, 23, 0.32);
-    --surface-shadow-card-medium: 0 12px 28px -24px rgba(2, 6, 23, 0.32);
-    --surface-shadow-card-strong: 0 12px 30px -26px rgba(2, 6, 23, 0.35);
-    --surface-shadow-card-hover-md: 0 16px 36px -26px rgba(15, 23, 42, 0.4);
-    --surface-shadow-card-hover-lg: 0 20px 42px -30px rgba(2, 6, 23, 0.4);
+    --surface-shadow-card-soft: 0 10px 24px -24px rgba(0, 0, 0, 0.32);
+    --surface-shadow-card-medium: 0 12px 28px -24px rgba(0, 0, 0, 0.32);
+    --surface-shadow-card-strong: 0 12px 30px -26px rgba(0, 0, 0, 0.35);
+    --surface-shadow-card-hover-md: 0 16px 36px -26px rgba(0, 0, 0, 0.4);
+    --surface-shadow-card-hover-lg: 0 20px 42px -30px rgba(0, 0, 0, 0.4);
   }
 
   [data-theme='dark'] {
@@ -296,7 +296,7 @@
 /* Header icon hover overrides must win over Tailwind button utilities, especially in Safari */
 .header-tool-toggle.header-icon-btn:hover,
 .header-icon-btn:hover {
-  background-color: #e0e7ef !important;
+  background-color: #e5e5e5 !important;
   color: #171717 !important;
 }
 [data-theme='dark'] .header-tool-toggle.header-icon-btn:hover,
@@ -2235,41 +2235,41 @@
       repeating-linear-gradient(
           45deg,
           #0000 calc(-650% / 13) calc(50% / 13),
-          var(--hero-pattern-c1, #100f0f) 0 calc(100% / 13),
+          var(--hero-pattern-c1, #101010) 0 calc(100% / 13),
           #0000 0 calc(150% / 13),
-          var(--hero-pattern-c1, #100f0f) 0 calc(200% / 13),
+          var(--hero-pattern-c1, #101010) 0 calc(200% / 13),
           #0000 0 calc(250% / 13),
-          var(--hero-pattern-c1, #100f0f) 0 calc(300% / 13)
+          var(--hero-pattern-c1, #101010) 0 calc(300% / 13)
         )
         calc(0px + var(--c-x)) calc(0px + var(--c-y)),
       repeating-linear-gradient(
           45deg,
           #0000 calc(-650% / 13) calc(50% / 13),
-          var(--hero-pattern-c1, #100f0f) 0 calc(100% / 13),
+          var(--hero-pattern-c1, #101010) 0 calc(100% / 13),
           #0000 0 calc(150% / 13),
-          var(--hero-pattern-c1, #100f0f) 0 calc(200% / 13),
+          var(--hero-pattern-c1, #101010) 0 calc(200% / 13),
           #0000 0 calc(250% / 13),
-          var(--hero-pattern-c1, #100f0f) 0 calc(300% / 13)
+          var(--hero-pattern-c1, #101010) 0 calc(300% / 13)
         )
         calc(32px + var(--a-x)) calc(32px + var(--a-y)),
       repeating-linear-gradient(
           -45deg,
           #0000 calc(-650% / 13) calc(50% / 13),
-          var(--hero-pattern-c1, #100f0f) 0 calc(100% / 13),
+          var(--hero-pattern-c1, #101010) 0 calc(100% / 13),
           #0000 0 calc(150% / 13),
-          var(--hero-pattern-c1, #100f0f) 0 calc(200% / 13),
+          var(--hero-pattern-c1, #101010) 0 calc(200% / 13),
           #0000 0 calc(250% / 13),
-          var(--hero-pattern-c1, #100f0f) 0 calc(300% / 13)
+          var(--hero-pattern-c1, #101010) 0 calc(300% / 13)
         )
         calc(0px + var(--b-x)) calc(0px + var(--b-y)),
       repeating-linear-gradient(
           -45deg,
           #0000 calc(-650% / 13) calc(50% / 13),
-          var(--hero-pattern-c1, #100f0f) 0 calc(100% / 13),
+          var(--hero-pattern-c1, #101010) 0 calc(100% / 13),
           #0000 0 calc(150% / 13),
-          var(--hero-pattern-c1, #100f0f) 0 calc(200% / 13),
+          var(--hero-pattern-c1, #101010) 0 calc(200% / 13),
           #0000 0 calc(250% / 13),
-          var(--hero-pattern-c1, #100f0f) 0 calc(300% / 13)
+          var(--hero-pattern-c1, #101010) 0 calc(300% / 13)
         )
         calc(32px + var(--a-x)) calc(32px + var(--a-y)) var(--hero-pattern-c2, #1e1e1e);
     background-size: 64px 64px;
@@ -2320,21 +2320,21 @@
   .neon-flow-blob-1 {
     top: -60px;
     left: -40px;
-    background: radial-gradient(circle at 30% 30%, #22c55e, transparent 55%);
+    background: radial-gradient(circle at 30% 30%, #e5e5e5, transparent 55%);
     animation-delay: 0s;
   }
 
   .neon-flow-blob-2 {
     top: 40%;
     right: -80px;
-    background: radial-gradient(circle at 70% 30%, #6366f1, transparent 55%);
+    background: radial-gradient(circle at 70% 30%, #bdbdbd, transparent 55%);
     animation-delay: -4s;
   }
 
   .neon-flow-blob-3 {
     bottom: -80px;
     left: 30%;
-    background: radial-gradient(circle at 50% 50%, #f97316, transparent 55%);
+    background: radial-gradient(circle at 50% 50%, #8a8a8a, transparent 55%);
     animation-delay: -8s;
   }
 

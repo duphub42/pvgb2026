@@ -34,17 +34,31 @@ import {
   type LucideIcon,
 } from 'lucide-react'
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 import { HeaderActions } from '@/components/HeaderActions/HeaderActions'
-import { PathsBackground } from '@/components/PathsBackground/PathsBackground'
-import { ThreadsBackground } from '@/components/ThreadsBackground/ThreadsBackground'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
-import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher'
 import { ResilientImage } from '@/components/ui/resilient-image'
 import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
 import { isNavLinkActive } from '@/utilities/navLinkActive'
+
+const PathsBackground = dynamic(
+  () => import('@/components/PathsBackground/PathsBackground').then((mod) => mod.PathsBackground),
+  { ssr: false },
+)
+
+const ThreadsBackground = dynamic(
+  () =>
+    import('@/components/ThreadsBackground/ThreadsBackground').then((mod) => mod.ThreadsBackground),
+  { ssr: false },
+)
+
+const ThemeSwitcher = dynamic(
+  () => import('@/components/ThemeSwitcher/ThemeSwitcher').then((mod) => mod.ThemeSwitcher),
+  { ssr: false },
+)
 
 /** Konfiguration für WhatsApp, Rückruf und Newsletter im Mega-Menü (aus Header-Global) */
 export type MegaMenuCta = {
@@ -229,7 +243,7 @@ const MOBILE_DOCK_WHATSAPP_E164 = '4915780280163'
 const MOBILE_DOCK_WHATSAPP_URL = `https://wa.me/${MOBILE_DOCK_WHATSAPP_E164}`
 const MOBILE_DOCK_VCARD_URL = '/contact.vcf'
 const MOBILE_DOCK_CALENDAR_URL = '/termin'
-const MOBILE_MENU_LOGO_ICON_SRC = '/media/philippbacher-logo-b-10.svg'
+const MOBILE_MENU_LOGO_ICON_SRC = '/branding/philippbacher-logo-b-10.svg'
 const HAM_ICON_ANIMATION_MS = 400
 const MOBILE_DOCK_TOOLTIP_AUTOHIDE_MS = 1500
 const MOBILE_DOCK_CONFIRM_WINDOW_MS = 2600
@@ -680,33 +694,33 @@ const ListItem = React.forwardRef<
     <NavigationMenuLink asChild>
       <Link
         ref={ref}
-        className={cn(
-          isButton
-            ? 'megamenu-special-link group relative flex select-none items-start gap-3 rounded-md border border-transparent !bg-primary p-4 leading-none no-underline !text-primary-foreground shadow-xs outline-none transition-colors duration-200 hover:!bg-primary/80 active:!bg-primary/80 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50'
-            : 'group flex select-none items-start gap-3 rounded-xl p-4 leading-none no-underline outline-none transition-colors duration-300',
-          className,
-        )}
+          className={cn(
+            isButton
+              ? 'megamenu-special-link group relative flex select-none items-start gap-3 rounded-md border border-transparent !bg-foreground p-4 leading-none no-underline !text-background shadow-xs outline-none transition-colors duration-200 hover:!bg-foreground/80 active:!bg-foreground/80 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50'
+              : 'group flex select-none items-start gap-3 rounded-xl p-4 leading-none no-underline outline-none transition-colors duration-300',
+            className,
+          )}
         {...props}
       >
         <div
-          className={cn(
-            'megamenu-item-icon flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg p-2.5 transition-all duration-300 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
-            isButton
-              ? 'megamenu-special-link-icon bg-primary-foreground/15 text-current group-hover:bg-primary-foreground/25'
-              : 'group-hover:text-primary',
-          )}
-        >
+            className={cn(
+              'megamenu-item-icon flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg p-2.5 transition-all duration-300 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
+              isButton
+                ? 'megamenu-special-link-icon bg-background/15 text-current group-hover:bg-background/25'
+                : 'group-hover:text-foreground',
+            )}
+          >
           {icon}
         </div>
         <div className="min-w-0 flex-1 space-y-1">
           <div
-            className={cn(
-              'text-sm font-semibold leading-tight transition-colors',
-              isButton
-                ? 'text-current'
-                : 'group-hover:text-primary dark:group-hover:text-foreground',
-            )}
-          >
+              className={cn(
+                'text-sm font-semibold leading-tight transition-colors',
+                isButton
+                  ? 'text-current'
+                  : 'group-hover:text-foreground',
+              )}
+            >
             {title}
           </div>
           <p
@@ -726,7 +740,7 @@ const ListItem = React.forwardRef<
             <ArrowUpRight className="megamenu-special-icon-layer megamenu-special-icon-layer--b h-4 w-4" />
           </span>
         ) : (
-          <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-primary opacity-0 -translate-x-2 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300" />
+          <ChevronRight className="mt-1 h-4 w-4 shrink-0 text-foreground opacity-0 -translate-x-2 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-300" />
         )}
       </Link>
     </NavigationMenuLink>
@@ -2633,7 +2647,7 @@ export function MegaMenu({
                                           <Button
                                             asChild
                                             size="sm"
-                                            className="megamenu-highlight-cta mt-2 w-fit !bg-primary !text-primary-foreground hover:!bg-primary/80 active:!bg-primary/80"
+                                            className="megamenu-highlight-cta mt-2 w-fit !bg-foreground !text-background hover:!bg-foreground/80 active:!bg-foreground/80"
                                           >
                                             <Link href={cardCtaUrl} className="no-underline">
                                               <span>{cardCtaLabel}</span>
@@ -3097,7 +3111,7 @@ export function MegaMenu({
                                               </span>
                                             ) : null}
                                           </span>
-                                          <ChevronRight className="mobile-megamenu-item-arrow h-4 w-4 shrink-0 text-primary" />
+                                          <ChevronRight className="mobile-megamenu-item-arrow h-4 w-4 shrink-0 text-foreground" />
                                         </button>
                                       ) : (
                                         <Link

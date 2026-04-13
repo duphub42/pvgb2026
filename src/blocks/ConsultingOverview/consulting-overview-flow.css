@@ -1,0 +1,336 @@
+.consulting-flow {
+  --connector-height: 42px;
+  --connector-border-width: 1px;
+  --connector-color: var(--consulting-flow-stroke, #d8d8d8);
+  --circle-size-small: 36px;
+  --circle-padding-small: 9px;
+  --circle-size-large: 174px;
+  --circle-padding-large: 48px;
+}
+
+.consulting-flow *,
+.consulting-flow *::before,
+.consulting-flow *::after {
+  box-sizing: border-box;
+}
+
+.consulting-flow-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: consulting-step-counter;
+}
+
+.consulting-flow-item {
+  counter-increment: consulting-step-counter;
+  position: relative;
+}
+
+.consulting-flow-item::before {
+  content: counter(consulting-step-counter, decimal-leading-zero);
+  font-weight: 300;
+  color: var(--connector-color);
+}
+
+.consulting-flow-item + .consulting-flow-item {
+  margin-top: calc(var(--connector-height) * 2);
+}
+
+.consulting-flow-item + .consulting-flow-item > .consulting-flow-item-inner {
+  margin-top: calc(var(--connector-border-width) * -1);
+}
+
+.consulting-flow-content {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  padding-bottom: 18px;
+}
+
+.consulting-flow-icon {
+  display: block;
+  flex: 0 0 auto;
+  border-radius: 9999px;
+  color: rgb(51 65 85);
+}
+
+.consulting-flow-icon svg {
+  width: 100%;
+  height: 100%;
+}
+
+.consulting-flow-body {
+  min-width: 0;
+}
+
+.consulting-flow-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.consulting-flow-badge {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  background: rgb(241 245 249);
+  color: rgb(71 85 105);
+  padding: 0.2rem 0.75rem;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.consulting-flow-meta {
+  color: rgb(100 116 139);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.consulting-flow-title {
+  margin: 1rem 0 0;
+  color: rgb(15 23 42);
+  font-size: clamp(1.275rem, 2vw, 1.6rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.consulting-flow-description {
+  margin: 0.7rem 0 0;
+  color: rgb(71 85 105);
+  font-size: 0.97rem;
+  font-weight: 400;
+  line-height: 1.65;
+  overflow-wrap: anywhere;
+  white-space: pre-line;
+}
+
+.consulting-flow-item:nth-child(5n + 1) .consulting-flow-icon {
+  background: #f4f6d5;
+}
+
+.consulting-flow-item:nth-child(5n + 2) .consulting-flow-icon {
+  background: #e8f4f3;
+}
+
+.consulting-flow-item:nth-child(5n + 3) .consulting-flow-icon {
+  background: #ededed;
+}
+
+.consulting-flow-item:nth-child(5n + 4) .consulting-flow-icon {
+  background: #edf6ef;
+}
+
+.consulting-flow-item:nth-child(5n + 5) .consulting-flow-icon {
+  background: #fef3f3;
+}
+
+@media (max-width: 1023px) {
+  .consulting-flow-item {
+    display: flex;
+    min-width: 0;
+  }
+
+  .consulting-flow-item::before {
+    position: relative;
+    margin-right: 12px;
+    color: rgb(15 23 42);
+    font-size: 36px;
+    font-weight: 300;
+    line-height: 42px;
+  }
+
+  .consulting-flow-item-inner {
+    min-width: 0;
+    flex: 1 1 auto;
+  }
+
+  .consulting-flow-content {
+    position: relative;
+    align-items: flex-start;
+  }
+
+  .consulting-flow-content::before {
+    content: '';
+    position: absolute;
+    top: 84px;
+    bottom: 0;
+    left: 18px;
+    width: 1px;
+    background: var(--connector-color);
+  }
+
+  .consulting-flow-item:last-child .consulting-flow-content::before {
+    content: none;
+  }
+
+  .consulting-flow-icon {
+    position: absolute;
+    top: 42px;
+    left: 0;
+    width: var(--circle-size-small);
+    height: var(--circle-size-small);
+    padding: var(--circle-padding-small);
+  }
+
+  .consulting-flow-body {
+    margin-top: 8px;
+    margin-left: calc(var(--circle-size-small) + 12px);
+    width: min(100%, 42rem);
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .consulting-flow-item::before {
+    position: absolute;
+    color: var(--connector-color);
+    font-size: 90px;
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  .consulting-flow-icon {
+    width: var(--circle-size-large);
+    height: var(--circle-size-large);
+    padding: var(--circle-padding-large);
+  }
+
+  .consulting-flow-body {
+    margin-top: calc(var(--connector-height) * 2);
+    flex: 0 1 33.3333%;
+  }
+
+  .consulting-flow-item > .consulting-flow-item-inner {
+    position: relative;
+  }
+
+  .consulting-flow-item > .consulting-flow-item-inner::before,
+  .consulting-flow-item > .consulting-flow-item-inner::after {
+    content: '';
+    position: absolute;
+    display: block;
+    height: var(--connector-height);
+    width: calc(33.3333% - var(--connector-height));
+    border-style: solid;
+    border-width: 0;
+    border-color: var(--connector-color);
+  }
+
+  .consulting-flow-item:first-child > .consulting-flow-item-inner::before {
+    content: none;
+  }
+
+  .consulting-flow-item:last-child > .consulting-flow-item-inner::after {
+    content: none;
+  }
+
+  .consulting-flow-item:nth-child(odd) .consulting-flow-content {
+    justify-content: flex-start;
+  }
+
+  .consulting-flow-item:nth-child(odd) > .consulting-flow-item-inner {
+    text-align: right;
+  }
+
+  .consulting-flow-item:nth-child(odd) > .consulting-flow-item-inner::before,
+  .consulting-flow-item:nth-child(odd) > .consulting-flow-item-inner::after {
+    left: calc(33.3333% - (var(--connector-height) / 2));
+    border-left-width: var(--connector-border-width);
+  }
+
+  .consulting-flow-item:nth-child(odd) > .consulting-flow-item-inner::before {
+    margin-top: calc(var(--connector-height) * -1);
+    border-top-width: var(--connector-border-width);
+    border-top-left-radius: var(--connector-height);
+  }
+
+  .consulting-flow-item:nth-child(odd) > .consulting-flow-item-inner::after {
+    margin-bottom: calc(var(--connector-height) * -1);
+    border-bottom-width: var(--connector-border-width);
+    border-bottom-left-radius: var(--connector-height);
+  }
+
+  .consulting-flow-item:nth-child(odd)::before {
+    left: 0;
+    margin-left: 33.3333%;
+    transform: translateX(-100%);
+  }
+
+  .consulting-flow-item:nth-child(odd) .consulting-flow-icon {
+    margin-left: 72px;
+  }
+
+  .consulting-flow-item:nth-child(even) .consulting-flow-content {
+    justify-content: flex-end;
+  }
+
+  .consulting-flow-item:nth-child(even) > .consulting-flow-item-inner::before,
+  .consulting-flow-item:nth-child(even) > .consulting-flow-item-inner::after {
+    right: calc(33.3333% - (var(--connector-height) / 2));
+    border-right-width: var(--connector-border-width);
+  }
+
+  .consulting-flow-item:nth-child(even) > .consulting-flow-item-inner::before {
+    margin-top: calc(var(--connector-height) * -1);
+    border-top-width: var(--connector-border-width);
+    border-top-right-radius: var(--connector-height);
+  }
+
+  .consulting-flow-item:nth-child(even) > .consulting-flow-item-inner::after {
+    margin-bottom: calc(var(--connector-height) * -1);
+    border-bottom-width: var(--connector-border-width);
+    border-bottom-right-radius: var(--connector-height);
+  }
+
+  .consulting-flow-item:nth-child(even)::before {
+    right: 0;
+    margin-right: 33.3333%;
+    transform: translateX(100%);
+  }
+
+  .consulting-flow-item:nth-child(even) .consulting-flow-icon {
+    margin-right: 72px;
+  }
+}
+
+[data-theme='dark'] .consulting-flow-badge {
+  background: rgb(30 41 59);
+  color: rgb(203 213 225);
+}
+
+.dark .consulting-flow-badge {
+  background: rgb(30 41 59);
+  color: rgb(203 213 225);
+}
+
+[data-theme='dark'] .consulting-flow-meta {
+  color: rgb(148 163 184);
+}
+
+.dark .consulting-flow-meta {
+  color: rgb(148 163 184);
+}
+
+[data-theme='dark'] .consulting-flow-title {
+  color: rgb(241 245 249);
+}
+
+.dark .consulting-flow-title {
+  color: rgb(241 245 249);
+}
+
+[data-theme='dark'] .consulting-flow-description {
+  color: rgb(203 213 225);
+}
+
+.dark .consulting-flow-description {
+  color: rgb(203 213 225);
+}

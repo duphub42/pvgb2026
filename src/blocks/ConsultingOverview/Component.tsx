@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
+import './consulting-overview-flow.css'
 
 type Step = {
   id: string
@@ -171,46 +172,6 @@ type ConsultingOverviewProps = ConsultingOverviewBlockData & {
   layoutMode?: 'standard' | 'stepList'
 }
 
-const StepListCard: React.FC<{ step: Step; index: number }> = ({ step, index }) => {
-  const Icon = getStepIcon(step.id)
-
-  return (
-    <div className="relative z-10 w-full lg:w-[66vw] max-w-none overflow-hidden rounded-[2rem] border border-slate-200 bg-white px-6 py-7 shadow-sm transition duration-300 hover:-translate-y-0.5 dark:border-slate-700 dark:bg-slate-950 lg:px-8 lg:py-10">
-      <span className="pointer-events-none absolute left-6 top-6 hidden text-[6rem] font-extralight leading-none text-slate-100 opacity-40 lg:block">
-        {pad(index + 1)}
-      </span>
-      <div className="relative flex flex-col gap-6 lg:flex-row lg:items-start">
-        <div className="flex flex-none items-center justify-center rounded-full border border-border bg-slate-100 text-slate-700 shadow-sm dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">
-          <div className="flex h-[36px] w-[36px] items-center justify-center rounded-full lg:h-[174px] lg:w-[174px] lg:p-[48px]">
-            <Icon className="h-6 w-6 lg:h-10 lg:w-10" />
-          </div>
-        </div>
-
-        <div className="min-w-0 lg:max-w-[44rem]">
-          <div className="flex flex-wrap gap-2">
-            <span className="inline-flex items-center rounded-full bg-slate-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-              {step.badge}
-            </span>
-            {step.meta ? (
-              <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-slate-500 dark:text-slate-400">
-                {step.meta}
-              </span>
-            ) : null}
-          </div>
-          <h3 className="mt-4 text-xl font-semibold leading-tight text-slate-900 dark:text-slate-100 lg:text-2xl">
-            {step.title}
-          </h3>
-          {step.description ? (
-            <p className="mt-3 text-sm leading-7 text-slate-600 dark:text-slate-300 lg:text-base">
-              {step.description}
-            </p>
-          ) : null}
-        </div>
-      </div>
-    </div>
-  )
-}
-
 export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   disableInnerContainer,
   pixelLayoutDesktop,
@@ -248,121 +209,33 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   const usePixelLayout = pixelLayoutDesktop !== false
   const useStepList = layoutMode === 'stepList'
   const strokeColor = colors?.timelineStroke || '#999999'
+  const flowStyle = { '--consulting-flow-stroke': strokeColor } as React.CSSProperties
 
   const renderStepList = () => (
-    <div className="relative">
-      <div className="relative">
-        <span
-          aria-hidden
-          className="pointer-events-none absolute left-8 top-12 h-full w-px bg-slate-200 lg:hidden"
-          style={{ opacity: 0.55 }}
-        />
-      </div>
-      <ol className="space-y-10 lg:space-y-[84px]">
-        {steps.map((step, index) => {
-          const alignLeft = index % 2 === 0
-          const isFirst = index === 0
-          const isLast = index === steps.length - 1
-          const connectorHeight = 42
-          const connectorOffset = 'calc(33.333% - 21px)'
-          const connectorReach = 'calc(33.333% - 42px)'
-          const connectorPath = alignLeft
-            ? 'M20 0 C16 18 8 36 8 50 C8 64 16 82 20 100'
-            : 'M0 0 C4 18 12 36 12 50 C12 64 4 82 0 100'
-          const connectorClass =
-            'absolute top-full mt-2 h-28 w-[12rem] left-1/2 -translate-x-1/2 overflow-visible z-0 lg:hidden'
+    <div className="consulting-flow" style={flowStyle}>
+      <ol className="consulting-flow-list">
+        {steps.map((step) => {
+          const Icon = getStepIcon(step.id)
 
           return (
-            <li
-              key={step.id}
-              className="relative overflow-visible grid gap-6 lg:grid-cols-[minmax(0,1fr)_5rem_minmax(0,1fr)] items-start"
-            >
-              <div className="lg:pr-8 lg:flex lg:justify-end lg:-mr-[16vw]">
-                {alignLeft ? (
-                  <div className="relative overflow-visible">
-                    {!isFirst ? (
-                      <span
-                        className="pointer-events-none hidden lg:block absolute border-l border-t"
-                        style={{
-                          left: connectorOffset,
-                          top: `-${connectorHeight}px`,
-                          width: connectorReach,
-                          height: `${connectorHeight}px`,
-                          borderColor: strokeColor,
-                          borderTopLeftRadius: `${connectorHeight}px`,
-                        }}
-                      />
+            <li key={step.id} className="consulting-flow-item">
+              <div className="consulting-flow-item-inner">
+                <div className="consulting-flow-content">
+                  <span className="consulting-flow-icon" aria-hidden>
+                    <Icon className="h-full w-full" />
+                  </span>
+
+                  <div className="consulting-flow-body">
+                    <div className="consulting-flow-tags">
+                      <span className="consulting-flow-badge">{step.badge}</span>
+                      {step.meta ? <span className="consulting-flow-meta">{step.meta}</span> : null}
+                    </div>
+                    <h3 className="consulting-flow-title">{step.title}</h3>
+                    {step.description ? (
+                      <p className="consulting-flow-description">{step.description}</p>
                     ) : null}
-                    {!isLast ? (
-                      <span
-                        className="pointer-events-none hidden lg:block absolute border-l border-b"
-                        style={{
-                          left: connectorOffset,
-                          bottom: `-${connectorHeight}px`,
-                          width: connectorReach,
-                          height: `${connectorHeight}px`,
-                          borderColor: strokeColor,
-                          borderBottomLeftRadius: `${connectorHeight}px`,
-                        }}
-                      />
-                    ) : null}
-                    <StepListCard step={step} index={index} />
                   </div>
-                ) : null}
-              </div>
-              <div className="relative flex justify-center">
-                <span className="relative z-20 mt-2 grid h-12 w-12 items-center justify-center rounded-full border border-slate-300 bg-white text-sm font-semibold text-slate-700 shadow-sm dark:bg-slate-950 dark:border-slate-700 dark:text-slate-200">
-                  {pad(index + 1)}
-                </span>
-                {!isLast ? (
-                  <svg
-                    className={connectorClass}
-                    viewBox="0 0 20 100"
-                    preserveAspectRatio="none"
-                    aria-hidden="true"
-                  >
-                    <path
-                      d={connectorPath}
-                      stroke={strokeColor}
-                      strokeWidth="2"
-                      fill="none"
-                      strokeLinecap="round"
-                    />
-                  </svg>
-                ) : null}
-              </div>
-              <div className="lg:pl-8 lg:flex lg:justify-start lg:-ml-[16vw]">
-                {!alignLeft ? (
-                  <div className="relative overflow-visible">
-                    {!isFirst ? (
-                      <span
-                        className="pointer-events-none hidden lg:block absolute border-r border-t"
-                        style={{
-                          right: connectorOffset,
-                          top: `-${connectorHeight}px`,
-                          width: connectorReach,
-                          height: `${connectorHeight}px`,
-                          borderColor: strokeColor,
-                          borderTopRightRadius: `${connectorHeight}px`,
-                        }}
-                      />
-                    ) : null}
-                    {!isLast ? (
-                      <span
-                        className="pointer-events-none hidden lg:block absolute border-r border-b"
-                        style={{
-                          right: connectorOffset,
-                          bottom: `-${connectorHeight}px`,
-                          width: connectorReach,
-                          height: `${connectorHeight}px`,
-                          borderColor: strokeColor,
-                          borderBottomRightRadius: `${connectorHeight}px`,
-                        }}
-                      />
-                    ) : null}
-                    <StepListCard step={step} index={index} />
-                  </div>
-                ) : null}
+                </div>
               </div>
             </li>
           )
@@ -372,7 +245,7 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   )
 
   return (
-    <section className={cn('relative overflow-x-visible overflow-y-hidden', !disableInnerContainer && 'container')}>
+    <section className={cn('relative overflow-x-hidden overflow-y-hidden', !disableInnerContainer && 'container')}>
       <div
         aria-hidden
         className="pointer-events-none absolute -left-36 top-28 h-72 w-72 rounded-full blur-3xl"

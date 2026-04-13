@@ -829,7 +829,7 @@ nav.megamenu-nav a.megamenu-top-item {
   color: #171717;
 }
 .megamenu .megamenu-featured .text-primary {
-  color: hsl(var(--primary)) !important;
+  color: var(--foreground) !important;
 }
 /* Spalten-Trenner im hellen Modus dezent (an übrige Farben angepasst) */
 .megamenu .megamenu-col-divider {

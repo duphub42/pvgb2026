@@ -131,6 +131,6 @@ export async function PriceCalculatorBlockComponent(
 }
 
 function cnSection(disableInner?: boolean): string {
-  if (disableInner) return 'w-full min-w-0 px-4 sm:px-6 py-4'
+  if (disableInner) return 'container w-full min-w-0 py-4'
   return 'container w-full min-w-0 py-4'
 }

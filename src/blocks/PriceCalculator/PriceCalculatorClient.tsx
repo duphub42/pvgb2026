@@ -4,6 +4,7 @@ import Link from 'next/link'
 import React, { useCallback, useMemo, useState } from 'react'
 import { ArrowUpRight, ChevronRight } from 'lucide-react'
 
+import { Button } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 
 export type PriceCalcItemClient = {
@@ -47,24 +48,24 @@ function fmtEuro(n: number): string {
 function TagBadges({ pricingType }: { pricingType: PriceCalcItemClient['pricingType'] }) {
   if (pricingType === 'once') {
     return (
-      <span className="mb-1.5 inline-block rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-medium text-slate-950 dark:bg-slate-950/50 dark:text-slate-100">
+      <span className="mb-1.5 inline-block rounded-full bg-slate-200 px-2 py-0.5 type-body-xs text-slate-950 dark:bg-slate-950/50 dark:text-slate-100">
         Einmalig
       </span>
     )
   }
   if (pricingType === 'monthly') {
     return (
-      <span className="mb-1.5 inline-block rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-medium text-slate-950 dark:bg-slate-950/50 dark:text-slate-100">
+      <span className="mb-1.5 inline-block rounded-full bg-slate-200 px-2 py-0.5 type-body-xs text-slate-950 dark:bg-slate-950/50 dark:text-slate-100">
         Monatlich
       </span>
     )
   }
   return (
     <div className="mb-1.5 flex flex-wrap gap-1">
-      <span className="inline-block rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-medium text-slate-950 dark:bg-slate-950/50 dark:text-slate-100">
+      <span className="inline-block rounded-full bg-slate-200 px-2 py-0.5 type-body-xs text-slate-950 dark:bg-slate-950/50 dark:text-slate-100">
         Einmalig
       </span>
-      <span className="inline-block rounded-full bg-slate-200 px-2 py-0.5 text-[10px] font-medium text-slate-950 dark:bg-slate-950/50 dark:text-slate-100">
+      <span className="inline-block rounded-full bg-slate-200 px-2 py-0.5 type-body-xs text-slate-950 dark:bg-slate-950/50 dark:text-slate-100">
         Monatlich
       </span>
     </div>
@@ -157,13 +158,17 @@ export function PriceCalculatorClient(props: {
   }, [selectedIds, allItemsFlat])
 
   const offerHref = copy.offerLink?.trim() || '/kontakt'
+  const offerButtonLabel = useMemo(() => {
+    const normalized = copy.offerButtonLabel.replace(/\s*[>›»↗]+$/u, '').trim()
+    return normalized || copy.offerButtonLabel
+  }, [copy.offerButtonLabel])
   const offerIsHttp = /^https?:\/\//i.test(offerHref)
   const offerIsMailto = offerHref.startsWith('mailto:')
   const offerIsExternal = offerIsHttp || offerIsMailto
 
   if (sortedCategories.length === 0) {
     return (
-      <div className="rounded-lg border border-border bg-muted/30 px-5 py-8 text-center text-sm text-muted-foreground">
+      <div className="rounded-lg border border-border bg-muted/30 px-5 py-8 text-center type-body text-muted-foreground">
         Der Preisrechner wird aktuell gepflegt. Bitte schauen Sie später wieder vorbei oder kontaktieren Sie uns
         direkt.
       </div>
@@ -171,13 +176,13 @@ export function PriceCalculatorClient(props: {
   }
 
   return (
-    <div className="mx-auto max-w-7xl w-full min-w-0 overflow-hidden px-4 py-4 sm:px-6 lg:px-8">
-      <section className="border-b border-border/80 py-6 first:pt-0">
-        <p className="mb-1.5 text-xs font-medium uppercase tracking-[0.07em] text-muted-foreground">
+    <div className="w-full min-w-0 overflow-hidden py-4">
+      <section className="border-b border-border/80 py-6 md:py-8 first:pt-0">
+        <p className="mb-2 type-body-sm uppercase tracking-[0.08em] text-muted-foreground">
           {copy.sectionLabel}
         </p>
-        <h2 className="mb-1 text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{copy.heading}</h2>
-        <p className="mb-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">{copy.sub}</p>
+        <h2 className="mb-2 type-heading-xl text-foreground">{copy.heading}</h2>
+        <p className="mb-6 max-w-prose type-body text-muted-foreground">{copy.sub}</p>
 
         <div className="mb-5 flex flex-wrap gap-2">
           {sortedCategories.map((c) => (
@@ -186,7 +191,7 @@ export function PriceCalculatorClient(props: {
               type="button"
               onClick={() => setActiveCategoryId(c.id)}
               className={cn(
-                'cursor-pointer rounded-2xl border px-4 py-2 text-sm leading-none transition-colors',
+                'type-body cursor-pointer rounded-2xl border px-4 py-2 leading-none transition-colors',
                 activeCategory?.id === c.id
                   ? 'border-slate-500/50 bg-slate-100 text-slate-950 dark:bg-slate-950/40 dark:text-slate-100'
                   : 'border-border bg-background text-muted-foreground hover:border-muted-foreground/30',
@@ -198,7 +203,7 @@ export function PriceCalculatorClient(props: {
         </div>
 
         {activeCategory && activeCategory.items.length === 0 && (
-          <p className="mb-4 text-sm text-muted-foreground">
+          <p className="mb-4 type-body text-muted-foreground">
             In dieser Kategorie sind noch keine Leistungen hinterlegt.
           </p>
         )}
@@ -223,7 +228,7 @@ export function PriceCalculatorClient(props: {
                     <TagBadges pricingType={item.pricingType} />
                     <div
                       className={cn(
-                        'text-lg font-semibold text-foreground',
+                        'type-heading-md text-foreground',
                         on && 'text-slate-950 dark:text-slate-100',
                       )}
                     >
@@ -231,7 +236,7 @@ export function PriceCalculatorClient(props: {
                     </div>
                     <p
                       className={cn(
-                        'mb-3 text-base leading-relaxed text-muted-foreground',
+                        'mb-3 type-body text-muted-foreground',
                         on && 'text-slate-700 dark:text-slate-300',
                       )}
                     >
@@ -239,7 +244,7 @@ export function PriceCalculatorClient(props: {
                     </p>
                     <div
                       className={cn(
-                        'text-base font-medium text-muted-foreground',
+                        'type-body font-semibold text-muted-foreground',
                         on && 'text-slate-900 dark:text-slate-200',
                       )}
                     >
@@ -254,18 +259,18 @@ export function PriceCalculatorClient(props: {
         <div className="mt-4 rounded-lg border border-border/80 bg-background p-5">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <div className="text-[28px] font-medium leading-tight text-foreground">
+              <div className="type-heading-lg text-foreground">
                 {breakdownRows.length === 0
                   ? '– €'
                   : totalOnceMin > 0
                     ? `${fmtEuro(totalOnceMin)} – ${fmtEuro(totalOnceMax)} €`
                     : '– €'}
               </div>
-              <p className="mt-1 text-sm text-muted-foreground">
+              <p className="mt-1 type-body text-muted-foreground">
                 Einmalig · zzgl. MwSt. · Richtwert
               </p>
               {totalMonthMin > 0 && (
-                <p className="mt-1 text-sm font-medium text-slate-900 dark:text-slate-200">
+                <p className="mt-1 type-body font-semibold text-slate-900 dark:text-slate-200">
                   + {fmtEuro(totalMonthMin)} – {fmtEuro(totalMonthMax)} €/Monat laufend
                 </p>
               )}
@@ -274,44 +279,55 @@ export function PriceCalculatorClient(props: {
               <button
                 type="button"
                 onClick={resetAll}
-                className="text-sm text-muted-foreground underline-offset-2 hover:underline"
+                className="type-body text-muted-foreground underline-offset-2 hover:underline"
               >
                 Auswahl zurücksetzen
               </button>
               {offerIsExternal ? (
-                <a
-                  href={offerHref}
-                  {...(offerIsHttp ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                  className="group inline-flex items-center rounded-md border border-transparent bg-slate-950 px-4 py-3 text-sm font-medium text-white shadow-xs outline-none leading-none transition-colors duration-200 hover:bg-slate-800 active:bg-slate-800 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200"
+                <Button
+                  asChild
+                  size="sm"
+                  className="megamenu-highlight-cta mt-2 w-fit !bg-foreground !text-background hover:!bg-foreground/80 active:!bg-foreground/80"
                 >
-                  <span>{copy.offerButtonLabel}</span>
-                  <span className="relative ml-2 inline-flex h-4 w-4 items-center justify-center">
-                    <ChevronRight className="absolute inset-0 transition-all duration-200 group-hover:-translate-x-1 group-hover:opacity-0" />
-                    <ArrowUpRight className="absolute inset-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
-                  </span>
-                </a>
+                  <a
+                    href={offerHref}
+                    {...(offerIsHttp ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                    className="no-underline"
+                  >
+                    <span>{offerButtonLabel}</span>
+                    <span className="megamenu-special-icon-swap" aria-hidden="true">
+                      <ChevronRight className="megamenu-special-icon-layer megamenu-special-icon-layer--a h-4 w-4" />
+                      <ArrowUpRight className="megamenu-special-icon-layer megamenu-special-icon-layer--b h-4 w-4" />
+                    </span>
+                  </a>
+                </Button>
               ) : (
-                <Link
-                  href={offerHref}
-                  className="group inline-flex items-center rounded-md border border-transparent bg-slate-950 px-4 py-3 text-sm font-medium text-white shadow-xs outline-none leading-none transition-colors duration-200 hover:bg-slate-800 active:bg-slate-800 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-200"
+                <Button
+                  asChild
+                  size="sm"
+                  className="megamenu-highlight-cta mt-2 w-fit !bg-foreground !text-background hover:!bg-foreground/80 active:!bg-foreground/80"
                 >
-                  <span>{copy.offerButtonLabel}</span>
-                  <span className="relative ml-2 inline-flex h-4 w-4 items-center justify-center">
-                    <ChevronRight className="absolute inset-0 transition-all duration-200 group-hover:-translate-x-1 group-hover:opacity-0" />
-                    <ArrowUpRight className="absolute inset-0 -translate-x-1 opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100" />
-                  </span>
-                </Link>
+                  <Link href={offerHref} className="no-underline">
+                    <span>{offerButtonLabel}</span>
+                    <span className="megamenu-special-icon-swap" aria-hidden="true">
+                      <ChevronRight className="megamenu-special-icon-layer megamenu-special-icon-layer--a h-4 w-4" />
+                      <ArrowUpRight className="megamenu-special-icon-layer megamenu-special-icon-layer--b h-4 w-4" />
+                    </span>
+                  </Link>
+                </Button>
               )}
             </div>
           </div>
           <div className="mt-4 flex flex-col gap-1.5 border-t border-border/80 pt-4">
             {breakdownRows.length === 0 ? (
-              <p className="py-1 text-base text-muted-foreground">{copy.emptyBreakdownMessage}</p>
+              <p className="py-1 type-body text-muted-foreground">{copy.emptyBreakdownMessage}</p>
             ) : (
               breakdownRows.map((r) => (
-                <div key={r.title} className="flex justify-between gap-4 text-base text-muted-foreground">
+                <div key={r.title} className="type-body flex justify-between gap-4 text-muted-foreground">
                   <span>{r.title}</span>
-                  <span className="shrink-0 font-medium whitespace-nowrap text-foreground">{r.price}</span>
+                  <span className="type-body shrink-0 font-semibold whitespace-nowrap text-foreground">
+                    {r.price}
+                  </span>
                 </div>
               ))
             )}
@@ -321,25 +337,25 @@ export function PriceCalculatorClient(props: {
 
       {showRatesSection && (
         <section className="py-6">
-          <p className="mb-1.5 text-xs font-medium uppercase tracking-[0.07em] text-muted-foreground">
+          <p className="mb-2 type-body-sm uppercase tracking-[0.08em] text-muted-foreground">
             {copy.ratesSectionLabel}
           </p>
-          <h2 className="mb-4 text-xl font-semibold text-foreground md:text-2xl">{copy.ratesHeading}</h2>
+          <h2 className="mb-5 type-heading-md text-foreground md:type-heading-lg">{copy.ratesHeading}</h2>
           <div className="mb-4 flex flex-wrap gap-8">
             <div>
-              <div className="text-[26px] font-medium text-foreground">{fmtEuro(copy.hourlyRate)} €</div>
-              <div className="mt-0.5 text-sm text-muted-foreground">Stundensatz · netto</div>
+              <div className="type-heading-md text-foreground">{fmtEuro(copy.hourlyRate)} €</div>
+              <div className="mt-0.5 type-body text-muted-foreground">Stundensatz · netto</div>
             </div>
             <div>
-              <div className="text-[26px] font-medium text-foreground">{fmtEuro(copy.dayRate)} €</div>
-              <div className="mt-0.5 text-sm text-muted-foreground">Tagessatz (8h) · netto</div>
+              <div className="type-heading-md text-foreground">{fmtEuro(copy.dayRate)} €</div>
+              <div className="mt-0.5 type-body text-muted-foreground">Tagessatz (8h) · netto</div>
             </div>
             <div>
-              <div className="text-[26px] font-medium text-foreground">{fmtEuro(copy.weekRate)} €</div>
-              <div className="mt-0.5 text-sm text-muted-foreground">Wochensatz · netto</div>
+              <div className="type-heading-md text-foreground">{fmtEuro(copy.weekRate)} €</div>
+              <div className="mt-0.5 type-body text-muted-foreground">Wochensatz · netto</div>
             </div>
           </div>
-          <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">{copy.ratesNote}</p>
+          <p className="max-w-prose type-body text-muted-foreground">{copy.ratesNote}</p>
         </section>
       )}
     </div>

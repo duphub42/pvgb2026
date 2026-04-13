@@ -25,7 +25,7 @@ const SOCIAL_SPRITE_IDS: Record<string, string> = {
   facebook: 'hf-facebook',
   instagram: 'hf-instagram',
 }
-const MOBILE_FOOTER_B_LOGO_SRC = '/media/philippbacher-logo-b-10.svg'
+const MOBILE_FOOTER_B_LOGO_SRC = '/branding/philippbacher-logo-b-10.svg'
 const MOBILE_FOOTER_B_LOGO_MIN_OPACITY = 0.15
 const MOBILE_FOOTER_B_LOGO_MAX_OPACITY = 1
 const MOBILE_FOOTER_HEADING_MIN_OPACITY = MOBILE_FOOTER_B_LOGO_MIN_OPACITY
