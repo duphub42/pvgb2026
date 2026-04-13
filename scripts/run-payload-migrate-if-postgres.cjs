@@ -12,7 +12,9 @@ const root = path.resolve(__dirname, '..')
 dotenv.config({ path: path.join(root, '.env') })
 dotenv.config({ path: path.join(root, '.env.local'), override: true })
 if (fs.existsSync(path.join(root, 'env.local'))) {
-  dotenv.config({ path: path.join(root, 'env.local'), override: true })
+  // Keep precedence aligned with runtime (src/payload.config.ts + load-env-for-payload.cjs)
+  // so `pnpm dev` migration preflight and app queries hit the same database.
+  dotenv.config({ path: path.join(root, 'env.local'), override: false })
 }
 
 const hasPostgresUrl = Boolean(

@@ -316,10 +316,14 @@ export function PricingTableBlock({
 
   return (
     <section className="container w-full min-w-0 py-14 md:py-16 lg:py-20">
-      <div className="relative overflow-hidden rounded-3xl border border-border/70 bg-card/80 p-6 shadow-sm md:p-8 lg:p-10">
+      <div className="relative p-6 md:p-8 lg:p-10">
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 bg-[radial-gradient(85%_55%_at_50%_0%,color-mix(in_srgb,var(--theme-elevation-1000)_10%,transparent)_0%,transparent_75%)]"
+          className="pointer-events-none absolute -inset-10 rounded-[3rem] bg-[radial-gradient(120%_95%_at_50%_40%,color-mix(in_srgb,var(--theme-elevation-0)_86%,transparent)_0%,color-mix(in_srgb,var(--theme-elevation-0)_62%,transparent)_38%,color-mix(in_srgb,var(--theme-elevation-0)_28%,transparent)_68%,transparent_100%)] blur-2xl"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -inset-2 rounded-[2.15rem] bg-[radial-gradient(85%_55%_at_50%_0%,color-mix(in_srgb,var(--theme-elevation-1000)_10%,transparent)_0%,transparent_80%)]"
         />
 
         <div className="relative z-10">
