@@ -2,10 +2,20 @@
   --connector-height: 42px;
   --connector-border-width: 1px;
   --connector-color: var(--consulting-flow-stroke, #d8d8d8);
+  --headline-color: var(--consulting-flow-headline, #252525);
+  --body-color: var(--consulting-flow-body, #545454);
+  --muted-color: var(--consulting-flow-muted, #868686);
+  --strategy-badge-color: var(--consulting-flow-strategy-badge, #08d3bb);
+  --benefits-badge-color: var(--consulting-flow-benefits-badge, #1090cb);
+  --experience-badge-color: var(--consulting-flow-experience-badge, #9208d3);
   --circle-size-small: 36px;
   --circle-padding-small: 9px;
   --circle-size-large: 174px;
   --circle-padding-large: 48px;
+  box-sizing: content-box;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 0 12px;
 }
 
 .consulting-flow *,
@@ -61,6 +71,9 @@
 
 .consulting-flow-body {
   min-width: 0;
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 300;
 }
 
 .consulting-flow-tags {
@@ -74,7 +87,8 @@
   align-items: center;
   border-radius: 9999px;
   background: rgb(241 245 249);
-  color: rgb(71 85 105);
+  color: var(--body-color);
+  border: 1px solid color-mix(in srgb, var(--body-color) 20%, transparent);
   padding: 0.2rem 0.75rem;
   font-size: 10px;
   font-weight: 600;
@@ -84,7 +98,7 @@
 }
 
 .consulting-flow-meta {
-  color: rgb(100 116 139);
+  color: var(--muted-color);
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -94,20 +108,20 @@
 
 .consulting-flow-title {
   margin: 1rem 0 0;
-  color: rgb(15 23 42);
-  font-size: clamp(1.275rem, 2vw, 1.6rem);
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  line-height: 1.2;
+  color: var(--headline-color);
+  font-size: 24px;
+  font-weight: 300;
+  letter-spacing: 0;
+  line-height: 30px;
   overflow-wrap: anywhere;
 }
 
 .consulting-flow-description {
   margin: 0.7rem 0 0;
-  color: rgb(71 85 105);
-  font-size: 0.97rem;
-  font-weight: 400;
-  line-height: 1.65;
+  color: var(--body-color);
+  font-size: 12px;
+  font-weight: 300;
+  line-height: 18px;
   overflow-wrap: anywhere;
   white-space: pre-line;
 }
@@ -132,7 +146,25 @@
   background: #fef3f3;
 }
 
-@media (max-width: 1023px) {
+.consulting-flow-item[data-flow-tone='strategy'] .consulting-flow-badge {
+  color: var(--strategy-badge-color);
+  border-color: color-mix(in srgb, var(--strategy-badge-color) 35%, transparent);
+  background: color-mix(in srgb, var(--strategy-badge-color) 12%, white);
+}
+
+.consulting-flow-item[data-flow-tone='benefits'] .consulting-flow-badge {
+  color: var(--benefits-badge-color);
+  border-color: color-mix(in srgb, var(--benefits-badge-color) 35%, transparent);
+  background: color-mix(in srgb, var(--benefits-badge-color) 12%, white);
+}
+
+.consulting-flow-item[data-flow-tone='experience'] .consulting-flow-badge {
+  color: var(--experience-badge-color);
+  border-color: color-mix(in srgb, var(--experience-badge-color) 35%, transparent);
+  background: color-mix(in srgb, var(--experience-badge-color) 12%, white);
+}
+
+@media (max-width: 600px) {
   .consulting-flow-item {
     display: flex;
     min-width: 0;
@@ -162,7 +194,7 @@
     position: absolute;
     top: 84px;
     bottom: 0;
-    left: 18px;
+    left: 9px;
     width: 1px;
     background: var(--connector-color);
   }
@@ -174,7 +206,7 @@
   .consulting-flow-icon {
     position: absolute;
     top: 42px;
-    left: 0;
+    left: -9px;
     width: var(--circle-size-small);
     height: var(--circle-size-small);
     padding: var(--circle-padding-small);
@@ -182,13 +214,13 @@
 
   .consulting-flow-body {
     margin-top: 8px;
-    margin-left: calc(var(--circle-size-small) + 12px);
+    margin-left: 12px;
     width: min(100%, 42rem);
     max-width: 100%;
   }
 }
 
-@media (min-width: 1024px) {
+@media (min-width: 601px) {
   .consulting-flow-item::before {
     position: absolute;
     color: var(--connector-color);
@@ -302,35 +334,35 @@
 }
 
 [data-theme='dark'] .consulting-flow-badge {
-  background: rgb(30 41 59);
-  color: rgb(203 213 225);
+  background: color-mix(in srgb, var(--body-color) 20%, #0f172a);
+  color: #e2e8f0;
 }
 
 .dark .consulting-flow-badge {
-  background: rgb(30 41 59);
-  color: rgb(203 213 225);
+  background: color-mix(in srgb, var(--body-color) 20%, #0f172a);
+  color: #e2e8f0;
 }
 
 [data-theme='dark'] .consulting-flow-meta {
-  color: rgb(148 163 184);
+  color: color-mix(in srgb, var(--muted-color) 75%, #e2e8f0);
 }
 
 .dark .consulting-flow-meta {
-  color: rgb(148 163 184);
+  color: color-mix(in srgb, var(--muted-color) 75%, #e2e8f0);
 }
 
 [data-theme='dark'] .consulting-flow-title {
-  color: rgb(241 245 249);
+  color: color-mix(in srgb, var(--headline-color) 70%, #f8fafc);
 }
 
 .dark .consulting-flow-title {
-  color: rgb(241 245 249);
+  color: color-mix(in srgb, var(--headline-color) 70%, #f8fafc);
 }
 
 [data-theme='dark'] .consulting-flow-description {
-  color: rgb(203 213 225);
+  color: color-mix(in srgb, var(--body-color) 78%, #f1f5f9);
 }
 
 .dark .consulting-flow-description {
-  color: rgb(203 213 225);
+  color: color-mix(in srgb, var(--body-color) 78%, #f1f5f9);
 }

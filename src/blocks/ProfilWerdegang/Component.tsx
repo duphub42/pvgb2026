@@ -19,9 +19,8 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
   eintraege,
 }) => {
   const st = sectionTitle?.trim() || profilWerdegangDefaults.sectionTitle
-  const fromCms = (eintraege ?? []).filter(
-    (e): e is EintragItem =>
-      Boolean(e && String(e.zeitraum ?? '').trim() && String(e.position ?? '').trim()),
+  const fromCms = (eintraege ?? []).filter((e): e is EintragItem =>
+    Boolean(e && String(e.zeitraum ?? '').trim() && String(e.position ?? '').trim()),
   )
   const rows =
     fromCms.length > 0
@@ -77,7 +76,9 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
                   </Badge>
                 </div>
                 <h3 className="mt-3 text-lg font-semibold text-foreground">{w.position}</h3>
-                {w.unternehmen ? <p className="text-sm font-medium text-muted-foreground">{w.unternehmen}</p> : null}
+                {w.unternehmen ? (
+                  <p className="text-sm font-medium text-muted-foreground">{w.unternehmen}</p>
+                ) : null}
                 {w.beschreibung ? (
                   <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-base">
                     {w.beschreibung}

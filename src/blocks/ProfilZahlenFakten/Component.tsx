@@ -16,9 +16,8 @@ export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
   sectionTitle,
   items,
 }) => {
-  const fromCms = (items ?? []).filter(
-    (z): z is ZahlItem =>
-      Boolean(z && String(z.zahl ?? '').trim() && String(z.bezeichnung ?? '').trim()),
+  const fromCms = (items ?? []).filter((z): z is ZahlItem =>
+    Boolean(z && String(z.zahl ?? '').trim() && String(z.bezeichnung ?? '').trim()),
   )
   const rows =
     fromCms.length > 0
@@ -27,10 +26,18 @@ export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
 
   const n = rows.length
   const gridCols =
-    n <= 2 ? 'grid-cols-2' : n <= 3 ? 'grid-cols-2 md:grid-cols-3' : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
+    n <= 2
+      ? 'grid-cols-2'
+      : n <= 3
+        ? 'grid-cols-2 md:grid-cols-3'
+        : 'grid-cols-2 md:grid-cols-3 lg:grid-cols-5'
 
   return (
-    <section className={cn('border-t border-border/60 bg-gradient-to-b from-muted/28 to-background py-14 md:py-16')}>
+    <section
+      className={cn(
+        'border-t border-border/60 bg-gradient-to-b from-muted/28 to-background py-14 md:py-16',
+      )}
+    >
       <div className="container">
         {sectionTitle ? (
           <h2 className="mb-10 text-center text-xl font-semibold tracking-tight text-foreground md:text-2xl">
@@ -48,7 +55,9 @@ export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
               variant="secondary"
               className="p-5 text-center"
             >
-              <p className="text-4xl font-semibold tracking-tight text-foreground md:text-5xl">{z.zahl}</p>
+              <p className="text-4xl font-semibold tracking-tight text-foreground md:text-5xl">
+                {z.zahl}
+              </p>
               <p className="mt-1.5 text-xs uppercase tracking-[0.08em] text-muted-foreground md:text-sm">
                 {z.bezeichnung}
               </p>

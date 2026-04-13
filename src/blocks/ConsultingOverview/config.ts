@@ -75,8 +75,7 @@ export const ConsultingOverview: Block = {
       name: 'headline',
       type: 'text',
       label: 'Headline',
-      defaultValue:
-        'So läuft die Zusammenarbeit von der Strategie bis zur Wirkung',
+      defaultValue: 'So läuft die Zusammenarbeit von der Strategie bis zur Wirkung',
       admin: {
         description: 'Hauptüberschrift über dem Process-Flow.',
       },
@@ -298,7 +297,8 @@ export const ConsultingOverview: Block = {
       name: 'experienceTitle',
       type: 'text',
       label: 'Finaler Step-Titel',
-      defaultValue: 'Nach der Umsetzung begleite ich bei Skalierung, Tests und kontinuierlicher Verbesserung',
+      defaultValue:
+        'Nach der Umsetzung begleite ich bei Skalierung, Tests und kontinuierlicher Verbesserung',
     },
   ],
 }

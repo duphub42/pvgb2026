@@ -13,9 +13,13 @@ import { cn } from '@/utilities/ui'
 type Props = BlockData & { disableInnerContainer?: boolean }
 type ToolItem = NonNullable<NonNullable<BlockData['tools']>[number]>
 
-export const ProfilToolsBlock: React.FC<Props> = ({ disableInnerContainer: _d, sectionTitle, tools }) => {
-  const fromCms = (tools ?? []).filter(
-    (t): t is ToolItem => Boolean(t && String(t.name ?? '').trim()),
+export const ProfilToolsBlock: React.FC<Props> = ({
+  disableInnerContainer: _d,
+  sectionTitle,
+  tools,
+}) => {
+  const fromCms = (tools ?? []).filter((t): t is ToolItem =>
+    Boolean(t && String(t.name ?? '').trim()),
   )
   const rows =
     fromCms.length > 0

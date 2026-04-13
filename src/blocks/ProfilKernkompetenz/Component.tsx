@@ -19,8 +19,8 @@ export const ProfilKernkompetenzBlock: React.FC<Props> = ({
 }) => {
   const head = ueberschrift?.trim() || profilKernkompetenzDefaults.ueberschrift
   const intro = einleitung?.trim() || profilKernkompetenzDefaults.einleitung
-  const fromCms = (bereiche ?? []).filter(
-    (b): b is BereichItem => Boolean(b && String(b.titel ?? '').trim()),
+  const fromCms = (bereiche ?? []).filter((b): b is BereichItem =>
+    Boolean(b && String(b.titel ?? '').trim()),
   )
   const rows =
     fromCms.length > 0
@@ -37,17 +37,25 @@ export const ProfilKernkompetenzBlock: React.FC<Props> = ({
         <p className="mb-4 inline-flex w-fit items-center rounded-full border border-border/80 bg-background/90 px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em] text-muted-foreground">
           Leistungsprofil
         </p>
-        <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{head}</h2>
+        <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
+          {head}
+        </h2>
         <p className="mt-5 text-base leading-relaxed text-muted-foreground md:text-lg">{intro}</p>
       </div>
       <div className="mt-14 grid gap-6 lg:grid-cols-2">
         {rows.map((b, idx) => {
           const details = (b.details ?? [])
-            .map((d: { line?: string | null }) => (typeof d?.line === 'string' ? d.line.trim() : ''))
+            .map((d: { line?: string | null }) =>
+              typeof d?.line === 'string' ? d.line.trim() : '',
+            )
             .filter(Boolean)
           return (
             <Card
-              key={typeof (b as { id?: unknown }).id === 'string' ? (b as { id?: string }).id : `b-${idx}`}
+              key={
+                typeof (b as { id?: unknown }).id === 'string'
+                  ? (b as { id?: string }).id
+                  : `b-${idx}`
+              }
               variant="secondary"
               className="group relative overflow-hidden bg-gradient-to-b from-background/95 to-card/70 p-7 md:p-8"
             >
@@ -57,7 +65,9 @@ export const ProfilKernkompetenzBlock: React.FC<Props> = ({
               />
               <h3 className="text-xl font-semibold text-foreground">{b.titel}</h3>
               {b.text ? (
-                <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">{b.text}</p>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+                  {b.text}
+                </p>
               ) : null}
               {details.length > 0 ? (
                 <ul className="mt-6 space-y-2.5 border-t border-border/70 pt-5 text-sm text-foreground/90">

@@ -52,6 +52,12 @@ const getStepIcon = (stepId: string): LucideIcon => {
   return Layers
 }
 
+const getStepTone = (stepId: string): 'strategy' | 'benefits' | 'experience' => {
+  if (stepId === 'strategy') return 'strategy'
+  if (stepId === 'experience') return 'experience'
+  return 'benefits'
+}
+
 function buildProcessSteps(
   data: Pick<
     ConsultingOverviewBlockData,
@@ -208,17 +214,25 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   const intro = normalizeText(introText) || DEFAULTS.intro
   const usePixelLayout = pixelLayoutDesktop !== false
   const useStepList = layoutMode === 'stepList'
-  const strokeColor = colors?.timelineStroke || '#999999'
-  const flowStyle = { '--consulting-flow-stroke': strokeColor } as React.CSSProperties
+  const flowStyle = {
+    '--consulting-flow-stroke': colors?.timelineStroke || '#d8d8d8',
+    '--consulting-flow-headline': colors?.headline || '#252525',
+    '--consulting-flow-body': colors?.body || '#545454',
+    '--consulting-flow-muted': colors?.muted || '#868686',
+    '--consulting-flow-strategy-badge': colors?.strategyBadge || '#08D3BB',
+    '--consulting-flow-benefits-badge': colors?.benefitsBadge || '#1090CB',
+    '--consulting-flow-experience-badge': colors?.experienceBadge || '#9208D3',
+  } as React.CSSProperties
 
   const renderStepList = () => (
     <div className="consulting-flow" style={flowStyle}>
       <ol className="consulting-flow-list">
         {steps.map((step) => {
           const Icon = getStepIcon(step.id)
+          const tone = getStepTone(step.id)
 
           return (
-            <li key={step.id} className="consulting-flow-item">
+            <li key={step.id} className="consulting-flow-item" data-flow-tone={tone}>
               <div className="consulting-flow-item-inner">
                 <div className="consulting-flow-content">
                   <span className="consulting-flow-icon" aria-hidden>
@@ -245,7 +259,12 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   )
 
   return (
-    <section className={cn('relative overflow-x-hidden overflow-y-hidden', !disableInnerContainer && 'container')}>
+    <section
+      className={cn(
+        'relative overflow-x-hidden overflow-y-hidden',
+        !disableInnerContainer && 'container',
+      )}
+    >
       <div
         aria-hidden
         className="pointer-events-none absolute -left-36 top-28 h-72 w-72 rounded-full blur-3xl"

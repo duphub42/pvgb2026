@@ -21,8 +21,8 @@ export const ProfilKompetenzenBlock: React.FC<Props> = ({
 }) => {
   const st = sectionTitle?.trim() || profilKompetenzenDefaults.sectionTitle
   const si = sectionIntro?.trim() || profilKompetenzenDefaults.sectionIntro
-  const fromCms = (spalten ?? []).filter(
-    (c): c is SpalteItem => Boolean(c && String(c.bereich ?? '').trim()),
+  const fromCms = (spalten ?? []).filter((c): c is SpalteItem =>
+    Boolean(c && String(c.bereich ?? '').trim()),
   )
   const cols =
     fromCms.length > 0
@@ -33,7 +33,11 @@ export const ProfilKompetenzenBlock: React.FC<Props> = ({
         }))
 
   return (
-    <section className={cn('relative overflow-hidden border-y border-border/60 bg-gradient-to-b from-muted/30 to-muted/12 py-16 md:py-24')}>
+    <section
+      className={cn(
+        'relative overflow-hidden border-y border-border/60 bg-gradient-to-b from-muted/30 to-muted/12 py-16 md:py-24',
+      )}
+    >
       <div
         aria-hidden
         className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-primary/[0.07] to-transparent"
@@ -46,9 +50,8 @@ export const ProfilKompetenzenBlock: React.FC<Props> = ({
         <p className="mt-4 max-w-2xl text-muted-foreground md:text-lg">{si}</p>
         <div className="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
           {cols.map((col, cidx) => {
-            const skills = (col.skills ?? []).filter(
-              (s): s is SkillItem =>
-                Boolean(s && String(s.skill ?? '').trim()),
+            const skills = (col.skills ?? []).filter((s): s is SkillItem =>
+              Boolean(s && String(s.skill ?? '').trim()),
             )
             return (
               <Card
@@ -60,7 +63,9 @@ export const ProfilKompetenzenBlock: React.FC<Props> = ({
                 variant="secondary"
                 className="p-6"
               >
-                <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.12em] text-primary">{col.bereich}</h3>
+                <h3 className="mb-5 text-sm font-semibold uppercase tracking-[0.12em] text-primary">
+                  {col.bereich}
+                </h3>
                 <ul className="space-y-4">
                   {skills.map((s, sidx) => {
                     const level = typeof s.level === 'string' ? s.level : 'expert'
@@ -77,7 +82,10 @@ export const ProfilKompetenzenBlock: React.FC<Props> = ({
                           <span className="text-sm font-medium text-foreground">{s.skill}</span>
                           <span className="text-xs capitalize text-muted-foreground">{level}</span>
                         </div>
-                        <div className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted" aria-hidden>
+                        <div
+                          className="mt-2 h-1.5 overflow-hidden rounded-full bg-muted"
+                          aria-hidden
+                        >
                           <div
                             className="h-full rounded-full bg-gradient-to-r from-primary/70 via-primary to-foreground/70 transition-[width] duration-500"
                             style={{ width: `${pct}%` }}

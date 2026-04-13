@@ -21,9 +21,8 @@ export const ProfilLangZertBlock: React.FC<Props> = ({
   const sprachenTitle = sprachenSectionTitle?.trim() || 'Sprachen'
   const zertifikateTitle = zertifikateSectionTitle?.trim() || 'Zertifikate & Qualifikationen'
 
-  const sprFromCms = (sprachen ?? []).filter(
-    (s): s is SpracheItem =>
-      Boolean(s && String(s.sprache ?? '').trim() && String(s.niveau ?? '').trim()),
+  const sprFromCms = (sprachen ?? []).filter((s): s is SpracheItem =>
+    Boolean(s && String(s.sprache ?? '').trim() && String(s.niveau ?? '').trim()),
   )
   const sprRows =
     sprFromCms.length > 0
@@ -41,7 +40,9 @@ export const ProfilLangZertBlock: React.FC<Props> = ({
       <div className="container grid gap-12 lg:grid-cols-2">
         {sprRows.length > 0 ? (
           <Card variant="secondary" className="min-w-0 p-6 md:p-8">
-            <h2 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">{sprachenTitle}</h2>
+            <h2 className="text-xl font-semibold tracking-tight text-foreground md:text-2xl">
+              {sprachenTitle}
+            </h2>
             <ul className={cn('mt-6 divide-y divide-border/80')}>
               {sprRows.map((s, i) => (
                 <li

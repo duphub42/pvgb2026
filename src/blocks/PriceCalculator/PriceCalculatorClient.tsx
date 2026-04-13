@@ -91,7 +91,10 @@ export function PriceCalculatorClient(props: {
   const { categories, copy, showRatesSection } = props
 
   const sortedCategories = useMemo(
-    () => [...categories].sort((a, b) => a.sortOrder - b.sortOrder || String(a.title).localeCompare(String(b.title))),
+    () =>
+      [...categories].sort(
+        (a, b) => a.sortOrder - b.sortOrder || String(a.title).localeCompare(String(b.title)),
+      ),
     [categories],
   )
 
@@ -100,7 +103,8 @@ export function PriceCalculatorClient(props: {
   )
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
 
-  const activeCategory = sortedCategories.find((c) => c.id === activeCategoryId) ?? sortedCategories[0] ?? null
+  const activeCategory =
+    sortedCategories.find((c) => c.id === activeCategoryId) ?? sortedCategories[0] ?? null
 
   const toggleItem = useCallback((id: number | string) => {
     const key = String(id)
@@ -126,36 +130,37 @@ export function PriceCalculatorClient(props: {
     return map
   }, [sortedCategories])
 
-  const { totalOnceMin, totalOnceMax, totalMonthMin, totalMonthMax, breakdownRows } = useMemo(() => {
-    let totalOnceMin = 0
-    let totalOnceMax = 0
-    let totalMonthMin = 0
-    let totalMonthMax = 0
-    const breakdownRows: { title: string; price: string }[] = []
+  const { totalOnceMin, totalOnceMax, totalMonthMin, totalMonthMax, breakdownRows } =
+    useMemo(() => {
+      let totalOnceMin = 0
+      let totalOnceMax = 0
+      let totalMonthMin = 0
+      let totalMonthMax = 0
+      const breakdownRows: { title: string; price: string }[] = []
 
-    for (const id of selectedIds) {
-      const item = allItemsFlat.get(id)
-      if (!item) continue
-      if (item.onceMin != null && item.onceMax != null) {
-        totalOnceMin += item.onceMin
-        totalOnceMax += item.onceMax
+      for (const id of selectedIds) {
+        const item = allItemsFlat.get(id)
+        if (!item) continue
+        if (item.onceMin != null && item.onceMax != null) {
+          totalOnceMin += item.onceMin
+          totalOnceMax += item.onceMax
+        }
+        if (item.monthlyMin != null && item.monthlyMax != null) {
+          totalMonthMin += item.monthlyMin
+          totalMonthMax += item.monthlyMax
+        }
+        const p: string[] = []
+        if (item.onceMin != null && item.onceMax != null) {
+          p.push(`${fmtEuro(item.onceMin)}–${fmtEuro(item.onceMax)} €`)
+        }
+        if (item.monthlyMin != null && item.monthlyMax != null) {
+          p.push(`${fmtEuro(item.monthlyMin)}–${fmtEuro(item.monthlyMax)} €/Mo.`)
+        }
+        breakdownRows.push({ title: item.title, price: p.join(' / ') })
       }
-      if (item.monthlyMin != null && item.monthlyMax != null) {
-        totalMonthMin += item.monthlyMin
-        totalMonthMax += item.monthlyMax
-      }
-      const p: string[] = []
-      if (item.onceMin != null && item.onceMax != null) {
-        p.push(`${fmtEuro(item.onceMin)}–${fmtEuro(item.onceMax)} €`)
-      }
-      if (item.monthlyMin != null && item.monthlyMax != null) {
-        p.push(`${fmtEuro(item.monthlyMin)}–${fmtEuro(item.monthlyMax)} €/Mo.`)
-      }
-      breakdownRows.push({ title: item.title, price: p.join(' / ') })
-    }
 
-    return { totalOnceMin, totalOnceMax, totalMonthMin, totalMonthMax, breakdownRows }
-  }, [selectedIds, allItemsFlat])
+      return { totalOnceMin, totalOnceMax, totalMonthMin, totalMonthMax, breakdownRows }
+    }, [selectedIds, allItemsFlat])
 
   const offerHref = copy.offerLink?.trim() || '/kontakt'
   const offerButtonLabel = useMemo(() => {
@@ -169,8 +174,8 @@ export function PriceCalculatorClient(props: {
   if (sortedCategories.length === 0) {
     return (
       <div className="rounded-lg border border-border bg-muted/30 px-5 py-8 text-center type-body text-muted-foreground">
-        Der Preisrechner wird aktuell gepflegt. Bitte schauen Sie später wieder vorbei oder kontaktieren Sie uns
-        direkt.
+        Der Preisrechner wird aktuell gepflegt. Bitte schauen Sie später wieder vorbei oder
+        kontaktieren Sie uns direkt.
       </div>
     )
   }
@@ -210,7 +215,10 @@ export function PriceCalculatorClient(props: {
         {activeCategory && activeCategory.items.length > 0 && (
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))]">
             {[...activeCategory.items]
-              .sort((a, b) => a.sortOrder - b.sortOrder || String(a.title).localeCompare(String(b.title)))
+              .sort(
+                (a, b) =>
+                  a.sortOrder - b.sortOrder || String(a.title).localeCompare(String(b.title)),
+              )
               .map((item) => {
                 const idStr = String(item.id)
                 const on = selectedIds.has(idStr)
@@ -323,7 +331,10 @@ export function PriceCalculatorClient(props: {
               <p className="py-1 type-body text-muted-foreground">{copy.emptyBreakdownMessage}</p>
             ) : (
               breakdownRows.map((r) => (
-                <div key={r.title} className="type-body flex justify-between gap-4 text-muted-foreground">
+                <div
+                  key={r.title}
+                  className="type-body flex justify-between gap-4 text-muted-foreground"
+                >
                   <span>{r.title}</span>
                   <span className="type-body shrink-0 font-semibold whitespace-nowrap text-foreground">
                     {r.price}
@@ -340,7 +351,9 @@ export function PriceCalculatorClient(props: {
           <p className="mb-2 type-body-sm uppercase tracking-[0.08em] text-muted-foreground">
             {copy.ratesSectionLabel}
           </p>
-          <h2 className="mb-5 type-heading-md text-foreground md:type-heading-lg">{copy.ratesHeading}</h2>
+          <h2 className="mb-5 type-heading-md text-foreground md:type-heading-lg">
+            {copy.ratesHeading}
+          </h2>
           <div className="mb-4 flex flex-wrap gap-8">
             <div>
               <div className="type-heading-md text-foreground">{fmtEuro(copy.hourlyRate)} €</div>
