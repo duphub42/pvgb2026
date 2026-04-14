@@ -52,9 +52,6 @@ const nextConfig = {
   distDir: process.env.NODE_ENV === 'development' ? '.next-dev' : '.next',
   // Pingdom F0: Gzip-Kompression explizit aktivieren (Next.js macht das standardmäßig bei next start)
   compress: true,
-  // So "pnpm run build" completes after "rm -rf .next"; remove once lint/type errors are fixed
-  eslint: { ignoreDuringBuilds: true },
-  typescript: { ignoreBuildErrors: true },
   // PageSpeed: tree-shake large packages so less JS is shipped
   // NOTE: Disabled unstable experimental chunk optimization because it intermittently
   // emits missing server chunks (e.g. ./6292.js, ./9993.js, vendor-chunks/*) at runtime/build.

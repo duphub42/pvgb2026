@@ -4,14 +4,7 @@ import * as React from 'react'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent } from '@/components/ui/card'
-import {
-  Calendar,
-  Code,
-  Clock,
-  FileText,
-  type LucideIcon,
-  User,
-} from 'lucide-react'
+import { Calendar, Code, Clock, FileText, type LucideIcon, User } from 'lucide-react'
 
 type TimelineItem = {
   title?: string
@@ -63,9 +56,8 @@ export const RadialOrbitalTimelineBlock: React.FC<Props> = ({
 }) => {
   const reducedMotion = useReducedMotion()
   const [activeIndex, setActiveIndex] = React.useState<number | null>(null)
-  const items = (timelineItems ?? []).filter(
-    (item): item is TimelineItem =>
-      Boolean(item && item.title && item.date && item.content),
+  const items = (timelineItems ?? []).filter((item): item is TimelineItem =>
+    Boolean(item && item.title && item.date && item.content),
   )
   const selectedItem = activeIndex !== null ? items[activeIndex] : null
 
@@ -169,13 +161,18 @@ export const RadialOrbitalTimelineBlock: React.FC<Props> = ({
                           </h3>
                         </div>
                       </div>
-                      <Badge variant={statusVariant(selectedItem.status)} className="text-xs uppercase">
+                      <Badge
+                        variant={statusVariant(selectedItem.status)}
+                        className="text-xs uppercase"
+                      >
                         {selectedItem.status ?? 'pending'}
                       </Badge>
                     </div>
 
                     <p className="mt-3 text-sm text-muted-foreground">{selectedItem.date}</p>
-                    <p className="mt-4 text-sm leading-relaxed text-foreground">{selectedItem.content}</p>
+                    <p className="mt-4 text-sm leading-relaxed text-foreground">
+                      {selectedItem.content}
+                    </p>
 
                     <div className="mt-5 flex flex-wrap items-center justify-between gap-3 text-sm text-muted-foreground">
                       <span>Energie: {selectedItem.energy ?? 0}%</span>

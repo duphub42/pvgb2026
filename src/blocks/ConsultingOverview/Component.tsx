@@ -10,7 +10,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
 import { cn } from '@/utilities/ui'
 import './consulting-overview-flow.css'
 
@@ -140,12 +139,9 @@ const StepCard: React.FC<{ step: Step }> = ({ step }) => {
             <Icon className="h-5 w-5" />
           </span>
           <div className="flex flex-wrap items-center gap-3">
-            <Badge
-              variant="secondary"
-              className="px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground"
-            >
+            <span className="inline-flex items-center rounded-full border border-border bg-transparent px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground">
               {step.badge}
-            </Badge>
+            </span>
             {step.meta ? (
               <span className="text-[10px] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
                 {step.meta}
@@ -193,6 +189,7 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   experienceLabel,
   experienceSubLabel,
   experienceTitle,
+  colors,
 }) => {
   const steps = buildProcessSteps({
     strategyLabel,
@@ -211,9 +208,11 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   const intro = normalizeText(introText) || DEFAULTS.intro
   const usePixelLayout = pixelLayoutDesktop !== false
   const useStepList = layoutMode === 'stepList'
+  const strokeColor = colors?.timelineStroke || '#999999'
+  const flowStyle = { '--consulting-flow-stroke': strokeColor } as React.CSSProperties
 
   const renderStepList = () => (
-    <div className="consulting-flow">
+    <div className="consulting-flow" style={flowStyle}>
       <ol className="consulting-flow-list">
         {steps.map((step) => {
           const Icon = getStepIcon(step.id)
@@ -228,12 +227,7 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
 
                   <div className="consulting-flow-body">
                     <div className="consulting-flow-tags">
-                      <Badge
-                        variant="secondary"
-                        className="px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]"
-                      >
-                        {step.badge}
-                      </Badge>
+                      <span className="consulting-flow-badge">{step.badge}</span>
                       {step.meta ? <span className="consulting-flow-meta">{step.meta}</span> : null}
                     </div>
                     <h3 className="consulting-flow-title">{step.title}</h3>
@@ -260,19 +254,19 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
       <div
         aria-hidden
         className="pointer-events-none absolute -left-36 top-28 h-72 w-72 rounded-full blur-3xl"
-        style={{ background: '#E5E5E5', opacity: 0.28 }}
+        style={{ background: '#E5E7EB', opacity: 0.28 }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute -right-36 bottom-24 h-80 w-80 rounded-full blur-3xl"
-        style={{ background: '#D4D4D4', opacity: 0.24 }}
+        style={{ background: '#CBD5E1', opacity: 0.24 }}
       />
       <div
         aria-hidden
         className="pointer-events-none absolute left-1/2 top-10 hidden h-[24rem] w-[24rem] -translate-x-1/2 rounded-full lg:block"
         style={{
           background:
-            'radial-gradient(circle at 50% 50%, rgba(163,163,163,0.16) 0%, transparent 72%)',
+            'radial-gradient(circle at 50% 50%, rgba(148,163,184,0.16) 0%, transparent 72%)',
           opacity: 0.34,
         }}
       />
@@ -284,16 +278,13 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
         )}
       >
         <header className="relative z-10 mx-auto max-w-3xl text-center">
-          <Badge
-            variant="secondary"
-            className="px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em]"
-          >
+          <p className="inline-flex items-center rounded-full border border-slate-200 bg-slate-100 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-slate-700">
             Prozess
-          </Badge>
-          <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-[-0.03em] text-foreground md:text-4xl lg:text-5xl">
+          </p>
+          <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-[-0.03em] text-slate-900 dark:text-slate-100 md:text-4xl lg:text-5xl">
             {title}
           </h2>
-          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
+          <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-slate-600 dark:text-slate-300 md:text-lg">
             {intro}
           </p>
         </header>

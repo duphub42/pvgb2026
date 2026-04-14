@@ -7,6 +7,7 @@ import { ArrowRight, User } from 'lucide-react'
 import { PopoutHeroStackVisual, type HeroStackResolvedLayer } from '@/heros/PopoutHeroStackVisual'
 import { buildHeroCopyFadeStyle, getScrambleLinesRevealDurationMs } from '@/heros/scrambleTiming'
 import type { SitePage } from '@/payload-types'
+import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 type HeroStat = {
   value?: string | null
@@ -33,11 +34,11 @@ function toPositiveDimension(value: unknown): number | undefined {
 
 function resolveMediaAsset(ref: unknown): ResolvedMediaAsset {
   if (!ref) return { src: null }
-  if (typeof ref === 'string') return { src: ref }
+  if (typeof ref === 'string') return { src: resolveHeroImageSrc(ref) }
   if (typeof ref === 'object' && ref !== null) {
     const media = ref as { url?: string | null; width?: number | null; height?: number | null }
     return {
-      src: media.url ?? null,
+      src: resolveHeroImageSrc(ref),
       width: toPositiveDimension(media.width),
       height: toPositiveDimension(media.height),
     }

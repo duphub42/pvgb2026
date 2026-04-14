@@ -1,5 +1,3 @@
-'use client'
-
 import React from 'react'
 
 import type { ProfilKernkompetenzBlock as BlockData } from '@/payload-types'

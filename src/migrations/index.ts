@@ -99,6 +99,8 @@ import * as migration_20260411_134000_repair_portfolio_fk_constraints from './20
 import * as migration_20260412_140000_site_pages_blocks_hero_with_process from './20260412_140000_site_pages_blocks_hero_with_process'
 import * as migration_20260412_150000_site_pages_blocks_radial_orbital_timeline from './20260412_150000_site_pages_blocks_radial_orbital_timeline'
 import * as migration_20260413_170000_repair_pricing_table_dbname_tables from './20260413_170000_repair_pricing_table_dbname_tables'
+import * as migration_20260413_180000_consulting_overview_icons from './20260413_180000_consulting_overview_icons'
+import * as migration_20260413_190000_consulting_overview_benefit_item_icon_column from './20260413_190000_consulting_overview_benefit_item_icon_column'
 
 export const migrations = [
   {
@@ -605,5 +607,15 @@ export const migrations = [
     up: migration_20260413_170000_repair_pricing_table_dbname_tables.up,
     down: migration_20260413_170000_repair_pricing_table_dbname_tables.down,
     name: '20260413_170000_repair_pricing_table_dbname_tables',
+  },
+  {
+    up: migration_20260413_180000_consulting_overview_icons.up,
+    down: migration_20260413_180000_consulting_overview_icons.down,
+    name: '20260413_180000_consulting_overview_icons',
+  },
+  {
+    up: migration_20260413_190000_consulting_overview_benefit_item_icon_column.up,
+    down: migration_20260413_190000_consulting_overview_benefit_item_icon_column.down,
+    name: '20260413_190000_consulting_overview_benefit_item_icon_column',
   },
 ]

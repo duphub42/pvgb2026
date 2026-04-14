@@ -10,7 +10,15 @@ const fs = require('fs')
 const path = require('path')
 
 const root = path.join(__dirname, '..')
-const dirs = [path.join(root, '.next'), path.join(root, '.next-dev')]
+const devDir = path.join(root, '.next-dev')
+
+// Clear stale development artifacts to avoid missing runtime chunks
+// such as vendor-chunks/date-fns@4.1.0.js when Next rebuilds incrementally.
+if (fs.existsSync(devDir)) {
+  fs.rmSync(devDir, { recursive: true, force: true })
+}
+
+const dirs = [path.join(root, '.next'), devDir]
 
 const routesManifest = {
   version: 3,
@@ -37,12 +45,26 @@ const prerenderManifest = {
   },
 }
 
+const appPathsManifest = {}
+const pagesManifest = {}
+
+const distPackageJson = { type: 'commonjs' }
+
 for (const dir of dirs) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true })
   }
+
+  const packageJsonPath = path.join(dir, 'package.json')
+  fs.writeFileSync(packageJsonPath, JSON.stringify(distPackageJson, null, 2))
+
   const routesPath = path.join(dir, 'routes-manifest.json')
   const prerenderPath = path.join(dir, 'prerender-manifest.json')
+  const appPathsPath = path.join(dir, 'app-paths-manifest.json')
+  const pagesPath = path.join(dir, 'pages-manifest.json')
+
   fs.writeFileSync(routesPath, JSON.stringify(routesManifest, null, 0))
   fs.writeFileSync(prerenderPath, JSON.stringify(prerenderManifest, null, 0))
+  fs.writeFileSync(appPathsPath, JSON.stringify(appPathsManifest, null, 0))
+  fs.writeFileSync(pagesPath, JSON.stringify(pagesManifest, null, 0))
 }

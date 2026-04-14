@@ -304,6 +304,7 @@ export const ConsultingOverview: Block = {
       fields: [
         {
           name: 'icon',
+          dbName: 'icn',
           type: 'select',
           label: 'Step-Icon',
           defaultValue: 'sparkles',

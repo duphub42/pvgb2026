@@ -1,5 +1,3 @@
-'use client'
-
 /**
  * Alte Seiten haben noch blockType `profilBacher` in der DB (ohne CMS-Felder).
  * Rendert dieselben Abschnitte wie die acht Profil-Blöcke – Inhalt kommt aus den Komponenten-Fallbacks (defaults.ts).
