@@ -12,9 +12,11 @@ import {
 export type ArchiveBlockComponentProps = ArchiveBlockFields & {
   id?: string
   disableInnerContainer?: boolean
+  index?: number
 }
 
 export async function ArchiveBlockComponent(props: ArchiveBlockComponentProps) {
+  // index ist für Server Components nicht verfügbar, wird aber akzeptiert für Kompatibilität
   const { id, categories, introContent, limit: limitFromProps, populateBy, selectedDocs } = props
 
   const limit = limitFromProps || 3

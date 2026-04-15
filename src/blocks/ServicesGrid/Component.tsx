@@ -29,8 +29,13 @@ import { cn } from '@/utilities/ui'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 import type { ServicesGridBlock as ServicesGridBlockData } from '@/payload-types'
+import type { BlockStyles } from '@/blocks/BlockStyleSystem'
+import { BlockContainer } from '@/components/BlockContainer'
 
-type ServicesGridProps = ServicesGridBlockData & { disableInnerContainer?: boolean }
+type ServicesGridProps = ServicesGridBlockData & {
+  disableInnerContainer?: boolean
+  index?: number
+}
 type RadialStrength = 'subtle' | 'medium' | 'strong'
 
 const normalizeServiceSlug = (slug?: string | null): string => {
@@ -149,18 +154,24 @@ const isSvgIntroImage = (
   return false
 }
 
-export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
-  heading,
-  intro,
-  tagline,
-  introIconList,
-  introImage,
-  introImagePosition = 'left',
-  radialBackground,
-  radialBackgroundVariant,
-  radialBackgroundStrength,
-  categories,
-}) => {
+export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
+  const {
+    heading,
+    intro,
+    tagline,
+    introIconList,
+    introImage,
+    introImagePosition = 'left',
+    radialBackground,
+    radialBackgroundVariant,
+    radialBackgroundStrength,
+    categories,
+    index = 0,
+    ...styleProps
+  } = props
+
+  // Style-Props direkt an BlockContainer übergeben
+  const styles = styleProps as unknown as BlockStyles
   const servicesData = categories ?? []
   const introImageSrc = resolveHeroImageSrc(introImage)
   const hasIntroImage = Boolean(introImageSrc)
@@ -178,10 +189,11 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
     typeof tagline === 'string' && tagline.trim() ? tagline.split('\n').filter((l) => l.trim()) : []
 
   return (
-    <section
-      aria-label="Leistungen"
+    <BlockContainer
+      styles={styles}
+      index={index}
       className={cn(
-        'relative w-full min-w-0 overflow-x-clip overflow-y-visible py-16 lg:pt-24',
+        'overflow-x-clip overflow-y-visible',
         effectiveStrength === 'subtle' && 'services-grid-radial-subtle',
       )}
     >
@@ -360,6 +372,6 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = ({
           ))}
         </div>
       </div>
-    </section>
+    </BlockContainer>
   )
 }

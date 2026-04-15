@@ -70,8 +70,9 @@ function mapItem(doc: PriceCalcItem): PriceCalcItemClient {
 }
 
 export async function PriceCalculatorBlockComponent(
-  props: PriceCalculatorBlockFields & { disableInnerContainer?: boolean },
+  props: PriceCalculatorBlockFields & { disableInnerContainer?: boolean; index?: number },
 ) {
+  // index ist für Server Components nicht verfügbar, wird aber akzeptiert für Kompatibilität
   const { showRatesSection = true, disableInnerContainer } = props
 
   const payload = await getPayload({ config: configPromise })

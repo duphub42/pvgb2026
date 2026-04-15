@@ -82,9 +82,9 @@
 /* Desktop megamenu nav items */
 nav.megamenu-nav a.megamenu-top-item {
   font-family: var(--font-outfit);
-  font-size: 12.5px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.009em;
   line-height: 1;
   text-transform: uppercase;
 }
@@ -304,9 +304,9 @@ nav.megamenu-nav a.megamenu-top-item {
   padding: 0 1.125rem;
   margin-block: 0;
   font-family: var(--font-outfit);
-  font-size: 12.5px;
-  font-weight: 500;
-  letter-spacing: 0.12em;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.009em;
   line-height: 1;
   display: inline-flex;
   align-items: center;
@@ -408,18 +408,18 @@ nav.megamenu-nav a.megamenu-top-item {
 .megamenu {
   --megamenu-panel-duration: 220ms;
   --megamenu-panel-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
-  --megamenu-stack-max-width: 1279px; /* < 1280px = xl: Highlight unter Inhalt, Desc ausgeblendet */
-  --megamenu-content-duration: 0.22s;
-  --megamenu-content-stagger: 40ms;
-  --megamenu-col-stagger: 56ms;
-  --megamenu-col-initial-delay: 14ms;
-  --megamenu-block-stagger: 42ms;
-  --megamenu-block-initial-delay: 10ms;
-  --megamenu-close-panel-delay: 64ms;
-  --megamenu-close-block-duration: 130ms;
-  --megamenu-close-block-initial-delay: 8ms;
-  --megamenu-close-block-stagger: 12ms;
-  --megamenu-close-highlight-duration: 120ms;
+  --megamenu-stack-max-width: 1279px;
+  /* Wasserfall-Effekt: Spalte erscheint, dann ihre Blöcke, dann nächste Spalte */
+  --megamenu-col-stagger: 180ms;      /* Zeit für Spalte + ihre Blöcke */
+  --megamenu-col-initial-delay: 20ms; /* Erste Spalte leicht verzögert */
+  --megamenu-block-stagger: 45ms;     /* Blöcke nacheinander innerhalb Spalte */
+  --megamenu-block-initial-delay: 140ms; /* Blöcke starten deutlich NACH Spalte */
+  /* Schnelles Schließen beim Hover-Wechsel */
+  --megamenu-close-panel-delay: 8ms;
+  --megamenu-close-block-duration: 60ms;
+  --megamenu-close-block-initial-delay: 0ms;
+  --megamenu-close-block-stagger: 6ms;
+  --megamenu-close-highlight-duration: 60ms;
 }
 /* Öffnen: keine vertikale Verschiebung an der Header-Kante, damit die Border-Linie farbstabil bleibt */
 @keyframes megamenu-slide-down {
@@ -494,7 +494,7 @@ nav.megamenu-nav a.megamenu-top-item {
 }
 
 /* Apple-Style: Inhalte bauen sich gestaffelt auf (reines Fade-in, langsame Transition wie Apple) */
-/* Stagger: exakt 200 ms Abstand (200, 400, 600, …) wie in Apple-Nachbauten beschrieben */
+/* Stagger: exakt 200 ms Abstand (200, 400, 600, …) wie in Apple-Nachbauten beschrieben */
 @keyframes megamenu-content-in {
   from {
     opacity: 0;
@@ -505,11 +505,29 @@ nav.megamenu-nav a.megamenu-top-item {
     transform: translateY(0);
   }
 }
-/* Featured-Spalte / Highlight: nur minimales Fade, kein Clip-Wipe */
+/* Spalten-Fade-In: gleichmäßige Staffelung für flüssigen kaskadierenden Aufbau */
+@keyframes megamenu-col-fade-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > .megamenu-fan-col {
+  opacity: 0;
+  animation: megamenu-col-fade-in 220ms var(--megamenu-panel-ease) forwards;
+  animation-delay: calc(var(--megamenu-col-initial-delay) + (var(--megamenu-col-index, 0) * var(--megamenu-col-stagger)));
+  will-change: transform, opacity;
+  transform: translateZ(0);
+}
+/* Featured-Spalte / Highlight: gleiche Animation wie reguläre Spalten für synchronen Aufbau */
 @keyframes megamenu-featured-in {
   from {
     opacity: 0;
-    transform: translate3d(0, 4px, 0);
+    transform: translate3d(0, 8px, 0);
   }
   to {
     opacity: 1;
@@ -524,11 +542,6 @@ nav.megamenu-nav a.megamenu-top-item {
 .megamenu-dropdown-intro h2,
 .megamenu-dropdown-intro p {
   transition: none !important;
-}
-.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-content > .megamenu-fan-col {
-  opacity: 1;
-  animation: none;
-  transform: none;
 }
 @keyframes megamenu-block-in {
   from {
@@ -570,9 +583,9 @@ nav.megamenu-nav a.megamenu-top-item {
   .megamenu-col-items
   .megamenu-block-item {
   opacity: 0;
-  animation: megamenu-block-in 180ms var(--megamenu-panel-ease) forwards;
+  animation: megamenu-block-in 200ms var(--megamenu-panel-ease) forwards;
   animation-delay: calc(
-    var(--megamenu-block-initial-delay) + (var(--megamenu-block-index, 0) * var(--megamenu-block-stagger))
+    var(--megamenu-col-initial-delay) + (var(--megamenu-col-index, 0) * var(--megamenu-col-stagger)) + var(--megamenu-block-initial-delay) + (var(--megamenu-block-index, 0) * var(--megamenu-block-stagger))
   );
   will-change: transform, opacity;
 }
@@ -711,7 +724,7 @@ nav.megamenu-nav a.megamenu-top-item {
   animation: megamenu-featured-out var(--megamenu-close-highlight-duration)
     var(--megamenu-panel-ease) 0ms forwards;
 }
-/* Highlight innen: weiches Fade statt Wipe (höhere Spezifität) */
+/* Highlight innen: gleiche Animation wie Spalten für synchronen Fluss */
 .megamenu-viewport-wrapper:has([data-state='open'])
   .megamenu-dropdown-content
   > .megamenu-featured
@@ -720,13 +733,9 @@ nav.megamenu-nav a.megamenu-top-item {
   .megamenu-dropdown-content
   > .megamenu-featured
   .megamenu-highlight-wipe-wrap[data-wipe='right'] {
-  animation: megamenu-featured-in 0.24s var(--megamenu-panel-ease)
-    var(
-      --megamenu-highlight-delay,
-      calc(
-        var(--megamenu-col-initial-delay) + (var(--megamenu-col-index, 0) * var(--megamenu-col-stagger)) + 36ms
-      )
-    )
+  opacity: 0;
+  animation: megamenu-col-fade-in 220ms var(--megamenu-panel-ease)
+    calc(var(--megamenu-col-initial-delay) + (var(--megamenu-col-index, 0) * var(--megamenu-col-stagger)) + 14ms)
     forwards;
 }
 .megamenu-viewport-wrapper:has([data-state='open'])
@@ -735,24 +744,16 @@ nav.megamenu-nav a.megamenu-top-item {
 .megamenu-viewport-wrapper:has([data-state='open'])
   .megamenu-dropdown-content-footer
   .megamenu-highlight-wipe-wrap[data-wipe='right'] {
-  animation: megamenu-featured-in 0.24s var(--megamenu-panel-ease)
-    var(
-      --megamenu-highlight-delay,
-      calc(
-        var(--megamenu-col-initial-delay) + ((var(--megamenu-col-count, 0) + 0.4) * var(--megamenu-col-stagger))
-      )
-    )
+  opacity: 0;
+  animation: megamenu-col-fade-in 220ms var(--megamenu-panel-ease)
+    calc(var(--megamenu-col-initial-delay) + (var(--megamenu-col-index, 0) * var(--megamenu-col-stagger)))
     forwards;
 }
-/* Grid-Zelle Featured: gleiches minimales Fade, kurze Verzögerung */
+/* Grid-Zelle Featured: gleiche Animation wie alle anderen Spalten */
 .megamenu-viewport-wrapper:has([data-state='open']) .megamenu-dropdown-panel .megamenu-dropdown-content > div.megamenu-featured {
-  animation: megamenu-featured-in 0.24s var(--megamenu-panel-ease)
-    var(
-      --megamenu-highlight-delay,
-      calc(
-        var(--megamenu-col-initial-delay) + (var(--megamenu-col-index, 0) * var(--megamenu-col-stagger))
-      )
-    )
+  opacity: 0;
+  animation: megamenu-col-fade-in 220ms var(--megamenu-panel-ease)
+    calc(var(--megamenu-col-initial-delay) + (var(--megamenu-col-index, 0) * var(--megamenu-col-stagger)))
     forwards;
   will-change: opacity, transform;
   transform: translateZ(0);

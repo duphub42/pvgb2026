@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { blockStyleFields } from '@/blocks/blockStyleFields'
+
 export const PriceCalculator: Block = {
   slug: 'priceCalculator',
   interfaceName: 'PriceCalculatorBlock',
@@ -8,6 +10,7 @@ export const PriceCalculator: Block = {
     plural: 'Preisrechner',
   },
   fields: [
+    ...blockStyleFields,
     {
       name: 'showRatesSection',
       type: 'checkbox',

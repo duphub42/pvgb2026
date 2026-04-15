@@ -1,5 +1,5 @@
 import { getPayload } from 'payload'
-import config from './src/payload.config.ts'
+import config from '@payload-config'
 
 const payload = await getPayload({ config })
 

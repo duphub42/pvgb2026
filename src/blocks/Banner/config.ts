@@ -6,9 +6,13 @@ import {
   lexicalEditor,
 } from '@payloadcms/richtext-lexical'
 
+import { blockStyleFields } from '@/blocks/blockStyleFields'
+
 export const Banner: Block = {
   slug: 'banner',
+  interfaceName: 'BannerBlock',
   fields: [
+    ...blockStyleFields,
     {
       name: 'style',
       type: 'select',
@@ -33,5 +37,4 @@ export const Banner: Block = {
       required: true,
     },
   ],
-  interfaceName: 'BannerBlock',
 }

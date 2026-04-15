@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { blockStyleFields } from '@/blocks/blockStyleFields'
+
 const defaultSteps = [
   {
     stepNumber: '01',
@@ -47,6 +49,7 @@ export const HeroWithProcess: Block = {
     plural: 'Hero mit Prozess',
   },
   fields: [
+    ...blockStyleFields,
     {
       name: 'seoH1',
       type: 'text',

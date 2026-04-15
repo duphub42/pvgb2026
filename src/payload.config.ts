@@ -74,7 +74,7 @@ export default buildConfig({
     components: {
       graphics: { Logo: '/components/AdminLogo' },
       beforeLogin: ['/components/BeforeLogin'],
-      beforeDashboard: ['/components/BeforeDashboard'],
+      // beforeDashboard: ['/components/BeforeDashboard'], // TEMP DISABLED for testing
     },
     importMap: {
       baseDir: path.resolve(dirname),

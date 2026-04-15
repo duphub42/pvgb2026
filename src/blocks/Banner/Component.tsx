@@ -1,16 +1,26 @@
+'use client'
+
 import type { BannerBlock as BannerBlockProps } from 'src/payload-types'
+import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 
 import { cn } from '@/utilities/ui'
 import React from 'react'
 import RichText from '@/components/RichText'
+import { BlockContainer } from '@/components/BlockContainer'
 
-type Props = {
+type BannerBlockComponentProps = BannerBlockProps & {
   className?: string
-} & BannerBlockProps
+  index?: number
+}
 
-export const BannerBlock: React.FC<Props> = ({ className, content, style }) => {
+export const BannerBlock: React.FC<BannerBlockComponentProps> = (props) => {
+  const { className, content, style, index = 0, ...styleProps } = props
+
+  // Style-Props direkt an BlockContainer übergeben
+  const styles = styleProps as unknown as BlockStyles
+
   return (
-    <div className={cn('mx-auto my-8 w-full', className)}>
+    <BlockContainer styles={styles} index={index} className={className}>
       <div
         className={cn('border py-3 px-6 flex items-center rounded', {
           'border-border bg-card': style === 'info',
@@ -21,6 +31,6 @@ export const BannerBlock: React.FC<Props> = ({ className, content, style }) => {
       >
         <RichText data={content} enableGutter={false} enableProse={false} />
       </div>
-    </div>
+    </BlockContainer>
   )
 }

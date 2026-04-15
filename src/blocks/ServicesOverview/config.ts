@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { blockStyleFields } from '@/blocks/blockStyleFields'
+
 const defaultServices = [
   {
     icon: 'compass',
@@ -35,6 +37,7 @@ export const ServicesOverview: Block = {
     plural: 'Leistungen Überblick',
   },
   fields: [
+    ...blockStyleFields,
     {
       name: 'heading',
       type: 'text',

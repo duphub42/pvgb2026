@@ -2440,7 +2440,7 @@ export function MegaMenu({
                                         )}
                                       >
                                         {col.title != null && col.title !== '' && (
-                                          <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-wider">
+                                          <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-[-0.009em]">
                                             {col.title}
                                           </h4>
                                         )}
@@ -2632,7 +2632,7 @@ export function MegaMenu({
                                     >
                                       <div className="flex flex-col gap-2">
                                         {cardTitle && (
-                                          <h4 className="text-sm font-semibold leading-tight">
+                                          <h4 className="text-sm font-semibold tracking-[-0.009em] leading-tight">
                                             {cardTitle}
                                           </h4>
                                         )}
@@ -2789,7 +2789,7 @@ export function MegaMenu({
                                             <div className="megamenu-dropdown-intro px-8 pt-8 pb-4 border-b border-border/60">
                                               {catDesc.title != null &&
                                                 String(catDesc.title).trim() !== '' && (
-                                                  <h2 className="text-lg font-semibold tracking-tight text-foreground">
+                                                  <h2 className="text-sm font-semibold uppercase tracking-[-0.009em] text-foreground">
                                                     {catDesc.title}
                                                   </h2>
                                                 )}
@@ -2887,6 +2887,7 @@ export function MegaMenu({
                                       style={
                                         {
                                           '--megamenu-col-count': visibleColumns.length,
+                                          '--megamenu-col-index': visibleColumns.length,
                                           '--megamenu-highlight-delay': `${highlightDelayMs}ms`,
                                         } as React.CSSProperties
                                       }

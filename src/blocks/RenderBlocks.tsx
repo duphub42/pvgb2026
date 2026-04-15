@@ -127,14 +127,16 @@ export const RenderBlocks: React.FC<{
                   <ArchiveBlockComponent
                     {...(b as ArchiveBlockComponentProps)}
                     disableInnerContainer
+                    index={index}
                   />
                 ) : isPriceCalculator ? (
                   <PriceCalculatorBlockComponent
                     {...(b as PriceCalculatorBlock)}
                     disableInnerContainer
+                    index={index}
                   />
                 ) : (
-                  <BlockRenderer blockType={blockType} block={b} />
+                  <BlockRenderer blockType={blockType} block={b} index={index} />
                 )}
               </div>
             </AnimateBlock>

@@ -1,9 +1,9 @@
 'use client'
 
 import { cn } from '@/utilities/ui'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 
-const CHARS = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz'
+const CHARS = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`'
 
 /** Hacker-Style: mehr Ziffern, Klammern, Code-Zeichen */
 export const HACKER_CHARS = '01{}[]<>/\\|;:=*#@$%&_+-~`'
@@ -12,116 +12,206 @@ function randomCharFrom(chars: string) {
   return chars[Math.floor(Math.random() * chars.length)]
 }
 
+/** Erzeugt ein zufälliges Wort der gleichen Länge wie das Original */
+function scrambleWord(word: string, chars: string): string {
+  return Array.from({ length: word.length }, () => randomCharFrom(chars)).join('')
+}
+
 type ScrambleTextProps = {
   text: string
   className?: string
-  /** Zeichensatz für Scramble (z. B. HACKER_CHARS). Ohne = Standard. */
   chars?: string
-  /** Verzögerung pro Zeichen in ms (Stagger) */
   staggerMs?: number
-  /** Dauer pro Zeichen im Scramble-Zustand in ms, danach wird der Endbuchstabe angezeigt */
   scrambleDurationMs?: number
-  /** Intervall zum Ersetzen der Zufallszeichen in ms */
   tickMs?: number
-  /** Verzögerung bis die Animation startet */
   delayMs?: number
-  /** Kein Scramble beim Mount — vermeidet Breitenwechsel (CLS), z. B. im Footer */
   disableAnimation?: boolean
 }
 
-/**
- * Zeigt Text mit Scramble-Effekt: Zufallszeichen wechseln, dann Einblendung des echten Zeichens (von links nach rechts).
- * Orientierung an GSAP ScrambleText / CodePen GreenSock.
- */
+interface WordSegment {
+  original: string
+  display: string
+  isRevealed: boolean
+  isWhitespace: boolean
+}
+
 export function ScrambleText({
   text,
   className,
   chars = CHARS,
-  staggerMs = 50,
-  scrambleDurationMs = 450,
-  tickMs = 40,
+  staggerMs = 200,
+  scrambleDurationMs = 400,
+  tickMs = 60,
   delayMs = 0,
   disableAnimation = false,
 }: ScrambleTextProps) {
-  const [display, setDisplay] = useState(text)
-  const [reducedMotion, setReducedMotion] = useState(false)
+  const scrambleChars = useMemo(() => chars || CHARS, [chars])
+
+  // Parse words once
+  const parsedWords = useMemo(() => {
+    return text.split(/(\s+)/).map((w) => ({
+      text: w,
+      isWhitespace: !w.trim(),
+    }))
+  }, [text])
+
+  const actualWordCount = useMemo(
+    () => parsedWords.filter((w) => !w.isWhitespace).length,
+    [parsedWords],
+  )
+
+  // Use ref to store initial segments - persists across Strict Mode remounts
+  const initialSegmentsRef = useRef<WordSegment[] | null>(null)
+
+  // Generate initial segments only once per text change (not on every render)
+  if (
+    initialSegmentsRef.current === null ||
+    initialSegmentsRef.current.length !== parsedWords.length
+  ) {
+    if (!text || actualWordCount === 0) {
+      initialSegmentsRef.current = parsedWords.map((w) => ({
+        original: w.text,
+        display: w.text,
+        isRevealed: true,
+        isWhitespace: w.isWhitespace,
+      }))
+    } else {
+      initialSegmentsRef.current = parsedWords.map((w) => ({
+        original: w.text,
+        display: w.isWhitespace ? w.text : scrambleWord(w.text, scrambleChars),
+        isRevealed: w.isWhitespace,
+        isWhitespace: w.isWhitespace,
+      }))
+    }
+  }
+
+  const [segments, setSegments] = useState<WordSegment[]>(initialSegmentsRef.current)
+  const [isAnimating, setIsAnimating] = useState(() => {
+    if (disableAnimation || !text || actualWordCount === 0) return false
+    if (typeof window !== 'undefined') {
+      return !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    }
+    return true
+  })
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const startTimeRef = useRef<number>(0)
+  const hasStartedRef = useRef(false)
 
-  const run = useCallback(() => {
-    if (!text) {
-      setDisplay('')
+  // Start animation
+  useEffect(() => {
+    // Skip if already started (React Strict Mode protection)
+    if (hasStartedRef.current) return
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+    if (disableAnimation || prefersReducedMotion || !text || actualWordCount === 0) {
+      setIsAnimating(false)
       return
     }
-    const len = text.length
-    const scrambleChars = chars || CHARS
-    startTimeRef.current = performance.now()
 
-    const tick = () => {
-      const elapsed = performance.now() - startTimeRef.current
-      const next: string[] = []
-      for (let i = 0; i < len; i++) {
-        const revealAt = i * staggerMs + scrambleDurationMs
-        if (elapsed >= revealAt) {
-          next.push(text[i])
-        } else if (elapsed >= i * staggerMs) {
-          next.push(randomCharFrom(scrambleChars))
-        } else {
-          next.push('\u00A0')
+    hasStartedRef.current = true
+    setIsAnimating(true)
+
+    // Start animation after delay
+    const timeoutId = setTimeout(() => {
+      startTimeRef.current = performance.now()
+
+      const tick = () => {
+        const elapsed = performance.now() - startTimeRef.current
+        let wordIndex = 0
+        let allRevealed = true
+
+        setSegments((prev) => {
+          const next = prev.map((seg) => {
+            if (seg.isWhitespace || seg.isRevealed) return seg
+
+            const revealAt = wordIndex * staggerMs + scrambleDurationMs
+            const scrambleStart = wordIndex * staggerMs
+
+            if (elapsed >= revealAt) {
+              wordIndex++
+              return { ...seg, display: seg.original, isRevealed: true }
+            }
+
+            allRevealed = false
+            wordIndex++
+
+            if (elapsed >= scrambleStart) {
+              // Still scrambling - update random chars
+              return { ...seg, display: scrambleWord(seg.original, scrambleChars) }
+            }
+            // Not started yet - keep scrambled
+            return seg
+          })
+          return next
+        })
+
+        const totalDuration = actualWordCount * staggerMs + scrambleDurationMs + 50
+        if (elapsed >= totalDuration || allRevealed) {
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current)
+            intervalRef.current = null
+          }
+          setIsAnimating(false)
+          // Ensure all are revealed
+          setSegments((prev) =>
+            prev.map((seg) =>
+              seg.isWhitespace ? seg : { ...seg, display: seg.original, isRevealed: true },
+            ),
+          )
         }
       }
-      const str = next.join('')
-      setDisplay(str)
-      if (elapsed >= len * staggerMs + scrambleDurationMs + 50) {
-        if (intervalRef.current) {
-          clearInterval(intervalRef.current)
-          intervalRef.current = null
-        }
-        setDisplay(text)
-      }
-    }
 
-    if (intervalRef.current) clearInterval(intervalRef.current)
-    intervalRef.current = setInterval(tick, tickMs)
-    tick()
-  }, [text, chars, staggerMs, scrambleDurationMs, tickMs])
+      // Clear any existing interval
+      if (intervalRef.current) clearInterval(intervalRef.current)
 
-  useEffect(() => {
-    const mql = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const update = () => setReducedMotion(mql.matches)
-    update()
-    mql.addEventListener('change', update)
-    return () => mql.removeEventListener('change', update)
-  }, [])
+      intervalRef.current = setInterval(tick, tickMs)
+      tick() // First tick immediately
+    }, delayMs)
 
-  useEffect(() => {
-    if (disableAnimation) {
-      setDisplay(text || '')
-      return
-    }
-    if (!text) {
-      setDisplay('')
-      return
-    }
-    if (reducedMotion) {
-      setDisplay(text)
-      return
-    }
-    setDisplay('\u00A0'.repeat(text.length))
-
-    const t = setTimeout(() => run(), delayMs)
     return () => {
-      clearTimeout(t)
+      clearTimeout(timeoutId)
       if (intervalRef.current) {
         clearInterval(intervalRef.current)
         intervalRef.current = null
       }
     }
-  }, [text, delayMs, run, reducedMotion, disableAnimation])
+  }, [
+    text,
+    actualWordCount,
+    scrambleChars,
+    staggerMs,
+    scrambleDurationMs,
+    tickMs,
+    delayMs,
+    disableAnimation,
+  ])
+
+  // Cleanup on unmount
+  useEffect(() => {
+    return () => {
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+    }
+  }, [])
 
   return (
-    <span className={cn('inline-block', className)} aria-label={text}>
-      {display || '\u00A0'}
+    <span className={cn('inline', className)} aria-label={text}>
+      {segments.map((seg, i) => (
+        <span
+          key={i}
+          className={cn(
+            'inline',
+            seg.isWhitespace && 'whitespace-pre',
+            isAnimating && !seg.isRevealed && 'opacity-90',
+          )}
+        >
+          {seg.display}
+        </span>
+      ))}
     </span>
   )
 }

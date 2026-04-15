@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useMemo } from 'react'
 import {
   Brain,
@@ -17,9 +19,11 @@ import {
 } from 'lucide-react'
 
 import type { WhyWorkWithMeBlock as WhyWorkWithMeBlockData } from '@/payload-types'
+import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 
 import { ReasonCard } from '@/blocks/WhyWorkWithMe/ReasonCard'
 import { cn } from '@/utilities/ui'
+import { BlockContainer } from '@/components/BlockContainer'
 
 const ICON_MAP: Record<string, LucideIcon> = {
   brain: Brain,
@@ -80,8 +84,7 @@ const STATIC_FALLBACK: Array<{ icon: string; title: string; description: string 
   {
     icon: 'trending-up',
     title: 'Performance & Resultate',
-    description:
-      'Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern.',
+    description: 'Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern.',
   },
   {
     icon: 'globe',
@@ -91,19 +94,32 @@ const STATIC_FALLBACK: Array<{ icon: string; title: string; description: string 
   },
 ]
 
-type WhyWorkWithMeProps = WhyWorkWithMeBlockData & { disableInnerContainer?: boolean }
+type WhyWorkWithMeProps = WhyWorkWithMeBlockData & {
+  disableInnerContainer?: boolean
+  index?: number
+}
 
-export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = ({
-  disableInnerContainer: _disableInnerContainer,
-  heading,
-  intro,
-  introIconList,
-  reasons,
-}) => {
+export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = (props) => {
+  const {
+    disableInnerContainer: _disableInnerContainer,
+    heading,
+    intro,
+    introIconList,
+    reasons,
+    index = 0,
+    ...styleProps
+  } = props
+
+  // Style-Props direkt an BlockContainer übergeben
+  const styles = styleProps as unknown as BlockStyles
   const items = useMemo(() => {
-    const rows = reasons?.filter(
-      (r): r is NonNullable<(typeof reasons)[number]> =>
-        Boolean(r && typeof r === 'object' && String(r.title ?? '').trim() && String(r.description ?? '').trim()),
+    const rows = reasons?.filter((r): r is NonNullable<(typeof reasons)[number]> =>
+      Boolean(
+        r &&
+        typeof r === 'object' &&
+        String(r.title ?? '').trim() &&
+        String(r.description ?? '').trim(),
+      ),
     )
     if (rows?.length) {
       return rows.map((r, idx) => ({
@@ -128,14 +144,12 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = ({
     const useFallback = introIconList === undefined || introIconList === null
     const source = useFallback
       ? INTRO_ICON_FALLBACK
-      : introIconList.filter(
-          (row): row is NonNullable<(typeof introIconList)[number]> =>
-            Boolean(row && typeof row === 'object' && String(row.text ?? '').trim()),
+      : introIconList.filter((row): row is NonNullable<(typeof introIconList)[number]> =>
+          Boolean(row && typeof row === 'object' && String(row.text ?? '').trim()),
         )
     if (!source.length) return []
     return source.map((row, idx) => {
-      const iconKey =
-        typeof row.icon === 'string' && row.icon in ICON_MAP ? row.icon : 'brain'
+      const iconKey = typeof row.icon === 'string' && row.icon in ICON_MAP ? row.icon : 'brain'
       const text = String(row.text).trim()
       const id = 'id' in row && typeof row.id === 'string' ? row.id : ''
       return {
@@ -154,13 +168,7 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = ({
   const hasTextColumn = showHeading || showIntro || showIntroIconList
 
   return (
-    <section
-      className={cn(
-        'py-12 w-full min-w-0',
-        /* BlockRenderer setzt immer disableInnerContainer — ohne .container randlos ultrabreit. */
-        'container overflow-x-visible overflow-y-visible',
-      )}
-    >
+    <BlockContainer styles={styles} index={index}>
       <div
         className={cn(
           'grid min-w-0 gap-10',
@@ -220,10 +228,12 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = ({
           )}
         >
           {items.map(({ key, iconKey, title, description }) => {
-            return <ReasonCard key={key} title={title} description={description} iconKey={iconKey} />
+            return (
+              <ReasonCard key={key} title={title} description={description} iconKey={iconKey} />
+            )
           })}
         </div>
       </div>
-    </section>
+    </BlockContainer>
   )
 }

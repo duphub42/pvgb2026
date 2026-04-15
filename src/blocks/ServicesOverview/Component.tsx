@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useMemo } from 'react'
 import {
   Code,
@@ -16,8 +18,10 @@ import {
 } from 'lucide-react'
 
 import type { ServicesOverviewBlock as ServicesOverviewBlockData } from '@/payload-types'
+import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 
 import { cn } from '@/utilities/ui'
+import { BlockContainer } from '@/components/BlockContainer'
 
 import './services-overview-card-hover.css'
 
@@ -63,23 +67,31 @@ const STATIC_FALLBACK: Array<{ icon: string; title: string; description: string 
   },
 ]
 
-type ServicesOverviewProps = ServicesOverviewBlockData & { disableInnerContainer?: boolean }
+type ServicesOverviewProps = ServicesOverviewBlockData & {
+  disableInnerContainer?: boolean
+  index?: number
+}
 
-export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = ({
-  disableInnerContainer: _disableInnerContainer,
-  heading: _heading,
-  intro: _intro,
-  services,
-}) => {
+export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) => {
+  const {
+    disableInnerContainer: _disableInnerContainer,
+    heading: _heading,
+    intro: _intro,
+    services,
+    index = 0,
+    ...styleProps
+  } = props
+
+  // Style-Props direkt an BlockContainer übergeben
+  const styles = styleProps as unknown as BlockStyles
   const items = useMemo(() => {
-    const rows = services?.filter(
-      (s): s is NonNullable<(typeof services)[number]> =>
-        Boolean(
-          s &&
-            typeof s === 'object' &&
-            String(s.title ?? '').trim() &&
-            String(s.description ?? '').trim(),
-        ),
+    const rows = services?.filter((s): s is NonNullable<(typeof services)[number]> =>
+      Boolean(
+        s &&
+        typeof s === 'object' &&
+        String(s.title ?? '').trim() &&
+        String(s.description ?? '').trim(),
+      ),
     )
     if (rows?.length) {
       return rows.map((s, idx) => ({
@@ -98,15 +110,10 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = ({
   }, [services])
 
   return (
-    <section
-      aria-label="Leistungen"
-      className={cn(
-        'services-overview-section relative z-10 w-full min-w-0 overflow-visible',
-        'container',
-        /* Negativzug nur ab lg (4 Spalten); darunter unter dem Hero ohne Überlagerung */
-        'max-lg:mt-0 lg:-mt-20',
-        'pb-16 pt-0 md:pb-20',
-      )}
+    <BlockContainer
+      styles={styles}
+      index={index}
+      className="services-overview-section overflow-visible pb-16 pt-0 md:pb-20"
     >
       <div className="relative z-10 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:items-stretch lg:gap-6">
         {items.map(({ key, iconKey, title, description }) => {
@@ -146,6 +153,6 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = ({
           )
         })}
       </div>
-    </section>
+    </BlockContainer>
   )
 }

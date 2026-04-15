@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { blockStyleFields } from '@/blocks/blockStyleFields'
+
 const defaultIntroIconList = [
   {
     icon: 'brain' as const,
@@ -42,8 +44,7 @@ const defaultReasons = [
   {
     icon: 'trending-up',
     title: 'Performance & Resultate',
-    description:
-      'Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern.',
+    description: 'Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern.',
   },
   {
     icon: 'globe',
@@ -61,13 +62,15 @@ export const WhyWorkWithMe: Block = {
     plural: 'Warum mit mir',
   },
   fields: [
+    ...blockStyleFields,
     {
       name: 'heading',
       type: 'text',
       label: 'Überschrift',
       defaultValue: 'Warum mit mir',
       admin: {
-        description: 'Hauptüberschrift über dem Kartenraster (optional leer lassen zum Ausblenden).',
+        description:
+          'Hauptüberschrift über dem Kartenraster (optional leer lassen zum Ausblenden).',
       },
     },
     {
@@ -131,7 +134,8 @@ export const WhyWorkWithMe: Block = {
       maxRows: 8,
       defaultValue: defaultReasons,
       admin: {
-        description: 'Karten mit Icon, Titel und Text — Breite passt sich der Anzahl und dem Viewport an.',
+        description:
+          'Karten mit Icon, Titel und Text — Breite passt sich der Anzahl und dem Viewport an.',
       },
       fields: [
         {

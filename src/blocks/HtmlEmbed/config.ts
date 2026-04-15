@@ -1,5 +1,7 @@
 import type { Block } from 'payload'
 
+import { blockStyleFields } from '@/blocks/blockStyleFields'
+
 /** Eingebetteter Roh-HTML/CSS-Block für Lexical (z. B. Diagramme, Custom-Markup). Nur für vertrauenswürdige Redakteure. */
 export const HtmlEmbed: Block = {
   slug: 'htmlEmbed',
@@ -9,6 +11,7 @@ export const HtmlEmbed: Block = {
     plural: 'HTML / CSS',
   },
   fields: [
+    ...blockStyleFields,
     {
       name: 'html',
       type: 'textarea',

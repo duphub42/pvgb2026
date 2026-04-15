@@ -1,22 +1,35 @@
+'use client'
+
 import React from 'react'
 
 import type {
   IntroductionBlock as IntroductionBlockData,
   Media as MediaType,
 } from '@/payload-types'
+import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 
 import { cn } from '@/utilities/ui'
 import { Media } from '@/components/Media'
+import { BlockContainer } from '@/components/BlockContainer'
 
-type IntroductionProps = IntroductionBlockData & { disableInnerContainer?: boolean }
+type IntroductionProps = IntroductionBlockData & {
+  disableInnerContainer?: boolean
+  index?: number
+}
 
-export const IntroductionBlock: React.FC<IntroductionProps> = ({
-  disableInnerContainer: _disableInnerContainer,
-  heading,
-  body,
-  tagline,
-  image,
-}) => {
+export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
+  const {
+    disableInnerContainer: _disableInnerContainer,
+    heading,
+    body,
+    tagline,
+    image,
+    index = 0,
+    ...styleProps
+  } = props
+
+  // Style-Props direkt an BlockContainer übergeben
+  const styles = styleProps as unknown as BlockStyles
   const hasImage = image != null && typeof image === 'object'
 
   const taglineLines =
@@ -57,7 +70,7 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
   }
 
   return (
-    <section className={cn('w-full min-w-0 py-16 md:py-24', 'container', 'px-0 sm:px-0')}>
+    <BlockContainer styles={styles} index={index}>
       <div
         className={cn(
           'grid items-center gap-10',
@@ -136,6 +149,6 @@ export const IntroductionBlock: React.FC<IntroductionProps> = ({
           </div>
         )}
       </div>
-    </section>
+    </BlockContainer>
   )
 }

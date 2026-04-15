@@ -688,11 +688,25 @@ export interface User {
  */
 export interface HeroMarketingBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -702,6 +716,11 @@ export interface HeroMarketingBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   badgeLabel?: string | null;
   title?: string | null;
   subtitle?: string | null;
@@ -718,6 +737,40 @@ export interface HeroMarketingBlock {
  * via the `definition` "HeroWithProcessBlock".
  */
 export interface HeroWithProcessBlock {
+  /**
+   * Padding und Margin des Blocks
+   */
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
+  /**
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   /**
    * Nur für SEO. Im Frontend ausgeblendet, aber für Suchmaschinen sichtbar.
    */
@@ -749,11 +802,25 @@ export interface HeroWithProcessBlock {
  */
 export interface IntroductionBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -763,6 +830,11 @@ export interface IntroductionBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   heading: string;
   /**
    * Haupttext der Einleitung.
@@ -945,6 +1017,40 @@ export interface ConsultingOverviewTheme {
  */
 export interface ServicesOverviewBlock {
   /**
+   * Padding und Margin des Blocks
+   */
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
+  /**
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
+  /**
    * Hauptüberschrift über den Leistungskarten.
    */
   heading?: string | null;
@@ -985,11 +1091,25 @@ export interface ServicesOverviewBlock {
  */
 export interface ServicesGridBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -999,6 +1119,11 @@ export interface ServicesGridBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   /**
    * Titel für dieses Sektion.
    */
@@ -1075,6 +1200,40 @@ export interface ServicesGridBlock {
  */
 export interface WhyWorkWithMeBlock {
   /**
+   * Padding und Margin des Blocks
+   */
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
+  /**
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
+  /**
    * Hauptüberschrift über dem Kartenraster (optional leer lassen zum Ausblenden).
    */
   heading?: string | null;
@@ -1129,11 +1288,25 @@ export interface WhyWorkWithMeBlock {
  */
 export interface RadialOrbitalTimelineBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1143,6 +1316,11 @@ export interface RadialOrbitalTimelineBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   sectionTitle: string;
   /**
    * Optionaler Einleitungstext für die Timeline.
@@ -1177,11 +1355,25 @@ export interface RadialOrbitalTimelineBlock {
  */
 export interface PortfolioCaseGridBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1191,6 +1383,11 @@ export interface PortfolioCaseGridBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   eyebrow?: string | null;
   heading?: string | null;
   intro?: string | null;
@@ -1240,11 +1437,25 @@ export interface PortfolioCaseGridBlock {
  */
 export interface PortfolioKpiStripBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1254,6 +1465,11 @@ export interface PortfolioKpiStripBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   eyebrow?: string | null;
   heading?: string | null;
   intro?: string | null;
@@ -1281,11 +1497,25 @@ export interface PortfolioKpiStripBlock {
  */
 export interface BrandShowcaseBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1295,6 +1525,11 @@ export interface BrandShowcaseBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   eyebrow?: string | null;
   heading?: string | null;
   intro?: string | null;
@@ -1344,11 +1579,25 @@ export interface BrandShowcaseBlock {
  */
 export interface ProfilUeberMichBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1358,6 +1607,11 @@ export interface ProfilUeberMichBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   sectionTitle?: string | null;
   /**
    * Absätze mit einer Leerzeile trennen.
@@ -1381,11 +1635,25 @@ export interface ProfilUeberMichBlock {
  */
 export interface ProfilKernkompetenzBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1395,6 +1663,11 @@ export interface ProfilKernkompetenzBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   ueberschrift?: string | null;
   einleitung?: string | null;
   bereiche?:
@@ -1420,11 +1693,25 @@ export interface ProfilKernkompetenzBlock {
  */
 export interface ProfilKompetenzenBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1434,6 +1721,11 @@ export interface ProfilKompetenzenBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   sectionTitle?: string | null;
   sectionIntro?: string | null;
   spalten?:
@@ -1459,11 +1751,25 @@ export interface ProfilKompetenzenBlock {
  */
 export interface ProfilWerdegangBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1473,6 +1779,11 @@ export interface ProfilWerdegangBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   sectionTitle?: string | null;
   eintraege?:
     | {
@@ -1494,11 +1805,25 @@ export interface ProfilWerdegangBlock {
  */
 export interface ProfilZahlenFaktenBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1508,6 +1833,11 @@ export interface ProfilZahlenFaktenBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   /**
    * Leer lassen, wenn keine Überschrift angezeigt werden soll.
    */
@@ -1529,11 +1859,25 @@ export interface ProfilZahlenFaktenBlock {
  */
 export interface ProfilToolsBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1543,6 +1887,11 @@ export interface ProfilToolsBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   sectionTitle?: string | null;
   tools?:
     | {
@@ -1561,11 +1910,25 @@ export interface ProfilToolsBlock {
  */
 export interface ProfilLangZertBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1575,6 +1938,11 @@ export interface ProfilLangZertBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   sprachenSectionTitle?: string | null;
   zertifikateSectionTitle?: string | null;
   sprachen?:
@@ -1600,11 +1968,25 @@ export interface ProfilLangZertBlock {
  */
 export interface ProfilCtaBandBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1614,6 +1996,11 @@ export interface ProfilCtaBandBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   headline?: string | null;
   text?: string | null;
   buttonLabel?: string | null;
@@ -1627,6 +2014,40 @@ export interface ProfilCtaBandBlock {
  * via the `definition` "PriceCalculatorBlock".
  */
 export interface PriceCalculatorBlock {
+  /**
+   * Padding und Margin des Blocks
+   */
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
+  /**
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   showRatesSection?: boolean | null;
   /**
    * Leer = Wert aus Global „Preisrechner“.
@@ -1644,11 +2065,25 @@ export interface PriceCalculatorBlock {
  */
 export interface PricingTableBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1658,6 +2093,11 @@ export interface PricingTableBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   eyebrow?: string | null;
   heading: string;
   description?: string | null;
@@ -1719,11 +2159,25 @@ export interface PricingTableBlock {
  */
 export interface CallToActionBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1733,6 +2187,11 @@ export interface CallToActionBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   richText?: {
     root: {
       type: string;
@@ -1782,11 +2241,25 @@ export interface CallToActionBlock {
  */
 export interface CalPopupBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1796,6 +2269,11 @@ export interface CalPopupBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   headline?: string | null;
   /**
    * Optionaler Text oberhalb des Buttons.
@@ -1816,11 +2294,25 @@ export interface CalPopupBlock {
  */
 export interface ContactInfoCardsBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1830,6 +2322,11 @@ export interface ContactInfoCardsBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   /**
    * Eine Box pro Eintrag. Zeilen im Textfeld jeweils mit Zeilenumbruch trennen.
    */
@@ -1856,11 +2353,25 @@ export interface ContactInfoCardsBlock {
  */
 export interface ContentBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1870,6 +2381,11 @@ export interface ContentBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   columns?:
     | {
         size?: ('oneThird' | 'half' | 'twoThirds' | 'full') | null;
@@ -1921,11 +2437,25 @@ export interface ContentBlock {
  */
 export interface MediaBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1935,6 +2465,11 @@ export interface MediaBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   media: number | Media;
   id?: string | null;
   blockName?: string | null;
@@ -1946,11 +2481,25 @@ export interface MediaBlock {
  */
 export interface ArchiveBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -1960,6 +2509,11 @@ export interface ArchiveBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   introContent?: {
     root: {
       type: string;
@@ -1995,11 +2549,25 @@ export interface ArchiveBlock {
  */
 export interface FormBlock {
   /**
-   * Optionaler Hintergrund für den gesamten Block.
+   * Padding und Margin des Blocks
    */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
    */
   blockOverlay?: {
     enabled?: boolean | null;
@@ -2009,6 +2577,11 @@ export interface FormBlock {
      */
     opacity?: number | null;
   };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   form: number | Form;
   enableIntro?: boolean | null;
   introContent?: {
@@ -2848,7 +3421,22 @@ export interface SitePagesSelect<T extends boolean = true> {
  * via the `definition` "HeroMarketingBlock_select".
  */
 export interface HeroMarketingBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -2856,6 +3444,8 @@ export interface HeroMarketingBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   badgeLabel?: T;
   title?: T;
   subtitle?: T;
@@ -2871,6 +3461,31 @@ export interface HeroMarketingBlockSelect<T extends boolean = true> {
  * via the `definition` "HeroWithProcessBlock_select".
  */
 export interface HeroWithProcessBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
+  blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   seoH1?: T;
   heroEyebrow?: T;
   heroHeading?: T;
@@ -2894,7 +3509,22 @@ export interface HeroWithProcessBlockSelect<T extends boolean = true> {
  * via the `definition` "IntroductionBlock_select".
  */
 export interface IntroductionBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -2902,6 +3532,8 @@ export interface IntroductionBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   heading?: T;
   body?: T;
   tagline?: T;
@@ -2973,6 +3605,31 @@ export interface ConsultingOverviewThemeSelect<T extends boolean = true> {
  * via the `definition` "ServicesOverviewBlock_select".
  */
 export interface ServicesOverviewBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
+  blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   heading?: T;
   intro?: T;
   services?:
@@ -2991,7 +3648,22 @@ export interface ServicesOverviewBlockSelect<T extends boolean = true> {
  * via the `definition` "ServicesGridBlock_select".
  */
 export interface ServicesGridBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -2999,6 +3671,8 @@ export interface ServicesGridBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   heading?: T;
   intro?: T;
   tagline?: T;
@@ -3047,6 +3721,31 @@ export interface ServicesGridBlockSelect<T extends boolean = true> {
  * via the `definition` "WhyWorkWithMeBlock_select".
  */
 export interface WhyWorkWithMeBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
+  blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   heading?: T;
   intro?: T;
   introIconList?:
@@ -3072,7 +3771,22 @@ export interface WhyWorkWithMeBlockSelect<T extends boolean = true> {
  * via the `definition` "RadialOrbitalTimelineBlock_select".
  */
 export interface RadialOrbitalTimelineBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3080,6 +3794,8 @@ export interface RadialOrbitalTimelineBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   sectionTitle?: T;
   sectionText?: T;
   timelineItems?:
@@ -3103,7 +3819,22 @@ export interface RadialOrbitalTimelineBlockSelect<T extends boolean = true> {
  * via the `definition` "PortfolioCaseGridBlock_select".
  */
 export interface PortfolioCaseGridBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3111,6 +3842,8 @@ export interface PortfolioCaseGridBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   eyebrow?: T;
   heading?: T;
   intro?: T;
@@ -3157,7 +3890,22 @@ export interface PortfolioCaseGridBlockSelect<T extends boolean = true> {
  * via the `definition` "PortfolioKpiStripBlock_select".
  */
 export interface PortfolioKpiStripBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3165,6 +3913,8 @@ export interface PortfolioKpiStripBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   eyebrow?: T;
   heading?: T;
   intro?: T;
@@ -3187,7 +3937,22 @@ export interface PortfolioKpiStripBlockSelect<T extends boolean = true> {
  * via the `definition` "BrandShowcaseBlock_select".
  */
 export interface BrandShowcaseBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3195,6 +3960,8 @@ export interface BrandShowcaseBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   eyebrow?: T;
   heading?: T;
   intro?: T;
@@ -3239,7 +4006,22 @@ export interface BrandShowcaseBlockSelect<T extends boolean = true> {
  * via the `definition` "ProfilUeberMichBlock_select".
  */
 export interface ProfilUeberMichBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3247,6 +4029,8 @@ export interface ProfilUeberMichBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   sectionTitle?: T;
   einleitung?: T;
   werte?:
@@ -3265,7 +4049,22 @@ export interface ProfilUeberMichBlockSelect<T extends boolean = true> {
  * via the `definition` "ProfilKernkompetenzBlock_select".
  */
 export interface ProfilKernkompetenzBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3273,6 +4072,8 @@ export interface ProfilKernkompetenzBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   ueberschrift?: T;
   einleitung?: T;
   bereiche?:
@@ -3296,7 +4097,22 @@ export interface ProfilKernkompetenzBlockSelect<T extends boolean = true> {
  * via the `definition` "ProfilKompetenzenBlock_select".
  */
 export interface ProfilKompetenzenBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3304,6 +4120,8 @@ export interface ProfilKompetenzenBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   sectionTitle?: T;
   sectionIntro?: T;
   spalten?:
@@ -3327,7 +4145,22 @@ export interface ProfilKompetenzenBlockSelect<T extends boolean = true> {
  * via the `definition` "ProfilWerdegangBlock_select".
  */
 export interface ProfilWerdegangBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3335,6 +4168,8 @@ export interface ProfilWerdegangBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   sectionTitle?: T;
   eintraege?:
     | T
@@ -3354,7 +4189,22 @@ export interface ProfilWerdegangBlockSelect<T extends boolean = true> {
  * via the `definition` "ProfilZahlenFaktenBlock_select".
  */
 export interface ProfilZahlenFaktenBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3362,6 +4212,8 @@ export interface ProfilZahlenFaktenBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   sectionTitle?: T;
   items?:
     | T
@@ -3378,7 +4230,22 @@ export interface ProfilZahlenFaktenBlockSelect<T extends boolean = true> {
  * via the `definition` "ProfilToolsBlock_select".
  */
 export interface ProfilToolsBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3386,6 +4253,8 @@ export interface ProfilToolsBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   sectionTitle?: T;
   tools?:
     | T
@@ -3402,7 +4271,22 @@ export interface ProfilToolsBlockSelect<T extends boolean = true> {
  * via the `definition` "ProfilLangZertBlock_select".
  */
 export interface ProfilLangZertBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3410,6 +4294,8 @@ export interface ProfilLangZertBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   sprachenSectionTitle?: T;
   zertifikateSectionTitle?: T;
   sprachen?:
@@ -3433,7 +4319,22 @@ export interface ProfilLangZertBlockSelect<T extends boolean = true> {
  * via the `definition` "ProfilCtaBandBlock_select".
  */
 export interface ProfilCtaBandBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3441,6 +4342,8 @@ export interface ProfilCtaBandBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   headline?: T;
   text?: T;
   buttonLabel?: T;
@@ -3453,6 +4356,31 @@ export interface ProfilCtaBandBlockSelect<T extends boolean = true> {
  * via the `definition` "PriceCalculatorBlock_select".
  */
 export interface PriceCalculatorBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
+  blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
+  blockOverlay?:
+    | T
+    | {
+        enabled?: T;
+        color?: T;
+        opacity?: T;
+      };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   showRatesSection?: T;
   sectionLabel?: T;
   heading?: T;
@@ -3465,7 +4393,22 @@ export interface PriceCalculatorBlockSelect<T extends boolean = true> {
  * via the `definition` "PricingTableBlock_select".
  */
 export interface PricingTableBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3473,6 +4416,8 @@ export interface PricingTableBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   eyebrow?: T;
   heading?: T;
   description?: T;
@@ -3520,7 +4465,22 @@ export interface PricingTableBlockSelect<T extends boolean = true> {
  * via the `definition` "CallToActionBlock_select".
  */
 export interface CallToActionBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3528,6 +4488,8 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   richText?: T;
   links?:
     | T
@@ -3552,7 +4514,22 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
  * via the `definition` "CalPopupBlock_select".
  */
 export interface CalPopupBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3560,6 +4537,8 @@ export interface CalPopupBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   headline?: T;
   description?: T;
   calLink?: T;
@@ -3572,7 +4551,22 @@ export interface CalPopupBlockSelect<T extends boolean = true> {
  * via the `definition` "ContactInfoCardsBlock_select".
  */
 export interface ContactInfoCardsBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3580,6 +4574,8 @@ export interface ContactInfoCardsBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   cards?:
     | T
     | {
@@ -3598,7 +4594,22 @@ export interface ContactInfoCardsBlockSelect<T extends boolean = true> {
  * via the `definition` "ContentBlock_select".
  */
 export interface ContentBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3606,6 +4617,8 @@ export interface ContentBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   columns?:
     | T
     | {
@@ -3632,7 +4645,22 @@ export interface ContentBlockSelect<T extends boolean = true> {
  * via the `definition` "MediaBlock_select".
  */
 export interface MediaBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3640,6 +4668,8 @@ export interface MediaBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   media?: T;
   id?: T;
   blockName?: T;
@@ -3649,7 +4679,22 @@ export interface MediaBlockSelect<T extends boolean = true> {
  * via the `definition` "ArchiveBlock_select".
  */
 export interface ArchiveBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3657,6 +4702,8 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   introContent?: T;
   populateBy?: T;
   relationTo?: T;
@@ -3671,7 +4718,22 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
  * via the `definition` "FormBlock_select".
  */
 export interface FormBlockSelect<T extends boolean = true> {
+  blockSpacing?:
+    | T
+    | {
+        padding?: T;
+        paddingTop?: T;
+        marginBottom?: T;
+      };
+  blockContainer?: T;
   blockBackground?: T;
+  blockBorder?:
+    | T
+    | {
+        enabled?: T;
+        style?: T;
+        radius?: T;
+      };
   blockOverlay?:
     | T
     | {
@@ -3679,6 +4741,8 @@ export interface FormBlockSelect<T extends boolean = true> {
         color?: T;
         opacity?: T;
       };
+  blockContentSpacing?: T;
+  blockAnimation?: T;
   form?: T;
   enableIntro?: T;
   introContent?: T;
@@ -5078,6 +6142,40 @@ export interface TaskSchedulePublish {
  */
 export interface HtmlEmbedBlock {
   /**
+   * Padding und Margin des Blocks
+   */
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
+  /**
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
+  /**
    * Vollständiges Markup inkl. optionaler <style>-Blöcke. Wird ungefiltert ausgegeben — nur vertrauenswürdige Inhalte einfügen.
    */
   html: string;
@@ -5090,6 +6188,40 @@ export interface HtmlEmbedBlock {
  * via the `definition` "BannerBlock".
  */
 export interface BannerBlock {
+  /**
+   * Padding und Margin des Blocks
+   */
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
+  /**
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   style: 'info' | 'warning' | 'error' | 'success';
   content: {
     root: {
@@ -5115,6 +6247,40 @@ export interface BannerBlock {
  * via the `definition` "CodeBlock".
  */
 export interface CodeBlock {
+  /**
+   * Padding und Margin des Blocks
+   */
+  blockSpacing?: {
+    padding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+    paddingTop?: ('default' | 'negative' | 'xl') | null;
+    marginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  };
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
+  /**
+   * Hintergrundfarbe des gesamten Blocks
+   */
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorder?: {
+    enabled?: boolean | null;
+    style?: ('default' | 'accent' | 'subtle') | null;
+    radius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  };
+  /**
+   * Optionaler Farbfilter über dem Blockinhalt
+   */
+  blockOverlay?: {
+    enabled?: boolean | null;
+    color?: ('dark' | 'light') | null;
+    /**
+     * 0 = transparent, 100 = voll deckend.
+     */
+    opacity?: number | null;
+  };
+  /**
+   * Abstand zwischen Elementen im Block (Headings, Texte, etc.)
+   */
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
   language?: ('typescript' | 'javascript' | 'css') | null;
   code: string;
   id?: string | null;

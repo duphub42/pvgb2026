@@ -12,8 +12,8 @@
   .prose-invert a {
     position: relative;
     display: inline-block;
-    color: #333333;
-    opacity: 0.96;
+    color: #444444;
+    opacity: 0.98;
     text-decoration: none;
     cursor: pointer;
     transition: color 0.22s ease, opacity 0.22s ease, font-weight 0.22s ease;
@@ -32,7 +32,7 @@
     content: '';
     position: absolute;
     left: 0;
-    bottom: -2px;
+    bottom: -6px;
     width: 100%;
     height: 1px;
     background: currentColor;
@@ -48,6 +48,29 @@
     opacity: 0.45;
   }
 
+  /* Dark Mode: Content-Links heller */
+  [data-theme='dark'] .prose a,
+  [data-theme='dark'] .prose-invert a {
+    color: #b0b0b0;
+    opacity: 1;
+  }
+  [data-theme='dark'] .prose a:hover,
+  [data-theme='dark'] .prose-invert a:hover,
+  [data-theme='dark'] .prose a:focus-visible,
+  [data-theme='dark'] .prose-invert a:focus-visible {
+    color: #ffffff;
+  }
+  [data-theme='dark'] .prose a::after,
+  [data-theme='dark'] .prose-invert a::after {
+    opacity: 0.35;
+  }
+  [data-theme='dark'] .prose a:hover::after,
+  [data-theme='dark'] .prose-invert a:hover::after,
+  [data-theme='dark'] .prose a:focus-visible::after,
+  [data-theme='dark'] .prose-invert a:focus-visible::after {
+    opacity: 0.7;
+  }
+
   /* Einzeln nutzbar für Content: Unterstrich links → rechts */
   .link-hover-underline {
     position: relative;
@@ -57,7 +80,7 @@
     content: '';
     position: absolute;
     left: 0;
-    bottom: -2px;
+    bottom: -6px;
     width: 100%;
     height: 1px;
     background: currentColor;
@@ -94,7 +117,7 @@
     content: '';
     position: absolute;
     left: 0;
-    bottom: -2px;
+    bottom: -6px;
     width: 100%;
     height: 1px;
     background: currentColor;

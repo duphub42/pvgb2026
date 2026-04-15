@@ -506,7 +506,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                             ) : null}
                           </div>
                           <div className="min-w-[10rem] flex-1 space-y-1 lg:basis-[90%]">
-                            <h3 className="footer-heading footer-center-fade-heading text-sm font-semibold uppercase tracking-[-0.03em]">
+                            <h3 className="footer-heading footer-center-fade-heading text-sm font-semibold uppercase tracking-[-0.009em]">
                               {col.columnTitle}
                             </h3>
                             <ul className="space-y-1">
@@ -565,7 +565,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                         </div>
 
                         <div className="min-w-0 flex-1 space-y-1">
-                          <h3 className="footer-heading footer-center-fade-heading text-sm font-semibold uppercase tracking-[-0.03em]">
+                          <h3 className="footer-heading footer-center-fade-heading text-sm font-semibold uppercase tracking-[-0.009em]">
                             {footer.newsletterTitle}
                           </h3>
 
@@ -640,7 +640,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
               {footer.privacyLink != null && (
                 <Link
                   href={footer.privacyLink}
-                  className="footer-link text-xs tracking-[-0.03em] transition-opacity hover:opacity-100"
+                  className="footer-link text-[11px] md:text-sm leading-3 opacity-80 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px]"
                 >
                   <span className="footer-link-text">{messages[locale].footer.privacy}</span>
                   <ArrowRight
@@ -652,7 +652,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
               {footer.termsLink != null && (
                 <Link
                   href={footer.termsLink}
-                  className="footer-link text-xs tracking-[-0.03em] transition-opacity hover:opacity-100"
+                  className="footer-link text-[11px] md:text-sm leading-3 opacity-80 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px]"
                 >
                   <span className="footer-link-text">{messages[locale].footer.terms}</span>
                   <ArrowRight

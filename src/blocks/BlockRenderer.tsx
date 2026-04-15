@@ -75,8 +75,18 @@ type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   } | null
 }
 
-export function BlockRenderer({ blockType, block }: { blockType: string; block: BlockWithStyle }) {
+export function BlockRenderer({
+  blockType,
+  block,
+  index = 0,
+}: {
+  blockType: string
+  block: BlockWithStyle
+  index?: number
+}) {
   const Block = blockComponents[blockType]
   if (!Block) return null
-  return <Block {...(block as unknown as Record<string, unknown>)} disableInnerContainer />
+  return (
+    <Block {...(block as unknown as Record<string, unknown>)} disableInnerContainer index={index} />
+  )
 }

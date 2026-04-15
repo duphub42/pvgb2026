@@ -1,3 +1,5 @@
+'use client'
+
 import type { StaticImageData } from 'next/image'
 
 import { cn } from '@/utilities/ui'
@@ -5,10 +7,12 @@ import React from 'react'
 import RichText from '@/components/RichText'
 
 import type { MediaBlock as MediaBlockProps } from '@/payload-types'
+import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 
 import { Media } from '../../components/Media'
+import { BlockContainer } from '@/components/BlockContainer'
 
-type Props = MediaBlockProps & {
+type MediaBlockComponentProps = MediaBlockProps & {
   breakout?: boolean
   captionClassName?: string
   className?: string
@@ -16,9 +20,10 @@ type Props = MediaBlockProps & {
   imgClassName?: string
   staticImage?: StaticImageData
   disableInnerContainer?: boolean
+  index?: number
 }
 
-export const MediaBlock: React.FC<Props> = (props) => {
+export const MediaBlock: React.FC<MediaBlockComponentProps> = (props) => {
   const {
     captionClassName,
     className,
@@ -27,20 +32,21 @@ export const MediaBlock: React.FC<Props> = (props) => {
     media,
     staticImage,
     disableInnerContainer,
+    index = 0,
+    ...styleProps
   } = props
 
   let caption
   if (media && typeof media === 'object') caption = media.caption
 
+  // Style-Props direkt an BlockContainer übergeben
+  const styles = styleProps as unknown as BlockStyles
+
   return (
-    <div
-      className={cn(
-        '',
-        {
-          container: enableGutter,
-        },
-        className,
-      )}
+    <BlockContainer
+      styles={styles}
+      index={index}
+      className={cn(className, enableGutter ? 'px-0' : '')}
     >
       {(media || staticImage) && (
         <Media
@@ -62,6 +68,6 @@ export const MediaBlock: React.FC<Props> = (props) => {
           <RichText data={caption} enableGutter={false} />
         </div>
       )}
-    </div>
+    </BlockContainer>
   )
 }
