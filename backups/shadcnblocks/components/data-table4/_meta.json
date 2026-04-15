@@ -1,9 +1,0 @@
-{
-  "slug": "data-table4",
-  "title": "Data-table",
-  "description": "A data table section with horizontal scrolling, sortable columns, custom cell styling, and a mobile swipe hint. Built with TanStack Table.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/data-table4",
-  "downloadedAt": "2026-03-19T19:41:06Z",
-  "fileCount": 1
-}

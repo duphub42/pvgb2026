@@ -82,9 +82,8 @@ const padStepNumber = (value: string | null | undefined, index: number): string 
 
 const normalizeSteps = (steps: HeroWithProcessBlockData['steps']): Step[] => {
   const rows = Array.isArray(steps)
-    ? steps.filter(
-        (step): step is NonNullable<(typeof steps)[number]> =>
-          Boolean(step && hasText(step.title) && hasText(step.text)),
+    ? steps.filter((step): step is NonNullable<(typeof steps)[number]> =>
+        Boolean(step && hasText(step.title) && hasText(step.text)),
       )
     : []
 
@@ -125,7 +124,7 @@ export function HeroWithProcessBlock({
   const resolvedProcessIntro = normalizeText(processIntro) || DEFAULTS.processIntro
 
   return (
-    <section className="relative w-full overflow-hidden bg-black text-white">
+    <section className="relative w-full overflow-hidden bg-[rgb(var(--hero-process-bg))] text-[rgb(var(--hero-process-text))]">
       <h1 className="sr-only">{resolvedSeoH1}</h1>
 
       <header className="relative flex min-h-screen items-center justify-center">
@@ -135,7 +134,7 @@ export function HeroWithProcessBlock({
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-[11px] uppercase tracking-[0.35em] text-white/40 sm:text-xs"
+            className="text-[11px] uppercase tracking-[0.35em] text-[rgb(var(--hero-process-text))]/40 sm:text-xs"
           >
             {resolvedHeroEyebrow}
           </motion.p>
@@ -153,22 +152,24 @@ export function HeroWithProcessBlock({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="mx-auto mt-6 max-w-2xl text-sm text-white/60 sm:text-base md:text-lg"
+            className="mx-auto mt-6 max-w-2xl text-sm text-[rgb(var(--hero-process-text))]/60 sm:text-base md:text-lg"
           >
             {resolvedHeroText}
           </motion.p>
         </div>
       </header>
 
-      <section className="relative border-t border-white/10 py-24 sm:py-32">
+      <section className="relative border-t border-[rgb(var(--hero-process-border))]/10 py-24 sm:py-32">
         <div className="mx-auto max-w-5xl px-6">
           <div className="mb-16 text-center">
             <h3 className="text-2xl font-light sm:text-3xl">{resolvedProcessHeading}</h3>
-            <p className="mt-3 text-sm text-white/50 sm:text-base">{resolvedProcessIntro}</p>
+            <p className="mt-3 text-sm text-[rgb(var(--hero-process-text))]/50 sm:text-base">
+              {resolvedProcessIntro}
+            </p>
           </div>
 
           <div className="relative">
-            <div className="absolute bottom-0 left-4 top-0 w-px bg-white/10 sm:left-1/2" />
+            <div className="absolute bottom-0 left-4 top-0 w-px bg-[rgb(var(--hero-process-border))]/10 sm:left-1/2" />
 
             <div className="space-y-16">
               {resolvedSteps.map((step, index) => {
@@ -187,10 +188,10 @@ export function HeroWithProcessBlock({
                   >
                     <div className="flex flex-shrink-0 items-start sm:w-1/2 sm:justify-end">
                       <div className="relative">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white text-xs font-medium text-black">
+                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[rgb(var(--hero-process-step-bg))] text-xs font-medium text-[rgb(var(--hero-process-step-text))]">
                           {step.stepNumber}
                         </div>
-                        <div className="absolute left-1/2 top-10 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-white/40" />
+                        <div className="absolute left-1/2 top-10 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[rgb(var(--hero-process-step-bg))]/40" />
                       </div>
                     </div>
 
@@ -198,10 +199,12 @@ export function HeroWithProcessBlock({
                       <h4 className="text-lg font-light sm:text-xl">{step.title}</h4>
 
                       {step.subtitle ? (
-                        <p className="mt-1 text-sm text-white/50">{step.subtitle}</p>
+                        <p className="mt-1 text-sm text-[rgb(var(--hero-process-text))]/50">
+                          {step.subtitle}
+                        </p>
                       ) : null}
 
-                      <p className="mt-4 text-sm leading-relaxed text-white/60 sm:text-base">
+                      <p className="mt-4 text-sm leading-relaxed text-[rgb(var(--hero-process-text))]/60 sm:text-base">
                         {step.text}
                       </p>
                     </div>

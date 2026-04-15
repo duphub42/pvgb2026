@@ -1,9 +1,0 @@
-{
-  "slug": "hero258",
-  "title": "Hero",
-  "description": "This component serves as a promotional block with an announcement, a prominent heading, descriptive text, a call-to-action button, and also highlights various brand logos and featured cards. It is built using React and styled with Tailwind CSS, incorporating interactive animations to enhance user engagement.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/hero258",
-  "downloadedAt": "2026-03-19T19:42:12Z",
-  "fileCount": 1
-}

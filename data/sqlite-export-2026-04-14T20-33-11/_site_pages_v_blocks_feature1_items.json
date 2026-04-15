@@ -1,0 +1,46 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 1,
+    "id": 1,
+    "icon": "sparkles",
+    "title": "Premium Quality",
+    "description": "Handcrafted with premium materials and meticulous attention to detail.",
+    "link_label": "Learn more",
+    "link_url": "#",
+    "_uuid": "699f7236cf55b79cc4f64928"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 1,
+    "id": 2,
+    "icon": "shield",
+    "title": "Secure Shopping",
+    "description": "100% secure payment processing with end-to-end encryption.",
+    "link_label": "Learn more",
+    "link_url": "#",
+    "_uuid": "699f7236cf55b79cc4f64929"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 1,
+    "id": 3,
+    "icon": "truck",
+    "title": "Fast Delivery",
+    "description": "Free worldwide shipping and hassle-free returns within 30 days.",
+    "link_label": "Learn more",
+    "link_url": "#",
+    "_uuid": "699f7236cf55b79cc4f6492a"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 1,
+    "id": 4,
+    "icon": "clock",
+    "title": "24/7 Support",
+    "description": "Round-the-clock customer support to assist you anytime.",
+    "link_label": "Learn more",
+    "link_url": "#",
+    "_uuid": "699f7236cf55b79cc4f6492b"
+  }
+]

@@ -11,7 +11,6 @@ import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { HeroMarketing } from '../../blocks/HeroMarketing/config'
 import { HeroWithProcess } from '../../blocks/HeroWithProcess/config'
-import { ShadcnBlock } from '../../blocks/ShadcnBlock/config'
 import { ConsultingOverview } from '../../blocks/ConsultingOverview/config'
 import { Introduction } from '../../blocks/Introduction/config'
 import { ServicesOverview } from '../../blocks/ServicesOverview/config'
@@ -92,7 +91,6 @@ export const Pages: CollectionConfig = {
                 HeroWithProcess,
                 Introduction,
                 ConsultingOverview,
-                ShadcnBlock,
                 ServicesOverview,
                 ServicesGrid,
                 WhyWorkWithMe,

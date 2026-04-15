@@ -1,9 +1,0 @@
-{
-  "slug": "blog22",
-  "title": "Blog",
-  "description": "A blog component showcasing a featured post with image, title, and author avatar followed by a list of secondary posts in a two-column layout with images.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/blog22",
-  "downloadedAt": "2026-03-19T19:40:14Z",
-  "fileCount": 1
-}

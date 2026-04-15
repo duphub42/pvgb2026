@@ -1,9 +1,0 @@
-{
-  "slug": "services13",
-  "title": "Services",
-  "description": "A component featuring services with a dynamic layout. It has a title, text, and a button, followed by cards for each service with hover effects. The layout shifts from single to multiple columns.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/services13",
-  "downloadedAt": "2026-03-19T19:43:25Z",
-  "fileCount": 1
-}

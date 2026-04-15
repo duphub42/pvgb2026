@@ -1,9 +1,0 @@
-{
-  "slug": "blog29",
-  "title": "Blog",
-  "description": "A component displaying blog posts with dates, titles, content snippets, tags, and a link icon. Each post is separated by a line.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/blog29",
-  "downloadedAt": "2026-03-19T19:40:15Z",
-  "fileCount": 1
-}

@@ -1,9 +1,0 @@
-{
-  "slug": "pricing31",
-  "title": "Pricing",
-  "description": "A component displaying 3 pricing plans with features, highlighting the \"most popular\" choice. Each plan card lists price, benefits, and a CTA button.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/pricing31",
-  "downloadedAt": "2026-03-19T19:42:44Z",
-  "fileCount": 1
-}

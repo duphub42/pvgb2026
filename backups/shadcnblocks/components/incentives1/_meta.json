@@ -1,9 +1,0 @@
-{
-  "slug": "incentives1",
-  "title": "Incentives",
-  "description": "This component displays a carousel of incentives, featuring items with icons, titles, and descriptive text. It allows users to showcase benefits such as support, exchanges, premium wrapping, and product guarantee, customizable with different icons and text for each incentive.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/incentives1",
-  "downloadedAt": "2026-03-19T19:42:16Z",
-  "fileCount": 1
-}

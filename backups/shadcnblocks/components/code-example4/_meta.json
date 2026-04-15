@@ -1,9 +1,0 @@
-{
-  "slug": "code-example4",
-  "title": "Code-example",
-  "description": "This component provides an intuitive interface for exploring a file structure with a tree view and examining the content of selected files in a code block. Ideal for users looking to navigate through and interact with code examples effectively, it facilitates seamless file browsing and code inspection within a component library.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/code-example4",
-  "downloadedAt": "2026-03-19T19:40:39Z",
-  "fileCount": 1
-}

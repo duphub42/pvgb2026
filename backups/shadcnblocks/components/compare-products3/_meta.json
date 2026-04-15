@@ -1,9 +1,0 @@
-{
-  "slug": "compare-products3",
-  "title": "Compare-products",
-  "description": "This component allows users to compare up to four products by showcasing details such as price, rating, reviews, and key highlights. Features include the ability to add or remove products for comparison and a call-to-action button to add selected products to the cart.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/compare-products3",
-  "downloadedAt": "2026-03-19T19:40:45Z",
-  "fileCount": 1
-}

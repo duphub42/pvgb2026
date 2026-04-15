@@ -1,9 +1,0 @@
-{
-  "slug": "product-card22",
-  "title": "Product-card",
-  "description": "This component is a dynamic product display block that includes an image carousel, product specifications, ratings, and variant options for users to browse different product features seamlessly. It also provides an interactive \"Add to Cart\" button and displays pricing information, including sale prices if applicable, making it ideal for applications that require showcasing detailed product information and encouraging user engagement.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-card22",
-  "downloadedAt": "2026-03-19T19:42:49Z",
-  "fileCount": 3
-}

@@ -1,9 +1,0 @@
-{
-  "slug": "waitlist1",
-  "title": "Waitlist",
-  "description": "A component featuring a \"Join the Waitlist\" title, a description, an email input field, and a button. Includes avatars showing user count.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/waitlist1",
-  "downloadedAt": "2026-03-19T19:44:25Z",
-  "fileCount": 1
-}

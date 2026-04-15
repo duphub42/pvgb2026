@@ -1,0 +1,50 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": "69da0df47d1bd12d5248ad4b",
+    "id": "69da0df47d1bd12d5248ad48",
+    "icon": "map-pin",
+    "title": "Standort",
+    "lines": "Halle (Saale) & Remote\nDACH-weit verfügbar"
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0df47d1bd12d5248ad4b",
+    "id": "69da0df47d1bd12d5248ad49",
+    "icon": "mail",
+    "title": "Kontakt",
+    "lines": "mail@philippbacher.com\nAntwort in der Regel innerhalb 24h"
+  },
+  {
+    "_order": 3,
+    "_parent_id": "69da0df47d1bd12d5248ad4b",
+    "id": "69da0df47d1bd12d5248ad4a",
+    "icon": "clock-3",
+    "title": "Verfügbarkeit",
+    "lines": "Mo-Fr: 09:00-18:00 Uhr\nKickoff kurzfristig möglich"
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0e0ab7d24b3144e68e54",
+    "id": "69da0e0ab7d24b3144e68e51",
+    "icon": "map-pin",
+    "title": "Standort",
+    "lines": "Halle (Saale) & Remote\nDACH-weit verfügbar"
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0e0ab7d24b3144e68e54",
+    "id": "69da0e0ab7d24b3144e68e52",
+    "icon": "mail",
+    "title": "Kontakt",
+    "lines": "mail@philippbacher.com\nAntwort in der Regel innerhalb 24h"
+  },
+  {
+    "_order": 3,
+    "_parent_id": "69da0e0ab7d24b3144e68e54",
+    "id": "69da0e0ab7d24b3144e68e53",
+    "icon": "clock-3",
+    "title": "Verfügbarkeit",
+    "lines": "Mo-Fr: 09:00-18:00 Uhr\nKickoff kurzfristig möglich"
+  }
+]

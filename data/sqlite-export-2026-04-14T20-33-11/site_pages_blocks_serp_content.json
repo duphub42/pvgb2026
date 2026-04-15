@@ -1,0 +1,25 @@
+[
+  {
+    "_order": 4,
+    "_parent_id": 4,
+    "_path": "layout",
+    "id": "699f7236cf55b79cc4f6490a",
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "eyebrow": "Free Plan",
+    "title": "A Workflow Revolution",
+    "description": "Transform your team's productivity with our intuitive platform. Seamlessly integrate tasks, communication, and project tracking in one powerful solution.",
+    "section_title": "Flexibility at Your Fingertips",
+    "section_description": "Whether you're a startup or an enterprise, our scalable solution grows with you. Customize workflows, integrate with your favorite tools, and automate repetitive tasks.",
+    "card_title": "Revolutionize your workflow",
+    "card_subtitle": "Professional headshot portrait",
+    "card_badge": "20+ expert services at your fingertips",
+    "stat_primary_label": "Teams onboarded",
+    "stat_primary_value": "500+",
+    "stat_secondary_label": "Average productivity gain",
+    "stat_secondary_value": "35%",
+    "block_name": null
+  }
+]

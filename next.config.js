@@ -43,6 +43,31 @@ const mediaFallbackRewrites = [
     source: '/media/Branding-Portfolio.svg',
     destination: '/media/portfolio-brands.svg',
   },
+  // Fehlende SVG-Dateien hinzufügen (basierend auf Lighthouse 404-Fehlern)
+  {
+    source: '/media/home.svg',
+    destination: '/media/Navigation.svg',
+  },
+  {
+    source: '/media/leistungen2.svg',
+    destination: '/media/marketing-leistungen.svg',
+  },
+  {
+    source: '/media/portfolio2.svg',
+    destination: '/media/portfolio-2.svg',
+  },
+  {
+    source: '/media/preise2.svg',
+    destination: '/media/design-leistungen.svg',
+  },
+  {
+    source: '/media/kontakt2.svg',
+    destination: '/media/Newsletter-2.svg',
+  },
+  {
+    source: '/media/profile-1.svg',
+    destination: '/media/philippbacher-13.png',
+  },
 ]
 
 /** @type {import('next').NextConfig} */
@@ -149,9 +174,7 @@ const nextConfig = {
       },
       {
         source: '/_next/static/:path*',
-        headers: [
-          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
-        ],
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
     ]
   },

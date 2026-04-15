@@ -1,9 +1,0 @@
-{
-  "slug": "blogpost7",
-  "title": "Blogpost",
-  "description": "This component displays a blog post layout with animated transitions for various elements such as the title, author information, and descriptions. It features an image, a publication date, content descriptions, and an author's avatar with details, making it suitable for showcasing articles or stories.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/blogpost7",
-  "downloadedAt": "2026-03-19T19:40:18Z",
-  "fileCount": 1
-}

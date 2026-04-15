@@ -1,9 +1,0 @@
-{
-  "slug": "field-merging1",
-  "title": "Field-merging",
-  "description": "A user table with row selection and merge dialog for combining duplicate records by selecting field values from each source to create a unified entry.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/field-merging1",
-  "downloadedAt": "2026-03-19T19:41:28Z",
-  "fileCount": 1
-}

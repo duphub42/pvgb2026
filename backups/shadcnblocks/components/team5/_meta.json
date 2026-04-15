@@ -1,9 +1,0 @@
-{
-  "slug": "team5",
-  "title": "Team",
-  "description": "A component featuring a team section with a hiring call, team intro, and buttons. It displays 8 profiles in up to 4 columns with photos, names, roles, and descriptions.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/team5",
-  "downloadedAt": "2026-03-19T19:44:07Z",
-  "fileCount": 1
-}

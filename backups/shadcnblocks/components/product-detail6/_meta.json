@@ -1,9 +1,0 @@
-{
-  "slug": "product-detail6",
-  "title": "Product-detail",
-  "description": "This component provides a detailed view of a product, featuring an image gallery, pricing information, and a form to select options like size and quantity. It includes functionalities for customers to view recommended products, read detailed product information through an accordion, and add items to the cart or proceed to buy immediately.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-detail6",
-  "downloadedAt": "2026-03-19T19:42:56Z",
-  "fileCount": 1
-}

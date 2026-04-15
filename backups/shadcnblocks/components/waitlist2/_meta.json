@@ -1,9 +1,0 @@
-{
-  "slug": "waitlist2",
-  "title": "Waitlist",
-  "description": "This component, \"Waitlist2,\" is designed to facilitate user engagement by allowing users to join a waitlist and see how many others have signed up, complemented by a countdown timer until the launch date. It showcases features like an animated badge, a sign-up form for emails, display of user avatars, and a dynamic countdown timer, enhancing user interaction and anticipation for an upcoming launch.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/waitlist2",
-  "downloadedAt": "2026-03-19T19:44:25Z",
-  "fileCount": 1
-}

@@ -1,9 +1,0 @@
-{
-  "slug": "resources3",
-  "title": "Resources",
-  "description": "A component showcasing a featured post with an image and a list of resources, each with a date, category, and title, arranged in columns.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/resources3",
-  "downloadedAt": "2026-03-19T19:43:19Z",
-  "fileCount": 1
-}

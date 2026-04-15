@@ -1,9 +1,0 @@
-{
-  "slug": "product-list7",
-  "title": "Product-list",
-  "description": "This component displays a grid of product cards with images, names, prices, and availability information, allowing users to browse and select products. It includes features for selecting size options through a radio group interface and adding products to a cart, providing user interaction through tooltips for stock status.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-list7",
-  "downloadedAt": "2026-03-19T19:43:02Z",
-  "fileCount": 2
-}

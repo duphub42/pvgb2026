@@ -1,9 +1,0 @@
-{
-  "slug": "product-list6",
-  "title": "Product-list",
-  "description": "This component is a product carousel designed to showcase a list of products with features such as stock status, pricing, and variant options. Users can view different product options by selecting various color variants and can quickly add products to their cart if they're in stock.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-list6",
-  "downloadedAt": "2026-03-19T19:43:01Z",
-  "fileCount": 2
-}

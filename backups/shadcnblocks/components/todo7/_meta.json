@@ -1,9 +1,0 @@
-{
-  "slug": "todo7",
-  "title": "Todo",
-  "description": "This component provides an advanced to-do list management system, allowing users to create tasks with options for setting dates, priorities, reminders, and associating tasks with specific projects. It includes features like drag-and-drop reordering, filtering, and sorting tasks by different criteria, enhancing task organization and productivity.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/todo7",
-  "downloadedAt": "2026-03-19T19:44:19Z",
-  "fileCount": 1
-}

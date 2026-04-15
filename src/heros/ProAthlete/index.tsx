@@ -209,7 +209,7 @@ export const ProAthleteHero: FC<ProAthleteHeroType> = ({
                 <CMSLink
                   {...primaryLink}
                   appearance="default"
-                  className="h-14 px-10 bg-zinc-900 dark:bg-white text-white dark:text-black font-bold uppercase tracking-widest hover:bg-zinc-800 dark:hover:bg-zinc-200 transition-all flex items-center group shadow-xl"
+                  className="h-14 px-10 bg-primary dark:bg-primary-foreground text-primary-foreground dark:text-primary font-bold uppercase tracking-widest hover:bg-primary/90 dark:hover:bg-primary-foreground/90 transition-all flex items-center group shadow-xl"
                 >
                   {primaryLink.label}
                   <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />

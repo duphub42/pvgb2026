@@ -1,9 +1,0 @@
-{
-  "slug": "blog14",
-  "title": "Blog",
-  "description": "A blog component showcasing 1 main post in a 2-column layout and 3 popular posts in a 3-column layout, featuring images, categories, and summaries.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/blog14",
-  "downloadedAt": "2026-03-19T19:40:12Z",
-  "fileCount": 1
-}

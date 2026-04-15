@@ -1,0 +1,33 @@
+[
+  {
+    "id": 1,
+    "use_mega_menu": 1,
+    "mega_menu_layout_sidebar_cols": 3,
+    "mega_menu_layout_content_cols": 6,
+    "mega_menu_layout_featured_cols": 3,
+    "mega_menu_card_border_radius": "rounded-lg",
+    "mega_menu_card_shadow": "shadow-sm",
+    "mega_menu_card_hover_shadow": "hover:shadow-md",
+    "mega_menu_card_hover_border": "hover:border-primary/40",
+    "mega_menu_show_whats_app": 1,
+    "mega_menu_whats_app_label": "WhatsApp",
+    "mega_menu_whats_app_url": null,
+    "mega_menu_show_callback": 1,
+    "mega_menu_callback_title": "Rückruf anfordern",
+    "mega_menu_callback_placeholder": "Ihre Telefonnummer",
+    "mega_menu_callback_button_text": "Anfragen",
+    "mega_menu_callback_form_id": null,
+    "mega_menu_callback_phone_field_name": "phone",
+    "mega_menu_show_newsletter": 1,
+    "mega_menu_newsletter_title": "Newsletter",
+    "mega_menu_newsletter_placeholder": "E-Mail-Adresse",
+    "mega_menu_newsletter_button_text": "Anmelden",
+    "mega_menu_newsletter_form_id": null,
+    "mega_menu_newsletter_email_field_name": "email",
+    "logo_id": 60,
+    "favicon_id": 2,
+    "updated_at": "2026-03-03T12:07:32.802Z",
+    "created_at": "2026-02-25T12:47:10.511Z",
+    "mega_menu_layout": null
+  }
+]

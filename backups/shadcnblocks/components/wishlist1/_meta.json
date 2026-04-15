@@ -1,9 +1,0 @@
-{
-  "slug": "wishlist1",
-  "title": "Wishlist",
-  "description": "This component is a wishlist block that displays a grid of saved items with options to add them to the cart, remove them, or be notified when out-of-stock items become available. It features price formatting, badges for price drops and stock status, and an empty state prompting users to continue shopping.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/wishlist1",
-  "downloadedAt": "2026-03-19T19:44:26Z",
-  "fileCount": 1
-}

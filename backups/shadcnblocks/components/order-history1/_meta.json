@@ -1,9 +1,0 @@
-{
-  "slug": "order-history1",
-  "title": "Order-history",
-  "description": "This component provides users an interface to view and manage their order history, including functionalities to filter orders by status and search by order number. It displays details such as order number, date, status, item count, total price, and allows actions like tracking shipped orders and reordering delivered items.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/order-history1",
-  "downloadedAt": "2026-03-19T19:42:37Z",
-  "fileCount": 1
-}

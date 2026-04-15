@@ -1,0 +1,50 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": "699f7236cf55b79cc4f6491f",
+    "id": "699f7236cf55b79cc4f6491c",
+    "icon": "zap",
+    "title": "Customizable",
+    "description": "Extensive customization options, allowing you to tailor every aspect to meet your specific needs."
+  },
+  {
+    "_order": 2,
+    "_parent_id": "699f7236cf55b79cc4f6491f",
+    "id": "699f7236cf55b79cc4f6491d",
+    "icon": "settings2",
+    "title": "You have full control",
+    "description": "From design elements to functionality, you have complete control to create a unique and personalized experience."
+  },
+  {
+    "_order": 3,
+    "_parent_id": "699f7236cf55b79cc4f6491f",
+    "id": "699f7236cf55b79cc4f6491e",
+    "icon": "sparkles",
+    "title": "Powered By AI",
+    "description": "Elements to functionality, you have complete control to create a unique experience."
+  },
+  {
+    "_order": 1,
+    "_parent_id": "699f7236cf55b79cc4f64910",
+    "id": "699f7236cf55b79cc4f6490d",
+    "icon": "zap",
+    "title": "Customizable",
+    "description": "Extensive customization options, allowing you to tailor every aspect to meet your specific needs."
+  },
+  {
+    "_order": 2,
+    "_parent_id": "699f7236cf55b79cc4f64910",
+    "id": "699f7236cf55b79cc4f6490e",
+    "icon": "settings2",
+    "title": "You have full control",
+    "description": "From design elements to functionality, you have complete control to create a unique and personalized experience."
+  },
+  {
+    "_order": 3,
+    "_parent_id": "699f7236cf55b79cc4f64910",
+    "id": "699f7236cf55b79cc4f6490f",
+    "icon": "sparkles",
+    "title": "Powered By AI",
+    "description": "Elements to functionality, you have complete control to create a unique experience."
+  }
+]

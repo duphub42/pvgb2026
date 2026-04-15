@@ -1,9 +1,0 @@
-{
-  "slug": "download5",
-  "title": "Download",
-  "description": "A component providing options to download software, with tabs for Linux, MacOS, and a waitlist for Windows. Features version selection and size details.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/download5",
-  "downloadedAt": "2026-03-19T19:41:09Z",
-  "fileCount": 1
-}

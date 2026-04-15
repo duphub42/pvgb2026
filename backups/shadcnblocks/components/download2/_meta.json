@@ -1,9 +1,0 @@
-{
-  "slug": "download2",
-  "title": "Download",
-  "description": "A component displaying download options for desktop, iOS, and Android, alongside descriptions and buttons/links for each platform, arranged in a three-column layout.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/download2",
-  "downloadedAt": "2026-03-19T19:41:08Z",
-  "fileCount": 1
-}

@@ -1,9 +1,0 @@
-{
-  "slug": "waitlist3",
-  "title": "Waitlist",
-  "description": "The Waitlist3 component is designed to collect user sign-ups for an early access program, featuring a company logo, a descriptive badge, and a registration form with email input. It includes visuals of joined members and prominent company branding, allowing users to quickly engage and learn more about the offer through a call-to-action button.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/waitlist3",
-  "downloadedAt": "2026-03-19T19:44:26Z",
-  "fileCount": 1
-}

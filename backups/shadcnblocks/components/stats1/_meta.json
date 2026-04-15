@@ -1,9 +1,0 @@
-{
-  "slug": "stats1",
-  "title": "Stats",
-  "description": "A component displaying performance stats in 3 columns, highlighted by large numbers and explanatory texts, centered around platform efficiency gains.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/stats1",
-  "downloadedAt": "2026-03-19T19:43:58Z",
-  "fileCount": 1
-}

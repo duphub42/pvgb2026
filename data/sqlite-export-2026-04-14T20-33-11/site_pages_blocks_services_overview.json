@@ -1,0 +1,29 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 4,
+    "_path": "layout",
+    "id": "69c84bb3c3b6894bce4aa6d4",
+    "block_name": null,
+    "heading": "Meine Leistungen im Überblick",
+    "intro": null
+  },
+  {
+    "_order": 2,
+    "_parent_id": 8,
+    "_path": "layout",
+    "id": "69da0e0ab7d24b3144e68e36",
+    "block_name": null,
+    "heading": "Kernbereiche im Marketing-Portfolio",
+    "intro": "Die Projekte verteilen sich auf drei wiederkehrende Schwerpunkte."
+  },
+  {
+    "_order": 1,
+    "_parent_id": 3,
+    "_path": "layout",
+    "id": "ad42fc459e9d41099c223681e124ec76",
+    "block_name": null,
+    "heading": "Leistungs-Hub auf einen Blick",
+    "intro": "Vier Kernbereiche, die als zusammenhängender Prozess funktionieren - von der strategischen Grundlage bis zur kontinuierlichen Optimierung."
+  }
+]

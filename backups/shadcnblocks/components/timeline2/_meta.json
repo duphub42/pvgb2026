@@ -1,9 +1,0 @@
-{
-  "slug": "timeline2",
-  "title": "Timeline",
-  "description": "A component displaying a timeline of sections with images and text. It has a two-column layout, with text on the left and a sticky, changing image on the right as you scroll.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/timeline2",
-  "downloadedAt": "2026-03-19T19:44:15Z",
-  "fileCount": 1
-}

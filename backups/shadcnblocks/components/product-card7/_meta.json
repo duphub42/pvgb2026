@@ -1,9 +1,0 @@
-{
-  "slug": "product-card7",
-  "title": "Product-card",
-  "description": "This component is a product display block that features an image, product name, and sale price details, with functionality to select options like size and stock status. It includes interactive elements like add to cart buttons and a form for choosing size options, enhancing user engagement and shopping experience.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-card7",
-  "downloadedAt": "2026-03-19T19:42:50Z",
-  "fileCount": 2
-}

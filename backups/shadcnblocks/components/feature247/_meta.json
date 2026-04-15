@@ -1,9 +1,0 @@
-{
-  "slug": "feature247",
-  "title": "Feature",
-  "description": "A component featuring a TextReveal block centered within a section, using a single-column layout with a max width. It highlights a key message or feature.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/feature247",
-  "downloadedAt": "2026-03-19T19:41:21Z",
-  "fileCount": 1
-}

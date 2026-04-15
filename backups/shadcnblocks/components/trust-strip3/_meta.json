@@ -1,9 +1,0 @@
-{
-  "slug": "trust-strip3",
-  "title": "Trust-strip",
-  "description": "This component displays a list of certifications and guarantees, providing visual icons and descriptions for each to convey trust and authenticity. It allows customization by accepting optional props for different certifications, guarantees, and additional styling through the `className` prop.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/trust-strip3",
-  "downloadedAt": "2026-03-19T19:44:21Z",
-  "fileCount": 1
-}

@@ -1,9 +1,0 @@
-{
-  "slug": "awards2",
-  "title": "Awards",
-  "description": "An awards listing component with a 2 column grid layout, displaying award titles and years across two sections.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/awards2",
-  "downloadedAt": "2026-03-19T19:40:03Z",
-  "fileCount": 1
-}

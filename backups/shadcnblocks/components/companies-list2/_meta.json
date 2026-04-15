@@ -1,9 +1,0 @@
-{
-  "slug": "companies-list2",
-  "title": "Companies-list",
-  "description": "A data table with TanStack Table featuring sortable columns, row selection, search filtering, column visibility toggle, and add company button.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/companies-list2",
-  "downloadedAt": "2026-03-19T19:40:44Z",
-  "fileCount": 1
-}

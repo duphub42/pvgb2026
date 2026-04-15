@@ -1,9 +1,0 @@
-{
-  "slug": "blog24",
-  "title": "Blog",
-  "description": "A component displaying a collection of blog posts with images, titles, summaries, labels, authors, and dates, plus a view-all button.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/blog24",
-  "downloadedAt": "2026-03-19T19:40:14Z",
-  "fileCount": 1
-}

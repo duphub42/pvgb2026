@@ -176,7 +176,16 @@ export interface SitePage {
   title: string;
   hero?: {
     type?:
-      | ('none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'superhero' | 'proAthlete' | 'leistungenHero')
+      | (
+          | 'none'
+          | 'highImpact'
+          | 'mediumImpact'
+          | 'lowImpact'
+          | 'superhero'
+          | 'proAthlete'
+          | 'leistungenHero'
+          | 'simple'
+        )
       | null;
     richText?: {
       root: {
@@ -197,7 +206,19 @@ export interface SitePage {
      * Optionales Bild rechts (Popout/Style Preview). Bei Profil-Hero zusätzlich nutzbar, wenn kein separates „Hintergrund Bild“ (mediaType Bild) gesetzt ist.
      */
     media?: (number | null) | Media;
+    /**
+     * Portrait-Bild für die rechte Spalte.
+     */
+    portrait?: (number | null) | Media;
+    /**
+     * Zeigt abstrakte Glow-Effekte im Hintergrund.
+     */
+    backgroundGlow?: boolean | null;
     subheadline?: string | null;
+    /**
+     * Kleines Label über der Überschrift (z.B. "Neues Projekt")
+     */
+    label?: string | null;
     /**
      * Kurzer Label-Text über der Hauptüberschrift (z. B. Pro Athlete 2026).
      */
@@ -357,7 +378,6 @@ export interface SitePage {
         | HeroWithProcessBlock
         | IntroductionBlock
         | ConsultingOverviewBlock
-        | ShadcnBlock
         | ServicesOverviewBlock
         | ServicesGridBlock
         | WhyWorkWithMeBlock
@@ -918,104 +938,6 @@ export interface ConsultingOverviewTheme {
   headline?: string | null;
   body?: string | null;
   muted?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ShadcnBlock".
- */
-export interface ShadcnBlock {
-  /**
-   * Optionaler Hintergrund für den gesamten Block.
-   */
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
-  /**
-   * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
-   */
-  blockOverlay?: {
-    enabled?: boolean | null;
-    color?: ('dark' | 'light') | null;
-    /**
-     * 0 = transparent, 100 = voll deckend.
-     */
-    opacity?: number | null;
-  };
-  /**
-   * Welche Shadcnblocks-Komponente angezeigt werden soll.
-   */
-  variant:
-    | 'feature215b'
-    | 'feature210'
-    | 'about15'
-    | 'about8'
-    | 'about3'
-    | 'feature268'
-    | 'feature267'
-    | 'feature271'
-    | 'feature270'
-    | 'feature282'
-    | 'feature294'
-    | 'feature147'
-    | 'feature148'
-    | 'feature190'
-    | 'feature229'
-    | 'feature250'
-    | 'feature251'
-    | 'feature253'
-    | 'feature256'
-    | 'feature261';
-  /**
-   * Optional: Texte, Bilder und Links hier pflegen. Nur ausgefüllte Felder ersetzen die Standard-Inhalte der Block-Variante.
-   */
-  content?: {
-    /**
-     * Ersetzt die Standard-Überschrift der Komponente.
-     */
-    headline?: string | null;
-    subheadline?: string | null;
-    /**
-     * Kurzer Beschreibungstext.
-     */
-    body?: string | null;
-    /**
-     * Bilder für Galerien, Marquees etc. Reihenfolge = Anzeige.
-     */
-    images?:
-      | {
-          media: number | Media;
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * Optional: Buttons/Links (z. B. CTA).
-     */
-    links?:
-      | {
-          link: {
-            type?: ('reference' | 'custom') | null;
-            newTab?: boolean | null;
-            reference?:
-              | ({
-                  relationTo: 'site-pages';
-                  value: number | SitePage;
-                } | null)
-              | ({
-                  relationTo: 'blog-posts';
-                  value: number | BlogPost;
-                } | null);
-            url?: string | null;
-            label: string;
-            /**
-             * Choose how the link should be rendered.
-             */
-            appearance?: ('default' | 'outline') | null;
-          };
-          id?: string | null;
-        }[]
-      | null;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'shadcnBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2799,7 +2721,10 @@ export interface SitePagesSelect<T extends boolean = true> {
         type?: T;
         richText?: T;
         media?: T;
+        portrait?: T;
+        backgroundGlow?: T;
         subheadline?: T;
+        label?: T;
         badge?: T;
         headline?: T;
         headlineLine1?: T;
@@ -2877,7 +2802,6 @@ export interface SitePagesSelect<T extends boolean = true> {
         heroWithProcess?: T | HeroWithProcessBlockSelect<T>;
         introduction?: T | IntroductionBlockSelect<T>;
         consultingOverview?: T | ConsultingOverviewBlockSelect<T>;
-        shadcnBlock?: T | ShadcnBlockSelect<T>;
         servicesOverview?: T | ServicesOverviewBlockSelect<T>;
         servicesGrid?: T | ServicesGridBlockSelect<T>;
         whyWorkWithMe?: T | WhyWorkWithMeBlockSelect<T>;
@@ -3043,51 +2967,6 @@ export interface ConsultingOverviewThemeSelect<T extends boolean = true> {
   headline?: T;
   body?: T;
   muted?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "ShadcnBlock_select".
- */
-export interface ShadcnBlockSelect<T extends boolean = true> {
-  blockBackground?: T;
-  blockOverlay?:
-    | T
-    | {
-        enabled?: T;
-        color?: T;
-        opacity?: T;
-      };
-  variant?: T;
-  content?:
-    | T
-    | {
-        headline?: T;
-        subheadline?: T;
-        body?: T;
-        images?:
-          | T
-          | {
-              media?: T;
-              id?: T;
-            };
-        links?:
-          | T
-          | {
-              link?:
-                | T
-                | {
-                    type?: T;
-                    newTab?: T;
-                    reference?: T;
-                    url?: T;
-                    label?: T;
-                    appearance?: T;
-                  };
-              id?: T;
-            };
-      };
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

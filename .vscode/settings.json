@@ -31,7 +31,7 @@
     "editor.formatOnSave": true
   },
   "editor.formatOnSaveMode": "file",
-  "typescript.tsdk": "node_modules/typescript/lib",
+  "typescript.tsdk.path": "node_modules/typescript/lib",
   "[javascript][typescript][typescriptreact]": {
     "editor.codeActionsOnSave": {
       "source.fixAll.eslint": "explicit"
@@ -61,7 +61,7 @@
     "source-folders": null,
     "preview-url": "http://localhost:3000"
   },
-  "liveServer.settings.CustomBrowser": "chrome"
-  
-  "workbench.browser.enabled": true
+  "liveServer.settings.CustomBrowser": "chrome",
+  "workbench.browser.enabled": true,
+  "css.validate": false
 }

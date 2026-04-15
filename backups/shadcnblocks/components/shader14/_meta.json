@@ -1,9 +1,0 @@
-{
-  "slug": "shader14",
-  "title": "Shader",
-  "description": "A two-pass shader background with simplex noise distortion, flowing organic pattern, and a second pass that renders the result as character-based dither blocks.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/shader14",
-  "downloadedAt": "2026-03-19T19:43:39Z",
-  "fileCount": 1
-}

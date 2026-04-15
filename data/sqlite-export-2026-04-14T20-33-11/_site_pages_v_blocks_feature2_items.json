@@ -1,0 +1,38 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 1,
+    "id": 1,
+    "icon": "heart",
+    "title": "Quality Assurance",
+    "description": "Every product in our catalog undergoes rigorous quality checks to meet the highest standards of excellence and performance.",
+    "_uuid": "699f7236cf55b79cc4f6492d"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 1,
+    "id": 2,
+    "icon": "zap",
+    "title": "Fast Service",
+    "description": "Experience lightning-fast order processing and delivery with our advanced logistics network and efficient service protocols.",
+    "_uuid": "699f7236cf55b79cc4f6492e"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 1,
+    "id": 3,
+    "icon": "clock",
+    "title": "Timely Updates",
+    "description": "Get real-time notifications and detailed tracking for all your orders, keeping you informed throughout the delivery process.",
+    "_uuid": "699f7236cf55b79cc4f6492f"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 1,
+    "id": 4,
+    "icon": "users",
+    "title": "Expert Team",
+    "description": "Our team of dedicated professionals is available 24/7 to assist you with personalized support and expert advice.",
+    "_uuid": "699f7236cf55b79cc4f64930"
+  }
+]

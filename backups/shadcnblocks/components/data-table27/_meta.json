@@ -1,9 +1,0 @@
-{
-  "slug": "data-table27",
-  "title": "Data-table",
-  "description": "A virtualized data table section for large datasets with efficient row rendering, sortable columns, row selection, pinned columns, and row action menus. Built with TanStack Table and TanStack Virtual.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/data-table27",
-  "downloadedAt": "2026-03-19T19:41:03Z",
-  "fileCount": 1
-}

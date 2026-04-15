@@ -1,9 +1,0 @@
-{
-  "slug": "payment-methods2",
-  "title": "Payment-methods",
-  "description": "This component allows users to manage payment methods, supporting actions such as adding, editing, and removing cards or PayPal accounts. It features a user-friendly interface for setting a default payment method and includes a visual grid layout for displaying current payment methods with logos.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/payment-methods2",
-  "downloadedAt": "2026-03-19T19:42:41Z",
-  "fileCount": 1
-}

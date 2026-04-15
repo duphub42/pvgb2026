@@ -1,9 +1,0 @@
-{
-  "slug": "signup1",
-  "title": "Signup",
-  "description": "A signup component featuring a logo, customizable headings, email and password fields, buttons for account creation and Google signup, and a login redirect.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/signup1",
-  "downloadedAt": "2026-03-19T19:43:50Z",
-  "fileCount": 1
-}

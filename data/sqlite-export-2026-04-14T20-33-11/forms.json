@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "title": "Rückruf",
+    "submit_button_label": "Rückruf ",
+    "confirmation_type": "message",
+    "confirmation_message": "{\"root\":{\"children\":[{\"children\":[{\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Vielen Dank! \",\"type\":\"text\",\"version\":1}],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"paragraph\",\"version\":1,\"textFormat\":0,\"textStyle\":\"\"}],\"direction\":null,\"format\":\"\",\"indent\":0,\"type\":\"root\",\"version\":1}}",
+    "redirect_url": null,
+    "updated_at": "2026-03-27T10:00:39.988Z",
+    "created_at": "2026-03-27T09:16:37.243Z"
+  },
+  {
+    "id": 2,
+    "title": "Kontaktformular",
+    "submit_button_label": "Absenden",
+    "confirmation_type": "message",
+    "confirmation_message": "{\"root\":{\"type\":\"root\",\"children\":[{\"type\":\"paragraph\",\"children\":[{\"type\":\"text\",\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Vielen Dank! Ihre Anfrage wurde erfolgreich übermittelt.\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"version\":1}}",
+    "redirect_url": null,
+    "updated_at": "2026-04-11T08:47:22.608Z",
+    "created_at": "2026-04-11T08:47:22.606Z"
+  },
+  {
+    "id": 3,
+    "title": "Rückruf-Anfrage",
+    "submit_button_label": "Anfragen",
+    "confirmation_type": "message",
+    "confirmation_message": "{\"root\":{\"type\":\"root\",\"children\":[{\"type\":\"paragraph\",\"children\":[{\"type\":\"text\",\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Vielen Dank! Ihre Rückruf-Anfrage wurde erfolgreich übermittelt.\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"version\":1}}",
+    "redirect_url": null,
+    "updated_at": "2026-04-11T08:47:22.625Z",
+    "created_at": "2026-04-11T08:47:22.625Z"
+  }
+]

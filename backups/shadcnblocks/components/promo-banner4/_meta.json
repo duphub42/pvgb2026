@@ -1,9 +1,0 @@
-{
-  "slug": "promo-banner4",
-  "title": "Promo-banner",
-  "description": "This component, PromoBanner4, displays a series of promotional messages using icons and text to highlight key trust-building features like free shipping, return policies, and secure checkout. It allows for customization by accepting an array of items, where each item consists of an icon and descriptive text, making it an ideal choice for enhancing customer assurance and showcasing promotional highlights.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/promo-banner4",
-  "downloadedAt": "2026-03-19T19:43:16Z",
-  "fileCount": 1
-}

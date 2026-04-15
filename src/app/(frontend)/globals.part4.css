@@ -70,6 +70,15 @@
   font-size: 1rem; /* text-base statt text-sm */
 }
 
+/* Kompaktere Links bei 1024-1280px (lg breakpoint) */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .site-header nav.header-nav > a[data-slot='button'] {
+    font-size: 0.875rem; /* text-sm */
+    padding-left: 0.5rem !important;
+    padding-right: 0.5rem !important;
+  }
+}
+
 /* Desktop megamenu nav items */
 nav.megamenu-nav a.megamenu-top-item {
   font-family: var(--font-outfit);
@@ -161,6 +170,54 @@ nav.megamenu-nav a.megamenu-top-item {
   background-color: rgba(24, 24, 24, 0.4) !important;
   border-bottom-color: transparent !important;
 }
+/* Smaller desktop: prevent logo and navigation overlap */
+@media (width < 80rem) {
+  .site-header .header-main-row {
+    gap: 1rem;
+  }
+  
+  .site-header .header-nav {
+    gap: 0.5rem;
+  }
+  
+  .site-header .logo-link img,
+  .site-header .logo-link svg {
+    max-width: 180px;
+    height: auto;
+  }
+}
+
+@media (width < 70rem) {
+  .site-header .header-main-row {
+    gap: 0.75rem;
+  }
+  
+  .site-header .header-nav {
+    gap: 0.375rem;
+  }
+  
+  .site-header .logo-link img,
+  .site-header .logo-link svg {
+    max-width: 160px;
+  }
+  
+  .site-header nav.header-nav > a[data-slot='button'] {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
+@media (width < 64rem) {
+  .site-header .header-main-row {
+    gap: 0.5rem;
+  }
+  
+  .site-header .logo-link img,
+  .site-header .logo-link svg {
+    max-width: 140px;
+  }
+}
+
 /* Mobile: kein Hover-Hintergrund – Hintergrund nur beim Scrollen (sticky) */
 @media (width < 48rem) {
   .megamenu[data-sticky='true']:hover,

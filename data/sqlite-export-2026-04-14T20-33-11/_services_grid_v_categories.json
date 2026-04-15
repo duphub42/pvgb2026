@@ -1,0 +1,51 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 1,
+    "id": 1,
+    "category_label": "Webdesign",
+    "_uuid": "69da0df47d1bd12d5248ad2e"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 1,
+    "id": 2,
+    "category_label": "Marketing",
+    "_uuid": "69da0df47d1bd12d5248ad30"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 1,
+    "id": 3,
+    "category_label": "Branding",
+    "_uuid": "69da0df47d1bd12d5248ad32"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 2,
+    "id": 4,
+    "category_label": "Design & UX",
+    "_uuid": "69da0df47d1bd12d5248ad43"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 2,
+    "id": 5,
+    "category_label": "Technik & Performance",
+    "_uuid": "69da0df47d1bd12d5248ad46"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 3,
+    "id": 6,
+    "category_label": "Organic & Paid",
+    "_uuid": "69da0e0ab7d24b3144e68e3a"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 4,
+    "id": 7,
+    "category_label": "Marke & Designsystem",
+    "_uuid": "69da0e0ab7d24b3144e68e4b"
+  }
+]

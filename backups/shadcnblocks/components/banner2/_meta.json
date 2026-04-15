@@ -1,9 +1,0 @@
-{
-  "slug": "banner2",
-  "title": "Banner",
-  "description": "An alert component with dismissible functionality, featuring a title, description, and button. It shows an icon, supports hidden on mobile devices.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/banner2",
-  "downloadedAt": "2026-03-19T19:40:10Z",
-  "fileCount": 1
-}

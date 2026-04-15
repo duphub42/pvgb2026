@@ -1,0 +1,23 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": "699f7236cf55b79cc4f64927",
+    "id": "699f7236cf55b79cc4f64924",
+    "title": "Easy to use",
+    "description": "We&apos;ve made it easy to use and understand."
+  },
+  {
+    "_order": 2,
+    "_parent_id": "699f7236cf55b79cc4f64927",
+    "id": "699f7236cf55b79cc4f64925",
+    "title": "Fast and reliable",
+    "description": "We&apos;ve made it fast and reliable."
+  },
+  {
+    "_order": 3,
+    "_parent_id": "699f7236cf55b79cc4f64927",
+    "id": "699f7236cf55b79cc4f64926",
+    "title": "Beautiful and modern",
+    "description": "We&apos;ve made it beautiful and modern."
+  }
+]

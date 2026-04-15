@@ -1,9 +1,0 @@
-{
-  "slug": "shader7",
-  "title": "Shader",
-  "description": "A full-screen shader background with fluid simulation, vector field visualization, arrow patterns, mouse interaction, and configurable color.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/shader7",
-  "downloadedAt": "2026-03-19T19:43:41Z",
-  "fileCount": 1
-}

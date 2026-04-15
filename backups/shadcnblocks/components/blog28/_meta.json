@@ -1,9 +1,0 @@
-{
-  "slug": "blog28",
-  "title": "Blog",
-  "description": "A component displaying five tech blog posts in a grid with adaptive column counts based on screen size, featuring prominent display for the first post.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/blog28",
-  "downloadedAt": "2026-03-19T19:40:15Z",
-  "fileCount": 1
-}

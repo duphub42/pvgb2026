@@ -1,9 +1,0 @@
-{
-  "slug": "stats6",
-  "title": "Stats",
-  "description": "A component displaying platform performance metrics and two buttons. It features a bold title, 4 columns for statistics, and dynamic text sizing.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/stats6",
-  "downloadedAt": "2026-03-19T19:44:02Z",
-  "fileCount": 1
-}

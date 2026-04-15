@@ -1,9 +1,0 @@
-{
-  "slug": "stats8",
-  "title": "Stats",
-  "description": "A stats display component with a heading, description, and link, followed by a 4-column layout for statistics.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/stats8",
-  "downloadedAt": "2026-03-19T19:44:02Z",
-  "fileCount": 1
-}

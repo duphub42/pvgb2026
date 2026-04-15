@@ -25,7 +25,9 @@ export const AdminLogoClient: React.FC = () => {
           setLogoSrc(buildLogoUrl(url))
         }
       })
-      .catch(() => {})
+      .catch((err) => {
+        console.warn('[AdminLogoClient] Failed to load header logo:', err)
+      })
     return () => {
       cancelled = true
     }

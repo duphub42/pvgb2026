@@ -1,0 +1,47 @@
+[
+  {
+    "_order": 3,
+    "_parent_id": 4,
+    "_path": "layout",
+    "id": "69c838a97efa7ab142956e22",
+    "block_name": null,
+    "heading": "Warum mit mir",
+    "intro": "Darum arbeiten andere Macher mit mir zusammen. Entdecke die Vorteile.\nIch arbeite wie ein interner Partner, nicht wie ein externer Dienstleister.\nIch übernehme Verantwortung für Ergebnisse, nicht nur für Umsetzung.\nIch halte Dinge einfach — damit du schneller vorankommst."
+  },
+  {
+    "_order": 3,
+    "_parent_id": 2,
+    "_path": "layout",
+    "id": "69da0df47d1bd12d5248ad37",
+    "block_name": null,
+    "heading": "Warum dieses Setup",
+    "intro": "Die Portfolio-Unterseiten sind nicht statisch, sondern als editierbare Inhaltsmodule aufgebaut."
+  },
+  {
+    "_order": 4,
+    "_parent_id": 8,
+    "_path": "layout",
+    "id": "69da0e0ab7d24b3144e68e3f",
+    "block_name": null,
+    "heading": "Was Marketing-Projekte hier auszeichnet",
+    "intro": "Der Fokus liegt auf Wirkung und klaren Entscheidungsgrundlagen."
+  },
+  {
+    "_order": 3,
+    "_parent_id": 9,
+    "_path": "layout",
+    "id": "69da0e0ab7d24b3144e68e50",
+    "block_name": null,
+    "heading": "Warum Branding-Cases separat dargestellt werden",
+    "intro": "Branding-Projekte folgen anderen Kriterien als Webdesign oder Performance-Marketing."
+  },
+  {
+    "_order": 5,
+    "_parent_id": 3,
+    "_path": "layout",
+    "id": "4f18774295e5437a88096b779d91182c",
+    "block_name": null,
+    "heading": "Warum diese Leistungen funktionieren",
+    "intro": "Jede Spezialisierung ist so aufgebaut, dass Inhalte und Abläufe klar bleiben – auch im Backend."
+  }
+]

@@ -1,9 +1,0 @@
-{
-  "slug": "testimonial27",
-  "title": "Testimonial",
-  "description": "This component displays testimonials and case studies. It features a two-column layout for testimonials and a three-column grid for case studies. Each testimonial includes a quote, author photo, name, and role. Case studies show stats, title, and a background image that changes on hover.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/testimonial27",
-  "downloadedAt": "2026-03-19T19:44:11Z",
-  "fileCount": 1
-}

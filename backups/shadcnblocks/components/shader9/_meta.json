@@ -1,9 +1,0 @@
-{
-  "slug": "shader9",
-  "title": "Shader",
-  "description": "A full-screen shader background with raymarched 3D torus, glow effect, mouse proximity highlight (red), and dark color palette.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/shader9",
-  "downloadedAt": "2026-03-19T19:43:42Z",
-  "fileCount": 1
-}

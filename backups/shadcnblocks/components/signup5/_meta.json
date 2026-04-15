@@ -1,9 +1,0 @@
-{
-  "slug": "signup5",
-  "title": "Signup",
-  "description": "A signup component with 2 columns; one for form inputs including name, email, password, and Google sign-up, and another for an image. Includes a text link for existing accounts.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/signup5",
-  "downloadedAt": "2026-03-19T19:43:52Z",
-  "fileCount": 1
-}

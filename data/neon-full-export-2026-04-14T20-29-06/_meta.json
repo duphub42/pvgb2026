@@ -1,0 +1,107 @@
+{
+  "exportedAt": "2026-04-14T20:29:10.113Z",
+  "database": "neon",
+  "tables": [
+    {
+      "table": "site_pages",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v",
+      "count": 0
+    },
+    {
+      "table": "mega_menu",
+      "count": 0
+    },
+    {
+      "table": "mega_menu_sub_items",
+      "count": 0
+    },
+    {
+      "table": "mega_menu_columns",
+      "count": 0
+    },
+    {
+      "table": "mega_menu_columns_items",
+      "count": 0
+    },
+    {
+      "table": "media",
+      "count": 0
+    },
+    {
+      "table": "price_calc_categories",
+      "count": 12
+    },
+    {
+      "table": "price_calc_items",
+      "count": 64
+    },
+    {
+      "table": "price_calculator",
+      "count": 1
+    },
+    {
+      "table": "header",
+      "count": 1
+    },
+    {
+      "table": "header_nav_items",
+      "count": 0
+    },
+    {
+      "table": "header_rels",
+      "count": 0
+    },
+    {
+      "table": "footer",
+      "count": 1
+    },
+    {
+      "table": "footer_columns",
+      "count": 0
+    },
+    {
+      "table": "footer_columns_links",
+      "count": 0
+    },
+    {
+      "table": "footer_social_links",
+      "count": 0
+    },
+    {
+      "table": "footer_nav_items",
+      "count": 0
+    },
+    {
+      "table": "design",
+      "count": 1
+    },
+    {
+      "table": "theme_settings",
+      "count": 1
+    },
+    {
+      "table": "users",
+      "count": 0
+    },
+    {
+      "table": "categories",
+      "count": 0
+    },
+    {
+      "table": "blog_posts",
+      "count": 0
+    },
+    {
+      "table": "forms",
+      "count": 2
+    },
+    {
+      "table": "form_submissions",
+      "count": 0
+    }
+  ],
+  "totalRows": 83
+}

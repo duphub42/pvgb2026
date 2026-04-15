@@ -1,9 +1,0 @@
-{
-  "slug": "team4",
-  "title": "Team",
-  "description": "A component showcasing a team with 4 profile cards, including images, roles, bios, and social links. Each row adapts to screen size, displaying up to 4 columns.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/team4",
-  "downloadedAt": "2026-03-19T19:44:07Z",
-  "fileCount": 1
-}

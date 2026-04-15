@@ -1,9 +1,0 @@
-{
-  "slug": "banner3",
-  "title": "Banner",
-  "description": "A subscription block featuring a title, description, email input, and subscribe button. Includes a dismissible icon and adapts layout between single and multi-column views.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/banner3",
-  "downloadedAt": "2026-03-19T19:40:10Z",
-  "fileCount": 1
-}

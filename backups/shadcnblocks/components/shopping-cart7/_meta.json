@@ -1,9 +1,0 @@
-{
-  "slug": "shopping-cart7",
-  "title": "Shopping-cart",
-  "description": "This component provides a dynamic shopping cart interface, allowing users to view, update quantities, and remove products with real-time price calculation. It integrates form management via react-hook-form to handle cart item data and user interactions efficiently.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/shopping-cart7",
-  "downloadedAt": "2026-03-19T19:43:45Z",
-  "fileCount": 3
-}

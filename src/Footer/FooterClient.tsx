@@ -75,11 +75,11 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
   const logoUrl = mediaUrl(logoToShow)
   const useTextLogo = !logoToShow
   const mobileFooterLogoAlt = footer?.footerLogoAltText?.trim() || 'Philipp Bacher Logo'
-  const mobileFooterLogoClassName = 'mobile-footer-b-logo logo-contrast block max-w-[100%] h-16 sm:h-18 md:h-22 md:hidden'
+  const mobileFooterLogoClassName =
+    'mobile-footer-b-logo logo-contrast block max-w-[100%] h-16 sm:h-18 md:h-22 md:hidden'
 
   const newsletterIcon =
-    footer?.newsletterIcon &&
-    String(footer.newsletterIcon).trim().length > 0
+    footer?.newsletterIcon && String(footer.newsletterIcon).trim().length > 0
       ? String(footer.newsletterIcon).trim()
       : null
   const newsletterIconUpload = footer?.newsletterIconUpload
@@ -301,9 +301,12 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
             <div className="md:col-span-12 lg:col-span-1 order-1 md:order-1 lg:order-1">
               <div className="space-y-4 md:space-y-0 lg:space-y-8">
                 {footer.footerDescription != null && (
-                  // FIX: prose-invert nur im Dark-Mode, prose-DEFAULT im Light-Mode
-                  <div className="footer-description hidden lg:block prose dark:prose-invert prose-sm max-w-none text-left prose-headings:mt-0 prose-p:mt-0">
-                    <RichText data={footer.footerDescription} enableGutter={false} />
+                  <div className="hidden lg:block text-[11px] md:text-sm leading-[1.5] opacity-80 max-w-none text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
+                    <RichText
+                      data={footer.footerDescription}
+                      enableGutter={false}
+                      enableProse={false}
+                    />
                   </div>
                 )}
                 <div className="flex flex-col items-center text-center gap-6 md:grid md:grid-cols-[2fr_5fr_13fr] md:items-start md:text-left lg:flex lg:flex-row lg:items-center lg:gap-6">
@@ -346,24 +349,32 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                       <div className="footer-contact-list space-y-1 text-sm opacity-80">
                         {footerAddress && (
                           <div className="footer-contact-row flex items-start gap-2">
-                            <span className="footer-contact-icon mt-0.5 opacity-80" aria-hidden="true">
-                              <svg className="inline-block size-5" aria-hidden="true">
+                            <span
+                              className="footer-contact-icon mt-0.5 opacity-80"
+                              aria-hidden="true"
+                            >
+                              <svg className="inline-block h-4 w-4" aria-hidden="true">
                                 <use href="/icons-sprite.svg#hf-map-pin" />
                               </svg>
                             </span>
-                            <p className="footer-contact-text whitespace-pre-line">{footerAddress}</p>
+                            <p className="footer-contact-text whitespace-pre-line">
+                              {footerAddress}
+                            </p>
                           </div>
                         )}
                         {footerPhone && (
                           <div className="footer-contact-row flex items-start gap-2">
-                            <span className="footer-contact-icon mt-0.5 opacity-80" aria-hidden="true">
-                              <svg className="inline-block size-5" aria-hidden="true">
+                            <span
+                              className="footer-contact-icon mt-0.5 opacity-80"
+                              aria-hidden="true"
+                            >
+                              <svg className="inline-block h-4 w-4" aria-hidden="true">
                                 <use href="/icons-sprite.svg#hf-phone" />
                               </svg>
                             </span>
                             <a
                               href={`tel:${footerPhone.replace(/\s+/g, '')}`}
-                              className="footer-contact-link footer-link text-sm"
+                              className="footer-contact-link footer-link text-xs"
                             >
                               {footerPhone}
                             </a>
@@ -380,7 +391,9 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                           const url = item?.url?.trim()
                           const platform = (item?.platform ?? '') as string
                           const customIconUrl =
-                            item?.iconUpload && typeof item.iconUpload === 'object' && item.iconUpload?.url
+                            item?.iconUpload &&
+                            typeof item.iconUpload === 'object' &&
+                            item.iconUpload?.url
                               ? getMediaUrl((item.iconUpload as { url?: string }).url)
                               : ''
                           const uploadSpriteId = null
@@ -399,7 +412,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                             >
                               {spriteId ? (
                                 // FIX: currentColor statt text-white — erbt Footer-Textfarbe
-                                <svg className="size-5" aria-hidden="true">
+                                <svg className="h-4 w-4" aria-hidden="true">
                                   <use href={`/icons-sprite.svg#${spriteId}`} />
                                 </svg>
                               ) : customIconUrl ? (
@@ -407,13 +420,13 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                                   src={customIconUrl}
                                   alt=""
                                   // FIX: footer-icon-img statt filter-invert — Theme-aware
-                                  className="footer-icon-img size-5 object-contain"
-                                  width={20}
+                                  className="footer-icon-img h-4 w-4 object-contain"
+                                  width={16}
                                   loading="lazy"
                                   decoding="async"
                                 />
                               ) : (
-                                <Link2 className="size-5 opacity-60" aria-hidden="true" />
+                                <Link2 className="h-4 w-4 opacity-60" aria-hidden="true" />
                               )}
                             </a>
                           )
@@ -424,15 +437,23 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
 
                   {/* Beschreibung iPad/Playbook */}
                   {footer.footerDescription != null && (
-                    <div className="footer-description hidden md:block lg:hidden prose dark:prose-invert prose-sm max-w-none text-left prose-headings:mt-0 prose-p:mt-0">
-                      <RichText data={footer.footerDescription} enableGutter={false} />
+                    <div className="hidden md:block lg:hidden text-[11px] md:text-sm leading-[1.5] opacity-80 max-w-none text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
+                      <RichText
+                        data={footer.footerDescription}
+                        enableGutter={false}
+                        enableProse={false}
+                      />
                     </div>
                   )}
                 </div>
 
                 {footer.footerDescription != null && (
-                  <div className="footer-description block md:hidden prose dark:prose-invert prose-sm max-w-none text-left prose-headings:mt-0 prose-p:mt-0">
-                    <RichText data={footer.footerDescription} enableGutter={false} />
+                  <div className="block md:hidden text-[11px] md:text-sm leading-[1.5] opacity-80 max-w-none text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
+                    <RichText
+                      data={footer.footerDescription}
+                      enableGutter={false}
+                      enableProse={false}
+                    />
                   </div>
                 )}
               </div>
@@ -443,25 +464,27 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                 <div className="grid gap-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
                   {columns.map((col, i) => {
                     const colIcon =
-                      col?.columnIcon &&
-                      String(col.columnIcon).trim().length > 0
+                      col?.columnIcon && String(col.columnIcon).trim().length > 0
                         ? String(col.columnIcon).trim()
                         : null
                     const colIconUpload = col?.columnIconUpload
                     const colIconUploadUrl =
                       colIconUpload && typeof colIconUpload === 'object' && colIconUpload?.url
-                        ? normalizeKnownBrokenFooterIconUrl(getMediaUrl((colIconUpload as { url?: string }).url))
+                        ? normalizeKnownBrokenFooterIconUrl(
+                            getMediaUrl((colIconUpload as { url?: string }).url),
+                          )
                         : ''
                     const colIconSpriteId = null
 
-                    const columnWrapperClass = i < 2 ? 'group space-y-4 lg:row-start-2' : 'group space-y-4'
+                    const columnWrapperClass =
+                      i < 2 ? 'group space-y-4 lg:row-start-2' : 'group space-y-4'
                     return (
                       <div key={col.id ?? i} className={columnWrapperClass}>
-                        <div className="flex flex-row items-start gap-x-4">
+                        <div className="flex flex-row items-start gap-x-2">
                           <div className="footer-column-icon flex shrink-0 pt-0.5 lg:basis-[10%] opacity-80 transition-opacity duration-[600ms] group-hover:opacity-100 group-hover:duration-300">
                             {colIconSpriteId ? (
                               // FIX: currentColor statt text-white
-                              <svg className="h-6 w-6" aria-hidden="true">
+                              <svg className="h-4 w-4" aria-hidden="true">
                                 <use href={`/icons-sprite.svg#${colIconSpriteId}`} />
                               </svg>
                             ) : colIconUploadUrl ? (
@@ -469,36 +492,41 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                                 src={colIconUploadUrl}
                                 alt=""
                                 // FIX: footer-icon-img statt filter-invert hardkodiert
-                                className="footer-icon-img h-6 w-6 object-contain"
+                                className="footer-icon-img h-4 w-4 object-contain"
                                 aria-hidden="true"
-                                width={24}
-                                height={24}
+                                width={16}
+                                height={16}
                                 loading="lazy"
                                 decoding="async"
                               />
                             ) : colIcon ? (
-                              <span aria-hidden="true" className="text-2xl leading-none">
+                              <span aria-hidden="true" className="text-base leading-none">
                                 {colIcon}
                               </span>
                             ) : null}
                           </div>
-                          <div className="min-w-[10rem] flex-1 space-y-2 lg:basis-[90%]">
-                            <h3 className="footer-heading footer-center-fade-heading text-sm font-semibold uppercase tracking-wider">
+                          <div className="min-w-[10rem] flex-1 space-y-1 lg:basis-[90%]">
+                            <h3 className="footer-heading footer-center-fade-heading text-sm font-semibold uppercase tracking-[-0.03em]">
                               {col.columnTitle}
                             </h3>
-                            <ul className="space-y-2">
+                            <ul className="space-y-1">
                               {(col.links ?? []).map((linkRow, j) => (
                                 <li key={linkRow.id ?? j}>
                                   <a
                                     href={linkRow.linkUrl}
                                     target={linkRow.isExternal ? '_blank' : undefined}
                                     rel={linkRow.isExternal ? 'noopener noreferrer' : undefined}
-                                    className="text-sm transition-opacity hover:opacity-100 footer-link"
+                                    className="text-[11px] md:text-sm leading-3 opacity-80 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px] footer-link"
                                   >
                                     <span className="footer-link-text">{linkRow.linkText}</span>
-                                    <ArrowRight className="footer-link-arrow inline-block size-[0.85em] shrink-0" aria-hidden />
+                                    <ArrowRight
+                                      className="footer-link-arrow inline-block size-[0.85em] shrink-0"
+                                      aria-hidden
+                                    />
                                     {linkRow.isExternal === true && (
-                                      <span className="footer-link-ext" aria-hidden>ext.</span>
+                                      <span className="footer-link-ext" aria-hidden>
+                                        ext.
+                                      </span>
                                     )}
                                   </a>
                                 </li>
@@ -512,39 +540,43 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
 
                   {footer.newsletterTitle != null && (
                     <div className="flex min-w-0 flex-col space-y-4 col-span-2 md:col-span-3 lg:col-span-2 lg:row-start-2 lg:col-start-3">
-                      <div className="group flex flex-row items-start gap-x-3">
+                      <div className="group flex flex-row items-start gap-x-2">
                         <div className="footer-column-icon flex shrink-0 pt-0.5 opacity-80 transition-opacity duration-[600ms] group-hover:opacity-100 group-hover:duration-300">
                           {newsletterSpriteId ? (
-                            <svg className="h-6 w-6" aria-hidden="true">
+                            <svg className="h-4 w-4" aria-hidden="true">
                               <use href={`/icons-sprite.svg#${newsletterSpriteId}`} />
                             </svg>
                           ) : newsletterIconUploadUrl ? (
                             <img
                               src={newsletterIconUploadUrl}
                               alt=""
-                              className="footer-icon-img h-6 w-6 object-contain"
+                              className="footer-icon-img h-4 w-4 object-contain"
                               aria-hidden="true"
-                              width={24}
-                              height={24}
+                              width={16}
+                              height={16}
                               loading="lazy"
                               decoding="async"
                             />
                           ) : newsletterIcon ? (
-                            <span aria-hidden="true" className="text-2xl leading-none">
+                            <span aria-hidden="true" className="text-base leading-none">
                               {newsletterIcon}
                             </span>
                           ) : null}
                         </div>
 
-                        <div className="min-w-0 flex-1 space-y-2">
-                          <h3 className="footer-heading footer-center-fade-heading text-sm font-semibold uppercase tracking-wider">
+                        <div className="min-w-0 flex-1 space-y-1">
+                          <h3 className="footer-heading footer-center-fade-heading text-sm font-semibold uppercase tracking-[-0.03em]">
                             {footer.newsletterTitle}
                           </h3>
 
                           <div className="flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-6">
                             {footer.newsletterDescription != null && (
-                              <div className="footer-description prose dark:prose-invert prose-sm max-w-none min-w-0 text-left prose-headings:mt-0 prose-p:mt-0">
-                                <RichText data={footer.newsletterDescription} enableGutter={false} />
+                              <div className="text-[11px] md:text-sm leading-[1.5] opacity-80 max-w-none min-w-0 text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
+                                <RichText
+                                  data={footer.newsletterDescription}
+                                  enableGutter={false}
+                                  enableProse={false}
+                                />
                               </div>
                             )}
 
@@ -598,21 +630,35 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
 
           {/* Bottom Bar */}
           {/* FIX: footer-bottom-border statt border-white/10 hardkodiert */}
-          <div className="mt-10 flex flex-col items-center gap-4 footer-bottom-border pt-6 text-sm opacity-80 md:flex-row md:flex-wrap md:items-center md:justify-between">
+          <div className="mt-10 flex flex-col items-center gap-4 footer-bottom-border pt-6 text-[11px] md:text-sm opacity-80 md:flex-row md:flex-wrap md:items-center md:justify-between">
             {footer.copyrightText != null && (
-              <span className="text-center md:text-left">{footer.copyrightText}</span>
+              <span className="text-center md:text-left tracking-[-0.03em]">
+                {footer.copyrightText}
+              </span>
             )}
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 md:ml-auto md:justify-start">
               {footer.privacyLink != null && (
-                <Link href={footer.privacyLink} className="footer-link text-sm transition-opacity hover:opacity-100">
+                <Link
+                  href={footer.privacyLink}
+                  className="footer-link text-xs tracking-[-0.03em] transition-opacity hover:opacity-100"
+                >
                   <span className="footer-link-text">{messages[locale].footer.privacy}</span>
-                  <ArrowRight className="footer-link-arrow inline-block size-[0.85em] shrink-0" aria-hidden />
+                  <ArrowRight
+                    className="footer-link-arrow inline-block size-[0.85em] shrink-0"
+                    aria-hidden
+                  />
                 </Link>
               )}
               {footer.termsLink != null && (
-                <Link href={footer.termsLink} className="footer-link text-sm transition-opacity hover:opacity-100">
+                <Link
+                  href={footer.termsLink}
+                  className="footer-link text-xs tracking-[-0.03em] transition-opacity hover:opacity-100"
+                >
                   <span className="footer-link-text">{messages[locale].footer.terms}</span>
-                  <ArrowRight className="footer-link-arrow inline-block size-[0.85em] shrink-0" aria-hidden />
+                  <ArrowRight
+                    className="footer-link-arrow inline-block size-[0.85em] shrink-0"
+                    aria-hidden
+                  />
                 </Link>
               )}
               <div className="ml-auto flex items-center gap-3 md:ml-0">

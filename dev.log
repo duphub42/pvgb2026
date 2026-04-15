@@ -1,0 +1,15 @@
+
+> with-vercel-website@1.0.0 dev /Users/horus/Desktop/pvgb2026/pvgb2026
+> node scripts/ensure-next-manifests.cjs && node scripts/run-payload-migrate-if-postgres.cjs && cross-env NODE_OPTIONS="--no-deprecation --require ./scripts/load-env-for-payload.cjs --max-old-space-size=4096" next dev -p 3000
+
+ ⚠ Warning: Found multiple lockfiles. Selecting /Users/horus/package-lock.json.
+   Consider removing the lockfiles at:
+   * /Users/horus/Desktop/pvgb2026/pvgb2026/pnpm-lock.yaml
+
+   ▲ Next.js 15.4.11
+   - Local:        http://localhost:3000
+   - Network:      http://172.20.10.12:3000
+   - Environments: .env.local, .env
+
+ ✓ Starting...
+ ✓ Ready in 2.8s

@@ -28,7 +28,6 @@ import { PortfolioCaseGridBlock } from '@/blocks/PortfolioCaseGrid/Component'
 import { PortfolioKpiStripBlock } from '@/blocks/PortfolioKpiStrip/Component'
 import { PricingTableBlock } from '@/blocks/PricingTable/Component'
 import { RadialOrbitalTimelineBlock } from '@/blocks/RadialOrbitalTimeline/Component'
-import { ShadcnBlockComponent } from '@/blocks/ShadcnBlock/Component'
 import { WhyWorkWithMeBlock } from '@/blocks/WhyWorkWithMe/Component'
 
 import { CLIENT_BLOCK_TYPES } from '@/blocks/clientBlockTypes'
@@ -62,7 +61,6 @@ const blockComponents: Record<string, BlockComponent> = {
   portfolioKpiStrip: PortfolioKpiStripBlock as unknown as BlockComponent,
   pricingTable: PricingTableBlock as unknown as BlockComponent,
   radialOrbitalTimeline: RadialOrbitalTimelineBlock as unknown as BlockComponent,
-  shadcnBlock: ShadcnBlockComponent as unknown as BlockComponent,
   whyWorkWithMe: WhyWorkWithMeBlock as unknown as BlockComponent,
 }
 

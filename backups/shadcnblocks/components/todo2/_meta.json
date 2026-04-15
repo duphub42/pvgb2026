@@ -1,9 +1,0 @@
-{
-  "slug": "todo2",
-  "title": "Todo",
-  "description": "This component provides a drag-and-drop to-do list allowing users to reorder tasks using a grip handle and toggle their completion status. It utilizes the `@dnd-kit` library to manage drag-and-drop interactions and supports keyboard and pointer sensors for accessibility and ease of use.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/todo2",
-  "downloadedAt": "2026-03-19T19:44:18Z",
-  "fileCount": 1
-}

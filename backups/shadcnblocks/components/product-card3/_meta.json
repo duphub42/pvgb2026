@@ -1,9 +1,0 @@
-{
-  "slug": "product-card3",
-  "title": "Product-card",
-  "description": "This component is a product display block designed to showcase product details including an image, name, description, pricing with sale indication, and a customizable badge. It features a call-to-action button for adding items to a cart and provides an interactive experience with hover effects.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-card3",
-  "downloadedAt": "2026-03-19T19:42:49Z",
-  "fileCount": 2
-}

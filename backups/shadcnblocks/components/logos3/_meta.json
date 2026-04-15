@@ -1,9 +1,0 @@
-{
-  "slug": "logos3",
-  "title": "Logos",
-  "description": "A component displaying logos in a carousel with auto-scroll feature. Logos are shown in columns that adjust layout based on screen size.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/logos3",
-  "downloadedAt": "2026-03-19T19:42:29Z",
-  "fileCount": 1
-}

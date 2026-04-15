@@ -1,9 +1,0 @@
-{
-  "slug": "rate-card1",
-  "title": "Rate-card",
-  "description": "This component displays a detailed pricing plan with a step-by-step breakdown of the process, including revision, strategy refinement, and implementation over specified timelines. It features a clear pricing structure, booking conditions, and utilizes illustrative elements to enhance visual representation.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/rate-card1",
-  "downloadedAt": "2026-03-19T19:43:17Z",
-  "fileCount": 1
-}

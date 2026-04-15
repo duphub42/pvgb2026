@@ -1,9 +1,0 @@
-{
-  "slug": "order-summary1",
-  "title": "Order-summary",
-  "description": "This component displays a detailed order summary, including order information, itemized lists of products, billing and shipping details, and a payment method overview. It features interactive elements like tracking orders, downloading receipts, and printing order documents, enhancing user engagement and utility.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/order-summary1",
-  "downloadedAt": "2026-03-19T19:42:39Z",
-  "fileCount": 1
-}

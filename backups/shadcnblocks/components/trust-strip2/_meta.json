@@ -1,9 +1,0 @@
-{
-  "slug": "trust-strip2",
-  "title": "Trust-strip",
-  "description": "This component displays a trust indicator block that highlights a star rating, the number of customer reviews, and the total customer count, making it ideal for showcasing user feedback and credibility. Additionally, it includes recognitions from well-known press logos to further reinforce trust and social proof.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/trust-strip2",
-  "downloadedAt": "2026-03-19T19:44:20Z",
-  "fileCount": 1
-}

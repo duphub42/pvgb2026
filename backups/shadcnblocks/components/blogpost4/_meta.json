@@ -1,9 +1,0 @@
-{
-  "slug": "blogpost4",
-  "title": "Blogpost",
-  "description": "A component displaying an article with breadcrumbs, author details, and sections with dynamic navigation. It features sticky social share icons and a \"Back to top\" button.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/blogpost4",
-  "downloadedAt": "2026-03-19T19:40:17Z",
-  "fileCount": 1
-}

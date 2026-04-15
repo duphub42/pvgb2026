@@ -1,9 +1,0 @@
-{
-  "slug": "stats15",
-  "title": "Stats",
-  "description": "Dynamic stats display component with animated numbers, toggling year buttons, and an animated link illustration that changes based on the selected year. Features 4 columns of data.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/stats15",
-  "downloadedAt": "2026-03-19T19:43:59Z",
-  "fileCount": 1
-}

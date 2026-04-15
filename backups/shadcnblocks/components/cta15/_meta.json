@@ -1,9 +1,0 @@
-{
-  "slug": "cta15",
-  "title": "Cta",
-  "description": "A component featuring a call to action with gradient background, text, and buttons on one side, and an image with a subtle overlay effect on the other. Designed in a two-column layout that adjusts to single column on smaller screens.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/cta15",
-  "downloadedAt": "2026-03-19T19:40:56Z",
-  "fileCount": 1
-}

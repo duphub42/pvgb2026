@@ -1,9 +1,0 @@
-{
-  "slug": "login1",
-  "title": "Login",
-  "description": "A login block featuring logo, input fields for email and password, a login button, a Google signup button, and a signup link.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/login1",
-  "downloadedAt": "2026-03-19T19:42:25Z",
-  "fileCount": 1
-}

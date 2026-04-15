@@ -37,6 +37,19 @@ const MAIN_TABLES = [
 ]
 
 async function addUuidToTable(db: MigrateUpArgs['db'], table: string) {
+  // First check if table exists
+  const tableExists = await db.execute(
+    sql.raw(`
+      SELECT 1 FROM information_schema.tables
+      WHERE table_schema = 'public' AND table_name = '${table}'
+    `),
+  )
+
+  if (tableExists.rows.length === 0) {
+    console.log(`Skipping ${table} - table does not exist`)
+    return
+  }
+
   await db.execute(
     sql.raw(`
     DO $$ BEGIN

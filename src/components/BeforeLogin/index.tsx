@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-const ART_LOGO_SRC = 'http://localhost:3000/api/media/file/philippbacher-logo-b-16.svg'
+const ART_LOGO_SRC = '/api/media/file/philippbacher-logo-b-16.svg'
 const FRONTEND_LOGO_SRC = '/media/weblogo-philippbacher.svg'
 
 const BeforeLogin: React.FC = () => {

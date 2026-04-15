@@ -1,0 +1,18 @@
+[
+  {
+    "_order": 8,
+    "_parent_id": 5,
+    "_path": "version.layout",
+    "id": 1,
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "intro_headline": "The future is built on AI.",
+    "intro_subline": "SCROLL TO EXPLORE",
+    "active_headline": "Explore Our Vision",
+    "active_text": "Discover a world where technology meets creativity. Scroll through our curated collection of innovations designed to shape the future.",
+    "_uuid": "699f7236cf55b79cc4f64923",
+    "block_name": null
+  }
+]

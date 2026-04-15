@@ -1,9 +1,0 @@
-{
-  "slug": "code-example3",
-  "title": "Code-example",
-  "description": "This component showcases the use of custom hooks to manage and toggle themes within a React application. It includes interactive code blocks and provides a clear implementation example, demonstrating how to integrate theme switching with a button and visual indicators.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/code-example3",
-  "downloadedAt": "2026-03-19T19:40:39Z",
-  "fileCount": 1
-}

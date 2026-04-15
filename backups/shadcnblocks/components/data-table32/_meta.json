@@ -1,9 +1,0 @@
-{
-  "slug": "data-table32",
-  "title": "Data-table",
-  "description": "A virtualized data table section with multi-column sorting via popover controls, sort priority management, row selection, and pinned columns. Built with TanStack Table and TanStack Virtual.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/data-table32",
-  "downloadedAt": "2026-03-19T19:41:05Z",
-  "fileCount": 1
-}

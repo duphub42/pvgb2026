@@ -1,9 +1,0 @@
-{
-  "slug": "navbar5",
-  "title": "Navbar",
-  "description": "A navbar component with a logo, navigation menus, sign-in/start buttons, and a collapsible menu for smaller screens, featuring a 2-column layout for feature links.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/navbar5",
-  "downloadedAt": "2026-03-19T19:42:35Z",
-  "fileCount": 1
-}

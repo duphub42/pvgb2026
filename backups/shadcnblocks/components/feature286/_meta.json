@@ -1,9 +1,0 @@
-{
-  "slug": "feature286",
-  "title": "Feature",
-  "description": "A component featuring an intro, 3 cards with glowing stars, pricing, and a \"View All\" button. Each card has \"Add to cart\" functionality and displays collection names and prices.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/feature286",
-  "downloadedAt": "2026-03-19T19:41:23Z",
-  "fileCount": 1
-}

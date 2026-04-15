@@ -1,9 +1,0 @@
-{
-  "slug": "timeline3",
-  "title": "Timeline",
-  "description": "A component with a two-column layout. It displays a heading, description, and two buttons on one side. The other side visualizes features with images, titles, and descriptions.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/timeline3",
-  "downloadedAt": "2026-03-19T19:44:15Z",
-  "fileCount": 1
-}

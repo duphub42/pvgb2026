@@ -1,9 +1,0 @@
-{
-  "slug": "background-pattern99",
-  "title": "Background-pattern",
-  "description": "This component creates a visually dynamic section with a duo-color gradient background blended with noise effects, suitable for enhancing visual appeal in user interfaces. It allows customization through an optional className parameter, enabling easy integration and styling within various layouts.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/background-pattern99",
-  "downloadedAt": "2026-03-19T19:40:09Z",
-  "fileCount": 2
-}

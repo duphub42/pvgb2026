@@ -1,9 +1,0 @@
-{
-  "slug": "product-categories2",
-  "title": "Product-categories",
-  "description": "This block displays a collection of product categories with titles, summaries, images, and links, designed to highlight various product options. Utilizing an animated grid layout, it showcases each category in an engaging and visually appealing manner for easy navigation and discovery.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-categories2",
-  "downloadedAt": "2026-03-19T19:42:51Z",
-  "fileCount": 1
-}

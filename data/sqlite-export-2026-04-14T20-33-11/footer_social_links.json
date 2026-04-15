@@ -1,0 +1,34 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 1,
+    "id": "6995750e078ac87e8410661d",
+    "platform": "instagram",
+    "url": "#",
+    "icon_upload_id": null
+  },
+  {
+    "_order": 2,
+    "_parent_id": 1,
+    "id": "69957520078ac87e8410661f",
+    "platform": "facebook",
+    "url": "#",
+    "icon_upload_id": null
+  },
+  {
+    "_order": 3,
+    "_parent_id": 1,
+    "id": "69957527078ac87e84106621",
+    "platform": "twitter",
+    "url": "#",
+    "icon_upload_id": null
+  },
+  {
+    "_order": 4,
+    "_parent_id": 1,
+    "id": "6995752c078ac87e84106623",
+    "platform": "linkedin",
+    "url": "#",
+    "icon_upload_id": null
+  }
+]

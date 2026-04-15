@@ -1,0 +1,22 @@
+[
+  {
+    "_order": 5,
+    "_parent_id": 4,
+    "_path": "layout",
+    "id": "699f7236cf55b79cc4f6490b",
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "title": "The Lyra ecosystem brings together our models, products and platforms.",
+    "paragraph_one": "Lyra is evolving to be more than just the models. It supports an entire ecosystem — from products to the APIs and platforms helping developers and businesses innovate.",
+    "paragraph_two": "Tailark. It supports an entire ecosystem — from products innovate. Sit minus, quod debitis autem quia aspernatur delectus impedit modi, neque non id ad dignissimos? Saepe deleniti perferendis beatae.",
+    "button_label": "Learn More",
+    "button_link_type": "reference",
+    "button_link_new_tab": null,
+    "button_link_url": null,
+    "button_link_label": "Test",
+    "button_link_appearance": "default",
+    "block_name": null
+  }
+]

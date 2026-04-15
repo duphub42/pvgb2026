@@ -1,9 +1,0 @@
-{
-  "slug": "banner4",
-  "title": "Banner",
-  "description": "An informational banner component with a title, description, and link button. Includes an icon and close function.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/banner4",
-  "downloadedAt": "2026-03-19T19:40:10Z",
-  "fileCount": 1
-}

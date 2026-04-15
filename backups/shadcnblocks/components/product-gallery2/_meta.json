@@ -1,9 +1,0 @@
-{
-  "slug": "product-gallery2",
-  "title": "Product-gallery",
-  "description": "This component provides an interactive carousel gallery for displaying a collection of product images, supporting functionalities like zoom and navigation controls. It integrates with a lightbox library to enhance image viewing, allowing users to browse through images with next-prev buttons and a custom close option.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-gallery2",
-  "downloadedAt": "2026-03-19T19:42:58Z",
-  "fileCount": 1
-}

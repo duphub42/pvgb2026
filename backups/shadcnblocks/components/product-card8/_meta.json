@@ -1,9 +1,0 @@
-{
-  "slug": "product-card8",
-  "title": "Product-card",
-  "description": "This component is a dynamic product display block that features an interactive card for showcasing a product with options for selecting size, color, and quantity directly from the card. It includes a detailed product form, image carousel, and controls for managing user selections, all within a visually appealing card layout.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-card8",
-  "downloadedAt": "2026-03-19T19:42:51Z",
-  "fileCount": 2
-}

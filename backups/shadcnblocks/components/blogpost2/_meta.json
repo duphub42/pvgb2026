@@ -1,9 +1,0 @@
-{
-  "slug": "blogpost2",
-  "title": "Blogpost",
-  "description": "A component with a sticky aside featuring a back link, title, and author&#x27;s avatar, paired with a main article including an image and text content.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/blogpost2",
-  "downloadedAt": "2026-03-19T19:40:16Z",
-  "fileCount": 1
-}

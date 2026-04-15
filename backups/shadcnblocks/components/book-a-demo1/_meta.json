@@ -1,9 +1,0 @@
-{
-  "slug": "book-a-demo1",
-  "title": "Book-a-demo",
-  "description": "This component is designed to facilitate user engagement by providing a form for booking a demo, along with showcasing key benefits and a carousel of company logos. It features input fields for user information and preferences, a select dropdown for source discovery, and incorporates motion effects for enhanced visual presentation.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/book-a-demo1",
-  "downloadedAt": "2026-03-19T19:40:18Z",
-  "fileCount": 1
-}

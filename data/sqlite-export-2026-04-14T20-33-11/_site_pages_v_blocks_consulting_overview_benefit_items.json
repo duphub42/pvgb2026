@@ -1,0 +1,110 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 1,
+    "id": "1",
+    "title": "1 Persönlicher Ansprechpartner für alles",
+    "text": "Kurze Wege, kein Agentur-Wasserkopf, kein Wischi-Waschi, sondern direkte, fundierte Beratung und Umsetzung.",
+    "_uuid": "69bd18bd8d98212840b2c60a",
+    "icon": null
+  },
+  {
+    "_order": 2,
+    "_parent_id": 1,
+    "id": "2",
+    "title": "Lean & effizient",
+    "text": "Schnelle Entscheidungen, klare Prozesse, kein unnötiger Overhead.",
+    "_uuid": "69bd18bd8d98212840b2c60b",
+    "icon": null
+  },
+  {
+    "_order": 3,
+    "_parent_id": 1,
+    "id": "3",
+    "title": "Performance & Resultate",
+    "text": "Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern.",
+    "_uuid": "69bd18bd8d98212840b2c60c",
+    "icon": null
+  },
+  {
+    "_order": 4,
+    "_parent_id": 1,
+    "id": "4",
+    "title": "Cross-Channel & internationale Erfahrung",
+    "text": "SEO, SEA, Social Ads, Automatisierung; Markteintritte und Launches in verschiedenen Branchen und 6 Ländern weltweit.",
+    "_uuid": "69bd18bd8d98212840b2c60d",
+    "icon": null
+  },
+  {
+    "_order": 1,
+    "_parent_id": 2,
+    "id": "5",
+    "title": "1 Persönlicher Ansprechpartner für alles",
+    "text": "Kurze Wege, kein Agentur-Wasserkopf, kein Wischi-Waschi, sondern direkte, fundierte Beratung und Umsetzung.",
+    "_uuid": "69bd18bd8d98212840b2c60a",
+    "icon": null
+  },
+  {
+    "_order": 2,
+    "_parent_id": 2,
+    "id": "6",
+    "title": "Lean & effizient",
+    "text": "Schnelle Entscheidungen, klare Prozesse, kein unnötiger Overhead.",
+    "_uuid": "69bd18bd8d98212840b2c60b",
+    "icon": null
+  },
+  {
+    "_order": 3,
+    "_parent_id": 2,
+    "id": "7",
+    "title": "Performance & Resultate",
+    "text": "Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern.",
+    "_uuid": "69bd18bd8d98212840b2c60c",
+    "icon": null
+  },
+  {
+    "_order": 4,
+    "_parent_id": 2,
+    "id": "8",
+    "title": "Cross-Channel & internationale Erfahrung",
+    "text": "SEO, SEA, Social Ads, Automatisierung; Markteintritte und Launches in verschiedenen Branchen und 6 Ländern weltweit.",
+    "_uuid": "69bd18bd8d98212840b2c60d",
+    "icon": null
+  },
+  {
+    "_order": 1,
+    "_parent_id": 3,
+    "id": "9",
+    "title": "1 Persönlicher Ansprechpartner für alles",
+    "text": "Kurze Wege, kein Agentur-Wasserkopf, kein Wischi-Waschi, sondern direkte, fundierte Beratung und Umsetzung.",
+    "_uuid": "69c84bbc0eec211ba69a71d2",
+    "icon": null
+  },
+  {
+    "_order": 2,
+    "_parent_id": 3,
+    "id": "10",
+    "title": "Lean & effizient",
+    "text": "Schnelle Entscheidungen, klare Prozesse, kein unnötiger Overhead.",
+    "_uuid": "69c84bbc0eec211ba69a71d3",
+    "icon": null
+  },
+  {
+    "_order": 3,
+    "_parent_id": 3,
+    "id": "11",
+    "title": "Performance & Resultate",
+    "text": "Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern.",
+    "_uuid": "69c84bbc0eec211ba69a71d4",
+    "icon": null
+  },
+  {
+    "_order": 4,
+    "_parent_id": 3,
+    "id": "12",
+    "title": "Cross-Channel & internationale Erfahrung",
+    "text": "SEO, SEA, Social Ads, Automatisierung; Markteintritte und Launches in verschiedenen Branchen und 6 Ländern weltweit.",
+    "_uuid": "69c84bbc0eec211ba69a71d5",
+    "icon": null
+  }
+]

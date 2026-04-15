@@ -1,9 +1,0 @@
-{
-  "slug": "faq5",
-  "title": "Faq",
-  "description": "A FAQ component with a badge, heading, and description at the top, followed by a list of questions and answers presented in a single-column layout. Each item features a numeric label.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/faq5",
-  "downloadedAt": "2026-03-19T19:41:18Z",
-  "fileCount": 1
-}

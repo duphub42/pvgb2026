@@ -82,7 +82,7 @@ export const HighImpactHero: React.FC<HighImpactHeroData> = ({
 
   return (
     <div
-      className="relative -mt-[10.4rem] flex min-h-[80vh] items-center justify-center bg-neutral-900 text-white"
+      className="relative -mt-[10.4rem] flex min-h-[80vh] items-center justify-center bg-muted text-foreground"
       data-theme="dark"
     >
       <div className="absolute inset-0 z-0 select-none overflow-hidden">

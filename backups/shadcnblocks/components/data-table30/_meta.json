@@ -1,9 +1,0 @@
-{
-  "slug": "data-table30",
-  "title": "Data-table",
-  "description": "A virtualized data table section with in-table search highlighting, result navigation, sortable columns, and pinned columns. Built with TanStack Table and TanStack Virtual.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/data-table30",
-  "downloadedAt": "2026-03-19T19:41:05Z",
-  "fileCount": 1
-}

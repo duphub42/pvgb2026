@@ -1,0 +1,56 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": "69da0df47d1bd12d5248ad33",
+    "id": "69da0df47d1bd12d5248ad2e",
+    "category_label": "Webdesign"
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0df47d1bd12d5248ad33",
+    "id": "69da0df47d1bd12d5248ad30",
+    "category_label": "Marketing"
+  },
+  {
+    "_order": 3,
+    "_parent_id": "69da0df47d1bd12d5248ad33",
+    "id": "69da0df47d1bd12d5248ad32",
+    "category_label": "Branding"
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0df47d1bd12d5248ad47",
+    "id": "69da0df47d1bd12d5248ad43",
+    "category_label": "Design & UX"
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0df47d1bd12d5248ad47",
+    "id": "69da0df47d1bd12d5248ad46",
+    "category_label": "Technik & Performance"
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0e0ab7d24b3144e68e3b",
+    "id": "69da0e0ab7d24b3144e68e3a",
+    "category_label": "Organic & Paid"
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0e0ab7d24b3144e68e4c",
+    "id": "69da0e0ab7d24b3144e68e4b",
+    "category_label": "Marke & Designsystem"
+  },
+  {
+    "_order": 1,
+    "_parent_id": "b684d64ebedb46f49b2533b5ed082844",
+    "id": "261b1477e66d4a7e9f6785db55ac3cce",
+    "category_label": "Design & Website"
+  },
+  {
+    "_order": 2,
+    "_parent_id": "b684d64ebedb46f49b2533b5ed082844",
+    "id": "ad6d1d0e039249479b0ab33ec9f865b0",
+    "category_label": "Strategie & Wachstum"
+  }
+]

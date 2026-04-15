@@ -1,9 +1,0 @@
-{
-  "slug": "content1",
-  "title": "Content",
-  "description": "A storytelling component featuring an interactive sidebar that highlights active content sections as a user scrolls. It spans 3 columns, with narrative content and illustrations dominating 2/3 of the layout.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/content1",
-  "downloadedAt": "2026-03-19T19:40:54Z",
-  "fileCount": 1
-}

@@ -1,0 +1,1073 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 1,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c84bb40eec211ba69a71ce"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 1,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c84bb40eec211ba69a71cf"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 1,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c84bb40eec211ba69a71d0"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 1,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c84bb40eec211ba69a71d1"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 3,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c84bb40eec211ba69a71ce"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 3,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c84bb40eec211ba69a71cf"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 3,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c84bb40eec211ba69a71d0"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 3,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c84bb40eec211ba69a71d1"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 4,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c84bb40eec211ba69a71ce"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 4,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c84bb40eec211ba69a71cf"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 4,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c84bb40eec211ba69a71d0"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 4,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c84bb40eec211ba69a71d1"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 5,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c84bb40eec211ba69a71ce"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 5,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c84bb40eec211ba69a71cf"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 5,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c84bb40eec211ba69a71d0"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 5,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c84bb40eec211ba69a71d1"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 32,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 32,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 32,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 32,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c84bb40eec211ba69a71ce"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c84bb40eec211ba69a71cf"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c84bb40eec211ba69a71d0"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c84bb40eec211ba69a71d1"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c84bb40eec211ba69a71ce"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c84bb40eec211ba69a71cf"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c84bb40eec211ba69a71d0"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c84bb40eec211ba69a71d1"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c84bb40eec211ba69a71ce"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c84bb40eec211ba69a71cf"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c84bb40eec211ba69a71d0"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c84bb40eec211ba69a71d1"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.",
+    "_uuid": "69c873ebc86ba5cf09f094a0"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.",
+    "_uuid": "69c873ebc86ba5cf09f094a1"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.",
+    "_uuid": "69c873ebc86ba5cf09f094a2"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.",
+    "_uuid": "69c873ebc86ba5cf09f094a3"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 78,
+    "id": null,
+    "icon": "trending-up",
+    "title": "SEO",
+    "description": "Technische und inhaltliche Optimierung für nachhaltige organische Sichtbarkeit.",
+    "_uuid": "69da0e0ab7d24b3144e68e33"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 78,
+    "id": null,
+    "icon": "rocket",
+    "title": "SEM",
+    "description": "Performance-Kampagnen mit sauberem Setup, Testing und laufender Effizienzsteigerung.",
+    "_uuid": "69da0e0ab7d24b3144e68e34"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 78,
+    "id": null,
+    "icon": "zap",
+    "title": "Lead-Strategie",
+    "description": "Funnel-orientierte Maßnahmen zur Steigerung qualifizierter Anfragen und Conversion-Raten.",
+    "_uuid": "69da0e0ab7d24b3144e68e35"
+  }
+]

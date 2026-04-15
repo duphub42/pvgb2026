@@ -1,0 +1,23 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 1,
+    "id": "69c65bdca7c346ed6ec2502f",
+    "field": "Name",
+    "value": "Name"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 1,
+    "id": "69c65bdca7c346ed6ec25030",
+    "field": "Telefonnummer",
+    "value": "+49"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 1,
+    "id": "69c65bdca7c346ed6ec25031",
+    "field": "Datenschutz",
+    "value": "1.0"
+  }
+]

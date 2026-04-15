@@ -1,9 +1,0 @@
-{
-  "slug": "feature257",
-  "title": "Feature",
-  "description": "A component displays tools in cards with categories, logos, names. Columns adjust from 1 to 3 based on the display size. Unique hover effects.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/feature257",
-  "downloadedAt": "2026-03-19T19:41:21Z",
-  "fileCount": 1
-}

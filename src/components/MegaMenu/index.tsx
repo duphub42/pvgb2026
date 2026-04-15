@@ -694,33 +694,31 @@ const ListItem = React.forwardRef<
     <NavigationMenuLink asChild>
       <Link
         ref={ref}
-          className={cn(
-            isButton
-              ? 'megamenu-special-link group relative flex select-none items-start gap-3 rounded-md border border-transparent !bg-foreground p-4 leading-none no-underline !text-background shadow-xs outline-none transition-colors duration-200 hover:!bg-foreground/80 active:!bg-foreground/80 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50'
-              : 'group flex select-none items-start gap-3 rounded-xl p-4 leading-none no-underline outline-none transition-colors duration-300',
-            className,
-          )}
+        className={cn(
+          isButton
+            ? 'megamenu-special-link group relative flex select-none items-start gap-3 rounded-md border border-transparent !bg-foreground p-4 leading-none no-underline !text-background shadow-xs outline-none transition-colors duration-200 hover:!bg-foreground/80 active:!bg-foreground/80 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50'
+            : 'group flex select-none items-start gap-3 rounded-xl p-4 leading-none no-underline outline-none transition-colors duration-300',
+          className,
+        )}
         {...props}
       >
         <div
-            className={cn(
-              'megamenu-item-icon flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg p-2.5 transition-all duration-300 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
-              isButton
-                ? 'megamenu-special-link-icon bg-background/15 text-current group-hover:bg-background/25'
-                : 'group-hover:text-foreground',
-            )}
-          >
+          className={cn(
+            'megamenu-item-icon flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg p-2.5 transition-all duration-300 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
+            isButton
+              ? 'megamenu-special-link-icon bg-background/15 text-current group-hover:bg-background/25'
+              : 'group-hover:text-foreground',
+          )}
+        >
           {icon}
         </div>
         <div className="min-w-0 flex-1 space-y-1">
           <div
-              className={cn(
-                'text-sm font-semibold leading-tight transition-colors',
-                isButton
-                  ? 'text-current'
-                  : 'group-hover:text-foreground',
-              )}
-            >
+            className={cn(
+              'text-sm font-semibold leading-tight transition-colors',
+              isButton ? 'text-current' : 'group-hover:text-foreground',
+            )}
+          >
             {title}
           </div>
           <p
@@ -929,10 +927,10 @@ function MegaMenuCtaStrip({ cta, hideCallback }: { cta: MegaMenuCta; hideCallbac
             href={cta.whatsapp.url}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg bg-[#25D366] px-4 py-2.5 text-sm font-medium text-white hover:bg-[#20BD5A] transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-[var(--brand-whatsapp)] px-4 py-2.5 text-sm font-medium text-white hover:bg-[var(--brand-whatsapp-hover)] transition-colors"
             aria-label={cta.whatsapp.label}
           >
-            <MessageCircle className="h-5 w-5 text-white" aria-hidden />
+            <MessageCircle className="h-5 w-5 text-[rgb(var(--hero-process-text))]" aria-hidden />
             {cta.whatsapp.label}
           </a>
         </div>
@@ -2595,7 +2593,7 @@ export function MegaMenu({
                                             loading="eager"
                                             decoding="sync"
                                           />
-                                          <div className="absolute inset-0 bg-black/10 transition-opacity group-hover/highlight:bg-black/5" />
+                                          <div className="absolute inset-0 bg-foreground/10 transition-opacity group-hover/highlight:bg-foreground/5" />
                                         </div>
                                       )}
                                       {!cardImageUrl && cardIconUrl && (

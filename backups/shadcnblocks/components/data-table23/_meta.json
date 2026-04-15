@@ -1,9 +1,0 @@
-{
-  "slug": "data-table23",
-  "title": "Data-table",
-  "description": "A data table section with rows grouped by employment type, displaying group headers for full-time, contract, internship, and part-time categories. Built with TanStack Table.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/data-table23",
-  "downloadedAt": "2026-03-19T19:41:02Z",
-  "fileCount": 1
-}

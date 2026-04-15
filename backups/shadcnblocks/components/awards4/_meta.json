@@ -1,9 +1,0 @@
-{
-  "slug": "awards4",
-  "title": "Awards",
-  "description": "A component displays awards in a table with details like logo, name, nomination, and year, with a large title and a date range subtitle.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/awards4",
-  "downloadedAt": "2026-03-19T19:40:04Z",
-  "fileCount": 1
-}

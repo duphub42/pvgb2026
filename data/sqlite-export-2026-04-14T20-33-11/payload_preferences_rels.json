@@ -1,0 +1,93 @@
+[
+  {
+    "id": 4,
+    "order": null,
+    "parent_id": 4,
+    "path": "user",
+    "users_id": 1
+  },
+  {
+    "id": 7,
+    "order": null,
+    "parent_id": 6,
+    "path": "user",
+    "users_id": 1
+  },
+  {
+    "id": 8,
+    "order": null,
+    "parent_id": 1,
+    "path": "user",
+    "users_id": 1
+  },
+  {
+    "id": 9,
+    "order": null,
+    "parent_id": 7,
+    "path": "user",
+    "users_id": 1
+  },
+  {
+    "id": 10,
+    "order": null,
+    "parent_id": 5,
+    "path": "user",
+    "users_id": 1
+  },
+  {
+    "id": 11,
+    "order": null,
+    "parent_id": 8,
+    "path": "user",
+    "users_id": 1
+  },
+  {
+    "id": 12,
+    "order": null,
+    "parent_id": 9,
+    "path": "user",
+    "users_id": 1
+  },
+  {
+    "id": 14,
+    "order": null,
+    "parent_id": 10,
+    "path": "user",
+    "users_id": 1
+  },
+  {
+    "id": 16,
+    "order": null,
+    "parent_id": 11,
+    "path": "user",
+    "users_id": 1
+  },
+  {
+    "id": 19,
+    "order": null,
+    "parent_id": 3,
+    "path": "user",
+    "users_id": 1
+  },
+  {
+    "id": 20,
+    "order": null,
+    "parent_id": 2,
+    "path": "user",
+    "users_id": 1
+  },
+  {
+    "id": 21,
+    "order": null,
+    "parent_id": 13,
+    "path": "user",
+    "users_id": 1
+  },
+  {
+    "id": 22,
+    "order": null,
+    "parent_id": 12,
+    "path": "user",
+    "users_id": 1
+  }
+]

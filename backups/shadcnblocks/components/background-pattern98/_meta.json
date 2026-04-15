@@ -1,9 +1,0 @@
-{
-  "slug": "background-pattern98",
-  "title": "Background-pattern",
-  "description": "This component creates a visually rich background pattern using radial gradients and a noise texture, ideal for enhancing the aesthetic appeal of any UI element. It provides customizable styling options with an optional `className` prop, allowing for seamless integration and theming within an application's layout.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/background-pattern98",
-  "downloadedAt": "2026-03-19T19:40:09Z",
-  "fileCount": 2
-}

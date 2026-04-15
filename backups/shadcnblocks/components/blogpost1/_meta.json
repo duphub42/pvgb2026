@@ -1,9 +1,0 @@
-{
-  "slug": "blogpost1",
-  "title": "Blogpost",
-  "description": "A blog post component featuring title, author with avatar, publication date, and content including images, alerts, and a table.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/blogpost1",
-  "downloadedAt": "2026-03-19T19:40:16Z",
-  "fileCount": 1
-}

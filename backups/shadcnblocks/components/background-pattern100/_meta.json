@@ -1,9 +1,0 @@
-{
-  "slug": "background-pattern100",
-  "title": "Background-pattern",
-  "description": "The component, BackgroundPattern100, creates a visually engaging section with a gradient background and noise overlay effect, using customizable styles through class names. It's ideal for designers looking to enhance their UI with dynamic atmospheric elements and layered background patterns.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/background-pattern100",
-  "downloadedAt": "2026-03-19T19:40:05Z",
-  "fileCount": 2
-}

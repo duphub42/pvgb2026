@@ -112,6 +112,85 @@
     --surface-shadow-card-strong: 0 12px 30px -26px rgba(0, 0, 0, 0.35);
     --surface-shadow-card-hover-md: 0 16px 36px -26px rgba(0, 0, 0, 0.4);
     --surface-shadow-card-hover-lg: 0 20px 42px -30px rgba(0, 0, 0, 0.4);
+
+    /* Button state colors - for Framer Motion animations */
+    --button-bg-idle: 243, 244, 246;
+    --button-bg-idle-dark: 64, 64, 64;
+    --button-text-idle: 0, 0, 0;
+    --button-text-idle-dark: 255, 255, 255;
+    --button-bg-saving: 59, 130, 246;
+    --button-bg-saved: 34, 197, 94;
+    --button-bg-footer: 0, 0, 0;
+    --button-text-footer: 255, 255, 255;
+
+    /* Hero Process Block - dark theme specific */
+    --hero-process-bg: 0, 0, 0;
+    --hero-process-text: 255, 255, 255;
+    --hero-process-text-muted: 255, 255, 255;
+    --hero-process-border: 255, 255, 255;
+    --hero-process-step-bg: 255, 255, 255;
+    --hero-process-step-text: 0, 0, 0;
+
+    /* Confetti Colors - Rainbow Palette */
+    --confetti-red: #ff0000;
+    --confetti-green: #00ff00;
+    --confetti-blue: #0000ff;
+    --confetti-yellow: #ffff00;
+    --confetti-cyan: #00ffff;
+    --confetti-magenta: #ff00ff;
+
+    /* Brand Accents */
+    --brand-whatsapp: #25D366;
+    --brand-whatsapp-hover: #20BD5A;
+
+    /* Semantic Color Primitives - RGB for opacity support */
+    --color-slate-50: 248, 250, 252;
+    --color-slate-100: 241, 245, 249;
+    --color-slate-200: 226, 232, 240;
+    --color-slate-300: 203, 213, 225;
+    --color-slate-400: 148, 163, 184;
+    --color-slate-500: 100, 116, 139;
+    --color-slate-600: 71, 85, 105;
+    --color-slate-700: 51, 65, 85;
+    --color-slate-800: 30, 41, 59;
+    --color-slate-900: 15, 23, 42;
+    --color-slate-950: 2, 6, 23;
+
+    --color-zinc-50: 250, 250, 250;
+    --color-zinc-100: 244, 244, 245;
+    --color-zinc-200: 228, 228, 231;
+    --color-zinc-300: 212, 212, 216;
+    --color-zinc-400: 161, 161, 170;
+    --color-zinc-500: 113, 113, 122;
+    --color-zinc-600: 82, 82, 91;
+    --color-zinc-700: 63, 63, 70;
+    --color-zinc-800: 39, 39, 42;
+    --color-zinc-900: 24, 24, 27;
+    --color-zinc-950: 9, 9, 11;
+
+    --color-neutral-50: 250, 250, 250;
+    --color-neutral-100: 245, 245, 245;
+    --color-neutral-200: 229, 229, 229;
+    --color-neutral-300: 212, 212, 212;
+    --color-neutral-400: 163, 163, 163;
+    --color-neutral-500: 115, 115, 115;
+    --color-neutral-600: 82, 82, 82;
+    --color-neutral-700: 64, 64, 64;
+    --color-neutral-800: 38, 38, 38;
+    --color-neutral-900: 23, 23, 23;
+    --color-neutral-950: 10, 10, 10;
+
+    /* Gradient Definitions - Centralized */
+    --gradient-hero-impact: linear-gradient(to bottom, rgb(var(--color-neutral-900)), rgb(var(--color-neutral-800)));
+    --gradient-portfolio-data: linear-gradient(to bottom, rgba(var(--color-slate-950), 0.95), rgba(var(--color-slate-900), 0.90), rgba(var(--color-slate-950), 0.95));
+    --gradient-portfolio-visual: linear-gradient(to bottom, white, rgba(239, 246, 255, 0.65), rgba(255, 251, 235, 0.60));
+    --gradient-portfolio-default: linear-gradient(to bottom, rgb(var(--color-slate-50)), white, rgb(var(--color-zinc-50)));
+    --gradient-navigation-menu: linear-gradient(to bottom, hsl(var(--primary)), hsl(var(--primary)));
+    --gradient-sheet-overlay: linear-gradient(to bottom, rgba(var(--color-slate-900), 0.95), rgba(var(--color-slate-950), 0.98));
+
+    /* Component-specific Gradients */
+    --gradient-card-spotlight: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255, 255, 255, 0.06), transparent 40%);
+    --gradient-hero-overlay: linear-gradient(to right, rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.30), transparent);
   }
 
   [data-theme='dark'] {
@@ -529,11 +608,29 @@
     }
   }
 
+  
   /* Sehr kleine Viewports (< 430px): Abstand etwas reduzieren,
      damit mehr Platz für den Hero-Content bleibt. */
   @media (max-width: 429px) {
-    .hero-offset:not([aria-label='Style Preview Hero']):not([aria-label='Profil Hero']) {
+    .hero-offset:not([aria-label='Style Preview Hero']):not([aria-label='Profil Hero']):not([data-hero-type='superhero']) {
       padding-top: calc((var(--header-height) + 1vh) * 1.12);
+    }
+    
+    /* Superhero Hero auch auf kleinen Viewports mit 8% Abstand */
+    [data-hero-type='superhero'].hero-offset {
+      padding-top: max(calc(var(--header-height) + 8vh), 8vh);
+    }
+  }
+
+  /* Superhero Hero: Bild soll bis auf 10% Abstand zum Header reichen - HIGHER SPECIFICITY */
+  section[data-hero-type='superhero'].hero-offset {
+    padding-top: max(calc(var(--header-height) + 10vh), 10vh) !important;
+  }
+
+  /* Desktop: Superhero Hero mit 10% Abstand zum Header */
+  @media (min-width: 1024px) {
+    section[data-hero-type='superhero'].hero-offset {
+      padding-top: max(calc(var(--header-height) + 10vh), 10vh) !important;
     }
   }
 
@@ -998,6 +1095,13 @@
       align-self: flex-start;
       will-change: transform;
       transform: translate3d(0, var(--hero-mobile-portrait-translate, 0px), 0);
+      scroll-margin-top: calc(var(--header-height) + 1rem);
+    }
+
+    /* Superhero Hero: Mobile sticky positioning mit 10% Abstand zum Header */
+    section[data-hero-type='superhero'] .hero-mobile-sticky-portrait {
+      top: 10vh;
+      scroll-margin-top: 10vh;
     }
   }
   @media (max-width: 599px) {
@@ -1028,6 +1132,11 @@
     }
     .hero-mobile-sticky-portrait {
       top: calc(var(--header-height) + 4rem);
+    }
+    
+    /* Superhero Hero: Auf kleinen Viewports mit 8vh Abstand */
+    section[data-hero-type='superhero'] .hero-mobile-sticky-portrait {
+      top: 8vh;
     }
   }
   @media (min-width: 768px) {
@@ -2384,33 +2493,33 @@
     animation: rotate 3s linear infinite;
   }
 
-  @variant sm {
+  @media (width >= 40rem) {
     .container {
       max-width: min(var(--breakpoint-sm), 100%);
     }
   }
 
-  @variant md {
+  @media (width >= 48rem) {
     .container {
       max-width: min(var(--breakpoint-md), 100%);
       padding-inline: 1.5rem;
     }
   }
 
-  @variant lg {
+  @media (width >= 64rem) {
     .container {
       max-width: min(var(--breakpoint-lg), 100%);
       padding-inline: 2rem;
     }
   }
 
-  @variant xl {
+  @media (width >= 80rem) {
     .container {
       max-width: min(var(--breakpoint-xl), 100%);
     }
   }
 
-  @variant 2xl {
+  @media (width >= 86rem) {
     .container {
       max-width: min(var(--breakpoint-2xl), 100%);
     }

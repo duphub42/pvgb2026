@@ -1,0 +1,23 @@
+[
+  {
+    "_order": 13,
+    "_parent_id": 5,
+    "_path": "version.layout",
+    "id": 1,
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "badge_icon": "rocket",
+    "badge_text": "Launch Your Success",
+    "title": "Accelerate your digital transformation journey",
+    "description": "Join thousands of innovative companies using our cutting-edge platform to automate workflows, boost team productivity, and deliver exceptional results faster than ever before.",
+    "primary_button_icon": "zap",
+    "primary_button_label": "Start Free Trial",
+    "primary_button_href": "#",
+    "secondary_button_label": "Watch Demo",
+    "secondary_button_href": "#",
+    "_uuid": "699f7236cf55b79cc4f64935",
+    "block_name": null
+  }
+]

@@ -1,9 +1,0 @@
-{
-  "slug": "team1",
-  "title": "Team",
-  "description": "A team showcase component with a title, subtitle, description, and a grid of member avatars, names, and roles, supporting up to 4 columns.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/team1",
-  "downloadedAt": "2026-03-19T19:44:04Z",
-  "fileCount": 1
-}

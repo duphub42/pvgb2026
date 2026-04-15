@@ -17,26 +17,28 @@ export const PostHero: React.FC<{
 
   return (
     <div className="relative -mt-[10.4rem] flex items-end">
-      <div className="container z-10 relative lg:grid lg:grid-cols-[1fr_48rem_1fr] text-white pb-8">
+      <div className="container z-10 relative lg:grid lg:grid-cols-[1fr_48rem_1fr] text-foreground pb-8">
         <div className="col-start-1 col-span-1 md:col-start-2 md:col-span-2">
           <div className="mb-6 text-sm uppercase hero-subheading-contrast--inverse">
-            {categories?.map((category: NonNullable<BlogPost['categories']>[number], index: number) => {
-              if (typeof category === 'object' && category !== null) {
-                const { title: categoryTitle } = category
+            {categories?.map(
+              (category: NonNullable<BlogPost['categories']>[number], index: number) => {
+                if (typeof category === 'object' && category !== null) {
+                  const { title: categoryTitle } = category
 
-                const titleToUse = categoryTitle || 'Untitled category'
+                  const titleToUse = categoryTitle || 'Untitled category'
 
-                const isLast = index === categories.length - 1
+                  const isLast = index === categories.length - 1
 
-                return (
-                  <React.Fragment key={index}>
-                    {titleToUse}
-                    {!isLast && <React.Fragment>, &nbsp;</React.Fragment>}
-                  </React.Fragment>
-                )
-              }
-              return null
-            })}
+                  return (
+                    <React.Fragment key={index}>
+                      {titleToUse}
+                      {!isLast && <React.Fragment>, &nbsp;</React.Fragment>}
+                    </React.Fragment>
+                  )
+                }
+                return null
+              },
+            )}
           </div>
 
           <div className="">

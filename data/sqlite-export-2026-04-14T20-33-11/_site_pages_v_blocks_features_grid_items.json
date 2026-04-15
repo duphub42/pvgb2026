@@ -1,0 +1,29 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 2,
+    "id": 4,
+    "icon": "zap",
+    "title": "Customizable",
+    "description": "Extensive customization options, allowing you to tailor every aspect to meet your specific needs.",
+    "_uuid": "699f7236cf55b79cc4f6491c"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 2,
+    "id": 5,
+    "icon": "settings2",
+    "title": "You have full control",
+    "description": "From design elements to functionality, you have complete control to create a unique and personalized experience.",
+    "_uuid": "699f7236cf55b79cc4f6491d"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 2,
+    "id": 6,
+    "icon": "sparkles",
+    "title": "Powered By AI",
+    "description": "Elements to functionality, you have complete control to create a unique experience.",
+    "_uuid": "699f7236cf55b79cc4f6491e"
+  }
+]

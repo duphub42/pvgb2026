@@ -21,13 +21,15 @@ const HERO_TYPES_WITH_EDITABLE_CONTENT = [
   'superhero',
   'proAthlete',
   'leistungenHero',
+  'simple',
 ] as const
 
 const hasEditableContent = (type: string | undefined) =>
   type != null && (HERO_TYPES_WITH_EDITABLE_CONTENT as readonly string[]).includes(type)
 
 const isSuperheroHero = (type: string | undefined) => String(type ?? '') === 'superhero'
-const heroTypesWithLogoMarquee = (type: string | undefined) => isSuperheroHero(type)
+const heroTypesWithLogoMarquee = (type: string | undefined) =>
+  isSuperheroHero(type) || String(type ?? '') === 'simple'
 
 const isProAthleteHero = (type: string | undefined) => String(type ?? '') === 'proAthlete'
 const isPopoutOrProAthleteHero = (type: string | undefined) =>
@@ -53,6 +55,7 @@ export const hero: Field = {
         { label: 'Superhero (Popout-Portrait)', value: 'superhero' },
         { label: 'Pro Athlete', value: 'proAthlete' },
         { label: 'Leistungen Hero', value: 'leistungenHero' },
+        { label: 'Simple', value: 'simple' },
       ],
     },
     {
@@ -86,11 +89,40 @@ export const hero: Field = {
       },
     },
     {
+      name: 'portrait',
+      type: 'relationship',
+      relationTo: 'media',
+      label: 'Portrait',
+      admin: {
+        condition: (_, siblingData) => String(siblingData?.type ?? '') === 'simple',
+        description: 'Portrait-Bild für die rechte Spalte.',
+      },
+    },
+    {
+      name: 'backgroundGlow',
+      type: 'checkbox',
+      label: 'Hintergrund-Glow Effekt',
+      defaultValue: true,
+      admin: {
+        condition: (_, siblingData) => String(siblingData?.type ?? '') === 'simple',
+        description: 'Zeigt abstrakte Glow-Effekte im Hintergrund.',
+      },
+    },
+    {
       name: 'subheadline',
       type: 'text',
       label: 'Sub-Headline',
       admin: {
         condition: (_, siblingData) => hasEditableContent(String(siblingData?.type ?? '')),
+      },
+    },
+    {
+      name: 'label',
+      type: 'text',
+      label: 'Label',
+      admin: {
+        condition: (_, siblingData) => String(siblingData?.type ?? '') === 'simple',
+        description: 'Kleines Label über der Überschrift (z.B. "Neues Projekt")',
       },
     },
     {

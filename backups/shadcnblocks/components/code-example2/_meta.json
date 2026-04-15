@@ -1,9 +1,0 @@
-{
-  "slug": "code-example2",
-  "title": "Code-example",
-  "description": "This component provides a visual interface for displaying code examples of HTTP requests in multiple programming languages, including JavaScript, Python, and Go. It features a code block with selectable files, language switching options, and a button for copying code, making it ideal for educational or documentation purposes.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/code-example2",
-  "downloadedAt": "2026-03-19T19:40:39Z",
-  "fileCount": 1
-}

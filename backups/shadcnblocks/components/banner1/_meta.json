@@ -1,9 +1,0 @@
-{
-  "slug": "banner1",
-  "title": "Banner",
-  "description": "A dismissible banner component with a title, description, external link, and close button. It spans full width with a shadow border.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/banner1",
-  "downloadedAt": "2026-03-19T19:40:09Z",
-  "fileCount": 1
-}

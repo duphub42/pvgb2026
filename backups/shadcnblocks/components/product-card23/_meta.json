@@ -1,9 +1,0 @@
-{
-  "slug": "product-card23",
-  "title": "Product-card",
-  "description": "This component is a customizable product card that displays product information, including images, price, brand, and badges, with interactive color variants. It features color selection via radio buttons and provides a button to initiate a search action, making it ideal for showcasing products in an e-commerce platform.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-card23",
-  "downloadedAt": "2026-03-19T19:42:49Z",
-  "fileCount": 2
-}

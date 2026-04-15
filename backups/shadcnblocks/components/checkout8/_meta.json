@@ -1,9 +1,0 @@
-{
-  "slug": "checkout8",
-  "title": "Checkout",
-  "description": "This component is a comprehensive checkout form that facilitates the entire purchase process, including cart overview, address entry, and payment methods. It leverages the `react-hook-form` library for form handling and supports multiple payment options such as credit card, PayPal, and bank transfers.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/checkout8",
-  "downloadedAt": "2026-03-19T19:40:38Z",
-  "fileCount": 2
-}

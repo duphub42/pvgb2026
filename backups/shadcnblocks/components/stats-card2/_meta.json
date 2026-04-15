@@ -1,9 +1,0 @@
-{
-  "slug": "stats-card2",
-  "title": "Stats-card",
-  "description": "A metric card with a sparkline area chart showing recent trend data below the main value.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/stats-card2",
-  "downloadedAt": "2026-03-19T19:43:56Z",
-  "fileCount": 1
-}

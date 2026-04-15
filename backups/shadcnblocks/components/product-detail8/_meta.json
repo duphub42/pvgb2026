@@ -1,9 +1,0 @@
-{
-  "slug": "product-detail8",
-  "title": "Product-detail",
-  "description": "This component is designed to display detailed product information, including images, reviews, available sizes and colors, and stock status. It features an interactive form allowing users to select product options and add items to their cart, incorporating a carousel for image viewing and an accordion for additional product details.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-detail8",
-  "downloadedAt": "2026-03-19T19:42:56Z",
-  "fileCount": 1
-}

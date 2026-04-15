@@ -1,9 +1,0 @@
-{
-  "slug": "product-card1",
-  "title": "Product-card",
-  "description": "This component represents a product card that displays product details, including an image, name, description, price with sale options, and a customizable badge indicating urgency, perfect for featuring items in an e-commerce platform. It is designed with a flexible layout, allowing users to link to a product page, making it ideal for showcasing products dynamically.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-card1",
-  "downloadedAt": "2026-03-19T19:42:47Z",
-  "fileCount": 2
-}

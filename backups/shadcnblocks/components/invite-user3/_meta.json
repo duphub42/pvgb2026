@@ -1,9 +1,0 @@
-{
-  "slug": "invite-user3",
-  "title": "Invite-user",
-  "description": "A user table with inline tag input for adding email addresses, pending/accepted status badges, and dropdown actions for each user row.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/invite-user3",
-  "downloadedAt": "2026-03-19T19:42:22Z",
-  "fileCount": 1
-}

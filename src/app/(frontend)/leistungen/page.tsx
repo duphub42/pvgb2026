@@ -6,6 +6,7 @@ import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { cn } from '@/utilities/ui'
+import type { SitePage } from '@/payload-types'
 
 export const metadata: Metadata = {
   title: 'Leistungen',
@@ -15,43 +16,28 @@ export const metadata: Metadata = {
 export default async function LeistungenPage() {
   const payload = await getPayload({ config: configPromise })
 
-  let pages = await payload.find({
-    collection: 'site-pages',
-    where: { and: [{ slug: { equals: 'leistungen' } }, { _status: { equals: 'published' } }] },
-    limit: 1,
-    depth: 2,
-    draft: false,
-  })
-
-  if (!pages.docs[0]) {
-    pages = await payload.find({
+  const page = await payload
+    .find({
       collection: 'site-pages',
-      where: { and: [{ slug: { equals: 'lei' } }, { _status: { equals: 'published' } }] },
-      limit: 1,
-      depth: 2,
-      draft: false,
+      where: {
+        slug: { equals: 'leistungen' },
+      },
     })
+    .then(({ docs }) => docs[0] as SitePage | undefined)
+
+  // Handle missing database columns gracefully
+  const heroData = page?.hero || {}
+  const processedHero = {
+    ...heroData,
+    // Provide default values for potentially missing columns
+    backgroundGlow: heroData.backgroundGlow ?? true,
   }
-
-  const page = pages.docs[0]
-
-  if (!page) {
-    return (
-      <main className="container page-safe-top py-20">
-        <div className="prose mx-auto">
-          <h1>Leistungen</h1>
-          <p>Die Seite wurde noch nicht angelegt oder veröffentlicht.</p>
-        </div>
-      </main>
-    )
-  }
-
-  const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
+  const heroProps = processedHero
   const isProAthleteHero =
     typeof (heroProps as { type?: unknown })?.type === 'string' &&
     (heroProps as { type?: string }).type === 'proAthlete'
-  const pageSlug = typeof page.slug === 'string' ? page.slug : 'leistungen'
-  const layoutBlocks = resolveLayoutBlocks('leistungen', page.layout)
+  const pageSlug = typeof page?.slug === 'string' ? page.slug : 'leistungen'
+  const layoutBlocks = resolveLayoutBlocks('leistungen', page?.layout || [])
   const firstBlock = layoutBlocks[0]
   const firstBlockIsServices =
     firstBlock &&

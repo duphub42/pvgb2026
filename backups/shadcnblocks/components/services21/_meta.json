@@ -1,9 +1,0 @@
-{
-  "slug": "services21",
-  "title": "Services",
-  "description": "A component displaying a dynamic list of services with an animating image preview. It has a sticky side section for images and texts, plus a list that updates the preview on hover. Includes a CTA button with an animated icon.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/services21",
-  "downloadedAt": "2026-03-19T19:43:27Z",
-  "fileCount": 2
-}

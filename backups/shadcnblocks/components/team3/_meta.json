@@ -1,9 +1,0 @@
-{
-  "slug": "team3",
-  "title": "Team",
-  "description": "A component displaying a team section with a hiring call, team intro, and dynamic grid of team members (up to 8), including avatar, name, role, and social links. Grid adapts from 1 to 4 columns.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/team3",
-  "downloadedAt": "2026-03-19T19:44:06Z",
-  "fileCount": 1
-}

@@ -1,0 +1,21 @@
+[
+  {
+    "_order": 7,
+    "_parent_id": 5,
+    "_path": "version.layout",
+    "id": 1,
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "badge_label": "Introducing Support for AI Models",
+    "title": "Modern Solutions for Customer Engagement",
+    "subtitle": "Highly customizable components for building modern websites and applications that look and feel the way you mean it.",
+    "primary_cta_label": "Start Building",
+    "primary_cta_url": "#start",
+    "secondary_cta_label": "Request a demo",
+    "secondary_cta_url": "#demo",
+    "_uuid": "699f7236cf55b79cc4f64922",
+    "block_name": null
+  }
+]

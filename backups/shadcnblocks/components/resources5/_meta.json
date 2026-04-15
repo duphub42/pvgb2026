@@ -1,9 +1,0 @@
-{
-  "slug": "resources5",
-  "title": "Resources",
-  "description": "This component displays a collection of educational courses, each including details like title, description, lessons, videos, duration, audience, author information, and a call-to-action button. It visually presents course information with thematic badges, images, and author avatars to enhance user engagement and easy navigation.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/resources5",
-  "downloadedAt": "2026-03-19T19:43:19Z",
-  "fileCount": 1
-}

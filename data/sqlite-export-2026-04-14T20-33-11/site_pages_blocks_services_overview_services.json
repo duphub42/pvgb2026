@@ -1,0 +1,90 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": "69c84bb3c3b6894bce4aa6d4",
+    "id": "69c84bb40eec211ba69a71ce",
+    "icon": "compass",
+    "title": "Digital Consulting",
+    "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam."
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69c84bb3c3b6894bce4aa6d4",
+    "id": "69c84bb40eec211ba69a71cf",
+    "icon": "code",
+    "title": "Webentwicklung & Apps",
+    "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt."
+  },
+  {
+    "_order": 3,
+    "_parent_id": "69c84bb3c3b6894bce4aa6d4",
+    "id": "69c84bb40eec211ba69a71d0",
+    "icon": "palette",
+    "title": "Branding & Design",
+    "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung."
+  },
+  {
+    "_order": 4,
+    "_parent_id": "69c84bb3c3b6894bce4aa6d4",
+    "id": "69c84bb40eec211ba69a71d1",
+    "icon": "megaphone",
+    "title": "Marketing & Automatisierung",
+    "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar."
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0e0ab7d24b3144e68e36",
+    "id": "69da0e0ab7d24b3144e68e33",
+    "icon": "trending-up",
+    "title": "SEO",
+    "description": "Technische und inhaltliche Optimierung für nachhaltige organische Sichtbarkeit."
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0e0ab7d24b3144e68e36",
+    "id": "69da0e0ab7d24b3144e68e34",
+    "icon": "rocket",
+    "title": "SEM",
+    "description": "Performance-Kampagnen mit sauberem Setup, Testing und laufender Effizienzsteigerung."
+  },
+  {
+    "_order": 3,
+    "_parent_id": "69da0e0ab7d24b3144e68e36",
+    "id": "69da0e0ab7d24b3144e68e35",
+    "icon": "zap",
+    "title": "Lead-Strategie",
+    "description": "Funnel-orientierte Maßnahmen zur Steigerung qualifizierter Anfragen und Conversion-Raten."
+  },
+  {
+    "_order": 1,
+    "_parent_id": "ad42fc459e9d41099c223681e124ec76",
+    "id": "e41b7436bafd45e99d9ae2285f2734b4",
+    "icon": "compass",
+    "title": "Strategie & Beratung",
+    "description": "Positionierung, Zielbild und Prioritäten, damit jede Maßnahme auf ein klares Ergebnis einzahlt."
+  },
+  {
+    "_order": 2,
+    "_parent_id": "ad42fc459e9d41099c223681e124ec76",
+    "id": "2c5950a8ad9e48b6b88b697b1440a0dc",
+    "icon": "code",
+    "title": "Webdesign & Umsetzung",
+    "description": "Reduziertes, hochwertiges Design plus technische Umsetzung für schnelle, stabile und wartbare Systeme."
+  },
+  {
+    "_order": 3,
+    "_parent_id": "ad42fc459e9d41099c223681e124ec76",
+    "id": "2a4fbdbce03647618abaa8dfcf4562bf",
+    "icon": "megaphone",
+    "title": "Marketing & Reichweite",
+    "description": "Gezielte Maßnahmen für Sichtbarkeit, qualifizierte Anfragen und nachvollziehbare Performance."
+  },
+  {
+    "_order": 4,
+    "_parent_id": "ad42fc459e9d41099c223681e124ec76",
+    "id": "4533c8f747604b8cb868a63b95669acf",
+    "icon": "shield",
+    "title": "Wartung & Entwicklung",
+    "description": "Kontinuierliche Pflege, Verbesserungen und klare Weiterentwicklung statt punktueller Einmal-Projekte."
+  }
+]

@@ -1,9 +1,0 @@
-{
-  "slug": "list2",
-  "title": "List",
-  "description": "A component displaying a list of awards with icons, titles, categories, and descriptions. Includes headings and buttons to view details.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/list2",
-  "downloadedAt": "2026-03-19T19:42:24Z",
-  "fileCount": 1
-}

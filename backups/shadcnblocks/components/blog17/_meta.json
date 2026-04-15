@@ -1,9 +1,0 @@
-{
-  "slug": "blog17",
-  "title": "Blog",
-  "description": "A component showcases blog articles with filtering. Layout includes an article display area (3-column wide) and a category filter sidebar (1-column), plus introductory text. Features dynamic filtering by category.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/blog17",
-  "downloadedAt": "2026-03-19T19:40:13Z",
-  "fileCount": 1
-}

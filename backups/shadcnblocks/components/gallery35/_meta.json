@@ -1,9 +1,0 @@
-{
-  "slug": "gallery35",
-  "title": "Gallery",
-  "description": "This component, Gallery35, displays a scrollable gallery of visual cards with accompanying text and images, featuring smooth scrolling and pagination controls for easy navigation. Users can control the autoplay functionality, allowing for an interactive viewing experience.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/gallery35",
-  "downloadedAt": "2026-03-19T19:42:06Z",
-  "fileCount": 1
-}

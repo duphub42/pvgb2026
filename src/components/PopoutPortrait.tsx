@@ -21,12 +21,14 @@ interface PopoutPortraitProps {
 }
 
 export default function PopoutPortrait({
-  imageSrc = '/assets/philippbacher.png',
-  width = Math.round(VIEWBOX_W * DEFAULT_DISPLAY_SCALE),
-  height = Math.round(VIEWBOX_H * DEFAULT_DISPLAY_SCALE),
+  imageSrc = '/media/philippbacher.png',
+  width = Math.round(VIEWBOX_W * DEFAULT_DISPLAY_SCALE * 2.5),
+  height = Math.round(VIEWBOX_H * DEFAULT_DISPLAY_SCALE * 2.5),
   fillRowHeight = false,
 }: PopoutPortraitProps) {
   const [isSingleCol, setIsSingleCol] = React.useState(false)
+
+  // Suppress hydration warning for dynamic styles
   React.useEffect(() => {
     const mql = window.matchMedia('(max-width: 767px)')
     const update = () => setIsSingleCol(mql.matches)
@@ -122,7 +124,6 @@ export default function PopoutPortrait({
               position: 'relative',
               width: '100%',
               maxWidth: width,
-              aspectRatio: `${VIEWBOX_W} / ${VIEWBOX_H}`,
               flexShrink: 0,
               overflow: 'visible',
               margin: '0 auto',
@@ -131,9 +132,9 @@ export default function PopoutPortrait({
     >
       <style>{`
         .pb-popout-root[data-pb-fill-row] {
-          aspect-ratio: ${VIEWBOX_W} / ${VIEWBOX_H};
           width: 100%;
-          max-width: var(--pb-popout-max-w, ${VIEWBOX_W * DEFAULT_DISPLAY_SCALE}px);
+          max-width: min(98vw, ${VIEWBOX_W * DEFAULT_DISPLAY_SCALE * 2.5}px);
+          max-height: 95vh;
         }
         @media (min-width: 768px) {
           .pb-popout-root[data-pb-fill-row] {
@@ -145,7 +146,7 @@ export default function PopoutPortrait({
         }
         @media (min-width: 1025px) {
           .pb-popout-root[data-pb-fill-row] {
-            min-height: min(58vh, 640px);
+            min-height: min(85vh, 640px);
           }
         }
         .pb-disk-dark {
@@ -157,25 +158,23 @@ export default function PopoutPortrait({
         [data-theme='dark'] .pb-popout-root .pb-disk-dark {
           display: block;
         }
-        @keyframes pb-floatA { 0%,100%{translate:0 0} 50%{translate:0 -7px} }
+        /* @keyframes pb-floatA { 0%,100%{translate:0 0} 50%{translate:0 -7px} }
         @keyframes pb-floatB { 0%,100%{translate:0 0} 50%{translate:0 -6px} }
         @keyframes pb-floatC { 0%,100%{translate:0 0} 50%{translate:0 -8px} }
         @keyframes pb-floatD { 0%,100%{translate:0 0} 50%{translate:0 -5px} }
-        .pb-cA { animation: pb-floatA 3.2s ease-in-out infinite; }
-        .pb-cB { animation: pb-floatB 3.8s ease-in-out infinite 0.8s; }
-        .pb-cC { animation: pb-floatC 3.5s ease-in-out infinite 0.4s; }
-        .pb-cD { animation: pb-floatD 4.0s ease-in-out infinite 1.1s; }
+        .pb-cA { /* animation: pb-floatA 3.2s ease-in-out infinite; */ }
+        .pb-cB { /* animation: pb-floatB 3.8s ease-in-out infinite 0.8s; */ }
+        .pb-cC { /* animation: pb-floatC 3.5s ease-in-out infinite 0.4s; */ }
+        .pb-cD { /* animation: pb-floatD 4.0s ease-in-out infinite 1.1s; */ }
         /*
          * Web Vitals (pb-cB): top 124px, feste Innenhöhe im JSX — Außen­höhe für Mindestabstand
          * zur Automatisierungskarte (pb-cC). Bei Layout-Änderungen an pb-cB anpassen.
          */
         .pb-popout-root {
-          --pb-webvitals-top: 124px;
-          --pb-webvitals-card-outer-h: 124px;
-          --pb-webvitals-automatisierung-gap: 22px;
-          --pb-automatisierung-min-top: calc(
-            var(--pb-webvitals-top) + var(--pb-webvitals-card-outer-h) + var(--pb-webvitals-automatisierung-gap)
-          );
+          --pb-webvitals-top: 0px;
+          --pb-webvitals-card-outer-h: 0px;
+          --pb-webvitals-automatisierung-gap: 0px;
+          --pb-automatisierung-min-top: 0px;
           --pb-cA-ipad-up: 0px;
           --pb-cA-desktop-up: 0px;
         }
@@ -188,7 +187,7 @@ export default function PopoutPortrait({
         /* Desktop (ab 1025px): weitere ~100px nach oben — getrennt von iPad, damit 1024px nicht doppelt zählt */
         @media (min-width: 1025px) {
           .pb-popout-root {
-            --pb-cA-desktop-up: 100px;
+            --pb-cA-desktop-up: 0px;
           }
         }
         .pb-cards-wrap {
@@ -204,27 +203,27 @@ export default function PopoutPortrait({
         /* Ads Performance (pb-cA): genug Abstand nach unten, damit die Karte nicht unter/in den fixen Header rutscht */
         @media (min-width: 768px) {
           .pb-popout-root {
-            --pb-cA-top: max(168px, calc(118px + 12%));
+            --pb-cA-top: 0px;
           }
         }
         @media (min-width: 1024px) {
           .pb-popout-root {
-            --pb-cA-top: max(188px, calc(128px + 14%));
+            --pb-cA-top: 0px;
           }
         }
         /* Unter 800px: Karten vor Portrait (z-3). Unter 768px extra hoch (14), über Squiggle (6) + äußere Überlagerungen */
         @media (max-width: 799px) {
           .pb-popout-root .pb-cards-wrap {
-            z-index: 10 !important;
+            z-index: 1 !important;
           }
         }
         @media (max-width: 767px) {
           .pb-popout-root .pb-cards-wrap {
-            z-index: 14 !important;
+            z-index: 1 !important;
           }
         }
         @media (max-width: 599px) {
-          .pb-card { scale: 0.64; }
+          .pb-card { /* scale: 0.64; */ }
           .pb-card.pb-cA { transform-origin: top right; right: 0px !important; }
           .pb-card.pb-cB { transform-origin: top left; left: 0px !important; }
           .pb-card.pb-cC {
@@ -602,7 +601,10 @@ export default function PopoutPortrait({
           height={imgH}
           preserveAspectRatio="xMidYMax meet"
           mask={`url(#${uid}-portrait-fade-mask)`}
-          onError={() => {}}
+          onError={(e) => {
+            console.error('[PopoutPortrait] Image failed to load:', imageSrc, e)
+            // Optional: Set fallback image or handle gracefully
+          }}
         />
       </svg>
 

@@ -1,0 +1,18 @@
+[
+  {
+    "_order": 3,
+    "_parent_id": 5,
+    "_path": "version.layout",
+    "id": 1,
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "title": "UX/UI Design",
+    "intro_headline": "User-Centered Design That Converts",
+    "intro_text": "We believe that great design should be intuitive, accessible, and purposeful for every user who interacts with your product. Our UX/UI design approach focuses on understanding your users' needs, behaviors, and pain points to create interfaces that not only look beautiful but function seamlessly.",
+    "body": null,
+    "_uuid": "699f7236cf55b79cc4f6491b",
+    "block_name": null
+  }
+]

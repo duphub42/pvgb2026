@@ -1,0 +1,26 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 1,
+    "id": "69c64add6b734ce771df3630",
+    "email_to": "mail@philippbacher.com",
+    "cc": null,
+    "bcc": null,
+    "reply_to": null,
+    "email_from": null,
+    "subject": "Rücktufanfrage",
+    "message": null
+  },
+  {
+    "_order": 1,
+    "_parent_id": 2,
+    "id": "69da0a9a5bb7ad6bc85f27ec",
+    "email_to": "{{email}}",
+    "cc": null,
+    "bcc": null,
+    "reply_to": null,
+    "email_from": "\"Website\" <noreply@example.com>",
+    "subject": "Ihre Kontaktanfrage wurde eingegangen",
+    "message": "{\"root\":{\"type\":\"root\",\"children\":[{\"type\":\"paragraph\",\"children\":[{\"type\":\"text\",\"detail\":0,\"format\":0,\"mode\":\"normal\",\"style\":\"\",\"text\":\"Vielen Dank für Ihre Nachricht. Wir melden uns so bald wie möglich bei Ihnen.\",\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"version\":1}],\"direction\":\"ltr\",\"format\":\"\",\"indent\":0,\"version\":1}}"
+  }
+]

@@ -45,9 +45,11 @@ const COLLECTIONS = [
   'mega-menu',
   'redirects',
   'forms',
+  'price-calc-categories',
+  'price-calc-items',
 ] as const
 
-const GLOBALS = ['header', 'footer', 'design', 'theme-settings'] as const
+const GLOBALS = ['header', 'footer', 'design', 'theme-settings', 'price-calculator'] as const
 
 const HEADER_SELECT_KEYS = [
   'megaMenuCardBorderRadius',
@@ -108,7 +110,8 @@ function normalizeMegaMenuDocForExport(doc: Record<string, unknown>): Record<str
         if (!col || typeof col !== 'object') return col
         const row = { ...(col as Record<string, unknown>) }
         if ('columnWidth' in row) row.columnWidth = toColWidth(row.columnWidth)
-        if ('columnBackground' in row) row.columnBackground = unwrapQuotedString(row.columnBackground)
+        if ('columnBackground' in row)
+          row.columnBackground = unwrapQuotedString(row.columnBackground)
         return row
       }),
     }
@@ -124,12 +127,8 @@ async function main() {
       'Geprüfte Dateien (Projektroot):',
       envPaths.map((p) => path.relative(projectRoot, p)).join(', '),
     )
-    console.error(
-      'Bitte in .env.local eintragen: PAYLOAD_SECRET=dein-geheimes-secret',
-    )
-    console.error(
-      'Oder inline: PAYLOAD_SECRET="..." npx tsx src/scripts/export-data.ts',
-    )
+    console.error('Bitte in .env.local eintragen: PAYLOAD_SECRET=dein-geheimes-secret')
+    console.error('Oder inline: PAYLOAD_SECRET="..." npx tsx src/scripts/export-data.ts')
     process.exit(1)
   }
 
@@ -209,7 +208,9 @@ async function main() {
     })
     let normalizedGlobalData: unknown = globalData
     if (slug === 'header' && globalData && typeof globalData === 'object') {
-      normalizedGlobalData = normalizeHeaderForExport(globalData as unknown as Record<string, unknown>)
+      normalizedGlobalData = normalizeHeaderForExport(
+        globalData as unknown as Record<string, unknown>,
+      )
     }
     globalsData[slug] = normalizedGlobalData
     manifest.globals.push(slug)

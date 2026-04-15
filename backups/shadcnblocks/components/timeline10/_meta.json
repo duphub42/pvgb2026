@@ -1,9 +1,0 @@
-{
-  "slug": "timeline10",
-  "title": "Timeline",
-  "description": "A timeline component with 4 columns, highlighting project phases with dates, titles, and descriptions, using animation to show current progress.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/timeline10",
-  "downloadedAt": "2026-03-19T19:44:14Z",
-  "fileCount": 1
-}

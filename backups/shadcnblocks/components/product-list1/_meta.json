@@ -1,9 +1,0 @@
-{
-  "slug": "product-list1",
-  "title": "Product-list",
-  "description": "This component displays a dynamic grid of product cards, showcasing attributes like name, description, image, pricing, and optional badges for promotional messages. Users can explore detailed product information and special offers, with pricing options reflecting regular and sale prices.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-list1",
-  "downloadedAt": "2026-03-19T19:43:00Z",
-  "fileCount": 2
-}

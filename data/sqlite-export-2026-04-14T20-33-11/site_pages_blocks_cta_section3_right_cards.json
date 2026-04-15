@@ -1,0 +1,20 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": "699f7236cf55b79cc4f64935",
+    "id": "699f7236cf55b79cc4f64933",
+    "icon": "bookOpen",
+    "title": "Documentation",
+    "description": "Complete guides, API references, and best practices to get you started.",
+    "href": "#"
+  },
+  {
+    "_order": 2,
+    "_parent_id": "699f7236cf55b79cc4f64935",
+    "id": "699f7236cf55b79cc4f64934",
+    "icon": "playCircle",
+    "title": "Video Tutorials",
+    "description": "Step-by-step video guides to help you master the platform quickly.",
+    "href": "#"
+  }
+]

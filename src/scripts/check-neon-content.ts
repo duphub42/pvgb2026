@@ -42,7 +42,16 @@ async function main() {
     const payload = await getPayload({ config })
 
     const counts: Record<string, number> = {}
-    const collections = ['site-pages', 'media', 'users', 'mega-menu', 'blog-posts', 'categories'] as const
+    const collections = [
+      'site-pages',
+      'media',
+      'users',
+      'mega-menu',
+      'blog-posts',
+      'categories',
+      'price-calc-categories',
+      'price-calc-items',
+    ] as const
     for (const slug of collections) {
       try {
         const result = await payload.find({
@@ -76,9 +85,12 @@ async function main() {
       }
     }
 
-    const totalContent = (counts['site-pages'] ?? 0) + (counts['media'] ?? 0) + (counts['mega-menu'] ?? 0)
+    const totalContent =
+      (counts['site-pages'] ?? 0) + (counts['media'] ?? 0) + (counts['mega-menu'] ?? 0)
     if (totalContent === 0) {
-      log('\n⚠️  Keine Inhalte in Neon (site-pages, media, mega-menu = 0). Import evtl. fehlgeschlagen oder andere DB.')
+      log(
+        '\n⚠️  Keine Inhalte in Neon (site-pages, media, mega-menu = 0). Import evtl. fehlgeschlagen oder andere DB.',
+      )
     } else {
       log('\n✓ Neon enthält Daten (Import wurde in diese DB geschrieben).')
     }

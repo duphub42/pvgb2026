@@ -1,0 +1,86 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 4,
+    "id": "699f7236cf55b79cc4f648f3",
+    "logo_id": 28,
+    "alt": "Open AI"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 4,
+    "id": "699f7236cf55b79cc4f648f4",
+    "logo_id": 49,
+    "alt": "Figma"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 4,
+    "id": "699f7236cf55b79cc4f648f5",
+    "logo_id": 27,
+    "alt": "Google Ads"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 4,
+    "id": "699f7236cf55b79cc4f648f6",
+    "logo_id": 48,
+    "alt": "Hubspot"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 4,
+    "id": "699f7236cf55b79cc4f648f7",
+    "logo_id": 47,
+    "alt": "Meta"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 4,
+    "id": "699f7236cf55b79cc4f648f8",
+    "logo_id": 46,
+    "alt": "Salesforce"
+  },
+  {
+    "_order": 7,
+    "_parent_id": 4,
+    "id": "699f7236cf55b79cc4f648f9",
+    "logo_id": 45,
+    "alt": "SEMrush"
+  },
+  {
+    "_order": 8,
+    "_parent_id": 4,
+    "id": "699f7236cf55b79cc4f648fa",
+    "logo_id": 43,
+    "alt": "Shopify"
+  },
+  {
+    "_order": 9,
+    "_parent_id": 4,
+    "id": "699f7236cf55b79cc4f648fb",
+    "logo_id": 42,
+    "alt": "Woocommerce"
+  },
+  {
+    "_order": 10,
+    "_parent_id": 4,
+    "id": "699f7236cf55b79cc4f648fc",
+    "logo_id": 41,
+    "alt": "Wordpress"
+  },
+  {
+    "_order": 11,
+    "_parent_id": 4,
+    "id": "699f7236cf55b79cc4f648fd",
+    "logo_id": 39,
+    "alt": "Webflow"
+  },
+  {
+    "_order": 12,
+    "_parent_id": 4,
+    "id": "699f7236cf55b79cc4f648fe",
+    "logo_id": 40,
+    "alt": "Zapier"
+  }
+]

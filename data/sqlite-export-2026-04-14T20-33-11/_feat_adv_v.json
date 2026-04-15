@@ -1,0 +1,17 @@
+[
+  {
+    "_order": 9,
+    "_parent_id": 5,
+    "_path": "version.layout",
+    "id": 1,
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "badge_label": "Platform",
+    "title": "Something new!",
+    "subtitle": "Managing a small business today is already tough.",
+    "_uuid": "699f7236cf55b79cc4f64927",
+    "block_name": null
+  }
+]

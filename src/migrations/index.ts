@@ -101,6 +101,10 @@ import * as migration_20260412_150000_site_pages_blocks_radial_orbital_timeline 
 import * as migration_20260413_170000_repair_pricing_table_dbname_tables from './20260413_170000_repair_pricing_table_dbname_tables'
 import * as migration_20260413_180000_consulting_overview_icons from './20260413_180000_consulting_overview_icons'
 import * as migration_20260413_190000_consulting_overview_benefit_item_icon_column from './20260413_190000_consulting_overview_benefit_item_icon_column'
+import * as migration_20260414_100000_site_pages_hero_portrait from './20260414_100000_site_pages_hero_portrait'
+import * as migration_20260414_110000_add_hero_background_glow from './20260414_110000_add_hero_background_glow'
+import * as migration_20260414_120000_fix_missing_hero_columns from './20260414_120000_fix_missing_hero_columns'
+import * as migration_20260415_000000_repair_version_tables from './20260415_000000_repair_version_tables'
 
 export const migrations = [
   {
@@ -617,5 +621,25 @@ export const migrations = [
     up: migration_20260413_190000_consulting_overview_benefit_item_icon_column.up,
     down: migration_20260413_190000_consulting_overview_benefit_item_icon_column.down,
     name: '20260413_190000_consulting_overview_benefit_item_icon_column',
+  },
+  {
+    up: migration_20260414_100000_site_pages_hero_portrait.up,
+    down: migration_20260414_100000_site_pages_hero_portrait.down,
+    name: '20260414_100000_site_pages_hero_portrait',
+  },
+  {
+    up: migration_20260414_110000_add_hero_background_glow.up,
+    down: migration_20260414_110000_add_hero_background_glow.down,
+    name: '20260414_110000_add_hero_background_glow',
+  },
+  {
+    up: migration_20260414_120000_fix_missing_hero_columns.up,
+    down: migration_20260414_120000_fix_missing_hero_columns.down,
+    name: '20260414_120000_fix_missing_hero_columns',
+  },
+  {
+    up: migration_20260415_000000_repair_version_tables.up,
+    down: migration_20260415_000000_repair_version_tables.down,
+    name: '20260415_000000_repair_version_tables',
   },
 ]

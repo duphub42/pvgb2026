@@ -1,9 +1,0 @@
-{
-  "slug": "trust-strip4",
-  "title": "Trust-strip",
-  "description": "This component displays trust indicators including a star rating with verified review count, feature icons with descriptions for services like free shipping and 24/7 support, and a verified seller badge. It is designed to enhance user trust and credibility perception by highlighting key benefits and seller authenticity.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/trust-strip4",
-  "downloadedAt": "2026-03-19T19:44:21Z",
-  "fileCount": 1
-}

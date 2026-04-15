@@ -1,0 +1,16 @@
+[
+  {
+    "_order": 4,
+    "_parent_id": 5,
+    "_path": "version.layout",
+    "id": 2,
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "title": "Built to cover your needs",
+    "subtitle": "Libero sapiente aliquam quibusdam aspernatur, praesentium iusto repellendus.",
+    "_uuid": "699f7236cf55b79cc4f6491f",
+    "block_name": null
+  }
+]

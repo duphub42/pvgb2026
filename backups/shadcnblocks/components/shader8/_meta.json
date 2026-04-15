@@ -1,9 +1,0 @@
-{
-  "slug": "shader8",
-  "title": "Shader",
-  "description": "A full-screen shader background with ping-pong buffer, grid-based shapes (squares, crosses, lines), and mouse interaction.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/shader8",
-  "downloadedAt": "2026-03-19T19:43:41Z",
-  "fileCount": 1
-}

@@ -1,9 +1,0 @@
-{
-  "slug": "resource2",
-  "title": "Resource",
-  "description": "This component is designed to showcase articles and facilitate easy navigation and social sharing. It features sections for blog content, author details with an avatar, an illustration, and social media sharing buttons, making it ideal for displaying detailed, narrative-rich content.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/resource2",
-  "downloadedAt": "2026-03-19T19:43:18Z",
-  "fileCount": 1
-}

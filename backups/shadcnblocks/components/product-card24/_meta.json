@@ -1,9 +1,0 @@
-{
-  "slug": "product-card24",
-  "title": "Product-card",
-  "description": "This component is a product display block that showcases a carousel of product images along with options for selecting size and color variants. It includes a form allowing users to choose specifications via radio buttons while displaying pricing information with regular and sale price options.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-card24",
-  "downloadedAt": "2026-03-19T19:42:49Z",
-  "fileCount": 2
-}

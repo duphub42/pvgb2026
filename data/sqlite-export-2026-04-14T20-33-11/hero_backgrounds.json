@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "updated_at": "2026-02-26T21:05:23.717Z",
+    "created_at": "2026-02-26T13:35:53.539Z",
+    "name": "quadratmuster",
+    "type": "cssHalo",
+    "intensity": 2,
+    "hue": 111,
+    "custom_css": null,
+    "pattern_color1": "#ffffff33",
+    "pattern_color2": "#000000"
+  }
+]

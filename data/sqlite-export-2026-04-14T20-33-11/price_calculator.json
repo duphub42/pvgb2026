@@ -1,0 +1,19 @@
+[
+  {
+    "id": 1,
+    "section_label": "Preisrechner",
+    "heading": "Was planen Sie?",
+    "sub": "Kategorie wählen, Leistungen anklicken – Richtwert erscheint sofort. Mehrere Kategorien kombinierbar.",
+    "offer_button_label": "Angebot anfragen ↗",
+    "offer_link": "/kontakt",
+    "empty_breakdown_message": "Wählen Sie oben eine Kategorie und Leistungen aus.",
+    "rates_section_label": "Stundensatz & Tagessatz",
+    "rates_heading": "Für flexible & laufende Zusammenarbeit",
+    "hourly_rate": 120,
+    "day_rate": 890,
+    "week_rate": 3200,
+    "rates_note": "Stundensätze gelten für Beratung, Ad-hoc-Aufgaben und Projekte ohne definierten Scope. Bei Projekten mit klarem Umfang arbeite ich grundsätzlich auf Festpreisbasis – transparenter für Sie, planbarer für beide Seiten.",
+    "updated_at": "2026-04-11T08:59:01.451Z",
+    "created_at": "2026-04-11T08:59:01.451Z"
+  }
+]

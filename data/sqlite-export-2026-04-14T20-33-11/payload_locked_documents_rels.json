@@ -1,0 +1,42 @@
+[
+  {
+    "id": 1,
+    "order": null,
+    "parent_id": 1,
+    "path": "document",
+    "site_pages_id": null,
+    "blog_posts_id": null,
+    "media_id": 38,
+    "categories_id": null,
+    "users_id": null,
+    "mega_menu_id": null,
+    "redirects_id": null,
+    "forms_id": null,
+    "form_submissions_id": null,
+    "search_id": null,
+    "payload_folders_id": null,
+    "hero_backgrounds_id": null,
+    "price_calc_categories_id": null,
+    "price_calc_items_id": null
+  },
+  {
+    "id": 2,
+    "order": null,
+    "parent_id": 1,
+    "path": "user",
+    "site_pages_id": null,
+    "blog_posts_id": null,
+    "media_id": null,
+    "categories_id": null,
+    "users_id": 1,
+    "mega_menu_id": null,
+    "redirects_id": null,
+    "forms_id": null,
+    "form_submissions_id": null,
+    "search_id": null,
+    "payload_folders_id": null,
+    "hero_backgrounds_id": null,
+    "price_calc_categories_id": null,
+    "price_calc_items_id": null
+  }
+]

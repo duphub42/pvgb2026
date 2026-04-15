@@ -1,9 +1,0 @@
-{
-  "slug": "checkout3",
-  "title": "Checkout",
-  "description": "This component facilitates a comprehensive checkout process, integrating functionalities for managing cart items, collecting contact and address details, and selecting payment and shipping methods. Designed with a flexible schema validation, it supports multiple payment options including credit card and PayPal, and features collapsible sections to streamline the user experience.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/checkout3",
-  "downloadedAt": "2026-03-19T19:40:37Z",
-  "fileCount": 3
-}

@@ -1,9 +1,0 @@
-{
-  "slug": "shader13",
-  "title": "Shader",
-  "description": "A full-screen shader background with fluid, organic shapes driven by sine and cosine distortion, single configurable color, and time-based animation.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/shader13",
-  "downloadedAt": "2026-03-19T19:43:39Z",
-  "fileCount": 1
-}

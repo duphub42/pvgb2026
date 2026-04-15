@@ -47,13 +47,14 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     let footerData: FooterGlobal | null = null
     let faviconUrl: string | null = null
 
-    const [designResult, themeSettingsResult, headerResult, footerResult] = await Promise.allSettled([
-      getCachedGlobal('design', 1)(),
-      getCachedGlobal('theme-settings', 0)(),
-      getCachedGlobal('header', 1)(),
-      // Footer icons can be nested in arrays/groups; use higher depth for media relation URLs.
-      getCachedGlobal('footer', 4)(),
-    ])
+    const [designResult, themeSettingsResult, headerResult, footerResult] =
+      await Promise.allSettled([
+        getCachedGlobal('design', 1)(),
+        getCachedGlobal('theme-settings', 0)(),
+        getCachedGlobal('header', 1)(),
+        // Footer icons can be nested in arrays/groups; use reduced depth for better performance.
+        getCachedGlobal('footer', 2)(),
+      ])
     if (designResult.status === 'fulfilled') design = designResult.value as DesignDoc
     if (
       themeSettingsResult.status === 'fulfilled' &&
@@ -153,6 +154,8 @@ function getMetadataBase(): URL {
 
 export const metadata: Metadata = {
   metadataBase: getMetadataBase(),
+  description:
+    'Professionelle Webentwicklung, Design und digitale Marketinglösungen für Ihr Unternehmen. Kreative Konzepte und technische Exzellenz für Ihren Online-Erfolg.',
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',

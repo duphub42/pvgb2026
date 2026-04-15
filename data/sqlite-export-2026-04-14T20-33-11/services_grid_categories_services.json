@@ -1,0 +1,178 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": "69da0df47d1bd12d5248ad2e",
+    "id": "69da0df47d1bd12d5248ad2d",
+    "icon_url": "/api/media/file/portfolio-webdesign.svg",
+    "icon_alt": "Portfolio Webdesign",
+    "title": "Webdesign & Entwicklung",
+    "description": "UX-orientierte Websites und digitale Produkte mit sauberer technischer Umsetzung.",
+    "link_slug": "portfolio-webdesign",
+    "featured": null
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0df47d1bd12d5248ad30",
+    "id": "69da0df47d1bd12d5248ad2f",
+    "icon_url": "/api/media/file/portfolio-marketing.svg",
+    "icon_alt": "Portfolio Marketing",
+    "title": "Marketing-Projekte",
+    "description": "SEO, SEM und Lead-Strategien mit klaren KPIs und datenbasierten Entscheidungen.",
+    "link_slug": "portfolio-marketing",
+    "featured": null
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0df47d1bd12d5248ad32",
+    "id": "69da0df47d1bd12d5248ad31",
+    "icon_url": "/api/media/file/portfolio-brands.svg",
+    "icon_alt": "Portfolio Branding",
+    "title": "Marken und Logos",
+    "description": "Markenauftritte mit klarer Identität, konsistenter Gestaltung und Wiedererkennung.",
+    "link_slug": "portfolio-marken",
+    "featured": null
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0df47d1bd12d5248ad43",
+    "id": "69da0df47d1bd12d5248ad41",
+    "icon_url": "/api/media/file/webdesign.svg",
+    "icon_alt": "Webdesign",
+    "title": "Corporate Website",
+    "description": "Klare Positionierung, moderne Gestaltung und konsistente Nutzerführung.",
+    "link_slug": null,
+    "featured": null
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0df47d1bd12d5248ad43",
+    "id": "69da0df47d1bd12d5248ad42",
+    "icon_url": "/api/media/file/design-leistungen.svg",
+    "icon_alt": "Design Leistungen",
+    "title": "Landingpage-Systeme",
+    "description": "Conversion-orientierte Seitenstrukturen für Kampagnen und Lead-Generierung.",
+    "link_slug": null,
+    "featured": null
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0df47d1bd12d5248ad46",
+    "id": "69da0df47d1bd12d5248ad44",
+    "icon_url": "/api/media/file/webdesign.svg",
+    "icon_alt": "Responsive Webdesign",
+    "title": "Responsive Frontend",
+    "description": "Saubere Umsetzung für Desktop, Tablet und Mobile mit konsistentem Verhalten.",
+    "link_slug": null,
+    "featured": null
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0df47d1bd12d5248ad46",
+    "id": "69da0df47d1bd12d5248ad45",
+    "icon_url": "/api/media/file/Leadgenerierung.svg",
+    "icon_alt": "Performance",
+    "title": "Core Web Vitals",
+    "description": "Optimierung für Ladezeit, Stabilität und Interaktion zur Verbesserung der User Experience.",
+    "link_slug": null,
+    "featured": null
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0e0ab7d24b3144e68e3a",
+    "id": "69da0e0ab7d24b3144e68e37",
+    "icon_url": "/api/media/file/SEO.svg",
+    "icon_alt": "SEO",
+    "title": "SEO-Relaunch-Begleitung",
+    "description": "Migration, Onpage-Optimierung und Content-Struktur zur Stabilisierung von Rankings.",
+    "link_slug": null,
+    "featured": null
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0e0ab7d24b3144e68e3a",
+    "id": "69da0e0ab7d24b3144e68e38",
+    "icon_url": "/api/media/file/marketing-leistungen.svg",
+    "icon_alt": "Marketing",
+    "title": "SEM-Kampagnen-Optimierung",
+    "description": "Anzeigenstruktur, Suchintentionen und Budgetsteuerung für bessere Kosten-Umsatz-Relation.",
+    "link_slug": null,
+    "featured": null
+  },
+  {
+    "_order": 3,
+    "_parent_id": "69da0e0ab7d24b3144e68e3a",
+    "id": "69da0e0ab7d24b3144e68e39",
+    "icon_url": "/api/media/file/Leadgenerierung.svg",
+    "icon_alt": "Leads",
+    "title": "Lead-Generierung",
+    "description": "Kampagnen, Landingpages und Tracking zu einem performanten Akquise-Setup verbunden.",
+    "link_slug": null,
+    "featured": null
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0e0ab7d24b3144e68e4b",
+    "id": "69da0e0ab7d24b3144e68e48",
+    "icon_url": "/api/media/file/Logo-Design.svg",
+    "icon_alt": "Logo Design",
+    "title": "Logo-Entwicklung",
+    "description": "Einprägsame Logos mit Varianten für digitale und analoge Anwendungen.",
+    "link_slug": null,
+    "featured": null
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0e0ab7d24b3144e68e4b",
+    "id": "69da0e0ab7d24b3144e68e49",
+    "icon_url": "/api/media/file/design-leistungen.svg",
+    "icon_alt": "Corporate Identity",
+    "title": "Corporate Identity",
+    "description": "Farbwelt, Typografie und Gestaltungsprinzipien als konsistente Markenbasis.",
+    "link_slug": null,
+    "featured": null
+  },
+  {
+    "_order": 3,
+    "_parent_id": "69da0e0ab7d24b3144e68e4b",
+    "id": "69da0e0ab7d24b3144e68e4a",
+    "icon_url": "/api/media/file/portfolio-brands.svg",
+    "icon_alt": "Branding",
+    "title": "Markenstrategie",
+    "description": "Positionierung, Kernbotschaften und visuelle Leitplanken für langfristige Wiedererkennung.",
+    "link_slug": null,
+    "featured": null
+  },
+  {
+    "_order": 1,
+    "_parent_id": "261b1477e66d4a7e9f6785db55ac3cce",
+    "id": "ed92343329d0430799e5fbb3ed6a9092",
+    "icon_url": "/api/media/file/webdesign.svg",
+    "icon_alt": "Webdesign Icon",
+    "title": "Webdesign",
+    "description": "Moderne, minimalistische Webseiten mit klarer Struktur, schnellen Ladezeiten und hochwertiger Optik.",
+    "link_slug": "leistungen/webdesign",
+    "featured": 0
+  },
+  {
+    "_order": 2,
+    "_parent_id": "261b1477e66d4a7e9f6785db55ac3cce",
+    "id": "72ed97d3bdeb434b94ae866ac77230ce",
+    "icon_url": "/api/media/file/marketing-leistungen.svg",
+    "icon_alt": "Wartung Icon",
+    "title": "Wartung & Support",
+    "description": "Laufende Pflege, Sicherheitsupdates und schnelle technische Reaktion für sorgenfreie Webauftritte.",
+    "link_slug": "leistungen/wartung",
+    "featured": 0
+  },
+  {
+    "_order": 1,
+    "_parent_id": "ad6d1d0e039249479b0ab33ec9f865b0",
+    "id": "f403050c383a4d8eb0867d3f288fa59f",
+    "icon_url": "/api/media/file/marketing-leistungen.svg",
+    "icon_alt": "Marketing Icon",
+    "title": "Marketing",
+    "description": "Strategisch gesteuerte Digital-Kampagnen mit Fokus auf Sichtbarkeit, Leads und messbare Effekte.",
+    "link_slug": "leistungen/marketing",
+    "featured": 0
+  }
+]

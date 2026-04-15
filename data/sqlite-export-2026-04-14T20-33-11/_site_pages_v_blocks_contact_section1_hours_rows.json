@@ -1,0 +1,26 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 1,
+    "id": 1,
+    "label": "Monday - Friday",
+    "value": "9:00 AM - 6:00 PM",
+    "_uuid": "699f7237cf55b79cc4f64936"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 1,
+    "id": 2,
+    "label": "Saturday",
+    "value": "10:00 AM - 4:00 PM",
+    "_uuid": "699f7237cf55b79cc4f64937"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 1,
+    "id": 3,
+    "label": "Sunday",
+    "value": "Closed",
+    "_uuid": "699f7237cf55b79cc4f64938"
+  }
+]

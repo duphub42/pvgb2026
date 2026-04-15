@@ -1,9 +1,0 @@
-{
-  "slug": "promo-banner2",
-  "title": "Promo-banner",
-  "description": "This component displays a promotional banner with customizable text for a message, discount, and a call-to-action link. It is designed to enhance user engagement by offering a clickable area that leads to more details or a shopping page.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/promo-banner2",
-  "downloadedAt": "2026-03-19T19:43:15Z",
-  "fileCount": 1
-}

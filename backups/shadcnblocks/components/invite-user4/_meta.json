@@ -1,9 +1,0 @@
-{
-  "slug": "invite-user4",
-  "title": "Invite-user",
-  "description": "A user table with invite dialog featuring both email input with role selection and a shareable invite link with copy-to-clipboard functionality.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/invite-user4",
-  "downloadedAt": "2026-03-19T19:42:22Z",
-  "fileCount": 1
-}

@@ -463,13 +463,13 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
             : 'pt-8 sm:pt-10 md:pt-6 lg:pt-8 xl:pt-10',
         )}
       >
-        <div className="grid min-w-0 gap-0 md:grid-cols-[minmax(0,45%)_1fr] md:items-end md:gap-6 lg:gap-12 xl:gap-16">
+        <div className="grid min-w-0 gap-0 md:grid-cols-[minmax(0,45%)_1fr] md:items-end md:gap-6 lg:gap-12 xl:gap-16 max-md:flex max-md:flex-col max-md:h-[min(90vh,800px)]">
           <div
             className={cn(
-              'relative min-w-0 space-y-5 max-md:z-[16] md:min-h-0 lg:min-h-[min(62vh,680px)]',
+              'relative min-w-0 space-y-5 max-md:z-[16] max-md:order-2 max-md:flex-shrink-0 md:min-h-0 lg:min-h-[min(62vh,680px)]',
               isProfilVariant
                 ? 'max-md:pt-3 max-md:pb-2'
-                : 'hero-mobile-glass max-md:-mx-4 max-md:rounded-t-2xl max-md:px-4 max-md:pt-8 max-md:pb-10 max-md:-mt-[min(24vw,9.5rem)]',
+                : 'hero-mobile-glass max-md:-mx-4 max-md:rounded-t-2xl max-md:px-4 max-md:pt-8 max-md:pb-6 max-md:-mt-[min(24vw,9.5rem)]',
             )}
           >
             {subheadline && (
@@ -534,7 +534,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
           <div
             ref={portraitRef}
             className={cn(
-              'relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 md:order-none md:mb-0 md:pl-4 md:self-end hero-desktop-parallax-portrait',
+              'relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 max-md:mt-10 max-md:flex-shrink-0 md:order-none md:mb-0 md:pl-4 md:self-end hero-desktop-parallax-portrait',
               !isProfilVariant && 'hero-mobile-sticky-portrait',
               hasPopoutStack && 'hero-desktop-parallax-portrait--stack',
             )}
@@ -545,22 +545,27 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               {isProfilVariant ? (
                 <PopoutHeroStackVisual layers={profilLayers} className="relative z-[1]" />
               ) : hasPopoutStack ? (
-                <div className="relative z-[1] mx-auto w-full max-w-[min(100%,640px)] md:flex md:max-w-none md:items-end md:justify-center">
+                <div className="relative z-[1] mx-auto w-full md:flex md:max-w-none md:items-end md:justify-center">
                   <PopoutHeroStackVisual
                     layers={popoutLayers}
                     rootMaxWidth="min(100%, 640px)"
-                    rootMinHeight="clamp(22rem, 60vh, 40rem)"
+                    rootMinHeight="clamp(22rem, 85vh, 40rem)"
                     rootMaxWidthMd="min(100%, 760px)"
-                    rootMinHeightMd="clamp(34rem, 76vh, 60rem)"
-                    innerMinHeight="clamp(22rem, 60vh, 40rem)"
-                    innerMinHeightMd="clamp(34rem, 78vh, 62rem)"
+                    rootMinHeightMd="clamp(34rem, 90vh, 60rem)"
+                    innerMinHeight="clamp(22rem, 85vh, 40rem)"
+                    innerMinHeightMd="clamp(34rem, 90vh, 62rem)"
                     desktopLayerWidth="100%"
-                    imageMaxHeight="clamp(24rem, 74vh, 50rem)"
+                    imageMaxHeight="clamp(24rem, 90vh, 50rem)"
                     imageMaxHeightMd="clamp(38rem, 95vh, 72rem)"
                   />
                 </div>
               ) : portraitSrc ? (
-                <div className="relative z-[1] mx-auto w-full max-w-[min(100%,640px)] md:flex md:max-w-none md:items-end md:justify-center">
+                <div
+                  className="relative z-[1] mx-auto w-full md:flex md:items-end md:justify-center"
+                  style={{
+                    minHeight: '95vh',
+                  }}
+                >
                   <PopoutPortrait imageSrc={portraitSrc} fillRowHeight />
                 </div>
               ) : (

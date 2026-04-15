@@ -1,0 +1,130 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": "69c838a97efa7ab142956e22",
+    "id": "69c877de2ea8e354b8afc184",
+    "icon": "trending-up",
+    "title": "Performance & Resultate",
+    "description": "Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern."
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69c838a97efa7ab142956e22",
+    "id": "69c877e32ea8e354b8afc186",
+    "icon": "user",
+    "title": "Persönlicher Ansprechpartner",
+    "description": "Kein Agentur-Wasserkopf, kein Wischi-Waschi — direkte, fundierte Beratung und Umsetzung."
+  },
+  {
+    "_order": 3,
+    "_parent_id": "69c838a97efa7ab142956e22",
+    "id": "69c877e62ea8e354b8afc188",
+    "icon": "zap",
+    "title": "Lean & effizient",
+    "description": "Schnelle Entscheidungen, klare Prozesse, kein unnötiger Overhead."
+  },
+  {
+    "_order": 4,
+    "_parent_id": "69c838a97efa7ab142956e22",
+    "id": "69c877e92ea8e354b8afc18a",
+    "icon": "globe",
+    "title": "Cross-Channel & international",
+    "description": "SEO, SEA, Social Ads, Automatisierung — Launches in verschiedenen Branchen und 6 Ländern."
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0df47d1bd12d5248ad37",
+    "id": "69da0df47d1bd12d5248ad34",
+    "icon": "zap",
+    "title": "Schnell pflegbar",
+    "description": "Inhalte und Reihenfolge lassen sich direkt im Payload-Backend anpassen."
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0df47d1bd12d5248ad37",
+    "id": "69da0df47d1bd12d5248ad35",
+    "icon": "target",
+    "title": "Bereichsspezifische Dramaturgie",
+    "description": "Webdesign, Marketing und Branding bekommen jeweils eine eigene Storyline."
+  },
+  {
+    "_order": 3,
+    "_parent_id": "69da0df47d1bd12d5248ad37",
+    "id": "69da0df47d1bd12d5248ad36",
+    "icon": "trending-up",
+    "title": "Skalierbar",
+    "description": "Neue Cases können ohne Code-Duplikate ergänzt werden und folgen derselben Struktur."
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0e0ab7d24b3144e68e3f",
+    "id": "69da0e0ab7d24b3144e68e3c",
+    "icon": "target",
+    "title": "KPI-orientierter Aufbau",
+    "description": "Jeder Case ist entlang konkreter Ziele und Kennzahlen dokumentiert."
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0e0ab7d24b3144e68e3f",
+    "id": "69da0e0ab7d24b3144e68e3d",
+    "icon": "briefcase",
+    "title": "Analytischer Prozess",
+    "description": "Hypothesen, Tests und Optimierungsschleifen sind nachvollziehbar dargestellt."
+  },
+  {
+    "_order": 3,
+    "_parent_id": "69da0e0ab7d24b3144e68e3f",
+    "id": "69da0e0ab7d24b3144e68e3e",
+    "icon": "trending-up",
+    "title": "Skalierbare Learnings",
+    "description": "Erkenntnisse aus Cases lassen sich auf neue Kampagnen und Märkte übertragen."
+  },
+  {
+    "_order": 1,
+    "_parent_id": "69da0e0ab7d24b3144e68e50",
+    "id": "69da0e0ab7d24b3144e68e4d",
+    "icon": "heart",
+    "title": "Emotion und Klarheit",
+    "description": "Die Darstellung kombiniert rationale Entscheidungen mit emotionaler Markenwirkung."
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0e0ab7d24b3144e68e50",
+    "id": "69da0e0ab7d24b3144e68e4e",
+    "icon": "shield",
+    "title": "Konsistenz",
+    "description": "Logo, Typografie und Tonalität werden als zusammenhängendes System dokumentiert."
+  },
+  {
+    "_order": 3,
+    "_parent_id": "69da0e0ab7d24b3144e68e50",
+    "id": "69da0e0ab7d24b3144e68e4f",
+    "icon": "briefcase",
+    "title": "Anwendung im Alltag",
+    "description": "Cases zeigen nicht nur Entwürfe, sondern konkrete Einsätze in Kommunikation und Vertrieb."
+  },
+  {
+    "_order": 1,
+    "_parent_id": "4f18774295e5437a88096b779d91182c",
+    "id": "d7744f4fdda24485b7363dbf1aacbeb9",
+    "icon": "zap",
+    "title": "Technisch präzise",
+    "description": "Klare Standards für Code, Performance und Wartbarkeit."
+  },
+  {
+    "_order": 2,
+    "_parent_id": "4f18774295e5437a88096b779d91182c",
+    "id": "9a1bc093e8004a7fbbf3eb71dea44482",
+    "icon": "target",
+    "title": "Reduziert und fokussiert",
+    "description": "Kein Overhead, sondern schlank gestaltete Lösungen mit klarem Nutzen."
+  },
+  {
+    "_order": 3,
+    "_parent_id": "4f18774295e5437a88096b779d91182c",
+    "id": "66c6aba115e140ebabc4520ca6278792",
+    "icon": "shield",
+    "title": "Verlässlich",
+    "description": "Webseiten und Systeme mit langfristiger Stabilität und Sicherheit."
+  }
+]

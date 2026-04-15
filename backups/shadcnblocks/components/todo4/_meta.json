@@ -1,9 +1,0 @@
-{
-  "slug": "todo4",
-  "title": "Todo",
-  "description": "This component is a drag-and-drop task management block that allows users to create, reorder, and mark tasks as completed. It features interactive elements such as add and cancel buttons, an input field for task titles, and visual indicators for task status.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/todo4",
-  "downloadedAt": "2026-03-19T19:44:18Z",
-  "fileCount": 1
-}

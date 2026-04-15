@@ -1,9 +1,0 @@
-{
-  "slug": "careers5",
-  "title": "Careers",
-  "description": "A component displaying job openings with titles, categories, descriptions, and details on type and location. It has a header and lists jobs in a single column.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/careers5",
-  "downloadedAt": "2026-03-19T19:40:20Z",
-  "fileCount": 1
-}

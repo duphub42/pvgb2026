@@ -1,12 +1,61 @@
 {
   "version": "7",
-  "dialect": "postgresql",
+  "dialect": "sqlite",
   "entries": [
     {
       "idx": 0,
       "version": "7",
       "when": 1772039690548,
       "tag": "0000_add_missing_block_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1744651204000,
+      "tag": "20260414200004_create_hero_with_process_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1744651800000,
+      "tag": "20260414201000_fix_missing_block_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1744651800000,
+      "tag": "20260414203000_create_pricing_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1744651860000,
+      "tag": "20260414203100_create_portfolio_tables",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1744651920000,
+      "tag": "20260414203200_add_missing_hero_columns",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1744651980000,
+      "tag": "20260414203300_add_consulting_overview_columns",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1744652040000,
+      "tag": "20260414203400_add_icon_column",
       "breakpoints": true
     }
   ]

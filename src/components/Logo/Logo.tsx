@@ -19,7 +19,8 @@ interface Props {
   variant?: 'header' | 'footer'
 }
 
-const logoSizeClass = 'w-full max-w-[11.7rem] h-[42.5px] object-contain object-left'
+const logoSizeClass =
+  'w-full max-w-[11.7rem] h-[42.5px] object-contain object-left lg:max-w-[9rem] xl:max-w-[11.7rem]'
 const logoSizeFooterClass =
   'max-w-[8rem] h-[36px] sm:max-w-[9.5rem] sm:h-[40px] md:max-w-[11rem] md:h-[44px]'
 

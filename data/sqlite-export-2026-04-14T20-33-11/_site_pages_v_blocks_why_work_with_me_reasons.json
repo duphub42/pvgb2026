@@ -1,0 +1,1181 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 31,
+    "id": "102",
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 31,
+    "id": "103",
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 31,
+    "id": "104",
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 31,
+    "id": "105",
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 31,
+    "id": "106",
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 52,
+    "id": "139",
+    "icon": "trending-up",
+    "title": "Performance & Resultate",
+    "description": "Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern.",
+    "_uuid": "69c877de2ea8e354b8afc184"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 52,
+    "id": "140",
+    "icon": "user",
+    "title": "Persönlicher Ansprechpartner",
+    "description": "Kein Agentur-Wasserkopf, kein Wischi-Waschi — direkte, fundierte Beratung und Umsetzung.",
+    "_uuid": "69c877e32ea8e354b8afc186"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 52,
+    "id": "141",
+    "icon": "zap",
+    "title": "Lean & effizient",
+    "description": "Schnelle Entscheidungen, klare Prozesse, kein unnötiger Overhead.",
+    "_uuid": "69c877e62ea8e354b8afc188"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 52,
+    "id": "142",
+    "icon": "user",
+    "title": null,
+    "description": "SEO, SEA, Social Ads, Automatisierung — Launches in verschiedenen Branchen und 6 Ländern.",
+    "_uuid": "69c877e92ea8e354b8afc18a"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Performance & Resultate",
+    "description": "Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern.",
+    "_uuid": "69c877de2ea8e354b8afc184"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "user",
+    "title": "Persönlicher Ansprechpartner",
+    "description": "Kein Agentur-Wasserkopf, kein Wischi-Waschi — direkte, fundierte Beratung und Umsetzung.",
+    "_uuid": "69c877e32ea8e354b8afc186"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "zap",
+    "title": "Lean & effizient",
+    "description": "Schnelle Entscheidungen, klare Prozesse, kein unnötiger Overhead.",
+    "_uuid": "69c877e62ea8e354b8afc188"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "globe",
+    "title": "Cross-Channel & international",
+    "description": "SEO, SEA, Social Ads, Automatisierung — Launches in verschiedenen Branchen und 6 Ländern.",
+    "_uuid": "69c877e92ea8e354b8afc18a"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Performance & Resultate",
+    "description": "Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern.",
+    "_uuid": "69c877de2ea8e354b8afc184"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "user",
+    "title": "Persönlicher Ansprechpartner",
+    "description": "Kein Agentur-Wasserkopf, kein Wischi-Waschi — direkte, fundierte Beratung und Umsetzung.",
+    "_uuid": "69c877e32ea8e354b8afc186"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "zap",
+    "title": "Lean & effizient",
+    "description": "Schnelle Entscheidungen, klare Prozesse, kein unnötiger Overhead.",
+    "_uuid": "69c877e62ea8e354b8afc188"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "globe",
+    "title": "Cross-Channel & international",
+    "description": "SEO, SEA, Social Ads, Automatisierung — Launches in verschiedenen Branchen und 6 Ländern.",
+    "_uuid": "69c877e92ea8e354b8afc18a"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "user",
+    "title": "Web & Frontend",
+    "description": "React, Next.js, Tailwind CSS, moderne Web-Apps",
+    "_uuid": "69c8740dc86ba5cf09f094aa"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "zap",
+    "title": "CMS & Plattformen",
+    "description": "Payload CMS, WordPress, Shopify, TYPO3, Joomla, Wix, Webflow, Drupal",
+    "_uuid": "69c8740dc86ba5cf09f094ab"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Marketing, Automatisierung & KI",
+    "description": "Google Ads, Meta Ads, LinkedIn Ads, HubSpot, ActiveCampaign, Zapier, ChatGPT / OpenAI, Midjourney, DALL·E, Jasper, Copy.ai",
+    "_uuid": "69c8740dc86ba5cf09f094ac"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "globe",
+    "title": "Analytics, SEO & Performance",
+    "description": "Google Analytics, Google Search Console, Ahrefs, SEMrush, Screaming Frog, Tag Manager, Hotjar, Conversion-Optimierung, SurferSEO, Clearscope",
+    "_uuid": "69c8740dc86ba5cf09f094ad"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "user",
+    "title": "Design & Content",
+    "description": "Figma, Adobe XD, Photoshop, Premiere Pro (Videos & Motion Content), Runway, Synthesia",
+    "_uuid": "69c87478ae13444f8233c366"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "zap",
+    "title": "Schnell pflegbar",
+    "description": "Inhalte und Reihenfolge lassen sich direkt im Payload-Backend anpassen.",
+    "_uuid": "69da0df47d1bd12d5248ad34"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "target",
+    "title": "Bereichsspezifische Dramaturgie",
+    "description": "Webdesign, Marketing und Branding bekommen jeweils eine eigene Storyline.",
+    "_uuid": "69da0df47d1bd12d5248ad35"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Skalierbar",
+    "description": "Neue Cases können ohne Code-Duplikate ergänzt werden und folgen derselben Struktur.",
+    "_uuid": "69da0df47d1bd12d5248ad36"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 77,
+    "id": null,
+    "icon": "target",
+    "title": "KPI-orientierter Aufbau",
+    "description": "Jeder Case ist entlang konkreter Ziele und Kennzahlen dokumentiert.",
+    "_uuid": "69da0e0ab7d24b3144e68e3c"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 77,
+    "id": null,
+    "icon": "briefcase",
+    "title": "Analytischer Prozess",
+    "description": "Hypothesen, Tests und Optimierungsschleifen sind nachvollziehbar dargestellt.",
+    "_uuid": "69da0e0ab7d24b3144e68e3d"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 77,
+    "id": null,
+    "icon": "trending-up",
+    "title": "Skalierbare Learnings",
+    "description": "Erkenntnisse aus Cases lassen sich auf neue Kampagnen und Märkte übertragen.",
+    "_uuid": "69da0e0ab7d24b3144e68e3e"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 78,
+    "id": null,
+    "icon": "heart",
+    "title": "Emotion und Klarheit",
+    "description": "Die Darstellung kombiniert rationale Entscheidungen mit emotionaler Markenwirkung.",
+    "_uuid": "69da0e0ab7d24b3144e68e4d"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 78,
+    "id": null,
+    "icon": "shield",
+    "title": "Konsistenz",
+    "description": "Logo, Typografie und Tonalität werden als zusammenhängendes System dokumentiert.",
+    "_uuid": "69da0e0ab7d24b3144e68e4e"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 78,
+    "id": null,
+    "icon": "briefcase",
+    "title": "Anwendung im Alltag",
+    "description": "Cases zeigen nicht nur Entwürfe, sondern konkrete Einsätze in Kommunikation und Vertrieb.",
+    "_uuid": "69da0e0ab7d24b3144e68e4f"
+  }
+]

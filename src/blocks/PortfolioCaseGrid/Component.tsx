@@ -11,7 +11,10 @@ import {
 
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
-import type { Media as MediaType, PortfolioCaseGridBlock as PortfolioCaseGridBlockData } from '@/payload-types'
+import type {
+  Media as MediaType,
+  PortfolioCaseGridBlock as PortfolioCaseGridBlockData,
+} from '@/payload-types'
 import { cn } from '@/utilities/ui'
 
 type PortfolioCaseGridProps = PortfolioCaseGridBlockData & { disableInnerContainer?: boolean }
@@ -67,16 +70,16 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
   const sectionToneClass =
     layoutVariant === 'data'
-      ? 'from-slate-950/95 via-slate-900/90 to-slate-950/95 text-white'
+      ? 'from-[rgb(var(--color-slate-950))/95] via-[rgb(var(--color-slate-900))/90] to-[rgb(var(--color-slate-950))/95] text-[rgb(var(--hero-process-text))]'
       : layoutVariant === 'visual'
-        ? 'from-white via-blue-50/65 to-amber-50/60 text-slate-950'
-        : 'from-slate-50 via-white to-zinc-50 text-slate-950'
+        ? 'from-white via-[rgb(239,246,255)]/65 to-[rgb(255,251,235)]/60 text-[rgb(var(--color-slate-950))]'
+        : 'from-[rgb(var(--color-slate-50))] via-white to-[rgb(var(--color-zinc-50))] text-[rgb(var(--color-slate-950))]'
 
   return (
     <section className="w-full py-16 md:py-20">
       <div
         className={cn(
-          'container relative overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br px-6 py-8 shadow-[0_20px_70px_-40px_rgba(15,23,42,0.28)] md:px-10 md:py-12',
+          'container relative overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br px-6 py-8 shadow-[0_20px_70px_-40px_rgba(var(--color-slate-950),0.28)] md:px-10 md:py-12',
           sectionToneClass,
         )}
       >
@@ -93,8 +96,14 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
               {eyebrow}
             </Badge>
           ) : null}
-          {heading ? <h2 className="text-3xl font-semibold leading-tight md:text-4xl">{heading}</h2> : null}
-          {intro ? <p className="mt-4 max-w-2xl text-sm leading-relaxed opacity-85 md:text-base">{intro}</p> : null}
+          {heading ? (
+            <h2 className="text-3xl font-semibold leading-tight md:text-4xl">{heading}</h2>
+          ) : null}
+          {intro ? (
+            <p className="mt-4 max-w-2xl text-sm leading-relaxed opacity-85 md:text-base">
+              {intro}
+            </p>
+          ) : null}
         </div>
 
         <div className="relative z-10 mt-8 grid gap-5 lg:grid-cols-2">
@@ -106,13 +115,15 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
             const href = normalizeHref(item.cta?.href)
             const ctaLabel = item.cta?.label?.trim() || 'Case ansehen'
             const tags = (item.tags ?? []).filter((tag) => tag?.label?.trim())
-            const metrics = (item.metrics ?? []).filter((metric) => metric?.value?.trim() && metric?.label?.trim())
+            const metrics = (item.metrics ?? []).filter(
+              (metric) => metric?.value?.trim() && metric?.label?.trim(),
+            )
 
             return (
               <article
                 key={key}
                 className={cn(
-                  'group flex min-h-[24rem] flex-col overflow-hidden rounded-2xl border border-white/30 bg-white/80 backdrop-blur-md transition-shadow duration-300 hover:shadow-[0_20px_50px_-36px_rgba(15,23,42,0.55)]',
+                  'group flex min-h-[24rem] flex-col overflow-hidden rounded-2xl border border-white/30 bg-white/80 backdrop-blur-md transition-shadow duration-300 hover:shadow-[0_20px_50px_-36px_rgba(var(--color-slate-950),0.55)]',
                   layoutVariant === 'data' && 'border-white/15 bg-white/5',
                   item.featured && 'lg:col-span-2',
                 )}
@@ -124,7 +135,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                       className="h-full w-full"
                       imgClassName="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-slate-950/45 via-transparent to-transparent" />
+                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[rgb(var(--color-slate-950))]/45 via-transparent to-transparent" />
                   </div>
                 ) : null}
 
@@ -148,26 +159,34 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                   </div>
 
                   <h3 className="text-xl font-semibold leading-snug md:text-2xl">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">{item.summary}</p>
+                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
+                    {item.summary}
+                  </p>
 
                   {(item.challenge || item.approach || item.result) && (
                     <dl className="mt-5 grid gap-3 text-sm md:grid-cols-3">
                       {item.challenge ? (
                         <div>
                           <dt className="font-semibold text-foreground/85">Challenge</dt>
-                          <dd className="mt-1 leading-relaxed text-muted-foreground">{item.challenge}</dd>
+                          <dd className="mt-1 leading-relaxed text-muted-foreground">
+                            {item.challenge}
+                          </dd>
                         </div>
                       ) : null}
                       {item.approach ? (
                         <div>
                           <dt className="font-semibold text-foreground/85">Vorgehen</dt>
-                          <dd className="mt-1 leading-relaxed text-muted-foreground">{item.approach}</dd>
+                          <dd className="mt-1 leading-relaxed text-muted-foreground">
+                            {item.approach}
+                          </dd>
                         </div>
                       ) : null}
                       {item.result ? (
                         <div>
                           <dt className="font-semibold text-foreground/85">Ergebnis</dt>
-                          <dd className="mt-1 leading-relaxed text-muted-foreground">{item.result}</dd>
+                          <dd className="mt-1 leading-relaxed text-muted-foreground">
+                            {item.result}
+                          </dd>
                         </div>
                       ) : null}
                     </dl>
@@ -177,11 +196,17 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                     <div className="mt-5 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
                       {metrics.map((metric, metricIndex) => (
                         <div
-                          key={typeof metric.id === 'string' && metric.id ? metric.id : `${key}-metric-${metricIndex}`}
+                          key={
+                            typeof metric.id === 'string' && metric.id
+                              ? metric.id
+                              : `${key}-metric-${metricIndex}`
+                          }
                           className="rounded-lg border border-border/70 bg-background/70 px-3 py-2"
                         >
                           <p className="text-base font-semibold">{metric.value}</p>
-                          <p className="text-xs uppercase tracking-wide text-muted-foreground">{metric.label}</p>
+                          <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                            {metric.label}
+                          </p>
                         </div>
                       ))}
                     </div>
@@ -191,7 +216,9 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                     {tags.map((tag, tagIndex) => (
                       <Badge
                         variant="secondary"
-                        key={typeof tag.id === 'string' && tag.id ? tag.id : `${key}-tag-${tagIndex}`}
+                        key={
+                          typeof tag.id === 'string' && tag.id ? tag.id : `${key}-tag-${tagIndex}`
+                        }
                         className="px-2.5 py-1 text-xs font-medium"
                       >
                         {tag.label}

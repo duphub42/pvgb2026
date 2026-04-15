@@ -1,9 +1,0 @@
-{
-  "slug": "resources1",
-  "title": "Resources",
-  "description": "The Resources1 component is a comprehensive resources page that displays a collection of reports and articles with a featured post, category filtering, email subscription form, and a responsive grid layout of resource cards, all built with Shadcn UI components and featuring modern design patterns.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/resources1",
-  "downloadedAt": "2026-03-19T19:43:18Z",
-  "fileCount": 1
-}

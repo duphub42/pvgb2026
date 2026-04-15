@@ -1,9 +1,0 @@
-{
-  "slug": "content3",
-  "title": "Content",
-  "description": "A component with a breadcrumb navigation, heading, subtext, buttons, a sidebar with topics, and a main content area divided into a 5-column layout, including images, texts, a table, an alert, and dynamic on-page navigation highlighting visible sections.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/content3",
-  "downloadedAt": "2026-03-19T19:40:55Z",
-  "fileCount": 1
-}

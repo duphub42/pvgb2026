@@ -79,11 +79,24 @@ export function SaveButton({
           y: (rect.top + rect.height / 2) / window.innerHeight,
         }
       }
+      // Read confetti colors from CSS variables for consistency
+      const confettiColors = [
+        'var(--confetti-red)',
+        'var(--confetti-green)',
+        'var(--confetti-blue)',
+        'var(--confetti-yellow)',
+        'var(--confetti-cyan)',
+        'var(--confetti-magenta)',
+      ].map(
+        (color) =>
+          getComputedStyle(document.documentElement).getPropertyValue(color).trim() || color,
+      )
+
       confetti({
         particleCount: 100,
         spread: 70,
         origin,
-        colors: ['#ff0000', '#00ff00', '#0000ff', '#ffff00', '#00ffff', '#ff00ff'],
+        colors: confettiColors,
         shapes: ['star', 'circle'],
       })
     } catch {
@@ -118,29 +131,39 @@ export function SaveButton({
   const buttonVariants =
     variant === 'footer'
       ? {
-          idle: { backgroundColor: 'rgb(0, 0, 0)', color: 'rgb(255, 255, 255)', scale: 1 },
-          saving: { backgroundColor: 'rgb(0, 0, 0)', color: 'rgb(255, 255, 255)', scale: 1 },
+          idle: {
+            backgroundColor: 'rgb(var(--button-bg-footer))',
+            color: 'rgb(var(--button-text-footer))',
+            scale: 1,
+          },
+          saving: {
+            backgroundColor: 'rgb(var(--button-bg-footer))',
+            color: 'rgb(var(--button-text-footer))',
+            scale: 1,
+          },
           saved: {
-            backgroundColor: 'rgb(34, 197, 94)',
-            color: 'rgb(255, 255, 255)',
+            backgroundColor: 'rgb(var(--button-bg-saved))',
+            color: 'rgb(var(--button-text-footer))',
             scale: [1, 1.1, 1] as unknown as number,
             transition: { duration: 0.2, times: [0, 0.5, 1] },
           },
         }
       : {
           idle: {
-            backgroundColor: isDark ? 'rgb(64, 64, 64)' : 'rgb(243, 244, 246)',
-            color: isDark ? 'rgb(255, 255, 255)' : 'rgb(0, 0, 0)',
+            backgroundColor: isDark
+              ? 'rgb(var(--button-bg-idle-dark))'
+              : 'rgb(var(--button-bg-idle))',
+            color: isDark ? 'rgb(var(--button-text-idle-dark))' : 'rgb(var(--button-text-idle))',
             scale: 1,
           },
           saving: {
-            backgroundColor: 'rgb(59, 130, 246)',
-            color: 'rgb(255, 255, 255)',
+            backgroundColor: 'rgb(var(--button-bg-saving))',
+            color: 'rgb(var(--button-text-idle-dark))',
             scale: 1,
           },
           saved: {
-            backgroundColor: 'rgb(34, 197, 94)',
-            color: 'rgb(255, 255, 255)',
+            backgroundColor: 'rgb(var(--button-bg-saved))',
+            color: 'rgb(var(--button-text-idle-dark))',
             scale: [1, 1.1, 1] as unknown as number,
             transition: { duration: 0.2, times: [0, 0.5, 1] },
           },
@@ -167,9 +190,7 @@ export function SaveButton({
           variant === 'default' &&
             status === 'idle' &&
             'shadow-[0_1000px_0_0_hsl(0_0%_85%)_inset] dark:shadow-[0_1000px_0_0_hsl(0_0%_20%)_inset]',
-          variant === 'footer' &&
-            status === 'idle' &&
-            'shadow-[0_1000px_0_0_rgb(12,12,12)_inset]',
+          variant === 'footer' && status === 'idle' && 'shadow-[0_1000px_0_0_rgb(12,12,12)_inset]',
           className,
         )}
         style={variant === 'footer' ? undefined : { minWidth: '150px' }}
@@ -191,7 +212,8 @@ export function SaveButton({
         <span
           className={cn(
             'backdrop absolute inset-px rounded-[22px] transition-colors duration-200',
-            status === 'idle' && variant === 'default' &&
+            status === 'idle' &&
+              variant === 'default' &&
               'bg-neutral-100 group-hover:bg-neutral-200 dark:bg-neutral-950 dark:group-hover:bg-neutral-900',
             status === 'idle' && variant === 'footer' && 'bg-black group-hover:bg-black/90',
           )}

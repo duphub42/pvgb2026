@@ -1,9 +1,0 @@
-{
-  "slug": "resources2",
-  "title": "Resources",
-  "description": "A component showcasing resources & whitepapers with a featured article, latest developments, and updates section. Utilizes tabs for category filtering, avatars for author representation, and badges for feature highlights.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/resources2",
-  "downloadedAt": "2026-03-19T19:43:18Z",
-  "fileCount": 1
-}

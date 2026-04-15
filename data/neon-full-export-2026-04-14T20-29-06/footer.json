@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "updated_at": "2026-04-14T13:15:27.293Z",
+    "created_at": "2026-04-14T13:15:27.293Z",
+    "footer_logo_id": null,
+    "footer_logo_alt_text": null,
+    "newsletter_title": null,
+    "newsletter_description": null,
+    "newsletter_placeholder": null,
+    "newsletter_button_text": null,
+    "columns": null,
+    "social_links": null,
+    "copyright_text": null,
+    "privacy_link": null,
+    "terms_link": null,
+    "background_color": null,
+    "text_color": null,
+    "link_hover_color": null,
+    "logo_on_dark_background": true
+  }
+]

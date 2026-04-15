@@ -1,9 +1,0 @@
-{
-  "slug": "stats17",
-  "title": "Stats",
-  "description": "A stat component displaying a radial chart and key metrics in a 2-column layout, including an SEO optimization percentage, number of built blocks, and a total visitors' trend with icons.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/stats17",
-  "downloadedAt": "2026-03-19T19:44:00Z",
-  "fileCount": 1
-}

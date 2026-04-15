@@ -107,32 +107,6 @@
     transform: scaleX(1);
   }
 
-  /* Footer: Links ca. 80 % Deckkraft, bei Hover weiß */
-  .footer-custom .footer-link {
-    opacity: var(--footer-link-opacity, 0.8);
-    transition: opacity 0.2s ease, color 0.2s ease;
-  }
-  .footer-custom .footer-link:hover {
-    opacity: var(--footer-link-hover-opacity, 1);
-    color: var(--footer-link-hover-color, #fff);
-  }
-  .footer-custom .footer-heading {
-    opacity: var(--footer-heading-opacity, 0.5);
-    color: var(--footer-heading-color, inherit);
-  }
-
-  /* Beschreibungstexte im Footer: gleiche Schriftgröße und Farbe wie Footer-Links */
-  .footer-custom .footer-description,
-  .footer-custom .footer-description p,
-  .footer-custom .footer-description * {
-    font-size: 0.875rem;
-    opacity: var(--footer-description-opacity, 0.8);
-    color: var(--footer-description-color, inherit);
-  }
-  .footer-custom .footer-description {
-    line-height: 1.5;
-  }
-
   /* Kleiner Pfeil (>) nur bei Hover, wird nicht unterstrichen */
   .footer-custom .footer-link-arrow {
     margin-left: 0.25em;
@@ -217,13 +191,6 @@
 
 /* Mobile-only: größere Klickflächen im Footer (WCAG Target Size) */
 @media (max-width: 47.99rem) {
-  /* Footer-Links: höhere Zeilenhöhe + vertikales Padding */
-  .footer-custom .footer-link {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    font-size: 1rem; /* ~16px für bessere Lesbarkeit */
-  }
   .footer-custom .footer-contact-link {
     display: inline;
     min-height: 0;
@@ -731,7 +698,7 @@
 .megamenu .header-tool-toggle {
   transition: color 0.45s ease, background-color 0.45s ease;
   text-transform: uppercase;
-  letter-spacing: -0.22em;
+  letter-spacing: -0.03em; /* Dynamisch: proportional zur Schriftgröße */
   font-weight: 700;
   font-family: var(--font-heading, 'Inter', Arial, sans-serif);
   font-size: 1.05rem;
@@ -793,6 +760,36 @@
   [data-theme='light'] .megamenu:not(:hover) .megamenu-top-item,
   [data-theme='light'] .megamenu:not(:hover) .megamenu-top-item [class*='lucide'] {
     color: #171717 !important;
+  }
+
+  /* Prose H1 & H2: Hero-Heading-Gradient für konsistente Typografie */
+  .prose h1,
+  .prose-invert h1,
+  .prose h2,
+  .prose-invert h2 {
+    color: var(--hero-heading-gradient-mid);
+    background-image: linear-gradient(
+      108deg,
+      var(--hero-heading-gradient-start) 0%,
+      var(--hero-heading-gradient-mid) 48%,
+      var(--hero-heading-gradient-end) 100%
+    );
+    background-size: 160% auto;
+    background-repeat: no-repeat;
+    animation: hero-heading-gradient-shift 24s ease-in-out infinite;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .prose h1,
+    .prose-invert h1,
+    .prose h2,
+    .prose-invert h2 {
+      animation: none;
+      background-position: 50% 50%;
+    }
   }
 
 }

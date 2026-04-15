@@ -1,9 +1,0 @@
-{
-  "slug": "signup7",
-  "title": "Signup",
-  "description": "This component is a two-column layout for account creation, featuring sign-up options with Google, Email, or SSO, terms agreement links, and a side section showcasing benefits and logos.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/signup7",
-  "downloadedAt": "2026-03-19T19:43:52Z",
-  "fileCount": 1
-}

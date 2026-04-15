@@ -1,9 +1,0 @@
-{
-  "slug": "data-table5",
-  "title": "Data-table",
-  "description": "A fixed-height data table with sticky header, vertical and horizontal scrolling, sortable columns, and availability badges. Built with TanStack Table.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/data-table5",
-  "downloadedAt": "2026-03-19T19:41:06Z",
-  "fileCount": 1
-}

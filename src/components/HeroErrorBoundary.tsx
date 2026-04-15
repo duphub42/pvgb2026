@@ -34,13 +34,13 @@ export class HeroErrorBoundary extends React.Component<Props, State> {
     if (this.state.hasError) {
       return (
         <section
-          className="relative flex min-h-[40vh] items-center justify-center bg-neutral-900 px-4 py-16 text-white"
+          className="relative flex min-h-[40vh] items-center justify-center bg-muted px-4 py-16 text-foreground"
           aria-label="Hero"
         >
           <div className="text-center">
-            <p className="text-sm text-white/80">Hero konnte nicht geladen werden.</p>
+            <p className="text-sm text-foreground/80">Hero konnte nicht geladen werden.</p>
             {process.env.NODE_ENV === 'development' && this.state.error?.message && (
-              <pre className="mt-2 max-w-full overflow-auto rounded bg-black/30 p-2 text-left text-xs">
+              <pre className="mt-2 max-w-full overflow-auto rounded bg-muted/50 p-2 text-left text-xs">
                 {this.state.error.message}
               </pre>
             )}

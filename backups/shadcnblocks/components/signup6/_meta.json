@@ -1,9 +1,0 @@
-{
-  "slug": "signup6",
-  "title": "Signup",
-  "description": "A signup component featuring email/password fields, Google signup, and a login redirect. Layout includes a centered form in a 400px column.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/signup6",
-  "downloadedAt": "2026-03-19T19:43:52Z",
-  "fileCount": 1
-}

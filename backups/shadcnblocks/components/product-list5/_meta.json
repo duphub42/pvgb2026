@@ -1,9 +1,0 @@
-{
-  "slug": "product-list5",
-  "title": "Product-list",
-  "description": "This component, named `ProductList5`, displays a collection of products, showcasing their images, names, prices (including sale prices), and respective collections in a grid format. It also includes a header with a call-to-action button and organizes products using a card layout, making it suitable for listing and browsing items visually.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-list5",
-  "downloadedAt": "2026-03-19T19:43:01Z",
-  "fileCount": 2
-}

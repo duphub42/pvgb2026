@@ -1,0 +1,16 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 5,
+    "_path": "version.layout",
+    "id": 1,
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "title": "The foundation for AI",
+    "subtitle": "Lyra is evolving to be more than just the models. It supports an entire to the APIs and platforms helping developers and businesses innovate.",
+    "_uuid": "699f7236cf55b79cc4f64915",
+    "block_name": null
+  }
+]

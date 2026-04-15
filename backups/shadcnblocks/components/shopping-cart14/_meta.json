@@ -1,9 +1,0 @@
-{
-  "slug": "shopping-cart14",
-  "title": "Shopping-cart",
-  "description": "This component provides a comprehensive shopping cart interface, allowing users to view, modify, and manage items in their cart, such as adjusting quantities and removing products. It features integration with form handling to calculate the total price dynamically and supports easy navigation for cart and checkout actions.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/shopping-cart14",
-  "downloadedAt": "2026-03-19T19:43:42Z",
-  "fileCount": 3
-}

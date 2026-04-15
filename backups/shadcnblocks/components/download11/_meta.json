@@ -1,9 +1,0 @@
-{
-  "slug": "download11",
-  "title": "Download",
-  "description": "A component displaying a download section with options for .MSI and .EXE files, Windows compatibility info, and dynamic bordered images.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/download11",
-  "downloadedAt": "2026-03-19T19:41:08Z",
-  "fileCount": 1
-}

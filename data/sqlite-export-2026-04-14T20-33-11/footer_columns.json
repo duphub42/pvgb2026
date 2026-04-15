@@ -1,0 +1,50 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 1,
+    "id": "699a2e25fae65f22251d50b6",
+    "column_icon": null,
+    "column_icon_upload_id": 11,
+    "column_title": "Navigation"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 1,
+    "id": "699a2f84fae65f22251d50be",
+    "column_icon": null,
+    "column_icon_upload_id": 10,
+    "column_title": "Legal"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 1,
+    "id": "699e2f89a176278114900af4",
+    "column_icon": null,
+    "column_icon_upload_id": 9,
+    "column_title": "Design"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 1,
+    "id": "699e301da176278114900b02",
+    "column_icon": null,
+    "column_icon_upload_id": 8,
+    "column_title": "Marketing"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 1,
+    "id": "699e308ea176278114900b0a",
+    "column_icon": null,
+    "column_icon_upload_id": 34,
+    "column_title": "Branding"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 1,
+    "id": "699e313da176278114900b12",
+    "column_icon": null,
+    "column_icon_upload_id": 7,
+    "column_title": "Portfolio"
+  }
+]

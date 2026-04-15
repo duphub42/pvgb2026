@@ -1,9 +1,0 @@
-{
-  "slug": "data-table3",
-  "title": "Data-table",
-  "description": "A data table section with zebra-striped rows, sortable columns, currency formatting, and availability badges. Built with TanStack Table.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/data-table3",
-  "downloadedAt": "2026-03-19T19:41:05Z",
-  "fileCount": 1
-}

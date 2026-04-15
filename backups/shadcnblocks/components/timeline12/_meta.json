@@ -1,9 +1,0 @@
-{
-  "slug": "timeline12",
-  "title": "Timeline",
-  "description": "An interactive timeline component with four tabs. Each tab reveals content on a different phase, including dates, descriptions, animated images, and a download button.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/timeline12",
-  "downloadedAt": "2026-03-19T19:44:14Z",
-  "fileCount": 1
-}

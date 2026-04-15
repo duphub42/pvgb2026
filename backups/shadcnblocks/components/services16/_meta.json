@@ -1,9 +1,0 @@
-{
-  "slug": "services16",
-  "title": "Services",
-  "description": "A component displaying services in an accordion layout with images, descriptions, and categorized badges. Features a bold service counter and a large \"Services.\" heading spanning 3 of 4 columns.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/services16",
-  "downloadedAt": "2026-03-19T19:43:26Z",
-  "fileCount": 1
-}

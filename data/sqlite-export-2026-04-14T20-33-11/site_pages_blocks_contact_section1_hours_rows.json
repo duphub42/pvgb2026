@@ -1,0 +1,23 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": "699f7237cf55b79cc4f64939",
+    "id": "699f7237cf55b79cc4f64936",
+    "label": "Monday - Friday",
+    "value": "9:00 AM - 6:00 PM"
+  },
+  {
+    "_order": 2,
+    "_parent_id": "699f7237cf55b79cc4f64939",
+    "id": "699f7237cf55b79cc4f64937",
+    "label": "Saturday",
+    "value": "10:00 AM - 4:00 PM"
+  },
+  {
+    "_order": 3,
+    "_parent_id": "699f7237cf55b79cc4f64939",
+    "id": "699f7237cf55b79cc4f64938",
+    "label": "Sunday",
+    "value": "Closed"
+  }
+]

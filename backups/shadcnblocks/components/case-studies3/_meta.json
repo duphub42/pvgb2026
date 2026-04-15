@@ -1,9 +1,0 @@
-{
-  "slug": "case-studies3",
-  "title": "Case-studies",
-  "description": "This component displays a curated selection of case studies, featuring a prominent highlighted case study alongside additional entries. It supports customizable data input for logos, companies, tags, titles, and links, allowing users to explore detailed case study content with engaging visuals and interactive elements.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/case-studies3",
-  "downloadedAt": "2026-03-19T19:40:22Z",
-  "fileCount": 1
-}

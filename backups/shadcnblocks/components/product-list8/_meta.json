@@ -1,9 +1,0 @@
-{
-  "slug": "product-list8",
-  "title": "Product-list",
-  "description": "This component displays a grid of products, each with customizable options such as size, color, and quantity, allowing users to add items to their cart. It features interactive elements for product selection, dynamic price display, and visual cues for available options, aiding in an engaging shopping experience.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-list8",
-  "downloadedAt": "2026-03-19T19:43:02Z",
-  "fileCount": 2
-}

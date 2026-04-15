@@ -1,9 +1,0 @@
-{
-  "slug": "data-table25",
-  "title": "Data-table",
-  "description": "A data table section displaying invoice line items with product, SKU, quantity, unit price, and total columns, plus summary rows for subtotal, tax, and grand total. Built with TanStack Table.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/data-table25",
-  "downloadedAt": "2026-03-19T19:41:03Z",
-  "fileCount": 1
-}

@@ -1,9 +1,0 @@
-{
-  "slug": "download3",
-  "title": "Download",
-  "description": "A component displaying a download card with a logo, a heading, a description, version, file size, system requirements, download and view buttons, and trust indicators.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/download3",
-  "downloadedAt": "2026-03-19T19:41:09Z",
-  "fileCount": 1
-}

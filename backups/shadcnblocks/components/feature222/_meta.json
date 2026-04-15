@@ -1,9 +1,0 @@
-{
-  "slug": "feature222",
-  "title": "Feature",
-  "description": "A component displaying a grid of cards with images, titles, stats, and a \"Read Story\" button. Cards are dynamically populated from a list.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/feature222",
-  "downloadedAt": "2026-03-19T19:41:20Z",
-  "fileCount": 1
-}

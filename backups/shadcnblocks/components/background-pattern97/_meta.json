@@ -1,9 +1,0 @@
-{
-  "slug": "background-pattern97",
-  "title": "Background-pattern",
-  "description": "The component creates a visually striking, full-screen background pattern using layered radial gradients and a noise texture overlay. It allows customization through a `className` prop to fit various styling needs.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/background-pattern97",
-  "downloadedAt": "2026-03-19T19:40:09Z",
-  "fileCount": 2
-}

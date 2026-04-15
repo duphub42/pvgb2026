@@ -36,7 +36,7 @@ export const getCachedGlobal = (slug: Global, depth = 0) => {
 
   if (!getter) {
     getter = unstable_cache(async () => getGlobal(slug, depth), [slug, String(depth)], {
-      revalidate: 60,
+      revalidate: 300, // 5 Minuten für bessere Performance
       tags: [`global_${slug}`],
     })
     cachedGlobalGetters.set(cacheKey, getter)

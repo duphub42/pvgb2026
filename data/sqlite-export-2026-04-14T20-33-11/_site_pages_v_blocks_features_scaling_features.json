@@ -1,0 +1,34 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 1,
+    "id": 1,
+    "icon": "mail",
+    "label": "Email and web support",
+    "_uuid": "699f7236cf55b79cc4f64916"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 1,
+    "id": 2,
+    "icon": "zap",
+    "label": "Fast response time",
+    "_uuid": "699f7236cf55b79cc4f64917"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 1,
+    "id": 3,
+    "icon": "activity",
+    "label": "Menitoring and analytics",
+    "_uuid": "699f7236cf55b79cc4f64918"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 1,
+    "id": 4,
+    "icon": "draftingCompass",
+    "label": "Architectural review",
+    "_uuid": "699f7236cf55b79cc4f64919"
+  }
+]

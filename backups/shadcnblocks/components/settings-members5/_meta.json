@@ -1,9 +1,0 @@
-{
-  "slug": "settings-members5",
-  "title": "Settings-members",
-  "description": "A tabbed interface separating active members from pending invitations, with online status indicators, last active times, and invite expiration tracking.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/settings-members5",
-  "downloadedAt": "2026-03-19T19:43:35Z",
-  "fileCount": 1
-}

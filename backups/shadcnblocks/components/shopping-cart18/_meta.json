@@ -1,9 +1,0 @@
-{
-  "slug": "shopping-cart18",
-  "title": "Shopping-cart",
-  "description": "This component provides a dynamic shopping cart interface with functionalities to view, update item quantities, and remove items, along with calculating and displaying the subtotal. It utilizes a popover for cart interactions and includes visual elements for item display, quantity management, and checkout options.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/shopping-cart18",
-  "downloadedAt": "2026-03-19T19:43:43Z",
-  "fileCount": 1
-}

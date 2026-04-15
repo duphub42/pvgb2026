@@ -1,9 +1,0 @@
-{
-  "slug": "pricing23",
-  "title": "Pricing",
-  "description": "A component displaying pricing plans and feature comparison, collapsible on mobile for plan selection, grid layout for desktop showing all plans side-by-side.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/pricing23",
-  "downloadedAt": "2026-03-19T19:42:42Z",
-  "fileCount": 1
-}

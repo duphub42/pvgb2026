@@ -1,9 +1,0 @@
-{
-  "slug": "data-table28",
-  "title": "Data-table",
-  "description": "A virtualized data table section with multi-cell selection, keyboard navigation, CSV copy to clipboard, sortable columns, and pinned columns. Built with TanStack Table and TanStack Virtual.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/data-table28",
-  "downloadedAt": "2026-03-19T19:41:04Z",
-  "fileCount": 1
-}

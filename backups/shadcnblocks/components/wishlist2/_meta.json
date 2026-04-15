@@ -1,9 +1,0 @@
-{
-  "slug": "wishlist2",
-  "title": "Wishlist",
-  "description": "This component allows users to manage a wishlist by displaying a list of saved items, sorted by various criteria such as date added or price. It supports functionalities like sharing the list, removing items, and adding in-stock items to a cart.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/wishlist2",
-  "downloadedAt": "2026-03-19T19:44:26Z",
-  "fileCount": 1
-}

@@ -1,0 +1,17 @@
+[
+  {
+    "_order": 11,
+    "_parent_id": 5,
+    "_path": "version.layout",
+    "id": 1,
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "title": "Why Choose Us",
+    "description": "We deliver exceptional quality and service that sets us apart. Experience the difference with our dedicated approach.",
+    "image_id": null,
+    "_uuid": "699f7236cf55b79cc4f64931",
+    "block_name": null
+  }
+]

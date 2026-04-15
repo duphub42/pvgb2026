@@ -1,9 +1,0 @@
-{
-  "slug": "todo1",
-  "title": "Todo",
-  "description": "This component is a simple interactive Todo List that allows users to track tasks by toggling their completion status with visual feedback. It features task titles displayed with checkboxes, enabling users to easily mark tasks as complete or incomplete.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/todo1",
-  "downloadedAt": "2026-03-19T19:44:17Z",
-  "fileCount": 1
-}

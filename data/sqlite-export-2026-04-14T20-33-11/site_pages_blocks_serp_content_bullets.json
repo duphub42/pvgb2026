@@ -1,0 +1,23 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": "699f7236cf55b79cc4f6490a",
+    "id": "699f7236cf55b79cc4f64907",
+    "label": "Instant Updates.",
+    "description": "Changes sync across all devices in real-time, ensuring your team always has the latest information at their fingertips."
+  },
+  {
+    "_order": 2,
+    "_parent_id": "699f7236cf55b79cc4f6490a",
+    "id": "699f7236cf55b79cc4f64908",
+    "label": "Robust Security.",
+    "description": "Your data is protected with enterprise-grade encryption and customizable access controls, giving you peace of mind."
+  },
+  {
+    "_order": 3,
+    "_parent_id": "699f7236cf55b79cc4f6490a",
+    "id": "699f7236cf55b79cc4f64909",
+    "label": "Intelligent Insights.",
+    "description": "Our analytics engine provides actionable data on team performance, helping you optimize workflows and boost productivity."
+  }
+]

@@ -1,0 +1,1346 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 31,
+    "id": "133",
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 31,
+    "id": "134",
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 31,
+    "id": "135",
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 31,
+    "id": "136",
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 31,
+    "id": "137",
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 31,
+    "id": "138",
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 52,
+    "id": "268",
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c877012ea8e354b8afc174"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 52,
+    "id": "269",
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c877032ea8e354b8afc176"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 52,
+    "id": "270",
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c877062ea8e354b8afc178"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 52,
+    "id": "271",
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c877112ea8e354b8afc17a"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 52,
+    "id": "272",
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c877192ea8e354b8afc17c"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 52,
+    "id": "273",
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c877212ea8e354b8afc17e"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c877012ea8e354b8afc174"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c877032ea8e354b8afc176"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c877062ea8e354b8afc178"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c877112ea8e354b8afc17a"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c877192ea8e354b8afc17c"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 53,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c877212ea8e354b8afc17e"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c877012ea8e354b8afc174"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c877032ea8e354b8afc176"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c877062ea8e354b8afc178"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c877112ea8e354b8afc17a"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c877192ea8e354b8afc17c"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 54,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c877212ea8e354b8afc17e"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 55,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 56,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 57,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 58,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 59,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 60,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 61,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 62,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 63,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 64,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 65,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 66,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 67,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 68,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 69,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 70,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 71,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 72,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 73,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 74,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69c8740dc86ba5cf09f094a4"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69c8740dc86ba5cf09f094a5"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69c8740dc86ba5cf09f094a6"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69c8740dc86ba5cf09f094a7"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69c8740dc86ba5cf09f094a8"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 75,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69c8740dc86ba5cf09f094a9"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69da0df47d1bd12d5248ad39"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69da0df47d1bd12d5248ad3a"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69da0df47d1bd12d5248ad3b"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69da0df47d1bd12d5248ad3c"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69da0df47d1bd12d5248ad3d"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 76,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69da0df47d1bd12d5248ad3e"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 77,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69da0e0ab7d24b3144e68e41"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 77,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69da0e0ab7d24b3144e68e42"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 77,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69da0e0ab7d24b3144e68e43"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 77,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69da0e0ab7d24b3144e68e44"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 77,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69da0e0ab7d24b3144e68e45"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 77,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69da0e0ab7d24b3144e68e46"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 78,
+    "id": null,
+    "icon": "brain",
+    "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen.",
+    "_uuid": "69da0e0ab7d24b3144e68e56"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 78,
+    "id": null,
+    "icon": "target",
+    "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.",
+    "_uuid": "69da0e0ab7d24b3144e68e57"
+  },
+  {
+    "_order": 3,
+    "_parent_id": 78,
+    "id": null,
+    "icon": "search",
+    "text": "Ich hinterfrage alles — auch bestehende Strategien.",
+    "_uuid": "69da0e0ab7d24b3144e68e58"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 78,
+    "id": null,
+    "icon": "zap",
+    "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.",
+    "_uuid": "69da0e0ab7d24b3144e68e59"
+  },
+  {
+    "_order": 5,
+    "_parent_id": 78,
+    "id": null,
+    "icon": "handshake",
+    "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.",
+    "_uuid": "69da0e0ab7d24b3144e68e5a"
+  },
+  {
+    "_order": 6,
+    "_parent_id": 78,
+    "id": null,
+    "icon": "trending-up",
+    "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.",
+    "_uuid": "69da0e0ab7d24b3144e68e5b"
+  }
+]

@@ -1,9 +1,0 @@
-{
-  "slug": "reviews2",
-  "title": "Reviews",
-  "description": "This component displays a list of customer reviews, providing a summary of average ratings, a distribution of ratings, and individual review details including the author, date, and content. It features elements like avatars, badges for verified reviews, and rating bars to visually represent the feedback statistics.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/reviews2",
-  "downloadedAt": "2026-03-19T19:43:20Z",
-  "fileCount": 2
-}

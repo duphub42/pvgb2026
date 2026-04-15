@@ -1,9 +1,0 @@
-{
-  "slug": "hero86",
-  "title": "Hero",
-  "description": "This component features a 2-column layout with a text section and an image. The text includes a title, description, and a button. The image section has a unique aspect ratio with a decorative background.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/hero86",
-  "downloadedAt": "2026-03-19T19:42:15Z",
-  "fileCount": 1
-}

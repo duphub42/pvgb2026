@@ -1,9 +1,0 @@
-{
-  "slug": "awards3",
-  "title": "Awards",
-  "description": "An awards list component with a hover animation, featuring award titles, categories, and years. Uses colored indicators per award.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/awards3",
-  "downloadedAt": "2026-03-19T19:40:04Z",
-  "fileCount": 1
-}

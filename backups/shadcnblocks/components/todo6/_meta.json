@@ -1,9 +1,0 @@
-{
-  "slug": "todo6",
-  "title": "Todo",
-  "description": "This component provides a drag-and-drop-enabled to-do list, allowing users to create, reorder, filter, and sort tasks by priority or title. It features interactive elements for task management, such as checkboxes to mark completion, dropdowns for filtering by priority or starred status, and buttons to add new tasks.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/todo6",
-  "downloadedAt": "2026-03-19T19:44:19Z",
-  "fileCount": 1
-}

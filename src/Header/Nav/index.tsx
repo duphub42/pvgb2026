@@ -53,7 +53,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   }
 
   return (
-    <nav className="header-nav flex h-full items-stretch gap-1">
+    <nav className="header-nav flex h-full items-stretch gap-1 lg:gap-0.5 xl:gap-1">
       {navItems.map(({ link }, i) => {
         const href = getHeaderNavHref(link)
         const referenceValue = link.reference?.value

@@ -1,0 +1,14 @@
+[
+  {
+    "_order": 6,
+    "_parent_id": 2,
+    "_path": "fields",
+    "id": "69da0a9a5bb7ad6bc85f27ea",
+    "name": "nachricht",
+    "label": "Nachricht",
+    "width": 100,
+    "default_value": null,
+    "required": 1,
+    "block_name": "nachricht"
+  }
+]

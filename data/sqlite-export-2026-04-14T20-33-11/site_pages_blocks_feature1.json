@@ -1,0 +1,18 @@
+[
+  {
+    "_order": 10,
+    "_parent_id": 5,
+    "_path": "layout",
+    "id": "699f7236cf55b79cc4f6492c",
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "badge": "Why Choose Us",
+    "title": "Experience the Difference",
+    "description": "Discover why thousands of customers trust us for their shopping needs. We combine quality, convenience, and exceptional service.",
+    "cta_label": "Start Shopping",
+    "cta_url": "#",
+    "block_name": null
+  }
+]

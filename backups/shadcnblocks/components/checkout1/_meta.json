@@ -1,9 +1,0 @@
-{
-  "slug": "checkout1",
-  "title": "Checkout",
-  "description": "This component is a checkout block that facilitates online purchasing by managing cart items and payment details. It features forms for user information, address, shipping methods, and payment options, integrating an accordion layout for a step-by-step process.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/checkout1",
-  "downloadedAt": "2026-03-19T19:40:37Z",
-  "fileCount": 4
-}

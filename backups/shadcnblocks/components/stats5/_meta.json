@@ -1,9 +1,0 @@
-{
-  "slug": "stats5",
-  "title": "Stats",
-  "description": "A component displays performance metrics in 3 columns, highlighting values with dynamic icons and bold percentage figures.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/stats5",
-  "downloadedAt": "2026-03-19T19:44:01Z",
-  "fileCount": 1
-}

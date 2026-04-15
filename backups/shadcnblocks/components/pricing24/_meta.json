@@ -1,9 +1,0 @@
-{
-  "slug": "pricing24",
-  "title": "Pricing",
-  "description": "A pricing component with a toggle for annual billing, displaying 3 plans in columns, featuring highlights and a call-to-action button per plan, with special emphasis on a popular choice via scaling and ring decoration.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/pricing24",
-  "downloadedAt": "2026-03-19T19:42:42Z",
-  "fileCount": 1
-}

@@ -1,9 +1,0 @@
-{
-  "slug": "sidebar6",
-  "title": "Sidebar",
-  "description": "A sidebar with user profile dropdown in the footer showing avatar, name, email, and account/logout options with collapsible navigation.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/sidebar6",
-  "downloadedAt": "2026-03-19T19:43:49Z",
-  "fileCount": 1
-}

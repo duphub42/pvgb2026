@@ -1,0 +1,15 @@
+[
+  {
+    "_order": 5,
+    "_parent_id": 2,
+    "_path": "fields",
+    "id": "69da0a9a5bb7ad6bc85f27e9",
+    "name": "anliegen",
+    "label": "Anliegen",
+    "width": 100,
+    "default_value": null,
+    "placeholder": null,
+    "required": 1,
+    "block_name": "anliegen"
+  }
+]

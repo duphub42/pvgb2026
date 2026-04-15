@@ -1,9 +1,0 @@
-{
-  "slug": "offer-modal5",
-  "title": "Offer-modal",
-  "description": "This component presents a promotional sign-up form that offers users a 20% discount for joining a mailing list. It includes input validation for an email field and displays a customizable image and text content such as a title, logo, and description within a modal format.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/offer-modal5",
-  "downloadedAt": "2026-03-19T19:42:37Z",
-  "fileCount": 1
-}

@@ -1,9 +1,0 @@
-{
-  "slug": "hero211",
-  "title": "Hero",
-  "description": "A component featuring a hero block with a motivational title, a text block, an image carousel with pagination, a \"Get Started\" button with a unique pop-up text animation, and a marquee of cards at the bottom.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/hero211",
-  "downloadedAt": "2026-03-19T19:42:09Z",
-  "fileCount": 1
-}

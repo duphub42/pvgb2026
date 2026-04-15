@@ -1,9 +1,0 @@
-{
-  "slug": "feature287",
-  "title": "Feature",
-  "description": "A component displaying a title and a grid of cards (4 columns wide on larger screens, fewer on smaller). Each card includes a glowing stars effect, a title, and text. A button below the grid invites user interaction.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/feature287",
-  "downloadedAt": "2026-03-19T19:41:23Z",
-  "fileCount": 1
-}

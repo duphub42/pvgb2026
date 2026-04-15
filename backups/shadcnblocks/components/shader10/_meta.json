@@ -1,9 +1,0 @@
-{
-  "slug": "shader10",
-  "title": "Shader",
-  "description": "A full-screen shader background that cycles between two images with lens distortion and bubble transition, configurable transition and pause duration.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/shader10",
-  "downloadedAt": "2026-03-19T19:43:38Z",
-  "fileCount": 1
-}

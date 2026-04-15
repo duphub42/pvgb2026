@@ -1,9 +1,0 @@
-{
-  "slug": "product-card6",
-  "title": "Product-card",
-  "description": "This component is an interactive product display block that showcases product details, including images, pricing, and stock status. It integrates a form allowing users to select product variants, with features like quick add to cart, sale indicators, and variant-specific color options.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-card6",
-  "downloadedAt": "2026-03-19T19:42:50Z",
-  "fileCount": 2
-}

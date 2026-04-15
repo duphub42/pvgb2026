@@ -1,9 +1,0 @@
-{
-  "slug": "leaderboard2",
-  "title": "Leaderboard",
-  "description": "A ranked list card with user avatars, names, subtitles, and values for each position.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/leaderboard2",
-  "downloadedAt": "2026-03-19T19:42:23Z",
-  "fileCount": 1
-}

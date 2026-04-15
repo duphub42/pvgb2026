@@ -1,9 +1,0 @@
-{
-  "slug": "services4",
-  "title": "Services",
-  "description": "A component displaying services in a 2-column grid, detailing 4 services with icons, titles, descriptions, and bullet points. Features hover effects and a central header.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/services4",
-  "downloadedAt": "2026-03-19T19:43:27Z",
-  "fileCount": 1
-}

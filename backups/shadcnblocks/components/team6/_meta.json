@@ -1,9 +1,0 @@
-{
-  "slug": "team6",
-  "title": "Team",
-  "description": "A component displaying a team section with a hiring call, team introduction, and a grid of team members&#x27; profiles including their roles, descriptions, and social links.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/team6",
-  "downloadedAt": "2026-03-19T19:44:07Z",
-  "fileCount": 1
-}

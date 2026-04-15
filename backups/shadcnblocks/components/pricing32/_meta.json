@@ -1,9 +1,0 @@
-{
-  "slug": "pricing32",
-  "title": "Pricing",
-  "description": "A pricing display component with a billing cycle toggle, savings info, and plan cards for different service tiers, highlighting a \"most popular\" option.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/pricing32",
-  "downloadedAt": "2026-03-19T19:42:44Z",
-  "fileCount": 1
-}

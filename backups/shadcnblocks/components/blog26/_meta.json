@@ -1,9 +1,0 @@
-{
-  "slug": "blog26",
-  "title": "Blog",
-  "description": "A component displaying a featured post with an image, summary, and tags, alongside a list of latest posts with their titles, authors, and tags. It&#x27;s structured in a two-column layout with dynamic text effects.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/blog26",
-  "downloadedAt": "2026-03-19T19:40:14Z",
-  "fileCount": 1
-}

@@ -1,0 +1,32 @@
+[
+  {
+    "id": 1,
+    "updated_at": "2026-04-14T13:15:27.293Z",
+    "created_at": "2026-04-14T13:15:27.293Z",
+    "logo_id": null,
+    "use_mega_menu": false,
+    "mega_menu_layout": null,
+    "mega_menu_layout_sidebar_cols": null,
+    "mega_menu_layout_content_cols": null,
+    "mega_menu_layout_featured_cols": null,
+    "mega_menu_card_border_radius": null,
+    "mega_menu_card_shadow": null,
+    "mega_menu_card_hover_shadow": null,
+    "mega_menu_card_hover_border": null,
+    "mega_menu_show_whats_app": null,
+    "mega_menu_whats_app_label": null,
+    "mega_menu_whats_app_url": null,
+    "mega_menu_show_callback": null,
+    "mega_menu_callback_title": null,
+    "mega_menu_callback_placeholder": null,
+    "mega_menu_callback_button_text": null,
+    "mega_menu_callback_form_id": null,
+    "mega_menu_callback_phone_field_name": null,
+    "mega_menu_show_newsletter": null,
+    "mega_menu_newsletter_title": null,
+    "mega_menu_newsletter_placeholder": null,
+    "mega_menu_newsletter_button_text": null,
+    "mega_menu_newsletter_form_id": null,
+    "mega_menu_newsletter_email_field_name": null
+  }
+]

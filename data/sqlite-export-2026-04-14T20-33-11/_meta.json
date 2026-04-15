@@ -1,0 +1,1139 @@
+{
+  "exportedAt": "2026-04-14T20:33:11.247Z",
+  "database": "sqlite",
+  "tables": [
+    {
+      "table": "_blog_posts_v",
+      "count": 0
+    },
+    {
+      "table": "_blog_posts_v_rels",
+      "count": 0
+    },
+    {
+      "table": "_blog_posts_v_version_populated_authors",
+      "count": 0
+    },
+    {
+      "table": "_collab_cur_v",
+      "count": 1
+    },
+    {
+      "table": "_contact_cards_v",
+      "count": 2
+    },
+    {
+      "table": "_contact_cards_v_cards",
+      "count": 6
+    },
+    {
+      "table": "_feat_adv_v",
+      "count": 1
+    },
+    {
+      "table": "_feat_adv_v_items",
+      "count": 3
+    },
+    {
+      "table": "_feat_ai_acc_v",
+      "count": 1
+    },
+    {
+      "table": "_feat_ai_acc_v_items",
+      "count": 4
+    },
+    {
+      "table": "_lnks_v",
+      "count": 0
+    },
+    {
+      "table": "_lnks_v_rels",
+      "count": 0
+    },
+    {
+      "table": "_portfolio_grid_v",
+      "count": 0
+    },
+    {
+      "table": "_portfolio_grid_v_cases",
+      "count": 0
+    },
+    {
+      "table": "_portfolio_grid_v_cases_metrics",
+      "count": 0
+    },
+    {
+      "table": "_portfolio_grid_v_cases_tags",
+      "count": 0
+    },
+    {
+      "table": "_portfolio_kpis_v",
+      "count": 0
+    },
+    {
+      "table": "_portfolio_kpis_v_items",
+      "count": 0
+    },
+    {
+      "table": "_prof_cta_v",
+      "count": 0
+    },
+    {
+      "table": "_prof_kern_v",
+      "count": 0
+    },
+    {
+      "table": "_prof_kern_v_bereiche",
+      "count": 0
+    },
+    {
+      "table": "_prof_kern_v_bereiche_details",
+      "count": 0
+    },
+    {
+      "table": "_prof_lang_zert_v",
+      "count": 0
+    },
+    {
+      "table": "_prof_lang_zert_v_sprachen",
+      "count": 0
+    },
+    {
+      "table": "_prof_lang_zert_v_zertifikate",
+      "count": 0
+    },
+    {
+      "table": "_prof_skills_v",
+      "count": 0
+    },
+    {
+      "table": "_prof_skills_v_spalten",
+      "count": 0
+    },
+    {
+      "table": "_prof_skills_v_spalten_skills",
+      "count": 0
+    },
+    {
+      "table": "_prof_tools_v",
+      "count": 0
+    },
+    {
+      "table": "_prof_tools_v_tools",
+      "count": 0
+    },
+    {
+      "table": "_prof_ueber_v",
+      "count": 0
+    },
+    {
+      "table": "_prof_ueber_v_werte",
+      "count": 0
+    },
+    {
+      "table": "_prof_weg_v",
+      "count": 0
+    },
+    {
+      "table": "_prof_weg_v_eintraege",
+      "count": 0
+    },
+    {
+      "table": "_prof_zahl_v",
+      "count": 0
+    },
+    {
+      "table": "_prof_zahl_v_items",
+      "count": 0
+    },
+    {
+      "table": "_services_grid_v",
+      "count": 4
+    },
+    {
+      "table": "_services_grid_v_categories",
+      "count": 7
+    },
+    {
+      "table": "_services_grid_v_categories_services",
+      "count": 13
+    },
+    {
+      "table": "_services_grid_v_intro_icon_list",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v",
+      "count": 86
+    },
+    {
+      "table": "_site_pages_v_blocks_archive",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_brand_showcase",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_brand_showcase_palette",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_brand_showcase_principles",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_brand_showcase_typography",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_brand_showcase_usage_examples",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_cal_popup",
+      "count": 4
+    },
+    {
+      "table": "_site_pages_v_blocks_consulting_overview",
+      "count": 3
+    },
+    {
+      "table": "_site_pages_v_blocks_consulting_overview_benefit_items",
+      "count": 12
+    },
+    {
+      "table": "_site_pages_v_blocks_contact_cards",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_contact_cards_cards",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_contact_section1",
+      "count": 1
+    },
+    {
+      "table": "_site_pages_v_blocks_contact_section1_hours_rows",
+      "count": 3
+    },
+    {
+      "table": "_site_pages_v_blocks_content",
+      "count": 106
+    },
+    {
+      "table": "_site_pages_v_blocks_content_columns",
+      "count": 209
+    },
+    {
+      "table": "_site_pages_v_blocks_cta",
+      "count": 40
+    },
+    {
+      "table": "_site_pages_v_blocks_cta_links",
+      "count": 40
+    },
+    {
+      "table": "_site_pages_v_blocks_cta_section3",
+      "count": 1
+    },
+    {
+      "table": "_site_pages_v_blocks_cta_section3_right_cards",
+      "count": 2
+    },
+    {
+      "table": "_site_pages_v_blocks_faq_simple",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_faq_simple_faqs",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_feature1",
+      "count": 1
+    },
+    {
+      "table": "_site_pages_v_blocks_feature1_items",
+      "count": 4
+    },
+    {
+      "table": "_site_pages_v_blocks_feature2",
+      "count": 1
+    },
+    {
+      "table": "_site_pages_v_blocks_feature2_items",
+      "count": 4
+    },
+    {
+      "table": "_site_pages_v_blocks_features_grid",
+      "count": 1
+    },
+    {
+      "table": "_site_pages_v_blocks_features_grid_items",
+      "count": 3
+    },
+    {
+      "table": "_site_pages_v_blocks_features_scaling",
+      "count": 1
+    },
+    {
+      "table": "_site_pages_v_blocks_features_scaling_features",
+      "count": 4
+    },
+    {
+      "table": "_site_pages_v_blocks_form_block",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_hero_grid",
+      "count": 1
+    },
+    {
+      "table": "_site_pages_v_blocks_hero_marketing",
+      "count": 1
+    },
+    {
+      "table": "_site_pages_v_blocks_hero_with_process",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_hero_with_process_steps",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_introduction",
+      "count": 37
+    },
+    {
+      "table": "_site_pages_v_blocks_lyra_content",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_lyra_feature",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_media_block",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_portfolioCaseGrid",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_portfolioCaseGrid_cases",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_portfolioCaseGrid_cases_metrics",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_portfolioCaseGrid_cases_tags",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_portfolioKpiStrip",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_portfolioKpiStrip_items",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_price_calculator",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_pricing",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_pricingTable",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_pricingTable_comparisonRows",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_pricingTable_comparisonRows_values",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_pricingTable_plans",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_pricingTable_plans_features",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_pricing_cards",
+      "count": 1
+    },
+    {
+      "table": "_site_pages_v_blocks_pricing_cards_plans",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_pricing_cards_plans_features",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_pricing_plans",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_pricing_plans_features",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_profil_bacher",
+      "count": 5
+    },
+    {
+      "table": "_site_pages_v_blocks_radialOrbitalTimeline",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_radialOrbitalTimeline_timelineItems",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_scroll_morph_hero",
+      "count": 1
+    },
+    {
+      "table": "_site_pages_v_blocks_serp_content",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_serp_content_bullets",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_service_ux_ui",
+      "count": 1
+    },
+    {
+      "table": "_site_pages_v_blocks_services4",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_services4_services",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_services4_services_items",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_services_overview",
+      "count": 30
+    },
+    {
+      "table": "_site_pages_v_blocks_services_overview_services",
+      "count": 119
+    },
+    {
+      "table": "_site_pages_v_blocks_shadcn_block",
+      "count": 23
+    },
+    {
+      "table": "_site_pages_v_blocks_shadcn_block_content_images",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_blocks_why_work_with_me",
+      "count": 35
+    },
+    {
+      "table": "_site_pages_v_blocks_why_work_with_me_intro_icon_list",
+      "count": 168
+    },
+    {
+      "table": "_site_pages_v_blocks_why_work_with_me_reasons",
+      "count": 131
+    },
+    {
+      "table": "_site_pages_v_rels",
+      "count": 90
+    },
+    {
+      "table": "_site_pages_v_version_hero_floating_elements",
+      "count": 0
+    },
+    {
+      "table": "_site_pages_v_version_hero_links",
+      "count": 50
+    },
+    {
+      "table": "_site_pages_v_version_hero_marquee_logos",
+      "count": 600
+    },
+    {
+      "table": "_site_pages_v_version_hero_stats",
+      "count": 0
+    },
+    {
+      "table": "blog_posts",
+      "count": 0
+    },
+    {
+      "table": "blog_posts_populated_authors",
+      "count": 0
+    },
+    {
+      "table": "blog_posts_rels",
+      "count": 0
+    },
+    {
+      "table": "categories",
+      "count": 0
+    },
+    {
+      "table": "categories_breadcrumbs",
+      "count": 0
+    },
+    {
+      "table": "collab_cur",
+      "count": 1
+    },
+    {
+      "table": "contact_cards",
+      "count": 2
+    },
+    {
+      "table": "contact_cards_cards",
+      "count": 6
+    },
+    {
+      "table": "design",
+      "count": 1
+    },
+    {
+      "table": "feat_adv",
+      "count": 1
+    },
+    {
+      "table": "feat_adv_items",
+      "count": 3
+    },
+    {
+      "table": "feat_ai_acc",
+      "count": 1
+    },
+    {
+      "table": "feat_ai_acc_items",
+      "count": 4
+    },
+    {
+      "table": "footer",
+      "count": 1
+    },
+    {
+      "table": "footer_columns",
+      "count": 6
+    },
+    {
+      "table": "footer_columns_links",
+      "count": 20
+    },
+    {
+      "table": "footer_nav_items",
+      "count": 0
+    },
+    {
+      "table": "footer_rels",
+      "count": 0
+    },
+    {
+      "table": "footer_social_links",
+      "count": 4
+    },
+    {
+      "table": "form_submissions",
+      "count": 1
+    },
+    {
+      "table": "form_submissions_submission_data",
+      "count": 3
+    },
+    {
+      "table": "forms",
+      "count": 3
+    },
+    {
+      "table": "forms_blocks_checkbox",
+      "count": 3
+    },
+    {
+      "table": "forms_blocks_country",
+      "count": 0
+    },
+    {
+      "table": "forms_blocks_email",
+      "count": 1
+    },
+    {
+      "table": "forms_blocks_message",
+      "count": 0
+    },
+    {
+      "table": "forms_blocks_number",
+      "count": 1
+    },
+    {
+      "table": "forms_blocks_select",
+      "count": 1
+    },
+    {
+      "table": "forms_blocks_select_options",
+      "count": 4
+    },
+    {
+      "table": "forms_blocks_state",
+      "count": 0
+    },
+    {
+      "table": "forms_blocks_text",
+      "count": 6
+    },
+    {
+      "table": "forms_blocks_textarea",
+      "count": 1
+    },
+    {
+      "table": "forms_emails",
+      "count": 2
+    },
+    {
+      "table": "header",
+      "count": 1
+    },
+    {
+      "table": "header_nav_items",
+      "count": 0
+    },
+    {
+      "table": "header_rels",
+      "count": 0
+    },
+    {
+      "table": "hero_backgrounds",
+      "count": 1
+    },
+    {
+      "table": "lnks",
+      "count": 0
+    },
+    {
+      "table": "media",
+      "count": 62
+    },
+    {
+      "table": "mega_menu",
+      "count": 6
+    },
+    {
+      "table": "mega_menu_columns",
+      "count": 6
+    },
+    {
+      "table": "mega_menu_columns_items",
+      "count": 12
+    },
+    {
+      "table": "mega_menu_highlight_cards",
+      "count": 0
+    },
+    {
+      "table": "mega_menu_sub_items",
+      "count": 0
+    },
+    {
+      "table": "payload_folders",
+      "count": 1
+    },
+    {
+      "table": "payload_folders_folder_type",
+      "count": 1
+    },
+    {
+      "table": "payload_jobs",
+      "count": 0
+    },
+    {
+      "table": "payload_jobs_log",
+      "count": 0
+    },
+    {
+      "table": "payload_kv",
+      "count": 0
+    },
+    {
+      "table": "payload_locked_documents",
+      "count": 1
+    },
+    {
+      "table": "payload_locked_documents_rels",
+      "count": 2
+    },
+    {
+      "table": "payload_migrations",
+      "count": 1
+    },
+    {
+      "table": "payload_preferences",
+      "count": 13
+    },
+    {
+      "table": "payload_preferences_rels",
+      "count": 13
+    },
+    {
+      "table": "portfolio_grid",
+      "count": 0
+    },
+    {
+      "table": "portfolio_grid_cases",
+      "count": 0
+    },
+    {
+      "table": "portfolio_grid_cases_metrics",
+      "count": 0
+    },
+    {
+      "table": "portfolio_grid_cases_tags",
+      "count": 0
+    },
+    {
+      "table": "portfolio_kpis",
+      "count": 0
+    },
+    {
+      "table": "portfolio_kpis_items",
+      "count": 0
+    },
+    {
+      "table": "price_calc_categories",
+      "count": 0
+    },
+    {
+      "table": "price_calc_items",
+      "count": 0
+    },
+    {
+      "table": "price_calculator",
+      "count": 1
+    },
+    {
+      "table": "pricing_table",
+      "count": 0
+    },
+    {
+      "table": "pricing_table_comparison_rows",
+      "count": 0
+    },
+    {
+      "table": "pricing_table_comparison_rows_values",
+      "count": 0
+    },
+    {
+      "table": "pricing_table_plans",
+      "count": 0
+    },
+    {
+      "table": "pricing_table_plans_features",
+      "count": 0
+    },
+    {
+      "table": "prof_cta",
+      "count": 0
+    },
+    {
+      "table": "prof_kern",
+      "count": 0
+    },
+    {
+      "table": "prof_kern_bereiche",
+      "count": 0
+    },
+    {
+      "table": "prof_kern_bereiche_details",
+      "count": 0
+    },
+    {
+      "table": "prof_lang_zert",
+      "count": 0
+    },
+    {
+      "table": "prof_lang_zert_sprachen",
+      "count": 0
+    },
+    {
+      "table": "prof_lang_zert_zertifikate",
+      "count": 0
+    },
+    {
+      "table": "prof_skills",
+      "count": 0
+    },
+    {
+      "table": "prof_skills_spalten",
+      "count": 0
+    },
+    {
+      "table": "prof_skills_spalten_skills",
+      "count": 0
+    },
+    {
+      "table": "prof_tools",
+      "count": 0
+    },
+    {
+      "table": "prof_tools_tools",
+      "count": 0
+    },
+    {
+      "table": "prof_ueber",
+      "count": 0
+    },
+    {
+      "table": "prof_ueber_werte",
+      "count": 0
+    },
+    {
+      "table": "prof_weg",
+      "count": 0
+    },
+    {
+      "table": "prof_weg_eintraege",
+      "count": 0
+    },
+    {
+      "table": "prof_zahl",
+      "count": 0
+    },
+    {
+      "table": "prof_zahl_items",
+      "count": 0
+    },
+    {
+      "table": "radial_tl",
+      "count": 0
+    },
+    {
+      "table": "radial_tl_items",
+      "count": 0
+    },
+    {
+      "table": "redirects",
+      "count": 0
+    },
+    {
+      "table": "redirects_rels",
+      "count": 0
+    },
+    {
+      "table": "search",
+      "count": 0
+    },
+    {
+      "table": "search_categories",
+      "count": 0
+    },
+    {
+      "table": "search_rels",
+      "count": 0
+    },
+    {
+      "table": "services_grid",
+      "count": 5
+    },
+    {
+      "table": "services_grid_categories",
+      "count": 9
+    },
+    {
+      "table": "services_grid_categories_services",
+      "count": 16
+    },
+    {
+      "table": "services_grid_intro_icon_list",
+      "count": 0
+    },
+    {
+      "table": "site_pages",
+      "count": 9
+    },
+    {
+      "table": "site_pages_blocks_archive",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_brand_showcase",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_brand_showcase_palette",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_brand_showcase_principles",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_brand_showcase_typography",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_brand_showcase_usage_examples",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_cal_popup",
+      "count": 5
+    },
+    {
+      "table": "site_pages_blocks_consulting_overview",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_consulting_overview_benefit_items",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_contact_section1",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_contact_section1_hours_rows",
+      "count": 3
+    },
+    {
+      "table": "site_pages_blocks_content",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_content_columns",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_cta",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_cta_links",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_cta_section3",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_cta_section3_right_cards",
+      "count": 2
+    },
+    {
+      "table": "site_pages_blocks_faq_simple",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_faq_simple_faqs",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_feature1",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_feature1_items",
+      "count": 4
+    },
+    {
+      "table": "site_pages_blocks_feature2",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_feature2_items",
+      "count": 4
+    },
+    {
+      "table": "site_pages_blocks_features_grid",
+      "count": 2
+    },
+    {
+      "table": "site_pages_blocks_features_grid_items",
+      "count": 6
+    },
+    {
+      "table": "site_pages_blocks_features_scaling",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_features_scaling_features",
+      "count": 4
+    },
+    {
+      "table": "site_pages_blocks_form_block",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_hero_grid",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_hero_marketing",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_hero_with_process",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_hero_with_process_steps",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_introduction",
+      "count": 7
+    },
+    {
+      "table": "site_pages_blocks_lyra_content",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_lyra_feature",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_media_block",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_price_calculator",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_pricing",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_pricing_cards",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_pricing_cards_plans",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_pricing_cards_plans_features",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_pricing_plans",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_pricing_plans_features",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_profil_bacher",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_scroll_morph_hero",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_serp_content",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_serp_content_bullets",
+      "count": 3
+    },
+    {
+      "table": "site_pages_blocks_service_ux_ui",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_services4",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_services4_services",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_services4_services_items",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_services_overview",
+      "count": 3
+    },
+    {
+      "table": "site_pages_blocks_services_overview_services",
+      "count": 11
+    },
+    {
+      "table": "site_pages_blocks_shadcn_block",
+      "count": 1
+    },
+    {
+      "table": "site_pages_blocks_shadcn_block_content_images",
+      "count": 0
+    },
+    {
+      "table": "site_pages_blocks_why_work_with_me",
+      "count": 5
+    },
+    {
+      "table": "site_pages_blocks_why_work_with_me_intro_icon_list",
+      "count": 24
+    },
+    {
+      "table": "site_pages_blocks_why_work_with_me_reasons",
+      "count": 16
+    },
+    {
+      "table": "site_pages_hero_floating_elements",
+      "count": 0
+    },
+    {
+      "table": "site_pages_hero_links",
+      "count": 1
+    },
+    {
+      "table": "site_pages_hero_marquee_logos",
+      "count": 12
+    },
+    {
+      "table": "site_pages_hero_stats",
+      "count": 0
+    },
+    {
+      "table": "site_pages_rels",
+      "count": 4
+    },
+    {
+      "table": "theme_settings",
+      "count": 1
+    },
+    {
+      "table": "users",
+      "count": 1
+    },
+    {
+      "table": "users_sessions",
+      "count": 1
+    }
+  ],
+  "totalRows": 2232
+}

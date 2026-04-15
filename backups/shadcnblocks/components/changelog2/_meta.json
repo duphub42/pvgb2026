@@ -1,9 +1,0 @@
-{
-  "slug": "changelog2",
-  "title": "Changelog",
-  "description": "A changelog component with a title, NEW badge, description, email signup, and dated entries with images, headlines, and text links.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/changelog2",
-  "downloadedAt": "2026-03-19T19:40:24Z",
-  "fileCount": 1
-}

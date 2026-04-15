@@ -1,9 +1,0 @@
-{
-  "slug": "reviews18",
-  "title": "Reviews",
-  "description": "This component is a review display block that showcases customer reviews, ratings, and images with an interactive carousel gallery. It includes features such as sorting options, the ability to load more reviews, and a detailed view of each review, highlighting the author's details and visual content.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/reviews18",
-  "downloadedAt": "2026-03-19T19:43:20Z",
-  "fileCount": 2
-}

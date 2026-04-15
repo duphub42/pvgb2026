@@ -1,9 +1,0 @@
-{
-  "slug": "invite-user2",
-  "title": "Invite-user",
-  "description": "A user management table with invite button that opens a slide-out sheet for sending bulk email invitations with role selection and textarea input.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/invite-user2",
-  "downloadedAt": "2026-03-19T19:42:22Z",
-  "fileCount": 1
-}

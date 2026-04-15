@@ -1,9 +1,0 @@
-{
-  "slug": "navbar6",
-  "title": "Navbar",
-  "description": "A navigation component with a logo, desktop and mobile menus, dropdowns for complex items, and auth buttons. Features a toggled mobile menu.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/navbar6",
-  "downloadedAt": "2026-03-19T19:42:35Z",
-  "fileCount": 1
-}

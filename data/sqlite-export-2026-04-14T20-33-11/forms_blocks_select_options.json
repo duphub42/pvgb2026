@@ -1,0 +1,30 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": "69da0a9a5bb7ad6bc85f27e9",
+    "id": "69da0a9a5bb7ad6bc85f27e5",
+    "label": "Beratung",
+    "value": "beratung"
+  },
+  {
+    "_order": 2,
+    "_parent_id": "69da0a9a5bb7ad6bc85f27e9",
+    "id": "69da0a9a5bb7ad6bc85f27e6",
+    "label": "Angebot",
+    "value": "angebot"
+  },
+  {
+    "_order": 3,
+    "_parent_id": "69da0a9a5bb7ad6bc85f27e9",
+    "id": "69da0a9a5bb7ad6bc85f27e7",
+    "label": "Support",
+    "value": "support"
+  },
+  {
+    "_order": 4,
+    "_parent_id": "69da0a9a5bb7ad6bc85f27e9",
+    "id": "69da0a9a5bb7ad6bc85f27e8",
+    "label": "Allgemeine Frage",
+    "value": "allgemeine_frage"
+  }
+]

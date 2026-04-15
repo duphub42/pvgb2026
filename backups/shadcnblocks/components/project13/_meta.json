@@ -1,9 +1,0 @@
-{
-  "slug": "project13",
-  "title": "Project",
-  "description": "This component showcases a project with animated transitions. It includes a full-screen hero section with scaled imagery based on scroll progress, descriptive text, a project outline with key details, and a visually immersive grid of images that enlarge on hover, followed by an in-depth exploration section.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/project13",
-  "downloadedAt": "2026-03-19T19:43:06Z",
-  "fileCount": 1
-}

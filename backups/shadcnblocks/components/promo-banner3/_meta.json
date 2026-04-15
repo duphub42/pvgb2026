@@ -1,9 +1,0 @@
-{
-  "slug": "promo-banner3",
-  "title": "Promo-banner",
-  "description": "This component is a promotional banner designed to display a countdown timer indicating the time remaining for users to place orders to ensure delivery by a specified date. It includes customizable delivery date and cutoff time features and utilizes a countdown logic to update live on-screen, making it ideal for time-sensitive promotions.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/promo-banner3",
-  "downloadedAt": "2026-03-19T19:43:15Z",
-  "fileCount": 1
-}

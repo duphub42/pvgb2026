@@ -1,9 +1,0 @@
-{
-  "slug": "shopping-cart3",
-  "title": "Shopping-cart",
-  "description": "This component is a dynamic shopping cart block that allows users to manage items, update quantities, and apply promotional codes. It includes features such as order summary, item removal, subtotal calculation, and trust badges for secure checkout, making it a comprehensive solution for handling online purchases.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/shopping-cart3",
-  "downloadedAt": "2026-03-19T19:43:44Z",
-  "fileCount": 1
-}

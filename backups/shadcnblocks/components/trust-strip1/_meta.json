@@ -1,9 +1,0 @@
-{
-  "slug": "trust-strip1",
-  "title": "Trust-strip",
-  "description": "This component displays a set of trust indicators, each with an icon, a title, and an optional description, such as \"Free Shipping\" and \"Secure Payment.\" It can be customized with different trust items and styled with additional CSS classes.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/trust-strip1",
-  "downloadedAt": "2026-03-19T19:44:20Z",
-  "fileCount": 1
-}

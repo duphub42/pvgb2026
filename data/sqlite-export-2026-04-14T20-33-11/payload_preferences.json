@@ -1,0 +1,93 @@
+[
+  {
+    "id": 1,
+    "key": "collection-site-pages",
+    "value": "{\"editViewType\":\"default\",\"limit\":10}",
+    "updated_at": "2026-02-26T16:52:16.214Z",
+    "created_at": "2026-02-26T11:19:02.976Z"
+  },
+  {
+    "id": 2,
+    "key": "collection-site-pages-4",
+    "value": "{\"fields\":{\"_index-1\":{\"tabIndex\":1},\"layout.1.links\":{\"collapsed\":[]},\"hero.marqueeLogos\":{\"collapsed\":[\"699f7236cf55b79cc4f648f3\",\"699f7236cf55b79cc4f648f4\",\"699f7236cf55b79cc4f648f5\",\"699f7236cf55b79cc4f648f6\",\"699f7236cf55b79cc4f648f7\",\"699f7236cf55b79cc4f648f8\",\"699f7236cf55b79cc4f648f9\",\"699f7236cf55b79cc4f648fa\",\"699f7236cf55b79cc4f648fb\",\"699f7236cf55b79cc4f648fc\",\"699f7236cf55b79cc4f648fd\",\"699f7236cf55b79cc4f648fe\"]},\"hero.links\":{\"collapsed\":[]},\"layout\":{\"collapsed\":[\"69c84bb3c3b6894bce4aa6d4\",\"69c84fd0c3b6894bce4aa6d8\"]}}}",
+    "updated_at": "2026-03-29T00:48:49.167Z",
+    "created_at": "2026-02-26T11:19:19.764Z"
+  },
+  {
+    "id": 3,
+    "key": "collection-media",
+    "value": "{\"editViewType\":\"default\",\"limit\":100}",
+    "updated_at": "2026-03-29T00:41:51.983Z",
+    "created_at": "2026-02-26T11:31:16.689Z"
+  },
+  {
+    "id": 4,
+    "key": "collection-blog-posts",
+    "value": "{}",
+    "updated_at": "2026-02-26T12:49:40.637Z",
+    "created_at": "2026-02-26T12:49:40.636Z"
+  },
+  {
+    "id": 5,
+    "key": "global-header",
+    "value": "{\"editViewType\":\"default\",\"fields\":{\"_index-2\":{\"collapsed\":false}}}",
+    "updated_at": "2026-02-26T20:27:42.057Z",
+    "created_at": "2026-02-26T13:35:06.765Z"
+  },
+  {
+    "id": 6,
+    "key": "collection-hero-backgrounds",
+    "value": "{\"editViewType\":\"default\"}",
+    "updated_at": "2026-02-26T13:35:18.908Z",
+    "created_at": "2026-02-26T13:35:15.665Z"
+  },
+  {
+    "id": 7,
+    "key": "collection-mega-menu",
+    "value": "{}",
+    "updated_at": "2026-02-26T20:27:33.663Z",
+    "created_at": "2026-02-26T20:27:33.663Z"
+  },
+  {
+    "id": 8,
+    "key": "global-footer",
+    "value": "{\"editViewType\":\"default\"}",
+    "updated_at": "2026-02-26T20:27:50.261Z",
+    "created_at": "2026-02-26T20:27:50.263Z"
+  },
+  {
+    "id": 9,
+    "key": "global-design",
+    "value": "{\"editViewType\":\"default\"}",
+    "updated_at": "2026-02-26T21:05:27.611Z",
+    "created_at": "2026-02-26T21:05:27.611Z"
+  },
+  {
+    "id": 10,
+    "key": "collection-payload-folders",
+    "value": "{\"editViewType\":\"default\"}",
+    "updated_at": "2026-03-01T00:49:51.204Z",
+    "created_at": "2026-03-01T00:49:51.205Z"
+  },
+  {
+    "id": 11,
+    "key": "collection-forms",
+    "value": "{\"editViewType\":\"default\"}",
+    "updated_at": "2026-03-27T09:14:13.570Z",
+    "created_at": "2026-03-27T09:14:12.298Z"
+  },
+  {
+    "id": 12,
+    "key": "collection-site-pages-1",
+    "value": "{\"fields\":{\"_index-1\":{\"tabIndex\":0},\"layout.0.columns\":{\"collapsed\":[\"699f7235cf55b79cc4f648ed\",\"69c873d8ae13444f8233c35e\"]},\"layout\":{\"collapsed\":[\"69c87400ae13444f8233c362\"]},\"layout.1.services\":{\"collapsed\":[\"69c873ebc86ba5cf09f094a0\",\"69c873ebc86ba5cf09f094a1\"]}}}",
+    "updated_at": "2026-03-29T08:48:02.383Z",
+    "created_at": "2026-03-29T00:35:32.908Z"
+  },
+  {
+    "id": 13,
+    "key": "nav",
+    "value": "{\"groups\":{\"Einstellungen\":{\"open\":false}}}",
+    "updated_at": "2026-03-29T00:53:25.819Z",
+    "created_at": "2026-03-29T00:53:25.824Z"
+  }
+]

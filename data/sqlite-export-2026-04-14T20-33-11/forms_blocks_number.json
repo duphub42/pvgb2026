@@ -1,0 +1,14 @@
+[
+  {
+    "_order": 3,
+    "_parent_id": 2,
+    "_path": "fields",
+    "id": "69da0a9a5bb7ad6bc85f27e3",
+    "name": "telefon",
+    "label": "Telefon",
+    "width": 100,
+    "default_value": null,
+    "required": 0,
+    "block_name": "telefon"
+  }
+]

@@ -1,9 +1,0 @@
-{
-  "slug": "product-detail4",
-  "title": "Product-detail",
-  "description": "This component displays detailed product information, including images, descriptions, pricing, and reviews, and allows users to select product options like color. It features an interactive image gallery with thumbnails and a lightbox for enhanced viewing, along with an accordion for expanding additional product details.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/product-detail4",
-  "downloadedAt": "2026-03-19T19:42:55Z",
-  "fileCount": 2
-}

@@ -1,9 +1,0 @@
-{
-  "slug": "login2",
-  "title": "Login",
-  "description": "A login component featuring a logo, headings, email and password fields, login & Google signup buttons, and a signup link. Set in a centered, single-column layout with a focus on simplicity and readability.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/login2",
-  "downloadedAt": "2026-03-19T19:42:25Z",
-  "fileCount": 1
-}

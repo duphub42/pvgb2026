@@ -1,0 +1,78 @@
+[
+  {
+    "id": 1,
+    "title": "Kontaktformular",
+    "submit_button_label": "Absenden",
+    "confirmation_type": "message",
+    "confirmation_message": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Vielen Dank! Ihre Anfrage wurde erfolgreich übermittelt.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "redirect_url": null,
+    "updated_at": "2026-04-14T13:29:56.722Z",
+    "created_at": "2026-04-14T13:29:56.720Z"
+  },
+  {
+    "id": 2,
+    "title": "Rückruf-Anfrage",
+    "submit_button_label": "Anfragen",
+    "confirmation_type": "message",
+    "confirmation_message": {
+      "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 1,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 1,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Vielen Dank! Ihre Rückruf-Anfrage wurde erfolgreich übermittelt.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr"
+          }
+        ],
+        "direction": "ltr"
+      }
+    },
+    "redirect_url": null,
+    "updated_at": "2026-04-14T13:29:57.424Z",
+    "created_at": "2026-04-14T13:29:57.423Z"
+  }
+]

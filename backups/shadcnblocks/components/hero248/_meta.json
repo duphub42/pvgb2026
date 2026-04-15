@@ -1,9 +1,0 @@
-{
-  "slug": "hero248",
-  "title": "Hero",
-  "description": "A component showcasing a team section with dynamic tooltips over names, a large title, description, and a call-to-action button. Incorporates a 2-column layout with rotating tooltips for team members.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/hero248",
-  "downloadedAt": "2026-03-19T19:42:12Z",
-  "fileCount": 1
-}

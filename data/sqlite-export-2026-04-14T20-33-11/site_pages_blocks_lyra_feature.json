@@ -1,0 +1,22 @@
+[
+  {
+    "_order": 6,
+    "_parent_id": 4,
+    "_path": "layout",
+    "id": "699f7236cf55b79cc4f6490c",
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "title": "The Lyra ecosystem brings together our models.",
+    "paragraph_one": "Lyra is evolving to be more than just the models. It supports an entire ecosystem — from products innovate.",
+    "paragraph_two": "It supports an entire ecosystem — from products to the APIs and platforms helping developers and businesses innovate.",
+    "feature_fast_title": "Faaast",
+    "feature_fast_text": "It supports an entire helping developers and innovate.",
+    "feature_powerful_title": "Powerful",
+    "feature_powerful_text": "It supports an entire helping developers and businesses.",
+    "dark_image_id": null,
+    "light_image_id": null,
+    "block_name": null
+  }
+]

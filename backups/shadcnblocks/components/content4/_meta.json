@@ -1,9 +1,0 @@
-{
-  "slug": "content4",
-  "title": "Content",
-  "description": "A content block with navigation links to sections, an interactive 'back to top' button, using dynamic highlighting for section visibility. It includes a breadcrumb, author info, and images laid out in a grid and column format.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/content4",
-  "downloadedAt": "2026-03-19T19:40:55Z",
-  "fileCount": 1
-}

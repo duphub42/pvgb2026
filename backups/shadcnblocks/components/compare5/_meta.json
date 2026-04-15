@@ -1,9 +1,0 @@
-{
-  "slug": "compare5",
-  "title": "Compare",
-  "description": "A component displays two options with images, text, and buttons, split across two columns, and features an \"OR\" marker centrally between columns.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/compare5",
-  "downloadedAt": "2026-03-19T19:40:47Z",
-  "fileCount": 1
-}

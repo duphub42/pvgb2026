@@ -1,9 +1,0 @@
-{
-  "slug": "order-summary6",
-  "title": "Order-summary",
-  "description": "This component is designed to display an order confirmation dialog, highlighting key details such as order number, estimated delivery date, itemized products with images, quantities, and prices. It also features a summary of the order costs including subtotal, shipping, and total, with options to track the order or continue shopping.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/order-summary6",
-  "downloadedAt": "2026-03-19T19:42:40Z",
-  "fileCount": 1
-}

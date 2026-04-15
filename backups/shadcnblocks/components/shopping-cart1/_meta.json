@@ -1,9 +1,0 @@
-{
-  "slug": "shopping-cart1",
-  "title": "Shopping-cart",
-  "description": "This component, named \"ShoppingCart1,\" provides a user interface for displaying and managing items in a shopping cart. It supports functionality like removing items, viewing the item list with images, and calculating the total cost dynamically.",
-  "type": "registry:block",
-  "sourceUrl": "https://www.shadcnblocks.com/r/shopping-cart1",
-  "downloadedAt": "2026-03-19T19:43:42Z",
-  "fileCount": 1
-}

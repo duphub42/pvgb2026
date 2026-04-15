@@ -1,0 +1,74 @@
+[
+  {
+    "_order": 1,
+    "_parent_id": 1,
+    "_path": "fields",
+    "id": "69c653b7ac2f59fb3d9d81bc",
+    "name": "Name",
+    "label": "Name",
+    "width": null,
+    "default_value": "Name",
+    "required": null,
+    "block_name": null
+  },
+  {
+    "_order": 2,
+    "_parent_id": 1,
+    "_path": "fields",
+    "id": "69c6552aac2f59fb3d9d81be",
+    "name": "Telefonnummer",
+    "label": "Telefon",
+    "width": null,
+    "default_value": "+49",
+    "required": 1,
+    "block_name": null
+  },
+  {
+    "_order": 1,
+    "_parent_id": 2,
+    "_path": "fields",
+    "id": "69da0a9a5bb7ad6bc85f27e1",
+    "name": "name",
+    "label": "Name",
+    "width": 100,
+    "default_value": null,
+    "required": 1,
+    "block_name": "name"
+  },
+  {
+    "_order": 4,
+    "_parent_id": 2,
+    "_path": "fields",
+    "id": "69da0a9a5bb7ad6bc85f27e4",
+    "name": "firma",
+    "label": "Firma",
+    "width": 100,
+    "default_value": null,
+    "required": 0,
+    "block_name": "firma"
+  },
+  {
+    "_order": 1,
+    "_parent_id": 3,
+    "_path": "fields",
+    "id": "69da0a9a5bb7ad6bc85f27ed",
+    "name": "name",
+    "label": "Name",
+    "width": 100,
+    "default_value": null,
+    "required": 1,
+    "block_name": "name"
+  },
+  {
+    "_order": 2,
+    "_parent_id": 3,
+    "_path": "fields",
+    "id": "69da0a9a5bb7ad6bc85f27ee",
+    "name": "telefon",
+    "label": "Telefonnummer",
+    "width": 100,
+    "default_value": null,
+    "required": 1,
+    "block_name": "telefon"
+  }
+]

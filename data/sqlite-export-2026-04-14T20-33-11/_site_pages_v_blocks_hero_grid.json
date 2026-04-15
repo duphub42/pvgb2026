@@ -1,0 +1,21 @@
+[
+  {
+    "_order": 6,
+    "_parent_id": 5,
+    "_path": "version.layout",
+    "id": 1,
+    "block_background": "none",
+    "block_overlay_enabled": 0,
+    "block_overlay_color": "dark",
+    "block_overlay_opacity": 288,
+    "title": "Build your next project with Smoothui",
+    "highlight": "Smoothui",
+    "subtitle": "Smoothui gives you the building blocks to create stunning, animated interfaces in minutes.",
+    "primary_cta_label": "Get Started",
+    "primary_cta_url": "#get-started",
+    "secondary_cta_label": "Learn more",
+    "secondary_cta_url": "#learn-more",
+    "_uuid": "699f7236cf55b79cc4f64921",
+    "block_name": null
+  }
+]
