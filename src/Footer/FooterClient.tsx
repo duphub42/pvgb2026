@@ -26,12 +26,12 @@ const SOCIAL_SPRITE_IDS: Record<string, string> = {
   instagram: 'hf-instagram',
 }
 const MOBILE_FOOTER_B_LOGO_SRC = '/branding/philippbacher-logo-b-10.svg'
-const MOBILE_FOOTER_B_LOGO_MIN_OPACITY = 0.15
-const MOBILE_FOOTER_B_LOGO_MAX_OPACITY = 1
-const MOBILE_FOOTER_HEADING_MIN_OPACITY = MOBILE_FOOTER_B_LOGO_MIN_OPACITY
-const MOBILE_FOOTER_HEADING_MAX_OPACITY = MOBILE_FOOTER_B_LOGO_MAX_OPACITY
+const MOBILE_FOOTER_B_LOGO_MIN_OPACITY = 0.1
+const MOBILE_FOOTER_B_LOGO_MAX_OPACITY = 0.3
+const MOBILE_FOOTER_HEADING_MIN_OPACITY = 0.3
+const MOBILE_FOOTER_HEADING_MAX_OPACITY = 1
 const MOBILE_FOOTER_B_LOGO_FADE_ZONE_RATIO = 0.72
-const ENABLE_MOBILE_FOOTER_SCROLL_FADE = false
+const ENABLE_MOBILE_FOOTER_SCROLL_FADE = true
 
 function mediaUrl(media: { url?: string | null } | number | null | undefined): string {
   if (media == null) return ''
@@ -76,7 +76,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
   const useTextLogo = !logoToShow
   const mobileFooterLogoAlt = footer?.footerLogoAltText?.trim() || 'Philipp Bacher Logo'
   const mobileFooterLogoClassName =
-    'mobile-footer-b-logo logo-contrast block max-w-[100%] h-16 sm:h-18 md:h-22 md:hidden'
+    'mobile-footer-b-logo logo-contrast block max-w-[100%] h-16 sm:h-18 md:h-22'
 
   const newsletterIcon =
     footer?.newsletterIcon && String(footer.newsletterIcon).trim().length > 0
@@ -98,17 +98,14 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
     const footerEl = footerRootRef.current
     if (!footerEl) return
 
-    const logoEl = mobileFooterLogoRef.current
-    if (!logoEl) return
-
     const headingEls = Array.from(
       footerEl.querySelectorAll<HTMLElement>('.footer-center-fade-heading'),
     )
-    const mobileQuery = window.matchMedia('(max-width: 47.99rem)')
+    const logoEl = footerEl.querySelector<HTMLElement>('.mobile-footer-b-logo')
     let rafId: number | null = null
     let listenersAttached = false
-    let lastLogoOpacity = ''
     const lastHeadingOpacities = new Map<HTMLElement, string>()
+    let lastLogoOpacity = ''
 
     const calcOpacityForRect = (rect: DOMRect, minOpacity: number, maxOpacity: number): number => {
       const targetCenterY = rect.top + rect.height / 2
@@ -122,37 +119,33 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
       return minOpacity + (maxOpacity - minOpacity) * smoothProgress
     }
 
-    const clearMobileOpacityVars = () => {
-      if (lastLogoOpacity !== '') {
-        logoEl.style.removeProperty('--mobile-footer-logo-opacity')
-        lastLogoOpacity = ''
-      }
-
+    const clearOpacityVars = () => {
       if (lastHeadingOpacities.size > 0) {
         for (const headingEl of headingEls) {
           headingEl.style.removeProperty('--mobile-footer-heading-opacity')
         }
         lastHeadingOpacities.clear()
       }
+      if (logoEl && lastLogoOpacity !== '') {
+        logoEl.style.removeProperty('--mobile-footer-logo-opacity')
+        lastLogoOpacity = ''
+      }
     }
 
-    const applyLogoOpacity = () => {
+    const applyOpacity = () => {
       rafId = null
 
-      if (!mobileQuery.matches) {
-        clearMobileOpacityVars()
-        return
-      }
-
-      const logoOpacity = calcOpacityForRect(
-        logoEl.getBoundingClientRect(),
-        MOBILE_FOOTER_B_LOGO_MIN_OPACITY,
-        MOBILE_FOOTER_B_LOGO_MAX_OPACITY,
-      )
-      const nextLogoOpacity = logoOpacity.toFixed(3)
-      if (nextLogoOpacity !== lastLogoOpacity) {
-        logoEl.style.setProperty('--mobile-footer-logo-opacity', nextLogoOpacity)
-        lastLogoOpacity = nextLogoOpacity
+      if (logoEl) {
+        const logoOpacity = calcOpacityForRect(
+          logoEl.getBoundingClientRect(),
+          MOBILE_FOOTER_HEADING_MIN_OPACITY,
+          MOBILE_FOOTER_HEADING_MAX_OPACITY,
+        )
+        const nextLogoOpacity = logoOpacity.toFixed(3)
+        if (nextLogoOpacity !== lastLogoOpacity) {
+          logoEl.style.setProperty('--mobile-footer-logo-opacity', nextLogoOpacity)
+          lastLogoOpacity = nextLogoOpacity
+        }
       }
 
       for (const headingEl of headingEls) {
@@ -171,49 +164,33 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
       }
     }
 
-    const queueLogoOpacityUpdate = () => {
+    const queueOpacityUpdate = () => {
       if (rafId != null) return
-      rafId = window.requestAnimationFrame(applyLogoOpacity)
+      rafId = window.requestAnimationFrame(applyOpacity)
     }
 
-    const handleViewportChange = () => {
-      if (mobileQuery.matches && !listenersAttached) {
-        window.addEventListener('scroll', queueLogoOpacityUpdate, { passive: true })
-        window.addEventListener('resize', queueLogoOpacityUpdate)
-        window.addEventListener('orientationchange', queueLogoOpacityUpdate)
+    const attachListeners = () => {
+      if (!listenersAttached) {
+        window.addEventListener('scroll', queueOpacityUpdate, { passive: true })
+        window.addEventListener('resize', queueOpacityUpdate)
+        window.addEventListener('orientationchange', queueOpacityUpdate)
         listenersAttached = true
-      } else if (!mobileQuery.matches && listenersAttached) {
-        window.removeEventListener('scroll', queueLogoOpacityUpdate)
-        window.removeEventListener('resize', queueLogoOpacityUpdate)
-        window.removeEventListener('orientationchange', queueLogoOpacityUpdate)
-        listenersAttached = false
       }
-      queueLogoOpacityUpdate()
+      queueOpacityUpdate()
     }
 
-    if (typeof mobileQuery.addEventListener === 'function') {
-      mobileQuery.addEventListener('change', handleViewportChange)
-    } else {
-      mobileQuery.addListener(handleViewportChange)
-    }
-
-    handleViewportChange()
+    attachListeners()
 
     return () => {
       if (rafId != null) {
         window.cancelAnimationFrame(rafId)
       }
       if (listenersAttached) {
-        window.removeEventListener('scroll', queueLogoOpacityUpdate)
-        window.removeEventListener('resize', queueLogoOpacityUpdate)
-        window.removeEventListener('orientationchange', queueLogoOpacityUpdate)
+        window.removeEventListener('scroll', queueOpacityUpdate)
+        window.removeEventListener('resize', queueOpacityUpdate)
+        window.removeEventListener('orientationchange', queueOpacityUpdate)
       }
-      clearMobileOpacityVars()
-      if (typeof mobileQuery.removeEventListener === 'function') {
-        mobileQuery.removeEventListener('change', handleViewportChange)
-      } else {
-        mobileQuery.removeListener(handleViewportChange)
-      }
+      clearOpacityVars()
     }
   }, [])
 
@@ -299,9 +276,9 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
         <div className="container">
           <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:grid-cols-[1fr_3fr] [&>*]:pt-4">
             <div className="md:col-span-12 lg:col-span-1 order-1 md:order-1 lg:order-1">
-              <div className="space-y-4 md:space-y-0 lg:space-y-8">
+              <div className="h-full flex flex-col gap-4 md:gap-0 lg:gap-8">
                 {footer.footerDescription != null && (
-                  <div className="hidden lg:block text-[11px] md:text-sm leading-[1.5] opacity-80 max-w-none text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
+                  <div className="hidden lg:block text-[11px] md:text-sm leading-[1.5] opacity-60 max-w-none text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
                     <RichText
                       data={footer.footerDescription}
                       enableGutter={false}
@@ -309,44 +286,32 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                     />
                   </div>
                 )}
-                <div className="flex flex-col items-center text-center gap-6 md:grid md:grid-cols-[2fr_5fr_13fr] md:items-start md:text-left lg:flex lg:flex-row lg:items-center lg:gap-6">
+                <div className="flex-1 flex flex-col items-center text-center gap-6 md:grid md:grid-cols-[2fr_5fr_13fr] md:items-end md:text-left lg:flex lg:flex-row lg:items-end lg:justify-end lg:gap-8">
                   {/* Logo */}
-                  <div className="flex items-center justify-center md:justify-start">
+                  <div className="flex items-end justify-center md:justify-start lg:self-end">
                     <Link href="/" className="logo-link inline-block max-w-[100%]">
                       <>
                         <img
                           ref={mobileFooterLogoRef}
                           src={MOBILE_FOOTER_B_LOGO_SRC}
                           alt={mobileFooterLogoAlt}
-                          className={mobileFooterLogoClassName}
+                          className="mobile-footer-b-logo logo-contrast block max-w-[100%] h-16 sm:h-18 md:h-28"
                           width={48}
                           height={48}
                           loading="lazy"
                           decoding="async"
                         />
-                        {logoToShow != null ? (
-                          <Logo
-                            logo={logoToShow}
-                            variant="footer"
-                            className="hidden max-w-[100%] h-20 md:h-28 md:block"
-                          />
-                        ) : (
-                          <span className="hidden md:inline-flex">
-                            <LogoWithGlitchWrapper
-                              useTextLogo={useTextLogo}
-                              logoUrl={logoUrl}
-                              variant="footer"
-                            />
-                          </span>
+                        {logoToShow != null && (
+                          <Logo logo={logoToShow} variant="footer" className="hidden" />
                         )}
                       </>
                     </Link>
                   </div>
 
                   {/* Kontakt + Social */}
-                  <div className="space-y-4">
+                  <div className="space-y-4 lg:self-end">
                     {(footerAddress || footerPhone) && (
-                      <div className="footer-contact-list space-y-1 text-sm opacity-80">
+                      <div className="footer-contact-list space-y-1 text-sm opacity-60">
                         {footerAddress && (
                           <div className="footer-contact-row flex items-start gap-2">
                             <span
@@ -357,7 +322,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                                 <use href="/icons-sprite.svg#hf-map-pin" />
                               </svg>
                             </span>
-                            <p className="footer-contact-text whitespace-pre-line">
+                            <p className="footer-contact-text whitespace-pre-line opacity-60">
                               {footerAddress}
                             </p>
                           </div>
@@ -374,7 +339,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                             </span>
                             <a
                               href={`tel:${footerPhone.replace(/\s+/g, '')}`}
-                              className="footer-contact-link footer-link text-xs"
+                              className="footer-contact-link footer-link text-xs opacity-60"
                             >
                               {footerPhone}
                             </a>
@@ -434,10 +399,9 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                       </div>
                     )}
                   </div>
-
                   {/* Beschreibung iPad/Playbook */}
                   {footer.footerDescription != null && (
-                    <div className="hidden md:block lg:hidden text-[11px] md:text-sm leading-[1.5] opacity-80 max-w-none text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
+                    <div className="hidden md:block lg:hidden text-[11px] md:text-sm leading-[1.5] opacity-60 max-w-none text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
                       <RichText
                         data={footer.footerDescription}
                         enableGutter={false}
@@ -448,7 +412,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                 </div>
 
                 {footer.footerDescription != null && (
-                  <div className="block md:hidden text-[11px] md:text-sm leading-[1.5] opacity-80 max-w-none text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
+                  <div className="block md:hidden text-[11px] md:text-sm leading-[1.5] opacity-60 max-w-none text-center [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
                     <RichText
                       data={footer.footerDescription}
                       enableGutter={false}
@@ -509,14 +473,14 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                             <h3 className="footer-heading footer-center-fade-heading text-sm font-semibold uppercase tracking-[-0.009em]">
                               {col.columnTitle}
                             </h3>
-                            <ul className="space-y-1">
+                            <ul className="space-y-0">
                               {(col.links ?? []).map((linkRow, j) => (
                                 <li key={linkRow.id ?? j}>
                                   <a
                                     href={linkRow.linkUrl}
                                     target={linkRow.isExternal ? '_blank' : undefined}
                                     rel={linkRow.isExternal ? 'noopener noreferrer' : undefined}
-                                    className="text-[11px] md:text-sm leading-3 opacity-80 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px] footer-link"
+                                    className="text-[11px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[28px] footer-link"
                                   >
                                     <span className="footer-link-text">{linkRow.linkText}</span>
                                     <ArrowRight
@@ -571,7 +535,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
 
                           <div className="flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-6">
                             {footer.newsletterDescription != null && (
-                              <div className="text-[11px] md:text-sm leading-[1.5] opacity-80 max-w-none min-w-0 text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
+                              <div className="text-[11px] md:text-sm leading-[1.5] opacity-60 max-w-none min-w-0 text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
                                 <RichText
                                   data={footer.newsletterDescription}
                                   enableGutter={false}
@@ -630,7 +594,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
 
           {/* Bottom Bar */}
           {/* FIX: footer-bottom-border statt border-white/10 hardkodiert */}
-          <div className="mt-10 flex flex-col items-center gap-4 footer-bottom-border pt-6 text-[11px] md:text-sm opacity-80 md:flex-row md:flex-wrap md:items-center md:justify-between">
+          <div className="mt-10 flex flex-col items-center gap-4 footer-bottom-border pt-6 text-[11px] md:text-sm opacity-60 md:flex-row md:flex-wrap md:items-center md:justify-between">
             {footer.copyrightText != null && (
               <span className="text-center md:text-left tracking-[-0.03em]">
                 {footer.copyrightText}
@@ -640,7 +604,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
               {footer.privacyLink != null && (
                 <Link
                   href={footer.privacyLink}
-                  className="footer-link text-[11px] md:text-sm leading-3 opacity-80 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px]"
+                  className="footer-link text-[11px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px]"
                 >
                   <span className="footer-link-text">{messages[locale].footer.privacy}</span>
                   <ArrowRight
@@ -652,7 +616,7 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
               {footer.termsLink != null && (
                 <Link
                   href={footer.termsLink}
-                  className="footer-link text-[11px] md:text-sm leading-3 opacity-80 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px]"
+                  className="footer-link text-[11px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px]"
                 >
                   <span className="footer-link-text">{messages[locale].footer.terms}</span>
                   <ArrowRight

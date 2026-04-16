@@ -364,13 +364,20 @@
 }
 
 .mobile-megamenu-utility-logo {
-  --mobile-mega-site-logo-height: 42.5px;
-  --mobile-mega-site-logo-mask-width: 40px;
+  --mobile-mega-site-logo-height: 30px;
+  --mobile-mega-site-logo-mask-width: 28px;
   --mobile-mega-site-logo-mask-right-gap: 4px;
   justify-self: start;
   display: inline-flex;
   align-items: center;
   min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .mobile-megamenu-utility-logo {
+    --mobile-mega-site-logo-height: 42.5px;
+    --mobile-mega-site-logo-mask-width: 40px;
+  }
 }
 
 .mobile-megamenu-utility-logo-mask {
@@ -2340,14 +2347,21 @@
   border-bottom-color: transparent !important;
 }
 
-/* Sticky-Logo-Swap: Voll-Logo standard, maskiertes Site-Logo im Sticky-Zustand. */
+/* Sticky-Logo-Swap: Voll-Logo standard, maskiertes Site-Logo (B-Logo) im Sticky-Zustand. */
 .logo-link {
-  --header-logo-mask-height: 42.5px;
-  --header-logo-mask-width: 40px;
+  --header-logo-mask-height: 30px;
+  --header-logo-mask-width: 28px;
   --header-logo-mask-right-gap: 4px;
   --header-logo-morph-duration: 920ms;
   --header-logo-morph-ease: cubic-bezier(0.16, 0.9, 0.22, 1);
   --header-logo-preview-duration: 420ms;
+}
+
+@media (min-width: 640px) {
+  .logo-link {
+    --header-logo-mask-height: 42.5px;
+    --header-logo-mask-width: 40px;
+  }
 }
 
 .logo-link[data-logo-preview-active='true'] {

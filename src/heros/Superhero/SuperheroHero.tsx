@@ -534,12 +534,12 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
           <div
             ref={portraitRef}
             className={cn(
-              'relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 max-md:mt-10 max-md:flex-shrink-0 md:order-none md:mb-0 md:pl-4 md:self-end hero-desktop-parallax-portrait',
+              'relative min-w-0 pt-0 order-first max-md:z-[6] max-md:mb-5 max-md:mt-10 max-md:flex-shrink-0 md:order-none md:mb-0 md:pl-4 md:self-end md:min-h-0 lg:min-h-[min(85vh,900px)] hero-desktop-parallax-portrait',
               !isProfilVariant && 'hero-mobile-sticky-portrait',
               hasPopoutStack && 'hero-desktop-parallax-portrait--stack',
             )}
           >
-            <div className="relative overflow-visible max-md:pb-6 md:flex md:items-end md:justify-center md:pb-8 md:pt-4">
+            <div className="relative overflow-visible max-md:pb-6 md:flex md:items-end md:justify-center md:pb-8 md:pt-4 md:h-full">
               {hasVisual && <div className="hero-portrait-gradient-blob" aria-hidden />}
 
               {isProfilVariant ? (
@@ -560,12 +560,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                   />
                 </div>
               ) : portraitSrc ? (
-                <div
-                  className="relative z-[1] mx-auto w-full md:flex md:items-end md:justify-center"
-                  style={{
-                    minHeight: '95vh',
-                  }}
-                >
+                <div className="relative z-[1] w-full h-full flex items-end justify-center">
                   <PopoutPortrait imageSrc={portraitSrc} fillRowHeight />
                 </div>
               ) : (

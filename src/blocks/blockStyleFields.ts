@@ -139,15 +139,45 @@ const overlayFields: Field[] = [
 // ============================================================================
 
 export const blockStyleFields: Field[] = [
-  // --- Spacing ---
+  // --- Spacing (flat) ---
   {
-    name: 'blockSpacing',
-    type: 'group',
-    label: 'Abstände',
-    admin: {
-      description: 'Padding und Margin des Blocks',
-    },
-    fields: spacingFields,
+    name: 'blockSpacingPadding',
+    dbName: 'sp',
+    type: 'select',
+    label: 'Padding',
+    defaultValue: 'default',
+    options: [
+      { label: 'Keiner (0)', value: 'none' },
+      { label: 'Klein (py-8)', value: 'sm' },
+      { label: 'Standard (py-16)', value: 'default' },
+      { label: 'Groß (py-24)', value: 'lg' },
+      { label: 'Extra groß (py-32)', value: 'xl' },
+    ],
+  },
+  {
+    name: 'blockSpacingPaddingTop',
+    dbName: 'spt',
+    type: 'select',
+    label: 'Padding Top (zusätzlich)',
+    defaultValue: 'default',
+    options: [
+      { label: 'Standard', value: 'default' },
+      { label: 'Negativ', value: 'negative' },
+      { label: 'Extra groß', value: 'xl' },
+    ],
+  },
+  {
+    name: 'blockSpacingMarginBottom',
+    dbName: 'smb',
+    type: 'select',
+    label: 'Margin Bottom',
+    defaultValue: 'default',
+    options: [
+      { label: 'Keiner', value: 'none' },
+      { label: 'Klein', value: 'sm' },
+      { label: 'Standard', value: 'default' },
+      { label: 'Groß', value: 'lg' },
+    ],
   },
 
   // --- Container ---
@@ -162,11 +192,11 @@ export const blockStyleFields: Field[] = [
       { label: 'Vollbreite', value: 'full' },
       { label: 'Schmal (max-w-4xl)', value: 'narrow' },
       { label: 'Extrabreit (max-w-[90rem])', value: 'wide' },
-      { label: 'Kein Container (randlos)', value: 'none' },
+      { label: 'Kein Container', value: 'none' },
     ],
   },
 
-  // --- Hintergrund (erweitert) ---
+  // --- Hintergrund ---
   {
     name: 'blockBackground',
     dbName: 'bg',
@@ -182,28 +212,83 @@ export const blockStyleFields: Field[] = [
       { label: 'Karte (card)', value: 'card' },
       { label: 'Primär (primary/5)', value: 'primary' },
     ],
+  },
+
+  // --- Border (flat) ---
+  {
+    name: 'blockBorderEnabled',
+    type: 'checkbox',
+    label: 'Rahmen aktivieren',
+    defaultValue: false,
+  },
+  {
+    name: 'blockBorderStyle',
+    dbName: 'bs',
+    type: 'select',
+    label: 'Rahmen-Stil',
+    defaultValue: 'default',
+    options: [
+      { label: 'Standard', value: 'default' },
+      { label: 'Akzent', value: 'accent' },
+      { label: 'Subtil', value: 'subtle' },
+    ],
     admin: {
-      description: 'Hintergrundfarbe des gesamten Blocks',
+      condition: (_: unknown, siblingData: { blockBorderEnabled?: boolean } | null | undefined) =>
+        Boolean(siblingData?.blockBorderEnabled),
+    },
+  },
+  {
+    name: 'blockBorderRadius',
+    dbName: 'br',
+    type: 'select',
+    label: 'Eckradius',
+    defaultValue: 'default',
+    options: [
+      { label: 'Standard (1rem)', value: 'default' },
+      { label: 'Klein', value: 'sm' },
+      { label: 'Groß', value: 'lg' },
+      { label: 'Keiner', value: 'none' },
+    ],
+    admin: {
+      condition: (_: unknown, siblingData: { blockBorderEnabled?: boolean } | null | undefined) =>
+        Boolean(siblingData?.blockBorderEnabled),
     },
   },
 
-  // --- Rahmen ---
+  // --- Overlay (flat) ---
   {
-    name: 'blockBorder',
-    type: 'group',
-    label: 'Rahmen',
-    fields: borderFields,
+    name: 'blockOverlayEnabled',
+    type: 'checkbox',
+    label: 'Overlay aktiv',
+    defaultValue: false,
   },
-
-  // --- Overlay ---
   {
-    name: 'blockOverlay',
-    type: 'group',
-    label: 'Overlay-Filter',
+    name: 'blockOverlayColor',
+    dbName: 'oc',
+    type: 'select',
+    label: 'Overlay-Farbe',
+    defaultValue: 'dark',
+    options: [
+      { label: 'Dunkel', value: 'dark' },
+      { label: 'Hell', value: 'light' },
+    ],
     admin: {
-      description: 'Optionaler Farbfilter über dem Blockinhalt',
+      condition: (_: unknown, siblingData: { blockOverlayEnabled?: boolean } | null | undefined) =>
+        Boolean(siblingData?.blockOverlayEnabled),
     },
-    fields: overlayFields,
+  },
+  {
+    name: 'blockOverlayOpacity',
+    type: 'number',
+    label: 'Overlay-Deckkraft (%)',
+    min: 0,
+    max: 100,
+    defaultValue: 0,
+    admin: {
+      condition: (_: unknown, siblingData: { blockOverlayEnabled?: boolean } | null | undefined) =>
+        Boolean(siblingData?.blockOverlayEnabled),
+      description: '0 = transparent, 100 = voll deckend',
+    },
   },
 
   // --- Content-Spacing ---
@@ -218,9 +303,6 @@ export const blockStyleFields: Field[] = [
       { label: 'Standard', value: 'default' },
       { label: 'Luftig', value: 'airy' },
     ],
-    admin: {
-      description: 'Abstand zwischen Elementen im Block (Headings, Texte, etc.)',
-    },
   },
 
   // --- Animation ---

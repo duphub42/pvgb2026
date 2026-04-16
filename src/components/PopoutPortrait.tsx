@@ -3,9 +3,9 @@
 import React from 'react'
 
 /** SVG layout coordinates; `width`/`height` props scale rendering only. */
-const VIEWBOX_W = 460
-const VIEWBOX_H = 560
-const DEFAULT_DISPLAY_SCALE = 1.1
+const VIEWBOX_W = 600 // war 460
+const VIEWBOX_H = 720 // war 560
+const DEFAULT_DISPLAY_SCALE = 3.5
 
 interface PopoutPortraitProps {
   imageSrc?: string
@@ -14,7 +14,7 @@ interface PopoutPortraitProps {
   /** Rendered CSS pixel height (viewBox stays VIEWBOX_H). */
   height?: number
   /**
-   * Size from available height (width follows aspect ratio), capped by max-width.
+   * Size from available height (width follows aspect ratio).
    * Parent chain should give a definite height (e.g. grid row + h-full flex).
    */
   fillRowHeight?: boolean
@@ -45,17 +45,17 @@ export default function PopoutPortrait({
   const diskGroundShadowGradDarkId = `${uid}-disk-ground-shadow-grad-dark`
   const diskGroundShadowBlurId = `${uid}-disk-ground-shadow-blur`
   const diskRimGradId = `${uid}-disk-rim-grad`
-  const cx = 225
-  const cy = 340
-  /** Base radius 175, +10% */
-  const r = 175 * 1.1
+  const cx = 293 // war 225 (225/460*600)
+  const cy = 437 // war 340 (340/560*720)
+  /** Base radius 228, +10% */
+  const r = 228 * 1.1 // war 175 (175/460*600=228)
   /** Bodenschatten: klar unter dem Kreis, nicht am Rand (viewBox-Einheiten). */
   const diskShadowGap = 14.5
   const diskShadowRx = r * 1.52
   const diskShadowRy = r * 0.21
   const diskShadowCy = cy + r + diskShadowGap + diskShadowRy
-  const imgW = 300
-  const imgH = 500
+  const imgW = 548 // war 420 (420/460*600)
+  const imgH = 694 // war 540 (540/560*720)
   /** Horizontally center the image slot on the popout circle */
   const imgX = cx - imgW / 2
   /** Bottom of image slot = bottom of circle; xMidYMax meet pins the figure to that edge */
@@ -118,12 +118,10 @@ export default function PopoutPortrait({
               flexShrink: 0,
               overflow: 'visible',
               margin: '0 auto',
-              ['--pb-popout-max-w' as string]: `${width}px`,
             }
           : {
               position: 'relative',
               width: '100%',
-              maxWidth: width,
               flexShrink: 0,
               overflow: 'visible',
               margin: '0 auto',
@@ -133,20 +131,15 @@ export default function PopoutPortrait({
       <style>{`
         .pb-popout-root[data-pb-fill-row] {
           width: 100%;
-          max-width: min(98vw, ${VIEWBOX_W * DEFAULT_DISPLAY_SCALE * 2.5}px);
-          max-height: 95vh;
+          height: 100%;
         }
         @media (min-width: 768px) {
           .pb-popout-root[data-pb-fill-row] {
             width: auto;
-            max-width: 100%;
-            height: auto;
+            height: 100%;
+            max-width: none;
             max-height: none;
-          }
-        }
-        @media (min-width: 1025px) {
-          .pb-popout-root[data-pb-fill-row] {
-            min-height: min(85vh, 640px);
+            flex: 1 1 auto;
           }
         }
         .pb-disk-dark {
