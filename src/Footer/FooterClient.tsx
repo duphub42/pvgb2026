@@ -38,6 +38,15 @@ function normalizeKnownBrokenFooterIconUrl(url: string): string {
   return url
 }
 
+// Type definitions for raw database fields (snake_case from DB)
+interface HeaderWithRawFields extends Header {
+  logo_id?: number | null
+}
+
+interface FooterWithRawFields extends Footer {
+  footer_logo_id?: number | null
+}
+
 export type FooterClientProps = {
   footer: Footer | null
   header?: Header | null
@@ -67,8 +76,10 @@ export function FooterClient({
 
   // Support both footerLogo (camelCase) and footer_logo_id (snake_case from DB)
   // Also use header logo (B-logo) as fallback when footer has no logo
-  const headerLogo = headerData?.logo ?? (headerData as any)?.logo_id ?? null
-  const footerLogo = footer?.footerLogo ?? (footer as any)?.footer_logo_id ?? null
+  const headerLogo =
+    headerData?.logo ?? (headerData as unknown as HeaderWithRawFields)?.logo_id ?? null
+  const footerLogo =
+    footer?.footerLogo ?? (footer as unknown as FooterWithRawFields)?.footer_logo_id ?? null
   const logoToShow = footerLogo ?? headerLogo ?? null
   const footerAddress = footer?.footerAddress
   const footerPhone = footer?.footerPhone

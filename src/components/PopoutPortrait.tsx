@@ -536,7 +536,7 @@ export default function PopoutPortrait({
         {/* top/Höhe mit --pb-webvitals-top / --pb-webvitals-card-outer-h in <style> (Abstand zu pb-cC) abstimmen */}
         <div className="pb-card pb-cB" style={{ top: 159, left: -(cardSpread + 27), width: 170 }}>
           {' '}
-          // top war 124
+          {/* top war 124 */}
           <p className="pb-card-title" style={{ margin: '0 0 7px' }}>
             Web Vitals
           </p>
@@ -607,7 +607,7 @@ export default function PopoutPortrait({
       <div className="pb-cards-wrap pb-cards-wrap--layer-front">
         <div className="pb-card pb-cD" style={{ top: 362, right: 7 - cardSpread - 20, width: 130 }}>
           {' '}
-          // top war 282
+          {/* top war 282 */}
           <p className="pb-card-title" style={{ margin: '0 0 6px' }}>
             Funnel
           </p>
@@ -617,7 +617,7 @@ export default function PopoutPortrait({
         </div>
         <div className="pb-card pb-cC" style={{ bottom: 54, left: 8 - cardSpread, width: 170 }}>
           {' '}
-          // bottom war 42
+          {/* bottom war 42 */}
           <div
             style={{
               display: 'flex',

@@ -2,6 +2,7 @@
 
 import { CMSLink } from '@/components/Link'
 import { Badge } from '@/components/ui/badge'
+import Image from 'next/image'
 import React from 'react'
 import PopoutPortrait from '@/components/PopoutPortrait'
 import { HeroLogoMarquee, type HeroMarqueeLogoRow } from '@/heros/HeroLogoMarquee'
@@ -120,28 +121,22 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       data-hero-variant="popout"
       data-hero-type={dataHeroType ?? 'superhero'}
     >
-      {/* DEBUG: Zeige wenn bgSrc null/undefined */}
-      {!bgSrc && (
-        <div className="absolute inset-0 bg-red-500 flex items-center justify-center text-white font-bold z-[999]">
-          KEIN HINTERGRUNDBILD (bgSrc ist null/undefined)
-        </div>
-      )}
-
-      {/* Hintergrundbild - immer 100vh hoch, unabhängig von Section padding */}
+      {/* Hintergrundbild - füllt die Section */}
       {bgSrc && (
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 overflow-hidden"
-          style={{ zIndex: 0, height: '100vh' }}
+          style={{ zIndex: 0 }}
         >
-          <img
+          <Image
             src={bgSrc}
             alt=""
-            className="w-full h-full"
+            fill
+            className="object-cover"
             style={{
-              objectFit: 'cover',
               objectPosition: bgFocalPoint,
             }}
+            priority={false}
           />
         </div>
       )}
@@ -189,7 +184,6 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
             background: `linear-gradient(to bottom, transparent 0%, hsl(var(--background)) 100%)`,
             maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cpath fill='%23000' d='M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,181.3C960,203,1056,213,1152,197.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E")`,
             maskSize: '100% 100%',
-            outline: '4px dashed purple',
             WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cpath fill='%23000' d='M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,181.3C960,203,1056,213,1152,197.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E")`,
             WebkitMaskSize: '100% 100%',
           }}
