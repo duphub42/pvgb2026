@@ -4,8 +4,6 @@ import React from 'react'
 import type { Media as MediaType } from '@/payload-types'
 import { Media } from '@/components/Media'
 
-const FALLBACK_LOGO_SRC = '/media/weblogo-philippbacher.svg'
-
 interface Props {
   className?: string
   loading?: 'lazy' | 'eager'
@@ -57,16 +55,5 @@ export const Logo = (props: Props) => {
     )
   }
 
-  return (
-    <img
-      alt="Philipp Bacher"
-      width={193}
-      height={34}
-      loading={loading}
-      fetchPriority={priority}
-      decoding="async"
-      className={clsx(sizeClass, invertClass, animateClass, className)}
-      src={FALLBACK_LOGO_SRC}
-    />
-  )
+  return null
 }

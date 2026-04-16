@@ -175,18 +175,7 @@ export interface SitePage {
   id: number;
   title: string;
   hero?: {
-    type?:
-      | (
-          | 'none'
-          | 'highImpact'
-          | 'mediumImpact'
-          | 'lowImpact'
-          | 'superhero'
-          | 'proAthlete'
-          | 'leistungenHero'
-          | 'simple'
-        )
-      | null;
+    type?: ('none' | 'highImpact' | 'mediumImpact' | 'lowImpact' | 'superhero') | null;
     richText?: {
       root: {
         type: string;
@@ -203,26 +192,10 @@ export interface SitePage {
       [k: string]: unknown;
     } | null;
     /**
-     * Optionales Bild rechts (Popout/Style Preview). Bei Profil-Hero zusätzlich nutzbar, wenn kein separates „Hintergrund Bild“ (mediaType Bild) gesetzt ist.
+     * Das Hauptbild rechts (Portrait bei Superhero/Popout). Für den Hintergrund verwende „Hintergrund Bild" weiter unten.
      */
     media?: (number | null) | Media;
-    /**
-     * Portrait-Bild für die rechte Spalte.
-     */
-    portrait?: (number | null) | Media;
-    /**
-     * Zeigt abstrakte Glow-Effekte im Hintergrund.
-     */
-    backgroundGlow?: boolean | null;
     subheadline?: string | null;
-    /**
-     * Kleines Label über der Überschrift (z.B. "Neues Projekt")
-     */
-    label?: string | null;
-    /**
-     * Kurzer Label-Text über der Hauptüberschrift (z. B. Pro Athlete 2026).
-     */
-    badge?: string | null;
     headline?: string | null;
     /**
      * Optional. Wenn gesetzt: mehrzeilige Überschrift. Sonst wird „Haupt-Überschrift“ verwendet.
@@ -232,97 +205,9 @@ export interface SitePage {
     headlineLine3?: string | null;
     description?: string | null;
     /**
-     * Statistiken, die im Hero als Zahlen-/Label-Paare angezeigt werden.
-     */
-    stats?:
-      | {
-          value: string;
-          label: string;
-          id?: string | null;
-        }[]
-      | null;
-    /**
-     * Optionales, animiertes Hintergrund-Preset (Halo CSS, Gradient). Wird hinter dem jeweiligen Hero-Layout gerendert.
-     */
-    backgroundPreset?: (number | null) | HeroBackground;
-    /**
-     * Halo (CSS) = weiche Farb-Halos ohne WebGL. Bei „Bild/Video/Animation“ erscheinen die Spezial-Hintergründe nicht.
-     */
-    mediaType?: ('cssHalo' | 'image' | 'video' | 'animation') | null;
-    /**
-     * Optionaler Override für Mobilgeräte. „Wie Desktop-Einstellung“ übernimmt die normale Auswahl.
-     */
-    mediaTypeMobile?: ('auto' | 'cssHalo' | 'image' | 'video' | 'animation') | null;
-    /**
-     * Nur sichtbar, wenn „Hintergrund“ = Bild. Vollflächig hinter dem Hero (object-cover). Zusätzlich nutzbar als hintere Ebene im rechten Bild-Stack, wenn „Bild hinten“ leer ist.
+     * Vollflächiger Hintergrund hinter dem Hero (object-cover).
      */
     backgroundImage?: (number | null) | Media;
-    backgroundVideo?: (number | null) | Media;
-    /**
-     * Hauptmotiv rechts (vorderste Ebene), sofern kein separates „Stack vorn“ gesetzt ist.
-     */
-    foregroundImage?: (number | null) | Media;
-    /**
-     * Dezentes Muster über der Hero-Fläche (unter Text/Bildern).
-     */
-    surfacePattern?:
-      | ('none' | 'honeycomb' | 'checker' | 'mmPaper' | 'dots' | 'linesHorizontal' | 'linesVertical' | 'gridLines')
-      | null;
-    stackBackImage?: (number | null) | Media;
-    stackBackOffsetX?: number | null;
-    stackBackOffsetY?: number | null;
-    stackMidImage?: (number | null) | Media;
-    stackMidOffsetX?: number | null;
-    stackMidOffsetY?: number | null;
-    /**
-     * Optional. Leer = „Vordergrund Bild“ wird als vordere Ebene genutzt.
-     */
-    stackFrontImage?: (number | null) | Media;
-    stackFrontOffsetX?: number | null;
-    stackFrontOffsetY?: number | null;
-    overlayOpacity?: number | null;
-    /**
-     * Wie stark die schwebenden Elemente dem Cursor ausweichen (0 = aus, 6.5 = Standard).
-     */
-    floatingMouseStrength?: number | null;
-    /**
-     * Amplitude der leichten Bewegung ohne Maus (0 = statisch).
-     */
-    floatingIdleAmplitude?: number | null;
-    /**
-     * Kleine Elemente (Badges, Icons), die über dem Hero schweben. Position über Preset wählen.
-     */
-    floatingElements?:
-      | {
-          /**
-           * Optional. Kurztitel der Karte; Icon allein reicht auch.
-           */
-          label?: string | null;
-          /**
-           * Optional. Eine Zeile unter der Überschrift (max. 2 Zeilen im Layout).
-           */
-          floatingDescription?: string | null;
-          /**
-           * Optional. Mit oder ohne Label – mindestens eines von beiden angeben.
-           */
-          icon?: (number | null) | Media;
-          /**
-           * Optional. Bei Angabe wird das Element klickbar.
-           */
-          linkUrl?: string | null;
-          linkNewTab?: boolean | null;
-          position: 'topLeft' | 'topRight' | 'midLeft' | 'midRight' | 'bottomLeft' | 'bottomRight';
-          /**
-           * Optional. Versatz von der Preset-Position in % (-50 bis 50).
-           */
-          offsetX?: number | null;
-          /**
-           * Optional. Versatz von der Preset-Position in % (-50 bis 50).
-           */
-          offsetY?: number | null;
-          id?: string | null;
-        }[]
-      | null;
     /**
      * Überschrift über den Logos (wie auf philippbacher.com).
      */
@@ -546,39 +431,6 @@ export interface FolderInterface {
     totalDocs?: number;
   };
   folderType?: 'media'[] | null;
-  updatedAt: string;
-  createdAt: string;
-}
-/**
- * Vorkonfigurierte, animierte Header-Hintergründe (CSS-only). Können in allen Heros als Hintergrund-Layer verwendet werden.
- *
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "hero-backgrounds".
- */
-export interface HeroBackground {
-  id: number;
-  name: string;
-  type: 'cssHalo' | 'patternSquare' | 'goldRadial' | 'gradient';
-  /**
-   * 0.2 = sehr dezent, 1 = Standard, 2 = sehr kräftig.
-   */
-  intensity?: number | null;
-  /**
-   * Grundfarbton für Halo (0–360). Wird per CSS-Variablen auf den Hintergrund angewendet.
-   */
-  hue?: number | null;
-  /**
-   * Hex-Farbe (z. B. #d4af37). Gold Radial: Akzentfarbe. Quadratmuster: Streifenfarbe.
-   */
-  patternColor1?: string | null;
-  /**
-   * Hex-Farbe (z. B. #121212). Gold Radial: dunkle Farbe. Quadratmuster: Grundfarbe/Hintergrund.
-   */
-  patternColor2?: string | null;
-  /**
-   * Optionales CSS, das im Hero als zusätzliche Klasse angewendet werden kann. Keine externen Imports (kein @import, kein <script>).
-   */
-  customCss?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -2473,6 +2325,39 @@ export interface MegaMenu {
   createdAt: string;
 }
 /**
+ * Vorkonfigurierte, animierte Header-Hintergründe (CSS-only). Können in allen Heros als Hintergrund-Layer verwendet werden.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "hero-backgrounds".
+ */
+export interface HeroBackground {
+  id: number;
+  name: string;
+  type: 'cssHalo' | 'patternSquare' | 'goldRadial' | 'gradient';
+  /**
+   * 0.2 = sehr dezent, 1 = Standard, 2 = sehr kräftig.
+   */
+  intensity?: number | null;
+  /**
+   * Grundfarbton für Halo (0–360). Wird per CSS-Variablen auf den Hintergrund angewendet.
+   */
+  hue?: number | null;
+  /**
+   * Hex-Farbe (z. B. #d4af37). Gold Radial: Akzentfarbe. Quadratmuster: Streifenfarbe.
+   */
+  patternColor1?: string | null;
+  /**
+   * Hex-Farbe (z. B. #121212). Gold Radial: dunkle Farbe. Quadratmuster: Grundfarbe/Hintergrund.
+   */
+  patternColor2?: string | null;
+  /**
+   * Optionales CSS, das im Hero als zusätzliche Klasse angewendet werden kann. Keine externen Imports (kein @import, kein <script>).
+   */
+  customCss?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
  * Kategorien für den Preisrechner (z. B. Website & Webdesign, SEO).
  *
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2808,55 +2693,13 @@ export interface SitePagesSelect<T extends boolean = true> {
         type?: T;
         richText?: T;
         media?: T;
-        portrait?: T;
-        backgroundGlow?: T;
         subheadline?: T;
-        label?: T;
-        badge?: T;
         headline?: T;
         headlineLine1?: T;
         headlineLine2?: T;
         headlineLine3?: T;
         description?: T;
-        stats?:
-          | T
-          | {
-              value?: T;
-              label?: T;
-              id?: T;
-            };
-        backgroundPreset?: T;
-        mediaType?: T;
-        mediaTypeMobile?: T;
         backgroundImage?: T;
-        backgroundVideo?: T;
-        foregroundImage?: T;
-        surfacePattern?: T;
-        stackBackImage?: T;
-        stackBackOffsetX?: T;
-        stackBackOffsetY?: T;
-        stackMidImage?: T;
-        stackMidOffsetX?: T;
-        stackMidOffsetY?: T;
-        stackFrontImage?: T;
-        stackFrontOffsetX?: T;
-        stackFrontOffsetY?: T;
-        overlayOpacity?: T;
-        floatingMouseStrength?: T;
-        floatingIdleAmplitude?: T;
-        floatingElements?:
-          | T
-          | {
-              label?: T;
-              floatingDescription?: T;
-              icon?: T;
-              linkUrl?: T;
-              linkNewTab?: T;
-              position?: T;
-              offsetX?: T;
-              offsetY?: T;
-              id?: T;
-            };
         marqueeHeadline?: T;
         logoDisplayType?: T;
         marqueeLogos?:
@@ -4593,6 +4436,14 @@ export interface Header {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Lucide icon name (z.B. ArrowRight, Mail, Phone)
+           */
+          link_icon?: string | null;
+          /**
+           * ChevronRight → ArrowUpRight Animation bei Hover
+           */
+          link_enable_icon_swap?: boolean | null;
         };
         id?: string | null;
       }[]
@@ -5118,6 +4969,8 @@ export interface HeaderSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              link_icon?: T;
+              link_enable_icon_swap?: T;
             };
         id?: T;
       };

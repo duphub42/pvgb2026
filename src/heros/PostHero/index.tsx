@@ -4,7 +4,6 @@ import React from 'react'
 import type { BlogPost } from '@/payload-types'
 
 import { Media } from '@/components/Media'
-import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
 import { formatAuthors } from '@/utilities/formatAuthors'
 
 export const PostHero: React.FC<{
@@ -43,7 +42,7 @@ export const PostHero: React.FC<{
 
           <div className="">
             <h1 className="mb-6 text-hero-display hero-heading-gradient hero-heading-gradient--inverse">
-              <ScrambleText text={title} />
+              {title}
             </h1>
           </div>
 

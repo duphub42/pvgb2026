@@ -3,7 +3,7 @@
 import { getMediaUrlSafe } from '@/utils/media'
 import { Marquee } from '@/components/ui/marquee'
 import { ResilientImage } from '@/components/ui/resilient-image'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { cn } from '@/utilities/ui'
 
 /** Logo-Zeile aus CMS (Payload upload / ID). */
@@ -18,29 +18,7 @@ export interface HeroLogoMarqueeProps {
   className?: string
   /** High-Impact-Hero: zentrierte Ausrichtung. */
   align?: 'start' | 'center'
-  /**
-   * true = gleiche lange Delays wie im Philipp-Bacher-Hero (nach Scramble/CTA).
-   * false (Standard) = kurze Delays, keine „6s unsichtbar“ auf Desktop in Style Preview / Impact-Heros.
-   */
-  syncWithPhilippBacherTimeline?: boolean
 }
-
-/** Nur Philipp-Bacher-Hero: an Headline/CTA-Sequenz gekoppelt (Desktop sonst ~6s unsichtbar). */
-const MARQUEE_ANIM_PHILIPP = {
-  headlineStartMs: 4200,
-  letterMs: 38,
-  logosStartMs: 6000,
-  logoMs: 95,
-} as const
-
-const MARQUEE_ANIM_STANDALONE = {
-  headlineStartMs: 80,
-  letterMs: 18,
-  logosStartMs: 120,
-  logoMs: 45,
-} as const
-
-const getDelay = (ms: number, reduced: boolean) => (reduced ? 0 : ms)
 
 const MARQUEE_CONTAINER_STYLE: React.CSSProperties = {
   backdropFilter: 'none',
@@ -51,16 +29,6 @@ const MARQUEE_CONTAINER_STYLE: React.CSSProperties = {
   borderTopStyle: 'none',
   borderTopColor: 'rgba(0, 0, 0, 0)',
   borderImage: 'none',
-}
-
-const MARQUEE_EDGE_FADE_STYLE: React.CSSProperties = {
-  overflow: 'hidden',
-  maskImage:
-    'linear-gradient(to right, transparent 0, black 3rem, black calc(100% - 4rem), transparent 100%)',
-  WebkitMaskImage:
-    'linear-gradient(to right, transparent 0, black 3rem, black calc(100% - 4rem), transparent 100%)',
-  maskSize: '100% 100%',
-  WebkitMaskSize: '100% 100%',
 }
 
 function resolveLogoSrc(logoField: unknown): string {
@@ -87,20 +55,7 @@ export function HeroLogoMarquee({
   marqueeLogos,
   className,
   align = 'start',
-  syncWithPhilippBacherTimeline = false,
 }: HeroLogoMarqueeProps) {
-  const [reducedMotion, setReducedMotion] = useState(false)
-  const anim = syncWithPhilippBacherTimeline ? MARQUEE_ANIM_PHILIPP : MARQUEE_ANIM_STANDALONE
-  const instantReveal = !syncWithPhilippBacherTimeline
-
-  useEffect(() => {
-    const motionMql = window.matchMedia('(prefers-reduced-motion: reduce)')
-    const update = () => setReducedMotion(motionMql.matches)
-    update()
-    motionMql.addEventListener('change', update)
-    return () => motionMql.removeEventListener('change', update)
-  }, [])
-
   const showBand =
     Boolean(marqueeHeadline?.trim()) || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)
 
@@ -117,40 +72,17 @@ export function HeroLogoMarquee({
       )}
       style={MARQUEE_CONTAINER_STYLE}
     >
-      {marqueeHeadline?.trim() &&
-        (instantReveal ? (
-          <span
-            className={cn(
-              'text-[9px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/80 mt-1 mb-0.5 block',
-              isCenter && 'text-center',
-            )}
-          >
-            {marqueeHeadline.trim()}
-          </span>
-        ) : (
-          <span
-            className={cn(
-              'text-[9px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/80 mt-1 mb-0.5 inline-flex flex-wrap',
-              isCenter && 'justify-center',
-            )}
-          >
-            {marqueeHeadline.split('').map((char, idx) => (
-              <span
-                key={idx}
-                className="hero-reveal-letter inline-block"
-                style={{
-                  animationDelay: `${getDelay(
-                    anim.headlineStartMs + idx * anim.letterMs,
-                    reducedMotion,
-                  )}ms`,
-                }}
-              >
-                {char === ' ' ? '\u00A0' : char}
-              </span>
-            ))}
-          </span>
-        ))}
-      {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && !reducedMotion && (
+      {marqueeHeadline?.trim() && (
+        <span
+          className={cn(
+            'text-[9px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/80 mt-1 mb-0.5 block',
+            isCenter && 'text-center',
+          )}
+        >
+          {marqueeHeadline.trim()}
+        </span>
+      )}
+      {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && (
         <Marquee
           duration={40}
           pauseOnHover
@@ -166,20 +98,8 @@ export function HeroLogoMarquee({
             return (
               <div
                 key={key}
-                className={cn(
-                  'hero-logo-marquee-item flex h-10 md:h-12 min-w-[5rem] shrink-0 items-center justify-center',
-                  !instantReveal && 'hero-reveal-logo',
-                )}
-                style={
-                  instantReveal
-                    ? undefined
-                    : {
-                        animationDelay: `${getDelay(
-                          anim.logosStartMs + idx * anim.logoMs,
-                          reducedMotion,
-                        )}ms`,
-                      }
-                }
+                className="hero-logo-marquee-item flex h-10 md:h-12 min-w-[5rem] shrink-0 items-center justify-center"
+                title={row?.alt || 'Partner logo'}
               >
                 <ResilientImage
                   src={url}
@@ -194,30 +114,6 @@ export function HeroLogoMarquee({
             )
           })}
         </Marquee>
-      )}
-      {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && reducedMotion && (
-        <div
-          className={cn('flex w-full min-w-0 flex-wrap gap-4 py-1', isCenter && 'justify-center')}
-          style={MARQUEE_EDGE_FADE_STYLE}
-        >
-          {marqueeLogos.slice(0, 6).map((row, idx) => {
-            const url = resolveLogoSrc(row?.logo)
-            if (!url) return null
-            const key = `hero-logo-reduced-${url}-${idx}`
-            return (
-              <img
-                key={key}
-                src={url}
-                alt={row?.alt ?? ''}
-                width={112}
-                height={42}
-                className="hero-logo-grayscale filter grayscale w-auto max-w-[112px] h-auto max-h-[42px] object-contain"
-                loading="lazy"
-                decoding="async"
-              />
-            )
-          })}
-        </div>
       )}
     </div>
   )

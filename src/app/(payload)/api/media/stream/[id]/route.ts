@@ -8,6 +8,8 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { NextRequest, NextResponse } from 'next/server'
 import { getServerSideURL } from '@/utilities/getURL'
+import * as fs from 'fs'
+import * as path from 'path'
 
 export async function GET(
   request: NextRequest,
@@ -45,10 +47,58 @@ export async function GET(
       url = origin ? `${origin.replace(/\/$/, '')}${url}` : undefined
     }
 
-    if (!url || !url.startsWith('http')) {
+    if (!url || typeof url !== 'string') {
       return NextResponse.json({ error: 'Media not found' }, { status: 404 })
     }
 
+    // Check if this is a local file (contains /api/media/file/)
+    const isLocalFile = url.includes('/api/media/file/')
+
+    if (isLocalFile) {
+      // Extract filename from URL and serve directly from filesystem
+      const filenameMatch = url.match(/\/api\/media\/file\/(.+)$/)
+      if (filenameMatch) {
+        const filename = decodeURIComponent(filenameMatch[1])
+        const mediaDir = path.join(process.cwd(), 'public/media')
+        const filePath = path.join(mediaDir, filename)
+
+        // Security check: ensure file is within media directory
+        const resolvedPath = path.resolve(filePath)
+        const resolvedMediaDir = path.resolve(mediaDir)
+        if (!resolvedPath.startsWith(resolvedMediaDir)) {
+          return NextResponse.json({ error: 'Access denied' }, { status: 403 })
+        }
+
+        if (!fs.existsSync(filePath)) {
+          return NextResponse.json({ error: 'File not found' }, { status: 404 })
+        }
+
+        const ext = path.extname(filename).toLowerCase()
+        const mimeTypes: Record<string, string> = {
+          '.svg': 'image/svg+xml',
+          '.png': 'image/png',
+          '.jpg': 'image/jpeg',
+          '.jpeg': 'image/jpeg',
+          '.gif': 'image/gif',
+          '.webp': 'image/webp',
+          '.avif': 'image/avif',
+          '.ico': 'image/x-icon',
+          '.pdf': 'application/pdf',
+        }
+        const contentType = mimeTypes[ext] || 'application/octet-stream'
+
+        const fileBuffer = fs.readFileSync(filePath)
+        const headers = new Headers()
+        headers.set('Content-Type', contentType)
+        headers.set('Cache-Control', 'public, max-age=31536000, immutable')
+        if (ext === '.svg') {
+          headers.set('Content-Security-Policy', "script-src 'none'")
+        }
+        return new Response(fileBuffer, { headers, status: 200 })
+      }
+    }
+
+    // For external URLs, fetch and proxy
     const res = await fetch(url, {
       headers: {
         'Cache-Control': 'public, max-age=31536000, immutable',

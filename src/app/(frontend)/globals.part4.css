@@ -99,11 +99,12 @@ nav.megamenu-nav a.megamenu-top-item {
   min-height: 100%;
   font-family: var(--font-outfit);
   font-size: 12.5px;
-  font-weight: 500;
+  font-weight: 300;
   letter-spacing: 0.12em;
   line-height: 1;
   text-transform: uppercase;
   text-decoration: none !important;
+  -webkit-font-smoothing: antialiased;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 .site-header nav.header-nav > a[data-slot='button']:hover {

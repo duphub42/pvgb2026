@@ -5,8 +5,6 @@ import type { SitePage } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
-import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
-import { buildHeroCopyFadeStyle, getScrambleRevealDurationMs } from '@/heros/scrambleTiming'
 
 type MediumImpactHeroData = {
   links?: SitePage['hero'] extends infer H ? (H extends { links?: infer L } ? L : never) : never
@@ -36,36 +34,17 @@ export const MediumImpactHero: React.FC<MediumImpactHeroData> = ({
   description,
 }) => {
   const hasHeadings = subheadline || headline || description
-  const headlineRevealMs = getScrambleRevealDurationMs(headline)
-  const subheadlineFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 0)
-  const descriptionFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 140)
 
   return (
     <div className="bg-background text-foreground">
       <div className="container hero-safe-top mb-8">
         {hasHeadings && (
           <div className="mb-6">
-            {subheadline && (
-              <p
-                className="mb-2 text-lg hero-subheading-contrast hero-blurry-fade-in hero-blurry-fade-in--subheading"
-                style={subheadlineFadeStyle}
-              >
-                {subheadline}
-              </p>
-            )}
+            {subheadline && <p className="mb-2 text-lg hero-subheading-contrast">{subheadline}</p>}
             {headline && (
-              <h1 className="mb-4 text-hero-display hero-heading-gradient">
-                <ScrambleText text={headline} />
-              </h1>
+              <h1 className="mb-4 text-hero-display hero-heading-gradient">{headline}</h1>
             )}
-            {description && (
-              <p
-                className="text-base hero-content-contrast hero-blurry-fade-in hero-blurry-fade-in--description"
-                style={descriptionFadeStyle}
-              >
-                {description}
-              </p>
-            )}
+            {description && <p className="text-base hero-content-contrast">{description}</p>}
           </div>
         )}
         {richText && (

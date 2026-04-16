@@ -12,6 +12,7 @@ function streamPathForId(id: number): string {
 export function resolveHeroImageSrc(media: unknown): string | null {
   if (media == null || media === '') return null
 
+  // Direkter String (URL oder ID)
   if (typeof media === 'string') {
     const t = media.trim()
     if (!t) return null
@@ -23,22 +24,32 @@ export function resolveHeroImageSrc(media: unknown): string | null {
     return null
   }
 
+  // Direkte Zahl (ID)
   if (typeof media === 'number' && Number.isFinite(media) && media > 0) {
     return streamPathForId(media)
   }
 
+  // Objekt (Payload Media Relation)
   if (typeof media === 'object' && media !== null) {
-    const idRaw = (media as { id?: unknown }).id
-    const idNum =
-      typeof idRaw === 'number' && Number.isFinite(idRaw) && idRaw > 0
-        ? idRaw
-        : typeof idRaw === 'string' && /^\d+$/.test(idRaw)
-          ? parseInt(idRaw, 10)
-          : null
-    if (idNum != null && idNum > 0) {
-      return streamPathForId(idNum)
+    const m = media as Record<string, unknown>
+
+    // ID aus verschiedenen möglichen Feldern
+    const idRaw = m.id ?? m._id ?? m.documentId ?? m.mediaId
+    if (typeof idRaw === 'number' && idRaw > 0) {
+      return streamPathForId(idRaw)
+    }
+    if (typeof idRaw === 'string' && /^\d+$/.test(idRaw)) {
+      return streamPathForId(parseInt(idRaw, 10))
     }
 
+    // Direkte URL
+    const url = m.url ?? m.src ?? m.source ?? m.path
+    if (typeof url === 'string' && url.trim()) {
+      const safe = getMediaUrlSafe(url) || url
+      return safe || null
+    }
+
+    // Versuch über getMediaUrlSafe
     const fromUrl = getMediaUrlSafe(media)
     if (fromUrl) return fromUrl
   }

@@ -923,16 +923,17 @@ function MegaMenuCtaStrip({ cta, hideCallback }: { cta: MegaMenuCta; hideCallbac
     <div className="megamenu-cta-strip border-t border-border bg-muted/30 px-8 py-6 grid grid-cols-1 md:grid-cols-3 gap-6">
       {cta.whatsapp && (
         <div className="flex flex-col gap-2">
-          <a
-            href={cta.whatsapp.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 rounded-lg bg-[var(--brand-whatsapp)] px-4 py-2.5 text-sm font-medium text-white hover:bg-[var(--brand-whatsapp-hover)] transition-colors"
-            aria-label={cta.whatsapp.label}
-          >
-            <MessageCircle className="h-5 w-5 text-[rgb(var(--hero-process-text))]" aria-hidden />
-            {cta.whatsapp.label}
-          </a>
+          <Button asChild variant="whatsapp" size="sm" className="w-full gap-2">
+            <a
+              href={cta.whatsapp.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={cta.whatsapp.label}
+            >
+              <MessageCircle className="h-5 w-5" aria-hidden />
+              {cta.whatsapp.label}
+            </a>
+          </Button>
         </div>
       )}
       {cta.callback && !hideCallback && (

@@ -64,8 +64,8 @@ export default function PopoutPortrait({
   /** Concentric arc outside the portrait circle (same center, r + pad). */
   const arcPad = 26
   const rArc = r + arcPad
-  const arcDir1 = { x: 375 - cx, y: 510 - cy }
-  const arcDir2 = { x: 440 - cx, y: 360 - cy }
+  const arcDir1 = { x: 489 - cx, y: 656 - cy } // war 375, 510
+  const arcDir2 = { x: 574 - cx, y: 463 - cy } // war 440, 360
   const arcLen1 = Math.hypot(arcDir1.x, arcDir1.y)
   const arcLen2 = Math.hypot(arcDir2.x, arcDir2.y)
   const arcX1 = cx + (rArc * arcDir1.x) / arcLen1
@@ -78,17 +78,17 @@ export default function PopoutPortrait({
   const cardSpread = 22
 
   /** Left dot: inside viewBox, outside popout circle; pulled closer in single-column view */
-  const decorDotL = isSingleCol ? { cx: 93, cy: 156 } : { cx: 44, cy: 88 }
+  const decorDotL = isSingleCol ? { cx: 121, cy: 201 } : { cx: 57, cy: 113 } // skaliert für 600×720
   /** Grid: original dot size & spacing; more cells via denser rows/cols */
   const decorGridStep = 16
   const decorGridR = 3.5
   const decorGridCols = 5
   const decorGridRows = 5
-  const decorGridOrigin = isSingleCol ? { x: 319, y: 89 } : { x: 338, y: 52 }
+  const decorGridOrigin = isSingleCol ? { x: 416, y: 114 } : { x: 441, y: 67 } // skaliert für 600×720
   /** Left decor dot: 3× base radius 7 */
   const decorDotLRadius = 7 * 3
   /** Squiggle path centroid (original coords), for vertical alignment */
-  const decorSquigglePathCy = 244
+  const decorSquigglePathCy = 314 // war 244 (244/560*720)
   /** Gap between Web Vitals (top 124) and Automatisierung (bottom 42) → center in viewBox Y. */
   const webCardBottomPx = 124 + 150
   const autoCardApproxHPx = 160
@@ -103,7 +103,7 @@ export default function PopoutPortrait({
   const decorSquiggleTxBase = -148 - (squiggleShiftLeftPx / width) * VIEWBOX_W
   const decorSquiggleTx = isSingleCol ? decorSquiggleTxBase + 16 : decorSquiggleTxBase
   const decorSquiggleScale = 0.72
-  const decorSquigglePivot = { x: 137, y: decorSquigglePathCy }
+  const decorSquigglePivot = { x: 179, y: decorSquigglePathCy } // war 137 (137/460*600)
   /** ViewBox minus circle — clip shows only outside popout (squiggle + dot stay visible) */
   const decorOutsideClipD = `M 0 0 L ${VIEWBOX_W} 0 L ${VIEWBOX_W} ${VIEWBOX_H} L 0 ${VIEWBOX_H} Z M ${cx} ${cy} m ${-r},0 a ${r},${r} 0 1 0 ${2 * r},0 a ${r},${r} 0 1 0 ${-2 * r},0`
 
@@ -111,22 +111,14 @@ export default function PopoutPortrait({
     <div
       className="pb-popout-root"
       {...(fillRowHeight ? { 'data-pb-fill-row': '' } : {})}
-      style={
-        fillRowHeight
-          ? {
-              position: 'relative',
-              flexShrink: 0,
-              overflow: 'visible',
-              margin: '0 auto',
-            }
-          : {
-              position: 'relative',
-              width: '100%',
-              flexShrink: 0,
-              overflow: 'visible',
-              margin: '0 auto',
-            }
-      }
+      style={{
+        position: 'relative',
+        height: '100%',
+        aspectRatio: `${VIEWBOX_W} / ${VIEWBOX_H}`,
+        flexShrink: 0,
+        overflow: 'visible',
+        margin: '0 auto',
+      }}
     >
       <style>{`
         .pb-popout-root[data-pb-fill-row] {
@@ -215,6 +207,14 @@ export default function PopoutPortrait({
             z-index: 1 !important;
           }
         }
+        @media (max-width: 767px) {
+          .pb-popout-root {
+            min-width: 320px;
+            width: auto !important;
+            margin-left: auto;
+            margin-right: -5vw;
+          }
+        }
         @media (max-width: 599px) {
           .pb-card { /* scale: 0.64; */ }
           .pb-card.pb-cA { transform-origin: top right; right: 0px !important; }
@@ -223,7 +223,7 @@ export default function PopoutPortrait({
             transform-origin: top left;
             left: 0px !important;
             bottom: auto !important;
-            top: max(272px, var(--pb-automatisierung-min-top)) !important;
+            top: max(350px, var(--pb-automatisierung-min-top)) !important;  // war 272
           }
           .pb-card.pb-cD { transform-origin: top right; right: 0px !important; }
         }
@@ -231,7 +231,7 @@ export default function PopoutPortrait({
         @media (min-width: 37rem) and (max-width: 44rem) {
           .pb-popout-root .pb-card.pb-cC {
             bottom: auto !important;
-            top: max(272px, var(--pb-automatisierung-min-top)) !important;
+            top: max(350px, var(--pb-automatisierung-min-top)) !important;  // war 272
             transform-origin: top left;
           }
         }
@@ -242,7 +242,7 @@ export default function PopoutPortrait({
         @media (min-width: 44.0625rem) and (max-width: 767px) {
           .pb-popout-root .pb-card.pb-cC {
             bottom: auto !important;
-            top: max(272px, var(--pb-automatisierung-min-top)) !important;
+            top: max(350px, var(--pb-automatisierung-min-top)) !important;  // war 272
             transform-origin: top left;
           }
         }
@@ -495,9 +495,9 @@ export default function PopoutPortrait({
           <path
             className="pb-decor-squiggle"
             vectorEffect="nonScalingStroke"
-            d="M 92 258 C 102 238, 116 232, 124 248
-               C 132 264, 146 256, 154 240
-               C 162 224, 176 228, 182 244"
+            d="M 120 332 C 133 306, 151 298, 162 319
+               C 172 340, 190 329, 201 309
+               C 211 288, 230 293, 237 314"
           />
         </g>
       </svg>
@@ -507,7 +507,7 @@ export default function PopoutPortrait({
         <div
           className="pb-card pb-cA"
           style={{
-            top: 'calc(var(--pb-cA-top, 124px) - 30px - var(--pb-cA-ipad-up, 0px) - var(--pb-cA-desktop-up, 0px))',
+            top: 'calc(var(--pb-cA-top, 159px) - 30px - var(--pb-cA-ipad-up, 0px) - var(--pb-cA-desktop-up, 0px))', // 124→159
             right: -(cardSpread + 30),
             width: 182,
           }}
@@ -534,7 +534,9 @@ export default function PopoutPortrait({
         </div>
 
         {/* top/Höhe mit --pb-webvitals-top / --pb-webvitals-card-outer-h in <style> (Abstand zu pb-cC) abstimmen */}
-        <div className="pb-card pb-cB" style={{ top: 124, left: -(cardSpread + 27), width: 170 }}>
+        <div className="pb-card pb-cB" style={{ top: 159, left: -(cardSpread + 27), width: 170 }}>
+          {' '}
+          // top war 124
           <p className="pb-card-title" style={{ margin: '0 0 7px' }}>
             Web Vitals
           </p>
@@ -603,7 +605,9 @@ export default function PopoutPortrait({
 
       {/* Karten über Portrait; Mobile z-index siehe max-width 767px */}
       <div className="pb-cards-wrap pb-cards-wrap--layer-front">
-        <div className="pb-card pb-cD" style={{ top: 282, right: 7 - cardSpread - 20, width: 130 }}>
+        <div className="pb-card pb-cD" style={{ top: 362, right: 7 - cardSpread - 20, width: 130 }}>
+          {' '}
+          // top war 282
           <p className="pb-card-title" style={{ margin: '0 0 6px' }}>
             Funnel
           </p>
@@ -611,7 +615,9 @@ export default function PopoutPortrait({
           <FunnelRow label="Leads" value="3.1k" pct={62} color="#5f61a0" />
           <FunnelRow label="Kunden" value="486" pct={25} color="#27ae60" valueColor="#27ae60" />
         </div>
-        <div className="pb-card pb-cC" style={{ bottom: 42, left: 8 - cardSpread, width: 170 }}>
+        <div className="pb-card pb-cC" style={{ bottom: 54, left: 8 - cardSpread, width: 170 }}>
+          {' '}
+          // bottom war 42
           <div
             style={{
               display: 'flex',

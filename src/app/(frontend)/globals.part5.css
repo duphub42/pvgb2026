@@ -2537,6 +2537,14 @@
   background-color: var(--header-icon-bg-hover, color-mix(in hsl, var(--mega-menu-nav-text) 10%, transparent)) !important;
 }
 
+/* Light mode: use same gray as main nav links */
+[data-theme='light'] .megamenu .header-tool-toggle:hover,
+[data-theme='light'] .site-header .header-tool-toggle:hover,
+[data-theme='light'] .megamenu .header-icon-btn:hover,
+[data-theme='light'] .site-header .header-icon-btn:hover {
+  background-color: rgba(0, 0, 0, 0.11) !important;
+}
+
 .site-header .header-tool-toggle--theme:hover,
 .megamenu .header-tool-toggle--theme:hover,
 header .header-tool-toggle.header-tool-toggle--theme:hover,

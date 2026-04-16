@@ -2,7 +2,6 @@
 
 import Link from 'next/link'
 import React, { useCallback, useMemo, useState } from 'react'
-import { ArrowUpRight, ChevronRight } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
@@ -293,35 +292,19 @@ export function PriceCalculatorClient(props: {
                 Auswahl zurücksetzen
               </button>
               {offerIsExternal ? (
-                <Button
-                  asChild
-                  size="sm"
-                  className="megamenu-highlight-cta mt-2 w-fit !bg-foreground !text-background hover:!bg-foreground/80 active:!bg-foreground/80"
-                >
+                <Button asChild variant="cta" size="sm" ctaIcon className="mt-2 w-fit">
                   <a
                     href={offerHref}
                     {...(offerIsHttp ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     className="no-underline"
                   >
-                    <span>{offerButtonLabel}</span>
-                    <span className="megamenu-special-icon-swap" aria-hidden="true">
-                      <ChevronRight className="megamenu-special-icon-layer megamenu-special-icon-layer--a h-4 w-4" />
-                      <ArrowUpRight className="megamenu-special-icon-layer megamenu-special-icon-layer--b h-4 w-4" />
-                    </span>
+                    {offerButtonLabel}
                   </a>
                 </Button>
               ) : (
-                <Button
-                  asChild
-                  size="sm"
-                  className="megamenu-highlight-cta mt-2 w-fit !bg-foreground !text-background hover:!bg-foreground/80 active:!bg-foreground/80"
-                >
+                <Button asChild variant="cta" size="sm" ctaIcon className="mt-2 w-fit">
                   <Link href={offerHref} className="no-underline">
-                    <span>{offerButtonLabel}</span>
-                    <span className="megamenu-special-icon-swap" aria-hidden="true">
-                      <ChevronRight className="megamenu-special-icon-layer megamenu-special-icon-layer--a h-4 w-4" />
-                      <ArrowUpRight className="megamenu-special-icon-layer megamenu-special-icon-layer--b h-4 w-4" />
-                    </span>
+                    {offerButtonLabel}
                   </Link>
                 </Button>
               )}

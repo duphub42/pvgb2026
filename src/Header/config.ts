@@ -57,7 +57,10 @@ export const Header: GlobalConfig = {
           min: 1,
           max: 12,
           required: true,
-          admin: { description: 'Breite der Link-Liste im Dropdown (12er-Grid, zusammen mit Highlight = 12 minus Legacy-Spalte).' },
+          admin: {
+            description:
+              'Breite der Link-Liste im Dropdown (12er-Grid, zusammen mit Highlight = 12 minus Legacy-Spalte).',
+          },
         },
         {
           name: 'featuredCols',
@@ -67,7 +70,9 @@ export const Header: GlobalConfig = {
           min: 1,
           max: 12,
           required: true,
-          admin: { description: 'Breite des Highlight-Bereichs neben den Unterpunkten (12er-Grid).' },
+          admin: {
+            description: 'Breite des Highlight-Bereichs neben den Unterpunkten (12er-Grid).',
+          },
         },
       ],
     },
@@ -75,7 +80,8 @@ export const Header: GlobalConfig = {
       type: 'collapsible',
       label: 'Mega-Menü: Highlight-Karten Stil',
       admin: {
-        description: 'Stil der Link-Karten im Highlight-Block (Blueprint: rounded-lg, border, shadow-sm). Hier anpassbar.',
+        description:
+          'Stil der Link-Karten im Highlight-Block (Blueprint: rounded-lg, border, shadow-sm). Hier anpassbar.',
         condition: (data) => Boolean((data as { useMegaMenu?: boolean })?.useMegaMenu),
         initCollapsed: true,
       },
@@ -143,7 +149,8 @@ export const Header: GlobalConfig = {
       type: 'collapsible',
       label: 'Mega-Menü: Kontakt & Newsletter',
       admin: {
-        description: 'WhatsApp-Button, Rückruf-Anfrage (Telefonnummer) und Newsletter-Anmeldung im Mega-Menü-Dropdown.',
+        description:
+          'WhatsApp-Button, Rückruf-Anfrage (Telefonnummer) und Newsletter-Anmeldung im Mega-Menü-Dropdown.',
         condition: (data) => Boolean((data as { useMegaMenu?: boolean })?.useMegaMenu),
         initCollapsed: true,
       },
@@ -232,7 +239,8 @@ export const Header: GlobalConfig = {
           relationTo: 'forms',
           label: 'Formular für Rückruf',
           admin: {
-            description: 'Formular mit mindestens einem Feld für die Telefonnummer (Feldname unten angeben).',
+            description:
+              'Formular mit mindestens einem Feld für die Telefonnummer (Feldname unten angeben).',
             condition: (_, siblingData) => Boolean(siblingData?.megaMenuShowCallback),
           },
         },
@@ -242,7 +250,8 @@ export const Header: GlobalConfig = {
           label: 'Feldname Telefonnummer (Rückruf)',
           defaultValue: 'phone',
           admin: {
-            description: 'Name des Formularfelds für die Telefonnummer (muss zum gewählten Formular passen).',
+            description:
+              'Name des Formularfelds für die Telefonnummer (muss zum gewählten Formular passen).',
             condition: (_, siblingData) => Boolean(siblingData?.megaMenuShowCallback),
           },
         },
@@ -309,7 +318,8 @@ export const Header: GlobalConfig = {
           label: 'Feldname E-Mail (Newsletter)',
           defaultValue: 'email',
           admin: {
-            description: 'Name des Formularfelds für die E-Mail (muss zum gewählten Formular passen).',
+            description:
+              'Name des Formularfelds für die E-Mail (muss zum gewählten Formular passen).',
             condition: (_, siblingData) => Boolean(siblingData?.megaMenuShowNewsletter),
           },
         },
@@ -344,9 +354,79 @@ export const Header: GlobalConfig = {
       name: 'navItems',
       type: 'array',
       fields: [
-        link({
-          appearances: false,
-        }),
+        {
+          name: 'link',
+          type: 'group',
+          fields: [
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'type',
+                  type: 'radio',
+                  admin: { layout: 'horizontal', width: '50%' },
+                  defaultValue: 'reference',
+                  options: [
+                    { label: 'Internal link', value: 'reference' },
+                    { label: 'Custom URL', value: 'custom' },
+                  ],
+                },
+                {
+                  name: 'newTab',
+                  type: 'checkbox',
+                  admin: { style: { alignSelf: 'flex-end' }, width: '50%' },
+                  label: 'Open in new tab',
+                },
+              ],
+            },
+            {
+              name: 'reference',
+              type: 'relationship',
+              admin: { condition: (_, siblingData) => siblingData?.type === 'reference' },
+              label: 'Document to link to',
+              relationTo: ['site-pages', 'blog-posts'],
+              required: true,
+            },
+            {
+              name: 'url',
+              type: 'text',
+              admin: { condition: (_, siblingData) => siblingData?.type === 'custom' },
+              label: 'Custom URL',
+              required: true,
+            },
+            {
+              name: 'label',
+              type: 'text',
+              admin: { width: '50%' },
+              label: 'Label',
+              required: true,
+            },
+            {
+              type: 'row',
+              fields: [
+                {
+                  name: 'link_icon',
+                  type: 'text',
+                  label: 'Icon',
+                  admin: {
+                    description: 'Lucide icon name (z.B. ArrowRight, Mail, Phone)',
+                    width: '50%',
+                  },
+                },
+                {
+                  name: 'link_enable_icon_swap',
+                  type: 'checkbox',
+                  label: 'Icon-Swap Animation',
+                  admin: {
+                    description: 'ChevronRight → ArrowUpRight Animation bei Hover',
+                    width: '50%',
+                  },
+                  defaultValue: false,
+                },
+              ],
+            },
+          ],
+        },
       ],
       maxRows: 6,
       admin: {
@@ -363,7 +443,11 @@ export const Header: GlobalConfig = {
       createClearOrphanedRefsBeforeValidateHook(),
       ({ data }) => {
         const useMega = (data as { useMegaMenu?: boolean })?.useMegaMenu
-        const layout = (data as { megaMenuLayout?: { sidebarCols?: number; contentCols?: number; featuredCols?: number } })?.megaMenuLayout
+        const layout = (
+          data as {
+            megaMenuLayout?: { sidebarCols?: number; contentCols?: number; featuredCols?: number }
+          }
+        )?.megaMenuLayout
         if (!useMega || !layout) return data
         const a = Number(layout.sidebarCols) || 0
         const b = Number(layout.contentCols) || 0

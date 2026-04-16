@@ -1,7 +1,7 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import React from 'react'
 
-import type { Footer } from '@/payload-types'
+import type { Footer, Header } from '@/payload-types'
 import type { Locale } from '@/utilities/locale'
 
 import { FooterClient } from '@/Footer/FooterClient'
@@ -9,10 +9,16 @@ import { FooterClient } from '@/Footer/FooterClient'
 type FooterProps = {
   locale?: Locale
   footerData?: Footer | null
+  headerData?: Header | null
 }
 
-export async function Footer({ locale = 'de', footerData: initialFooterData = null }: FooterProps = {}) {
+export async function Footer({
+  locale = 'de',
+  footerData: initialFooterData = null,
+  headerData: initialHeaderData = null,
+}: FooterProps = {}) {
   let footerData: Footer | null = initialFooterData
+  let headerData: Header | null = initialHeaderData
 
   if (!footerData) {
     try {
@@ -23,10 +29,14 @@ export async function Footer({ locale = 'de', footerData: initialFooterData = nu
     }
   }
 
-  return (
-    <FooterClient
-      footer={footerData}
-      locale={locale}
-    />
-  )
+  // Load header for logo fallback (use header B-logo if footer has no logo)
+  if (!headerData) {
+    try {
+      headerData = (await getCachedGlobal('header', 1)()) as Header
+    } catch (err) {
+      console.error('[Footer] Failed to load header global:', err)
+    }
+  }
+
+  return <FooterClient footer={footerData} header={headerData} locale={locale} />
 }

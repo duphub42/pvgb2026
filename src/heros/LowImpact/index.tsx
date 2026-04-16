@@ -4,8 +4,6 @@ import type { SitePage } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
-import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
-import { buildHeroCopyFadeStyle, getScrambleRevealDurationMs } from '@/heros/scrambleTiming'
 
 type LowImpactHeroType = SitePage['hero'] & { children?: React.ReactNode }
 
@@ -18,9 +16,6 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
   links,
 }) => {
   const hasHeadings = subheadline || headline || description
-  const headlineRevealMs = getScrambleRevealDurationMs(headline)
-  const subheadlineFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 0)
-  const descriptionFadeStyle = buildHeroCopyFadeStyle(headlineRevealMs, 140)
 
   return (
     <div className="bg-background text-foreground">
@@ -29,26 +24,12 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
           {hasHeadings && (
             <div className="mb-6">
               {subheadline && (
-                <p
-                  className="mb-2 text-lg hero-subheading-contrast hero-blurry-fade-in hero-blurry-fade-in--subheading"
-                  style={subheadlineFadeStyle}
-                >
-                  {subheadline}
-                </p>
+                <p className="mb-2 text-lg hero-subheading-contrast">{subheadline}</p>
               )}
               {headline && (
-                <h1 className="mb-4 text-hero-display-sm hero-heading-gradient">
-                  <ScrambleText text={headline} />
-                </h1>
+                <h1 className="mb-4 text-hero-display-sm hero-heading-gradient">{headline}</h1>
               )}
-              {description && (
-                <p
-                  className="text-base hero-content-contrast hero-blurry-fade-in hero-blurry-fade-in--description"
-                  style={descriptionFadeStyle}
-                >
-                  {description}
-                </p>
-              )}
+              {description && <p className="text-base hero-content-contrast">{description}</p>}
             </div>
           )}
           {children ||

@@ -7,9 +7,9 @@ import { ScrambleText, HACKER_CHARS } from '@/components/ScrambleText/ScrambleTe
 import { cn } from '@/utilities/ui'
 import { ResilientImage } from '@/components/ui/resilient-image'
 
-const GLITCH_DURATION_MS = 1000
+const GLITCH_DURATION_MS = 600
 const SCRAMBLE_ICONS = [Zap, Globe, Skull, Star, Eye, Heart] as const
-const SCRAMBLE_ICON_TICK_MS = 55
+const SCRAMBLE_ICON_TICK_MS = 50
 
 export interface LogoWithGlitchProps {
   className?: string

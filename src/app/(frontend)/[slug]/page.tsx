@@ -93,8 +93,7 @@ export default async function Page({
   const previewId = searchParams?.previewId
   // Calling draftMode() unconditionally makes the whole route dynamic/no-store.
   // In production we rely on explicit previewId for previews and keep public pages cacheable.
-  const isDraftMode =
-    process.env.NODE_ENV === 'development' ? (await draftMode()).isEnabled : false
+  const isDraftMode = process.env.NODE_ENV === 'development' ? (await draftMode()).isEnabled : false
 
   let payload
   try {
@@ -192,9 +191,6 @@ export default async function Page({
     }
 
     const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
-    const isProAthleteHero =
-      typeof (heroProps as { type?: unknown })?.type === 'string' &&
-      (heroProps as { type?: string }).type === 'proAthlete'
     const layoutBlocks = resolveLayoutBlocks(resolvedSlug, page.layout)
     const showHomeFaq = isHomePageSlug(resolvedSlug)
     const firstBlock = layoutBlocks[0]
@@ -212,7 +208,7 @@ export default async function Page({
           servicesOverview: Unter lg (Umbruch 1–2 Spalten) z-20 + kein Negativ-Margin — Karten liegen unter dem Hero.
           Ab lg (4 Spalten): z-33 + Flush — Karten dürfen in den Hero ragen / Hover darüber (s. globals services-flush).
         */}
-        <div className={cn('relative isolate', isProAthleteHero ? 'z-[40]' : 'z-[32]')}>
+        <div className="relative isolate z-[32]">
           <SectionReveal>
             <HeroErrorBoundary>
               <RenderHero {...heroProps} pageSlug={resolvedSlug} />
@@ -223,12 +219,8 @@ export default async function Page({
           className={cn(
             'relative w-full min-w-0 hero-following-section-mask',
             firstBlockIsServices
-              ? isProAthleteHero
-                ? 'hero-following-section--services-flush z-20 mt-0 max-lg:pt-10 md:max-lg:pt-12 lg:pt-16'
-                : 'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:z-[33] lg:-mt-28 lg:pt-2'
-              : isProAthleteHero
-                ? 'z-20 pt-16 md:pt-20 lg:pt-24'
-                : 'z-20 max-md:-mt-16 max-md:pt-8 pt-24 md:z-[31] md:-mt-16',
+              ? 'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:z-[33] lg:-mt-28 lg:pt-2'
+              : 'z-20 max-md:-mt-16 max-md:pt-8 pt-24 md:z-[31] md:-mt-16',
           )}
         >
           <SectionReveal className="relative z-0 pt-24">

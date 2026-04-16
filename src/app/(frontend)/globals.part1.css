@@ -375,7 +375,7 @@
 /* Header icon hover overrides must win over Tailwind button utilities, especially in Safari */
 .header-tool-toggle.header-icon-btn:hover,
 .header-icon-btn:hover {
-  background-color: #e5e5e5 !important;
+  background-color: rgba(0, 0, 0, 0.11) !important;
   color: #171717 !important;
 }
 [data-theme='dark'] .header-tool-toggle.header-icon-btn:hover,
@@ -514,6 +514,33 @@
   [aria-label="Superhero"] .container,
   section[data-hero-type='superhero'] .container {
     overflow-y: visible;
+  }
+
+  /* Superhero: Bündig mit Seiten-Content, aber Portrait darf über den rechten Rand hinausragen */
+  section[data-hero-type='superhero'] {
+    overflow: visible;
+    width: 100%;
+  }
+
+  /* Hero-Container: Standard-Container-Breiten wie restliche Seite */
+  section[data-hero-type='superhero'] > .container {
+    max-width: min(var(--breakpoint-2xl, 90rem), 100%);
+    margin-inline: auto;
+  }
+
+  /* Grid-Container: Portrait darf rechts rauswachsen (overflow visible) */
+  section[data-hero-type='superhero'] > .container > div {
+    overflow: visible;
+  }
+
+  /* Hintergrund-Elemente: volle Breite innerhalb des Hero-Containers */
+  section[data-hero-type='superhero'] .hero-background-overlay,
+  section[data-hero-type='superhero'] .hero-section-surface,
+  section[data-hero-type='superhero'] .hero-section-foreground-tint,
+  section[data-hero-type='superhero'] .hero-popout-structure-layer {
+    width: 100%;
+    left: 0;
+    right: 0;
   }
 
   /* Superhero: iPad + Desktop auf 81vh, Mobile unverändert. */
@@ -683,44 +710,8 @@
     bottom: 0;
   }
 
-  /* Wrapper: kein clip-path mehr hier (liegt auf .hero-simple-portrait-img), damit Schatten nicht geclippt wird. */
-  .hero-simple-portrait {
-    box-shadow: none;
-    background: transparent;
-    overflow: visible;
-    clip-path: none;
-    /* Mindestabstand zum Header immer >= 66px */
-    padding-top: calc(var(--header-height) + max(66px, 3vh));
-  }
-
-  /* Desktop: Herobild soll nicht in den Header hineinragen, aber vollständig sichtbar bleiben. */
-  @media (min-width: 1024px) {
-    .hero-simple-portrait {
-      /* Mindestabstand zum Header auch auf Desktop nie unter 66px */
-      padding-top: calc(var(--header-height) + max(66px, 3vh));
-    }
-  }
-
-  /* Einfaches Hero-Portrait (PhilippBacherHeroSimple):
-     - drop-shadow sitzt auf .hero-foreground-container (nicht hier), damit clip-path den Schatten nicht abschneidet
-     - clip-path nur auf dem Bild: unten 3.5rem für Shape-Divider, seitlich -20% Luft
-  */
-  /* Transform nur in CSS (kein JS) → vermeidet CLS durch Hydration. */
-  .hero-simple-portrait-img {
-    transform: translateY(40px);
-    transition: transform 200ms ease-out;
-    box-sizing: content-box;
-    vertical-align: top;
-    box-shadow: none;
-    filter: none;
-    /* Keep portrait reliably visible on short viewports */
-    max-height: calc(100dvh - var(--header-height) - 33px);
-    /* Weniger starker Beschnitt unten, damit das Portrait bei großen Auflösungen nicht „halbiert“ wirkt. */
-    clip-path: inset(0 -20% 1.75rem -20%);
-  }
-
   /* Desktop: Portrait soll vollständig sichtbar sein.
-     Die bestehende mask-image (Fade-out unten) und der Bottom-clip können ab ~1024px wie „halbiert“ wirken. */
+     Die bestehende mask-image (Fade-out unten) und der Bottom-clip können ab ~1024px wie „halbiert" wirken. */
   @media (min-width: 1024px) {
     .hero-portrait-fade-up {
       mask-image: none;
@@ -732,21 +723,6 @@
       right: 0;
       left: auto;
       max-width: 60.5%;
-    }
-
-    /*
-     * Breitere max-width am Wrapper wirkt oft nicht: Bei object-contain + hohem Portrait begrenzt
-     * max-height die Darstellung — die Breite folgt dem Seitenverhältnis. Daher Höhe ~21% höher
-     * (1,1²), damit die gewünschte Desktop-Vergrößerung sichtbar wird.
-     */
-    .hero-simple-portrait-img {
-      clip-path: inset(0 -20% 0rem -20%);
-      /* Zusätzlicher Abzug wie bei .hero-offset lg+ (header + 18vh), damit der Fuß im ersten Viewport bleibt */
-      max-height: calc((100dvh - var(--header-height) - max(33px, 3vh) - 8vh) * 1.21);
-      width: auto;
-      max-width: 100%;
-      transform: translateY(0);
-      margin-left: auto;
     }
   }
 
@@ -887,14 +863,6 @@
     }
     .hero-portrait-sm {
       transform: translateY(0) scale(1);
-    }
-    .hero-simple-portrait-img {
-      clip-path: inset(0 -20% 0.75rem -20%);
-    }
-    @media (min-width: 1024px) {
-      .hero-simple-portrait-img {
-        max-height: calc(100vh - var(--header-height) - max(33px, 3vh));
-      }
     }
   }
 
@@ -1149,10 +1117,10 @@
     }
 
     .hero-desktop-parallax-portrait {
-      position: relative;
+      /* position entfernt - wird inline via style prop gesetzt */
       transform: translate3d(0, var(--hero-desktop-portrait-translate, 0px), 0);
       width: 100%;
-      max-width: 100%;
+      max-width: none; /* ← NEU: erlaubt Overflow */
       z-index: 20;
       pointer-events: none;
       will-change: transform, filter, opacity;
@@ -2571,65 +2539,4 @@
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-error: var(--error);
-}
-
-/* Pro Athlete hero overlays (moved from styled-jsx to keep the hero server-renderable). */
-.pro-athlete-grid-mask {
-  mask-image: linear-gradient(to bottom, black 8%, rgba(0, 0, 0, 0.85) 62%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to bottom, black 8%, rgba(0, 0, 0, 0.85) 62%, transparent 100%);
-}
-
-.pro-athlete-checker {
-  background-image:
-    linear-gradient(45deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(255, 255, 255, 0.06) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(255, 255, 255, 0.06) 75%);
-  background-size: 150px 150px;
-  background-position:
-    100% 0,
-    100% 75px,
-    calc(100% - 75px) -75px,
-    calc(100% + 75px) 0;
-  inset: -20%;
-  transform: rotate(33deg) scale(1.12);
-  transform-origin: top right;
-  mask-image: radial-gradient(
-    circle at 100% 0%,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.98) 20%,
-    rgba(0, 0, 0, 0.9) 36%,
-    rgba(0, 0, 0, 0.74) 52%,
-    rgba(0, 0, 0, 0.54) 66%,
-    rgba(0, 0, 0, 0.34) 78%,
-    rgba(0, 0, 0, 0.18) 89%,
-    rgba(0, 0, 0, 0.08) 95%,
-    transparent 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    circle at 100% 0%,
-    rgba(0, 0, 0, 1) 0%,
-    rgba(0, 0, 0, 0.98) 20%,
-    rgba(0, 0, 0, 0.9) 36%,
-    rgba(0, 0, 0, 0.74) 52%,
-    rgba(0, 0, 0, 0.54) 66%,
-    rgba(0, 0, 0, 0.34) 78%,
-    rgba(0, 0, 0, 0.18) 89%,
-    rgba(0, 0, 0, 0.08) 95%,
-    transparent 100%
-  );
-  mask-repeat: no-repeat;
-  -webkit-mask-repeat: no-repeat;
-  mask-size: 140% 140%;
-  -webkit-mask-size: 140% 140%;
-  mask-position: 100% 0%;
-  -webkit-mask-position: 100% 0%;
-}
-
-[data-theme='light'] .pro-athlete-checker {
-  background-image:
-    linear-gradient(45deg, rgba(15, 15, 15, 0.07) 25%, transparent 25%),
-    linear-gradient(-45deg, rgba(15, 15, 15, 0.07) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, rgba(15, 15, 15, 0.07) 75%),
-    linear-gradient(-45deg, transparent 75%, rgba(15, 15, 15, 0.07) 75%);
 }

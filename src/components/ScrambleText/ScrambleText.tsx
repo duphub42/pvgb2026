@@ -4,8 +4,6 @@ import { cn } from '@/utilities/ui'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 
 const CHARS = '!@#$%^&*()_+-=[]{}|;:,.<>?/~`'
-
-/** Hacker-Style: mehr Ziffern, Klammern, Code-Zeichen */
 export const HACKER_CHARS = '01{}[]<>/\\|;:=*#@$%&_+-~`'
 
 function randomCharFrom(chars: string) {
@@ -36,32 +34,43 @@ export function ScrambleText({
   const scrambleChars = useMemo(() => chars || CHARS, [chars])
   const textLen = text?.length || 0
 
+  // SSR-safe: empty initial, scramble happens client-side in effect
   const [display, setDisplay] = useState<string>('')
-  const [hasStarted, setHasStarted] = useState(false)
   const [isComplete, setIsComplete] = useState(false)
+
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const mountedRef = useRef(false)
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  // Alles in einem Effect – kein hasStartedRef nötig
   useEffect(() => {
-    if (disableAnimation || !text || mountedRef.current) return
-    mountedRef.current = true
+    if (disableAnimation || !text) return
 
-    // Check reduced motion - show final text immediately
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Cleanup vorheriger Animation (Strict Mode Guard)
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current)
+      intervalRef.current = null
+    }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current)
+      timeoutRef.current = null
+    }
+    setIsComplete(false)
+
+    // Reduced Motion: sofort fertig
+    if (
+      typeof window !== 'undefined' &&
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
       setDisplay(text)
       setIsComplete(true)
       return
     }
 
-    // Start immediately with scrambled text (no visible original text first)
-    const initialScrambled = Array.from({ length: textLen }, () =>
-      randomCharFrom(scrambleChars),
-    ).join('')
-    setDisplay(initialScrambled)
-    setHasStarted(true)
+    // Client-side only: scramble text (SSR-safe)
+    if (typeof window === 'undefined') return
+    setDisplay(Array.from({ length: textLen }, () => randomCharFrom(scrambleChars)).join(''))
 
-    // Start reveal animation after delay
-    const startTimeout = setTimeout(() => {
+    timeoutRef.current = setTimeout(() => {
       const startTime = performance.now()
 
       const tick = () => {
@@ -70,18 +79,8 @@ export function ScrambleText({
 
         const newDisplay = Array.from({ length: textLen }, (_, i) => {
           const revealAt = i * staggerMs + scrambleDurationMs
-
-          if (elapsed >= revealAt) {
-            return text[i]
-          }
-
+          if (elapsed >= revealAt) return text[i]
           allRevealed = false
-
-          const scrambleStart = i * staggerMs
-          if (elapsed >= scrambleStart) {
-            return randomCharFrom(scrambleChars)
-          }
-
           return randomCharFrom(scrambleChars)
         }).join('')
 
@@ -103,29 +102,46 @@ export function ScrambleText({
     }, delayMs)
 
     return () => {
-      clearTimeout(startTimeout)
-      if (intervalRef.current) clearInterval(intervalRef.current)
+      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
     }
-  }, [])
+    // text als direkter Trigger – kein animationKey-Wrapper mehr nötig
+  }, [
+    text,
+    textLen,
+    scrambleChars,
+    disableAnimation,
+    staggerMs,
+    scrambleDurationMs,
+    tickMs,
+    delayMs,
+  ])
 
-  // No animation: show plain text
   if (disableAnimation || !text) {
     return <span className={cn('inline', className)}>{text}</span>
   }
 
-  // Complete: show final text
   if (isComplete) {
     return <span className={cn('inline', className)}>{text}</span>
   }
 
-  // Text builds from empty -> scrambled -> revealed
   return (
-    <span
-      className={cn('inline font-mono transition-all duration-300 ease-out', className)}
-      aria-label={text}
-      style={{ fontVariantNumeric: 'tabular-nums' }}
-    >
-      {display}
+    <span className={cn('relative inline-block', className)} aria-label={text}>
+      {/* Placeholder hält den Platz mit finaler Schrift */}
+      <span className="invisible" aria-hidden="true">
+        {text}
+      </span>
+      {display && (
+        <span
+          className="absolute inset-0 font-mono whitespace-nowrap"
+          style={{ fontVariantNumeric: 'tabular-nums' }}
+        >
+          {display}
+        </span>
+      )}
     </span>
   )
 }

@@ -13,7 +13,10 @@ import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher'
 import { SearchCommand } from '@/components/SearchCommand/SearchCommand'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { getClientSideURL } from '@/utilities/getURL'
-import { FORM_SPAM_META_FIELDS, buildFormSpamMetaSubmissionData } from '@/utilities/formSpamProtection'
+import {
+  FORM_SPAM_META_FIELDS,
+  buildFormSpamMetaSubmissionData,
+} from '@/utilities/formSpamProtection'
 import { cn } from '@/utilities/ui'
 import { MessageCircle, Phone, PhoneCall } from 'lucide-react'
 import Link from 'next/link'
@@ -555,16 +558,17 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                     erreichen.
                   </p>
                 </div>
-                <a
-                  href={resolvedWhatsApp.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-lg bg-[#25D366] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#20BD5A]"
-                  aria-label={resolvedWhatsApp.label}
-                >
-                  <MessageCircle className="h-5 w-5" aria-hidden />
-                  {resolvedWhatsApp.label}
-                </a>
+                <Button asChild variant="whatsapp" size="sm" className="w-full gap-2">
+                  <a
+                    href={resolvedWhatsApp.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={resolvedWhatsApp.label}
+                  >
+                    <MessageCircle className="h-5 w-5" aria-hidden />
+                    {resolvedWhatsApp.label}
+                  </a>
+                </Button>
               </div>
             ) : (
               <p className="text-base text-muted-foreground [@media(max-height:48rem)]:col-start-2 [@media(max-height:48rem)]:row-start-1">

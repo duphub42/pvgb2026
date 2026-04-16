@@ -55,7 +55,7 @@ const eslintConfig = [
     },
   },
   {
-    ignores: ['.next/'],
+    ignores: ['.next/', '*.js', 'scripts/', 'drizzle/', 'patches/', 'data/'],
   },
 ]
 

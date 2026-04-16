@@ -45,7 +45,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const { theme: globalTheme } = useTheme()
   const pathname = usePathname()
   const useMegaMenu =
-    (data as Header & { useMegaMenu?: boolean })?.useMegaMenu === true && megaMenuItems.length > 0
+    ((data as any)?.useMegaMenu === true || (data as any)?.use_mega_menu === true) &&
+    megaMenuItems.length > 0
 
   useEffect(() => {
     const timer = window.setTimeout(() => {
@@ -170,13 +171,17 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   // Resolved theme: page override (headerTheme) or global theme (reaktiv beim Toggle)
   const resolvedTheme = headerTheme ?? globalTheme ?? null
 
-  const logo = data?.logo
-  const hasCustomLogo =
-    logo && typeof logo === 'object' && 'url' in logo && (logo as { url?: string }).url
+  // Support both logo (camelCase) and logo_id (snake_case from DB)
+  const logoData = data?.logo ?? (data as any)?.logo_id
+  const hasCustomLogo = logoData && typeof logoData !== 'number'
+  const rawLogoUrl = hasCustomLogo
+    ? ((logoData as any).url ?? (logoData as any).sizes?.thumbnail?.url)
+    : null
+  // Use getMediaUrl with cacheTag to match ImageMedia behavior (avoids URL mismatch)
   const logoUrl =
-    hasCustomLogo && typeof logo === 'object' && logo !== null && 'url' in logo
-      ? getMediaUrl((logo as { url: string }).url, (logo as { updatedAt?: string }).updatedAt)
-      : null
+    hasCustomLogo && typeof logoData === 'object' && 'updatedAt' in logoData
+      ? getMediaUrl(rawLogoUrl, (logoData as any).updatedAt)
+      : getMediaUrl(rawLogoUrl)
 
   const renderPrimaryLogo = (disableAnimation?: boolean) => {
     if (hasCustomLogo && logoUrl) {
@@ -193,13 +198,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
       )
     }
 
-    return (
-      <LogoWithGlitch
-        textLogo="Philipp Bacher"
-        variant="header"
-        disableAnimation={disableAnimation}
-      />
-    )
+    return null
   }
 
   const handleLogoMouseEnter = () => {
@@ -222,7 +221,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     logoPreviewTimeoutRef.current = window.setTimeout(() => {
       setLogoPreviewActive(false)
       logoPreviewTimeoutRef.current = null
-    }, 1000)
+    }, 600)
   }
 
   const renderLogoLink = (disableAnimation?: boolean) => (

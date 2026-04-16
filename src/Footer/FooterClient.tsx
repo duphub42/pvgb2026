@@ -3,10 +3,9 @@
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import Link from 'next/link'
 import React, { useEffect, useRef, useState } from 'react'
-import { ArrowRight } from 'lucide-react'
-import { Link2 } from 'lucide-react'
+import { ArrowRight, ArrowUpRight, Link2 } from 'lucide-react'
 
-import type { Footer } from '@/payload-types'
+import type { Footer, Header } from '@/payload-types'
 import { SaveButton } from '@/components/ui/save-button'
 import type { Locale } from '@/utilities/locale'
 
@@ -14,30 +13,22 @@ import RichText from '@/components/RichText'
 import { ThemeSelector } from '@/providers/Theme/ThemeSelector'
 import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
-import { LogoWithGlitchWrapper } from '@/components/Logo/LogoWithGlitchWrapper'
-import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher'
 import { FooterBounce } from '@/components/FooterBounce/FooterBounce'
 import { messages } from '@/i18n/messages'
 
 const SOCIAL_SPRITE_IDS: Record<string, string> = {
   linkedin: 'hf-linkedin',
-  twitter: 'hf-twitter',
+  twitter: 'hf-x',
   facebook: 'hf-facebook',
   instagram: 'hf-instagram',
 }
-const MOBILE_FOOTER_B_LOGO_SRC = '/branding/philippbacher-logo-b-10.svg'
-const MOBILE_FOOTER_B_LOGO_MIN_OPACITY = 0.1
-const MOBILE_FOOTER_B_LOGO_MAX_OPACITY = 0.3
+const MOBILE_FOOTER_B_LOGO_SRC = ''
+const _MOBILE_FOOTER_B_LOGO_MIN_OPACITY = 0.1
+const _MOBILE_FOOTER_B_LOGO_MAX_OPACITY = 0.3
 const MOBILE_FOOTER_HEADING_MIN_OPACITY = 0.3
 const MOBILE_FOOTER_HEADING_MAX_OPACITY = 1
 const MOBILE_FOOTER_B_LOGO_FADE_ZONE_RATIO = 0.72
 const ENABLE_MOBILE_FOOTER_SCROLL_FADE = true
-
-function mediaUrl(media: { url?: string | null } | number | null | undefined): string {
-  if (media == null) return ''
-  if (typeof media === 'object' && media?.url) return getMediaUrl(media.url) || ''
-  return ''
-}
 
 function normalizeKnownBrokenFooterIconUrl(url: string): string {
   if (!url) return ''
@@ -49,12 +40,17 @@ function normalizeKnownBrokenFooterIconUrl(url: string): string {
 
 export type FooterClientProps = {
   footer: Footer | null
+  header?: Header | null
   locale: Locale
 }
 
 type NewsletterStatus = 'idle' | 'saving' | 'saved'
 
-export function FooterClient({ footer: footerData, locale }: FooterClientProps) {
+export function FooterClient({
+  footer: footerData,
+  header: headerData,
+  locale,
+}: FooterClientProps) {
   const footer: Partial<Footer> = footerData ?? {}
   const [newsletterStatus, setNewsletterStatus] = useState<NewsletterStatus>('idle')
   const footerRootRef = useRef<HTMLElement | null>(null)
@@ -69,12 +65,14 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
     footer?.privacyLink != null ||
     footer?.termsLink != null
 
-  const logoToShow = footer?.footerLogo ?? null
+  // Support both footerLogo (camelCase) and footer_logo_id (snake_case from DB)
+  // Also use header logo (B-logo) as fallback when footer has no logo
+  const headerLogo = headerData?.logo ?? (headerData as any)?.logo_id ?? null
+  const footerLogo = footer?.footerLogo ?? (footer as any)?.footer_logo_id ?? null
+  const logoToShow = footerLogo ?? headerLogo ?? null
   const footerAddress = footer?.footerAddress
   const footerPhone = footer?.footerPhone
-  const logoUrl = mediaUrl(logoToShow)
-  const useTextLogo = !logoToShow
-  const mobileFooterLogoAlt = footer?.footerLogoAltText?.trim() || 'Philipp Bacher Logo'
+  const mobileFooterLogoAlt = footer?.footerLogoAltText?.trim() || ''
   const mobileFooterLogoClassName =
     'mobile-footer-b-logo logo-contrast block max-w-[100%] h-16 sm:h-18 md:h-22'
 
@@ -213,34 +211,28 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
         style={style}
       >
         <FooterBounce>
-          <div className="container flex flex-col gap-6">
+          <div className="container px-[clamp(1rem,4vw,2rem)] flex flex-col gap-6">
             <div className="gap-8 flex flex-col md:flex-row md:justify-between">
               <Link className="logo-link flex items-center" href="/">
                 <>
-                  <img
-                    ref={mobileFooterLogoRef}
-                    src={MOBILE_FOOTER_B_LOGO_SRC}
-                    alt={mobileFooterLogoAlt}
-                    className={mobileFooterLogoClassName}
-                    width={48}
-                    height={48}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  {logoToShow != null ? (
+                  {MOBILE_FOOTER_B_LOGO_SRC && (
+                    <img
+                      ref={mobileFooterLogoRef}
+                      src={MOBILE_FOOTER_B_LOGO_SRC}
+                      alt={mobileFooterLogoAlt}
+                      className={mobileFooterLogoClassName}
+                      width={48}
+                      height={48}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  )}
+                  {logoToShow != null && (
                     <Logo
                       logo={logoToShow}
                       variant="footer"
                       className="hidden max-w-[100%] h-20 md:h-28 md:block"
                     />
-                  ) : (
-                    <span className="hidden md:inline-flex">
-                      <LogoWithGlitchWrapper
-                        useTextLogo={useTextLogo}
-                        logoUrl={logoUrl}
-                        variant="footer"
-                      />
-                    </span>
                   )}
                 </>
               </Link>
@@ -257,9 +249,6 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                 </nav>
               </div>
             </div>
-            <div className="flex justify-end">
-              <LanguageSwitcher />
-            </div>
           </div>
         </FooterBounce>
       </footer>
@@ -273,34 +262,27 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
       style={style}
     >
       <FooterBounce>
-        <div className="container">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 lg:grid-cols-[1fr_3fr] [&>*]:pt-4">
-            <div className="md:col-span-12 lg:col-span-1 order-1 md:order-1 lg:order-1">
-              <div className="h-full flex flex-col gap-4 md:gap-0 lg:gap-8">
-                {footer.footerDescription != null && (
-                  <div className="hidden lg:block text-[11px] md:text-sm leading-[1.5] opacity-60 max-w-none text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
-                    <RichText
-                      data={footer.footerDescription}
-                      enableGutter={false}
-                      enableProse={false}
-                    />
-                  </div>
-                )}
-                <div className="flex-1 flex flex-col items-center text-center gap-6 md:grid md:grid-cols-[2fr_5fr_13fr] md:items-end md:text-left lg:flex lg:flex-row lg:items-end lg:justify-end lg:gap-8">
+        <div className="container px-[clamp(1rem,4vw,2rem)]">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 xl:grid-cols-[1fr_3fr] [&>*]:pt-4">
+            <div className="md:col-span-12 xl:col-span-1 order-1 md:order-1 xl:order-1 w-full">
+              <div className="h-full flex flex-col gap-1">
+                <div className="flex-1 flex flex-col items-center xl:items-start text-center xl:text-left gap-6">
                   {/* Logo */}
-                  <div className="flex items-end justify-center md:justify-start lg:self-end">
+                  <div className="flex items-end justify-center xl:justify-start">
                     <Link href="/" className="logo-link inline-block max-w-[100%]">
                       <>
-                        <img
-                          ref={mobileFooterLogoRef}
-                          src={MOBILE_FOOTER_B_LOGO_SRC}
-                          alt={mobileFooterLogoAlt}
-                          className="mobile-footer-b-logo logo-contrast block max-w-[100%] h-16 sm:h-18 md:h-28"
-                          width={48}
-                          height={48}
-                          loading="lazy"
-                          decoding="async"
-                        />
+                        {MOBILE_FOOTER_B_LOGO_SRC && (
+                          <img
+                            ref={mobileFooterLogoRef}
+                            src={MOBILE_FOOTER_B_LOGO_SRC}
+                            alt={mobileFooterLogoAlt}
+                            className="mobile-footer-b-logo logo-contrast block max-w-[100%] h-12"
+                            width={48}
+                            height={48}
+                            loading="lazy"
+                            decoding="async"
+                          />
+                        )}
                         {logoToShow != null && (
                           <Logo logo={logoToShow} variant="footer" className="hidden" />
                         )}
@@ -308,124 +290,109 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
                     </Link>
                   </div>
 
-                  {/* Kontakt + Social */}
-                  <div className="space-y-4 lg:self-end">
-                    {(footerAddress || footerPhone) && (
-                      <div className="footer-contact-list space-y-1 text-sm opacity-60">
-                        {footerAddress && (
-                          <div className="footer-contact-row flex items-start gap-2">
-                            <span
-                              className="footer-contact-icon mt-0.5 opacity-80"
-                              aria-hidden="true"
-                            >
-                              <svg className="inline-block h-4 w-4" aria-hidden="true">
-                                <use href="/icons-sprite.svg#hf-map-pin" />
-                              </svg>
-                            </span>
-                            <p className="footer-contact-text whitespace-pre-line opacity-60">
-                              {footerAddress}
-                            </p>
-                          </div>
-                        )}
-                        {footerPhone && (
-                          <div className="footer-contact-row flex items-start gap-2">
-                            <span
-                              className="footer-contact-icon mt-0.5 opacity-80"
-                              aria-hidden="true"
-                            >
-                              <svg className="inline-block h-4 w-4" aria-hidden="true">
-                                <use href="/icons-sprite.svg#hf-phone" />
-                              </svg>
-                            </span>
-                            <a
-                              href={`tel:${footerPhone.replace(/\s+/g, '')}`}
-                              className="footer-contact-link footer-link text-xs opacity-60"
-                            >
-                              {footerPhone}
-                            </a>
-                          </div>
-                        )}
-                      </div>
-                    )}
-                    {(footer?.socialLinks?.length ?? 0) > 0 && (
-                      <div
-                        className="flex flex-wrap items-center justify-center md:justify-start gap-3"
-                        aria-label="Social Media"
-                      >
-                        {(footer.socialLinks ?? []).map((item, i) => {
-                          const url = item?.url?.trim()
-                          const platform = (item?.platform ?? '') as string
-                          const customIconUrl =
-                            item?.iconUpload &&
-                            typeof item.iconUpload === 'object' &&
-                            item.iconUpload?.url
-                              ? getMediaUrl((item.iconUpload as { url?: string }).url)
-                              : ''
-                          const uploadSpriteId = null
-                          const spriteId = uploadSpriteId ?? SOCIAL_SPRITE_IDS[platform] ?? null
+                  {/* Social Icons unter dem Logo */}
+                  {(footer?.socialLinks?.length ?? 0) > 0 && (
+                    <div
+                      className="flex flex-wrap items-center justify-center xl:justify-start gap-1 md:gap-3"
+                      aria-label="Social Media"
+                    >
+                      {(footer.socialLinks ?? []).map((item, i) => {
+                        const url = item?.url?.trim()
+                        const platform = (item?.platform ?? '') as string
+                        const customIconUrl =
+                          item?.iconUpload &&
+                          typeof item.iconUpload === 'object' &&
+                          item.iconUpload?.url
+                            ? getMediaUrl((item.iconUpload as { url?: string }).url)
+                            : ''
+                        const uploadSpriteId = null
+                        const spriteId = uploadSpriteId ?? SOCIAL_SPRITE_IDS[platform] ?? null
 
-                          if (!url) return null
-                          return (
-                            <a
-                              key={item.id ?? i}
-                              href={url}
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              // FIX: footer-social-icon statt text-white — Theme-aware via CSS
-                              className="footer-social-icon opacity-70 transition-opacity hover:opacity-100 focus:opacity-100 focus:outline-none"
-                              aria-label={platform}
-                            >
-                              {spriteId ? (
-                                // FIX: currentColor statt text-white — erbt Footer-Textfarbe
-                                <svg className="h-4 w-4" aria-hidden="true">
-                                  <use href={`/icons-sprite.svg#${spriteId}`} />
-                                </svg>
-                              ) : customIconUrl ? (
-                                <img
-                                  src={customIconUrl}
-                                  alt=""
-                                  // FIX: footer-icon-img statt filter-invert — Theme-aware
-                                  className="footer-icon-img h-4 w-4 object-contain"
-                                  width={16}
-                                  loading="lazy"
-                                  decoding="async"
-                                />
-                              ) : (
-                                <Link2 className="h-4 w-4 opacity-60" aria-hidden="true" />
-                              )}
-                            </a>
-                          )
-                        })}
-                      </div>
-                    )}
-                  </div>
-                  {/* Beschreibung iPad/Playbook */}
-                  {footer.footerDescription != null && (
-                    <div className="hidden md:block lg:hidden text-[11px] md:text-sm leading-[1.5] opacity-60 max-w-none text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
-                      <RichText
-                        data={footer.footerDescription}
-                        enableGutter={false}
-                        enableProse={false}
-                      />
+                        if (!url) return null
+                        return (
+                          <a
+                            key={item.id ?? i}
+                            href={url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="footer-social-icon opacity-70 transition-opacity hover:opacity-100 focus:opacity-100 focus:outline-none"
+                            aria-label={platform}
+                          >
+                            {spriteId ? (
+                              <svg className="h-4 w-4" aria-hidden="true">
+                                <use href={`/icons-sprite.svg#${spriteId}`} />
+                              </svg>
+                            ) : customIconUrl ? (
+                              <img
+                                src={customIconUrl}
+                                alt=""
+                                className="footer-icon-img h-4 w-4 object-contain"
+                                width={16}
+                                loading="lazy"
+                                decoding="async"
+                              />
+                            ) : (
+                              <Link2 className="h-4 w-4 opacity-60" aria-hidden="true" />
+                            )}
+                          </a>
+                        )
+                      })}
                     </div>
                   )}
                 </div>
 
                 {footer.footerDescription != null && (
-                  <div className="block md:hidden text-[11px] md:text-sm leading-[1.5] opacity-60 max-w-none text-center [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
+                  <div className="block w-full min-w-0 mt-2">
                     <RichText
                       data={footer.footerDescription}
                       enableGutter={false}
                       enableProse={false}
+                      className="w-full max-w-none text-[11px] md:text-sm leading-[1.5] opacity-60 text-center xl:text-left [&>*]:w-full [&>*]:max-w-none [&_p]:w-full [&_p]:max-w-none [&_p]:mt-0 [&_p]:mb-0 [&_p]:text-center [&_p]:xl:text-left [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0"
                     />
+                  </div>
+                )}
+
+                {/* Kontakt (Adresse + Telefon) unter dem Beschreibungstext */}
+                {(footerAddress || footerPhone) && (
+                  <div className="flex flex-wrap items-center justify-center xl:justify-start gap-x-3 gap-y-1 text-[11px] md:text-sm leading-tight opacity-60 xl:mt-2">
+                    {footerAddress && (
+                      <span className="inline-flex items-center gap-1.5">
+                        <svg className="inline-block h-3 w-3 opacity-80" aria-hidden="true">
+                          <use href="/icons-sprite.svg#hf-map-pin" />
+                        </svg>
+                        <span>{footerAddress.replace(/\n/g, ', ')}</span>
+                      </span>
+                    )}
+                    {footerAddress && footerPhone && (
+                      <span className="opacity-40 md:hidden">|</span>
+                    )}
+                    {footerPhone && (
+                      <span className="inline-flex items-center gap-1.5">
+                        <svg className="inline-block h-3 w-3 opacity-80" aria-hidden="true">
+                          <use href="/icons-sprite.svg#hf-phone" />
+                        </svg>
+                        <a
+                          href={`tel:${footerPhone.replace(/\s+/g, '')}`}
+                          target="_blank"
+                          rel="nofollow noopener noreferrer"
+                          className="footer-link text-[11px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[28px]"
+                        >
+                          <span className="footer-link-text">{footerPhone}</span>
+                          <ArrowUpRight
+                            className="footer-link-arrow inline-block size-[0.85em] shrink-0"
+                            aria-hidden
+                          />
+                        </a>
+                      </span>
+                    )}
                   </div>
                 )}
               </div>
             </div>
 
             {(columns.length > 0 || footer.newsletterTitle != null) && (
-              <div className="md:col-span-12 lg:col-span-1 order-2 md:order-3 lg:order-2">
-                <div className="grid gap-8 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+              <div className="md:col-span-12 xl:col-span-1 order-2 md:order-3 xl:order-2 w-full">
+                <div className="grid gap-4 sm:gap-6 md:gap-8 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
                   {columns.map((col, i) => {
                     const colIcon =
                       col?.columnIcon && String(col.columnIcon).trim().length > 0
@@ -627,7 +594,6 @@ export function FooterClient({ footer: footerData, locale }: FooterClientProps) 
               )}
               <div className="ml-auto flex items-center gap-3 md:ml-0">
                 <ThemeSelector />
-                <LanguageSwitcher />
               </div>
             </div>
           </div>

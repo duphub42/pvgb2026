@@ -31,12 +31,17 @@ const cachedGlobalGetters = new Map<string, ReturnType<typeof unstable_cache>>()
  * revalidate: 60 keeps PageSpeed good while still updating within 1 min.
  */
 export const getCachedGlobal = (slug: Global, depth = 0) => {
+  // In development, skip cache for immediate updates
+  if (process.env.NODE_ENV === 'development') {
+    return async () => getGlobal(slug, depth)
+  }
+
   const cacheKey = `${slug}:${depth}`
   let getter = cachedGlobalGetters.get(cacheKey)
 
   if (!getter) {
     getter = unstable_cache(async () => getGlobal(slug, depth), [slug, String(depth)], {
-      revalidate: 300, // 5 Minuten für bessere Performance
+      revalidate: 300, // 5 Minuten für Production
       tags: [`global_${slug}`],
     })
     cachedGlobalGetters.set(cacheKey, getter)

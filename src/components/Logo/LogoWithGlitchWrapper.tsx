@@ -21,7 +21,7 @@ export function LogoWithGlitchWrapper({
   children,
 }: LogoWithGlitchWrapperProps) {
   if (useTextLogo) {
-    return <LogoWithGlitch textLogo="Philipp Bacher" variant={variant} />
+    return null
   }
   return (
     <LogoWithGlitch imgSrc={logoUrl} variant={variant}>

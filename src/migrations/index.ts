@@ -105,6 +105,7 @@ import * as migration_20260414_100000_site_pages_hero_portrait from './20260414_
 import * as migration_20260414_110000_add_hero_background_glow from './20260414_110000_add_hero_background_glow'
 import * as migration_20260414_120000_fix_missing_hero_columns from './20260414_120000_fix_missing_hero_columns'
 import * as migration_20260415_000000_repair_version_tables from './20260415_000000_repair_version_tables'
+import * as migration_20260416_195800_link_icon_and_icon_swap from './20260416_195800_link_icon_and_icon_swap'
 
 export const migrations = [
   {
@@ -642,4 +643,10 @@ export const migrations = [
     down: migration_20260415_000000_repair_version_tables.down,
     name: '20260415_000000_repair_version_tables',
   },
+  // TEMPORARILY DISABLED - Database migration needs SQLite fix
+  // {
+  //   up: migration_20260416_195800_link_icon_and_icon_swap.up,
+  //   down: migration_20260416_195800_link_icon_and_icon_swap.down,
+  //   name: '20260416_195800_link_icon_and_icon_swap',
+  // },
 ]

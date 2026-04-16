@@ -42,11 +42,7 @@ export const ProfilCtaBandBlock: React.FC<Props> = ({
           <p className="relative z-10 mx-auto mt-4 max-w-2xl text-base leading-relaxed text-background/70 md:text-lg">
             {t}
           </p>
-          <Button
-            asChild
-            size="lg"
-            className="relative z-10 mt-9 rounded-full bg-background px-8 text-foreground shadow-[0_16px_36px_-22px_rgba(255,255,255,0.38)] hover:bg-background/90"
-          >
+          <Button asChild variant="inverted" size="lg" className="relative z-10 mt-9 px-8">
             <Link href={href}>{btn}</Link>
           </Button>
         </div>

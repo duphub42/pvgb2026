@@ -1,5 +1,6 @@
 import { Button, type ButtonProps } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
+import * as Icons from 'lucide-react'
 import NextLink from 'next/link'
 import React from 'react'
 
@@ -17,6 +18,10 @@ type CMSLinkType = {
   className?: string
   /** When set, hero-style expand-icon animation (icon slides in on hover). Overrides appearance to expandIcon when not inline. */
   expandIcon?: 'left' | 'right'
+  /** Lucide icon name (e.g., ArrowRight, Mail, Phone) */
+  icon?: string | null
+  /** When true, enables icon swap animation (ChevronRight → ArrowUpRight) */
+  enableIconSwap?: boolean | null
   label?: string | null
   newTab?: boolean | null
   reference?: {
@@ -34,7 +39,9 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     appearance = 'inline',
     children,
     className,
+    enableIconSwap,
     expandIcon: _expandIcon,
+    icon,
     label,
     newTab,
     reference,
@@ -55,6 +62,14 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   const size = appearance === 'link' ? 'default' : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
+
+  /* Get Lucide icon component if specified */
+  const IconComponent = icon
+    ? (Icons as unknown as Record<string, React.ComponentType<{ size?: number }>>)[icon]
+    : null
+
+  const ChevronRight = Icons.ChevronRight
+  const ArrowUpRight = Icons.ArrowUpRight
 
   /* Ensure we don't break any styles set by richText */
   const linkContent =
@@ -77,10 +92,32 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     )
   }
 
+  // Build content with icon swap animation if enabled
+  const buttonContent = enableIconSwap ? (
+    <>
+      {linkContent}
+      <span className="megamenu-special-icon-swap inline-flex shrink-0">
+        <span className="megamenu-special-icon-layer megamenu-special-icon-layer--a">
+          <ChevronRight size={16} />
+        </span>
+        <span className="megamenu-special-icon-layer megamenu-special-icon-layer--b">
+          <ArrowUpRight size={16} />
+        </span>
+      </span>
+    </>
+  ) : IconComponent ? (
+    <>
+      {linkContent}
+      <IconComponent size={16} />
+    </>
+  ) : (
+    linkContent
+  )
+
   return (
     <Button asChild className={className} size={size} variant={appearance}>
       <Link href={href || url || ''} {...newTabProps}>
-        {linkContent}
+        {buttonContent}
       </Link>
     </Button>
   )

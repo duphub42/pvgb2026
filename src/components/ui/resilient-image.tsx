@@ -16,7 +16,12 @@ export function ResilientImage({ src, onError, ...props }: ResilientImageProps) 
     setIndex(0)
   }, [src])
 
-  const current = candidates[index] ?? src ?? ''
+  const current = candidates[index] ?? src
+
+  // Don't render anything if no valid URL is available
+  if (!current) {
+    return null
+  }
 
   const handleError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
     if (index < candidates.length - 1) {
