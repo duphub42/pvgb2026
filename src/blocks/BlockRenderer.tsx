@@ -12,6 +12,7 @@ import { FormBlock } from '@/blocks/Form/Component'
 import { HeroWithProcessBlock } from '@/blocks/HeroWithProcess/Component.client'
 import { HeroMarketingBlock } from '@/blocks/HeroMarketing/Component'
 import { IntroductionBlock } from '@/blocks/Introduction/Component'
+import { MarqueeSliderBlock } from '@/blocks/MarqueeSlider/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { ProfilBacherLegacyBlock } from '@/blocks/ProfilBacherLegacy/Component'
 import { ProfilCtaBandBlock } from '@/blocks/ProfilCtaBand/Component'
@@ -42,6 +43,7 @@ const blockComponents: Record<string, BlockComponent> = {
   heroWithProcess: HeroWithProcessBlock as unknown as BlockComponent,
   heroMarketing: HeroMarketingBlock as unknown as BlockComponent,
   introduction: IntroductionBlock as unknown as BlockComponent,
+  marqueeSlider: MarqueeSliderBlock as unknown as BlockComponent,
   cta: CallToActionBlock as unknown as BlockComponent,
   calPopup: CalPopupBlock as unknown as BlockComponent,
   formBlock: FormBlock as unknown as BlockComponent,

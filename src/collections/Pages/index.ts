@@ -13,6 +13,7 @@ import { HeroMarketing } from '../../blocks/HeroMarketing/config'
 import { HeroWithProcess } from '../../blocks/HeroWithProcess/config'
 import { ConsultingOverview } from '../../blocks/ConsultingOverview/config'
 import { Introduction } from '../../blocks/Introduction/config'
+import { MarqueeSliderBlockConfig } from '../../blocks/MarqueeSlider/config'
 import { ServicesOverview } from '../../blocks/ServicesOverview/config'
 import { ServicesGrid } from '../../blocks/ServicesGrid/config'
 import { WhyWorkWithMe } from '../../blocks/WhyWorkWithMe/config'
@@ -90,6 +91,7 @@ export const Pages: CollectionConfig = {
                 HeroMarketing,
                 HeroWithProcess,
                 Introduction,
+                MarqueeSliderBlockConfig,
                 ConsultingOverview,
                 ServicesOverview,
                 ServicesGrid,

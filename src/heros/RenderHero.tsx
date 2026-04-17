@@ -45,7 +45,54 @@ type HeroRenderProps = {
   type?: string | null
 } & Record<string, unknown>
 
+function toTitleFromSlug(slug: string | null): string {
+  if (!slug) return 'Digitale Loesungen mit Substanz'
+  if (slug === 'home') return 'Digitale Loesungen mit Substanz'
+  if (slug === 'lei' || slug === 'leistungen') return 'Leistungen'
+
+  return (
+    slug
+      .split('/')
+      .filter(Boolean)
+      .pop()
+      ?.split('-')
+      .filter(Boolean)
+      .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+      .join(' ') || 'Digitale Loesungen mit Substanz'
+  )
+}
+
+function hasNonEmptyString(value: unknown): boolean {
+  return typeof value === 'string' && value.trim().length > 0
+}
+
+function withFallbackHeroContent(heroData: Record<string, unknown>, pageSlug: string | null) {
+  const hasMainCopy =
+    hasNonEmptyString(heroData.subheadline) ||
+    hasNonEmptyString(heroData.headline) ||
+    hasNonEmptyString(heroData.description)
+  const hasRichText =
+    typeof heroData.richText === 'object' &&
+    heroData.richText !== null &&
+    'root' in heroData.richText
+  const hasMedia = heroData.media != null || heroData.backgroundImage != null
+  const hasLinks = Array.isArray(heroData.links) && heroData.links.length > 0
+
+  if (hasMainCopy || hasRichText || hasMedia || hasLinks) {
+    return heroData
+  }
+
+  return {
+    ...heroData,
+    subheadline: 'Strategie · Design · Entwicklung',
+    headline: toTitleFromSlug(pageSlug),
+    description:
+      'Wir gestalten digitale Erlebnisse, die sichtbar machen, was dein Angebot einzigartig macht.',
+  }
+}
+
 export const RenderHero: FC<HeroRenderProps> = (props) => {
+  const pageSlug = hasNonEmptyString(props.pageSlug) ? String(props.pageSlug).trim() : null
   const heroData =
     props.hero && typeof props.hero === 'object'
       ? (props.hero as Record<string, unknown>)
@@ -62,5 +109,7 @@ export const RenderHero: FC<HeroRenderProps> = (props) => {
 
   if (!HeroToRender) return null
 
-  return <HeroToRender {...heroData} />
+  const heroDataWithFallback = withFallbackHeroContent(heroData, pageSlug)
+
+  return <HeroToRender {...heroDataWithFallback} />
 }

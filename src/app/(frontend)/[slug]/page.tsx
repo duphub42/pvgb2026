@@ -14,12 +14,34 @@ import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 
-// ISR: Published pages cached 60s (besserer TTFB). Production preview uses explicit previewId.
-export const revalidate = 60
+// Force dynamic rendering to avoid build-time database access
+// which fails when Payload cannot initialize globals during static generation
+export const dynamic = 'force-dynamic'
+
+// ISR disabled during build: Use 'force-dynamic' to skip static generation
+// Production will use ISR for better caching via middleware if needed
 
 type PageProps = {
   params: Promise<{ slug?: string }>
   searchParams: Promise<{ previewId?: string }>
+}
+
+type BlockBackground = 'none' | 'muted' | 'accent' | 'light' | 'dark'
+
+function getNextSectionBackgroundValue(blockBackground?: string | null): string {
+  const bg = (blockBackground ?? 'none') as BlockBackground
+  switch (bg) {
+    case 'muted':
+      return 'var(--muted)'
+    case 'accent':
+      return 'var(--accent)'
+    case 'light':
+      return 'var(--theme-elevation-50)'
+    case 'dark':
+      return 'var(--theme-elevation-800)'
+    default:
+      return 'hsl(var(--background))'
+  }
 }
 
 function isHomePageSlug(slug?: string | null): boolean {
@@ -200,9 +222,19 @@ export default async function Page({
       firstBlock !== null &&
       'blockType' in firstBlock &&
       (firstBlock as { blockType?: string }).blockType === 'servicesOverview'
+    const firstBlockBackground =
+      firstBlock && typeof firstBlock === 'object' && firstBlock !== null && 'blockBackground' in firstBlock
+        ? ((firstBlock as { blockBackground?: string | null }).blockBackground ?? 'none')
+        : 'none'
+    const nextSectionBackground = getNextSectionBackgroundValue(firstBlockBackground)
+    const isSuperheroHero =
+      heroProps &&
+      typeof heroProps === 'object' &&
+      'type' in heroProps &&
+      (heroProps as { type?: string }).type === 'superhero'
 
     return (
-      <article>
+      <article style={{ ['--hero-next-section-bg' as string]: nextSectionBackground }}>
         {/*
           Hero z-32. Standard-Folgesection z-31, damit Mask nicht über Hero-Popout liegt.
           servicesOverview: Unter lg (Umbruch 1–2 Spalten) z-20 + kein Negativ-Margin — Karten liegen unter dem Hero.
@@ -219,7 +251,10 @@ export default async function Page({
           className={cn(
             'relative w-full min-w-0 hero-following-section-mask',
             firstBlockIsServices
-              ? 'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:z-[33] lg:-mt-28 lg:pt-2'
+              ? cn(
+                  'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:-mt-28 lg:pt-2',
+                  isSuperheroHero ? 'lg:z-[31]' : 'lg:z-[33]',
+                )
               : 'z-20 max-md:-mt-16 max-md:pt-8 pt-24 md:z-[31] md:-mt-16',
           )}
         >

@@ -6,12 +6,20 @@ import React, { useCallback, useState } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
 import RichText from '@/components/RichText'
 import { Button } from '@/components/ui/button'
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/components/ui/accordion'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from '@/components/ui/accordion'
 import type { DefaultTypedEditorState } from '@payloadcms/richtext-lexical'
 
 import { fields } from './fields'
 import { getClientSideURL } from '@/utilities/getURL'
-import { FORM_SPAM_META_FIELDS, buildFormSpamMetaSubmissionData } from '@/utilities/formSpamProtection'
+import {
+  FORM_SPAM_META_FIELDS,
+  buildFormSpamMetaSubmissionData,
+} from '@/utilities/formSpamProtection'
 
 const CONTACT_FAQS = [
   {
@@ -101,9 +109,15 @@ export const FormBlock: React.FC<
   const [error, setError] = useState<{ message: string; status?: string } | undefined>()
   const [honeypotValue, setHoneypotValue] = useState('')
   const [formStartedAt] = useState<number>(() => Date.now())
+  const [isMounted, setIsMounted] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
-  const isContactPage = /(^|\/)(kontakt|contact)(\/|$)/.test((pathname || '').toLowerCase())
+  const isContactPage =
+    isMounted && /(^|\/)(kontakt|contact)(\/|$)/.test((pathname || '').toLowerCase())
+
+  React.useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   const onSubmit = useCallback(
     (data: FormFieldBlock[]) => {
@@ -261,8 +275,8 @@ export const FormBlock: React.FC<
           </p>
           <h2 className="mt-3 text-2xl font-semibold lg:text-3xl">Häufige Fragen</h2>
           <p className="mt-3 text-sm text-muted-foreground lg:text-base">
-            Antworten rund um Webdesign, Website-Erstellung, SEO, Relaunch, Betreuung und den
-            Ablauf einer erfolgreichen Zusammenarbeit.
+            Antworten rund um Webdesign, Website-Erstellung, SEO, Relaunch, Betreuung und den Ablauf
+            einer erfolgreichen Zusammenarbeit.
           </p>
 
           <Accordion type="single" collapsible className="mt-6">

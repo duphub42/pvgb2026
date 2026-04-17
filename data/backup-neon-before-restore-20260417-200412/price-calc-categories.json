@@ -1,0 +1,86 @@
+[
+  {
+    "id": 12,
+    "title": "Wartung & Pflege",
+    "sortOrder": 110,
+    "updatedAt": "2026-04-14T20:10:02.531Z",
+    "createdAt": "2026-04-14T20:10:02.531Z"
+  },
+  {
+    "id": 11,
+    "title": "Strategie-Beratung / Workshops",
+    "sortOrder": 100,
+    "updatedAt": "2026-04-14T20:10:02.370Z",
+    "createdAt": "2026-04-14T20:10:02.370Z"
+  },
+  {
+    "id": 10,
+    "title": "CRM / ERP-Beratung",
+    "sortOrder": 90,
+    "updatedAt": "2026-04-14T20:10:02.209Z",
+    "createdAt": "2026-04-14T20:10:02.209Z"
+  },
+  {
+    "id": 9,
+    "title": "Prozessautomatisierung",
+    "sortOrder": 80,
+    "updatedAt": "2026-04-14T20:10:02.049Z",
+    "createdAt": "2026-04-14T20:10:02.049Z"
+  },
+  {
+    "id": 8,
+    "title": "Fotografie",
+    "sortOrder": 70,
+    "updatedAt": "2026-04-14T20:10:01.880Z",
+    "createdAt": "2026-04-14T20:10:01.880Z"
+  },
+  {
+    "id": 7,
+    "title": "Print-Design",
+    "sortOrder": 60,
+    "updatedAt": "2026-04-14T20:10:01.727Z",
+    "createdAt": "2026-04-14T20:10:01.727Z"
+  },
+  {
+    "id": 6,
+    "title": "Branding / Logo / CI",
+    "sortOrder": 50,
+    "updatedAt": "2026-04-14T20:10:01.568Z",
+    "createdAt": "2026-04-14T20:10:01.568Z"
+  },
+  {
+    "id": 5,
+    "title": "E-Mail-Marketing",
+    "sortOrder": 40,
+    "updatedAt": "2026-04-14T20:10:01.415Z",
+    "createdAt": "2026-04-14T20:10:01.415Z"
+  },
+  {
+    "id": 4,
+    "title": "Social Media Marketing",
+    "sortOrder": 30,
+    "updatedAt": "2026-04-14T20:10:01.253Z",
+    "createdAt": "2026-04-14T20:10:01.253Z"
+  },
+  {
+    "id": 3,
+    "title": "Google Ads / Paid Search",
+    "sortOrder": 20,
+    "updatedAt": "2026-04-14T20:10:01.098Z",
+    "createdAt": "2026-04-14T20:10:01.098Z"
+  },
+  {
+    "id": 2,
+    "title": "SEO",
+    "sortOrder": 10,
+    "updatedAt": "2026-04-14T20:10:00.942Z",
+    "createdAt": "2026-04-14T20:10:00.942Z"
+  },
+  {
+    "id": 1,
+    "title": "Website & Webdesign",
+    "sortOrder": 0,
+    "updatedAt": "2026-04-14T20:10:00.735Z",
+    "createdAt": "2026-04-14T20:10:00.735Z"
+  }
+]

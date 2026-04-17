@@ -1,0 +1,200 @@
+[
+  {
+    "id": 18,
+    "label": "Home",
+    "url": "/",
+    "order": 0,
+    "icon": null,
+    "image": null,
+    "appearance": "link",
+    "subItems": [],
+    "columnWidths": {
+      "col1": null,
+      "col2": null,
+      "col3": null
+    },
+    "categoryDescription": {
+      "title": null,
+      "description": null
+    },
+    "columns": [],
+    "highlight": {
+      "position": "right",
+      "background": "default",
+      "cards": [],
+      "title": null,
+      "description": null,
+      "icon": null,
+      "image": null,
+      "ctaLabel": null,
+      "ctaUrl": null
+    },
+    "updatedAt": "2026-04-17T11:53:20.172Z",
+    "createdAt": "2026-04-17T11:53:20.172Z"
+  },
+  {
+    "id": 17,
+    "label": "Leistungen",
+    "url": "/leistungen",
+    "order": 281,
+    "icon": null,
+    "image": null,
+    "appearance": "link",
+    "subItems": [],
+    "columnWidths": {
+      "col1": null,
+      "col2": null,
+      "col3": null
+    },
+    "categoryDescription": {
+      "title": null,
+      "description": null
+    },
+    "columns": [],
+    "highlight": {
+      "position": "right",
+      "background": "default",
+      "cards": [],
+      "title": null,
+      "description": null,
+      "icon": null,
+      "image": null,
+      "ctaLabel": null,
+      "ctaUrl": null
+    },
+    "updatedAt": "2026-04-17T11:53:20.002Z",
+    "createdAt": "2026-04-17T11:53:20.002Z"
+  },
+  {
+    "id": 16,
+    "label": "Portfolio",
+    "url": "/portfolio",
+    "order": 282,
+    "icon": null,
+    "image": null,
+    "appearance": "link",
+    "subItems": [],
+    "columnWidths": {
+      "col1": null,
+      "col2": null,
+      "col3": null
+    },
+    "categoryDescription": {
+      "title": null,
+      "description": null
+    },
+    "columns": [],
+    "highlight": {
+      "position": "right",
+      "background": "default",
+      "cards": [],
+      "title": null,
+      "description": null,
+      "icon": null,
+      "image": null,
+      "ctaLabel": null,
+      "ctaUrl": null
+    },
+    "updatedAt": "2026-04-17T11:53:19.841Z",
+    "createdAt": "2026-04-17T11:53:19.841Z"
+  },
+  {
+    "id": 15,
+    "label": "Profil",
+    "url": "/profil",
+    "order": 280,
+    "icon": null,
+    "image": null,
+    "appearance": "link",
+    "subItems": [],
+    "columnWidths": {
+      "col1": null,
+      "col2": null,
+      "col3": null
+    },
+    "categoryDescription": {
+      "title": null,
+      "description": null
+    },
+    "columns": [],
+    "highlight": {
+      "position": "right",
+      "background": "default",
+      "cards": [],
+      "title": null,
+      "description": null,
+      "icon": null,
+      "image": null,
+      "ctaLabel": null,
+      "ctaUrl": null
+    },
+    "updatedAt": "2026-04-17T11:53:19.674Z",
+    "createdAt": "2026-04-17T11:53:19.674Z"
+  },
+  {
+    "id": 14,
+    "label": "Kontakt",
+    "url": "/kontakt",
+    "order": 285,
+    "icon": null,
+    "image": null,
+    "appearance": "link",
+    "subItems": [],
+    "columnWidths": {
+      "col1": null,
+      "col2": null,
+      "col3": null
+    },
+    "categoryDescription": {
+      "title": null,
+      "description": null
+    },
+    "columns": [],
+    "highlight": {
+      "position": "right",
+      "background": "default",
+      "cards": [],
+      "title": null,
+      "description": null,
+      "icon": null,
+      "image": null,
+      "ctaLabel": null,
+      "ctaUrl": null
+    },
+    "updatedAt": "2026-04-17T11:53:19.504Z",
+    "createdAt": "2026-04-17T11:53:19.503Z"
+  },
+  {
+    "id": 13,
+    "label": "Preise",
+    "url": "/preise",
+    "order": 280,
+    "icon": null,
+    "image": null,
+    "appearance": "link",
+    "subItems": [],
+    "columnWidths": {
+      "col1": null,
+      "col2": null,
+      "col3": null
+    },
+    "categoryDescription": {
+      "title": null,
+      "description": null
+    },
+    "columns": [],
+    "highlight": {
+      "position": "right",
+      "background": "default",
+      "cards": [],
+      "title": null,
+      "description": null,
+      "icon": null,
+      "image": null,
+      "ctaLabel": null,
+      "ctaUrl": null
+    },
+    "updatedAt": "2026-04-17T11:53:19.328Z",
+    "createdAt": "2026-04-17T11:53:19.327Z"
+  }
+]

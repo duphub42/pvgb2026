@@ -1,0 +1,767 @@
+[
+  {
+    "id": 27,
+    "title": "Portfolio Marken",
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69e21f2edd50020cec06b3ae",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "69e21f2edd50020cec06b3ad",
+            "size": "full",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [],
+                    "direction": null
+                  }
+                ]
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "portfolio-marken",
+    "parent": null,
+    "publishedAt": null,
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-17T11:53:18.722Z",
+    "createdAt": "2026-04-17T11:53:18.721Z",
+    "_status": "published"
+  },
+  {
+    "id": 26,
+    "title": "Portfolio Marketing",
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69e21f2edd50020cec06b3ac",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "69e21f2edd50020cec06b3ab",
+            "size": "full",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [],
+                    "direction": null
+                  }
+                ]
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "portfolio-marketing",
+    "parent": null,
+    "publishedAt": null,
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-17T11:53:18.149Z",
+    "createdAt": "2026-04-17T11:53:18.149Z",
+    "_status": "published"
+  },
+  {
+    "id": 25,
+    "title": "Portfolio Webdesign",
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69e21f2ddd50020cec06b3aa",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "69e21f2ddd50020cec06b3a9",
+            "size": "full",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [],
+                    "direction": null
+                  }
+                ]
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "portfolio-webdesign",
+    "parent": null,
+    "publishedAt": null,
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-17T11:53:17.582Z",
+    "createdAt": "2026-04-17T11:53:17.582Z",
+    "_status": "published"
+  },
+  {
+    "id": 24,
+    "title": "Kontakt",
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69e21f2cdd50020cec06b3a8",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "69e21f2cdd50020cec06b3a7",
+            "size": "full",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [],
+                    "direction": null
+                  }
+                ]
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "kontakt",
+    "parent": null,
+    "publishedAt": null,
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-17T11:53:16.987Z",
+    "createdAt": "2026-04-17T11:53:16.986Z",
+    "_status": "published"
+  },
+  {
+    "id": 23,
+    "title": "Preise",
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69e21f2cdd50020cec06b3a6",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "69e21f2cdd50020cec06b3a5",
+            "size": "full",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [],
+                    "direction": null
+                  }
+                ]
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "preise",
+    "parent": null,
+    "publishedAt": null,
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-17T11:53:16.411Z",
+    "createdAt": "2026-04-17T11:53:16.410Z",
+    "_status": "published"
+  },
+  {
+    "id": 22,
+    "title": "Home",
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69e21f2bdd50020cec06b3a4",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "69e21f2bdd50020cec06b3a3",
+            "size": "full",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [],
+                    "direction": null
+                  }
+                ]
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "home",
+    "parent": null,
+    "publishedAt": null,
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-17T11:53:15.849Z",
+    "createdAt": "2026-04-17T11:53:15.848Z",
+    "_status": "published"
+  },
+  {
+    "id": 21,
+    "title": "Leistungen",
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69e21f2bdd50020cec06b3a2",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "69e21f2bdd50020cec06b3a1",
+            "size": "full",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [],
+                    "direction": null
+                  }
+                ]
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "lei",
+    "parent": null,
+    "publishedAt": null,
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-17T11:53:15.262Z",
+    "createdAt": "2026-04-17T11:53:15.261Z",
+    "_status": "published"
+  },
+  {
+    "id": 20,
+    "title": "Portfolio",
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69e21f2add50020cec06b3a0",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "69e21f2add50020cec06b39f",
+            "size": "full",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [],
+                    "direction": null
+                  }
+                ]
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "portfolio",
+    "parent": null,
+    "publishedAt": null,
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-17T11:53:14.689Z",
+    "createdAt": "2026-04-17T11:53:14.688Z",
+    "_status": "published"
+  },
+  {
+    "id": 19,
+    "title": "Profil",
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69e21f2add50020cec06b39e",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "blockName": null,
+        "columns": [
+          {
+            "id": "69e21f2add50020cec06b39d",
+            "size": "full",
+            "richText": {
+              "root": {
+                "type": "root",
+                "format": "",
+                "indent": 0,
+                "version": 1,
+                "children": [
+                  {
+                    "type": "paragraph",
+                    "format": "",
+                    "indent": 0,
+                    "version": 1,
+                    "children": [],
+                    "direction": null
+                  }
+                ]
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default"
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "profil",
+    "parent": null,
+    "publishedAt": null,
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-17T11:53:14.122Z",
+    "createdAt": "2026-04-17T11:53:14.121Z",
+    "_status": "published"
+  }
+]

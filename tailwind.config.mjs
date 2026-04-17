@@ -6,6 +6,9 @@ const config = {
         'hero-box-slide-up':
           'hero-box-slide-up 1100ms cubic-bezier(0.22, 1, 0.36, 1) forwards',
         marquee: 'marquee 30s linear infinite',
+        'marquee-slider': 'marquee-slider var(--duration, 40s) linear infinite',
+        'marquee-slider-reverse':
+          'marquee-slider-reverse var(--duration, 40s) linear infinite',
         'halo-float': 'hero-css-halo-float 18s ease-in-out infinite alternate',
       },
       keyframes: {
@@ -18,6 +21,14 @@ const config = {
           '100%': {
             transform: 'translateX(calc(-50% * var(--marquee-direction, 1)))',
           },
+        },
+        'marquee-slider': {
+          from: { transform: 'translateX(0)' },
+          to: { transform: 'translateX(calc(-100% - var(--gap)))' },
+        },
+        'marquee-slider-reverse': {
+          from: { transform: 'translateX(calc(-100% - var(--gap)))' },
+          to: { transform: 'translateX(0)' },
         },
         'hero-css-halo-float': {
           '0%': { transform: 'translateY(0) scale(1)' },

@@ -13,9 +13,7 @@ function isExternalStorageUrl(url: string): boolean {
   if (!url.startsWith('http')) return false
   try {
     const host = new URL(url).hostname.toLowerCase()
-    return EXTERNAL_STORAGE_HOSTS.some(
-      (h) => host === h || (h.startsWith('.') && host.endsWith(h)),
-    )
+    return EXTERNAL_STORAGE_HOSTS.some((h) => host === h || (h.startsWith('.') && host.endsWith(h)))
   } catch {
     return false
   }
@@ -34,8 +32,13 @@ export const rewriteBlobToOrigin: CollectionAfterReadHook = ({ doc, req }) => {
   const streamUrl = `/api/media/stream/${id}`
 
   // Externe Storage-URLs (R2, S3, Blob) und alte /api/media/file/*-URLs auf Stream-Proxy umschreiben
+  // Auch vollständige URLs wie http://localhost:3000/api/media/file/... werden erkannt
   if (doc.url && typeof doc.url === 'string') {
-    if (isExternalStorageUrl(doc.url) || doc.url.startsWith('/api/media/file/')) {
+    if (
+      isExternalStorageUrl(doc.url) ||
+      doc.url.startsWith('/api/media/file/') ||
+      doc.url.includes('/api/media/file/')
+    ) {
       ;(doc as { url: string }).url = streamUrl
     }
   }
@@ -44,7 +47,11 @@ export const rewriteBlobToOrigin: CollectionAfterReadHook = ({ doc, req }) => {
     const sizes = doc.sizes as Record<string, { url?: string }>
     for (const [name, data] of Object.entries(sizes)) {
       if (data?.url && typeof data.url === 'string') {
-        if (isExternalStorageUrl(data.url) || data.url.startsWith('/api/media/file/')) {
+        if (
+          isExternalStorageUrl(data.url) ||
+          data.url.startsWith('/api/media/file/') ||
+          data.url.includes('/api/media/file/')
+        ) {
           data.url = `/api/media/stream/${id}?size=${encodeURIComponent(name)}`
         }
       }

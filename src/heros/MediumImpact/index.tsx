@@ -58,7 +58,7 @@ export const MediumImpactHero: React.FC<MediumImpactHeroData> = ({
             {links.map(({ link }, i) => {
               return (
                 <li key={i}>
-                  <CMSLink {...link} />
+                  <CMSLink {...link} enableIconSwap={link?.enableIconSwap ?? true} />
                 </li>
               )
             })}

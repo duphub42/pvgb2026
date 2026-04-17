@@ -90,7 +90,7 @@ export const HighImpactHero: React.FC<HighImpactHeroData> = ({
             <ul className="flex md:justify-center gap-4">
               {links.map(({ link }, i) => (
                 <li key={i}>
-                  <CMSLink {...link} />
+                  <CMSLink {...link} enableIconSwap={link?.enableIconSwap ?? true} />
                 </li>
               ))}
             </ul>

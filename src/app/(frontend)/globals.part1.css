@@ -728,12 +728,20 @@
 
   /* Folgesection: kurzer Verlauf, weniger Stufen = weniger sichtbare Kanten */
   .hero-following-section-mask {
-    background-color: var(--background);
-    background-image: linear-gradient(to bottom, transparent 0, var(--background) 2.75rem);
+    background-color: var(--hero-next-section-bg, var(--background));
+    background-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      var(--hero-next-section-bg, var(--background)) 2.75rem
+    );
   }
   @media (min-width: 1024px) {
     .hero-following-section-mask {
-      background-image: linear-gradient(to bottom, transparent 0, var(--background) 1.35rem);
+      background-image: linear-gradient(
+        to bottom,
+        transparent 0,
+        var(--hero-next-section-bg, var(--background)) 1.35rem
+      );
     }
   }
 
@@ -744,7 +752,11 @@
   }
   @media (max-width: 1023px) {
     .hero-following-section-mask.hero-following-section--services-flush {
-      background-image: linear-gradient(to bottom, transparent 0, var(--background) 2.25rem);
+      background-image: linear-gradient(
+        to bottom,
+        transparent 0,
+        var(--hero-next-section-bg, var(--background)) 2.25rem
+      );
     }
   }
 
@@ -1145,6 +1157,60 @@
       radial-gradient(ellipse 86% 33% at 50% 100%, hsl(var(--primary) / 0.038) 0%, transparent 76%),
       radial-gradient(ellipse 122% 50% at 50% 100%, color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%, transparent 65%);
     background-repeat: no-repeat;
+  }
+
+  /* Superhero-Bildoverlay: theme-adaptiv für bessere Lesbarkeit auf variablen Motiven. */
+  .hero-superhero-image-overlay {
+    --hero-focus-x: 50%;
+    --hero-focus-y: 50%;
+    background-image:
+      radial-gradient(
+        128% 104% at var(--hero-focus-x) var(--hero-focus-y),
+        transparent 0%,
+        transparent 24%,
+        color-mix(in srgb, var(--background) 16%, transparent) 42%,
+        color-mix(in srgb, var(--background) 36%, transparent) 60%,
+        color-mix(in srgb, var(--background) 56%, transparent) 78%,
+        color-mix(in srgb, var(--background) 74%, transparent) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--background) 82%, transparent) 0%,
+        color-mix(in srgb, var(--background) 46%, transparent) 30%,
+        transparent 56%
+      ),
+      linear-gradient(
+        to top,
+        color-mix(in srgb, var(--background) 88%, transparent) 0%,
+        color-mix(in srgb, var(--background) 60%, transparent) 40%,
+        transparent 72%
+      );
+    background-repeat: no-repeat;
+  }
+
+  [data-theme='dark'] .hero-superhero-image-overlay {
+    background-image:
+      radial-gradient(
+        132% 108% at var(--hero-focus-x) var(--hero-focus-y),
+        transparent 0%,
+        transparent 22%,
+        color-mix(in srgb, var(--background) 20%, transparent) 40%,
+        color-mix(in srgb, var(--background) 40%, transparent) 58%,
+        color-mix(in srgb, var(--background) 60%, transparent) 76%,
+        color-mix(in srgb, var(--background) 78%, transparent) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--background) 80%, transparent) 0%,
+        color-mix(in srgb, var(--background) 44%, transparent) 28%,
+        transparent 56%
+      ),
+      linear-gradient(
+        to top,
+        color-mix(in srgb, var(--background) 86%, transparent) 0%,
+        color-mix(in srgb, var(--background) 56%, transparent) 38%,
+        transparent 72%
+      );
   }
 
   /* Portrait unten rechts → Zentren wie zuvor */
@@ -2046,20 +2112,6 @@
   .hero-blurry-fade-in--description {
     animation-delay: 0.2s;
   }
-  @keyframes hero-floating-card-reveal {
-    from {
-      opacity: 0;
-      transform: translateY(8px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  .hero-floating-card-reveal {
-    opacity: 0;
-    animation: hero-floating-card-reveal 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
   @media (prefers-reduced-motion: reduce) {
     .hero-blurry-fade-in {
       animation: none;
@@ -2067,12 +2119,6 @@
       filter: none;
       transform: none;
       will-change: auto;
-    }
-
-    .hero-floating-card-reveal {
-      animation: none;
-      opacity: 1;
-      transform: none;
     }
   }
 

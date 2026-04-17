@@ -1,0 +1,28 @@
+{
+  "node": {
+    "40ceedf4c5665daa3b7d48df17590ccc215b0215f4": {
+      "workers": {
+        "app/(payload)/admin/[[...segments]]/page": {
+          "moduleId": "(rsc)/./node_modules/.pnpm/next@15.4.11_@babel+core@7.29.0_@playwright+test@1.58.2_babel-plugin-macros@3.1.0_react_6e7d97cea24a18f860d7fe2598e63979/node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fhorus%2FDesktop%2Fpvgb2026%2Fpvgb2026%2Fsrc%2Fapp%2F(payload)%2Flayout.tsx%22%2C%5B%7B%22id%22%3A%2240ceedf4c5665daa3b7d48df17590ccc215b0215f4%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_0%22%7D%5D%5D%2C%5B%22%2FUsers%2Fhorus%2FDesktop%2Fpvgb2026%2Fpvgb2026%2Fnode_modules%2F.pnpm%2F%40payloadcms%2Bnext%403.80.0_%40types%2Breact%4019.2.9_graphql%4016.13.2_monaco-editor%400.55.1_next%401_1a20392d561869ee96cdf798dfc7e136%2Fnode_modules%2F%40payloadcms%2Fnext%2Fdist%2Flayouts%2FRoot%2Findex.js%22%2C%5B%7B%22id%22%3A%2260d8ad3f569067882cf85ae711d470797c567e7bc0%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_0%22%7D%5D%5D%5D&__client_imported__=!",
+          "async": true
+        }
+      },
+      "layer": {
+        "app/(payload)/admin/[[...segments]]/page": "rsc"
+      }
+    },
+    "60d8ad3f569067882cf85ae711d470797c567e7bc0": {
+      "workers": {
+        "app/(payload)/admin/[[...segments]]/page": {
+          "moduleId": "(rsc)/./node_modules/.pnpm/next@15.4.11_@babel+core@7.29.0_@playwright+test@1.58.2_babel-plugin-macros@3.1.0_react_6e7d97cea24a18f860d7fe2598e63979/node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22%2FUsers%2Fhorus%2FDesktop%2Fpvgb2026%2Fpvgb2026%2Fsrc%2Fapp%2F(payload)%2Flayout.tsx%22%2C%5B%7B%22id%22%3A%2240ceedf4c5665daa3b7d48df17590ccc215b0215f4%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_0%22%7D%5D%5D%2C%5B%22%2FUsers%2Fhorus%2FDesktop%2Fpvgb2026%2Fpvgb2026%2Fnode_modules%2F.pnpm%2F%40payloadcms%2Bnext%403.80.0_%40types%2Breact%4019.2.9_graphql%4016.13.2_monaco-editor%400.55.1_next%401_1a20392d561869ee96cdf798dfc7e136%2Fnode_modules%2F%40payloadcms%2Fnext%2Fdist%2Flayouts%2FRoot%2Findex.js%22%2C%5B%7B%22id%22%3A%2260d8ad3f569067882cf85ae711d470797c567e7bc0%22%2C%22exportedName%22%3A%22%24%24RSC_SERVER_ACTION_0%22%7D%5D%5D%5D&__client_imported__=!",
+          "async": true
+        }
+      },
+      "layer": {
+        "app/(payload)/admin/[[...segments]]/page": "rsc"
+      }
+    }
+  },
+  "edge": {},
+  "encryptionKey": "rh5L5bQvPKJd+9LiSa8U29d1E53lGpVpAly30uEGC18="
+}

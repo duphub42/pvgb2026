@@ -10,15 +10,13 @@ const fs = require('fs')
 const path = require('path')
 
 const root = path.join(__dirname, '..')
-const devDir = path.join(root, '.next-dev')
+const devDistDir = process.env.NEXT_DIST_DIR || '.next-dev'
+const devDir = path.join(root, devDistDir)
 
-// Clear stale development artifacts to avoid missing runtime chunks
-// such as vendor-chunks/date-fns@4.1.0.js when Next rebuilds incrementally.
-if (fs.existsSync(devDir)) {
-  fs.rmSync(devDir, { recursive: true, force: true })
-}
-
-const dirs = [path.join(root, '.next'), devDir]
+// Do not delete dev distDir here.
+// If multiple `next dev` instances are running, deleting the shared directory can
+// remove compiled files while another process is serving them, causing ENOENT.
+const dirs = Array.from(new Set([path.join(root, '.next'), devDir]))
 
 const routesManifest = {
   version: 3,

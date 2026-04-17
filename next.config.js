@@ -74,7 +74,8 @@ const mediaFallbackRewrites = [
 const nextConfig = {
   // Keep dev and prod build artifacts isolated to prevent manifest races
   // when running `next dev` (3000) and `next build/start` (3100/other) in parallel.
-  distDir: process.env.NODE_ENV === 'development' ? '.next-dev' : '.next',
+  distDir:
+    process.env.NODE_ENV === 'development' ? process.env.NEXT_DIST_DIR || '.next-dev' : '.next',
   // Pingdom F0: Gzip-Kompression explizit aktivieren (Next.js macht das standardmäßig bei next start)
   compress: true,
   // PageSpeed: tree-shake large packages so less JS is shipped
@@ -83,6 +84,8 @@ const nextConfig = {
   experimental: {},
   // DSGVO: Fonts/Skripte sind lokal (kein Google Fonts, keine CDNs). Bei Bedarf: headers() mit Content-Security-Policy script-src 'self'; font-src 'self'.
   images: {
+    dangerouslyAllowSVG: true,
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
     formats: ['image/avif', 'image/webp'],
     // Lighthouse: /_next/image with 1m TTL triggers "Use efficient cache lifetimes".
     // One week keeps media responsive enough for updates but improves repeat visits.

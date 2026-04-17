@@ -22,6 +22,7 @@ export const CLIENT_BLOCK_TYPES = new Set([
   'formBlock',
   'heroMarketing',
   'introduction',
+  'marqueeSlider',
   'mediaBlock',
   'servicesOverview',
   'servicesGrid',

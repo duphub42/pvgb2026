@@ -48,7 +48,7 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
   const encodedTag = cacheTag && cacheTag !== '' ? encodeURIComponent(cacheTag) : null
 
   const appendTag = (base: string): string =>
-    encodedTag ? `${base}${base.includes('?') ? '&' : '?'}${encodedTag}` : base
+    encodedTag ? `${base}${base.includes('?') ? '&' : '?'}v=${encodedTag}` : base
 
   // ExactDN-Rewrite deaktiviert (EXACTDN_DOMAIN = undefined). Für CDN: EXACTDN_DOMAIN aus env setzen und Block aktivieren.
   // if (exactdn) {

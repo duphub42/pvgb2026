@@ -11,6 +11,7 @@ import {
 } from '@/components/ui/navigation-menu'
 import { Sheet, SheetContent, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
 import { getClientSideURL } from '@/utilities/getURL'
 import {
@@ -82,7 +83,93 @@ export type MegaMenuCta = {
   }
 }
 
-type MediaRef = { url?: string | null; id?: number } | number | null
+type MediaRef =
+  | {
+      url?: string | null
+      id?: number
+      filename?: string | null
+      alt?: string | null
+      mimeType?: string | null
+      filesize?: number | null
+      width?: number | null
+      height?: number | null
+    }
+  | number
+  | null
+
+const MEGA_MENU_SPRITE_ICON_ALIASES: Array<{ id: string; test: RegExp }> = [
+  { id: 'hf-webdesign', test: /(webdesign|website|webseite|homepage)/i },
+  { id: 'hf-print-grafikdesign', test: /(print|grafik|grafikdesign)/i },
+  { id: 'hf-keynotes', test: /(keynote|keynotes|praesent|präsent|slides|pitch)/i },
+  { id: 'hf-seo', test: /(\bseo\b|ranking|suchmaschinenoptimierung)/i },
+  { id: 'hf-smm-suchmaschinenmarketing', test: /(\bsem\b|ads|suchmaschinenmarketing)/i },
+  { id: 'hf-content-creation', test: /(content|copywriting|redaktion|story)/i },
+  { id: 'hf-ci-corporate-identity', test: /(corporate identity|\bci\b|brand identity)/i },
+  { id: 'hf-logo-design', test: /(logo|logodesign|logo-design)/i },
+  { id: 'hf-markenstrategie', test: /(markenstrategie|brand strategy|strategie)/i },
+]
+
+function getMediaObject(media: MediaRef): Exclude<MediaRef, number | null> | null {
+  if (media == null || typeof media !== 'object') return null
+  return media
+}
+
+function isLikelyPlaceholderSvg(media: MediaRef): boolean {
+  const m = getMediaObject(media)
+  if (!m) return false
+
+  const mime = String(m.mimeType ?? '').toLowerCase()
+  if (!mime.includes('svg')) return false
+
+  const width = Number(m.width ?? 0)
+  const height = Number(m.height ?? 0)
+  const filesize = Number(m.filesize ?? 0)
+
+  return width <= 1 && height <= 1 && filesize > 0 && filesize <= 128
+}
+
+function resolveMegaMenuSpriteId(media: MediaRef, label?: string | null): string | null {
+  const m = getMediaObject(media)
+  const haystack = `${m?.filename ?? ''} ${m?.alt ?? ''} ${label ?? ''}`.toLocaleLowerCase('de-DE')
+
+  for (const alias of MEGA_MENU_SPRITE_ICON_ALIASES) {
+    if (alias.test.test(haystack)) return alias.id
+  }
+
+  return null
+}
+
+function preferredMediaUrl(media: MediaRef): string {
+  if (isLikelyPlaceholderSvg(media)) return ''
+  return mediaUrl(media)
+}
+
+function renderMegaMenuItemIcon(
+  media: MediaRef,
+  options: { label?: string | null; fallbackUrl?: string | null },
+): React.ReactNode {
+  const imageUrl = preferredMediaUrl(media)
+  if (imageUrl) {
+    return (
+      <ResilientImage src={imageUrl} alt="" className="h-4 w-4 object-contain" decoding="sync" />
+    )
+  }
+
+  const spriteId = resolveMegaMenuSpriteId(media, options.label)
+  if (spriteId) {
+    return (
+      <svg className="h-4 w-4" aria-hidden="true">
+        <use href={`/icons-sprite.svg#${spriteId}`} />
+      </svg>
+    )
+  }
+
+  const FallbackIcon = getMobileMenuFallbackIcon({
+    label: options.label ?? '',
+    url: options.fallbackUrl ?? '',
+  })
+  return <FallbackIcon className="h-4 w-4 opacity-70" aria-hidden="true" />
+}
 
 function mediaUrl(media: MediaRef): string {
   if (media == null) return ''
@@ -696,7 +783,10 @@ const ListItem = React.forwardRef<
         ref={ref}
         className={cn(
           isButton
-            ? 'megamenu-special-link group relative flex select-none items-start gap-3 rounded-md border border-transparent !bg-foreground p-4 leading-none no-underline !text-background shadow-xs outline-none transition-colors duration-200 hover:!bg-foreground/80 active:!bg-foreground/80 focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50'
+            ? cn(
+                buttonVariants({ variant: 'cta' }),
+                'megamenu-special-link relative h-auto min-h-0 w-full justify-start whitespace-normal p-4 text-left leading-none no-underline',
+              )
             : 'group flex select-none items-start gap-3 rounded-xl p-4 leading-none no-underline outline-none transition-colors duration-300',
           className,
         )}
@@ -788,7 +878,7 @@ function collectPreloadMediaUrls(items: MegaMenuItem[]): string[] {
   const urls = new Set<string>()
   const add = (media?: MediaRef) => {
     if (!media) return
-    const url = mediaUrl(media)
+    const url = preferredMediaUrl(media)
     if (url) urls.add(url)
   }
 
@@ -823,7 +913,7 @@ function collectMobileMenuIconUrls(items: MegaMenuItem[]): string[] {
   const urls = new Set<string>()
 
   for (const item of items) {
-    const url = mediaUrl(item.icon ?? null)
+    const url = preferredMediaUrl(item.icon ?? null)
     if (url) urls.add(url)
   }
 
@@ -2455,8 +2545,6 @@ export function MegaMenu({
                                         >
                                           {(col.items ?? []).map((sub, idx) => {
                                             const rawMedia = sub.image ?? sub.icon ?? null
-                                            const iconUrl = rawMedia ? mediaUrl(rawMedia) : ''
-                                            const iconSpriteId = null
                                             const listKey = getMegaMenuSubItemKey(sub, idx)
                                             const isSpecialColumn = isSpecialMegaMenuColumn(col)
 
@@ -2469,22 +2557,10 @@ export function MegaMenu({
                                                   (columnItemStartIndices[colIdx] ?? 0) + idx
                                                 }
                                                 isButton={isSpecialColumn}
-                                                icon={
-                                                  iconSpriteId ? (
-                                                    <svg className="h-4 w-4" aria-hidden="true">
-                                                      <use
-                                                        href={`/icons-sprite.svg#${iconSpriteId}`}
-                                                      />
-                                                    </svg>
-                                                  ) : iconUrl ? (
-                                                    <ResilientImage
-                                                      src={iconUrl}
-                                                      alt=""
-                                                      className="h-4 w-4 object-contain"
-                                                      decoding="sync"
-                                                    />
-                                                  ) : undefined
-                                                }
+                                                icon={renderMegaMenuItemIcon(rawMedia, {
+                                                  label: sub.label,
+                                                  fallbackUrl: sub.url,
+                                                })}
                                               >
                                                 {sub.description ?? ''}
                                               </ListItem>
@@ -2515,8 +2591,6 @@ export function MegaMenu({
                                       idx: number,
                                     ) => {
                                       const rawMedia = sub.image ?? sub.icon ?? null
-                                      const iconUrl = rawMedia ? mediaUrl(rawMedia) : ''
-                                      const iconSpriteId = null
                                       const listKey = getMegaMenuSubItemKey(sub, idx)
 
                                       return (
@@ -2526,20 +2600,10 @@ export function MegaMenu({
                                           href={sub.url}
                                           animationIndex={idx}
                                           isButton={Boolean(sub._isSpecialColumn)}
-                                          icon={
-                                            iconSpriteId ? (
-                                              <svg className="h-4 w-4" aria-hidden="true">
-                                                <use href={`/icons-sprite.svg#${iconSpriteId}`} />
-                                              </svg>
-                                            ) : iconUrl ? (
-                                              <ResilientImage
-                                                src={iconUrl}
-                                                alt=""
-                                                className="h-4 w-4 object-contain"
-                                                decoding="sync"
-                                              />
-                                            ) : undefined
-                                          }
+                                          icon={renderMegaMenuItemIcon(rawMedia, {
+                                            label: sub.label,
+                                            fallbackUrl: sub.url,
+                                          })}
                                         >
                                           {sub.description ?? ''}
                                         </ListItem>
@@ -2645,8 +2709,9 @@ export function MegaMenu({
                                         {cardCtaUrl && (
                                           <Button
                                             asChild
+                                            variant="cta"
                                             size="sm"
-                                            className="megamenu-highlight-cta mt-2 w-fit !bg-foreground !text-background hover:!bg-foreground/80 active:!bg-foreground/80"
+                                            className="megamenu-highlight-cta mt-2 w-fit"
                                           >
                                             <Link href={cardCtaUrl} className="no-underline">
                                               <span>{cardCtaLabel}</span>
@@ -3064,7 +3129,7 @@ export function MegaMenu({
                                   const isActive = mobileActivePrimary === entry.key
                                   const hasDescription = Boolean(entry.description)
                                   const triggerId = `mobile-megamenu-trigger-${toDomId(entry.key)}`
-                                  const menuIconSrc = mediaUrl(entry.item.icon ?? null)
+                                  const menuIconSrc = preferredMediaUrl(entry.item.icon ?? null)
                                   const FallbackIcon = getMobileMenuFallbackIcon(entry.item)
                                   return (
                                     <li

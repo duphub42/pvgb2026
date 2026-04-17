@@ -16,10 +16,84 @@ import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate
 import { MegaMenu, type MegaMenuCta, type MegaMenuItem } from '@/components/MegaMenu'
 import { HeaderNav } from './Nav'
 
+const HEADER_B_LOGO_SRC = '/branding/philippbacher-logo-b-10.svg'
+
 interface HeaderClientProps {
   data: Header
   megaMenuItems?: MegaMenuItem[]
   mobileDockPhone?: string | null
+}
+
+function hasDropdownContent(item: MegaMenuItem): boolean {
+  if (Array.isArray(item.subItems) && item.subItems.length > 0) return true
+
+  if (
+    Array.isArray(item.columns) &&
+    item.columns.some((column) => Array.isArray(column?.items) && column.items.length > 0)
+  ) {
+    return true
+  }
+
+  const highlight = item.highlight
+  if (!highlight) return false
+  if (typeof highlight.title === 'string' && highlight.title.trim().length > 0) return true
+  if (typeof highlight.ctaUrl === 'string' && highlight.ctaUrl.trim().length > 0) return true
+  if (Array.isArray(highlight.cards) && highlight.cards.length > 0) return true
+
+  return false
+}
+
+function withDropdownFallback(items: MegaMenuItem[]): MegaMenuItem[] {
+  const allWithoutDropdowns = items.length > 0 && items.every((item) => !hasDropdownContent(item))
+  if (!allWithoutDropdowns) return items
+
+  const fallbackByLabel: Record<string, Array<{ label: string; url: string }>> = {
+    home: [
+      { label: 'Start', url: '/' },
+      { label: 'Profil', url: '/profil' },
+      { label: 'Kontakt', url: '/kontakt' },
+    ],
+    leistungen: [
+      { label: 'Webdesign', url: '/webdesign' },
+      { label: 'SEO', url: '/seo' },
+      { label: 'Content', url: '/content' },
+    ],
+    portfolio: [
+      { label: 'Webdesign-Referenzen', url: '/portfolio-webdesign' },
+      { label: 'Marketing-Referenzen', url: '/portfolio-marketing' },
+      { label: 'Marken-Referenzen', url: '/portfolio-marken' },
+    ],
+    profil: [
+      { label: 'Ueber mich', url: '/profil' },
+      { label: 'Preise', url: '/preise' },
+      { label: 'Kontakt', url: '/kontakt' },
+    ],
+    kontakt: [
+      { label: 'Kontaktseite', url: '/kontakt' },
+      { label: 'Preise', url: '/preise' },
+      { label: 'Profil', url: '/profil' },
+    ],
+    preise: [
+      { label: 'Pakete ansehen', url: '/preise' },
+      { label: 'Leistungen', url: '/leistungen' },
+      { label: 'Kontakt', url: '/kontakt' },
+    ],
+  }
+
+  return items.map((item) => {
+    const labelKey = String(item.label ?? '')
+      .trim()
+      .toLowerCase()
+    const fallbackSubItems = fallbackByLabel[labelKey]
+    if (!fallbackSubItems || fallbackSubItems.length === 0) {
+      return item
+    }
+
+    return {
+      ...item,
+      subItems: fallbackSubItems,
+    }
+  })
 }
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({
@@ -27,6 +101,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   megaMenuItems = [],
   mobileDockPhone = null,
 }) => {
+  const [resolvedMegaMenuItems, setResolvedMegaMenuItems] = useState<MegaMenuItem[]>(
+    withDropdownFallback(megaMenuItems),
+  )
   const [logoMorphReady, setLogoMorphReady] = useState(false)
   const [logoPreviewActive, setLogoPreviewActive] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(true)
@@ -44,22 +121,73 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const { theme: globalTheme } = useTheme()
   const pathname = usePathname()
-  const useMegaMenu =
-    ((data as any)?.useMegaMenu === true || (data as any)?.use_mega_menu === true) &&
-    megaMenuItems.length > 0
+  const shouldUseMegaMenu =
+    (data as any)?.useMegaMenu === true ||
+    (data as any)?.use_mega_menu === true ||
+    resolvedMegaMenuItems.length > 0
+  const useMegaMenu = shouldUseMegaMenu && resolvedMegaMenuItems.length > 0
+  const logoIntroTimeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      setLogoMorphReady(true)
-    }, 5000)
+    setResolvedMegaMenuItems(withDropdownFallback(megaMenuItems))
+  }, [megaMenuItems])
 
-    return () => {
-      window.clearTimeout(timer)
+  useEffect(() => {
+    if (!shouldUseMegaMenu || resolvedMegaMenuItems.length > 0) return
+
+    let cancelled = false
+
+    const loadMegaMenuItems = async () => {
+      try {
+        const response = await fetch('/api/mega-menu?limit=50&depth=4&sort=order')
+        if (!response.ok) return
+        const data = (await response.json()) as { docs?: MegaMenuItem[] }
+        if (cancelled) return
+        if (Array.isArray(data?.docs) && data.docs.length > 0) {
+          setResolvedMegaMenuItems(withDropdownFallback(data.docs))
+        }
+      } catch {
+        // Keep graceful fallback to standard nav when request fails.
+      }
     }
-  }, [])
+
+    void loadMegaMenuItems()
+
+    return () => {
+      cancelled = true
+    }
+  }, [resolvedMegaMenuItems.length, shouldUseMegaMenu])
+
+  useEffect(() => {
+    // Always start with the full site logo, then morph to B-logo after intro playback.
+    setLogoMorphReady(false)
+    setLogoPreviewActive(true)
+
+    if (logoIntroTimeoutRef.current) {
+      window.clearTimeout(logoIntroTimeoutRef.current)
+      logoIntroTimeoutRef.current = null
+    }
+
+    logoIntroTimeoutRef.current = window.setTimeout(() => {
+      setLogoPreviewActive(false)
+      setLogoMorphReady(true)
+      logoIntroTimeoutRef.current = null
+    }, 1900)
+
+    return () => {
+      if (logoIntroTimeoutRef.current) {
+        window.clearTimeout(logoIntroTimeoutRef.current)
+        logoIntroTimeoutRef.current = null
+      }
+    }
+  }, [pathname])
 
   useEffect(() => {
     return () => {
+      if (logoIntroTimeoutRef.current) {
+        window.clearTimeout(logoIntroTimeoutRef.current)
+        logoIntroTimeoutRef.current = null
+      }
       if (logoPreviewTimeoutRef.current) {
         window.clearTimeout(logoPreviewTimeoutRef.current)
         logoPreviewTimeoutRef.current = null
@@ -174,6 +302,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   // Support both logo (camelCase) and logo_id (snake_case from DB)
   const logoData = data?.logo ?? (data as any)?.logo_id
   const hasCustomLogo = logoData && typeof logoData !== 'number'
+  const resolvedLogo = hasCustomLogo && typeof logoData === 'object' ? logoData : null
   const rawLogoUrl = hasCustomLogo
     ? ((logoData as any).url ?? (logoData as any).sizes?.thumbnail?.url)
     : null
@@ -186,11 +315,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const renderPrimaryLogo = (disableAnimation?: boolean) => {
     if (hasCustomLogo && logoUrl) {
       return (
-        <LogoWithGlitch imgSrc={logoUrl} variant="header" disableAnimation={disableAnimation}>
+        <LogoWithGlitch
+          imgSrc={logoUrl}
+          variant="header"
+          disableAnimation={disableAnimation}
+        >
           <Logo
             loading="eager"
             priority="high"
-            logo={data?.logo}
+            logo={resolvedLogo as any}
             variant="header"
             disableAnimation={disableAnimation}
           />
@@ -200,6 +333,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
 
     return null
   }
+
+  const renderStickyLogo = () => (
+    <img
+      src={HEADER_B_LOGO_SRC}
+      alt=""
+      aria-hidden="true"
+      className="header-b-logo logo-contrast"
+      width={40}
+      height={42}
+      loading="eager"
+      decoding="async"
+    />
+  )
 
   const handleLogoMouseEnter = () => {
     if (!logoMorphReady) return
@@ -237,7 +383,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
         {renderPrimaryLogo(disableAnimation)}
       </span>
       <span className="header-logo-slot header-logo-slot--sticky" aria-hidden="true">
-        <span className="header-logo-mask">{renderPrimaryLogo(true)}</span>
+        {renderStickyLogo()}
       </span>
     </Link>
   )
@@ -326,7 +472,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     }
     return (
       <MegaMenu
-        items={megaMenuItems}
+        items={resolvedMegaMenuItems}
         logo={desktopLogoEl}
         mobileLogo={mobileLogoEl}
         columnWidths={columnWidths}

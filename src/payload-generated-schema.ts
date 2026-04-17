@@ -52,27 +52,11 @@ export const site_pages_hero_links = sqliteTable(
     link_newTab: integer('link_new_tab', { mode: 'boolean' }),
     link_url: text('link_url'),
     link_label: text('link_label'),
-    link_appearance: text('link_appearance', {
-      enum: ['default', 'outline', 'cta', 'inverted', 'whatsapp'],
-    }).default('default'),
-    link_icon: text('link_icon', {
-      enum: [
-        '',
-        'arrowRight',
-        'arrowUpRight',
-        'chevronRight',
-        'download',
-        'mail',
-        'phone',
-        'messageCircle',
-        'calendar',
-        'externalLink',
-        'send',
-        'plus',
-        'check',
-      ],
-    }),
-    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(true),
+    link_appearance: text('link_appearance', { enum: ['default', 'outline'] }).default('default'),
+    link_icon: text('link_icon'),
+    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(false),
+    link_iconSwapFrom: text('link_icon_swap_from'),
+    link_iconSwapTo: text('link_icon_swap_to'),
   },
   (columns) => [
     index('site_pages_hero_links_order_idx').on(columns._order),
@@ -291,6 +275,105 @@ export const site_pages_blocks_introduction = sqliteTable(
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
       name: 'site_pages_blocks_introduction_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const site_pages_blocks_marquee_slider_rows_items = sqliteTable(
+  'site_pages_blocks_marquee_slider_rows_items',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: text('_parent_id').notNull(),
+    id: text('id').primaryKey(),
+    logo: integer('logo_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    name: text('name'),
+  },
+  (columns) => [
+    index('site_pages_blocks_marquee_slider_rows_items_order_idx').on(columns._order),
+    index('site_pages_blocks_marquee_slider_rows_items_parent_id_idx').on(columns._parentID),
+    index('site_pages_blocks_marquee_slider_rows_items_logo_idx').on(columns.logo),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages_blocks_marquee_slider_rows.id],
+      name: 'site_pages_blocks_marquee_slider_rows_items_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const site_pages_blocks_marquee_slider_rows = sqliteTable(
+  'site_pages_blocks_marquee_slider_rows',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: text('_parent_id').notNull(),
+    id: text('id').primaryKey(),
+    direction: text('direction', { enum: ['left', 'right'] }).default('left'),
+    speed: numeric('speed', { mode: 'number' }).default(40),
+    pauseOnHover: integer('pause_on_hover', { mode: 'boolean' }).default(true),
+  },
+  (columns) => [
+    index('site_pages_blocks_marquee_slider_rows_order_idx').on(columns._order),
+    index('site_pages_blocks_marquee_slider_rows_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages_blocks_marquee_slider.id],
+      name: 'site_pages_blocks_marquee_slider_rows_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const site_pages_blocks_marquee_slider = sqliteTable(
+  'site_pages_blocks_marquee_slider',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: text('id').primaryKey(),
+    blockSpacingPadding: text('block_spacing_padding', {
+      enum: ['none', 'sm', 'default', 'lg', 'xl'],
+    }).default('default'),
+    blockSpacingPaddingTop: text('block_spacing_padding_top', {
+      enum: ['default', 'negative', 'xl'],
+    }).default('default'),
+    blockSpacingMarginBottom: text('block_spacing_margin_bottom', {
+      enum: ['none', 'sm', 'default', 'lg'],
+    }).default('default'),
+    blockContainer: text('block_container', {
+      enum: ['default', 'full', 'narrow', 'wide', 'none'],
+    }).default('default'),
+    blockBackground: text('block_background', {
+      enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
+    }).default('none'),
+    blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
+    blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
+      'default',
+    ),
+    blockBorderRadius: text('block_border_radius', {
+      enum: ['default', 'sm', 'lg', 'none'],
+    }).default('default'),
+    blockOverlayEnabled: integer('block_overlay_enabled', { mode: 'boolean' }).default(false),
+    blockOverlayColor: text('block_overlay_color', { enum: ['dark', 'light'] }).default('dark'),
+    blockOverlayOpacity: numeric('block_overlay_opacity', { mode: 'number' }).default(0),
+    blockContentSpacing: text('block_content_spacing', {
+      enum: ['compact', 'default', 'airy'],
+    }).default('default'),
+    blockAnimation: text('block_animation', {
+      enum: ['default', 'none', 'slideUp', 'blur'],
+    }).default('default'),
+    eyebrow: text('eyebrow').default('Partner & Tools'),
+    heading: text('heading').default('Unsere Partner'),
+    intro: text('intro'),
+    blockName: text('block_name'),
+  },
+  (columns) => [
+    index('site_pages_blocks_marquee_slider_order_idx').on(columns._order),
+    index('site_pages_blocks_marquee_slider_parent_id_idx').on(columns._parentID),
+    index('site_pages_blocks_marquee_slider_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [site_pages.id],
+      name: 'site_pages_blocks_marquee_slider_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
@@ -2082,24 +2165,10 @@ export const site_pages_blocks_cta_links = sqliteTable(
     link_url: text('link_url'),
     link_label: text('link_label'),
     link_appearance: text('link_appearance', { enum: ['default', 'outline'] }).default('default'),
-    link_icon: text('link_icon', {
-      enum: [
-        '',
-        'arrowRight',
-        'arrowUpRight',
-        'chevronRight',
-        'download',
-        'mail',
-        'phone',
-        'messageCircle',
-        'calendar',
-        'externalLink',
-        'send',
-        'plus',
-        'check',
-      ],
-    }),
-    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(true),
+    link_icon: text('link_icon'),
+    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(false),
+    link_iconSwapFrom: text('link_icon_swap_from'),
+    link_iconSwapTo: text('link_icon_swap_to'),
   },
   (columns) => [
     index('site_pages_blocks_cta_links_order_idx').on(columns._order),
@@ -2309,27 +2378,11 @@ export const site_pages_blocks_content_columns = sqliteTable(
     link_newTab: integer('link_new_tab', { mode: 'boolean' }),
     link_url: text('link_url'),
     link_label: text('link_label'),
-    link_appearance: text('link_appearance', {
-      enum: ['default', 'outline', 'cta', 'inverted', 'whatsapp'],
-    }).default('default'),
-    link_icon: text('link_icon', {
-      enum: [
-        '',
-        'arrowRight',
-        'arrowUpRight',
-        'chevronRight',
-        'download',
-        'mail',
-        'phone',
-        'messageCircle',
-        'calendar',
-        'externalLink',
-        'send',
-        'plus',
-        'check',
-      ],
-    }),
-    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(true),
+    link_appearance: text('link_appearance', { enum: ['default', 'outline'] }).default('default'),
+    link_icon: text('link_icon'),
+    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(false),
+    link_iconSwapFrom: text('link_icon_swap_from'),
+    link_iconSwapTo: text('link_icon_swap_to'),
   },
   (columns) => [
     index('site_pages_blocks_content_columns_order_idx').on(columns._order),
@@ -2698,27 +2751,11 @@ export const _site_pages_v_version_hero_links = sqliteTable(
     link_newTab: integer('link_new_tab', { mode: 'boolean' }),
     link_url: text('link_url'),
     link_label: text('link_label'),
-    link_appearance: text('link_appearance', {
-      enum: ['default', 'outline', 'cta', 'inverted', 'whatsapp'],
-    }).default('default'),
-    link_icon: text('link_icon', {
-      enum: [
-        '',
-        'arrowRight',
-        'arrowUpRight',
-        'chevronRight',
-        'download',
-        'mail',
-        'phone',
-        'messageCircle',
-        'calendar',
-        'externalLink',
-        'send',
-        'plus',
-        'check',
-      ],
-    }),
-    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(true),
+    link_appearance: text('link_appearance', { enum: ['default', 'outline'] }).default('default'),
+    link_icon: text('link_icon'),
+    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(false),
+    link_iconSwapFrom: text('link_icon_swap_from'),
+    link_iconSwapTo: text('link_icon_swap_to'),
     _uuid: text('_uuid'),
   },
   (columns) => [
@@ -2942,6 +2979,108 @@ export const _site_pages_v_blocks_introduction = sqliteTable(
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
       name: '_site_pages_v_blocks_introduction_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _site_pages_v_blocks_marquee_slider_rows_items = sqliteTable(
+  '_site_pages_v_blocks_marquee_slider_rows_items',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: integer('id').primaryKey(),
+    logo: integer('logo_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
+    name: text('name'),
+    _uuid: text('_uuid'),
+  },
+  (columns) => [
+    index('_site_pages_v_blocks_marquee_slider_rows_items_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_marquee_slider_rows_items_parent_id_idx').on(columns._parentID),
+    index('_site_pages_v_blocks_marquee_slider_rows_items_logo_idx').on(columns.logo),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v_blocks_marquee_slider_rows.id],
+      name: '_site_pages_v_blocks_marquee_slider_rows_items_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _site_pages_v_blocks_marquee_slider_rows = sqliteTable(
+  '_site_pages_v_blocks_marquee_slider_rows',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    id: integer('id').primaryKey(),
+    direction: text('direction', { enum: ['left', 'right'] }).default('left'),
+    speed: numeric('speed', { mode: 'number' }).default(40),
+    pauseOnHover: integer('pause_on_hover', { mode: 'boolean' }).default(true),
+    _uuid: text('_uuid'),
+  },
+  (columns) => [
+    index('_site_pages_v_blocks_marquee_slider_rows_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_marquee_slider_rows_parent_id_idx').on(columns._parentID),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v_blocks_marquee_slider.id],
+      name: '_site_pages_v_blocks_marquee_slider_rows_parent_id_fk',
+    }).onDelete('cascade'),
+  ],
+)
+
+export const _site_pages_v_blocks_marquee_slider = sqliteTable(
+  '_site_pages_v_blocks_marquee_slider',
+  {
+    _order: integer('_order').notNull(),
+    _parentID: integer('_parent_id').notNull(),
+    _path: text('_path').notNull(),
+    id: integer('id').primaryKey(),
+    blockSpacingPadding: text('block_spacing_padding', {
+      enum: ['none', 'sm', 'default', 'lg', 'xl'],
+    }).default('default'),
+    blockSpacingPaddingTop: text('block_spacing_padding_top', {
+      enum: ['default', 'negative', 'xl'],
+    }).default('default'),
+    blockSpacingMarginBottom: text('block_spacing_margin_bottom', {
+      enum: ['none', 'sm', 'default', 'lg'],
+    }).default('default'),
+    blockContainer: text('block_container', {
+      enum: ['default', 'full', 'narrow', 'wide', 'none'],
+    }).default('default'),
+    blockBackground: text('block_background', {
+      enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
+    }).default('none'),
+    blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
+    blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
+      'default',
+    ),
+    blockBorderRadius: text('block_border_radius', {
+      enum: ['default', 'sm', 'lg', 'none'],
+    }).default('default'),
+    blockOverlayEnabled: integer('block_overlay_enabled', { mode: 'boolean' }).default(false),
+    blockOverlayColor: text('block_overlay_color', { enum: ['dark', 'light'] }).default('dark'),
+    blockOverlayOpacity: numeric('block_overlay_opacity', { mode: 'number' }).default(0),
+    blockContentSpacing: text('block_content_spacing', {
+      enum: ['compact', 'default', 'airy'],
+    }).default('default'),
+    blockAnimation: text('block_animation', {
+      enum: ['default', 'none', 'slideUp', 'blur'],
+    }).default('default'),
+    eyebrow: text('eyebrow').default('Partner & Tools'),
+    heading: text('heading').default('Unsere Partner'),
+    intro: text('intro'),
+    _uuid: text('_uuid'),
+    blockName: text('block_name'),
+  },
+  (columns) => [
+    index('_site_pages_v_blocks_marquee_slider_order_idx').on(columns._order),
+    index('_site_pages_v_blocks_marquee_slider_parent_id_idx').on(columns._parentID),
+    index('_site_pages_v_blocks_marquee_slider_path_idx').on(columns._path),
+    foreignKey({
+      columns: [columns['_parentID']],
+      foreignColumns: [_site_pages_v.id],
+      name: '_site_pages_v_blocks_marquee_slider_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
@@ -4783,24 +4922,10 @@ export const _site_pages_v_blocks_cta_links = sqliteTable(
     link_url: text('link_url'),
     link_label: text('link_label'),
     link_appearance: text('link_appearance', { enum: ['default', 'outline'] }).default('default'),
-    link_icon: text('link_icon', {
-      enum: [
-        '',
-        'arrowRight',
-        'arrowUpRight',
-        'chevronRight',
-        'download',
-        'mail',
-        'phone',
-        'messageCircle',
-        'calendar',
-        'externalLink',
-        'send',
-        'plus',
-        'check',
-      ],
-    }),
-    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(true),
+    link_icon: text('link_icon'),
+    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(false),
+    link_iconSwapFrom: text('link_icon_swap_from'),
+    link_iconSwapTo: text('link_icon_swap_to'),
     _uuid: text('_uuid'),
   },
   (columns) => [
@@ -5015,27 +5140,11 @@ export const _site_pages_v_blocks_content_columns = sqliteTable(
     link_newTab: integer('link_new_tab', { mode: 'boolean' }),
     link_url: text('link_url'),
     link_label: text('link_label'),
-    link_appearance: text('link_appearance', {
-      enum: ['default', 'outline', 'cta', 'inverted', 'whatsapp'],
-    }).default('default'),
-    link_icon: text('link_icon', {
-      enum: [
-        '',
-        'arrowRight',
-        'arrowUpRight',
-        'chevronRight',
-        'download',
-        'mail',
-        'phone',
-        'messageCircle',
-        'calendar',
-        'externalLink',
-        'send',
-        'plus',
-        'check',
-      ],
-    }),
-    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(true),
+    link_appearance: text('link_appearance', { enum: ['default', 'outline'] }).default('default'),
+    link_icon: text('link_icon'),
+    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(false),
+    link_iconSwapFrom: text('link_icon_swap_from'),
+    link_iconSwapTo: text('link_icon_swap_to'),
     _uuid: text('_uuid'),
   },
   (columns) => [
@@ -6847,24 +6956,10 @@ export const header_nav_items = sqliteTable(
     link_newTab: integer('link_new_tab', { mode: 'boolean' }),
     link_url: text('link_url'),
     link_label: text('link_label').notNull(),
-    link_icon: text('link_icon', {
-      enum: [
-        '',
-        'arrowRight',
-        'arrowUpRight',
-        'chevronRight',
-        'download',
-        'mail',
-        'phone',
-        'messageCircle',
-        'calendar',
-        'externalLink',
-        'send',
-        'plus',
-        'check',
-      ],
-    }),
-    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(true),
+    link_link_icon: text('link_link_icon'),
+    link_link_enable_icon_swap: integer('link_link_enable_icon_swap', { mode: 'boolean' }).default(
+      false,
+    ),
   },
   (columns) => [
     index('header_nav_items_order_idx').on(columns._order),
@@ -7062,24 +7157,10 @@ export const footer_nav_items = sqliteTable(
     link_newTab: integer('link_new_tab', { mode: 'boolean' }),
     link_url: text('link_url'),
     link_label: text('link_label').notNull(),
-    link_icon: text('link_icon', {
-      enum: [
-        '',
-        'arrowRight',
-        'arrowUpRight',
-        'chevronRight',
-        'download',
-        'mail',
-        'phone',
-        'messageCircle',
-        'calendar',
-        'externalLink',
-        'send',
-        'plus',
-        'check',
-      ],
-    }),
-    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(true),
+    link_icon: text('link_icon'),
+    link_enableIconSwap: integer('link_enable_icon_swap', { mode: 'boolean' }).default(false),
+    link_iconSwapFrom: text('link_icon_swap_from'),
+    link_iconSwapTo: text('link_icon_swap_to'),
   },
   (columns) => [
     index('footer_nav_items_order_idx').on(columns._order),
@@ -7350,6 +7431,47 @@ export const relations_site_pages_blocks_introduction = relations(
       fields: [site_pages_blocks_introduction.image],
       references: [media.id],
       relationName: 'image',
+    }),
+  }),
+)
+export const relations_site_pages_blocks_marquee_slider_rows_items = relations(
+  site_pages_blocks_marquee_slider_rows_items,
+  ({ one }) => ({
+    _parentID: one(site_pages_blocks_marquee_slider_rows, {
+      fields: [site_pages_blocks_marquee_slider_rows_items._parentID],
+      references: [site_pages_blocks_marquee_slider_rows.id],
+      relationName: 'items',
+    }),
+    logo: one(media, {
+      fields: [site_pages_blocks_marquee_slider_rows_items.logo],
+      references: [media.id],
+      relationName: 'logo',
+    }),
+  }),
+)
+export const relations_site_pages_blocks_marquee_slider_rows = relations(
+  site_pages_blocks_marquee_slider_rows,
+  ({ one, many }) => ({
+    _parentID: one(site_pages_blocks_marquee_slider, {
+      fields: [site_pages_blocks_marquee_slider_rows._parentID],
+      references: [site_pages_blocks_marquee_slider.id],
+      relationName: 'rows',
+    }),
+    items: many(site_pages_blocks_marquee_slider_rows_items, {
+      relationName: 'items',
+    }),
+  }),
+)
+export const relations_site_pages_blocks_marquee_slider = relations(
+  site_pages_blocks_marquee_slider,
+  ({ one, many }) => ({
+    _parentID: one(site_pages, {
+      fields: [site_pages_blocks_marquee_slider._parentID],
+      references: [site_pages.id],
+      relationName: '_blocks_marqueeSlider',
+    }),
+    rows: many(site_pages_blocks_marquee_slider_rows, {
+      relationName: 'rows',
     }),
   }),
 )
@@ -8037,6 +8159,9 @@ export const relations_site_pages = relations(site_pages, ({ one, many }) => ({
   _blocks_introduction: many(site_pages_blocks_introduction, {
     relationName: '_blocks_introduction',
   }),
+  _blocks_marqueeSlider: many(site_pages_blocks_marquee_slider, {
+    relationName: '_blocks_marqueeSlider',
+  }),
   _blocks_consultingOverview: many(site_pages_blocks_consulting_overview, {
     relationName: '_blocks_consultingOverview',
   }),
@@ -8196,6 +8321,47 @@ export const relations__site_pages_v_blocks_introduction = relations(
       fields: [_site_pages_v_blocks_introduction.image],
       references: [media.id],
       relationName: 'image',
+    }),
+  }),
+)
+export const relations__site_pages_v_blocks_marquee_slider_rows_items = relations(
+  _site_pages_v_blocks_marquee_slider_rows_items,
+  ({ one }) => ({
+    _parentID: one(_site_pages_v_blocks_marquee_slider_rows, {
+      fields: [_site_pages_v_blocks_marquee_slider_rows_items._parentID],
+      references: [_site_pages_v_blocks_marquee_slider_rows.id],
+      relationName: 'items',
+    }),
+    logo: one(media, {
+      fields: [_site_pages_v_blocks_marquee_slider_rows_items.logo],
+      references: [media.id],
+      relationName: 'logo',
+    }),
+  }),
+)
+export const relations__site_pages_v_blocks_marquee_slider_rows = relations(
+  _site_pages_v_blocks_marquee_slider_rows,
+  ({ one, many }) => ({
+    _parentID: one(_site_pages_v_blocks_marquee_slider, {
+      fields: [_site_pages_v_blocks_marquee_slider_rows._parentID],
+      references: [_site_pages_v_blocks_marquee_slider.id],
+      relationName: 'rows',
+    }),
+    items: many(_site_pages_v_blocks_marquee_slider_rows_items, {
+      relationName: 'items',
+    }),
+  }),
+)
+export const relations__site_pages_v_blocks_marquee_slider = relations(
+  _site_pages_v_blocks_marquee_slider,
+  ({ one, many }) => ({
+    _parentID: one(_site_pages_v, {
+      fields: [_site_pages_v_blocks_marquee_slider._parentID],
+      references: [_site_pages_v.id],
+      relationName: '_blocks_marqueeSlider',
+    }),
+    rows: many(_site_pages_v_blocks_marquee_slider_rows, {
+      relationName: 'rows',
     }),
   }),
 )
@@ -8902,6 +9068,9 @@ export const relations__site_pages_v = relations(_site_pages_v, ({ one, many }) 
   }),
   _blocks_introduction: many(_site_pages_v_blocks_introduction, {
     relationName: '_blocks_introduction',
+  }),
+  _blocks_marqueeSlider: many(_site_pages_v_blocks_marquee_slider, {
+    relationName: '_blocks_marqueeSlider',
   }),
   _blocks_consultingOverview: many(_site_pages_v_blocks_consulting_overview, {
     relationName: '_blocks_consultingOverview',
@@ -9723,6 +9892,9 @@ type DatabaseSchema = {
   site_pages_blocks_hero_with_process_steps: typeof site_pages_blocks_hero_with_process_steps
   site_pages_blocks_hero_with_process: typeof site_pages_blocks_hero_with_process
   site_pages_blocks_introduction: typeof site_pages_blocks_introduction
+  site_pages_blocks_marquee_slider_rows_items: typeof site_pages_blocks_marquee_slider_rows_items
+  site_pages_blocks_marquee_slider_rows: typeof site_pages_blocks_marquee_slider_rows
+  site_pages_blocks_marquee_slider: typeof site_pages_blocks_marquee_slider
   site_pages_blocks_consulting_overview_benefit_items: typeof site_pages_blocks_consulting_overview_benefit_items
   site_pages_blocks_consulting_overview: typeof site_pages_blocks_consulting_overview
   site_pages_blocks_services_overview_services: typeof site_pages_blocks_services_overview_services
@@ -9789,6 +9961,9 @@ type DatabaseSchema = {
   _site_pages_v_blocks_hero_with_process_steps: typeof _site_pages_v_blocks_hero_with_process_steps
   _site_pages_v_blocks_hero_with_process: typeof _site_pages_v_blocks_hero_with_process
   _site_pages_v_blocks_introduction: typeof _site_pages_v_blocks_introduction
+  _site_pages_v_blocks_marquee_slider_rows_items: typeof _site_pages_v_blocks_marquee_slider_rows_items
+  _site_pages_v_blocks_marquee_slider_rows: typeof _site_pages_v_blocks_marquee_slider_rows
+  _site_pages_v_blocks_marquee_slider: typeof _site_pages_v_blocks_marquee_slider
   _site_pages_v_blocks_consulting_overview_benefit_items: typeof _site_pages_v_blocks_consulting_overview_benefit_items
   _site_pages_v_blocks_consulting_overview: typeof _site_pages_v_blocks_consulting_overview
   _site_pages_v_blocks_services_overview_services: typeof _site_pages_v_blocks_services_overview_services
@@ -9915,6 +10090,9 @@ type DatabaseSchema = {
   relations_site_pages_blocks_hero_with_process_steps: typeof relations_site_pages_blocks_hero_with_process_steps
   relations_site_pages_blocks_hero_with_process: typeof relations_site_pages_blocks_hero_with_process
   relations_site_pages_blocks_introduction: typeof relations_site_pages_blocks_introduction
+  relations_site_pages_blocks_marquee_slider_rows_items: typeof relations_site_pages_blocks_marquee_slider_rows_items
+  relations_site_pages_blocks_marquee_slider_rows: typeof relations_site_pages_blocks_marquee_slider_rows
+  relations_site_pages_blocks_marquee_slider: typeof relations_site_pages_blocks_marquee_slider
   relations_site_pages_blocks_consulting_overview_benefit_items: typeof relations_site_pages_blocks_consulting_overview_benefit_items
   relations_site_pages_blocks_consulting_overview: typeof relations_site_pages_blocks_consulting_overview
   relations_site_pages_blocks_services_overview_services: typeof relations_site_pages_blocks_services_overview_services
@@ -9981,6 +10159,9 @@ type DatabaseSchema = {
   relations__site_pages_v_blocks_hero_with_process_steps: typeof relations__site_pages_v_blocks_hero_with_process_steps
   relations__site_pages_v_blocks_hero_with_process: typeof relations__site_pages_v_blocks_hero_with_process
   relations__site_pages_v_blocks_introduction: typeof relations__site_pages_v_blocks_introduction
+  relations__site_pages_v_blocks_marquee_slider_rows_items: typeof relations__site_pages_v_blocks_marquee_slider_rows_items
+  relations__site_pages_v_blocks_marquee_slider_rows: typeof relations__site_pages_v_blocks_marquee_slider_rows
+  relations__site_pages_v_blocks_marquee_slider: typeof relations__site_pages_v_blocks_marquee_slider
   relations__site_pages_v_blocks_consulting_overview_benefit_items: typeof relations__site_pages_v_blocks_consulting_overview_benefit_items
   relations__site_pages_v_blocks_consulting_overview: typeof relations__site_pages_v_blocks_consulting_overview
   relations__site_pages_v_blocks_services_overview_services: typeof relations__site_pages_v_blocks_services_overview_services

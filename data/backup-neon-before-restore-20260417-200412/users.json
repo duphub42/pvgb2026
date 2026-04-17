@@ -1,0 +1,11 @@
+[
+  {
+    "id": 5,
+    "name": "Philipp",
+    "updatedAt": "2026-04-17T11:53:13.951Z",
+    "createdAt": "2026-04-17T11:53:13.951Z",
+    "email": "mail@philippbacher.com",
+    "sessions": [],
+    "collection": "users"
+  }
+]

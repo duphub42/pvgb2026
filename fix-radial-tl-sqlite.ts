@@ -2,9 +2,6 @@
 // Fix missing _radial_tl_v table in SQLite
 // Usage: pnpm tsx fix-radial-tl-sqlite.ts
 
-// @ts-expect-error better-sqlite3 has no types
-import type { Database as DatabaseType } from 'better-sqlite3'
-// @ts-expect-error better-sqlite3 has no types
 import Database from 'better-sqlite3'
 import * as path from 'path'
 

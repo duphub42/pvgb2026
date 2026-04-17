@@ -22,21 +22,13 @@ const SOCIAL_SPRITE_IDS: Record<string, string> = {
   facebook: 'hf-facebook',
   instagram: 'hf-instagram',
 }
-const MOBILE_FOOTER_B_LOGO_SRC = ''
+const MOBILE_FOOTER_B_LOGO_SRC = '/branding/philippbacher-logo-b-10.svg'
 const _MOBILE_FOOTER_B_LOGO_MIN_OPACITY = 0.1
 const _MOBILE_FOOTER_B_LOGO_MAX_OPACITY = 0.3
 const MOBILE_FOOTER_HEADING_MIN_OPACITY = 0.3
 const MOBILE_FOOTER_HEADING_MAX_OPACITY = 1
 const MOBILE_FOOTER_B_LOGO_FADE_ZONE_RATIO = 0.72
 const ENABLE_MOBILE_FOOTER_SCROLL_FADE = true
-
-function normalizeKnownBrokenFooterIconUrl(url: string): string {
-  if (!url) return ''
-  // Avoid repeat 404 requests for known missing icon files.
-  if (url.includes('/api/media/file/marketing-leistungen.svg')) return ''
-  if (url.includes('/api/media/file/design-leistungen.svg')) return ''
-  return url
-}
 
 // Type definitions for raw database fields (snake_case from DB)
 interface HeaderWithRawFields extends Header {
@@ -225,27 +217,20 @@ export function FooterClient({
           <div className="container px-[clamp(1rem,4vw,2rem)] flex flex-col gap-6">
             <div className="gap-8 flex flex-col md:flex-row md:justify-between">
               <Link className="logo-link flex items-center" href="/">
-                <>
-                  {MOBILE_FOOTER_B_LOGO_SRC && (
-                    <img
-                      ref={mobileFooterLogoRef}
-                      src={MOBILE_FOOTER_B_LOGO_SRC}
-                      alt={mobileFooterLogoAlt}
-                      className={mobileFooterLogoClassName}
-                      width={48}
-                      height={48}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  )}
-                  {logoToShow != null && (
-                    <Logo
-                      logo={logoToShow}
-                      variant="footer"
-                      className="hidden max-w-[100%] h-20 md:h-28 md:block"
-                    />
-                  )}
-                </>
+                {logoToShow != null ? (
+                  <Logo logo={logoToShow} variant="footer" className="max-w-[100%] h-20 md:h-28" />
+                ) : MOBILE_FOOTER_B_LOGO_SRC ? (
+                  <img
+                    ref={mobileFooterLogoRef}
+                    src={MOBILE_FOOTER_B_LOGO_SRC}
+                    alt={mobileFooterLogoAlt || 'Philipp Bacher'}
+                    className={mobileFooterLogoClassName}
+                    width={48}
+                    height={48}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                ) : null}
               </Link>
               <div className="flex flex-col-reverse items-start md:flex-row gap-4 md:items-center">
                 <ThemeSelector />
@@ -281,23 +266,24 @@ export function FooterClient({
                   {/* Logo */}
                   <div className="flex items-end justify-center xl:justify-start">
                     <Link href="/" className="logo-link inline-block max-w-[100%]">
-                      <>
-                        {MOBILE_FOOTER_B_LOGO_SRC && (
-                          <img
-                            ref={mobileFooterLogoRef}
-                            src={MOBILE_FOOTER_B_LOGO_SRC}
-                            alt={mobileFooterLogoAlt}
-                            className="mobile-footer-b-logo logo-contrast block max-w-[100%] h-12"
-                            width={48}
-                            height={48}
-                            loading="lazy"
-                            decoding="async"
-                          />
-                        )}
-                        {logoToShow != null && (
-                          <Logo logo={logoToShow} variant="footer" className="hidden" />
-                        )}
-                      </>
+                      {logoToShow != null ? (
+                        <Logo
+                          logo={logoToShow}
+                          variant="footer"
+                          className="block max-w-[100%] h-12 sm:h-14 md:h-16"
+                        />
+                      ) : MOBILE_FOOTER_B_LOGO_SRC ? (
+                        <img
+                          ref={mobileFooterLogoRef}
+                          src={MOBILE_FOOTER_B_LOGO_SRC}
+                          alt={mobileFooterLogoAlt || 'Philipp Bacher'}
+                          className="mobile-footer-b-logo logo-contrast block max-w-[100%] h-12"
+                          width={48}
+                          height={48}
+                          loading="lazy"
+                          decoding="async"
+                        />
+                      ) : null}
                     </Link>
                   </div>
 
@@ -412,9 +398,7 @@ export function FooterClient({
                     const colIconUpload = col?.columnIconUpload
                     const colIconUploadUrl =
                       colIconUpload && typeof colIconUpload === 'object' && colIconUpload?.url
-                        ? normalizeKnownBrokenFooterIconUrl(
-                            getMediaUrl((colIconUpload as { url?: string }).url),
-                          )
+                        ? getMediaUrl((colIconUpload as { url?: string }).url)
                         : ''
                     const colIconSpriteId = null
 

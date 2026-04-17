@@ -105,6 +105,14 @@ export function LogoWithGlitch({
     return () => {}
   }, [runGlitch, textLogo, variant, disableAnimation])
 
+  useEffect(() => {
+    // Preload image source so glitch layers are immediately available when animation starts.
+    if (!imgSrc || variant === 'footer') return
+
+    const preloader = new Image()
+    preloader.src = imgSrc
+  }, [imgSrc, variant])
+
   const scrambleProps = {
     text: textLogo ?? '',
     chars: HACKER_CHARS,
@@ -252,12 +260,16 @@ export function LogoWithGlitch({
               src={imgSrc}
               alt=""
               aria-hidden
+              loading="eager"
+              decoding="async"
               className="logo-glitch-layer logo-glitch-layer-1 logo-contrast"
             />
             <ResilientImage
               src={imgSrc}
               alt=""
               aria-hidden
+              loading="eager"
+              decoding="async"
               className="logo-glitch-layer logo-glitch-layer-2 logo-contrast"
             />
           </>

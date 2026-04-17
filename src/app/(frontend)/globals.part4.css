@@ -837,13 +837,13 @@ nav.megamenu-nav a.megamenu-top-item {
 .megamenu .megamenu-featured [class*='text-muted-foreground'] {
   color: #737373 !important;
 }
-.megamenu .megamenu-featured a {
+.megamenu .megamenu-featured a:not(.megamenu-highlight-cta) {
   color: #171717;
   transition:
     background-color 0.32s cubic-bezier(0.22, 0, 0.2, 1),
     color 0.32s cubic-bezier(0.22, 0, 0.2, 1);
 }
-.megamenu .megamenu-featured a:hover {
+.megamenu .megamenu-featured a:not(.megamenu-highlight-cta):hover {
   background-color: rgba(0, 0, 0, 0.05);
   color: #171717;
 }
@@ -865,12 +865,12 @@ nav.megamenu-nav a.megamenu-top-item {
   background: transparent !important;
   opacity: 0 !important;
 }
-.megamenu .megamenu-featured a:has(.bg-card):hover,
-[data-theme='dark'] .megamenu .megamenu-featured a:has(.bg-card):hover {
+.megamenu .megamenu-featured a:not(.megamenu-highlight-cta):has(.bg-card):hover,
+[data-theme='dark'] .megamenu .megamenu-featured a:not(.megamenu-highlight-cta):has(.bg-card):hover {
   background-color: transparent;
 }
-.megamenu .megamenu-featured a:hover .bg-card,
-[data-theme='dark'] .megamenu .megamenu-featured a:hover .bg-card {
+.megamenu .megamenu-featured a:not(.megamenu-highlight-cta):hover .bg-card,
+[data-theme='dark'] .megamenu .megamenu-featured a:not(.megamenu-highlight-cta):hover .bg-card {
   background-color: transparent !important;
   border-color: transparent !important;
 }
@@ -956,6 +956,7 @@ nav.megamenu-nav a.megamenu-top-item {
 @media (hover: hover) and (pointer: fine) {
   .megamenu .megamenu-special-link:hover .megamenu-special-icon-layer--a,
   .megamenu .megamenu-highlight-cta:hover .megamenu-special-icon-layer--a,
+  .group\/button:hover .megamenu-special-icon-layer--a,
   .megamenu-highlight-cta:hover .megamenu-special-icon-layer--a {
     opacity: 0;
     transform: translate3d(0, -12px, 0);
@@ -963,6 +964,7 @@ nav.megamenu-nav a.megamenu-top-item {
   }
   .megamenu .megamenu-special-link:hover .megamenu-special-icon-layer--b,
   .megamenu .megamenu-highlight-cta:hover .megamenu-special-icon-layer--b,
+  .group\/button:hover .megamenu-special-icon-layer--b,
   .megamenu-highlight-cta:hover .megamenu-special-icon-layer--b {
     opacity: 1;
     transform: translate3d(0, 0, 0);
@@ -971,6 +973,7 @@ nav.megamenu-nav a.megamenu-top-item {
 }
 .megamenu .megamenu-special-link:is(:active, :focus-visible) .megamenu-special-icon-layer--a,
 .megamenu .megamenu-highlight-cta:is(:active, :focus-visible) .megamenu-special-icon-layer--a,
+.group\/button:is(:active, :focus-visible) .megamenu-special-icon-layer--a,
 .megamenu-highlight-cta:is(:active, :focus-visible) .megamenu-special-icon-layer--a {
   opacity: 0;
   transform: translate3d(0, -12px, 0);
@@ -978,6 +981,7 @@ nav.megamenu-nav a.megamenu-top-item {
 }
 .megamenu .megamenu-special-link:is(:active, :focus-visible) .megamenu-special-icon-layer--b,
 .megamenu .megamenu-highlight-cta:is(:active, :focus-visible) .megamenu-special-icon-layer--b,
+.group\/button:is(:active, :focus-visible) .megamenu-special-icon-layer--b,
 .megamenu-highlight-cta:is(:active, :focus-visible) .megamenu-special-icon-layer--b {
   opacity: 1;
   transform: translate3d(0, 0, 0);

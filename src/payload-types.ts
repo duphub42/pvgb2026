@@ -249,6 +249,22 @@ export interface SitePage {
              * Choose how the link should be rendered.
              */
             appearance?: ('default' | 'outline') | null;
+            /**
+             * Lucide icon name (z. B. ArrowRight, Mail, Phone, ChevronRight).
+             */
+            icon?: string | null;
+            /**
+             * Wechselt beim Hover von Icon A zu Icon B.
+             */
+            enableIconSwap?: boolean | null;
+            /**
+             * Icon vor Hover. Leer = Icon-Feld, sonst ChevronRight.
+             */
+            iconSwapFrom?: string | null;
+            /**
+             * Icon bei Hover. Leer = ArrowUpRight.
+             */
+            iconSwapTo?: string | null;
           };
           id?: string | null;
         }[]
@@ -262,6 +278,7 @@ export interface SitePage {
         | HeroMarketingBlock
         | HeroWithProcessBlock
         | IntroductionBlock
+        | MarqueeSliderBlock
         | ConsultingOverviewBlock
         | ServicesOverviewBlock
         | ServicesGridBlock
@@ -649,6 +666,52 @@ export interface IntroductionBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'introduction';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MarqueeSliderBlock".
+ */
+export interface MarqueeSliderBlock {
+  blockSpacingPadding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+  blockSpacingPaddingTop?: ('default' | 'negative' | 'xl') | null;
+  blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  blockBorderEnabled?: boolean | null;
+  blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
+  blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  blockOverlayEnabled?: boolean | null;
+  blockOverlayColor?: ('dark' | 'light') | null;
+  /**
+   * 0 = transparent, 100 = voll deckend
+   */
+  blockOverlayOpacity?: number | null;
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  intro?: string | null;
+  rows?:
+    | {
+        direction?: ('left' | 'right') | null;
+        /**
+         * Zeit in Sekunden fuer einen kompletten Durchlauf. Hoeherer Wert = langsamer.
+         */
+        speed?: number | null;
+        pauseOnHover?: boolean | null;
+        items?:
+          | {
+              logo?: (number | null) | Media;
+              name: string;
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'marqueeSlider';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1701,6 +1764,22 @@ export interface CallToActionBlock {
            * Choose how the link should be rendered.
            */
           appearance?: ('default' | 'outline') | null;
+          /**
+           * Lucide icon name (z. B. ArrowRight, Mail, Phone, ChevronRight).
+           */
+          icon?: string | null;
+          /**
+           * Wechselt beim Hover von Icon A zu Icon B.
+           */
+          enableIconSwap?: boolean | null;
+          /**
+           * Icon vor Hover. Leer = Icon-Feld, sonst ChevronRight.
+           */
+          iconSwapFrom?: string | null;
+          /**
+           * Icon bei Hover. Leer = ArrowUpRight.
+           */
+          iconSwapTo?: string | null;
         };
         id?: string | null;
       }[]
@@ -1843,6 +1922,22 @@ export interface ContentBlock {
            * Choose how the link should be rendered.
            */
           appearance?: ('default' | 'outline') | null;
+          /**
+           * Lucide icon name (z. B. ArrowRight, Mail, Phone, ChevronRight).
+           */
+          icon?: string | null;
+          /**
+           * Wechselt beim Hover von Icon A zu Icon B.
+           */
+          enableIconSwap?: boolean | null;
+          /**
+           * Icon vor Hover. Leer = Icon-Feld, sonst ChevronRight.
+           */
+          iconSwapFrom?: string | null;
+          /**
+           * Icon bei Hover. Leer = ArrowUpRight.
+           */
+          iconSwapTo?: string | null;
         };
         id?: string | null;
       }[]
@@ -2721,6 +2816,10 @@ export interface SitePagesSelect<T extends boolean = true> {
                     url?: T;
                     label?: T;
                     appearance?: T;
+                    icon?: T;
+                    enableIconSwap?: T;
+                    iconSwapFrom?: T;
+                    iconSwapTo?: T;
                   };
               id?: T;
             };
@@ -2731,6 +2830,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         heroMarketing?: T | HeroMarketingBlockSelect<T>;
         heroWithProcess?: T | HeroWithProcessBlockSelect<T>;
         introduction?: T | IntroductionBlockSelect<T>;
+        marqueeSlider?: T | MarqueeSliderBlockSelect<T>;
         consultingOverview?: T | ConsultingOverviewBlockSelect<T>;
         servicesOverview?: T | ServicesOverviewBlockSelect<T>;
         servicesGrid?: T | ServicesGridBlockSelect<T>;
@@ -2859,6 +2959,45 @@ export interface IntroductionBlockSelect<T extends boolean = true> {
   body?: T;
   tagline?: T;
   image?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "MarqueeSliderBlock_select".
+ */
+export interface MarqueeSliderBlockSelect<T extends boolean = true> {
+  blockSpacingPadding?: T;
+  blockSpacingPaddingTop?: T;
+  blockSpacingMarginBottom?: T;
+  blockContainer?: T;
+  blockBackground?: T;
+  blockBorderEnabled?: T;
+  blockBorderStyle?: T;
+  blockBorderRadius?: T;
+  blockOverlayEnabled?: T;
+  blockOverlayColor?: T;
+  blockOverlayOpacity?: T;
+  blockContentSpacing?: T;
+  blockAnimation?: T;
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  rows?:
+    | T
+    | {
+        direction?: T;
+        speed?: T;
+        pauseOnHover?: T;
+        items?:
+          | T
+          | {
+              logo?: T;
+              name?: T;
+              id?: T;
+            };
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -3608,6 +3747,10 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              icon?: T;
+              enableIconSwap?: T;
+              iconSwapFrom?: T;
+              iconSwapTo?: T;
             };
         id?: T;
       };
@@ -3703,6 +3846,10 @@ export interface ContentBlockSelect<T extends boolean = true> {
               url?: T;
               label?: T;
               appearance?: T;
+              icon?: T;
+              enableIconSwap?: T;
+              iconSwapFrom?: T;
+              iconSwapTo?: T;
             };
         id?: T;
       };
@@ -4614,6 +4761,22 @@ export interface Footer {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Lucide icon name (z. B. ArrowRight, Mail, Phone, ChevronRight).
+           */
+          icon?: string | null;
+          /**
+           * Wechselt beim Hover von Icon A zu Icon B.
+           */
+          enableIconSwap?: boolean | null;
+          /**
+           * Icon vor Hover. Leer = Icon-Feld, sonst ChevronRight.
+           */
+          iconSwapFrom?: string | null;
+          /**
+           * Icon bei Hover. Leer = ArrowUpRight.
+           */
+          iconSwapTo?: string | null;
         };
         id?: string | null;
       }[]
@@ -5036,6 +5199,10 @@ export interface FooterSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              icon?: T;
+              enableIconSwap?: T;
+              iconSwapFrom?: T;
+              iconSwapTo?: T;
             };
         id?: T;
       };

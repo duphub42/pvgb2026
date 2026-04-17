@@ -272,7 +272,12 @@ footer a[href='/']:hover .logo-animate {
   left: 0;
   z-index: 0;
   pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+}
+.logo-glitch-wrapper.logo-glitch-active .logo-glitch-layer {
   opacity: 0.92;
+  visibility: visible;
 }
 /* Image glitch layers (clones) – stärkerer Versatz */
 .logo-glitch-wrapper .logo-glitch-layer-1,

@@ -16,7 +16,19 @@ import { cn } from '@/utilities/ui'
 type CMSLinkProps = React.ComponentProps<typeof CMSLink>
 
 interface LinkItem {
-  link?: Pick<CMSLinkProps, 'url' | 'label' | 'appearance' | 'newTab' | 'type' | 'reference'>
+  link?: Pick<
+    CMSLinkProps,
+    | 'url'
+    | 'label'
+    | 'appearance'
+    | 'newTab'
+    | 'type'
+    | 'reference'
+    | 'icon'
+    | 'enableIconSwap'
+    | 'iconSwapFrom'
+    | 'iconSwapTo'
+  >
 }
 
 type MediaRef =
@@ -81,24 +93,29 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 }) => {
   const sectionRef = React.useRef<HTMLElement | null>(null)
   const portraitRef = React.useRef<HTMLDivElement | null>(null)
+  const dividerGradientId = React.useId().replace(/:/g, '')
 
   const mediaSrc = resolveHeroImageSrc(media)
   const bgSrc = resolveHeroImageSrc(backgroundImage)
 
-  // Debug: Prüfe was Payload liefert
-  if (typeof window !== 'undefined') {
-    console.log('[SuperheroHero] backgroundImage:', backgroundImage)
-    console.log('[SuperheroHero] bgSrc:', bgSrc)
-  }
-
   // Fokuspunkt für Hintergrundbild (Payload: 0-1, CSS: 0%-100%)
-  const bgFocalPoint = React.useMemo(() => {
+  const bgFocus = React.useMemo(() => {
+    let focalX = 0.5
+    let focalY = 0.5
+
     if (typeof backgroundImage === 'object' && backgroundImage !== null) {
-      const focalX = backgroundImage.focalX ?? 0.5
-      const focalY = backgroundImage.focalY ?? 0.5
-      return `${focalX * 100}% ${focalY * 100}%`
+      focalX = backgroundImage.focalX ?? 0.5
+      focalY = backgroundImage.focalY ?? 0.5
     }
-    return '50% 50%'
+
+    const x = Math.min(1, Math.max(0, focalX)) * 100
+    const y = Math.min(1, Math.max(0, focalY)) * 100
+
+    return {
+      x,
+      y,
+      objectPosition: `${x}% ${y}%`,
+    }
   }, [backgroundImage])
 
   const headlineLines: string[] = (() => {
@@ -132,42 +149,48 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
             src={bgSrc}
             alt=""
             fill
-            className="object-cover"
+            className="w-full h-full"
             style={{
-              objectPosition: bgFocalPoint,
+              objectFit: 'cover',
+              objectPosition: bgFocus.objectPosition,
             }}
-            priority={false}
+            onError={(e) => {
+              // Gracefully hide image on error (e.g., 404 when media doesn't exist)
+              console.warn('[BG IMG] Failed to load:', bgSrc)
+              const img = e.target as HTMLImageElement
+              img.style.display = 'none'
+              // Prevent further error propagation
+              img.onerror = null
+            }}
+            onLoad={() => console.log('[BG IMG] Loaded:', bgSrc)}
+            priority
+            unoptimized={Boolean(bgSrc?.startsWith('/api/') || bgSrc?.startsWith('http'))}
           />
         </div>
       )}
 
-      {/* Overlay für Text-Lesbarkeit */}
+      {/* Overlay für Text-Lesbarkeit – theme-aware: --background hell in Light, dunkel in Dark */}
       {bgSrc && (
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0"
+          className="pointer-events-none absolute inset-0 hero-superhero-image-overlay"
           style={{
-            zIndex: 1,
-            background: [
-              'linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, transparent 35%)',
-              'linear-gradient(to top, hsl(var(--background)) 0%, transparent 40%)',
-              'linear-gradient(to right, rgba(0,0,0,0.5) 0%, transparent 50%)',
-            ].join(', '),
-          }}
+            zIndex: 12,
+            '--hero-focus-x': `${bgFocus.x}%`,
+            '--hero-focus-y': `${bgFocus.y}%`,
+          } as React.CSSProperties}
         />
       )}
 
       <>
-        <div className="hero-section-surface" aria-hidden style={{ display: 'none' }} />
+        <div className="hero-section-surface" aria-hidden />
         <div
           className="hero-background-overlay hero-background-overlay--style-preview-portrait"
           aria-hidden
-          style={{ display: 'none' }}
         />
         <div
           className="hero-section-foreground-tint hero-section-foreground-tint--above-decor"
           aria-hidden
-          style={{ display: 'none' }}
         />
         <div
           className="hero-popout-structure-layer pointer-events-none absolute inset-0 z-[1]"
@@ -175,25 +198,47 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
           style={{ display: 'none' }}
         />
 
-        {/* Shape Divider: S-Kurve mit Fade zu Seitenhintergrund */}
+        {/* Shape Divider: weich von transparent (Bild) zu voll deckendem Theme-Background */}
         <div
-          className="pointer-events-none absolute bottom-0 left-0 right-0"
-          style={{
-            zIndex: 2,
-            height: 'clamp(80px, 15vh, 200px)',
-            background: `linear-gradient(to bottom, transparent 0%, hsl(var(--background)) 100%)`,
-            maskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cpath fill='%23000' d='M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,181.3C960,203,1056,213,1152,197.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E")`,
-            maskSize: '100% 100%',
-            WebkitMaskImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320' preserveAspectRatio='none'%3E%3Cpath fill='%23000' d='M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,181.3C960,203,1056,213,1152,197.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E")`,
-            WebkitMaskSize: '100% 100%',
-          }}
+          className="hero-shape-divider hero-shape-divider--viewport pointer-events-none absolute z-[22] h-[clamp(120px,20vh,260px)]"
+          style={{ bottom: '-1px' }}
           aria-hidden
-        />
+        >
+          <div
+            className="absolute inset-0"
+            style={{
+              background: bgSrc
+                ? 'linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 45%, transparent) 34%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 78%, transparent) 60%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 94%, transparent) 80%, var(--hero-next-section-bg, hsl(var(--background))) 100%)'
+                : 'linear-gradient(to bottom, transparent 0%, hsl(var(--foreground) / 0.06) 30%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 72%, transparent) 58%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 92%, transparent) 80%, var(--hero-next-section-bg, hsl(var(--background))) 100%)',
+            }}
+          />
+          <svg
+            viewBox="0 0 1440 320"
+            preserveAspectRatio="none"
+            className="absolute inset-0 h-full w-full"
+            style={{ display: 'block' }}
+          >
+            <defs>
+              <linearGradient id={dividerGradientId} x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0" />
+                <stop offset="22%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0.28" />
+                <stop offset="48%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0.62" />
+                <stop offset="74%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0.92" />
+                <stop offset="100%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="1" />
+              </linearGradient>
+            </defs>
+            <path
+              d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,181.3C960,203,1056,213,1152,197.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L0,320Z"
+              fill={`url(#${dividerGradientId})`}
+            />
+          </svg>
+          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--hero-next-section-bg,hsl(var(--background)))]" />
+        </div>
       </>
 
       <div
         className="relative container flex w-full min-w-0 flex-col px-[clamp(1rem,4vw,2rem)] pb-[clamp(3rem,8vh,7rem)] pt-[clamp(1.5rem,6vh,2.5rem)]"
-        style={{ zIndex: 3 }}
+        style={{ zIndex: 40 }}
       >
         <div
           className={cn(
@@ -243,6 +288,10 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                     reference={item?.link?.reference}
                     label={item?.link?.label}
                     newTab={item?.link?.newTab}
+                    icon={item?.link?.icon}
+                    enableIconSwap={item?.link?.enableIconSwap ?? true}
+                    iconSwapFrom={item?.link?.iconSwapFrom}
+                    iconSwapTo={item?.link?.iconSwapTo}
                     appearance={item?.link?.appearance ?? (index === 0 ? 'default' : 'outline')}
                     className="rounded-[var(--style-radius-l)]"
                   />

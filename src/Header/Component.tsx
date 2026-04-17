@@ -11,7 +11,10 @@ type HeaderProps = {
   footerData?: Footer | null
 }
 
-export async function Header({ headerData: initialHeaderData = null, footerData: initialFooterData = null }: HeaderProps = {}) {
+export async function Header({
+  headerData: initialHeaderData = null,
+  footerData: initialFooterData = null,
+}: HeaderProps = {}) {
   let headerData: Header | null = initialHeaderData
   let footerData: Footer | null = initialFooterData
   let megaMenuItems: MegaMenuItem[] = []
@@ -38,10 +41,8 @@ export async function Header({ headerData: initialHeaderData = null, footerData:
   }
 
   try {
-    if ((headerData as Header & { useMegaMenu?: boolean })?.useMegaMenu === true) {
-      const rawItems = await getMegaMenuItems()
-      megaMenuItems = Array.isArray(rawItems) ? (rawItems as unknown as MegaMenuItem[]) : []
-    }
+    const rawItems = await getMegaMenuItems()
+    megaMenuItems = Array.isArray(rawItems) ? (rawItems as unknown as MegaMenuItem[]) : []
   } catch (err) {
     console.error('[Header] Failed to load mega-menu items:', err)
   }

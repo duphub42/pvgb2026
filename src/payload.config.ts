@@ -31,10 +31,50 @@ import { s3Storage } from '@payloadcms/storage-s3'
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 const projectRoot = path.resolve(dirname, '..')
+
+function parseDbTarget(url: string): { host: string; database: string } | null {
+  try {
+    const parsed = new URL(url.replace(/^postgresql:\/\//, 'https://'))
+    return {
+      host: parsed.hostname,
+      database: parsed.pathname.replace(/^\//, '') || '(default)',
+    }
+  } catch {
+    return null
+  }
+}
+
+function getEnvLocalDatabaseUrl(root: string): string | null {
+  const legacyEnvPath = path.join(root, 'env.local')
+  if (!fs.existsSync(legacyEnvPath)) return null
+
+  try {
+    const raw = fs.readFileSync(legacyEnvPath, 'utf8')
+    const match = raw.match(/^(DATABASE_URL|POSTGRES_URL)=(.*)$/m)
+    if (!match) return null
+    return match[2]?.trim() || null
+  } catch {
+    return null
+  }
+}
+
+// .env Dateien laden (muss vor der Prüfung der Env-Variablen erfolgen)
 dotenvConfig({ path: path.join(projectRoot, '.env') })
 dotenvConfig({ path: path.join(projectRoot, '.env.local'), override: true })
 if (fs.existsSync(path.join(projectRoot, 'env.local'))) {
   dotenvConfig({ path: path.join(projectRoot, 'env.local'), override: false })
+}
+
+// Debug: R2 Env-Variablen prüfen (nach dotenvConfig!)
+const r2AccountId = process.env.R2_ACCOUNT_ID?.trim()
+const r2AccessKeyId = process.env.R2_ACCESS_KEY_ID?.trim()
+const r2SecretAccessKey = process.env.R2_SECRET_ACCESS_KEY?.trim()
+const r2Bucket = process.env.R2_BUCKET?.trim()
+const r2Enabled = !!(r2AccountId && r2AccessKeyId && r2SecretAccessKey && r2Bucket)
+
+console.log('[Payload Config] R2 Status:', r2Enabled ? 'ENABLED' : 'DISABLED')
+if (r2Enabled) {
+  console.log('[Payload Config] R2 Bucket:', r2Bucket)
 }
 
 // Production (z. B. Vercel): Fehlende Env-Variablen sofort melden, damit das Admin nicht weiß bleibt
@@ -44,9 +84,13 @@ if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') {
       '[Payload] In Production muss PAYLOAD_SECRET gesetzt sein (Vercel: Project → Settings → Environment Variables). Mind. 12 Zeichen, z. B. openssl rand -hex 32',
     )
   }
-  if (!process.env.DATABASE_URL?.trim() && !process.env.POSTGRES_URL?.trim()) {
+  if (
+    !process.env.DATABASE_URL?.trim() &&
+    !process.env.POSTGRES_URL?.trim() &&
+    process.env.USE_SQLITE !== 'true'
+  ) {
     throw new Error(
-      '[Payload] In Production müssen DATABASE_URL oder POSTGRES_URL gesetzt sein (Vercel: Settings → Environment Variables). Ohne DB lädt das Admin nicht.',
+      '[Payload] In Production müssen DATABASE_URL oder POSTGRES_URL gesetzt sein (Vercel: Settings → Environment Variables). Ohne DB lädt das Admin nicht. Für SQLite-Builds: USE_SQLITE=true setzen.',
     )
   }
 } else if (
@@ -66,6 +110,33 @@ const serverURL = getServerSideURL()
 const hasPostgresUrl = Boolean(process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim())
 const isProduction = process.env.NODE_ENV === 'production'
 const useSqliteAdapter = !hasPostgresUrl || (!isProduction && process.env.USE_SQLITE === 'true')
+const activePostgresUrl = process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim() || ''
+
+if (useSqliteAdapter) {
+  console.log('[Payload Config] DB target: SQLite (file:./payload.db oder SQLITE_URL)')
+} else {
+  const target = parseDbTarget(activePostgresUrl)
+  if (target) {
+    console.log(`[Payload Config] DB target: Postgres ${target.host}/${target.database}`)
+  } else {
+    console.log('[Payload Config] DB target: Postgres (URL gesetzt, konnte nicht geparst werden)')
+  }
+
+  const legacyUrl = getEnvLocalDatabaseUrl(projectRoot)
+  if (legacyUrl && legacyUrl !== activePostgresUrl) {
+    const legacyTarget = parseDbTarget(legacyUrl)
+    const activeTarget = parseDbTarget(activePostgresUrl)
+    const legacyLabel = legacyTarget
+      ? `${legacyTarget.host}/${legacyTarget.database}`
+      : 'unbekanntes Ziel'
+    const activeLabel = activeTarget
+      ? `${activeTarget.host}/${activeTarget.database}`
+      : 'unbekanntes Ziel'
+    console.warn(
+      `[Payload Config] WARN: env.local enthält eine andere DB (${legacyLabel}) als aktiv (${activeLabel}). Das kann dazu führen, dass Migration/Import in unterschiedlichen Neon-DBs landen.`,
+    )
+  }
+}
 
 export default buildConfig({
   serverURL,
@@ -148,28 +219,24 @@ export default buildConfig({
   plugins: [
     ...plugins,
     // Cloudflare R2 (S3-kompatibel): Kein Vercel Blob-Limit, EWWW zieht über Origin-Proxy.
-    // R2_* Env-Variablen in Vercel setzen (siehe .env.example).
-    ...(process.env.R2_ACCOUNT_ID &&
-    process.env.R2_ACCESS_KEY_ID &&
-    process.env.R2_SECRET_ACCESS_KEY &&
-    process.env.R2_BUCKET
+    ...(r2Enabled
       ? [
           s3Storage({
             collections: {
               media: true,
             },
-            bucket: process.env.R2_BUCKET,
+            bucket: r2Bucket!,
             // R2 unterstützt keine ACL bei PutObject/Presigned-URL – weglassen, sonst 500.
             acl: undefined,
             // clientUploads: false = Upload über Server (Vercel-Limit 4,5 MB). true = Presigned-URL vom Client (bekanntes Problem: falscher Content-Type).
             clientUploads: false,
             config: {
               credentials: {
-                accessKeyId: process.env.R2_ACCESS_KEY_ID,
-                secretAccessKey: process.env.R2_SECRET_ACCESS_KEY,
+                accessKeyId: r2AccessKeyId!,
+                secretAccessKey: r2SecretAccessKey!,
               },
               region: 'auto',
-              endpoint: `https://${process.env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+              endpoint: `https://${r2AccountId}.r2.cloudflarestorage.com`,
               forcePathStyle: true,
             },
           }),

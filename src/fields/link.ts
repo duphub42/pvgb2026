@@ -6,7 +6,7 @@ export type LinkAppearances = 'default' | 'outline'
 
 export const appearanceOptions: Record<LinkAppearances, { label: string; value: string }> = {
   default: {
-    label: 'Default',
+    label: 'CTA (Primary)',
     value: 'default',
   },
   outline: {
@@ -134,6 +134,58 @@ export const link: LinkType = ({ appearances, disableLabel = false, overrides = 
       options: appearanceOptionsToUse,
     })
   }
+
+  linkResult.fields.push({
+    type: 'row',
+    fields: [
+      {
+        name: 'icon',
+        type: 'text',
+        label: 'Icon (optional)',
+        admin: {
+          description: 'Lucide icon name (z. B. ArrowRight, Mail, Phone, ChevronRight).',
+          width: '50%',
+        },
+      },
+      {
+        name: 'enableIconSwap',
+        type: 'checkbox',
+        label: 'Icon-Swap aktivieren',
+        admin: {
+          description: 'Wechselt beim Hover von Icon A zu Icon B.',
+          width: '50%',
+        },
+        defaultValue: false,
+      },
+    ],
+  })
+
+  linkResult.fields.push({
+    type: 'row',
+    admin: {
+      condition: (_, siblingData) => Boolean(siblingData?.enableIconSwap),
+    },
+    fields: [
+      {
+        name: 'iconSwapFrom',
+        type: 'text',
+        label: 'Swap Icon A (Default)',
+        admin: {
+          description: 'Icon vor Hover. Leer = Icon-Feld, sonst ChevronRight.',
+          width: '50%',
+        },
+      },
+      {
+        name: 'iconSwapTo',
+        type: 'text',
+        label: 'Swap Icon B (Hover)',
+        admin: {
+          description: 'Icon bei Hover. Leer = ArrowUpRight.',
+          width: '50%',
+        },
+      },
+    ],
+  })
 
   return deepMerge(linkResult, overrides)
 }

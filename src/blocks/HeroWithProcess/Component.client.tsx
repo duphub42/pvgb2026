@@ -175,36 +175,41 @@ export function HeroWithProcessBlock({
               {resolvedSteps.map((step, index) => {
                 const reverseOnDesktop = index % 2 !== 0
 
+                const stepLabel = `step-${index + 1}`
+
                 return (
                   <motion.div
                     key={step.key}
+                    data-step-label={stepLabel}
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, amount: 0.3 }}
                     transition={{ duration: 0.6, delay: index * 0.05 }}
-                    className={`relative flex flex-col gap-6 sm:flex-row sm:gap-12 ${
+                    className={`hero-process-step ${stepLabel} relative flex flex-col gap-6 sm:flex-row sm:gap-12 ${
                       reverseOnDesktop ? 'sm:flex-row-reverse' : ''
                     }`}
                   >
                     <div className="flex flex-shrink-0 items-start sm:w-1/2 sm:justify-end">
                       <div className="relative">
-                        <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[rgb(var(--hero-process-step-bg))] text-xs font-medium text-[rgb(var(--hero-process-step-text))]">
+                        <div className="hero-process-step-number flex h-8 w-8 items-center justify-center rounded-full bg-[rgb(var(--hero-process-step-bg))] text-xs font-medium text-[rgb(var(--hero-process-step-text))]">
                           {step.stepNumber}
                         </div>
                         <div className="absolute left-1/2 top-10 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[rgb(var(--hero-process-step-bg))]/40" />
                       </div>
                     </div>
 
-                    <div className="sm:w-1/2">
-                      <h4 className="text-lg font-light sm:text-xl">{step.title}</h4>
+                    <div className="hero-process-step-content sm:w-1/2">
+                      <h4 className="hero-process-step-title text-lg font-light sm:text-xl">
+                        {step.title}
+                      </h4>
 
                       {step.subtitle ? (
-                        <p className="mt-1 text-sm text-[rgb(var(--hero-process-text))]/50">
+                        <p className="hero-process-step-subtitle mt-1 text-sm text-[rgb(var(--hero-process-text))]/50">
                           {step.subtitle}
                         </p>
                       ) : null}
 
-                      <p className="mt-4 text-sm leading-relaxed text-[rgb(var(--hero-process-text))]/60 sm:text-base">
+                      <p className="hero-process-step-text mt-4 text-sm leading-relaxed text-[rgb(var(--hero-process-text))]/60 sm:text-base">
                         {step.text}
                       </p>
                     </div>

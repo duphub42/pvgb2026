@@ -42,7 +42,7 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
             <ul className="mt-6 flex flex-wrap gap-4">
               {links.map(({ link }, i) => (
                 <li key={i}>
-                  <CMSLink {...link} />
+                  <CMSLink {...link} enableIconSwap={link?.enableIconSwap ?? true} />
                 </li>
               ))}
             </ul>

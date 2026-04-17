@@ -2421,6 +2421,13 @@
   max-height: var(--header-logo-mask-height) !important;
 }
 
+.logo-link .header-b-logo {
+  display: block;
+  width: auto;
+  height: var(--header-logo-mask-height);
+  max-height: var(--header-logo-mask-height);
+}
+
 .site-header[data-sticky='true'] .logo-link[data-logo-morph-ready='true'] .header-logo-slot--default,
 .megamenu[data-sticky='true'] .logo-link[data-logo-morph-ready='true'] .header-logo-slot--default {
   opacity: 0;

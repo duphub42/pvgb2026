@@ -2,16 +2,19 @@
 // Test R2 connectivity and upload
 // Usage: pnpm tsx test-r2.ts
 
-import { S3Client, ListObjectsV2Command, PutObjectCommand, GetObjectCommand } from '@aws-sdk/client-s3'
+import { config } from 'dotenv'
+config({ path: '.env.local' })
+
+import {
+  S3Client,
+  ListObjectsV2Command,
+  PutObjectCommand,
+  GetObjectCommand,
+} from '@aws-sdk/client-s3'
 import * as fs from 'fs'
 import * as path from 'path'
 
-const requiredEnvVars = [
-  'R2_ACCOUNT_ID',
-  'R2_ACCESS_KEY_ID',
-  'R2_SECRET_ACCESS_KEY',
-  'R2_BUCKET',
-]
+const requiredEnvVars = ['R2_ACCOUNT_ID', 'R2_ACCESS_KEY_ID', 'R2_SECRET_ACCESS_KEY', 'R2_BUCKET']
 
 console.log('=== R2 Connectivity Test ===\n')
 

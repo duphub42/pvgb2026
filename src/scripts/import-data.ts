@@ -22,6 +22,13 @@ const exportDir = process.env.IMPORT_DIR
   : path.resolve(__dirname, '../../data/export')
 const mediaExportDir = path.join(exportDir, 'media')
 
+const LEGACY_EXPORT_FILE_NAMES: Record<string, string> = {
+  'site-pages': 'site_pages',
+  'blog-posts': 'blog_posts',
+  'mega-menu': 'mega_menu',
+  'theme-settings': 'theme_settings',
+}
+
 const REPLACE = process.argv.includes('--replace')
 const GLOBAL_SLUGS = ['header', 'footer', 'design', 'theme-settings'] as const
 
@@ -57,21 +64,29 @@ const CACHE_TAGS = [
 /** Ruft die Revalidate-API der lokalen App auf, damit Logo/Hero nach Import sofort sichtbar sind. */
 async function revalidateFrontendCache(): Promise<void> {
   const base =
-    process.env.NEXT_PUBLIC_SERVER_URL ||
-    process.env.VERCEL_URL ||
-    'http://localhost:3000'
-  const url = base.replace(/\/$/, '') + '/api/revalidate?' + CACHE_TAGS.map((t) => `tag=${encodeURIComponent(t)}`).join('&')
+    process.env.NEXT_PUBLIC_SERVER_URL || process.env.VERCEL_URL || 'http://localhost:3000'
+  const url =
+    base.replace(/\/$/, '') +
+    '/api/revalidate?' +
+    CACHE_TAGS.map((t) => `tag=${encodeURIComponent(t)}`).join('&')
   const secret = process.env.REVALIDATE_SECRET?.trim()
   const finalUrl = secret ? `${url}&secret=${encodeURIComponent(secret)}` : url
   try {
     const res = await fetch(finalUrl, { method: 'GET', signal: AbortSignal.timeout(5000) })
     if (res.ok) {
-      console.log('  Frontend-Cache invalidiert (Logo/Hero werden beim nächsten Aufruf neu geladen).')
+      console.log(
+        '  Frontend-Cache invalidiert (Logo/Hero werden beim nächsten Aufruf neu geladen).',
+      )
     } else {
-      console.log('  Hinweis: App-Cache nicht invalidiert (App evtl. nicht unter', base + '). Logo/Hero nach Neustart von "pnpm run dev" sichtbar.')
+      console.log(
+        '  Hinweis: App-Cache nicht invalidiert (App evtl. nicht unter',
+        base + '). Logo/Hero nach Neustart von "pnpm run dev" sichtbar.',
+      )
     }
   } catch {
-    console.log('  Hinweis: App läuft evtl. nicht – Logo/Hero nach Start von "pnpm run dev" sichtbar oder Seite neu laden.')
+    console.log(
+      '  Hinweis: App läuft evtl. nicht – Logo/Hero nach Start von "pnpm run dev" sichtbar oder Seite neu laden.',
+    )
   }
 }
 
@@ -142,11 +157,44 @@ const FIELD_TO_COLLECTION: Record<string, string> = {
 
 const RELATION_COLLECTIONS = new Set(['site-pages', 'blog-posts', 'media', 'users', 'forms'])
 
+function resolveCollectionExportFile(baseDir: string, slug: string): string {
+  const primary = path.join(baseDir, `${slug}.json`)
+  if (fs.existsSync(primary)) return primary
+  const legacySlug = LEGACY_EXPORT_FILE_NAMES[slug]
+  if (legacySlug) {
+    const legacyFile = path.join(baseDir, `${legacySlug}.json`)
+    if (fs.existsSync(legacyFile)) return legacyFile
+  }
+  return primary
+}
+
+function loadGlobalExportData(baseDir: string): Record<string, Record<string, unknown>> {
+  const globalsPath = path.join(baseDir, 'globals.json')
+  if (fs.existsSync(globalsPath)) {
+    return JSON.parse(fs.readFileSync(globalsPath, 'utf-8')) as Record<
+      string,
+      Record<string, unknown>
+    >
+  }
+
+  const out: Record<string, Record<string, unknown>> = {}
+  for (const slug of GLOBAL_SLUGS) {
+    const file = resolveCollectionExportFile(baseDir, slug)
+    if (!fs.existsSync(file)) continue
+    const data = JSON.parse(fs.readFileSync(file, 'utf-8')) as Record<string, unknown>
+    if (data && typeof data === 'object') {
+      out[slug] = data
+    }
+  }
+  return out
+}
+
 /** Exportierte Select-Werte manchmal als "\"value\"" gespeichert – auf "value" normalisieren. */
 function unwrapQuotedString(val: unknown): unknown {
   if (typeof val !== 'string') return val
   const t = val.trim()
-  if (t.length >= 2 && t.startsWith('"') && t.endsWith('"')) return t.slice(1, -1).replace(/^"|"$/g, '')
+  if (t.length >= 2 && t.startsWith('"') && t.endsWith('"'))
+    return t.slice(1, -1).replace(/^"|"$/g, '')
   return val
 }
 
@@ -263,8 +311,7 @@ function normalizeMegaMenuItem(data: Record<string, unknown>): Record<string, un
       if (!col || typeof col !== 'object') return col
       const row = { ...(col as Record<string, unknown>) }
       if ('columnWidth' in row) row.columnWidth = toColWidth(row.columnWidth)
-      if ('columnBackground' in row)
-        row.columnBackground = unwrapQuotedString(row.columnBackground)
+      if ('columnBackground' in row) row.columnBackground = unwrapQuotedString(row.columnBackground)
       return row
     })
   }
@@ -273,10 +320,7 @@ function normalizeMegaMenuItem(data: Record<string, unknown>): Record<string, un
 }
 
 /** Entfernt Relation-Referenzen, deren Ziel-ID noch nicht importiert wurde (nicht in idMaps). */
-function clearInvalidRelations(
-  obj: unknown,
-  idMaps: Record<string, IdMap>,
-): unknown {
+function clearInvalidRelations(obj: unknown, idMaps: Record<string, IdMap>): unknown {
   if (obj === null || obj === undefined) return obj
   if (Array.isArray(obj)) {
     return obj.map((item) => clearInvalidRelations(item, idMaps))
@@ -361,7 +405,7 @@ async function main() {
       }
       const pwdHint = process.env.IMPORT_USER_PASSWORD
         ? 'Passwort aus Umgebungsvariable IMPORT_USER_PASSWORD'
-        : "Admin-Passwort (nicht im Export): ChangeMeAfterImport1! – nach dem Login im Admin unter Nutzer ändern."
+        : 'Admin-Passwort (nicht im Export): ChangeMeAfterImport1! – nach dem Login im Admin unter Nutzer ändern.'
       console.log('  ' + pwdHint)
       await revalidateFrontendCache()
       process.exit(0)
@@ -460,7 +504,7 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
   ]
 
   for (const slug of order as Array<keyof typeof idMaps>) {
-    const file = path.join(exportDir, `${slug}.json`)
+    const file = resolveCollectionExportFile(exportDir, slug)
     if (!fs.existsSync(file)) continue
     if (!payload.collections[slug as keyof typeof payload.collections]) continue
 
@@ -470,6 +514,7 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
       continue
     }
 
+    let importedCount = 0
     for (const doc of docs) {
       let data = stripMeta(
         mapRelations(doc, idMaps, FIELD_TO_COLLECTION) as Record<string, unknown>,
@@ -477,8 +522,7 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
 
       if (slug === 'users') {
         if (!data.password || typeof data.password !== 'string' || data.password.length < 8) {
-          data.password =
-            process.env.IMPORT_USER_PASSWORD || 'ChangeMeAfterImport1!'
+          data.password = process.env.IMPORT_USER_PASSWORD || 'ChangeMeAfterImport1!'
         }
         delete data.sessions
         delete data.collection
@@ -538,7 +582,9 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
         const hero = data.hero as Record<string, unknown> | undefined
         if (hero?.links && Array.isArray(hero.links)) {
           hero.links = hero.links.filter((item: unknown) => {
-            const link = (item as Record<string, unknown>)?.link as { reference?: { value?: number | null } } | undefined
+            const link = (item as Record<string, unknown>)?.link as
+              | { reference?: { value?: number | null } }
+              | undefined
             if (link?.reference && link.reference.value == null) return false
             return true
           })
@@ -558,6 +604,36 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
       if (slug === 'mega-menu') {
         data = normalizeMegaMenuItem(data) as Record<string, unknown>
         data = stripNestedIds(data) as Record<string, unknown>
+      }
+
+      if (slug === 'forms') {
+        // Legacy SQLite export uses snake_case and stores lexical JSON as a string.
+        if ('submit_button_label' in data && !('submitButtonLabel' in data)) {
+          data.submitButtonLabel = data.submit_button_label
+        }
+        if ('confirmation_type' in data && !('confirmationType' in data)) {
+          data.confirmationType = data.confirmation_type
+        }
+        if ('redirect_url' in data && !('redirectURL' in data)) {
+          data.redirectURL = data.redirect_url
+        }
+        if ('confirmation_message' in data && !('confirmationMessage' in data)) {
+          const raw = data.confirmation_message
+          if (typeof raw === 'string') {
+            try {
+              data.confirmationMessage = JSON.parse(raw)
+            } catch {
+              data.confirmationMessage = emptyLexicalRoot
+            }
+          } else {
+            data.confirmationMessage = raw
+          }
+        }
+
+        delete data.submit_button_label
+        delete data.confirmation_type
+        delete data.confirmation_message
+        delete data.redirect_url
       }
 
       delete data.id
@@ -619,8 +695,13 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
           context: SCRIPT_CONTEXT,
         })
         idMaps[slug][doc.id as number] = created.id
+        importedCount += 1
       } catch (err) {
         const msg = err instanceof Error ? err.message : String(err)
+        if (slug === 'forms') {
+          console.warn(`  [forms] Eintrag ${doc.id} uebersprungen: ${msg}`)
+          continue
+        }
         if (slug === 'users' && data.email && typeof data.email === 'string') {
           try {
             const existing = await payload.find({
@@ -631,6 +712,7 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
             })
             if (existing.docs.length > 0) {
               idMaps.users[doc.id as number] = existing.docs[0].id as number
+              importedCount += 1
               continue
             }
           } catch {
@@ -649,6 +731,7 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
             })
             if (existing.docs.length > 0) {
               idMaps[slug][doc.id as number] = existing.docs[0].id as number
+              importedCount += 1
               continue
             }
           } catch {
@@ -659,10 +742,10 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
         throw err
       }
     }
-    console.log(`  ${slug}: ${docs.length} importiert`)
+    console.log(`  ${slug}: ${importedCount} importiert`)
   }
 
-  const pagesFile = path.join(exportDir, 'site-pages.json')
+  const pagesFile = resolveCollectionExportFile(exportDir, 'site-pages')
   if (fs.existsSync(pagesFile)) {
     const pageDocs = JSON.parse(fs.readFileSync(pagesFile, 'utf-8')) as Record<string, unknown>[]
     let parentsRestored = 0
@@ -687,21 +770,16 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
     }
   }
 
-  const globalsPath = path.join(exportDir, 'globals.json')
-  if (fs.existsSync(globalsPath)) {
-    const globalsData = JSON.parse(fs.readFileSync(globalsPath, 'utf-8')) as Record<
-      string,
-      Record<string, unknown>
-    >
+  {
+    const globalsData = loadGlobalExportData(exportDir)
     for (const slug of GLOBAL_SLUGS) {
       const data = globalsData[slug]
       if (!data || typeof data !== 'object') continue
       if (!payload.globals?.config?.find((g) => g.slug === slug)) continue
-      let mapped = mapRelations(
-        stripMeta(data),
-        idMaps,
-        FIELD_TO_COLLECTION,
-      ) as Record<string, unknown>
+      let mapped = mapRelations(stripMeta(data), idMaps, FIELD_TO_COLLECTION) as Record<
+        string,
+        unknown
+      >
       if (slug === 'header') mapped = normalizeHeaderGlobal(mapped)
       await payload.updateGlobal({
         slug: slug as 'header' | 'footer' | 'design' | 'theme-settings',
