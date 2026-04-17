@@ -40,7 +40,7 @@ function getNextSectionBackgroundValue(blockBackground?: string | null): string 
     case 'dark':
       return 'var(--theme-elevation-800)'
     default:
-      return 'hsl(var(--background))'
+      return 'var(--background)'
   }
 }
 
@@ -155,10 +155,25 @@ export default async function Page({
       if (pageById) {
         const previewSlug = typeof pageById.slug === 'string' ? pageById.slug : ''
         const previewLayoutBlocks = resolveLayoutBlocks(previewSlug, pageById.layout)
+        const previewFirstBlock = previewLayoutBlocks[0]
+        const previewFirstBlockBackground =
+          previewFirstBlock &&
+          typeof previewFirstBlock === 'object' &&
+          previewFirstBlock !== null &&
+          'blockBackground' in previewFirstBlock
+            ? ((previewFirstBlock as { blockBackground?: string | null }).blockBackground ?? 'none')
+            : 'none'
+        const previewNextSectionBackground =
+          getNextSectionBackgroundValue(previewFirstBlockBackground)
 
         return (
-          <article className="hero-safe-top">
-            <RenderHero {...pageById.hero} pageSlug={previewSlug} />
+          <article
+            className="hero-safe-top"
+            style={{ ['--hero-next-section-bg' as string]: previewNextSectionBackground }}
+          >
+            <div className="hero-bottom-border">
+              <RenderHero {...pageById.hero} pageSlug={previewSlug} />
+            </div>
             <div className="relative z-0 pt-24">
               <RenderBlocks blocks={previewLayoutBlocks} />
               {isHomePageSlug(previewSlug) && <Faq8 />}
@@ -240,7 +255,7 @@ export default async function Page({
           servicesOverview: Unter lg (Umbruch 1–2 Spalten) z-20 + kein Negativ-Margin — Karten liegen unter dem Hero.
           Ab lg (4 Spalten): z-33 + Flush — Karten dürfen in den Hero ragen / Hover darüber (s. globals services-flush).
         */}
-        <div className="relative isolate z-[32]">
+        <div className="relative isolate z-[32] hero-bottom-border">
           <SectionReveal>
             <HeroErrorBoundary>
               <RenderHero {...heroProps} pageSlug={resolvedSlug} />

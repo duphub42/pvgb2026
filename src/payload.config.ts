@@ -109,7 +109,9 @@ const serverURL = getServerSideURL()
 // USE_NEON=true bleibt kompatibel (z. B. dev:neon); ohne USE_NEON reicht DATABASE_URL in .env für Parität mit Vercel.
 const hasPostgresUrl = Boolean(process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim())
 const isProduction = process.env.NODE_ENV === 'production'
-const useSqliteAdapter = !hasPostgresUrl || (!isProduction && process.env.USE_SQLITE === 'true')
+const forceNeon = process.env.USE_NEON === 'true'
+const useSqliteAdapter =
+  !forceNeon && (!hasPostgresUrl || (!isProduction && process.env.USE_SQLITE === 'true'))
 const activePostgresUrl = process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim() || ''
 
 if (useSqliteAdapter) {

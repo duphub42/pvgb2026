@@ -28,6 +28,7 @@ function main() {
     stdio: 'inherit',
     env: {
       ...process.env,
+      USE_SQLITE: 'false',
       USE_NEON: 'true',
       NODE_OPTIONS: [process.env.NODE_OPTIONS, '--no-deprecation'].filter(Boolean).join(' '),
     },

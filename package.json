@@ -123,6 +123,7 @@
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.4",
+    "@libsql/client": "0.14.0",
     "@next/bundle-analyzer": "^16.1.6",
     "@plasmicapp/cli": "^0.1.359",
     "@playwright/test": "1.58.2",

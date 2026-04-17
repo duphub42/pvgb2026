@@ -1392,6 +1392,11 @@
     transform: none;
   }
 
+  /* Superhero Divider: immer auf den Hintergrund der angrenzenden Content-Section abstimmen. */
+  .hero-superhero-shape-divider {
+    --hero-divider-color: var(--hero-next-section-bg, var(--background));
+  }
+
   /* CMS: Hero-Oberflächenmuster (Popout) — eigene Ebene, niedriger z-index */
   .hero-surface-pattern {
     position: absolute;

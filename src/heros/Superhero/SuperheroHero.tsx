@@ -93,7 +93,6 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 }) => {
   const sectionRef = React.useRef<HTMLElement | null>(null)
   const portraitRef = React.useRef<HTMLDivElement | null>(null)
-  const dividerGradientId = React.useId().replace(/:/g, '')
 
   const mediaSrc = resolveHeroImageSrc(media)
   const bgSrc = resolveHeroImageSrc(backgroundImage)
@@ -125,6 +124,10 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
   const ctaLinks = (links ?? []).filter((e) => Boolean(e?.link?.label)).slice(0, 2)
   const portraitSrc = mediaSrc
+  const dividerColor =
+    'var(--hero-divider-color, var(--hero-next-section-bg, var(--background)))'
+  const dividerSoftGradient = `linear-gradient(to bottom, transparent 0%, ${dividerColor} 100%)`
+  const dividerCoreGradient = `linear-gradient(to bottom, transparent 8%, ${dividerColor} 76%, ${dividerColor} 100%)`
 
   return (
     <section
@@ -200,47 +203,44 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
         {/* Shape Divider: weich von transparent (Bild) zu voll deckendem Theme-Background */}
         <div
-          className="hero-shape-divider hero-shape-divider--viewport pointer-events-none absolute z-[22] h-[clamp(120px,20vh,260px)]"
+          className="hero-shape-divider hero-shape-divider--viewport hero-superhero-shape-divider pointer-events-none absolute z-[22] h-[clamp(240px,40vh,520px)]"
           style={{ bottom: '-1px' }}
           aria-hidden
         >
           <div
-            className="absolute inset-x-0 top-0 h-[72%]"
+            className="absolute inset-0"
             style={{
-              background:
-                'linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 30%, transparent) 40%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 62%, transparent) 100%)',
-              filter: 'blur(16px)',
+              background: dividerSoftGradient,
+              opacity: 0.64,
+              filter: 'blur(64px)',
             }}
           />
           <div
             className="absolute inset-0"
             style={{
-              background: bgSrc
-                ? 'linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 34%, transparent) 34%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 74%, transparent) 60%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 94%, transparent) 82%, var(--hero-next-section-bg, hsl(var(--background))) 100%)'
-                : 'linear-gradient(to bottom, transparent 0%, hsl(var(--foreground) / 0.05) 30%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 68%, transparent) 58%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 90%, transparent) 82%, var(--hero-next-section-bg, hsl(var(--background))) 100%)',
+              background: dividerCoreGradient,
+              opacity: 0.78,
             }}
           />
           <svg
             viewBox="0 0 1440 320"
             preserveAspectRatio="none"
             className="absolute inset-0 h-full w-full"
-            style={{ display: 'block', filter: 'blur(2px)' }}
+            style={{
+              display: 'block',
+              filter: 'blur(14px)',
+              opacity: 0.68,
+            }}
           >
-            <defs>
-              <linearGradient id={dividerGradientId} x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0" />
-                <stop offset="28%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0.3" />
-                <stop offset="56%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0.66" />
-                <stop offset="78%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0.92" />
-                <stop offset="100%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="1" />
-              </linearGradient>
-            </defs>
             <path
-              d="M0,188C360,70,1080,306,1440,188L1440,320L0,320Z"
-              fill={`url(#${dividerGradientId})`}
+              d="M0,132C360,250,1080,14,1440,132L1440,320L0,320Z"
+              style={{ fill: dividerColor }}
             />
           </svg>
-          <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-[var(--hero-next-section-bg,hsl(var(--background)))]" />
+          <div
+            className="absolute bottom-0 left-0 right-0 h-[2px]"
+            style={{ backgroundColor: dividerColor }}
+          />
         </div>
       </>
 

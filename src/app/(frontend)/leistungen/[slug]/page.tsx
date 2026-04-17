@@ -35,7 +35,7 @@ function getNextSectionBackgroundValue(blockBackground?: string | null): string 
     case 'dark':
       return 'var(--theme-elevation-800)'
     default:
-      return 'hsl(var(--background))'
+      return 'var(--background)'
   }
 }
 
@@ -107,9 +107,22 @@ export default async function Page({
       if (pageById && isLeistungenSubpage(pageById)) {
         const previewSlug = typeof pageById.slug === 'string' ? pageById.slug : ''
         const previewLayoutBlocks = resolveLayoutBlocks(previewSlug, pageById.layout)
+        const previewFirstBlock = previewLayoutBlocks[0]
+        const previewFirstBlockBackground =
+          previewFirstBlock &&
+          typeof previewFirstBlock === 'object' &&
+          previewFirstBlock !== null &&
+          'blockBackground' in previewFirstBlock
+            ? ((previewFirstBlock as { blockBackground?: string | null }).blockBackground ?? 'none')
+            : 'none'
+        const previewNextSectionBackground =
+          getNextSectionBackgroundValue(previewFirstBlockBackground)
 
         return (
-          <article className="hero-safe-top">
+          <article
+            className="hero-safe-top"
+            style={{ ['--hero-next-section-bg' as string]: previewNextSectionBackground }}
+          >
             <HeroErrorBoundary>
               <RenderHero {...pageById.hero} pageSlug={getPagePath(pageById)} />
             </HeroErrorBoundary>

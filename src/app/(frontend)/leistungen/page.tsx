@@ -29,7 +29,7 @@ function getNextSectionBackgroundValue(blockBackground?: string | null): string 
     case 'dark':
       return 'var(--theme-elevation-800)'
     default:
-      return 'hsl(var(--background))'
+      return 'var(--background)'
   }
 }
 
