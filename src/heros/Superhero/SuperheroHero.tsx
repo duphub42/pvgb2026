@@ -205,30 +205,38 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
           aria-hidden
         >
           <div
+            className="absolute inset-x-0 top-0 h-[72%]"
+            style={{
+              background:
+                'linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 30%, transparent) 40%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 62%, transparent) 100%)',
+              filter: 'blur(16px)',
+            }}
+          />
+          <div
             className="absolute inset-0"
             style={{
               background: bgSrc
-                ? 'linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 45%, transparent) 34%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 78%, transparent) 60%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 94%, transparent) 80%, var(--hero-next-section-bg, hsl(var(--background))) 100%)'
-                : 'linear-gradient(to bottom, transparent 0%, hsl(var(--foreground) / 0.06) 30%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 72%, transparent) 58%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 92%, transparent) 80%, var(--hero-next-section-bg, hsl(var(--background))) 100%)',
+                ? 'linear-gradient(to bottom, transparent 0%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 34%, transparent) 34%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 74%, transparent) 60%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 94%, transparent) 82%, var(--hero-next-section-bg, hsl(var(--background))) 100%)'
+                : 'linear-gradient(to bottom, transparent 0%, hsl(var(--foreground) / 0.05) 30%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 68%, transparent) 58%, color-mix(in srgb, var(--hero-next-section-bg, hsl(var(--background))) 90%, transparent) 82%, var(--hero-next-section-bg, hsl(var(--background))) 100%)',
             }}
           />
           <svg
             viewBox="0 0 1440 320"
             preserveAspectRatio="none"
             className="absolute inset-0 h-full w-full"
-            style={{ display: 'block' }}
+            style={{ display: 'block', filter: 'blur(2px)' }}
           >
             <defs>
               <linearGradient id={dividerGradientId} x1="0" y1="0" x2="0" y2="1">
                 <stop offset="0%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0" />
-                <stop offset="22%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0.28" />
-                <stop offset="48%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0.62" />
-                <stop offset="74%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0.92" />
+                <stop offset="28%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0.3" />
+                <stop offset="56%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0.66" />
+                <stop offset="78%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="0.92" />
                 <stop offset="100%" stopColor="var(--hero-next-section-bg, hsl(var(--background)))" stopOpacity="1" />
               </linearGradient>
             </defs>
             <path
-              d="M0,160L48,176C96,192,192,224,288,213.3C384,203,480,149,576,138.7C672,128,768,160,864,181.3C960,203,1056,213,1152,197.3C1248,181,1344,139,1392,117.3L1440,96L1440,320L0,320Z"
+              d="M0,188C360,70,1080,306,1440,188L1440,320L0,320Z"
               fill={`url(#${dividerGradientId})`}
             />
           </svg>
