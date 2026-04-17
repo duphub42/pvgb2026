@@ -18,7 +18,7 @@ import { messages } from '@/i18n/messages'
 
 const SOCIAL_SPRITE_IDS: Record<string, string> = {
   linkedin: 'hf-linkedin',
-  twitter: 'hf-x',
+  twitter: 'hf-twitter',
   facebook: 'hf-facebook',
   instagram: 'hf-instagram',
 }
