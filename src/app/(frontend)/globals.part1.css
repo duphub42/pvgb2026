@@ -518,6 +518,45 @@
 
   /* Superhero: Bündig mit Seiten-Content, aber Portrait darf über den rechten Rand hinausragen */
   section[data-hero-type='superhero'] {
+    --hero-motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --hero-motion-duration-fast: 160ms;
+    --hero-motion-duration-bg: 150ms;
+    --hero-motion-duration-filter: 140ms;
+    --hero-bg-translate-max: -2.7rem;
+    --hero-bg-scale-max: 0.095;
+    --hero-bg-blur-max: 14px;
+    --hero-bg-desaturate-max: 0.14;
+    --hero-content-translate-max: 4.6rem;
+    --hero-content-fade-max: 0.9;
+    --hero-content-desaturate-max: 0.16;
+    --hero-main-translate-max: 1.8rem;
+    --hero-copy-translate-max: -1.35rem;
+    --hero-copy-fade-max: 0.28;
+    --hero-portrait-translate-max: 2.1rem;
+    --hero-portrait-scale-down-max: 0.08;
+    --hero-portrait-fade-max: 0.35;
+    --hero-portrait-desaturate-max: 0.12;
+    --hero-layer-base-translate-max: 0.4rem;
+    --hero-layer-base-scale-max: 0.015;
+    --hero-layer-base-fade-max: 0.2;
+    --hero-layer-base-blur-max: 0.3px;
+    --hero-layer-eyebrow-translate-max: -0.65rem;
+    --hero-layer-eyebrow-scale-max: 0.02;
+    --hero-layer-eyebrow-fade-max: 0.34;
+    --hero-layer-headline-translate-max: -1.7rem;
+    --hero-layer-headline-scale-max: 0.05;
+    --hero-layer-headline-fade-max: 0.56;
+    --hero-layer-headline-blur-max: 0.8px;
+    --hero-layer-body-translate-max: -1rem;
+    --hero-layer-body-scale-max: 0.03;
+    --hero-layer-body-fade-max: 0.44;
+    --hero-layer-body-blur-max: 0.55px;
+    --hero-layer-cta-translate-max: -0.45rem;
+    --hero-layer-cta-scale-max: 0.02;
+    --hero-layer-cta-fade-max: 0.3;
+    --hero-layer-marquee-translate-max: 0.65rem;
+    --hero-layer-marquee-scale-max: 0.02;
+    --hero-layer-marquee-fade-max: 0.22;
     --hero-scroll-progress: 0;
     --hero-scroll-content-progress: 0;
     overflow: visible;
@@ -562,88 +601,141 @@
     opacity: 0.86;
   }
 
+  @keyframes hero-tech-intro-reveal-soft {
+    from {
+      opacity: 0;
+      filter: blur(8px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+    }
+  }
+
+  @keyframes hero-tech-intro-reveal-crisp {
+    from {
+      opacity: 0;
+      filter: blur(6px);
+    }
+    to {
+      opacity: 1;
+      filter: blur(0);
+    }
+  }
+
+  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-content-main {
+    animation: hero-tech-intro-reveal-soft 740ms var(--hero-motion-ease) both;
+  }
+
+  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-content-copy {
+    animation: hero-tech-intro-reveal-soft 820ms var(--hero-motion-ease) both;
+  }
+
+  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-content-portrait {
+    animation: hero-tech-intro-reveal-crisp 900ms var(--hero-motion-ease) both;
+  }
+
   section[data-hero-type='superhero'] .hero-scroll-bg-image {
     will-change: transform, filter;
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * -2.7rem), 0)
-      scale(calc(1 + var(--hero-scroll-progress) * 0.095));
-    filter: blur(calc(var(--hero-scroll-progress) * 14px))
-      saturate(calc(1 - var(--hero-scroll-progress) * 0.14));
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-bg-translate-max)), 0)
+      scale(calc(1 + var(--hero-scroll-progress) * var(--hero-bg-scale-max)));
+    filter: blur(calc(var(--hero-scroll-progress) * var(--hero-bg-blur-max)))
+      saturate(calc(1 - var(--hero-scroll-progress) * var(--hero-bg-desaturate-max)));
     transform-origin: center center;
-    transition: transform 0.15s linear, filter 0.14s linear;
+    transition:
+      transform var(--hero-motion-duration-bg) var(--hero-motion-ease),
+      filter var(--hero-motion-duration-filter) var(--hero-motion-ease);
   }
 
   section[data-hero-type='superhero'] .hero-scroll-content {
     will-change: transform, opacity, filter;
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * 4.6rem), 0);
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.9));
-    filter: saturate(calc(1 - var(--hero-scroll-content-progress) * 0.16));
-    transition: transform 0.16s linear, opacity 0.16s linear, filter 0.16s linear;
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-content-translate-max)), 0);
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-content-fade-max)));
+    filter: saturate(calc(1 - var(--hero-scroll-content-progress) * var(--hero-content-desaturate-max)));
+    transition:
+      transform var(--hero-motion-duration-fast) var(--hero-motion-ease),
+      opacity var(--hero-motion-duration-fast) var(--hero-motion-ease),
+      filter var(--hero-motion-duration-fast) var(--hero-motion-ease);
   }
 
   section[data-hero-type='superhero'] .hero-scroll-content-main {
     will-change: transform;
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * 1.8rem), 0);
-    transition: transform 0.16s linear;
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-main-translate-max)), 0);
+    transition: transform var(--hero-motion-duration-fast) var(--hero-motion-ease);
   }
 
   section[data-hero-type='superhero'] .hero-scroll-content-copy {
     will-change: transform, opacity;
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * -1.35rem), 0);
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.28));
-    transition: transform 0.16s linear, opacity 0.16s linear;
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-copy-translate-max)), 0);
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-copy-fade-max)));
+    transition:
+      transform var(--hero-motion-duration-fast) var(--hero-motion-ease),
+      opacity var(--hero-motion-duration-fast) var(--hero-motion-ease);
   }
 
   section[data-hero-type='superhero'] .hero-scroll-content-portrait {
     will-change: transform, opacity, filter;
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * 2.1rem), 0)
-      scale(calc(1 - (var(--hero-scroll-content-progress) * 0.08)));
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.35));
-    filter: saturate(calc(1 - var(--hero-scroll-content-progress) * 0.12));
-    transition: transform 0.16s linear, opacity 0.16s linear, filter 0.16s linear;
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-portrait-translate-max)), 0)
+      scale(calc(1 - (var(--hero-scroll-content-progress) * var(--hero-portrait-scale-down-max))));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-portrait-fade-max)));
+    filter: saturate(calc(1 - var(--hero-scroll-content-progress) * var(--hero-portrait-desaturate-max)));
+    transition:
+      transform var(--hero-motion-duration-fast) var(--hero-motion-ease),
+      opacity var(--hero-motion-duration-fast) var(--hero-motion-ease),
+      filter var(--hero-motion-duration-fast) var(--hero-motion-ease);
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer {
     will-change: transform, opacity, filter;
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * 0.4rem), 0)
-      scale(calc(1 - var(--hero-scroll-content-progress) * 0.015));
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.2));
-    filter: blur(calc(var(--hero-scroll-content-progress) * 0.3px));
-    transition: transform 0.15s linear, opacity 0.15s linear, filter 0.15s linear;
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-layer-base-translate-max)), 0)
+      scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-base-scale-max)));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-base-fade-max)));
+    filter: blur(calc(var(--hero-scroll-content-progress) * var(--hero-layer-base-blur-max)));
+    transition:
+      transform var(--hero-motion-duration-bg) var(--hero-motion-ease),
+      opacity var(--hero-motion-duration-bg) var(--hero-motion-ease),
+      filter var(--hero-motion-duration-bg) var(--hero-motion-ease);
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-eyebrow {
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * -0.65rem), 0)
-      scale(calc(1 - var(--hero-scroll-content-progress) * 0.02));
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.34));
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-layer-eyebrow-translate-max)), 0)
+      scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-eyebrow-scale-max)));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-eyebrow-fade-max)));
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-headline {
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * -1.7rem), 0)
-      scale(calc(1 - var(--hero-scroll-content-progress) * 0.05));
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.56));
-    filter: blur(calc(var(--hero-scroll-content-progress) * 0.8px));
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-layer-headline-translate-max)), 0)
+      scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-headline-scale-max)));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-headline-fade-max)));
+    filter: blur(calc(var(--hero-scroll-content-progress) * var(--hero-layer-headline-blur-max)));
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-body {
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * -1rem), 0)
-      scale(calc(1 - var(--hero-scroll-content-progress) * 0.03));
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.44));
-    filter: blur(calc(var(--hero-scroll-content-progress) * 0.55px));
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-layer-body-translate-max)), 0)
+      scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-body-scale-max)));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-body-fade-max)));
+    filter: blur(calc(var(--hero-scroll-content-progress) * var(--hero-layer-body-blur-max)));
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-cta {
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * -0.45rem), 0)
-      scale(calc(1 - var(--hero-scroll-content-progress) * 0.02));
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.3));
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-layer-cta-translate-max)), 0)
+      scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-cta-scale-max)));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-cta-fade-max)));
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-marquee {
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * 0.65rem), 0)
-      scale(calc(1 - var(--hero-scroll-content-progress) * 0.02));
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.22));
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-layer-marquee-translate-max)), 0)
+      scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-marquee-scale-max)));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-marquee-fade-max)));
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-content-main,
+    .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-content-copy,
+    .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-content-portrait {
+      animation: none;
+    }
+
     section[data-hero-type='superhero'] .hero-scroll-bg-image,
     section[data-hero-type='superhero'] .hero-scroll-content,
     section[data-hero-type='superhero'] .hero-scroll-content-main,

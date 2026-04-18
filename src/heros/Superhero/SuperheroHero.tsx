@@ -98,9 +98,19 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     const section = sectionRef.current
     if (!section) return
     const host = section.closest('article')
+    const introDurationMs = 920
 
     let rafId = 0
+    let introTimeoutId = 0
     const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
+
+    section.setAttribute('data-hero-intro', 'play')
+    if (host) host.setAttribute('data-hero-intro', 'play')
+
+    introTimeoutId = window.setTimeout(() => {
+      section.setAttribute('data-hero-intro', 'done')
+      if (host) host.setAttribute('data-hero-intro', 'done')
+    }, introDurationMs)
 
     const updateScrollProgress = () => {
       rafId = 0
@@ -130,14 +140,17 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
     return () => {
       if (rafId !== 0) window.cancelAnimationFrame(rafId)
+      if (introTimeoutId !== 0) window.clearTimeout(introTimeoutId)
       window.removeEventListener('scroll', requestUpdate)
       window.removeEventListener('resize', requestUpdate)
       window.removeEventListener('orientationchange', requestUpdate)
       section.style.removeProperty('--hero-scroll-progress')
       section.style.removeProperty('--hero-scroll-content-progress')
+      section.removeAttribute('data-hero-intro')
       if (host) {
         host.style.removeProperty('--hero-scroll-progress')
         host.style.removeProperty('--hero-scroll-content-progress')
+        host.removeAttribute('data-hero-intro')
       }
     }
   }, [])
