@@ -94,6 +94,54 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   const sectionRef = React.useRef<HTMLElement | null>(null)
   const portraitRef = React.useRef<HTMLDivElement | null>(null)
 
+  React.useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+    const host = section.closest('article')
+
+    let rafId = 0
+    const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
+
+    const updateScrollProgress = () => {
+      rafId = 0
+      const rect = section.getBoundingClientRect()
+      const heroHeight = Math.max(rect.height, 1)
+      const scrollDistance = Math.max(heroHeight * 0.92, window.innerHeight * 0.72)
+      const progress = clamp01(-rect.top / scrollDistance)
+      const contentProgress = clamp01((progress - 0.08) / 0.92)
+
+      section.style.setProperty('--hero-scroll-progress', progress.toFixed(4))
+      section.style.setProperty('--hero-scroll-content-progress', contentProgress.toFixed(4))
+      if (host) {
+        host.style.setProperty('--hero-scroll-progress', progress.toFixed(4))
+        host.style.setProperty('--hero-scroll-content-progress', contentProgress.toFixed(4))
+      }
+    }
+
+    const requestUpdate = () => {
+      if (rafId !== 0) return
+      rafId = window.requestAnimationFrame(updateScrollProgress)
+    }
+
+    updateScrollProgress()
+    window.addEventListener('scroll', requestUpdate, { passive: true })
+    window.addEventListener('resize', requestUpdate)
+    window.addEventListener('orientationchange', requestUpdate)
+
+    return () => {
+      if (rafId !== 0) window.cancelAnimationFrame(rafId)
+      window.removeEventListener('scroll', requestUpdate)
+      window.removeEventListener('resize', requestUpdate)
+      window.removeEventListener('orientationchange', requestUpdate)
+      section.style.removeProperty('--hero-scroll-progress')
+      section.style.removeProperty('--hero-scroll-content-progress')
+      if (host) {
+        host.style.removeProperty('--hero-scroll-progress')
+        host.style.removeProperty('--hero-scroll-content-progress')
+      }
+    }
+  }, [])
+
   const mediaSrc = resolveHeroImageSrc(media)
   const bgSrc = resolveHeroImageSrc(backgroundImage)
 
@@ -145,14 +193,14 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       {bgSrc && (
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 overflow-hidden"
+          className="hero-scroll-bg pointer-events-none absolute inset-0 overflow-hidden"
           style={{ zIndex: 0 }}
         >
           <Image
             src={bgSrc}
             alt=""
             fill
-            className="w-full h-full"
+            className="hero-scroll-bg-image w-full h-full"
             style={{
               objectFit: 'cover',
               objectPosition: bgFocus.objectPosition,
@@ -208,29 +256,22 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
           aria-hidden
         >
           <div
-            className="absolute inset-0"
+            className="hero-superhero-divider-soft absolute inset-0"
             style={{
               background: dividerSoftGradient,
-              opacity: 0.64,
-              filter: 'blur(64px)',
             }}
           />
           <div
-            className="absolute inset-0"
+            className="hero-superhero-divider-core absolute inset-0"
             style={{
               background: dividerCoreGradient,
-              opacity: 0.78,
             }}
           />
           <svg
             viewBox="0 0 1440 320"
             preserveAspectRatio="none"
-            className="absolute inset-0 h-full w-full"
-            style={{
-              display: 'block',
-              filter: 'blur(14px)',
-              opacity: 0.68,
-            }}
+            className="hero-superhero-divider-wave absolute inset-0 h-full w-full"
+            style={{ display: 'block' }}
           >
             <path
               d="M0,132C360,250,1080,14,1440,132L1440,320L0,320Z"
@@ -238,19 +279,19 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
             />
           </svg>
           <div
-            className="absolute bottom-0 left-0 right-0 h-[2px]"
+            className="hero-superhero-divider-edge absolute bottom-0 left-0 right-0 h-[2px]"
             style={{ backgroundColor: dividerColor }}
           />
         </div>
       </>
 
       <div
-        className="relative container flex w-full min-w-0 flex-col px-[clamp(1rem,4vw,2rem)] pb-[clamp(3rem,8vh,7rem)] pt-[clamp(1.5rem,6vh,2.5rem)]"
+        className="hero-scroll-content relative container flex w-full min-w-0 flex-col px-[clamp(1rem,4vw,2rem)] pb-[clamp(3rem,8vh,7rem)] pt-[clamp(1.5rem,6vh,2.5rem)]"
         style={{ zIndex: 40 }}
       >
         <div
           className={cn(
-            'grid min-w-0 gap-0 overflow-visible md:items-start max-md:flex max-md:flex-col max-md:h-[clamp(500px,90vh,800px)]',
+            'hero-scroll-content-main grid min-w-0 gap-0 overflow-visible md:items-start max-md:flex max-md:flex-col max-md:h-[clamp(500px,90vh,800px)]',
             portraitSrc
               ? 'md:grid-cols-[clamp(280px,40%,460px)_auto] md:gap-[clamp(1rem,3vw,3rem)]'
               : 'md:grid-cols-1 md:max-w-3xl',
@@ -258,20 +299,20 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
           style={{ overflow: 'visible' }}
         >
           <div
-            className="relative min-w-0 space-y-[clamp(1rem,2.5vh,1.5rem)] max-md:z-[16] max-md:order-2 max-md:flex-shrink-0 md:min-h-0 lg:min-h-[clamp(400px,62vh,680px)] hero-mobile-glass max-md:-mx-4 max-md:rounded-t-2xl max-md:px-4 max-md:pt-[clamp(1.5rem,6vh,2rem)] max-md:pb-[clamp(1rem,4vh,1.5rem)] max-md:-mt-[clamp(100px,24vw,152px)]"
+            className="hero-scroll-content-copy relative min-w-0 space-y-[clamp(1rem,2.5vh,1.5rem)] max-md:z-[16] max-md:order-2 max-md:flex-shrink-0 md:min-h-0 lg:min-h-[clamp(400px,62vh,680px)] hero-mobile-glass max-md:-mx-4 max-md:rounded-t-2xl max-md:px-4 max-md:pt-[clamp(1.5rem,6vh,2rem)] max-md:pb-[clamp(1rem,4vh,1.5rem)] max-md:-mt-[clamp(100px,24vw,152px)]"
             style={{ overflow: 'visible' }}
           >
             {subheadline && (
               <Badge
                 variant="secondary"
-                className="w-fit px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] hero-subheading-contrast"
+                className="hero-scroll-layer hero-scroll-layer-eyebrow w-fit px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] hero-subheading-contrast"
               >
                 {subheadline}
               </Badge>
             )}
 
             {headlineLines.length > 0 && (
-              <h1 className="text-pretty text-hero-display hero-heading-gradient tracking-tight">
+              <h1 className="hero-scroll-layer hero-scroll-layer-headline text-pretty text-hero-display hero-heading-gradient tracking-tight">
                 {headlineLines.map((line, i) => (
                   <span key={i} className="block">
                     {line}
@@ -281,13 +322,13 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
             )}
 
             {description && (
-              <p className="max-w-2xl text-base leading-relaxed hero-content-contrast md:text-lg">
+              <p className="hero-scroll-layer hero-scroll-layer-body max-w-2xl text-base leading-relaxed hero-content-contrast md:text-lg">
                 {description}
               </p>
             )}
 
             {ctaLinks.length > 0 && (
-              <div className="flex flex-wrap items-center gap-3">
+              <div className="hero-scroll-layer hero-scroll-layer-cta flex flex-wrap items-center gap-3">
                 {ctaLinks.map((item, index) => (
                   <CMSLink
                     key={`${item?.link?.label ?? 'cta'}-${index}`}
@@ -310,14 +351,14 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
             <HeroLogoMarquee
               marqueeHeadline={marqueeHeadline}
               marqueeLogos={marqueeLogos}
-              className="mt-1 pt-3 border-t border-border/60"
+              className="hero-scroll-layer hero-scroll-layer-marquee mt-1 pt-3 border-t border-border/60"
             />
           </div>
 
           {portraitSrc && (
             <div
               ref={portraitRef}
-              className="hero-desktop-parallax-portrait hero-mobile-sticky-portrait order-first md:order-none"
+              className="hero-scroll-content-portrait hero-desktop-parallax-portrait hero-mobile-sticky-portrait order-first md:order-none"
               style={{
                 position: 'sticky',
                 top: 'calc(var(--header-height, 72px) + 5vh)',

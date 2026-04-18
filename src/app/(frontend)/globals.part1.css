@@ -518,8 +518,148 @@
 
   /* Superhero: Bündig mit Seiten-Content, aber Portrait darf über den rechten Rand hinausragen */
   section[data-hero-type='superhero'] {
+    --hero-scroll-progress: 0;
+    --hero-scroll-content-progress: 0;
     overflow: visible;
     width: 100%;
+  }
+
+  .hero-shell--superhero section[data-hero-type='superhero'] {
+    position: relative;
+  }
+
+  .hero-shell--superhero section[data-hero-type='superhero']::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -1px;
+    height: clamp(7rem, 18vh, 13rem);
+    pointer-events: none;
+    z-index: 24;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 16%, transparent) 34%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 44%, transparent) 62%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 76%, transparent) 84%,
+      var(--hero-next-section-bg, var(--background)) 100%
+    );
+    filter: blur(6px);
+    opacity: 0.92;
+  }
+
+  [data-theme='dark'] .hero-shell--superhero section[data-hero-type='superhero']::after {
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 12%, transparent) 38%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 36%, transparent) 66%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 66%, transparent) 86%,
+      var(--hero-next-section-bg, var(--background)) 100%
+    );
+    filter: blur(5px);
+    opacity: 0.86;
+  }
+
+  section[data-hero-type='superhero'] .hero-scroll-bg-image {
+    will-change: transform, filter;
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * -2.7rem), 0)
+      scale(calc(1 + var(--hero-scroll-progress) * 0.095));
+    filter: blur(calc(var(--hero-scroll-progress) * 14px))
+      saturate(calc(1 - var(--hero-scroll-progress) * 0.14));
+    transform-origin: center center;
+    transition: transform 0.15s linear, filter 0.14s linear;
+  }
+
+  section[data-hero-type='superhero'] .hero-scroll-content {
+    will-change: transform, opacity, filter;
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * 4.6rem), 0);
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.9));
+    filter: saturate(calc(1 - var(--hero-scroll-content-progress) * 0.16));
+    transition: transform 0.16s linear, opacity 0.16s linear, filter 0.16s linear;
+  }
+
+  section[data-hero-type='superhero'] .hero-scroll-content-main {
+    will-change: transform;
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * 1.8rem), 0);
+    transition: transform 0.16s linear;
+  }
+
+  section[data-hero-type='superhero'] .hero-scroll-content-copy {
+    will-change: transform, opacity;
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * -1.35rem), 0);
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.28));
+    transition: transform 0.16s linear, opacity 0.16s linear;
+  }
+
+  section[data-hero-type='superhero'] .hero-scroll-content-portrait {
+    will-change: transform, opacity, filter;
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * 2.1rem), 0)
+      scale(calc(1 - (var(--hero-scroll-content-progress) * 0.08)));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.35));
+    filter: saturate(calc(1 - var(--hero-scroll-content-progress) * 0.12));
+    transition: transform 0.16s linear, opacity 0.16s linear, filter 0.16s linear;
+  }
+
+  section[data-hero-type='superhero'] .hero-scroll-layer {
+    will-change: transform, opacity, filter;
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * 0.4rem), 0)
+      scale(calc(1 - var(--hero-scroll-content-progress) * 0.015));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.2));
+    filter: blur(calc(var(--hero-scroll-content-progress) * 0.3px));
+    transition: transform 0.15s linear, opacity 0.15s linear, filter 0.15s linear;
+  }
+
+  section[data-hero-type='superhero'] .hero-scroll-layer-eyebrow {
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * -0.65rem), 0)
+      scale(calc(1 - var(--hero-scroll-content-progress) * 0.02));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.34));
+  }
+
+  section[data-hero-type='superhero'] .hero-scroll-layer-headline {
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * -1.7rem), 0)
+      scale(calc(1 - var(--hero-scroll-content-progress) * 0.05));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.56));
+    filter: blur(calc(var(--hero-scroll-content-progress) * 0.8px));
+  }
+
+  section[data-hero-type='superhero'] .hero-scroll-layer-body {
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * -1rem), 0)
+      scale(calc(1 - var(--hero-scroll-content-progress) * 0.03));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.44));
+    filter: blur(calc(var(--hero-scroll-content-progress) * 0.55px));
+  }
+
+  section[data-hero-type='superhero'] .hero-scroll-layer-cta {
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * -0.45rem), 0)
+      scale(calc(1 - var(--hero-scroll-content-progress) * 0.02));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.3));
+  }
+
+  section[data-hero-type='superhero'] .hero-scroll-layer-marquee {
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * 0.65rem), 0)
+      scale(calc(1 - var(--hero-scroll-content-progress) * 0.02));
+    opacity: calc(1 - (var(--hero-scroll-content-progress) * 0.22));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    section[data-hero-type='superhero'] .hero-scroll-bg-image,
+    section[data-hero-type='superhero'] .hero-scroll-content,
+    section[data-hero-type='superhero'] .hero-scroll-content-main,
+    section[data-hero-type='superhero'] .hero-scroll-content-copy,
+    section[data-hero-type='superhero'] .hero-scroll-content-portrait,
+    section[data-hero-type='superhero'] .hero-scroll-layer,
+    section[data-hero-type='superhero'] .hero-scroll-layer-eyebrow,
+    section[data-hero-type='superhero'] .hero-scroll-layer-headline,
+    section[data-hero-type='superhero'] .hero-scroll-layer-body,
+    section[data-hero-type='superhero'] .hero-scroll-layer-cta,
+    section[data-hero-type='superhero'] .hero-scroll-layer-marquee {
+      transform: none;
+      filter: none;
+      opacity: 1;
+      transition: none;
+    }
   }
 
   /* Hero-Container: Standard-Container-Breiten wie restliche Seite */
@@ -731,18 +871,51 @@
     background-color: var(--hero-next-section-bg, var(--background));
     background-image: linear-gradient(
       to bottom,
-      transparent 0,
-      var(--hero-next-section-bg, var(--background)) 2.75rem
+      transparent 0%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 18%, transparent) 30%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 48%, transparent) 58%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 78%, transparent) 82%,
+      var(--hero-next-section-bg, var(--background)) 100%
     );
   }
   @media (min-width: 1024px) {
     .hero-following-section-mask {
       background-image: linear-gradient(
         to bottom,
-        transparent 0,
-        var(--hero-next-section-bg, var(--background)) 1.35rem
+        transparent 0%,
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 16%, transparent) 34%,
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 42%, transparent) 62%,
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 74%, transparent) 84%,
+        var(--hero-next-section-bg, var(--background)) 100%
       );
     }
+  }
+
+  .hero-following-section-mask.hero-following-section--superhero-overlap:not(.hero-following-section--services-flush) {
+    margin-top: clamp(-5.6rem, -9vh, -2.4rem);
+    padding-top: clamp(3.75rem, 8vh, 6.8rem);
+    z-index: 34;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    box-shadow: none;
+  }
+
+  .hero-following-section-mask.hero-following-section--superhero-overlap:not(.hero-following-section--services-flush)::before {
+    content: '';
+    position: absolute;
+    top: clamp(-1.6rem, -2.8vh, -0.8rem);
+    left: 0;
+    right: 0;
+    height: clamp(2rem, 5vh, 3.6rem);
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 20%, transparent) 42%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 56%, transparent) 100%
+    );
+    filter: none;
+    opacity: 0.42;
   }
 
   /* Erste Section = nur Service-Karten: kein Verlauf, harter Anschluss an den Hero (nur lg+).
@@ -1395,6 +1568,59 @@
   /* Superhero Divider: immer auf den Hintergrund der angrenzenden Content-Section abstimmen. */
   .hero-superhero-shape-divider {
     --hero-divider-color: var(--hero-next-section-bg, var(--background));
+    /* Weicher Einstieg oben, damit kein harter Cut sichtbar ist */
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.05) 24%,
+      rgba(0, 0, 0, 0.18) 50%,
+      rgba(0, 0, 0, 0.56) 74%,
+      black 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.05) 24%,
+      rgba(0, 0, 0, 0.18) 50%,
+      rgba(0, 0, 0, 0.56) 74%,
+      black 100%
+    );
+  }
+
+  .hero-superhero-shape-divider .hero-superhero-divider-soft {
+    opacity: 0.34;
+    filter: blur(54px);
+  }
+
+  .hero-superhero-shape-divider .hero-superhero-divider-core {
+    opacity: 0.42;
+  }
+
+  .hero-superhero-shape-divider .hero-superhero-divider-wave {
+    opacity: 0.34;
+    filter: blur(6px);
+  }
+
+  .hero-superhero-shape-divider .hero-superhero-divider-edge {
+    opacity: 0;
+  }
+
+  [data-theme='dark'] .hero-superhero-shape-divider .hero-superhero-divider-soft {
+    opacity: 0.16;
+    filter: blur(40px);
+  }
+
+  [data-theme='dark'] .hero-superhero-shape-divider .hero-superhero-divider-core {
+    opacity: 0.24;
+  }
+
+  [data-theme='dark'] .hero-superhero-shape-divider .hero-superhero-divider-wave {
+    opacity: 0.18;
+    filter: blur(4px);
+  }
+
+  [data-theme='dark'] .hero-superhero-shape-divider .hero-superhero-divider-edge {
+    opacity: 0;
   }
 
   /* CMS: Hero-Oberflächenmuster (Popout) — eigene Ebene, niedriger z-index */

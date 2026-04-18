@@ -13,6 +13,9 @@ importers:
 
   .:
     dependencies:
+      '@aws-sdk/client-s3':
+        specifier: 3.1020.0
+        version: 3.1020.0
       '@fontsource/inter':
         specifier: ^5.2.8
         version: 5.2.8

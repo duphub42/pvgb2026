@@ -165,15 +165,21 @@ export default async function Page({
             : 'none'
         const previewNextSectionBackground =
           getNextSectionBackgroundValue(previewFirstBlockBackground)
+        const previewIsSuperheroHero =
+          pageById.hero &&
+          typeof pageById.hero === 'object' &&
+          'type' in pageById.hero &&
+          (pageById.hero as { type?: string }).type === 'superhero'
 
         return (
           <article
-            className="hero-safe-top"
+            className={cn('hero-safe-top', previewIsSuperheroHero && 'hero-shell--superhero')}
             style={{ ['--hero-next-section-bg' as string]: previewNextSectionBackground }}
           >
-            <div className="hero-bottom-border">
+            <div className={cn(previewIsSuperheroHero ? '' : 'hero-bottom-border')}>
               <RenderHero {...pageById.hero} pageSlug={previewSlug} />
             </div>
+            <hr className="hero-content-divider" aria-hidden />
             <div className="relative z-0 pt-24">
               <RenderBlocks blocks={previewLayoutBlocks} />
               {isHomePageSlug(previewSlug) && <Faq8 />}
@@ -249,28 +255,34 @@ export default async function Page({
       (heroProps as { type?: string }).type === 'superhero'
 
     return (
-      <article style={{ ['--hero-next-section-bg' as string]: nextSectionBackground }}>
+      <article
+        className={cn(isSuperheroHero && 'hero-shell--superhero')}
+        style={{ ['--hero-next-section-bg' as string]: nextSectionBackground }}
+      >
         {/*
           Hero z-32. Standard-Folgesection z-31, damit Mask nicht über Hero-Popout liegt.
           servicesOverview: Unter lg (Umbruch 1–2 Spalten) z-20 + kein Negativ-Margin — Karten liegen unter dem Hero.
           Ab lg (4 Spalten): z-33 + Flush — Karten dürfen in den Hero ragen / Hover darüber (s. globals services-flush).
         */}
-        <div className="relative isolate z-[32] hero-bottom-border">
+        <div className={cn('relative isolate z-[32]', !isSuperheroHero && 'hero-bottom-border')}>
           <SectionReveal>
             <HeroErrorBoundary>
               <RenderHero {...heroProps} pageSlug={resolvedSlug} />
             </HeroErrorBoundary>
           </SectionReveal>
         </div>
+        <hr className="hero-content-divider" aria-hidden />
         <div
           className={cn(
             'relative w-full min-w-0 hero-following-section-mask',
             firstBlockIsServices
               ? cn(
-                  'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:-mt-28 lg:pt-2',
-                  isSuperheroHero ? 'lg:z-[31]' : 'lg:z-[33]',
+                  'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
+                  isSuperheroHero ? 'lg:z-[31] lg:mt-0' : 'lg:-mt-28 lg:z-[33]',
                 )
-              : 'z-20 max-md:-mt-16 max-md:pt-8 pt-24 md:z-[31] md:-mt-16',
+              : isSuperheroHero
+                ? 'z-20 mt-0 pt-24 md:z-[31]'
+                : 'z-20 max-md:-mt-16 max-md:pt-8 pt-24 md:z-[31] md:-mt-16',
           )}
         >
           <SectionReveal className="relative z-0 pt-24">

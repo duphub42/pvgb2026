@@ -18,7 +18,7 @@ interface Props {
 }
 
 const logoSizeClass =
-  'w-full max-w-[8.5rem] sm:max-w-[10.5rem] h-[30px] sm:h-[38px] object-contain object-left lg:max-w-[8rem] xl:max-w-[16.5rem] xl:h-[61px]'
+  'w-full max-w-[8.5rem] sm:max-w-[10.5rem] h-[30px] sm:h-[38px] object-contain object-left lg:max-w-[5.6rem] xl:max-w-[11.5rem] xl:h-[43px]'
 const logoSizeFooterClass =
   'max-w-[8rem] h-[36px] sm:max-w-[9.5rem] sm:h-[40px] md:max-w-[11rem] md:h-[44px]'
 
