@@ -1,179 +1,347 @@
-CREATE TYPE "public"."enum__blog_posts_v_version_status" AS ENUM('draft', 'published');--> statement-breakpoint
-CREATE TYPE "public"."enum__collab_cur_v_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__collab_cur_v_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__feat_adv_v_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__feat_adv_v_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__feat_ai_acc_v_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__feat_ai_acc_v_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__feat_ai_acc_v_items_icon" AS ENUM('database', 'fingerprint', 'idCard', 'chart');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_archive_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_archive_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_archive_populate_by" AS ENUM('collection', 'selection');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_archive_relation_to" AS ENUM('blog-posts');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_contact_section1_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_contact_section1_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_content_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_content_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_content_columns_link_appearance" AS ENUM('default', 'outline');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_content_columns_link_type" AS ENUM('reference', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_content_columns_size" AS ENUM('oneThird', 'half', 'twoThirds', 'full');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_cta_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_cta_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_cta_links_link_appearance" AS ENUM('default', 'outline');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_cta_links_link_type" AS ENUM('reference', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_cta_section3_badge_icon" AS ENUM('rocket', 'zap', 'bookOpen', 'playCircle');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_cta_section3_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_cta_section3_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_cta_section3_primary_button_icon" AS ENUM('none', 'zap', 'rocket', 'arrowRight');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_cta_section3_right_cards_icon" AS ENUM('bookOpen', 'playCircle', 'rocket', 'zap');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_faq_simple_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_faq_simple_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_feature1_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_feature1_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_feature1_items_icon" AS ENUM('sparkles', 'shield', 'truck', 'clock');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_feature2_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_feature2_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_feature2_items_icon" AS ENUM('heart', 'zap', 'clock', 'users');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_features_grid_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_features_grid_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_features_grid_items_icon" AS ENUM('zap', 'settings2', 'sparkles');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_features_scaling_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_features_scaling_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_features_scaling_features_icon" AS ENUM('mail', 'zap', 'activity', 'draftingCompass');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_form_block_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_form_block_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_hero_grid_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_hero_grid_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_hero_marketing_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_hero_marketing_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_lyra_content_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_lyra_content_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_lyra_content_button_link_appearance" AS ENUM('default', 'outline');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_lyra_content_button_link_type" AS ENUM('reference', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_lyra_feature_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_lyra_feature_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_media_block_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_media_block_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_pricing_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_pricing_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_pricing_cards_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_pricing_cards_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_pricing_cards_plans_button_icon" AS ENUM('arrow', 'phone');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_scroll_morph_hero_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_scroll_morph_hero_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_serp_content_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_serp_content_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_service_ux_ui_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_service_ux_ui_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_services4_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_services4_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_blocks_services4_services_icon" AS ENUM('cog', 'penTool', 'code', 'shrub');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_version_hero_floating_elements_position" AS ENUM('topLeft', 'topRight', 'midLeft', 'midRight', 'bottomLeft', 'bottomRight');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_version_hero_halo_overlay_grid_variant" AS ENUM('static', 'wave', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_version_hero_links_link_appearance" AS ENUM('default', 'outline');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_version_hero_links_link_type" AS ENUM('reference', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_version_hero_logo_display_type" AS ENUM('marquee', 'logoCarousel');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_version_hero_media_type" AS ENUM('halo', 'image', 'video', 'animation');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_version_hero_type" AS ENUM('none', 'highImpact', 'mediumImpact', 'lowImpact', 'philippBacher', 'gridHero');--> statement-breakpoint
-CREATE TYPE "public"."enum__site_pages_v_version_status" AS ENUM('draft', 'published');--> statement-breakpoint
-CREATE TYPE "public"."enum_blog_posts_status" AS ENUM('draft', 'published');--> statement-breakpoint
-CREATE TYPE "public"."enum_collab_cur_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_collab_cur_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_feat_adv_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_feat_adv_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_feat_ai_acc_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_feat_ai_acc_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_feat_ai_acc_items_icon" AS ENUM('database', 'fingerprint', 'idCard', 'chart');--> statement-breakpoint
-CREATE TYPE "public"."enum_footer_nav_items_link_type" AS ENUM('reference', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum_footer_social_links_platform" AS ENUM('linkedin', 'twitter', 'facebook', 'instagram');--> statement-breakpoint
-CREATE TYPE "public"."enum_forms_confirmation_type" AS ENUM('message', 'redirect');--> statement-breakpoint
-CREATE TYPE "public"."enum_header_mega_menu_card_border_radius" AS ENUM('rounded-none', 'rounded-lg', 'rounded-xl');--> statement-breakpoint
-CREATE TYPE "public"."enum_header_mega_menu_card_hover_border" AS ENUM('', 'hover:border-primary/40');--> statement-breakpoint
-CREATE TYPE "public"."enum_header_mega_menu_card_hover_shadow" AS ENUM('hover:shadow-none', 'hover:shadow-sm', 'hover:shadow-md');--> statement-breakpoint
-CREATE TYPE "public"."enum_header_mega_menu_card_shadow" AS ENUM('shadow-none', 'shadow-sm', 'shadow-md');--> statement-breakpoint
-CREATE TYPE "public"."enum_header_nav_items_link_type" AS ENUM('reference', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum_mega_menu_appearance" AS ENUM('link', 'button');--> statement-breakpoint
-CREATE TYPE "public"."enum_mega_menu_columns_column_background" AS ENUM('default', 'muted', 'accent');--> statement-breakpoint
-CREATE TYPE "public"."enum_mega_menu_columns_items_badge_color" AS ENUM('success', 'muted', 'accent', 'warning', 'error');--> statement-breakpoint
-CREATE TYPE "public"."enum_mega_menu_highlight_background" AS ENUM('default', 'paths', 'threads', 'gradient');--> statement-breakpoint
-CREATE TYPE "public"."enum_mega_menu_highlight_position" AS ENUM('right', 'below');--> statement-breakpoint
-CREATE TYPE "public"."enum_mega_menu_sub_items_badge_color" AS ENUM('success', 'muted', 'accent', 'warning', 'error');--> statement-breakpoint
-CREATE TYPE "public"."enum_payload_folders_folder_type" AS ENUM('media');--> statement-breakpoint
-CREATE TYPE "public"."enum_payload_jobs_log_state" AS ENUM('failed', 'succeeded');--> statement-breakpoint
-CREATE TYPE "public"."enum_payload_jobs_log_task_slug" AS ENUM('inline', 'schedulePublish');--> statement-breakpoint
-CREATE TYPE "public"."enum_payload_jobs_task_slug" AS ENUM('inline', 'schedulePublish');--> statement-breakpoint
-CREATE TYPE "public"."enum_redirects_to_type" AS ENUM('reference', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_archive_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_archive_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_archive_populate_by" AS ENUM('collection', 'selection');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_archive_relation_to" AS ENUM('blog-posts');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_contact_section1_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_contact_section1_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_content_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_content_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_content_columns_link_appearance" AS ENUM('default', 'outline');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_content_columns_link_type" AS ENUM('reference', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_content_columns_size" AS ENUM('oneThird', 'half', 'twoThirds', 'full');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_cta_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_cta_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_cta_links_link_appearance" AS ENUM('default', 'outline');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_cta_links_link_type" AS ENUM('reference', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_cta_section3_badge_icon" AS ENUM('rocket', 'zap', 'bookOpen', 'playCircle');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_cta_section3_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_cta_section3_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_cta_section3_primary_button_icon" AS ENUM('none', 'zap', 'rocket', 'arrowRight');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_cta_section3_right_cards_icon" AS ENUM('bookOpen', 'playCircle', 'rocket', 'zap');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_faq_simple_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_faq_simple_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_feature1_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_feature1_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_feature1_items_icon" AS ENUM('sparkles', 'shield', 'truck', 'clock');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_feature2_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_feature2_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_feature2_items_icon" AS ENUM('heart', 'zap', 'clock', 'users');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_features_grid_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_features_grid_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_features_grid_items_icon" AS ENUM('zap', 'settings2', 'sparkles');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_features_scaling_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_features_scaling_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_features_scaling_features_icon" AS ENUM('mail', 'zap', 'activity', 'draftingCompass');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_form_block_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_form_block_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_hero_grid_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_hero_grid_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_hero_marketing_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_hero_marketing_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_lyra_content_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_lyra_content_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_lyra_content_button_link_appearance" AS ENUM('default', 'outline');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_lyra_content_button_link_type" AS ENUM('reference', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_lyra_feature_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_lyra_feature_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_media_block_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_media_block_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_pricing_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_pricing_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_pricing_cards_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_pricing_cards_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_pricing_cards_plans_button_icon" AS ENUM('arrow', 'phone');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_scroll_morph_hero_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_scroll_morph_hero_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_serp_content_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_serp_content_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_service_ux_ui_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_service_ux_ui_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_services4_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_services4_block_overlay_color" AS ENUM('dark', 'light');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_blocks_services4_services_icon" AS ENUM('cog', 'penTool', 'code', 'shrub');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_hero_floating_elements_position" AS ENUM('topLeft', 'topRight', 'midLeft', 'midRight', 'bottomLeft', 'bottomRight');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_hero_halo_overlay_grid_variant" AS ENUM('static', 'wave', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_hero_links_link_appearance" AS ENUM('default', 'outline');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_hero_links_link_type" AS ENUM('reference', 'custom');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_hero_logo_display_type" AS ENUM('marquee', 'logoCarousel');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_hero_media_type" AS ENUM('halo', 'image', 'video', 'animation');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_hero_type" AS ENUM('none', 'highImpact', 'mediumImpact', 'lowImpact', 'philippBacher', 'gridHero');--> statement-breakpoint
-CREATE TYPE "public"."enum_site_pages_status" AS ENUM('draft', 'published');--> statement-breakpoint
-CREATE TYPE "public"."enum_theme_settings_theme_mode" AS ENUM('light', 'dark');--> statement-breakpoint
+CREATE TYPE "public"."enum__blog_posts_v_version_status" AS ENUM('draft', 'published');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__collab_cur_v_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__collab_cur_v_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__feat_adv_v_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__feat_adv_v_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__feat_ai_acc_v_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__feat_ai_acc_v_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__feat_ai_acc_v_items_icon" AS ENUM('database', 'fingerprint', 'idCard', 'chart');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_archive_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_archive_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_archive_populate_by" AS ENUM('collection', 'selection');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_archive_relation_to" AS ENUM('blog-posts');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_contact_section1_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_contact_section1_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_content_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_content_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_content_columns_link_appearance" AS ENUM('default', 'outline');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_content_columns_link_type" AS ENUM('reference', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_content_columns_size" AS ENUM('oneThird', 'half', 'twoThirds', 'full');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_cta_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_cta_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_cta_links_link_appearance" AS ENUM('default', 'outline');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_cta_links_link_type" AS ENUM('reference', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_cta_section3_badge_icon" AS ENUM('rocket', 'zap', 'bookOpen', 'playCircle');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_cta_section3_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_cta_section3_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_cta_section3_primary_button_icon" AS ENUM('none', 'zap', 'rocket', 'arrowRight');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_cta_section3_right_cards_icon" AS ENUM('bookOpen', 'playCircle', 'rocket', 'zap');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_faq_simple_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_faq_simple_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_feature1_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_feature1_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_feature1_items_icon" AS ENUM('sparkles', 'shield', 'truck', 'clock');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_feature2_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_feature2_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_feature2_items_icon" AS ENUM('heart', 'zap', 'clock', 'users');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_features_grid_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_features_grid_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_features_grid_items_icon" AS ENUM('zap', 'settings2', 'sparkles');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_features_scaling_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_features_scaling_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_features_scaling_features_icon" AS ENUM('mail', 'zap', 'activity', 'draftingCompass');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_form_block_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_form_block_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_hero_grid_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_hero_grid_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_lyra_content_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_lyra_content_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_lyra_content_button_link_appearance" AS ENUM('default', 'outline');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_lyra_content_button_link_type" AS ENUM('reference', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_lyra_feature_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_lyra_feature_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_media_block_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_media_block_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_pricing_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_pricing_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_pricing_cards_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_pricing_cards_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_pricing_cards_plans_button_icon" AS ENUM('arrow', 'phone');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_scroll_morph_hero_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_scroll_morph_hero_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_serp_content_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_serp_content_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_service_ux_ui_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_service_ux_ui_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_services4_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_services4_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_blocks_services4_services_icon" AS ENUM('cog', 'penTool', 'code', 'shrub');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_version_hero_floating_elements_position" AS ENUM('topLeft', 'topRight', 'midLeft', 'midRight', 'bottomLeft', 'bottomRight');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_version_hero_halo_overlay_grid_variant" AS ENUM('static', 'wave', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_version_hero_links_link_appearance" AS ENUM('default', 'outline');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_version_hero_links_link_type" AS ENUM('reference', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_version_hero_logo_display_type" AS ENUM('marquee', 'logoCarousel');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_version_hero_media_type" AS ENUM('halo', 'image', 'video', 'animation');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_version_hero_type" AS ENUM('none', 'highImpact', 'mediumImpact', 'lowImpact', 'philippBacher', 'gridHero');
+--> statement-breakpoint
+CREATE TYPE "public"."enum__site_pages_v_version_status" AS ENUM('draft', 'published');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_blog_posts_status" AS ENUM('draft', 'published');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_collab_cur_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_collab_cur_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_feat_adv_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_feat_adv_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_feat_ai_acc_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_feat_ai_acc_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_feat_ai_acc_items_icon" AS ENUM('database', 'fingerprint', 'idCard', 'chart');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_footer_nav_items_link_type" AS ENUM('reference', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_footer_social_links_platform" AS ENUM('linkedin', 'twitter', 'facebook', 'instagram');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_forms_confirmation_type" AS ENUM('message', 'redirect');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_header_mega_menu_card_border_radius" AS ENUM('rounded-none', 'rounded-lg', 'rounded-xl');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_header_mega_menu_card_hover_border" AS ENUM('', 'hover:border-primary/40');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_header_mega_menu_card_hover_shadow" AS ENUM('hover:shadow-none', 'hover:shadow-sm', 'hover:shadow-md');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_header_mega_menu_card_shadow" AS ENUM('shadow-none', 'shadow-sm', 'shadow-md');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_header_nav_items_link_type" AS ENUM('reference', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_mega_menu_appearance" AS ENUM('link', 'button');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_mega_menu_columns_column_background" AS ENUM('default', 'muted', 'accent');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_mega_menu_columns_items_badge_color" AS ENUM('success', 'muted', 'accent', 'warning', 'error');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_mega_menu_highlight_background" AS ENUM('default', 'paths', 'threads', 'gradient');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_mega_menu_highlight_position" AS ENUM('right', 'below');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_mega_menu_sub_items_badge_color" AS ENUM('success', 'muted', 'accent', 'warning', 'error');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_payload_folders_folder_type" AS ENUM('media');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_payload_jobs_log_state" AS ENUM('failed', 'succeeded');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_payload_jobs_log_task_slug" AS ENUM('inline', 'schedulePublish');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_payload_jobs_task_slug" AS ENUM('inline', 'schedulePublish');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_redirects_to_type" AS ENUM('reference', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_archive_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_archive_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_archive_populate_by" AS ENUM('collection', 'selection');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_archive_relation_to" AS ENUM('blog-posts');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_contact_section1_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_contact_section1_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_content_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_content_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_content_columns_link_appearance" AS ENUM('default', 'outline');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_content_columns_link_type" AS ENUM('reference', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_content_columns_size" AS ENUM('oneThird', 'half', 'twoThirds', 'full');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_cta_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_cta_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_cta_links_link_appearance" AS ENUM('default', 'outline');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_cta_links_link_type" AS ENUM('reference', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_cta_section3_badge_icon" AS ENUM('rocket', 'zap', 'bookOpen', 'playCircle');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_cta_section3_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_cta_section3_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_cta_section3_primary_button_icon" AS ENUM('none', 'zap', 'rocket', 'arrowRight');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_cta_section3_right_cards_icon" AS ENUM('bookOpen', 'playCircle', 'rocket', 'zap');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_faq_simple_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_faq_simple_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_feature1_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_feature1_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_feature1_items_icon" AS ENUM('sparkles', 'shield', 'truck', 'clock');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_feature2_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_feature2_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_feature2_items_icon" AS ENUM('heart', 'zap', 'clock', 'users');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_features_grid_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_features_grid_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_features_grid_items_icon" AS ENUM('zap', 'settings2', 'sparkles');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_features_scaling_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_features_scaling_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_features_scaling_features_icon" AS ENUM('mail', 'zap', 'activity', 'draftingCompass');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_form_block_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_form_block_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_hero_grid_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_hero_grid_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_lyra_content_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_lyra_content_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_lyra_content_button_link_appearance" AS ENUM('default', 'outline');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_lyra_content_button_link_type" AS ENUM('reference', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_lyra_feature_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_lyra_feature_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_media_block_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_media_block_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_pricing_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_pricing_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_pricing_cards_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_pricing_cards_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_pricing_cards_plans_button_icon" AS ENUM('arrow', 'phone');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_scroll_morph_hero_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_scroll_morph_hero_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_serp_content_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_serp_content_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_service_ux_ui_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_service_ux_ui_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_services4_block_background" AS ENUM('none', 'muted', 'accent', 'light', 'dark');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_services4_block_overlay_color" AS ENUM('dark', 'light');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_blocks_services4_services_icon" AS ENUM('cog', 'penTool', 'code', 'shrub');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_hero_floating_elements_position" AS ENUM('topLeft', 'topRight', 'midLeft', 'midRight', 'bottomLeft', 'bottomRight');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_hero_halo_overlay_grid_variant" AS ENUM('static', 'wave', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_hero_links_link_appearance" AS ENUM('default', 'outline');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_hero_links_link_type" AS ENUM('reference', 'custom');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_hero_logo_display_type" AS ENUM('marquee', 'logoCarousel');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_hero_media_type" AS ENUM('halo', 'image', 'video', 'animation');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_hero_type" AS ENUM('none', 'highImpact', 'mediumImpact', 'lowImpact', 'philippBacher', 'gridHero');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_site_pages_status" AS ENUM('draft', 'published');
+--> statement-breakpoint
+CREATE TYPE "public"."enum_theme_settings_theme_mode" AS ENUM('light', 'dark');
+--> statement-breakpoint
 CREATE TABLE "_blog_posts_v" (
 	"id" serial PRIMARY KEY NOT NULL,
 	"parent_id" integer,
@@ -646,26 +814,6 @@ CREATE TABLE "_site_pages_v_blocks_hero_grid" (
 	"primary_cta_url" varchar DEFAULT '#get-started',
 	"secondary_cta_label" varchar DEFAULT 'Learn more',
 	"secondary_cta_url" varchar DEFAULT '#learn-more',
-	"_uuid" varchar,
-	"block_name" varchar
-);
---> statement-breakpoint
-CREATE TABLE "_site_pages_v_blocks_hero_marketing" (
-	"_order" integer NOT NULL,
-	"_parent_id" integer NOT NULL,
-	"_path" text NOT NULL,
-	"id" serial PRIMARY KEY NOT NULL,
-	"block_background" "enum__site_pages_v_blocks_hero_marketing_block_background" DEFAULT 'none',
-	"block_overlay_enabled" boolean DEFAULT false,
-	"block_overlay_color" "enum__site_pages_v_blocks_hero_marketing_block_overlay_color" DEFAULT 'dark',
-	"block_overlay_opacity" numeric DEFAULT 30,
-	"badge_label" varchar DEFAULT 'Introducing Support for AI Models',
-	"title" varchar DEFAULT 'Modern Solutions for Customer Engagement',
-	"subtitle" varchar DEFAULT 'Highly customizable components for building modern websites and applications that look and feel the way you mean it.',
-	"primary_cta_label" varchar DEFAULT 'Start Building',
-	"primary_cta_url" varchar DEFAULT '#start',
-	"secondary_cta_label" varchar DEFAULT 'Request a demo',
-	"secondary_cta_url" varchar DEFAULT '#demo',
 	"_uuid" varchar,
 	"block_name" varchar
 );
@@ -2028,25 +2176,6 @@ CREATE TABLE "site_pages_blocks_hero_grid" (
 	"block_name" varchar
 );
 --> statement-breakpoint
-CREATE TABLE "site_pages_blocks_hero_marketing" (
-	"_order" integer NOT NULL,
-	"_parent_id" integer NOT NULL,
-	"_path" text NOT NULL,
-	"id" varchar PRIMARY KEY NOT NULL,
-	"block_background" "enum_site_pages_blocks_hero_marketing_block_background" DEFAULT 'none',
-	"block_overlay_enabled" boolean DEFAULT false,
-	"block_overlay_color" "enum_site_pages_blocks_hero_marketing_block_overlay_color" DEFAULT 'dark',
-	"block_overlay_opacity" numeric DEFAULT 30,
-	"badge_label" varchar DEFAULT 'Introducing Support for AI Models',
-	"title" varchar DEFAULT 'Modern Solutions for Customer Engagement',
-	"subtitle" varchar DEFAULT 'Highly customizable components for building modern websites and applications that look and feel the way you mean it.',
-	"primary_cta_label" varchar DEFAULT 'Start Building',
-	"primary_cta_url" varchar DEFAULT '#start',
-	"secondary_cta_label" varchar DEFAULT 'Request a demo',
-	"secondary_cta_url" varchar DEFAULT '#demo',
-	"block_name" varchar
-);
---> statement-breakpoint
 CREATE TABLE "site_pages_blocks_lyra_content" (
 	"_order" integer NOT NULL,
 	"_parent_id" integer NOT NULL,
@@ -2342,725 +2471,1430 @@ CREATE TABLE "users_sessions" (
 	"expires_at" timestamp(3) with time zone NOT NULL
 );
 --> statement-breakpoint
-ALTER TABLE "_blog_posts_v" ADD CONSTRAINT "_blog_posts_v_parent_id_blog_posts_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."blog_posts"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_blog_posts_v" ADD CONSTRAINT "_blog_posts_v_version_hero_image_id_media_id_fk" FOREIGN KEY ("version_hero_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_blog_posts_v" ADD CONSTRAINT "_blog_posts_v_version_meta_image_id_media_id_fk" FOREIGN KEY ("version_meta_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_blog_posts_v_rels" ADD CONSTRAINT "_blog_posts_v_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."_blog_posts_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_blog_posts_v_rels" ADD CONSTRAINT "_blog_posts_v_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_blog_posts_v_rels" ADD CONSTRAINT "_blog_posts_v_rels_categories_fk" FOREIGN KEY ("categories_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_blog_posts_v_rels" ADD CONSTRAINT "_blog_posts_v_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_blog_posts_v_version_populated_authors" ADD CONSTRAINT "_blog_posts_v_version_populated_authors_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_blog_posts_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_collab_cur_v" ADD CONSTRAINT "_collab_cur_v_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_feat_adv_v" ADD CONSTRAINT "_feat_adv_v_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_feat_adv_v_items" ADD CONSTRAINT "_feat_adv_v_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_feat_adv_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_feat_ai_acc_v" ADD CONSTRAINT "_feat_ai_acc_v_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_feat_ai_acc_v_items" ADD CONSTRAINT "_feat_ai_acc_v_items_dark_image_id_media_id_fk" FOREIGN KEY ("dark_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_feat_ai_acc_v_items" ADD CONSTRAINT "_feat_ai_acc_v_items_light_image_id_media_id_fk" FOREIGN KEY ("light_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_feat_ai_acc_v_items" ADD CONSTRAINT "_feat_ai_acc_v_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_feat_ai_acc_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_parent_id_site_pages_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."site_pages"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_version_hero_media_id_media_id_fk" FOREIGN KEY ("version_hero_media_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_version_hero_background_image_id_media_id_fk" FOREIGN KEY ("version_hero_background_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_version_hero_background_video_id_media_id_fk" FOREIGN KEY ("version_hero_background_video_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_version_hero_foreground_image_id_media_id_fk" FOREIGN KEY ("version_hero_foreground_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_version_parent_id_site_pages_id_fk" FOREIGN KEY ("version_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_version_meta_image_id_media_id_fk" FOREIGN KEY ("version_meta_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_archive" ADD CONSTRAINT "_site_pages_v_blocks_archive_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_contact_section1" ADD CONSTRAINT "_site_pages_v_blocks_contact_section1_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_contact_section1_hours_rows" ADD CONSTRAINT "_site_pages_v_blocks_contact_section1_hours_rows_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_contact_section1"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_content" ADD CONSTRAINT "_site_pages_v_blocks_content_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_content_columns" ADD CONSTRAINT "_site_pages_v_blocks_content_columns_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_content"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_cta" ADD CONSTRAINT "_site_pages_v_blocks_cta_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_cta_links" ADD CONSTRAINT "_site_pages_v_blocks_cta_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_cta"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_cta_section3" ADD CONSTRAINT "_site_pages_v_blocks_cta_section3_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_cta_section3_right_cards" ADD CONSTRAINT "_site_pages_v_blocks_cta_section3_right_cards_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_cta_section3"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_faq_simple" ADD CONSTRAINT "_site_pages_v_blocks_faq_simple_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_faq_simple_faqs" ADD CONSTRAINT "_site_pages_v_blocks_faq_simple_faqs_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_faq_simple"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_feature1" ADD CONSTRAINT "_site_pages_v_blocks_feature1_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_feature1_items" ADD CONSTRAINT "_site_pages_v_blocks_feature1_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_feature1"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_feature2" ADD CONSTRAINT "_site_pages_v_blocks_feature2_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_feature2" ADD CONSTRAINT "_site_pages_v_blocks_feature2_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_feature2_items" ADD CONSTRAINT "_site_pages_v_blocks_feature2_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_feature2"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_features_grid" ADD CONSTRAINT "_site_pages_v_blocks_features_grid_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_features_grid_items" ADD CONSTRAINT "_site_pages_v_blocks_features_grid_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_features_grid"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_features_scaling" ADD CONSTRAINT "_site_pages_v_blocks_features_scaling_dark_image_id_media_id_fk" FOREIGN KEY ("dark_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_features_scaling" ADD CONSTRAINT "_site_pages_v_blocks_features_scaling_light_image_id_media_id_fk" FOREIGN KEY ("light_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_features_scaling" ADD CONSTRAINT "_site_pages_v_blocks_features_scaling_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_features_scaling_features" ADD CONSTRAINT "_site_pages_v_blocks_features_scaling_features_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_features_scaling"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_form_block" ADD CONSTRAINT "_site_pages_v_blocks_form_block_form_id_forms_id_fk" FOREIGN KEY ("form_id") REFERENCES "public"."forms"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_form_block" ADD CONSTRAINT "_site_pages_v_blocks_form_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_hero_grid" ADD CONSTRAINT "_site_pages_v_blocks_hero_grid_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_hero_marketing" ADD CONSTRAINT "_site_pages_v_blocks_hero_marketing_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_lyra_content" ADD CONSTRAINT "_site_pages_v_blocks_lyra_content_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_lyra_feature" ADD CONSTRAINT "_site_pages_v_blocks_lyra_feature_dark_image_id_media_id_fk" FOREIGN KEY ("dark_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_lyra_feature" ADD CONSTRAINT "_site_pages_v_blocks_lyra_feature_light_image_id_media_id_fk" FOREIGN KEY ("light_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_lyra_feature" ADD CONSTRAINT "_site_pages_v_blocks_lyra_feature_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_media_block" ADD CONSTRAINT "_site_pages_v_blocks_media_block_media_id_media_id_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_media_block" ADD CONSTRAINT "_site_pages_v_blocks_media_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_pricing" ADD CONSTRAINT "_site_pages_v_blocks_pricing_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_pricing_cards" ADD CONSTRAINT "_site_pages_v_blocks_pricing_cards_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_pricing_cards_plans" ADD CONSTRAINT "_site_pages_v_blocks_pricing_cards_plans_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_pricing_cards"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_pricing_cards_plans_features" ADD CONSTRAINT "_site_pages_v_blocks_pricing_cards_plans_features_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_pricing_cards_plans"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_pricing_plans" ADD CONSTRAINT "_site_pages_v_blocks_pricing_plans_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_pricing"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_pricing_plans_features" ADD CONSTRAINT "_site_pages_v_blocks_pricing_plans_features_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_pricing_plans"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_scroll_morph_hero" ADD CONSTRAINT "_site_pages_v_blocks_scroll_morph_hero_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_serp_content" ADD CONSTRAINT "_site_pages_v_blocks_serp_content_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_serp_content_bullets" ADD CONSTRAINT "_site_pages_v_blocks_serp_content_bullets_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_serp_content"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_service_ux_ui" ADD CONSTRAINT "_site_pages_v_blocks_service_ux_ui_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_services4" ADD CONSTRAINT "_site_pages_v_blocks_services4_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_services4_services" ADD CONSTRAINT "_site_pages_v_blocks_services4_services_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_services4"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_blocks_services4_services_items" ADD CONSTRAINT "_site_pages_v_blocks_services4_services_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_services4_services"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_rels" ADD CONSTRAINT "_site_pages_v_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_rels" ADD CONSTRAINT "_site_pages_v_rels_site_pages_fk" FOREIGN KEY ("site_pages_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_rels" ADD CONSTRAINT "_site_pages_v_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_rels" ADD CONSTRAINT "_site_pages_v_rels_categories_fk" FOREIGN KEY ("categories_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_version_hero_floating_elements" ADD CONSTRAINT "_site_pages_v_version_hero_floating_elements_icon_id_media_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_version_hero_floating_elements" ADD CONSTRAINT "_site_pages_v_version_hero_floating_elements_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_version_hero_links" ADD CONSTRAINT "_site_pages_v_version_hero_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_version_hero_marquee_logos" ADD CONSTRAINT "_site_pages_v_version_hero_marquee_logos_logo_id_media_id_fk" FOREIGN KEY ("logo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "_site_pages_v_version_hero_marquee_logos" ADD CONSTRAINT "_site_pages_v_version_hero_marquee_logos_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "blog_posts" ADD CONSTRAINT "blog_posts_hero_image_id_media_id_fk" FOREIGN KEY ("hero_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "blog_posts" ADD CONSTRAINT "blog_posts_meta_image_id_media_id_fk" FOREIGN KEY ("meta_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "blog_posts_populated_authors" ADD CONSTRAINT "blog_posts_populated_authors_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "blog_posts_rels" ADD CONSTRAINT "blog_posts_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "blog_posts_rels" ADD CONSTRAINT "blog_posts_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "blog_posts_rels" ADD CONSTRAINT "blog_posts_rels_categories_fk" FOREIGN KEY ("categories_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "blog_posts_rels" ADD CONSTRAINT "blog_posts_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "categories" ADD CONSTRAINT "categories_parent_id_categories_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."categories"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "categories_breadcrumbs" ADD CONSTRAINT "categories_breadcrumbs_doc_id_categories_id_fk" FOREIGN KEY ("doc_id") REFERENCES "public"."categories"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "categories_breadcrumbs" ADD CONSTRAINT "categories_breadcrumbs_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "collab_cur" ADD CONSTRAINT "collab_cur_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "feat_adv" ADD CONSTRAINT "feat_adv_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "feat_adv_items" ADD CONSTRAINT "feat_adv_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."feat_adv"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "feat_ai_acc" ADD CONSTRAINT "feat_ai_acc_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "feat_ai_acc_items" ADD CONSTRAINT "feat_ai_acc_items_dark_image_id_media_id_fk" FOREIGN KEY ("dark_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "feat_ai_acc_items" ADD CONSTRAINT "feat_ai_acc_items_light_image_id_media_id_fk" FOREIGN KEY ("light_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "feat_ai_acc_items" ADD CONSTRAINT "feat_ai_acc_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."feat_ai_acc"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "footer" ADD CONSTRAINT "footer_footer_logo_id_media_id_fk" FOREIGN KEY ("footer_logo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "footer" ADD CONSTRAINT "footer_mobile_footer_logo_id_media_id_fk" FOREIGN KEY ("mobile_footer_logo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "footer" ADD CONSTRAINT "footer_newsletter_icon_upload_id_media_id_fk" FOREIGN KEY ("newsletter_icon_upload_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "footer_columns" ADD CONSTRAINT "footer_columns_column_icon_upload_id_media_id_fk" FOREIGN KEY ("column_icon_upload_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "footer_columns" ADD CONSTRAINT "footer_columns_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."footer"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "footer_columns_links" ADD CONSTRAINT "footer_columns_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."footer_columns"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "footer_nav_items" ADD CONSTRAINT "footer_nav_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."footer"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "footer_rels" ADD CONSTRAINT "footer_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."footer"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "footer_rels" ADD CONSTRAINT "footer_rels_site_pages_fk" FOREIGN KEY ("site_pages_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "footer_rels" ADD CONSTRAINT "footer_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "footer_social_links" ADD CONSTRAINT "footer_social_links_icon_upload_id_media_id_fk" FOREIGN KEY ("icon_upload_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "footer_social_links" ADD CONSTRAINT "footer_social_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."footer"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "form_submissions" ADD CONSTRAINT "form_submissions_form_id_forms_id_fk" FOREIGN KEY ("form_id") REFERENCES "public"."forms"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "form_submissions_submission_data" ADD CONSTRAINT "form_submissions_submission_data_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."form_submissions"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "forms_blocks_checkbox" ADD CONSTRAINT "forms_blocks_checkbox_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "forms_blocks_country" ADD CONSTRAINT "forms_blocks_country_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "forms_blocks_email" ADD CONSTRAINT "forms_blocks_email_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "forms_blocks_message" ADD CONSTRAINT "forms_blocks_message_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "forms_blocks_number" ADD CONSTRAINT "forms_blocks_number_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "forms_blocks_select" ADD CONSTRAINT "forms_blocks_select_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "forms_blocks_select_options" ADD CONSTRAINT "forms_blocks_select_options_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms_blocks_select"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "forms_blocks_state" ADD CONSTRAINT "forms_blocks_state_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "forms_blocks_text" ADD CONSTRAINT "forms_blocks_text_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "forms_blocks_textarea" ADD CONSTRAINT "forms_blocks_textarea_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "forms_emails" ADD CONSTRAINT "forms_emails_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "header" ADD CONSTRAINT "header_mega_menu_callback_form_id_forms_id_fk" FOREIGN KEY ("mega_menu_callback_form_id") REFERENCES "public"."forms"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "header" ADD CONSTRAINT "header_mega_menu_newsletter_form_id_forms_id_fk" FOREIGN KEY ("mega_menu_newsletter_form_id") REFERENCES "public"."forms"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "header" ADD CONSTRAINT "header_logo_id_media_id_fk" FOREIGN KEY ("logo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "header_nav_items" ADD CONSTRAINT "header_nav_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."header"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "header_rels" ADD CONSTRAINT "header_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."header"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "header_rels" ADD CONSTRAINT "header_rels_site_pages_fk" FOREIGN KEY ("site_pages_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "header_rels" ADD CONSTRAINT "header_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "media" ADD CONSTRAINT "media_folder_id_payload_folders_id_fk" FOREIGN KEY ("folder_id") REFERENCES "public"."payload_folders"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu" ADD CONSTRAINT "mega_menu_icon_id_media_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu" ADD CONSTRAINT "mega_menu_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu" ADD CONSTRAINT "mega_menu_highlight_icon_id_media_id_fk" FOREIGN KEY ("highlight_icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu" ADD CONSTRAINT "mega_menu_highlight_image_id_media_id_fk" FOREIGN KEY ("highlight_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu_columns" ADD CONSTRAINT "mega_menu_columns_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."mega_menu"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu_columns_items" ADD CONSTRAINT "mega_menu_columns_items_icon_id_media_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu_columns_items" ADD CONSTRAINT "mega_menu_columns_items_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu_columns_items" ADD CONSTRAINT "mega_menu_columns_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."mega_menu_columns"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu_highlight_cards" ADD CONSTRAINT "mega_menu_highlight_cards_icon_id_media_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu_highlight_cards" ADD CONSTRAINT "mega_menu_highlight_cards_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu_highlight_cards" ADD CONSTRAINT "mega_menu_highlight_cards_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."mega_menu"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu_sub_items" ADD CONSTRAINT "mega_menu_sub_items_icon_id_media_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu_sub_items" ADD CONSTRAINT "mega_menu_sub_items_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "mega_menu_sub_items" ADD CONSTRAINT "mega_menu_sub_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."mega_menu"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_folders" ADD CONSTRAINT "payload_folders_folder_id_payload_folders_id_fk" FOREIGN KEY ("folder_id") REFERENCES "public"."payload_folders"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_folders_folder_type" ADD CONSTRAINT "payload_folders_folder_type_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_folders"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_jobs_log" ADD CONSTRAINT "payload_jobs_log_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."payload_jobs"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_locked_documents"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_site_pages_fk" FOREIGN KEY ("site_pages_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_media_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_categories_fk" FOREIGN KEY ("categories_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_mega_menu_fk" FOREIGN KEY ("mega_menu_id") REFERENCES "public"."mega_menu"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_redirects_fk" FOREIGN KEY ("redirects_id") REFERENCES "public"."redirects"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_forms_fk" FOREIGN KEY ("forms_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_form_submissions_fk" FOREIGN KEY ("form_submissions_id") REFERENCES "public"."form_submissions"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_search_fk" FOREIGN KEY ("search_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_payload_folders_fk" FOREIGN KEY ("payload_folders_id") REFERENCES "public"."payload_folders"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_preferences"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "redirects_rels" ADD CONSTRAINT "redirects_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."redirects"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "redirects_rels" ADD CONSTRAINT "redirects_rels_site_pages_fk" FOREIGN KEY ("site_pages_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "redirects_rels" ADD CONSTRAINT "redirects_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "search" ADD CONSTRAINT "search_meta_image_id_media_id_fk" FOREIGN KEY ("meta_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "search_categories" ADD CONSTRAINT "search_categories_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages" ADD CONSTRAINT "site_pages_hero_media_id_media_id_fk" FOREIGN KEY ("hero_media_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages" ADD CONSTRAINT "site_pages_hero_background_image_id_media_id_fk" FOREIGN KEY ("hero_background_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages" ADD CONSTRAINT "site_pages_hero_background_video_id_media_id_fk" FOREIGN KEY ("hero_background_video_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages" ADD CONSTRAINT "site_pages_hero_foreground_image_id_media_id_fk" FOREIGN KEY ("hero_foreground_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages" ADD CONSTRAINT "site_pages_parent_id_site_pages_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."site_pages"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages" ADD CONSTRAINT "site_pages_meta_image_id_media_id_fk" FOREIGN KEY ("meta_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_archive" ADD CONSTRAINT "site_pages_blocks_archive_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_contact_section1" ADD CONSTRAINT "site_pages_blocks_contact_section1_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_contact_section1_hours_rows" ADD CONSTRAINT "site_pages_blocks_contact_section1_hours_rows_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_contact_section1"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_content" ADD CONSTRAINT "site_pages_blocks_content_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_content_columns" ADD CONSTRAINT "site_pages_blocks_content_columns_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_content"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_cta" ADD CONSTRAINT "site_pages_blocks_cta_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_cta_links" ADD CONSTRAINT "site_pages_blocks_cta_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_cta"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_cta_section3" ADD CONSTRAINT "site_pages_blocks_cta_section3_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_cta_section3_right_cards" ADD CONSTRAINT "site_pages_blocks_cta_section3_right_cards_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_cta_section3"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_faq_simple" ADD CONSTRAINT "site_pages_blocks_faq_simple_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_faq_simple_faqs" ADD CONSTRAINT "site_pages_blocks_faq_simple_faqs_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_faq_simple"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_feature1" ADD CONSTRAINT "site_pages_blocks_feature1_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_feature1_items" ADD CONSTRAINT "site_pages_blocks_feature1_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_feature1"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_feature2" ADD CONSTRAINT "site_pages_blocks_feature2_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_feature2" ADD CONSTRAINT "site_pages_blocks_feature2_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_feature2_items" ADD CONSTRAINT "site_pages_blocks_feature2_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_feature2"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_features_grid" ADD CONSTRAINT "site_pages_blocks_features_grid_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_features_grid_items" ADD CONSTRAINT "site_pages_blocks_features_grid_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_features_grid"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_features_scaling" ADD CONSTRAINT "site_pages_blocks_features_scaling_dark_image_id_media_id_fk" FOREIGN KEY ("dark_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_features_scaling" ADD CONSTRAINT "site_pages_blocks_features_scaling_light_image_id_media_id_fk" FOREIGN KEY ("light_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_features_scaling" ADD CONSTRAINT "site_pages_blocks_features_scaling_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_features_scaling_features" ADD CONSTRAINT "site_pages_blocks_features_scaling_features_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_features_scaling"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_form_block" ADD CONSTRAINT "site_pages_blocks_form_block_form_id_forms_id_fk" FOREIGN KEY ("form_id") REFERENCES "public"."forms"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_form_block" ADD CONSTRAINT "site_pages_blocks_form_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_hero_grid" ADD CONSTRAINT "site_pages_blocks_hero_grid_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_hero_marketing" ADD CONSTRAINT "site_pages_blocks_hero_marketing_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_lyra_content" ADD CONSTRAINT "site_pages_blocks_lyra_content_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_lyra_feature" ADD CONSTRAINT "site_pages_blocks_lyra_feature_dark_image_id_media_id_fk" FOREIGN KEY ("dark_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_lyra_feature" ADD CONSTRAINT "site_pages_blocks_lyra_feature_light_image_id_media_id_fk" FOREIGN KEY ("light_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_lyra_feature" ADD CONSTRAINT "site_pages_blocks_lyra_feature_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_media_block" ADD CONSTRAINT "site_pages_blocks_media_block_media_id_media_id_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_media_block" ADD CONSTRAINT "site_pages_blocks_media_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_pricing" ADD CONSTRAINT "site_pages_blocks_pricing_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_pricing_cards" ADD CONSTRAINT "site_pages_blocks_pricing_cards_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_pricing_cards_plans" ADD CONSTRAINT "site_pages_blocks_pricing_cards_plans_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_pricing_cards"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_pricing_cards_plans_features" ADD CONSTRAINT "site_pages_blocks_pricing_cards_plans_features_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_pricing_cards_plans"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_pricing_plans" ADD CONSTRAINT "site_pages_blocks_pricing_plans_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_pricing"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_pricing_plans_features" ADD CONSTRAINT "site_pages_blocks_pricing_plans_features_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_pricing_plans"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_scroll_morph_hero" ADD CONSTRAINT "site_pages_blocks_scroll_morph_hero_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_serp_content" ADD CONSTRAINT "site_pages_blocks_serp_content_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_serp_content_bullets" ADD CONSTRAINT "site_pages_blocks_serp_content_bullets_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_serp_content"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_service_ux_ui" ADD CONSTRAINT "site_pages_blocks_service_ux_ui_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_services4" ADD CONSTRAINT "site_pages_blocks_services4_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_services4_services" ADD CONSTRAINT "site_pages_blocks_services4_services_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_services4"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_blocks_services4_services_items" ADD CONSTRAINT "site_pages_blocks_services4_services_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_services4_services"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_hero_floating_elements" ADD CONSTRAINT "site_pages_hero_floating_elements_icon_id_media_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_hero_floating_elements" ADD CONSTRAINT "site_pages_hero_floating_elements_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_hero_links" ADD CONSTRAINT "site_pages_hero_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_hero_marquee_logos" ADD CONSTRAINT "site_pages_hero_marquee_logos_logo_id_media_id_fk" FOREIGN KEY ("logo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_hero_marquee_logos" ADD CONSTRAINT "site_pages_hero_marquee_logos_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_rels" ADD CONSTRAINT "site_pages_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_rels" ADD CONSTRAINT "site_pages_rels_site_pages_fk" FOREIGN KEY ("site_pages_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_rels" ADD CONSTRAINT "site_pages_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "site_pages_rels" ADD CONSTRAINT "site_pages_rels_categories_fk" FOREIGN KEY ("categories_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "users_sessions" ADD CONSTRAINT "users_sessions_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_parent_idx" ON "_blog_posts_v" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_version_version_hero_image_idx" ON "_blog_posts_v" USING btree ("version_hero_image_id");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_version_meta_version_meta_image_idx" ON "_blog_posts_v" USING btree ("version_meta_image_id");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_version_version_slug_idx" ON "_blog_posts_v" USING btree ("version_slug");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_version_version_updated_at_idx" ON "_blog_posts_v" USING btree ("version_updated_at");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_version_version_created_at_idx" ON "_blog_posts_v" USING btree ("version_created_at");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_version_version__status_idx" ON "_blog_posts_v" USING btree ("version__status");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_created_at_idx" ON "_blog_posts_v" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_updated_at_idx" ON "_blog_posts_v" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_latest_idx" ON "_blog_posts_v" USING btree ("latest");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_autosave_idx" ON "_blog_posts_v" USING btree ("autosave");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_rels_order_idx" ON "_blog_posts_v_rels" USING btree ("order");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_rels_parent_idx" ON "_blog_posts_v_rels" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_rels_path_idx" ON "_blog_posts_v_rels" USING btree ("path");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_rels_blog_posts_id_idx" ON "_blog_posts_v_rels" USING btree ("blog_posts_id");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_rels_categories_id_idx" ON "_blog_posts_v_rels" USING btree ("categories_id");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_rels_users_id_idx" ON "_blog_posts_v_rels" USING btree ("users_id");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_version_populated_authors_order_idx" ON "_blog_posts_v_version_populated_authors" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_blog_posts_v_version_populated_authors_parent_id_idx" ON "_blog_posts_v_version_populated_authors" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_collab_cur_v_order_idx" ON "_collab_cur_v" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_collab_cur_v_parent_id_idx" ON "_collab_cur_v" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_collab_cur_v_path_idx" ON "_collab_cur_v" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_feat_adv_v_order_idx" ON "_feat_adv_v" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_feat_adv_v_parent_id_idx" ON "_feat_adv_v" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_feat_adv_v_path_idx" ON "_feat_adv_v" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_feat_adv_v_items_order_idx" ON "_feat_adv_v_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_feat_adv_v_items_parent_id_idx" ON "_feat_adv_v_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_feat_ai_acc_v_order_idx" ON "_feat_ai_acc_v" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_feat_ai_acc_v_parent_id_idx" ON "_feat_ai_acc_v" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_feat_ai_acc_v_path_idx" ON "_feat_ai_acc_v" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_feat_ai_acc_v_items_order_idx" ON "_feat_ai_acc_v_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_feat_ai_acc_v_items_parent_id_idx" ON "_feat_ai_acc_v_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_feat_ai_acc_v_items_dark_image_idx" ON "_feat_ai_acc_v_items" USING btree ("dark_image_id");--> statement-breakpoint
-CREATE INDEX "_feat_ai_acc_v_items_light_image_idx" ON "_feat_ai_acc_v_items" USING btree ("light_image_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_parent_idx" ON "_site_pages_v" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_hero_version_hero_media_idx" ON "_site_pages_v" USING btree ("version_hero_media_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_hero_version_hero_background_image_idx" ON "_site_pages_v" USING btree ("version_hero_background_image_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_hero_version_hero_background_video_idx" ON "_site_pages_v" USING btree ("version_hero_background_video_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_hero_version_hero_foreground_image_idx" ON "_site_pages_v" USING btree ("version_hero_foreground_image_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_version_slug_idx" ON "_site_pages_v" USING btree ("version_slug");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_version_parent_idx" ON "_site_pages_v" USING btree ("version_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_meta_version_meta_image_idx" ON "_site_pages_v" USING btree ("version_meta_image_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_version_updated_at_idx" ON "_site_pages_v" USING btree ("version_updated_at");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_version_created_at_idx" ON "_site_pages_v" USING btree ("version_created_at");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_version__status_idx" ON "_site_pages_v" USING btree ("version__status");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_created_at_idx" ON "_site_pages_v" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_updated_at_idx" ON "_site_pages_v" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_latest_idx" ON "_site_pages_v" USING btree ("latest");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_autosave_idx" ON "_site_pages_v" USING btree ("autosave");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_archive_order_idx" ON "_site_pages_v_blocks_archive" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_archive_parent_id_idx" ON "_site_pages_v_blocks_archive" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_archive_path_idx" ON "_site_pages_v_blocks_archive" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_contact_section1_order_idx" ON "_site_pages_v_blocks_contact_section1" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_contact_section1_parent_id_idx" ON "_site_pages_v_blocks_contact_section1" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_contact_section1_path_idx" ON "_site_pages_v_blocks_contact_section1" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_contact_section1_hours_rows_order_idx" ON "_site_pages_v_blocks_contact_section1_hours_rows" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_contact_section1_hours_rows_parent_id_idx" ON "_site_pages_v_blocks_contact_section1_hours_rows" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_content_order_idx" ON "_site_pages_v_blocks_content" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_content_parent_id_idx" ON "_site_pages_v_blocks_content" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_content_path_idx" ON "_site_pages_v_blocks_content" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_content_columns_order_idx" ON "_site_pages_v_blocks_content_columns" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_content_columns_parent_id_idx" ON "_site_pages_v_blocks_content_columns" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_cta_order_idx" ON "_site_pages_v_blocks_cta" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_cta_parent_id_idx" ON "_site_pages_v_blocks_cta" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_cta_path_idx" ON "_site_pages_v_blocks_cta" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_cta_links_order_idx" ON "_site_pages_v_blocks_cta_links" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_cta_links_parent_id_idx" ON "_site_pages_v_blocks_cta_links" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_cta_section3_order_idx" ON "_site_pages_v_blocks_cta_section3" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_cta_section3_parent_id_idx" ON "_site_pages_v_blocks_cta_section3" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_cta_section3_path_idx" ON "_site_pages_v_blocks_cta_section3" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_cta_section3_right_cards_order_idx" ON "_site_pages_v_blocks_cta_section3_right_cards" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_cta_section3_right_cards_parent_id_idx" ON "_site_pages_v_blocks_cta_section3_right_cards" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_faq_simple_order_idx" ON "_site_pages_v_blocks_faq_simple" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_faq_simple_parent_id_idx" ON "_site_pages_v_blocks_faq_simple" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_faq_simple_path_idx" ON "_site_pages_v_blocks_faq_simple" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_faq_simple_faqs_order_idx" ON "_site_pages_v_blocks_faq_simple_faqs" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_faq_simple_faqs_parent_id_idx" ON "_site_pages_v_blocks_faq_simple_faqs" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_feature1_order_idx" ON "_site_pages_v_blocks_feature1" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_feature1_parent_id_idx" ON "_site_pages_v_blocks_feature1" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_feature1_path_idx" ON "_site_pages_v_blocks_feature1" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_feature1_items_order_idx" ON "_site_pages_v_blocks_feature1_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_feature1_items_parent_id_idx" ON "_site_pages_v_blocks_feature1_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_feature2_order_idx" ON "_site_pages_v_blocks_feature2" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_feature2_parent_id_idx" ON "_site_pages_v_blocks_feature2" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_feature2_path_idx" ON "_site_pages_v_blocks_feature2" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_feature2_image_idx" ON "_site_pages_v_blocks_feature2" USING btree ("image_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_feature2_items_order_idx" ON "_site_pages_v_blocks_feature2_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_feature2_items_parent_id_idx" ON "_site_pages_v_blocks_feature2_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_features_grid_order_idx" ON "_site_pages_v_blocks_features_grid" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_features_grid_parent_id_idx" ON "_site_pages_v_blocks_features_grid" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_features_grid_path_idx" ON "_site_pages_v_blocks_features_grid" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_features_grid_items_order_idx" ON "_site_pages_v_blocks_features_grid_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_features_grid_items_parent_id_idx" ON "_site_pages_v_blocks_features_grid_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_features_scaling_order_idx" ON "_site_pages_v_blocks_features_scaling" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_features_scaling_parent_id_idx" ON "_site_pages_v_blocks_features_scaling" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_features_scaling_path_idx" ON "_site_pages_v_blocks_features_scaling" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_features_scaling_dark_image_idx" ON "_site_pages_v_blocks_features_scaling" USING btree ("dark_image_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_features_scaling_light_image_idx" ON "_site_pages_v_blocks_features_scaling" USING btree ("light_image_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_features_scaling_features_order_idx" ON "_site_pages_v_blocks_features_scaling_features" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_features_scaling_features_parent_id_idx" ON "_site_pages_v_blocks_features_scaling_features" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_form_block_order_idx" ON "_site_pages_v_blocks_form_block" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_form_block_parent_id_idx" ON "_site_pages_v_blocks_form_block" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_form_block_path_idx" ON "_site_pages_v_blocks_form_block" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_form_block_form_idx" ON "_site_pages_v_blocks_form_block" USING btree ("form_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_hero_grid_order_idx" ON "_site_pages_v_blocks_hero_grid" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_hero_grid_parent_id_idx" ON "_site_pages_v_blocks_hero_grid" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_hero_grid_path_idx" ON "_site_pages_v_blocks_hero_grid" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_hero_marketing_order_idx" ON "_site_pages_v_blocks_hero_marketing" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_hero_marketing_parent_id_idx" ON "_site_pages_v_blocks_hero_marketing" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_hero_marketing_path_idx" ON "_site_pages_v_blocks_hero_marketing" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_lyra_content_order_idx" ON "_site_pages_v_blocks_lyra_content" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_lyra_content_parent_id_idx" ON "_site_pages_v_blocks_lyra_content" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_lyra_content_path_idx" ON "_site_pages_v_blocks_lyra_content" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_lyra_feature_order_idx" ON "_site_pages_v_blocks_lyra_feature" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_lyra_feature_parent_id_idx" ON "_site_pages_v_blocks_lyra_feature" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_lyra_feature_path_idx" ON "_site_pages_v_blocks_lyra_feature" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_lyra_feature_dark_image_idx" ON "_site_pages_v_blocks_lyra_feature" USING btree ("dark_image_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_lyra_feature_light_image_idx" ON "_site_pages_v_blocks_lyra_feature" USING btree ("light_image_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_media_block_order_idx" ON "_site_pages_v_blocks_media_block" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_media_block_parent_id_idx" ON "_site_pages_v_blocks_media_block" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_media_block_path_idx" ON "_site_pages_v_blocks_media_block" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_media_block_media_idx" ON "_site_pages_v_blocks_media_block" USING btree ("media_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_order_idx" ON "_site_pages_v_blocks_pricing" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_parent_id_idx" ON "_site_pages_v_blocks_pricing" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_path_idx" ON "_site_pages_v_blocks_pricing" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_cards_order_idx" ON "_site_pages_v_blocks_pricing_cards" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_cards_parent_id_idx" ON "_site_pages_v_blocks_pricing_cards" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_cards_path_idx" ON "_site_pages_v_blocks_pricing_cards" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_cards_plans_order_idx" ON "_site_pages_v_blocks_pricing_cards_plans" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_cards_plans_parent_id_idx" ON "_site_pages_v_blocks_pricing_cards_plans" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_cards_plans_features_order_idx" ON "_site_pages_v_blocks_pricing_cards_plans_features" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_cards_plans_features_parent_id_idx" ON "_site_pages_v_blocks_pricing_cards_plans_features" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_plans_order_idx" ON "_site_pages_v_blocks_pricing_plans" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_plans_parent_id_idx" ON "_site_pages_v_blocks_pricing_plans" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_plans_features_order_idx" ON "_site_pages_v_blocks_pricing_plans_features" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_pricing_plans_features_parent_id_idx" ON "_site_pages_v_blocks_pricing_plans_features" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_scroll_morph_hero_order_idx" ON "_site_pages_v_blocks_scroll_morph_hero" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_scroll_morph_hero_parent_id_idx" ON "_site_pages_v_blocks_scroll_morph_hero" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_scroll_morph_hero_path_idx" ON "_site_pages_v_blocks_scroll_morph_hero" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_serp_content_order_idx" ON "_site_pages_v_blocks_serp_content" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_serp_content_parent_id_idx" ON "_site_pages_v_blocks_serp_content" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_serp_content_path_idx" ON "_site_pages_v_blocks_serp_content" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_serp_content_bullets_order_idx" ON "_site_pages_v_blocks_serp_content_bullets" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_serp_content_bullets_parent_id_idx" ON "_site_pages_v_blocks_serp_content_bullets" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_service_ux_ui_order_idx" ON "_site_pages_v_blocks_service_ux_ui" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_service_ux_ui_parent_id_idx" ON "_site_pages_v_blocks_service_ux_ui" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_service_ux_ui_path_idx" ON "_site_pages_v_blocks_service_ux_ui" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_services4_order_idx" ON "_site_pages_v_blocks_services4" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_services4_parent_id_idx" ON "_site_pages_v_blocks_services4" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_services4_path_idx" ON "_site_pages_v_blocks_services4" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_services4_services_order_idx" ON "_site_pages_v_blocks_services4_services" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_services4_services_parent_id_idx" ON "_site_pages_v_blocks_services4_services" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_services4_services_items_order_idx" ON "_site_pages_v_blocks_services4_services_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_blocks_services4_services_items_parent_id_idx" ON "_site_pages_v_blocks_services4_services_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_rels_order_idx" ON "_site_pages_v_rels" USING btree ("order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_rels_parent_idx" ON "_site_pages_v_rels" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_rels_path_idx" ON "_site_pages_v_rels" USING btree ("path");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_rels_site_pages_id_idx" ON "_site_pages_v_rels" USING btree ("site_pages_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_rels_blog_posts_id_idx" ON "_site_pages_v_rels" USING btree ("blog_posts_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_rels_categories_id_idx" ON "_site_pages_v_rels" USING btree ("categories_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_hero_floating_elements_order_idx" ON "_site_pages_v_version_hero_floating_elements" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_hero_floating_elements_parent_id_idx" ON "_site_pages_v_version_hero_floating_elements" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_hero_floating_elements_icon_idx" ON "_site_pages_v_version_hero_floating_elements" USING btree ("icon_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_hero_links_order_idx" ON "_site_pages_v_version_hero_links" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_hero_links_parent_id_idx" ON "_site_pages_v_version_hero_links" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_hero_marquee_logos_order_idx" ON "_site_pages_v_version_hero_marquee_logos" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_hero_marquee_logos_parent_id_idx" ON "_site_pages_v_version_hero_marquee_logos" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "_site_pages_v_version_hero_marquee_logos_logo_idx" ON "_site_pages_v_version_hero_marquee_logos" USING btree ("logo_id");--> statement-breakpoint
-CREATE INDEX "blog_posts_hero_image_idx" ON "blog_posts" USING btree ("hero_image_id");--> statement-breakpoint
-CREATE INDEX "blog_posts_meta_meta_image_idx" ON "blog_posts" USING btree ("meta_image_id");--> statement-breakpoint
-CREATE UNIQUE INDEX "blog_posts_slug_idx" ON "blog_posts" USING btree ("slug");--> statement-breakpoint
-CREATE INDEX "blog_posts_updated_at_idx" ON "blog_posts" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "blog_posts_created_at_idx" ON "blog_posts" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "blog_posts__status_idx" ON "blog_posts" USING btree ("_status");--> statement-breakpoint
-CREATE INDEX "blog_posts_populated_authors_order_idx" ON "blog_posts_populated_authors" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "blog_posts_populated_authors_parent_id_idx" ON "blog_posts_populated_authors" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "blog_posts_rels_order_idx" ON "blog_posts_rels" USING btree ("order");--> statement-breakpoint
-CREATE INDEX "blog_posts_rels_parent_idx" ON "blog_posts_rels" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "blog_posts_rels_path_idx" ON "blog_posts_rels" USING btree ("path");--> statement-breakpoint
-CREATE INDEX "blog_posts_rels_blog_posts_id_idx" ON "blog_posts_rels" USING btree ("blog_posts_id");--> statement-breakpoint
-CREATE INDEX "blog_posts_rels_categories_id_idx" ON "blog_posts_rels" USING btree ("categories_id");--> statement-breakpoint
-CREATE INDEX "blog_posts_rels_users_id_idx" ON "blog_posts_rels" USING btree ("users_id");--> statement-breakpoint
-CREATE UNIQUE INDEX "categories_slug_idx" ON "categories" USING btree ("slug");--> statement-breakpoint
-CREATE INDEX "categories_parent_idx" ON "categories" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "categories_updated_at_idx" ON "categories" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "categories_created_at_idx" ON "categories" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "categories_breadcrumbs_order_idx" ON "categories_breadcrumbs" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "categories_breadcrumbs_parent_id_idx" ON "categories_breadcrumbs" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "categories_breadcrumbs_doc_idx" ON "categories_breadcrumbs" USING btree ("doc_id");--> statement-breakpoint
-CREATE INDEX "collab_cur_order_idx" ON "collab_cur" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "collab_cur_parent_id_idx" ON "collab_cur" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "collab_cur_path_idx" ON "collab_cur" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "feat_adv_order_idx" ON "feat_adv" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "feat_adv_parent_id_idx" ON "feat_adv" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "feat_adv_path_idx" ON "feat_adv" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "feat_adv_items_order_idx" ON "feat_adv_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "feat_adv_items_parent_id_idx" ON "feat_adv_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "feat_ai_acc_order_idx" ON "feat_ai_acc" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "feat_ai_acc_parent_id_idx" ON "feat_ai_acc" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "feat_ai_acc_path_idx" ON "feat_ai_acc" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "feat_ai_acc_items_order_idx" ON "feat_ai_acc_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "feat_ai_acc_items_parent_id_idx" ON "feat_ai_acc_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "feat_ai_acc_items_dark_image_idx" ON "feat_ai_acc_items" USING btree ("dark_image_id");--> statement-breakpoint
-CREATE INDEX "feat_ai_acc_items_light_image_idx" ON "feat_ai_acc_items" USING btree ("light_image_id");--> statement-breakpoint
-CREATE INDEX "footer_footer_logo_idx" ON "footer" USING btree ("footer_logo_id");--> statement-breakpoint
-CREATE INDEX "footer_mobile_footer_logo_idx" ON "footer" USING btree ("mobile_footer_logo_id");--> statement-breakpoint
-CREATE INDEX "footer_newsletter_icon_upload_idx" ON "footer" USING btree ("newsletter_icon_upload_id");--> statement-breakpoint
-CREATE INDEX "footer_columns_order_idx" ON "footer_columns" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "footer_columns_parent_id_idx" ON "footer_columns" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "footer_columns_column_icon_upload_idx" ON "footer_columns" USING btree ("column_icon_upload_id");--> statement-breakpoint
-CREATE INDEX "footer_columns_links_order_idx" ON "footer_columns_links" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "footer_columns_links_parent_id_idx" ON "footer_columns_links" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "footer_nav_items_order_idx" ON "footer_nav_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "footer_nav_items_parent_id_idx" ON "footer_nav_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "footer_rels_order_idx" ON "footer_rels" USING btree ("order");--> statement-breakpoint
-CREATE INDEX "footer_rels_parent_idx" ON "footer_rels" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "footer_rels_path_idx" ON "footer_rels" USING btree ("path");--> statement-breakpoint
-CREATE INDEX "footer_rels_site_pages_id_idx" ON "footer_rels" USING btree ("site_pages_id");--> statement-breakpoint
-CREATE INDEX "footer_rels_blog_posts_id_idx" ON "footer_rels" USING btree ("blog_posts_id");--> statement-breakpoint
-CREATE INDEX "footer_social_links_order_idx" ON "footer_social_links" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "footer_social_links_parent_id_idx" ON "footer_social_links" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "footer_social_links_icon_upload_idx" ON "footer_social_links" USING btree ("icon_upload_id");--> statement-breakpoint
-CREATE INDEX "form_submissions_form_idx" ON "form_submissions" USING btree ("form_id");--> statement-breakpoint
-CREATE INDEX "form_submissions_updated_at_idx" ON "form_submissions" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "form_submissions_created_at_idx" ON "form_submissions" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "form_submissions_submission_data_order_idx" ON "form_submissions_submission_data" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "form_submissions_submission_data_parent_id_idx" ON "form_submissions_submission_data" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "forms_updated_at_idx" ON "forms" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "forms_created_at_idx" ON "forms" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "forms_blocks_checkbox_order_idx" ON "forms_blocks_checkbox" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "forms_blocks_checkbox_parent_id_idx" ON "forms_blocks_checkbox" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "forms_blocks_checkbox_path_idx" ON "forms_blocks_checkbox" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "forms_blocks_country_order_idx" ON "forms_blocks_country" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "forms_blocks_country_parent_id_idx" ON "forms_blocks_country" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "forms_blocks_country_path_idx" ON "forms_blocks_country" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "forms_blocks_email_order_idx" ON "forms_blocks_email" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "forms_blocks_email_parent_id_idx" ON "forms_blocks_email" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "forms_blocks_email_path_idx" ON "forms_blocks_email" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "forms_blocks_message_order_idx" ON "forms_blocks_message" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "forms_blocks_message_parent_id_idx" ON "forms_blocks_message" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "forms_blocks_message_path_idx" ON "forms_blocks_message" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "forms_blocks_number_order_idx" ON "forms_blocks_number" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "forms_blocks_number_parent_id_idx" ON "forms_blocks_number" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "forms_blocks_number_path_idx" ON "forms_blocks_number" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "forms_blocks_select_order_idx" ON "forms_blocks_select" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "forms_blocks_select_parent_id_idx" ON "forms_blocks_select" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "forms_blocks_select_path_idx" ON "forms_blocks_select" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "forms_blocks_select_options_order_idx" ON "forms_blocks_select_options" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "forms_blocks_select_options_parent_id_idx" ON "forms_blocks_select_options" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "forms_blocks_state_order_idx" ON "forms_blocks_state" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "forms_blocks_state_parent_id_idx" ON "forms_blocks_state" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "forms_blocks_state_path_idx" ON "forms_blocks_state" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "forms_blocks_text_order_idx" ON "forms_blocks_text" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "forms_blocks_text_parent_id_idx" ON "forms_blocks_text" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "forms_blocks_text_path_idx" ON "forms_blocks_text" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "forms_blocks_textarea_order_idx" ON "forms_blocks_textarea" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "forms_blocks_textarea_parent_id_idx" ON "forms_blocks_textarea" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "forms_blocks_textarea_path_idx" ON "forms_blocks_textarea" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "forms_emails_order_idx" ON "forms_emails" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "forms_emails_parent_id_idx" ON "forms_emails" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "header_mega_menu_callback_form_idx" ON "header" USING btree ("mega_menu_callback_form_id");--> statement-breakpoint
-CREATE INDEX "header_mega_menu_newsletter_form_idx" ON "header" USING btree ("mega_menu_newsletter_form_id");--> statement-breakpoint
-CREATE INDEX "header_logo_idx" ON "header" USING btree ("logo_id");--> statement-breakpoint
-CREATE INDEX "header_nav_items_order_idx" ON "header_nav_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "header_nav_items_parent_id_idx" ON "header_nav_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "header_rels_order_idx" ON "header_rels" USING btree ("order");--> statement-breakpoint
-CREATE INDEX "header_rels_parent_idx" ON "header_rels" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "header_rels_path_idx" ON "header_rels" USING btree ("path");--> statement-breakpoint
-CREATE INDEX "header_rels_site_pages_id_idx" ON "header_rels" USING btree ("site_pages_id");--> statement-breakpoint
-CREATE INDEX "header_rels_blog_posts_id_idx" ON "header_rels" USING btree ("blog_posts_id");--> statement-breakpoint
-CREATE INDEX "media_folder_idx" ON "media" USING btree ("folder_id");--> statement-breakpoint
-CREATE INDEX "media_updated_at_idx" ON "media" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "media_created_at_idx" ON "media" USING btree ("created_at");--> statement-breakpoint
-CREATE UNIQUE INDEX "media_filename_idx" ON "media" USING btree ("filename");--> statement-breakpoint
-CREATE INDEX "media_sizes_thumbnail_sizes_thumbnail_filename_idx" ON "media" USING btree ("sizes_thumbnail_filename");--> statement-breakpoint
-CREATE INDEX "media_sizes_square_sizes_square_filename_idx" ON "media" USING btree ("sizes_square_filename");--> statement-breakpoint
-CREATE INDEX "media_sizes_small_sizes_small_filename_idx" ON "media" USING btree ("sizes_small_filename");--> statement-breakpoint
-CREATE INDEX "media_sizes_medium_sizes_medium_filename_idx" ON "media" USING btree ("sizes_medium_filename");--> statement-breakpoint
-CREATE INDEX "media_sizes_large_sizes_large_filename_idx" ON "media" USING btree ("sizes_large_filename");--> statement-breakpoint
-CREATE INDEX "media_sizes_xlarge_sizes_xlarge_filename_idx" ON "media" USING btree ("sizes_xlarge_filename");--> statement-breakpoint
-CREATE INDEX "media_sizes_og_sizes_og_filename_idx" ON "media" USING btree ("sizes_og_filename");--> statement-breakpoint
-CREATE INDEX "mega_menu_icon_idx" ON "mega_menu" USING btree ("icon_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_image_idx" ON "mega_menu" USING btree ("image_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_highlight_highlight_icon_idx" ON "mega_menu" USING btree ("highlight_icon_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_highlight_highlight_image_idx" ON "mega_menu" USING btree ("highlight_image_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_updated_at_idx" ON "mega_menu" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "mega_menu_created_at_idx" ON "mega_menu" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "mega_menu_columns_order_idx" ON "mega_menu_columns" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "mega_menu_columns_parent_id_idx" ON "mega_menu_columns" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_columns_items_order_idx" ON "mega_menu_columns_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "mega_menu_columns_items_parent_id_idx" ON "mega_menu_columns_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_columns_items_icon_idx" ON "mega_menu_columns_items" USING btree ("icon_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_columns_items_image_idx" ON "mega_menu_columns_items" USING btree ("image_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_highlight_cards_order_idx" ON "mega_menu_highlight_cards" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "mega_menu_highlight_cards_parent_id_idx" ON "mega_menu_highlight_cards" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_highlight_cards_icon_idx" ON "mega_menu_highlight_cards" USING btree ("icon_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_highlight_cards_image_idx" ON "mega_menu_highlight_cards" USING btree ("image_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_sub_items_order_idx" ON "mega_menu_sub_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "mega_menu_sub_items_parent_id_idx" ON "mega_menu_sub_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_sub_items_icon_idx" ON "mega_menu_sub_items" USING btree ("icon_id");--> statement-breakpoint
-CREATE INDEX "mega_menu_sub_items_image_idx" ON "mega_menu_sub_items" USING btree ("image_id");--> statement-breakpoint
-CREATE INDEX "payload_folders_name_idx" ON "payload_folders" USING btree ("name");--> statement-breakpoint
-CREATE INDEX "payload_folders_folder_idx" ON "payload_folders" USING btree ("folder_id");--> statement-breakpoint
-CREATE INDEX "payload_folders_updated_at_idx" ON "payload_folders" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "payload_folders_created_at_idx" ON "payload_folders" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "payload_folders_folder_type_order_idx" ON "payload_folders_folder_type" USING btree ("order");--> statement-breakpoint
-CREATE INDEX "payload_folders_folder_type_parent_idx" ON "payload_folders_folder_type" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "payload_jobs_completed_at_idx" ON "payload_jobs" USING btree ("completed_at");--> statement-breakpoint
-CREATE INDEX "payload_jobs_total_tried_idx" ON "payload_jobs" USING btree ("total_tried");--> statement-breakpoint
-CREATE INDEX "payload_jobs_has_error_idx" ON "payload_jobs" USING btree ("has_error");--> statement-breakpoint
-CREATE INDEX "payload_jobs_task_slug_idx" ON "payload_jobs" USING btree ("task_slug");--> statement-breakpoint
-CREATE INDEX "payload_jobs_queue_idx" ON "payload_jobs" USING btree ("queue");--> statement-breakpoint
-CREATE INDEX "payload_jobs_wait_until_idx" ON "payload_jobs" USING btree ("wait_until");--> statement-breakpoint
-CREATE INDEX "payload_jobs_processing_idx" ON "payload_jobs" USING btree ("processing");--> statement-breakpoint
-CREATE INDEX "payload_jobs_updated_at_idx" ON "payload_jobs" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "payload_jobs_created_at_idx" ON "payload_jobs" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "payload_jobs_log_order_idx" ON "payload_jobs_log" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "payload_jobs_log_parent_id_idx" ON "payload_jobs_log" USING btree ("_parent_id");--> statement-breakpoint
-CREATE UNIQUE INDEX "payload_kv_key_idx" ON "payload_kv" USING btree ("key");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_global_slug_idx" ON "payload_locked_documents" USING btree ("global_slug");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_updated_at_idx" ON "payload_locked_documents" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_created_at_idx" ON "payload_locked_documents" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_order_idx" ON "payload_locked_documents_rels" USING btree ("order");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_parent_idx" ON "payload_locked_documents_rels" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_path_idx" ON "payload_locked_documents_rels" USING btree ("path");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_site_pages_id_idx" ON "payload_locked_documents_rels" USING btree ("site_pages_id");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_blog_posts_id_idx" ON "payload_locked_documents_rels" USING btree ("blog_posts_id");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_media_id_idx" ON "payload_locked_documents_rels" USING btree ("media_id");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_categories_id_idx" ON "payload_locked_documents_rels" USING btree ("categories_id");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_users_id_idx" ON "payload_locked_documents_rels" USING btree ("users_id");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_mega_menu_id_idx" ON "payload_locked_documents_rels" USING btree ("mega_menu_id");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_redirects_id_idx" ON "payload_locked_documents_rels" USING btree ("redirects_id");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_forms_id_idx" ON "payload_locked_documents_rels" USING btree ("forms_id");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_form_submissions_id_idx" ON "payload_locked_documents_rels" USING btree ("form_submissions_id");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_search_id_idx" ON "payload_locked_documents_rels" USING btree ("search_id");--> statement-breakpoint
-CREATE INDEX "payload_locked_documents_rels_payload_folders_id_idx" ON "payload_locked_documents_rels" USING btree ("payload_folders_id");--> statement-breakpoint
-CREATE INDEX "payload_migrations_updated_at_idx" ON "payload_migrations" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "payload_migrations_created_at_idx" ON "payload_migrations" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "payload_preferences_key_idx" ON "payload_preferences" USING btree ("key");--> statement-breakpoint
-CREATE INDEX "payload_preferences_updated_at_idx" ON "payload_preferences" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "payload_preferences_created_at_idx" ON "payload_preferences" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "payload_preferences_rels_order_idx" ON "payload_preferences_rels" USING btree ("order");--> statement-breakpoint
-CREATE INDEX "payload_preferences_rels_parent_idx" ON "payload_preferences_rels" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "payload_preferences_rels_path_idx" ON "payload_preferences_rels" USING btree ("path");--> statement-breakpoint
-CREATE INDEX "payload_preferences_rels_users_id_idx" ON "payload_preferences_rels" USING btree ("users_id");--> statement-breakpoint
-CREATE UNIQUE INDEX "redirects_from_idx" ON "redirects" USING btree ("from");--> statement-breakpoint
-CREATE INDEX "redirects_updated_at_idx" ON "redirects" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "redirects_created_at_idx" ON "redirects" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "redirects_rels_order_idx" ON "redirects_rels" USING btree ("order");--> statement-breakpoint
-CREATE INDEX "redirects_rels_parent_idx" ON "redirects_rels" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "redirects_rels_path_idx" ON "redirects_rels" USING btree ("path");--> statement-breakpoint
-CREATE INDEX "redirects_rels_site_pages_id_idx" ON "redirects_rels" USING btree ("site_pages_id");--> statement-breakpoint
-CREATE INDEX "redirects_rels_blog_posts_id_idx" ON "redirects_rels" USING btree ("blog_posts_id");--> statement-breakpoint
-CREATE INDEX "search_slug_idx" ON "search" USING btree ("slug");--> statement-breakpoint
-CREATE INDEX "search_meta_meta_image_idx" ON "search" USING btree ("meta_image_id");--> statement-breakpoint
-CREATE INDEX "search_updated_at_idx" ON "search" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "search_created_at_idx" ON "search" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "search_categories_order_idx" ON "search_categories" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "search_categories_parent_id_idx" ON "search_categories" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "search_rels_order_idx" ON "search_rels" USING btree ("order");--> statement-breakpoint
-CREATE INDEX "search_rels_parent_idx" ON "search_rels" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "search_rels_path_idx" ON "search_rels" USING btree ("path");--> statement-breakpoint
-CREATE INDEX "search_rels_blog_posts_id_idx" ON "search_rels" USING btree ("blog_posts_id");--> statement-breakpoint
-CREATE INDEX "site_pages_hero_hero_media_idx" ON "site_pages" USING btree ("hero_media_id");--> statement-breakpoint
-CREATE INDEX "site_pages_hero_hero_background_image_idx" ON "site_pages" USING btree ("hero_background_image_id");--> statement-breakpoint
-CREATE INDEX "site_pages_hero_hero_background_video_idx" ON "site_pages" USING btree ("hero_background_video_id");--> statement-breakpoint
-CREATE INDEX "site_pages_hero_hero_foreground_image_idx" ON "site_pages" USING btree ("hero_foreground_image_id");--> statement-breakpoint
-CREATE UNIQUE INDEX "site_pages_slug_idx" ON "site_pages" USING btree ("slug");--> statement-breakpoint
-CREATE INDEX "site_pages_parent_idx" ON "site_pages" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_meta_meta_image_idx" ON "site_pages" USING btree ("meta_image_id");--> statement-breakpoint
-CREATE INDEX "site_pages_updated_at_idx" ON "site_pages" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "site_pages_created_at_idx" ON "site_pages" USING btree ("created_at");--> statement-breakpoint
-CREATE INDEX "site_pages__status_idx" ON "site_pages" USING btree ("_status");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_archive_order_idx" ON "site_pages_blocks_archive" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_archive_parent_id_idx" ON "site_pages_blocks_archive" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_archive_path_idx" ON "site_pages_blocks_archive" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_contact_section1_order_idx" ON "site_pages_blocks_contact_section1" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_contact_section1_parent_id_idx" ON "site_pages_blocks_contact_section1" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_contact_section1_path_idx" ON "site_pages_blocks_contact_section1" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_contact_section1_hours_rows_order_idx" ON "site_pages_blocks_contact_section1_hours_rows" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_contact_section1_hours_rows_parent_id_idx" ON "site_pages_blocks_contact_section1_hours_rows" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_content_order_idx" ON "site_pages_blocks_content" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_content_parent_id_idx" ON "site_pages_blocks_content" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_content_path_idx" ON "site_pages_blocks_content" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_content_columns_order_idx" ON "site_pages_blocks_content_columns" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_content_columns_parent_id_idx" ON "site_pages_blocks_content_columns" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_cta_order_idx" ON "site_pages_blocks_cta" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_cta_parent_id_idx" ON "site_pages_blocks_cta" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_cta_path_idx" ON "site_pages_blocks_cta" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_cta_links_order_idx" ON "site_pages_blocks_cta_links" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_cta_links_parent_id_idx" ON "site_pages_blocks_cta_links" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_cta_section3_order_idx" ON "site_pages_blocks_cta_section3" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_cta_section3_parent_id_idx" ON "site_pages_blocks_cta_section3" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_cta_section3_path_idx" ON "site_pages_blocks_cta_section3" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_cta_section3_right_cards_order_idx" ON "site_pages_blocks_cta_section3_right_cards" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_cta_section3_right_cards_parent_id_idx" ON "site_pages_blocks_cta_section3_right_cards" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_faq_simple_order_idx" ON "site_pages_blocks_faq_simple" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_faq_simple_parent_id_idx" ON "site_pages_blocks_faq_simple" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_faq_simple_path_idx" ON "site_pages_blocks_faq_simple" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_faq_simple_faqs_order_idx" ON "site_pages_blocks_faq_simple_faqs" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_faq_simple_faqs_parent_id_idx" ON "site_pages_blocks_faq_simple_faqs" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_feature1_order_idx" ON "site_pages_blocks_feature1" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_feature1_parent_id_idx" ON "site_pages_blocks_feature1" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_feature1_path_idx" ON "site_pages_blocks_feature1" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_feature1_items_order_idx" ON "site_pages_blocks_feature1_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_feature1_items_parent_id_idx" ON "site_pages_blocks_feature1_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_feature2_order_idx" ON "site_pages_blocks_feature2" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_feature2_parent_id_idx" ON "site_pages_blocks_feature2" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_feature2_path_idx" ON "site_pages_blocks_feature2" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_feature2_image_idx" ON "site_pages_blocks_feature2" USING btree ("image_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_feature2_items_order_idx" ON "site_pages_blocks_feature2_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_feature2_items_parent_id_idx" ON "site_pages_blocks_feature2_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_features_grid_order_idx" ON "site_pages_blocks_features_grid" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_features_grid_parent_id_idx" ON "site_pages_blocks_features_grid" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_features_grid_path_idx" ON "site_pages_blocks_features_grid" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_features_grid_items_order_idx" ON "site_pages_blocks_features_grid_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_features_grid_items_parent_id_idx" ON "site_pages_blocks_features_grid_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_features_scaling_order_idx" ON "site_pages_blocks_features_scaling" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_features_scaling_parent_id_idx" ON "site_pages_blocks_features_scaling" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_features_scaling_path_idx" ON "site_pages_blocks_features_scaling" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_features_scaling_dark_image_idx" ON "site_pages_blocks_features_scaling" USING btree ("dark_image_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_features_scaling_light_image_idx" ON "site_pages_blocks_features_scaling" USING btree ("light_image_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_features_scaling_features_order_idx" ON "site_pages_blocks_features_scaling_features" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_features_scaling_features_parent_id_idx" ON "site_pages_blocks_features_scaling_features" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_form_block_order_idx" ON "site_pages_blocks_form_block" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_form_block_parent_id_idx" ON "site_pages_blocks_form_block" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_form_block_path_idx" ON "site_pages_blocks_form_block" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_form_block_form_idx" ON "site_pages_blocks_form_block" USING btree ("form_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_hero_grid_order_idx" ON "site_pages_blocks_hero_grid" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_hero_grid_parent_id_idx" ON "site_pages_blocks_hero_grid" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_hero_grid_path_idx" ON "site_pages_blocks_hero_grid" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_hero_marketing_order_idx" ON "site_pages_blocks_hero_marketing" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_hero_marketing_parent_id_idx" ON "site_pages_blocks_hero_marketing" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_hero_marketing_path_idx" ON "site_pages_blocks_hero_marketing" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_lyra_content_order_idx" ON "site_pages_blocks_lyra_content" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_lyra_content_parent_id_idx" ON "site_pages_blocks_lyra_content" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_lyra_content_path_idx" ON "site_pages_blocks_lyra_content" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_lyra_feature_order_idx" ON "site_pages_blocks_lyra_feature" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_lyra_feature_parent_id_idx" ON "site_pages_blocks_lyra_feature" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_lyra_feature_path_idx" ON "site_pages_blocks_lyra_feature" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_lyra_feature_dark_image_idx" ON "site_pages_blocks_lyra_feature" USING btree ("dark_image_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_lyra_feature_light_image_idx" ON "site_pages_blocks_lyra_feature" USING btree ("light_image_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_media_block_order_idx" ON "site_pages_blocks_media_block" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_media_block_parent_id_idx" ON "site_pages_blocks_media_block" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_media_block_path_idx" ON "site_pages_blocks_media_block" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_media_block_media_idx" ON "site_pages_blocks_media_block" USING btree ("media_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_order_idx" ON "site_pages_blocks_pricing" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_parent_id_idx" ON "site_pages_blocks_pricing" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_path_idx" ON "site_pages_blocks_pricing" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_cards_order_idx" ON "site_pages_blocks_pricing_cards" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_cards_parent_id_idx" ON "site_pages_blocks_pricing_cards" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_cards_path_idx" ON "site_pages_blocks_pricing_cards" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_cards_plans_order_idx" ON "site_pages_blocks_pricing_cards_plans" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_cards_plans_parent_id_idx" ON "site_pages_blocks_pricing_cards_plans" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_cards_plans_features_order_idx" ON "site_pages_blocks_pricing_cards_plans_features" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_cards_plans_features_parent_id_idx" ON "site_pages_blocks_pricing_cards_plans_features" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_plans_order_idx" ON "site_pages_blocks_pricing_plans" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_plans_parent_id_idx" ON "site_pages_blocks_pricing_plans" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_plans_features_order_idx" ON "site_pages_blocks_pricing_plans_features" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_pricing_plans_features_parent_id_idx" ON "site_pages_blocks_pricing_plans_features" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_scroll_morph_hero_order_idx" ON "site_pages_blocks_scroll_morph_hero" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_scroll_morph_hero_parent_id_idx" ON "site_pages_blocks_scroll_morph_hero" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_scroll_morph_hero_path_idx" ON "site_pages_blocks_scroll_morph_hero" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_serp_content_order_idx" ON "site_pages_blocks_serp_content" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_serp_content_parent_id_idx" ON "site_pages_blocks_serp_content" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_serp_content_path_idx" ON "site_pages_blocks_serp_content" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_serp_content_bullets_order_idx" ON "site_pages_blocks_serp_content_bullets" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_serp_content_bullets_parent_id_idx" ON "site_pages_blocks_serp_content_bullets" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_service_ux_ui_order_idx" ON "site_pages_blocks_service_ux_ui" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_service_ux_ui_parent_id_idx" ON "site_pages_blocks_service_ux_ui" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_service_ux_ui_path_idx" ON "site_pages_blocks_service_ux_ui" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_services4_order_idx" ON "site_pages_blocks_services4" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_services4_parent_id_idx" ON "site_pages_blocks_services4" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_services4_path_idx" ON "site_pages_blocks_services4" USING btree ("_path");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_services4_services_order_idx" ON "site_pages_blocks_services4_services" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_services4_services_parent_id_idx" ON "site_pages_blocks_services4_services" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_services4_services_items_order_idx" ON "site_pages_blocks_services4_services_items" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_blocks_services4_services_items_parent_id_idx" ON "site_pages_blocks_services4_services_items" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_hero_floating_elements_order_idx" ON "site_pages_hero_floating_elements" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_hero_floating_elements_parent_id_idx" ON "site_pages_hero_floating_elements" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_hero_floating_elements_icon_idx" ON "site_pages_hero_floating_elements" USING btree ("icon_id");--> statement-breakpoint
-CREATE INDEX "site_pages_hero_links_order_idx" ON "site_pages_hero_links" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_hero_links_parent_id_idx" ON "site_pages_hero_links" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_hero_marquee_logos_order_idx" ON "site_pages_hero_marquee_logos" USING btree ("_order");--> statement-breakpoint
-CREATE INDEX "site_pages_hero_marquee_logos_parent_id_idx" ON "site_pages_hero_marquee_logos" USING btree ("_parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_hero_marquee_logos_logo_idx" ON "site_pages_hero_marquee_logos" USING btree ("logo_id");--> statement-breakpoint
-CREATE INDEX "site_pages_rels_order_idx" ON "site_pages_rels" USING btree ("order");--> statement-breakpoint
-CREATE INDEX "site_pages_rels_parent_idx" ON "site_pages_rels" USING btree ("parent_id");--> statement-breakpoint
-CREATE INDEX "site_pages_rels_path_idx" ON "site_pages_rels" USING btree ("path");--> statement-breakpoint
-CREATE INDEX "site_pages_rels_site_pages_id_idx" ON "site_pages_rels" USING btree ("site_pages_id");--> statement-breakpoint
-CREATE INDEX "site_pages_rels_blog_posts_id_idx" ON "site_pages_rels" USING btree ("blog_posts_id");--> statement-breakpoint
-CREATE INDEX "site_pages_rels_categories_id_idx" ON "site_pages_rels" USING btree ("categories_id");--> statement-breakpoint
-CREATE INDEX "users_updated_at_idx" ON "users" USING btree ("updated_at");--> statement-breakpoint
-CREATE INDEX "users_created_at_idx" ON "users" USING btree ("created_at");--> statement-breakpoint
-CREATE UNIQUE INDEX "users_email_idx" ON "users" USING btree ("email");--> statement-breakpoint
-CREATE INDEX "users_sessions_order_idx" ON "users_sessions" USING btree ("_order");--> statement-breakpoint
+ALTER TABLE "_blog_posts_v" ADD CONSTRAINT "_blog_posts_v_parent_id_blog_posts_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."blog_posts"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_blog_posts_v" ADD CONSTRAINT "_blog_posts_v_version_hero_image_id_media_id_fk" FOREIGN KEY ("version_hero_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_blog_posts_v" ADD CONSTRAINT "_blog_posts_v_version_meta_image_id_media_id_fk" FOREIGN KEY ("version_meta_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_blog_posts_v_rels" ADD CONSTRAINT "_blog_posts_v_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."_blog_posts_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_blog_posts_v_rels" ADD CONSTRAINT "_blog_posts_v_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_blog_posts_v_rels" ADD CONSTRAINT "_blog_posts_v_rels_categories_fk" FOREIGN KEY ("categories_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_blog_posts_v_rels" ADD CONSTRAINT "_blog_posts_v_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_blog_posts_v_version_populated_authors" ADD CONSTRAINT "_blog_posts_v_version_populated_authors_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_blog_posts_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_collab_cur_v" ADD CONSTRAINT "_collab_cur_v_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_feat_adv_v" ADD CONSTRAINT "_feat_adv_v_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_feat_adv_v_items" ADD CONSTRAINT "_feat_adv_v_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_feat_adv_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_feat_ai_acc_v" ADD CONSTRAINT "_feat_ai_acc_v_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_feat_ai_acc_v_items" ADD CONSTRAINT "_feat_ai_acc_v_items_dark_image_id_media_id_fk" FOREIGN KEY ("dark_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_feat_ai_acc_v_items" ADD CONSTRAINT "_feat_ai_acc_v_items_light_image_id_media_id_fk" FOREIGN KEY ("light_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_feat_ai_acc_v_items" ADD CONSTRAINT "_feat_ai_acc_v_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_feat_ai_acc_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_parent_id_site_pages_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."site_pages"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_version_hero_media_id_media_id_fk" FOREIGN KEY ("version_hero_media_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_version_hero_background_image_id_media_id_fk" FOREIGN KEY ("version_hero_background_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_version_hero_background_video_id_media_id_fk" FOREIGN KEY ("version_hero_background_video_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_version_hero_foreground_image_id_media_id_fk" FOREIGN KEY ("version_hero_foreground_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_version_parent_id_site_pages_id_fk" FOREIGN KEY ("version_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v" ADD CONSTRAINT "_site_pages_v_version_meta_image_id_media_id_fk" FOREIGN KEY ("version_meta_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_archive" ADD CONSTRAINT "_site_pages_v_blocks_archive_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_contact_section1" ADD CONSTRAINT "_site_pages_v_blocks_contact_section1_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_contact_section1_hours_rows" ADD CONSTRAINT "_site_pages_v_blocks_contact_section1_hours_rows_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_contact_section1"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_content" ADD CONSTRAINT "_site_pages_v_blocks_content_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_content_columns" ADD CONSTRAINT "_site_pages_v_blocks_content_columns_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_content"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_cta" ADD CONSTRAINT "_site_pages_v_blocks_cta_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_cta_links" ADD CONSTRAINT "_site_pages_v_blocks_cta_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_cta"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_cta_section3" ADD CONSTRAINT "_site_pages_v_blocks_cta_section3_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_cta_section3_right_cards" ADD CONSTRAINT "_site_pages_v_blocks_cta_section3_right_cards_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_cta_section3"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_faq_simple" ADD CONSTRAINT "_site_pages_v_blocks_faq_simple_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_faq_simple_faqs" ADD CONSTRAINT "_site_pages_v_blocks_faq_simple_faqs_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_faq_simple"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_feature1" ADD CONSTRAINT "_site_pages_v_blocks_feature1_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_feature1_items" ADD CONSTRAINT "_site_pages_v_blocks_feature1_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_feature1"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_feature2" ADD CONSTRAINT "_site_pages_v_blocks_feature2_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_feature2" ADD CONSTRAINT "_site_pages_v_blocks_feature2_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_feature2_items" ADD CONSTRAINT "_site_pages_v_blocks_feature2_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_feature2"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_features_grid" ADD CONSTRAINT "_site_pages_v_blocks_features_grid_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_features_grid_items" ADD CONSTRAINT "_site_pages_v_blocks_features_grid_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_features_grid"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_features_scaling" ADD CONSTRAINT "_site_pages_v_blocks_features_scaling_dark_image_id_media_id_fk" FOREIGN KEY ("dark_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_features_scaling" ADD CONSTRAINT "_site_pages_v_blocks_features_scaling_light_image_id_media_id_fk" FOREIGN KEY ("light_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_features_scaling" ADD CONSTRAINT "_site_pages_v_blocks_features_scaling_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_features_scaling_features" ADD CONSTRAINT "_site_pages_v_blocks_features_scaling_features_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_features_scaling"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_form_block" ADD CONSTRAINT "_site_pages_v_blocks_form_block_form_id_forms_id_fk" FOREIGN KEY ("form_id") REFERENCES "public"."forms"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_form_block" ADD CONSTRAINT "_site_pages_v_blocks_form_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_hero_grid" ADD CONSTRAINT "_site_pages_v_blocks_hero_grid_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_lyra_content" ADD CONSTRAINT "_site_pages_v_blocks_lyra_content_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_lyra_feature" ADD CONSTRAINT "_site_pages_v_blocks_lyra_feature_dark_image_id_media_id_fk" FOREIGN KEY ("dark_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_lyra_feature" ADD CONSTRAINT "_site_pages_v_blocks_lyra_feature_light_image_id_media_id_fk" FOREIGN KEY ("light_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_lyra_feature" ADD CONSTRAINT "_site_pages_v_blocks_lyra_feature_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_media_block" ADD CONSTRAINT "_site_pages_v_blocks_media_block_media_id_media_id_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_media_block" ADD CONSTRAINT "_site_pages_v_blocks_media_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_pricing" ADD CONSTRAINT "_site_pages_v_blocks_pricing_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_pricing_cards" ADD CONSTRAINT "_site_pages_v_blocks_pricing_cards_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_pricing_cards_plans" ADD CONSTRAINT "_site_pages_v_blocks_pricing_cards_plans_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_pricing_cards"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_pricing_cards_plans_features" ADD CONSTRAINT "_site_pages_v_blocks_pricing_cards_plans_features_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_pricing_cards_plans"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_pricing_plans" ADD CONSTRAINT "_site_pages_v_blocks_pricing_plans_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_pricing"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_pricing_plans_features" ADD CONSTRAINT "_site_pages_v_blocks_pricing_plans_features_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_pricing_plans"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_scroll_morph_hero" ADD CONSTRAINT "_site_pages_v_blocks_scroll_morph_hero_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_serp_content" ADD CONSTRAINT "_site_pages_v_blocks_serp_content_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_serp_content_bullets" ADD CONSTRAINT "_site_pages_v_blocks_serp_content_bullets_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_serp_content"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_service_ux_ui" ADD CONSTRAINT "_site_pages_v_blocks_service_ux_ui_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_services4" ADD CONSTRAINT "_site_pages_v_blocks_services4_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_services4_services" ADD CONSTRAINT "_site_pages_v_blocks_services4_services_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_services4"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_blocks_services4_services_items" ADD CONSTRAINT "_site_pages_v_blocks_services4_services_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v_blocks_services4_services"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_rels" ADD CONSTRAINT "_site_pages_v_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_rels" ADD CONSTRAINT "_site_pages_v_rels_site_pages_fk" FOREIGN KEY ("site_pages_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_rels" ADD CONSTRAINT "_site_pages_v_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_rels" ADD CONSTRAINT "_site_pages_v_rels_categories_fk" FOREIGN KEY ("categories_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_version_hero_floating_elements" ADD CONSTRAINT "_site_pages_v_version_hero_floating_elements_icon_id_media_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_version_hero_floating_elements" ADD CONSTRAINT "_site_pages_v_version_hero_floating_elements_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_version_hero_links" ADD CONSTRAINT "_site_pages_v_version_hero_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_version_hero_marquee_logos" ADD CONSTRAINT "_site_pages_v_version_hero_marquee_logos_logo_id_media_id_fk" FOREIGN KEY ("logo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "_site_pages_v_version_hero_marquee_logos" ADD CONSTRAINT "_site_pages_v_version_hero_marquee_logos_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."_site_pages_v"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "blog_posts" ADD CONSTRAINT "blog_posts_hero_image_id_media_id_fk" FOREIGN KEY ("hero_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "blog_posts" ADD CONSTRAINT "blog_posts_meta_image_id_media_id_fk" FOREIGN KEY ("meta_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "blog_posts_populated_authors" ADD CONSTRAINT "blog_posts_populated_authors_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "blog_posts_rels" ADD CONSTRAINT "blog_posts_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "blog_posts_rels" ADD CONSTRAINT "blog_posts_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "blog_posts_rels" ADD CONSTRAINT "blog_posts_rels_categories_fk" FOREIGN KEY ("categories_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "blog_posts_rels" ADD CONSTRAINT "blog_posts_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "categories" ADD CONSTRAINT "categories_parent_id_categories_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."categories"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "categories_breadcrumbs" ADD CONSTRAINT "categories_breadcrumbs_doc_id_categories_id_fk" FOREIGN KEY ("doc_id") REFERENCES "public"."categories"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "categories_breadcrumbs" ADD CONSTRAINT "categories_breadcrumbs_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "collab_cur" ADD CONSTRAINT "collab_cur_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "feat_adv" ADD CONSTRAINT "feat_adv_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "feat_adv_items" ADD CONSTRAINT "feat_adv_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."feat_adv"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "feat_ai_acc" ADD CONSTRAINT "feat_ai_acc_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "feat_ai_acc_items" ADD CONSTRAINT "feat_ai_acc_items_dark_image_id_media_id_fk" FOREIGN KEY ("dark_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "feat_ai_acc_items" ADD CONSTRAINT "feat_ai_acc_items_light_image_id_media_id_fk" FOREIGN KEY ("light_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "feat_ai_acc_items" ADD CONSTRAINT "feat_ai_acc_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."feat_ai_acc"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "footer" ADD CONSTRAINT "footer_footer_logo_id_media_id_fk" FOREIGN KEY ("footer_logo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "footer" ADD CONSTRAINT "footer_mobile_footer_logo_id_media_id_fk" FOREIGN KEY ("mobile_footer_logo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "footer" ADD CONSTRAINT "footer_newsletter_icon_upload_id_media_id_fk" FOREIGN KEY ("newsletter_icon_upload_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "footer_columns" ADD CONSTRAINT "footer_columns_column_icon_upload_id_media_id_fk" FOREIGN KEY ("column_icon_upload_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "footer_columns" ADD CONSTRAINT "footer_columns_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."footer"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "footer_columns_links" ADD CONSTRAINT "footer_columns_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."footer_columns"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "footer_nav_items" ADD CONSTRAINT "footer_nav_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."footer"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "footer_rels" ADD CONSTRAINT "footer_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."footer"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "footer_rels" ADD CONSTRAINT "footer_rels_site_pages_fk" FOREIGN KEY ("site_pages_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "footer_rels" ADD CONSTRAINT "footer_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "footer_social_links" ADD CONSTRAINT "footer_social_links_icon_upload_id_media_id_fk" FOREIGN KEY ("icon_upload_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "footer_social_links" ADD CONSTRAINT "footer_social_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."footer"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "form_submissions" ADD CONSTRAINT "form_submissions_form_id_forms_id_fk" FOREIGN KEY ("form_id") REFERENCES "public"."forms"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "form_submissions_submission_data" ADD CONSTRAINT "form_submissions_submission_data_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."form_submissions"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "forms_blocks_checkbox" ADD CONSTRAINT "forms_blocks_checkbox_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "forms_blocks_country" ADD CONSTRAINT "forms_blocks_country_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "forms_blocks_email" ADD CONSTRAINT "forms_blocks_email_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "forms_blocks_message" ADD CONSTRAINT "forms_blocks_message_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "forms_blocks_number" ADD CONSTRAINT "forms_blocks_number_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "forms_blocks_select" ADD CONSTRAINT "forms_blocks_select_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "forms_blocks_select_options" ADD CONSTRAINT "forms_blocks_select_options_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms_blocks_select"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "forms_blocks_state" ADD CONSTRAINT "forms_blocks_state_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "forms_blocks_text" ADD CONSTRAINT "forms_blocks_text_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "forms_blocks_textarea" ADD CONSTRAINT "forms_blocks_textarea_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "forms_emails" ADD CONSTRAINT "forms_emails_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "header" ADD CONSTRAINT "header_mega_menu_callback_form_id_forms_id_fk" FOREIGN KEY ("mega_menu_callback_form_id") REFERENCES "public"."forms"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "header" ADD CONSTRAINT "header_mega_menu_newsletter_form_id_forms_id_fk" FOREIGN KEY ("mega_menu_newsletter_form_id") REFERENCES "public"."forms"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "header" ADD CONSTRAINT "header_logo_id_media_id_fk" FOREIGN KEY ("logo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "header_nav_items" ADD CONSTRAINT "header_nav_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."header"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "header_rels" ADD CONSTRAINT "header_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."header"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "header_rels" ADD CONSTRAINT "header_rels_site_pages_fk" FOREIGN KEY ("site_pages_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "header_rels" ADD CONSTRAINT "header_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "media" ADD CONSTRAINT "media_folder_id_payload_folders_id_fk" FOREIGN KEY ("folder_id") REFERENCES "public"."payload_folders"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu" ADD CONSTRAINT "mega_menu_icon_id_media_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu" ADD CONSTRAINT "mega_menu_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu" ADD CONSTRAINT "mega_menu_highlight_icon_id_media_id_fk" FOREIGN KEY ("highlight_icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu" ADD CONSTRAINT "mega_menu_highlight_image_id_media_id_fk" FOREIGN KEY ("highlight_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu_columns" ADD CONSTRAINT "mega_menu_columns_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."mega_menu"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu_columns_items" ADD CONSTRAINT "mega_menu_columns_items_icon_id_media_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu_columns_items" ADD CONSTRAINT "mega_menu_columns_items_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu_columns_items" ADD CONSTRAINT "mega_menu_columns_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."mega_menu_columns"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu_highlight_cards" ADD CONSTRAINT "mega_menu_highlight_cards_icon_id_media_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu_highlight_cards" ADD CONSTRAINT "mega_menu_highlight_cards_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu_highlight_cards" ADD CONSTRAINT "mega_menu_highlight_cards_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."mega_menu"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu_sub_items" ADD CONSTRAINT "mega_menu_sub_items_icon_id_media_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu_sub_items" ADD CONSTRAINT "mega_menu_sub_items_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "mega_menu_sub_items" ADD CONSTRAINT "mega_menu_sub_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."mega_menu"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_folders" ADD CONSTRAINT "payload_folders_folder_id_payload_folders_id_fk" FOREIGN KEY ("folder_id") REFERENCES "public"."payload_folders"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_folders_folder_type" ADD CONSTRAINT "payload_folders_folder_type_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_folders"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_jobs_log" ADD CONSTRAINT "payload_jobs_log_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."payload_jobs"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_locked_documents"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_site_pages_fk" FOREIGN KEY ("site_pages_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_media_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_categories_fk" FOREIGN KEY ("categories_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_mega_menu_fk" FOREIGN KEY ("mega_menu_id") REFERENCES "public"."mega_menu"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_redirects_fk" FOREIGN KEY ("redirects_id") REFERENCES "public"."redirects"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_forms_fk" FOREIGN KEY ("forms_id") REFERENCES "public"."forms"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_form_submissions_fk" FOREIGN KEY ("form_submissions_id") REFERENCES "public"."form_submissions"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_search_fk" FOREIGN KEY ("search_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_locked_documents_rels" ADD CONSTRAINT "payload_locked_documents_rels_payload_folders_fk" FOREIGN KEY ("payload_folders_id") REFERENCES "public"."payload_folders"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."payload_preferences"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "payload_preferences_rels" ADD CONSTRAINT "payload_preferences_rels_users_fk" FOREIGN KEY ("users_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "redirects_rels" ADD CONSTRAINT "redirects_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."redirects"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "redirects_rels" ADD CONSTRAINT "redirects_rels_site_pages_fk" FOREIGN KEY ("site_pages_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "redirects_rels" ADD CONSTRAINT "redirects_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "search" ADD CONSTRAINT "search_meta_image_id_media_id_fk" FOREIGN KEY ("meta_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "search_categories" ADD CONSTRAINT "search_categories_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."search"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "search_rels" ADD CONSTRAINT "search_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages" ADD CONSTRAINT "site_pages_hero_media_id_media_id_fk" FOREIGN KEY ("hero_media_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages" ADD CONSTRAINT "site_pages_hero_background_image_id_media_id_fk" FOREIGN KEY ("hero_background_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages" ADD CONSTRAINT "site_pages_hero_background_video_id_media_id_fk" FOREIGN KEY ("hero_background_video_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages" ADD CONSTRAINT "site_pages_hero_foreground_image_id_media_id_fk" FOREIGN KEY ("hero_foreground_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages" ADD CONSTRAINT "site_pages_parent_id_site_pages_id_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."site_pages"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages" ADD CONSTRAINT "site_pages_meta_image_id_media_id_fk" FOREIGN KEY ("meta_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_archive" ADD CONSTRAINT "site_pages_blocks_archive_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_contact_section1" ADD CONSTRAINT "site_pages_blocks_contact_section1_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_contact_section1_hours_rows" ADD CONSTRAINT "site_pages_blocks_contact_section1_hours_rows_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_contact_section1"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_content" ADD CONSTRAINT "site_pages_blocks_content_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_content_columns" ADD CONSTRAINT "site_pages_blocks_content_columns_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_content"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_cta" ADD CONSTRAINT "site_pages_blocks_cta_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_cta_links" ADD CONSTRAINT "site_pages_blocks_cta_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_cta"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_cta_section3" ADD CONSTRAINT "site_pages_blocks_cta_section3_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_cta_section3_right_cards" ADD CONSTRAINT "site_pages_blocks_cta_section3_right_cards_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_cta_section3"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_faq_simple" ADD CONSTRAINT "site_pages_blocks_faq_simple_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_faq_simple_faqs" ADD CONSTRAINT "site_pages_blocks_faq_simple_faqs_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_faq_simple"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_feature1" ADD CONSTRAINT "site_pages_blocks_feature1_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_feature1_items" ADD CONSTRAINT "site_pages_blocks_feature1_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_feature1"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_feature2" ADD CONSTRAINT "site_pages_blocks_feature2_image_id_media_id_fk" FOREIGN KEY ("image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_feature2" ADD CONSTRAINT "site_pages_blocks_feature2_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_feature2_items" ADD CONSTRAINT "site_pages_blocks_feature2_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_feature2"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_features_grid" ADD CONSTRAINT "site_pages_blocks_features_grid_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_features_grid_items" ADD CONSTRAINT "site_pages_blocks_features_grid_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_features_grid"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_features_scaling" ADD CONSTRAINT "site_pages_blocks_features_scaling_dark_image_id_media_id_fk" FOREIGN KEY ("dark_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_features_scaling" ADD CONSTRAINT "site_pages_blocks_features_scaling_light_image_id_media_id_fk" FOREIGN KEY ("light_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_features_scaling" ADD CONSTRAINT "site_pages_blocks_features_scaling_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_features_scaling_features" ADD CONSTRAINT "site_pages_blocks_features_scaling_features_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_features_scaling"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_form_block" ADD CONSTRAINT "site_pages_blocks_form_block_form_id_forms_id_fk" FOREIGN KEY ("form_id") REFERENCES "public"."forms"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_form_block" ADD CONSTRAINT "site_pages_blocks_form_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_hero_grid" ADD CONSTRAINT "site_pages_blocks_hero_grid_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_lyra_content" ADD CONSTRAINT "site_pages_blocks_lyra_content_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_lyra_feature" ADD CONSTRAINT "site_pages_blocks_lyra_feature_dark_image_id_media_id_fk" FOREIGN KEY ("dark_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_lyra_feature" ADD CONSTRAINT "site_pages_blocks_lyra_feature_light_image_id_media_id_fk" FOREIGN KEY ("light_image_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_lyra_feature" ADD CONSTRAINT "site_pages_blocks_lyra_feature_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_media_block" ADD CONSTRAINT "site_pages_blocks_media_block_media_id_media_id_fk" FOREIGN KEY ("media_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_media_block" ADD CONSTRAINT "site_pages_blocks_media_block_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_pricing" ADD CONSTRAINT "site_pages_blocks_pricing_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_pricing_cards" ADD CONSTRAINT "site_pages_blocks_pricing_cards_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_pricing_cards_plans" ADD CONSTRAINT "site_pages_blocks_pricing_cards_plans_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_pricing_cards"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_pricing_cards_plans_features" ADD CONSTRAINT "site_pages_blocks_pricing_cards_plans_features_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_pricing_cards_plans"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_pricing_plans" ADD CONSTRAINT "site_pages_blocks_pricing_plans_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_pricing"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_pricing_plans_features" ADD CONSTRAINT "site_pages_blocks_pricing_plans_features_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_pricing_plans"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_scroll_morph_hero" ADD CONSTRAINT "site_pages_blocks_scroll_morph_hero_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_serp_content" ADD CONSTRAINT "site_pages_blocks_serp_content_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_serp_content_bullets" ADD CONSTRAINT "site_pages_blocks_serp_content_bullets_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_serp_content"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_service_ux_ui" ADD CONSTRAINT "site_pages_blocks_service_ux_ui_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_services4" ADD CONSTRAINT "site_pages_blocks_services4_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_services4_services" ADD CONSTRAINT "site_pages_blocks_services4_services_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_services4"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_blocks_services4_services_items" ADD CONSTRAINT "site_pages_blocks_services4_services_items_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages_blocks_services4_services"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_hero_floating_elements" ADD CONSTRAINT "site_pages_hero_floating_elements_icon_id_media_id_fk" FOREIGN KEY ("icon_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_hero_floating_elements" ADD CONSTRAINT "site_pages_hero_floating_elements_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_hero_links" ADD CONSTRAINT "site_pages_hero_links_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_hero_marquee_logos" ADD CONSTRAINT "site_pages_hero_marquee_logos_logo_id_media_id_fk" FOREIGN KEY ("logo_id") REFERENCES "public"."media"("id") ON DELETE set null ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_hero_marquee_logos" ADD CONSTRAINT "site_pages_hero_marquee_logos_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_rels" ADD CONSTRAINT "site_pages_rels_parent_fk" FOREIGN KEY ("parent_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_rels" ADD CONSTRAINT "site_pages_rels_site_pages_fk" FOREIGN KEY ("site_pages_id") REFERENCES "public"."site_pages"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_rels" ADD CONSTRAINT "site_pages_rels_blog_posts_fk" FOREIGN KEY ("blog_posts_id") REFERENCES "public"."blog_posts"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "site_pages_rels" ADD CONSTRAINT "site_pages_rels_categories_fk" FOREIGN KEY ("categories_id") REFERENCES "public"."categories"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+ALTER TABLE "users_sessions" ADD CONSTRAINT "users_sessions_parent_id_fk" FOREIGN KEY ("_parent_id") REFERENCES "public"."users"("id") ON DELETE cascade ON UPDATE no action;
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_parent_idx" ON "_blog_posts_v" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_version_version_hero_image_idx" ON "_blog_posts_v" USING btree ("version_hero_image_id");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_version_meta_version_meta_image_idx" ON "_blog_posts_v" USING btree ("version_meta_image_id");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_version_version_slug_idx" ON "_blog_posts_v" USING btree ("version_slug");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_version_version_updated_at_idx" ON "_blog_posts_v" USING btree ("version_updated_at");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_version_version_created_at_idx" ON "_blog_posts_v" USING btree ("version_created_at");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_version_version__status_idx" ON "_blog_posts_v" USING btree ("version__status");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_created_at_idx" ON "_blog_posts_v" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_updated_at_idx" ON "_blog_posts_v" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_latest_idx" ON "_blog_posts_v" USING btree ("latest");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_autosave_idx" ON "_blog_posts_v" USING btree ("autosave");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_rels_order_idx" ON "_blog_posts_v_rels" USING btree ("order");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_rels_parent_idx" ON "_blog_posts_v_rels" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_rels_path_idx" ON "_blog_posts_v_rels" USING btree ("path");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_rels_blog_posts_id_idx" ON "_blog_posts_v_rels" USING btree ("blog_posts_id");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_rels_categories_id_idx" ON "_blog_posts_v_rels" USING btree ("categories_id");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_rels_users_id_idx" ON "_blog_posts_v_rels" USING btree ("users_id");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_version_populated_authors_order_idx" ON "_blog_posts_v_version_populated_authors" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_blog_posts_v_version_populated_authors_parent_id_idx" ON "_blog_posts_v_version_populated_authors" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_collab_cur_v_order_idx" ON "_collab_cur_v" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_collab_cur_v_parent_id_idx" ON "_collab_cur_v" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_collab_cur_v_path_idx" ON "_collab_cur_v" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_feat_adv_v_order_idx" ON "_feat_adv_v" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_feat_adv_v_parent_id_idx" ON "_feat_adv_v" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_feat_adv_v_path_idx" ON "_feat_adv_v" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_feat_adv_v_items_order_idx" ON "_feat_adv_v_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_feat_adv_v_items_parent_id_idx" ON "_feat_adv_v_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_feat_ai_acc_v_order_idx" ON "_feat_ai_acc_v" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_feat_ai_acc_v_parent_id_idx" ON "_feat_ai_acc_v" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_feat_ai_acc_v_path_idx" ON "_feat_ai_acc_v" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_feat_ai_acc_v_items_order_idx" ON "_feat_ai_acc_v_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_feat_ai_acc_v_items_parent_id_idx" ON "_feat_ai_acc_v_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_feat_ai_acc_v_items_dark_image_idx" ON "_feat_ai_acc_v_items" USING btree ("dark_image_id");
+--> statement-breakpoint
+CREATE INDEX "_feat_ai_acc_v_items_light_image_idx" ON "_feat_ai_acc_v_items" USING btree ("light_image_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_parent_idx" ON "_site_pages_v" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_hero_version_hero_media_idx" ON "_site_pages_v" USING btree ("version_hero_media_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_hero_version_hero_background_image_idx" ON "_site_pages_v" USING btree ("version_hero_background_image_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_hero_version_hero_background_video_idx" ON "_site_pages_v" USING btree ("version_hero_background_video_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_hero_version_hero_foreground_image_idx" ON "_site_pages_v" USING btree ("version_hero_foreground_image_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_version_slug_idx" ON "_site_pages_v" USING btree ("version_slug");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_version_parent_idx" ON "_site_pages_v" USING btree ("version_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_meta_version_meta_image_idx" ON "_site_pages_v" USING btree ("version_meta_image_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_version_updated_at_idx" ON "_site_pages_v" USING btree ("version_updated_at");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_version_created_at_idx" ON "_site_pages_v" USING btree ("version_created_at");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_version__status_idx" ON "_site_pages_v" USING btree ("version__status");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_created_at_idx" ON "_site_pages_v" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_updated_at_idx" ON "_site_pages_v" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_latest_idx" ON "_site_pages_v" USING btree ("latest");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_autosave_idx" ON "_site_pages_v" USING btree ("autosave");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_archive_order_idx" ON "_site_pages_v_blocks_archive" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_archive_parent_id_idx" ON "_site_pages_v_blocks_archive" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_archive_path_idx" ON "_site_pages_v_blocks_archive" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_contact_section1_order_idx" ON "_site_pages_v_blocks_contact_section1" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_contact_section1_parent_id_idx" ON "_site_pages_v_blocks_contact_section1" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_contact_section1_path_idx" ON "_site_pages_v_blocks_contact_section1" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_contact_section1_hours_rows_order_idx" ON "_site_pages_v_blocks_contact_section1_hours_rows" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_contact_section1_hours_rows_parent_id_idx" ON "_site_pages_v_blocks_contact_section1_hours_rows" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_content_order_idx" ON "_site_pages_v_blocks_content" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_content_parent_id_idx" ON "_site_pages_v_blocks_content" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_content_path_idx" ON "_site_pages_v_blocks_content" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_content_columns_order_idx" ON "_site_pages_v_blocks_content_columns" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_content_columns_parent_id_idx" ON "_site_pages_v_blocks_content_columns" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_cta_order_idx" ON "_site_pages_v_blocks_cta" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_cta_parent_id_idx" ON "_site_pages_v_blocks_cta" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_cta_path_idx" ON "_site_pages_v_blocks_cta" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_cta_links_order_idx" ON "_site_pages_v_blocks_cta_links" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_cta_links_parent_id_idx" ON "_site_pages_v_blocks_cta_links" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_cta_section3_order_idx" ON "_site_pages_v_blocks_cta_section3" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_cta_section3_parent_id_idx" ON "_site_pages_v_blocks_cta_section3" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_cta_section3_path_idx" ON "_site_pages_v_blocks_cta_section3" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_cta_section3_right_cards_order_idx" ON "_site_pages_v_blocks_cta_section3_right_cards" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_cta_section3_right_cards_parent_id_idx" ON "_site_pages_v_blocks_cta_section3_right_cards" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_faq_simple_order_idx" ON "_site_pages_v_blocks_faq_simple" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_faq_simple_parent_id_idx" ON "_site_pages_v_blocks_faq_simple" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_faq_simple_path_idx" ON "_site_pages_v_blocks_faq_simple" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_faq_simple_faqs_order_idx" ON "_site_pages_v_blocks_faq_simple_faqs" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_faq_simple_faqs_parent_id_idx" ON "_site_pages_v_blocks_faq_simple_faqs" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_feature1_order_idx" ON "_site_pages_v_blocks_feature1" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_feature1_parent_id_idx" ON "_site_pages_v_blocks_feature1" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_feature1_path_idx" ON "_site_pages_v_blocks_feature1" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_feature1_items_order_idx" ON "_site_pages_v_blocks_feature1_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_feature1_items_parent_id_idx" ON "_site_pages_v_blocks_feature1_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_feature2_order_idx" ON "_site_pages_v_blocks_feature2" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_feature2_parent_id_idx" ON "_site_pages_v_blocks_feature2" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_feature2_path_idx" ON "_site_pages_v_blocks_feature2" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_feature2_image_idx" ON "_site_pages_v_blocks_feature2" USING btree ("image_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_feature2_items_order_idx" ON "_site_pages_v_blocks_feature2_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_feature2_items_parent_id_idx" ON "_site_pages_v_blocks_feature2_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_features_grid_order_idx" ON "_site_pages_v_blocks_features_grid" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_features_grid_parent_id_idx" ON "_site_pages_v_blocks_features_grid" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_features_grid_path_idx" ON "_site_pages_v_blocks_features_grid" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_features_grid_items_order_idx" ON "_site_pages_v_blocks_features_grid_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_features_grid_items_parent_id_idx" ON "_site_pages_v_blocks_features_grid_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_features_scaling_order_idx" ON "_site_pages_v_blocks_features_scaling" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_features_scaling_parent_id_idx" ON "_site_pages_v_blocks_features_scaling" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_features_scaling_path_idx" ON "_site_pages_v_blocks_features_scaling" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_features_scaling_dark_image_idx" ON "_site_pages_v_blocks_features_scaling" USING btree ("dark_image_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_features_scaling_light_image_idx" ON "_site_pages_v_blocks_features_scaling" USING btree ("light_image_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_features_scaling_features_order_idx" ON "_site_pages_v_blocks_features_scaling_features" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_features_scaling_features_parent_id_idx" ON "_site_pages_v_blocks_features_scaling_features" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_form_block_order_idx" ON "_site_pages_v_blocks_form_block" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_form_block_parent_id_idx" ON "_site_pages_v_blocks_form_block" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_form_block_path_idx" ON "_site_pages_v_blocks_form_block" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_form_block_form_idx" ON "_site_pages_v_blocks_form_block" USING btree ("form_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_hero_grid_order_idx" ON "_site_pages_v_blocks_hero_grid" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_hero_grid_parent_id_idx" ON "_site_pages_v_blocks_hero_grid" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_hero_grid_path_idx" ON "_site_pages_v_blocks_hero_grid" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_lyra_content_order_idx" ON "_site_pages_v_blocks_lyra_content" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_lyra_content_parent_id_idx" ON "_site_pages_v_blocks_lyra_content" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_lyra_content_path_idx" ON "_site_pages_v_blocks_lyra_content" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_lyra_feature_order_idx" ON "_site_pages_v_blocks_lyra_feature" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_lyra_feature_parent_id_idx" ON "_site_pages_v_blocks_lyra_feature" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_lyra_feature_path_idx" ON "_site_pages_v_blocks_lyra_feature" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_lyra_feature_dark_image_idx" ON "_site_pages_v_blocks_lyra_feature" USING btree ("dark_image_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_lyra_feature_light_image_idx" ON "_site_pages_v_blocks_lyra_feature" USING btree ("light_image_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_media_block_order_idx" ON "_site_pages_v_blocks_media_block" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_media_block_parent_id_idx" ON "_site_pages_v_blocks_media_block" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_media_block_path_idx" ON "_site_pages_v_blocks_media_block" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_media_block_media_idx" ON "_site_pages_v_blocks_media_block" USING btree ("media_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_order_idx" ON "_site_pages_v_blocks_pricing" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_parent_id_idx" ON "_site_pages_v_blocks_pricing" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_path_idx" ON "_site_pages_v_blocks_pricing" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_cards_order_idx" ON "_site_pages_v_blocks_pricing_cards" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_cards_parent_id_idx" ON "_site_pages_v_blocks_pricing_cards" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_cards_path_idx" ON "_site_pages_v_blocks_pricing_cards" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_cards_plans_order_idx" ON "_site_pages_v_blocks_pricing_cards_plans" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_cards_plans_parent_id_idx" ON "_site_pages_v_blocks_pricing_cards_plans" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_cards_plans_features_order_idx" ON "_site_pages_v_blocks_pricing_cards_plans_features" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_cards_plans_features_parent_id_idx" ON "_site_pages_v_blocks_pricing_cards_plans_features" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_plans_order_idx" ON "_site_pages_v_blocks_pricing_plans" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_plans_parent_id_idx" ON "_site_pages_v_blocks_pricing_plans" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_plans_features_order_idx" ON "_site_pages_v_blocks_pricing_plans_features" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_pricing_plans_features_parent_id_idx" ON "_site_pages_v_blocks_pricing_plans_features" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_scroll_morph_hero_order_idx" ON "_site_pages_v_blocks_scroll_morph_hero" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_scroll_morph_hero_parent_id_idx" ON "_site_pages_v_blocks_scroll_morph_hero" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_scroll_morph_hero_path_idx" ON "_site_pages_v_blocks_scroll_morph_hero" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_serp_content_order_idx" ON "_site_pages_v_blocks_serp_content" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_serp_content_parent_id_idx" ON "_site_pages_v_blocks_serp_content" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_serp_content_path_idx" ON "_site_pages_v_blocks_serp_content" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_serp_content_bullets_order_idx" ON "_site_pages_v_blocks_serp_content_bullets" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_serp_content_bullets_parent_id_idx" ON "_site_pages_v_blocks_serp_content_bullets" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_service_ux_ui_order_idx" ON "_site_pages_v_blocks_service_ux_ui" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_service_ux_ui_parent_id_idx" ON "_site_pages_v_blocks_service_ux_ui" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_service_ux_ui_path_idx" ON "_site_pages_v_blocks_service_ux_ui" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_services4_order_idx" ON "_site_pages_v_blocks_services4" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_services4_parent_id_idx" ON "_site_pages_v_blocks_services4" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_services4_path_idx" ON "_site_pages_v_blocks_services4" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_services4_services_order_idx" ON "_site_pages_v_blocks_services4_services" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_services4_services_parent_id_idx" ON "_site_pages_v_blocks_services4_services" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_services4_services_items_order_idx" ON "_site_pages_v_blocks_services4_services_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_blocks_services4_services_items_parent_id_idx" ON "_site_pages_v_blocks_services4_services_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_rels_order_idx" ON "_site_pages_v_rels" USING btree ("order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_rels_parent_idx" ON "_site_pages_v_rels" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_rels_path_idx" ON "_site_pages_v_rels" USING btree ("path");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_rels_site_pages_id_idx" ON "_site_pages_v_rels" USING btree ("site_pages_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_rels_blog_posts_id_idx" ON "_site_pages_v_rels" USING btree ("blog_posts_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_rels_categories_id_idx" ON "_site_pages_v_rels" USING btree ("categories_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_hero_floating_elements_order_idx" ON "_site_pages_v_version_hero_floating_elements" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_hero_floating_elements_parent_id_idx" ON "_site_pages_v_version_hero_floating_elements" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_hero_floating_elements_icon_idx" ON "_site_pages_v_version_hero_floating_elements" USING btree ("icon_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_hero_links_order_idx" ON "_site_pages_v_version_hero_links" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_hero_links_parent_id_idx" ON "_site_pages_v_version_hero_links" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_hero_marquee_logos_order_idx" ON "_site_pages_v_version_hero_marquee_logos" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_hero_marquee_logos_parent_id_idx" ON "_site_pages_v_version_hero_marquee_logos" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "_site_pages_v_version_hero_marquee_logos_logo_idx" ON "_site_pages_v_version_hero_marquee_logos" USING btree ("logo_id");
+--> statement-breakpoint
+CREATE INDEX "blog_posts_hero_image_idx" ON "blog_posts" USING btree ("hero_image_id");
+--> statement-breakpoint
+CREATE INDEX "blog_posts_meta_meta_image_idx" ON "blog_posts" USING btree ("meta_image_id");
+--> statement-breakpoint
+CREATE UNIQUE INDEX "blog_posts_slug_idx" ON "blog_posts" USING btree ("slug");
+--> statement-breakpoint
+CREATE INDEX "blog_posts_updated_at_idx" ON "blog_posts" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "blog_posts_created_at_idx" ON "blog_posts" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "blog_posts__status_idx" ON "blog_posts" USING btree ("_status");
+--> statement-breakpoint
+CREATE INDEX "blog_posts_populated_authors_order_idx" ON "blog_posts_populated_authors" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "blog_posts_populated_authors_parent_id_idx" ON "blog_posts_populated_authors" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "blog_posts_rels_order_idx" ON "blog_posts_rels" USING btree ("order");
+--> statement-breakpoint
+CREATE INDEX "blog_posts_rels_parent_idx" ON "blog_posts_rels" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "blog_posts_rels_path_idx" ON "blog_posts_rels" USING btree ("path");
+--> statement-breakpoint
+CREATE INDEX "blog_posts_rels_blog_posts_id_idx" ON "blog_posts_rels" USING btree ("blog_posts_id");
+--> statement-breakpoint
+CREATE INDEX "blog_posts_rels_categories_id_idx" ON "blog_posts_rels" USING btree ("categories_id");
+--> statement-breakpoint
+CREATE INDEX "blog_posts_rels_users_id_idx" ON "blog_posts_rels" USING btree ("users_id");
+--> statement-breakpoint
+CREATE UNIQUE INDEX "categories_slug_idx" ON "categories" USING btree ("slug");
+--> statement-breakpoint
+CREATE INDEX "categories_parent_idx" ON "categories" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "categories_updated_at_idx" ON "categories" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "categories_created_at_idx" ON "categories" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "categories_breadcrumbs_order_idx" ON "categories_breadcrumbs" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "categories_breadcrumbs_parent_id_idx" ON "categories_breadcrumbs" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "categories_breadcrumbs_doc_idx" ON "categories_breadcrumbs" USING btree ("doc_id");
+--> statement-breakpoint
+CREATE INDEX "collab_cur_order_idx" ON "collab_cur" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "collab_cur_parent_id_idx" ON "collab_cur" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "collab_cur_path_idx" ON "collab_cur" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "feat_adv_order_idx" ON "feat_adv" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "feat_adv_parent_id_idx" ON "feat_adv" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "feat_adv_path_idx" ON "feat_adv" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "feat_adv_items_order_idx" ON "feat_adv_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "feat_adv_items_parent_id_idx" ON "feat_adv_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "feat_ai_acc_order_idx" ON "feat_ai_acc" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "feat_ai_acc_parent_id_idx" ON "feat_ai_acc" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "feat_ai_acc_path_idx" ON "feat_ai_acc" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "feat_ai_acc_items_order_idx" ON "feat_ai_acc_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "feat_ai_acc_items_parent_id_idx" ON "feat_ai_acc_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "feat_ai_acc_items_dark_image_idx" ON "feat_ai_acc_items" USING btree ("dark_image_id");
+--> statement-breakpoint
+CREATE INDEX "feat_ai_acc_items_light_image_idx" ON "feat_ai_acc_items" USING btree ("light_image_id");
+--> statement-breakpoint
+CREATE INDEX "footer_footer_logo_idx" ON "footer" USING btree ("footer_logo_id");
+--> statement-breakpoint
+CREATE INDEX "footer_mobile_footer_logo_idx" ON "footer" USING btree ("mobile_footer_logo_id");
+--> statement-breakpoint
+CREATE INDEX "footer_newsletter_icon_upload_idx" ON "footer" USING btree ("newsletter_icon_upload_id");
+--> statement-breakpoint
+CREATE INDEX "footer_columns_order_idx" ON "footer_columns" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "footer_columns_parent_id_idx" ON "footer_columns" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "footer_columns_column_icon_upload_idx" ON "footer_columns" USING btree ("column_icon_upload_id");
+--> statement-breakpoint
+CREATE INDEX "footer_columns_links_order_idx" ON "footer_columns_links" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "footer_columns_links_parent_id_idx" ON "footer_columns_links" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "footer_nav_items_order_idx" ON "footer_nav_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "footer_nav_items_parent_id_idx" ON "footer_nav_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "footer_rels_order_idx" ON "footer_rels" USING btree ("order");
+--> statement-breakpoint
+CREATE INDEX "footer_rels_parent_idx" ON "footer_rels" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "footer_rels_path_idx" ON "footer_rels" USING btree ("path");
+--> statement-breakpoint
+CREATE INDEX "footer_rels_site_pages_id_idx" ON "footer_rels" USING btree ("site_pages_id");
+--> statement-breakpoint
+CREATE INDEX "footer_rels_blog_posts_id_idx" ON "footer_rels" USING btree ("blog_posts_id");
+--> statement-breakpoint
+CREATE INDEX "footer_social_links_order_idx" ON "footer_social_links" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "footer_social_links_parent_id_idx" ON "footer_social_links" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "footer_social_links_icon_upload_idx" ON "footer_social_links" USING btree ("icon_upload_id");
+--> statement-breakpoint
+CREATE INDEX "form_submissions_form_idx" ON "form_submissions" USING btree ("form_id");
+--> statement-breakpoint
+CREATE INDEX "form_submissions_updated_at_idx" ON "form_submissions" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "form_submissions_created_at_idx" ON "form_submissions" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "form_submissions_submission_data_order_idx" ON "form_submissions_submission_data" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "form_submissions_submission_data_parent_id_idx" ON "form_submissions_submission_data" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "forms_updated_at_idx" ON "forms" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "forms_created_at_idx" ON "forms" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_checkbox_order_idx" ON "forms_blocks_checkbox" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_checkbox_parent_id_idx" ON "forms_blocks_checkbox" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_checkbox_path_idx" ON "forms_blocks_checkbox" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_country_order_idx" ON "forms_blocks_country" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_country_parent_id_idx" ON "forms_blocks_country" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_country_path_idx" ON "forms_blocks_country" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_email_order_idx" ON "forms_blocks_email" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_email_parent_id_idx" ON "forms_blocks_email" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_email_path_idx" ON "forms_blocks_email" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_message_order_idx" ON "forms_blocks_message" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_message_parent_id_idx" ON "forms_blocks_message" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_message_path_idx" ON "forms_blocks_message" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_number_order_idx" ON "forms_blocks_number" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_number_parent_id_idx" ON "forms_blocks_number" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_number_path_idx" ON "forms_blocks_number" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_select_order_idx" ON "forms_blocks_select" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_select_parent_id_idx" ON "forms_blocks_select" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_select_path_idx" ON "forms_blocks_select" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_select_options_order_idx" ON "forms_blocks_select_options" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_select_options_parent_id_idx" ON "forms_blocks_select_options" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_state_order_idx" ON "forms_blocks_state" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_state_parent_id_idx" ON "forms_blocks_state" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_state_path_idx" ON "forms_blocks_state" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_text_order_idx" ON "forms_blocks_text" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_text_parent_id_idx" ON "forms_blocks_text" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_text_path_idx" ON "forms_blocks_text" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_textarea_order_idx" ON "forms_blocks_textarea" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_textarea_parent_id_idx" ON "forms_blocks_textarea" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "forms_blocks_textarea_path_idx" ON "forms_blocks_textarea" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "forms_emails_order_idx" ON "forms_emails" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "forms_emails_parent_id_idx" ON "forms_emails" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "header_mega_menu_callback_form_idx" ON "header" USING btree ("mega_menu_callback_form_id");
+--> statement-breakpoint
+CREATE INDEX "header_mega_menu_newsletter_form_idx" ON "header" USING btree ("mega_menu_newsletter_form_id");
+--> statement-breakpoint
+CREATE INDEX "header_logo_idx" ON "header" USING btree ("logo_id");
+--> statement-breakpoint
+CREATE INDEX "header_nav_items_order_idx" ON "header_nav_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "header_nav_items_parent_id_idx" ON "header_nav_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "header_rels_order_idx" ON "header_rels" USING btree ("order");
+--> statement-breakpoint
+CREATE INDEX "header_rels_parent_idx" ON "header_rels" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "header_rels_path_idx" ON "header_rels" USING btree ("path");
+--> statement-breakpoint
+CREATE INDEX "header_rels_site_pages_id_idx" ON "header_rels" USING btree ("site_pages_id");
+--> statement-breakpoint
+CREATE INDEX "header_rels_blog_posts_id_idx" ON "header_rels" USING btree ("blog_posts_id");
+--> statement-breakpoint
+CREATE INDEX "media_folder_idx" ON "media" USING btree ("folder_id");
+--> statement-breakpoint
+CREATE INDEX "media_updated_at_idx" ON "media" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "media_created_at_idx" ON "media" USING btree ("created_at");
+--> statement-breakpoint
+CREATE UNIQUE INDEX "media_filename_idx" ON "media" USING btree ("filename");
+--> statement-breakpoint
+CREATE INDEX "media_sizes_thumbnail_sizes_thumbnail_filename_idx" ON "media" USING btree ("sizes_thumbnail_filename");
+--> statement-breakpoint
+CREATE INDEX "media_sizes_square_sizes_square_filename_idx" ON "media" USING btree ("sizes_square_filename");
+--> statement-breakpoint
+CREATE INDEX "media_sizes_small_sizes_small_filename_idx" ON "media" USING btree ("sizes_small_filename");
+--> statement-breakpoint
+CREATE INDEX "media_sizes_medium_sizes_medium_filename_idx" ON "media" USING btree ("sizes_medium_filename");
+--> statement-breakpoint
+CREATE INDEX "media_sizes_large_sizes_large_filename_idx" ON "media" USING btree ("sizes_large_filename");
+--> statement-breakpoint
+CREATE INDEX "media_sizes_xlarge_sizes_xlarge_filename_idx" ON "media" USING btree ("sizes_xlarge_filename");
+--> statement-breakpoint
+CREATE INDEX "media_sizes_og_sizes_og_filename_idx" ON "media" USING btree ("sizes_og_filename");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_icon_idx" ON "mega_menu" USING btree ("icon_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_image_idx" ON "mega_menu" USING btree ("image_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_highlight_highlight_icon_idx" ON "mega_menu" USING btree ("highlight_icon_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_highlight_highlight_image_idx" ON "mega_menu" USING btree ("highlight_image_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_updated_at_idx" ON "mega_menu" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_created_at_idx" ON "mega_menu" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_columns_order_idx" ON "mega_menu_columns" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_columns_parent_id_idx" ON "mega_menu_columns" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_columns_items_order_idx" ON "mega_menu_columns_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_columns_items_parent_id_idx" ON "mega_menu_columns_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_columns_items_icon_idx" ON "mega_menu_columns_items" USING btree ("icon_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_columns_items_image_idx" ON "mega_menu_columns_items" USING btree ("image_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_highlight_cards_order_idx" ON "mega_menu_highlight_cards" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_highlight_cards_parent_id_idx" ON "mega_menu_highlight_cards" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_highlight_cards_icon_idx" ON "mega_menu_highlight_cards" USING btree ("icon_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_highlight_cards_image_idx" ON "mega_menu_highlight_cards" USING btree ("image_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_sub_items_order_idx" ON "mega_menu_sub_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_sub_items_parent_id_idx" ON "mega_menu_sub_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_sub_items_icon_idx" ON "mega_menu_sub_items" USING btree ("icon_id");
+--> statement-breakpoint
+CREATE INDEX "mega_menu_sub_items_image_idx" ON "mega_menu_sub_items" USING btree ("image_id");
+--> statement-breakpoint
+CREATE INDEX "payload_folders_name_idx" ON "payload_folders" USING btree ("name");
+--> statement-breakpoint
+CREATE INDEX "payload_folders_folder_idx" ON "payload_folders" USING btree ("folder_id");
+--> statement-breakpoint
+CREATE INDEX "payload_folders_updated_at_idx" ON "payload_folders" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "payload_folders_created_at_idx" ON "payload_folders" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "payload_folders_folder_type_order_idx" ON "payload_folders_folder_type" USING btree ("order");
+--> statement-breakpoint
+CREATE INDEX "payload_folders_folder_type_parent_idx" ON "payload_folders_folder_type" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "payload_jobs_completed_at_idx" ON "payload_jobs" USING btree ("completed_at");
+--> statement-breakpoint
+CREATE INDEX "payload_jobs_total_tried_idx" ON "payload_jobs" USING btree ("total_tried");
+--> statement-breakpoint
+CREATE INDEX "payload_jobs_has_error_idx" ON "payload_jobs" USING btree ("has_error");
+--> statement-breakpoint
+CREATE INDEX "payload_jobs_task_slug_idx" ON "payload_jobs" USING btree ("task_slug");
+--> statement-breakpoint
+CREATE INDEX "payload_jobs_queue_idx" ON "payload_jobs" USING btree ("queue");
+--> statement-breakpoint
+CREATE INDEX "payload_jobs_wait_until_idx" ON "payload_jobs" USING btree ("wait_until");
+--> statement-breakpoint
+CREATE INDEX "payload_jobs_processing_idx" ON "payload_jobs" USING btree ("processing");
+--> statement-breakpoint
+CREATE INDEX "payload_jobs_updated_at_idx" ON "payload_jobs" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "payload_jobs_created_at_idx" ON "payload_jobs" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "payload_jobs_log_order_idx" ON "payload_jobs_log" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "payload_jobs_log_parent_id_idx" ON "payload_jobs_log" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE UNIQUE INDEX "payload_kv_key_idx" ON "payload_kv" USING btree ("key");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_global_slug_idx" ON "payload_locked_documents" USING btree ("global_slug");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_updated_at_idx" ON "payload_locked_documents" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_created_at_idx" ON "payload_locked_documents" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_order_idx" ON "payload_locked_documents_rels" USING btree ("order");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_parent_idx" ON "payload_locked_documents_rels" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_path_idx" ON "payload_locked_documents_rels" USING btree ("path");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_site_pages_id_idx" ON "payload_locked_documents_rels" USING btree ("site_pages_id");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_blog_posts_id_idx" ON "payload_locked_documents_rels" USING btree ("blog_posts_id");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_media_id_idx" ON "payload_locked_documents_rels" USING btree ("media_id");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_categories_id_idx" ON "payload_locked_documents_rels" USING btree ("categories_id");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_users_id_idx" ON "payload_locked_documents_rels" USING btree ("users_id");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_mega_menu_id_idx" ON "payload_locked_documents_rels" USING btree ("mega_menu_id");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_redirects_id_idx" ON "payload_locked_documents_rels" USING btree ("redirects_id");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_forms_id_idx" ON "payload_locked_documents_rels" USING btree ("forms_id");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_form_submissions_id_idx" ON "payload_locked_documents_rels" USING btree ("form_submissions_id");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_search_id_idx" ON "payload_locked_documents_rels" USING btree ("search_id");
+--> statement-breakpoint
+CREATE INDEX "payload_locked_documents_rels_payload_folders_id_idx" ON "payload_locked_documents_rels" USING btree ("payload_folders_id");
+--> statement-breakpoint
+CREATE INDEX "payload_migrations_updated_at_idx" ON "payload_migrations" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "payload_migrations_created_at_idx" ON "payload_migrations" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "payload_preferences_key_idx" ON "payload_preferences" USING btree ("key");
+--> statement-breakpoint
+CREATE INDEX "payload_preferences_updated_at_idx" ON "payload_preferences" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "payload_preferences_created_at_idx" ON "payload_preferences" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "payload_preferences_rels_order_idx" ON "payload_preferences_rels" USING btree ("order");
+--> statement-breakpoint
+CREATE INDEX "payload_preferences_rels_parent_idx" ON "payload_preferences_rels" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "payload_preferences_rels_path_idx" ON "payload_preferences_rels" USING btree ("path");
+--> statement-breakpoint
+CREATE INDEX "payload_preferences_rels_users_id_idx" ON "payload_preferences_rels" USING btree ("users_id");
+--> statement-breakpoint
+CREATE UNIQUE INDEX "redirects_from_idx" ON "redirects" USING btree ("from");
+--> statement-breakpoint
+CREATE INDEX "redirects_updated_at_idx" ON "redirects" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "redirects_created_at_idx" ON "redirects" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "redirects_rels_order_idx" ON "redirects_rels" USING btree ("order");
+--> statement-breakpoint
+CREATE INDEX "redirects_rels_parent_idx" ON "redirects_rels" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "redirects_rels_path_idx" ON "redirects_rels" USING btree ("path");
+--> statement-breakpoint
+CREATE INDEX "redirects_rels_site_pages_id_idx" ON "redirects_rels" USING btree ("site_pages_id");
+--> statement-breakpoint
+CREATE INDEX "redirects_rels_blog_posts_id_idx" ON "redirects_rels" USING btree ("blog_posts_id");
+--> statement-breakpoint
+CREATE INDEX "search_slug_idx" ON "search" USING btree ("slug");
+--> statement-breakpoint
+CREATE INDEX "search_meta_meta_image_idx" ON "search" USING btree ("meta_image_id");
+--> statement-breakpoint
+CREATE INDEX "search_updated_at_idx" ON "search" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "search_created_at_idx" ON "search" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "search_categories_order_idx" ON "search_categories" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "search_categories_parent_id_idx" ON "search_categories" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "search_rels_order_idx" ON "search_rels" USING btree ("order");
+--> statement-breakpoint
+CREATE INDEX "search_rels_parent_idx" ON "search_rels" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "search_rels_path_idx" ON "search_rels" USING btree ("path");
+--> statement-breakpoint
+CREATE INDEX "search_rels_blog_posts_id_idx" ON "search_rels" USING btree ("blog_posts_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_hero_hero_media_idx" ON "site_pages" USING btree ("hero_media_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_hero_hero_background_image_idx" ON "site_pages" USING btree ("hero_background_image_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_hero_hero_background_video_idx" ON "site_pages" USING btree ("hero_background_video_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_hero_hero_foreground_image_idx" ON "site_pages" USING btree ("hero_foreground_image_id");
+--> statement-breakpoint
+CREATE UNIQUE INDEX "site_pages_slug_idx" ON "site_pages" USING btree ("slug");
+--> statement-breakpoint
+CREATE INDEX "site_pages_parent_idx" ON "site_pages" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_meta_meta_image_idx" ON "site_pages" USING btree ("meta_image_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_updated_at_idx" ON "site_pages" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "site_pages_created_at_idx" ON "site_pages" USING btree ("created_at");
+--> statement-breakpoint
+CREATE INDEX "site_pages__status_idx" ON "site_pages" USING btree ("_status");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_archive_order_idx" ON "site_pages_blocks_archive" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_archive_parent_id_idx" ON "site_pages_blocks_archive" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_archive_path_idx" ON "site_pages_blocks_archive" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_contact_section1_order_idx" ON "site_pages_blocks_contact_section1" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_contact_section1_parent_id_idx" ON "site_pages_blocks_contact_section1" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_contact_section1_path_idx" ON "site_pages_blocks_contact_section1" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_contact_section1_hours_rows_order_idx" ON "site_pages_blocks_contact_section1_hours_rows" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_contact_section1_hours_rows_parent_id_idx" ON "site_pages_blocks_contact_section1_hours_rows" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_content_order_idx" ON "site_pages_blocks_content" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_content_parent_id_idx" ON "site_pages_blocks_content" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_content_path_idx" ON "site_pages_blocks_content" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_content_columns_order_idx" ON "site_pages_blocks_content_columns" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_content_columns_parent_id_idx" ON "site_pages_blocks_content_columns" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_cta_order_idx" ON "site_pages_blocks_cta" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_cta_parent_id_idx" ON "site_pages_blocks_cta" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_cta_path_idx" ON "site_pages_blocks_cta" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_cta_links_order_idx" ON "site_pages_blocks_cta_links" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_cta_links_parent_id_idx" ON "site_pages_blocks_cta_links" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_cta_section3_order_idx" ON "site_pages_blocks_cta_section3" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_cta_section3_parent_id_idx" ON "site_pages_blocks_cta_section3" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_cta_section3_path_idx" ON "site_pages_blocks_cta_section3" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_cta_section3_right_cards_order_idx" ON "site_pages_blocks_cta_section3_right_cards" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_cta_section3_right_cards_parent_id_idx" ON "site_pages_blocks_cta_section3_right_cards" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_faq_simple_order_idx" ON "site_pages_blocks_faq_simple" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_faq_simple_parent_id_idx" ON "site_pages_blocks_faq_simple" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_faq_simple_path_idx" ON "site_pages_blocks_faq_simple" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_faq_simple_faqs_order_idx" ON "site_pages_blocks_faq_simple_faqs" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_faq_simple_faqs_parent_id_idx" ON "site_pages_blocks_faq_simple_faqs" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_feature1_order_idx" ON "site_pages_blocks_feature1" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_feature1_parent_id_idx" ON "site_pages_blocks_feature1" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_feature1_path_idx" ON "site_pages_blocks_feature1" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_feature1_items_order_idx" ON "site_pages_blocks_feature1_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_feature1_items_parent_id_idx" ON "site_pages_blocks_feature1_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_feature2_order_idx" ON "site_pages_blocks_feature2" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_feature2_parent_id_idx" ON "site_pages_blocks_feature2" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_feature2_path_idx" ON "site_pages_blocks_feature2" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_feature2_image_idx" ON "site_pages_blocks_feature2" USING btree ("image_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_feature2_items_order_idx" ON "site_pages_blocks_feature2_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_feature2_items_parent_id_idx" ON "site_pages_blocks_feature2_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_features_grid_order_idx" ON "site_pages_blocks_features_grid" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_features_grid_parent_id_idx" ON "site_pages_blocks_features_grid" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_features_grid_path_idx" ON "site_pages_blocks_features_grid" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_features_grid_items_order_idx" ON "site_pages_blocks_features_grid_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_features_grid_items_parent_id_idx" ON "site_pages_blocks_features_grid_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_features_scaling_order_idx" ON "site_pages_blocks_features_scaling" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_features_scaling_parent_id_idx" ON "site_pages_blocks_features_scaling" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_features_scaling_path_idx" ON "site_pages_blocks_features_scaling" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_features_scaling_dark_image_idx" ON "site_pages_blocks_features_scaling" USING btree ("dark_image_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_features_scaling_light_image_idx" ON "site_pages_blocks_features_scaling" USING btree ("light_image_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_features_scaling_features_order_idx" ON "site_pages_blocks_features_scaling_features" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_features_scaling_features_parent_id_idx" ON "site_pages_blocks_features_scaling_features" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_form_block_order_idx" ON "site_pages_blocks_form_block" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_form_block_parent_id_idx" ON "site_pages_blocks_form_block" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_form_block_path_idx" ON "site_pages_blocks_form_block" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_form_block_form_idx" ON "site_pages_blocks_form_block" USING btree ("form_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_hero_grid_order_idx" ON "site_pages_blocks_hero_grid" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_hero_grid_parent_id_idx" ON "site_pages_blocks_hero_grid" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_hero_grid_path_idx" ON "site_pages_blocks_hero_grid" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_lyra_content_order_idx" ON "site_pages_blocks_lyra_content" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_lyra_content_parent_id_idx" ON "site_pages_blocks_lyra_content" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_lyra_content_path_idx" ON "site_pages_blocks_lyra_content" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_lyra_feature_order_idx" ON "site_pages_blocks_lyra_feature" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_lyra_feature_parent_id_idx" ON "site_pages_blocks_lyra_feature" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_lyra_feature_path_idx" ON "site_pages_blocks_lyra_feature" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_lyra_feature_dark_image_idx" ON "site_pages_blocks_lyra_feature" USING btree ("dark_image_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_lyra_feature_light_image_idx" ON "site_pages_blocks_lyra_feature" USING btree ("light_image_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_media_block_order_idx" ON "site_pages_blocks_media_block" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_media_block_parent_id_idx" ON "site_pages_blocks_media_block" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_media_block_path_idx" ON "site_pages_blocks_media_block" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_media_block_media_idx" ON "site_pages_blocks_media_block" USING btree ("media_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_order_idx" ON "site_pages_blocks_pricing" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_parent_id_idx" ON "site_pages_blocks_pricing" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_path_idx" ON "site_pages_blocks_pricing" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_cards_order_idx" ON "site_pages_blocks_pricing_cards" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_cards_parent_id_idx" ON "site_pages_blocks_pricing_cards" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_cards_path_idx" ON "site_pages_blocks_pricing_cards" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_cards_plans_order_idx" ON "site_pages_blocks_pricing_cards_plans" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_cards_plans_parent_id_idx" ON "site_pages_blocks_pricing_cards_plans" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_cards_plans_features_order_idx" ON "site_pages_blocks_pricing_cards_plans_features" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_cards_plans_features_parent_id_idx" ON "site_pages_blocks_pricing_cards_plans_features" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_plans_order_idx" ON "site_pages_blocks_pricing_plans" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_plans_parent_id_idx" ON "site_pages_blocks_pricing_plans" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_plans_features_order_idx" ON "site_pages_blocks_pricing_plans_features" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_pricing_plans_features_parent_id_idx" ON "site_pages_blocks_pricing_plans_features" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_scroll_morph_hero_order_idx" ON "site_pages_blocks_scroll_morph_hero" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_scroll_morph_hero_parent_id_idx" ON "site_pages_blocks_scroll_morph_hero" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_scroll_morph_hero_path_idx" ON "site_pages_blocks_scroll_morph_hero" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_serp_content_order_idx" ON "site_pages_blocks_serp_content" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_serp_content_parent_id_idx" ON "site_pages_blocks_serp_content" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_serp_content_path_idx" ON "site_pages_blocks_serp_content" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_serp_content_bullets_order_idx" ON "site_pages_blocks_serp_content_bullets" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_serp_content_bullets_parent_id_idx" ON "site_pages_blocks_serp_content_bullets" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_service_ux_ui_order_idx" ON "site_pages_blocks_service_ux_ui" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_service_ux_ui_parent_id_idx" ON "site_pages_blocks_service_ux_ui" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_service_ux_ui_path_idx" ON "site_pages_blocks_service_ux_ui" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_services4_order_idx" ON "site_pages_blocks_services4" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_services4_parent_id_idx" ON "site_pages_blocks_services4" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_services4_path_idx" ON "site_pages_blocks_services4" USING btree ("_path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_services4_services_order_idx" ON "site_pages_blocks_services4_services" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_services4_services_parent_id_idx" ON "site_pages_blocks_services4_services" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_services4_services_items_order_idx" ON "site_pages_blocks_services4_services_items" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_blocks_services4_services_items_parent_id_idx" ON "site_pages_blocks_services4_services_items" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_hero_floating_elements_order_idx" ON "site_pages_hero_floating_elements" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_hero_floating_elements_parent_id_idx" ON "site_pages_hero_floating_elements" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_hero_floating_elements_icon_idx" ON "site_pages_hero_floating_elements" USING btree ("icon_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_hero_links_order_idx" ON "site_pages_hero_links" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_hero_links_parent_id_idx" ON "site_pages_hero_links" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_hero_marquee_logos_order_idx" ON "site_pages_hero_marquee_logos" USING btree ("_order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_hero_marquee_logos_parent_id_idx" ON "site_pages_hero_marquee_logos" USING btree ("_parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_hero_marquee_logos_logo_idx" ON "site_pages_hero_marquee_logos" USING btree ("logo_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_rels_order_idx" ON "site_pages_rels" USING btree ("order");
+--> statement-breakpoint
+CREATE INDEX "site_pages_rels_parent_idx" ON "site_pages_rels" USING btree ("parent_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_rels_path_idx" ON "site_pages_rels" USING btree ("path");
+--> statement-breakpoint
+CREATE INDEX "site_pages_rels_site_pages_id_idx" ON "site_pages_rels" USING btree ("site_pages_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_rels_blog_posts_id_idx" ON "site_pages_rels" USING btree ("blog_posts_id");
+--> statement-breakpoint
+CREATE INDEX "site_pages_rels_categories_id_idx" ON "site_pages_rels" USING btree ("categories_id");
+--> statement-breakpoint
+CREATE INDEX "users_updated_at_idx" ON "users" USING btree ("updated_at");
+--> statement-breakpoint
+CREATE INDEX "users_created_at_idx" ON "users" USING btree ("created_at");
+--> statement-breakpoint
+CREATE UNIQUE INDEX "users_email_idx" ON "users" USING btree ("email");
+--> statement-breakpoint
+CREATE INDEX "users_sessions_order_idx" ON "users_sessions" USING btree ("_order");
+--> statement-breakpoint
 CREATE INDEX "users_sessions_parent_id_idx" ON "users_sessions" USING btree ("_parent_id");

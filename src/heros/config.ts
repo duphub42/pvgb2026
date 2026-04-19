@@ -126,6 +126,21 @@ export const hero: Field = {
       },
     },
     {
+      name: 'contentVerticalAlignment',
+      type: 'select',
+      label: 'Content-Ausrichtung',
+      defaultValue: 'center',
+      options: [
+        { label: 'Oben', value: 'top' },
+        { label: 'Mitte', value: 'center' },
+        { label: 'Unten', value: 'bottom' },
+      ],
+      admin: {
+        condition: (_, siblingData) => isSuperheroHero(String(siblingData?.type ?? '')),
+        description: 'Vertikale Position des Contents innerhalb des Superhero-Layouts.',
+      },
+    },
+    {
       name: 'backgroundImage',
       type: 'upload',
       relationTo: 'media',

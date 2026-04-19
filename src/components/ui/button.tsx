@@ -35,27 +35,45 @@ function Button({
 }: ButtonProps) {
   const Comp = asChild ? Slot.Root : 'button'
 
-  // Für CTA-Variante mit Icon-Swap: Wrapper für die Kinder mit Icon
+  const ctaIconSwap = (
+    <span
+      className="megamenu-special-icon-swap relative inline-flex items-center justify-center overflow-hidden pointer-events-none"
+      style={{ width: 16, height: 16 }}
+      aria-hidden="true"
+    >
+      <span className="megamenu-special-icon-layer megamenu-special-icon-layer--a absolute inset-0 flex items-center justify-center">
+        <IconA size={16} />
+      </span>
+      <span className="megamenu-special-icon-layer megamenu-special-icon-layer--b absolute inset-0 flex items-center justify-center">
+        <IconB size={16} />
+      </span>
+    </span>
+  )
+
+  const withCtaIconSwap = (node: React.ReactNode) => (
+    <>
+      <span>{node}</span>
+      {ctaIconSwap}
+    </>
+  )
+
+  const isSafeAsChildElement =
+    asChild && React.isValidElement(children) && children.type !== React.Fragment
+
+  // Bei asChild darf das direkte Slot-Child kein Fragment sein.
+  // Deshalb erweitern wir bei asChild das Kind-Element selbst statt das Slot-Child zu wrappen.
   const content =
-    ctaIcon && variant === 'cta' ? (
-      <>
-        <span>{children}</span>
-        <span
-          className="megamenu-special-icon-swap relative inline-flex items-center justify-center overflow-hidden pointer-events-none"
-          style={{ width: 16, height: 16 }}
-          aria-hidden="true"
-        >
-          <span className="megamenu-special-icon-layer megamenu-special-icon-layer--a absolute inset-0 flex items-center justify-center">
-            <IconA size={16} />
-          </span>
-          <span className="megamenu-special-icon-layer megamenu-special-icon-layer--b absolute inset-0 flex items-center justify-center">
-            <IconB size={16} />
-          </span>
-        </span>
-      </>
-    ) : (
-      children
-    )
+    ctaIcon && variant === 'cta'
+      ? isSafeAsChildElement
+        ? React.cloneElement(
+            children as React.ReactElement<{ children?: React.ReactNode }>,
+            undefined,
+            withCtaIconSwap((children as React.ReactElement<{ children?: React.ReactNode }>).props.children),
+          )
+        : asChild
+          ? children
+          : withCtaIconSwap(children)
+      : children
 
   return (
     <Comp

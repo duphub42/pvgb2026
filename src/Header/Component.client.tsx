@@ -315,11 +315,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const renderPrimaryLogo = (disableAnimation?: boolean) => {
     if (hasCustomLogo && logoUrl) {
       return (
-        <LogoWithGlitch
-          imgSrc={logoUrl}
-          variant="header"
-          disableAnimation={disableAnimation}
-        >
+        <LogoWithGlitch imgSrc={logoUrl} variant="header" disableAnimation={disableAnimation}>
           <Logo
             loading="eager"
             priority="high"

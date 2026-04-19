@@ -64,9 +64,9 @@
     filter: brightness(0) invert(1) !important;
   }
 }
-/* Header-Nav-Links: 25% größer */
-.site-header nav a,
-.megamenu nav a {
+/* Header-Nav-Links: 25% größer (nicht für Buttons) */
+.site-header nav a:not([data-slot='button']),
+.megamenu nav a:not([data-slot='button']) {
   font-size: 1rem; /* text-base statt text-sm */
 }
 

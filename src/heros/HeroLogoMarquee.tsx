@@ -3,6 +3,7 @@
 import { getMediaUrlSafe } from '@/utils/media'
 import { Marquee } from '@/components/ui/marquee'
 import { ResilientImage } from '@/components/ui/resilient-image'
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import React from 'react'
 import { cn } from '@/utilities/ui'
 
@@ -96,21 +97,24 @@ export function HeroLogoMarquee({
             if (!url) return null
             const key = `hero-logo-${url}-${idx}`
             return (
-              <div
-                key={key}
-                className="hero-logo-marquee-item flex h-10 md:h-12 min-w-[5rem] shrink-0 items-center justify-center"
-                title={row?.alt || 'Partner logo'}
-              >
-                <ResilientImage
-                  src={url}
-                  alt={row?.alt ?? ''}
-                  width={112}
-                  height={42}
-                  className="hero-logo-grayscale filter grayscale w-auto max-w-[112px] h-auto max-h-[42px] object-contain"
-                  loading="lazy"
-                  decoding="async"
-                />
-              </div>
+              <Tooltip key={key}>
+                <TooltipTrigger asChild>
+                  <div className="hero-logo-marquee-item flex h-10 md:h-12 min-w-[5rem] shrink-0 items-center justify-center">
+                    <ResilientImage
+                      src={url}
+                      alt={row?.alt ?? ''}
+                      width={112}
+                      height={42}
+                      className="hero-logo-grayscale filter grayscale w-auto max-w-[112px] h-auto max-h-[42px] object-contain"
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" sideOffset={6}>
+                  {row?.alt || 'Partner logo'}
+                </TooltipContent>
+              </Tooltip>
             )
           })}
         </Marquee>

@@ -805,7 +805,7 @@ const ListItem = React.forwardRef<
         <div className="min-w-0 flex-1 space-y-1">
           <div
             className={cn(
-              'text-sm font-semibold leading-tight transition-colors',
+              'text-sm font-medium leading-tight transition-colors',
               isButton ? 'text-current' : 'group-hover:text-foreground',
             )}
           >
@@ -2710,7 +2710,7 @@ export function MegaMenu({
                                           <Button
                                             asChild
                                             variant="cta"
-                                            size="sm"
+                                            size="cta"
                                             className="megamenu-highlight-cta mt-2 w-fit"
                                           >
                                             <Link href={cardCtaUrl} className="no-underline">
@@ -3042,7 +3042,7 @@ export function MegaMenu({
                     <button
                       ref={mobileMenuTriggerRef}
                       type="button"
-                      className="mobile-megamenu-trigger-btn mobile-megamenu-trigger-btn--benchmark inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
+                      className="mobile-megamenu-trigger-btn inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
                       aria-label={mobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
                       aria-expanded={mobileMenuOpen}
                       data-open={mobileMenuIconActive ? 'true' : 'false'}
@@ -3098,7 +3098,7 @@ export function MegaMenu({
                             />
                             <button
                               type="button"
-                              className="mobile-megamenu-trigger-btn mobile-megamenu-trigger-btn--benchmark inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
+                              className="mobile-megamenu-trigger-btn mobile-megamenu-trigger-btn--plain inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
                               aria-label="Menü schließen"
                               data-open={mobileMenuIconActive ? 'true' : 'false'}
                               onClick={closeMobileMenu}

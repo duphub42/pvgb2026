@@ -9,7 +9,6 @@ import { ContactInfoCardsBlockConfig } from '../../blocks/ContactInfoCards/confi
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
-import { HeroMarketing } from '../../blocks/HeroMarketing/config'
 import { HeroWithProcess } from '../../blocks/HeroWithProcess/config'
 import { ConsultingOverview } from '../../blocks/ConsultingOverview/config'
 import { Introduction } from '../../blocks/Introduction/config'
@@ -88,7 +87,6 @@ export const Pages: CollectionConfig = {
               name: 'layout',
               type: 'blocks',
               blocks: [
-                HeroMarketing,
                 HeroWithProcess,
                 Introduction,
                 MarqueeSliderBlockConfig,

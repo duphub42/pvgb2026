@@ -252,6 +252,8 @@
     overflow: visible !important; /* ensure descenders (g, y) render outside inline box when needed */
     position: relative; /* prevent clipping when parent uses transforms/masks */
     display: block; /* explicit block to avoid inline clipping issues */
+    padding-bottom: 0.08em; /* small breathing room for descenders */
+    line-height: 1.18 !important; /* slightly increase to avoid clipping */
   }
   h1 {
     font-size: clamp(
@@ -535,10 +537,16 @@
     --hero-main-translate-max: 1.8rem;
     --hero-copy-translate-max: -1.35rem;
     --hero-copy-fade-max: 0.28;
-    --hero-portrait-translate-max: 2.1rem;
-    --hero-portrait-scale-down-max: 0.08;
-    --hero-portrait-fade-max: 0.35;
-    --hero-portrait-desaturate-max: 0.12;
+    --hero-portrait-hide-speed: 1;
+    --hero-portrait-translate-max: 20rem;
+    --hero-portrait-translate-extra-max: 24rem;
+    --hero-portrait-scale-down-max: 0.015;
+    --hero-portrait-fade-max: 1;
+    --hero-portrait-desaturate-max: 0.3;
+    --hero-portrait-blur-max: 22px;
+    --hero-portrait-shadow-1: 0 26px 54px rgba(9, 12, 24, 0.34);
+    --hero-portrait-shadow-2: 0 8px 22px rgba(6, 10, 18, 0.2);
+    --hero-portrait-shadow-3: 0 0 36px color-mix(in srgb, hsl(var(--primary)) 30%, transparent);
     --hero-layer-base-translate-max: 0.4rem;
     --hero-layer-base-scale-max: 0.015;
     --hero-layer-base-fade-max: 0.2;
@@ -566,6 +574,21 @@
     width: 100%;
   }
 
+  @media (max-width: 767px) {
+    section[data-hero-type='superhero'] {
+      --hero-portrait-translate-max: 11rem;
+      --hero-portrait-translate-extra-max: 13rem;
+      --hero-portrait-fade-max: 1;
+      --hero-portrait-blur-max: 14px;
+    }
+  }
+
+  [data-theme='dark'] section[data-hero-type='superhero'] {
+    --hero-portrait-shadow-1: 0 30px 60px rgba(0, 0, 0, 0.58);
+    --hero-portrait-shadow-2: 0 12px 30px rgba(0, 0, 0, 0.4);
+    --hero-portrait-shadow-3: 0 0 24px rgba(0, 0, 0, 0.28);
+  }
+
   .hero-shell--superhero section[data-hero-type='superhero'] {
     position: relative;
   }
@@ -575,33 +598,36 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: -1px;
-    height: clamp(7rem, 18vh, 13rem);
+    bottom: 0;
+    height: clamp(10rem, 24vh, 16rem);
     pointer-events: none;
-    z-index: 24;
+    z-index: 46;
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 16%, transparent) 34%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 44%, transparent) 62%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 76%, transparent) 84%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 8%, transparent) 24%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 26%, transparent) 46%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 54%, transparent) 68%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 82%, transparent) 86%,
       var(--hero-next-section-bg, var(--background)) 100%
     );
-    filter: blur(6px);
-    opacity: 0.92;
+    filter: none;
+    opacity: 0.98;
+    transform: translateZ(0);
   }
 
   [data-theme='dark'] .hero-shell--superhero section[data-hero-type='superhero']::after {
     background: linear-gradient(
       to bottom,
       transparent 0%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 12%, transparent) 38%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 36%, transparent) 66%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 66%, transparent) 86%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 7%, transparent) 26%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 22%, transparent) 48%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 44%, transparent) 70%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 72%, transparent) 88%,
       var(--hero-next-section-bg, var(--background)) 100%
     );
-    filter: blur(5px);
-    opacity: 0.86;
+    filter: none;
+    opacity: 0.94;
   }
 
   @keyframes hero-tech-intro-reveal-soft {
@@ -745,15 +771,124 @@
   }
 
   section[data-hero-type='superhero'] .hero-scroll-content-portrait {
-    will-change: transform, opacity, filter;
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-portrait-translate-max)), 0)
-      scale(calc(1 - (var(--hero-scroll-content-progress) * var(--hero-portrait-scale-down-max))));
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-portrait-fade-max)));
-    filter: saturate(calc(1 - var(--hero-scroll-content-progress) * var(--hero-portrait-desaturate-max)));
-    transition:
-      transform var(--hero-motion-duration-fast) var(--hero-motion-ease),
-      opacity var(--hero-motion-duration-fast) var(--hero-motion-ease),
-      filter var(--hero-motion-duration-fast) var(--hero-motion-ease);
+    --hero-portrait-hide-progress: clamp(
+      0,
+      max(
+        calc(
+          var(--hero-scroll-portrait-hide-progress, var(--hero-scroll-content-progress)) *
+            var(--hero-portrait-hide-speed)
+        ),
+        var(--hero-scroll-portrait-hard-hide-progress, 0)
+      ),
+      1
+    );
+    --hero-portrait-parallax-progress: var(
+      --hero-scroll-portrait-parallax-progress,
+      var(--hero-scroll-progress)
+    );
+    will-change: transform, opacity;
+    transform: translate3d(
+        0,
+        calc(
+          (var(--hero-portrait-parallax-progress) * var(--hero-portrait-translate-max)) +
+            (var(--hero-portrait-hide-progress) * var(--hero-portrait-translate-extra-max))
+        ),
+        0
+      )
+      scale(calc(1 - (var(--hero-portrait-hide-progress) * var(--hero-portrait-scale-down-max))));
+    opacity: calc(1 - (var(--hero-portrait-hide-progress) * var(--hero-portrait-fade-max)));
+    transition: none;
+  }
+
+  section[data-hero-type='superhero'] .hero-superhero-portrait {
+    z-index: 14;
+    top: calc(var(--header-height, 72px) + clamp(0.35rem, 1.5vh, 0.95rem));
+    scroll-margin-top: calc(var(--header-height, 72px) + clamp(0.35rem, 1.5vh, 0.95rem));
+  }
+
+  section[data-hero-type='superhero'] .hero-superhero-portrait-media {
+    filter:
+      drop-shadow(var(--hero-portrait-shadow-1))
+      drop-shadow(var(--hero-portrait-shadow-2))
+      drop-shadow(var(--hero-portrait-shadow-3));
+    transition: none;
+  }
+
+  section[data-hero-type='superhero'] .hero-superhero-portrait-image {
+    filter:
+      blur(calc(var(--hero-portrait-hide-progress) * var(--hero-portrait-blur-max)))
+      saturate(calc(1 - var(--hero-portrait-hide-progress) * var(--hero-portrait-desaturate-max)));
+    will-change: filter;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 1) 78%,
+      rgba(0, 0, 0, 0.64) 91%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 1) 0%,
+      rgba(0, 0, 0, 1) 78%,
+      rgba(0, 0, 0, 0.64) 91%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    transition: none;
+  }
+
+  section[data-hero-type='superhero'] .hero-superhero-portrait-scroll-mask {
+    --hero-portrait-hide-progress: clamp(
+      0,
+      max(
+        calc(
+          var(--hero-scroll-portrait-hide-progress, var(--hero-scroll-content-progress)) *
+            var(--hero-portrait-hide-speed)
+        ),
+        var(--hero-scroll-portrait-hard-hide-progress, 0)
+      ),
+      1
+    );
+    --hero-portrait-parallax-progress: var(
+      --hero-scroll-portrait-parallax-progress,
+      var(--hero-scroll-progress)
+    );
+    z-index: 18;
+    height: clamp(12rem, 28vh, 22rem);
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 20%, transparent) 35%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 54%, transparent) 64%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 88%, transparent) 86%,
+      var(--hero-next-section-bg, var(--background)) 100%
+    );
+    filter: blur(5px);
+    opacity: calc(0.48 + (var(--hero-portrait-hide-progress) * 0.92));
+    transform: translate3d(
+      0,
+      calc(
+        (var(--hero-portrait-parallax-progress) * 1.95rem) +
+          (var(--hero-portrait-hide-progress) * 1.45rem)
+      ),
+      0
+    );
+    transition: none;
+  }
+
+  [data-theme='dark'] section[data-hero-type='superhero'] .hero-superhero-portrait-scroll-mask {
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 16%, transparent) 37%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 42%, transparent) 66%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 78%, transparent) 87%,
+      var(--hero-next-section-bg, var(--background)) 100%
+    );
+    filter: blur(4px);
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer {
@@ -829,12 +964,64 @@
       opacity: 1;
       transition: none;
     }
+
+    section[data-hero-type='superhero'] .hero-superhero-portrait-scroll-mask {
+      transform: none;
+      filter: none;
+      opacity: 0.9;
+      transition: none;
+    }
   }
 
   /* Hero-Container: Standard-Container-Breiten wie restliche Seite */
   section[data-hero-type='superhero'] > .container {
     max-width: min(var(--breakpoint-2xl, 90rem), 100%);
     margin-inline: auto;
+  }
+
+  /*
+   * Superhero ohne Vordergrund-Portrait:
+   * Content am unteren Viewportrand verankern, damit das Hintergrundbild sichtbar bleibt.
+   */
+  section[data-hero-type='superhero'].hero-superhero-no-portrait.hero-offset {
+    padding-top: max(calc(var(--header-height, 72px) + 1rem), 5.25rem) !important;
+  }
+
+  section[data-hero-type='superhero'].hero-superhero-no-portrait .hero-scroll-content--no-portrait {
+    min-height: calc(100svh - var(--header-height, 72px));
+    justify-content: flex-end;
+    padding-top: clamp(1rem, 3vh, 2rem);
+  }
+
+  section[data-hero-type='superhero'].hero-superhero-no-portrait .hero-scroll-content-main--no-portrait {
+    min-height: clamp(18rem, 42vh, 34rem);
+  }
+
+  section[data-hero-type='superhero'].hero-superhero-no-portrait .hero-scroll-content-copy--no-portrait {
+    min-height: clamp(18rem, 40vh, 32rem);
+    justify-content: flex-end;
+  }
+
+  @media (max-width: 767px) {
+    section[data-hero-type='superhero'].hero-superhero-no-portrait.hero-offset {
+      padding-top: max(calc(var(--header-height, 72px) + 0.75rem), 4.6rem) !important;
+    }
+
+    section[data-hero-type='superhero'].hero-superhero-no-portrait .hero-scroll-content--no-portrait {
+      min-height: calc(100svh - var(--header-height, 72px) - 0.5rem);
+      padding-bottom: clamp(1.75rem, 6vh, 3.25rem);
+    }
+
+    section[data-hero-type='superhero'].hero-superhero-no-portrait .hero-scroll-content-main--no-portrait {
+      min-height: 0;
+    }
+
+    section[data-hero-type='superhero'].hero-superhero-no-portrait .hero-scroll-content-copy--no-portrait {
+      min-height: 0;
+      margin-top: auto;
+      padding-top: clamp(0.75rem, 2.6vh, 1.5rem);
+      padding-bottom: clamp(0.4rem, 1.8vh, 1rem);
+    }
   }
 
   /* Grid-Container: Portrait darf rechts rauswachsen (overflow visible) */
@@ -856,6 +1043,47 @@
   @media (min-width: 48rem) {
     section[data-hero-type='superhero'] {
       min-height: 81vh;
+    }
+  }
+
+  @media (min-width: 768px) {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-scroll-content-main {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: clamp(0.4rem, 1.6vw, 1.25rem);
+      max-width: none;
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-scroll-content-copy {
+      max-width: min(48rem, 100%);
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-superhero-portrait {
+      justify-self: center;
+      margin-left: clamp(-9rem, -10vw, -1.5rem);
+      margin-right: clamp(-8rem, -10vw, -1.25rem);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-superhero-portrait {
+      width: 41rem;
+      min-width: 41rem;
+      margin-left: clamp(-7rem, -6vw, -1rem);
+      margin-right: clamp(-5.5rem, -5vw, -0.5rem);
+    }
+  }
+
+  @media (min-width: 700px) {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-superhero-portrait {
+      top: calc(var(--header-height, 72px) + 5vh);
+      scroll-margin-top: calc(var(--header-height, 72px) + 5vh);
+      height: calc(100svh - var(--header-height, 72px) - 5vh);
+      max-height: none;
+      width: 37rem;
+      min-width: 37rem;
+      max-width: none;
+      margin-left: clamp(-9rem, -10vw, -1.5rem);
+      margin-right: clamp(-8rem, -10vw, -1.25rem);
     }
   }
 
@@ -1060,46 +1288,68 @@
     }
   }
 
-  .hero-following-section-mask.hero-following-section--superhero-overlap:not(.hero-following-section--services-flush) {
-    margin-top: clamp(-5.6rem, -9vh, -2.4rem);
-    padding-top: clamp(3.75rem, 8vh, 6.8rem);
-    z-index: 34;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    box-shadow: none;
+  /* Superhero: Folgesection bleibt oberhalb, aber mit transparentem Top-Fade statt harter Kante. */
+  .hero-shell--superhero .hero-following-section-mask {
+    background-color: transparent;
+    background-image: none;
+    isolation: isolate;
   }
 
-  .hero-following-section-mask.hero-following-section--superhero-overlap:not(.hero-following-section--services-flush)::before {
+  .hero-shell--superhero .hero-following-section-mask::before {
     content: '';
     position: absolute;
-    top: clamp(-1.6rem, -2.8vh, -0.8rem);
-    left: 0;
-    right: 0;
-    height: clamp(2rem, 5vh, 3.6rem);
+    inset: 0;
     pointer-events: none;
+    z-index: 0;
     background: linear-gradient(
       to bottom,
-      transparent 0%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 20%, transparent) 42%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 56%, transparent) 100%
+      transparent 0,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 26%, transparent)
+        clamp(0.9rem, 2.4vh, 1.45rem),
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 64%, transparent)
+        clamp(2rem, 5.4vh, 3rem),
+      var(--hero-next-section-bg, var(--background)) clamp(3.2rem, 8.2vh, 4.8rem),
+      var(--hero-next-section-bg, var(--background)) 100%
     );
-    filter: none;
-    opacity: 0.42;
+  }
+
+  [data-theme='dark'] .hero-shell--superhero .hero-following-section-mask::before {
+    background: linear-gradient(
+      to bottom,
+      transparent 0,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 18%, transparent)
+        clamp(0.9rem, 2.4vh, 1.45rem),
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 52%, transparent)
+        clamp(2rem, 5.4vh, 3rem),
+      var(--hero-next-section-bg, var(--background)) clamp(3.2rem, 8.2vh, 4.8rem),
+      var(--hero-next-section-bg, var(--background)) 100%
+    );
+  }
+
+  .hero-shell--superhero .hero-following-section-mask > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Superhero: keine Section-Überlagerung in den Hero hinein */
+  .hero-following-section-mask.hero-following-section--superhero-overlap::before {
+    content: none;
+    display: none;
   }
 
   /* Erste Section = nur Service-Karten: kein Verlauf, harter Anschluss an den Hero (nur lg+).
      Unter lg: wieder weicher Übergang, passt zu „Karten unter dem Hero“. */
   .hero-following-section-mask.hero-following-section--services-flush {
-    background-image: none;
+    background-image: linear-gradient(
+      to bottom,
+      transparent 0,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 38%, transparent) 1.35rem,
+      var(--hero-next-section-bg, var(--background)) 2.75rem
+    );
   }
-  @media (max-width: 1023px) {
-    .hero-following-section-mask.hero-following-section--services-flush {
-      background-image: linear-gradient(
-        to bottom,
-        transparent 0,
-        var(--hero-next-section-bg, var(--background)) 2.25rem
-      );
-    }
+
+  .hero-shell--superhero .hero-following-section-mask.hero-following-section--services-flush {
+    background-image: none;
   }
 
   /* Hero-Verlauf + Schatten/Glow auf ::before (verdoppelte Intensität), Mask nur auf ::before,
@@ -1420,10 +1670,24 @@
       scroll-margin-top: calc(var(--header-height) + 1rem);
     }
 
-    /* Superhero Hero: Mobile sticky positioning mit 10% Abstand zum Header */
+    /* Superhero Hero: Mobile sticky positioning dicht unter dem Header */
     section[data-hero-type='superhero'] .hero-mobile-sticky-portrait {
-      top: 10vh;
-      scroll-margin-top: 10vh;
+      top: calc(var(--header-height) + clamp(0.35rem, 1.5vh, 0.95rem));
+      scroll-margin-top: calc(var(--header-height) + clamp(0.35rem, 1.5vh, 0.95rem));
+      align-self: center;
+      width: auto;
+      min-width: 0;
+      margin-right: 0;
+    }
+  }
+
+  @media (max-width: 767px) {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-mobile-sticky-portrait {
+      width: 100vw;
+      min-width: 100vw;
+      max-width: 100vw;
+      margin-left: calc(50% - 50vw);
+      margin-right: calc(50% - 50vw);
     }
   }
   @media (max-width: 599px) {
@@ -1456,9 +1720,9 @@
       top: calc(var(--header-height) + 4rem);
     }
     
-    /* Superhero Hero: Auf kleinen Viewports mit 8vh Abstand */
+    /* Superhero Hero: Auf kleinen Viewports noch näher am Header */
     section[data-hero-type='superhero'] .hero-mobile-sticky-portrait {
-      top: 8vh;
+      top: calc(var(--header-height) + 0.4rem);
     }
   }
   @media (min-width: 768px) {
@@ -1504,61 +1768,54 @@
   /* Vereinfachtes Superhero-Bildoverlay: radialer Fokus + seitliche Abdunklung.
      Ziel: weniger Layer, gleiche Lesbarkeitswirkung, einfacher wartbar. */
   .hero-superhero-image-overlay {
-    /* Zwei-Layer: 1) vertikales Shading oben und unten, 2) horizontales Shading links→rechts.
-       Linke Seite ist dunkel (volle Deckkraft), nach rechts transparent. */
+    /* Zwei Layer:
+       1) Vertikal: oben 66%, Mitte 10%, unten 100%
+       2) Horizontal: links 100%, nach rechts auf 0% */
     background-repeat: no-repeat;
+    background-size: 100% 100%;
     background-image:
-      /* links -> rechts: stark dunkel links, weich auslaufend nach rechts (oben)
-         — wird als oberste Ebene gesetzt, damit linke Seite immer maximal dunkel ist */
       linear-gradient(
         to right,
-        rgba(0,0,0,0.78) 0%,
-        rgba(0,0,0,0.52) 36%,
-        rgba(0,0,0,0.28) 60%,
-        transparent 100%
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 100%, transparent) 0%,
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 0%, transparent) 66%
       ),
-      /* oben -> unten: dunkler Rand oben und unten, Mitte transparent (unterhalb der horizontalen Ebene) */
       linear-gradient(
         to bottom,
-        rgba(0,0,0,0.44) 0%,
-        rgba(0,0,0,0) 28%,
-        rgba(0,0,0,0) 72%,
-        rgba(0,0,0,0.44) 100%
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 100%, transparent) 0%,
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 10%, transparent) 50%,
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 100%, transparent) 100%
       );
-    /* weiche rechte Kante, wie vorher */
-    -webkit-mask-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 1) 74%,
-      rgba(0, 0, 0, 0.38) 88%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(
-      to right,
-      rgba(0, 0, 0, 1) 0%,
-      rgba(0, 0, 0, 1) 74%,
-      rgba(0, 0, 0, 0.38) 88%,
-      transparent 100%
-    );
+    /* remove soft right-edge mask so overlay covers top-right corner */
+    -webkit-mask-image: none;
+    mask-image: none;
+    /* Full-bleed across viewport using centered calc technique */
+    width: 100vw;
+    max-width: none;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    /* ensure following-section mask can sit above the overlay */
+    z-index: 0 !important;
   }
 
-  /* Dark theme: mildere Stops für dunkleren Hintergrund */
+  /* Dark theme: identischer Verlauf (nur Theme-Variablen ändern die Farbe). */
   [data-theme='dark'] .hero-superhero-image-overlay {
-    /* Dark theme: weniger starke Abdunklung (hellere Tönung statt Schwarz-Overlays) */
     background-repeat: no-repeat;
+    background-size: 100% 100%;
     background-image:
       linear-gradient(
-        to bottom,
-        rgba(0,0,0,0.28) 0%,
-        rgba(0,0,0,0) 26%,
-        rgba(0,0,0,0) 74%,
-        rgba(0,0,0,0.28) 100%
+        to right,
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 100%, transparent) 0%,
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 0%, transparent) 66%
       ),
       linear-gradient(
-        to right,
-        rgba(0,0,0,0.56) 0%,
-        rgba(0,0,0,0.36) 40%,
-        transparent 100%
+        to bottom,
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 100%, transparent) 0%,
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 10%, transparent) 50%,
+        color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 100%, transparent) 100%
       );
   }
 
@@ -1646,6 +1903,12 @@
     );
     mask-size: 100% 100%;
     -webkit-mask-size: 100% 100%;
+    /* Make overlay full-bleed across viewport */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    max-width: none;
+    margin-left: 0;
     mask-position: 0 0;
     -webkit-mask-position: 0 0;
     mask-repeat: no-repeat;

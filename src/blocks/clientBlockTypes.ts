@@ -20,7 +20,6 @@ export const CLIENT_BLOCK_TYPES = new Set([
   'profilCtaBand',
   'cta',
   'formBlock',
-  'heroMarketing',
   'introduction',
   'marqueeSlider',
   'mediaBlock',

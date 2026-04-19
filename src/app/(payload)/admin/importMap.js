@@ -31,7 +31,6 @@ import { RowLabel as RowLabel_1f6ff6ff633e3695d348f4f3c58f1466 } from '@/Footer/
 import { default as default_e25de30b08c81764f70ec2aae91cc98f } from '../../../components/ColorPicker'
 import { default as default_48bd4f5ed20a278ca9298ebbc521db88 } from '../../../components/AdminLogo'
 import { default as default_01d809f8b80f9b2f728eaaa8a4fcc420 } from '../../../components/BeforeLogin'
-import { S3ClientUploadHandler as S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24 } from '@payloadcms/storage-s3/client'
 import { CollectionCards as CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1 } from '@payloadcms/next/rsc'
 
 export const importMap = {
@@ -68,6 +67,5 @@ export const importMap = {
   "/components/ColorPicker#default": default_e25de30b08c81764f70ec2aae91cc98f,
   "/components/AdminLogo#default": default_48bd4f5ed20a278ca9298ebbc521db88,
   "/components/BeforeLogin#default": default_01d809f8b80f9b2f728eaaa8a4fcc420,
-  "@payloadcms/storage-s3/client#S3ClientUploadHandler": S3ClientUploadHandler_f97aa6c64367fa259c5bc0567239ef24,
   "@payloadcms/next/rsc#CollectionCards": CollectionCards_f9c02e79a4aed9a3924487c0cd4cafb1
 }

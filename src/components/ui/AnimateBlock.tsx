@@ -1,6 +1,6 @@
-import type { ReactNode, CSSProperties } from 'react'
+import type { ReactNode, CSSProperties, HTMLAttributes } from 'react'
 
-interface AnimateBlockProps {
+interface AnimateBlockProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode
   className?: string
   style?: CSSProperties
@@ -20,6 +20,7 @@ export function AnimateBlock({
   whileInView = 'visible',
   viewport,
   transition,
+  ...rest
 }: AnimateBlockProps) {
   void variants
   void initial
@@ -27,5 +28,9 @@ export function AnimateBlock({
   void viewport
   void transition
 
-  return <div className={className} style={style}>{children}</div>
+  return (
+    <div className={className} style={style} {...rest}>
+      {children}
+    </div>
+  )
 }

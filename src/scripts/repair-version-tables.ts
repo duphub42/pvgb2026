@@ -13,7 +13,6 @@ const VERSION_TABLE_MAPPINGS: Record<string, string> = {
   _site_pages_v_version_hero_marquee_logos: 'site_pages_hero_marquee_logos',
   _site_pages_v_version_hero_links: 'site_pages_hero_links',
   _site_pages_v_version_hero_floating_elements: 'site_pages_hero_floating_elements',
-  _site_pages_v_blocks_hero_marketing: 'site_pages_blocks_hero_marketing',
   _site_pages_v_blocks_cta: 'site_pages_blocks_cta',
   _site_pages_v_blocks_cta_links: 'site_pages_blocks_cta_links',
   _site_pages_v_blocks_content: 'site_pages_blocks_content',
