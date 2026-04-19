@@ -75,6 +75,7 @@ export interface SuperheroHeroProps {
   // ─── Meta ─────────────────────────────────────────────────────────────────
   sectionAriaLabel?: string | null
   dataHeroType?: string | null
+  pageSlug?: string | null
 }
 
 const DECODE_TAG_PATTERN = /<decode>([\s\S]*?)<\/decode>/gi
@@ -133,6 +134,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   marqueeLogos,
   sectionAriaLabel,
   dataHeroType,
+  pageSlug,
 }) => {
   const sectionRef = React.useRef<HTMLElement | null>(null)
   const portraitRef = React.useRef<HTMLDivElement | null>(null)
@@ -350,6 +352,19 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     ? normalizedContentVerticalAlignment
     : 'bottom'
   const heroMinHeight = portraitSrc ? 'min(100vh, 800px)' : 'max(100svh, 42rem)'
+  const normalizedPageSlug = (pageSlug ?? '').trim().toLowerCase()
+  const isHomeHero =
+    normalizedPageSlug === '' || normalizedPageSlug === '/' || normalizedPageSlug === 'home'
+
+  const getMobileShortCtaLabel = (index: number, fullLabel: string): string => {
+    if (isHomeHero) {
+      if (index === 0) return 'Referenz'
+      if (index === 1) return 'Angebot'
+    }
+
+    const firstWord = fullLabel.trim().split(/\s+/)[0]
+    return firstWord || fullLabel
+  }
 
   return (
     <section
@@ -504,14 +519,14 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
             )}
 
             {ctaLinks.length > 0 && (
-              <div className="hero-scroll-layer hero-scroll-layer-cta flex flex-wrap items-center gap-3">
+              <div className="hero-scroll-layer hero-scroll-layer-cta flex flex-wrap items-center gap-3 max-md:flex-nowrap max-md:gap-2">
                 {ctaLinks.map((item, index) => (
                   <CMSLink
                     key={`${item?.link?.label ?? 'cta'}-${index}`}
                     type={item?.link?.type}
                     url={item?.link?.url}
                     reference={item?.link?.reference}
-                    label={item?.link?.label}
+                    label={undefined}
                     newTab={item?.link?.newTab}
                     icon={item?.link?.icon}
                     enableIconSwap={item?.link?.enableIconSwap ?? true}
@@ -519,8 +534,13 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                     iconSwapTo={item?.link?.iconSwapTo}
                     appearance={item?.link?.appearance ?? (index === 0 ? 'default' : 'outline')}
                     size="cta"
-                    className="rounded-[var(--style-radius-l)]"
-                  />
+                    className="rounded-[var(--style-radius-l)] max-md:flex-1 max-md:min-w-0 max-md:justify-center max-md:gap-0 max-md:px-3 max-md:text-sm max-md:[&_svg]:hidden"
+                  >
+                    <span className="hidden md:inline">{item?.link?.label}</span>
+                    <span className="md:hidden">
+                      {getMobileShortCtaLabel(index, item?.link?.label ?? '')}
+                    </span>
+                  </CMSLink>
                 ))}
               </div>
             )}

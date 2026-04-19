@@ -2365,9 +2365,15 @@ export function MegaMenu({
             setHideToTop(false)
           }}
         >
-          <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
+            <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
             <div className="header-main-row flex flex-1 items-stretch justify-between">
-              <div className="flex items-center">{logo}</div>
+              {React.isValidElement(logo) ? (
+                React.cloneElement(logo as React.ReactElement, {
+                  className: cn('flex items-center', (logo as any)?.props?.className),
+                })
+              ) : (
+                <div className="flex items-center">{logo}</div>
+              )}
               <div
                 className="megamenu-nav-wrap flex h-full items-stretch gap-4"
                 onPointerEnter={cancelCloseTimeout}
