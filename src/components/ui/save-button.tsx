@@ -128,46 +128,18 @@ export function SaveButton({
     }
   }
 
-  const buttonVariants =
-    variant === 'footer'
-      ? {
-          idle: {
-            backgroundColor: 'rgb(var(--button-bg-footer))',
-            color: 'rgb(var(--button-text-footer))',
-            scale: 1,
-          },
-          saving: {
-            backgroundColor: 'rgb(var(--button-bg-footer))',
-            color: 'rgb(var(--button-text-footer))',
-            scale: 1,
-          },
-          saved: {
-            backgroundColor: 'rgb(var(--button-bg-saved))',
-            color: 'rgb(var(--button-text-footer))',
-            scale: [1, 1.1, 1] as unknown as number,
-            transition: { duration: 0.2, times: [0, 0.5, 1] },
-          },
-        }
-      : {
-          idle: {
-            backgroundColor: isDark
-              ? 'rgb(var(--button-bg-idle-dark))'
-              : 'rgb(var(--button-bg-idle))',
-            color: isDark ? 'rgb(var(--button-text-idle-dark))' : 'rgb(var(--button-text-idle))',
-            scale: 1,
-          },
-          saving: {
-            backgroundColor: 'rgb(var(--button-bg-saving))',
-            color: 'rgb(var(--button-text-idle-dark))',
-            scale: 1,
-          },
-          saved: {
-            backgroundColor: 'rgb(var(--button-bg-saved))',
-            color: 'rgb(var(--button-text-idle-dark))',
-            scale: [1, 1.1, 1] as unknown as number,
-            transition: { duration: 0.2, times: [0, 0.5, 1] },
-          },
-        }
+  const buttonVariants = {
+    idle: {
+      scale: 1,
+    },
+    saving: {
+      scale: 1,
+    },
+    saved: {
+      scale: [1, 1.1, 1] as unknown as number,
+      transition: { duration: 0.2, times: [0, 0.5, 1] },
+    },
+  }
 
   const sparkleVariants = {
     initial: { opacity: 0, scale: 0 },
@@ -191,6 +163,16 @@ export function SaveButton({
             status === 'idle' &&
             'shadow-[0_1000px_0_0_hsl(0_0%_85%)_inset] dark:shadow-[0_1000px_0_0_hsl(0_0%_20%)_inset]',
           variant === 'footer' && status === 'idle' && 'shadow-[0_1000px_0_0_rgb(12,12,12)_inset]',
+          variant === 'default' &&
+            (status === 'idle'
+              ? 'bg-[rgb(var(--button-bg-idle))] text-[rgb(var(--button-text-idle))] dark:bg-[rgb(var(--button-bg-idle-dark))] dark:text-[rgb(var(--button-text-idle-dark))]'
+              : status === 'saving'
+              ? 'bg-[rgb(var(--button-bg-saving))] text-[rgb(var(--button-text-idle-dark))]'
+              : 'bg-[rgb(var(--button-bg-saved))] text-[rgb(var(--button-text-idle-dark))]'),
+          variant === 'footer' &&
+            (status === 'saved'
+              ? 'bg-[rgb(var(--button-bg-saved))] text-[rgb(var(--button-text-footer))]'
+              : 'bg-[rgb(var(--button-bg-footer))] text-[rgb(var(--button-text-footer))]'),
           className,
         )}
         style={variant === 'footer' ? undefined : { minWidth: '150px' }}

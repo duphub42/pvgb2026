@@ -1214,6 +1214,7 @@ export function MegaMenu({
     active: false,
   })
   const mobileMenuCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const mobileMenuIconOpenRafRef = useRef<number | null>(null)
   const mobileDockTooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileDockLongPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileDockLongPressTriggeredKeyRef = useRef<string | null>(null)
@@ -1482,6 +1483,13 @@ export function MegaMenu({
     if (mobileMenuCloseTimeoutRef.current) {
       clearTimeout(mobileMenuCloseTimeoutRef.current)
       mobileMenuCloseTimeoutRef.current = null
+    }
+  }, [])
+
+  const clearMobileMenuIconOpenRaf = React.useCallback(() => {
+    if (mobileMenuIconOpenRafRef.current != null) {
+      window.cancelAnimationFrame(mobileMenuIconOpenRafRef.current)
+      mobileMenuIconOpenRafRef.current = null
     }
   }, [])
 
@@ -2038,12 +2046,24 @@ export function MegaMenu({
     collapseMobileBrowserChrome()
     syncMobileMenuOrigin()
     clearMobileMenuCloseTimeout()
+    clearMobileMenuIconOpenRaf()
     setMobileMenuOpen(true)
-    setMobileMenuIconActive(true)
-  }, [collapseMobileBrowserChrome, syncMobileMenuOrigin, clearMobileMenuCloseTimeout])
+    // Ensure the icon is first rendered in burger state, then morphs to X in the next frame.
+    setMobileMenuIconActive(false)
+    mobileMenuIconOpenRafRef.current = window.requestAnimationFrame(() => {
+      setMobileMenuIconActive(true)
+      mobileMenuIconOpenRafRef.current = null
+    })
+  }, [
+    collapseMobileBrowserChrome,
+    syncMobileMenuOrigin,
+    clearMobileMenuCloseTimeout,
+    clearMobileMenuIconOpenRaf,
+  ])
 
   const closeMobileMenu = React.useCallback(() => {
     clearMobileMenuCloseTimeout()
+    clearMobileMenuIconOpenRaf()
     resetMobileDockState()
     setMobileMenuIconActive(false)
     mobileMenuCloseTimeoutRef.current = setTimeout(() => {
@@ -2051,7 +2071,7 @@ export function MegaMenu({
       mobileMenuTriggerRef.current?.focus({ preventScroll: true })
       mobileMenuCloseTimeoutRef.current = null
     }, HAM_ICON_ANIMATION_MS)
-  }, [clearMobileMenuCloseTimeout, resetMobileDockState])
+  }, [clearMobileMenuCloseTimeout, clearMobileMenuIconOpenRaf, resetMobileDockState])
 
   const toggleMobileMenu = React.useCallback(() => {
     if (mobileMenuOpen) {
@@ -2063,26 +2083,30 @@ export function MegaMenu({
 
   const handleMobileMenuOpenChange = React.useCallback(
     (nextOpen: boolean) => {
+      if (nextOpen === mobileMenuOpen) return
+
       if (nextOpen) {
         openMobileMenu()
         return
       }
       closeMobileMenu()
     },
-    [openMobileMenu, closeMobileMenu],
+    [mobileMenuOpen, openMobileMenu, closeMobileMenu],
   )
 
   useEffect(() => {
     clearMobileMenuCloseTimeout()
+    clearMobileMenuIconOpenRaf()
     resetMobileDockState()
     setMobileMenuOpen(false)
     setMobileMenuIconActive(false)
     setMobileActivePrimary(null)
-  }, [pathname, clearMobileMenuCloseTimeout, resetMobileDockState])
+  }, [pathname, clearMobileMenuCloseTimeout, clearMobileMenuIconOpenRaf, resetMobileDockState])
 
   useEffect(() => {
     return () => {
       clearMobileMenuCloseTimeout()
+      clearMobileMenuIconOpenRaf()
       clearMobileDockTooltipTimeout()
       clearMobileDockLongPressTimeout()
       clearMobileDockConfirmTimeout()
@@ -2090,6 +2114,7 @@ export function MegaMenu({
     }
   }, [
     clearMobileMenuCloseTimeout,
+    clearMobileMenuIconOpenRaf,
     clearMobileDockTooltipTimeout,
     clearMobileDockLongPressTimeout,
     clearMobileDockConfirmTimeout,

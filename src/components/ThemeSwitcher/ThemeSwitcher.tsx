@@ -18,6 +18,7 @@ export function ThemeSwitcher({
 }) {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [optimisticTheme, setOptimisticTheme] = useState<Theme | null>(null)
 
   useEffect(() => {
     setMounted(true)
@@ -35,22 +36,33 @@ export function ThemeSwitcher({
 
     return 'light'
   }, [theme, mounted])
-  const isDark = resolved === 'dark'
+
+  useEffect(() => {
+    if (!mounted) return
+    if (optimisticTheme == null) return
+    if (optimisticTheme === resolved) {
+      setOptimisticTheme(null)
+    }
+  }, [mounted, optimisticTheme, resolved])
+
+  const effectiveTheme = optimisticTheme ?? resolved
+  const isDark = effectiveTheme === 'dark'
   const ariaLabel = mounted
     ? isDark
       ? 'Hellmodus aktivieren'
       : 'Dunkelmodus aktivieren'
     : 'Designmodus wechseln'
   const tooltipText = mounted
-    ? resolved === 'light'
+    ? effectiveTheme === 'light'
       ? 'Dunkelmodus'
       : 'Hellmodus'
     : 'Designmodus wechseln'
 
   const toggle = useCallback(() => {
-    const newTheme = resolved === 'light' ? 'dark' : 'light'
+    const newTheme = effectiveTheme === 'light' ? 'dark' : 'light'
+    setOptimisticTheme(newTheme)
     setTheme(newTheme)
-  }, [resolved, setTheme])
+  }, [effectiveTheme, setTheme])
 
   if (variant === 'switch') {
     return (

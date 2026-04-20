@@ -75,6 +75,39 @@ export async function GET(
       })
 
       if (!fileRes.ok || !fileRes.body) {
+        if (fileRes.status === 404 && !size && doc?.sizes && typeof doc.sizes === 'object') {
+          const fallbackOrder = ['xlarge', 'large', 'medium', 'small', 'square', 'thumbnail', 'og']
+          for (const fallbackSize of fallbackOrder) {
+            const sizeData = (doc.sizes as Record<string, { url?: string }>)[fallbackSize]
+            const fallbackUrl = sizeData?.url
+            if (!fallbackUrl || typeof fallbackUrl !== 'string') continue
+
+            const fallbackRes = await fetch(fallbackUrl, {
+              headers: {
+                'Cache-Control': 'public, max-age=31536000, immutable',
+              },
+            })
+
+            if (fallbackRes.ok && fallbackRes.body) {
+              const contentType = fallbackRes.headers.get('content-type') || 'application/octet-stream'
+              const contentDisposition = fallbackRes.headers.get('content-disposition')
+
+              const headers = new Headers()
+              headers.set('Content-Type', contentType)
+              headers.set('Cache-Control', 'public, max-age=31536000, immutable')
+              if (contentDisposition) headers.set('Content-Disposition', contentDisposition)
+              if (contentType === 'image/svg+xml') {
+                headers.set('Content-Security-Policy', "script-src 'none'")
+              }
+
+              console.warn(
+                `[media/stream] Fallback served size=${fallbackSize} for missing local file ${url} (id=${id})`,
+              )
+              return new Response(fallbackRes.body, { headers, status: fallbackRes.status })
+            }
+          }
+        }
+
         return NextResponse.json(
           { error: fileRes.status === 404 ? 'File not found' : 'Upstream error' },
           { status: fileRes.status === 404 ? 404 : 502 },
