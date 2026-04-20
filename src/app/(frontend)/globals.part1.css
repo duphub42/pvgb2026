@@ -1008,7 +1008,11 @@
     }
 
     section[data-hero-type='superhero'].hero-superhero-no-portrait .hero-scroll-content--no-portrait {
+      /* Mobile ohne Portrait: oberhalb der linken Spalte bewusst viel Hintergrund sichtbar lassen */
+      --hero-no-portrait-mobile-top-free-space: clamp(333px, 46svh, 520px);
       min-height: calc(100svh - var(--header-height, 72px) - 0.5rem);
+      justify-content: flex-start;
+      padding-top: var(--hero-no-portrait-mobile-top-free-space);
       padding-bottom: clamp(1.75rem, 6vh, 3.25rem);
     }
 

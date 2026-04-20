@@ -2367,9 +2367,9 @@ export function MegaMenu({
         >
             <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
             <div className="header-main-row flex flex-1 items-stretch justify-between">
-              {React.isValidElement(logo) ? (
-                React.cloneElement(logo as React.ReactElement, {
-                  className: cn('flex items-center', (logo as any)?.props?.className),
+              {React.isValidElement<{ className?: string }>(logo) ? (
+                React.cloneElement(logo, {
+                  className: cn('flex items-center', logo.props.className),
                 })
               ) : (
                 <div className="flex items-center">{logo}</div>

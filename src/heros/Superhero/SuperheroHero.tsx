@@ -459,7 +459,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
             className={cn(
               'hero-scroll-content-copy relative min-w-0 flex flex-col space-y-[clamp(1rem,2.5vh,1.5rem)] max-md:z-[16] max-md:order-2 max-md:flex-shrink-0 max-md:h-auto md:relative md:z-[10] md:min-h-0 md:max-w-3xl lg:min-h-[clamp(400px,62vh,680px)]',
               portraitSrc &&
-                'hero-mobile-glass max-md:-mx-4 max-md:rounded-t-2xl max-md:px-4 max-md:pt-[clamp(1.5rem,6vh,2rem)] max-md:pb-[clamp(1rem,4vh,1.5rem)] max-md:mt-[clamp(2rem,5vh,4rem)]',
+                'hero-mobile-glass max-md:-mx-4 max-md:rounded-t-2xl max-md:px-4 max-md:pt-[clamp(1.5rem,6vh,2rem)] max-md:pb-[clamp(1rem,4vh,1.5rem)] max-md:-mt-[clamp(6.5rem,17vh,8.25rem)]',
               !portraitSrc && 'hero-scroll-content-copy--no-portrait',
               effectiveContentVerticalAlignment === 'top' && 'justify-start',
               effectiveContentVerticalAlignment === 'center' && 'justify-center',
