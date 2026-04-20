@@ -28,3 +28,14 @@
 @custom-variant hero-playbook-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (max-height: 44rem));
 @custom-variant hero-ipad (@media (min-width: 48rem) and (max-width: 64rem));
 @custom-variant hero-ipad-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (min-height: 44rem));
+
+/* Prevent Safari (and other browsers) from making links appear bold
+	 in active/focus states by enforcing a normal font-weight for anchors. */
+a, a:link, a:visited, a:hover, a:active, a:focus {
+	font-weight: 400 !important;
+}
+
+/* Also prevent <strong> inside anchors from forcing bold appearance */
+a strong, a b {
+	font-weight: 400 !important;
+}

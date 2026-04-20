@@ -31,7 +31,6 @@ function localApiMediaToPublicMedia(pathWithSearch: string): string {
   return queryPart != null && queryPart !== '' ? `${normalizedPath}?${queryPart}` : normalizedPath
 }
 
-
 /**
  * Processes media resource URL to ensure proper formatting.
  * Uses relative URLs for same-origin paths so server and client render the same src (avoids hydration mismatch).
@@ -71,29 +70,21 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
       const parsed = new URL(url)
       const mediaPath = `${parsed.pathname}${parsed.search}`
       const siteHost = getSiteHost()
-      const isLocalHost =
-        parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1'
+      const isLocalHost = parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1'
       const isSameHost = siteHost != null && parsed.hostname === siteHost
       // Normalize media URLs to same-origin relative paths.
       // This avoids broken absolute localhost URLs stored in content exports,
       // but keeps external Blob/CDN URLs intact.
       if (
-        (isLocalHost || isSameHost) &&
-        parsed.pathname.startsWith('/api/media/') ||
+        ((isLocalHost || isSameHost) && parsed.pathname.startsWith('/api/media/')) ||
         ((isLocalHost || isSameHost) && parsed.pathname.startsWith('/media/'))
       ) {
         const normalizedPath = parsed.pathname.startsWith('/api/media/file/')
-          ? (
-              !isVercelRuntime && isLocalHost
-                  ? localApiMediaToPublicMedia(mediaPath)
-                  : mediaPath
-            )
+          ? !isVercelRuntime && isLocalHost
+            ? localApiMediaToPublicMedia(mediaPath)
+            : mediaPath
           : mediaPath
-        if (
-          isLocalHost &&
-          mediaDebugSeen.size < 30 &&
-          !mediaDebugSeen.has(url)
-        ) {
+        if (isLocalHost && mediaDebugSeen.size < 30 && !mediaDebugSeen.has(url)) {
           mediaDebugSeen.add(url)
           console.info('[debug-media][normalize-absolute-local]', {
             input: url,

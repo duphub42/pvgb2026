@@ -77,6 +77,8 @@ export const RenderBlocks: React.FC<{
           if (!isArchive && !isClientBlock && !isPriceCalculator) return null
 
           const bg = b.blockBackground
+          const headingBgValue =
+            (block as { blockBackground?: string | null }).blockBackground ?? 'none'
           const overlay = b.blockOverlay
           const hasBackground = Boolean(bg && bg !== 'none')
           const hasOverlay = Boolean(overlay?.enabled && overlay.opacity != null)
@@ -105,6 +107,7 @@ export const RenderBlocks: React.FC<{
                 ease: [0.4, 0, 0.2, 1],
                 delay: index * 0.06,
               }}
+              data-block-bg={headingBgValue}
               style={
                 hasBackground
                   ? {

@@ -10,6 +10,12 @@ function randomCharFrom(chars: string) {
   return chars[Math.floor(Math.random() * chars.length)]
 }
 
+function randomCharForTarget(targetChar: string, chars: string) {
+  if (!targetChar) return randomCharFrom(chars)
+  if (/\s/.test(targetChar)) return targetChar
+  return randomCharFrom(chars)
+}
+
 type ScrambleTextProps = {
   text: string
   className?: string
@@ -19,6 +25,8 @@ type ScrambleTextProps = {
   tickMs?: number
   delayMs?: number
   disableAnimation?: boolean
+  useMonospaceOverlay?: boolean
+  startFromText?: boolean
 }
 
 export function ScrambleText({
@@ -30,6 +38,8 @@ export function ScrambleText({
   tickMs = 40,
   delayMs = 0,
   disableAnimation = false,
+  useMonospaceOverlay = true,
+  startFromText = false,
 }: ScrambleTextProps) {
   const scrambleChars = useMemo(() => chars || CHARS, [chars])
   const textLen = text?.length || 0
@@ -40,6 +50,8 @@ export function ScrambleText({
 
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  const contentClassName = cn('block w-full whitespace-nowrap overflow-hidden', className)
 
   // Alles in einem Effect – kein hasStartedRef nötig
   useEffect(() => {
@@ -68,7 +80,13 @@ export function ScrambleText({
 
     // Client-side only: scramble text (SSR-safe)
     if (typeof window === 'undefined') return
-    setDisplay(Array.from({ length: textLen }, () => randomCharFrom(scrambleChars)).join(''))
+    setDisplay(
+      startFromText
+        ? text
+        : Array.from({ length: textLen }, (_, i) => randomCharForTarget(text[i], scrambleChars)).join(
+            '',
+          ),
+    )
 
     timeoutRef.current = setTimeout(() => {
       const startTime = performance.now()
@@ -81,7 +99,8 @@ export function ScrambleText({
           const revealAt = i * staggerMs + scrambleDurationMs
           if (elapsed >= revealAt) return text[i]
           allRevealed = false
-          return randomCharFrom(scrambleChars)
+          if (startFromText && Math.random() < 0.42) return text[i]
+          return randomCharForTarget(text[i], scrambleChars)
         }).join('')
 
         setDisplay(newDisplay)
@@ -118,26 +137,31 @@ export function ScrambleText({
     scrambleDurationMs,
     tickMs,
     delayMs,
+    startFromText,
   ])
 
-  if (disableAnimation || !text) {
-    return <span className={cn('inline', className)}>{text}</span>
-  }
-
-  if (isComplete) {
-    return <span className={cn('inline', className)}>{text}</span>
+  if (disableAnimation || !text || isComplete) {
+    return (
+      <span className="relative inline-grid overflow-hidden align-baseline" aria-label={text}>
+        <span className={cn('[grid-area:1/1]', contentClassName)}>{text}</span>
+      </span>
+    )
   }
 
   return (
-    <span className={cn('relative inline-block', className)} aria-label={text}>
+    <span className="relative inline-grid overflow-hidden align-baseline" aria-label={text}>
       {/* Placeholder hält den Platz mit finaler Schrift */}
-      <span className="invisible" aria-hidden="true">
+      <span className={cn('invisible [grid-area:1/1]', contentClassName)} aria-hidden="true">
         {text}
       </span>
       {display && (
         <span
-          className="absolute inset-0 font-mono whitespace-nowrap"
-          style={{ fontVariantNumeric: 'tabular-nums' }}
+          className={cn(
+            '[grid-area:1/1]',
+            contentClassName,
+            useMonospaceOverlay && 'font-mono',
+          )}
+          style={useMonospaceOverlay ? { fontVariantNumeric: 'tabular-nums' } : undefined}
         >
           {display}
         </span>

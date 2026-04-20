@@ -8,7 +8,7 @@ const sqlPath = path.resolve(__dirname, '../../drizzle/0000_add_missing_block_ta
 
 // Match both main and version tables for the new Site Page blocks
 const BLOCK_KEYWORDS =
-  /hero_marketing|hero_grid|collab_cur|scroll_morph_hero|feat_adv|feature1|feature2|faq_simple|pricing|contact_section1|cta_section3|serp_content|lyra|features_grid|service_ux_ui|services4|features_scaling|feat_ai_acc/
+  /hero_grid|collab_cur|scroll_morph_hero|feat_adv|feature1|feature2|faq_simple|pricing|contact_section1|cta_section3|serp_content|lyra|features_grid|service_ux_ui|services4|features_scaling|feat_ai_acc/
 
 const SKIP_CODES = new Set(['42710', '42P07'])
 

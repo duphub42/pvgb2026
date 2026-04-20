@@ -70,12 +70,23 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   const resolvedAppearance = appearance === 'default' ? 'cta' : appearance
   const buttonVariant: ButtonProps['variant'] =
     resolvedAppearance === 'inline' ? 'default' : resolvedAppearance
-  const size = resolvedAppearance === 'link' ? 'default' : sizeFromProps
+
+  // Default sizing behavior:
+  // - If appearance is 'link' -> keep default size
+  // - If caller provided a size -> use it
+  // - If variant resolves to 'cta' (hero/main CTA) and no size provided -> use the larger 'cta' size
+  // - Otherwise fall back to Button default
+  const size: ButtonProps['size'] =
+    resolvedAppearance === 'link'
+      ? 'default'
+      : (sizeFromProps ?? (buttonVariant === 'cta' ? 'cta' : 'default'))
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
   const iconRegistry = Icons as unknown as Record<string, React.ComponentType<{ size?: number }>>
 
-  const resolveLucideIcon = (name?: string | null): React.ComponentType<{ size?: number }> | null => {
+  const resolveLucideIcon = (
+    name?: string | null,
+  ): React.ComponentType<{ size?: number }> | null => {
     const value = (name ?? '').trim()
     if (!value) return null
 

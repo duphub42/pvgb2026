@@ -189,10 +189,10 @@ export default async function Page({
           'relative w-full min-w-0 hero-following-section-mask',
           firstBlockIsServices
             ? cn(
-                'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:-mt-28 lg:pt-2',
+                'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
                 isSuperheroHero ? 'lg:z-[31]' : 'lg:z-[33]',
               )
-            : 'z-20 max-md:-mt-16 max-md:pt-8 pt-24 md:z-[31] md:-mt-16',
+            : 'z-20 max-md:pt-8 pt-24 md:z-[31]',
         )}
       >
         <SectionReveal className="relative z-0 pt-24">

@@ -48,21 +48,45 @@ const pagesManifest = {}
 
 const distPackageJson = { type: 'commonjs' }
 
+function tryParseJSON(filePath) {
+  try {
+    const content = fs.readFileSync(filePath, 'utf8')
+    JSON.parse(content)
+    return true
+  } catch {
+    return false
+  }
+}
+
+function writeFileAtomic(filePath, value) {
+  const tempPath = `${filePath}.tmp-${process.pid}-${Date.now()}`
+  fs.writeFileSync(tempPath, value)
+  fs.renameSync(tempPath, filePath)
+}
+
+function ensureJSONFile(filePath, data) {
+  if (fs.existsSync(filePath) && tryParseJSON(filePath)) {
+    return
+  }
+
+  writeFileAtomic(filePath, JSON.stringify(data, null, 0))
+}
+
 for (const dir of dirs) {
   if (!fs.existsSync(dir)) {
     fs.mkdirSync(dir, { recursive: true })
   }
 
   const packageJsonPath = path.join(dir, 'package.json')
-  fs.writeFileSync(packageJsonPath, JSON.stringify(distPackageJson, null, 2))
+  ensureJSONFile(packageJsonPath, distPackageJson)
 
   const routesPath = path.join(dir, 'routes-manifest.json')
   const prerenderPath = path.join(dir, 'prerender-manifest.json')
   const appPathsPath = path.join(dir, 'app-paths-manifest.json')
   const pagesPath = path.join(dir, 'pages-manifest.json')
 
-  fs.writeFileSync(routesPath, JSON.stringify(routesManifest, null, 0))
-  fs.writeFileSync(prerenderPath, JSON.stringify(prerenderManifest, null, 0))
-  fs.writeFileSync(appPathsPath, JSON.stringify(appPathsManifest, null, 0))
-  fs.writeFileSync(pagesPath, JSON.stringify(pagesManifest, null, 0))
+  ensureJSONFile(routesPath, routesManifest)
+  ensureJSONFile(prerenderPath, prerenderManifest)
+  ensureJSONFile(appPathsPath, appPathsManifest)
+  ensureJSONFile(pagesPath, pagesManifest)
 }

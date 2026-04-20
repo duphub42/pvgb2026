@@ -205,6 +205,10 @@ export interface SitePage {
     headlineLine3?: string | null;
     description?: string | null;
     /**
+     * Vertikale Position des Contents innerhalb des Superhero-Layouts.
+     */
+    contentVerticalAlignment?: ('top' | 'center' | 'bottom') | null;
+    /**
      * Vollflächiger Hintergrund hinter dem Hero (object-cover).
      */
     backgroundImage?: (number | null) | Media;
@@ -275,7 +279,6 @@ export interface SitePage {
    */
   layout?:
     | (
-        | HeroMarketingBlock
         | HeroWithProcessBlock
         | IntroductionBlock
         | MarqueeSliderBlock
@@ -550,38 +553,6 @@ export interface User {
     | null;
   password?: string | null;
   collection: 'users';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroMarketingBlock".
- */
-export interface HeroMarketingBlock {
-  blockSpacingPadding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
-  blockSpacingPaddingTop?: ('default' | 'negative' | 'xl') | null;
-  blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
-  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
-  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
-  blockBorderEnabled?: boolean | null;
-  blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
-  blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
-  blockOverlayEnabled?: boolean | null;
-  blockOverlayColor?: ('dark' | 'light') | null;
-  /**
-   * 0 = transparent, 100 = voll deckend
-   */
-  blockOverlayOpacity?: number | null;
-  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
-  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
-  badgeLabel?: string | null;
-  title?: string | null;
-  subtitle?: string | null;
-  primaryCtaLabel?: string | null;
-  primaryCtaUrl?: string | null;
-  secondaryCtaLabel?: string | null;
-  secondaryCtaUrl?: string | null;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'heroMarketing';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2794,6 +2765,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         headlineLine2?: T;
         headlineLine3?: T;
         description?: T;
+        contentVerticalAlignment?: T;
         backgroundImage?: T;
         marqueeHeadline?: T;
         logoDisplayType?: T;
@@ -2827,7 +2799,6 @@ export interface SitePagesSelect<T extends boolean = true> {
   layout?:
     | T
     | {
-        heroMarketing?: T | HeroMarketingBlockSelect<T>;
         heroWithProcess?: T | HeroWithProcessBlockSelect<T>;
         introduction?: T | IntroductionBlockSelect<T>;
         marqueeSlider?: T | MarqueeSliderBlockSelect<T>;
@@ -2872,34 +2843,6 @@ export interface SitePagesSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "HeroMarketingBlock_select".
- */
-export interface HeroMarketingBlockSelect<T extends boolean = true> {
-  blockSpacingPadding?: T;
-  blockSpacingPaddingTop?: T;
-  blockSpacingMarginBottom?: T;
-  blockContainer?: T;
-  blockBackground?: T;
-  blockBorderEnabled?: T;
-  blockBorderStyle?: T;
-  blockBorderRadius?: T;
-  blockOverlayEnabled?: T;
-  blockOverlayColor?: T;
-  blockOverlayOpacity?: T;
-  blockContentSpacing?: T;
-  blockAnimation?: T;
-  badgeLabel?: T;
-  title?: T;
-  subtitle?: T;
-  primaryCtaLabel?: T;
-  primaryCtaUrl?: T;
-  secondaryCtaLabel?: T;
-  secondaryCtaUrl?: T;
-  id?: T;
-  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

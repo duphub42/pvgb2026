@@ -69,67 +69,6 @@ export const site_pages_hero_links = sqliteTable(
   ],
 )
 
-export const site_pages_blocks_hero_marketing = sqliteTable(
-  'site_pages_blocks_hero_marketing',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: text('id').primaryKey(),
-    blockSpacingPadding: text('block_spacing_padding', {
-      enum: ['none', 'sm', 'default', 'lg', 'xl'],
-    }).default('default'),
-    blockSpacingPaddingTop: text('block_spacing_padding_top', {
-      enum: ['default', 'negative', 'xl'],
-    }).default('default'),
-    blockSpacingMarginBottom: text('block_spacing_margin_bottom', {
-      enum: ['none', 'sm', 'default', 'lg'],
-    }).default('default'),
-    blockContainer: text('block_container', {
-      enum: ['default', 'full', 'narrow', 'wide', 'none'],
-    }).default('default'),
-    blockBackground: text('block_background', {
-      enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
-    }).default('none'),
-    blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
-    blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
-      'default',
-    ),
-    blockBorderRadius: text('block_border_radius', {
-      enum: ['default', 'sm', 'lg', 'none'],
-    }).default('default'),
-    blockOverlayEnabled: integer('block_overlay_enabled', { mode: 'boolean' }).default(false),
-    blockOverlayColor: text('block_overlay_color', { enum: ['dark', 'light'] }).default('dark'),
-    blockOverlayOpacity: numeric('block_overlay_opacity', { mode: 'number' }).default(0),
-    blockContentSpacing: text('block_content_spacing', {
-      enum: ['compact', 'default', 'airy'],
-    }).default('default'),
-    blockAnimation: text('block_animation', {
-      enum: ['default', 'none', 'slideUp', 'blur'],
-    }).default('default'),
-    badgeLabel: text('badge_label').default('Introducing Support for AI Models'),
-    title: text('title').default('Modern Solutions for Customer Engagement'),
-    subtitle: text('subtitle').default(
-      'Highly customizable components for building modern websites and applications that look and feel the way you mean it.',
-    ),
-    primaryCtaLabel: text('primary_cta_label').default('Start Building'),
-    primaryCtaUrl: text('primary_cta_url').default('#start'),
-    secondaryCtaLabel: text('secondary_cta_label').default('Request a demo'),
-    secondaryCtaUrl: text('secondary_cta_url').default('#demo'),
-    blockName: text('block_name'),
-  },
-  (columns) => [
-    index('site_pages_blocks_hero_marketing_order_idx').on(columns._order),
-    index('site_pages_blocks_hero_marketing_parent_id_idx').on(columns._parentID),
-    index('site_pages_blocks_hero_marketing_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [site_pages.id],
-      name: 'site_pages_blocks_hero_marketing_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
 export const site_pages_blocks_hero_with_process_steps = sqliteTable(
   'site_pages_blocks_hero_with_process_steps',
   {
@@ -2635,6 +2574,9 @@ export const site_pages = sqliteTable(
     hero_headlineLine2: text('hero_headline_line2'),
     hero_headlineLine3: text('hero_headline_line3'),
     hero_description: text('hero_description'),
+    hero_contentVerticalAlignment: text('hero_content_vertical_alignment', {
+      enum: ['top', 'center', 'bottom'],
+    }).default('center'),
     hero_backgroundImage: integer('hero_background_image_id').references(() => media.id, {
       onDelete: 'set null',
     }),
@@ -2765,68 +2707,6 @@ export const _site_pages_v_version_hero_links = sqliteTable(
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
       name: '_site_pages_v_version_hero_links_parent_id_fk',
-    }).onDelete('cascade'),
-  ],
-)
-
-export const _site_pages_v_blocks_hero_marketing = sqliteTable(
-  '_site_pages_v_blocks_hero_marketing',
-  {
-    _order: integer('_order').notNull(),
-    _parentID: integer('_parent_id').notNull(),
-    _path: text('_path').notNull(),
-    id: integer('id').primaryKey(),
-    blockSpacingPadding: text('block_spacing_padding', {
-      enum: ['none', 'sm', 'default', 'lg', 'xl'],
-    }).default('default'),
-    blockSpacingPaddingTop: text('block_spacing_padding_top', {
-      enum: ['default', 'negative', 'xl'],
-    }).default('default'),
-    blockSpacingMarginBottom: text('block_spacing_margin_bottom', {
-      enum: ['none', 'sm', 'default', 'lg'],
-    }).default('default'),
-    blockContainer: text('block_container', {
-      enum: ['default', 'full', 'narrow', 'wide', 'none'],
-    }).default('default'),
-    blockBackground: text('block_background', {
-      enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
-    }).default('none'),
-    blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
-    blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
-      'default',
-    ),
-    blockBorderRadius: text('block_border_radius', {
-      enum: ['default', 'sm', 'lg', 'none'],
-    }).default('default'),
-    blockOverlayEnabled: integer('block_overlay_enabled', { mode: 'boolean' }).default(false),
-    blockOverlayColor: text('block_overlay_color', { enum: ['dark', 'light'] }).default('dark'),
-    blockOverlayOpacity: numeric('block_overlay_opacity', { mode: 'number' }).default(0),
-    blockContentSpacing: text('block_content_spacing', {
-      enum: ['compact', 'default', 'airy'],
-    }).default('default'),
-    blockAnimation: text('block_animation', {
-      enum: ['default', 'none', 'slideUp', 'blur'],
-    }).default('default'),
-    badgeLabel: text('badge_label').default('Introducing Support for AI Models'),
-    title: text('title').default('Modern Solutions for Customer Engagement'),
-    subtitle: text('subtitle').default(
-      'Highly customizable components for building modern websites and applications that look and feel the way you mean it.',
-    ),
-    primaryCtaLabel: text('primary_cta_label').default('Start Building'),
-    primaryCtaUrl: text('primary_cta_url').default('#start'),
-    secondaryCtaLabel: text('secondary_cta_label').default('Request a demo'),
-    secondaryCtaUrl: text('secondary_cta_url').default('#demo'),
-    _uuid: text('_uuid'),
-    blockName: text('block_name'),
-  },
-  (columns) => [
-    index('_site_pages_v_blocks_hero_marketing_order_idx').on(columns._order),
-    index('_site_pages_v_blocks_hero_marketing_parent_id_idx').on(columns._parentID),
-    index('_site_pages_v_blocks_hero_marketing_path_idx').on(columns._path),
-    foreignKey({
-      columns: [columns['_parentID']],
-      foreignColumns: [_site_pages_v.id],
-      name: '_site_pages_v_blocks_hero_marketing_parent_id_fk',
     }).onDelete('cascade'),
   ],
 )
@@ -5405,6 +5285,9 @@ export const _site_pages_v = sqliteTable(
     version_hero_headlineLine2: text('version_hero_headline_line2'),
     version_hero_headlineLine3: text('version_hero_headline_line3'),
     version_hero_description: text('version_hero_description'),
+    version_hero_contentVerticalAlignment: text('version_hero_content_vertical_alignment', {
+      enum: ['top', 'center', 'bottom'],
+    }).default('center'),
     version_hero_backgroundImage: integer('version_hero_background_image_id').references(
       () => media.id,
       {
@@ -7386,16 +7269,6 @@ export const relations_site_pages_hero_links = relations(site_pages_hero_links, 
     relationName: 'hero_links',
   }),
 }))
-export const relations_site_pages_blocks_hero_marketing = relations(
-  site_pages_blocks_hero_marketing,
-  ({ one }) => ({
-    _parentID: one(site_pages, {
-      fields: [site_pages_blocks_hero_marketing._parentID],
-      references: [site_pages.id],
-      relationName: '_blocks_heroMarketing',
-    }),
-  }),
-)
 export const relations_site_pages_blocks_hero_with_process_steps = relations(
   site_pages_blocks_hero_with_process_steps,
   ({ one }) => ({
@@ -8150,9 +8023,6 @@ export const relations_site_pages = relations(site_pages, ({ one, many }) => ({
   hero_links: many(site_pages_hero_links, {
     relationName: 'hero_links',
   }),
-  _blocks_heroMarketing: many(site_pages_blocks_hero_marketing, {
-    relationName: '_blocks_heroMarketing',
-  }),
   _blocks_heroWithProcess: many(site_pages_blocks_hero_with_process, {
     relationName: '_blocks_heroWithProcess',
   }),
@@ -8273,16 +8143,6 @@ export const relations__site_pages_v_version_hero_links = relations(
       fields: [_site_pages_v_version_hero_links._parentID],
       references: [_site_pages_v.id],
       relationName: 'version_hero_links',
-    }),
-  }),
-)
-export const relations__site_pages_v_blocks_hero_marketing = relations(
-  _site_pages_v_blocks_hero_marketing,
-  ({ one }) => ({
-    _parentID: one(_site_pages_v, {
-      fields: [_site_pages_v_blocks_hero_marketing._parentID],
-      references: [_site_pages_v.id],
-      relationName: '_blocks_heroMarketing',
     }),
   }),
 )
@@ -9059,9 +8919,6 @@ export const relations__site_pages_v = relations(_site_pages_v, ({ one, many }) 
   }),
   version_hero_links: many(_site_pages_v_version_hero_links, {
     relationName: 'version_hero_links',
-  }),
-  _blocks_heroMarketing: many(_site_pages_v_blocks_hero_marketing, {
-    relationName: '_blocks_heroMarketing',
   }),
   _blocks_heroWithProcess: many(_site_pages_v_blocks_hero_with_process, {
     relationName: '_blocks_heroWithProcess',
@@ -9888,7 +9745,6 @@ export const relations_price_calculator = relations(price_calculator, () => ({})
 type DatabaseSchema = {
   site_pages_hero_marquee_logos: typeof site_pages_hero_marquee_logos
   site_pages_hero_links: typeof site_pages_hero_links
-  site_pages_blocks_hero_marketing: typeof site_pages_blocks_hero_marketing
   site_pages_blocks_hero_with_process_steps: typeof site_pages_blocks_hero_with_process_steps
   site_pages_blocks_hero_with_process: typeof site_pages_blocks_hero_with_process
   site_pages_blocks_introduction: typeof site_pages_blocks_introduction
@@ -9957,7 +9813,6 @@ type DatabaseSchema = {
   site_pages_rels: typeof site_pages_rels
   _site_pages_v_version_hero_marquee_logos: typeof _site_pages_v_version_hero_marquee_logos
   _site_pages_v_version_hero_links: typeof _site_pages_v_version_hero_links
-  _site_pages_v_blocks_hero_marketing: typeof _site_pages_v_blocks_hero_marketing
   _site_pages_v_blocks_hero_with_process_steps: typeof _site_pages_v_blocks_hero_with_process_steps
   _site_pages_v_blocks_hero_with_process: typeof _site_pages_v_blocks_hero_with_process
   _site_pages_v_blocks_introduction: typeof _site_pages_v_blocks_introduction
@@ -10086,7 +9941,6 @@ type DatabaseSchema = {
   price_calculator: typeof price_calculator
   relations_site_pages_hero_marquee_logos: typeof relations_site_pages_hero_marquee_logos
   relations_site_pages_hero_links: typeof relations_site_pages_hero_links
-  relations_site_pages_blocks_hero_marketing: typeof relations_site_pages_blocks_hero_marketing
   relations_site_pages_blocks_hero_with_process_steps: typeof relations_site_pages_blocks_hero_with_process_steps
   relations_site_pages_blocks_hero_with_process: typeof relations_site_pages_blocks_hero_with_process
   relations_site_pages_blocks_introduction: typeof relations_site_pages_blocks_introduction
@@ -10155,7 +10009,6 @@ type DatabaseSchema = {
   relations_site_pages: typeof relations_site_pages
   relations__site_pages_v_version_hero_marquee_logos: typeof relations__site_pages_v_version_hero_marquee_logos
   relations__site_pages_v_version_hero_links: typeof relations__site_pages_v_version_hero_links
-  relations__site_pages_v_blocks_hero_marketing: typeof relations__site_pages_v_blocks_hero_marketing
   relations__site_pages_v_blocks_hero_with_process_steps: typeof relations__site_pages_v_blocks_hero_with_process_steps
   relations__site_pages_v_blocks_hero_with_process: typeof relations__site_pages_v_blocks_hero_with_process
   relations__site_pages_v_blocks_introduction: typeof relations__site_pages_v_blocks_introduction
