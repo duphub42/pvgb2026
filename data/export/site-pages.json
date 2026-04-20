@@ -1,1 +1,3801 @@
-[]
+[
+  {
+    "id": 13,
+    "title": "Datenschutz",
+    "hero": {
+      "type": "none",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "contentVerticalAlignment": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69dfd9136fa52ae85e144c13",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "blockName": "Datenschutz Content",
+        "columns": [
+          {
+            "id": "69dfd9136fa52ae85e144c12",
+            "size": "full",
+            "richText": {
+              "root": {
+                "type": "root",
+                "children": [
+                  {
+                    "type": "heading",
+                    "tag": "h1",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Datenschutzerklärung"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Mit dieser Datenschutzerklärung informieren wir Sie darüber, welche personenbezogenen Daten bei der Nutzung dieser Website verarbeitet werden."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "1. Verantwortlicher"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Philipp Bacher, Händelstr. 3, D-06114 Halle/Saale. Telefon: +49 3459 6393323 | E-Mail: mail@philippbacher.com"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "2. Server-Logfiles"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Beim Aufruf der Website werden technisch erforderliche Daten verarbeitet (z.B. IP-Adresse, Datum/Uhrzeit des Zugriffs, angeforderte URL). Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse)."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "3. Kontaktaufnahme"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Wenn Sie uns kontaktieren, verarbeiten wir die übermittelten Daten zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage: Art. 6 Abs. 1 lit. b oder lit. f DSGVO."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "4. Ihre Rechte"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Sie haben Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung (Art. 18), Datenübertragbarkeit (Art. 20), Widerspruch (Art. 21) und Widerruf (Art. 7 Abs. 3 DSGVO)."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "5. Beschwerderecht"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Sie können sich bei einer Datenschutz-Aufsichtsbehörde beschweren."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "6. Änderungen"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Wir behalten uns vor, diese Datenschutzerklärung anzupassen."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Stand: 11. April 2026"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default",
+              "icon": null,
+              "enableIconSwap": false,
+              "iconSwapFrom": null,
+              "iconSwapTo": null
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "datenschutz",
+    "parent": null,
+    "publishedAt": null,
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-15T18:29:39.862Z",
+    "createdAt": "2026-04-15T18:29:39.862Z",
+    "_status": "published"
+  },
+  {
+    "id": 12,
+    "title": "Impressum",
+    "hero": {
+      "type": "none",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": null,
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": null,
+      "contentVerticalAlignment": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69dfd9136fa52ae85e144c11",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "blockName": "Impressum Content",
+        "columns": [
+          {
+            "id": "69dfd9136fa52ae85e144c10",
+            "size": "full",
+            "richText": {
+              "root": {
+                "type": "root",
+                "children": [
+                  {
+                    "type": "heading",
+                    "tag": "h1",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Impressum"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Angaben gemäß § 5 DDG"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Dienstanbieter"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Philipp Bacher"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Händelstr. 3, D-06114 Halle/Saale"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Kontakt"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Telefon: +49 3459 6393323 | E-Mail: mail@philippbacher.com"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Vertreten durch"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Philipp Bacher"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Verantwortlich für den Inhalt nach § 18 Abs. 2 MStV"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Philipp Bacher, Händelstr. 3"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Umsatzsteuer-ID"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG: DE337118461"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Verbraucherstreitbeilegung"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Haftung für Inhalte"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Als Diensteanbieter sind wir gemäß den allgemeinen Gesetzen für eigene Inhalte auf diesen Seiten verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Haftung für Links"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "heading",
+                    "tag": "h2",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Urheberrecht"
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Die durch den Seitenbetreiber erstellten Inhalte und Werke auf diesen Seiten unterliegen dem deutschen Urheberrecht. Beiträge Dritter sind als solche gekennzeichnet. Vervielfältigung, Bearbeitung, Verbreitung und jede Art der Verwertung außerhalb der Grenzen des Urheberrechts bedürfen der schriftlichen Zustimmung des jeweiligen Autors bzw. Erstellers."
+                      }
+                    ]
+                  },
+                  {
+                    "type": "paragraph",
+                    "children": [
+                      {
+                        "type": "text",
+                        "text": "Stand: 11. April 2026"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            "enableLink": null,
+            "link": {
+              "type": "reference",
+              "newTab": null,
+              "url": null,
+              "label": null,
+              "appearance": "default",
+              "icon": null,
+              "enableIconSwap": false,
+              "iconSwapFrom": null,
+              "iconSwapTo": null
+            }
+          }
+        ],
+        "blockType": "content"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "impressum",
+    "parent": null,
+    "publishedAt": null,
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-15T18:29:39.837Z",
+    "createdAt": "2026-04-15T18:29:39.835Z",
+    "_status": "published"
+  },
+  {
+    "id": 11,
+    "title": "Portfolio Marken",
+    "hero": {
+      "type": "lowImpact",
+      "richText": null,
+      "media": null,
+      "subheadline": "Portfolio Branding",
+      "headline": "Markenprojekte von Logoentwicklung bis konsistenter Markenwelt",
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": "Branding-Cases, die Strategie und Gestaltung verbinden und eine klare Wiedererkennbarkeit schaffen.",
+      "contentVerticalAlignment": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69df5be19cbbe62c78be0be4",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Branding mit klarer Identität",
+        "body": "Die Cases zeigen, wie aus Positionierung, Tonalität und Design eine konsistente Markenwahrnehmung entsteht - vom ersten Logo bis zur Anwendung im Alltag.",
+        "tagline": "Marke ist ein System.\nNicht nur ein einzelnes Zeichen.",
+        "image": null,
+        "blockName": null,
+        "blockType": "introduction"
+      },
+      {
+        "id": "69df5be19cbbe62c78be0be9",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Leistungsfelder im Branding",
+        "intro": "Ausgewählte Projektarten aus Markenaufbau und Weiterentwicklung.",
+        "tagline": null,
+        "introImage": null,
+        "introImagePosition": "left",
+        "radialBackground": true,
+        "radialBackgroundVariant": "default",
+        "radialBackgroundStrength": "medium",
+        "blockName": null,
+        "introIconList": [],
+        "categories": [
+          {
+            "id": "69df5be19cbbe62c78be0be8",
+            "categoryLabel": "Marke & Designsystem",
+            "services": [
+              {
+                "id": "69df5be19cbbe62c78be0be5",
+                "title": "Logo-Entwicklung",
+                "description": "Einprägsame Logos mit Varianten für digitale und analoge Anwendungen.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/Logo-Design.svg",
+                  "alt": "Logo Design"
+                },
+                "link": {
+                  "slug": null
+                }
+              },
+              {
+                "id": "69df5be19cbbe62c78be0be6",
+                "title": "Corporate Identity",
+                "description": "Farbwelt, Typografie und Gestaltungsprinzipien als konsistente Markenbasis.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/design-leistungen.svg",
+                  "alt": "Corporate Identity"
+                },
+                "link": {
+                  "slug": null
+                }
+              },
+              {
+                "id": "69df5be19cbbe62c78be0be7",
+                "title": "Markenstrategie",
+                "description": "Positionierung, Kernbotschaften und visuelle Leitplanken für langfristige Wiedererkennung.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/portfolio-brands.svg",
+                  "alt": "Branding"
+                },
+                "link": {
+                  "slug": null
+                }
+              }
+            ]
+          }
+        ],
+        "blockType": "servicesGrid"
+      },
+      {
+        "id": "69df5be19cbbe62c78be0bed",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Warum Branding-Cases separat dargestellt werden",
+        "intro": "Branding-Projekte folgen anderen Kriterien als Webdesign oder Performance-Marketing.",
+        "blockName": null,
+        "introIconList": [
+          {
+            "id": "69df5be19cbbe62c78be0bf3",
+            "icon": "brain",
+            "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen."
+          },
+          {
+            "id": "69df5be19cbbe62c78be0bf4",
+            "icon": "target",
+            "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse."
+          },
+          {
+            "id": "69df5be19cbbe62c78be0bf5",
+            "icon": "search",
+            "text": "Ich hinterfrage alles — auch bestehende Strategien."
+          },
+          {
+            "id": "69df5be19cbbe62c78be0bf6",
+            "icon": "zap",
+            "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet."
+          },
+          {
+            "id": "69df5be19cbbe62c78be0bf7",
+            "icon": "handshake",
+            "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung."
+          },
+          {
+            "id": "69df5be19cbbe62c78be0bf8",
+            "icon": "trending-up",
+            "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden."
+          }
+        ],
+        "reasons": [
+          {
+            "id": "69df5be19cbbe62c78be0bea",
+            "icon": "heart",
+            "title": "Emotion und Klarheit",
+            "description": "Die Darstellung kombiniert rationale Entscheidungen mit emotionaler Markenwirkung."
+          },
+          {
+            "id": "69df5be19cbbe62c78be0beb",
+            "icon": "shield",
+            "title": "Konsistenz",
+            "description": "Logo, Typografie und Tonalität werden als zusammenhängendes System dokumentiert."
+          },
+          {
+            "id": "69df5be19cbbe62c78be0bec",
+            "icon": "briefcase",
+            "title": "Anwendung im Alltag",
+            "description": "Cases zeigen nicht nur Entwürfe, sondern konkrete Einsätze in Kommunikation und Vertrieb."
+          }
+        ],
+        "blockType": "whyWorkWithMe"
+      },
+      {
+        "id": "69df5be19cbbe62c78be0bf1",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "ctaLabel": "Projektgespräch anfragen",
+        "ctaHref": "/kontakt",
+        "blockName": null,
+        "cards": [
+          {
+            "id": "69df5be19cbbe62c78be0bee",
+            "icon": "map-pin",
+            "title": "Standort",
+            "lines": "Halle (Saale) & Remote\nDACH-weit verfügbar"
+          },
+          {
+            "id": "69df5be19cbbe62c78be0bef",
+            "icon": "mail",
+            "title": "Kontakt",
+            "lines": "mail@philippbacher.com\nAntwort in der Regel innerhalb 24h"
+          },
+          {
+            "id": "69df5be19cbbe62c78be0bf0",
+            "icon": "clock-3",
+            "title": "Verfügbarkeit",
+            "lines": "Mo-Fr: 09:00-18:00 Uhr\nKickoff kurzfristig möglich"
+          }
+        ],
+        "blockType": "contactInfoCards"
+      },
+      {
+        "id": "69df5be19cbbe62c78be0bf2",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "headline": "Markenauftritt schärfen",
+        "description": "Wir analysieren Status quo, definieren Positionierung und priorisieren die nächsten Design-Schritte.",
+        "calLink": "philippbacher/30min",
+        "buttonLabel": "Termin buchen",
+        "blockName": null,
+        "blockType": "calPopup"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "portfolio-branding",
+    "parent": null,
+    "publishedAt": "2026-04-15T09:35:29.854Z",
+    "portfolioType": null,
+    "meta": {
+      "title": "Portfolio Marken | Branding, Logo und Corporate Identity",
+      "description": "Branding-Portfolio mit Cases aus Logoentwicklung, Corporate Identity und Markenstrategie.",
+      "image": null
+    },
+    "updatedAt": "2026-04-15T09:35:29.910Z",
+    "createdAt": "2026-04-15T09:35:29.907Z",
+    "_status": "published"
+  },
+  {
+    "id": 10,
+    "title": "Leistungen",
+    "hero": {
+      "type": "leistungenHero",
+      "richText": null,
+      "media": null,
+      "subheadline": "Edel. Minimal. Performance-orientiert.",
+      "headline": "Leistungen für elegantes Webdesign mit technischem Anspruch",
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": "Ich verbinde ästhetische Digital-Erlebnisse mit klaren Prozessen und technischer Verlässlichkeit – für Websites, die überzeugen und langfristig funktionieren.",
+      "contentVerticalAlignment": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": [
+        {
+          "id": "69df5bd419aeb92bc1713089",
+          "link": {
+            "type": "custom",
+            "newTab": null,
+            "url": "#services",
+            "label": "Zu den Leistungen",
+            "appearance": "default",
+            "icon": null,
+            "enableIconSwap": false,
+            "iconSwapFrom": null,
+            "iconSwapTo": null
+          }
+        }
+      ]
+    },
+    "layout": [
+      {
+        "id": "69df5bd419aeb92bc171308e",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Leistungs-Hub auf einen Blick",
+        "intro": "Vier Kernbereiche, die als zusammenhängender Prozess funktionieren - von der strategischen Grundlage bis zur kontinuierlichen Optimierung.",
+        "blockName": null,
+        "services": [
+          {
+            "id": "69df5bd419aeb92bc171308a",
+            "icon": "compass",
+            "title": "Strategie & Beratung",
+            "description": "Positionierung, Zielbild und Prioritäten, damit jede Maßnahme auf ein klares Ergebnis einzahlt."
+          },
+          {
+            "id": "69df5bd419aeb92bc171308b",
+            "icon": "code",
+            "title": "Webdesign & Umsetzung",
+            "description": "Reduziertes, hochwertiges Design plus technische Umsetzung für schnelle, stabile und wartbare Systeme."
+          },
+          {
+            "id": "69df5bd419aeb92bc171308c",
+            "icon": "megaphone",
+            "title": "Marketing & Reichweite",
+            "description": "Gezielte Maßnahmen für Sichtbarkeit, qualifizierte Anfragen und nachvollziehbare Performance."
+          },
+          {
+            "id": "69df5bd419aeb92bc171308d",
+            "icon": "shield",
+            "title": "Wartung & Entwicklung",
+            "description": "Kontinuierliche Pflege, Verbesserungen und klare Weiterentwicklung statt punktueller Einmal-Projekte."
+          }
+        ],
+        "blockType": "servicesOverview"
+      },
+      {
+        "id": "69df5bd419aeb92bc171308f",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Ein Hub statt isolierter Einzelleistungen",
+        "body": "Der Leistungs-Hub bündelt Strategie, Gestaltung, Technik und Vermarktung in einer klaren Journey. So entstehen keine Medienbrüche zwischen Beratung, Umsetzung und Betrieb.",
+        "tagline": "Edel im Auftritt. Präzise in der Ausführung. Messbar in der Wirkung.",
+        "image": null,
+        "blockName": null,
+        "blockType": "introduction"
+      },
+      {
+        "id": "69df5bd419aeb92bc1713094",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "headline": "So läuft die Zusammenarbeit - klar, strukturiert, transparent",
+        "introText": "Jeder Schritt baut logisch auf dem vorherigen auf. Das reduziert Reibung und schafft eine belastbare Grundlage für Wachstum.",
+        "pixelLayoutDesktop": true,
+        "layoutMode": "stepList",
+        "strategyLabel": "Analyse & Ausrichtung",
+        "strategySubLabel": "Strategischer Startpunkt",
+        "strategyTitle": "Wir definieren Ziele, Prioritäten und die richtige digitale Richtung",
+        "strategyText": "Am Anfang stehen Zielgruppen, Angebotsschärfung und ein realistischer Maßnahmenplan. Damit wird aus Einzelideen ein konsistentes System mit klaren Prioritäten.",
+        "strategyIcon": "compass",
+        "benefitsLabel": "Umsetzung & Ergebnis",
+        "benefitsSubLabel": "Vom Konzept zur Wirkung",
+        "benefitsTitle": "Umsetzung in präzisen Etappen",
+        "benefitsIcon": "sparkles",
+        "experienceLabel": "Langfristige Partnerschaft",
+        "experienceSubLabel": "Stabilität mit Entwicklungsspielraum",
+        "experienceTitle": "Nach dem Launch begleite ich den Hub kontinuierlich bei Verbesserungen, Tests und Skalierung",
+        "experienceIcon": "award",
+        "blockName": null,
+        "benefitItems": [
+          {
+            "id": "69df5bd419aeb92bc1713090",
+            "icon": "sparkles",
+            "title": "Konzept & Informationsarchitektur",
+            "text": "Struktur, Seitenlogik und User-Flows werden klar definiert, bevor Design und Entwicklung starten."
+          },
+          {
+            "id": "69df5bd419aeb92bc1713091",
+            "icon": "sparkles",
+            "title": "Design & Content",
+            "text": "Visuelle Sprache und Inhalte werden aufeinander abgestimmt, damit Marke und Nutzen auf den ersten Blick verständlich sind."
+          },
+          {
+            "id": "69df5bd419aeb92bc1713092",
+            "icon": "sparkles",
+            "title": "Technische Umsetzung",
+            "text": "Performante Entwicklung mit sauberer Basis für SEO, Tracking, Erweiterungen und langfristige Wartbarkeit."
+          },
+          {
+            "id": "69df5bd419aeb92bc1713093",
+            "icon": "sparkles",
+            "title": "Launch, Messung und Optimierung",
+            "text": "Nach dem Go-live werden Daten genutzt, um Conversions, Sichtbarkeit und Prozesse systematisch weiterzuentwickeln."
+          }
+        ],
+        "blockType": "consultingOverview",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        },
+        "colors": {
+          "gradientLavender": "#DED9FF",
+          "gradientLime": "#F3FFD9",
+          "introBlob": "#DED9FF",
+          "strategyBadge": "#08D3BB",
+          "benefitsBadge": "#1090CB",
+          "experienceBadge": "#9208D3",
+          "timelineStroke": "#999999",
+          "divider": "#C7C7C7",
+          "headline": "#252525",
+          "body": "#545454",
+          "muted": "#868686"
+        }
+      },
+      {
+        "id": "69df5bd419aeb92bc171309a",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Meine Servicebereiche",
+        "intro": "Wähle den Bereich, der zu deinem Projekt passt. Jede Seite ist editierbar und fokussiert auf einen klaren Leistungsbereich.",
+        "tagline": "Klar strukturiert. Zielgerichtet. Backend-bearbeitbar.",
+        "introImage": null,
+        "introImagePosition": "left",
+        "radialBackground": true,
+        "radialBackgroundVariant": "blue",
+        "radialBackgroundStrength": "medium",
+        "blockName": null,
+        "introIconList": [],
+        "categories": [
+          {
+            "id": "69df5bd419aeb92bc1713097",
+            "categoryLabel": "Design & Website",
+            "services": [
+              {
+                "id": "69df5bd419aeb92bc1713095",
+                "title": "Webdesign",
+                "description": "Moderne, minimalistische Webseiten mit klarer Struktur, schnellen Ladezeiten und hochwertiger Optik.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/webdesign.svg",
+                  "alt": "Webdesign Icon"
+                },
+                "link": {
+                  "slug": "leistungen/webdesign"
+                }
+              },
+              {
+                "id": "69df5bd419aeb92bc1713096",
+                "title": "Wartung & Support",
+                "description": "Laufende Pflege, Sicherheitsupdates und schnelle technische Reaktion für sorgenfreie Webauftritte.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/marketing-leistungen.svg",
+                  "alt": "Wartung Icon"
+                },
+                "link": {
+                  "slug": "leistungen/wartung"
+                }
+              }
+            ]
+          },
+          {
+            "id": "69df5bd419aeb92bc1713099",
+            "categoryLabel": "Strategie & Wachstum",
+            "services": [
+              {
+                "id": "69df5bd419aeb92bc1713098",
+                "title": "Marketing",
+                "description": "Strategisch gesteuerte Digital-Kampagnen mit Fokus auf Sichtbarkeit, Leads und messbare Effekte.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/marketing-leistungen.svg",
+                  "alt": "Marketing Icon"
+                },
+                "link": {
+                  "slug": "leistungen/marketing"
+                }
+              }
+            ]
+          }
+        ],
+        "blockType": "servicesGrid"
+      },
+      {
+        "id": "69df5bd419aeb92bc171309e",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Warum diese Leistungen funktionieren",
+        "intro": "Jede Spezialisierung ist so aufgebaut, dass Inhalte und Abläufe klar bleiben – auch im Backend.",
+        "blockName": null,
+        "introIconList": [
+          {
+            "id": "69df5bd419aeb92bc17130a0",
+            "icon": "brain",
+            "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen."
+          },
+          {
+            "id": "69df5bd419aeb92bc17130a1",
+            "icon": "target",
+            "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse."
+          },
+          {
+            "id": "69df5bd419aeb92bc17130a2",
+            "icon": "search",
+            "text": "Ich hinterfrage alles — auch bestehende Strategien."
+          },
+          {
+            "id": "69df5bd419aeb92bc17130a3",
+            "icon": "zap",
+            "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet."
+          },
+          {
+            "id": "69df5bd419aeb92bc17130a4",
+            "icon": "handshake",
+            "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung."
+          },
+          {
+            "id": "69df5bd419aeb92bc17130a5",
+            "icon": "trending-up",
+            "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden."
+          }
+        ],
+        "reasons": [
+          {
+            "id": "69df5bd419aeb92bc171309b",
+            "icon": "zap",
+            "title": "Technisch präzise",
+            "description": "Klare Standards für Code, Performance und Wartbarkeit."
+          },
+          {
+            "id": "69df5bd419aeb92bc171309c",
+            "icon": "target",
+            "title": "Reduziert und fokussiert",
+            "description": "Kein Overhead, sondern schlank gestaltete Lösungen mit klarem Nutzen."
+          },
+          {
+            "id": "69df5bd419aeb92bc171309d",
+            "icon": "shield",
+            "title": "Verlässlich",
+            "description": "Webseiten und Systeme mit langfristiger Stabilität und Sicherheit."
+          }
+        ],
+        "blockType": "whyWorkWithMe"
+      },
+      {
+        "id": "69df5bd419aeb92bc171309f",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "headline": "Gemeinsam den nächsten Schritt planen",
+        "description": "In einem kurzen Kennenlerntermin prüfen wir, welcher Leistungsbereich am besten zu deinem Projekt passt.",
+        "calLink": "philippbacher/30min",
+        "buttonLabel": "Termin buchen",
+        "blockName": null,
+        "blockType": "calPopup"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "leistungen-old",
+    "parent": null,
+    "publishedAt": "2026-04-15T09:35:16.125Z",
+    "portfolioType": null,
+    "meta": {
+      "title": "Leistungen | Webdesign, Marketing, Wartung",
+      "description": "Editierbare Leistungen für Webdesign, Marketing und Wartung. Minimal, technisch und hochwertig strukturiert.",
+      "image": null
+    },
+    "updatedAt": "2026-04-15T09:35:16.146Z",
+    "createdAt": "2026-04-15T09:35:16.144Z",
+    "_status": "published"
+  },
+  {
+    "id": 9,
+    "title": "Portfolio Marken",
+    "hero": {
+      "type": "superhero",
+      "richText": null,
+      "media": null,
+      "subheadline": "Portfolio Branding",
+      "headline": "Markenprojekte von Logoentwicklung bis konsistenter Markenwelt",
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": "Branding-Cases, die Strategie und Gestaltung verbinden und eine klare Wiedererkennbarkeit schaffen.",
+      "contentVerticalAlignment": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69da0e0ab7d24b3144e68e47",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Branding mit klarer Identität",
+        "body": "Die Cases zeigen, wie aus Positionierung, Tonalität und Design eine konsistente Markenwahrnehmung entsteht - vom ersten Logo bis zur Anwendung im Alltag.",
+        "tagline": "Marke ist ein System.\nNicht nur ein einzelnes Zeichen.",
+        "image": null,
+        "blockName": null,
+        "blockType": "introduction"
+      },
+      {
+        "id": "69da0e0ab7d24b3144e68e4c",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Leistungsfelder im Branding",
+        "intro": "Ausgewählte Projektarten aus Markenaufbau und Weiterentwicklung.",
+        "tagline": null,
+        "introImage": null,
+        "introImagePosition": "left",
+        "radialBackground": true,
+        "radialBackgroundVariant": "default",
+        "radialBackgroundStrength": "medium",
+        "blockName": null,
+        "introIconList": [],
+        "categories": [
+          {
+            "id": "69da0e0ab7d24b3144e68e4b",
+            "categoryLabel": "Marke & Designsystem",
+            "services": [
+              {
+                "id": "69da0e0ab7d24b3144e68e48",
+                "title": "Logo-Entwicklung",
+                "description": "Einprägsame Logos mit Varianten für digitale und analoge Anwendungen.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/Logo-Design.svg",
+                  "alt": "Logo Design"
+                },
+                "link": {
+                  "slug": null
+                }
+              },
+              {
+                "id": "69da0e0ab7d24b3144e68e49",
+                "title": "Corporate Identity",
+                "description": "Farbwelt, Typografie und Gestaltungsprinzipien als konsistente Markenbasis.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/design-leistungen.svg",
+                  "alt": "Corporate Identity"
+                },
+                "link": {
+                  "slug": null
+                }
+              },
+              {
+                "id": "69da0e0ab7d24b3144e68e4a",
+                "title": "Markenstrategie",
+                "description": "Positionierung, Kernbotschaften und visuelle Leitplanken für langfristige Wiedererkennung.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/portfolio-brands.svg",
+                  "alt": "Branding"
+                },
+                "link": {
+                  "slug": null
+                }
+              }
+            ]
+          }
+        ],
+        "blockType": "servicesGrid"
+      },
+      {
+        "id": "69da0e0ab7d24b3144e68e50",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Warum Branding-Cases separat dargestellt werden",
+        "intro": "Branding-Projekte folgen anderen Kriterien als Webdesign oder Performance-Marketing.",
+        "blockName": null,
+        "introIconList": [
+          {
+            "id": "69da0e0ab7d24b3144e68e56",
+            "icon": "brain",
+            "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e57",
+            "icon": "target",
+            "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e58",
+            "icon": "search",
+            "text": "Ich hinterfrage alles — auch bestehende Strategien."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e59",
+            "icon": "zap",
+            "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e5a",
+            "icon": "handshake",
+            "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e5b",
+            "icon": "trending-up",
+            "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden."
+          }
+        ],
+        "reasons": [
+          {
+            "id": "69da0e0ab7d24b3144e68e4d",
+            "icon": "heart",
+            "title": "Emotion und Klarheit",
+            "description": "Die Darstellung kombiniert rationale Entscheidungen mit emotionaler Markenwirkung."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e4e",
+            "icon": "shield",
+            "title": "Konsistenz",
+            "description": "Logo, Typografie und Tonalität werden als zusammenhängendes System dokumentiert."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e4f",
+            "icon": "briefcase",
+            "title": "Anwendung im Alltag",
+            "description": "Cases zeigen nicht nur Entwürfe, sondern konkrete Einsätze in Kommunikation und Vertrieb."
+          }
+        ],
+        "blockType": "whyWorkWithMe"
+      },
+      {
+        "id": "69da0e0ab7d24b3144e68e54",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "ctaLabel": "Projektgespräch anfragen",
+        "ctaHref": "/kontakt",
+        "blockName": null,
+        "cards": [
+          {
+            "id": "69da0e0ab7d24b3144e68e51",
+            "icon": "map-pin",
+            "title": "Standort",
+            "lines": "Halle (Saale) & Remote\nDACH-weit verfügbar"
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e52",
+            "icon": "mail",
+            "title": "Kontakt",
+            "lines": "mail@philippbacher.com\nAntwort in der Regel innerhalb 24h"
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e53",
+            "icon": "clock-3",
+            "title": "Verfügbarkeit",
+            "lines": "Mo-Fr: 09:00-18:00 Uhr\nKickoff kurzfristig möglich"
+          }
+        ],
+        "blockType": "contactInfoCards"
+      },
+      {
+        "id": "69da0e0ab7d24b3144e68e55",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "headline": "Markenauftritt schärfen",
+        "description": "Wir analysieren Status quo, definieren Positionierung und priorisieren die nächsten Design-Schritte.",
+        "calLink": "philippbacher/30min",
+        "buttonLabel": "Termin buchen",
+        "blockName": null,
+        "blockType": "calPopup"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "portfolio-marken",
+    "parent": null,
+    "publishedAt": "2026-04-11T09:02:02.626Z",
+    "portfolioType": null,
+    "meta": {
+      "title": "Portfolio Marken | Branding, Logo und Corporate Identity",
+      "description": "Branding-Portfolio mit Cases aus Logoentwicklung, Corporate Identity und Markenstrategie.",
+      "image": null
+    },
+    "updatedAt": "2026-04-11T09:02:02.788Z",
+    "createdAt": "2026-04-11T09:02:02.788Z",
+    "_status": "published"
+  },
+  {
+    "id": 8,
+    "title": "Portfolio Marketing",
+    "hero": {
+      "type": "superhero",
+      "richText": null,
+      "media": null,
+      "subheadline": "Portfolio Marketing",
+      "headline": "Marketing-Projekte mit Fokus auf SEO, SEM und Leads",
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": "Strategie, Umsetzung und Optimierung in einem datengetriebenen Prozess mit klaren Leistungskennzahlen.",
+      "contentVerticalAlignment": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69da0e0ab7d24b3144e68e32",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Marketing-Cases mit nachvollziehbarer Wirkung",
+        "body": "Die Cases folgen einer klaren Logik: Ziel, Kanalmix, Maßnahmen, Ergebnis. So bleibt sichtbar, welche Entscheidung welchen Effekt erzeugt hat.",
+        "tagline": "Nicht nur Reichweite zählen.\nRelevante Leads und stabile Performance zählen.",
+        "image": null,
+        "blockName": null,
+        "blockType": "introduction"
+      },
+      {
+        "id": "69da0e0ab7d24b3144e68e36",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Kernbereiche im Marketing-Portfolio",
+        "intro": "Die Projekte verteilen sich auf drei wiederkehrende Schwerpunkte.",
+        "blockName": null,
+        "services": [
+          {
+            "id": "69da0e0ab7d24b3144e68e33",
+            "icon": "trending-up",
+            "title": "SEO",
+            "description": "Technische und inhaltliche Optimierung für nachhaltige organische Sichtbarkeit."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e34",
+            "icon": "rocket",
+            "title": "SEM",
+            "description": "Performance-Kampagnen mit sauberem Setup, Testing und laufender Effizienzsteigerung."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e35",
+            "icon": "zap",
+            "title": "Lead-Strategie",
+            "description": "Funnel-orientierte Maßnahmen zur Steigerung qualifizierter Anfragen und Conversion-Raten."
+          }
+        ],
+        "blockType": "servicesOverview"
+      },
+      {
+        "id": "69da0e0ab7d24b3144e68e3b",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Case-Typen im Marketing",
+        "intro": "Auswahl typischer Marketing-Projektformen.",
+        "tagline": null,
+        "introImage": null,
+        "introImagePosition": "left",
+        "radialBackground": true,
+        "radialBackgroundVariant": "orange",
+        "radialBackgroundStrength": "medium",
+        "blockName": null,
+        "introIconList": [],
+        "categories": [
+          {
+            "id": "69da0e0ab7d24b3144e68e3a",
+            "categoryLabel": "Organic & Paid",
+            "services": [
+              {
+                "id": "69da0e0ab7d24b3144e68e37",
+                "title": "SEO-Relaunch-Begleitung",
+                "description": "Migration, Onpage-Optimierung und Content-Struktur zur Stabilisierung von Rankings.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/SEO.svg",
+                  "alt": "SEO"
+                },
+                "link": {
+                  "slug": null
+                }
+              },
+              {
+                "id": "69da0e0ab7d24b3144e68e38",
+                "title": "SEM-Kampagnen-Optimierung",
+                "description": "Anzeigenstruktur, Suchintentionen und Budgetsteuerung für bessere Kosten-Umsatz-Relation.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/marketing-leistungen.svg",
+                  "alt": "Marketing"
+                },
+                "link": {
+                  "slug": null
+                }
+              },
+              {
+                "id": "69da0e0ab7d24b3144e68e39",
+                "title": "Lead-Generierung",
+                "description": "Kampagnen, Landingpages und Tracking zu einem performanten Akquise-Setup verbunden.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/Leadgenerierung.svg",
+                  "alt": "Leads"
+                },
+                "link": {
+                  "slug": null
+                }
+              }
+            ]
+          }
+        ],
+        "blockType": "servicesGrid"
+      },
+      {
+        "id": "69da0e0ab7d24b3144e68e3f",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Was Marketing-Projekte hier auszeichnet",
+        "intro": "Der Fokus liegt auf Wirkung und klaren Entscheidungsgrundlagen.",
+        "blockName": null,
+        "introIconList": [
+          {
+            "id": "69da0e0ab7d24b3144e68e41",
+            "icon": "brain",
+            "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e42",
+            "icon": "target",
+            "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e43",
+            "icon": "search",
+            "text": "Ich hinterfrage alles — auch bestehende Strategien."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e44",
+            "icon": "zap",
+            "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e45",
+            "icon": "handshake",
+            "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e46",
+            "icon": "trending-up",
+            "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden."
+          }
+        ],
+        "reasons": [
+          {
+            "id": "69da0e0ab7d24b3144e68e3c",
+            "icon": "target",
+            "title": "KPI-orientierter Aufbau",
+            "description": "Jeder Case ist entlang konkreter Ziele und Kennzahlen dokumentiert."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e3d",
+            "icon": "briefcase",
+            "title": "Analytischer Prozess",
+            "description": "Hypothesen, Tests und Optimierungsschleifen sind nachvollziehbar dargestellt."
+          },
+          {
+            "id": "69da0e0ab7d24b3144e68e3e",
+            "icon": "trending-up",
+            "title": "Skalierbare Learnings",
+            "description": "Erkenntnisse aus Cases lassen sich auf neue Kampagnen und Märkte übertragen."
+          }
+        ],
+        "blockType": "whyWorkWithMe"
+      },
+      {
+        "id": "69da0e0ab7d24b3144e68e40",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "headline": "Marketing-Ziele in einen Plan übersetzen",
+        "description": "Wir priorisieren Kanäle, Budget und Quick Wins in einem kompakten Kickoff.",
+        "calLink": "philippbacher/30min",
+        "buttonLabel": "Termin buchen",
+        "blockName": null,
+        "blockType": "calPopup"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "portfolio-marketing",
+    "parent": null,
+    "publishedAt": "2026-04-11T09:02:02.626Z",
+    "portfolioType": null,
+    "meta": {
+      "title": "Portfolio Marketing | SEO, SEM und Lead-Strategien",
+      "description": "Marketing-Portfolio mit Cases aus SEO, SEM und Lead-Generierung, strukturiert nach Ziel, Maßnahmen und Ergebnis.",
+      "image": null
+    },
+    "updatedAt": "2026-04-11T09:02:02.692Z",
+    "createdAt": "2026-04-11T09:02:02.685Z",
+    "_status": "published"
+  },
+  {
+    "id": 7,
+    "title": "Portfolio Webdesign",
+    "hero": {
+      "type": "superhero",
+      "richText": null,
+      "media": null,
+      "subheadline": "Portfolio Webdesign",
+      "headline": "Webseiten und digitale Erlebnisse mit Fokus auf UX und Conversion",
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": "Von Struktur und Interface bis Technik und Performance: jedes Projekt verbindet Designqualität mit klarer Funktion.",
+      "contentVerticalAlignment": null,
+      "backgroundImage": null,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69da0df47d1bd12d5248ad3f",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Wie Webdesign-Projekte hier aufgebaut sind",
+        "body": "Jeder Case zeigt Ausgangslage, Konzept, UI-Umsetzung und das messbare Ergebnis. So wird nachvollziehbar, warum Designentscheidungen getroffen wurden.",
+        "tagline": "Design ist nicht Dekoration.\nDesign ist ein System für Orientierung und Handlung.",
+        "image": null,
+        "blockName": null,
+        "blockType": "introduction"
+      },
+      {
+        "id": "69da0df47d1bd12d5248ad47",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Leistungsfelder im Webdesign",
+        "intro": "Typische Schwerpunkte in Webdesign- und Umsetzungsprojekten.",
+        "tagline": null,
+        "introImage": null,
+        "introImagePosition": "left",
+        "radialBackground": true,
+        "radialBackgroundVariant": "blue",
+        "radialBackgroundStrength": "medium",
+        "blockName": null,
+        "introIconList": [],
+        "categories": [
+          {
+            "id": "69da0df47d1bd12d5248ad43",
+            "categoryLabel": "Design & UX",
+            "services": [
+              {
+                "id": "69da0df47d1bd12d5248ad41",
+                "title": "Corporate Website",
+                "description": "Klare Positionierung, moderne Gestaltung und konsistente Nutzerführung.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/webdesign.svg",
+                  "alt": "Webdesign"
+                },
+                "link": {
+                  "slug": null
+                }
+              },
+              {
+                "id": "69da0df47d1bd12d5248ad42",
+                "title": "Landingpage-Systeme",
+                "description": "Conversion-orientierte Seitenstrukturen für Kampagnen und Lead-Generierung.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/design-leistungen.svg",
+                  "alt": "Design Leistungen"
+                },
+                "link": {
+                  "slug": null
+                }
+              }
+            ]
+          },
+          {
+            "id": "69da0df47d1bd12d5248ad46",
+            "categoryLabel": "Technik & Performance",
+            "services": [
+              {
+                "id": "69da0df47d1bd12d5248ad44",
+                "title": "Responsive Frontend",
+                "description": "Saubere Umsetzung für Desktop, Tablet und Mobile mit konsistentem Verhalten.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/webdesign.svg",
+                  "alt": "Responsive Webdesign"
+                },
+                "link": {
+                  "slug": null
+                }
+              },
+              {
+                "id": "69da0df47d1bd12d5248ad45",
+                "title": "Core Web Vitals",
+                "description": "Optimierung für Ladezeit, Stabilität und Interaktion zur Verbesserung der User Experience.",
+                "featured": null,
+                "icon": {
+                  "url": "/api/media/file/Leadgenerierung.svg",
+                  "alt": "Performance"
+                },
+                "link": {
+                  "slug": null
+                }
+              }
+            ]
+          }
+        ],
+        "blockType": "servicesGrid"
+      },
+      {
+        "id": "69da0df47d1bd12d5248ad4b",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "ctaLabel": "Projektgespräch anfragen",
+        "ctaHref": "/kontakt",
+        "blockName": null,
+        "cards": [
+          {
+            "id": "69da0df47d1bd12d5248ad48",
+            "icon": "map-pin",
+            "title": "Standort",
+            "lines": "Halle (Saale) & Remote\nDACH-weit verfügbar"
+          },
+          {
+            "id": "69da0df47d1bd12d5248ad49",
+            "icon": "mail",
+            "title": "Kontakt",
+            "lines": "mail@philippbacher.com\nAntwort in der Regel innerhalb 24h"
+          },
+          {
+            "id": "69da0df47d1bd12d5248ad4a",
+            "icon": "clock-3",
+            "title": "Verfügbarkeit",
+            "lines": "Mo-Fr: 09:00-18:00 Uhr\nKickoff kurzfristig möglich"
+          }
+        ],
+        "blockType": "contactInfoCards"
+      },
+      {
+        "id": "69da0df47d1bd12d5248ad4c",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "headline": "Webdesign-Projekt starten",
+        "description": "Wir definieren Scope, Prioritäten und einen realistischen Umsetzungsplan.",
+        "calLink": "philippbacher/30min",
+        "buttonLabel": "Termin buchen",
+        "blockName": null,
+        "blockType": "calPopup"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "portfolio-webdesign",
+    "parent": null,
+    "publishedAt": "2026-04-11T09:01:40.661Z",
+    "portfolioType": null,
+    "meta": {
+      "title": "Portfolio Webdesign | UX, UI und Performance",
+      "description": "Webdesign-Portfolio mit Fokus auf UX, Interface-Qualität und performanter Umsetzung.",
+      "image": null
+    },
+    "updatedAt": "2026-04-11T09:01:40.800Z",
+    "createdAt": "2026-04-11T09:01:40.800Z",
+    "_status": "published"
+  },
+  {
+    "id": 6,
+    "title": "Kontakt",
+    "hero": {
+      "type": "superhero",
+      "richText": null,
+      "media": null,
+      "subheadline": "Kontakt",
+      "headline": "Projekt starten. Klarheit gewinnen. Ergebnisse schaffen.",
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": "Ein kurzer Austausch bringt Struktur in Ideen und zeigt, wie daraus ein funktionierendes System entsteht.",
+      "contentVerticalAlignment": null,
+      "backgroundImage": 73,
+      "marqueeHeadline": "",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69e5c02f538accd8512ad24c",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "ctaLabel": "Termin anfragen",
+        "ctaHref": "#kontaktformular",
+        "blockName": null,
+        "cards": [
+          {
+            "id": "69e5c02f538accd8512ad249",
+            "icon": "map-pin",
+            "title": "Adresse",
+            "lines": "Philipp Bacher\nMünchen & Remote"
+          },
+          {
+            "id": "69e5c02f538accd8512ad24a",
+            "icon": "phone",
+            "title": "Kontaktdaten",
+            "lines": "Telefon: +49 3459 6393323\nE-Mail: mail@philippbacher.com"
+          },
+          {
+            "id": "69e5c02f538accd8512ad24b",
+            "icon": "clock-3",
+            "title": "Office Hours",
+            "lines": "Mo-Fr: 09:00-18:00 Uhr\nSowie nach Terminvereinbarung"
+          }
+        ],
+        "blockType": "contactInfoCards"
+      },
+      {
+        "id": "69e5c02f538accd8512ad24d",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "form": 5,
+        "enableIntro": true,
+        "introContent": {
+          "root": {
+            "type": "root",
+            "children": [
+              {
+                "type": "heading",
+                "children": [
+                  {
+                    "type": "text",
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Kontaktformular",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "tag": "h3",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        },
+        "blockName": null,
+        "blockType": "formBlock"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "kontakt",
+    "parent": null,
+    "publishedAt": "2026-02-25T01:04:19.696Z",
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-20T05:59:47.781Z",
+    "createdAt": "2026-02-25T22:05:43.075Z",
+    "_status": "published"
+  },
+  {
+    "id": 5,
+    "title": "Preise",
+    "hero": {
+      "type": "superhero",
+      "richText": null,
+      "media": null,
+      "subheadline": "Preisübersicht",
+      "headline": "Klare <decode>Investition</decode> mit voller Transparenz und nachvollziehbarer Struktur.",
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": "Jeder Euro fließt gezielt in Wachstum, Wirkung und messbare Ergebnisse.",
+      "contentVerticalAlignment": "bottom",
+      "backgroundImage": 77,
+      "marqueeHeadline": "",
+      "logoDisplayType": null,
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "699f7236cf55b79cc4f64922",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 288,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "badgeLabel": "Introducing Support for AI Models",
+        "title": "Modern Solutions for Customer Engagement",
+        "subtitle": "Highly customizable components for building modern websites and applications that look and feel the way you mean it.",
+        "primaryCtaLabel": "Start Building",
+        "primaryCtaUrl": "#start",
+        "secondaryCtaLabel": "Request a demo",
+        "secondaryCtaUrl": "#demo",
+        "blockName": null,
+        "blockType": "heroMarketing"
+      },
+      {
+        "id": "69e3dc4ea9d008ca8bd64ba4",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "narrow",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": true,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "eyebrow": "Impact in Zahlen",
+        "heading": "Die wichtigsten Leistungswerte auf einen Blick",
+        "intro": "ASDFASDFASDFASDF",
+        "variant": "glass",
+        "blockName": null,
+        "items": [
+          {
+            "id": "69e3dfd2a9d008ca8bd64bba",
+            "value": "1234",
+            "label": "ASDF",
+            "context": "ASDFASDFASDFASDF",
+            "trend": "up",
+            "delta": "+33"
+          },
+          {
+            "id": "69e3dff9a9d008ca8bd64bbe",
+            "value": "1234",
+            "label": "ASDF",
+            "context": "ASDFASDFASDFASDF",
+            "trend": "up",
+            "delta": "+33"
+          },
+          {
+            "id": "69e3dff6a9d008ca8bd64bbc",
+            "value": "1234",
+            "label": "ASDF",
+            "context": "ASDFASDFASDFASDF",
+            "trend": "up",
+            "delta": "+33"
+          }
+        ],
+        "blockType": "portfolioKpiStrip"
+      },
+      {
+        "id": "69e3dba8a9d008ca8bd64b9a",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "eyebrow": "Pakete",
+        "heading": "Webdesign Pakete fuer jedes Projektstadium",
+        "description": "Drei klar strukturierte Angebote mit transparenten Leistungen, damit Sie Aufwand und Ergebnis direkt einschaetzen koennen.",
+        "comparisonHeading": "Feature Vergleich",
+        "comparisonDescription": "Direkter Vergleich der wichtigsten Leistungsmerkmale pro Paket.",
+        "comparisonFootnote": "Alle Pakete koennen individuell erweitert oder kombiniert werden.",
+        "blockName": null,
+        "plans": [
+          {
+            "id": "69e3dbb51cca0d3a4d710244",
+            "name": "Starter",
+            "badge": "",
+            "description": "Ideal fuer kleine Websites und einen schnellen, professionellen Start.",
+            "price": "1.490",
+            "priceSuffix": "einmalig",
+            "highlighted": false,
+            "ctaLabel": "Starter anfragen",
+            "ctaHref": "/kontakt",
+            "ctaNewTab": false,
+            "features": [
+              {
+                "id": "69e3dbb51cca0d3a4d710240",
+                "text": "Onepager oder kleine Website"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710241",
+                "text": "Individuelles Design-Konzept"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710242",
+                "text": "Responsive Umsetzung fuer Mobile"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710243",
+                "text": "Basis SEO Setup"
+              }
+            ]
+          },
+          {
+            "id": "69e3dbb51cca0d3a4d71024a",
+            "name": "Business",
+            "badge": "Empfohlen",
+            "description": "Fuer Unternehmen, die mehr Seiten, Strategie und Conversion-Fokus benoetigen.",
+            "price": "3.290",
+            "priceSuffix": "einmalig",
+            "highlighted": true,
+            "ctaLabel": "Business anfragen",
+            "ctaHref": "/kontakt",
+            "ctaNewTab": false,
+            "features": [
+              {
+                "id": "69e3dbb51cca0d3a4d710245",
+                "text": "Bis zu 8 Seiten inkl. Struktur"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710246",
+                "text": "UX-Wireframes + visuelles Design"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710247",
+                "text": "Conversion-optimierte CTA-Fuehrung"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710248",
+                "text": "Performance Optimierung"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710249",
+                "text": "CMS-Einweisung"
+              }
+            ]
+          },
+          {
+            "id": "69e3dbb51cca0d3a4d710250",
+            "name": "Premium",
+            "badge": "",
+            "description": "Umfassende Loesung fuer anspruchsvolle Brands mit Wachstumsschwerpunkt.",
+            "price": "ab 5.900",
+            "priceSuffix": "projektbasiert",
+            "highlighted": false,
+            "ctaLabel": "Premium anfragen",
+            "ctaHref": "/kontakt",
+            "ctaNewTab": false,
+            "features": [
+              {
+                "id": "69e3dbb51cca0d3a4d71024b",
+                "text": "Skalierbare Seitenarchitektur"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d71024c",
+                "text": "Designsystem + Komponentenbibliothek"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d71024d",
+                "text": "Fortgeschrittenes SEO Setup"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d71024e",
+                "text": "Tracking + Analytics Setup"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d71024f",
+                "text": "Priorisierter Support"
+              }
+            ]
+          }
+        ],
+        "comparisonRows": [
+          {
+            "id": "69e3dbb51cca0d3a4d710254",
+            "feature": "Design individuell statt Template",
+            "values": [
+              {
+                "id": "69e3dbb51cca0d3a4d710251",
+                "type": "included",
+                "label": null
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710252",
+                "type": "included",
+                "label": null
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710253",
+                "type": "included",
+                "label": null
+              }
+            ]
+          },
+          {
+            "id": "69e3dbb51cca0d3a4d710258",
+            "feature": "Anzahl Seiten",
+            "values": [
+              {
+                "id": "69e3dbb51cca0d3a4d710255",
+                "type": "text",
+                "label": "1 bis 3"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710256",
+                "type": "text",
+                "label": "bis 8"
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710257",
+                "type": "text",
+                "label": "frei skalierbar"
+              }
+            ]
+          },
+          {
+            "id": "69e3dbb51cca0d3a4d71025c",
+            "feature": "SEO Grundlagen",
+            "values": [
+              {
+                "id": "69e3dbb51cca0d3a4d710259",
+                "type": "included",
+                "label": null
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d71025a",
+                "type": "included",
+                "label": null
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d71025b",
+                "type": "included",
+                "label": null
+              }
+            ]
+          },
+          {
+            "id": "69e3dbb51cca0d3a4d710260",
+            "feature": "Conversion Strategie",
+            "values": [
+              {
+                "id": "69e3dbb51cca0d3a4d71025d",
+                "type": "optional",
+                "label": null
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d71025e",
+                "type": "included",
+                "label": null
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d71025f",
+                "type": "included",
+                "label": null
+              }
+            ]
+          },
+          {
+            "id": "69e3dbb51cca0d3a4d710264",
+            "feature": "A/B Testing Setup",
+            "values": [
+              {
+                "id": "69e3dbb51cca0d3a4d710261",
+                "type": "excluded",
+                "label": null
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710262",
+                "type": "optional",
+                "label": null
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710263",
+                "type": "included",
+                "label": null
+              }
+            ]
+          },
+          {
+            "id": "69e3dbb51cca0d3a4d710268",
+            "feature": "Betreuung nach Launch",
+            "values": [
+              {
+                "id": "69e3dbb51cca0d3a4d710265",
+                "type": "optional",
+                "label": null
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710266",
+                "type": "optional",
+                "label": null
+              },
+              {
+                "id": "69e3dbb51cca0d3a4d710267",
+                "type": "included",
+                "label": null
+              }
+            ]
+          }
+        ],
+        "blockType": "pricingTable"
+      },
+      {
+        "id": "69e3dbaea9d008ca8bd64b9c",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "showRatesSection": true,
+        "sectionLabel": null,
+        "heading": null,
+        "sub": null,
+        "blockName": null,
+        "blockType": "priceCalculator"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "preise",
+    "parent": null,
+    "publishedAt": "2026-02-23T22:27:29.920Z",
+    "portfolioType": null,
+    "meta": {
+      "title": null,
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-18T21:16:28.645Z",
+    "createdAt": "2026-02-25T22:05:42.603Z",
+    "_status": "published"
+  },
+  {
+    "id": 4,
+    "title": "Home",
+    "hero": {
+      "type": "superhero",
+      "richText": {
+        "root": {
+          "type": "root",
+          "format": "",
+          "indent": 0,
+          "version": 280,
+          "children": [
+            {
+              "type": "paragraph",
+              "format": "",
+              "indent": 0,
+              "version": 280,
+              "children": [
+                {
+                  "mode": "normal",
+                  "text": "Herotext zur Einleitung",
+                  "type": "text",
+                  "style": "",
+                  "detail": 0,
+                  "format": 0,
+                  "version": 280
+                }
+              ],
+              "direction": null,
+              "textStyle": "",
+              "textFormat": 0
+            }
+          ],
+          "direction": null
+        }
+      },
+      "media": null,
+      "subheadline": "Creative Digital Strategist",
+      "headline": "",
+      "headlineLine1": "Kreative Lösungen.",
+      "headlineLine2": "Klare Botschaften.",
+      "headlineLine3": " Digitale <decode>Erfolge</decode>.",
+      "description": "Mehr Sichtbarkeit. Mehr Anfragen. Mehr Wachstum.\nDurch Webdesign, Branding, Marketing und smarte Automatisierungen.",
+      "contentVerticalAlignment": null,
+      "backgroundImage": 76,
+      "marqueeHeadline": "ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [
+        {
+          "id": "699f7236cf55b79cc4f648f3",
+          "logo": 28,
+          "alt": "Open AI"
+        },
+        {
+          "id": "699f7236cf55b79cc4f648f4",
+          "logo": 49,
+          "alt": "Figma"
+        },
+        {
+          "id": "699f7236cf55b79cc4f648f5",
+          "logo": 27,
+          "alt": "Google Ads"
+        },
+        {
+          "id": "699f7236cf55b79cc4f648f6",
+          "logo": 48,
+          "alt": "Hubspot"
+        },
+        {
+          "id": "699f7236cf55b79cc4f648f7",
+          "logo": 47,
+          "alt": "Meta"
+        },
+        {
+          "id": "699f7236cf55b79cc4f648f8",
+          "logo": 46,
+          "alt": "Salesforce"
+        },
+        {
+          "id": "699f7236cf55b79cc4f648f9",
+          "logo": 45,
+          "alt": "SEMrush"
+        },
+        {
+          "id": "699f7236cf55b79cc4f648fa",
+          "logo": 43,
+          "alt": "Shopify"
+        },
+        {
+          "id": "699f7236cf55b79cc4f648fb",
+          "logo": 42,
+          "alt": "Woocommerce"
+        },
+        {
+          "id": "699f7236cf55b79cc4f648fc",
+          "logo": 41,
+          "alt": "Wordpress"
+        },
+        {
+          "id": "699f7236cf55b79cc4f648fd",
+          "logo": 39,
+          "alt": "Webflow"
+        },
+        {
+          "id": "699f7236cf55b79cc4f648fe",
+          "logo": 40,
+          "alt": "Zapier"
+        }
+      ],
+      "links": [
+        {
+          "id": "69a225f011d929e8a2a9c82b",
+          "link": {
+            "type": "reference",
+            "newTab": null,
+            "reference": {
+              "relationTo": "site-pages",
+              "value": 2
+            },
+            "url": null,
+            "label": "Referenzen einsehen",
+            "appearance": "default",
+            "icon": null,
+            "enableIconSwap": false,
+            "iconSwapFrom": null,
+            "iconSwapTo": null
+          }
+        },
+        {
+          "id": "69e11c85e067e8fd81308dfd",
+          "link": {
+            "type": "reference",
+            "newTab": null,
+            "reference": {
+              "relationTo": "site-pages",
+              "value": 3
+            },
+            "url": null,
+            "label": "Angebot entdecken",
+            "appearance": "outline",
+            "icon": null,
+            "enableIconSwap": false,
+            "iconSwapFrom": null,
+            "iconSwapTo": null
+          }
+        }
+      ]
+    },
+    "layout": [
+      {
+        "id": "69c84fd0c3b6894bce4aa6d8",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 30,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Automatisierung, Marketing & Webdesign",
+        "body": "Ich begleite Unternehmen bei der Entwicklung klarer digitaler Strategien – von Positionierung und Marketing bis zur technischen Umsetzung moderner Weblösungen. Der Fokus liegt auf messbaren Ergebnissen: strukturierte Prozesse, performante Kampagnen und Websites, die nicht nur gut aussehen, sondern verkaufen.",
+        "tagline": "Persönlich. Effizient. Mit Blick auf langfristiges Wachstum.\nAls Freelancer in Halle (Saale) stehe ich für direkte Zusammenarbeit und transparente Umsetzung.",
+        "image": null,
+        "blockName": null,
+        "blockType": "introduction"
+      },
+      {
+        "id": "69c84bb3c3b6894bce4aa6d4",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Meine Leistungen im Überblick",
+        "intro": null,
+        "blockName": null,
+        "services": [
+          {
+            "id": "69c84bb40eec211ba69a71ce",
+            "icon": "compass",
+            "title": "Digital Consulting",
+            "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam."
+          },
+          {
+            "id": "69c84bb40eec211ba69a71cf",
+            "icon": "code",
+            "title": "Webentwicklung & Apps",
+            "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt."
+          },
+          {
+            "id": "69c84bb40eec211ba69a71d0",
+            "icon": "palette",
+            "title": "Branding & Design",
+            "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung."
+          },
+          {
+            "id": "69c84bb40eec211ba69a71d1",
+            "icon": "megaphone",
+            "title": "Marketing & Automatisierung",
+            "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar."
+          }
+        ],
+        "blockType": "servicesOverview"
+      },
+      {
+        "id": "69c838a97efa7ab142956e22",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Warum mit mir",
+        "intro": "Darum arbeiten andere Macher mit mir zusammen. Entdecke die Vorteile.\nIch arbeite wie ein interner Partner, nicht wie ein externer Dienstleister.\nIch übernehme Verantwortung für Ergebnisse, nicht nur für Umsetzung.\nIch halte Dinge einfach — damit du schneller vorankommst.",
+        "blockName": null,
+        "introIconList": [
+          {
+            "id": "69c877012ea8e354b8afc174",
+            "icon": "brain",
+            "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen."
+          },
+          {
+            "id": "69c877032ea8e354b8afc176",
+            "icon": "zap",
+            "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet."
+          },
+          {
+            "id": "69c877062ea8e354b8afc178",
+            "icon": "handshake",
+            "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung."
+          },
+          {
+            "id": "69c877112ea8e354b8afc17a",
+            "icon": "search",
+            "text": "Ich hinterfrage alles — auch bestehende Strategien."
+          },
+          {
+            "id": "69c877192ea8e354b8afc17c",
+            "icon": "target",
+            "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse."
+          },
+          {
+            "id": "69c877212ea8e354b8afc17e",
+            "icon": "trending-up",
+            "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden."
+          }
+        ],
+        "reasons": [
+          {
+            "id": "69c877de2ea8e354b8afc184",
+            "icon": "trending-up",
+            "title": "Performance & Resultate",
+            "description": "Kampagnen, Websites und Apps, die messbare Reichweite, Leads und Umsatz liefern."
+          },
+          {
+            "id": "69c877e32ea8e354b8afc186",
+            "icon": "user",
+            "title": "Persönlicher Ansprechpartner",
+            "description": "Kein Agentur-Wasserkopf, kein Wischi-Waschi — direkte, fundierte Beratung und Umsetzung."
+          },
+          {
+            "id": "69c877e62ea8e354b8afc188",
+            "icon": "zap",
+            "title": "Lean & effizient",
+            "description": "Schnelle Entscheidungen, klare Prozesse, kein unnötiger Overhead."
+          },
+          {
+            "id": "69c877e92ea8e354b8afc18a",
+            "icon": "globe",
+            "title": "Cross-Channel & international",
+            "description": "SEO, SEA, Social Ads, Automatisierung — Launches in verschiedenen Branchen und 6 Ländern."
+          }
+        ],
+        "blockType": "whyWorkWithMe"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "home",
+    "parent": null,
+    "publishedAt": "2026-02-17T23:07:58.746Z",
+    "portfolioType": null,
+    "meta": {
+      "title": "Philipp Bacher – Kreative Weblösungen & Automatisierung",
+      "description": "Ich helfe Unternehmen, online sichtbar zu werden – mit Webdesign, Branding, Marketing & smarten Automatisierungen für messbares Wachstum.",
+      "image": 1
+    },
+    "updatedAt": "2026-04-18T18:50:41.218Z",
+    "createdAt": "2026-02-25T22:05:42.263Z",
+    "_status": "published"
+  },
+  {
+    "id": 3,
+    "title": "Leistungen",
+    "hero": {
+      "type": "superhero",
+      "richText": null,
+      "media": null,
+      "subheadline": null,
+      "headline": "",
+      "headlineLine1": "Brand.",
+      "headlineLine2": "Build.",
+      "headlineLine3": "Boost.",
+      "description": "Eine starke Online-Präsenz entsteht, wenn Strategie, Design und Automatisierung präzise zusammenspielen.\nWebdesign schafft den ersten Eindruck, Branding definiert die Wahrnehmung, und Marketing-Systeme sorgen dafür, dass aus Aufmerksamkeit konkrete Ergebnisse werden.\nSo entsteht ein digitaler Aufbau, der nicht nur sichtbar macht, sondern gezielt Wachstum erzeugt.",
+      "contentVerticalAlignment": "bottom",
+      "backgroundImage": 78,
+      "marqueeHeadline": "",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "4f18774295e5437a88096b779d91182c",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Warum diese Leistungen funktionieren",
+        "intro": "Jede Spezialisierung ist so aufgebaut, dass Inhalte und Abläufe klar bleiben – auch im Backend.",
+        "blockName": null,
+        "introIconList": [],
+        "reasons": [
+          {
+            "id": "d7744f4fdda24485b7363dbf1aacbeb9",
+            "icon": "zap",
+            "title": "Technisch präzise",
+            "description": "Klare Standards für Code, Performance und Wartbarkeit."
+          },
+          {
+            "id": "9a1bc093e8004a7fbbf3eb71dea44482",
+            "icon": "target",
+            "title": "Reduziert und fokussiert",
+            "description": "Kein Overhead, sondern schlank gestaltete Lösungen mit klarem Nutzen."
+          },
+          {
+            "id": "66c6aba115e140ebabc4520ca6278792",
+            "icon": "shield",
+            "title": "Verlässlich",
+            "description": "Webseiten und Systeme mit langfristiger Stabilität und Sicherheit."
+          }
+        ],
+        "blockType": "whyWorkWithMe"
+      },
+      {
+        "id": "fb0518ce930448e7abbb94b1db7e2aca",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 30,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Ein Hub statt isolierter Einzelleistungen",
+        "body": "Der Leistungs-Hub bündelt Strategie, Gestaltung, Technik und Vermarktung in einer klaren Journey. So entstehen keine Medienbrüche zwischen Beratung, Umsetzung und Betrieb.",
+        "tagline": "Edel im Auftritt. Präzise in der Ausführung. Messbar in der Wirkung.",
+        "image": null,
+        "blockName": null,
+        "blockType": "introduction"
+      },
+      {
+        "id": "69e3f9ff4da6991fa443705d",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "headline": "So läuft die Zusammenarbeit von der Strategie bis zur Wirkung",
+        "introText": "Transparent, strukturiert und mit klaren Ergebnissen: Jeder Schritt baut auf dem vorherigen auf.",
+        "pixelLayoutDesktop": true,
+        "layoutMode": "stepList",
+        "strategyLabel": "Analyse & Ausrichtung",
+        "strategySubLabel": "Fundament für alle weiteren Maßnahmen",
+        "strategyTitle": "Wir definieren Ziele, Prioritäten und den richtigen Fokus",
+        "strategyText": "Vor der Umsetzung klären wir, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.",
+        "strategyIcon": "compass",
+        "benefitsLabel": "Umsetzung & Ergebnis",
+        "benefitsSubLabel": "Pragmatisch, effizient, messbar",
+        "benefitsTitle": "Umsetzung in klaren Etappen",
+        "benefitsIcon": "sparkles",
+        "experienceLabel": "Langfristige Partnerschaft",
+        "experienceSubLabel": "Weiterentwicklung auf Basis realer Daten",
+        "experienceTitle": "Nach der Umsetzung begleite ich bei Skalierung, Tests und kontinuierlicher Verbesserung",
+        "experienceIcon": "award",
+        "blockName": null,
+        "benefitItems": [
+          {
+            "id": "69e3f9ff28aac6652588caaa",
+            "icon": "sparkles",
+            "title": "Konzept & Architektur",
+            "text": "Informationsarchitektur, Angebotslogik, Seitenstruktur und User-Flows werden sauber vorbereitet."
+          },
+          {
+            "id": "69e3f9ff28aac6652588caab",
+            "icon": "sparkles",
+            "title": "Design & Content",
+            "text": "Ein hochwertiges visuelles System plus klare Botschaften, die Zielgruppen verstehen und vertrauen."
+          },
+          {
+            "id": "69e3f9ff28aac6652588caac",
+            "icon": "sparkles",
+            "title": "Technische Umsetzung",
+            "text": "Performante Entwicklung, saubere Integrationen und eine stabile Basis für Marketing und Vertrieb."
+          },
+          {
+            "id": "69e3f9ff28aac6652588caad",
+            "icon": "sparkles",
+            "title": "Launch & Optimierung",
+            "text": "Nach dem Go-live wird datenbasiert optimiert, damit Reichweite, Leads und Conversion wachsen."
+          }
+        ],
+        "blockType": "consultingOverview",
+        "blockOverlay": {
+          "enabled": false,
+          "color": "dark",
+          "opacity": 30
+        },
+        "colors": {
+          "gradientLavender": "#DED9FF",
+          "gradientLime": "#F3FFD9",
+          "introBlob": "#DED9FF",
+          "strategyBadge": "#08D3BB",
+          "benefitsBadge": "#1090CB",
+          "experienceBadge": "#9208D3",
+          "timelineStroke": "#999999",
+          "divider": "#C7C7C7",
+          "headline": "#252525",
+          "body": "#545454",
+          "muted": "#868686"
+        }
+      }
+    ],
+    "generateSlug": false,
+    "slug": "leistungen",
+    "parent": null,
+    "publishedAt": "2026-02-18T19:36:00.122Z",
+    "portfolioType": null,
+    "meta": {
+      "title": "Leistungen | Webdesign, Marketing, Wartung",
+      "description": "Editierbare Leistungen für Webdesign, Marketing und Wartung. Minimal, technisch und hochwertig strukturiert.",
+      "image": null
+    },
+    "updatedAt": "2026-04-18T21:41:19.990Z",
+    "createdAt": "2026-02-25T22:05:42.051Z",
+    "_status": "published"
+  },
+  {
+    "id": 2,
+    "title": "Portfolio",
+    "hero": {
+      "type": "superhero",
+      "richText": null,
+      "media": null,
+      "subheadline": "Portfolio",
+      "headline": "Webdesign, Marketing und Branding mit messbarem Anspruch",
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": "Drei Disziplinen, ein Ziel: digitale Auftritte und Kampagnen, die sichtbar wirken und zuverlässig Ergebnisse liefern.",
+      "contentVerticalAlignment": "bottom",
+      "backgroundImage": 79,
+      "marqueeHeadline": "",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69da0df47d1bd12d5248ad2c",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Portfolio als strukturierter Leistungsnachweis",
+        "body": "Hier findest du ausgewählte Arbeiten aus Webdesign, Marketing und Branding. Jede Unterseite zeigt Vorgehen, Umsetzung und Ergebnis in einem klaren Aufbau.",
+        "tagline": "Fokus auf reale Anforderungen statt Showcases ohne Kontext.\nBearbeitbar im Backend über modulare Blöcke.",
+        "image": null,
+        "blockName": null,
+        "blockType": "introduction"
+      },
+      {
+        "id": "69da0df47d1bd12d5248ad37",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "heading": "Warum dieses Setup",
+        "intro": "Die Portfolio-Unterseiten sind nicht statisch, sondern als editierbare Inhaltsmodule aufgebaut.",
+        "blockName": null,
+        "introIconList": [
+          {
+            "id": "69da0df47d1bd12d5248ad39",
+            "icon": "brain",
+            "text": "Ich denke unternehmerisch, nicht in einzelnen Leistungen."
+          },
+          {
+            "id": "69da0df47d1bd12d5248ad3a",
+            "icon": "target",
+            "text": "Ich arbeite nicht für Klicks, sondern für echte Ergebnisse."
+          },
+          {
+            "id": "69da0df47d1bd12d5248ad3b",
+            "icon": "search",
+            "text": "Ich hinterfrage alles — auch bestehende Strategien."
+          },
+          {
+            "id": "69da0df47d1bd12d5248ad3c",
+            "icon": "zap",
+            "text": "Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet."
+          },
+          {
+            "id": "69da0df47d1bd12d5248ad3d",
+            "icon": "handshake",
+            "text": "Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung."
+          },
+          {
+            "id": "69da0df47d1bd12d5248ad3e",
+            "icon": "trending-up",
+            "text": "Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden."
+          }
+        ],
+        "reasons": [
+          {
+            "id": "69da0df47d1bd12d5248ad34",
+            "icon": "zap",
+            "title": "Schnell pflegbar",
+            "description": "Inhalte und Reihenfolge lassen sich direkt im Payload-Backend anpassen."
+          },
+          {
+            "id": "69da0df47d1bd12d5248ad35",
+            "icon": "target",
+            "title": "Bereichsspezifische Dramaturgie",
+            "description": "Webdesign, Marketing und Branding bekommen jeweils eine eigene Storyline."
+          },
+          {
+            "id": "69da0df47d1bd12d5248ad36",
+            "icon": "trending-up",
+            "title": "Skalierbar",
+            "description": "Neue Cases können ohne Code-Duplikate ergänzt werden und folgen derselben Struktur."
+          }
+        ],
+        "blockType": "whyWorkWithMe"
+      },
+      {
+        "id": "69da0df47d1bd12d5248ad38",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "solid",
+        "blockBorderRadius": "medium",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "none",
+        "headline": "Projektidee besprechen",
+        "description": "In 30 Minuten klären wir Zielbild, Prioritäten und nächsten sinnvollen Schritt.",
+        "calLink": "philippbacher/30min",
+        "buttonLabel": "Termin buchen",
+        "blockName": null,
+        "blockType": "calPopup"
+      },
+      {
+        "id": "69e3e149d884e451fb7959fe",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "heading": "Meine Leistungen im Überblick",
+        "intro": null,
+        "blockName": null,
+        "services": [
+          {
+            "id": "69e3e1491cca0d3a4d7102a6",
+            "icon": "compass",
+            "title": "Digital Consulting",
+            "description": "Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam."
+          },
+          {
+            "id": "69e3e1491cca0d3a4d7102a7",
+            "icon": "code",
+            "title": "Webentwicklung & Apps",
+            "description": "Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt."
+          },
+          {
+            "id": "69e3e1491cca0d3a4d7102a8",
+            "icon": "palette",
+            "title": "Branding & Design",
+            "description": "Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung."
+          },
+          {
+            "id": "69e3e1491cca0d3a4d7102a9",
+            "icon": "megaphone",
+            "title": "Marketing & Automatisierung",
+            "description": "Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar."
+          }
+        ],
+        "blockType": "servicesOverview"
+      },
+      {
+        "id": "69e3e15cd884e451fb795a00",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "heading": "Leistungen",
+        "intro": null,
+        "tagline": null,
+        "introImage": null,
+        "introImagePosition": "left",
+        "radialBackground": null,
+        "radialBackgroundVariant": "default",
+        "radialBackgroundStrength": "strong",
+        "blockName": null,
+        "introIconList": [],
+        "categories": [],
+        "blockType": "servicesGrid"
+      },
+      {
+        "id": "69e3e189d884e451fb795a02",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "heading": "Automatisierung, Marketing & Webdesign",
+        "body": "Ich begleite Unternehmen bei der Entwicklung klarer digitaler Strategien – von Positionierung und Marketing bis zur technischen Umsetzung moderner Weblösungen. Der Fokus liegt auf messbaren Ergebnissen: strukturierte Prozesse, performante Kampagnen und Websites, die nicht nur gut aussehen, sondern verkaufen.",
+        "tagline": "Persönlich. Effizient. Mit Blick auf langfristiges Wachstum.\nAls Freelancer in Halle (Saale) stehe ich für direkte Zusammenarbeit und transparente Umsetzung.",
+        "image": null,
+        "blockName": null,
+        "blockType": "introduction"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "portfolio",
+    "parent": null,
+    "publishedAt": "2026-04-11T09:01:40.661Z",
+    "portfolioType": null,
+    "meta": {
+      "title": "Portfolio | Webdesign, Marketing & Branding",
+      "description": "Portfolio mit Bereichen für Webdesign, Marketing und Branding. Klar strukturiert und im Backend editierbar.",
+      "image": null
+    },
+    "updatedAt": "2026-04-18T21:42:58.722Z",
+    "createdAt": "2026-02-25T22:05:41.992Z",
+    "_status": "published"
+  },
+  {
+    "id": 1,
+    "title": "Profil",
+    "hero": {
+      "type": "superhero",
+      "richText": null,
+      "media": 81,
+      "subheadline": "Profile",
+      "headline": "Webdesigner, Marketing-Experte & Automatisierer",
+      "headlineLine1": null,
+      "headlineLine2": null,
+      "headlineLine3": null,
+      "description": "Über 25 Jahre Erfahrung fließen in Lösungen, die Sichtbarkeit aufbauen, Prozesse vereinfachen und nachhaltiges Wachstum ermöglichen.",
+      "contentVerticalAlignment": null,
+      "backgroundImage": 82,
+      "marqueeHeadline": "",
+      "logoDisplayType": "marquee",
+      "marqueeLogos": [],
+      "links": []
+    },
+    "layout": [
+      {
+        "id": "69e50b029a8cd5755f28240a",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "sectionTitle": "Über mich",
+        "einleitung": "Strategie und Umsetzung greifen hier direkt ineinander – Beratung und operative Realisierung aus einer Hand.\n\nSeit 2010 entstehen digitale Projekte für Unternehmen in DACH, Benelux und Asien in den Bereichen Webentwicklung, Marketing, Corporate Design, Vertriebsaufbau und ERP-Beratung. Ein betriebswirtschaftliches und technisches Fundament verbindet sich mit über 25 Jahren Erfahrung zu einem klaren Ansatz: komplexe digitale Vorhaben strukturiert denken und zuverlässig umsetzen.\n\nDer Fokus liegt auf KMUs, die klare Ergebnisse erwarten und einen Partner suchen, der Verantwortung für den gesamten Prozess übernimmt.",
+        "blockName": null,
+        "werte": [
+          {
+            "id": "69e50b02d88ca212624498ad",
+            "icon": "strategy",
+            "wert": "Strategie trifft Umsetzung",
+            "beschreibung": "Ich entwickle keine Konzepte, die andere umsetzen müssen. Ich verantworte beides – vom ersten Briefing bis zum fertigen Ergebnis."
+          },
+          {
+            "id": "69e50b02d88ca212624498ae",
+            "icon": "global",
+            "wert": "International gedacht, lokal verankert",
+            "beschreibung": "Erfahrung in sechs Märkten auf vier Kontinenten. Und dennoch: Ich kenne die Realität mittelständischer Unternehmen im deutschsprachigen Raum aus nächster Nähe."
+          },
+          {
+            "id": "69e50b02d88ca212624498af",
+            "icon": "depth",
+            "wert": "Breite mit Tiefe",
+            "beschreibung": "Marketing, Design, Entwicklung, Vertrieb, ERP – kein Baukastenprinzip, sondern ein integrierter Blick. Das verhindert Silos und spart Koordinationsaufwand."
+          },
+          {
+            "id": "69e50b02d88ca212624498b0",
+            "icon": "direct",
+            "wert": "Direkt und verlässlich",
+            "beschreibung": "Kein Staffelstab, keine Zwischenstufen. Sie sprechen mit mir – und ich liefere."
+          }
+        ],
+        "blockType": "profilUeberMich"
+      },
+      {
+        "id": "69e50e329a8cd5755f282412",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "sectionTitle": null,
+        "blockName": null,
+        "items": [
+          {
+            "id": "69e50e33d88ca212624498e9",
+            "zahl": "15+",
+            "bezeichnung": "Jahre selbstständig"
+          },
+          {
+            "id": "69e50e33d88ca212624498ea",
+            "zahl": "6",
+            "bezeichnung": "Internationale Märkte"
+          },
+          {
+            "id": "69e50e33d88ca212624498eb",
+            "zahl": "6",
+            "bezeichnung": "Sprachen"
+          },
+          {
+            "id": "69e50e33d88ca212624498ec",
+            "zahl": "4",
+            "bezeichnung": "Kompetenzbereiche"
+          },
+          {
+            "id": "69e50e33d88ca212624498ed",
+            "zahl": "1",
+            "bezeichnung": "Direkter Ansprechpartner"
+          }
+        ],
+        "blockType": "profilZahlenFakten"
+      },
+      {
+        "id": "69e50d989a8cd5755f28240e",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "ueberschrift": "Was ich für Sie leiste",
+        "einleitung": "Als Digital Business Partner übernehme ich die Verantwortung für Ihren digitalen Auftritt und Ihre digitalen Prozesse – ganzheitlich, messbar und ohne Schnittstellenverluste. Meine Arbeit bewegt sich in vier eng verzahnten Bereichen:",
+        "blockName": null,
+        "bereiche": [
+          {
+            "id": "69e50d98d88ca212624498d1",
+            "titel": "Webdesign & Entwicklung",
+            "text": "Von der Konzeption bis zum Launch: nutzerzentrierte Websites und Web-Applikationen mit modernen Technologien (Next.js, Payload CMS, React, TypeScript). Mit dem Blick des Designers, der technischen Präzision des Entwicklers und dem Verständnis des Marketers.",
+            "details": [
+              {
+                "id": "69e50d98d88ca212624498cc",
+                "line": "UI/UX-Design & Prototyping (Figma)"
+              },
+              {
+                "id": "69e50d98d88ca212624498cd",
+                "line": "Frontend-Entwicklung (React, Next.js, TypeScript, Tailwind)"
+              },
+              {
+                "id": "69e50d98d88ca212624498ce",
+                "line": "CMS-Implementierung (Payload, WordPress, Typo3, Joomla)"
+              },
+              {
+                "id": "69e50d98d88ca212624498cf",
+                "line": "E-Commerce & Shop-Systeme"
+              },
+              {
+                "id": "69e50d98d88ca212624498d0",
+                "line": "Hosting, Performance & technisches SEO"
+              }
+            ]
+          },
+          {
+            "id": "69e50d98d88ca212624498d7",
+            "titel": "Digitales Marketing & SEO",
+            "text": "Strategisch geplant, messbar ausgewertet. SEO, SEM, Content und Kampagnen – nicht als Einzelmaßnahmen, sondern als integriertes System, das organische Sichtbarkeit und bezahlte Reichweite sinnvoll verbindet.",
+            "details": [
+              {
+                "id": "69e50d98d88ca212624498d2",
+                "line": "SEO-Strategie (technisch & inhaltlich)"
+              },
+              {
+                "id": "69e50d98d88ca212624498d3",
+                "line": "Google Ads / SEM-Kampagnen"
+              },
+              {
+                "id": "69e50d98d88ca212624498d4",
+                "line": "Social Media Marketing (SMM)"
+              },
+              {
+                "id": "69e50d98d88ca212624498d5",
+                "line": "Content-Strategie & Redaktionsplanung"
+              },
+              {
+                "id": "69e50d98d88ca212624498d6",
+                "line": "Analytics, Tracking & Reporting (GA4, GSC, Matomo)"
+              }
+            ]
+          },
+          {
+            "id": "69e50d98d88ca212624498dd",
+            "titel": "Branding & Corporate Design",
+            "text": "Marken, die konsistent, wiedererkennbar und glaubwürdig auftreten. Von der Logoentwicklung über das Corporate Design bis zur Umsetzung in digitalen und analogen Medien – mit der vollen Adobe Creative Suite und 15 Jahren gestalterischer Praxis.",
+            "details": [
+              {
+                "id": "69e50d98d88ca212624498d8",
+                "line": "Logo- & Markenentwicklung"
+              },
+              {
+                "id": "69e50d98d88ca212624498d9",
+                "line": "Corporate Design & CI-Systeme"
+              },
+              {
+                "id": "69e50d98d88ca212624498da",
+                "line": "Digital Design (Web, Social, Präsentationen)"
+              },
+              {
+                "id": "69e50d98d88ca212624498db",
+                "line": "Print- & App-Design"
+              },
+              {
+                "id": "69e50d98d88ca212624498dc",
+                "line": "Fotografie & Bildbearbeitung"
+              }
+            ]
+          },
+          {
+            "id": "69e50d98d88ca212624498e3",
+            "titel": "Business Development & Vertrieb",
+            "text": "Digitale Vertriebssysteme, die qualifizierte Leads generieren und Abschlüsse ermöglichen. Ergänzt durch ERP-Beratung (ZOHO, SAP) und CRM-Integration (Salesforce, HubSpot) für Unternehmen, die ihre internen Prozesse mit dem Marktauftritt synchronisieren wollen.",
+            "details": [
+              {
+                "id": "69e50d98d88ca212624498de",
+                "line": "Lead-Generierung & Funnel-Aufbau"
+              },
+              {
+                "id": "69e50d98d88ca212624498df",
+                "line": "CRM-Implementierung & -Integration (Salesforce, HubSpot)"
+              },
+              {
+                "id": "69e50d98d88ca212624498e0",
+                "line": "ERP-Beratung & Schulung (ZOHO, SAP)"
+              },
+              {
+                "id": "69e50d98d88ca212624498e1",
+                "line": "Drop Shipping, Affiliate Marketing, Direktvertrieb"
+              },
+              {
+                "id": "69e50d98d88ca212624498e2",
+                "line": "Prozessautomatisierung (Make, n8n, Zapier)"
+              }
+            ]
+          }
+        ],
+        "blockType": "profilKernkompetenz"
+      },
+      {
+        "id": "69e50d7d9a8cd5755f28240c",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "default",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "sectionTitle": "Kompetenzen",
+        "sectionIntro": "Erfahrung nach Bereichen – von der Strategie bis zur technischen Umsetzung.",
+        "blockName": null,
+        "spalten": [
+          {
+            "id": "69e50d7dd88ca212624498b7",
+            "bereich": "Marketing & SEO",
+            "skills": [
+              {
+                "id": "69e50d7dd88ca212624498b1",
+                "skill": "Digitale Marketingstrategie",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498b2",
+                "skill": "SEO (technisch & inhaltlich)",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498b3",
+                "skill": "Google Ads / SEM",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498b4",
+                "skill": "Social Media Marketing",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498b5",
+                "skill": "Content-Marketing",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498b6",
+                "skill": "Analytics & Reporting",
+                "level": "expert"
+              }
+            ]
+          },
+          {
+            "id": "69e50d7dd88ca212624498be",
+            "bereich": "Design & UI/UX",
+            "skills": [
+              {
+                "id": "69e50d7dd88ca212624498b8",
+                "skill": "UI/UX-Design",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498b9",
+                "skill": "Figma",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498ba",
+                "skill": "Adobe Creative Suite",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498bb",
+                "skill": "Corporate Design & CI",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498bc",
+                "skill": "App-Design",
+                "level": "advanced"
+              },
+              {
+                "id": "69e50d7dd88ca212624498bd",
+                "skill": "Fotografie",
+                "level": "advanced"
+              }
+            ]
+          },
+          {
+            "id": "69e50d7dd88ca212624498c5",
+            "bereich": "Entwicklung & Technik",
+            "skills": [
+              {
+                "id": "69e50d7dd88ca212624498bf",
+                "skill": "Next.js / React",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498c0",
+                "skill": "Payload CMS",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498c1",
+                "skill": "HTML, CSS, JavaScript",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498c2",
+                "skill": "PHP / Python",
+                "level": "advanced"
+              },
+              {
+                "id": "69e50d7dd88ca212624498c3",
+                "skill": "MySQL",
+                "level": "advanced"
+              },
+              {
+                "id": "69e50d7dd88ca212624498c4",
+                "skill": "Kotlin",
+                "level": "basic"
+              }
+            ]
+          },
+          {
+            "id": "69e50d7dd88ca212624498cb",
+            "bereich": "Business & Systeme",
+            "skills": [
+              {
+                "id": "69e50d7dd88ca212624498c6",
+                "skill": "ERP-Beratung (ZOHO, SAP)",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498c7",
+                "skill": "CRM (Salesforce, HubSpot)",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498c8",
+                "skill": "Prozessautomatisierung",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498c9",
+                "skill": "Business Development",
+                "level": "expert"
+              },
+              {
+                "id": "69e50d7dd88ca212624498ca",
+                "skill": "Projektmanagement",
+                "level": "expert"
+              }
+            ]
+          }
+        ],
+        "blockType": "profilKompetenzen"
+      },
+      {
+        "id": "69e50dd69a8cd5755f282410",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "narrow",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": true,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "airy",
+        "blockAnimation": "default",
+        "sectionTitle": "Werdegang",
+        "blockName": null,
+        "eintraege": [
+          {
+            "id": "69e50dd6d88ca212624498e4",
+            "zeitraum": "2010 – heute",
+            "position": "Selbstständiger Unternehmer & Digital Business Partner",
+            "unternehmen": "Philipp V.G. Bacher",
+            "beschreibung": "Beratung und Umsetzung digitaler Projekte für KMUs in DACH, Benelux, Hongkong, Malaysia und Indonesien. Tätigkeitsbereiche: Webentwicklung, digitales Marketing, Corporate Design, Vertriebsaufbau, ERP-Beratung und Prozessautomatisierung.",
+            "typ": "freelance"
+          },
+          {
+            "id": "69e50dd6d88ca212624498e5",
+            "zeitraum": "2019 – 2021",
+            "position": "Studium Informatik / Wirtschaftsinformatik",
+            "unternehmen": "Martin-Luther-Universität, Halle/Saale",
+            "beschreibung": "Vertiefung der technischen und analytischen Grundlagen im Bereich Informatik und Wirtschaftsinformatik.",
+            "typ": "education"
+          },
+          {
+            "id": "69e50dd6d88ca212624498e6",
+            "zeitraum": "2014 – 2016",
+            "position": "Studium Zahnmedizin",
+            "unternehmen": "FAU Friedrich-Alexander-Universität, Erlangen",
+            "beschreibung": "Studium der Zahnmedizin mit Fokus auf naturwissenschaftliche Grundlagen und analytisches Denken.",
+            "typ": "education"
+          },
+          {
+            "id": "69e50dd6d88ca212624498e7",
+            "zeitraum": "2013 – 2014",
+            "position": "Studium Humanmedizin",
+            "unternehmen": "LMU Ludwig-Maximilians-Universität, München",
+            "beschreibung": "Medizinstudium – Grundlagen der Naturwissenschaften und systematischen Diagnoselogik.",
+            "typ": "education"
+          },
+          {
+            "id": "69e50dd6d88ca212624498e8",
+            "zeitraum": "2008 – 2011",
+            "position": "Bachelor of Business Administration (cum laude)",
+            "unternehmen": "Plekhanov University of Economics, Moskau (RU) & Hanze Hogeschool, Groningen (NL)",
+            "beschreibung": "Doppelabschluss BBA – Schwerpunkte in internationalem Management, Marketing und strategischem Business Development. Abschluss mit Auszeichnung.",
+            "typ": "education"
+          }
+        ],
+        "blockType": "profilWerdegang"
+      },
+      {
+        "id": "69e50e6d9a8cd5755f282414",
+        "blockSpacingPadding": "default",
+        "blockSpacingPaddingTop": "default",
+        "blockSpacingMarginBottom": "default",
+        "blockContainer": "none",
+        "blockBackground": "none",
+        "blockBackgroundImage": null,
+        "blockBorderEnabled": false,
+        "blockBorderStyle": "default",
+        "blockBorderRadius": "default",
+        "blockOverlayEnabled": false,
+        "blockOverlayColor": "dark",
+        "blockOverlayOpacity": 0,
+        "blockContentSpacing": "default",
+        "blockAnimation": "default",
+        "sectionTitle": "Tools & Plattformen",
+        "blockName": null,
+        "tools": [
+          {
+            "id": "69e50e6dd88ca212624498ee",
+            "name": "Next.js",
+            "kategorie": "dev"
+          },
+          {
+            "id": "69e50e6dd88ca212624498ef",
+            "name": "React",
+            "kategorie": "dev"
+          },
+          {
+            "id": "69e50e6dd88ca212624498f0",
+            "name": "Payload CMS",
+            "kategorie": "dev"
+          },
+          {
+            "id": "69e50e6dd88ca212624498f1",
+            "name": "TypeScript",
+            "kategorie": "dev"
+          },
+          {
+            "id": "69e50e6dd88ca212624498f2",
+            "name": "PHP",
+            "kategorie": "dev"
+          },
+          {
+            "id": "69e50e6dd88ca212624498f3",
+            "name": "Python",
+            "kategorie": "dev"
+          },
+          {
+            "id": "69e50e6dd88ca212624498f4",
+            "name": "MySQL",
+            "kategorie": "dev"
+          },
+          {
+            "id": "69e50e6dd88ca212624498f5",
+            "name": "WordPress",
+            "kategorie": "dev"
+          },
+          {
+            "id": "69e50e6dd88ca212624498f6",
+            "name": "Typo3",
+            "kategorie": "dev"
+          },
+          {
+            "id": "69e50e6dd88ca212624498f7",
+            "name": "Figma",
+            "kategorie": "design"
+          },
+          {
+            "id": "69e50e6dd88ca212624498f8",
+            "name": "Adobe Photoshop",
+            "kategorie": "design"
+          },
+          {
+            "id": "69e50e6dd88ca212624498f9",
+            "name": "Adobe Illustrator",
+            "kategorie": "design"
+          },
+          {
+            "id": "69e50e6dd88ca212624498fa",
+            "name": "Adobe InDesign",
+            "kategorie": "design"
+          },
+          {
+            "id": "69e50e6dd88ca212624498fb",
+            "name": "Adobe XD",
+            "kategorie": "design"
+          },
+          {
+            "id": "69e50e6dd88ca212624498fc",
+            "name": "Google Analytics 4",
+            "kategorie": "analytics"
+          },
+          {
+            "id": "69e50e6dd88ca212624498fd",
+            "name": "Google Search Console",
+            "kategorie": "analytics"
+          },
+          {
+            "id": "69e50e6dd88ca212624498fe",
+            "name": "Matomo",
+            "kategorie": "analytics"
+          },
+          {
+            "id": "69e50e6dd88ca212624498ff",
+            "name": "Google Ads",
+            "kategorie": "marketing"
+          },
+          {
+            "id": "69e50e6dd88ca21262449900",
+            "name": "Salesforce",
+            "kategorie": "marketing"
+          },
+          {
+            "id": "69e50e6dd88ca21262449901",
+            "name": "HubSpot",
+            "kategorie": "marketing"
+          },
+          {
+            "id": "69e50e6dd88ca21262449902",
+            "name": "ZOHO",
+            "kategorie": "marketing"
+          },
+          {
+            "id": "69e50e6dd88ca21262449903",
+            "name": "SAP",
+            "kategorie": "marketing"
+          },
+          {
+            "id": "69e50e6dd88ca21262449904",
+            "name": "Make (Integromat)",
+            "kategorie": "automation"
+          },
+          {
+            "id": "69e50e6dd88ca21262449905",
+            "name": "n8n",
+            "kategorie": "automation"
+          },
+          {
+            "id": "69e50e6dd88ca21262449906",
+            "name": "Zapier",
+            "kategorie": "automation"
+          },
+          {
+            "id": "69e50e6dd88ca21262449907",
+            "name": "Asana",
+            "kategorie": "automation"
+          },
+          {
+            "id": "69e50e6dd88ca21262449908",
+            "name": "Monday.com",
+            "kategorie": "automation"
+          }
+        ],
+        "blockType": "profilTools"
+      }
+    ],
+    "generateSlug": false,
+    "slug": "profil",
+    "parent": null,
+    "publishedAt": "2026-02-18T22:22:57.297Z",
+    "portfolioType": null,
+    "meta": {
+      "title": "",
+      "description": null,
+      "image": null
+    },
+    "updatedAt": "2026-04-19T21:26:19.563Z",
+    "createdAt": "2026-02-25T22:05:41.832Z",
+    "_status": "published"
+  }
+]

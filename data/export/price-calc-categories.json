@@ -1,0 +1,16 @@
+[
+  {
+    "id": 2,
+    "title": "Consulting",
+    "sortOrder": 0,
+    "updatedAt": "2026-04-18T21:06:01.430Z",
+    "createdAt": "2026-04-18T21:06:01.430Z"
+  },
+  {
+    "id": 1,
+    "title": "Webdesign",
+    "sortOrder": 1,
+    "updatedAt": "2026-04-18T21:05:49.072Z",
+    "createdAt": "2026-04-18T21:05:36.612Z"
+  }
+]

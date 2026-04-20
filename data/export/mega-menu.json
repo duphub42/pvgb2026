@@ -20,7 +20,7 @@
     "columns": [],
     "highlight": {
       "position": "right",
-      "background": "\"default\"",
+      "background": "default",
       "cards": [],
       "title": null,
       "description": null,
@@ -29,14 +29,14 @@
       "ctaLabel": null,
       "ctaUrl": null
     },
-    "updatedAt": "2026-02-21T19:37:56.411Z",
-    "createdAt": "2026-02-21T19:37:56.411Z"
+    "updatedAt": "2026-02-25T22:05:43.237Z",
+    "createdAt": "2026-02-25T22:05:43.237Z"
   },
   {
     "id": 5,
     "label": "Leistungen",
     "url": "/leistungen",
-    "order": 37,
+    "order": 281,
     "icon": null,
     "image": null,
     "appearance": "link",
@@ -52,38 +52,38 @@
     },
     "columns": [
       {
-        "id": "699568e1078ac87e84106613",
+        "id": "699f7237cf55b79cc4f64943",
         "title": "Design",
         "columnWidth": null,
         "dividerBefore": false,
         "columnBackground": "default",
         "items": [
           {
-            "id": "6995690b078ac87e8410661b",
+            "id": "699f7237cf55b79cc4f64940",
             "label": "Webdesign",
             "url": "/webdesign",
             "description": "Webdesign und Entwicklung",
-            "icon": 34,
+            "icon": 32,
             "image": null,
             "badge": null,
             "badgeColor": "success"
           },
           {
-            "id": "69972c24a4a17712c665279c",
+            "id": "699f7237cf55b79cc4f64941",
             "label": "Printmedien & Grafikdesign",
             "url": "/print",
             "description": "Printdesign, das auffällt – von Flyer bis Broschüre",
-            "icon": 33,
+            "icon": 6,
             "image": null,
             "badge": null,
             "badgeColor": "success"
           },
           {
-            "id": "69972d8fa4a17712c66527a0",
+            "id": "699f7237cf55b79cc4f64942",
             "label": "Präsentationen & Keynotes",
             "url": "/keynotes",
             "description": "Präsentationen, die wirken – visuell stark und auf den Punkt",
-            "icon": 32,
+            "icon": 31,
             "image": null,
             "badge": null,
             "badgeColor": "success"
@@ -91,38 +91,38 @@
         ]
       },
       {
-        "id": "699568e3078ac87e84106615",
+        "id": "699f7237cf55b79cc4f64947",
         "title": "Marketing",
         "columnWidth": null,
         "dividerBefore": false,
         "columnBackground": "default",
         "items": [
           {
-            "id": "699732cda4a17712c66527a8",
+            "id": "699f7237cf55b79cc4f64944",
             "label": "SEO - Rankings",
             "url": "/seo",
             "description": "Suchmaschinenoptimierung für mehr Sichtbarkeit, Traffic und Anfragen.",
-            "icon": 31,
+            "icon": 5,
             "image": null,
             "badge": null,
             "badgeColor": "success"
           },
           {
-            "id": "6997356ba7234247735c344f",
+            "id": "699f7237cf55b79cc4f64945",
             "label": "SEM - Online Werbung",
             "url": "/sem",
             "description": "Performance-Marketing auf Suchmaschinen",
-            "icon": 30,
+            "icon": 4,
             "image": null,
             "badge": null,
             "badgeColor": "success"
           },
           {
-            "id": "699755a22672a70a25f5a8fc",
+            "id": "699f7237cf55b79cc4f64946",
             "label": "Content Creation",
             "url": "/content",
             "description": "Visuelle Geschichten, Texte und Multimedia, die deine Marke lebendig machen – von Social Media bis Website.",
-            "icon": 13,
+            "icon": 25,
             "image": null,
             "badge": null,
             "badgeColor": "success"
@@ -130,38 +130,38 @@
         ]
       },
       {
-        "id": "699568e5078ac87e84106617",
+        "id": "699f7237cf55b79cc4f6494b",
         "title": "Branding",
         "columnWidth": null,
         "dividerBefore": false,
         "columnBackground": "default",
         "items": [
           {
-            "id": "699568f5078ac87e84106619",
+            "id": "699f7237cf55b79cc4f64948",
             "label": "CI - Corporate Identity",
             "url": "/corporate-identity",
             "description": "Markenidentität klar, einheitlich und professionell gestaltet.",
-            "icon": 29,
+            "icon": 3,
             "image": null,
             "badge": null,
             "badgeColor": "success"
           },
           {
-            "id": "69974178a7234247735c3451",
+            "id": "699f7237cf55b79cc4f64949",
             "label": "Logo-Entwicklung",
             "url": "/logo",
             "description": "Einprägsame Logos, die Marke und Werte klar sichtbar machen",
-            "icon": 28,
+            "icon": 30,
             "image": null,
             "badge": null,
             "badgeColor": "success"
           },
           {
-            "id": "69974293a7234247735c3453",
+            "id": "699f7237cf55b79cc4f6494a",
             "label": "Markenstrategie",
             "url": "/markenstrategie",
             "description": "Marken klar definieren – Strategie, Positionierung und Storytelling.",
-            "icon": 27,
+            "icon": 29,
             "image": null,
             "badge": null,
             "badgeColor": "success"
@@ -175,27 +175,27 @@
       "cards": [],
       "title": "Automatisierung",
       "description": "Smarter Workflow, weniger Routine, mehr Fokus auf das Wesentliche – wir digitalisieren Prozesse, damit dein Business schneller wächst.\nEchtzeit-Daten, nahtlose Verbindungen: Wir verbinden deine Tools und automatisieren Prozesse direkt über Webhooks.",
-      "icon": null,
+      "icon": 6,
       "image": null,
       "ctaLabel": "Potentialanalyse",
       "ctaUrl": "/automatisierung"
     },
-    "updatedAt": "2026-02-24T20:09:50.259Z",
-    "createdAt": "2026-02-21T19:37:56.401Z"
+    "updatedAt": "2026-04-16T20:05:04.544Z",
+    "createdAt": "2026-02-25T22:05:43.213Z"
   },
   {
     "id": 4,
     "label": "Portfolio",
     "url": "/portfolio",
-    "order": 36,
+    "order": 282,
     "icon": null,
     "image": null,
     "appearance": "link",
     "subItems": [],
     "columnWidths": {
-      "col1": 2,
-      "col2": 12,
-      "col3": 12
+      "col1": null,
+      "col2": null,
+      "col3": null
     },
     "categoryDescription": {
       "title": "Portfolio",
@@ -203,18 +203,18 @@
     },
     "columns": [
       {
-        "id": "69984426bacc453621351f8a",
+        "id": "699f7237cf55b79cc4f6493b",
         "title": "Design",
         "columnWidth": null,
         "dividerBefore": false,
         "columnBackground": "default",
         "items": [
           {
-            "id": "69984443bacc453621351f8c",
+            "id": "699f7237cf55b79cc4f6493a",
             "label": "Webdesign & Entwicklung",
             "url": "/portfolio-webdesign",
             "description": "Individuelle Webseiten, modern gestaltet und funktional umgesetzt",
-            "icon": 4,
+            "icon": null,
             "image": null,
             "badge": null,
             "badgeColor": "success"
@@ -222,18 +222,18 @@
         ]
       },
       {
-        "id": "699845e2bacc453621351f96",
+        "id": "699f7237cf55b79cc4f6493d",
         "title": "Marketing",
         "columnWidth": null,
         "dividerBefore": false,
         "columnBackground": "default",
         "items": [
           {
-            "id": "699845eabacc453621351f98",
+            "id": "699f7237cf55b79cc4f6493c",
             "label": "Marketing Projekte",
             "url": "/portfolio-marketing",
             "description": "Durchdachte Kampagnen mit klarer Botschaft und messbarem Ziel – von der Idee bis zur Performance-Optimierung.",
-            "icon": 3,
+            "icon": null,
             "image": null,
             "badge": null,
             "badgeColor": "success"
@@ -241,18 +241,18 @@
         ]
       },
       {
-        "id": "699845c7bacc453621351f94",
+        "id": "699f7237cf55b79cc4f6493f",
         "title": "Branding",
         "columnWidth": null,
         "dividerBefore": false,
         "columnBackground": "default",
         "items": [
           {
-            "id": "699846a3bacc453621351f9a",
+            "id": "699f7237cf55b79cc4f6493e",
             "label": "Marken",
             "url": "/portfolio-marken",
             "description": "Entwicklung von CI- & Logo-Projekten",
-            "icon": 2,
+            "icon": null,
             "image": null,
             "badge": null,
             "badgeColor": "success"
@@ -262,7 +262,7 @@
     ],
     "highlight": {
       "position": "below",
-      "background": "elegant",
+      "background": "gradient",
       "cards": [],
       "title": "Projekt vorschlagen",
       "description": "Ihr Projekt könnte einen neuen Anstrich gebrauchen, etwas Anschub nötig oder soll erweitert werden? ",
@@ -271,14 +271,14 @@
       "ctaLabel": "Vorschlag einreichen",
       "ctaUrl": "/referenz"
     },
-    "updatedAt": "2026-02-23T12:52:44.163Z",
-    "createdAt": "2026-02-21T19:37:56.390Z"
+    "updatedAt": "2026-02-25T22:05:43.190Z",
+    "createdAt": "2026-02-25T22:05:43.190Z"
   },
   {
     "id": 3,
     "label": "Profil",
     "url": "/profil",
-    "order": 34,
+    "order": 32,
     "icon": null,
     "image": null,
     "appearance": "link",
@@ -295,7 +295,7 @@
     "columns": [],
     "highlight": {
       "position": "right",
-      "background": "\"default\"",
+      "background": "default",
       "cards": [],
       "title": null,
       "description": null,
@@ -304,14 +304,14 @@
       "ctaLabel": null,
       "ctaUrl": null
     },
-    "updatedAt": "2026-02-21T19:37:56.382Z",
-    "createdAt": "2026-02-21T19:37:56.382Z"
+    "updatedAt": "2026-02-25T22:05:43.181Z",
+    "createdAt": "2026-02-25T22:05:43.181Z"
   },
   {
     "id": 2,
     "label": "Kontakt",
     "url": "/kontakt",
-    "order": 33,
+    "order": 285,
     "icon": null,
     "image": null,
     "appearance": "link",
@@ -328,7 +328,7 @@
     "columns": [],
     "highlight": {
       "position": "right",
-      "background": "\"default\"",
+      "background": "default",
       "cards": [],
       "title": null,
       "description": null,
@@ -337,14 +337,14 @@
       "ctaLabel": null,
       "ctaUrl": null
     },
-    "updatedAt": "2026-02-21T19:37:56.379Z",
-    "createdAt": "2026-02-21T19:37:56.379Z"
+    "updatedAt": "2026-02-25T22:05:43.172Z",
+    "createdAt": "2026-02-25T22:05:43.171Z"
   },
   {
     "id": 1,
     "label": "Preise",
     "url": "/preise",
-    "order": 34,
+    "order": 32,
     "icon": null,
     "image": null,
     "appearance": "link",
@@ -370,7 +370,7 @@
       "ctaLabel": null,
       "ctaUrl": null
     },
-    "updatedAt": "2026-02-24T22:05:49.711Z",
-    "createdAt": "2026-02-21T19:37:56.376Z"
+    "updatedAt": "2026-02-25T22:05:43.162Z",
+    "createdAt": "2026-02-25T22:05:43.162Z"
   }
 ]

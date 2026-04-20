@@ -1068,15 +1068,6 @@
     }
   }
 
-  @media (min-width: 1280px) {
-    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-superhero-portrait {
-      width: 41rem;
-      min-width: 41rem;
-      margin-left: clamp(-7rem, -6vw, -1rem);
-      margin-right: clamp(-5.5rem, -5vw, -0.5rem);
-    }
-  }
-
   @media (min-width: 700px) {
     section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-superhero-portrait {
       top: calc(var(--header-height, 72px) + 5vh);
@@ -1088,6 +1079,15 @@
       max-width: none;
       margin-left: clamp(-9rem, -10vw, -1.5rem);
       margin-right: clamp(-8rem, -10vw, -1.25rem);
+    }
+  }
+
+  @media (min-width: 1280px) {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-superhero-portrait {
+      width: 41rem;
+      min-width: 41rem;
+      margin-left: clamp(-7rem, -6vw, -1rem);
+      margin-right: clamp(-5.5rem, -5vw, -0.5rem);
     }
   }
 

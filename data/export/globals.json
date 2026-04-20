@@ -26,83 +26,83 @@
     "megaMenuNewsletterButtonText": "Anmelden",
     "megaMenuNewsletterForm": null,
     "megaMenuNewsletterEmailFieldName": "email",
-    "logo": 42,
+    "logo": 33,
+    "favicon": 65,
     "navItems": [],
-    "updatedAt": "2026-02-25T09:17:11.473Z",
-    "createdAt": "2026-02-17T13:47:51.469Z",
+    "updatedAt": "2026-04-17T20:17:29.825Z",
+    "createdAt": "2026-02-25T12:47:10.511Z",
     "globalType": "header"
   },
   "footer": {
     "id": 1,
-    "footerLogo": 44,
+    "footerLogo": 65,
     "footerLogoAltText": "Philipp Bacher – Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Webdesign.",
-    "mobileFooterLogo": null,
+    "mobileFooterLogo": 65,
     "footerDescription": {
       "root": {
+        "type": "root",
+        "format": "",
+        "indent": 0,
+        "version": 317,
         "children": [
           {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 317,
             "children": [
               {
-                "detail": 0,
-                "format": 0,
                 "mode": "normal",
-                "style": "",
                 "text": "Philipp Bacher – Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Webdesign. Ich realisiere moderne, nutzerzentrierte Websites, konsistente Markenauftritte und unterstütze Unternehmen dabei, Ihre Prozesse digital zu automatisieren – effizient, fundiert und ergebnisorientiert.",
                 "type": "text",
-                "version": 1
-              }
-            ],
-            "direction": null,
-            "format": "",
-            "indent": 0,
-            "type": "paragraph",
-            "version": 1,
-            "textFormat": 0,
-            "textStyle": ""
-          }
-        ],
-        "direction": null,
-        "format": "",
-        "indent": 0,
-        "type": "root",
-        "version": 1
-      }
-    },
-    "footerAddress": "Händelstr. 3\nD-06114 Halle/Saale",
-    "footerPhone": "+49 3459 6393323",
-    "logoOnDarkBackground": true,
-    "newsletterTitle": "Newsletter abonnieren",
-    "newsletterIcon": null,
-    "newsletterIconUpload": 52,
-    "newsletterDescription": {
-      "root": {
-        "children": [
-          {
-            "children": [
-              {
+                "style": "",
                 "detail": 0,
                 "format": 0,
-                "mode": "normal",
-                "style": "",
-                "text": "Praxisnahe Impulse zu Webdesign, Marketing und Automatisierung – kompakt, relevant und mit echtem Mehrwert.",
-                "type": "text",
-                "version": 1
+                "version": 317
               }
             ],
             "direction": null,
-            "format": "",
-            "indent": 0,
-            "type": "paragraph",
-            "version": 1,
-            "textFormat": 0,
-            "textStyle": ""
+            "textStyle": "",
+            "textFormat": 0
           }
         ],
-        "direction": null,
+        "direction": null
+      }
+    },
+    "footerAddress": "Händelstr. 3, D-06114 Halle/Saale",
+    "footerPhone": "+49 3459 6393323",
+    "newsletterTitle": "Newsletter abonnieren",
+    "newsletterIcon": null,
+    "newsletterIconUpload": 12,
+    "newsletterDescription": {
+      "root": {
+        "type": "root",
         "format": "",
         "indent": 0,
-        "type": "root",
-        "version": 1
+        "version": 317,
+        "children": [
+          {
+            "type": "paragraph",
+            "format": "",
+            "indent": 0,
+            "version": 317,
+            "children": [
+              {
+                "mode": "normal",
+                "text": "Praxisnahe Impulse zu Webdesign, Marketing und Automatisierung – kompakt, relevant und mit echtem Mehrwert.",
+                "type": "text",
+                "style": "",
+                "detail": 0,
+                "format": 0,
+                "version": 317
+              }
+            ],
+            "direction": null,
+            "textStyle": "",
+            "textFormat": 0
+          }
+        ],
+        "direction": null
       }
     },
     "newsletterPlaceholder": "E-Mail-Adresse",
@@ -111,7 +111,7 @@
       {
         "id": "699a2e25fae65f22251d50b6",
         "columnIcon": null,
-        "columnIconUpload": 47,
+        "columnIconUpload": 11,
         "columnTitle": "Navigation",
         "links": [
           {
@@ -149,7 +149,7 @@
       {
         "id": "699a2f84fae65f22251d50be",
         "columnIcon": null,
-        "columnIconUpload": 46,
+        "columnIconUpload": 10,
         "columnTitle": "Legal",
         "links": [
           {
@@ -175,24 +175,24 @@
       {
         "id": "699e2f89a176278114900af4",
         "columnIcon": null,
-        "columnIconUpload": 48,
-        "columnTitle": "Design-Leistungen",
+        "columnIconUpload": 9,
+        "columnTitle": "Design",
         "links": [
           {
             "id": "699e2f92a176278114900af6",
-            "linkText": "Webdesign & Entwicklung",
+            "linkText": "Websites",
             "linkUrl": "/webdesign",
             "isExternal": false
           },
           {
             "id": "699e2f95a176278114900af8",
-            "linkText": "Printmedien & Grafikdesign",
+            "linkText": "Print- & Grafikdesign",
             "linkUrl": "/print",
             "isExternal": false
           },
           {
             "id": "699e2f97a176278114900afa",
-            "linkText": "Präsentationen & Keynotes",
+            "linkText": "Präsentationen",
             "linkUrl": "/keynotes",
             "isExternal": false
           }
@@ -201,7 +201,7 @@
       {
         "id": "699e301da176278114900b02",
         "columnIcon": null,
-        "columnIconUpload": 49,
+        "columnIconUpload": 8,
         "columnTitle": "Marketing",
         "links": [
           {
@@ -227,7 +227,7 @@
       {
         "id": "699e308ea176278114900b0a",
         "columnIcon": null,
-        "columnIconUpload": 50,
+        "columnIconUpload": 34,
         "columnTitle": "Branding",
         "links": [
           {
@@ -253,7 +253,7 @@
       {
         "id": "699e313da176278114900b12",
         "columnIcon": null,
-        "columnIconUpload": 51,
+        "columnIconUpload": 7,
         "columnTitle": "Portfolio",
         "links": [
           {
@@ -310,8 +310,8 @@
     "textColor": null,
     "linkHoverColor": null,
     "navItems": [],
-    "updatedAt": "2026-02-25T11:53:59.457Z",
-    "createdAt": "2026-02-17T13:47:51.536Z",
+    "updatedAt": "2026-04-16T19:58:58.914Z",
+    "createdAt": "2026-02-25T12:47:10.540Z",
     "globalType": "footer"
   },
   "design": {
@@ -375,8 +375,8 @@
       "heading": "",
       "mono": null
     },
-    "updatedAt": "2026-02-21T19:37:56.443Z",
-    "createdAt": "2026-02-17T13:47:51.566Z",
+    "updatedAt": "2026-02-25T22:05:43.332Z",
+    "createdAt": "2026-02-25T12:47:10.556Z",
     "globalType": "design"
   },
   "theme-settings": {
@@ -429,8 +429,26 @@
       }
     },
     "cssString": ":root {\n  --background: hsl(0 0% 100%);\n  --foreground: hsl(0 0% 3.9%);\n  --card: hsl(0 0% 100%);\n  --card-foreground: hsl(0 0% 3.9%);\n  --popover: hsl(0 0% 100%);\n  --popover-foreground: hsl(0 0% 3.9%);\n  --primary: 0 0% 9%;\n  --primary-foreground: 0 0% 98%;\n  --secondary: hsl(0 0% 96.1%);\n  --secondary-foreground: hsl(0 0% 9%);\n  --muted: hsl(0 0% 96.1%);\n  --muted-foreground: hsl(0 0% 45.1%);\n  --accent: 0 0% 96.1%;\n  --accent-foreground: 0 0% 9%;\n  --destructive: hsl(0 84.2% 60.2%);\n  --destructive-foreground: hsl(0 0% 98%);\n  --border: hsl(0 0% 89.8%);\n  --input: hsl(0 0% 89.8%);\n  --ring: hsl(0 0% 70.8%);\n}\n\n[data-theme='dark'] {\n  --background: hsl(0 0% 3.9%);\n  --foreground: hsl(0 0% 98%);\n  --card: hsl(0 0% 3.9%);\n  --card-foreground: hsl(0 0% 98%);\n  --popover: hsl(0 0% 3.9%);\n  --popover-foreground: hsl(0 0% 98%);\n  --primary: 0 0% 92.2%;\n  --primary-foreground: 0 0% 9%;\n  --secondary: hsl(0 0% 26.9%);\n  --secondary-foreground: hsl(0 0% 98%);\n  --muted: hsl(0 0% 26.9%);\n  --muted-foreground: hsl(0 0% 63.9%);\n  --accent: 0 0% 26.9%;\n  --accent-foreground: 0 0% 98%;\n  --destructive: hsl(0 62.8% 50.6%);\n  --destructive-foreground: hsl(0 0% 98%);\n  --border: hsl(0 0% 14.9%);\n  --input: hsl(0 0% 14.9%);\n  --ring: hsl(0 0% 55.6%);\n}",
-    "updatedAt": "2026-02-21T19:37:56.453Z",
-    "createdAt": "2026-02-17T21:11:24.701Z",
+    "updatedAt": "2026-02-25T22:05:43.368Z",
+    "createdAt": "2026-02-25T12:47:10.569Z",
     "globalType": "theme-settings"
+  },
+  "price-calculator": {
+    "id": 1,
+    "sectionLabel": "Preisrechner",
+    "heading": "Was planen Sie?",
+    "sub": "Kategorie wählen, Leistungen anklicken – Richtwert erscheint sofort. Mehrere Kategorien kombinierbar.",
+    "offerButtonLabel": "Angebot anfragen",
+    "offerLink": "/kontakt",
+    "emptyBreakdownMessage": "Wählen Sie oben eine Kategorie und Leistungen aus.",
+    "ratesSectionLabel": "Stundensatz & Tagessatz",
+    "ratesHeading": "Für flexible & laufende Zusammenarbeit",
+    "hourlyRate": 120,
+    "dayRate": 890,
+    "weekRate": 3200,
+    "ratesNote": "Stundensätze gelten für Beratung, Ad-hoc-Aufgaben und Projekte ohne definierten Scope. Bei Projekten mit klarem Umfang arbeite ich grundsätzlich auf Festpreisbasis – transparenter für Sie, planbarer für beide Seiten.",
+    "updatedAt": "2026-04-18T21:08:44.911Z",
+    "createdAt": "2026-04-11T08:59:01.451Z",
+    "globalType": "price-calculator"
   }
 }

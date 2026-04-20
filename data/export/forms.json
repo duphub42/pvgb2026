@@ -1,1 +1,683 @@
-[]
+[
+  {
+    "id": 5,
+    "title": "Kontaktformular",
+    "fields": [
+      {
+        "id": "69e5c02f538accd8512ad23d",
+        "name": "name",
+        "label": "Name",
+        "width": 100,
+        "defaultValue": null,
+        "required": true,
+        "blockName": "name",
+        "blockType": "text"
+      },
+      {
+        "id": "69e5c02f538accd8512ad23e",
+        "name": "email",
+        "label": "E-Mail",
+        "width": 100,
+        "required": true,
+        "blockName": "email",
+        "blockType": "email"
+      },
+      {
+        "id": "69e5c02f538accd8512ad23f",
+        "name": "telefon",
+        "label": "Telefon",
+        "width": 100,
+        "defaultValue": null,
+        "required": false,
+        "blockName": "telefon",
+        "blockType": "number"
+      },
+      {
+        "id": "69e5c02f538accd8512ad240",
+        "name": "firma",
+        "label": "Firma",
+        "width": 100,
+        "defaultValue": null,
+        "required": false,
+        "blockName": "firma",
+        "blockType": "text"
+      },
+      {
+        "id": "69e5c02f538accd8512ad245",
+        "name": "anliegen",
+        "label": "Anliegen",
+        "width": 100,
+        "defaultValue": null,
+        "placeholder": null,
+        "required": true,
+        "blockName": "anliegen",
+        "options": [
+          {
+            "id": "69e5c02f538accd8512ad241",
+            "label": "Beratung",
+            "value": "beratung"
+          },
+          {
+            "id": "69e5c02f538accd8512ad242",
+            "label": "Angebot",
+            "value": "angebot"
+          },
+          {
+            "id": "69e5c02f538accd8512ad243",
+            "label": "Support",
+            "value": "support"
+          },
+          {
+            "id": "69e5c02f538accd8512ad244",
+            "label": "Allgemeine Frage",
+            "value": "allgemeine_frage"
+          }
+        ],
+        "blockType": "select"
+      },
+      {
+        "id": "69e5c02f538accd8512ad246",
+        "name": "nachricht",
+        "label": "Nachricht",
+        "width": 100,
+        "defaultValue": null,
+        "required": true,
+        "blockName": "nachricht",
+        "blockType": "textarea"
+      },
+      {
+        "id": "69e5c02f538accd8512ad247",
+        "name": "datenschutz",
+        "label": "Ich akzeptiere die Datenschutzerklärung",
+        "width": 100,
+        "required": true,
+        "defaultValue": null,
+        "blockName": "datenschutz",
+        "blockType": "checkbox"
+      }
+    ],
+    "submitButtonLabel": "Absenden",
+    "confirmationType": "message",
+    "confirmationMessage": {
+      "root": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Vielen Dank! Ihre Anfrage wurde erfolgreich übermittelt.",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1
+      }
+    },
+    "redirect": {
+      "url": null
+    },
+    "emails": [
+      {
+        "id": "69e5c02f538accd8512ad248",
+        "emailTo": "{{email}}",
+        "cc": null,
+        "bcc": null,
+        "replyTo": null,
+        "emailFrom": "\"Website\" <noreply@example.com>",
+        "subject": "Ihre Kontaktanfrage wurde eingegangen",
+        "message": {
+          "root": {
+            "type": "root",
+            "children": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Vielen Dank für Ihre Nachricht. Wir melden uns so bald wie möglich bei Ihnen.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        }
+      }
+    ],
+    "updatedAt": "2026-04-20T05:57:03.118Z",
+    "createdAt": "2026-04-20T05:57:03.116Z"
+  },
+  {
+    "id": 4,
+    "title": "Kontaktformular",
+    "fields": [
+      {
+        "id": "69dff1d3a84fcc0a38119817",
+        "name": "name",
+        "label": "Name",
+        "width": 100,
+        "defaultValue": null,
+        "required": true,
+        "blockName": "name",
+        "blockType": "text"
+      },
+      {
+        "id": "69dff1d3a84fcc0a38119818",
+        "name": "email",
+        "label": "E-Mail",
+        "width": 100,
+        "required": true,
+        "blockName": "email",
+        "blockType": "email"
+      },
+      {
+        "id": "69dff1d3a84fcc0a38119819",
+        "name": "telefon",
+        "label": "Telefon",
+        "width": 100,
+        "defaultValue": null,
+        "required": false,
+        "blockName": "telefon",
+        "blockType": "number"
+      },
+      {
+        "id": "69dff1d3a84fcc0a3811981a",
+        "name": "firma",
+        "label": "Firma",
+        "width": 100,
+        "defaultValue": null,
+        "required": false,
+        "blockName": "firma",
+        "blockType": "text"
+      },
+      {
+        "id": "69dff1d3a84fcc0a3811981f",
+        "name": "anliegen",
+        "label": "Anliegen",
+        "width": 100,
+        "defaultValue": null,
+        "placeholder": null,
+        "required": true,
+        "blockName": "anliegen",
+        "options": [
+          {
+            "id": "69dff1d3a84fcc0a3811981b",
+            "label": "Beratung",
+            "value": "beratung"
+          },
+          {
+            "id": "69dff1d3a84fcc0a3811981c",
+            "label": "Angebot",
+            "value": "angebot"
+          },
+          {
+            "id": "69dff1d3a84fcc0a3811981d",
+            "label": "Support",
+            "value": "support"
+          },
+          {
+            "id": "69dff1d3a84fcc0a3811981e",
+            "label": "Allgemeine Frage",
+            "value": "allgemeine_frage"
+          }
+        ],
+        "blockType": "select"
+      },
+      {
+        "id": "69dff1d3a84fcc0a38119820",
+        "name": "nachricht",
+        "label": "Nachricht",
+        "width": 100,
+        "defaultValue": null,
+        "required": true,
+        "blockName": "nachricht",
+        "blockType": "textarea"
+      },
+      {
+        "id": "69dff1d3a84fcc0a38119821",
+        "name": "datenschutz",
+        "label": "Ich akzeptiere die Datenschutzerklärung",
+        "width": 100,
+        "required": true,
+        "defaultValue": null,
+        "blockName": "datenschutz",
+        "blockType": "checkbox"
+      }
+    ],
+    "submitButtonLabel": "Absenden",
+    "confirmationType": "message",
+    "confirmationMessage": {
+      "root": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Vielen Dank! Ihre Anfrage wurde erfolgreich übermittelt.",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1
+      }
+    },
+    "redirect": {
+      "url": null
+    },
+    "emails": [
+      {
+        "id": "69dff1d3a84fcc0a38119822",
+        "emailTo": "{{email}}",
+        "cc": null,
+        "bcc": null,
+        "replyTo": null,
+        "emailFrom": "\"Website\" <noreply@example.com>",
+        "subject": "Ihre Kontaktanfrage wurde eingegangen",
+        "message": {
+          "root": {
+            "type": "root",
+            "children": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Vielen Dank für Ihre Nachricht. Wir melden uns so bald wie möglich bei Ihnen.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        }
+      }
+    ],
+    "updatedAt": "2026-04-15T20:15:15.368Z",
+    "createdAt": "2026-04-15T20:15:15.367Z"
+  },
+  {
+    "id": 3,
+    "title": "Rückruf-Anfrage",
+    "fields": [
+      {
+        "id": "69da0a9a5bb7ad6bc85f27ed",
+        "name": "name",
+        "label": "Name",
+        "width": 100,
+        "defaultValue": null,
+        "required": true,
+        "blockName": "name",
+        "blockType": "text"
+      },
+      {
+        "id": "69da0a9a5bb7ad6bc85f27ee",
+        "name": "telefon",
+        "label": "Telefonnummer",
+        "width": 100,
+        "defaultValue": null,
+        "required": true,
+        "blockName": "telefon",
+        "blockType": "text"
+      },
+      {
+        "id": "69da0a9a5bb7ad6bc85f27ef",
+        "name": "datenschutz",
+        "label": "Ich akzeptiere die Datenschutzerklärung",
+        "width": 100,
+        "required": true,
+        "defaultValue": null,
+        "blockName": "datenschutz",
+        "blockType": "checkbox"
+      }
+    ],
+    "submitButtonLabel": "Anfragen",
+    "confirmationType": "message",
+    "confirmationMessage": {
+      "root": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Vielen Dank! Ihre Rückruf-Anfrage wurde erfolgreich übermittelt.",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1
+      }
+    },
+    "redirect": {
+      "url": null
+    },
+    "emails": [],
+    "updatedAt": "2026-04-11T08:47:22.625Z",
+    "createdAt": "2026-04-11T08:47:22.625Z"
+  },
+  {
+    "id": 2,
+    "title": "Kontaktformular",
+    "fields": [
+      {
+        "id": "69da0a9a5bb7ad6bc85f27e1",
+        "name": "name",
+        "label": "Name",
+        "width": 100,
+        "defaultValue": null,
+        "required": true,
+        "blockName": "name",
+        "blockType": "text"
+      },
+      {
+        "id": "69da0a9a5bb7ad6bc85f27e2",
+        "name": "email",
+        "label": "E-Mail",
+        "width": 100,
+        "required": true,
+        "blockName": "email",
+        "blockType": "email"
+      },
+      {
+        "id": "69da0a9a5bb7ad6bc85f27e3",
+        "name": "telefon",
+        "label": "Telefon",
+        "width": 100,
+        "defaultValue": null,
+        "required": false,
+        "blockName": "telefon",
+        "blockType": "number"
+      },
+      {
+        "id": "69da0a9a5bb7ad6bc85f27e4",
+        "name": "firma",
+        "label": "Firma",
+        "width": 100,
+        "defaultValue": null,
+        "required": false,
+        "blockName": "firma",
+        "blockType": "text"
+      },
+      {
+        "id": "69da0a9a5bb7ad6bc85f27e9",
+        "name": "anliegen",
+        "label": "Anliegen",
+        "width": 100,
+        "defaultValue": null,
+        "placeholder": null,
+        "required": true,
+        "blockName": "anliegen",
+        "options": [
+          {
+            "id": "69da0a9a5bb7ad6bc85f27e5",
+            "label": "Beratung",
+            "value": "beratung"
+          },
+          {
+            "id": "69da0a9a5bb7ad6bc85f27e6",
+            "label": "Angebot",
+            "value": "angebot"
+          },
+          {
+            "id": "69da0a9a5bb7ad6bc85f27e7",
+            "label": "Support",
+            "value": "support"
+          },
+          {
+            "id": "69da0a9a5bb7ad6bc85f27e8",
+            "label": "Allgemeine Frage",
+            "value": "allgemeine_frage"
+          }
+        ],
+        "blockType": "select"
+      },
+      {
+        "id": "69da0a9a5bb7ad6bc85f27ea",
+        "name": "nachricht",
+        "label": "Nachricht",
+        "width": 100,
+        "defaultValue": null,
+        "required": true,
+        "blockName": "nachricht",
+        "blockType": "textarea"
+      },
+      {
+        "id": "69da0a9a5bb7ad6bc85f27eb",
+        "name": "datenschutz",
+        "label": "Ich akzeptiere die Datenschutzerklärung",
+        "width": 100,
+        "required": true,
+        "defaultValue": null,
+        "blockName": "datenschutz",
+        "blockType": "checkbox"
+      }
+    ],
+    "submitButtonLabel": "Absenden",
+    "confirmationType": "message",
+    "confirmationMessage": {
+      "root": {
+        "type": "root",
+        "children": [
+          {
+            "type": "paragraph",
+            "children": [
+              {
+                "type": "text",
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Vielen Dank! Ihre Anfrage wurde erfolgreich übermittelt.",
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        ],
+        "direction": "ltr",
+        "format": "",
+        "indent": 0,
+        "version": 1
+      }
+    },
+    "redirect": {
+      "url": null
+    },
+    "emails": [
+      {
+        "id": "69da0a9a5bb7ad6bc85f27ec",
+        "emailTo": "{{email}}",
+        "cc": null,
+        "bcc": null,
+        "replyTo": null,
+        "emailFrom": "\"Website\" <noreply@example.com>",
+        "subject": "Ihre Kontaktanfrage wurde eingegangen",
+        "message": {
+          "root": {
+            "type": "root",
+            "children": [
+              {
+                "type": "paragraph",
+                "children": [
+                  {
+                    "type": "text",
+                    "detail": 0,
+                    "format": 0,
+                    "mode": "normal",
+                    "style": "",
+                    "text": "Vielen Dank für Ihre Nachricht. Wir melden uns so bald wie möglich bei Ihnen.",
+                    "version": 1
+                  }
+                ],
+                "direction": "ltr",
+                "format": "",
+                "indent": 0,
+                "version": 1
+              }
+            ],
+            "direction": "ltr",
+            "format": "",
+            "indent": 0,
+            "version": 1
+          }
+        }
+      }
+    ],
+    "updatedAt": "2026-04-11T08:47:22.608Z",
+    "createdAt": "2026-04-11T08:47:22.606Z"
+  },
+  {
+    "id": 1,
+    "title": "Rückruf",
+    "fields": [
+      {
+        "id": "69c653b7ac2f59fb3d9d81bc",
+        "name": "Name",
+        "label": "Name",
+        "width": null,
+        "defaultValue": "Name",
+        "required": null,
+        "blockName": null,
+        "blockType": "text"
+      },
+      {
+        "id": "69c6552aac2f59fb3d9d81be",
+        "name": "Telefonnummer",
+        "label": "Telefon",
+        "width": null,
+        "defaultValue": "+49",
+        "required": true,
+        "blockName": null,
+        "blockType": "text"
+      },
+      {
+        "id": "69c64a9b6b734ce771df362e",
+        "name": "Datenschutz",
+        "label": "Ich habe die Datenschutzbedingungen gelesen und akzeptiert.",
+        "width": null,
+        "required": true,
+        "defaultValue": false,
+        "blockName": null,
+        "blockType": "checkbox"
+      }
+    ],
+    "submitButtonLabel": "Rückruf ",
+    "confirmationType": "message",
+    "confirmationMessage": {
+      "root": {
+        "children": [
+          {
+            "children": [
+              {
+                "detail": 0,
+                "format": 0,
+                "mode": "normal",
+                "style": "",
+                "text": "Vielen Dank! ",
+                "type": "text",
+                "version": 1
+              }
+            ],
+            "direction": null,
+            "format": "",
+            "indent": 0,
+            "type": "paragraph",
+            "version": 1,
+            "textFormat": 0,
+            "textStyle": ""
+          }
+        ],
+        "direction": null,
+        "format": "",
+        "indent": 0,
+        "type": "root",
+        "version": 1
+      }
+    },
+    "redirect": {
+      "url": null
+    },
+    "emails": [
+      {
+        "id": "69c64add6b734ce771df3630",
+        "emailTo": "mail@philippbacher.com",
+        "cc": null,
+        "bcc": null,
+        "replyTo": null,
+        "emailFrom": null,
+        "subject": "Rücktufanfrage",
+        "message": null
+      }
+    ],
+    "updatedAt": "2026-03-27T10:00:39.988Z",
+    "createdAt": "2026-03-27T09:16:37.243Z"
+  }
+]

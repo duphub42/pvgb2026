@@ -24,7 +24,8 @@ const SOCIAL_SPRITE_IDS: Record<string, string> = {
 }
 const MOBILE_FOOTER_B_LOGO_SRC = '/branding/philippbacher-logo-b-10.svg'
 const _MOBILE_FOOTER_B_LOGO_MIN_OPACITY = 0.1
-const _MOBILE_FOOTER_B_LOGO_MAX_OPACITY = 0.3
+// When centered: fully visible (1). Otherwise very faint (0.1).
+const _MOBILE_FOOTER_B_LOGO_MAX_OPACITY = 1
 const MOBILE_FOOTER_HEADING_MIN_OPACITY = 0.3
 const MOBILE_FOOTER_HEADING_MAX_OPACITY = 1
 const MOBILE_FOOTER_B_LOGO_FADE_ZONE_RATIO = 0.72
@@ -139,8 +140,8 @@ export function FooterClient({
       if (logoEl) {
         const logoOpacity = calcOpacityForRect(
           logoEl.getBoundingClientRect(),
-          MOBILE_FOOTER_HEADING_MIN_OPACITY,
-          MOBILE_FOOTER_HEADING_MAX_OPACITY,
+          _MOBILE_FOOTER_B_LOGO_MIN_OPACITY,
+          _MOBILE_FOOTER_B_LOGO_MAX_OPACITY,
         )
         const nextLogoOpacity = logoOpacity.toFixed(3)
         if (nextLogoOpacity !== lastLogoOpacity) {
@@ -218,7 +219,12 @@ export function FooterClient({
             <div className="gap-8 flex flex-col md:flex-row md:justify-between">
               <Link className="logo-link flex items-center" href="/">
                 {logoToShow != null ? (
-                  <Logo logo={logoToShow} variant="footer" className="max-w-[100%] h-20 md:h-28" />
+                  <Logo
+                    logo={logoToShow}
+                    variant="footer"
+                    disableAnimation
+                    className="mobile-footer-b-logo max-w-[100%] h-20 md:h-28"
+                  />
                 ) : MOBILE_FOOTER_B_LOGO_SRC ? (
                   <img
                     ref={mobileFooterLogoRef}
@@ -270,7 +276,8 @@ export function FooterClient({
                         <Logo
                           logo={logoToShow}
                           variant="footer"
-                          className="block max-w-[100%] h-12 sm:h-14 md:h-16"
+                          disableAnimation
+                          className="mobile-footer-b-logo block max-w-[100%] h-12 sm:h-14 md:h-16"
                         />
                       ) : MOBILE_FOOTER_B_LOGO_SRC ? (
                         <img
@@ -295,7 +302,9 @@ export function FooterClient({
                     >
                       {(footer.socialLinks ?? []).map((item, i) => {
                         const url = item?.url?.trim()
-                        const platform = (item?.platform ?? '') as string
+                        const platform = String(item?.platform ?? '')
+                          .trim()
+                          .toLowerCase()
                         const customIconUrl =
                           item?.iconUpload &&
                           typeof item.iconUpload === 'object' &&

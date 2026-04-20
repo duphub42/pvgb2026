@@ -331,7 +331,7 @@ const MOBILE_DOCK_WHATSAPP_URL = `https://wa.me/${MOBILE_DOCK_WHATSAPP_E164}`
 const MOBILE_DOCK_VCARD_URL = '/contact.vcf'
 const MOBILE_DOCK_CALENDAR_URL = '/termin'
 const MOBILE_MENU_LOGO_ICON_SRC = '/branding/philippbacher-logo-b-10.svg'
-const HAM_ICON_ANIMATION_MS = 400
+const HAM_ICON_ANIMATION_MS = 260
 const MOBILE_DOCK_TOOLTIP_AUTOHIDE_MS = 1500
 const MOBILE_DOCK_CONFIRM_WINDOW_MS = 2600
 const MOBILE_DOCK_PROXIMITY_RADIUS = 132
@@ -632,11 +632,10 @@ function MobileMenuItemIcon({ src, FallbackIcon }: MobileMenuItemIconProps) {
 
 type MobileMenuTriggerIconProps = {
   active: boolean
-  onToggle?: (nextActive: boolean) => void
   className?: string
 }
 
-function MobileMenuTriggerIcon({ active, onToggle, className }: MobileMenuTriggerIconProps) {
+function MobileMenuTriggerIcon({ active, className }: MobileMenuTriggerIconProps) {
   return (
     <svg
       className={cn(
@@ -648,11 +647,6 @@ function MobileMenuTriggerIcon({ active, onToggle, className }: MobileMenuTrigge
       width="80"
       aria-hidden
       focusable="false"
-      onClick={(event) => {
-        if (!onToggle) return
-        event.stopPropagation()
-        onToggle(!active)
-      }}
     >
       <path
         className="line top"
@@ -1220,7 +1214,6 @@ export function MegaMenu({
     active: false,
   })
   const mobileMenuCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const mobileMenuOpenIconTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileDockTooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileDockLongPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileDockLongPressTriggeredKeyRef = useRef<string | null>(null)
@@ -1489,13 +1482,6 @@ export function MegaMenu({
     if (mobileMenuCloseTimeoutRef.current) {
       clearTimeout(mobileMenuCloseTimeoutRef.current)
       mobileMenuCloseTimeoutRef.current = null
-    }
-  }, [])
-
-  const clearMobileMenuOpenIconTimeout = React.useCallback(() => {
-    if (mobileMenuOpenIconTimeoutRef.current) {
-      clearTimeout(mobileMenuOpenIconTimeoutRef.current)
-      mobileMenuOpenIconTimeoutRef.current = null
     }
   }, [])
 
@@ -2052,23 +2038,12 @@ export function MegaMenu({
     collapseMobileBrowserChrome()
     syncMobileMenuOrigin()
     clearMobileMenuCloseTimeout()
-    clearMobileMenuOpenIconTimeout()
     setMobileMenuOpen(true)
-    setMobileMenuIconActive(false)
-    mobileMenuOpenIconTimeoutRef.current = setTimeout(() => {
-      setMobileMenuIconActive(true)
-      mobileMenuOpenIconTimeoutRef.current = null
-    }, 26)
-  }, [
-    collapseMobileBrowserChrome,
-    syncMobileMenuOrigin,
-    clearMobileMenuCloseTimeout,
-    clearMobileMenuOpenIconTimeout,
-  ])
+    setMobileMenuIconActive(true)
+  }, [collapseMobileBrowserChrome, syncMobileMenuOrigin, clearMobileMenuCloseTimeout])
 
   const closeMobileMenu = React.useCallback(() => {
     clearMobileMenuCloseTimeout()
-    clearMobileMenuOpenIconTimeout()
     resetMobileDockState()
     setMobileMenuIconActive(false)
     mobileMenuCloseTimeoutRef.current = setTimeout(() => {
@@ -2076,7 +2051,7 @@ export function MegaMenu({
       mobileMenuTriggerRef.current?.focus({ preventScroll: true })
       mobileMenuCloseTimeoutRef.current = null
     }, HAM_ICON_ANIMATION_MS)
-  }, [clearMobileMenuCloseTimeout, clearMobileMenuOpenIconTimeout, resetMobileDockState])
+  }, [clearMobileMenuCloseTimeout, resetMobileDockState])
 
   const toggleMobileMenu = React.useCallback(() => {
     if (mobileMenuOpen) {
@@ -2097,30 +2072,17 @@ export function MegaMenu({
     [openMobileMenu, closeMobileMenu],
   )
 
-  const handleMobileMenuIconToggle = React.useCallback(
-    (nextActive: boolean) => {
-      if (nextActive) {
-        openMobileMenu()
-        return
-      }
-      closeMobileMenu()
-    },
-    [openMobileMenu, closeMobileMenu],
-  )
-
   useEffect(() => {
     clearMobileMenuCloseTimeout()
-    clearMobileMenuOpenIconTimeout()
     resetMobileDockState()
     setMobileMenuOpen(false)
     setMobileMenuIconActive(false)
     setMobileActivePrimary(null)
-  }, [pathname, clearMobileMenuCloseTimeout, clearMobileMenuOpenIconTimeout, resetMobileDockState])
+  }, [pathname, clearMobileMenuCloseTimeout, resetMobileDockState])
 
   useEffect(() => {
     return () => {
       clearMobileMenuCloseTimeout()
-      clearMobileMenuOpenIconTimeout()
       clearMobileDockTooltipTimeout()
       clearMobileDockLongPressTimeout()
       clearMobileDockConfirmTimeout()
@@ -2128,7 +2090,6 @@ export function MegaMenu({
     }
   }, [
     clearMobileMenuCloseTimeout,
-    clearMobileMenuOpenIconTimeout,
     clearMobileDockTooltipTimeout,
     clearMobileDockLongPressTimeout,
     clearMobileDockConfirmTimeout,
@@ -3054,10 +3015,7 @@ export function MegaMenu({
                       data-open={mobileMenuIconActive ? 'true' : 'false'}
                       onClick={toggleMobileMenu}
                     >
-                      <MobileMenuTriggerIcon
-                        active={mobileMenuIconActive}
-                        onToggle={handleMobileMenuIconToggle}
-                      />
+                      <MobileMenuTriggerIcon active={mobileMenuIconActive} />
                     </button>
                     <SheetContent
                       ref={mobileMenuSheetRef}
@@ -3109,10 +3067,7 @@ export function MegaMenu({
                               data-open={mobileMenuIconActive ? 'true' : 'false'}
                               onClick={closeMobileMenu}
                             >
-                              <MobileMenuTriggerIcon
-                                active={mobileMenuIconActive}
-                                onToggle={handleMobileMenuIconToggle}
-                              />
+                              <MobileMenuTriggerIcon active={mobileMenuIconActive} />
                             </button>
                           </div>
                         </div>

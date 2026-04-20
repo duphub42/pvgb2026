@@ -1,18 +1,21 @@
 {
   "collections": {
-    "media": 52,
+    "media": 68,
     "categories": 0,
-    "users": 1,
-    "site-pages": 6,
+    "users": 2,
+    "site-pages": 13,
     "blog-posts": 0,
     "mega-menu": 6,
     "redirects": 0,
-    "forms": 0
+    "forms": 5,
+    "price-calc-categories": 2,
+    "price-calc-items": 1
   },
   "globals": [
     "header",
     "footer",
     "design",
-    "theme-settings"
+    "theme-settings",
+    "price-calculator"
   ]
 }

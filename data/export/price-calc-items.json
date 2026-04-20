@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "category": 1,
+    "title": "Setup",
+    "description": "Einrichtung Domains, Webspeicher, bis zu 10 E-Mailkonten, Datenbanken und SSL-Zertifikaten",
+    "sortOrder": 0,
+    "pricingType": "once",
+    "onceMin": 99,
+    "onceMax": 199,
+    "monthlyMin": null,
+    "monthlyMax": null,
+    "updatedAt": "2026-04-18T21:08:25.738Z",
+    "createdAt": "2026-04-18T21:08:25.737Z"
+  }
+]
