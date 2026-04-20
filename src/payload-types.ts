@@ -205,6 +205,10 @@ export interface SitePage {
     headlineLine3?: string | null;
     description?: string | null;
     /**
+     * Vertikale Position des Contents innerhalb des Superhero-Layouts.
+     */
+    contentVerticalAlignment?: ('top' | 'center' | 'bottom') | null;
+    /**
      * Vollflächiger Hintergrund hinter dem Hero (object-cover).
      */
     backgroundImage?: (number | null) | Media;
@@ -561,6 +565,10 @@ export interface HeroMarketingBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -593,6 +601,10 @@ export interface HeroWithProcessBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -639,6 +651,10 @@ export interface IntroductionBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -677,6 +693,10 @@ export interface MarqueeSliderBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -722,6 +742,10 @@ export interface ConsultingOverviewBlock {
    * Optionaler Hintergrund für den gesamten Block.
    */
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   /**
    * Optionaler Farbfilter über dem Blockinhalt (z. B. abdunkeln).
    */
@@ -882,6 +906,10 @@ export interface ServicesOverviewBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -938,6 +966,10 @@ export interface ServicesGridBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1029,6 +1061,10 @@ export interface WhyWorkWithMeBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1099,6 +1135,10 @@ export interface RadialOrbitalTimelineBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1148,6 +1188,10 @@ export interface PortfolioCaseGridBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1212,6 +1256,10 @@ export interface PortfolioKpiStripBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1254,6 +1302,10 @@ export interface BrandShowcaseBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1318,6 +1370,10 @@ export interface ProfilUeberMichBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1356,6 +1412,10 @@ export interface ProfilKernkompetenzBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1396,6 +1456,10 @@ export interface ProfilKompetenzenBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1436,6 +1500,10 @@ export interface ProfilWerdegangBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1472,6 +1540,10 @@ export interface ProfilZahlenFaktenBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1508,6 +1580,10 @@ export interface ProfilToolsBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1541,6 +1617,10 @@ export interface ProfilLangZertBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1581,6 +1661,10 @@ export interface ProfilCtaBandBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1610,6 +1694,10 @@ export interface PriceCalculatorBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1642,6 +1730,10 @@ export interface PricingTableBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1718,6 +1810,10 @@ export interface CallToActionBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1798,6 +1894,10 @@ export interface CalPopupBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1833,6 +1933,10 @@ export interface ContactInfoCardsBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1874,6 +1978,10 @@ export interface ContentBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1956,6 +2064,10 @@ export interface MediaBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1982,6 +2094,10 @@ export interface ArchiveBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2032,6 +2148,10 @@ export interface FormBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2794,6 +2914,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         headlineLine2?: T;
         headlineLine3?: T;
         description?: T;
+        contentVerticalAlignment?: T;
         backgroundImage?: T;
         marqueeHeadline?: T;
         logoDisplayType?: T;
@@ -2883,6 +3004,7 @@ export interface HeroMarketingBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -2911,6 +3033,7 @@ export interface HeroWithProcessBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -2947,6 +3070,7 @@ export interface IntroductionBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -2972,6 +3096,7 @@ export interface MarqueeSliderBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3007,6 +3132,7 @@ export interface MarqueeSliderBlockSelect<T extends boolean = true> {
  */
 export interface ConsultingOverviewBlockSelect<T extends boolean = true> {
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockOverlay?:
     | T
     | {
@@ -3070,6 +3196,7 @@ export interface ServicesOverviewBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3101,6 +3228,7 @@ export interface ServicesGridBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3162,6 +3290,7 @@ export interface WhyWorkWithMeBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3200,6 +3329,7 @@ export interface RadialOrbitalTimelineBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3236,6 +3366,7 @@ export interface PortfolioCaseGridBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3295,6 +3426,7 @@ export interface PortfolioKpiStripBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3330,6 +3462,7 @@ export interface BrandShowcaseBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3387,6 +3520,7 @@ export interface ProfilUeberMichBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3418,6 +3552,7 @@ export interface ProfilKernkompetenzBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3454,6 +3589,7 @@ export interface ProfilKompetenzenBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3490,6 +3626,7 @@ export interface ProfilWerdegangBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3522,6 +3659,7 @@ export interface ProfilZahlenFaktenBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3551,6 +3689,7 @@ export interface ProfilToolsBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3580,6 +3719,7 @@ export interface ProfilLangZertBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3616,6 +3756,7 @@ export interface ProfilCtaBandBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3641,6 +3782,7 @@ export interface PriceCalculatorBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3666,6 +3808,7 @@ export interface PricingTableBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3726,6 +3869,7 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3767,6 +3911,7 @@ export interface CalPopupBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3792,6 +3937,7 @@ export interface ContactInfoCardsBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3823,6 +3969,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3866,6 +4013,7 @@ export interface MediaBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3888,6 +4036,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3915,6 +4064,7 @@ export interface FormBlockSelect<T extends boolean = true> {
   blockSpacingMarginBottom?: T;
   blockContainer?: T;
   blockBackground?: T;
+  blockBackgroundImage?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -5356,6 +5506,10 @@ export interface HtmlEmbedBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -5385,6 +5539,10 @@ export interface BannerBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -5426,6 +5584,10 @@ export interface CodeBlock {
   blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
   blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
   blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;

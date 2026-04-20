@@ -213,6 +213,16 @@ export const blockStyleFields: Field[] = [
       { label: 'Primär (primary/5)', value: 'primary' },
     ],
   },
+  {
+    name: 'blockBackgroundImage',
+    type: 'upload',
+    relationTo: 'media',
+    label: 'Hintergrundbild (Media)',
+    admin: {
+      description:
+        'Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.',
+    },
+  },
 
   // --- Border (flat) ---
   {

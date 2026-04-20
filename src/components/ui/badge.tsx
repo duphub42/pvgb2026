@@ -29,7 +29,23 @@ function Badge({
   ...props
 }: React.ComponentProps<"span"> &
   VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot.Root : "span"
+  const getSlottableElement = (node: React.ReactNode) => {
+    if (!React.isValidElement<{ children?: React.ReactNode }>(node)) return null
+    if (node.type !== React.Fragment) {
+      return node
+    }
+
+    const fragmentChildren = React.Children.toArray(node.props.children)
+    if (fragmentChildren.length !== 1) return null
+
+    const [onlyChild] = fragmentChildren
+    return React.isValidElement<{ children?: React.ReactNode }>(onlyChild)
+      ? onlyChild
+      : null
+  }
+
+  const slottableChild = asChild ? getSlottableElement(children) : null
+  const Comp = asChild && slottableChild != null ? Slot.Root : "span"
 
   return (
     <Comp
@@ -38,7 +54,7 @@ function Badge({
       className={cn(badgeVariants({ variant }), className)}
       {...props}
     >
-      {children}
+      {slottableChild ?? children}
     </Comp>
   )
 }

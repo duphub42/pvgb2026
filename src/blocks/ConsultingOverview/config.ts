@@ -34,6 +34,16 @@ const consultingBlockStyleFields: Block['fields'] = [
     },
   },
   {
+    name: 'blockBackgroundImage',
+    type: 'upload',
+    relationTo: 'media',
+    label: 'Hintergrundbild (Media)',
+    admin: {
+      description:
+        'Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.',
+    },
+  },
+  {
     name: 'blockOverlay',
     type: 'group',
     label: 'Overlay-Filter',

@@ -163,8 +163,14 @@ export default async function Page({
           'blockBackground' in previewFirstBlock
             ? ((previewFirstBlock as { blockBackground?: string | null }).blockBackground ?? 'none')
             : 'none'
-        const previewNextSectionBackground =
-          getNextSectionBackgroundValue(previewFirstBlockBackground)
+        const previewNextSectionBackground = getNextSectionBackgroundValue(
+          previewFirstBlockBackground,
+        )
+        const previewFirstBlockIsServices =
+          previewFirstBlock &&
+          typeof previewFirstBlock === 'object' &&
+          'blockType' in previewFirstBlock &&
+          (previewFirstBlock as { blockType?: string }).blockType === 'servicesOverview'
         const previewIsSuperheroHero =
           pageById.hero &&
           typeof pageById.hero === 'object' &&
@@ -176,13 +182,31 @@ export default async function Page({
             className={cn('hero-safe-top', previewIsSuperheroHero && 'hero-shell--superhero')}
             style={{ ['--hero-next-section-bg' as string]: previewNextSectionBackground }}
           >
-            <div className={cn(previewIsSuperheroHero ? '' : 'hero-bottom-border')}>
-              <RenderHero {...pageById.hero} pageSlug={previewSlug} />
+            <div className={cn('relative isolate z-[32]', !previewIsSuperheroHero && 'hero-bottom-border')}>
+              <SectionReveal>
+                <HeroErrorBoundary>
+                  <RenderHero {...pageById.hero} pageSlug={previewSlug} />
+                </HeroErrorBoundary>
+              </SectionReveal>
             </div>
             <hr className="hero-content-divider" aria-hidden />
-            <div className="relative z-0 pt-24">
-              <RenderBlocks blocks={previewLayoutBlocks} />
-              {isHomePageSlug(previewSlug) && <Faq8 />}
+            <div
+              className={cn(
+                'relative w-full min-w-0 hero-following-section-mask',
+                previewFirstBlockIsServices
+                  ? cn(
+                      'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
+                      previewIsSuperheroHero ? 'z-[34]' : 'lg:z-[33]',
+                    )
+                  : previewIsSuperheroHero
+                    ? 'z-[34] mt-0 pt-24'
+                    : 'z-20 max-md:pt-8 pt-24 md:z-[31]',
+              )}
+            >
+              <SectionReveal className="relative z-0 pt-24">
+                <RenderBlocks blocks={previewLayoutBlocks} />
+                {isHomePageSlug(previewSlug) && <Faq8 />}
+              </SectionReveal>
             </div>
           </article>
         )
@@ -244,7 +268,10 @@ export default async function Page({
       'blockType' in firstBlock &&
       (firstBlock as { blockType?: string }).blockType === 'servicesOverview'
     const firstBlockBackground =
-      firstBlock && typeof firstBlock === 'object' && firstBlock !== null && 'blockBackground' in firstBlock
+      firstBlock &&
+      typeof firstBlock === 'object' &&
+      firstBlock !== null &&
+      'blockBackground' in firstBlock
         ? ((firstBlock as { blockBackground?: string | null }).blockBackground ?? 'none')
         : 'none'
     const nextSectionBackground = getNextSectionBackgroundValue(firstBlockBackground)
@@ -278,11 +305,11 @@ export default async function Page({
             firstBlockIsServices
               ? cn(
                   'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
-                  isSuperheroHero ? 'lg:z-[31] lg:mt-0' : 'lg:-mt-28 lg:z-[33]',
+                  isSuperheroHero ? 'z-[34]' : 'lg:z-[33]',
                 )
               : isSuperheroHero
-                ? 'z-20 mt-0 pt-24 md:z-[31]'
-                : 'z-20 max-md:-mt-16 max-md:pt-8 pt-24 md:z-[31] md:-mt-16',
+                ? 'z-[34] mt-0 pt-24'
+                : 'z-20 max-md:pt-8 pt-24 md:z-[31]',
           )}
         >
           <SectionReveal className="relative z-0 pt-24">

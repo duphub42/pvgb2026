@@ -11,34 +11,62 @@ import { PriceCalculatorBlockComponent } from '@/blocks/PriceCalculator/Componen
 import { BlockRenderer } from '@/blocks/BlockRenderer'
 import { CLIENT_BLOCK_TYPES } from '@/blocks/clientBlockTypes'
 import { AnimateBlock } from '@/components/ui/AnimateBlock'
+import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   blockBackground?: 'none' | 'muted' | 'accent' | 'light' | 'dark' | null
+  blockBackgroundImage?: unknown
   blockOverlay?: {
     enabled?: boolean | null
     color?: 'dark' | 'light' | null
     opacity?: number | null
   } | null
+  blockOverlayEnabled?: boolean | null
+  blockOverlayColor?: 'dark' | 'light' | null
+  blockOverlayOpacity?: number | null
 }
 
-function getBlockBackgroundStyle(blockBackground?: string | null): React.CSSProperties {
-  if (!blockBackground || blockBackground === 'none') return {}
+function getBlockBackgroundStyle(
+  blockBackground?: string | null,
+  backgroundImageUrl?: string | null,
+): React.CSSProperties {
+  const style: React.CSSProperties = {}
+
   switch (blockBackground) {
     case 'muted':
-      return { background: 'var(--muted)' }
+      style.background = 'var(--muted)'
+      break
     case 'accent':
-      return { background: 'var(--accent)' }
+      style.background = 'var(--accent)'
+      break
     case 'light':
-      return { background: 'var(--theme-elevation-50)' }
+      style.background = 'var(--theme-elevation-50)'
+      break
     case 'dark':
-      return { background: 'var(--theme-elevation-800)', color: 'var(--theme-elevation-0)' }
+      style.background = 'var(--theme-elevation-800)'
+      style.color = 'var(--theme-elevation-0)'
+      break
     default:
-      return {}
+      break
   }
+
+  if (backgroundImageUrl) {
+    const escapedUrl = backgroundImageUrl.replace(/"/g, '\\"')
+    style.backgroundImage = `url("${escapedUrl}")`
+    style.backgroundSize = 'cover'
+    style.backgroundPosition = 'center'
+    style.backgroundRepeat = 'no-repeat'
+  }
+
+  return style
 }
 
 function getBlockOverlayStyle(
-  blockOverlay?: BlockWithStyle['blockOverlay'],
+  blockOverlay?: {
+    enabled?: boolean | null
+    color?: 'dark' | 'light' | null
+    opacity?: number | null
+  } | null,
 ): React.CSSProperties | null {
   if (!blockOverlay || !blockOverlay.enabled || blockOverlay.opacity == null) return null
   const opacityNum = Number(blockOverlay.opacity)
@@ -51,6 +79,26 @@ function getBlockOverlayStyle(
     backgroundColor: color,
     opacity,
     pointerEvents: 'none',
+  }
+}
+
+function getBlockBackgroundImageUrl(blockBackgroundImage: unknown): string | null {
+  const src = resolveHeroImageSrc(blockBackgroundImage)
+  return typeof src === 'string' && src.trim() ? src : null
+}
+
+function getResolvedBlockOverlay(block: BlockWithStyle): {
+  enabled?: boolean | null
+  color?: 'dark' | 'light' | null
+  opacity?: number | null
+} | null {
+  if (block.blockOverlay && typeof block.blockOverlay === 'object') return block.blockOverlay
+  if (!block.blockOverlayEnabled) return null
+
+  return {
+    enabled: block.blockOverlayEnabled,
+    color: block.blockOverlayColor ?? 'dark',
+    opacity: block.blockOverlayOpacity ?? 0,
   }
 }
 
@@ -77,8 +125,9 @@ export const RenderBlocks: React.FC<{
           if (!isArchive && !isClientBlock && !isPriceCalculator) return null
 
           const bg = b.blockBackground
-          const overlay = b.blockOverlay
-          const hasBackground = Boolean(bg && bg !== 'none')
+          const bgImageUrl = getBlockBackgroundImageUrl(b.blockBackgroundImage)
+          const overlay = getResolvedBlockOverlay(b)
+          const hasBackground = Boolean((bg && bg !== 'none') || bgImageUrl)
           const hasOverlay = Boolean(overlay?.enabled && overlay.opacity != null)
 
           return (
@@ -108,7 +157,7 @@ export const RenderBlocks: React.FC<{
               style={
                 hasBackground
                   ? {
-                      ...getBlockBackgroundStyle(bg),
+                      ...getBlockBackgroundStyle(bg, bgImageUrl),
                       position: 'relative',
                       isolation: 'isolate',
                     }

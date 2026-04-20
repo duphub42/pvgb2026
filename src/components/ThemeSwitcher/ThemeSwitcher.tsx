@@ -5,9 +5,11 @@ import { useTheme } from '@/providers/Theme'
 import type { Theme } from '@/providers/Theme/types'
 import { cn } from '@/utilities/ui'
 import { Moon, Sun } from 'lucide-react'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 
 type ThemeSwitcherVariant = 'icon' | 'switch'
+const THEME_SWITCH_MORPH_MS = 300
+const THEME_SWITCH_WAVE_MS = 500
 
 export function ThemeSwitcher({
   className,
@@ -18,10 +20,44 @@ export function ThemeSwitcher({
 }) {
   const { theme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
+  const [morphDirection, setMorphDirection] = useState<'left' | 'right' | null>(null)
+  const [waveActive, setWaveActive] = useState(false)
+  const switchButtonRef = useRef<HTMLButtonElement | null>(null)
+  const morphTimeoutRef = useRef<number | null>(null)
+  const applyThemeRafRef = useRef<number | null>(null)
+  const waveTimeoutRef = useRef<number | null>(null)
+
+  const clearWaveArtifacts = useCallback(() => {
+    if (typeof document === 'undefined') return
+    const root = document.documentElement
+    root.classList.remove('theme-wave-transition', 'theme-wave-dark', 'theme-wave-light')
+    root.style.removeProperty('--theme-wave-x')
+    root.style.removeProperty('--theme-wave-y')
+    root.style.removeProperty('--theme-wave-radius')
+    root.style.removeProperty('--theme-wave-duration')
+  }, [])
 
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useEffect(() => {
+    return () => {
+      if (morphTimeoutRef.current != null) {
+        window.clearTimeout(morphTimeoutRef.current)
+        morphTimeoutRef.current = null
+      }
+      if (applyThemeRafRef.current != null) {
+        window.cancelAnimationFrame(applyThemeRafRef.current)
+        applyThemeRafRef.current = null
+      }
+      if (waveTimeoutRef.current != null) {
+        window.clearTimeout(waveTimeoutRef.current)
+        waveTimeoutRef.current = null
+      }
+      clearWaveArtifacts()
+    }
+  }, [clearWaveArtifacts])
 
   const resolved = useMemo<Theme>(() => {
     if (mounted && (theme === 'dark' || theme === 'light')) return theme
@@ -49,13 +85,64 @@ export function ThemeSwitcher({
 
   const toggle = useCallback(() => {
     const newTheme = resolved === 'light' ? 'dark' : 'light'
-    setTheme(newTheme)
+
+    setMorphDirection(newTheme === 'dark' ? 'right' : 'left')
+    setWaveActive(true)
+
+    if (typeof window !== 'undefined') {
+      const root = document.documentElement
+      const buttonRect = switchButtonRef.current?.getBoundingClientRect()
+      const waveX = buttonRect != null ? buttonRect.left + buttonRect.width / 2 : window.innerWidth / 2
+      const waveY = buttonRect != null ? buttonRect.top + buttonRect.height / 2 : window.innerHeight / 2
+      const dx = Math.max(waveX, window.innerWidth - waveX)
+      const dy = Math.max(waveY, window.innerHeight - waveY)
+      const waveRadius = Math.ceil(Math.hypot(dx, dy))
+
+      clearWaveArtifacts()
+      root.style.setProperty('--theme-wave-x', `${waveX}px`)
+      root.style.setProperty('--theme-wave-y', `${waveY}px`)
+      root.style.setProperty('--theme-wave-radius', `${waveRadius}px`)
+      root.style.setProperty('--theme-wave-duration', `${THEME_SWITCH_WAVE_MS}ms`)
+      root.classList.add(
+        'theme-wave-transition',
+        newTheme === 'dark' ? 'theme-wave-dark' : 'theme-wave-light',
+      )
+
+      if (applyThemeRafRef.current != null) {
+        window.cancelAnimationFrame(applyThemeRafRef.current)
+        applyThemeRafRef.current = null
+      }
+      applyThemeRafRef.current = window.requestAnimationFrame(() => {
+        applyThemeRafRef.current = window.requestAnimationFrame(() => {
+          setTheme(newTheme)
+          applyThemeRafRef.current = null
+        })
+      })
+
+      if (morphTimeoutRef.current != null) {
+        window.clearTimeout(morphTimeoutRef.current)
+      }
+      morphTimeoutRef.current = window.setTimeout(() => {
+        setMorphDirection(null)
+        morphTimeoutRef.current = null
+      }, THEME_SWITCH_MORPH_MS)
+
+      if (waveTimeoutRef.current != null) {
+        window.clearTimeout(waveTimeoutRef.current)
+      }
+      waveTimeoutRef.current = window.setTimeout(() => {
+        clearWaveArtifacts()
+        setWaveActive(false)
+        waveTimeoutRef.current = null
+      }, THEME_SWITCH_WAVE_MS)
+    }
     /* View Transition deaktiviert: Snapshot könnte animierte Hintergründe überdecken. */
-  }, [resolved, setTheme])
+  }, [clearWaveArtifacts, resolved, setTheme])
 
   if (variant === 'switch') {
     return (
       <button
+        ref={switchButtonRef}
         type="button"
         title="Toggle theme"
         aria-label={ariaLabel}
@@ -64,6 +151,9 @@ export function ThemeSwitcher({
         className={cn(
           'theme-switch header-tool-toggle header-tool-toggle--theme inline-flex shrink-0 items-center justify-center rounded-md border-0 p-0 outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 motion-reduce:transition-none',
           isDark && 'theme-switch--checked',
+          morphDirection === 'right' && 'theme-switch--morph-right',
+          morphDirection === 'left' && 'theme-switch--morph-left',
+          waveActive && 'theme-switch--wave-active',
           className,
         )}
         onClick={toggle}
@@ -87,11 +177,12 @@ export function ThemeSwitcher({
     <Tooltip>
       <TooltipTrigger asChild>
         <button
+          ref={switchButtonRef}
           type="button"
-          title="Toggle theme"
           aria-label={ariaLabel}
           className={cn(
             'relative header-tool-toggle header-tool-toggle--theme header-icon-btn shrink-0 text-current',
+            waveActive && 'theme-switch--wave-active',
             className,
           )}
           onClick={toggle}

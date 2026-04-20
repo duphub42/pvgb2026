@@ -2,12 +2,13 @@
 
 import { useHeaderTheme } from '@/providers/HeaderTheme'
 import { useTheme } from '@/providers/Theme'
+import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import React, { useEffect, useRef, useState } from 'react'
 import { cn } from '@/utilities/ui'
 
-import type { Header } from '@/payload-types'
+import type { Header, Media as MediaType } from '@/payload-types'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 import { Logo } from '@/components/Logo/Logo'
@@ -24,76 +25,9 @@ interface HeaderClientProps {
   mobileDockPhone?: string | null
 }
 
-function hasDropdownContent(item: MegaMenuItem): boolean {
-  if (Array.isArray(item.subItems) && item.subItems.length > 0) return true
-
-  if (
-    Array.isArray(item.columns) &&
-    item.columns.some((column) => Array.isArray(column?.items) && column.items.length > 0)
-  ) {
-    return true
-  }
-
-  const highlight = item.highlight
-  if (!highlight) return false
-  if (typeof highlight.title === 'string' && highlight.title.trim().length > 0) return true
-  if (typeof highlight.ctaUrl === 'string' && highlight.ctaUrl.trim().length > 0) return true
-  if (Array.isArray(highlight.cards) && highlight.cards.length > 0) return true
-
-  return false
-}
-
-function withDropdownFallback(items: MegaMenuItem[]): MegaMenuItem[] {
-  const allWithoutDropdowns = items.length > 0 && items.every((item) => !hasDropdownContent(item))
-  if (!allWithoutDropdowns) return items
-
-  const fallbackByLabel: Record<string, Array<{ label: string; url: string }>> = {
-    home: [
-      { label: 'Start', url: '/' },
-      { label: 'Profil', url: '/profil' },
-      { label: 'Kontakt', url: '/kontakt' },
-    ],
-    leistungen: [
-      { label: 'Webdesign', url: '/webdesign' },
-      { label: 'SEO', url: '/seo' },
-      { label: 'Content', url: '/content' },
-    ],
-    portfolio: [
-      { label: 'Webdesign-Referenzen', url: '/portfolio-webdesign' },
-      { label: 'Marketing-Referenzen', url: '/portfolio-marketing' },
-      { label: 'Marken-Referenzen', url: '/portfolio-marken' },
-    ],
-    profil: [
-      { label: 'Ueber mich', url: '/profil' },
-      { label: 'Preise', url: '/preise' },
-      { label: 'Kontakt', url: '/kontakt' },
-    ],
-    kontakt: [
-      { label: 'Kontaktseite', url: '/kontakt' },
-      { label: 'Preise', url: '/preise' },
-      { label: 'Profil', url: '/profil' },
-    ],
-    preise: [
-      { label: 'Pakete ansehen', url: '/preise' },
-      { label: 'Leistungen', url: '/leistungen' },
-      { label: 'Kontakt', url: '/kontakt' },
-    ],
-  }
-
-  return items.map((item) => {
-    const labelKey = String(item.label ?? '')
-      .trim()
-      .toLowerCase()
-    const fallbackSubItems = fallbackByLabel[labelKey]
-    if (!fallbackSubItems || fallbackSubItems.length === 0) {
-      return item
-    }
-
-    return {
-      ...item,
-      subItems: fallbackSubItems,
-    }
-  })
+type HeaderWithLegacyFields = Header & {
+  use_mega_menu?: boolean | null
+  logo_id?: Header['logo']
 }
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({
@@ -101,9 +35,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   megaMenuItems = [],
   mobileDockPhone = null,
 }) => {
-  const [resolvedMegaMenuItems, setResolvedMegaMenuItems] = useState<MegaMenuItem[]>(
-    withDropdownFallback(megaMenuItems),
-  )
+  const headerData = data as HeaderWithLegacyFields
+  const [resolvedMegaMenuItems, setResolvedMegaMenuItems] = useState<MegaMenuItem[]>(megaMenuItems)
   const [logoMorphReady, setLogoMorphReady] = useState(false)
   const [logoPreviewActive, setLogoPreviewActive] = useState(false)
   const [headerVisible, setHeaderVisible] = useState(true)
@@ -122,14 +55,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const { theme: globalTheme } = useTheme()
   const pathname = usePathname()
   const shouldUseMegaMenu =
-    (data as any)?.useMegaMenu === true ||
-    (data as any)?.use_mega_menu === true ||
+    headerData.useMegaMenu === true ||
+    headerData.use_mega_menu === true ||
     resolvedMegaMenuItems.length > 0
   const useMegaMenu = shouldUseMegaMenu && resolvedMegaMenuItems.length > 0
   const logoIntroTimeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
-    setResolvedMegaMenuItems(withDropdownFallback(megaMenuItems))
+    setResolvedMegaMenuItems(megaMenuItems)
   }, [megaMenuItems])
 
   useEffect(() => {
@@ -144,7 +77,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
         const data = (await response.json()) as { docs?: MegaMenuItem[] }
         if (cancelled) return
         if (Array.isArray(data?.docs) && data.docs.length > 0) {
-          setResolvedMegaMenuItems(withDropdownFallback(data.docs))
+          setResolvedMegaMenuItems(data.docs)
         }
       } catch {
         // Keep graceful fallback to standard nav when request fails.
@@ -300,30 +233,23 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const resolvedTheme = headerTheme ?? globalTheme ?? null
 
   // Support both logo (camelCase) and logo_id (snake_case from DB)
-  const logoData = data?.logo ?? (data as any)?.logo_id
-  const hasCustomLogo = logoData && typeof logoData !== 'number'
-  const resolvedLogo = hasCustomLogo && typeof logoData === 'object' ? logoData : null
-  const rawLogoUrl = hasCustomLogo
-    ? ((logoData as any).url ?? (logoData as any).sizes?.thumbnail?.url)
-    : null
+  const logoData = headerData.logo ?? headerData.logo_id
+  const resolvedLogo = logoData && typeof logoData === 'object' ? (logoData as MediaType) : null
+  const hasCustomLogo = resolvedLogo != null
+  const rawLogoUrl = resolvedLogo?.url ?? resolvedLogo?.sizes?.thumbnail?.url ?? null
   // Use getMediaUrl with cacheTag to match ImageMedia behavior (avoids URL mismatch)
-  const logoUrl =
-    hasCustomLogo && typeof logoData === 'object' && 'updatedAt' in logoData
-      ? getMediaUrl(rawLogoUrl, (logoData as any).updatedAt)
-      : getMediaUrl(rawLogoUrl)
+  const logoUrl = resolvedLogo?.updatedAt
+    ? getMediaUrl(rawLogoUrl, resolvedLogo.updatedAt)
+    : getMediaUrl(rawLogoUrl)
 
   const renderPrimaryLogo = (disableAnimation?: boolean) => {
     if (hasCustomLogo && logoUrl) {
       return (
-        <LogoWithGlitch
-          imgSrc={logoUrl}
-          variant="header"
-          disableAnimation={disableAnimation}
-        >
+        <LogoWithGlitch imgSrc={logoUrl} variant="header" disableAnimation={disableAnimation}>
           <Logo
             loading="eager"
             priority="high"
-            logo={resolvedLogo as any}
+            logo={resolvedLogo}
             variant="header"
             disableAnimation={disableAnimation}
           />
@@ -335,15 +261,14 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   }
 
   const renderStickyLogo = () => (
-    <img
+    <Image
       src={HEADER_B_LOGO_SRC}
       alt=""
       aria-hidden="true"
       className="header-b-logo logo-contrast"
       width={40}
       height={42}
-      loading="eager"
-      decoding="async"
+      priority
     />
   )
 

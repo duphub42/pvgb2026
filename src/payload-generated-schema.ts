@@ -91,6 +91,9 @@ export const site_pages_blocks_hero_marketing = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -122,6 +125,9 @@ export const site_pages_blocks_hero_marketing = sqliteTable(
     index('site_pages_blocks_hero_marketing_order_idx').on(columns._order),
     index('site_pages_blocks_hero_marketing_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_hero_marketing_path_idx').on(columns._path),
+    index('site_pages_blocks_hero_marketing_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -174,6 +180,9 @@ export const site_pages_blocks_hero_with_process = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -208,6 +217,9 @@ export const site_pages_blocks_hero_with_process = sqliteTable(
     index('site_pages_blocks_hero_with_process_order_idx').on(columns._order),
     index('site_pages_blocks_hero_with_process_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_hero_with_process_path_idx').on(columns._path),
+    index('site_pages_blocks_hero_with_process_block_background_ima_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -238,6 +250,9 @@ export const site_pages_blocks_introduction = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -270,6 +285,9 @@ export const site_pages_blocks_introduction = sqliteTable(
     index('site_pages_blocks_introduction_order_idx').on(columns._order),
     index('site_pages_blocks_introduction_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_introduction_path_idx').on(columns._path),
+    index('site_pages_blocks_introduction_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     index('site_pages_blocks_introduction_image_idx').on(columns.image),
     foreignKey({
       columns: [columns['_parentID']],
@@ -345,6 +363,9 @@ export const site_pages_blocks_marquee_slider = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -370,6 +391,9 @@ export const site_pages_blocks_marquee_slider = sqliteTable(
     index('site_pages_blocks_marquee_slider_order_idx').on(columns._order),
     index('site_pages_blocks_marquee_slider_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_marquee_slider_path_idx').on(columns._path),
+    index('site_pages_blocks_marquee_slider_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -426,6 +450,9 @@ export const site_pages_blocks_consulting_overview = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockOverlay_enabled: integer('block_overlay_enabled', { mode: 'boolean' }).default(false),
     blockOverlay_color: text('block_overlay_color').default('dark'),
     blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
@@ -520,6 +547,9 @@ export const site_pages_blocks_consulting_overview = sqliteTable(
     index('site_pages_blocks_consulting_overview_order_idx').on(columns._order),
     index('site_pages_blocks_consulting_overview_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_consulting_overview_path_idx').on(columns._path),
+    index('site_pages_blocks_consulting_overview_block_background_i_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -586,6 +616,9 @@ export const site_pages_blocks_services_overview = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -610,6 +643,9 @@ export const site_pages_blocks_services_overview = sqliteTable(
     index('site_pages_blocks_services_overview_order_idx').on(columns._order),
     index('site_pages_blocks_services_overview_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_services_overview_path_idx').on(columns._path),
+    index('site_pages_blocks_services_overview_block_background_ima_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -703,6 +739,9 @@ export const services_grid = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -739,6 +778,7 @@ export const services_grid = sqliteTable(
     index('services_grid_order_idx').on(columns._order),
     index('services_grid_parent_id_idx').on(columns._parentID),
     index('services_grid_path_idx').on(columns._path),
+    index('services_grid_block_background_image_idx').on(columns.blockBackgroundImage),
     index('services_grid_intro_image_idx').on(columns.introImage),
     foreignKey({
       columns: [columns['_parentID']],
@@ -829,6 +869,9 @@ export const site_pages_blocks_why_work_with_me = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -853,6 +896,9 @@ export const site_pages_blocks_why_work_with_me = sqliteTable(
     index('site_pages_blocks_why_work_with_me_order_idx').on(columns._order),
     index('site_pages_blocks_why_work_with_me_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_why_work_with_me_path_idx').on(columns._path),
+    index('site_pages_blocks_why_work_with_me_block_background_imag_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -911,6 +957,9 @@ export const radial_tl = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -937,6 +986,7 @@ export const radial_tl = sqliteTable(
     index('radial_tl_order_idx').on(columns._order),
     index('radial_tl_parent_id_idx').on(columns._parentID),
     index('radial_tl_path_idx').on(columns._path),
+    index('radial_tl_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -1041,6 +1091,9 @@ export const portfolio_grid = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -1069,6 +1122,7 @@ export const portfolio_grid = sqliteTable(
     index('portfolio_grid_order_idx').on(columns._order),
     index('portfolio_grid_parent_id_idx').on(columns._parentID),
     index('portfolio_grid_path_idx').on(columns._path),
+    index('portfolio_grid_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -1122,6 +1176,9 @@ export const portfolio_kpis = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -1148,6 +1205,7 @@ export const portfolio_kpis = sqliteTable(
     index('portfolio_kpis_order_idx').on(columns._order),
     index('portfolio_kpis_parent_id_idx').on(columns._parentID),
     index('portfolio_kpis_path_idx').on(columns._path),
+    index('portfolio_kpis_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -1263,6 +1321,9 @@ export const site_pages_blocks_brand_showcase = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -1295,6 +1356,9 @@ export const site_pages_blocks_brand_showcase = sqliteTable(
     index('site_pages_blocks_brand_showcase_order_idx').on(columns._order),
     index('site_pages_blocks_brand_showcase_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_brand_showcase_path_idx').on(columns._path),
+    index('site_pages_blocks_brand_showcase_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     index('site_pages_blocks_brand_showcase_logo_idx').on(columns.logo),
     index('site_pages_blocks_brand_showcase_wordmark_idx').on(columns.wordmark),
     foreignKey({
@@ -1348,6 +1412,9 @@ export const prof_ueber = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -1374,6 +1441,7 @@ export const prof_ueber = sqliteTable(
     index('prof_ueber_order_idx').on(columns._order),
     index('prof_ueber_parent_id_idx').on(columns._parentID),
     index('prof_ueber_path_idx').on(columns._path),
+    index('prof_ueber_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -1443,6 +1511,9 @@ export const prof_kern = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -1469,6 +1540,7 @@ export const prof_kern = sqliteTable(
     index('prof_kern_order_idx').on(columns._order),
     index('prof_kern_parent_id_idx').on(columns._parentID),
     index('prof_kern_path_idx').on(columns._path),
+    index('prof_kern_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -1538,6 +1610,9 @@ export const prof_skills = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -1564,6 +1639,7 @@ export const prof_skills = sqliteTable(
     index('prof_skills_order_idx').on(columns._order),
     index('prof_skills_parent_id_idx').on(columns._parentID),
     index('prof_skills_path_idx').on(columns._path),
+    index('prof_skills_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -1617,6 +1693,9 @@ export const prof_weg = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -1640,6 +1719,7 @@ export const prof_weg = sqliteTable(
     index('prof_weg_order_idx').on(columns._order),
     index('prof_weg_parent_id_idx').on(columns._parentID),
     index('prof_weg_path_idx').on(columns._path),
+    index('prof_weg_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -1690,6 +1770,9 @@ export const prof_zahl = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -1713,6 +1796,7 @@ export const prof_zahl = sqliteTable(
     index('prof_zahl_order_idx').on(columns._order),
     index('prof_zahl_parent_id_idx').on(columns._parentID),
     index('prof_zahl_path_idx').on(columns._path),
+    index('prof_zahl_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -1765,6 +1849,9 @@ export const prof_tools = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -1788,6 +1875,7 @@ export const prof_tools = sqliteTable(
     index('prof_tools_order_idx').on(columns._order),
     index('prof_tools_parent_id_idx').on(columns._parentID),
     index('prof_tools_path_idx').on(columns._path),
+    index('prof_tools_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -1857,6 +1945,9 @@ export const prof_lang_zert = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -1883,6 +1974,7 @@ export const prof_lang_zert = sqliteTable(
     index('prof_lang_zert_order_idx').on(columns._order),
     index('prof_lang_zert_parent_id_idx').on(columns._parentID),
     index('prof_lang_zert_path_idx').on(columns._path),
+    index('prof_lang_zert_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -1913,6 +2005,9 @@ export const prof_cta = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -1941,6 +2036,7 @@ export const prof_cta = sqliteTable(
     index('prof_cta_order_idx').on(columns._order),
     index('prof_cta_parent_id_idx').on(columns._parentID),
     index('prof_cta_path_idx').on(columns._path),
+    index('prof_cta_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -1971,6 +2067,9 @@ export const site_pages_blocks_price_calculator = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -1997,6 +2096,9 @@ export const site_pages_blocks_price_calculator = sqliteTable(
     index('site_pages_blocks_price_calculator_order_idx').on(columns._order),
     index('site_pages_blocks_price_calculator_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_price_calculator_path_idx').on(columns._path),
+    index('site_pages_blocks_price_calculator_block_background_imag_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -2112,6 +2214,9 @@ export const pricing_table = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -2146,6 +2251,7 @@ export const pricing_table = sqliteTable(
     index('pricing_table_order_idx').on(columns._order),
     index('pricing_table_parent_id_idx').on(columns._parentID),
     index('pricing_table_path_idx').on(columns._path),
+    index('pricing_table_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -2203,6 +2309,9 @@ export const site_pages_blocks_cta = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -2226,6 +2335,7 @@ export const site_pages_blocks_cta = sqliteTable(
     index('site_pages_blocks_cta_order_idx').on(columns._order),
     index('site_pages_blocks_cta_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_cta_path_idx').on(columns._path),
+    index('site_pages_blocks_cta_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -2256,6 +2366,9 @@ export const site_pages_blocks_cal_popup = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -2282,6 +2395,9 @@ export const site_pages_blocks_cal_popup = sqliteTable(
     index('site_pages_blocks_cal_popup_order_idx').on(columns._order),
     index('site_pages_blocks_cal_popup_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_cal_popup_path_idx').on(columns._path),
+    index('site_pages_blocks_cal_popup_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -2333,6 +2449,9 @@ export const contact_cards = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -2357,6 +2476,7 @@ export const contact_cards = sqliteTable(
     index('contact_cards_order_idx').on(columns._order),
     index('contact_cards_parent_id_idx').on(columns._parentID),
     index('contact_cards_path_idx').on(columns._path),
+    index('contact_cards_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -2417,6 +2537,9 @@ export const site_pages_blocks_content = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -2439,6 +2562,7 @@ export const site_pages_blocks_content = sqliteTable(
     index('site_pages_blocks_content_order_idx').on(columns._order),
     index('site_pages_blocks_content_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_content_path_idx').on(columns._path),
+    index('site_pages_blocks_content_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -2469,6 +2593,9 @@ export const site_pages_blocks_media_block = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -2494,6 +2621,9 @@ export const site_pages_blocks_media_block = sqliteTable(
     index('site_pages_blocks_media_block_order_idx').on(columns._order),
     index('site_pages_blocks_media_block_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_media_block_path_idx').on(columns._path),
+    index('site_pages_blocks_media_block_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     index('site_pages_blocks_media_block_media_idx').on(columns.media),
     foreignKey({
       columns: [columns['_parentID']],
@@ -2525,6 +2655,9 @@ export const site_pages_blocks_archive = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -2551,6 +2684,7 @@ export const site_pages_blocks_archive = sqliteTable(
     index('site_pages_blocks_archive_order_idx').on(columns._order),
     index('site_pages_blocks_archive_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_archive_path_idx').on(columns._path),
+    index('site_pages_blocks_archive_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [site_pages.id],
@@ -2581,6 +2715,9 @@ export const site_pages_blocks_form_block = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -2608,6 +2745,9 @@ export const site_pages_blocks_form_block = sqliteTable(
     index('site_pages_blocks_form_block_order_idx').on(columns._order),
     index('site_pages_blocks_form_block_parent_id_idx').on(columns._parentID),
     index('site_pages_blocks_form_block_path_idx').on(columns._path),
+    index('site_pages_blocks_form_block_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     index('site_pages_blocks_form_block_form_idx').on(columns.form),
     foreignKey({
       columns: [columns['_parentID']],
@@ -2791,6 +2931,9 @@ export const _site_pages_v_blocks_hero_marketing = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -2823,6 +2966,9 @@ export const _site_pages_v_blocks_hero_marketing = sqliteTable(
     index('_site_pages_v_blocks_hero_marketing_order_idx').on(columns._order),
     index('_site_pages_v_blocks_hero_marketing_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_hero_marketing_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_hero_marketing_block_background_ima_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -2876,6 +3022,9 @@ export const _site_pages_v_blocks_hero_with_process = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -2911,6 +3060,9 @@ export const _site_pages_v_blocks_hero_with_process = sqliteTable(
     index('_site_pages_v_blocks_hero_with_process_order_idx').on(columns._order),
     index('_site_pages_v_blocks_hero_with_process_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_hero_with_process_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_hero_with_process_block_background__idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -2941,6 +3093,9 @@ export const _site_pages_v_blocks_introduction = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -2974,6 +3129,9 @@ export const _site_pages_v_blocks_introduction = sqliteTable(
     index('_site_pages_v_blocks_introduction_order_idx').on(columns._order),
     index('_site_pages_v_blocks_introduction_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_introduction_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_introduction_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     index('_site_pages_v_blocks_introduction_image_idx').on(columns.image),
     foreignKey({
       columns: [columns['_parentID']],
@@ -3051,6 +3209,9 @@ export const _site_pages_v_blocks_marquee_slider = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -3077,6 +3238,9 @@ export const _site_pages_v_blocks_marquee_slider = sqliteTable(
     index('_site_pages_v_blocks_marquee_slider_order_idx').on(columns._order),
     index('_site_pages_v_blocks_marquee_slider_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_marquee_slider_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_marquee_slider_block_background_ima_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -3134,6 +3298,9 @@ export const _site_pages_v_blocks_consulting_overview = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockOverlay_enabled: integer('block_overlay_enabled', { mode: 'boolean' }).default(false),
     blockOverlay_color: text('block_overlay_color').default('dark'),
     blockOverlay_opacity: numeric('block_overlay_opacity', { mode: 'number' }).default(30),
@@ -3229,6 +3396,9 @@ export const _site_pages_v_blocks_consulting_overview = sqliteTable(
     index('_site_pages_v_blocks_consulting_overview_order_idx').on(columns._order),
     index('_site_pages_v_blocks_consulting_overview_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_consulting_overview_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_consulting_overview_block_backgroun_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -3296,6 +3466,9 @@ export const _site_pages_v_blocks_services_overview = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -3321,6 +3494,9 @@ export const _site_pages_v_blocks_services_overview = sqliteTable(
     index('_site_pages_v_blocks_services_overview_order_idx').on(columns._order),
     index('_site_pages_v_blocks_services_overview_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_services_overview_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_services_overview_block_background__idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -3417,6 +3593,9 @@ export const _services_grid_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -3454,6 +3633,7 @@ export const _services_grid_v = sqliteTable(
     index('_services_grid_v_order_idx').on(columns._order),
     index('_services_grid_v_parent_id_idx').on(columns._parentID),
     index('_services_grid_v_path_idx').on(columns._path),
+    index('_services_grid_v_block_background_image_idx').on(columns.blockBackgroundImage),
     index('_services_grid_v_intro_image_idx').on(columns.introImage),
     foreignKey({
       columns: [columns['_parentID']],
@@ -3548,6 +3728,9 @@ export const _site_pages_v_blocks_why_work_with_me = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -3573,6 +3756,9 @@ export const _site_pages_v_blocks_why_work_with_me = sqliteTable(
     index('_site_pages_v_blocks_why_work_with_me_order_idx').on(columns._order),
     index('_site_pages_v_blocks_why_work_with_me_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_why_work_with_me_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_why_work_with_me_block_background_i_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -3632,6 +3818,9 @@ export const _radial_tl_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -3659,6 +3848,7 @@ export const _radial_tl_v = sqliteTable(
     index('_radial_tl_v_order_idx').on(columns._order),
     index('_radial_tl_v_parent_id_idx').on(columns._parentID),
     index('_radial_tl_v_path_idx').on(columns._path),
+    index('_radial_tl_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -3766,6 +3956,9 @@ export const _portfolio_grid_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -3795,6 +3988,7 @@ export const _portfolio_grid_v = sqliteTable(
     index('_portfolio_grid_v_order_idx').on(columns._order),
     index('_portfolio_grid_v_parent_id_idx').on(columns._parentID),
     index('_portfolio_grid_v_path_idx').on(columns._path),
+    index('_portfolio_grid_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -3849,6 +4043,9 @@ export const _portfolio_kpis_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -3876,6 +4073,7 @@ export const _portfolio_kpis_v = sqliteTable(
     index('_portfolio_kpis_v_order_idx').on(columns._order),
     index('_portfolio_kpis_v_parent_id_idx').on(columns._parentID),
     index('_portfolio_kpis_v_path_idx').on(columns._path),
+    index('_portfolio_kpis_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -3995,6 +4193,9 @@ export const _site_pages_v_blocks_brand_showcase = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -4028,6 +4229,9 @@ export const _site_pages_v_blocks_brand_showcase = sqliteTable(
     index('_site_pages_v_blocks_brand_showcase_order_idx').on(columns._order),
     index('_site_pages_v_blocks_brand_showcase_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_brand_showcase_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_brand_showcase_block_background_ima_idx').on(
+      columns.blockBackgroundImage,
+    ),
     index('_site_pages_v_blocks_brand_showcase_logo_idx').on(columns.logo),
     index('_site_pages_v_blocks_brand_showcase_wordmark_idx').on(columns.wordmark),
     foreignKey({
@@ -4082,6 +4286,9 @@ export const _prof_ueber_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -4109,6 +4316,7 @@ export const _prof_ueber_v = sqliteTable(
     index('_prof_ueber_v_order_idx').on(columns._order),
     index('_prof_ueber_v_parent_id_idx').on(columns._parentID),
     index('_prof_ueber_v_path_idx').on(columns._path),
+    index('_prof_ueber_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -4180,6 +4388,9 @@ export const _prof_kern_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -4207,6 +4418,7 @@ export const _prof_kern_v = sqliteTable(
     index('_prof_kern_v_order_idx').on(columns._order),
     index('_prof_kern_v_parent_id_idx').on(columns._parentID),
     index('_prof_kern_v_path_idx').on(columns._path),
+    index('_prof_kern_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -4278,6 +4490,9 @@ export const _prof_skills_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -4305,6 +4520,7 @@ export const _prof_skills_v = sqliteTable(
     index('_prof_skills_v_order_idx').on(columns._order),
     index('_prof_skills_v_parent_id_idx').on(columns._parentID),
     index('_prof_skills_v_path_idx').on(columns._path),
+    index('_prof_skills_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -4359,6 +4575,9 @@ export const _prof_weg_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -4383,6 +4602,7 @@ export const _prof_weg_v = sqliteTable(
     index('_prof_weg_v_order_idx').on(columns._order),
     index('_prof_weg_v_parent_id_idx').on(columns._parentID),
     index('_prof_weg_v_path_idx').on(columns._path),
+    index('_prof_weg_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -4434,6 +4654,9 @@ export const _prof_zahl_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -4458,6 +4681,7 @@ export const _prof_zahl_v = sqliteTable(
     index('_prof_zahl_v_order_idx').on(columns._order),
     index('_prof_zahl_v_parent_id_idx').on(columns._parentID),
     index('_prof_zahl_v_path_idx').on(columns._path),
+    index('_prof_zahl_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -4511,6 +4735,9 @@ export const _prof_tools_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -4535,6 +4762,7 @@ export const _prof_tools_v = sqliteTable(
     index('_prof_tools_v_order_idx').on(columns._order),
     index('_prof_tools_v_parent_id_idx').on(columns._parentID),
     index('_prof_tools_v_path_idx').on(columns._path),
+    index('_prof_tools_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -4606,6 +4834,9 @@ export const _prof_lang_zert_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -4633,6 +4864,7 @@ export const _prof_lang_zert_v = sqliteTable(
     index('_prof_lang_zert_v_order_idx').on(columns._order),
     index('_prof_lang_zert_v_parent_id_idx').on(columns._parentID),
     index('_prof_lang_zert_v_path_idx').on(columns._path),
+    index('_prof_lang_zert_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -4663,6 +4895,9 @@ export const _prof_cta_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -4692,6 +4927,7 @@ export const _prof_cta_v = sqliteTable(
     index('_prof_cta_v_order_idx').on(columns._order),
     index('_prof_cta_v_parent_id_idx').on(columns._parentID),
     index('_prof_cta_v_path_idx').on(columns._path),
+    index('_prof_cta_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -4722,6 +4958,9 @@ export const _site_pages_v_blocks_price_calculator = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -4749,6 +4988,9 @@ export const _site_pages_v_blocks_price_calculator = sqliteTable(
     index('_site_pages_v_blocks_price_calculator_order_idx').on(columns._order),
     index('_site_pages_v_blocks_price_calculator_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_price_calculator_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_price_calculator_block_background_i_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -4868,6 +5110,9 @@ export const _pricing_table_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -4903,6 +5148,7 @@ export const _pricing_table_v = sqliteTable(
     index('_pricing_table_v_order_idx').on(columns._order),
     index('_pricing_table_v_parent_id_idx').on(columns._parentID),
     index('_pricing_table_v_path_idx').on(columns._path),
+    index('_pricing_table_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -4961,6 +5207,9 @@ export const _site_pages_v_blocks_cta = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -4985,6 +5234,7 @@ export const _site_pages_v_blocks_cta = sqliteTable(
     index('_site_pages_v_blocks_cta_order_idx').on(columns._order),
     index('_site_pages_v_blocks_cta_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_cta_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_cta_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -5015,6 +5265,9 @@ export const _site_pages_v_blocks_cal_popup = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -5042,6 +5295,9 @@ export const _site_pages_v_blocks_cal_popup = sqliteTable(
     index('_site_pages_v_blocks_cal_popup_order_idx').on(columns._order),
     index('_site_pages_v_blocks_cal_popup_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_cal_popup_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_cal_popup_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -5094,6 +5350,9 @@ export const _contact_cards_v = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -5119,6 +5378,7 @@ export const _contact_cards_v = sqliteTable(
     index('_contact_cards_v_order_idx').on(columns._order),
     index('_contact_cards_v_parent_id_idx').on(columns._parentID),
     index('_contact_cards_v_path_idx').on(columns._path),
+    index('_contact_cards_v_block_background_image_idx').on(columns.blockBackgroundImage),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -5180,6 +5440,9 @@ export const _site_pages_v_blocks_content = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -5203,6 +5466,9 @@ export const _site_pages_v_blocks_content = sqliteTable(
     index('_site_pages_v_blocks_content_order_idx').on(columns._order),
     index('_site_pages_v_blocks_content_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_content_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_content_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -5233,6 +5499,9 @@ export const _site_pages_v_blocks_media_block = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -5259,6 +5528,9 @@ export const _site_pages_v_blocks_media_block = sqliteTable(
     index('_site_pages_v_blocks_media_block_order_idx').on(columns._order),
     index('_site_pages_v_blocks_media_block_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_media_block_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_media_block_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     index('_site_pages_v_blocks_media_block_media_idx').on(columns.media),
     foreignKey({
       columns: [columns['_parentID']],
@@ -5290,6 +5562,9 @@ export const _site_pages_v_blocks_archive = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -5317,6 +5592,9 @@ export const _site_pages_v_blocks_archive = sqliteTable(
     index('_site_pages_v_blocks_archive_order_idx').on(columns._order),
     index('_site_pages_v_blocks_archive_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_archive_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_archive_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     foreignKey({
       columns: [columns['_parentID']],
       foreignColumns: [_site_pages_v.id],
@@ -5347,6 +5625,9 @@ export const _site_pages_v_blocks_form_block = sqliteTable(
     blockBackground: text('block_background', {
       enum: ['none', 'muted', 'accent', 'light', 'dark', 'card', 'primary'],
     }).default('none'),
+    blockBackgroundImage: integer('block_background_image_id').references(() => media.id, {
+      onDelete: 'set null',
+    }),
     blockBorderEnabled: integer('block_border_enabled', { mode: 'boolean' }).default(false),
     blockBorderStyle: text('block_border_style', { enum: ['default', 'accent', 'subtle'] }).default(
       'default',
@@ -5375,6 +5656,9 @@ export const _site_pages_v_blocks_form_block = sqliteTable(
     index('_site_pages_v_blocks_form_block_order_idx').on(columns._order),
     index('_site_pages_v_blocks_form_block_parent_id_idx').on(columns._parentID),
     index('_site_pages_v_blocks_form_block_path_idx').on(columns._path),
+    index('_site_pages_v_blocks_form_block_block_background_image_idx').on(
+      columns.blockBackgroundImage,
+    ),
     index('_site_pages_v_blocks_form_block_form_idx').on(columns.form),
     foreignKey({
       columns: [columns['_parentID']],
@@ -7394,6 +7678,11 @@ export const relations_site_pages_blocks_hero_marketing = relations(
       references: [site_pages.id],
       relationName: '_blocks_heroMarketing',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_hero_marketing.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
   }),
 )
 export const relations_site_pages_blocks_hero_with_process_steps = relations(
@@ -7414,6 +7703,11 @@ export const relations_site_pages_blocks_hero_with_process = relations(
       references: [site_pages.id],
       relationName: '_blocks_heroWithProcess',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_hero_with_process.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     steps: many(site_pages_blocks_hero_with_process_steps, {
       relationName: 'steps',
     }),
@@ -7426,6 +7720,11 @@ export const relations_site_pages_blocks_introduction = relations(
       fields: [site_pages_blocks_introduction._parentID],
       references: [site_pages.id],
       relationName: '_blocks_introduction',
+    }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_introduction.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
     }),
     image: one(media, {
       fields: [site_pages_blocks_introduction.image],
@@ -7470,6 +7769,11 @@ export const relations_site_pages_blocks_marquee_slider = relations(
       references: [site_pages.id],
       relationName: '_blocks_marqueeSlider',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_marquee_slider.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     rows: many(site_pages_blocks_marquee_slider_rows, {
       relationName: 'rows',
     }),
@@ -7493,6 +7797,11 @@ export const relations_site_pages_blocks_consulting_overview = relations(
       references: [site_pages.id],
       relationName: '_blocks_consultingOverview',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_consulting_overview.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     benefitItems: many(site_pages_blocks_consulting_overview_benefit_items, {
       relationName: 'benefitItems',
     }),
@@ -7515,6 +7824,11 @@ export const relations_site_pages_blocks_services_overview = relations(
       fields: [site_pages_blocks_services_overview._parentID],
       references: [site_pages.id],
       relationName: '_blocks_servicesOverview',
+    }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_services_overview.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
     }),
     services: many(site_pages_blocks_services_overview_services, {
       relationName: 'services',
@@ -7560,6 +7874,11 @@ export const relations_services_grid = relations(services_grid, ({ one, many }) 
     references: [site_pages.id],
     relationName: '_blocks_servicesGrid',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [services_grid.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   introIconList: many(services_grid_intro_icon_list, {
     relationName: 'introIconList',
   }),
@@ -7600,6 +7919,11 @@ export const relations_site_pages_blocks_why_work_with_me = relations(
       references: [site_pages.id],
       relationName: '_blocks_whyWorkWithMe',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_why_work_with_me.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     introIconList: many(site_pages_blocks_why_work_with_me_intro_icon_list, {
       relationName: 'introIconList',
     }),
@@ -7620,6 +7944,11 @@ export const relations_radial_tl = relations(radial_tl, ({ one, many }) => ({
     fields: [radial_tl._parentID],
     references: [site_pages.id],
     relationName: '_blocks_radialOrbitalTimeline',
+  }),
+  blockBackgroundImage: one(media, {
+    fields: [radial_tl.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
   }),
   timelineItems: many(radial_tl_items, {
     relationName: 'timelineItems',
@@ -7669,6 +7998,11 @@ export const relations_portfolio_grid = relations(portfolio_grid, ({ one, many }
     references: [site_pages.id],
     relationName: '_blocks_portfolioCaseGrid',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [portfolio_grid.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   cases: many(portfolio_grid_cases, {
     relationName: 'cases',
   }),
@@ -7685,6 +8019,11 @@ export const relations_portfolio_kpis = relations(portfolio_kpis, ({ one, many }
     fields: [portfolio_kpis._parentID],
     references: [site_pages.id],
     relationName: '_blocks_portfolioKpiStrip',
+  }),
+  blockBackgroundImage: one(media, {
+    fields: [portfolio_kpis.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
   }),
   items: many(portfolio_kpis_items, {
     relationName: 'items',
@@ -7743,6 +8082,11 @@ export const relations_site_pages_blocks_brand_showcase = relations(
       references: [site_pages.id],
       relationName: '_blocks_brandShowcase',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_brand_showcase.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     logo: one(media, {
       fields: [site_pages_blocks_brand_showcase.logo],
       references: [media.id],
@@ -7780,6 +8124,11 @@ export const relations_prof_ueber = relations(prof_ueber, ({ one, many }) => ({
     references: [site_pages.id],
     relationName: '_blocks_profilUeberMich',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [prof_ueber.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   werte: many(prof_ueber_werte, {
     relationName: 'werte',
   }),
@@ -7809,6 +8158,11 @@ export const relations_prof_kern = relations(prof_kern, ({ one, many }) => ({
     fields: [prof_kern._parentID],
     references: [site_pages.id],
     relationName: '_blocks_profilKernkompetenz',
+  }),
+  blockBackgroundImage: one(media, {
+    fields: [prof_kern.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
   }),
   bereiche: many(prof_kern_bereiche, {
     relationName: 'bereiche',
@@ -7840,6 +8194,11 @@ export const relations_prof_skills = relations(prof_skills, ({ one, many }) => (
     references: [site_pages.id],
     relationName: '_blocks_profilKompetenzen',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [prof_skills.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   spalten: many(prof_skills_spalten, {
     relationName: 'spalten',
   }),
@@ -7856,6 +8215,11 @@ export const relations_prof_weg = relations(prof_weg, ({ one, many }) => ({
     fields: [prof_weg._parentID],
     references: [site_pages.id],
     relationName: '_blocks_profilWerdegang',
+  }),
+  blockBackgroundImage: one(media, {
+    fields: [prof_weg.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
   }),
   eintraege: many(prof_weg_eintraege, {
     relationName: 'eintraege',
@@ -7874,6 +8238,11 @@ export const relations_prof_zahl = relations(prof_zahl, ({ one, many }) => ({
     references: [site_pages.id],
     relationName: '_blocks_profilZahlenFakten',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [prof_zahl.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   items: many(prof_zahl_items, {
     relationName: 'items',
   }),
@@ -7890,6 +8259,11 @@ export const relations_prof_tools = relations(prof_tools, ({ one, many }) => ({
     fields: [prof_tools._parentID],
     references: [site_pages.id],
     relationName: '_blocks_profilTools',
+  }),
+  blockBackgroundImage: one(media, {
+    fields: [prof_tools.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
   }),
   tools: many(prof_tools_tools, {
     relationName: 'tools',
@@ -7918,6 +8292,11 @@ export const relations_prof_lang_zert = relations(prof_lang_zert, ({ one, many }
     references: [site_pages.id],
     relationName: '_blocks_profilLangZert',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [prof_lang_zert.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   sprachen: many(prof_lang_zert_sprachen, {
     relationName: 'sprachen',
   }),
@@ -7931,6 +8310,11 @@ export const relations_prof_cta = relations(prof_cta, ({ one }) => ({
     references: [site_pages.id],
     relationName: '_blocks_profilCtaBand',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [prof_cta.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
 }))
 export const relations_site_pages_blocks_price_calculator = relations(
   site_pages_blocks_price_calculator,
@@ -7939,6 +8323,11 @@ export const relations_site_pages_blocks_price_calculator = relations(
       fields: [site_pages_blocks_price_calculator._parentID],
       references: [site_pages.id],
       relationName: '_blocks_priceCalculator',
+    }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_price_calculator.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
     }),
   }),
 )
@@ -7991,6 +8380,11 @@ export const relations_pricing_table = relations(pricing_table, ({ one, many }) 
     references: [site_pages.id],
     relationName: '_blocks_pricingTable',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [pricing_table.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   plans: many(pricing_table_plans, {
     relationName: 'plans',
   }),
@@ -8016,6 +8410,11 @@ export const relations_site_pages_blocks_cta = relations(
       references: [site_pages.id],
       relationName: '_blocks_cta',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_cta.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     links: many(site_pages_blocks_cta_links, {
       relationName: 'links',
     }),
@@ -8028,6 +8427,11 @@ export const relations_site_pages_blocks_cal_popup = relations(
       fields: [site_pages_blocks_cal_popup._parentID],
       references: [site_pages.id],
       relationName: '_blocks_calPopup',
+    }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_cal_popup.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
     }),
   }),
 )
@@ -8043,6 +8447,11 @@ export const relations_contact_cards = relations(contact_cards, ({ one, many }) 
     fields: [contact_cards._parentID],
     references: [site_pages.id],
     relationName: '_blocks_contactInfoCards',
+  }),
+  blockBackgroundImage: one(media, {
+    fields: [contact_cards.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
   }),
   cards: many(contact_cards_cards, {
     relationName: 'cards',
@@ -8066,6 +8475,11 @@ export const relations_site_pages_blocks_content = relations(
       references: [site_pages.id],
       relationName: '_blocks_content',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_content.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     columns: many(site_pages_blocks_content_columns, {
       relationName: 'columns',
     }),
@@ -8078,6 +8492,11 @@ export const relations_site_pages_blocks_media_block = relations(
       fields: [site_pages_blocks_media_block._parentID],
       references: [site_pages.id],
       relationName: '_blocks_mediaBlock',
+    }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_media_block.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
     }),
     media: one(media, {
       fields: [site_pages_blocks_media_block.media],
@@ -8094,6 +8513,11 @@ export const relations_site_pages_blocks_archive = relations(
       references: [site_pages.id],
       relationName: '_blocks_archive',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_archive.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
   }),
 )
 export const relations_site_pages_blocks_form_block = relations(
@@ -8103,6 +8527,11 @@ export const relations_site_pages_blocks_form_block = relations(
       fields: [site_pages_blocks_form_block._parentID],
       references: [site_pages.id],
       relationName: '_blocks_formBlock',
+    }),
+    blockBackgroundImage: one(media, {
+      fields: [site_pages_blocks_form_block.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
     }),
     form: one(forms, {
       fields: [site_pages_blocks_form_block.form],
@@ -8284,6 +8713,11 @@ export const relations__site_pages_v_blocks_hero_marketing = relations(
       references: [_site_pages_v.id],
       relationName: '_blocks_heroMarketing',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_hero_marketing.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
   }),
 )
 export const relations__site_pages_v_blocks_hero_with_process_steps = relations(
@@ -8304,6 +8738,11 @@ export const relations__site_pages_v_blocks_hero_with_process = relations(
       references: [_site_pages_v.id],
       relationName: '_blocks_heroWithProcess',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_hero_with_process.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     steps: many(_site_pages_v_blocks_hero_with_process_steps, {
       relationName: 'steps',
     }),
@@ -8316,6 +8755,11 @@ export const relations__site_pages_v_blocks_introduction = relations(
       fields: [_site_pages_v_blocks_introduction._parentID],
       references: [_site_pages_v.id],
       relationName: '_blocks_introduction',
+    }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_introduction.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
     }),
     image: one(media, {
       fields: [_site_pages_v_blocks_introduction.image],
@@ -8360,6 +8804,11 @@ export const relations__site_pages_v_blocks_marquee_slider = relations(
       references: [_site_pages_v.id],
       relationName: '_blocks_marqueeSlider',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_marquee_slider.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     rows: many(_site_pages_v_blocks_marquee_slider_rows, {
       relationName: 'rows',
     }),
@@ -8383,6 +8832,11 @@ export const relations__site_pages_v_blocks_consulting_overview = relations(
       references: [_site_pages_v.id],
       relationName: '_blocks_consultingOverview',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_consulting_overview.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     benefitItems: many(_site_pages_v_blocks_consulting_overview_benefit_items, {
       relationName: 'benefitItems',
     }),
@@ -8405,6 +8859,11 @@ export const relations__site_pages_v_blocks_services_overview = relations(
       fields: [_site_pages_v_blocks_services_overview._parentID],
       references: [_site_pages_v.id],
       relationName: '_blocks_servicesOverview',
+    }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_services_overview.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
     }),
     services: many(_site_pages_v_blocks_services_overview_services, {
       relationName: 'services',
@@ -8450,6 +8909,11 @@ export const relations__services_grid_v = relations(_services_grid_v, ({ one, ma
     references: [_site_pages_v.id],
     relationName: '_blocks_servicesGrid',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [_services_grid_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   introIconList: many(_services_grid_v_intro_icon_list, {
     relationName: 'introIconList',
   }),
@@ -8490,6 +8954,11 @@ export const relations__site_pages_v_blocks_why_work_with_me = relations(
       references: [_site_pages_v.id],
       relationName: '_blocks_whyWorkWithMe',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_why_work_with_me.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     introIconList: many(_site_pages_v_blocks_why_work_with_me_intro_icon_list, {
       relationName: 'introIconList',
     }),
@@ -8510,6 +8979,11 @@ export const relations__radial_tl_v = relations(_radial_tl_v, ({ one, many }) =>
     fields: [_radial_tl_v._parentID],
     references: [_site_pages_v.id],
     relationName: '_blocks_radialOrbitalTimeline',
+  }),
+  blockBackgroundImage: one(media, {
+    fields: [_radial_tl_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
   }),
   timelineItems: many(_radial_tl_items_v, {
     relationName: 'timelineItems',
@@ -8562,6 +9036,11 @@ export const relations__portfolio_grid_v = relations(_portfolio_grid_v, ({ one, 
     references: [_site_pages_v.id],
     relationName: '_blocks_portfolioCaseGrid',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [_portfolio_grid_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   cases: many(_portfolio_grid_v_cases, {
     relationName: 'cases',
   }),
@@ -8578,6 +9057,11 @@ export const relations__portfolio_kpis_v = relations(_portfolio_kpis_v, ({ one, 
     fields: [_portfolio_kpis_v._parentID],
     references: [_site_pages_v.id],
     relationName: '_blocks_portfolioKpiStrip',
+  }),
+  blockBackgroundImage: one(media, {
+    fields: [_portfolio_kpis_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
   }),
   items: many(_portfolio_kpis_v_items, {
     relationName: 'items',
@@ -8636,6 +9120,11 @@ export const relations__site_pages_v_blocks_brand_showcase = relations(
       references: [_site_pages_v.id],
       relationName: '_blocks_brandShowcase',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_brand_showcase.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     logo: one(media, {
       fields: [_site_pages_v_blocks_brand_showcase.logo],
       references: [media.id],
@@ -8673,6 +9162,11 @@ export const relations__prof_ueber_v = relations(_prof_ueber_v, ({ one, many }) 
     references: [_site_pages_v.id],
     relationName: '_blocks_profilUeberMich',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [_prof_ueber_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   werte: many(_prof_ueber_v_werte, {
     relationName: 'werte',
   }),
@@ -8705,6 +9199,11 @@ export const relations__prof_kern_v = relations(_prof_kern_v, ({ one, many }) =>
     fields: [_prof_kern_v._parentID],
     references: [_site_pages_v.id],
     relationName: '_blocks_profilKernkompetenz',
+  }),
+  blockBackgroundImage: one(media, {
+    fields: [_prof_kern_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
   }),
   bereiche: many(_prof_kern_v_bereiche, {
     relationName: 'bereiche',
@@ -8739,6 +9238,11 @@ export const relations__prof_skills_v = relations(_prof_skills_v, ({ one, many }
     references: [_site_pages_v.id],
     relationName: '_blocks_profilKompetenzen',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [_prof_skills_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   spalten: many(_prof_skills_v_spalten, {
     relationName: 'spalten',
   }),
@@ -8755,6 +9259,11 @@ export const relations__prof_weg_v = relations(_prof_weg_v, ({ one, many }) => (
     fields: [_prof_weg_v._parentID],
     references: [_site_pages_v.id],
     relationName: '_blocks_profilWerdegang',
+  }),
+  blockBackgroundImage: one(media, {
+    fields: [_prof_weg_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
   }),
   eintraege: many(_prof_weg_v_eintraege, {
     relationName: 'eintraege',
@@ -8773,6 +9282,11 @@ export const relations__prof_zahl_v = relations(_prof_zahl_v, ({ one, many }) =>
     references: [_site_pages_v.id],
     relationName: '_blocks_profilZahlenFakten',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [_prof_zahl_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   items: many(_prof_zahl_v_items, {
     relationName: 'items',
   }),
@@ -8789,6 +9303,11 @@ export const relations__prof_tools_v = relations(_prof_tools_v, ({ one, many }) 
     fields: [_prof_tools_v._parentID],
     references: [_site_pages_v.id],
     relationName: '_blocks_profilTools',
+  }),
+  blockBackgroundImage: one(media, {
+    fields: [_prof_tools_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
   }),
   tools: many(_prof_tools_v_tools, {
     relationName: 'tools',
@@ -8820,6 +9339,11 @@ export const relations__prof_lang_zert_v = relations(_prof_lang_zert_v, ({ one, 
     references: [_site_pages_v.id],
     relationName: '_blocks_profilLangZert',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [_prof_lang_zert_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   sprachen: many(_prof_lang_zert_v_sprachen, {
     relationName: 'sprachen',
   }),
@@ -8833,6 +9357,11 @@ export const relations__prof_cta_v = relations(_prof_cta_v, ({ one }) => ({
     references: [_site_pages_v.id],
     relationName: '_blocks_profilCtaBand',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [_prof_cta_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
 }))
 export const relations__site_pages_v_blocks_price_calculator = relations(
   _site_pages_v_blocks_price_calculator,
@@ -8841,6 +9370,11 @@ export const relations__site_pages_v_blocks_price_calculator = relations(
       fields: [_site_pages_v_blocks_price_calculator._parentID],
       references: [_site_pages_v.id],
       relationName: '_blocks_priceCalculator',
+    }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_price_calculator.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
     }),
   }),
 )
@@ -8896,6 +9430,11 @@ export const relations__pricing_table_v = relations(_pricing_table_v, ({ one, ma
     references: [_site_pages_v.id],
     relationName: '_blocks_pricingTable',
   }),
+  blockBackgroundImage: one(media, {
+    fields: [_pricing_table_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
+  }),
   plans: many(_pricing_table_v_plans, {
     relationName: 'plans',
   }),
@@ -8921,6 +9460,11 @@ export const relations__site_pages_v_blocks_cta = relations(
       references: [_site_pages_v.id],
       relationName: '_blocks_cta',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_cta.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     links: many(_site_pages_v_blocks_cta_links, {
       relationName: 'links',
     }),
@@ -8933,6 +9477,11 @@ export const relations__site_pages_v_blocks_cal_popup = relations(
       fields: [_site_pages_v_blocks_cal_popup._parentID],
       references: [_site_pages_v.id],
       relationName: '_blocks_calPopup',
+    }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_cal_popup.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
     }),
   }),
 )
@@ -8948,6 +9497,11 @@ export const relations__contact_cards_v = relations(_contact_cards_v, ({ one, ma
     fields: [_contact_cards_v._parentID],
     references: [_site_pages_v.id],
     relationName: '_blocks_contactInfoCards',
+  }),
+  blockBackgroundImage: one(media, {
+    fields: [_contact_cards_v.blockBackgroundImage],
+    references: [media.id],
+    relationName: 'blockBackgroundImage',
   }),
   cards: many(_contact_cards_v_cards, {
     relationName: 'cards',
@@ -8971,6 +9525,11 @@ export const relations__site_pages_v_blocks_content = relations(
       references: [_site_pages_v.id],
       relationName: '_blocks_content',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_content.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
     columns: many(_site_pages_v_blocks_content_columns, {
       relationName: 'columns',
     }),
@@ -8983,6 +9542,11 @@ export const relations__site_pages_v_blocks_media_block = relations(
       fields: [_site_pages_v_blocks_media_block._parentID],
       references: [_site_pages_v.id],
       relationName: '_blocks_mediaBlock',
+    }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_media_block.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
     }),
     media: one(media, {
       fields: [_site_pages_v_blocks_media_block.media],
@@ -8999,6 +9563,11 @@ export const relations__site_pages_v_blocks_archive = relations(
       references: [_site_pages_v.id],
       relationName: '_blocks_archive',
     }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_archive.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
+    }),
   }),
 )
 export const relations__site_pages_v_blocks_form_block = relations(
@@ -9008,6 +9577,11 @@ export const relations__site_pages_v_blocks_form_block = relations(
       fields: [_site_pages_v_blocks_form_block._parentID],
       references: [_site_pages_v.id],
       relationName: '_blocks_formBlock',
+    }),
+    blockBackgroundImage: one(media, {
+      fields: [_site_pages_v_blocks_form_block.blockBackgroundImage],
+      references: [media.id],
+      relationName: 'blockBackgroundImage',
     }),
     form: one(forms, {
       fields: [_site_pages_v_blocks_form_block.form],
