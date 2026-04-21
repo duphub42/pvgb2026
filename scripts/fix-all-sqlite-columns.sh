@@ -24,7 +24,7 @@ echo ""
 echo "📦 Prüfe bekannte fehlende Spalten..."
 
 # Consulting Overview Benefit Items - icon
-sqlite3 "$DB" "ALTER TABLE site_pages_blocks_consulting_overview_benefit_items ADD COLUMN icon TEXT DEFAULT 'check';" 2>/dev/null && echo "  ✅ consulting_overview_benefit_items.icon"
+sqlite3 "$DB" "ALTER TABLE site_pages_blocks_consulting_overview_benefit_items ADD COLUMN icon TEXT DEFAULT 'sparkles';" 2>/dev/null && echo "  ✅ consulting_overview_benefit_items.icon"
 
 # Hero Stats
 sqlite3 "$DB" "ALTER TABLE site_pages_hero_stats ADD COLUMN _uuid TEXT;" 2>/dev/null && echo "  ✅ hero_stats._uuid"

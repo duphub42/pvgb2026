@@ -79,43 +79,13 @@ export function ContactInfoCards({ cards, ctaLabel, ctaHref }: ContactInfoCardsP
   const buttonLabel = String(ctaLabel ?? 'Termin anfragen').trim() || 'Termin anfragen'
   const buttonHref = String(ctaHref ?? '#kontaktformular').trim() || '#kontaktformular'
 
-  const positionClasses = [
-    'md:-translate-y-6 md:-translate-x-4',
-    'md:translate-y-6',
-    'md:-translate-y-6 md:translate-x-4',
-  ]
-
   return (
     <section aria-label="Kontaktinformationen" className="mb-8 lg:mb-10">
-      <div className="relative overflow-visible rounded-3xl bg-transparent px-0 py-0 md:px-2 md:py-8">
-        {/* Dekorative Kurvenlinie als Verbinder */}
-        <svg
-          className="pointer-events-none absolute left-0 right-0 top-1/2 z-0 hidden md:block w-full h-32"
-          viewBox="0 0 100 42"
-          fill="none"
-          preserveAspectRatio="none"
-          aria-hidden="true"
-        >
-          <path
-            d="M 10 34 Q 25 10 50 18 Q 75 26 90 34"
-            stroke="currentColor"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            className="text-border/60"
-          />
-        </svg>
-
+      <div className="relative rounded-3xl bg-transparent px-0 py-0 md:px-2 md:py-8">
         <div className="grid gap-4 md:grid-cols-3">
-          {preparedCards.map((item, index) => {
-            const positionClass = positionClasses[index % positionClasses.length]
+          {preparedCards.map((item) => {
             return (
-              <div
-                key={item.key}
-                className={cn(
-                  'relative z-10 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
-                  positionClass,
-                )}
-              >
+              <div key={item.key} className="relative z-10">
                 <Card variant="secondary" className="h-full">
                   <CardHeader className="pb-2">
                     {/* Kein Icon, keine Farbe */}

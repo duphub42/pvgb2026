@@ -569,6 +569,10 @@ export interface HeroMarketingBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -605,6 +609,10 @@ export interface HeroWithProcessBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -655,6 +663,10 @@ export interface IntroductionBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -697,6 +709,10 @@ export interface MarqueeSliderBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -910,6 +926,10 @@ export interface ServicesOverviewBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -970,6 +990,10 @@ export interface ServicesGridBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1065,6 +1089,10 @@ export interface WhyWorkWithMeBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1139,6 +1167,10 @@ export interface RadialOrbitalTimelineBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1192,6 +1224,10 @@ export interface PortfolioCaseGridBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1260,6 +1296,10 @@ export interface PortfolioKpiStripBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1306,6 +1346,10 @@ export interface BrandShowcaseBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1374,6 +1418,10 @@ export interface ProfilUeberMichBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1416,6 +1464,10 @@ export interface ProfilKernkompetenzBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1460,6 +1512,10 @@ export interface ProfilKompetenzenBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1504,6 +1560,10 @@ export interface ProfilWerdegangBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1544,6 +1604,10 @@ export interface ProfilZahlenFaktenBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1584,6 +1648,10 @@ export interface ProfilToolsBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1621,6 +1689,10 @@ export interface ProfilLangZertBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1665,6 +1737,10 @@ export interface ProfilCtaBandBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1698,6 +1774,10 @@ export interface PriceCalculatorBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1734,6 +1814,10 @@ export interface PricingTableBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1814,6 +1898,10 @@ export interface CallToActionBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1898,6 +1986,10 @@ export interface CalPopupBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1937,6 +2029,10 @@ export interface ContactInfoCardsBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1982,6 +2078,10 @@ export interface ContentBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2068,6 +2168,10 @@ export interface MediaBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2098,6 +2202,10 @@ export interface ArchiveBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2152,6 +2260,10 @@ export interface FormBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -3005,6 +3117,7 @@ export interface HeroMarketingBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3034,6 +3147,7 @@ export interface HeroWithProcessBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3071,6 +3185,7 @@ export interface IntroductionBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3097,6 +3212,7 @@ export interface MarqueeSliderBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3197,6 +3313,7 @@ export interface ServicesOverviewBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3229,6 +3346,7 @@ export interface ServicesGridBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3291,6 +3409,7 @@ export interface WhyWorkWithMeBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3330,6 +3449,7 @@ export interface RadialOrbitalTimelineBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3367,6 +3487,7 @@ export interface PortfolioCaseGridBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3427,6 +3548,7 @@ export interface PortfolioKpiStripBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3463,6 +3585,7 @@ export interface BrandShowcaseBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3521,6 +3644,7 @@ export interface ProfilUeberMichBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3553,6 +3677,7 @@ export interface ProfilKernkompetenzBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3590,6 +3715,7 @@ export interface ProfilKompetenzenBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3627,6 +3753,7 @@ export interface ProfilWerdegangBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3660,6 +3787,7 @@ export interface ProfilZahlenFaktenBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3690,6 +3818,7 @@ export interface ProfilToolsBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3720,6 +3849,7 @@ export interface ProfilLangZertBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3757,6 +3887,7 @@ export interface ProfilCtaBandBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3783,6 +3914,7 @@ export interface PriceCalculatorBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3809,6 +3941,7 @@ export interface PricingTableBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3870,6 +4003,7 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3912,6 +4046,7 @@ export interface CalPopupBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3938,6 +4073,7 @@ export interface ContactInfoCardsBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3970,6 +4106,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4014,6 +4151,7 @@ export interface MediaBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4037,6 +4175,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4065,6 +4204,7 @@ export interface FormBlockSelect<T extends boolean = true> {
   blockContainer?: T;
   blockBackground?: T;
   blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -5510,6 +5650,10 @@ export interface HtmlEmbedBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -5543,6 +5687,10 @@ export interface BannerBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -5588,6 +5736,10 @@ export interface CodeBlock {
    * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
    */
   blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;

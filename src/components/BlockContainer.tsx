@@ -137,7 +137,6 @@ export function BlockContainer({
 }: BlockContainerProps) {
   const hasBackground = styles?.blockBackground && styles.blockBackground !== 'none'
   const hasOverlay = styles?.blockOverlay?.enabled && styles.blockOverlay.opacity != null
-  const hasBorder = styles?.blockBorder?.enabled
   const animation = styles?.blockAnimation ?? 'default'
 
   // Build all classes

@@ -71,7 +71,7 @@ async function main() {
   console.log('🔌 Verbinde mit Neon...')
   console.log(`💾 Export wird gespeichert in: data/neon-full-export-${timestamp}/\n`)
   
-  const exportData: Record<string, any[]> = {}
+  const exportData: Record<string, Array<Record<string, unknown>>> = {}
   
   for (const table of contentTables) {
     try {

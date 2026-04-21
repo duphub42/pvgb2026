@@ -1,4 +1,4 @@
-import { getPayload } from 'payload'
+import { getPayload, type RequiredDataFromCollectionSlug } from 'payload'
 import config from '@payload-config'
 import { NextResponse } from 'next/server'
 
@@ -216,7 +216,7 @@ export async function GET() {
           },
         ],
       },
-    } as any)
+    } as { collection: 'site-pages'; data: RequiredDataFromCollectionSlug<'site-pages'> })
 
     // Create Datenschutz
     const datenschutz = await payload.create({
@@ -373,7 +373,7 @@ export async function GET() {
           },
         ],
       },
-    } as any)
+    } as { collection: 'site-pages'; data: RequiredDataFromCollectionSlug<'site-pages'> })
 
     return NextResponse.json({
       success: true,

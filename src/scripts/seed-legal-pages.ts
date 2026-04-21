@@ -94,7 +94,7 @@ async function main() {
           title: 'Impressum | Philipp Bacher',
           description: 'Impressum und rechtliche Angaben',
         },
-      } as any,
+      } as RequiredDataFromCollectionSlug<'site-pages'>,
     })
     console.log('✓ Impressum erstellt')
   } else {
@@ -253,7 +253,7 @@ async function main() {
           title: 'Datenschutz | Philipp Bacher',
           description: 'Datenschutzerklärung und Informationen zur Datenverarbeitung',
         },
-      } as any,
+      } as RequiredDataFromCollectionSlug<'site-pages'>,
     })
     console.log('✓ Datenschutz erstellt')
   } else {

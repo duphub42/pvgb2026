@@ -16,9 +16,9 @@
     "email": "mail@philippbacher.com",
     "sessions": [
       {
-        "id": "68634b9e-11d3-4311-9da8-5b49ed9266b2",
-        "createdAt": "2026-04-20T05:29:03.258Z",
-        "expiresAt": "2026-04-20T07:29:03.258Z"
+        "id": "e2d7b60d-1b81-4d54-af3e-1968ab3d8796",
+        "createdAt": "2026-04-20T19:01:41.401Z",
+        "expiresAt": "2026-04-20T21:01:41.401Z"
       }
     ],
     "collection": "users"

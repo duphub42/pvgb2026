@@ -4,7 +4,6 @@ import React, { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'motion/react'
 import { Loader2, Check, Sparkles } from 'lucide-react'
 
-import { useTheme } from '@/providers/Theme'
 import { cn } from '@/utilities/ui'
 
 export type SaveButtonStatus = 'idle' | 'saving' | 'saved'
@@ -47,8 +46,6 @@ export function SaveButton({
 }: SaveButtonProps) {
   const [internalStatus, setInternalStatus] = useState<SaveButtonStatus>('idle')
   const [bounce, setBounce] = useState(false)
-  const { theme } = useTheme()
-  const isDark = theme === 'dark'
 
   const isControlled = controlledStatus != null
   const status = isControlled ? controlledStatus : internalStatus

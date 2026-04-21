@@ -76,6 +76,11 @@ const nextConfig = {
   // when running `next dev` (3000) and `next build/start` (3100/other) in parallel.
   distDir:
     process.env.NODE_ENV === 'development' ? process.env.NEXT_DIST_DIR || '.next-dev' : '.next',
+  // Pin tracing root to this repo so Next doesn't walk up to a parent/home lockfile.
+  outputFileTracingRoot: __dirname,
+  turbopack: {
+    root: __dirname,
+  },
   // Pingdom F0: Gzip-Kompression explizit aktivieren (Next.js macht das standardmäßig bei next start)
   compress: true,
   // PageSpeed: tree-shake large packages so less JS is shipped

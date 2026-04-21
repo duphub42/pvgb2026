@@ -312,6 +312,7 @@ CREATE TABLE _site_pages_v_blocks_consulting_overview_benefit_items (
   _order INTEGER NOT NULL,
   _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_consulting_overview(id) ON DELETE CASCADE,
   id TEXT PRIMARY KEY,
+  icon TEXT DEFAULT 'sparkles',
   title TEXT,
   text TEXT,
   _uuid TEXT
@@ -501,6 +502,14 @@ function main() {
       sql: 'ALTER TABLE site_pages_blocks_content ADD COLUMN block_overlay_opacity INTEGER DEFAULT 30;',
     },
     {
+      name: 'site_pages_blocks_content: block_background_image_id',
+      sql: 'ALTER TABLE site_pages_blocks_content ADD COLUMN block_background_image_id INTEGER;',
+    },
+    {
+      name: 'site_pages_blocks_content: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_content ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
+    },
+    {
       name: 'site_pages_blocks_cta: block_background',
       sql: "ALTER TABLE site_pages_blocks_cta ADD COLUMN block_background TEXT DEFAULT 'none';",
     },
@@ -515,6 +524,14 @@ function main() {
     {
       name: 'site_pages_blocks_cta: block_overlay_opacity',
       sql: 'ALTER TABLE site_pages_blocks_cta ADD COLUMN block_overlay_opacity INTEGER DEFAULT 30;',
+    },
+    {
+      name: 'site_pages_blocks_cta: block_background_image_id',
+      sql: 'ALTER TABLE site_pages_blocks_cta ADD COLUMN block_background_image_id INTEGER;',
+    },
+    {
+      name: 'site_pages_blocks_cta: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_cta ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
     },
     {
       name: 'site_pages_blocks_media_block: block_background',
@@ -533,6 +550,14 @@ function main() {
       sql: 'ALTER TABLE site_pages_blocks_media_block ADD COLUMN block_overlay_opacity INTEGER DEFAULT 30;',
     },
     {
+      name: 'site_pages_blocks_media_block: block_background_image_id',
+      sql: 'ALTER TABLE site_pages_blocks_media_block ADD COLUMN block_background_image_id INTEGER;',
+    },
+    {
+      name: 'site_pages_blocks_media_block: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_media_block ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
+    },
+    {
       name: 'site_pages_blocks_archive: block_background',
       sql: "ALTER TABLE site_pages_blocks_archive ADD COLUMN block_background TEXT DEFAULT 'none';",
     },
@@ -549,6 +574,14 @@ function main() {
       sql: 'ALTER TABLE site_pages_blocks_archive ADD COLUMN block_overlay_opacity INTEGER DEFAULT 30;',
     },
     {
+      name: 'site_pages_blocks_archive: block_background_image_id',
+      sql: 'ALTER TABLE site_pages_blocks_archive ADD COLUMN block_background_image_id INTEGER;',
+    },
+    {
+      name: 'site_pages_blocks_archive: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_archive ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
+    },
+    {
       name: 'site_pages_blocks_form_block: block_background',
       sql: "ALTER TABLE site_pages_blocks_form_block ADD COLUMN block_background TEXT DEFAULT 'none';",
     },
@@ -563,6 +596,46 @@ function main() {
     {
       name: 'site_pages_blocks_form_block: block_overlay_opacity',
       sql: 'ALTER TABLE site_pages_blocks_form_block ADD COLUMN block_overlay_opacity INTEGER DEFAULT 30;',
+    },
+    {
+      name: 'site_pages_blocks_form_block: block_background_image_id',
+      sql: 'ALTER TABLE site_pages_blocks_form_block ADD COLUMN block_background_image_id INTEGER;',
+    },
+    {
+      name: 'site_pages_blocks_form_block: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_form_block ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
+    },
+    {
+      name: 'site_pages_blocks_hero_marketing: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_hero_marketing ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
+    },
+    {
+      name: 'site_pages_blocks_hero_with_process: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_hero_with_process ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
+    },
+    {
+      name: 'site_pages_blocks_introduction: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_introduction ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
+    },
+    {
+      name: 'site_pages_blocks_marquee_slider: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_marquee_slider ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
+    },
+    {
+      name: 'site_pages_blocks_consulting_overview: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_consulting_overview ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
+    },
+    {
+      name: 'site_pages_blocks_services_overview: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_services_overview ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
+    },
+    {
+      name: 'site_pages_blocks_why_work_with_me: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_why_work_with_me ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
+    },
+    {
+      name: 'site_pages_blocks_brand_showcase: block_background_image_disable_inversion',
+      sql: 'ALTER TABLE site_pages_blocks_brand_showcase ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;',
     },
     // Shadcn Block (neue Komponenten: feature215b, about15, hero238, …)
     {
@@ -773,6 +846,7 @@ function main() {
         _order INTEGER NOT NULL,
         _parent_id TEXT NOT NULL,
         id TEXT PRIMARY KEY,
+        icon TEXT DEFAULT 'sparkles',
         title TEXT,
         text TEXT
       );`,
@@ -822,6 +896,7 @@ function main() {
         _order INTEGER NOT NULL,
         _parent_id INTEGER NOT NULL REFERENCES _site_pages_v_blocks_consulting_overview(id) ON DELETE CASCADE,
         id TEXT PRIMARY KEY,
+        icon TEXT DEFAULT 'sparkles',
         title TEXT,
         text TEXT,
         _uuid TEXT
@@ -1588,6 +1663,83 @@ function main() {
         const line = msg.split('\n').find((l) => l.includes('Error:')) ?? msg.split('\n')[0]
         if (line) console.warn(line)
         console.warn('Übersprungen:', step.name)
+      } else {
+        console.error(msg.trim())
+        throw e
+      }
+    }
+  }
+
+  // Ensure all block tables (including version tables) expose
+  // block_background_image_disable_inversion for Payload-generated SQLite selects.
+  const disableInversionTables = [
+    'services_grid',
+    'radial_tl',
+    'portfolio_grid',
+    'portfolio_kpis',
+    'prof_ueber',
+    'prof_kern',
+    'prof_skills',
+    'prof_weg',
+    'prof_zahl',
+    'prof_tools',
+    'prof_lang_zert',
+    'prof_cta',
+    'site_pages_blocks_price_calculator',
+    'pricing_table',
+    'site_pages_blocks_cal_popup',
+    'contact_cards',
+    '_site_pages_v_blocks_hero_marketing',
+    '_site_pages_v_blocks_hero_with_process',
+    '_site_pages_v_blocks_introduction',
+    '_site_pages_v_blocks_marquee_slider',
+    '_site_pages_v_blocks_consulting_overview',
+    '_site_pages_v_blocks_services_overview',
+    '_services_grid_v',
+    '_radial_tl_v',
+    '_portfolio_grid_v',
+    '_portfolio_kpis_v',
+    '_site_pages_v_blocks_why_work_with_me',
+    '_site_pages_v_blocks_radialOrbitalTimeline',
+    '_site_pages_v_blocks_portfolioCaseGrid',
+    '_site_pages_v_blocks_portfolioKpiStrip',
+    '_site_pages_v_blocks_brand_showcase',
+    '_prof_ueber_v',
+    '_prof_kern_v',
+    '_prof_skills_v',
+    '_prof_weg_v',
+    '_prof_zahl_v',
+    '_prof_tools_v',
+    '_prof_lang_zert_v',
+    '_prof_cta_v',
+    '_site_pages_v_blocks_price_calculator',
+    '_site_pages_v_blocks_pricingTable',
+    '_site_pages_v_blocks_cal_popup',
+    '_contact_cards_v',
+    '_site_pages_v_blocks_cta',
+    '_site_pages_v_blocks_content',
+    '_site_pages_v_blocks_media_block',
+    '_site_pages_v_blocks_archive',
+    '_site_pages_v_blocks_form_block',
+  ]
+
+  for (const table of disableInversionTables) {
+    const stepName = `${table}: block_background_image_disable_inversion`
+    const sql = `ALTER TABLE "${table}" ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;`
+    try {
+      runSqlite3(dbPath, sql)
+      console.log('OK:', stepName)
+    } catch (e) {
+      const err = e as { message?: string; stderr?: string }
+      const msg = `${err.message ?? ''}\n${typeof err.stderr === 'string' ? err.stderr : ''}`
+      const skip =
+        msg.includes('no such table') ||
+        msg.includes('duplicate column name') ||
+        msg.includes('already exists')
+      if (skip) {
+        const line = msg.split('\n').find((l) => l.includes('Error:')) ?? msg.split('\n')[0]
+        if (line) console.warn(line)
+        console.warn('Übersprungen:', stepName)
       } else {
         console.error(msg.trim())
         throw e

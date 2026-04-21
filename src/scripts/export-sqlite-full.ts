@@ -37,7 +37,7 @@ const tables = db
 console.log(`🔌 Lade SQLite: ${dbPath}`)
 console.log(`💾 Export wird gespeichert in: data/sqlite-export-${timestamp}/\n`)
 
-const exportData: Record<string, any[]> = {}
+const exportData: Record<string, Array<Record<string, unknown>>> = {}
 
 for (const { name: table } of tables) {
   try {

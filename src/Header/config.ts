@@ -5,7 +5,6 @@ import {
   createClearOrphanedRefsBeforeChangeHook,
   createClearOrphanedRefsBeforeValidateHook,
 } from '@/hooks/clearOrphanedRefs'
-import { link } from '@/fields/link'
 import { revalidateHeader } from './hooks/revalidateHeader'
 
 const GRID_TOTAL = 12

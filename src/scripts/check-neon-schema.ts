@@ -3,7 +3,6 @@
  */
 import './load-env'
 import { Client } from 'pg'
-import fs from 'fs'
 
 const url = process.env.DATABASE_URL || process.env.POSTGRES_URL
 if (!url) {

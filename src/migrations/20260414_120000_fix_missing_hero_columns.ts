@@ -1,4 +1,4 @@
-import { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
+import { MigrateUpArgs } from '@payloadcms/db-postgres'
 
 export async function up({ db }: MigrateUpArgs): Promise<void> {
   // Add all potentially missing hero columns that might be referenced in code
@@ -56,7 +56,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   }
 }
 
-export async function down({ db }: MigrateDownArgs): Promise<void> {
+export async function down(): Promise<void> {
   // This is a complex migration, so down function will be minimal
   console.log('Complex migration - manual cleanup may be required')
 }

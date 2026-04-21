@@ -12,128 +12,6 @@ import type { Field } from 'payload'
 // STYLE FELDER
 // ============================================================================
 
-const spacingFields: Field[] = [
-  {
-    name: 'padding',
-    dbName: 'p',
-    type: 'select',
-    label: 'Innenabstand (Padding)',
-    defaultValue: 'default',
-    options: [
-      { label: 'Keiner (0)', value: 'none' },
-      { label: 'Klein (py-8)', value: 'sm' },
-      { label: 'Standard (py-16)', value: 'default' },
-      { label: 'Groß (py-24)', value: 'lg' },
-      { label: 'Extra groß (py-32)', value: 'xl' },
-    ],
-  },
-  {
-    name: 'paddingTop',
-    dbName: 'pt',
-    type: 'select',
-    label: 'Oben zusätzlich',
-    defaultValue: 'default',
-    options: [
-      { label: 'Standard', value: 'default' },
-      { label: 'Negativ (überschneidet vorherigen)', value: 'negative' },
-      { label: 'Extra groß', value: 'xl' },
-    ],
-  },
-  {
-    name: 'marginBottom',
-    dbName: 'mb',
-    type: 'select',
-    label: 'Außenabstand unten',
-    defaultValue: 'default',
-    options: [
-      { label: 'Keiner', value: 'none' },
-      { label: 'Klein', value: 'sm' },
-      { label: 'Standard', value: 'default' },
-      { label: 'Groß', value: 'lg' },
-    ],
-  },
-]
-
-const borderFields: Field[] = [
-  {
-    name: 'enabled',
-    type: 'checkbox',
-    label: 'Rahmen aktivieren',
-    defaultValue: false,
-  },
-  {
-    name: 'style',
-    dbName: 'bs',
-    type: 'select',
-    label: 'Rahmen-Stil',
-    defaultValue: 'default',
-    options: [
-      { label: 'Standard', value: 'default' },
-      { label: 'Akzent', value: 'accent' },
-      { label: 'Subtil', value: 'subtle' },
-    ],
-    admin: {
-      condition: (_: unknown, siblingData: { enabled?: boolean } | null | undefined) =>
-        Boolean(siblingData?.enabled),
-    },
-  } as Field,
-  {
-    name: 'radius',
-    dbName: 'br',
-    type: 'select',
-    label: 'Eckradius',
-    defaultValue: 'default',
-    options: [
-      { label: 'Standard (1rem)', value: 'default' },
-      { label: 'Klein', value: 'sm' },
-      { label: 'Groß', value: 'lg' },
-      { label: 'Keiner', value: 'none' },
-    ],
-    admin: {
-      condition: (_: unknown, siblingData: { enabled?: boolean } | null | undefined) =>
-        Boolean(siblingData?.enabled),
-    },
-  } as Field,
-]
-
-const overlayFields: Field[] = [
-  {
-    name: 'enabled',
-    type: 'checkbox',
-    label: 'Overlay aktiv',
-    defaultValue: false,
-  },
-  {
-    name: 'color',
-    dbName: 'oc',
-    type: 'select',
-    label: 'Farbe',
-    defaultValue: 'dark',
-    options: [
-      { label: 'Dunkel', value: 'dark' },
-      { label: 'Hell', value: 'light' },
-    ],
-    admin: {
-      condition: (_: unknown, siblingData: { enabled?: boolean } | null | undefined) =>
-        Boolean(siblingData?.enabled),
-    },
-  } as Field,
-  {
-    name: 'opacity',
-    dbName: 'oo',
-    type: 'number',
-    label: 'Deckkraft (%)',
-    min: 0,
-    max: 100,
-    defaultValue: 0,
-    admin: {
-      condition: (_: unknown, siblingData: { enabled?: boolean } | null | undefined) =>
-        Boolean(siblingData?.enabled),
-      description: '0 = transparent, 100 = voll deckend.',
-    },
-  } as Field,
-]
-
 // ============================================================================
 // EXPORT
 // ============================================================================
@@ -222,6 +100,16 @@ export const blockStyleFields: Field[] = [
       description:
         'Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.',
     },
+  },
+  {
+    name: 'blockBackgroundImageDisableInversion',
+    type: 'checkbox',
+    label: 'Hintergrundbild-Inversion deaktivieren',
+    admin: {
+      description:
+        'Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).',
+    },
+    defaultValue: false,
   },
 
   // --- Border (flat) ---

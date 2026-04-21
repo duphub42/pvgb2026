@@ -351,7 +351,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   const effectiveContentVerticalAlignment = portraitSrc
     ? normalizedContentVerticalAlignment
     : 'bottom'
-  const heroHeight = 'clamp(666px, 88vh, 999px)'
+  const heroHeight = 'clamp(666px, 88vh, 888px)'
   const normalizedPageSlug = (pageSlug ?? '').trim().toLowerCase()
   const isHomeHero =
     normalizedPageSlug === '' || normalizedPageSlug === '/' || normalizedPageSlug === 'home'
@@ -375,7 +375,12 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         !hasRenderableBg && 'bg-background',
         !portraitSrc && 'hero-superhero-no-portrait',
       )}
-      style={{ isolation: 'isolate', minHeight: heroHeight }}
+      style={{
+        isolation: 'isolate',
+        minHeight: heroHeight,
+        overflowX: 'hidden',
+        overflowY: 'visible',
+      }}
       data-hero-intro="play"
       data-hero-variant="popout"
       data-hero-type={dataHeroType ?? 'superhero'}
@@ -448,7 +453,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       >
         <div
           className={cn(
-            'hero-scroll-content-main grid min-w-0 gap-0 overflow-visible md:items-start max-md:flex max-md:flex-col max-md:min-h-[90svh]',
+            'hero-scroll-content-main grid min-w-0 gap-0 overflow-visible md:items-start max-md:flex max-md:flex-col',
             portraitSrc
               ? 'md:grid-cols-1'
               : 'md:grid-cols-1 md:max-w-3xl hero-scroll-content-main--no-portrait',

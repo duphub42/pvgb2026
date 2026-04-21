@@ -1,4 +1,4 @@
-import { MigrateUpArgs, MigrateDownArgs, sql } from '@payloadcms/db-vercel-postgres'
+import { MigrateUpArgs, sql } from '@payloadcms/db-vercel-postgres'
 
 /**
  * Migration: Add icon and enableIconSwap fields to link fields
@@ -35,7 +35,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   console.log('Migration completed: Added icon and enableIconSwap fields to link tables')
 }
 
-export async function down({ db }: MigrateDownArgs): Promise<void> {
+export async function down(): Promise<void> {
   // SQLite doesn't support DROP COLUMN, so this is a no-op
   console.log('Migration rollback: SQLite does not support DROP COLUMN')
 }

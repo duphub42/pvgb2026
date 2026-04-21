@@ -40,6 +40,18 @@ BEGIN
         'ALTER TABLE public.%I ADD COLUMN link_enable_icon_swap boolean DEFAULT false',
         row.table_name
       );
+    ELSIF EXISTS (
+      SELECT 1
+      FROM information_schema.columns c2
+      WHERE c2.table_schema = 'public'
+        AND c2.table_name = row.table_name
+        AND c2.column_name = 'link_enable_icon_swap'
+        AND c2.data_type = 'integer'
+    ) THEN
+      EXECUTE format(
+        'ALTER TABLE public.%I ALTER COLUMN link_enable_icon_swap TYPE boolean USING link_enable_icon_swap::boolean',
+        row.table_name
+      );
     END IF;
 
     IF NOT EXISTS (

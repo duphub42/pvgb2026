@@ -77,7 +77,7 @@ async function main() {
       `, [mainTable])
 
       const columns = colsRes.rows
-        .map((c: any) => {
+        .map((c: { column_name: string; data_type: string; is_nullable: string; column_default: string | null }) => {
           let def = `"${c.column_name}" ${c.data_type}`
           if (c.column_default) def += ` DEFAULT ${c.column_default}`
           if (c.is_nullable === 'NO' && !c.column_default) def += ` NOT NULL`

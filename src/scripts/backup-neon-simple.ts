@@ -54,7 +54,7 @@ async function main() {
     // Schema-Only Backup (CREATE TABLE statements)
     for (const table of tables) {
       try {
-        const createRes = await client.query(`
+        await client.query(`
           SELECT 'CREATE TABLE IF NOT EXISTS "' || tablename || '" (...);' as create_stmt
           FROM pg_tables 
           WHERE tablename = $1

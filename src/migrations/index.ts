@@ -107,6 +107,18 @@ import * as migration_20260414_120000_fix_missing_hero_columns from './20260414_
 import * as migration_20260415_000000_repair_version_tables from './20260415_000000_repair_version_tables'
 import * as migration_20260418_231000_site_pages_hero_content_vertical_alignment from './20260418_231000_site_pages_hero_content_vertical_alignment'
 import * as migration_20260420_100000_repair_link_icon_swap_columns from './20260420_100000_repair_link_icon_swap_columns'
+import * as migration_20260421_100000_site_pages_hero_with_process_block_background_image from './20260421_100000_site_pages_hero_with_process_block_background_image'
+import * as migration_20260421_110000_site_pages_hero_marketing_block_background_image_disable_inversion from './20260421_110000_site_pages_hero_marketing_block_background_image_disable_inversion'
+import * as migration_20260421_120000_site_pages_blocks_block_background_image_style_columns from './20260421_120000_site_pages_blocks_block_background_image_style_columns'
+import * as migration_20260421_130000_site_pages_blocks_marquee_slider_tables from './20260421_130000_site_pages_blocks_marquee_slider_tables'
+import * as migration_20260421_140000_block_background_image_style_columns_every_block_table from './20260421_140000_block_background_image_style_columns_every_block_table'
+import * as migration_20260422_100000_repair_missing_block_style_columns_for_block_tables from './20260422_100000_repair_missing_block_style_columns_for_block_tables'
+import * as migration_20260422_110000_fix_block_style_padding_column_types from './20260422_110000_fix_block_style_padding_column_types'
+import * as migration_20260422_120000_fix_link_enable_icon_swap_column_types from './20260422_120000_fix_link_enable_icon_swap_column_types'
+import * as migration_20260421_150000_form_submissions_form_id_nullable from './20260421_150000_form_submissions_form_id_nullable'
+import * as migration_20260421_160000_site_pages_hero_version_content_vertical_alignment from './20260421_160000_site_pages_hero_version_content_vertical_alignment'
+import * as migration_20260421_170000_why_work_with_me_block_ids_varchar from './20260421_170000_why_work_with_me_block_ids_varchar'
+import * as migration_20260421_180000_add_block_style_columns_to_all_block_tables from './20260421_180000_add_block_style_columns_to_all_block_tables'
 
 export const migrations = [
   {
@@ -653,6 +665,66 @@ export const migrations = [
     up: migration_20260420_100000_repair_link_icon_swap_columns.up,
     down: migration_20260420_100000_repair_link_icon_swap_columns.down,
     name: '20260420_100000_repair_link_icon_swap_columns',
+  },
+  {
+    up: migration_20260421_100000_site_pages_hero_with_process_block_background_image.up,
+    down: migration_20260421_100000_site_pages_hero_with_process_block_background_image.down,
+    name: '20260421_100000_site_pages_hero_with_process_block_background_image',
+  },
+  {
+    up: migration_20260421_110000_site_pages_hero_marketing_block_background_image_disable_inversion.up,
+    down: migration_20260421_110000_site_pages_hero_marketing_block_background_image_disable_inversion.down,
+    name: '20260421_110000_site_pages_hero_marketing_block_background_image_disable_inversion',
+  },
+  {
+    up: migration_20260421_120000_site_pages_blocks_block_background_image_style_columns.up,
+    down: migration_20260421_120000_site_pages_blocks_block_background_image_style_columns.down,
+    name: '20260421_120000_site_pages_blocks_block_background_image_style_columns',
+  },
+  {
+    up: migration_20260421_140000_block_background_image_style_columns_every_block_table.up,
+    down: migration_20260421_140000_block_background_image_style_columns_every_block_table.down,
+    name: '20260421_140000_block_background_image_style_columns_every_block_table',
+  },
+  {
+    up: migration_20260422_100000_repair_missing_block_style_columns_for_block_tables.up,
+    down: migration_20260422_100000_repair_missing_block_style_columns_for_block_tables.down,
+    name: '20260422_100000_repair_missing_block_style_columns_for_block_tables',
+  },
+  {
+    up: migration_20260422_110000_fix_block_style_padding_column_types.up,
+    down: migration_20260422_110000_fix_block_style_padding_column_types.down,
+    name: '20260422_110000_fix_block_style_padding_column_types',
+  },
+  {
+    up: migration_20260422_120000_fix_link_enable_icon_swap_column_types.up,
+    down: migration_20260422_120000_fix_link_enable_icon_swap_column_types.down,
+    name: '20260422_120000_fix_link_enable_icon_swap_column_types',
+  },
+  {
+    up: migration_20260421_150000_form_submissions_form_id_nullable.up,
+    down: migration_20260421_150000_form_submissions_form_id_nullable.down,
+    name: '20260421_150000_form_submissions_form_id_nullable',
+  },
+  {
+    up: migration_20260421_160000_site_pages_hero_version_content_vertical_alignment.up,
+    down: migration_20260421_160000_site_pages_hero_version_content_vertical_alignment.down,
+    name: '20260421_160000_site_pages_hero_version_content_vertical_alignment',
+  },
+  {
+    up: migration_20260421_170000_why_work_with_me_block_ids_varchar.up,
+    down: migration_20260421_170000_why_work_with_me_block_ids_varchar.down,
+    name: '20260421_170000_why_work_with_me_block_ids_varchar',
+  },
+  {
+    up: migration_20260421_180000_add_block_style_columns_to_all_block_tables.up,
+    down: migration_20260421_180000_add_block_style_columns_to_all_block_tables.down,
+    name: '20260421_180000_add_block_style_columns_to_all_block_tables',
+  },
+  {
+    up: migration_20260421_130000_site_pages_blocks_marquee_slider_tables.up,
+    down: migration_20260421_130000_site_pages_blocks_marquee_slider_tables.down,
+    name: '20260421_130000_site_pages_blocks_marquee_slider_tables',
   },
   // TEMPORARILY DISABLED - Database migration needs SQLite fix
   // {

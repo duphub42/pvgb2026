@@ -496,11 +496,11 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
     'media',
     'categories',
     'users',
+    'forms',
     'site-pages',
     'blog-posts',
     'mega-menu',
     'redirects',
-    'forms',
   ]
 
   for (const slug of order as Array<keyof typeof idMaps>) {
@@ -580,6 +580,15 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
         }
         data = clearInvalidRelations(data, idMaps) as Record<string, unknown>
         const hero = data.hero as Record<string, unknown> | undefined
+        if (hero) {
+          if (hero.type === 'leistungenHero') {
+            hero.type = 'superhero'
+          }
+          const supportedHeroTypes = ['none', 'highImpact', 'mediumImpact', 'lowImpact', 'superhero']
+          if (hero.type != null && !supportedHeroTypes.includes(String(hero.type))) {
+            hero.type = 'lowImpact'
+          }
+        }
         if (hero?.links && Array.isArray(hero.links)) {
           hero.links = hero.links.filter((item: unknown) => {
             const link = (item as Record<string, unknown>)?.link as

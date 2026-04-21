@@ -2358,6 +2358,14 @@ html.theme-wave-transition.theme-wave-light::before {
   color: #ffffff;
   background-color: rgba(255, 255, 255, 0.12);
 }
+
+.render-block-background-image {
+  filter: none;
+}
+
+[data-theme='light'] .render-block-background-image:not(.render-block-background-image--no-invert) {
+  filter: invert(1) hue-rotate(180deg) saturate(1.08) contrast(1.02) brightness(0.94);
+}
 [data-theme='dark'] .megamenu .megamenu-col-items a.rounded-xl:hover:not(.megamenu-special-link) {
   background-color: rgba(255, 255, 255, 0.08) !important;
   color: #ffffff !important;

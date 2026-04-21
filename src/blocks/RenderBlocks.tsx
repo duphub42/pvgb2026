@@ -11,11 +11,13 @@ import { PriceCalculatorBlockComponent } from '@/blocks/PriceCalculator/Componen
 import { BlockRenderer } from '@/blocks/BlockRenderer'
 import { CLIENT_BLOCK_TYPES } from '@/blocks/clientBlockTypes'
 import { AnimateBlock } from '@/components/ui/AnimateBlock'
+import { cn } from '@/utilities/ui'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   blockBackground?: 'none' | 'muted' | 'accent' | 'light' | 'dark' | null
   blockBackgroundImage?: unknown
+  blockBackgroundImageDisableInversion?: boolean | null
   blockOverlay?: {
     enabled?: boolean | null
     color?: 'dark' | 'light' | null
@@ -26,10 +28,7 @@ type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   blockOverlayOpacity?: number | null
 }
 
-function getBlockBackgroundStyle(
-  blockBackground?: string | null,
-  backgroundImageUrl?: string | null,
-): React.CSSProperties {
+function getBlockBackgroundStyle(blockBackground?: string | null): React.CSSProperties {
   const style: React.CSSProperties = {}
 
   switch (blockBackground) {
@@ -50,15 +49,21 @@ function getBlockBackgroundStyle(
       break
   }
 
-  if (backgroundImageUrl) {
-    const escapedUrl = backgroundImageUrl.replace(/"/g, '\\"')
-    style.backgroundImage = `url("${escapedUrl}")`
-    style.backgroundSize = 'cover'
-    style.backgroundPosition = 'center'
-    style.backgroundRepeat = 'no-repeat'
-  }
-
   return style
+}
+
+function getBlockBackgroundImageStyle(backgroundImageUrl: string): React.CSSProperties {
+  const escapedUrl = backgroundImageUrl.replace(/"/g, '\\"')
+  return {
+    position: 'absolute',
+    inset: 0,
+    zIndex: 0,
+    pointerEvents: 'none',
+    backgroundImage: `url("${escapedUrl}")`,
+    backgroundSize: 'cover',
+    backgroundPosition: 'center',
+    backgroundRepeat: 'no-repeat',
+  }
 }
 
 function getBlockOverlayStyle(
@@ -157,13 +162,23 @@ export const RenderBlocks: React.FC<{
               style={
                 hasBackground
                   ? {
-                      ...getBlockBackgroundStyle(bg, bgImageUrl),
+                      ...getBlockBackgroundStyle(bg),
                       position: 'relative',
                       isolation: 'isolate',
                     }
                   : undefined
               }
             >
+              {bgImageUrl ? (
+                <div
+                  aria-hidden
+                  className={cn(
+                    'render-block-background-image',
+                    b.blockBackgroundImageDisableInversion && 'render-block-background-image--no-invert',
+                  )}
+                  style={getBlockBackgroundImageStyle(bgImageUrl)}
+                />
+              ) : null}
               {hasOverlay && (
                 <div
                   aria-hidden

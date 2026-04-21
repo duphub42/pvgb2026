@@ -802,8 +802,9 @@
 
   section[data-hero-type='superhero'] .hero-superhero-portrait {
     z-index: 14;
-    top: calc(var(--header-height, 72px) + clamp(0.35rem, 1.5vh, 0.95rem));
-    scroll-margin-top: calc(var(--header-height, 72px) + clamp(0.35rem, 1.5vh, 0.95rem));
+    top: calc(var(--header-height, 72px) + clamp(0.5rem, 2vh, 1.25rem));
+    scroll-margin-top: calc(var(--header-height, 72px) + clamp(0.5rem, 2vh, 1.25rem));
+    max-height: 100%;
   }
 
   section[data-hero-type='superhero'] .hero-superhero-portrait-media {
@@ -1063,8 +1064,8 @@
 
     section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-superhero-portrait {
       justify-self: center;
-      margin-left: clamp(-6rem, -8vw, -1rem);
-      margin-right: clamp(-5rem, -7vw, -1rem);
+      margin-left: clamp(-4rem, -6vw, -0.5rem);
+      margin-right: clamp(-3rem, -5vw, -0.5rem);
     }
   }
 
@@ -1073,7 +1074,7 @@
       top: calc(var(--header-height, 72px) + 5vh);
       scroll-margin-top: calc(var(--header-height, 72px) + 5vh);
       height: calc(100svh - var(--header-height, 72px) - 5vh);
-      max-height: none;
+      max-height: 100%;
       width: 37rem;
       min-width: 37rem;
       max-width: none;

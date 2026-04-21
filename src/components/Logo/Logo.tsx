@@ -3,6 +3,7 @@ import React from 'react'
 
 import type { Media as MediaType } from '@/payload-types'
 import { Media } from '@/components/Media'
+import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 interface Props {
   className?: string
@@ -48,7 +49,7 @@ export const Logo = (props: Props) => {
     const logoObject = logo as MediaType
     const logoUrl = logoObject.url ?? logoObject.sizes?.thumbnail?.url ?? ''
 
-    if (logoUrl) {
+    if (logoObject.url) {
       return (
         <Media
           resource={logoObject}
@@ -57,6 +58,18 @@ export const Logo = (props: Props) => {
           priority={priority === 'high'}
           alt={logoObject.alt ?? 'Logo'}
           disableBlurPlaceholder
+        />
+      )
+    }
+
+    if (logoUrl) {
+      return (
+        <img
+          src={getMediaUrl(logoUrl)}
+          alt={logoObject.alt ?? 'Logo'}
+          className={clsx(sizeClass, invertClass, animateClass, className)}
+          loading={loading}
+          decoding="async"
         />
       )
     }
