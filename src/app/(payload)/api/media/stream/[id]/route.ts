@@ -89,7 +89,8 @@ export async function GET(
             })
 
             if (fallbackRes.ok && fallbackRes.body) {
-              const contentType = fallbackRes.headers.get('content-type') || 'application/octet-stream'
+              const contentType =
+                fallbackRes.headers.get('content-type') || 'application/octet-stream'
               const contentDisposition = fallbackRes.headers.get('content-disposition')
 
               const headers = new Headers()
