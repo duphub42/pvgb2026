@@ -24,10 +24,10 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
     body,
     tagline,
     image,
+    imageDarkModeInvert = true,
     index = 0,
     ...styleProps
-  } = props as IntroductionBlockData & { imageDarkModeInvert?: boolean | null }
-  const imageDarkModeInvert = props.imageDarkModeInvert ?? true
+  } = props
 
   // Style-Props direkt an BlockContainer übergeben
   const styles = styleProps as unknown as BlockStyles

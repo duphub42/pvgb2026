@@ -1,7 +1,6 @@
 import Link from 'next/link'
 import { Clock3, Mail, MapPin, Phone } from 'lucide-react'
 
-import { cn } from '@/utilities/ui'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
