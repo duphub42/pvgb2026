@@ -120,6 +120,7 @@ import * as migration_20260421_160000_site_pages_hero_version_content_vertical_a
 import * as migration_20260421_170000_why_work_with_me_block_ids_varchar from './20260421_170000_why_work_with_me_block_ids_varchar'
 import * as migration_20260421_180000_add_block_style_columns_to_all_block_tables from './20260421_180000_add_block_style_columns_to_all_block_tables'
 import * as migration_20260421_190000_fix_marquee_slider_version_rows_uuid from './20260421_190000_fix_marquee_slider_version_rows_uuid'
+import * as migration_20260423_100000_site_pages_blocks_introduction_image_dark_mode_invert from './20260423_100000_site_pages_blocks_introduction_image_dark_mode_invert'
 
 export const migrations = [
   {
@@ -726,6 +727,11 @@ export const migrations = [
     up: migration_20260421_190000_fix_marquee_slider_version_rows_uuid.up,
     down: migration_20260421_190000_fix_marquee_slider_version_rows_uuid.down,
     name: '20260421_190000_fix_marquee_slider_version_rows_uuid',
+  },
+  {
+    up: migration_20260423_100000_site_pages_blocks_introduction_image_dark_mode_invert.up,
+    down: migration_20260423_100000_site_pages_blocks_introduction_image_dark_mode_invert.down,
+    name: '20260423_100000_site_pages_blocks_introduction_image_dark_mode_invert',
   },
   {
     up: migration_20260421_130000_site_pages_blocks_marquee_slider_tables.up,

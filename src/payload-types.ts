@@ -691,6 +691,10 @@ export interface IntroductionBlock {
    * Optionales Bild neben dem Text (z. B. Porträt oder Illustration).
    */
   image?: (number | null) | Media;
+  /**
+   * Im Dark Mode wird das Bild standardmäßig invertiert. Deaktiviere diese Einstellung bei Personen- oder Produktbildern.
+   */
+  imageDarkModeInvert?: boolean | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'introduction';
@@ -3198,6 +3202,7 @@ export interface IntroductionBlockSelect<T extends boolean = true> {
   body?: T;
   tagline?: T;
   image?: T;
+  imageDarkModeInvert?: T;
   id?: T;
   blockName?: T;
 }

@@ -48,5 +48,15 @@ export const Introduction: Block = {
         description: 'Optionales Bild neben dem Text (z. B. Porträt oder Illustration).',
       },
     },
+    {
+      name: 'imageDarkModeInvert',
+      type: 'checkbox',
+      label: 'Bild im Dark Mode invertieren',
+      defaultValue: true,
+      admin: {
+        description:
+          'Im Dark Mode wird das Bild standardmäßig invertiert. Deaktiviere diese Einstellung bei Personen- oder Produktbildern.',
+      },
+    },
   ],
 }

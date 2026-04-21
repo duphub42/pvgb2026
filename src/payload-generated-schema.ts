@@ -278,6 +278,7 @@ export const site_pages_blocks_introduction = sqliteTable(
     image: integer('image_id').references(() => media.id, {
       onDelete: 'set null',
     }),
+    imageDarkModeInvert: integer('image_dark_mode_invert', { mode: 'boolean' }).default(true),
     blockName: text('block_name'),
   },
   (columns) => [
@@ -3121,6 +3122,7 @@ export const _site_pages_v_blocks_introduction = sqliteTable(
     image: integer('image_id').references(() => media.id, {
       onDelete: 'set null',
     }),
+    imageDarkModeInvert: integer('image_dark_mode_invert', { mode: 'boolean' }).default(true),
     _uuid: text('_uuid'),
     blockName: text('block_name'),
   },

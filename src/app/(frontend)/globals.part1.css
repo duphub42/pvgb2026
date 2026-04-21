@@ -1,4 +1,3 @@
-
 /* === Unified Header Icon Button === */
 .header-icon-btn {
   display: flex;
@@ -12,7 +11,10 @@
   background: transparent;
   border: 0;
   color: inherit;
-  transition: background 0.15s, color 0.15s, transform 0.16s cubic-bezier(0.2, 0.8, 0.2, 1);
+  transition:
+    background 0.15s,
+    color 0.15s,
+    transform 0.16s cubic-bezier(0.2, 0.8, 0.2, 1);
   cursor: pointer;
 }
 
@@ -59,10 +61,10 @@
 
 @layer base {
   :root {
-      /* Safari-Fallback: --primary als HEX für color: var(--primary) */
-      --primary: #171717;
-    --type-feature-settings: "cv01", "ss03";
-    --type-variation-settings: "opsz" auto;
+    /* Safari-Fallback: --primary als HEX für color: var(--primary) */
+    --primary: #171717;
+    --type-feature-settings: 'cv01', 'ss03';
+    --type-variation-settings: 'opsz' auto;
     --type-weight-regular: 300;
     --type-weight-medium: 500;
     --type-weight-semibold: 600;
@@ -100,7 +102,11 @@
     --type-display-line-height: 1.2;
     --type-display-letter-spacing: -0.028em;
 
-    --hero-heading-gradient-start: color-mix(in srgb, var(--foreground) 80%, hsl(var(--primary)) 20%);
+    --hero-heading-gradient-start: color-mix(
+      in srgb,
+      var(--foreground) 80%,
+      hsl(var(--primary)) 20%
+    );
     --hero-heading-gradient-mid: color-mix(in srgb, var(--foreground) 60%, hsl(var(--primary)) 40%);
     --hero-heading-gradient-end: hsl(var(--primary));
     --hero-subheading-color: color-mix(in srgb, var(--foreground) 80%, transparent);
@@ -140,8 +146,8 @@
     --confetti-magenta: #ff00ff;
 
     /* Brand Accents */
-    --brand-whatsapp: #25D366;
-    --brand-whatsapp-hover: #20BD5A;
+    --brand-whatsapp: #25d366;
+    --brand-whatsapp-hover: #20bd5a;
 
     /* Semantic Color Primitives - RGB for opacity support */
     --color-slate-50: 248, 250, 252;
@@ -181,20 +187,60 @@
     --color-neutral-950: 10, 10, 10;
 
     /* Gradient Definitions - Centralized */
-    --gradient-hero-impact: linear-gradient(to bottom, rgb(var(--color-neutral-900)), rgb(var(--color-neutral-800)));
-    --gradient-portfolio-data: linear-gradient(to bottom, rgba(var(--color-slate-950), 0.95), rgba(var(--color-slate-900), 0.90), rgba(var(--color-slate-950), 0.95));
-    --gradient-portfolio-visual: linear-gradient(to bottom, white, rgba(239, 246, 255, 0.65), rgba(255, 251, 235, 0.60));
-    --gradient-portfolio-default: linear-gradient(to bottom, rgb(var(--color-slate-50)), white, rgb(var(--color-zinc-50)));
-    --gradient-navigation-menu: linear-gradient(to bottom, hsl(var(--primary)), hsl(var(--primary)));
-    --gradient-sheet-overlay: linear-gradient(to bottom, rgba(var(--color-slate-900), 0.95), rgba(var(--color-slate-950), 0.98));
+    --gradient-hero-impact: linear-gradient(
+      to bottom,
+      rgb(var(--color-neutral-900)),
+      rgb(var(--color-neutral-800))
+    );
+    --gradient-portfolio-data: linear-gradient(
+      to bottom,
+      rgba(var(--color-slate-950), 0.95),
+      rgba(var(--color-slate-900), 0.9),
+      rgba(var(--color-slate-950), 0.95)
+    );
+    --gradient-portfolio-visual: linear-gradient(
+      to bottom,
+      white,
+      rgba(239, 246, 255, 0.65),
+      rgba(255, 251, 235, 0.6)
+    );
+    --gradient-portfolio-default: linear-gradient(
+      to bottom,
+      rgb(var(--color-slate-50)),
+      white,
+      rgb(var(--color-zinc-50))
+    );
+    --gradient-navigation-menu: linear-gradient(
+      to bottom,
+      hsl(var(--primary)),
+      hsl(var(--primary))
+    );
+    --gradient-sheet-overlay: linear-gradient(
+      to bottom,
+      rgba(var(--color-slate-900), 0.95),
+      rgba(var(--color-slate-950), 0.98)
+    );
 
     /* Component-specific Gradients */
-    --gradient-card-spotlight: radial-gradient(800px circle at var(--mouse-x, 0) var(--mouse-y, 0), rgba(255, 255, 255, 0.06), transparent 40%);
-    --gradient-hero-overlay: linear-gradient(to right, rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.30), transparent);
+    --gradient-card-spotlight: radial-gradient(
+      800px circle at var(--mouse-x, 0) var(--mouse-y, 0),
+      rgba(255, 255, 255, 0.06),
+      transparent 40%
+    );
+    --gradient-hero-overlay: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.3),
+      transparent
+    );
   }
 
   [data-theme='dark'] {
-    --hero-heading-gradient-start: color-mix(in srgb, var(--foreground) 95%, hsl(var(--primary)) 5%);
+    --hero-heading-gradient-start: color-mix(
+      in srgb,
+      var(--foreground) 95%,
+      hsl(var(--primary)) 5%
+    );
     --hero-heading-gradient-mid: color-mix(in srgb, var(--foreground) 84%, hsl(var(--primary)) 16%);
     --hero-heading-gradient-end: color-mix(in srgb, var(--foreground) 93%, hsl(var(--primary)) 7%);
     --hero-subheading-color: color-mix(in srgb, var(--foreground) 86%, transparent);
@@ -505,18 +551,18 @@
     min-width: 0;
     overflow-x: hidden;
   }
-  [aria-label="Hero"] .container,
-  [aria-label="Style Preview Hero"] .container,
-  [aria-label="Profil Hero"] .container,
-  [aria-label="Superhero"] .container,
+  [aria-label='Hero'] .container,
+  [aria-label='Style Preview Hero'] .container,
+  [aria-label='Profil Hero'] .container,
+  [aria-label='Superhero'] .container,
   section[data-hero-type='superhero'] .container {
     overflow-x: visible;
   }
 
   /* Style Preview / Profil: wie .hero-box-gradient – sonst wird overflow-y zu auto (innerer Scroll-Rahmen). */
-  [aria-label="Style Preview Hero"] .container,
-  [aria-label="Profil Hero"] .container,
-  [aria-label="Superhero"] .container,
+  [aria-label='Style Preview Hero'] .container,
+  [aria-label='Profil Hero'] .container,
+  [aria-label='Superhero'] .container,
   section[data-hero-type='superhero'] .container {
     overflow-y: visible;
   }
@@ -594,40 +640,13 @@
   }
 
   .hero-shell--superhero section[data-hero-type='superhero']::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: clamp(10rem, 24vh, 16rem);
-    pointer-events: none;
-    z-index: 46;
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 8%, transparent) 24%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 26%, transparent) 46%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 54%, transparent) 68%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 82%, transparent) 86%,
-      var(--hero-next-section-bg, var(--background)) 100%
-    );
-    filter: none;
-    opacity: 0.98;
-    transform: translateZ(0);
+    content: none;
+    display: none;
   }
 
   [data-theme='dark'] .hero-shell--superhero section[data-hero-type='superhero']::after {
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 7%, transparent) 26%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 22%, transparent) 48%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 44%, transparent) 70%,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 72%, transparent) 88%,
-      var(--hero-next-section-bg, var(--background)) 100%
-    );
-    filter: none;
-    opacity: 0.94;
+    content: none;
+    display: none;
   }
 
   @keyframes hero-tech-intro-reveal-soft {
@@ -678,57 +697,93 @@
     }
   }
 
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-bg-image {
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='play']
+    .hero-scroll-bg-image {
     animation: hero-tech-intro-bg-focus 1180ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both;
   }
 
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='pre'] .hero-scroll-content-main,
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='pre'] .hero-scroll-content-copy,
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='pre'] .hero-scroll-content-portrait,
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='pre'] .hero-scroll-layer-eyebrow,
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='pre'] .hero-scroll-layer-headline,
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='pre'] .hero-scroll-layer-body,
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='pre'] .hero-scroll-layer-cta,
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='pre'] .hero-scroll-layer-marquee {
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='pre']
+    .hero-scroll-content-main,
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='pre']
+    .hero-scroll-content-copy,
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='pre']
+    .hero-scroll-content-portrait,
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='pre']
+    .hero-scroll-layer-eyebrow,
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='pre']
+    .hero-scroll-layer-headline,
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='pre']
+    .hero-scroll-layer-body,
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='pre']
+    .hero-scroll-layer-cta,
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='pre']
+    .hero-scroll-layer-marquee {
     opacity: 0;
     filter: blur(8px);
   }
 
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='pre'] .hero-scroll-content-portrait {
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='pre']
+    .hero-scroll-content-portrait {
     filter: blur(7px);
   }
 
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-content-main {
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='play']
+    .hero-scroll-content-main {
     animation: hero-tech-intro-reveal-soft 740ms cubic-bezier(0.16, 1, 0.3, 1) 120ms both;
   }
 
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-content-copy {
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='play']
+    .hero-scroll-content-copy {
     animation:
       hero-tech-intro-reveal-soft 820ms cubic-bezier(0.16, 1, 0.3, 1) 160ms both,
       hero-tech-intro-contrast-bloom 980ms cubic-bezier(0.16, 1, 0.3, 1) 180ms both;
   }
 
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-content-portrait {
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='play']
+    .hero-scroll-content-portrait {
     animation: hero-tech-intro-reveal-crisp 900ms cubic-bezier(0.16, 1, 0.3, 1) 260ms both;
   }
 
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-layer-eyebrow {
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='play']
+    .hero-scroll-layer-eyebrow {
     animation: hero-tech-intro-reveal-soft 520ms cubic-bezier(0.16, 1, 0.3, 1) 180ms both;
   }
 
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-layer-headline {
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='play']
+    .hero-scroll-layer-headline {
     animation: hero-tech-intro-reveal-crisp 760ms cubic-bezier(0.16, 1, 0.3, 1) 230ms both;
   }
 
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-layer-body {
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='play']
+    .hero-scroll-layer-body {
     animation: hero-tech-intro-reveal-soft 700ms cubic-bezier(0.16, 1, 0.3, 1) 300ms both;
   }
 
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-layer-cta {
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='play']
+    .hero-scroll-layer-cta {
     animation: hero-tech-intro-reveal-soft 820ms cubic-bezier(0.16, 1, 0.3, 1) 360ms both;
   }
 
-  .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-layer-marquee {
+  .hero-shell--superhero
+    section[data-hero-type='superhero'][data-hero-intro='play']
+    .hero-scroll-layer-marquee {
     animation: hero-tech-intro-reveal-soft 820ms cubic-bezier(0.16, 1, 0.3, 1) 420ms both;
   }
 
@@ -746,9 +801,15 @@
 
   section[data-hero-type='superhero'] .hero-scroll-content {
     will-change: transform, opacity, filter;
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-content-translate-max)), 0);
+    transform: translate3d(
+      0,
+      calc(var(--hero-scroll-progress) * var(--hero-content-translate-max)),
+      0
+    );
     opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-content-fade-max)));
-    filter: saturate(calc(1 - var(--hero-scroll-content-progress) * var(--hero-content-desaturate-max)));
+    filter: saturate(
+      calc(1 - var(--hero-scroll-content-progress) * var(--hero-content-desaturate-max))
+    );
     transition:
       transform var(--hero-motion-duration-fast) var(--hero-motion-ease),
       opacity var(--hero-motion-duration-fast) var(--hero-motion-ease),
@@ -757,13 +818,21 @@
 
   section[data-hero-type='superhero'] .hero-scroll-content-main {
     will-change: transform;
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-main-translate-max)), 0);
+    transform: translate3d(
+      0,
+      calc(var(--hero-scroll-progress) * var(--hero-main-translate-max)),
+      0
+    );
     transition: transform var(--hero-motion-duration-fast) var(--hero-motion-ease);
   }
 
   section[data-hero-type='superhero'] .hero-scroll-content-copy {
     will-change: transform, opacity;
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-copy-translate-max)), 0);
+    transform: translate3d(
+      0,
+      calc(var(--hero-scroll-progress) * var(--hero-copy-translate-max)),
+      0
+    );
     opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-copy-fade-max)));
     transition:
       transform var(--hero-motion-duration-fast) var(--hero-motion-ease),
@@ -808,16 +877,13 @@
   }
 
   section[data-hero-type='superhero'] .hero-superhero-portrait-media {
-    filter:
-      drop-shadow(var(--hero-portrait-shadow-1))
-      drop-shadow(var(--hero-portrait-shadow-2))
+    filter: drop-shadow(var(--hero-portrait-shadow-1)) drop-shadow(var(--hero-portrait-shadow-2))
       drop-shadow(var(--hero-portrait-shadow-3));
     transition: none;
   }
 
   section[data-hero-type='superhero'] .hero-superhero-portrait-image {
-    filter:
-      blur(calc(var(--hero-portrait-hide-progress) * var(--hero-portrait-blur-max)))
+    filter: blur(calc(var(--hero-portrait-hide-progress) * var(--hero-portrait-blur-max)))
       saturate(calc(1 - var(--hero-portrait-hide-progress) * var(--hero-portrait-desaturate-max)));
     will-change: filter;
     -webkit-mask-image: linear-gradient(
@@ -894,7 +960,11 @@
 
   section[data-hero-type='superhero'] .hero-scroll-layer {
     will-change: transform, opacity, filter;
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-layer-base-translate-max)), 0)
+    transform: translate3d(
+        0,
+        calc(var(--hero-scroll-progress) * var(--hero-layer-base-translate-max)),
+        0
+      )
       scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-base-scale-max)));
     opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-base-fade-max)));
     filter: blur(calc(var(--hero-scroll-content-progress) * var(--hero-layer-base-blur-max)));
@@ -905,47 +975,85 @@
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-eyebrow {
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-layer-eyebrow-translate-max)), 0)
+    transform: translate3d(
+        0,
+        calc(var(--hero-scroll-progress) * var(--hero-layer-eyebrow-translate-max)),
+        0
+      )
       scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-eyebrow-scale-max)));
     opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-eyebrow-fade-max)));
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-headline {
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-layer-headline-translate-max)), 0)
+    transform: translate3d(
+        0,
+        calc(var(--hero-scroll-progress) * var(--hero-layer-headline-translate-max)),
+        0
+      )
       scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-headline-scale-max)));
     opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-headline-fade-max)));
     filter: blur(calc(var(--hero-scroll-content-progress) * var(--hero-layer-headline-blur-max)));
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-body {
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-layer-body-translate-max)), 0)
+    transform: translate3d(
+        0,
+        calc(var(--hero-scroll-progress) * var(--hero-layer-body-translate-max)),
+        0
+      )
       scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-body-scale-max)));
     opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-body-fade-max)));
     filter: blur(calc(var(--hero-scroll-content-progress) * var(--hero-layer-body-blur-max)));
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-cta {
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-layer-cta-translate-max)), 0)
+    transform: translate3d(
+        0,
+        calc(var(--hero-scroll-progress) * var(--hero-layer-cta-translate-max)),
+        0
+      )
       scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-cta-scale-max)));
     opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-cta-fade-max)));
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-marquee {
-    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-layer-marquee-translate-max)), 0)
+    transform: translate3d(
+        0,
+        calc(var(--hero-scroll-progress) * var(--hero-layer-marquee-translate-max)),
+        0
+      )
       scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-marquee-scale-max)));
     opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-marquee-fade-max)));
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-bg-image,
-    .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-content-main,
-    .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-content-copy,
-    .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-content-portrait,
-    .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-layer-eyebrow,
-    .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-layer-headline,
-    .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-layer-body,
-    .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-layer-cta,
-    .hero-shell--superhero section[data-hero-type='superhero'][data-hero-intro='play'] .hero-scroll-layer-marquee {
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-bg-image,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-content-main,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-content-copy,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-content-portrait,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-layer-eyebrow,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-layer-headline,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-layer-body,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-layer-cta,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-layer-marquee {
       animation: none;
     }
 
@@ -994,11 +1102,13 @@
     padding-top: clamp(1rem, 3vh, 2rem);
   }
 
-  section[data-hero-type='superhero'].hero-superhero-no-portrait .hero-scroll-content-main--no-portrait {
+  section[data-hero-type='superhero'].hero-superhero-no-portrait
+    .hero-scroll-content-main--no-portrait {
     min-height: clamp(18rem, 42vh, 34rem);
   }
 
-  section[data-hero-type='superhero'].hero-superhero-no-portrait .hero-scroll-content-copy--no-portrait {
+  section[data-hero-type='superhero'].hero-superhero-no-portrait
+    .hero-scroll-content-copy--no-portrait {
     min-height: clamp(18rem, 40vh, 32rem);
     justify-content: flex-end;
   }
@@ -1008,7 +1118,8 @@
       padding-top: max(calc(var(--header-height, 72px) + 0.75rem), 4.6rem) !important;
     }
 
-    section[data-hero-type='superhero'].hero-superhero-no-portrait .hero-scroll-content--no-portrait {
+    section[data-hero-type='superhero'].hero-superhero-no-portrait
+      .hero-scroll-content--no-portrait {
       /* Mobile ohne Portrait: oberhalb der linken Spalte bewusst viel Hintergrund sichtbar lassen */
       --hero-no-portrait-mobile-top-free-space: clamp(333px, 46svh, 520px);
       min-height: calc(100svh - var(--header-height, 72px) - 0.5rem);
@@ -1017,11 +1128,13 @@
       padding-bottom: clamp(1.75rem, 6vh, 3.25rem);
     }
 
-    section[data-hero-type='superhero'].hero-superhero-no-portrait .hero-scroll-content-main--no-portrait {
+    section[data-hero-type='superhero'].hero-superhero-no-portrait
+      .hero-scroll-content-main--no-portrait {
       min-height: 0;
     }
 
-    section[data-hero-type='superhero'].hero-superhero-no-portrait .hero-scroll-content-copy--no-portrait {
+    section[data-hero-type='superhero'].hero-superhero-no-portrait
+      .hero-scroll-content-copy--no-portrait {
       min-height: 0;
       margin-top: auto;
       padding-top: clamp(0.75rem, 2.6vh, 1.5rem);
@@ -1177,14 +1290,15 @@
     }
   }
 
-  
   /* Sehr kleine Viewports (< 430px): Abstand etwas reduzieren,
      damit mehr Platz für den Hero-Content bleibt. */
   @media (max-width: 429px) {
-    .hero-offset:not([aria-label='Style Preview Hero']):not([aria-label='Profil Hero']):not([data-hero-type='superhero']) {
+    .hero-offset:not([aria-label='Style Preview Hero']):not([aria-label='Profil Hero']):not(
+        [data-hero-type='superhero']
+      ) {
       padding-top: calc((var(--header-height) + 1vh) * 1.12);
     }
-    
+
     /* Superhero Hero auch auf kleinen Viewports mit 8% Abstand */
     [data-hero-type='superhero'].hero-offset {
       padding-top: max(calc(var(--header-height) + 8vh), 8vh);
@@ -1232,18 +1346,8 @@
 
   /* Mask auf dem Portrait-Wrapper (hat reale Höhe), weicher Übergang unten in den Shape-Divider. */
   .hero-portrait-fade-up {
-    mask-image: linear-gradient(
-      to bottom,
-      black 0%,
-      black 75%,
-      transparent 100%
-    );
-    -webkit-mask-image: linear-gradient(
-      to bottom,
-      black 0%,
-      black 75%,
-      transparent 100%
-    );
+    mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, black 0%, black 75%, transparent 100%);
     mask-size: 100% 100%;
     -webkit-mask-size: 100% 100%;
     mask-position: 0 0;
@@ -1301,34 +1405,13 @@
   }
 
   .hero-shell--superhero .hero-following-section-mask::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 0;
-    background: linear-gradient(
-      to bottom,
-      transparent 0,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 26%, transparent)
-        clamp(0.9rem, 2.4vh, 1.45rem),
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 64%, transparent)
-        clamp(2rem, 5.4vh, 3rem),
-      var(--hero-next-section-bg, var(--background)) clamp(3.2rem, 8.2vh, 4.8rem),
-      var(--hero-next-section-bg, var(--background)) 100%
-    );
+    content: none;
+    display: none;
   }
 
   [data-theme='dark'] .hero-shell--superhero .hero-following-section-mask::before {
-    background: linear-gradient(
-      to bottom,
-      transparent 0,
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 18%, transparent)
-        clamp(0.9rem, 2.4vh, 1.45rem),
-      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 52%, transparent)
-        clamp(2rem, 5.4vh, 3rem),
-      var(--hero-next-section-bg, var(--background)) clamp(3.2rem, 8.2vh, 4.8rem),
-      var(--hero-next-section-bg, var(--background)) 100%
-    );
+    content: none;
+    display: none;
   }
 
   .hero-shell--superhero .hero-following-section-mask > * {
@@ -1370,7 +1453,9 @@
     z-index: -1;
     /* var(--background) wie Shape-Divider / Body – vermeidet helle Kante zu den Wellen */
     background: linear-gradient(39deg, var(--background) 37%, transparent 60%);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08), 0 1px 3px rgba(0, 0, 0, 0.06);
+    box-shadow:
+      0 2px 12px rgba(0, 0, 0, 0.08),
+      0 1px 3px rgba(0, 0, 0, 0.06);
     mask-image: linear-gradient(39deg, black 0%, black 48%, transparent 70%);
     -webkit-mask-image: linear-gradient(39deg, black 0%, black 48%, transparent 70%);
     mask-size: 100% 100%;
@@ -1380,7 +1465,9 @@
   }
   [data-theme='dark'] .hero-box-gradient::before {
     background: linear-gradient(39deg, var(--background) 2%, transparent 78%);
-    box-shadow: 0 0 32px rgba(255, 255, 255, 0.08), 0 0 12px rgba(255, 255, 255, 0.04);
+    box-shadow:
+      0 0 32px rgba(255, 255, 255, 0.08),
+      0 0 12px rgba(255, 255, 255, 0.04);
   }
   /* Unmaskierter Verlauf nur unten an der Content-Box – schließt zur Welle ohne extra Section-Layer */
   .hero-box-gradient::after {
@@ -1612,27 +1699,25 @@
 
   .leistungen-hero-footer-fade {
     height: clamp(7rem, 20vh, 14rem);
-    background:
-      linear-gradient(
-        to bottom,
-        transparent 0%,
-        color-mix(in srgb, var(--background) 34%, transparent) 28%,
-        color-mix(in srgb, var(--background) 66%, transparent) 58%,
-        color-mix(in srgb, var(--background) 86%, transparent) 82%,
-        var(--background) 100%
-      );
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--background) 34%, transparent) 28%,
+      color-mix(in srgb, var(--background) 66%, transparent) 58%,
+      color-mix(in srgb, var(--background) 86%, transparent) 82%,
+      var(--background) 100%
+    );
   }
 
   [data-theme='dark'] .leistungen-hero-footer-fade {
-    background:
-      linear-gradient(
-        to bottom,
-        transparent 0%,
-        color-mix(in srgb, var(--background) 32%, transparent) 26%,
-        color-mix(in srgb, var(--background) 64%, transparent) 58%,
-        color-mix(in srgb, var(--background) 84%, transparent) 82%,
-        var(--background) 100%
-      );
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--background) 32%, transparent) 26%,
+      color-mix(in srgb, var(--background) 64%, transparent) 58%,
+      color-mix(in srgb, var(--background) 84%, transparent) 82%,
+      var(--background) 100%
+    );
   }
 
   /* Milchglas-Effekt: sobald der Hero einspaltig ist (gleicher Breakpoint wie Tailwind md / grid md:grid-cols-2) */
@@ -1687,7 +1772,8 @@
   }
 
   @media (max-width: 767px) {
-    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-mobile-sticky-portrait {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']
+      .hero-mobile-sticky-portrait {
       width: 100vw;
       min-width: 100vw;
       max-width: 100vw;
@@ -1724,7 +1810,7 @@
     .hero-mobile-sticky-portrait {
       top: calc(var(--header-height) + 4rem);
     }
-    
+
     /* Superhero Hero: Auf kleinen Viewports noch näher am Header */
     section[data-hero-type='superhero'] .hero-mobile-sticky-portrait {
       top: calc(var(--header-height) + 0.4rem);
@@ -1749,7 +1835,10 @@
       will-change: transform, filter, opacity;
       filter: blur(var(--hero-desktop-portrait-blur, 0px));
       opacity: var(--hero-desktop-portrait-opacity, 1);
-      transition: transform 0.25s ease-out, filter 0.25s ease-out, opacity 0.25s ease-out;
+      transition:
+        transform 0.25s ease-out,
+        filter 0.25s ease-out,
+        opacity 0.25s ease-out;
     }
   }
 
@@ -1764,9 +1853,17 @@
     opacity: 1;
     pointer-events: none;
     background-image:
-      radial-gradient(ellipse 105% 41% at 50% 100%, hsl(var(--primary) / 0.068) 0%, transparent 70%),
+      radial-gradient(
+        ellipse 105% 41% at 50% 100%,
+        hsl(var(--primary) / 0.068) 0%,
+        transparent 70%
+      ),
       radial-gradient(ellipse 86% 33% at 50% 100%, hsl(var(--primary) / 0.038) 0%, transparent 76%),
-      radial-gradient(ellipse 122% 50% at 50% 100%, color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%, transparent 65%);
+      radial-gradient(
+        ellipse 122% 50% at 50% 100%,
+        color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%,
+        transparent 65%
+      );
     background-repeat: no-repeat;
   }
 
@@ -1829,33 +1926,65 @@
     background-image:
       radial-gradient(ellipse 72% 36% at 86% 88%, hsl(var(--primary) / 0.068) 0%, transparent 66%),
       radial-gradient(ellipse 58% 28% at 84% 90%, hsl(var(--primary) / 0.04) 0%, transparent 72%),
-      radial-gradient(ellipse 88% 42% at 82% 92%, color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%, transparent 62%);
+      radial-gradient(
+        ellipse 88% 42% at 82% 92%,
+        color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%,
+        transparent 62%
+      );
   }
 
   @media (min-width: 555px) {
     .hero-background-overlay--behind-portrait {
       background-image:
-        radial-gradient(ellipse 72% 36% at 78% 90%, hsl(var(--primary) / 0.068) 0%, transparent 66%),
+        radial-gradient(
+          ellipse 72% 36% at 78% 90%,
+          hsl(var(--primary) / 0.068) 0%,
+          transparent 66%
+        ),
         radial-gradient(ellipse 58% 28% at 76% 92%, hsl(var(--primary) / 0.04) 0%, transparent 72%),
-        radial-gradient(ellipse 88% 42% at 74% 93%, color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%, transparent 62%);
+        radial-gradient(
+          ellipse 88% 42% at 74% 93%,
+          color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%,
+          transparent 62%
+        );
     }
   }
 
   @media (min-width: 1024px) {
     .hero-background-overlay--behind-portrait {
       background-image:
-        radial-gradient(ellipse 72% 36% at 72% 91%, hsl(var(--primary) / 0.068) 0%, transparent 66%),
+        radial-gradient(
+          ellipse 72% 36% at 72% 91%,
+          hsl(var(--primary) / 0.068) 0%,
+          transparent 66%
+        ),
         radial-gradient(ellipse 58% 28% at 70% 93%, hsl(var(--primary) / 0.04) 0%, transparent 72%),
-        radial-gradient(ellipse 88% 42% at 69% 94%, color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%, transparent 62%);
+        radial-gradient(
+          ellipse 88% 42% at 69% 94%,
+          color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%,
+          transparent 62%
+        );
     }
   }
 
   @media (max-width: 554px) {
     .hero-background-overlay--behind-portrait {
       background-image:
-        radial-gradient(ellipse 68% 34% at 88% 68%, hsl(var(--primary) / 0.064) 0%, transparent 64%),
-        radial-gradient(ellipse 54% 26% at 86% 70%, hsl(var(--primary) / 0.036) 0%, transparent 70%),
-        radial-gradient(ellipse 82% 38% at 84% 72%, color-mix(in hsl, hsl(var(--primary)) 3.8%, transparent) 0%, transparent 60%);
+        radial-gradient(
+          ellipse 68% 34% at 88% 68%,
+          hsl(var(--primary) / 0.064) 0%,
+          transparent 64%
+        ),
+        radial-gradient(
+          ellipse 54% 26% at 86% 70%,
+          hsl(var(--primary) / 0.036) 0%,
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 82% 38% at 84% 72%,
+          color-mix(in hsl, hsl(var(--primary)) 3.8%, transparent) 0%,
+          transparent 60%
+        );
     }
   }
 
@@ -1870,7 +1999,11 @@
     background-image:
       radial-gradient(ellipse 64% 33% at 52% 66%, hsl(var(--primary) / 0.066) 0%, transparent 66%),
       radial-gradient(ellipse 52% 27% at 50% 68%, hsl(var(--primary) / 0.038) 0%, transparent 72%),
-      radial-gradient(ellipse 78% 39% at 48% 70%, color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%, transparent 62%);
+      radial-gradient(
+        ellipse 78% 39% at 48% 70%,
+        color-mix(in hsl, hsl(var(--primary)) 4%, transparent) 0%,
+        transparent 62%
+      );
   }
 
   @media (min-width: 600px) {
@@ -1878,16 +2011,32 @@
       background-image:
         radial-gradient(ellipse 68% 35% at 58% 58%, hsl(var(--primary) / 0.07) 0%, transparent 66%),
         radial-gradient(ellipse 54% 27% at 56% 60%, hsl(var(--primary) / 0.04) 0%, transparent 72%),
-        radial-gradient(ellipse 82% 41% at 54% 62%, color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%, transparent 62%);
+        radial-gradient(
+          ellipse 82% 41% at 54% 62%,
+          color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%,
+          transparent 62%
+        );
     }
   }
 
   @media (min-width: 1024px) {
     .hero-background-overlay--style-preview-portrait {
       background-image:
-        radial-gradient(ellipse 70% 37% at 78% 36%, hsl(var(--primary) / 0.072) 0%, transparent 66%),
-        radial-gradient(ellipse 56% 29% at 76% 38%, hsl(var(--primary) / 0.042) 0%, transparent 72%),
-        radial-gradient(ellipse 86% 43% at 74% 40%, color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%, transparent 62%);
+        radial-gradient(
+          ellipse 70% 37% at 78% 36%,
+          hsl(var(--primary) / 0.072) 0%,
+          transparent 66%
+        ),
+        radial-gradient(
+          ellipse 56% 29% at 76% 38%,
+          hsl(var(--primary) / 0.042) 0%,
+          transparent 72%
+        ),
+        radial-gradient(
+          ellipse 86% 43% at 74% 40%,
+          color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%,
+          transparent 62%
+        );
     }
   }
 
@@ -2117,9 +2266,12 @@
 
   [data-theme='light'] .hero-surface-pattern--honeycomb {
     background:
-      radial-gradient(circle farthest-side at 0% 50%, #d4d4d4 23.5%, rgba(255, 255, 255, 0) 0) 21px 30px,
-      radial-gradient(circle farthest-side at 0% 50%, #a3a3a3 24%, rgba(255, 255, 255, 0) 0) 19px 30px,
-      linear-gradient(#d4d4d4 14%, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0) 85%, #d4d4d4 0) 0 0,
+      radial-gradient(circle farthest-side at 0% 50%, #d4d4d4 23.5%, rgba(255, 255, 255, 0) 0) 21px
+        30px,
+      radial-gradient(circle farthest-side at 0% 50%, #a3a3a3 24%, rgba(255, 255, 255, 0) 0) 19px
+        30px,
+      linear-gradient(#d4d4d4 14%, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0) 85%, #d4d4d4 0)
+        0 0,
       linear-gradient(
           150deg,
           #d4d4d4 24%,
@@ -2156,7 +2308,11 @@
       linear-gradient(45deg, transparent 75%, hsl(var(--foreground) / 0.06) 75%),
       linear-gradient(-45deg, transparent 75%, hsl(var(--foreground) / 0.06) 75%);
     background-size: 16px 16px;
-    background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+    background-position:
+      0 0,
+      0 8px,
+      8px -8px,
+      -8px 0;
   }
 
   .hero-surface-pattern--mmPaper {
@@ -2178,19 +2334,12 @@
   }
 
   .hero-surface-pattern--linesHorizontal {
-    background-image: linear-gradient(
-      hsl(var(--foreground) / 0.08) 1px,
-      transparent 1px
-    );
+    background-image: linear-gradient(hsl(var(--foreground) / 0.08) 1px, transparent 1px);
     background-size: 100% 12px;
   }
 
   .hero-surface-pattern--linesVertical {
-    background-image: linear-gradient(
-      90deg,
-      hsl(var(--foreground) / 0.08) 1px,
-      transparent 1px
-    );
+    background-image: linear-gradient(90deg, hsl(var(--foreground) / 0.08) 1px, transparent 1px);
     background-size: 12px 100%;
   }
 
@@ -2216,8 +2365,16 @@
       ),
       radial-gradient(ellipse 68% 35% at 58% 58%, hsl(var(--primary) / 0.07) 0%, transparent 66%),
       radial-gradient(ellipse 54% 27% at 56% 60%, hsl(var(--primary) / 0.04) 0%, transparent 72%),
-      radial-gradient(ellipse 82% 41% at 54% 62%, color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%, transparent 62%),
-      radial-gradient(ellipse 105% 41% at 50% 100%, hsl(var(--primary) / 0.068) 0%, transparent 70%),
+      radial-gradient(
+        ellipse 82% 41% at 54% 62%,
+        color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%,
+        transparent 62%
+      ),
+      radial-gradient(
+        ellipse 105% 41% at 50% 100%,
+        hsl(var(--primary) / 0.068) 0%,
+        transparent 70%
+      ),
       radial-gradient(ellipse 86% 33% at 50% 100%, hsl(var(--primary) / 0.038) 0%, transparent 76%),
       linear-gradient(
         172deg,
@@ -2237,11 +2394,31 @@
           hsl(var(--primary) / 0.022) 47%,
           transparent 77%
         ),
-        radial-gradient(ellipse 70% 37% at 78% 36%, hsl(var(--primary) / 0.072) 0%, transparent 66%),
-        radial-gradient(ellipse 56% 29% at 76% 38%, hsl(var(--primary) / 0.042) 0%, transparent 72%),
-        radial-gradient(ellipse 86% 43% at 74% 40%, color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%, transparent 62%),
-        radial-gradient(ellipse 105% 41% at 52% 100%, hsl(var(--primary) / 0.068) 0%, transparent 70%),
-        radial-gradient(ellipse 86% 33% at 50% 100%, hsl(var(--primary) / 0.038) 0%, transparent 76%),
+        radial-gradient(
+          ellipse 70% 37% at 78% 36%,
+          hsl(var(--primary) / 0.072) 0%,
+          transparent 66%
+        ),
+        radial-gradient(
+          ellipse 56% 29% at 76% 38%,
+          hsl(var(--primary) / 0.042) 0%,
+          transparent 72%
+        ),
+        radial-gradient(
+          ellipse 86% 43% at 74% 40%,
+          color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%,
+          transparent 62%
+        ),
+        radial-gradient(
+          ellipse 105% 41% at 52% 100%,
+          hsl(var(--primary) / 0.068) 0%,
+          transparent 70%
+        ),
+        radial-gradient(
+          ellipse 86% 33% at 50% 100%,
+          hsl(var(--primary) / 0.038) 0%,
+          transparent 76%
+        ),
         linear-gradient(
           172deg,
           color-mix(in hsl, hsl(var(--primary)) 5%, var(--background)) 0%,
@@ -2396,21 +2573,31 @@
 
   /* Mindesthöhen für Panorama/PlayBook in CSS (keine Tailwind-Varianten). */
   @media (orientation: landscape) and (max-height: 40rem) {
-    .hero-pb-section { min-height: 32rem; }
-    .hero-pb-content-wrapper { min-height: 28rem; }
+    .hero-pb-section {
+      min-height: 32rem;
+    }
+    .hero-pb-content-wrapper {
+      min-height: 28rem;
+    }
     /* In Panorama: mehr Abstand oben in der Hero-Box, damit Inhalt nicht gestaucht wirkt. */
     [data-hero-grid] {
       padding-top: clamp(1.25rem, 5vh, 2.5rem);
     }
   }
   @media (min-width: 37rem) and (max-width: 44rem) {
-    .hero-pb-section { min-height: 888px; }
+    .hero-pb-section {
+      min-height: 888px;
+    }
     /* Content-Wrapper ebenfalls 888px, sonst bleibt die Hero-Box kürzer (Section hat items-end, Container streckt nicht). */
-    .hero-pb-content-wrapper { min-height: 888px; }
+    .hero-pb-content-wrapper {
+      min-height: 888px;
+    }
   }
   /* iPad (48rem–64rem): Mindesthöhe 888px. */
   @media (min-width: 48rem) and (max-width: 64rem) {
-    .hero-pb-section { min-height: 888px; }
+    .hero-pb-section {
+      min-height: 888px;
+    }
   }
 
   /* iPhone SE / sehr kleine Breite (<=375px):
@@ -2917,19 +3104,34 @@
 
   @keyframes hero-premium-overlay-move {
     from {
-      background-position: 0% 50%, 50% 0%, 100% 50%;
+      background-position:
+        0% 50%,
+        50% 0%,
+        100% 50%;
     }
     to {
-      background-position: 100% 50%, 0% 100%, 0% 50%;
+      background-position:
+        100% 50%,
+        0% 100%,
+        0% 50%;
     }
   }
 
   .hero-premium-overlay {
     background-image:
       radial-gradient(circle at 10% 20%, rgba(255, 255, 255, 0.08), transparent 24%),
-      linear-gradient(120deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0) 45%, rgba(255, 255, 255, 0.03) 100%);
-    background-size: 240% 240%, 180% 180%;
-    background-position: 0% 0%, 100% 100%;
+      linear-gradient(
+        120deg,
+        rgba(255, 255, 255, 0.05),
+        rgba(255, 255, 255, 0) 45%,
+        rgba(255, 255, 255, 0.03) 100%
+      );
+    background-size:
+      240% 240%,
+      180% 180%;
+    background-position:
+      0% 0%,
+      100% 100%;
     opacity: 0.05;
     animation: hero-premium-overlay-move 32s linear infinite;
     pointer-events: none;
@@ -3027,49 +3229,33 @@
     bottom: 0;
     opacity: 0.1;
     background:
-      radial-gradient(
-        circle farthest-side at 0% 50%,
-        #282828 23.5%,
-        rgba(0, 0, 0, 0) 0
-      )
-      21px 30px,
-      radial-gradient(
-        circle farthest-side at 0% 50%,
-        #4a4a4a 24%,
-        rgba(0, 0, 0, 0) 0
-      )
-      19px 30px,
+      radial-gradient(circle farthest-side at 0% 50%, #282828 23.5%, rgba(0, 0, 0, 0) 0) 21px 30px,
+      radial-gradient(circle farthest-side at 0% 50%, #4a4a4a 24%, rgba(0, 0, 0, 0) 0) 19px 30px,
+      linear-gradient(#282828 14%, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 85%, #282828 0) 0 0,
       linear-gradient(
-        #282828 14%,
-        rgba(0, 0, 0, 0) 0,
-        rgba(0, 0, 0, 0) 85%,
-        #282828 0
-      )
-      0 0,
+          150deg,
+          #282828 24%,
+          #4a4a4a 0,
+          #4a4a4a 26%,
+          rgba(0, 0, 0, 0) 0,
+          rgba(0, 0, 0, 0) 74%,
+          #4a4a4a 0,
+          #4a4a4a 76%,
+          #282828 0
+        )
+        0 0,
       linear-gradient(
-        150deg,
-        #282828 24%,
-        #4a4a4a 0,
-        #4a4a4a 26%,
-        rgba(0, 0, 0, 0) 0,
-        rgba(0, 0, 0, 0) 74%,
-        #4a4a4a 0,
-        #4a4a4a 76%,
-        #282828 0
-      )
-      0 0,
-      linear-gradient(
-        30deg,
-        #282828 24%,
-        #4a4a4a 0,
-        #4a4a4a 26%,
-        rgba(0, 0, 0, 0) 0,
-        rgba(0, 0, 0, 0) 74%,
-        #4a4a4a 0,
-        #4a4a4a 76%,
-        #282828 0
-      )
-      0 0,
+          30deg,
+          #282828 24%,
+          #4a4a4a 0,
+          #4a4a4a 26%,
+          rgba(0, 0, 0, 0) 0,
+          rgba(0, 0, 0, 0) 74%,
+          #4a4a4a 0,
+          #4a4a4a 76%,
+          #282828 0
+        )
+        0 0,
       linear-gradient(90deg, #4a4a4a 2%, #282828 0, #282828 98%, #4a4a4a 0%) 0 0 #282828;
     background-size: 40px 60px;
   }
@@ -3077,49 +3263,36 @@
   [data-theme='light'] .hero-pattern-bg {
     opacity: 0.15;
     background:
-      radial-gradient(
-        circle farthest-side at 0% 50%,
-        #d4d4d4 23.5%,
-        rgba(255, 255, 255, 0) 0
-      )
-      21px 30px,
-      radial-gradient(
-        circle farthest-side at 0% 50%,
-        #a3a3a3 24%,
-        rgba(255, 255, 255, 0) 0
-      )
-      19px 30px,
+      radial-gradient(circle farthest-side at 0% 50%, #d4d4d4 23.5%, rgba(255, 255, 255, 0) 0) 21px
+        30px,
+      radial-gradient(circle farthest-side at 0% 50%, #a3a3a3 24%, rgba(255, 255, 255, 0) 0) 19px
+        30px,
+      linear-gradient(#d4d4d4 14%, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0) 85%, #d4d4d4 0)
+        0 0,
       linear-gradient(
-        #d4d4d4 14%,
-        rgba(255, 255, 255, 0) 0,
-        rgba(255, 255, 255, 0) 85%,
-        #d4d4d4 0
-      )
-      0 0,
+          150deg,
+          #d4d4d4 24%,
+          #a3a3a3 0,
+          #a3a3a3 26%,
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0) 74%,
+          #a3a3a3 0,
+          #a3a3a3 76%,
+          #d4d4d4 0
+        )
+        0 0,
       linear-gradient(
-        150deg,
-        #d4d4d4 24%,
-        #a3a3a3 0,
-        #a3a3a3 26%,
-        rgba(255, 255, 255, 0) 0,
-        rgba(255, 255, 255, 0) 74%,
-        #a3a3a3 0,
-        #a3a3a3 76%,
-        #d4d4d4 0
-      )
-      0 0,
-      linear-gradient(
-        30deg,
-        #d4d4d4 24%,
-        #a3a3a3 0,
-        #a3a3a3 26%,
-        rgba(255, 255, 255, 0) 0,
-        rgba(255, 255, 255, 0) 74%,
-        #a3a3a3 0,
-        #a3a3a3 76%,
-        #d4d4d4 0
-      )
-      0 0,
+          30deg,
+          #d4d4d4 24%,
+          #a3a3a3 0,
+          #a3a3a3 26%,
+          rgba(255, 255, 255, 0) 0,
+          rgba(255, 255, 255, 0) 74%,
+          #a3a3a3 0,
+          #a3a3a3 76%,
+          #d4d4d4 0
+        )
+        0 0,
       linear-gradient(90deg, #a3a3a3 2%, #d4d4d4 0, #d4d4d4 98%, #a3a3a3 0%) 0 0 #e5e5e5;
     background-size: 40px 60px;
   }
@@ -3189,25 +3362,12 @@
     --s: 200px;
     --c1: var(--hero-pattern-c1, #a0a0a0);
     --c2: var(--hero-pattern-c2, #121212);
-    --_g: var(--c2) 4% 14%, var(--c1) 14% 24%, var(--c2) 22% 34%,
-      var(--c1) 34% 44%, var(--c2) 44% 56%, var(--c1) 56% 66%, var(--c2) 66% 76%,
-      var(--c1) 76% 86%, var(--c2) 86% 96%;
+    --_g:
+      var(--c2) 4% 14%, var(--c1) 14% 24%, var(--c2) 22% 34%, var(--c1) 34% 44%, var(--c2) 44% 56%,
+      var(--c1) 56% 66%, var(--c2) 66% 76%, var(--c1) 76% 86%, var(--c2) 86% 96%;
     background:
-      radial-gradient(
-        100% 100% at 100% 0,
-        var(--c1) 4%,
-        var(--_g),
-        #0008 96%,
-        #0000
-      ),
-      radial-gradient(
-          100% 100% at 0 100%,
-          #0000,
-          #0008 4%,
-          var(--_g),
-          var(--c1) 96%
-        )
-        var(--c1);
+      radial-gradient(100% 100% at 100% 0, var(--c1) 4%, var(--_g), #0008 96%, #0000),
+      radial-gradient(100% 100% at 0 100%, #0000, #0008 4%, var(--_g), var(--c1) 96%) var(--c1);
     background-size: var(--s) var(--s);
   }
 
