@@ -42,7 +42,9 @@ async function main() {
   })
 
   const existingTables = new Set(
-    result.rows?.map((r: { table_name: string }) => r.table_name) || [],
+    ((result.rows ?? []) as Array<Record<string, unknown>>)
+      .map((row) => row.table_name)
+      .filter((tableName): tableName is string => typeof tableName === 'string'),
   )
 
   console.log(`📊 ${existingTables.size} Tabellen gefunden\n`)
@@ -86,20 +88,23 @@ async function main() {
       `,
       })
 
-      const columns = (cols.rows || [])
-        .map(
-          (c: {
-            column_name: string
-            data_type: string
-            is_nullable: string
-            column_default: string | null
-          }) => {
-            let def = `"${c.column_name}" ${c.data_type}`
-            if (c.column_default) def += ` DEFAULT ${c.column_default}`
-            if (c.is_nullable === 'NO' && !c.column_default) def += ` NOT NULL`
-            return def
-          },
-        )
+      const columns = ((cols.rows ?? []) as Array<Record<string, unknown>>)
+        .map((row) => {
+          const columnName =
+            typeof row.column_name === 'string' ? row.column_name : null
+          const dataType = typeof row.data_type === 'string' ? row.data_type : null
+          if (!columnName || !dataType) return null
+
+          const isNullable = typeof row.is_nullable === 'string' ? row.is_nullable : null
+          const columnDefault =
+            typeof row.column_default === 'string' ? row.column_default : null
+
+          let def = `"${columnName}" ${dataType}`
+          if (columnDefault) def += ` DEFAULT ${columnDefault}`
+          if (isNullable === 'NO' && !columnDefault) def += ' NOT NULL'
+          return def
+        })
+        .filter((def): def is string => Boolean(def))
         .join(',\n  ')
 
       sqlOutput += `CREATE TABLE "${table}" (\n  ${columns}\n);\n\n`

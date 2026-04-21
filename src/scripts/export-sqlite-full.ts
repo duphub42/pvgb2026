@@ -41,7 +41,7 @@ const exportData: Record<string, Array<Record<string, unknown>>> = {}
 
 for (const { name: table } of tables) {
   try {
-    const rows = db.prepare(`SELECT * FROM "${table}"`).all()
+    const rows = db.prepare(`SELECT * FROM "${table}"`).all() as Array<Record<string, unknown>>
     exportData[table] = rows
 
     fs.writeFileSync(path.join(exportDir, `${table}.json`), JSON.stringify(rows, null, 2))
