@@ -42,15 +42,46 @@ export const Logo = (props: Props) => {
   const sizeClass = variant === 'footer' ? logoSizeFooterClass : logoSizeClass
   const animateClass = disableAnimation ? undefined : 'logo-animate'
 
-  if (logo && typeof logo === 'object' && 'url' in logo) {
+  const streamPathForId = (id: number) => `/api/media/stream/${id}`
+
+  if (logo && typeof logo === 'object') {
+    const logoObject = logo as MediaType
+    const logoUrl = logoObject.url ?? logoObject.sizes?.thumbnail?.url ?? ''
+
+    if (logoUrl) {
+      return (
+        <Media
+          resource={logoObject}
+          imgClassName={clsx(sizeClass, invertClass, animateClass, className)}
+          loading={loading}
+          priority={priority === 'high'}
+          alt={logoObject.alt ?? 'Logo'}
+          disableBlurPlaceholder
+        />
+      )
+    }
+
+    if (typeof logoObject.id === 'number' && Number.isFinite(logoObject.id) && logoObject.id > 0) {
+      return (
+        <img
+          src={streamPathForId(logoObject.id)}
+          alt={logoObject.alt ?? 'Logo'}
+          className={clsx(sizeClass, invertClass, animateClass, className)}
+          loading={loading}
+          decoding="async"
+        />
+      )
+    }
+  }
+
+  if (typeof logo === 'number' && Number.isFinite(logo) && logo > 0) {
     return (
-      <Media
-        resource={logo}
-        imgClassName={clsx(sizeClass, invertClass, animateClass, className)}
+      <img
+        src={streamPathForId(logo)}
+        alt="Logo"
+        className={clsx(sizeClass, invertClass, animateClass, className)}
         loading={loading}
-        priority={priority === 'high'}
-        alt={(logo as MediaType).alt ?? 'Logo'}
-        disableBlurPlaceholder
+        decoding="async"
       />
     )
   }

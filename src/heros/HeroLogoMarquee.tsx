@@ -1,6 +1,6 @@
 'use client'
 
-import { getMediaUrlSafe } from '@/utils/media'
+import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 import { Marquee } from '@/components/ui/marquee'
 import { ResilientImage } from '@/components/ui/resilient-image'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
@@ -33,19 +33,7 @@ const MARQUEE_CONTAINER_STYLE: React.CSSProperties = {
 }
 
 function resolveLogoSrc(logoField: unknown): string {
-  if (logoField == null) return ''
-  if (typeof logoField === 'number' && Number.isFinite(logoField)) {
-    return `/api/media/stream/${logoField}`
-  }
-  const directUrl = getMediaUrlSafe(logoField)
-  if (directUrl) return directUrl
-  if (typeof logoField === 'object' && logoField !== null && 'id' in logoField) {
-    const id = (logoField as { id?: unknown }).id
-    if (typeof id === 'number' && Number.isFinite(id)) {
-      return `/api/media/stream/${id}`
-    }
-  }
-  return ''
+  return resolveHeroImageSrc(logoField) ?? ''
 }
 
 /**

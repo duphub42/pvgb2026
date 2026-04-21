@@ -50,7 +50,7 @@ const CosmicThemeSwitch = ({ isDark }: { isDark: boolean }) => {
   const transition = { type: 'spring' as const, stiffness: 380, damping: 28 }
   const mode = isDark ? 'dark' : 'light'
   return (
-    <motion.div animate={mode} initial={false}>
+    <motion.div animate={mode} initial={mode}>
       <motion.svg
         width="20"
         height="20"
@@ -64,10 +64,9 @@ const CosmicThemeSwitch = ({ isDark }: { isDark: boolean }) => {
           r="9"
           stroke="currentColor"
           strokeWidth="1.5"
-          strokeOpacity="0.35"
           variants={{
-            light: { rotate: 0, scale: 1 },
-            dark: { rotate: 35, scale: 0.92 },
+            light: { rotate: 0, scale: 1, strokeOpacity: 0.35 },
+            dark: { rotate: 35, scale: 0.92, strokeOpacity: 0.08 },
           }}
           transition={transition}
         />

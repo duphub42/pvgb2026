@@ -10,6 +10,7 @@ import { cn } from '@/utilities/ui'
 
 import type { Header, Media as MediaType } from '@/payload-types'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
+import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 import { Logo } from '@/components/Logo/Logo'
 import { LogoWithGlitch } from '@/components/Logo/LogoWithGlitch'
@@ -235,12 +236,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   // Support both logo (camelCase) and logo_id (snake_case from DB)
   const logoData = headerData.logo ?? headerData.logo_id
   const resolvedLogo = logoData && typeof logoData === 'object' ? (logoData as MediaType) : null
-  const hasCustomLogo = resolvedLogo != null
-  const rawLogoUrl = resolvedLogo?.url ?? resolvedLogo?.sizes?.thumbnail?.url ?? null
-  // Use getMediaUrl with cacheTag to match ImageMedia behavior (avoids URL mismatch)
-  const logoUrl = resolvedLogo?.updatedAt
-    ? getMediaUrl(rawLogoUrl, resolvedLogo.updatedAt)
-    : getMediaUrl(rawLogoUrl)
+  const hasCustomLogo = logoData != null
+  const logoUrl = resolvedLogo?.url
+    ? resolvedLogo.updatedAt
+      ? getMediaUrl(resolvedLogo.url, resolvedLogo.updatedAt)
+      : getMediaUrl(resolvedLogo.url)
+    : resolveHeroImageSrc(logoData) ?? ''
 
   const renderPrimaryLogo = (disableAnimation?: boolean) => {
     if (hasCustomLogo && logoUrl) {
@@ -249,7 +250,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
           <Logo
             loading="eager"
             priority="high"
-            logo={resolvedLogo}
+            logo={logoData ?? null}
             variant="header"
             disableAnimation={disableAnimation}
           />
