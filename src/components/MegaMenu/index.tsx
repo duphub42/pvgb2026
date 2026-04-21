@@ -97,17 +97,8 @@ type MediaRef =
   | number
   | null
 
-const MEGA_MENU_SPRITE_ICON_ALIASES: Array<{ id: string; test: RegExp }> = [
-  { id: 'hf-webdesign', test: /(webdesign|website|webseite|homepage)/i },
-  { id: 'hf-print-grafikdesign', test: /(print|grafik|grafikdesign)/i },
-  { id: 'hf-keynotes', test: /(keynote|keynotes|praesent|präsent|slides|pitch)/i },
-  { id: 'hf-seo', test: /(\bseo\b|ranking|suchmaschinenoptimierung)/i },
-  { id: 'hf-smm-suchmaschinenmarketing', test: /(\bsem\b|ads|suchmaschinenmarketing)/i },
-  { id: 'hf-content-creation', test: /(content|copywriting|redaktion|story)/i },
-  { id: 'hf-ci-corporate-identity', test: /(corporate identity|\bci\b|brand identity)/i },
-  { id: 'hf-logo-design', test: /(logo|logodesign|logo-design)/i },
-  { id: 'hf-markenstrategie', test: /(markenstrategie|brand strategy|strategie)/i },
-]
+// Sprite aliases disabled: fallback icon components are used when no explicit media icon exists.
+const MEGA_MENU_SPRITE_ICON_ALIASES: Array<{ id: string; test: RegExp }> = []
 
 function getMediaObject(media: MediaRef): Exclude<MediaRef, number | null> | null {
   if (media == null || typeof media !== 'object') return null

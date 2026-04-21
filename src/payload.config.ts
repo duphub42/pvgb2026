@@ -71,10 +71,23 @@ const r2AccessKeyId = process.env.R2_ACCESS_KEY_ID?.trim()
 const r2SecretAccessKey = process.env.R2_SECRET_ACCESS_KEY?.trim()
 const r2Bucket = process.env.R2_BUCKET?.trim()
 const r2Enabled = !!(r2AccountId && r2AccessKeyId && r2SecretAccessKey && r2Bucket)
+const vercelBlobToken = process.env.BLOB_READ_WRITE_TOKEN?.trim()
+const isVercel = Boolean(
+  process.env.VERCEL === '1' ||
+  process.env.VERCEL === 'true' ||
+  process.env.VERCEL_URL ||
+  process.env.VERCEL_PROJECT_PRODUCTION_URL,
+)
 
 console.log('[Payload Config] R2 Status:', r2Enabled ? 'ENABLED' : 'DISABLED')
+console.log('[Payload Config] Vercel Blob Token:', vercelBlobToken ? 'SET' : 'MISSING')
 if (r2Enabled) {
   console.log('[Payload Config] R2 Bucket:', r2Bucket)
+}
+if (vercelBlobToken && !r2Enabled) {
+  console.warn(
+    '[Payload] BLOB_READ_WRITE_TOKEN is set, but this config currently does not wire Vercel Blob storage into Payload. Use Cloudflare R2 env vars instead, or add a compatible media storage plugin.',
+  )
 }
 
 // Production (z. B. Vercel): Fehlende Env-Variablen sofort melden, damit das Admin nicht weiß bleibt
@@ -91,6 +104,12 @@ if (typeof process !== 'undefined' && process.env.NODE_ENV === 'production') {
   ) {
     throw new Error(
       '[Payload] In Production müssen DATABASE_URL oder POSTGRES_URL gesetzt sein (Vercel: Settings → Environment Variables). Ohne DB lädt das Admin nicht. Für SQLite-Builds: USE_SQLITE=true setzen.',
+    )
+  }
+
+  if (isVercel && !r2Enabled) {
+    throw new Error(
+      '[Payload] In Vercel Production muss Cloudflare R2 für Media-Uploads konfiguriert sein. Setze R2_ACCOUNT_ID, R2_ACCESS_KEY_ID, R2_SECRET_ACCESS_KEY und R2_BUCKET. BLOB_READ_WRITE_TOKEN ist im aktuellen Setup nicht automatisch aktiviert.',
     )
   }
 } else if (

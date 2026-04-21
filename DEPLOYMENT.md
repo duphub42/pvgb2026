@@ -32,9 +32,10 @@ In the Vercel project: **Settings → Environment Variables**. Add these for **P
 | `DATABASE_URL` | Neon connection string (pooled) | `postgresql://user:pass@ep-xxx.neon.tech/neondb?sslmode=require` |
 | `PAYLOAD_SECRET` | Secret for Payload (JWT/session); use a long random string | e.g. generate with `openssl rand -hex 32` |
 | `NEXT_PUBLIC_SERVER_URL` | Public URL of the site (no trailing slash) | `https://your-app.vercel.app` |
-| `BLOB_READ_WRITE_TOKEN` | Vercel Blob storage token (for Media uploads); **Pflicht in Production** | From Vercel project → Storage → Blob |
+| `R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY`, `R2_BUCKET` | Cloudflare R2 credentials used by the current media storage setup | From Cloudflare R2 dashboard |
+| `BLOB_READ_WRITE_TOKEN` | Vercel Blob storage token; not used by the current storage plugin | From Vercel project → Storage → Blob |
 
-**Wichtig – Media/Bilder bleiben erhalten:** Vercel Blob Storage ist ein separates System. Deployments ersetzen nur den Code, **nicht** die Blob-Daten. Bereits hochgeladene Bilder gehen bei einem Deploy nicht verloren, solange `BLOB_READ_WRITE_TOKEN` gesetzt ist und immer derselbe Token (dasselbe Vercel-Projekt/Storage) verwendet wird. Token in **Production** und **Preview** identisch lassen, damit alle Deployments dieselben Blob-Daten nutzen.
+**Wichtig – Media/Bilder bleiben erhalten:** Dieses Template nutzt aktuell Cloudflare R2 für Media-Uploads, nicht Vercel Blob. Lokale Deployments oder Vercel Production können keine persistenten Uploads in `public/media` speichern. Wenn ihr Vercel Blob verwenden möchtet, müsst ihr zusätzlich einen passenden Payload-Storage-Adapter konfigurieren.
 | `PREVIEW_SECRET` | Live Preview in Admin; **min. 12 characters** | e.g. `openssl rand -hex 12` |
 | `CRON_SECRET` | Optional; for securing cron endpoints | Optional long random string |
 

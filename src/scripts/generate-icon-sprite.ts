@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename)
 const projectRoot = path.resolve(__dirname, '../..')
 const mediaDir = path.join(projectRoot, 'data', 'export', 'media')
 const outputPath = path.join(projectRoot, 'public', 'icons-sprite.svg')
+const includeMediaSymbols = process.env.INCLUDE_MEDIA_SPRITE === 'true'
 
 const LOGO_EXCLUDE_PATTERNS = ['philippbacher-logo', 'weblogo-philippbacher', 'favicon']
 
@@ -31,30 +32,34 @@ async function extractSvgContent(source: string): Promise<string> {
 
 async function generateSprite() {
   try {
-    const entries = await fs.readdir(mediaDir, { withFileTypes: true })
-    const svgFiles = entries
-      .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.svg'))
-      .filter(
-        (entry) =>
-          !LOGO_EXCLUDE_PATTERNS.some((pattern) =>
-            entry.name.toLowerCase().includes(pattern.toLowerCase()),
-          ),
-      )
-
     const symbols: string[] = []
 
-    for (const entry of svgFiles) {
-      const filePath = path.join(mediaDir, entry.name)
-      const raw = await fs.readFile(filePath, 'utf8')
-      const inner = await extractSvgContent(raw)
-      const id = createSymbolId(entry.name)
-      symbols.push(
-        [
-          `<symbol id="${id}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">`,
-          inner,
-          '</symbol>',
-        ].join('\n'),
-      )
+    // By default we only include a compact core icon set.
+    // The full media export sprite can be enabled explicitly when needed.
+    if (includeMediaSymbols) {
+      const entries = await fs.readdir(mediaDir, { withFileTypes: true })
+      const svgFiles = entries
+        .filter((entry) => entry.isFile() && entry.name.toLowerCase().endsWith('.svg'))
+        .filter(
+          (entry) =>
+            !LOGO_EXCLUDE_PATTERNS.some((pattern) =>
+              entry.name.toLowerCase().includes(pattern.toLowerCase()),
+            ),
+        )
+
+      for (const entry of svgFiles) {
+        const filePath = path.join(mediaDir, entry.name)
+        const raw = await fs.readFile(filePath, 'utf8')
+        const inner = await extractSvgContent(raw)
+        const id = createSymbolId(entry.name)
+        symbols.push(
+          [
+            `<symbol id="${id}" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">`,
+            inner,
+            '</symbol>',
+          ].join('\n'),
+        )
+      }
     }
 
     const lucideSymbols = [
@@ -124,7 +129,7 @@ async function generateSprite() {
 
      
     console.log(
-      `Generated icon sprite with ${symbols.length} symbols at ${path.relative(
+      `Generated icon sprite with ${symbols.length + lucideSymbols.length} symbols (${includeMediaSymbols ? 'with' : 'without'} media export symbols) at ${path.relative(
         projectRoot,
         outputPath,
       )}`,

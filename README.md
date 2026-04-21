@@ -66,9 +66,9 @@ After you click the `Deploy` button above, you'll want to have standalone copy o
 ### Development
 
 1. First [clone the repo](#clone) if you have not done so already
-2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `POSTGRES_URL` and `BLOB_READ_WRITE_TOKEN` from your Vercel project to your `.env` if you want to use Vercel Blob and the Neon database that was created for you.
+2. `cd my-project && cp .env.example .env` to copy the example environment variables. You'll need to add the `POSTGRES_URL` and the Cloudflare R2 credentials from your R2 bucket to your `.env` if you want to use cloud media storage with Neon.
 
-   > _NOTE: If the connection string value includes `localhost` or `127.0.0.1`, the code will automatically use a normal postgres adapter instead of Vercel._. You can override this functionality by setting `forceUseVercelPostgres: true` if desired.
+   > _NOTE: If the connection string value includes `localhost` or `127.0.0.1`, the code will automatically use a normal postgres adapter instead of Vercel. You can override this functionality by setting `forceUseVercelPostgres: true` if desired._
 
 3. `pnpm install && pnpm dev` to install dependencies and start the dev server
 4. open `http://localhost:3000` to open the app in your browser
@@ -80,7 +80,7 @@ That's it! Changes made in `./src` will be reflected in your app. Follow the on-
 - **Code:** Alles lokal entwickeln → `git push` → Vercel baut und deployed automatisch.
 - **Lokal mit Neon (empfohlen, eine DB):** In `.env` die **DATABASE_URL** (Neon-Connection-String) eintragen und lokal **`pnpm run dev:neon`** starten. Dann nutzt die App dieselbe Neon-Datenbank wie Vercel – SQLite ist überflüssig, Export/Import entfällt. Änderungen im lokalen Admin landen direkt in Neon und erscheinen nach dem nächsten Deploy auf der Live-Seite.
 - **Lokal mit SQLite (optional):** Ohne `DATABASE_URL` bzw. mit **`pnpm run dev`** (ohne `dev:neon`) nutzt die App **SQLite** (`payload.db`) – sinnvoll, wenn ihr offline oder ohne Neon-Verbindung arbeiten wollt. Inhalte dann ggf. mit `export:local` → `import:neon` nachziehen.
-- **Bilder:** Werden im Admin hochgeladen und in **Vercel Blob** gespeichert (URLs in der DB). Mit `dev:neon` und gleichem `BLOB_READ_WRITE_TOKEN` in der `.env` nutzt ihr lokal dieselben Bilder wie online.
+- **Bilder:** Werden im Admin hochgeladen und in **Cloudflare R2** gespeichert, wenn die R2-Umgebungsvariablen gesetzt sind. In Vercel Production ist lokalere Speicherung in `public/media` nicht zuverlässig, weil Deployments nur schreibgeschütztes Dateisystem haben.
 - **Optional – EWWW Easy IO (ExactDN):** Mit einem [EWWW.io](https://ewww.io)-Account könnt ihr Bilder über die Easy-IO-CDN ausliefern (Kompression, WebP/AVIF, Resize per Query-Parameter). Site im EWWW-Dashboard hinzufügen, ExactDN-Zone aktivieren, dann in Vercel bzw. `.env` die Variable **`NEXT_PUBLIC_EXACTDN_DOMAIN`** setzen (z.B. `abc123.exactdn.com`). Alle über `getMediaUrl()` ausgegebenen Bild-URLs werden dann automatisch auf die CDN-URL umgeschrieben.
 - **Weniger HTTP-Requests (PageSpeed):** Icons und Logos unter dem Fold (Footer, MegaMenu, Hero-Marquee) nutzen `loading="lazy"` und `decoding="async"`, sodass weniger Requests beim ersten Laden anfallen. Große Inhaltsbilder laufen über `next/image` und werden von Vercel optimiert. Optional: `ANALYZE=true pnpm run build` zeigt das JS-Bundle; `optimizePackageImports` in `next.config.js` reduziert bereits Chunks für Radix/Lucide/Motion.
 
