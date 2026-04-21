@@ -30,6 +30,7 @@ const MIME_TYPES: Record<string, string> = {
   '.avif': 'image/avif',
   '.ico': 'image/x-icon',
   '.pdf': 'application/pdf',
+  '.json': 'application/json',
   '.mp4': 'video/mp4',
   '.webm': 'video/webm',
   '.mov': 'video/quicktime',

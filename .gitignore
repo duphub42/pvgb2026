@@ -39,3 +39,4 @@ tmp-*
 tmp-design-check/
 .cursor/debug*.log
 tsconfig.tsbuildinfo
+.env*.local
