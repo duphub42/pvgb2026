@@ -51,6 +51,8 @@ const ARRAY_TABLES_REQUIRING_UUID = [
   '_site_pages_v_blocks_media_block',
   '_site_pages_v_blocks_archive',
   '_site_pages_v_blocks_form_block',
+  '_site_pages_v_blocks_marquee_slider_rows',
+  '_site_pages_v_blocks_marquee_slider_rows_items',
 ]
 
 /** Erwartete Spalten pro Tabelle (Payload-Schema aus Collections/Globals + Migrationen). */
