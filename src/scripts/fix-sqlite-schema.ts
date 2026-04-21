@@ -65,6 +65,17 @@ function sqlite3Scalar(dbPath: string, sql: string): string {
   }).trim()
 }
 
+/** Liefert jede Ergebniszeile als Array-Eintrag zurück. */
+function sqlite3Lines(dbPath: string, sql: string): string[] {
+  const out = execFileSync('sqlite3', [dbPath, sql], {
+    encoding: 'utf8',
+    maxBuffer: 1024 * 1024,
+  }).trim()
+
+  if (!out) return []
+  return out.split('\n').map((line) => line.trim()).filter(Boolean)
+}
+
 /**
  * Payload speichert Array-Zeilen-IDs als Text (ObjectId/UUID). INTEGER-PK → LibSQL „datatype mismatch“.
  */
@@ -1714,6 +1725,7 @@ function main() {
     '_prof_cta_v',
     '_site_pages_v_blocks_price_calculator',
     '_site_pages_v_blocks_pricingTable',
+    '_pricing_table_v',
     '_site_pages_v_blocks_cal_popup',
     '_contact_cards_v',
     '_site_pages_v_blocks_cta',
@@ -1725,6 +1737,53 @@ function main() {
 
   for (const table of disableInversionTables) {
     const stepName = `${table}: block_background_image_disable_inversion`
+    const sql = `ALTER TABLE "${table}" ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;`
+    try {
+      runSqlite3(dbPath, sql)
+      console.log('OK:', stepName)
+    } catch (e) {
+      const err = e as { message?: string; stderr?: string }
+      const msg = `${err.message ?? ''}\n${typeof err.stderr === 'string' ? err.stderr : ''}`
+      const skip =
+        msg.includes('no such table') ||
+        msg.includes('duplicate column name') ||
+        msg.includes('already exists')
+      if (skip) {
+        const line = msg.split('\n').find((l) => l.includes('Error:')) ?? msg.split('\n')[0]
+        if (line) console.warn(line)
+        console.warn('Übersprungen:', stepName)
+      } else {
+        console.error(msg.trim())
+        throw e
+      }
+    }
+  }
+
+  // Safety net: alle Tabellen mit block_background_image_id müssen auch
+  // block_background_image_disable_inversion besitzen.
+  const dynamicDisableInversionTables = sqlite3Lines(
+    dbPath,
+    `
+      SELECT name
+      FROM sqlite_master m
+      WHERE m.type = 'table'
+        AND m.name NOT LIKE 'sqlite_%'
+        AND EXISTS (
+          SELECT 1
+          FROM pragma_table_info(m.name)
+          WHERE name = 'block_background_image_id'
+        )
+        AND NOT EXISTS (
+          SELECT 1
+          FROM pragma_table_info(m.name)
+          WHERE name = 'block_background_image_disable_inversion'
+        )
+      ORDER BY name;
+    `,
+  )
+
+  for (const table of dynamicDisableInversionTables) {
+    const stepName = `${table}: block_background_image_disable_inversion (dynamic)`
     const sql = `ALTER TABLE "${table}" ADD COLUMN block_background_image_disable_inversion INTEGER DEFAULT 0;`
     try {
       runSqlite3(dbPath, sql)
