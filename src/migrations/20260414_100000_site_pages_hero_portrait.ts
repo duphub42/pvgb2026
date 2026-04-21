@@ -1,23 +1,18 @@
-import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-postgres'
+import { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
 
 export async function up({ db }: MigrateUpArgs): Promise<void> {
-  await db.execute(
-    sql.raw(`
+  await db.execute(`
       ALTER TABLE "site_pages" 
       ADD COLUMN IF NOT EXISTS "hero_portrait_id" integer;
-    `),
-  )
+    `)
 
-  await db.execute(
-    sql.raw(`
+  await db.execute(`
       ALTER TABLE "_site_pages_v" 
       ADD COLUMN IF NOT EXISTS "hero_portrait_id" integer;
-    `),
-  )
+    `)
 
   // Add foreign key constraint if not exists
-  await db.execute(
-    sql.raw(`
+  await db.execute(`
       DO $$
       BEGIN
         IF NOT EXISTS (
@@ -30,14 +25,12 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
           FOREIGN KEY ("hero_portrait_id") REFERENCES "media"("id") ON DELETE SET NULL ON UPDATE NO ACTION;
         END IF;
       END $$;
-    `),
-  )
+    `)
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {
   // Remove foreign key constraint if exists
-  await db.execute(
-    sql.raw(`
+  await db.execute(`
       DO $$
       BEGIN
         IF EXISTS (
@@ -49,21 +42,16 @@ export async function down({ db }: MigrateDownArgs): Promise<void> {
           DROP CONSTRAINT "site_pages_hero_portrait_id_fkey";
         END IF;
       END $$;
-    `),
-  )
+    `)
 
   // Remove column if exists
-  await db.execute(
-    sql.raw(`
+  await db.execute(`
       ALTER TABLE "site_pages" 
       DROP COLUMN IF EXISTS "hero_portrait_id";
-    `),
-  )
+    `)
 
-  await db.execute(
-    sql.raw(`
+  await db.execute(`
       ALTER TABLE "_site_pages_v" 
       DROP COLUMN IF EXISTS "hero_portrait_id";
-    `),
-  )
+    `)
 }
