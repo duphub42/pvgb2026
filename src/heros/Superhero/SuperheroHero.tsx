@@ -411,7 +411,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               setBgImageFailed(false)
             }}
             priority
-            unoptimized={Boolean(renderBgSrc.startsWith('/api/') || renderBgSrc.startsWith('http'))}
+            unoptimized={Boolean(renderBgSrc?.startsWith('http'))}
           />
         </div>
       )}
@@ -576,9 +576,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                   className="hero-superhero-portrait-image object-contain object-center md:object-right-center"
                   sizes="(max-width: 767px) 100vw, (max-width: 1280px) 48vw, 780px"
                   priority
-                  unoptimized={Boolean(
-                    portraitSrc.startsWith('/api/') || portraitSrc.startsWith('http'),
-                  )}
+                  unoptimized={Boolean(portraitSrc.startsWith('http'))}
                 />
               </div>
             </div>
