@@ -3,6 +3,11 @@ import type { ElementType, Ref } from 'react'
 
 import type { Media as MediaType } from '@/payload-types'
 
+export interface ThemeResource {
+  light?: MediaType | string | number | null
+  dark?: MediaType | string | number | null
+}
+
 export interface Props {
   alt?: string
   className?: string
@@ -16,6 +21,7 @@ export interface Props {
   priority?: boolean // for NextImage only
   ref?: Ref<HTMLImageElement | HTMLVideoElement | null>
   resource?: MediaType | string | number | null // for Payload media
+  themeResource?: ThemeResource
   size?: string // for NextImage only
   src?: StaticImageData // for static media
   /** Set to true to avoid blur placeholder (prevents hydration mismatch with Next.js Image) */
