@@ -351,7 +351,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   const effectiveContentVerticalAlignment = portraitSrc
     ? normalizedContentVerticalAlignment
     : 'bottom'
-  const heroMinHeight = portraitSrc ? 'min(100vh, 800px)' : 'max(100svh, 42rem)'
+  const heroHeight = 'clamp(666px, 88vh, 999px)'
   const normalizedPageSlug = (pageSlug ?? '').trim().toLowerCase()
   const isHomeHero =
     normalizedPageSlug === '' || normalizedPageSlug === '/' || normalizedPageSlug === 'home'
@@ -375,7 +375,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         !hasRenderableBg && 'bg-background',
         !portraitSrc && 'hero-superhero-no-portrait',
       )}
-      style={{ isolation: 'isolate', minHeight: heroMinHeight }}
+      style={{ isolation: 'isolate', minHeight: heroHeight }}
       data-hero-intro="play"
       data-hero-variant="popout"
       data-hero-type={dataHeroType ?? 'superhero'}
@@ -457,7 +457,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         >
           <div
             className={cn(
-              'hero-scroll-content-copy relative min-w-0 flex flex-col space-y-[clamp(1rem,2.5vh,1.5rem)] max-md:z-[16] max-md:order-2 max-md:flex-shrink-0 max-md:h-auto md:relative md:z-[10] md:min-h-0 md:max-w-3xl lg:min-h-[clamp(400px,62vh,680px)]',
+              'hero-scroll-content-copy relative min-w-0 flex flex-col space-y-[clamp(1rem,2.5vh,1.5rem)] max-md:z-[16] max-md:order-2 max-md:flex-shrink-0 max-md:h-auto md:relative md:z-[20] md:min-h-0 md:max-w-3xl lg:min-h-[clamp(400px,62vh,680px)]',
               portraitSrc &&
                 'hero-mobile-glass max-md:-mx-4 max-md:rounded-t-2xl max-md:px-4 max-md:pt-[clamp(1.5rem,6vh,2rem)] max-md:pb-[clamp(1rem,4vh,1.5rem)] max-md:-mt-[clamp(6.5rem,17vh,8.25rem)]',
               !portraitSrc && 'hero-scroll-content-copy--no-portrait',
@@ -568,7 +568,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                   src={portraitSrc}
                   alt=""
                   fill
-                  className="hero-superhero-portrait-image object-contain object-bottom md:object-right-bottom"
+                  className="hero-superhero-portrait-image object-contain object-center md:object-right-center"
                   sizes="(max-width: 767px) 100vw, (max-width: 1280px) 48vw, 780px"
                   priority
                   unoptimized={Boolean(portraitSrc.startsWith('/api/') || portraitSrc.startsWith('http'))}

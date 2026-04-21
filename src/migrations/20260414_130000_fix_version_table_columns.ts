@@ -1,4 +1,4 @@
-import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-postgres'
+import { MigrateDownArgs, MigrateUpArgs } from '@payloadcms/db-postgres'
 
 export async function up({ db }: MigrateUpArgs): Promise<void> {
   // Fix missing columns in version table
@@ -47,9 +47,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   ]
 
   for (const column of versionColumns) {
-    await db.execute(
-      sql.raw(`ALTER TABLE "_site_pages_v" ADD COLUMN IF NOT EXISTS ${column};`)
-    )
+    await db.execute(`ALTER TABLE "_site_pages_v" ADD COLUMN IF NOT EXISTS ${column};`)
   }
 }
 

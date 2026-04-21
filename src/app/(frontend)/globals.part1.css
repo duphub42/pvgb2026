@@ -1063,8 +1063,8 @@
 
     section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-superhero-portrait {
       justify-self: center;
-      margin-left: clamp(-9rem, -10vw, -1.5rem);
-      margin-right: clamp(-8rem, -10vw, -1.25rem);
+      margin-left: clamp(-6rem, -8vw, -1rem);
+      margin-right: clamp(-5rem, -7vw, -1rem);
     }
   }
 
