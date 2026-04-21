@@ -5,11 +5,11 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   const versionColumns = [
     'version_hero_background_glow boolean DEFAULT true',
     'version_hero_subheadline text',
-    'version_hero_label text', 
+    'version_hero_label text',
     'version_hero_badge text',
     'version_hero_headline text',
     'version_hero_headline_line1 text',
-    'version_hero_headline_line2 text', 
+    'version_hero_headline_line2 text',
     'version_hero_headline_line3 text',
     'version_hero_description text',
     'version_hero_background_preset_id integer',
@@ -43,7 +43,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     'version_meta_image_id integer',
     'version_updated_at timestamp',
     'version_created_at timestamp',
-    'version__status text'
+    'version__status text',
   ]
 
   for (const column of versionColumns) {

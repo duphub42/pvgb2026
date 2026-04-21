@@ -159,16 +159,12 @@ export function BlockContainer({
     // Isolation für z-index
     (hasBackground || hasOverlay) && 'isolate',
     // User custom classes
-    className
+    className,
   )
 
   // Content wrapper - handles content spacing
   const contentSpacing = styles?.blockContentSpacing ?? 'default'
-  const contentClasses = cn(
-    'relative z-10',
-    containerClasses,
-    contentSpacingMap[contentSpacing]
-  )
+  const contentClasses = cn('relative z-10', containerClasses, contentSpacingMap[contentSpacing])
 
   const animationVariant = animationVariants[animation] || animationVariants.default
 
@@ -197,7 +193,9 @@ export function BlockContainer({
       className={wrapperClasses}
     >
       <Component className="contents">
-        {hasOverlay && <div aria-hidden className="absolute inset-0 rounded-inherit" style={overlayStyle} />}
+        {hasOverlay && (
+          <div aria-hidden className="absolute inset-0 rounded-inherit" style={overlayStyle} />
+        )}
         <div className={contentClasses}>{children}</div>
       </Component>
     </motion.div>

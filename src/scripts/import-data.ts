@@ -132,7 +132,7 @@ function mapRelations(
       const nextPath = currentPath ? `${currentPath}.${key}` : key
       const collectionHint = fieldToCollection[key]
       if (collectionHint && idMaps[collectionHint] && typeof val === 'number') {
-        out[key] = idMaps[collectionHint][val] ?? val
+        out[key] = idMaps[collectionHint][val] ?? null
       } else {
         out[key] = mapRelations(val, idMaps, fieldToCollection, nextPath)
       }
@@ -153,6 +153,8 @@ const FIELD_TO_COLLECTION: Record<string, string> = {
   parent: 'site-pages',
   author: 'users',
   contactForm: 'forms',
+  form: 'forms',
+  form_id: 'forms',
 }
 
 const RELATION_COLLECTIONS = new Set(['site-pages', 'blog-posts', 'media', 'users', 'forms'])

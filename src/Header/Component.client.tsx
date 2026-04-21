@@ -241,7 +241,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     ? resolvedLogo.updatedAt
       ? getMediaUrl(resolvedLogo.url, resolvedLogo.updatedAt)
       : getMediaUrl(resolvedLogo.url)
-    : resolveHeroImageSrc(logoData) ?? ''
+    : (resolveHeroImageSrc(logoData) ?? '')
 
   const renderPrimaryLogo = (disableAnimation?: boolean) => {
     if (hasCustomLogo && logoUrl) {
@@ -418,6 +418,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
         revealFromTop={revealFromTop}
       />
       <header
+        suppressHydrationWarning
         className={cn('site-header z-50 w-full fixed top-0 left-0 right-0')}
         {...(resolvedTheme ? { 'data-theme': resolvedTheme } : {})}
         data-scrolled={isScrolled ? 'true' : undefined}

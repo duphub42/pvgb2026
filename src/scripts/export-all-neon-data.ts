@@ -27,21 +27,21 @@ const contentTables = [
   'site_pages',
   'site_pages_v',
   '_site_pages_v',
-  
+
   // Navigation
   'mega_menu',
   'mega_menu_sub_items',
   'mega_menu_columns',
   'mega_menu_columns_items',
-  
+
   // Media
   'media',
-  
+
   // Preisrechner
   'price_calc_categories',
   'price_calc_items',
   'price_calculator',
-  
+
   // Globals
   'header',
   'header_nav_items',
@@ -53,12 +53,12 @@ const contentTables = [
   'footer_nav_items',
   'design',
   'theme_settings',
-  
+
   // User/Blog
   'users',
   'categories',
   'blog_posts',
-  
+
   // Forms
   'forms',
   'form_submissions',
@@ -67,66 +67,62 @@ const contentTables = [
 async function main() {
   const client = new Client({ connectionString: url })
   await client.connect()
-  
+
   console.log('🔌 Verbinde mit Neon...')
   console.log(`💾 Export wird gespeichert in: data/neon-full-export-${timestamp}/\n`)
-  
+
   const exportData: Record<string, Array<Record<string, unknown>>> = {}
-  
+
   for (const table of contentTables) {
     try {
       // Prüfen ob Tabelle existiert
-      const checkRes = await client.query(`
+      const checkRes = await client.query(
+        `
         SELECT 1 FROM information_schema.tables 
         WHERE table_schema = 'public' AND table_name = $1
-      `, [table])
-      
+      `,
+        [table],
+      )
+
       if (checkRes.rows.length === 0) {
         console.log(`⚠️  ${table}: Tabelle existiert nicht`)
         continue
       }
-      
+
       // Daten exportieren
       const dataRes = await client.query(`SELECT * FROM "${table}"`)
       exportData[table] = dataRes.rows
-      
+
       console.log(`✅ ${table}: ${dataRes.rows.length} Zeilen`)
-      
+
       // Einzelne JSON-Datei pro Tabelle
-      fs.writeFileSync(
-        path.join(exportDir, `${table}.json`),
-        JSON.stringify(dataRes.rows, null, 2)
-      )
-      
+      fs.writeFileSync(path.join(exportDir, `${table}.json`), JSON.stringify(dataRes.rows, null, 2))
     } catch (e) {
       console.error(`❌ ${table}: ${(e as Error).message}`)
     }
   }
-  
+
   // Gesamt-Export
-  fs.writeFileSync(
-    path.join(exportDir, '_all-data.json'),
-    JSON.stringify(exportData, null, 2)
-  )
-  
+  fs.writeFileSync(path.join(exportDir, '_all-data.json'), JSON.stringify(exportData, null, 2))
+
   // Meta-Datei
   const meta = {
     exportedAt: new Date().toISOString(),
     database: 'neon',
-    tables: Object.keys(exportData).map(k => ({ table: k, count: exportData[k].length })),
-    totalRows: Object.values(exportData).reduce((sum, arr) => sum + arr.length, 0)
+    tables: Object.keys(exportData).map((k) => ({ table: k, count: exportData[k].length })),
+    totalRows: Object.values(exportData).reduce((sum, arr) => sum + arr.length, 0),
   }
   fs.writeFileSync(path.join(exportDir, '_meta.json'), JSON.stringify(meta, null, 2))
-  
+
   await client.end()
-  
+
   console.log(`\n📊 Export-Übersicht:`)
   console.log(`   Tabellen: ${Object.keys(exportData).length}`)
   console.log(`   Gesamtzeilen: ${meta.totalRows}`)
   console.log(`\n💾 Gespeichert in: data/neon-full-export-${timestamp}/`)
 }
 
-main().catch(e => {
+main().catch((e) => {
   console.error('❌ Fehler:', e)
   process.exit(1)
 })

@@ -164,8 +164,8 @@ export function SaveButton({
             (status === 'idle'
               ? 'bg-[rgb(var(--button-bg-idle))] text-[rgb(var(--button-text-idle))] dark:bg-[rgb(var(--button-bg-idle-dark))] dark:text-[rgb(var(--button-text-idle-dark))]'
               : status === 'saving'
-              ? 'bg-[rgb(var(--button-bg-saving))] text-[rgb(var(--button-text-idle-dark))]'
-              : 'bg-[rgb(var(--button-bg-saved))] text-[rgb(var(--button-text-idle-dark))]'),
+                ? 'bg-[rgb(var(--button-bg-saving))] text-[rgb(var(--button-text-idle-dark))]'
+                : 'bg-[rgb(var(--button-bg-saved))] text-[rgb(var(--button-text-idle-dark))]'),
           variant === 'footer' &&
             (status === 'saved'
               ? 'bg-[rgb(var(--button-bg-saved))] text-[rgb(var(--button-text-footer))]'

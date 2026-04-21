@@ -2324,6 +2324,7 @@ export function MegaMenu({
       />
       {/* Background Blur Overlay – 1:1 test2 */}
       <div
+        suppressHydrationWarning
         className={cn(
           'megamenu-overlay fixed inset-0 z-50 bg-background/20 backdrop-blur-md pointer-events-none opacity-0 transition-[opacity] duration-[220ms] ease-[cubic-bezier(0.25,0.1,0.25,1)]',
           activeMenu != null && 'opacity-100 pointer-events-auto',
@@ -2331,6 +2332,7 @@ export function MegaMenu({
       />
 
       <header
+        suppressHydrationWarning
         className={cn('megamenu z-50 w-full', className)}
         data-scrolled={isScrolled ? 'true' : undefined}
         data-sticky={isPastFold ? 'true' : undefined}
@@ -2351,7 +2353,7 @@ export function MegaMenu({
             setHideToTop(false)
           }}
         >
-            <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
+          <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
             <div className="header-main-row flex flex-1 items-stretch justify-between">
               {React.isValidElement<{ className?: string }>(logo) ? (
                 React.cloneElement(logo, {

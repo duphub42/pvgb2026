@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
-import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
@@ -14,12 +13,7 @@ import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 
-// Force dynamic rendering to avoid build-time database access
-// which fails when Payload cannot initialize globals during static generation
-export const dynamic = 'force-dynamic'
-
-// ISR disabled during build: Use 'force-dynamic' to skip static generation
-// Production will use ISR for better caching via middleware if needed
+export const revalidate = 60
 
 type PageProps = {
   params: Promise<{ slug?: string }>
@@ -113,9 +107,7 @@ export default async function Page({
   const { slug = 'home' } = await paramsPromise
   const searchParams = await searchParamsPromise
   const previewId = searchParams?.previewId
-  // Calling draftMode() unconditionally makes the whole route dynamic/no-store.
   // In production we rely on explicit previewId for previews and keep public pages cacheable.
-  const isDraftMode = process.env.NODE_ENV === 'development' ? (await draftMode()).isEnabled : false
 
   let payload
   try {
@@ -219,21 +211,7 @@ export default async function Page({
   const resolvedSlug = slug || 'home'
 
   try {
-    let pages: { docs: SitePage[] }
-
-    if (isDraftMode) {
-      pages = await payload.find({
-        collection: 'site-pages',
-        limit: 1,
-        depth: 2,
-        where: {
-          and: [{ slug: { equals: resolvedSlug } }],
-        },
-        draft: true,
-      })
-    } else {
-      pages = await findPublishedPageBySlug(resolvedSlug, 2)
-    }
+    const pages: { docs: SitePage[] } = await findPublishedPageBySlug(resolvedSlug, 2)
 
     const page = pages.docs[0]
     if (!page) {

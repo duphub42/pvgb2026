@@ -111,9 +111,9 @@ export function ThemeSwitcher({
             className={cn(
               'absolute inset-0 m-auto h-5 w-5 transform-gpu transition-all duration-300 ease-out motion-reduce:transition-none',
               mounted
-                ? isDark
+                ? !isDark
                   ? 'opacity-100 rotate-0 scale-100'
-                  : 'pointer-events-none opacity-35 rotate-12 scale-90 translate-x-[0.18rem] -translate-y-[0.08rem]'
+                  : 'pointer-events-none opacity-0 rotate-12 scale-90 translate-x-[0.18rem] -translate-y-[0.08rem]'
                 : 'opacity-100 rotate-0 scale-100',
             )}
           />
@@ -123,8 +123,8 @@ export function ThemeSwitcher({
               'absolute inset-0 m-auto h-5 w-5 transform-gpu transition-all duration-300 ease-out motion-reduce:transition-none',
               mounted
                 ? isDark
-                  ? 'pointer-events-none opacity-35 -rotate-12 scale-90 -translate-x-[0.18rem] translate-y-[0.08rem]'
-                  : 'opacity-100 rotate-0 scale-100'
+                  ? 'opacity-100 rotate-0 scale-100'
+                  : 'pointer-events-none opacity-0 -rotate-12 scale-90 -translate-x-[0.18rem] translate-y-[0.08rem]'
                 : 'opacity-35 -rotate-12 scale-90 -translate-x-[0.18rem] translate-y-[0.08rem]',
             )}
           />

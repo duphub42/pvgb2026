@@ -41,7 +41,9 @@ async function main() {
   `,
   })
 
-  const existingTables = new Set(result.rows?.map((r: { table_name: string }) => r.table_name) || [])
+  const existingTables = new Set(
+    result.rows?.map((r: { table_name: string }) => r.table_name) || [],
+  )
 
   console.log(`📊 ${existingTables.size} Tabellen gefunden\n`)
 
@@ -85,12 +87,19 @@ async function main() {
       })
 
       const columns = (cols.rows || [])
-        .map((c: { column_name: string; data_type: string; is_nullable: string; column_default: string | null }) => {
-          let def = `"${c.column_name}" ${c.data_type}`
-          if (c.column_default) def += ` DEFAULT ${c.column_default}`
-          if (c.is_nullable === 'NO' && !c.column_default) def += ` NOT NULL`
-          return def
-        })
+        .map(
+          (c: {
+            column_name: string
+            data_type: string
+            is_nullable: string
+            column_default: string | null
+          }) => {
+            let def = `"${c.column_name}" ${c.data_type}`
+            if (c.column_default) def += ` DEFAULT ${c.column_default}`
+            if (c.is_nullable === 'NO' && !c.column_default) def += ` NOT NULL`
+            return def
+          },
+        )
         .join(',\n  ')
 
       sqlOutput += `CREATE TABLE "${table}" (\n  ${columns}\n);\n\n`

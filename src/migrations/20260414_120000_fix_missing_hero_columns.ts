@@ -5,11 +5,11 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   const columns = [
     'hero_background_glow boolean DEFAULT true',
     'hero_subheadline text',
-    'hero_label text', 
+    'hero_label text',
     'hero_badge text',
     'hero_headline text',
     'hero_headline_line1 text',
-    'hero_headline_line2 text', 
+    'hero_headline_line2 text',
     'hero_headline_line3 text',
     'hero_description text',
     'hero_background_preset_id integer',
@@ -43,7 +43,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     'meta_image_id integer',
     'updated_at timestamp',
     'created_at timestamp',
-    '_status text'
+    '_status text',
   ]
 
   for (const column of columns) {

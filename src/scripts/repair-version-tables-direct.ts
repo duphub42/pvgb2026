@@ -20,10 +20,10 @@ if (!DATABASE_URL) {
 console.log('🔗 Verbinde mit:', DATABASE_URL.replace(/:([^:@]+)@/, ':****@'))
 
 const VERSION_TABLE_MAPPINGS: Record<string, string> = {
-  '_site_pages_v_version_hero_stats': 'site_pages_hero_stats',
-  '_site_pages_v_version_hero_marquee_logos': 'site_pages_hero_marquee_logos',
-  '_site_pages_v_version_hero_links': 'site_pages_hero_links',
-  '_site_pages_v_version_hero_floating_elements': 'site_pages_hero_floating_elements',
+  _site_pages_v_version_hero_stats: 'site_pages_hero_stats',
+  _site_pages_v_version_hero_marquee_logos: 'site_pages_hero_marquee_logos',
+  _site_pages_v_version_hero_links: 'site_pages_hero_links',
+  _site_pages_v_version_hero_floating_elements: 'site_pages_hero_floating_elements',
 }
 
 async function main() {
@@ -69,20 +69,30 @@ async function main() {
 
     if (existingTables.has(mainTable)) {
       // Hole Struktur
-      const colsRes = await client.query(`
+      const colsRes = await client.query(
+        `
         SELECT column_name, data_type, is_nullable, column_default
         FROM information_schema.columns
         WHERE table_schema = 'public' AND table_name = $1
         ORDER BY ordinal_position
-      `, [mainTable])
+      `,
+        [mainTable],
+      )
 
       const columns = colsRes.rows
-        .map((c: { column_name: string; data_type: string; is_nullable: string; column_default: string | null }) => {
-          let def = `"${c.column_name}" ${c.data_type}`
-          if (c.column_default) def += ` DEFAULT ${c.column_default}`
-          if (c.is_nullable === 'NO' && !c.column_default) def += ` NOT NULL`
-          return def
-        })
+        .map(
+          (c: {
+            column_name: string
+            data_type: string
+            is_nullable: string
+            column_default: string | null
+          }) => {
+            let def = `"${c.column_name}" ${c.data_type}`
+            if (c.column_default) def += ` DEFAULT ${c.column_default}`
+            if (c.is_nullable === 'NO' && !c.column_default) def += ` NOT NULL`
+            return def
+          },
+        )
         .join(',\n  ')
 
       sqlOutput += `CREATE TABLE "${vTable}" (\n  ${columns}\n);\n\n`

@@ -30,19 +30,22 @@ const expectedTables = [
 async function main() {
   const client = new Client({ connectionString: url })
   await client.connect()
-  
+
   console.log('📋 Neon Schema-Check\n')
-  
+
   for (const table of expectedTables) {
-    const res = await client.query(`
+    const res = await client.query(
+      `
       SELECT 1 FROM information_schema.tables 
       WHERE table_schema = 'public' AND table_name = $1
-    `, [table])
-    
+    `,
+      [table],
+    )
+
     const exists = res.rows.length > 0
     console.log(`${exists ? '✅' : '❌'} ${table}`)
   }
-  
+
   // Alle existierenden Tabellen anzeigen
   const allTables = await client.query(`
     SELECT table_name 
@@ -51,9 +54,9 @@ async function main() {
     AND table_type = 'BASE TABLE'
     ORDER BY table_name
   `)
-  
+
   console.log(`\n📊 Insgesamt ${allTables.rows.length} Tabellen in Neon`)
-  
+
   await client.end()
 }
 
