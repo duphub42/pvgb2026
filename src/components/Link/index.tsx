@@ -1,6 +1,7 @@
 import { Button, type ButtonProps } from '@/components/ui/button'
 import { cn } from '@/utilities/ui'
-import * as Icons from 'lucide-react'
+import { ArrowUpRight, ChevronRight } from 'lucide-react'
+import { DynamicIcon, iconNames } from 'lucide-react/dynamic'
 import NextLink from 'next/link'
 import React from 'react'
 
@@ -11,6 +12,13 @@ function LinkFallback(props: React.AnchorHTMLAttributes<HTMLAnchorElement> & { h
   return <a {...props} href={props.href ?? '#'} />
 }
 const Link = NextLink ?? LinkFallback
+
+type LucideIconName = (typeof iconNames)[number]
+
+const findLucideIconName = (candidate: string): LucideIconName | null => {
+  const found = iconNames.find((iconName) => iconName === candidate)
+  return found ?? null
+}
 
 type CMSLinkType = {
   appearance?: 'inline' | ButtonProps['variant']
@@ -73,25 +81,31 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
   const size = resolvedAppearance === 'link' ? 'default' : sizeFromProps
   const newTabProps = newTab ? { rel: 'noopener noreferrer', target: '_blank' } : {}
 
-  const iconRegistry = Icons as unknown as Record<string, React.ComponentType<{ size?: number }>>
-
-  const resolveLucideIcon = (name?: string | null): React.ComponentType<{ size?: number }> | null => {
+  const resolveLucideIconName = (name?: string | null): LucideIconName | null => {
     const value = (name ?? '').trim()
     if (!value) return null
 
     const normalized = value
       .replace(/^lucide[-_: ]*/i, '')
-      .replace(/[-_\s]+(.)?/g, (_, c) => (c ? c.toUpperCase() : ''))
-    const pascal = normalized ? normalized.charAt(0).toUpperCase() + normalized.slice(1) : ''
+      .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
+      .replace(/[_\s]+/g, '-')
+      .replace(/-+/g, '-')
+      .toLowerCase()
 
-    return iconRegistry[value] ?? iconRegistry[pascal] ?? null
+    const direct = value.toLowerCase()
+
+    return findLucideIconName(value) ?? findLucideIconName(direct) ?? findLucideIconName(normalized)
+  }
+
+  const renderIcon = (name: LucideIconName) => {
+    if (name === 'chevron-right') return <ChevronRight size={16} />
+    if (name === 'arrow-up-right') return <ArrowUpRight size={16} />
+
+    return <DynamicIcon name={name} size={16} />
   }
 
   /* Get Lucide icon component if specified */
-  const IconComponent = resolveLucideIcon(icon)
-
-  const ChevronRight = Icons.ChevronRight
-  const ArrowUpRight = Icons.ArrowUpRight
+  const iconName = resolveLucideIconName(icon)
 
   /* Ensure we don't break any styles set by richText */
   const linkContent =
@@ -116,25 +130,25 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   // Build content with icon swap animation if enabled
   const shouldEnableIconSwap = enableIconSwap ?? resolvedAppearance === 'cta'
-  const IconSwapFrom = resolveLucideIcon(iconSwapFrom) ?? IconComponent ?? ChevronRight
-  const IconSwapTo = resolveLucideIcon(iconSwapTo) ?? ArrowUpRight
+  const iconSwapFromName = resolveLucideIconName(iconSwapFrom) ?? iconName ?? 'chevron-right'
+  const iconSwapToName = resolveLucideIconName(iconSwapTo) ?? 'arrow-up-right'
 
   const buttonContent = shouldEnableIconSwap ? (
     <>
       {linkContent}
       <span className="megamenu-special-icon-swap inline-flex shrink-0">
         <span className="megamenu-special-icon-layer megamenu-special-icon-layer--a">
-          <IconSwapFrom size={16} />
+          {renderIcon(iconSwapFromName)}
         </span>
         <span className="megamenu-special-icon-layer megamenu-special-icon-layer--b">
-          <IconSwapTo size={16} />
+          {renderIcon(iconSwapToName)}
         </span>
       </span>
     </>
-  ) : IconComponent ? (
+  ) : iconName ? (
     <>
       {linkContent}
-      <IconComponent size={16} />
+      {renderIcon(iconName)}
     </>
   ) : (
     linkContent

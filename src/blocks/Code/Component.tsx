@@ -1,10 +1,14 @@
 'use client'
 
+import dynamic from 'next/dynamic'
 import React from 'react'
 
-import { Code } from './Component.client'
 import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 import { BlockContainer } from '@/components/BlockContainer'
+
+const Code = dynamic(() => import('./Component.client').then((mod) => mod.Code), {
+  ssr: false,
+})
 
 export type CodeBlockProps = {
   code: string

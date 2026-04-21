@@ -49,6 +49,37 @@ export const Introduction: Block = {
       },
     },
     {
+      name: 'useLottie',
+      type: 'checkbox',
+      label: 'Lottie statt Bild verwenden',
+      defaultValue: false,
+      admin: {
+        description: 'Wenn aktiviert, wird anstelle des normalen Bildes eine Lottie-Datei an der gleichen Position gezeigt.',
+      },
+    },
+    {
+      name: 'lottieLight',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Lottie für helles Theme',
+      admin: {
+        description: 'Wähle die Lottie-Datei (.json) für das helle Theme.',
+        condition: (_: unknown, siblingData: { useLottie?: boolean } | null | undefined) =>
+          Boolean(siblingData?.useLottie),
+      },
+    },
+    {
+      name: 'lottieDark',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Lottie für dunkles Theme',
+      admin: {
+        description: 'Wähle die Lottie-Datei (.json) für das dunkle Theme.',
+        condition: (_: unknown, siblingData: { useLottie?: boolean } | null | undefined) =>
+          Boolean(siblingData?.useLottie),
+      },
+    },
+    {
       name: 'imageDarkModeInvert',
       type: 'checkbox',
       label: 'Bild im Dark Mode invertieren',

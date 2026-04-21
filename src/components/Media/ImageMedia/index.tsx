@@ -91,6 +91,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
 
   const resolvedSrc: StaticImageData | string =
     typeof src === 'string' ? srcCandidates[candidateIndex] ?? src : src
+  const fallbackSrc = typeof resolvedSrc === 'string' ? resolvedSrc : resolvedSrc.src
 
   // NOTE: this is used by the browser to determine which image to download at different screen sizes
   const sizes = sizeFromProps
@@ -111,6 +112,27 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   const placeholderProp = useBlurPlaceholder
     ? { placeholder: 'blur' as const, blurDataURL: placeholderBlur }
     : { placeholder: 'empty' as const }
+
+  const needsFallbackImg = !fill && (typeof width !== 'number' || typeof height !== 'number')
+
+  if (needsFallbackImg) {
+    return (
+      <div className={cn(pictureClassName)}>
+        <img
+          alt={alt || ''}
+          className={cn(imgClassName)}
+          loading={loading}
+          src={fallbackSrc}
+          style={{ width: '100%', height: 'auto' }}
+          onError={() => {
+            if (typeof src === 'string' && candidateIndex < srcCandidates.length - 1) {
+              setCandidateIndex((i) => i + 1)
+            }
+          }}
+        />
+      </div>
+    )
+  }
 
   // With fill, Next/Image renders a positioned wrapper; wrapping in <picture> can cause invalid nesting and hydration mismatch. Use div when fill.
   const Wrapper = fill ? 'div' : 'picture'

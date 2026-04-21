@@ -692,6 +692,18 @@ export interface IntroductionBlock {
    */
   image?: (number | null) | Media;
   /**
+   * Wenn aktiviert, wird anstelle des normalen Bildes eine Lottie-Datei an der gleichen Position gezeigt.
+   */
+  useLottie?: boolean | null;
+  /**
+   * Wähle die Lottie-Datei (.json) für das helle Theme.
+   */
+  lottieLight?: (number | null) | Media;
+  /**
+   * Wähle die Lottie-Datei (.json) für das dunkle Theme.
+   */
+  lottieDark?: (number | null) | Media;
+  /**
    * Im Dark Mode wird das Bild standardmäßig invertiert. Deaktiviere diese Einstellung bei Personen- oder Produktbildern.
    */
   imageDarkModeInvert?: boolean | null;
@@ -3202,6 +3214,9 @@ export interface IntroductionBlockSelect<T extends boolean = true> {
   body?: T;
   tagline?: T;
   image?: T;
+  useLottie?: T;
+  lottieLight?: T;
+  lottieDark?: T;
   imageDarkModeInvert?: T;
   id?: T;
   blockName?: T;

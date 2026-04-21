@@ -24,6 +24,9 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
     body,
     tagline,
     image,
+    useLottie,
+    lottieLight,
+    lottieDark,
     imageDarkModeInvert = true,
     index = 0,
     ...styleProps
@@ -32,6 +35,8 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
   // Style-Props direkt an BlockContainer übergeben
   const styles = styleProps as unknown as BlockStyles
   const hasImage = image != null && typeof image === 'object'
+  const showLottie = useLottie && (lottieLight || lottieDark)
+  const hasMedia = hasImage || showLottie
 
   const taglineLines =
     typeof tagline === 'string' && tagline.trim() ? tagline.split('\n').filter((l) => l.trim()) : []
@@ -41,10 +46,10 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
       <div
         className={cn(
           'grid items-center gap-10',
-          hasImage
+          hasMedia
             ? 'lg:grid-cols-[minmax(0,1fr)_minmax(18rem,34rem)] xl:min-h-[clamp(20rem,32vw,30rem)]'
             : 'max-w-3xl',
-          hasImage && 'sm:px-0 px-0',
+          hasMedia && 'sm:px-0 px-0',
         )}
       >
         <div className={cn('min-w-0', hasImage && 'xl:max-w-3xl')}>
@@ -77,7 +82,7 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
           )}
         </div>
 
-        {hasImage && (
+        {hasMedia && (
           <div
             className={cn(
               'relative isolate w-full',
@@ -88,10 +93,11 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
           >
             <Media
               className="w-full"
-              resource={image as MediaType}
+              resource={showLottie ? undefined : (image as MediaType)}
+              themeResource={showLottie ? { light: lottieLight, dark: lottieDark } : undefined}
               imgClassName={cn(
                 'w-full h-auto max-h-[750px] object-contain xl:max-h-[840px]',
-                imageDarkModeInvert && 'dark:invert',
+                !showLottie && imageDarkModeInvert && 'dark:invert',
               )}
             />
           </div>
