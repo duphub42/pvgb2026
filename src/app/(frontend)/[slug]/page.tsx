@@ -174,7 +174,12 @@ export default async function Page({
             className={cn('hero-safe-top', previewIsSuperheroHero && 'hero-shell--superhero')}
             style={{ ['--hero-next-section-bg' as string]: previewNextSectionBackground }}
           >
-            <div className={cn('relative isolate z-[32]', !previewIsSuperheroHero && 'hero-bottom-border')}>
+            <div
+              className={cn(
+                'relative isolate z-[32]',
+                !previewIsSuperheroHero && 'hero-bottom-border',
+              )}
+            >
               <SectionReveal>
                 <HeroErrorBoundary>
                   <RenderHero {...pageById.hero} pageSlug={previewSlug} />

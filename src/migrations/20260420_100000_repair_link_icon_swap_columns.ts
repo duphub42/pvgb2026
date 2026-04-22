@@ -8,7 +8,8 @@ import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-vercel-postg
  * runtime queries during Next build/prerender.
  */
 export async function up({ db }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
 DO $$
 DECLARE
   row RECORD;
@@ -75,7 +76,8 @@ BEGIN
     END IF;
   END LOOP;
 END $$;
-`))
+`),
+  )
 
   console.log('Migration completed: repaired link icon swap columns on link tables')
 }

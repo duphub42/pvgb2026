@@ -138,6 +138,21 @@ export const RenderBlocks: React.FC<{
           const overlay = getResolvedBlockOverlay(b)
           const hasBackground = Boolean((bg && bg !== 'none') || bgImageUrl)
           const hasOverlay = Boolean(overlay?.enabled && overlay.opacity != null)
+          const isLastBlock = index === blocks.length - 1
+
+          const spacingClass =
+            index === 0
+              ? isProfilBlock
+                ? 'mt-[-1px] mb-6 md:mb-8'
+                : 'mt-[-1px] mb-16'
+              : isProfilBlock
+                ? 'my-6 md:my-8'
+                : 'my-16'
+
+          const className = cn(
+            spacingClass,
+            isLastBlock && hasBackground && 'mb-0',
+          )
 
           return (
             <AnimateBlock
@@ -147,15 +162,7 @@ export const RenderBlocks: React.FC<{
                   : `${blockType}-${index}`
               }
               // Erster Block: mt-[-1px] schließt an den Hero-Shape-Divider an; kein pt-[8vh], damit kein großer Leerraum oberhalb des Contents.
-              className={
-                index === 0
-                  ? isProfilBlock
-                    ? 'mt-[-1px] mb-6 md:mb-8'
-                    : 'mt-[-1px] mb-16'
-                  : isProfilBlock
-                    ? 'my-6 md:my-8'
-                    : 'my-16'
-              }
+              className={className}
               variants={blurryFadeIn}
               viewport={{ once: true, amount: 0.14 }}
               transition={{
@@ -178,7 +185,8 @@ export const RenderBlocks: React.FC<{
                   aria-hidden
                   className={cn(
                     'render-block-background-image',
-                    b.blockBackgroundImageDisableInversion && 'render-block-background-image--no-invert',
+                    b.blockBackgroundImageDisableInversion &&
+                      'render-block-background-image--no-invert',
                   )}
                   style={getBlockBackgroundImageStyle(bgImageUrl)}
                 />
@@ -190,7 +198,13 @@ export const RenderBlocks: React.FC<{
                   style={getBlockOverlayStyle(overlay) ?? undefined}
                 />
               )}
-              <div className={hasBackground || hasOverlay ? 'relative z-10 py-8' : 'bg-transparent'}>
+              <div
+                className={
+                  hasBackground || hasOverlay
+                    ? cn('relative z-10 py-8', isLastBlock && hasBackground && 'pb-16')
+                    : 'bg-transparent'
+                }
+              >
                 {isArchive ? (
                   <ArchiveBlockComponent
                     {...(b as ArchiveBlockComponentProps)}

@@ -720,9 +720,6 @@
     .hero-scroll-layer-headline,
   .hero-shell--superhero
     section[data-hero-type='superhero'][data-hero-intro='pre']
-    .hero-scroll-layer-body,
-  .hero-shell--superhero
-    section[data-hero-type='superhero'][data-hero-intro='pre']
     .hero-scroll-layer-cta,
   .hero-shell--superhero
     section[data-hero-type='superhero'][data-hero-intro='pre']
@@ -769,11 +766,8 @@
     animation: hero-tech-intro-reveal-crisp 760ms cubic-bezier(0.16, 1, 0.3, 1) 230ms both;
   }
 
-  .hero-shell--superhero
-    section[data-hero-type='superhero'][data-hero-intro='play']
-    .hero-scroll-layer-body {
-    animation: hero-tech-intro-reveal-soft 700ms cubic-bezier(0.16, 1, 0.3, 1) 300ms both;
-  }
+  /* hero-scroll-layer-body intentionally has no intro animation – it is the LCP element
+     and must be visible immediately. Scroll-based effects still apply via .hero-scroll-layer. */
 
   .hero-shell--superhero
     section[data-hero-type='superhero'][data-hero-intro='play']

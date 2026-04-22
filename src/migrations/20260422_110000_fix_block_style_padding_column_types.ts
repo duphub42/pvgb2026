@@ -5,7 +5,8 @@ import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-vercel-postg
  * since these fields store string tokens like 'default'.
  */
 export async function up({ db }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     DO $$
     DECLARE
       rec record;
@@ -25,11 +26,13 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
         );
       END LOOP;
     END$$;
-  `))
+  `),
+  )
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     DO $$
     DECLARE
       rec record;
@@ -48,5 +51,6 @@ export async function down({ db }: MigrateDownArgs): Promise<void> {
         );
       END LOOP;
     END$$;
-  `))
+  `),
+  )
 }

@@ -1,15 +1,18 @@
 import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-vercel-postgres'
 
 export async function up({ db }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     DROP TABLE IF EXISTS "_site_pages_v_blocks_why_work_with_me_reasons";
     DROP TABLE IF EXISTS "site_pages_blocks_why_work_with_me_reasons";
     DROP TABLE IF EXISTS "_site_pages_v_blocks_why_work_with_me_intro_icon_list";
     DROP TABLE IF EXISTS "site_pages_blocks_why_work_with_me_intro_icon_list";
     DROP TABLE IF EXISTS "_site_pages_v_blocks_why_work_with_me";
-  `))
+  `),
+  )
 
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     CREATE TABLE IF NOT EXISTS "site_pages_blocks_why_work_with_me" (
       "_order" integer NOT NULL,
       "_parent_id" integer NOT NULL REFERENCES "site_pages"("id") ON DELETE CASCADE,
@@ -110,15 +113,18 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
     );
     CREATE INDEX IF NOT EXISTS "_site_pages_v_blocks_why_work_with_me_reasons_order_idx" ON "_site_pages_v_blocks_why_work_with_me_reasons" ("_order");
     CREATE INDEX IF NOT EXISTS "_site_pages_v_blocks_why_work_with_me_reasons_parent_id_idx" ON "_site_pages_v_blocks_why_work_with_me_reasons" ("_parent_id");
-  `))
+  `),
+  )
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     DROP TABLE IF EXISTS "_site_pages_v_blocks_why_work_with_me_reasons";
     DROP TABLE IF EXISTS "site_pages_blocks_why_work_with_me_reasons";
     DROP TABLE IF EXISTS "_site_pages_v_blocks_why_work_with_me_intro_icon_list";
     DROP TABLE IF EXISTS "site_pages_blocks_why_work_with_me_intro_icon_list";
     DROP TABLE IF EXISTS "_site_pages_v_blocks_why_work_with_me";
-  `))
+  `),
+  )
 }

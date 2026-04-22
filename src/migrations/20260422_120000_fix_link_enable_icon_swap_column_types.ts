@@ -4,7 +4,8 @@ import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-vercel-postg
  * Convert legacy integer link_enable_icon_swap columns to boolean.
  */
 export async function up({ db }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     DO $$
     DECLARE
       row record;
@@ -22,11 +23,13 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
         );
       END LOOP;
     END$$;
-  `))
+  `),
+  )
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     DO $$
     DECLARE
       row record;
@@ -44,5 +47,6 @@ export async function down({ db }: MigrateDownArgs): Promise<void> {
         );
       END LOOP;
     END$$;
-  `))
+  `),
+  )
 }

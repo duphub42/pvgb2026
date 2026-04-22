@@ -1,7 +1,8 @@
 import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-vercel-postgres'
 
 export async function up({ db }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     DO $$
     DECLARE
       rec record;
@@ -26,11 +27,13 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
         EXECUTE format('ALTER TABLE %I ADD COLUMN IF NOT EXISTS "block_animation" varchar DEFAULT ''none'';', rec.table_name);
       END LOOP;
     END$$;
-  `))
+  `),
+  )
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     DO $$
     DECLARE
       rec record;
@@ -55,5 +58,6 @@ export async function down({ db }: MigrateDownArgs): Promise<void> {
         EXECUTE format('ALTER TABLE %I DROP COLUMN IF EXISTS "block_spacing_padding";', rec.table_name);
       END LOOP;
     END$$;
-  `))
+  `),
+  )
 }

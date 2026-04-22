@@ -586,7 +586,13 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
           if (hero.type === 'leistungenHero') {
             hero.type = 'superhero'
           }
-          const supportedHeroTypes = ['none', 'highImpact', 'mediumImpact', 'lowImpact', 'superhero']
+          const supportedHeroTypes = [
+            'none',
+            'highImpact',
+            'mediumImpact',
+            'lowImpact',
+            'superhero',
+          ]
           if (hero.type != null && !supportedHeroTypes.includes(String(hero.type))) {
             hero.type = 'lowImpact'
           }

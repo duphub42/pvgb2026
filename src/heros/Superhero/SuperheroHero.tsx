@@ -149,6 +149,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     const nextSection = host?.querySelector<HTMLElement>('.hero-following-section-mask') ?? null
 
     let rafId = 0
+    let introDoneTimeoutId = 0
     const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
     let lastProgress = ''
     let lastContentProgress = ''
@@ -156,9 +157,13 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     let lastPortraitHideProgress = ''
     let lastPortraitHardHideProgress = ''
 
-    // Keep intro in the final state to avoid delaying LCP text with fade/blur startup animations.
-    section.setAttribute('data-hero-intro', 'done')
-    if (host) host.setAttribute('data-hero-intro', 'done')
+    section.setAttribute('data-hero-intro', 'play')
+    if (host) host.setAttribute('data-hero-intro', 'play')
+
+    introDoneTimeoutId = window.setTimeout(() => {
+      section.setAttribute('data-hero-intro', 'done')
+      if (host) host.setAttribute('data-hero-intro', 'done')
+    }, 1200)
 
     const updateScrollProgress = () => {
       rafId = 0
@@ -229,6 +234,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
     return () => {
       if (rafId !== 0) window.cancelAnimationFrame(rafId)
+      if (introDoneTimeoutId !== 0) window.clearTimeout(introDoneTimeoutId)
       window.removeEventListener('scroll', requestUpdate)
       window.removeEventListener('resize', requestUpdate)
       window.removeEventListener('orientationchange', requestUpdate)
@@ -373,7 +379,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         minHeight: heroHeight,
         overflow: 'visible',
       }}
-      data-hero-intro="done"
+      data-hero-intro="play"
       data-hero-variant="popout"
       data-hero-type={dataHeroType ?? 'superhero'}
       data-hero-has-portrait={portraitSrc ? 'true' : 'false'}

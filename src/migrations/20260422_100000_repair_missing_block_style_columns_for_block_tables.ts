@@ -5,7 +5,8 @@ import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-vercel-postg
  * This includes legacy version block tables like _site_pages_v_blocks_why_work_with_me.
  */
 export async function up({ db }: MigrateUpArgs): Promise<void> {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     DO $$
     DECLARE
       rec record;
@@ -60,11 +61,13 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
         EXECUTE format('ALTER TABLE %I ADD COLUMN IF NOT EXISTS "block_animation" varchar DEFAULT ''none'';', rec.table_name);
       END LOOP;
     END$$;
-  `))
+  `),
+  )
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {
-  await db.execute(sql.raw(`
+  await db.execute(
+    sql.raw(`
     DO $$
     DECLARE
       rec record;
@@ -92,5 +95,6 @@ export async function down({ db }: MigrateDownArgs): Promise<void> {
         EXECUTE format('ALTER TABLE %I DROP COLUMN IF EXISTS block_background;', rec.table_name);
       END LOOP;
     END$$;
-  `))
+  `),
+  )
 }
