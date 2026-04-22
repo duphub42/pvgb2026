@@ -821,16 +821,10 @@
   }
 
   section[data-hero-type='superhero'] .hero-scroll-content-copy {
-    will-change: transform, opacity;
-    transform: translate3d(
-      0,
-      calc(var(--hero-scroll-progress) * var(--hero-copy-translate-max)),
-      0
-    );
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-copy-fade-max)));
-    transition:
-      transform var(--hero-motion-duration-fast) var(--hero-motion-ease),
-      opacity var(--hero-motion-duration-fast) var(--hero-motion-ease);
+    will-change: auto;
+    transform: none;
+    opacity: 1;
+    transition: none;
   }
 
   section[data-hero-type='superhero'] .hero-scroll-content-portrait {
@@ -953,19 +947,11 @@
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer {
-    will-change: transform, opacity, filter;
-    transform: translate3d(
-        0,
-        calc(var(--hero-scroll-progress) * var(--hero-layer-base-translate-max)),
-        0
-      )
-      scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-base-scale-max)));
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-base-fade-max)));
-    filter: blur(calc(var(--hero-scroll-content-progress) * var(--hero-layer-base-blur-max)));
-    transition:
-      transform var(--hero-motion-duration-bg) var(--hero-motion-ease),
-      opacity var(--hero-motion-duration-bg) var(--hero-motion-ease),
-      filter var(--hero-motion-duration-bg) var(--hero-motion-ease);
+    will-change: auto;
+    transform: none;
+    opacity: 1;
+    filter: none;
+    transition: none;
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-eyebrow {
@@ -990,14 +976,9 @@
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-body {
-    transform: translate3d(
-        0,
-        calc(var(--hero-scroll-progress) * var(--hero-layer-body-translate-max)),
-        0
-      )
-      scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-body-scale-max)));
-    opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-body-fade-max)));
-    filter: blur(calc(var(--hero-scroll-content-progress) * var(--hero-layer-body-blur-max)));
+    transform: none;
+    opacity: 1;
+    filter: none;
   }
 
   section[data-hero-type='superhero'] .hero-scroll-layer-cta {
@@ -1717,16 +1698,14 @@
   /* Milchglas-Effekt: sobald der Hero einspaltig ist (gleicher Breakpoint wie Tailwind md / grid md:grid-cols-2) */
   @media (max-width: 767px) {
     .hero-mobile-glass {
+      /* backdrop-filter deferred until data-hero-intro='done' to avoid blocking LCP paint.
+         The expensive GPU blur layer is applied after the initial paint (1200ms). */
       background: color-mix(in srgb, var(--background) 42%, transparent);
-      backdrop-filter: blur(20px) saturate(1.8);
-      -webkit-backdrop-filter: blur(20px) saturate(1.8);
       border-top: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
       box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
     }
     [data-theme='dark'] .hero-mobile-glass {
       background: color-mix(in srgb, var(--background) 36%, transparent);
-      backdrop-filter: blur(24px) saturate(1.8);
-      -webkit-backdrop-filter: blur(24px) saturate(1.8);
       border-top: 1px solid rgba(255, 255, 255, 0.12);
       box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35);
     }
@@ -1734,6 +1713,15 @@
       background: color-mix(in srgb, var(--background) 55%, transparent);
       border-top: 1px solid rgba(255, 255, 255, 0.45);
       box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.05);
+    }
+    /* Backdrop-filter applied after intro animation completes (avoids blocking initial LCP) */
+    section[data-hero-intro='done'] .hero-mobile-glass {
+      backdrop-filter: blur(20px) saturate(1.8);
+      -webkit-backdrop-filter: blur(20px) saturate(1.8);
+    }
+    [data-theme='dark'] section[data-hero-intro='done'] .hero-mobile-glass {
+      backdrop-filter: blur(24px) saturate(1.8);
+      -webkit-backdrop-filter: blur(24px) saturate(1.8);
     }
 
     .hero-mobile-glass {
@@ -1778,15 +1766,11 @@
   @media (max-width: 599px) {
     .hero-mobile-glass {
       background: color-mix(in srgb, var(--background) 56%, transparent);
-      backdrop-filter: blur(24px) saturate(1.9);
-      -webkit-backdrop-filter: blur(24px) saturate(1.9);
       border-top: 1px solid color-mix(in srgb, var(--foreground) 18%, transparent);
       box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.14);
     }
     [data-theme='dark'] .hero-mobile-glass {
       background: color-mix(in srgb, var(--background) 44%, transparent);
-      backdrop-filter: blur(28px) saturate(1.95);
-      -webkit-backdrop-filter: blur(28px) saturate(1.95);
       border-top: 1px solid rgba(255, 255, 255, 0.16);
       box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.42);
     }
@@ -1794,6 +1778,14 @@
       background: color-mix(in srgb, var(--background) 60%, transparent);
       border-top: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow: 0 -10px 32px rgba(0, 0, 0, 0.08);
+    }
+    section[data-hero-intro='done'] .hero-mobile-glass {
+      backdrop-filter: blur(24px) saturate(1.9);
+      -webkit-backdrop-filter: blur(24px) saturate(1.9);
+    }
+    [data-theme='dark'] section[data-hero-intro='done'] .hero-mobile-glass {
+      backdrop-filter: blur(28px) saturate(1.95);
+      -webkit-backdrop-filter: blur(28px) saturate(1.95);
     }
   }
 

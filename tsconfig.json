@@ -53,6 +53,8 @@
     "node_modules",
     "backup",
     "backups",
-    "drizzle.config.ts"
+    "drizzle.config.ts",
+    "tmp",
+    "tmp/**"
   ]
 }

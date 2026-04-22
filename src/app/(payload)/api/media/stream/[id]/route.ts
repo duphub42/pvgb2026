@@ -40,7 +40,8 @@ export async function GET(
     }
 
     // Schutz gegen Endlosschleife: Manche Datensaetze speichern bereits /api/media/stream/:id als URL.
-    // Dann wuerde dieser Endpoint sich selbst erneut fetchen. Fallback auf lokale Datei-URL.
+    // Dann wuerde dieser Endpoint sich selbst erneut fetchen. Fallback auf die Media-Datei-Route,
+    // die sowohl lokale Dateien als auch R2/S3-Fallbacks unterstützt.
     if (url.includes('/api/media/stream/')) {
       const fallbackFilename =
         size && doc?.sizes && typeof doc.sizes === 'object' && size in doc.sizes
@@ -48,7 +49,7 @@ export async function GET(
           : doc?.filename
 
       if (fallbackFilename && typeof fallbackFilename === 'string') {
-        url = `/media/${encodeURIComponent(fallbackFilename)}`
+        url = `/api/media/file/${encodeURIComponent(fallbackFilename)}`
       }
     }
 
