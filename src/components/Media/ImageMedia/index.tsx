@@ -90,7 +90,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   }, [stringSrc])
 
   const resolvedSrc: StaticImageData | string =
-    typeof src === 'string' ? srcCandidates[candidateIndex] ?? src : src
+    typeof src === 'string' ? (srcCandidates[candidateIndex] ?? src) : src
   const fallbackSrc = typeof resolvedSrc === 'string' ? resolvedSrc : resolvedSrc.src
 
   // NOTE: this is used by the browser to determine which image to download at different screen sizes

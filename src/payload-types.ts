@@ -704,9 +704,13 @@ export interface IntroductionBlock {
    */
   lottieDark?: (number | null) | Media;
   /**
-   * Im Dark Mode wird das Bild standardmäßig invertiert. Deaktiviere diese Einstellung bei Personen- oder Produktbildern.
+   * Standard ist Dark Mode (keine Invertierung). Im Light Mode wird das Bild invertiert. Deaktiviere diese Option bei Personen- oder Produktbildern.
    */
   imageDarkModeInvert?: boolean | null;
+  /**
+   * Deckkraft des Bildes in Prozent. 100 = voll sichtbar, 0 = vollständig transparent.
+   */
+  imageOpacity?: number | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'introduction';
@@ -3218,6 +3222,7 @@ export interface IntroductionBlockSelect<T extends boolean = true> {
   lottieLight?: T;
   lottieDark?: T;
   imageDarkModeInvert?: T;
+  imageOpacity?: T;
   id?: T;
   blockName?: T;
 }

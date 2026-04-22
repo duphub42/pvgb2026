@@ -54,7 +54,8 @@ export const Introduction: Block = {
       label: 'Lottie statt Bild verwenden',
       defaultValue: false,
       admin: {
-        description: 'Wenn aktiviert, wird anstelle des normalen Bildes eine Lottie-Datei an der gleichen Position gezeigt.',
+        description:
+          'Wenn aktiviert, wird anstelle des normalen Bildes eine Lottie-Datei an der gleichen Position gezeigt.',
       },
     },
     {
@@ -82,11 +83,27 @@ export const Introduction: Block = {
     {
       name: 'imageDarkModeInvert',
       type: 'checkbox',
-      label: 'Bild im Dark Mode invertieren',
+      label: 'Bild bei Themewechsel invertieren (Basis: Dark Mode)',
       defaultValue: true,
       admin: {
         description:
-          'Im Dark Mode wird das Bild standardmäßig invertiert. Deaktiviere diese Einstellung bei Personen- oder Produktbildern.',
+          'Standard ist Dark Mode (keine Invertierung). Im Light Mode wird das Bild invertiert. Deaktiviere diese Option bei Personen- oder Produktbildern.',
+        condition: (_: unknown, siblingData: { useLottie?: boolean } | null | undefined) =>
+          !Boolean(siblingData?.useLottie),
+      },
+    },
+    {
+      name: 'imageOpacity',
+      type: 'number',
+      label: 'Bild-Opacity (%)',
+      defaultValue: 100,
+      min: 0,
+      max: 100,
+      admin: {
+        description:
+          'Deckkraft des Bildes in Prozent. 100 = voll sichtbar, 0 = vollständig transparent.',
+        condition: (_: unknown, siblingData: { useLottie?: boolean } | null | undefined) =>
+          !Boolean(siblingData?.useLottie),
       },
     },
   ],

@@ -1,35 +1,9 @@
 import type { ComponentType, FC } from 'react'
-import dynamic from 'next/dynamic'
+import { HighImpactHero } from '@/heros/HighImpact'
+import { LowImpactHero } from '@/heros/LowImpact'
+import { MediumImpactHero } from '@/heros/MediumImpact'
+import { SuperheroHero } from '@/heros/Superhero/SuperheroHero'
 import type { SuperheroHeroProps } from '@/heros/Superhero/SuperheroHero'
-
-// Lazy load Hero-Komponenten für bessere Performance (ohne ssr: false für Server Components)
-const HighImpactHero = dynamic(
-  () => import('@/heros/HighImpact/index').then((mod) => ({ default: mod.HighImpactHero })),
-  {
-    loading: () => <div className="animate-pulse bg-gray-200 h-96 rounded-lg" />,
-  },
-)
-
-const LowImpactHero = dynamic(
-  () => import('@/heros/LowImpact/index').then((mod) => ({ default: mod.LowImpactHero })),
-  {
-    loading: () => <div className="animate-pulse bg-gray-200 h-96 rounded-lg" />,
-  },
-)
-
-const MediumImpactHero = dynamic(
-  () => import('@/heros/MediumImpact/index').then((mod) => ({ default: mod.MediumImpactHero })),
-  {
-    loading: () => <div className="animate-pulse bg-gray-200 h-96 rounded-lg" />,
-  },
-)
-
-const SuperheroHero = dynamic<SuperheroHeroProps>(
-  () => import('@/heros/Superhero/SuperheroHero').then((mod) => ({ default: mod.SuperheroHero })),
-  {
-    loading: () => <div className="animate-pulse bg-gray-200 h-96 rounded-lg" />,
-  },
-)
 
 const heroes = {
   highImpact: HighImpactHero,

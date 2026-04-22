@@ -36,7 +36,11 @@ export const Media: React.FC<Props> = (props) => {
     return null
   }
 
-  const isVideo = resource && typeof resource === 'object' && 'mimeType' in resource && resource?.mimeType?.includes('video')
+  const isVideo =
+    resource &&
+    typeof resource === 'object' &&
+    'mimeType' in resource &&
+    resource?.mimeType?.includes('video')
   const isLottie = isLottieResource(resource) || Boolean(themeResource)
   const Tag = htmlElement || Fragment
 
@@ -48,7 +52,13 @@ export const Media: React.FC<Props> = (props) => {
           }
         : {})}
     >
-      {isLottie ? <LottieMedia {...props} /> : isVideo ? <VideoMedia {...props} /> : <ImageMedia {...props} />}
+      {isLottie ? (
+        <LottieMedia {...props} />
+      ) : isVideo ? (
+        <VideoMedia {...props} />
+      ) : (
+        <ImageMedia {...props} />
+      )}
     </Tag>
   )
 }

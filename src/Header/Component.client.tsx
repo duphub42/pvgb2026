@@ -12,11 +12,17 @@ import type { Header, Media as MediaType } from '@/payload-types'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
+import dynamic from 'next/dynamic'
 import { Logo } from '@/components/Logo/Logo'
 import { LogoWithGlitch } from '@/components/Logo/LogoWithGlitch'
 import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
-import { MegaMenu, type MegaMenuCta, type MegaMenuItem } from '@/components/MegaMenu'
+import type { MegaMenuCta, MegaMenuItem } from '@/components/MegaMenu'
 import { HeaderNav } from './Nav'
+
+const MegaMenu = dynamic(
+  () => import('@/components/MegaMenu').then((m) => ({ default: m.MegaMenu })),
+  { loading: () => null },
+)
 
 const HEADER_B_LOGO_SRC = '/branding/philippbacher-logo-b-10.svg'
 

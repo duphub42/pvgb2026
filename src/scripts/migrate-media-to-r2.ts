@@ -128,13 +128,15 @@ async function main() {
       console.error(`  - ${failure.file}: ${failure.error}`)
     })
     if (failures.length > 10) {
-      console.error(`  ...and ${failures.length - 10} more`)    
+      console.error(`  ...and ${failures.length - 10} more`)
     }
     process.exit(1)
   }
 
   console.log('=== Migration complete ===')
-  console.log('Existing /api/media/file/<filename> requests will now succeed from R2 if the local file is removed.')
+  console.log(
+    'Existing /api/media/file/<filename> requests will now succeed from R2 if the local file is removed.',
+  )
 }
 
 main().catch((error) => {

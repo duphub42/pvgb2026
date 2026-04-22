@@ -8,7 +8,9 @@ import { useTheme } from '@/providers/Theme'
 const LOTTIE_PLAYER_SRC =
   'https://cdn.jsdelivr.net/npm/@lottiefiles/lottie-player@1.6.0/dist/lottie-player.js'
 
-function resolveLottieUrl(resource?: MediaProps['resource'] | string | number | null): string | null {
+function resolveLottieUrl(
+  resource?: MediaProps['resource'] | string | number | null,
+): string | null {
   if (!resource) return null
 
   if (typeof resource === 'number') {
@@ -30,7 +32,11 @@ function resolveLottieUrl(resource?: MediaProps['resource'] | string | number | 
     if ('url' in resource && typeof resource.url === 'string' && resource.url.trim()) {
       return getMediaUrl(resource.url)
     }
-    if ('filename' in resource && typeof resource.filename === 'string' && resource.filename.trim()) {
+    if (
+      'filename' in resource &&
+      typeof resource.filename === 'string' &&
+      resource.filename.trim()
+    ) {
       return getMediaUrl(`/media/${encodeURIComponent(resource.filename)}`)
     }
   }
@@ -64,7 +70,12 @@ async function loadLottiePlayerScript(): Promise<void> {
   })
 }
 
-export const LottieMedia: React.FC<MediaProps> = ({ className, onClick, resource, themeResource }) => {
+export const LottieMedia: React.FC<MediaProps> = ({
+  className,
+  onClick,
+  resource,
+  themeResource,
+}) => {
   const { theme } = useTheme()
   const containerRef = useRef<HTMLDivElement | null>(null)
   const chosenResource = useMemo(

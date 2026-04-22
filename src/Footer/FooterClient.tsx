@@ -245,7 +245,7 @@ export function FooterClient({
                     <CMSLink
                       key={i}
                       {...link}
-                      className="footer-link-underline transition-colors duration-200"
+                      className="footer-link-underline text-[12px] md:text-sm transition-colors duration-200"
                     />
                   ))}
                 </nav>
@@ -381,7 +381,7 @@ export function FooterClient({
                           href={`tel:${footerPhone.replace(/\s+/g, '')}`}
                           target="_blank"
                           rel="nofollow noopener noreferrer"
-                          className="footer-link text-[11px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[28px]"
+                          className="footer-link text-[12px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[28px]"
                         >
                           <span className="footer-link-text">{footerPhone}</span>
                           <ArrowUpRight
@@ -451,7 +451,7 @@ export function FooterClient({
                                     href={linkRow.linkUrl}
                                     target={linkRow.isExternal ? '_blank' : undefined}
                                     rel={linkRow.isExternal ? 'noopener noreferrer' : undefined}
-                                    className="text-[11px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[28px] footer-link"
+                                    className="text-[12px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[28px] footer-link"
                                   >
                                     <span className="footer-link-text">{linkRow.linkText}</span>
                                     <ArrowRight
@@ -575,7 +575,7 @@ export function FooterClient({
               {footer.privacyLink != null && (
                 <Link
                   href={footer.privacyLink}
-                  className="footer-link text-[11px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px]"
+                  className="footer-link text-[12px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px]"
                 >
                   <span className="footer-link-text">{messages[locale].footer.privacy}</span>
                   <ArrowRight
@@ -587,7 +587,7 @@ export function FooterClient({
               {footer.termsLink != null && (
                 <Link
                   href={footer.termsLink}
-                  className="footer-link text-[11px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px]"
+                  className="footer-link text-[12px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px]"
                 >
                   <span className="footer-link-text">{messages[locale].footer.terms}</span>
                   <ArrowRight
