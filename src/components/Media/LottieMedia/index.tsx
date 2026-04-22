@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import type { Props as MediaProps } from '../types'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { useTheme } from '@/providers/Theme'
@@ -11,12 +11,28 @@ const LOTTIE_PLAYER_SRC =
 function resolveLottieUrl(resource?: MediaProps['resource'] | string | number | null): string | null {
   if (!resource) return null
 
-  if (typeof resource === 'string' || typeof resource === 'number') {
-    return getMediaUrl(String(resource))
+  if (typeof resource === 'number') {
+    return getMediaUrl(`/api/media/stream/${resource}`)
   }
 
-  if (typeof resource === 'object' && resource !== null && 'url' in resource) {
-    return getMediaUrl(String(resource.url ?? ''))
+  if (typeof resource === 'string') {
+    const trimmed = resource.trim()
+    if (/^\d+$/.test(trimmed)) {
+      return getMediaUrl(`/api/media/stream/${trimmed}`)
+    }
+    return getMediaUrl(trimmed)
+  }
+
+  if (typeof resource === 'object' && resource !== null) {
+    if ('id' in resource && resource.id != null) {
+      return getMediaUrl(`/api/media/stream/${String(resource.id)}`)
+    }
+    if ('url' in resource && typeof resource.url === 'string' && resource.url.trim()) {
+      return getMediaUrl(resource.url)
+    }
+    if ('filename' in resource && typeof resource.filename === 'string' && resource.filename.trim()) {
+      return getMediaUrl(`/media/${encodeURIComponent(resource.filename)}`)
+    }
   }
 
   return null
@@ -50,16 +66,44 @@ async function loadLottiePlayerScript(): Promise<void> {
 
 export const LottieMedia: React.FC<MediaProps> = ({ className, onClick, resource, themeResource }) => {
   const { theme } = useTheme()
+  const containerRef = useRef<HTMLDivElement | null>(null)
   const chosenResource = useMemo(
     () => resolveThemeResource(resource, themeResource, theme),
     [resource, themeResource, theme],
   )
   const src = useMemo(() => resolveLottieUrl(chosenResource), [chosenResource])
+  const [isInView, setIsInView] = useState(false)
   const [loaded, setLoaded] = useState(false)
 
   useEffect(() => {
-    let mounted = true
     if (!src) return
+
+    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) {
+      setIsInView(true)
+      return
+    }
+
+    const element = containerRef.current
+    if (!element) return
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          setIsInView(true)
+          observer.disconnect()
+        }
+      },
+      { rootMargin: '200px 0px' },
+    )
+
+    observer.observe(element)
+
+    return () => observer.disconnect()
+  }, [src])
+
+  useEffect(() => {
+    let mounted = true
+    if (!src || !isInView) return
 
     loadLottiePlayerScript()
       .then(() => {
@@ -72,13 +116,13 @@ export const LottieMedia: React.FC<MediaProps> = ({ className, onClick, resource
     return () => {
       mounted = false
     }
-  }, [src])
+  }, [src, isInView])
 
   if (!src) return null
 
   return (
-    <div className={className} onClick={onClick}>
-      {loaded
+    <div className={className} onClick={onClick} ref={containerRef}>
+      {loaded && isInView
         ? React.createElement('lottie-player', {
             src,
             background: 'transparent',

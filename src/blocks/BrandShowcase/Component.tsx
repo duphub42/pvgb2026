@@ -41,7 +41,7 @@ export const BrandShowcaseBlock: React.FC<BrandShowcaseProps> = ({
 
   return (
     <section className="w-full py-16 md:py-20">
-      <div className="container rounded-3xl border border-border/70 bg-gradient-to-br from-zinc-50 via-white to-stone-50 px-6 py-8 md:px-10 md:py-12">
+      <div className="container rounded-3xl border border-border/70 bg-gradient-to-br from-zinc-50 via-white to-stone-50 px-6 py-8 dark:from-[rgb(var(--color-slate-950))/95] dark:via-[rgb(var(--color-zinc-900))/88] dark:to-[rgb(var(--color-slate-950))/96] md:px-10 md:py-12">
         <header className="max-w-3xl">
           {eyebrow ? (
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary/80">
@@ -102,7 +102,7 @@ export const BrandShowcaseBlock: React.FC<BrandShowcaseProps> = ({
             ) : null}
 
             {principleRows.length > 0 ? (
-              <div className="rounded-2xl border border-border/70 bg-white p-5">
+              <div className="rounded-2xl border border-border/70 bg-card p-5">
                 <p className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground">
                   Design-Prinzipien
                 </p>
@@ -129,7 +129,7 @@ export const BrandShowcaseBlock: React.FC<BrandShowcaseProps> = ({
 
           <div className="space-y-5 xl:col-span-7">
             {colorRows.length > 0 ? (
-              <div className="rounded-2xl border border-border/70 bg-white p-5">
+              <div className="rounded-2xl border border-border/70 bg-card p-5">
                 <p className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground">
                   Farbpalette
                 </p>
@@ -163,7 +163,7 @@ export const BrandShowcaseBlock: React.FC<BrandShowcaseProps> = ({
             ) : null}
 
             {typeRows.length > 0 ? (
-              <div className="rounded-2xl border border-border/70 bg-white p-5">
+              <div className="rounded-2xl border border-border/70 bg-card p-5">
                 <p className="mb-4 text-xs font-semibold uppercase tracking-[0.15em] text-muted-foreground">
                   Typografie
                 </p>
@@ -171,7 +171,7 @@ export const BrandShowcaseBlock: React.FC<BrandShowcaseProps> = ({
                   {typeRows.map((row, index) => (
                     <article
                       key={typeof row.id === 'string' && row.id ? row.id : `type-${index}`}
-                      className="rounded-xl border border-border/60 bg-zinc-50 p-4"
+                      className="rounded-xl border border-border/60 bg-muted/55 p-4"
                     >
                       <p className="text-xs font-semibold uppercase tracking-[0.12em] text-muted-foreground">
                         {row.role}
@@ -200,7 +200,7 @@ export const BrandShowcaseBlock: React.FC<BrandShowcaseProps> = ({
               {usageRows.map((row, index) => (
                 <figure
                   key={typeof row.id === 'string' && row.id ? row.id : `usage-${index}`}
-                  className="overflow-hidden rounded-2xl border border-border/70 bg-white"
+                  className="overflow-hidden rounded-2xl border border-border/70 bg-card"
                 >
                   <Media
                     resource={row.image as MediaType}

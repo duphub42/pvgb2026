@@ -72,8 +72,8 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
     layoutVariant === 'data'
       ? 'from-[rgb(var(--color-slate-950))/95] via-[rgb(var(--color-slate-900))/90] to-[rgb(var(--color-slate-950))/95] text-[rgb(var(--hero-process-text))]'
       : layoutVariant === 'visual'
-        ? 'from-white via-[rgb(239,246,255)]/65 to-[rgb(255,251,235)]/60 text-[rgb(var(--color-slate-950))]'
-        : 'from-[rgb(var(--color-slate-50))] via-white to-[rgb(var(--color-zinc-50))] text-[rgb(var(--color-slate-950))]'
+        ? 'from-white via-[rgb(239,246,255)]/65 to-[rgb(255,251,235)]/60 text-[rgb(var(--color-slate-950))] dark:from-[rgb(var(--color-slate-950))/90] dark:via-[rgb(var(--color-slate-900))/86] dark:to-[rgb(var(--color-slate-950))/95] dark:text-[rgb(var(--color-slate-100))]'
+        : 'from-[rgb(var(--color-slate-50))] via-white to-[rgb(var(--color-zinc-50))] text-[rgb(var(--color-slate-950))] dark:from-[rgb(var(--color-slate-950))/92] dark:via-[rgb(var(--color-zinc-900))/88] dark:to-[rgb(var(--color-slate-950))/96] dark:text-[rgb(var(--color-slate-100))]'
 
   return (
     <section className="w-full py-16 md:py-20">
@@ -83,7 +83,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
           sectionToneClass,
         )}
       >
-        <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/40 blur-3xl" />
+        <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/40 blur-3xl dark:bg-white/10" />
         <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
 
         <div className="relative z-10 max-w-3xl">
@@ -123,7 +123,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
               <article
                 key={key}
                 className={cn(
-                  'group flex min-h-[24rem] flex-col overflow-hidden rounded-2xl border border-white/30 bg-white/80 backdrop-blur-md transition-shadow duration-300 hover:shadow-[0_20px_50px_-36px_rgba(var(--color-slate-950),0.55)]',
+                  'group flex min-h-[24rem] flex-col overflow-hidden rounded-2xl border border-border/70 bg-card/85 backdrop-blur-md transition-shadow duration-300 hover:shadow-[0_20px_50px_-36px_rgba(var(--color-slate-950),0.55)] dark:hover:shadow-[0_20px_50px_-34px_rgba(0,0,0,0.68)]',
                   layoutVariant === 'data' && 'border-white/15 bg-white/5',
                   item.featured && 'lg:col-span-2',
                 )}

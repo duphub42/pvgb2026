@@ -118,12 +118,18 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
   if (needsFallbackImg) {
     return (
       <div className={cn(pictureClassName)}>
-        <img
+        <NextImage
           alt={alt || ''}
           className={cn(imgClassName)}
+          height={1}
           loading={loading}
+          placeholder="empty"
+          quality={72}
+          sizes={sizes}
           src={fallbackSrc}
           style={{ width: '100%', height: 'auto' }}
+          unoptimized={typeof fallbackSrc === 'string' && fallbackSrc.startsWith('data:')}
+          width={1}
           onError={() => {
             if (typeof src === 'string' && candidateIndex < srcCandidates.length - 1) {
               setCandidateIndex((i) => i + 1)

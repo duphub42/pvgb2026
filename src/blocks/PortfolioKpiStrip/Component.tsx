@@ -46,17 +46,17 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
 
   const wrapperClass =
     variant === 'solid'
-      ? 'bg-slate-950 text-slate-50 border-slate-800'
+      ? 'border-slate-800 bg-slate-950 text-slate-50 dark:border-slate-700 dark:bg-slate-900/90 dark:text-slate-100'
       : variant === 'minimal'
-        ? 'bg-transparent text-slate-950 border-border/40'
-        : 'bg-white/85 text-slate-950 border-border/70 backdrop-blur-xl'
+        ? 'border-border/40 bg-transparent text-foreground'
+        : 'border-border/70 bg-background/80 text-foreground backdrop-blur-xl supports-[backdrop-filter]:bg-background/70'
 
   const cardClass =
     variant === 'solid'
-      ? 'bg-slate-900/70 border-slate-800'
+      ? 'border-slate-800 bg-slate-900/70 dark:border-slate-700 dark:bg-slate-900/55'
       : variant === 'minimal'
-        ? 'bg-white border-border/60'
-        : 'bg-white/80 border-white/70'
+        ? 'border-border/60 bg-card'
+        : 'border-border/60 bg-card/80'
 
   return (
     <section className="w-full py-14 md:py-16">

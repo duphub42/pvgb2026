@@ -1,7 +1,7 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import React from 'react'
-import { motion, type Variants } from 'framer-motion'
 import { cn } from '@/utilities/ui'
 import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 import {
@@ -16,7 +16,7 @@ import {
 // ANIMATION VARIANTS
 // ============================================================================
 
-const animationVariants: Record<string, Variants> = {
+const animationVariants = {
   default: {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0 },
@@ -127,6 +127,21 @@ interface BlockContainerProps {
   as?: 'section' | 'div'
 }
 
+type MotionDivProps = React.HTMLAttributes<HTMLDivElement> & {
+  initial?: string
+  whileInView?: string
+  viewport?: {
+    once?: boolean
+    amount?: number
+  }
+  variants?: Record<string, unknown>
+  transition?: {
+    duration?: number
+    ease?: number[]
+    delay?: number
+  }
+}
+
 export function BlockContainer({
   children,
   styles,
@@ -135,6 +150,25 @@ export function BlockContainer({
   index = 0,
   as: Component = 'section',
 }: BlockContainerProps) {
+  const [MotionDiv, setMotionDiv] = useState<React.ComponentType<MotionDivProps> | null>(null)
+
+  useEffect(() => {
+    if (disableAnimation) return
+
+    let cancelled = false
+
+    // Load framer-motion only when animation is actually enabled for this block.
+    import('framer-motion').then((mod) => {
+      if (!cancelled) {
+        setMotionDiv(() => mod.motion.div as React.ComponentType<MotionDivProps>)
+      }
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [disableAnimation])
+
   const hasBackground = styles?.blockBackground && styles.blockBackground !== 'none'
   const hasOverlay = styles?.blockOverlay?.enabled && styles.blockOverlay.opacity != null
   const animation = styles?.blockAnimation ?? 'default'
@@ -169,7 +203,7 @@ export function BlockContainer({
   const animationVariant = animationVariants[animation] || animationVariants.default
 
   // If animation disabled, render static
-  if (disableAnimation) {
+  if (disableAnimation || !MotionDiv) {
     return (
       <Component className={wrapperClasses}>
         {hasOverlay && <div aria-hidden style={overlayStyle} />}
@@ -180,7 +214,7 @@ export function BlockContainer({
 
   // Animated version
   return (
-    <motion.div
+    <MotionDiv
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, amount: 0.14 }}
@@ -198,7 +232,7 @@ export function BlockContainer({
         )}
         <div className={contentClasses}>{children}</div>
       </Component>
-    </motion.div>
+    </MotionDiv>
   )
 }
 

@@ -371,15 +371,14 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       ref={sectionRef}
       aria-label={sectionAriaLabel ?? 'Hero'}
       className={cn(
-        'hero-offset relative overflow-hidden hero-offset--popout text-foreground',
+        'hero-offset relative hero-offset--popout text-foreground',
         !hasRenderableBg && 'bg-background',
         !portraitSrc && 'hero-superhero-no-portrait',
       )}
       style={{
         isolation: 'isolate',
         minHeight: heroHeight,
-        overflowX: 'hidden',
-        overflowY: 'visible',
+        overflow: 'visible',
       }}
       data-hero-intro="play"
       data-hero-variant="popout"

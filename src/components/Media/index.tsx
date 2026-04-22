@@ -10,14 +10,20 @@ function isLottieResource(resource: Props['resource']): boolean {
   if (!resource) return false
 
   if (typeof resource === 'string') {
-    return resource.toLowerCase().endsWith('.json')
+    const normalized = resource.toLowerCase()
+    return normalized.endsWith('.json') || normalized.endsWith('.lottie')
   }
 
   if (typeof resource === 'object' && resource !== null) {
     const mimeType = String(resource.mimeType ?? '').toLowerCase()
     const url = String(resource.url ?? '').toLowerCase()
 
-    return mimeType.includes('json') || url.endsWith('.json')
+    return (
+      mimeType.includes('json') ||
+      mimeType.includes('lottie') ||
+      url.endsWith('.json') ||
+      url.endsWith('.lottie')
+    )
   }
 
   return false
