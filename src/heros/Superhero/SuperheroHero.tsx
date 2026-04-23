@@ -350,7 +350,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   const effectiveContentVerticalAlignment = portraitSrc
     ? normalizedContentVerticalAlignment
     : 'bottom'
-  const heroHeight = 'clamp(666px, 88vh, 888px)'
+  const heroHeight = 'clamp(666px, 77vh, 888px)'
   const normalizedPageSlug = (pageSlug ?? '').trim().toLowerCase()
   const isHomeHero =
     normalizedPageSlug === '' || normalizedPageSlug === '/' || normalizedPageSlug === 'home'
