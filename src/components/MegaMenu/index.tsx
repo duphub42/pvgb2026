@@ -87,6 +87,7 @@ type MediaRef =
   | {
       url?: string | null
       id?: number
+      updatedAt?: string | null
       filename?: string | null
       alt?: string | null
       mimeType?: string | null
@@ -130,23 +131,64 @@ function resolveMegaMenuSpriteId(media: MediaRef, label?: string | null): string
   return null
 }
 
+function shouldForceInvertMegaMenuMedia(media: MediaRef, label?: string | null): boolean {
+  const m = getMediaObject(media)
+  if (!m) return false
+
+  const haystack = `${m.filename ?? ''} ${m.alt ?? ''} ${m.url ?? ''} ${label ?? ''}`.toLocaleLowerCase(
+    'de-DE',
+  )
+  return /seobi+lity/.test(haystack)
+}
+
 function preferredMediaUrl(media: MediaRef): string {
   if (isLikelyPlaceholderSvg(media)) return ''
   return mediaUrl(media)
 }
 
-function renderMegaMenuItemIcon(
-  media: MediaRef,
-  options: { label?: string | null; fallbackUrl?: string | null },
-): React.ReactNode {
+function isTinyLoadedImage(img: HTMLImageElement): boolean {
+  // Some legacy/corrupt icon assets resolve successfully but are effectively invisible (1x1 px).
+  return img.naturalWidth <= 2 && img.naturalHeight <= 2
+}
+
+type MegaMenuResolvedIconProps = {
+  media: MediaRef
+  label?: string | null
+  fallbackUrl?: string | null
+}
+
+function MegaMenuResolvedIcon({ media, label, fallbackUrl }: MegaMenuResolvedIconProps): React.ReactNode {
   const imageUrl = preferredMediaUrl(media)
-  if (imageUrl) {
+  const spriteId = resolveMegaMenuSpriteId(media, label)
+  const forceInvert = shouldForceInvertMegaMenuMedia(media, label)
+  const [useImage, setUseImage] = React.useState(Boolean(imageUrl))
+
+  React.useEffect(() => {
+    setUseImage(Boolean(imageUrl))
+  }, [imageUrl])
+
+  if (imageUrl && useImage) {
     return (
-      <ResilientImage src={imageUrl} alt="" className="h-4 w-4 object-contain" decoding="sync" />
+      <ResilientImage
+        src={imageUrl}
+        alt=""
+        className={cn('h-4 w-4 object-contain', forceInvert && 'megamenu-item-icon-img--force-invert')}
+        decoding="sync"
+        onLoad={(event) => {
+          const img = event.currentTarget
+          if (isTinyLoadedImage(img)) {
+            setUseImage(false)
+            return
+          }
+          setUseImage(true)
+        }}
+        onError={() => {
+          setUseImage(false)
+        }}
+      />
     )
   }
 
-  const spriteId = resolveMegaMenuSpriteId(media, options.label)
   if (spriteId) {
     return (
       <svg className="h-4 w-4" aria-hidden="true">
@@ -156,15 +198,30 @@ function renderMegaMenuItemIcon(
   }
 
   const FallbackIcon = getMobileMenuFallbackIcon({
-    label: options.label ?? '',
-    url: options.fallbackUrl ?? '',
+    label: label ?? '',
+    url: fallbackUrl ?? '',
   })
   return <FallbackIcon className="h-4 w-4 opacity-70" aria-hidden="true" />
 }
 
+function renderMegaMenuItemIcon(
+  media: MediaRef,
+  options: { label?: string | null; fallbackUrl?: string | null },
+): React.ReactNode {
+  return <MegaMenuResolvedIcon media={media} label={options.label} fallbackUrl={options.fallbackUrl} />
+}
+
 function mediaUrl(media: MediaRef): string {
   if (media == null) return ''
-  if (typeof media === 'object' && media?.url) return getMediaUrl(media.url) || ''
+  if (typeof media === 'object' && media?.url) {
+    const cacheTag =
+      typeof media.updatedAt === 'string' && media.updatedAt.trim().length > 0
+        ? media.updatedAt
+        : media.id != null
+          ? String(media.id)
+          : undefined
+    return getMediaUrl(media.url, cacheTag) || ''
+  }
   return ''
 }
 
@@ -568,9 +625,10 @@ function getMobileMenuFallbackIcon(item: Pick<MegaMenuItem, 'label' | 'url'>): L
 type MobileMenuItemIconProps = {
   src?: string | null
   FallbackIcon: LucideIcon
+  forceInvert?: boolean
 }
 
-function MobileMenuItemIcon({ src, FallbackIcon }: MobileMenuItemIconProps) {
+function MobileMenuItemIcon({ src, FallbackIcon, forceInvert = false }: MobileMenuItemIconProps) {
   const normalizedSrc = typeof src === 'string' && src.trim().length > 0 ? src : null
   const [loaded, setLoaded] = React.useState(() =>
     normalizedSrc ? isMediaImageWarmed(normalizedSrc) : false,
@@ -601,13 +659,19 @@ function MobileMenuItemIcon({ src, FallbackIcon }: MobileMenuItemIconProps) {
         alt=""
         className={cn(
           'mobile-megamenu-item-icon-img',
+          forceInvert && 'mobile-megamenu-item-icon-img--force-invert',
           loaded && 'is-loaded',
           showFallback && 'is-hidden',
         )}
         loading="eager"
         decoding="sync"
         fetchPriority="high"
-        onLoad={() => {
+        onLoad={(event) => {
+          if (isTinyLoadedImage(event.currentTarget)) {
+            setHasLoadError(true)
+            setLoaded(false)
+            return
+          }
           markMediaImageWarmed(normalizedSrc)
           setHasLoadError(false)
           setLoaded(true)
@@ -3109,6 +3173,10 @@ export function MegaMenu({
                                   const hasDescription = Boolean(entry.description)
                                   const triggerId = `mobile-megamenu-trigger-${toDomId(entry.key)}`
                                   const menuIconSrc = preferredMediaUrl(entry.item.icon ?? null)
+                                  const forceInvertMenuIcon = shouldForceInvertMegaMenuMedia(
+                                    entry.item.icon ?? null,
+                                    entry.item.label,
+                                  )
                                   const FallbackIcon = getMobileMenuFallbackIcon(entry.item)
                                   return (
                                     <li
@@ -3143,6 +3211,7 @@ export function MegaMenu({
                                             <MobileMenuItemIcon
                                               src={menuIconSrc}
                                               FallbackIcon={FallbackIcon}
+                                              forceInvert={forceInvertMenuIcon}
                                             />
                                           </span>
                                           <span className="mobile-megamenu-item-copy">
@@ -3174,6 +3243,7 @@ export function MegaMenu({
                                             <MobileMenuItemIcon
                                               src={menuIconSrc}
                                               FallbackIcon={FallbackIcon}
+                                              forceInvert={forceInvertMenuIcon}
                                             />
                                           </span>
                                           <span className="mobile-megamenu-item-copy">

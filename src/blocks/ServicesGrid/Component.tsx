@@ -232,7 +232,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
           >
             <div className={cn('min-w-0 lg:max-w-3xl', hasIntroImage && 'lg:flex-1 lg:max-w-none')}>
               {heading && <h2 className="text-3xl font-bold tracking-tight">{heading}</h2>}
-              {intro && <p className="mt-4 text-lg text-muted-foreground">{intro}</p>}
+              {intro && <p className="mt-4 whitespace-pre-line text-lg text-muted-foreground">{intro}</p>}
               {taglineLines.length > 0 && (
                 <div className="mt-4 border-l-2 border-primary pl-4">
                   {taglineLines.map((line, i) => (
@@ -349,7 +349,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                           </h3>
                         </div>
 
-                        <p className="text-sm leading-relaxed text-muted-foreground line-clamp-5">
+                        <p className="line-clamp-5 whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
                           {service.description}
                         </p>
                         <div className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-primary opacity-0 transition-opacity group-hover:opacity-100">

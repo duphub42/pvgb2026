@@ -65,7 +65,7 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
           )}
 
           {body && (
-            <p className="mb-6 max-w-prose text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p className="mb-6 max-w-prose whitespace-pre-line text-base leading-relaxed text-muted-foreground md:text-lg">
               {body}
             </p>
           )}

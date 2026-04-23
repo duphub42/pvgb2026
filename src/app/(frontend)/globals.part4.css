@@ -917,6 +917,39 @@ nav.megamenu-nav a.megamenu-top-item {
   transform: none !important;
   color: inherit !important;
 }
+/* Dropdown-Icons: leichtes auslaufendes Grid hinter allen Icon-Slots */
+.megamenu .megamenu-dropdown-content .megamenu-item-icon {
+  position: relative;
+  overflow: visible !important;
+  isolation: isolate;
+  background-image: none !important;
+  background-color: transparent !important;
+}
+.megamenu .megamenu-dropdown-content .megamenu-item-icon::before {
+  content: '';
+  position: absolute;
+  inset: -0.5rem;
+  border-radius: 0.9rem;
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0.44;
+  background-image:
+    linear-gradient(to right, rgba(0, 0, 0, 0.045) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.045) 1px, transparent 1px);
+  background-size: 12px 12px;
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease;
+}
+.megamenu .megamenu-dropdown-content .megamenu-item-icon img,
+.megamenu .megamenu-dropdown-content .megamenu-item-icon svg {
+  position: relative;
+  z-index: 1;
+}
+.megamenu .megamenu-dropdown-content .group:hover .megamenu-item-icon::before {
+  opacity: 0.62;
+  transform: scale(1.03);
+}
 .megamenu .megamenu-special-icon-swap,
 .megamenu-special-icon-swap {
   --megamenu-icon-swap-duration: 360ms;
@@ -1009,6 +1042,9 @@ nav.megamenu-nav a.megamenu-top-item {
 }
 .megamenu .megamenu-item-icon img {
   opacity: 0.65;
+}
+.megamenu .megamenu-item-icon img.megamenu-item-icon-img--force-invert {
+  filter: invert(1);
 }
 .megamenu .group:hover .megamenu-item-icon img {
   opacity: 1;

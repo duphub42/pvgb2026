@@ -132,7 +132,7 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
                     {title}
                   </h3>
                   <div className="services-overview-card-reveal min-h-0 w-full min-w-0">
-                    <p className="services-overview-card-desc text-pretty text-sm text-muted-foreground">
+                    <p className="services-overview-card-desc whitespace-pre-line text-pretty text-sm text-muted-foreground">
                       {description}
                     </p>
                   </div>

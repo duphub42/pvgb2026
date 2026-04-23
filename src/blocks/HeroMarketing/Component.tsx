@@ -119,7 +119,7 @@ export const HeroMarketingBlock: React.FC<HeroMarketingBlockProps> = (props) => 
               {resolvedTitle}
             </h1>
 
-            <p className="mx-auto mt-6 max-w-2xl text-balance text-lg text-muted-foreground md:mt-8">
+            <p className="mx-auto mt-6 max-w-2xl whitespace-pre-line text-balance text-lg text-muted-foreground md:mt-8">
               {resolvedSubtitle}
             </p>
 

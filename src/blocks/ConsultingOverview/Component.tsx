@@ -232,7 +232,9 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
                     </div>
                     <h3 className="consulting-flow-title">{step.title}</h3>
                     {step.description ? (
-                      <p className="consulting-flow-description">{step.description}</p>
+                      <p className="consulting-flow-description whitespace-pre-line">
+                        {step.description}
+                      </p>
                     ) : null}
                   </div>
                 </div>
