@@ -409,6 +409,14 @@ function main() {
       sql: "ALTER TABLE mega_menu_columns ADD COLUMN column_background TEXT DEFAULT 'default';",
     },
     {
+      name: 'mega_menu_columns: background_image_id',
+      sql: 'ALTER TABLE mega_menu_columns ADD COLUMN background_image_id INTEGER;',
+    },
+    {
+      name: 'mega_menu_columns: overlay_opacity',
+      sql: 'ALTER TABLE mega_menu_columns ADD COLUMN overlay_opacity INTEGER DEFAULT 55;',
+    },
+    {
       name: 'mega_menu_columns_items: image_id',
       sql: 'ALTER TABLE mega_menu_columns_items ADD COLUMN image_id INTEGER;',
     },

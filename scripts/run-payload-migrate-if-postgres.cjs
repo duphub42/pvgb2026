@@ -62,9 +62,32 @@ const hasPostgresUrl = Boolean(
 const forceSqlite = String(process.env.USE_SQLITE || '').toLowerCase() === 'true'
 const useSqlite = forceSqlite || !hasPostgresUrl
 
+const tsxBin = path.join(
+  root,
+  'node_modules',
+  '.bin',
+  process.platform === 'win32' ? 'tsx.cmd' : 'tsx',
+)
+const sqliteFixScript = path.join(root, 'src', 'scripts', 'fix-sqlite-schema.ts')
+
 if (useSqlite) {
-  console.log('[dev] SQLite aktiv: payload migrate wird uebersprungen.')
-  process.exit(0)
+  console.log('[dev] SQLite aktiv: payload migrate wird uebersprungen, SQLite-Schema-Fix wird ausgefuehrt.')
+
+  const sqliteFixResult = spawnSync(tsxBin, [sqliteFixScript], {
+    cwd: root,
+    env: process.env,
+    stdio: 'inherit',
+  })
+
+  if (typeof sqliteFixResult.status === 'number') {
+    process.exit(sqliteFixResult.status)
+  }
+
+  if (sqliteFixResult.error) {
+    console.error(`[dev] SQLite schema fix failed: ${sqliteFixResult.error.message}`)
+  }
+
+  process.exit(1)
 }
 
 const payloadBin = path.join(root, 'node_modules', 'payload', 'dist', 'bin', 'index.js')
