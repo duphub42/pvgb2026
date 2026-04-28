@@ -769,28 +769,71 @@ nav.megamenu-nav a.megamenu-top-item {
     var(--megamenu-panel-ease) 0ms forwards;
 }
 
-/* PathsBackground: shadcn/ui Style – animierte Bezierkurven (stroke-dashoffset) */
-@keyframes paths-draw {
-  0% {
-    stroke-dashoffset: 0;
-  }
-  100% {
-    stroke-dashoffset: 600;
-  }
+/* Highlight-Box: Hintergrundbild-Overlay (reagiert auf Dark/Light-Theme) */
+.megamenu-highlight-overlay {
+  background-color: rgba(0, 0, 0, var(--overlay-opacity, 0.55));
+}
+[data-theme='dark'] .megamenu-highlight-overlay {
+  background-color: color-mix(
+    in srgb,
+    rgba(0, 0, 0, 1) calc(var(--overlay-opacity, 0.55) * 130%),
+    transparent
+  );
+}
+/* Text über Hintergrundbild immer hell */
+.megamenu-featured:has(.megamenu-highlight-overlay),
+.megamenu-featured:has(.megamenu-highlight-overlay) h2,
+.megamenu-featured:has(.megamenu-highlight-overlay) h3,
+.megamenu-featured:has(.megamenu-highlight-overlay) p,
+.megamenu-featured:has(.megamenu-highlight-overlay) a {
+  color: #ffffff !important;
 }
 
-/* ThreadsBackground: sanfte Horizontal-Drift (React Bits-Style) */
-@keyframes threads-drift {
-  0%,
-  100% {
-    transform: translateX(0);
+/* Superhero KPI dividers: visible on image/gradient backgrounds, responsive row ends. */
+.hero-stat-item::after {
+  content: '';
+  position: absolute;
+  top: 0.2rem;
+  right: 0;
+  bottom: 0.2rem;
+  width: 1px;
+  background: color-mix(in srgb, currentColor 42%, transparent);
+  opacity: 0.72;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
+}
+.hero-stat-item:nth-child(2n)::after {
+  display: none;
+}
+@media (min-width: 768px) {
+  .hero-stat-item:nth-child(2n)::after {
+    display: block;
   }
-  50% {
-    transform: translateX(8px);
+  .hero-stat-item:nth-child(3n)::after {
+    display: none;
   }
 }
-.animate-threads-drift {
-  animation: threads-drift 12s ease-in-out infinite;
+@media (min-width: 1024px) {
+  .hero-stat-item:nth-child(3n)::after {
+    display: block;
+  }
+  .hero-stat-item:nth-child(4n)::after {
+    display: none;
+  }
+}
+.hero-stat-item:last-child::after {
+  display: none;
+}
+
+/* MegaMenu special column with background image + overlay. */
+.megamenu .megamenu-special-block {
+  min-height: 100%;
+  isolation: isolate;
+}
+.megamenu .megamenu-special-block:has(.megamenu-highlight-overlay),
+.megamenu .megamenu-special-block:has(.megamenu-highlight-overlay) h4,
+.megamenu .megamenu-special-block:has(.megamenu-highlight-overlay) a,
+.megamenu .megamenu-special-block:has(.megamenu-highlight-overlay) p {
+  color: #ffffff !important;
 }
 
 /* Featured-Spalte: milchglas-Effekt, rechte Spezial-Säule */

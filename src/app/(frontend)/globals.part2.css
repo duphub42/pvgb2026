@@ -255,6 +255,11 @@ footer a[href='/']:hover .logo-animate {
 .logo-glitch-wrapper.logo-glitch-active .logo-glitch-icons-visible .logo-glitch-icon {
   animation: logo-glitch-icon-flicker 0.6s steps(1) forwards;
 }
+.logo-glitch-icons .logo-glitch-icon-1 { top: 8%; left: 12%; }
+.logo-glitch-icons .logo-glitch-icon-2 { top: 60%; left: 8%; }
+.logo-glitch-icons .logo-glitch-icon-3 { top: 15%; right: 15%; }
+.logo-glitch-icons .logo-glitch-icon-4 { bottom: 20%; right: 10%; }
+.logo-glitch-icons .logo-glitch-icon-5 { top: 50%; left: 45%; }
 .logo-glitch-icons-visible .logo-glitch-icon-1 { animation-delay: 0ms; }
 .logo-glitch-icons-visible .logo-glitch-icon-2 { animation-delay: 48ms; }
 .logo-glitch-icons-visible .logo-glitch-icon-3 { animation-delay: 96ms; }

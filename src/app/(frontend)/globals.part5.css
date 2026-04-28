@@ -2858,6 +2858,16 @@ button.header-tool-toggle.header-tool-toggle--theme.header-icon-btn:hover {
 }
 
 
+.services-grid-container {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}
+
+.services-grid-root > .container {
+  overflow-x: visible !important;
+  overflow-y: visible !important;
+}
+
 [data-theme='dark'] .services-grid-intro-image {
   filter: none !important;
   opacity: 1;
@@ -2946,6 +2956,12 @@ html[data-theme='dark'] .services-grid-card-icon-img,
   text-decoration: none !important;
 }
 
+.megamenu .megamenu-special-block a.megamenu-special-link {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.18) !important;
+  border-color: rgba(255, 255, 255, 0.18) !important;
+}
+
 .megamenu .megamenu-col-items a.megamenu-special-link:is(:hover, :focus-visible, :active),
 .megamenu .megamenu-featured a.megamenu-highlight-cta:is(:hover, :focus-visible, :active),
 .megamenu-sheet a.megamenu-special-link:is(:hover, :focus-visible, :active),
@@ -2953,6 +2969,12 @@ html[data-theme='dark'] .services-grid-card-icon-img,
   color: var(--background) !important;
   background-color: color-mix(in srgb, var(--foreground) 80%, transparent) !important;
   border-color: transparent !important;
+}
+
+.megamenu .megamenu-special-block a.megamenu-special-link:is(:hover, :focus-visible, :active) {
+  color: #ffffff !important;
+  background-color: rgba(255, 255, 255, 0.26) !important;
+  border-color: rgba(255, 255, 255, 0.26) !important;
 }
 
 .megamenu .megamenu-col-items a.megamenu-special-link :is(span, div, p, strong, em, small),

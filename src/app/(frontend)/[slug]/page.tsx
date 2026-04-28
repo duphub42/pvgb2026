@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { unstable_cache } from 'next/cache'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
@@ -60,45 +61,100 @@ const SLUG_ALIASES: Record<string, string[]> = {
   'portfolio-marken': ['portfolio-branding'],
 }
 
-async function findPublishedPageBySlug(slugParam: string, depth: 1 | 2) {
-  const p = await getPayload({ config: configPromise })
-  let pages = await p.find({
-    collection: 'site-pages',
-    limit: 1,
-    depth,
-    where: {
-      and: [{ slug: { equals: slugParam } }, { _status: { equals: 'published' } }],
-    },
-    draft: false,
-  })
+async function findPublishedPageBySlug(slugParam: string): Promise<SitePage | null> {
+  const payload = await getPayload({ config: configPromise })
 
-  if (pages.docs.length === 0 && (slugParam === 'home' || !slugParam)) {
-    pages = await p.find({
+  const runQuery = async (querySlug: string | string[], depth: 0 | 1 | 2 = 2) => {
+    const where = Array.isArray(querySlug) ? { in: querySlug } : { equals: querySlug }
+
+    const pages = await payload.find({
       collection: 'site-pages',
       limit: 1,
       depth,
       where: {
-        and: [{ slug: { in: ['home', 'Home'] } }, { _status: { equals: 'published' } }],
+        and: [{ slug: where }, { _status: { equals: 'published' } }],
       },
       draft: false,
     })
+
+    return (pages.docs[0] as SitePage | undefined) ?? null
+  }
+
+  const direct = await runQuery(slugParam)
+  if (direct) return direct
+
+  if (slugParam === 'home' || !slugParam) {
+    const home = await runQuery(['home', 'Home'])
+    if (home) return home
   }
 
   const aliases = SLUG_ALIASES[slugParam] ?? []
-  if (pages.docs.length === 0 && aliases.length > 0) {
-    pages = await p.find({
+  if (aliases.length > 0) {
+    const aliasPage = await runQuery(aliases)
+    if (aliasPage) return aliasPage
+  }
+
+  return null
+}
+
+async function findPublishedPageMetaBySlug(slugParam: string): Promise<SitePage | null> {
+  const payload = await getPayload({ config: configPromise })
+
+  const runQuery = async (querySlug: string | string[]) => {
+    const where = Array.isArray(querySlug) ? { in: querySlug } : { equals: querySlug }
+
+    const pages = await payload.find({
       collection: 'site-pages',
       limit: 1,
-      depth,
+      depth: 0,
+      select: {
+        slug: true,
+        parent: true,
+        meta: true,
+      } as const,
       where: {
-        and: [{ slug: { in: aliases } }, { _status: { equals: 'published' } }],
+        and: [{ slug: where }, { _status: { equals: 'published' } }],
       },
       draft: false,
     })
+
+    return (pages.docs[0] as SitePage | undefined) ?? null
   }
 
-  return pages
+  const direct = await runQuery(slugParam)
+  if (direct) return direct
+
+  if (slugParam === 'home' || !slugParam) {
+    const home = await runQuery(['home', 'Home'])
+    if (home) return home
+  }
+
+  const aliases = SLUG_ALIASES[slugParam] ?? []
+  if (aliases.length > 0) {
+    const aliasPage = await runQuery(aliases)
+    if (aliasPage) return aliasPage
+  }
+
+  return null
 }
+
+const getCachedPublishedPageBySlug = unstable_cache(
+  async (slugParam: string): Promise<SitePage | null> => findPublishedPageBySlug(slugParam),
+  ['site-pages-published-by-slug-depth-2'],
+  {
+    revalidate,
+    tags: ['site-pages'],
+  },
+)
+
+const getCachedPublishedPageMetaBySlug = unstable_cache(
+  async (slugParam: string): Promise<SitePage | null> => findPublishedPageMetaBySlug(slugParam),
+  ['site-pages-published-by-slug-meta'],
+  {
+    revalidate,
+    tags: ['site-pages'],
+  },
+)
 
 export default async function Page({
   params: paramsPromise,
@@ -216,9 +272,7 @@ export default async function Page({
   const resolvedSlug = slug || 'home'
 
   try {
-    const pages: { docs: SitePage[] } = await findPublishedPageBySlug(resolvedSlug, 2)
-
-    const page = pages.docs[0]
+    const page = await getCachedPublishedPageBySlug(resolvedSlug)
     if (!page) {
       // Startseite: Fallback anzeigen statt 404, damit localhost nicht leer wirkt
       if (resolvedSlug === 'home' || !resolvedSlug) {
@@ -344,8 +398,8 @@ export async function generateMetadata({
   const { slug: slugParam = 'home' } = await params
   const slug = slugParam || 'home'
   try {
-    const pages = await findPublishedPageBySlug(slug, 1)
-    const meta = await generateMeta({ doc: pages.docs[0] })
+    const page = await getCachedPublishedPageMetaBySlug(slug)
+    const meta = await generateMeta({ doc: page })
 
     return meta
   } catch (err) {

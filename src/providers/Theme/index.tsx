@@ -4,7 +4,7 @@ import React, { createContext, useCallback, use, useEffect, useSyncExternalStore
 
 import type { Theme, ThemeContextType } from './types'
 
-import { defaultTheme, getImplicitPreference, themeLocalStorageKey } from './shared'
+import { defaultTheme, themeLocalStorageKey } from './shared'
 import { themeIsValid } from './types'
 
 const initialContext: ThemeContextType = {
@@ -36,7 +36,7 @@ const setCurrentTheme = (nextTheme: Theme | undefined) => {
 
 const resolveNextTheme = (themeToSet: Theme | null): Theme | undefined => {
   if (themeToSet) return themeToSet
-  return getImplicitPreference() ?? undefined
+  return defaultTheme
 }
 
 const applyTheme = (themeToSet: Theme | null) => {
@@ -63,12 +63,6 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
 
     if (themeIsValid(preference)) {
       themeToSet = preference
-    } else {
-      const implicitPreference = getImplicitPreference()
-
-      if (implicitPreference) {
-        themeToSet = implicitPreference
-      }
     }
 
     document.documentElement.setAttribute('data-theme', themeToSet)

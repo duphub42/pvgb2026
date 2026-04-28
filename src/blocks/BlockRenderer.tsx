@@ -9,6 +9,7 @@ import { ContactInfoCardsBlock } from '@/blocks/ContactInfoCards/Component'
 import { BrandShowcaseBlock } from '@/blocks/BrandShowcase/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
+import { HeroFlowchartBlock } from '@/blocks/HeroFlowchart/Component'
 import { HeroWithProcessBlock } from '@/blocks/HeroWithProcess/Component.client'
 import { HeroMarketingBlock } from '@/blocks/HeroMarketing/Component'
 import { IntroductionBlock } from '@/blocks/Introduction/Component'
@@ -40,6 +41,7 @@ const blockComponents: Record<string, BlockComponent> = {
   contactInfoCards: ContactInfoCardsBlock as unknown as BlockComponent,
   brandShowcase: BrandShowcaseBlock as unknown as BlockComponent,
   content: ContentBlock as unknown as BlockComponent,
+  heroFlowchart: HeroFlowchartBlock as unknown as BlockComponent,
   heroWithProcess: HeroWithProcessBlock as unknown as BlockComponent,
   heroMarketing: HeroMarketingBlock as unknown as BlockComponent,
   introduction: IntroductionBlock as unknown as BlockComponent,

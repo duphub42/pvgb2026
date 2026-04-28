@@ -14,6 +14,7 @@ import { PostHero } from '@/heros/PostHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
+import { Breadcrumbs } from '@/components/Breadcrumbs'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -61,6 +62,16 @@ export default async function Post({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <PostHero post={post} />
+
+      <div className="container relative z-20 mb-6 mt-2 md:mb-8">
+        <Breadcrumbs
+          items={[
+            { label: 'Start', href: '/' },
+            { label: 'Blog', href: '/posts' },
+            { label: post.title },
+          ]}
+        />
+      </div>
 
       <div className="flex flex-col items-center gap-4 pt-8">
         <div className="container">

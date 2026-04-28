@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { unstable_cache } from 'next/cache'
 import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
@@ -12,6 +13,7 @@ import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 import { getPagePath } from '@/utilities/pagesTree'
+import { Breadcrumbs, type BreadcrumbItem } from '@/components/Breadcrumbs'
 
 export const revalidate = 60
 const LEISTUNGEN_HUB_SLUGS = new Set(['leistungen', 'lei'])
@@ -60,20 +62,109 @@ function isLeistungenSubpage(page: SitePage | null | undefined): boolean {
   )
 }
 
+function getLeistungenBreadcrumbItems(pageTitle?: string | null): BreadcrumbItem[] {
+  return [
+    { label: 'Start', href: '/' },
+    { label: 'Leistungen', href: '/leistungen' },
+    { label: pageTitle?.trim() || 'Details' },
+  ]
+}
+
+function getLeistungenPath(slug: string): string {
+  const normalized = slug.trim().replace(/^\/+|\/+$/g, '')
+  return normalized ? `/leistungen/${normalized}` : '/leistungen'
+}
+
 async function findPublishedLeistungenSubpage(slugParam: string) {
   const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({
+  const hubPages = await payload.find({
     collection: 'site-pages',
     limit: 5,
+    depth: 0,
+    where: {
+      and: [
+        { slug: { in: Array.from(LEISTUNGEN_HUB_SLUGS) } },
+        { _status: { equals: 'published' } },
+      ],
+    },
+    draft: false,
+  })
+  const hubIds = hubPages.docs.map((doc) => doc.id).filter((id): id is number => typeof id === 'number')
+  if (hubIds.length === 0) return null
+
+  const pages = await payload.find({
+    collection: 'site-pages',
+    limit: 1,
     depth: 2,
     where: {
-      and: [{ slug: { equals: slugParam } }, { _status: { equals: 'published' } }],
+      and: [
+        { slug: { equals: slugParam } },
+        { _status: { equals: 'published' } },
+        { parent: { in: hubIds } },
+      ],
     },
     draft: false,
   })
 
-  return pages.docs.find(isLeistungenSubpage)
+  return pages.docs[0] ?? null
 }
+
+async function findPublishedLeistungenSubpageMeta(slugParam: string) {
+  const payload = await getPayload({ config: configPromise })
+  const hubPages = await payload.find({
+    collection: 'site-pages',
+    limit: 5,
+    depth: 0,
+    where: {
+      and: [
+        { slug: { in: Array.from(LEISTUNGEN_HUB_SLUGS) } },
+        { _status: { equals: 'published' } },
+      ],
+    },
+    draft: false,
+  })
+  const hubIds = hubPages.docs.map((doc) => doc.id).filter((id): id is number => typeof id === 'number')
+  if (hubIds.length === 0) return null
+
+  const pages = await payload.find({
+    collection: 'site-pages',
+    limit: 1,
+    depth: 0,
+    select: {
+      slug: true,
+      parent: true,
+      meta: true,
+    } as const,
+    where: {
+      and: [
+        { slug: { equals: slugParam } },
+        { _status: { equals: 'published' } },
+        { parent: { in: hubIds } },
+      ],
+    },
+    draft: false,
+  })
+
+  return (pages.docs[0] as SitePage | undefined) ?? null
+}
+
+const getCachedPublishedLeistungenSubpage = unstable_cache(
+  async (slugParam: string) => findPublishedLeistungenSubpage(slugParam),
+  ['site-pages-leistungen-subpage-depth-2'],
+  {
+    revalidate,
+    tags: ['site-pages'],
+  },
+)
+
+const getCachedPublishedLeistungenSubpageMeta = unstable_cache(
+  async (slugParam: string) => findPublishedLeistungenSubpageMeta(slugParam),
+  ['site-pages-leistungen-subpage-meta'],
+  {
+    revalidate,
+    tags: ['site-pages'],
+  },
+)
 
 export default async function Page({
   params: paramsPromise,
@@ -82,7 +173,7 @@ export default async function Page({
   const { slug = '' } = await paramsPromise
   const searchParams = await searchParamsPromise
   const previewId = searchParams?.previewId
-  const { isEnabled: isDraftMode } = await draftMode()
+  const isDraftMode = process.env.NODE_ENV === 'development' ? (await draftMode()).isEnabled : false
 
   let payload
   try {
@@ -127,6 +218,9 @@ export default async function Page({
               <RenderHero {...pageById.hero} pageSlug={getPagePath(pageById)} />
             </HeroErrorBoundary>
             <div className="relative z-0 pt-24">
+              <div className="container mb-8">
+                <Breadcrumbs items={getLeistungenBreadcrumbItems(pageById.title)} />
+              </div>
               <RenderBlocks blocks={previewLayoutBlocks} />
             </div>
           </article>
@@ -149,7 +243,7 @@ export default async function Page({
           draft: true,
         })
       ).docs[0]
-    : await findPublishedLeistungenSubpage(slug)
+    : await getCachedPublishedLeistungenSubpage(slug)
 
   if (!page || !isLeistungenSubpage(page)) {
     notFound()
@@ -196,6 +290,9 @@ export default async function Page({
         )}
       >
         <SectionReveal className="relative z-0 pt-24">
+          <div className="container mb-8">
+            <Breadcrumbs items={getLeistungenBreadcrumbItems(page.title)} />
+          </div>
           <RenderBlocks blocks={layoutBlocks} />
         </SectionReveal>
       </div>
@@ -209,16 +306,19 @@ export async function generateMetadata({
   params: Promise<{ slug?: string }>
 }): Promise<Metadata> {
   const { slug = '' } = await params
-  const payload = await getPayload({ config: configPromise })
-  const page = await payload.find({
-    collection: 'site-pages',
-    limit: 5,
-    depth: 2,
-    where: {
-      and: [{ slug: { equals: slug } }, { _status: { equals: 'published' } }],
-    },
-    draft: false,
-  })
+  const doc = await getCachedPublishedLeistungenSubpageMeta(slug)
+  const canonicalPath = getLeistungenPath(slug)
+  const meta = await generateMeta({ doc: doc ?? null })
 
-  return generateMeta({ doc: page.docs.find(isLeistungenSubpage) ?? null })
+  return {
+    ...meta,
+    alternates: {
+      ...(meta.alternates ?? {}),
+      canonical: canonicalPath,
+    },
+    openGraph: {
+      ...(meta.openGraph ?? {}),
+      url: canonicalPath,
+    },
+  }
 }

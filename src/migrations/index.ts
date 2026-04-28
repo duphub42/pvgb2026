@@ -121,6 +121,15 @@ import * as migration_20260421_170000_why_work_with_me_block_ids_varchar from '.
 import * as migration_20260421_180000_add_block_style_columns_to_all_block_tables from './20260421_180000_add_block_style_columns_to_all_block_tables'
 import * as migration_20260421_190000_fix_marquee_slider_version_rows_uuid from './20260421_190000_fix_marquee_slider_version_rows_uuid'
 import * as migration_20260423_100000_site_pages_blocks_introduction_image_dark_mode_invert from './20260423_100000_site_pages_blocks_introduction_image_dark_mode_invert'
+import * as migration_20260426_100000_repair_services_grid_categories_services_fk from './20260426_100000_repair_services_grid_categories_services_fk'
+import * as migration_20260428_100000_mega_menu_highlight_image from './20260428_100000_mega_menu_highlight_image'
+import * as migration_20260428_100000_site_pages_hero_show_stats_column from './20260428_100000_site_pages_hero_show_stats_column'
+import * as migration_20260428_110000_fix_hero_stats_version_id_serial from './20260428_110000_fix_hero_stats_version_id_serial'
+import * as migration_20260428_120000_fix_site_pages_hero_stats_id_varchar from './20260428_120000_fix_site_pages_hero_stats_id_varchar'
+import * as migration_20260428_130000_site_pages_hero_stats_icon from './20260428_130000_site_pages_hero_stats_icon'
+import * as migration_20260428_200000_site_pages_blocks_hero_flowchart from './20260428_200000_site_pages_blocks_hero_flowchart'
+import * as migration_20260428_210000_fix_hero_flowchart_block_style_column_names from './20260428_210000_fix_hero_flowchart_block_style_column_names'
+import * as migration_20260428_220000_mega_menu_special_column_background from './20260428_220000_mega_menu_special_column_background'
 
 export const migrations = [
   {
@@ -734,9 +743,54 @@ export const migrations = [
     name: '20260423_100000_site_pages_blocks_introduction_image_dark_mode_invert',
   },
   {
+    up: migration_20260426_100000_repair_services_grid_categories_services_fk.up,
+    down: migration_20260426_100000_repair_services_grid_categories_services_fk.down,
+    name: '20260426_100000_repair_services_grid_categories_services_fk',
+  },
+  {
+    up: migration_20260428_100000_mega_menu_highlight_image.up,
+    down: migration_20260428_100000_mega_menu_highlight_image.down,
+    name: '20260428_100000_mega_menu_highlight_image',
+  },
+  {
     up: migration_20260421_130000_site_pages_blocks_marquee_slider_tables.up,
     down: migration_20260421_130000_site_pages_blocks_marquee_slider_tables.down,
     name: '20260421_130000_site_pages_blocks_marquee_slider_tables',
+  },
+  {
+    up: migration_20260428_100000_site_pages_hero_show_stats_column.up,
+    down: migration_20260428_100000_site_pages_hero_show_stats_column.down,
+    name: '20260428_100000_site_pages_hero_show_stats_column',
+  },
+  {
+    up: migration_20260428_110000_fix_hero_stats_version_id_serial.up,
+    down: migration_20260428_110000_fix_hero_stats_version_id_serial.down,
+    name: '20260428_110000_fix_hero_stats_version_id_serial',
+  },
+  {
+    up: migration_20260428_120000_fix_site_pages_hero_stats_id_varchar.up,
+    down: migration_20260428_120000_fix_site_pages_hero_stats_id_varchar.down,
+    name: '20260428_120000_fix_site_pages_hero_stats_id_varchar',
+  },
+  {
+    up: migration_20260428_130000_site_pages_hero_stats_icon.up,
+    down: migration_20260428_130000_site_pages_hero_stats_icon.down,
+    name: '20260428_130000_site_pages_hero_stats_icon',
+  },
+  {
+    up: migration_20260428_200000_site_pages_blocks_hero_flowchart.up,
+    down: migration_20260428_200000_site_pages_blocks_hero_flowchart.down,
+    name: '20260428_200000_site_pages_blocks_hero_flowchart',
+  },
+  {
+    up: migration_20260428_210000_fix_hero_flowchart_block_style_column_names.up,
+    down: migration_20260428_210000_fix_hero_flowchart_block_style_column_names.down,
+    name: '20260428_210000_fix_hero_flowchart_block_style_column_names',
+  },
+  {
+    up: migration_20260428_220000_mega_menu_special_column_background.up,
+    down: migration_20260428_220000_mega_menu_special_column_background.down,
+    name: '20260428_220000_mega_menu_special_column_background',
   },
   // TEMPORARILY DISABLED - Database migration needs SQLite fix
   // {

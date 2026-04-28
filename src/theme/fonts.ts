@@ -14,7 +14,7 @@ export const fontOutfit = localFont({
     },
   ],
   variable: '--font-outfit',
-  display: 'swap',
+  display: 'optional',
   preload: true,
   adjustFontFallback: 'Arial',
 })
@@ -38,7 +38,7 @@ export const fontInter = localFont({
     },
   ],
   variable: '--font-inter',
-  display: 'swap',
+  display: 'optional',
   preload: true,
   adjustFontFallback: 'Arial',
 })

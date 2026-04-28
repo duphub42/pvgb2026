@@ -10,6 +10,7 @@ import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { HeroMarketing } from '../../blocks/HeroMarketing/config'
+import { HeroFlowchart } from '../../blocks/HeroFlowchart/config'
 import { HeroWithProcess } from '../../blocks/HeroWithProcess/config'
 import { ConsultingOverview } from '../../blocks/ConsultingOverview/config'
 import { Introduction } from '../../blocks/Introduction/config'
@@ -89,6 +90,7 @@ export const Pages: CollectionConfig = {
               type: 'blocks',
               blocks: [
                 HeroMarketing,
+                HeroFlowchart,
                 HeroWithProcess,
                 Introduction,
                 MarqueeSliderBlockConfig,

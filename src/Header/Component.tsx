@@ -11,6 +11,10 @@ type HeaderProps = {
   footerData?: Footer | null
 }
 
+type HeaderWithLegacyFields = Header & {
+  use_mega_menu?: boolean | null
+}
+
 export async function Header({
   headerData: initialHeaderData = null,
   footerData: initialFooterData = null,
@@ -31,6 +35,21 @@ export async function Header({
     console.error('[Header] Failed to load header global:', headerResult.reason)
   }
 
+  const resolvedHeaderData = headerData as HeaderWithLegacyFields | null
+  const shouldLoadMegaMenu =
+    resolvedHeaderData?.useMegaMenu === true || resolvedHeaderData?.use_mega_menu === true
+
+  if (shouldLoadMegaMenu) {
+    try {
+      const items = await getMegaMenuItems()
+      if (Array.isArray(items) && items.length > 0) {
+        megaMenuItems = items as MegaMenuItem[]
+      }
+    } catch (err) {
+      console.error('[Header] Failed to load mega menu items:', err)
+    }
+  }
+
   if (footerResult.status === 'fulfilled') {
     footerData = footerResult.value as Footer
     const footerPhone =
@@ -38,13 +57,6 @@ export async function Header({
     mobileDockPhone = footerPhone || null
   } else {
     console.error('[Header] Failed to load footer global:', footerResult.reason)
-  }
-
-  try {
-    const rawItems = await getMegaMenuItems()
-    megaMenuItems = Array.isArray(rawItems) ? (rawItems as unknown as MegaMenuItem[]) : []
-  } catch (err) {
-    console.error('[Header] Failed to load mega-menu items:', err)
   }
 
   return (

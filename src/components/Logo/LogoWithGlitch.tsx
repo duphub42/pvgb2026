@@ -151,31 +151,26 @@ export function LogoWithGlitch({
         className="logo-glitch-icon logo-glitch-icon-1"
         size={14}
         strokeWidth={2}
-        style={{ top: '8%', left: '12%' }}
       />
       <Terminal
         className="logo-glitch-icon logo-glitch-icon-2"
         size={12}
         strokeWidth={2}
-        style={{ top: '60%', left: '8%' }}
       />
       <Braces
         className="logo-glitch-icon logo-glitch-icon-3"
         size={13}
         strokeWidth={2}
-        style={{ top: '15%', right: '15%' }}
       />
       <Binary
         className="logo-glitch-icon logo-glitch-icon-4"
         size={11}
         strokeWidth={2}
-        style={{ bottom: '20%', right: '10%' }}
       />
       <Code2
         className="logo-glitch-icon logo-glitch-icon-5"
         size={10}
         strokeWidth={2}
-        style={{ top: '50%', left: '45%' }}
       />
     </div>
   )

@@ -45,17 +45,6 @@ import { ResilientImage } from '@/components/ui/resilient-image'
 import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
 import { isNavLinkActive } from '@/utilities/navLinkActive'
 
-const PathsBackground = dynamic(
-  () => import('@/components/PathsBackground/PathsBackground').then((mod) => mod.PathsBackground),
-  { ssr: false },
-)
-
-const ThreadsBackground = dynamic(
-  () =>
-    import('@/components/ThreadsBackground/ThreadsBackground').then((mod) => mod.ThreadsBackground),
-  { ssr: false },
-)
-
 const ThemeSwitcher = dynamic(
   () => import('@/components/ThemeSwitcher/ThemeSwitcher').then((mod) => mod.ThemeSwitcher),
   { ssr: false },
@@ -135,9 +124,8 @@ function shouldForceInvertMegaMenuMedia(media: MediaRef, label?: string | null):
   const m = getMediaObject(media)
   if (!m) return false
 
-  const haystack = `${m.filename ?? ''} ${m.alt ?? ''} ${m.url ?? ''} ${label ?? ''}`.toLocaleLowerCase(
-    'de-DE',
-  )
+  const haystack =
+    `${m.filename ?? ''} ${m.alt ?? ''} ${m.url ?? ''} ${label ?? ''}`.toLocaleLowerCase('de-DE')
   return /seobi+lity/.test(haystack)
 }
 
@@ -157,7 +145,11 @@ type MegaMenuResolvedIconProps = {
   fallbackUrl?: string | null
 }
 
-function MegaMenuResolvedIcon({ media, label, fallbackUrl }: MegaMenuResolvedIconProps): React.ReactNode {
+function MegaMenuResolvedIcon({
+  media,
+  label,
+  fallbackUrl,
+}: MegaMenuResolvedIconProps): React.ReactNode {
   const imageUrl = preferredMediaUrl(media)
   const spriteId = resolveMegaMenuSpriteId(media, label)
   const forceInvert = shouldForceInvertMegaMenuMedia(media, label)
@@ -172,7 +164,10 @@ function MegaMenuResolvedIcon({ media, label, fallbackUrl }: MegaMenuResolvedIco
       <ResilientImage
         src={imageUrl}
         alt=""
-        className={cn('h-4 w-4 object-contain', forceInvert && 'megamenu-item-icon-img--force-invert')}
+        className={cn(
+          'h-4 w-4 object-contain',
+          forceInvert && 'megamenu-item-icon-img--force-invert',
+        )}
         decoding="sync"
         onLoad={(event) => {
           const img = event.currentTarget
@@ -208,7 +203,9 @@ function renderMegaMenuItemIcon(
   media: MediaRef,
   options: { label?: string | null; fallbackUrl?: string | null },
 ): React.ReactNode {
-  return <MegaMenuResolvedIcon media={media} label={options.label} fallbackUrl={options.fallbackUrl} />
+  return (
+    <MegaMenuResolvedIcon media={media} label={options.label} fallbackUrl={options.fallbackUrl} />
+  )
 }
 
 function mediaUrl(media: MediaRef): string {
@@ -312,6 +309,7 @@ function isSpecialMegaMenuColumn(
   const bg = normalize(col.columnBackground)
   if (
     bg === 'accent' ||
+    bg === 'image' ||
     bg.includes('special') ||
     bg.includes('speacial') ||
     bg.includes('spezial')
@@ -743,6 +741,8 @@ export type MegaMenuItem = {
     columnWidth?: number | null
     dividerBefore?: boolean
     columnBackground?: string | null
+    backgroundImage?: MediaRef | null
+    overlayOpacity?: number | null
     items?: Array<{
       label: string
       url: string
@@ -755,7 +755,9 @@ export type MegaMenuItem = {
   }>
   highlight?: {
     position?: 'right' | 'below' | null
-    background?: 'default' | 'paths' | 'threads' | 'gradient' | null
+    background?: 'default' | 'image' | 'gradient' | null
+    backgroundImage?: MediaRef | null
+    overlayOpacity?: number | null
     cards?: Array<{
       title?: string | null
       description?: string | null
@@ -1302,6 +1304,19 @@ export function MegaMenu({
         return
       }
       router.push(targetUrl)
+    },
+    [router],
+  )
+
+  const prefetchTopLevel = React.useCallback(
+    (targetUrl?: string | null) => {
+      if (!targetUrl) return
+      if (typeof window === 'undefined') return
+      const normalizedTargetUrl = targetUrl.trim()
+      if (!normalizedTargetUrl) return
+      const isExternal = /^(?:[a-z][a-z\d+\-.]*:)?\/\//i.test(normalizedTargetUrl)
+      if (isExternal) return
+      router.prefetch(normalizedTargetUrl)
     },
     [router],
   )
@@ -2486,6 +2501,12 @@ export function MegaMenu({
                             (x: { _groupTitle?: string | null }) =>
                               x._groupTitle != null && x._groupTitle !== '',
                           )
+                          const hasVisualColumnBlocks = cols.some(
+                            (col) =>
+                              isSpecialMegaMenuColumn(col) ||
+                              col.backgroundImage != null ||
+                              col.columnBackground === 'muted',
+                          )
                           const blockCount = listItems.length
                           const blockInitialDelayMs = 24
                           const blockStaggerMs = 72
@@ -2564,14 +2585,27 @@ export function MegaMenu({
                             visibleColumns.push({
                               span: contentSpan,
                               key: 'items',
-                              content: hasGroupTitles ? (
+                              content: hasGroupTitles || hasVisualColumnBlocks ? (
                                 <div className="grid grid-cols-12 gap-6">
-                                  {cols.map((col, colIdx) =>
-                                    (col.items?.length ?? 0) > 0 ? (
+                                  {cols.map((col, colIdx) => {
+                                    if ((col.items?.length ?? 0) <= 0) return null
+
+                                    const isSpecialColumn = isSpecialMegaMenuColumn(col)
+                                    const specialBgUrl =
+                                      col.columnBackground === 'image' && col.backgroundImage
+                                        ? mediaUrl(col.backgroundImage)
+                                        : ''
+                                    const specialOverlayOpacity = (
+                                      (col.overlayOpacity ?? 55) / 100
+                                    ).toFixed(2)
+
+                                    return (
                                       <div
                                         key={getMegaMenuColumnKey(col, colIdx)}
                                         className={cn(
-                                          'space-y-3 min-w-0',
+                                          'min-w-0 space-y-3',
+                                          specialBgUrl &&
+                                            'megamenu-special-block relative overflow-hidden rounded-xl p-4',
                                           colSpan(
                                             singleMegaColumnGroup
                                               ? 12
@@ -2579,14 +2613,32 @@ export function MegaMenu({
                                           ),
                                         )}
                                       >
+                                        {specialBgUrl && (
+                                          <>
+                                            <div
+                                              className="absolute inset-0 bg-cover bg-center"
+                                              style={{ backgroundImage: `url(${specialBgUrl})` }}
+                                              aria-hidden="true"
+                                            />
+                                            <div
+                                              className="absolute inset-0 megamenu-highlight-overlay"
+                                              style={
+                                                {
+                                                  '--overlay-opacity': specialOverlayOpacity,
+                                                } as React.CSSProperties
+                                              }
+                                              aria-hidden="true"
+                                            />
+                                          </>
+                                        )}
                                         {col.title != null && col.title !== '' && (
-                                          <h4 className="text-sm font-semibold text-muted-foreground uppercase tracking-[-0.009em]">
+                                          <h4 className="relative z-10 text-sm font-semibold text-muted-foreground uppercase tracking-[-0.009em]">
                                             {col.title}
                                           </h4>
                                         )}
                                         <ul
                                           className={cn(
-                                            'grid gap-y-4',
+                                            'relative z-10 grid gap-y-4',
                                             (col.items?.length ?? 0) > 4
                                               ? 'grid-cols-2 gap-x-8'
                                               : 'grid-cols-1',
@@ -2595,7 +2647,6 @@ export function MegaMenu({
                                           {(col.items ?? []).map((sub, idx) => {
                                             const rawMedia = sub.image ?? sub.icon ?? null
                                             const listKey = getMegaMenuSubItemKey(sub, idx)
-                                            const isSpecialColumn = isSpecialMegaMenuColumn(col)
 
                                             return (
                                               <ListItem
@@ -2617,8 +2668,8 @@ export function MegaMenu({
                                           })}
                                         </ul>
                                       </div>
-                                    ) : null,
-                                  )}
+                                    )
+                                  })}
                                 </div>
                               ) : (
                                 <ul
@@ -2795,10 +2846,16 @@ export function MegaMenu({
                             ) : null
 
                           if (hasCol3 && item.highlight != null && highlightPosition === 'right') {
-                            const usePathsBg = item.highlight?.background === 'paths'
-                            const useThreadsBg = item.highlight?.background === 'threads'
+                            const useImageBg = item.highlight?.background === 'image'
                             const useGradientBg = item.highlight?.background === 'gradient'
-                            const useCustomBg = usePathsBg || useThreadsBg || useGradientBg
+                            const useCustomBg = useImageBg || useGradientBg
+                            const bgImageUrl =
+                              useImageBg && item.highlight?.backgroundImage
+                                ? mediaUrl(item.highlight.backgroundImage)
+                                : null
+                            const overlayOpacity = (
+                              (item.highlight?.overlayOpacity ?? 55) / 100
+                            ).toFixed(2)
                             visibleColumns.push({
                               span: featuredSpan,
                               key: 'highlight',
@@ -2819,21 +2876,23 @@ export function MegaMenu({
                                           : undefined
                                       }
                                     >
-                                      {usePathsBg && (
-                                        <PathsBackground
-                                          strokeColor="currentColor"
-                                          strokeOpacity={0.14}
-                                          className="text-muted-foreground/60"
-                                        />
-                                      )}
-                                      {useThreadsBg && (
-                                        <ThreadsBackground
-                                          strokeColor="currentColor"
-                                          strokeOpacity={0.14}
-                                          amplitude={3.6}
-                                          distance={2}
-                                          className="text-muted-foreground/60"
-                                        />
+                                      {useImageBg && bgImageUrl && (
+                                        <>
+                                          <div
+                                            className="absolute inset-0 bg-cover bg-center"
+                                            style={{ backgroundImage: `url(${bgImageUrl})` }}
+                                            aria-hidden="true"
+                                          />
+                                          <div
+                                            className="absolute inset-0 megamenu-highlight-overlay"
+                                            style={
+                                              {
+                                                '--overlay-opacity': overlayOpacity,
+                                              } as React.CSSProperties
+                                            }
+                                            aria-hidden="true"
+                                          />
+                                        </>
                                       )}
                                       <div className="relative z-10">{highlightContent}</div>
                                     </div>
@@ -2861,6 +2920,10 @@ export function MegaMenu({
                                   setMouseEntrySide(
                                     e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
                                   )
+                                  prefetchTopLevel(item.url)
+                                }}
+                                onFocus={() => {
+                                  prefetchTopLevel(item.url)
                                 }}
                                 onClick={(event) => {
                                   event.preventDefault()
@@ -3016,20 +3079,38 @@ export function MegaMenu({
                                             data-wipe={mouseEntrySide}
                                           >
                                             <div className="megamenu-featured relative border-t border-border p-8">
-                                              {item.highlight?.background === 'paths' && (
-                                                <PathsBackground
-                                                  strokeColor="currentColor"
-                                                  strokeOpacity={0.14}
-                                                  className="text-muted-foreground/60"
-                                                />
-                                              )}
-                                              {item.highlight?.background === 'threads' && (
-                                                <ThreadsBackground
-                                                  strokeColor="currentColor"
-                                                  strokeOpacity={0.14}
-                                                  amplitude={3.6}
-                                                  distance={2}
-                                                  className="text-muted-foreground/60"
+                                              {item.highlight?.background === 'image' &&
+                                                item.highlight?.backgroundImage && (
+                                                  <>
+                                                    <div
+                                                      className="absolute inset-0 bg-cover bg-center"
+                                                      style={{
+                                                        backgroundImage: `url(${mediaUrl(item.highlight.backgroundImage)})`,
+                                                      }}
+                                                      aria-hidden="true"
+                                                    />
+                                                    <div
+                                                      className="absolute inset-0 megamenu-highlight-overlay"
+                                                      style={
+                                                        {
+                                                          '--overlay-opacity': (
+                                                            (item.highlight?.overlayOpacity ?? 55) /
+                                                            100
+                                                          ).toFixed(2),
+                                                        } as React.CSSProperties
+                                                      }
+                                                      aria-hidden="true"
+                                                    />
+                                                  </>
+                                                )}
+                                              {item.highlight?.background === 'gradient' && (
+                                                <div
+                                                  className="absolute inset-0"
+                                                  style={{
+                                                    background:
+                                                      'radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)',
+                                                  }}
+                                                  aria-hidden="true"
                                                 />
                                               )}
                                               <div className="relative z-10">

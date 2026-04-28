@@ -202,6 +202,68 @@ export const hero: Field = {
         },
       ],
     },
+    {
+      name: 'showHeroStats',
+      type: 'checkbox',
+      label: 'KPI/Stats anzeigen',
+      defaultValue: false,
+      admin: {
+        condition: (_, siblingData) => isSuperheroHero(String(siblingData?.type ?? '')),
+        description:
+          'Zeigt KPI-Zahlen unter der Beschreibung an (nur wenn kein Logo-Marquee aktiv ist).',
+      },
+    },
+    {
+      name: 'stats',
+      type: 'array',
+      label: 'KPI / Stats',
+      minRows: 1,
+      maxRows: 6,
+      admin: {
+        condition: (_, siblingData) =>
+          isSuperheroHero(String(siblingData?.type ?? '')) &&
+          siblingData?.showHeroStats === true,
+        description: 'Bis zu 6 KPI-Kacheln (werden im 2–4-spaltigen Grid dargestellt).',
+      },
+      fields: [
+        {
+          name: 'icon',
+          type: 'select',
+          label: 'Icon',
+          defaultValue: 'none',
+          options: [
+            { label: 'Kein Icon', value: 'none' },
+            { label: 'Trend aufwaerts', value: 'TrendingUp' },
+            { label: 'Nutzer / Kunden', value: 'Users' },
+            { label: 'Stern / Bewertung', value: 'Star' },
+            { label: 'Blitz / Performance', value: 'Zap' },
+            { label: 'Ziel / Target', value: 'Target' },
+            { label: 'Auszeichnung / Award', value: 'Award' },
+            { label: 'Diagramm', value: 'BarChart2' },
+            { label: 'Uhr', value: 'Clock' },
+            { label: 'Globus', value: 'Globe' },
+            { label: 'Rakete', value: 'Rocket' },
+            { label: 'Schild', value: 'Shield' },
+            { label: 'Koffer', value: 'Briefcase' },
+          ],
+          admin: {
+            description: 'Optionales Icon pro KPI.',
+          },
+        },
+        {
+          name: 'value',
+          type: 'text',
+          label: 'Wert',
+          required: true,
+        },
+        {
+          name: 'label',
+          type: 'text',
+          label: 'Bezeichnung',
+          required: true,
+        },
+      ],
+    },
     linkGroup({
       overrides: {
         maxRows: 2,

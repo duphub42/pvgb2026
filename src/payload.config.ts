@@ -58,6 +58,11 @@ function getEnvLocalDatabaseUrl(root: string): string | null {
   }
 }
 
+function formatDbTargetLabel(url: string): string {
+  const target = parseDbTarget(url)
+  return target ? `${target.host}/${target.database}` : 'unbekanntes Ziel'
+}
+
 // .env Dateien laden (muss vor der Prüfung der Env-Variablen erfolgen)
 dotenvConfig({ path: path.join(projectRoot, '.env') })
 dotenvConfig({ path: path.join(projectRoot, '.env.local'), override: true })
@@ -145,16 +150,10 @@ if (useSqliteAdapter) {
 
   const legacyUrl = getEnvLocalDatabaseUrl(projectRoot)
   if (legacyUrl && legacyUrl !== activePostgresUrl) {
-    const legacyTarget = parseDbTarget(legacyUrl)
-    const activeTarget = parseDbTarget(activePostgresUrl)
-    const legacyLabel = legacyTarget
-      ? `${legacyTarget.host}/${legacyTarget.database}`
-      : 'unbekanntes Ziel'
-    const activeLabel = activeTarget
-      ? `${activeTarget.host}/${activeTarget.database}`
-      : 'unbekanntes Ziel'
-    console.warn(
-      `[Payload Config] WARN: env.local enthält eine andere DB (${legacyLabel}) als aktiv (${activeLabel}). Das kann dazu führen, dass Migration/Import in unterschiedlichen Neon-DBs landen.`,
+    const legacyLabel = formatDbTargetLabel(legacyUrl)
+    const activeLabel = formatDbTargetLabel(activePostgresUrl)
+    throw new Error(
+      `[Payload Config] DB-Konflikt: env.local zeigt auf ${legacyLabel}, aktiv ist ${activeLabel}. Entferne oder benenne env.local um, damit App und Migrationen dieselbe Neon-DB verwenden.`,
     )
   }
 }

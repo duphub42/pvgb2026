@@ -106,16 +106,8 @@ export default function PopoutPortrait({
 
   return (
     <div
-      className="pb-popout-root"
+      className="pb-popout-root relative h-full shrink-0 overflow-visible mx-auto aspect-[600/720]"
       {...(fillRowHeight ? { 'data-pb-fill-row': '' } : {})}
-      style={{
-        position: 'relative',
-        height: '100%',
-        aspectRatio: `${VIEWBOX_W} / ${VIEWBOX_H}`,
-        flexShrink: 0,
-        overflow: 'visible',
-        margin: '0 auto',
-      }}
     >
       <style>{`
         .pb-popout-root[data-pb-fill-row] {
@@ -162,16 +154,10 @@ export default function PopoutPortrait({
 
       {/* z-0: decor behind everything; masked to exclude interior of popout circle */}
       <svg
+        className="pointer-events-none absolute inset-0 z-0 overflow-visible"
         width="100%"
         height="100%"
         viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 0,
-          overflow: 'visible',
-          pointerEvents: 'none',
-        }}
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
@@ -208,16 +194,10 @@ export default function PopoutPortrait({
 
       {/* z-1: Bodenschatten (Ellipse unter dem Kreis) + indigo Kreis mit Verlauf */}
       <svg
+        className="pointer-events-none absolute inset-0 z-[1] overflow-visible"
         width="100%"
         height="100%"
         viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 1,
-          overflow: 'visible',
-          pointerEvents: 'none',
-        }}
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
@@ -310,16 +290,10 @@ export default function PopoutPortrait({
 
       {/* z-2: Squiggle im Hintergrund — über Kreisfläche sichtbar, unter Karten und Portrait */}
       <svg
+        className="pointer-events-none absolute inset-0 z-[2] overflow-visible"
         width="100%"
         height="100%"
         viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 2,
-          overflow: 'visible',
-          pointerEvents: 'none',
-        }}
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >
@@ -338,16 +312,10 @@ export default function PopoutPortrait({
 
       {/* z-4: Portrait ohne SVG-clipPath, damit das Motiv vollständig sichtbar bleibt (xMidYMax meet im Slot) */}
       <svg
+        className="pointer-events-none absolute inset-0 z-[4] overflow-visible"
         width="100%"
         height="100%"
         viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        style={{
-          position: 'absolute',
-          inset: 0,
-          zIndex: 4,
-          overflow: 'visible',
-          pointerEvents: 'none',
-        }}
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden
       >

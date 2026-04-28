@@ -3,6 +3,21 @@
 import { CMSLink } from '@/components/Link'
 import { ScrambleText } from '@/components/ScrambleText/ScrambleText'
 import { Badge } from '@/components/ui/badge'
+import {
+  Award,
+  BarChart2,
+  Briefcase,
+  Clock,
+  Globe,
+  Rocket,
+  Shield,
+  Star,
+  Target,
+  TrendingUp,
+  Users,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react'
 import Image from 'next/image'
 import React from 'react'
 import { HeroLogoMarquee, type HeroMarqueeLogoRow } from '@/heros/HeroLogoMarquee'
@@ -72,6 +87,10 @@ export interface SuperheroHeroProps {
   marqueeHeadline?: string | null
   marqueeLogos?: HeroMarqueeLogoRow[] | null
 
+  // ─── Stats ─────────────────────────────────────────────────────────────────
+  showHeroStats?: boolean | null
+  stats?: Array<{ id?: string | null; icon?: string | null; value: string; label: string }> | null
+
   // ─── Meta ─────────────────────────────────────────────────────────────────
   sectionAriaLabel?: string | null
   dataHeroType?: string | null
@@ -132,9 +151,10 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   backgroundImage,
   marqueeHeadline,
   marqueeLogos,
+  showHeroStats,
+  stats,
   sectionAriaLabel,
   dataHeroType,
-  pageSlug,
 }) => {
   const sectionRef = React.useRef<HTMLElement | null>(null)
   const portraitRef = React.useRef<HTMLDivElement | null>(null)
@@ -149,7 +169,6 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     const nextSection = host?.querySelector<HTMLElement>('.hero-following-section-mask') ?? null
 
     let rafId = 0
-    let introDoneTimeoutId = 0
     const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
     let lastProgress = ''
     let lastContentProgress = ''
@@ -157,13 +176,8 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     let lastPortraitHideProgress = ''
     let lastPortraitHardHideProgress = ''
 
-    section.setAttribute('data-hero-intro', 'play')
-    if (host) host.setAttribute('data-hero-intro', 'play')
-
-    introDoneTimeoutId = window.setTimeout(() => {
-      section.setAttribute('data-hero-intro', 'done')
-      if (host) host.setAttribute('data-hero-intro', 'done')
-    }, 1200)
+    section.setAttribute('data-hero-intro', 'done')
+    if (host) host.setAttribute('data-hero-intro', 'done')
 
     const updateScrollProgress = () => {
       rafId = 0
@@ -234,7 +248,6 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
     return () => {
       if (rafId !== 0) window.cancelAnimationFrame(rafId)
-      if (introDoneTimeoutId !== 0) window.clearTimeout(introDoneTimeoutId)
       window.removeEventListener('scroll', requestUpdate)
       window.removeEventListener('resize', requestUpdate)
       window.removeEventListener('orientationchange', requestUpdate)
@@ -303,6 +316,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     () => headlineLines.map((line) => parseDecodeSegments(line)),
     [headlineLines],
   )
+  const shouldRenderBgImage = hasRenderableBg
   const hasDecodeTags = React.useMemo(
     () =>
       parsedHeadlineLines.some((lineSegments) =>
@@ -310,9 +324,11 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       ),
     [parsedHeadlineLines],
   )
+  const decodeAnimationEnabled = hasDecodeTags
+  const decodeAnimationActive = decodeAnimationEnabled && decodeReady && decodeInView
 
   React.useEffect(() => {
-    if (!hasDecodeTags) return
+    if (!decodeAnimationEnabled) return
 
     const section = sectionRef.current
     if (!section) return
@@ -339,10 +355,35 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       observer.disconnect()
       if (timeoutId !== 0) window.clearTimeout(timeoutId)
     }
-  }, [hasDecodeTags])
+  }, [decodeAnimationEnabled])
 
   const ctaLinks = (links ?? []).filter((e) => Boolean(e?.link?.label)).slice(0, 2)
   const portraitSrc = mediaSrc
+  const heroDescription = React.useMemo(() => {
+    if (!description || typeof description !== 'string') return null
+    const trimmed = description.trim()
+    return trimmed || null
+  }, [description])
+
+  // Mirror HeroLogoMarquee.showBand logic to suppress stats when marquee is active.
+  const hasMarquee =
+    Boolean(marqueeHeadline?.trim()) || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)
+  const statIconMap: Record<string, LucideIcon> = {
+    TrendingUp,
+    Users,
+    Star,
+    Zap,
+    Target,
+    Award,
+    BarChart2,
+    Clock,
+    Globe,
+    Rocket,
+    Shield,
+    Briefcase,
+  }
+  const showStats =
+    showHeroStats === true && Array.isArray(stats) && stats.length > 0 && !hasMarquee
   const normalizedContentVerticalAlignment =
     contentVerticalAlignment === 'top' || contentVerticalAlignment === 'bottom'
       ? contentVerticalAlignment
@@ -350,54 +391,62 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   const effectiveContentVerticalAlignment = portraitSrc
     ? normalizedContentVerticalAlignment
     : 'bottom'
-  const heroHeight = 'clamp(666px, 77vh, 888px)'
-  const normalizedPageSlug = (pageSlug ?? '').trim().toLowerCase()
-  const isHomeHero =
-    normalizedPageSlug === '' || normalizedPageSlug === '/' || normalizedPageSlug === 'home'
 
   const getMobileShortCtaLabel = (index: number, fullLabel: string): string => {
-    if (isHomeHero) {
-      if (index === 0) return 'Referenz'
-      if (index === 1) return 'Angebot'
-    }
+    void index
 
     const firstWord = fullLabel.trim().split(/\s+/)[0]
     return firstWord || fullLabel
   }
+
+  const heroLayerClass = 'hero-scroll-layer'
+  const heroContentClass = cn(
+    'hero-scroll-content relative container z-[40] flex w-full min-w-0 flex-col px-[clamp(1rem,4vw,2rem)] pb-[clamp(3rem,8vh,7rem)] pt-[clamp(1.5rem,6vh,2.5rem)]',
+    !portraitSrc && 'hero-scroll-content--no-portrait',
+  )
+  const heroMainClass = cn(
+    'hero-scroll-content-main grid min-w-0 gap-0 overflow-visible md:items-start max-md:flex max-md:flex-col',
+    portraitSrc
+      ? 'md:grid-cols-1'
+      : 'md:grid-cols-1 md:max-w-3xl hero-scroll-content-main--no-portrait',
+  )
+  const heroCopyClass = cn(
+    'hero-scroll-content-copy relative min-w-0 flex flex-col overflow-visible space-y-[clamp(1rem,2.5vh,1.5rem)] max-md:z-[16] max-md:flex-shrink-0 max-md:h-auto md:relative md:z-[20] md:min-h-0 md:max-w-3xl lg:min-h-[clamp(400px,62vh,680px)]',
+    'max-md:order-2',
+    portraitSrc &&
+      'hero-mobile-glass max-md:-mx-4 max-md:rounded-t-2xl max-md:px-4 max-md:pt-[clamp(1.5rem,6vh,2rem)] max-md:pb-[clamp(1rem,4vh,1.5rem)] max-md:-mt-[clamp(6.5rem,25vh,11.25rem)]',
+    !portraitSrc && 'hero-scroll-content-copy--no-portrait',
+    effectiveContentVerticalAlignment === 'top' && 'justify-start',
+    effectiveContentVerticalAlignment === 'center' && 'justify-center',
+    effectiveContentVerticalAlignment === 'bottom' && 'justify-end',
+  )
 
   return (
     <section
       ref={sectionRef}
       aria-label={sectionAriaLabel ?? 'Hero'}
       className={cn(
-        'hero-offset relative hero-offset--popout text-foreground',
+        'hero-offset relative hero-offset--popout text-foreground isolate overflow-visible min-h-[clamp(666px,77vh,888px)]',
         !hasRenderableBg && 'bg-background',
         !portraitSrc && 'hero-superhero-no-portrait',
       )}
-      style={{
-        isolation: 'isolate',
-        minHeight: heroHeight,
-        overflow: 'visible',
-      }}
-      data-hero-intro="play"
+      data-hero-intro="done"
       data-hero-variant="popout"
       data-hero-type={dataHeroType ?? 'superhero'}
       data-hero-has-portrait={portraitSrc ? 'true' : 'false'}
     >
       {/* Hintergrundbild - füllt die Section */}
-      {renderBgSrc && (
+      {shouldRenderBgImage && renderBgSrc && (
         <div
           aria-hidden
-          className="hero-scroll-bg pointer-events-none absolute inset-0 overflow-hidden"
-          style={{ zIndex: 0 }}
+          className="hero-scroll-bg pointer-events-none absolute inset-0 overflow-hidden z-0"
         >
           <Image
             src={renderBgSrc}
             alt=""
             fill
-            className="hero-scroll-bg-image w-full h-full"
+            className="hero-scroll-bg-image w-full h-full object-cover"
             style={{
-              objectFit: 'cover',
               objectPosition: bgFocus.objectPosition,
             }}
             onError={() => {
@@ -415,13 +464,12 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       )}
 
       {/* Overlay für Text-Lesbarkeit – theme-aware: --background hell in Light, dunkel in Dark */}
-      {hasRenderableBg && (
+      {shouldRenderBgImage && (
         <div
           aria-hidden
-          className="pointer-events-none absolute inset-0 hero-superhero-image-overlay"
+          className="pointer-events-none absolute inset-0 z-[12] hero-superhero-image-overlay"
           style={
             {
-              zIndex: 12,
               '--hero-focus-x': `${bgFocus.x}%`,
               '--hero-focus-y': `${bgFocus.y}%`,
             } as React.CSSProperties
@@ -436,51 +484,33 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
           aria-hidden
         />
         <div
-          className="hero-popout-structure-layer pointer-events-none absolute inset-0 z-[1]"
+          className="hero-popout-structure-layer pointer-events-none absolute inset-0 z-[1] hidden"
           aria-hidden
-          style={{ display: 'none' }}
         />
       </>
 
-      <div
-        className={cn(
-          'hero-scroll-content relative container flex w-full min-w-0 flex-col px-[clamp(1rem,4vw,2rem)] pb-[clamp(3rem,8vh,7rem)] pt-[clamp(1.5rem,6vh,2.5rem)]',
-          !portraitSrc && 'hero-scroll-content--no-portrait',
-        )}
-        style={{ zIndex: 40 }}
-      >
-        <div
-          className={cn(
-            'hero-scroll-content-main grid min-w-0 gap-0 overflow-visible md:items-start max-md:flex max-md:flex-col',
-            portraitSrc
-              ? 'md:grid-cols-1'
-              : 'md:grid-cols-1 md:max-w-3xl hero-scroll-content-main--no-portrait',
-          )}
-          style={{ overflow: 'visible' }}
-        >
-          <div
-            className={cn(
-              'hero-scroll-content-copy relative min-w-0 flex flex-col space-y-[clamp(1rem,2.5vh,1.5rem)] max-md:z-[16] max-md:order-2 max-md:flex-shrink-0 max-md:h-auto md:relative md:z-[20] md:min-h-0 md:max-w-3xl lg:min-h-[clamp(400px,62vh,680px)]',
-              portraitSrc &&
-                'hero-mobile-glass max-md:-mx-4 max-md:rounded-t-2xl max-md:px-4 max-md:pt-[clamp(1.5rem,6vh,2rem)] max-md:pb-[clamp(1rem,4vh,1.5rem)] max-md:-mt-[clamp(6.5rem,17vh,8.25rem)]',
-              !portraitSrc && 'hero-scroll-content-copy--no-portrait',
-              effectiveContentVerticalAlignment === 'top' && 'justify-start',
-              effectiveContentVerticalAlignment === 'center' && 'justify-center',
-              effectiveContentVerticalAlignment === 'bottom' && 'justify-end',
-            )}
-            style={{ overflow: 'visible' }}
-          >
+      <div className={heroContentClass}>
+        <div className={heroMainClass}>
+          <div className={heroCopyClass}>
             {subheadline && (
               <Badge
                 variant="secondary"
-                className="hero-scroll-layer hero-scroll-layer-eyebrow w-fit px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] hero-subheading-contrast"
+                className={cn(
+                  heroLayerClass,
+                  'hero-scroll-layer-eyebrow w-fit px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] hero-subheading-contrast',
+                )}
               >
                 {subheadline}
               </Badge>
             )}
 
             {headlineLines.length > 0 && (
-              <h1 className="hero-scroll-layer hero-scroll-layer-headline text-pretty text-hero-display hero-heading-gradient tracking-tight">
+              <h1
+                className={cn(
+                  heroLayerClass,
+                  'hero-scroll-layer-headline text-pretty text-hero-display tracking-tight hero-heading-gradient',
+                )}
+              >
                 {parsedHeadlineLines.map((segments, lineIndex) => (
                   <span key={lineIndex} className="block">
                     {segments.map((segment, segmentIndex) => {
@@ -490,6 +520,14 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                       if (!isDecodeSegment) {
                         return (
                           <React.Fragment key={`${lineIndex}-${segmentIndex}`}>
+                            {content}
+                          </React.Fragment>
+                        )
+                      }
+
+                      if (!decodeAnimationEnabled) {
+                        return (
+                          <React.Fragment key={`${lineIndex}-${segmentIndex}-static`}>
                             {content}
                           </React.Fragment>
                         )
@@ -505,7 +543,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                           tickMs={28}
                           useMonospaceOverlay={false}
                           startFromText
-                          disableAnimation={!(decodeReady && decodeInView)}
+                          disableAnimation={!decodeAnimationActive}
                           className="hero-heading-gradient-decode"
                         />
                       )
@@ -515,14 +553,60 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               </h1>
             )}
 
-            {description && (
-              <p className="hero-scroll-layer hero-scroll-layer-body max-w-2xl text-base leading-relaxed hero-content-contrast md:text-lg">
-                {description}
+            {heroDescription && (
+              <p
+                className={cn(
+                  heroLayerClass,
+                  'hero-scroll-layer-body',
+                  'hero-content-contrast hero-superhero-system-font w-full max-w-none text-[0.9rem] leading-[1.35] md:max-w-[44ch]',
+                )}
+              >
+                {heroDescription}
               </p>
             )}
 
+            {showStats && (
+              <div
+                className={cn(
+                  heroLayerClass,
+                  'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-6 mt-5 animate-in fade-in slide-in-from-bottom-2 duration-700',
+                )}
+              >
+                {stats!.map((stat, i) => {
+                  const Icon =
+                    stat.icon && stat.icon !== 'none' ? (statIconMap[stat.icon] ?? null) : null
+
+                  return (
+                    <div
+                      key={stat.id ?? i}
+                      className="hero-stat-item relative flex flex-col gap-1.5 pr-6"
+                    >
+                      {Icon ? (
+                        <Icon
+                          className="size-4 text-primary/70 mb-0.5"
+                          strokeWidth={1.5}
+                          aria-hidden
+                        />
+                      ) : null}
+                      <span className="text-3xl font-semibold leading-none tracking-tight hero-heading-gradient">
+                        {stat.value}
+                      </span>
+                      <span className="text-[0.78rem] leading-snug hero-subheading-contrast uppercase tracking-[0.06em]">
+                        {stat.label}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
+
             {ctaLinks.length > 0 && (
-              <div className="hero-scroll-layer hero-scroll-layer-cta flex flex-wrap items-center gap-3 max-md:flex-nowrap max-md:gap-2">
+              <div
+                className={cn(
+                  heroLayerClass,
+                  'hero-scroll-layer-cta flex flex-wrap items-center gap-3 max-md:flex-nowrap max-md:gap-2',
+                )}
+              >
                 {ctaLinks.map((item, index) => (
                   <CMSLink
                     key={`${item?.link?.label ?? 'cta'}-${index}`}
@@ -551,20 +635,20 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
             <HeroLogoMarquee
               marqueeHeadline={marqueeHeadline}
               marqueeLogos={marqueeLogos}
-              className="hero-scroll-layer hero-scroll-layer-marquee mt-1 pt-3 border-t border-border/60"
+              className={cn(
+                heroLayerClass,
+                'hero-scroll-layer-marquee mt-1 pt-3 border-t border-border/60',
+              )}
             />
           </div>
 
           {portraitSrc && (
             <div
               ref={portraitRef}
-              className="hero-scroll-content-portrait hero-superhero-portrait hero-desktop-parallax-portrait hero-mobile-sticky-portrait max-md:order-1 md:order-none max-md:h-auto max-md:min-h-[260px] max-md:min-w-0 max-md:z-[14] md:z-[14]"
-              style={{
-                position: 'sticky',
-                aspectRatio: '600 / 720',
-                flexShrink: 0,
-                overflow: 'visible',
-              }}
+              className={cn(
+                'hero-scroll-content-portrait hero-superhero-portrait hero-desktop-parallax-portrait hero-mobile-sticky-portrait sticky aspect-[600/720] shrink-0 overflow-visible md:order-none max-md:h-auto max-md:min-h-[222px] max-md:min-w-0 max-md:z-[14] md:z-[14]',
+                'max-md:order-1',
+              )}
             >
               <div className="hero-superhero-portrait-media relative h-full w-full overflow-visible">
                 <Image

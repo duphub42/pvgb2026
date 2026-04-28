@@ -228,8 +228,36 @@ export const MegaMenu: CollectionConfig = {
             { label: 'Standard', value: 'default' },
             { label: 'Abgesetzt (muted)', value: 'muted' },
             { label: 'Abgesetzt (accent)', value: 'accent' },
+            { label: 'Special mit Hintergrundbild', value: 'image' },
           ],
-          admin: { description: 'Optional anderer Hintergrund, um die Spalte visuell abzusetzen.' },
+          admin: {
+            description:
+              'Optional anderer Hintergrund. „Special mit Hintergrundbild“ macht die Spalte zum Special-Block mit Bild und Overlay.',
+          },
+        },
+        {
+          name: 'backgroundImage',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Special-Hintergrundbild',
+          admin: {
+            description:
+              'Wird als Hintergrund des Special-Blocks verwendet. Nur aktiv bei „Special mit Hintergrundbild“.',
+            condition: (_, siblingData) => siblingData?.columnBackground === 'image',
+          },
+        },
+        {
+          name: 'overlayOpacity',
+          type: 'number',
+          label: 'Special-Overlay-Deckkraft (%)',
+          defaultValue: 55,
+          min: 0,
+          max: 100,
+          admin: {
+            description:
+              'Dunkles Overlay über dem Hintergrundbild (0 = kein Overlay, 100 = vollständig bedeckt).',
+            condition: (_, siblingData) => siblingData?.columnBackground === 'image',
+          },
         },
         {
           name: 'items',
@@ -312,13 +340,36 @@ export const MegaMenu: CollectionConfig = {
           defaultValue: 'default',
           options: [
             { label: 'Standard (einfarbig)', value: 'default' },
-            { label: 'Paths (animierte Linien)', value: 'paths' },
-            { label: 'Threads (Wellenlinien)', value: 'threads' },
+            { label: 'Hintergrundbild', value: 'image' },
             { label: 'Radial-Gradient (Fokus)', value: 'gradient' },
           ],
           admin: {
             description:
-              'Paths = Bezierkurven (shadcn). Threads = wellige Fadenlinien (React Bits-Style). Gradient = radialer Fokus mit Primärfarbe. Pro Highlight-Box einstellbar.',
+              'Standard = einfarbig. Bild = Hintergrundbild mit Overlay. Gradient = radialer Fokus mit Primärfarbe. Pro Highlight-Box einstellbar.',
+          },
+        },
+        {
+          name: 'backgroundImage',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Hintergrundbild',
+          admin: {
+            description:
+              'Wird als Hintergrundbild der Highlight-Box verwendet. Nur aktiv wenn Hintergrund = „Hintergrundbild".',
+            condition: (_, siblingData) => siblingData?.background === 'image',
+          },
+        },
+        {
+          name: 'overlayOpacity',
+          type: 'number',
+          label: 'Overlay-Deckkraft (%)',
+          defaultValue: 55,
+          min: 0,
+          max: 100,
+          admin: {
+            description:
+              'Stärke des dunklen Overlays über dem Hintergrundbild (0 = kein Overlay, 100 = vollständig bedeckt). Passt sich automatisch an Dark/Light-Theme an.',
+            condition: (_, siblingData) => siblingData?.background === 'image',
           },
         },
         {

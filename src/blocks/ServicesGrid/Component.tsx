@@ -29,7 +29,7 @@ import { cn } from '@/utilities/ui'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 import type { ServicesGridBlock as ServicesGridBlockData } from '@/payload-types'
-import type { BlockStyles } from '@/blocks/BlockStyleSystem'
+import { containerMap, type BlockStyles } from '@/blocks/BlockStyleSystem'
 import { BlockContainer } from '@/components/BlockContainer'
 
 type ServicesGridProps = ServicesGridBlockData & {
@@ -97,27 +97,39 @@ const getStrengthClassNames = (strength: RadialStrength) => {
   switch (strength) {
     case 'subtle':
       return {
-        glowOpacity: 'opacity-70',
-        glowBlur: 'blur-[60px]',
-        baseOpacity: 'opacity-35',
+        glowOpacity: 'opacity-40',
+        glowBlur: 'blur-[90px]',
+        baseOpacity: 'opacity-16',
       }
     case 'strong':
       return {
-        glowOpacity: 'opacity-100',
-        glowBlur: 'blur-[34px]',
-        baseOpacity: 'opacity-72',
+        glowOpacity: 'opacity-70',
+        glowBlur: 'blur-[62px]',
+        baseOpacity: 'opacity-34',
       }
     default:
       return {
-        glowOpacity: 'opacity-95',
-        glowBlur: 'blur-[42px]',
-        baseOpacity: 'opacity-55',
+        glowOpacity: 'opacity-56',
+        glowBlur: 'blur-[78px]',
+        baseOpacity: 'opacity-22',
       }
   }
 }
 
 const p = (base: number, mult: number): string =>
   `${Math.max(0, Math.min(95, base * mult)).toFixed(1)}%`
+
+const SOFT_EDGE_MASK =
+  'radial-gradient(136% 124% at 50% 50%, rgba(0, 0, 0, 0.66) 20%, rgba(0, 0, 0, 0.48) 56%, rgba(0, 0, 0, 0.24) 78%, transparent 100%)'
+
+const withSoftEdgeMask = (style: React.CSSProperties): React.CSSProperties => ({
+  ...style,
+  maskImage: SOFT_EDGE_MASK,
+  WebkitMaskImage: SOFT_EDGE_MASK,
+})
+
+const radialBleedLayerClass =
+  'left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[180vw] min-w-[110rem] max-w-[220rem]'
 
 const getRadialStyles = (
   variant: string | undefined,
@@ -128,15 +140,15 @@ const getRadialStyles = (
   switch (variant) {
     case 'blue':
       return {
-        background: `radial-gradient(68% 54% at 14% 16%, color-mix(in srgb, var(--theme-elevation-1000) ${p(26, m)}, transparent) 0%, color-mix(in srgb, var(--theme-elevation-900) ${p(16, m)}, transparent) 38%, transparent 78%), radial-gradient(92% 82% at 84% 84%, color-mix(in srgb, var(--theme-elevation-900) ${p(12, m)}, transparent) 0%, transparent 76%)`,
+        background: `radial-gradient(98% 84% at 18% 18%, color-mix(in srgb, var(--theme-elevation-1000) ${p(12, m)}, transparent) 0%, color-mix(in srgb, var(--theme-elevation-900) ${p(7, m)}, transparent) 52%, transparent 100%), radial-gradient(128% 102% at 84% 84%, color-mix(in srgb, var(--theme-elevation-900) ${p(6, m)}, transparent) 0%, transparent 100%)`,
       }
     case 'orange':
       return {
-        background: `radial-gradient(68% 54% at 86% 16%, color-mix(in srgb, var(--theme-elevation-1000) ${p(26, m)}, transparent) 0%, color-mix(in srgb, var(--theme-elevation-900) ${p(16, m)}, transparent) 38%, transparent 78%), radial-gradient(92% 82% at 16% 84%, color-mix(in srgb, var(--theme-elevation-900) ${p(12, m)}, transparent) 0%, transparent 76%)`,
+        background: `radial-gradient(98% 84% at 82% 18%, color-mix(in srgb, var(--theme-elevation-1000) ${p(12, m)}, transparent) 0%, color-mix(in srgb, var(--theme-elevation-900) ${p(7, m)}, transparent) 52%, transparent 100%), radial-gradient(128% 102% at 16% 84%, color-mix(in srgb, var(--theme-elevation-900) ${p(6, m)}, transparent) 0%, transparent 100%)`,
       }
     default:
       return {
-        background: `radial-gradient(72% 56% at 50% 14%, color-mix(in srgb, var(--theme-elevation-1000) ${p(24, m)}, transparent) 0%, color-mix(in srgb, var(--theme-elevation-900) ${p(14, m)}, transparent) 40%, transparent 80%), radial-gradient(90% 82% at 50% 86%, color-mix(in srgb, var(--theme-elevation-900) ${p(12, m)}, transparent) 0%, transparent 76%)`,
+        background: `radial-gradient(104% 82% at 50% 18%, color-mix(in srgb, var(--theme-elevation-1000) ${p(11, m)}, transparent) 0%, color-mix(in srgb, var(--theme-elevation-900) ${p(7, m)}, transparent) 54%, transparent 100%), radial-gradient(132% 106% at 50% 84%, color-mix(in srgb, var(--theme-elevation-900) ${p(6, m)}, transparent) 0%, transparent 100%)`,
       }
   }
 }
@@ -172,6 +184,13 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
 
   // Style-Props direkt an BlockContainer übergeben
   const styles = styleProps as unknown as BlockStyles
+  const contentContainer = styles.blockContainer ?? 'default'
+  const contentContainerClass = containerMap[contentContainer] || containerMap.default
+  const blockStyles: BlockStyles = {
+    ...styles,
+    // Full-bleed Layer brauchen einen nicht eingeschränkten Outer-Container.
+    blockContainer: 'none',
+  }
   const servicesData = categories ?? []
   const introImageSrc = resolveHeroImageSrc(introImage)
   const hasIntroImage = Boolean(introImageSrc)
@@ -190,38 +209,36 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
 
   return (
     <BlockContainer
-      styles={styles}
+      styles={blockStyles}
       index={index}
-      className={cn(
-        'overflow-x-clip overflow-y-visible',
-        effectiveStrength === 'subtle' && 'services-grid-radial-subtle',
-      )}
+      className={cn('services-grid-root overflow-visible', effectiveStrength === 'subtle' && 'services-grid-radial-subtle')}
     >
       {radialBackground ? (
         <>
           <div
             aria-hidden
             className={cn(
-              'services-grid-radial-glow pointer-events-none absolute -inset-x-24 -inset-y-20 z-0',
+              'services-grid-radial-glow pointer-events-none absolute z-0 h-[calc(100%+28rem)]',
+              radialBleedLayerClass,
               radialClasses.glowOpacity,
               radialClasses.glowBlur,
             )}
-            style={getRadialStyles(radialBackgroundVariant ?? 'default', effectiveStrength)}
+            style={withSoftEdgeMask(getRadialStyles(radialBackgroundVariant ?? 'default', effectiveStrength))}
           />
           <div
             aria-hidden
             className={cn(
-              'services-grid-radial-base pointer-events-none absolute inset-0 z-0',
+              'services-grid-radial-base pointer-events-none absolute z-0 h-[calc(100%+24rem)] w-[200vw] min-w-[120rem] max-w-[240rem] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
               radialClasses.baseOpacity,
             )}
-            style={{
-              background: `radial-gradient(110% 78% at 50% 18%, color-mix(in srgb, var(--theme-elevation-1000) ${p(12, strengthMultiplier[effectiveStrength])}, transparent) 0%, transparent 74%)`,
-            }}
+            style={withSoftEdgeMask({
+              background: `radial-gradient(144% 104% at 50% 16%, color-mix(in srgb, var(--theme-elevation-1000) ${p(6, strengthMultiplier[effectiveStrength])}, transparent) 0%, transparent 100%), radial-gradient(156% 118% at 50% 86%, color-mix(in srgb, var(--theme-elevation-900) ${p(5, strengthMultiplier[effectiveStrength])}, transparent) 0%, transparent 100%)`,
+            })}
           />
         </>
       ) : null}
 
-      <div className="relative z-10 container">
+      <div className={cn('relative z-10 services-grid-container overflow-visible', contentContainerClass)}>
         {(heading || intro || tagline || hasIconList || hasIntroImage) && (
           <div
             className={cn(

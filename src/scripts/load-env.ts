@@ -38,15 +38,18 @@ function getEnvLocalDatabaseUrl(): string | null {
 	}
 }
 
+function formatDbTargetLabel(url: string): string {
+	const target = parseDbTarget(url)
+	return target ? `${target.host}/${target.database}` : 'unbekanntes Ziel'
+}
+
 const activeDbUrl = process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim() || ''
 const legacyDbUrl = getEnvLocalDatabaseUrl()
 
 if (activeDbUrl && legacyDbUrl && activeDbUrl !== legacyDbUrl) {
-	const active = parseDbTarget(activeDbUrl)
-	const legacy = parseDbTarget(legacyDbUrl)
-	const activeLabel = active ? `${active.host}/${active.database}` : 'unbekanntes Ziel'
-	const legacyLabel = legacy ? `${legacy.host}/${legacy.database}` : 'unbekanntes Ziel'
-	console.warn(
-		`[load-env] WARN: env.local zeigt auf ${legacyLabel}, aktiv ist ${activeLabel}. Nutze nur eine DB-URL-Quelle, sonst landen Migration/Import in verschiedenen Neon-DBs.`,
+	const activeLabel = formatDbTargetLabel(activeDbUrl)
+	const legacyLabel = formatDbTargetLabel(legacyDbUrl)
+	throw new Error(
+		`[load-env] DB-Konflikt: env.local zeigt auf ${legacyLabel}, aktiv ist ${activeLabel}. Entferne oder benenne env.local um, damit App, Migrationen und Skripte dieselbe Neon-DB verwenden.`,
 	)
 }

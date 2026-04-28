@@ -61,12 +61,20 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const { theme: globalTheme } = useTheme()
   const pathname = usePathname()
+  const [hasHydrated, setHasHydrated] = useState(false)
+  const effectivePathname = hasHydrated ? pathname ?? '/' : '/'
+  const normalizedPathname = effectivePathname.replace(/\/+$/, '') || '/'
+  const isHomePath = normalizedPathname === '/' || normalizedPathname === '/home'
   const shouldUseMegaMenu =
     headerData.useMegaMenu === true ||
     headerData.use_mega_menu === true ||
     resolvedMegaMenuItems.length > 0
   const useMegaMenu = shouldUseMegaMenu && resolvedMegaMenuItems.length > 0
   const logoIntroTimeoutRef = useRef<number | null>(null)
+
+  useEffect(() => {
+    setHasHydrated(true)
+  }, [])
 
   useEffect(() => {
     setResolvedMegaMenuItems(megaMenuItems)
@@ -99,6 +107,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   }, [resolvedMegaMenuItems.length, shouldUseMegaMenu])
 
   useEffect(() => {
+    if (isHomePath) {
+      setLogoPreviewActive(false)
+      setLogoMorphReady(true)
+      return
+    }
+
     // Always start with the full site logo, then morph to B-logo after intro playback.
     setLogoMorphReady(false)
     setLogoPreviewActive(true)
@@ -120,7 +134,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
         logoIntroTimeoutRef.current = null
       }
     }
-  }, [pathname])
+  }, [effectivePathname, isHomePath])
 
   useEffect(() => {
     return () => {
@@ -234,7 +248,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   useEffect(() => {
     setHeaderTheme(null)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname])
+  }, [effectivePathname])
 
   // Resolved theme: page override (headerTheme) or global theme (reaktiv beim Toggle)
   const resolvedTheme = headerTheme ?? globalTheme ?? null
@@ -250,6 +264,20 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     : (resolveHeroImageSrc(logoData) ?? '')
 
   const renderPrimaryLogo = (disableAnimation?: boolean) => {
+    if (isHomePath) {
+      return (
+        <Image
+          src={HEADER_B_LOGO_SRC}
+          alt=""
+          aria-hidden="true"
+          className="header-b-logo logo-contrast"
+          width={40}
+          height={42}
+          priority
+        />
+      )
+    }
+
     if (hasCustomLogo && logoUrl) {
       return (
         <LogoWithGlitch imgSrc={logoUrl} variant="header" disableAnimation={disableAnimation}>
@@ -303,6 +331,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   }
 
   const renderLogoLink = (disableAnimation?: boolean) => (
+    isHomePath ? (
+      <Link href="/" aria-label="Zur Startseite" className="logo-link relative flex items-center shrink-0">
+        {renderPrimaryLogo(disableAnimation)}
+      </Link>
+    ) : (
     <Link
       href="/"
       className="logo-link relative flex items-center shrink-0"
@@ -318,6 +351,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
         {renderStickyLogo()}
       </span>
     </Link>
+    )
   )
 
   const desktopLogoEl = renderLogoLink()

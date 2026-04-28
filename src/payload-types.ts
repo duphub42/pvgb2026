@@ -233,6 +233,40 @@ export interface SitePage {
           id?: string | null;
         }[]
       | null;
+    /**
+     * Zeigt KPI-Zahlen unter der Beschreibung an (nur wenn kein Logo-Marquee aktiv ist).
+     */
+    showHeroStats?: boolean | null;
+    /**
+     * Bis zu 6 KPI-Kacheln (werden im 2–4-spaltigen Grid dargestellt).
+     */
+    stats?:
+      | {
+          /**
+           * Optionales Icon pro KPI.
+           */
+          icon?:
+            | (
+                | 'none'
+                | 'TrendingUp'
+                | 'Users'
+                | 'Star'
+                | 'Zap'
+                | 'Target'
+                | 'Award'
+                | 'BarChart2'
+                | 'Clock'
+                | 'Globe'
+                | 'Rocket'
+                | 'Shield'
+                | 'Briefcase'
+              )
+            | null;
+          value: string;
+          label: string;
+          id?: string | null;
+        }[]
+      | null;
     links?:
       | {
           link: {
@@ -280,6 +314,7 @@ export interface SitePage {
   layout?:
     | (
         | HeroMarketingBlock
+        | HeroFlowchartBlock
         | HeroWithProcessBlock
         | IntroductionBlock
         | MarqueeSliderBlock
@@ -594,6 +629,55 @@ export interface HeroMarketingBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'heroMarketing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroFlowchartBlock".
+ */
+export interface HeroFlowchartBlock {
+  blockSpacingPadding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+  blockSpacingPaddingTop?: ('default' | 'negative' | 'xl') | null;
+  blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
+  blockBorderEnabled?: boolean | null;
+  blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
+  blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  blockOverlayEnabled?: boolean | null;
+  blockOverlayColor?: ('dark' | 'light') | null;
+  /**
+   * 0 = transparent, 100 = voll deckend
+   */
+  blockOverlayOpacity?: number | null;
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
+  headline: string;
+  subline?: string | null;
+  ctaLabel?: string | null;
+  ctaHref: string;
+  /**
+   * Absolute X/Y-Werte in Pixeln relativ zur Desktop-Canvas (680x460px).
+   */
+  flowNodes?:
+    | {
+        title: string;
+        description?: string | null;
+        x: number;
+        y: number;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroFlowchart';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2593,9 +2677,17 @@ export interface MegaMenu {
          */
         dividerBefore?: boolean | null;
         /**
-         * Optional anderer Hintergrund, um die Spalte visuell abzusetzen.
+         * Optional anderer Hintergrund. „Special mit Hintergrundbild“ macht die Spalte zum Special-Block mit Bild und Overlay.
          */
-        columnBackground?: ('default' | 'muted' | 'accent') | null;
+        columnBackground?: ('default' | 'muted' | 'accent' | 'image') | null;
+        /**
+         * Wird als Hintergrund des Special-Blocks verwendet. Nur aktiv bei „Special mit Hintergrundbild“.
+         */
+        backgroundImage?: (number | null) | Media;
+        /**
+         * Dunkles Overlay über dem Hintergrundbild (0 = kein Overlay, 100 = vollständig bedeckt).
+         */
+        overlayOpacity?: number | null;
         items?:
           | {
               label: string;
@@ -2635,9 +2727,17 @@ export interface MegaMenu {
      */
     position?: ('right' | 'below') | null;
     /**
-     * Paths = Bezierkurven (shadcn). Threads = wellige Fadenlinien (React Bits-Style). Gradient = radialer Fokus mit Primärfarbe. Pro Highlight-Box einstellbar.
+     * Standard = einfarbig. Bild = Hintergrundbild mit Overlay. Gradient = radialer Fokus mit Primärfarbe. Pro Highlight-Box einstellbar.
      */
-    background?: ('default' | 'paths' | 'threads' | 'gradient') | null;
+    background?: ('default' | 'image' | 'gradient') | null;
+    /**
+     * Wird als Hintergrundbild der Highlight-Box verwendet. Nur aktiv wenn Hintergrund = „Hintergrundbild".
+     */
+    backgroundImage?: (number | null) | Media;
+    /**
+     * Stärke des dunklen Overlays über dem Hintergrundbild (0 = kein Overlay, 100 = vollständig bedeckt). Passt sich automatisch an Dark/Light-Theme an.
+     */
+    overlayOpacity?: number | null;
     /**
      * Mehrere Karten möglich. Jede Karte: optional Icon oder Bild, Titel, Beschreibung und Link.
      */
@@ -3057,6 +3157,15 @@ export interface SitePagesSelect<T extends boolean = true> {
               alt?: T;
               id?: T;
             };
+        showHeroStats?: T;
+        stats?:
+          | T
+          | {
+              icon?: T;
+              value?: T;
+              label?: T;
+              id?: T;
+            };
         links?:
           | T
           | {
@@ -3081,6 +3190,7 @@ export interface SitePagesSelect<T extends boolean = true> {
     | T
     | {
         heroMarketing?: T | HeroMarketingBlockSelect<T>;
+        heroFlowchart?: T | HeroFlowchartBlockSelect<T>;
         heroWithProcess?: T | HeroWithProcessBlockSelect<T>;
         introduction?: T | IntroductionBlockSelect<T>;
         marqueeSlider?: T | MarqueeSliderBlockSelect<T>;
@@ -3153,6 +3263,42 @@ export interface HeroMarketingBlockSelect<T extends boolean = true> {
   primaryCtaUrl?: T;
   secondaryCtaLabel?: T;
   secondaryCtaUrl?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroFlowchartBlock_select".
+ */
+export interface HeroFlowchartBlockSelect<T extends boolean = true> {
+  blockSpacingPadding?: T;
+  blockSpacingPaddingTop?: T;
+  blockSpacingMarginBottom?: T;
+  blockContainer?: T;
+  blockBackground?: T;
+  blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
+  blockBorderEnabled?: T;
+  blockBorderStyle?: T;
+  blockBorderRadius?: T;
+  blockOverlayEnabled?: T;
+  blockOverlayColor?: T;
+  blockOverlayOpacity?: T;
+  blockContentSpacing?: T;
+  blockAnimation?: T;
+  headline?: T;
+  subline?: T;
+  ctaLabel?: T;
+  ctaHref?: T;
+  flowNodes?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        x?: T;
+        y?: T;
+        id?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -4456,6 +4602,8 @@ export interface MegaMenuSelect<T extends boolean = true> {
         columnWidth?: T;
         dividerBefore?: T;
         columnBackground?: T;
+        backgroundImage?: T;
+        overlayOpacity?: T;
         items?:
           | T
           | {
@@ -4475,6 +4623,8 @@ export interface MegaMenuSelect<T extends boolean = true> {
     | {
         position?: T;
         background?: T;
+        backgroundImage?: T;
+        overlayOpacity?: T;
         cards?:
           | T
           | {
