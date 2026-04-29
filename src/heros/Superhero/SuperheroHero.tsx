@@ -169,6 +169,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     const nextSection = host?.querySelector<HTMLElement>('.hero-following-section-mask') ?? null
 
     let rafId = 0
+    let introTimeoutId = 0
     const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
     let lastProgress = ''
     let lastContentProgress = ''
@@ -176,8 +177,11 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     let lastPortraitHideProgress = ''
     let lastPortraitHardHideProgress = ''
 
-    section.setAttribute('data-hero-intro', 'done')
-    if (host) host.setAttribute('data-hero-intro', 'done')
+    // LCP fix: delay transition from 'play' to 'done' by 1200ms to allow initial paint without GPU compositing
+    introTimeoutId = window.setTimeout(() => {
+      section.setAttribute('data-hero-intro', 'done')
+      if (host) host.setAttribute('data-hero-intro', 'done')
+    }, 1200)
 
     const updateScrollProgress = () => {
       rafId = 0
@@ -248,6 +252,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
     return () => {
       if (rafId !== 0) window.cancelAnimationFrame(rafId)
+      if (introTimeoutId !== 0) window.clearTimeout(introTimeoutId)
       window.removeEventListener('scroll', requestUpdate)
       window.removeEventListener('resize', requestUpdate)
       window.removeEventListener('orientationchange', requestUpdate)
@@ -430,7 +435,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         !hasRenderableBg && 'bg-background',
         !portraitSrc && 'hero-superhero-no-portrait',
       )}
-      data-hero-intro="done"
+      data-hero-intro="play"
       data-hero-variant="popout"
       data-hero-type={dataHeroType ?? 'superhero'}
       data-hero-has-portrait={portraitSrc ? 'true' : 'false'}
