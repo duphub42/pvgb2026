@@ -30,14 +30,14 @@ const DEFAULT_STEPS: Step[] = [
     stepNumber: '01',
     title: 'Analyse & Ausrichtung',
     subtitle: 'Fundament für alle weiteren Maßnahmen',
-    text: 'Wir definieren Ziele, Prioritäten und den richtigen Fokus. Vor der Umsetzung klären wir, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.',
+    text: 'Gemeinsam definieren wir Ziele, Prioritäten und den richtigen Fokus. Vor der Umsetzung klären wir gemeinsam, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.',
   },
   {
     key: 'default-02',
     stepNumber: '02',
     title: 'Klärung & Strategie',
     subtitle: 'Ziele verstehen & Struktur schaffen',
-    text: 'Wir besprechen Ihr Projekt, Ihre Zielgruppe und die gewünschten Ergebnisse. Daraus entsteht eine klare strategische Grundlage für alle weiteren Schritte.',
+    text: 'Gemeinsam besprechen wir Ihr Projekt, Ihre Zielgruppe und die gewünschten Ergebnisse. Daraus entsteht eine klare strategische Grundlage für alle weiteren Schritte.',
   },
   {
     key: 'default-03',
@@ -51,7 +51,7 @@ const DEFAULT_STEPS: Step[] = [
     stepNumber: '04',
     title: 'Umsetzung & Feinschliff',
     subtitle: 'Design & Development in hoher Qualität',
-    text: 'Die Website bzw. dein Projekt entsteht in enger Abstimmung mit dir, mit Fokus auf Nutzerführung, Performance und Detailqualität.',
+    text: 'Ihre Website bzw. Ihr Projekt entsteht in enger Abstimmung mit Ihnen, mit Fokus auf Nutzerführung, Performance und Detailqualität.',
   },
   {
     key: 'default-05',

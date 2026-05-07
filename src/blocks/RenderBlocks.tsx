@@ -77,11 +77,8 @@ function getBlockOverlayStyle(
   const opacityNum = Number(blockOverlay.opacity)
   if (Number.isNaN(opacityNum)) return null
   const opacity = Math.min(1, Math.max(0, opacityNum / 100))
-  // Theme-responsiv + invertiert:
-  // --theme-elevation-0/-1000 sind in Dark/Light gegensinnig gemappt.
-  // Dadurch bleibt das Overlay je nach Theme automatisch invertiert.
   const color =
-    blockOverlay.color === 'light' ? 'var(--theme-elevation-0)' : 'var(--theme-elevation-1000)'
+    blockOverlay.color === 'light' ? 'var(--block-overlay-light)' : 'var(--block-overlay-dark)'
   return {
     position: 'absolute',
     inset: 0,

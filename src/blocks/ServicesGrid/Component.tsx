@@ -36,7 +36,6 @@ type ServicesGridProps = ServicesGridBlockData & {
   disableInnerContainer?: boolean
   index?: number
 }
-type RadialStrength = 'subtle' | 'medium' | 'strong'
 
 const normalizeServiceSlug = (slug?: string | null): string => {
   const raw = slug?.trim() ?? ''
@@ -87,72 +86,6 @@ const getIconFromName = (name?: string | null): LucideIcon => {
   return INTRO_ICON_MAP[compactKey] ?? CircleHelp
 }
 
-const strengthMultiplier: Record<RadialStrength, number> = {
-  subtle: 0.78,
-  medium: 1,
-  strong: 1.28,
-}
-
-const getStrengthClassNames = (strength: RadialStrength) => {
-  switch (strength) {
-    case 'subtle':
-      return {
-        glowOpacity: 'opacity-40',
-        glowBlur: 'blur-[90px]',
-        baseOpacity: 'opacity-16',
-      }
-    case 'strong':
-      return {
-        glowOpacity: 'opacity-70',
-        glowBlur: 'blur-[62px]',
-        baseOpacity: 'opacity-34',
-      }
-    default:
-      return {
-        glowOpacity: 'opacity-56',
-        glowBlur: 'blur-[78px]',
-        baseOpacity: 'opacity-22',
-      }
-  }
-}
-
-const p = (base: number, mult: number): string =>
-  `${Math.max(0, Math.min(95, base * mult)).toFixed(1)}%`
-
-const SOFT_EDGE_MASK =
-  'radial-gradient(136% 124% at 50% 50%, rgba(0, 0, 0, 0.66) 20%, rgba(0, 0, 0, 0.48) 56%, rgba(0, 0, 0, 0.24) 78%, transparent 100%)'
-
-const withSoftEdgeMask = (style: React.CSSProperties): React.CSSProperties => ({
-  ...style,
-  maskImage: SOFT_EDGE_MASK,
-  WebkitMaskImage: SOFT_EDGE_MASK,
-})
-
-const radialBleedLayerClass =
-  'left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[180vw] min-w-[110rem] max-w-[220rem]'
-
-const getRadialStyles = (
-  variant: string | undefined,
-  strength: RadialStrength,
-): React.CSSProperties => {
-  const m = strengthMultiplier[strength] ?? 1
-
-  switch (variant) {
-    case 'blue':
-      return {
-        background: `radial-gradient(98% 84% at 18% 18%, color-mix(in srgb, var(--theme-elevation-1000) ${p(12, m)}, transparent) 0%, color-mix(in srgb, var(--theme-elevation-900) ${p(7, m)}, transparent) 52%, transparent 100%), radial-gradient(128% 102% at 84% 84%, color-mix(in srgb, var(--theme-elevation-900) ${p(6, m)}, transparent) 0%, transparent 100%)`,
-      }
-    case 'orange':
-      return {
-        background: `radial-gradient(98% 84% at 82% 18%, color-mix(in srgb, var(--theme-elevation-1000) ${p(12, m)}, transparent) 0%, color-mix(in srgb, var(--theme-elevation-900) ${p(7, m)}, transparent) 52%, transparent 100%), radial-gradient(128% 102% at 16% 84%, color-mix(in srgb, var(--theme-elevation-900) ${p(6, m)}, transparent) 0%, transparent 100%)`,
-      }
-    default:
-      return {
-        background: `radial-gradient(104% 82% at 50% 18%, color-mix(in srgb, var(--theme-elevation-1000) ${p(11, m)}, transparent) 0%, color-mix(in srgb, var(--theme-elevation-900) ${p(7, m)}, transparent) 54%, transparent 100%), radial-gradient(132% 106% at 50% 84%, color-mix(in srgb, var(--theme-elevation-900) ${p(6, m)}, transparent) 0%, transparent 100%)`,
-      }
-  }
-}
-
 const isSvgIntroImage = (
   media: ServicesGridBlockData['introImage'],
   src: string | null,
@@ -174,9 +107,9 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
     introIconList,
     introImage,
     introImagePosition = 'left',
-    radialBackground,
-    radialBackgroundVariant,
-    radialBackgroundStrength,
+    radialBackground: _radialBackground,
+    radialBackgroundVariant: _radialBackgroundVariant,
+    radialBackgroundStrength: _radialBackgroundStrength,
     categories,
     index = 0,
     ...styleProps
@@ -184,11 +117,9 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
 
   // Style-Props direkt an BlockContainer übergeben
   const styles = styleProps as unknown as BlockStyles
-  const contentContainer = styles.blockContainer ?? 'default'
-  const contentContainerClass = containerMap[contentContainer] || containerMap.default
   const blockStyles: BlockStyles = {
     ...styles,
-    // Full-bleed Layer brauchen einen nicht eingeschränkten Outer-Container.
+    // Inhalt wird innen auf den Seitenstandard gesetzt.
     blockContainer: 'none',
   }
   const servicesData = categories ?? []
@@ -196,11 +127,6 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
   const hasIntroImage = Boolean(introImageSrc)
   const introImageIsSvg = isSvgIntroImage(introImage, introImageSrc)
   const hasIconList = Array.isArray(introIconList) && introIconList.length > 0
-  const effectiveStrength: RadialStrength =
-    radialBackgroundStrength === 'subtle' || radialBackgroundStrength === 'strong'
-      ? radialBackgroundStrength
-      : 'medium'
-  const radialClasses = getStrengthClassNames(effectiveStrength)
   const introLayoutClass = introImagePosition === 'left' ? 'lg:flex-row-reverse' : 'lg:flex-row'
   const introImagePopoutClass =
     introImagePosition === 'right' ? 'lg:translate-x-20 lg:-translate-y-4' : 'lg:-translate-y-4'
@@ -211,34 +137,9 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
     <BlockContainer
       styles={blockStyles}
       index={index}
-      className={cn('services-grid-root overflow-visible', effectiveStrength === 'subtle' && 'services-grid-radial-subtle')}
+      className="services-grid-root overflow-visible"
     >
-      {radialBackground ? (
-        <>
-          <div
-            aria-hidden
-            className={cn(
-              'services-grid-radial-glow pointer-events-none absolute z-0 h-[calc(100%+28rem)]',
-              radialBleedLayerClass,
-              radialClasses.glowOpacity,
-              radialClasses.glowBlur,
-            )}
-            style={withSoftEdgeMask(getRadialStyles(radialBackgroundVariant ?? 'default', effectiveStrength))}
-          />
-          <div
-            aria-hidden
-            className={cn(
-              'services-grid-radial-base pointer-events-none absolute z-0 h-[calc(100%+24rem)] w-[200vw] min-w-[120rem] max-w-[240rem] left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2',
-              radialClasses.baseOpacity,
-            )}
-            style={withSoftEdgeMask({
-              background: `radial-gradient(144% 104% at 50% 16%, color-mix(in srgb, var(--theme-elevation-1000) ${p(6, strengthMultiplier[effectiveStrength])}, transparent) 0%, transparent 100%), radial-gradient(156% 118% at 50% 86%, color-mix(in srgb, var(--theme-elevation-900) ${p(5, strengthMultiplier[effectiveStrength])}, transparent) 0%, transparent 100%)`,
-            })}
-          />
-        </>
-      ) : null}
-
-      <div className={cn('relative z-10 services-grid-container overflow-visible', contentContainerClass)}>
+      <div className={cn('relative z-10 services-grid-container overflow-visible', containerMap.default)}>
         {(heading || intro || tagline || hasIconList || hasIntroImage) && (
           <div
             className={cn(
@@ -295,7 +196,6 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                   introImagePopoutClass,
                 )}
               >
-                <div aria-hidden className="services-grid-intro-grid absolute inset-0 z-0" />
                 <img
                   src={introImageSrc || ''}
                   alt={

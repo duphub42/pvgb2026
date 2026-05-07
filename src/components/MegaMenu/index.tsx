@@ -2766,7 +2766,7 @@ export function MegaMenu({
                                           className={cn(
                                             'flex shrink-0 items-center justify-center overflow-hidden bg-muted/60 p-2.5 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
                                             highlightPosition === 'below'
-                                              ? 'h-full min-w-[100px] w-[100px] rounded-l-lg'
+                                              ? 'megamenu-item-icon h-full min-w-[100px] w-[100px] rounded-l-lg'
                                               : 'megamenu-item-icon h-14 w-14 rounded-lg',
                                           )}
                                         >
@@ -2879,17 +2879,13 @@ export function MegaMenu({
                                       {useImageBg && bgImageUrl && (
                                         <>
                                           <div
-                                            className="absolute inset-0 bg-cover bg-center"
+                                            className="megamenu-bg-layer absolute inset-0 bg-cover bg-center"
                                             style={{ backgroundImage: `url(${bgImageUrl})` }}
                                             aria-hidden="true"
                                           />
                                           <div
-                                            className="absolute inset-0 megamenu-highlight-overlay"
-                                            style={
-                                              {
-                                                '--overlay-opacity': overlayOpacity,
-                                              } as React.CSSProperties
-                                            }
+                                            className="megamenu-bg-layer absolute inset-0 megamenu-highlight-overlay"
+                                            style={{'--overlay-opacity': overlayOpacity} as React.CSSProperties}
                                             aria-hidden="true"
                                           />
                                         </>
@@ -3083,22 +3079,20 @@ export function MegaMenu({
                                                 item.highlight?.backgroundImage && (
                                                   <>
                                                     <div
-                                                      className="absolute inset-0 bg-cover bg-center"
+                                                      className="megamenu-bg-layer absolute inset-0 bg-cover bg-center"
                                                       style={{
                                                         backgroundImage: `url(${mediaUrl(item.highlight.backgroundImage)})`,
                                                       }}
                                                       aria-hidden="true"
                                                     />
                                                     <div
-                                                      className="absolute inset-0 megamenu-highlight-overlay"
-                                                      style={
-                                                        {
-                                                          '--overlay-opacity': (
-                                                            (item.highlight?.overlayOpacity ?? 55) /
-                                                            100
-                                                          ).toFixed(2),
-                                                        } as React.CSSProperties
-                                                      }
+                                                      className="megamenu-bg-layer absolute inset-0 megamenu-highlight-overlay"
+                                                      style={{
+                                                        '--overlay-opacity': (
+                                                          (item.highlight?.overlayOpacity ?? 55) /
+                                                          100
+                                                        ).toFixed(2),
+                                                      } as React.CSSProperties}
                                                       aria-hidden="true"
                                                     />
                                                   </>

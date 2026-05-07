@@ -50,7 +50,7 @@ export const MarqueeSliderBlockConfig: Block = {
       name: 'heading',
       type: 'text',
       label: 'Ueberschrift',
-      defaultValue: 'Unsere Partner',
+      defaultValue: 'Partner & Tools',
     },
     {
       name: 'intro',
@@ -84,7 +84,7 @@ export const MarqueeSliderBlockConfig: Block = {
           max: 180,
           admin: {
             description:
-              'Zeit in Sekunden fuer einen kompletten Durchlauf. Hoeherer Wert = langsamer.',
+              'Zeit in Sekunden für einen kompletten Durchlauf. Höherer Wert = langsamer.',
           },
         },
         {

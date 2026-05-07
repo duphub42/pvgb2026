@@ -783,13 +783,13 @@ const templates: PageTemplate[] = [
     layout: [
       buildIntroductionBlock({
         heading: 'Portfolio als strukturierter Leistungsnachweis',
-        body: 'Hier findest du ausgewählte Arbeiten aus Webdesign, Marketing und Branding. Jede Unterseite zeigt Vorgehen, Umsetzung und Ergebnis in einem klaren Aufbau.',
+        body: 'Hier finden Sie ausgewählte Arbeiten aus Webdesign, Marketing und Branding. Jede Unterseite zeigt Vorgehen, Umsetzung und Ergebnis in einem klaren Aufbau.',
         tagline:
           'Fokus auf reale Anforderungen statt Showcases ohne Kontext.\nBearbeitbar im Backend über modulare Blöcke.',
       }),
       buildServicesGridBlock({
         heading: 'Portfolio-Bereiche',
-        intro: 'Wähle den Bereich, der zu deinem Vorhaben passt.',
+        intro: 'Wählen Sie den Bereich, der zu Ihrem Vorhaben passt.',
         tagline: 'Jede Unterseite folgt einer eigenen visuellen und inhaltlichen Logik.',
         categories: [
           {
@@ -935,7 +935,7 @@ const templates: PageTemplate[] = [
       buildContactInfoCardsBlock(),
       buildCalPopupBlock({
         headline: 'Webdesign-Projekt starten',
-        description: 'Wir definieren Scope, Prioritäten und einen realistischen Umsetzungsplan.',
+        description: 'Gemeinsam definieren wir Scope, Prioritäten und einen realistischen Umsetzungsplan.',
       }),
     ],
     metaTitle: 'Portfolio Webdesign | UX, UI und Performance',
@@ -1042,7 +1042,7 @@ const templates: PageTemplate[] = [
       }),
       buildCalPopupBlock({
         headline: 'Marketing-Ziele in einen Plan übersetzen',
-        description: 'Wir priorisieren Kanäle, Budget und Quick Wins in einem kompakten Kickoff.',
+        description: 'Gemeinsam priorisieren wir Kanäle, Budget und Quick Wins in einem kompakten Kickoff.',
       }),
     ],
     metaTitle: 'Portfolio Marketing | SEO, SEM und Lead-Strategien',
@@ -1127,7 +1127,7 @@ const templates: PageTemplate[] = [
       buildCalPopupBlock({
         headline: 'Markenauftritt schärfen',
         description:
-          'Wir analysieren Status quo, definieren Positionierung und priorisieren die nächsten Design-Schritte.',
+          'Gemeinsam analysieren wir den Status quo, definieren die Positionierung und priorisieren die nächsten Design-Schritte.',
       }),
     ],
     metaTitle: 'Portfolio Marken | Branding, Logo und Corporate Identity',

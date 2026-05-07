@@ -769,15 +769,26 @@ nav.megamenu-nav a.megamenu-top-item {
     var(--megamenu-panel-ease) 0ms forwards;
 }
 
-/* Highlight-Box: Hintergrundbild-Overlay (reagiert auf Dark/Light-Theme) */
+/* Highlight-Box: Hintergrundbild-Overlay */
+/* Light + Dark: links deckend → rechts transparent, exponentieller Verlauf */
 .megamenu-highlight-overlay {
-  background-color: rgba(0, 0, 0, var(--overlay-opacity, 0.55));
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--background) min(calc(var(--overlay-opacity, 0.55) * 160%), 100%), transparent)  0%,
+    color-mix(in srgb, var(--background) min(calc(var(--overlay-opacity, 0.55) * 130%), 100%), transparent) 20%,
+    color-mix(in srgb, var(--background) calc(var(--overlay-opacity, 0.55) * 90%),            transparent) 50%,
+    color-mix(in srgb, var(--background) calc(var(--overlay-opacity, 0.55) * 42%),            transparent) 75%,
+    transparent 100%
+  );
 }
 [data-theme='dark'] .megamenu-highlight-overlay {
-  background-color: color-mix(
-    in srgb,
-    rgba(0, 0, 0, 1) calc(var(--overlay-opacity, 0.55) * 130%),
-    transparent
+  background: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--background) min(calc(var(--overlay-opacity, 0.55) * 160%), 100%), transparent)  0%,
+    color-mix(in srgb, var(--background) min(calc(var(--overlay-opacity, 0.55) * 130%), 100%), transparent) 20%,
+    color-mix(in srgb, var(--background) calc(var(--overlay-opacity, 0.55) * 90%),            transparent) 50%,
+    color-mix(in srgb, var(--background) calc(var(--overlay-opacity, 0.55) * 42%),            transparent) 75%,
+    transparent 100%
   );
 }
 /* Text über Hintergrundbild immer hell */
@@ -787,6 +798,12 @@ nav.megamenu-nav a.megamenu-top-item {
 .megamenu-featured:has(.megamenu-highlight-overlay) p,
 .megamenu-featured:has(.megamenu-highlight-overlay) a {
   color: #ffffff !important;
+}
+/* Bei Bild-Highlight: milchglas deaktivieren damit Bild sichtbar bleibt */
+.megamenu .megamenu-featured:has(.megamenu-highlight-overlay) {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
 }
 
 /* Superhero KPI dividers: visible on image/gradient backgrounds, responsive row ends. */
@@ -866,9 +883,23 @@ nav.megamenu-nav a.megamenu-top-item {
   background: transparent;
   opacity: 0;
 }
-.megamenu .megamenu-featured > * {
+.megamenu .megamenu-featured > *:not(.megamenu-bg-layer) {
   position: relative;
   z-index: 1;
+}
+/* Background image / overlay layers must stay absolute-positioned */
+.megamenu .megamenu-featured > .megamenu-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+/* Hintergrundbild entsättigen + im Light-Mode invertieren */
+.megamenu .megamenu-featured > .megamenu-bg-layer:first-child {
+  filter: grayscale(1);
+}
+[data-theme='light'] .megamenu .megamenu-featured > .megamenu-bg-layer:first-child {
+  filter: grayscale(1) invert(1);
 }
 .megamenu .megamenu-featured h2,
 .megamenu .megamenu-featured h3,
@@ -1088,6 +1119,11 @@ nav.megamenu-nav a.megamenu-top-item {
 }
 .megamenu .megamenu-item-icon img.megamenu-item-icon-img--force-invert {
   filter: invert(1);
+}
+/* Im Dark-Mode: alle Megamenü-Icons invertieren (dunkle Motive → hell) */
+[data-theme='dark'] .megamenu .megamenu-item-icon img:not(.megamenu-item-icon-img--force-invert) {
+  filter: invert(1);
+  opacity: 0.85;
 }
 .megamenu .group:hover .megamenu-item-icon img {
   opacity: 1;

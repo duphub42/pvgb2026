@@ -99,7 +99,8 @@ function buildOverlayStyle(styles: BlockStyles): React.CSSProperties | undefined
   if (Number.isNaN(opacityNum)) return undefined
 
   const opacity = Math.min(1, Math.max(0, opacityNum / 100))
-  const color = overlay.color === 'light' ? 'var(--color-base-0)' : 'var(--color-base-1000)'
+  const color =
+    overlay.color === 'light' ? 'var(--block-overlay-light)' : 'var(--block-overlay-dark)'
 
   return {
     position: 'absolute',

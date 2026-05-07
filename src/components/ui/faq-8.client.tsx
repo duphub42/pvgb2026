@@ -38,11 +38,11 @@ export function Faq8Client({ categories }: Faq8ClientProps): React.JSX.Element {
         <div className="mb-12 space-y-4 md:mb-16 lg:mb-24">
           <div className="text-primary text-sm font-medium uppercase">FAQ</div>
           <h2 className="text-2xl font-semibold md:text-3xl lg:text-4xl">
-            Häufige Fragen für deinen Website-Launch und digitale Wachstumsstrategie
+            Häufige Fragen für Ihren Website-Launch und Ihre digitale Wachstumsstrategie
           </h2>
           <p className="text-muted-foreground text-lg sm:text-xl">
-            Klare Antworten zu Leistungen, Projektablauf, Budget und Support. So weißt du sofort,
-            wie ich deine Website, SEO und Conversion nachhaltig verbessern kann.
+            Klare Antworten zu Leistungen, Projektablauf, Budget und Support. So wissen Sie sofort,
+            wie ich Ihre Website, SEO und Conversion nachhaltig verbessern kann.
           </p>
         </div>
 
@@ -102,4 +102,3 @@ export function Faq8Client({ categories }: Faq8ClientProps): React.JSX.Element {
     </section>
   )
 }
-

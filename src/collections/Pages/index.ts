@@ -158,7 +158,7 @@ export const Pages: CollectionConfig = {
               admin: {
                 position: 'sidebar',
                 description:
-                  'Wenn gesetzt und das Layout leer ist, wird beim Speichern eine passende Block-Struktur fuer Webdesign, Marketing oder Branding vorgeschlagen.',
+                  'Wenn gesetzt und das Layout leer ist, wird beim Speichern eine passende Block-Struktur für Webdesign, Marketing oder Branding vorgeschlagen.',
               },
             },
           ],

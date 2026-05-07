@@ -63,6 +63,8 @@
   /* Abgeleitete Farben (UI) */
   --background: var(--theme-elevation-0);
   --foreground: var(--theme-elevation-800);
+  --block-overlay-dark: var(--foreground);
+  --block-overlay-light: var(--background);
   --card: var(--theme-elevation-50);
   --card-foreground: var(--theme-elevation-800);
   --popover: var(--theme-elevation-0);
@@ -141,6 +143,8 @@
 
   --background: var(--theme-elevation-0);
   --foreground: var(--theme-elevation-1000);
+  --block-overlay-dark: var(--foreground);
+  --block-overlay-light: var(--background);
   --card: var(--theme-elevation-50);
   --card-foreground: var(--theme-elevation-1000);
   --popover: var(--theme-elevation-0);

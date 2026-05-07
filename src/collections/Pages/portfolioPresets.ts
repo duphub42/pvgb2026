@@ -93,19 +93,19 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
   },
   layout: [
     introBlock({
-      heading: 'Webdesign-Cases mit System statt nur Oberflaeche',
+      heading: 'Webdesign-Cases mit System statt nur Oberfläche',
       body: 'Jeder Case zeigt Problem, Designentscheidungen und messbares Ergebnis. So wird sichtbar, wie UX, Branding und Technik zusammenwirken.',
-      tagline: 'Klar strukturiert. Visuell praezise. Technisch sauber.',
+      tagline: 'Klar strukturiert. Visuell präzise. Technisch sauber.',
     }),
     servicesOverviewBlock({
       heading: 'Leistungsfokus im Webdesign',
-      intro: 'Diese Projekte verbinden Strategieverstaendnis mit sauberer gestalterischer und technischer Umsetzung.',
+      intro: 'Diese Projekte verbinden Strategieverständnis mit sauberer gestalterischer und technischer Umsetzung.',
       services: [
         {
           icon: 'monitor',
           title: 'UX- und Interface-Design',
           description:
-            'Nutzerfuehrung, Informationshierarchie und konsistente visuelle Muster fuer bessere Orientierung.',
+            'Nutzerführung, Informationshierarchie und konsistente visuelle Muster für bessere Orientierung.',
         },
         {
           icon: 'code',
@@ -124,19 +124,19 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
     {
       blockType: 'portfolioCaseGrid',
       layoutVariant: 'visual',
-      eyebrow: 'Ausgewaehlte Projekte',
+      eyebrow: 'Ausgewählte Projekte',
       heading: 'Webdesign mit Wirkung',
       intro: 'Vom Relaunch bis Landingpage-System: jeder Case dokumentiert Vorgehen und Ergebnis.',
       cases: [
         {
           discipline: 'webdesign',
-          title: 'B2B-Relaunch fuer Industrieanbieter',
+          title: 'B2B-Relaunch für Industrieanbieter',
           client: 'NOVA Industrial',
           industry: 'Maschinenbau',
           summary:
-            'Neustrukturierung der Website fuer klare Produktnavigation, bessere Conversion und ein modernes Markenbild.',
+            'Neustrukturierung der Website für klare Produktnavigation, bessere Conversion und ein modernes Markenbild.',
           challenge:
-            'Unuebersichtliche Inhalte, schwache mobile Usability und hohe Absprungrate auf Leistungsseiten.',
+            'Unübersichtliche Inhalte, schwache mobile Usability und hohe Absprungrate auf Leistungsseiten.',
           approach:
             'Neue Informationsarchitektur, modulares Komponenten-Set und mobile-first Design mit klaren CTA-Pfaden.',
           result:
@@ -152,11 +152,11 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
         },
         {
           discipline: 'webdesign',
-          title: 'Landingpage-System fuer Produktkampagnen',
+          title: 'Landingpage-System für Produktkampagnen',
           client: 'Atlas SaaS',
           industry: 'Software',
           summary:
-            'Wiederverwendbare Landingpage-Komponenten fuer schnellere Kampagnenstarts und konsistente Marke.',
+            'Wiederverwendbare Landingpage-Komponenten für schnellere Kampagnenstarts und konsistente Marke.',
           challenge:
             'Jede Kampagne wurde als Einzelseite gebaut, was Zeit kostete und inkonsistente Designs erzeugte.',
           approach:
@@ -174,7 +174,7 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
     },
     calPopupBlock({
       headline: 'Webdesign-Projekt besprechen',
-      description: 'In 30 Minuten klaeren wir Zielbild, Scope und die sinnvollste Umsetzungsreihenfolge.',
+      description: 'In 30 Minuten klären wir gemeinsam Zielbild, Scope und die sinnvollste Umsetzungsreihenfolge.',
     }),
   ],
   metaTitle: 'Portfolio Webdesign | UX, UI und Performance',
@@ -249,7 +249,7 @@ const MARKETING_PRESET: PortfolioPresetPage = {
           client: 'MEDIFLOW',
           industry: 'HealthTech',
           summary:
-            'Technische und redaktionelle Neuausrichtung fuer bessere Rankings in transaktionalen Themenclustern.',
+            'Technische und redaktionelle Neuausrichtung für bessere Rankings in transaktionalen Themenclustern.',
           challenge: 'Sichtbarkeitseinbruch nach CMS-Wechsel und schwache interne Verlinkung.',
           approach: 'URL-Mapping, Content-Hubs, Search-Intent-Optimierung und strukturierte Snippets.',
           result: 'Nachhaltiger Ranking-Aufbau und deutlich mehr organische Lead-Einstiege.',
@@ -262,11 +262,11 @@ const MARKETING_PRESET: PortfolioPresetPage = {
         },
         {
           discipline: 'marketing',
-          title: 'SEM-Funnel fuer B2B-Anfragen',
+          title: 'SEM-Funnel für B2B-Anfragen',
           client: 'CloudNova',
           industry: 'SaaS',
           summary:
-            'Search- und Remarketing-Setup fuer qualifizierte Demos mit klarer Budgetsteuerung.',
+            'Search- und Remarketing-Setup für qualifizierte Demos mit klarer Budgetsteuerung.',
           challenge: 'Hohe Klickkosten, geringe Abschlussrate und zu breite Keyword-Sets.',
           approach: 'Intent-Segmentierung, Negative-Listen, Landingpage-Tests und Bidding-Neuausrichtung.',
           result: 'Deutlich mehr qualifizierte Demo-Anfragen bei geringeren CPL-Werten.',
@@ -289,7 +289,7 @@ const MARKETING_PRESET: PortfolioPresetPage = {
           icon: 'target',
           title: 'KPI-basierte Steuerung',
           description:
-            'Entscheidungen werden konsequent an Leads, Conversion-Qualitaet und Effizienz ausgerichtet.',
+            'Entscheidungen werden konsequent an Leads, Conversion-Qualität und Effizienz ausgerichtet.',
         },
         {
           icon: 'trending-up',
@@ -306,13 +306,13 @@ const MARKETING_PRESET: PortfolioPresetPage = {
       ],
     }),
     calPopupBlock({
-      headline: 'Marketing-Ziele in einen klaren Plan uebersetzen',
-      description: 'Wir priorisieren Kanaele, Budget und Quick Wins in einem kompakten Kickoff.',
+      headline: 'Marketing-Ziele in einen klaren Plan übersetzen',
+      description: 'Gemeinsam priorisieren wir Kanäle, Budget und Quick Wins in einem kompakten Kickoff.',
     }),
   ],
   metaTitle: 'Portfolio Marketing | SEO, SEM und Leads',
   metaDescription:
-    'Marketing-Portfolio mit KPI-Fokus fuer SEO, SEM und Leadgenerierung inklusive messbarer Ergebnisse.',
+    'Marketing-Portfolio mit KPI-Fokus für SEO, SEM und Leadgenerierung inklusive messbarer Ergebnisse.',
 }
 
 const BRANDING_PRESET: PortfolioPresetPage = {
@@ -328,22 +328,22 @@ const BRANDING_PRESET: PortfolioPresetPage = {
   },
   layout: [
     introBlock({
-      heading: 'Branding als zusammenhaengendes Markensystem',
+      heading: 'Branding als zusammenhängendes Markensystem',
       body: 'Hier stehen Markenstory, Logoarchitektur, Farbwelt und Typografie im Zentrum. Die Darstellung folgt einer klaren, editorialen Dramaturgie.',
       tagline: 'Marke ist mehr als ein Logo: sie wird in jedem Detail erlebbar.',
     }),
     {
       blockType: 'brandShowcase',
       eyebrow: 'Brand System',
-      heading: 'Visuelle Leitplanken fuer konsistente Markenwahrnehmung',
+      heading: 'Visuelle Leitplanken für konsistente Markenwahrnehmung',
       intro:
-        'Ein editierbarer Bereich fuer Logo, Farbpalette, Typografie, Gestaltungsprinzipien und reale Anwendungen.',
+        'Ein editierbarer Bereich für Logo, Farbpalette, Typografie, Gestaltungsprinzipien und reale Anwendungen.',
       brandStory:
-        'Die Marke positioniert sich als praeziser, verlässlicher Partner mit klarer Haltung: reduziert im Ausdruck, stark in der Wirkung.',
+        'Die Marke positioniert sich als präziser, verlässlicher Partner mit klarer Haltung: reduziert im Ausdruck, stark in der Wirkung.',
       palette: [
         { name: 'Midnight Ink', hex: '#0F172A', usage: 'Logo, Headlines, Text' },
         { name: 'Signal Coral', hex: '#F97366', usage: 'Highlights und CTAs' },
-        { name: 'Warm Sand', hex: '#F5EFE7', usage: 'Backgrounds und Flaechen' },
+        { name: 'Warm Sand', hex: '#F5EFE7', usage: 'Backgrounds und Flächen' },
       ],
       typography: [
         { role: 'Display', family: 'Outfit, sans-serif', sample: 'Brand Presence 2026' },
@@ -371,16 +371,16 @@ const BRANDING_PRESET: PortfolioPresetPage = {
       cases: [
         {
           discipline: 'branding',
-          title: 'Rebranding fuer Beratungsboutique',
+          title: 'Rebranding für Beratungsboutique',
           client: 'NORD Advisory',
           industry: 'Consulting',
           summary:
             'Neupositionierung mit frischer visueller Sprache, konsistentem Markensystem und hochwertigem Corporate Auftritt.',
           challenge:
-            'Uneinheitliche Kommunikation, alte Wort-Bild-Marke und fehlende Richtlinien fuer Umsetzung.',
+            'Uneinheitliche Kommunikation, alte Wort-Bild-Marke und fehlende Richtlinien für Umsetzung.',
           approach:
             'Markenkern-Workshop, neues Logo-Set, Typo- und Farbdefinition sowie praxisnahe Brand-Regeln.',
-          result: 'Ein klarer, wiedererkennbarer Markenauftritt ueber Website, Pitch und Social Kanaele.',
+          result: 'Ein klarer, wiedererkennbarer Markenauftritt über Website, Pitch und Social Kanäle.',
           metrics: [
             { value: '3 Wochen', label: 'Vom Workshop bis CI-Release' },
             { value: '+47%', label: 'Direkte Markenwiedererkennung (Survey)' },
@@ -393,14 +393,14 @@ const BRANDING_PRESET: PortfolioPresetPage = {
     },
     contactInfoCardsBlock(),
     calPopupBlock({
-      headline: 'Marke schaerfen und konsistent ausrollen',
+      headline: 'Marke schärfen und konsistent ausrollen',
       description:
-        'Wir analysieren Status quo, definieren Leitplanken und priorisieren die naechsten Branding-Schritte.',
+        'Gemeinsam analysieren wir den Status quo, definieren Leitplanken und priorisieren die nächsten Branding-Schritte.',
     }),
   ],
   metaTitle: 'Portfolio Branding | Marken, Logos und CI',
   metaDescription:
-    'Branding-Portfolio mit editierbaren Bereichen fuer Markenstory, Logo, Farbpalette und Brand-Cases.',
+    'Branding-Portfolio mit editierbaren Bereichen für Markenstory, Logo, Farbpalette und Brand-Cases.',
 }
 
 const PRESETS_BY_TYPE: Record<PortfolioType, PortfolioPresetPage> = {

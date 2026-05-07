@@ -356,7 +356,7 @@ export interface SitePage {
   parent?: (number | null) | SitePage;
   publishedAt?: string | null;
   /**
-   * Wenn gesetzt und das Layout leer ist, wird beim Speichern eine passende Block-Struktur fuer Webdesign, Marketing oder Branding vorgeschlagen.
+   * Wenn gesetzt und das Layout leer ist, wird beim Speichern eine passende Block-Struktur für Webdesign, Marketing oder Branding vorgeschlagen.
    */
   portfolioType?: ('webdesign' | 'marketing' | 'branding') | null;
   meta?: {
@@ -835,7 +835,7 @@ export interface MarqueeSliderBlock {
     | {
         direction?: ('left' | 'right') | null;
         /**
-         * Zeit in Sekunden fuer einen kompletten Durchlauf. Hoeherer Wert = langsamer.
+         * Zeit in Sekunden für einen kompletten Durchlauf. Höherer Wert = langsamer.
          */
         speed?: number | null;
         pauseOnHover?: boolean | null;
@@ -1953,7 +1953,7 @@ export interface PricingTableBlock {
     priceSuffix?: string | null;
     highlighted?: boolean | null;
     /**
-     * Kurze Bullet-Points fuer das jeweilige Angebot.
+     * Kurze Bullet-Points für das jeweilige Angebot.
      */
     features?:
       | {
@@ -5084,7 +5084,7 @@ export interface Footer {
    */
   mobileFooterLogo?: (number | null) | Media;
   /**
-   * Kurzer Text direkt unter dem Footer-Logo (z. B. was du machst / Claim).
+   * Kurzer Text direkt unter dem Footer-Logo (z. B. Leistungsschwerpunkt / Claim).
    */
   footerDescription?: {
     root: {

@@ -383,7 +383,7 @@ export const site_pages_blocks_marquee_slider = sqliteTable(
       enum: ['default', 'none', 'slideUp', 'blur'],
     }).default('default'),
     eyebrow: text('eyebrow').default('Partner & Tools'),
-    heading: text('heading').default('Unsere Partner'),
+    heading: text('heading').default('Partner & Tools'),
     intro: text('intro'),
     blockName: text('block_name'),
   },
@@ -478,10 +478,10 @@ export const site_pages_blocks_consulting_overview = sqliteTable(
     strategyLabel: text('strategy_label').default('Analyse & Ausrichtung'),
     strategySubLabel: text('strategy_sub_label').default('Fundament für alle weiteren Maßnahmen'),
     strategyTitle: text('strategy_title').default(
-      'Wir definieren Ziele, Prioritäten und den richtigen Fokus',
+      'Gemeinsam definieren wir Ziele, Prioritäten und den richtigen Fokus',
     ),
     strategyText: text('strategy_text').default(
-      'Vor der Umsetzung klären wir, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.',
+      'Vor der Umsetzung klären wir gemeinsam, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.',
     ),
     strategyIcon: text('strategy_icon', {
       enum: [
@@ -1110,7 +1110,7 @@ export const portfolio_grid = sqliteTable(
     blockAnimation: text('block_animation', {
       enum: ['default', 'none', 'slideUp', 'blur'],
     }).default('default'),
-    eyebrow: text('eyebrow').default('Ausgewaehlte Cases'),
+    eyebrow: text('eyebrow').default('Ausgewählte Cases'),
     heading: text('heading').default('Ergebnisse aus realen Projekten'),
     intro: text('intro'),
     layoutVariant: text('layout_variant', { enum: ['editorial', 'data', 'visual'] }).default(
@@ -2234,16 +2234,16 @@ export const pricing_table = sqliteTable(
       enum: ['default', 'none', 'slideUp', 'blur'],
     }).default('default'),
     eyebrow: text('eyebrow').default('Pakete'),
-    heading: text('heading').default('Webdesign Pakete fuer jedes Projektstadium'),
+    heading: text('heading').default('Webdesign-Pakete für jedes Projektstadium'),
     description: text('description').default(
-      'Drei klar strukturierte Angebote mit transparenten Leistungen, damit Sie Aufwand und Ergebnis direkt einschaetzen koennen.',
+      'Drei klar strukturierte Angebote mit transparenten Leistungen, damit Sie Aufwand und Ergebnis direkt einschätzen können.',
     ),
     comparisonHeading: text('comparison_heading').default('Feature Vergleich'),
     comparisonDescription: text('comparison_description').default(
       'Direkter Vergleich der wichtigsten Leistungsmerkmale pro Paket.',
     ),
     comparisonFootnote: text('comparison_footnote').default(
-      'Alle Pakete koennen individuell erweitert oder kombiniert werden.',
+      'Alle Pakete können individuell erweitert oder kombiniert werden.',
     ),
     blockName: text('block_name'),
   },
@@ -3230,7 +3230,7 @@ export const _site_pages_v_blocks_marquee_slider = sqliteTable(
       enum: ['default', 'none', 'slideUp', 'blur'],
     }).default('default'),
     eyebrow: text('eyebrow').default('Partner & Tools'),
-    heading: text('heading').default('Unsere Partner'),
+    heading: text('heading').default('Partner & Tools'),
     intro: text('intro'),
     _uuid: text('_uuid'),
     blockName: text('block_name'),
@@ -3327,10 +3327,10 @@ export const _site_pages_v_blocks_consulting_overview = sqliteTable(
     strategyLabel: text('strategy_label').default('Analyse & Ausrichtung'),
     strategySubLabel: text('strategy_sub_label').default('Fundament für alle weiteren Maßnahmen'),
     strategyTitle: text('strategy_title').default(
-      'Wir definieren Ziele, Prioritäten und den richtigen Fokus',
+      'Gemeinsam definieren wir Ziele, Prioritäten und den richtigen Fokus',
     ),
     strategyText: text('strategy_text').default(
-      'Vor der Umsetzung klären wir, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.',
+      'Vor der Umsetzung klären wir gemeinsam, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.',
     ),
     strategyIcon: text('strategy_icon', {
       enum: [
@@ -3976,7 +3976,7 @@ export const _portfolio_grid_v = sqliteTable(
     blockAnimation: text('block_animation', {
       enum: ['default', 'none', 'slideUp', 'blur'],
     }).default('default'),
-    eyebrow: text('eyebrow').default('Ausgewaehlte Cases'),
+    eyebrow: text('eyebrow').default('Ausgewählte Cases'),
     heading: text('heading').default('Ergebnisse aus realen Projekten'),
     intro: text('intro'),
     layoutVariant: text('layout_variant', { enum: ['editorial', 'data', 'visual'] }).default(
@@ -5131,16 +5131,16 @@ export const _pricing_table_v = sqliteTable(
       enum: ['default', 'none', 'slideUp', 'blur'],
     }).default('default'),
     eyebrow: text('eyebrow').default('Pakete'),
-    heading: text('heading').default('Webdesign Pakete fuer jedes Projektstadium'),
+    heading: text('heading').default('Webdesign-Pakete für jedes Projektstadium'),
     description: text('description').default(
-      'Drei klar strukturierte Angebote mit transparenten Leistungen, damit Sie Aufwand und Ergebnis direkt einschaetzen koennen.',
+      'Drei klar strukturierte Angebote mit transparenten Leistungen, damit Sie Aufwand und Ergebnis direkt einschätzen können.',
     ),
     comparisonHeading: text('comparison_heading').default('Feature Vergleich'),
     comparisonDescription: text('comparison_description').default(
       'Direkter Vergleich der wichtigsten Leistungsmerkmale pro Paket.',
     ),
     comparisonFootnote: text('comparison_footnote').default(
-      'Alle Pakete koennen individuell erweitert oder kombiniert werden.',
+      'Alle Pakete können individuell erweitert oder kombiniert werden.',
     ),
     _uuid: text('_uuid'),
     blockName: text('block_name'),

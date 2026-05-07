@@ -27,7 +27,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
         "block_content_spacing" varchar DEFAULT 'default',
         "block_animation" varchar DEFAULT 'default',
         "eyebrow" varchar DEFAULT 'Partner & Tools',
-        "heading" varchar DEFAULT 'Unsere Partner',
+        "heading" varchar DEFAULT 'Partner & Tools',
         "intro" text,
         "block_name" varchar
       );
@@ -82,7 +82,7 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
         "block_content_spacing" varchar DEFAULT 'default',
         "block_animation" varchar DEFAULT 'default',
         "eyebrow" varchar DEFAULT 'Partner & Tools',
-        "heading" varchar DEFAULT 'Unsere Partner',
+        "heading" varchar DEFAULT 'Partner & Tools',
         "intro" text,
         "_uuid" varchar,
         "block_name" varchar

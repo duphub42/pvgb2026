@@ -44,14 +44,14 @@ const DEFAULT_PLANS: NormalizedPlan[] = [
     key: 'plan-starter',
     name: 'Starter',
     badge: '',
-    description: 'Ideal fuer kleine Websites und einen schnellen, professionellen Start.',
+    description: 'Ideal für kleine Websites und einen schnellen, professionellen Start.',
     price: '1.490',
     priceSuffix: 'einmalig',
     highlighted: false,
     features: [
       'Onepager oder kleine Website',
       'Individuelles Design-Konzept',
-      'Responsive Umsetzung fuer Mobile',
+      'Responsive Umsetzung für Mobile',
       'Basis SEO Setup',
     ],
     ctaLabel: 'Starter anfragen',
@@ -62,14 +62,14 @@ const DEFAULT_PLANS: NormalizedPlan[] = [
     key: 'plan-business',
     name: 'Business',
     badge: 'Empfohlen',
-    description: 'Fuer Unternehmen, die mehr Seiten und Conversion-Fokus benoetigen.',
+    description: 'Für Unternehmen, die mehr Seiten und Conversion-Fokus benötigen.',
     price: '3.290',
     priceSuffix: 'einmalig',
     highlighted: true,
     features: [
       'Bis zu 8 Seiten inkl. Struktur',
       'UX-Wireframes + visuelles Design',
-      'Conversion-optimierte CTA-Fuehrung',
+      'Conversion-optimierte CTA-Führung',
       'Performance Optimierung',
       'CMS-Einweisung',
     ],
@@ -81,7 +81,7 @@ const DEFAULT_PLANS: NormalizedPlan[] = [
     key: 'plan-premium',
     name: 'Premium',
     badge: '',
-    description: 'Umfassende Loesung fuer anspruchsvolle Brands mit Wachstumsschwerpunkt.',
+    description: 'Umfassende Lösung für anspruchsvolle Brands mit Wachstumsschwerpunkt.',
     price: 'ab 5.900',
     priceSuffix: 'projektbasiert',
     highlighted: false,
@@ -303,11 +303,11 @@ export function PricingTableBlock({
   const normalizedPlans = normalizePlans(plans)
   const normalizedRows = normalizeComparisonRows(comparisonRows)
 
-  const title = asText(heading) || 'Webdesign Pakete fuer jedes Projektstadium'
+  const title = asText(heading) || 'Webdesign-Pakete für jedes Projektstadium'
   const sectionEyebrow = asText(eyebrow) || 'Pakete'
   const sectionDescription =
     asText(description) ||
-    'Drei klar strukturierte Angebote mit transparenten Leistungen, damit Sie Aufwand und Ergebnis direkt einschaetzen koennen.'
+    'Drei klar strukturierte Angebote mit transparenten Leistungen, damit Sie Aufwand und Ergebnis direkt einschätzen können.'
   const comparisonTitle = asText(comparisonHeading) || 'Feature Vergleich'
   const comparisonText =
     asText(comparisonDescription) ||

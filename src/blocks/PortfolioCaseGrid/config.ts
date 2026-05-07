@@ -16,7 +16,7 @@ export const PortfolioCaseGrid: Block = {
       name: 'eyebrow',
       type: 'text',
       label: 'Eyebrow',
-      defaultValue: 'Ausgewaehlte Cases',
+      defaultValue: 'Ausgewählte Cases',
     },
     {
       name: 'heading',

@@ -2338,8 +2338,8 @@ html.theme-wave-transition.theme-wave-light::before {
 [data-theme='dark'] .megamenu .megamenu-featured .group:hover .megamenu-item-icon {
   color: #fafafa;
 }
-[data-theme='dark'] .megamenu .megamenu-featured .megamenu-item-icon img {
-  filter: none;
+[data-theme='dark'] .megamenu .megamenu-featured .megamenu-item-icon img:not(.megamenu-item-icon-img--force-invert) {
+  filter: invert(1);
 }
 [data-theme='dark'] .megamenu .megamenu-featured .text-primary {
   color: var(--foreground) !important;
@@ -2352,7 +2352,7 @@ html.theme-wave-transition.theme-wave-light::before {
   filter: invert(1);
 }
 [data-theme='dark'] .megamenu .megamenu-item-icon img.megamenu-item-icon-img--force-invert {
-  filter: invert(0);
+  filter: invert(1);
 }
 [data-theme='dark'] .megamenu .megamenu-item-icon {
   color: #737373;
@@ -2439,9 +2439,12 @@ html.theme-wave-transition.theme-wave-light::before {
 [data-theme='dark'] .megamenu .text-muted-foreground {
   color: #a3a3a3;
 }
-[data-theme='dark'] .megamenu .text-muted-foreground:hover,
-[data-theme='dark'] .megamenu a:hover .text-muted-foreground {
+[data-theme='dark'] .megamenu .megamenu-col-items a:hover .text-muted-foreground,
+[data-theme='dark'] .megamenu .megamenu-featured a:hover .text-muted-foreground {
   color: #ffffff;
+}
+[data-theme='dark'] .megamenu .megamenu-dropdown-intro .text-muted-foreground:hover {
+  color: #a3a3a3;
 }
 [data-theme='dark'] .megamenu,
 [data-theme='dark'] .site-header {
@@ -2899,49 +2902,6 @@ html[data-theme='dark'] .services-grid-card-icon-img,
 .dark .services-grid-card-icon-img {
   filter: grayscale(1) invert(1) brightness(1.25) contrast(0.92) !important;
   opacity: 0.92;
-}
-
-.services-grid-intro-grid {
-  opacity: 0.24;
-  background-image: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--foreground) 64%, transparent) 1.4px,
-    transparent 1.75px
-  );
-  background-size: 18px 18px;
-  background-position: center;
-  mask-image: radial-gradient(
-    ellipse 92% 92% at 50% 50%,
-    rgba(0, 0, 0, 0.5) 0%,
-    rgba(0, 0, 0, 0.5) 30%,
-    rgba(0, 0, 0, 0.25) 62%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  -webkit-mask-image: radial-gradient(
-    ellipse 92% 92% at 50% 50%,
-    rgba(0, 0, 0, 0.5) 0%,
-    rgba(0, 0, 0, 0.5) 30%,
-    rgba(0, 0, 0, 0.25) 62%,
-    rgba(0, 0, 0, 0) 100%
-  );
-}
-
-[data-theme='dark'] .services-grid-intro-grid {
-  opacity: 0.26;
-  background-image: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--foreground) 72%, transparent) 1.4px,
-    transparent 1.75px
-  );
-}
-
-/* Services Grid: Subtil-Variante im Darkmode 30% schwächer */
-[data-theme='dark'] .services-grid-radial-subtle .services-grid-radial-glow {
-  opacity: 0.49 !important;
-}
-
-[data-theme='dark'] .services-grid-radial-subtle .services-grid-radial-base {
-  opacity: 0.245 !important;
 }
 
 /* Megamenu CTA buttons: final lock against global/link overrides.

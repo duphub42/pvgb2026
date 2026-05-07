@@ -61,7 +61,7 @@ function withFallbackHeroContent(heroData: Record<string, unknown>, pageSlug: st
     subheadline: 'Strategie · Design · Entwicklung',
     headline: toTitleFromSlug(pageSlug),
     description:
-      'Wir gestalten digitale Erlebnisse, die sichtbar machen, was dein Angebot einzigartig macht.',
+      'Ich gestalte digitale Erlebnisse, die sichtbar machen, was Ihr Angebot einzigartig macht.',
   }
 }
 

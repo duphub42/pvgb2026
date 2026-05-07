@@ -6,7 +6,7 @@ const defaultPlans = [
   {
     name: 'Starter',
     badge: '',
-    description: 'Ideal fuer kleine Websites und einen schnellen, professionellen Start.',
+    description: 'Ideal für kleine Websites und einen schnellen, professionellen Start.',
     price: '1.490',
     priceSuffix: 'einmalig',
     highlighted: false,
@@ -16,14 +16,14 @@ const defaultPlans = [
     features: [
       { text: 'Onepager oder kleine Website' },
       { text: 'Individuelles Design-Konzept' },
-      { text: 'Responsive Umsetzung fuer Mobile' },
+      { text: 'Responsive Umsetzung für Mobile' },
       { text: 'Basis SEO Setup' },
     ],
   },
   {
     name: 'Business',
     badge: 'Empfohlen',
-    description: 'Fuer Unternehmen, die mehr Seiten, Strategie und Conversion-Fokus benoetigen.',
+    description: 'Für Unternehmen, die mehr Seiten, Strategie und Conversion-Fokus benötigen.',
     price: '3.290',
     priceSuffix: 'einmalig',
     highlighted: true,
@@ -33,7 +33,7 @@ const defaultPlans = [
     features: [
       { text: 'Bis zu 8 Seiten inkl. Struktur' },
       { text: 'UX-Wireframes + visuelles Design' },
-      { text: 'Conversion-optimierte CTA-Fuehrung' },
+      { text: 'Conversion-optimierte CTA-Führung' },
       { text: 'Performance Optimierung' },
       { text: 'CMS-Einweisung' },
     ],
@@ -41,7 +41,7 @@ const defaultPlans = [
   {
     name: 'Premium',
     badge: '',
-    description: 'Umfassende Loesung fuer anspruchsvolle Brands mit Wachstumsschwerpunkt.',
+    description: 'Umfassende Lösung für anspruchsvolle Brands mit Wachstumsschwerpunkt.',
     price: 'ab 5.900',
     priceSuffix: 'projektbasiert',
     highlighted: false,
@@ -102,7 +102,7 @@ export const PricingTable: Block = {
     {
       name: 'eyebrow',
       type: 'text',
-      label: 'Kleine Ueberschrift',
+      label: 'Kleine Überschrift',
       defaultValue: 'Pakete',
     },
     {
@@ -110,14 +110,14 @@ export const PricingTable: Block = {
       type: 'text',
       label: 'Titel',
       required: true,
-      defaultValue: 'Webdesign Pakete fuer jedes Projektstadium',
+      defaultValue: 'Webdesign-Pakete für jedes Projektstadium',
     },
     {
       name: 'description',
       type: 'textarea',
       label: 'Beschreibung',
       defaultValue:
-        'Drei klar strukturierte Angebote mit transparenten Leistungen, damit Sie Aufwand und Ergebnis direkt einschaetzen koennen.',
+        'Drei klar strukturierte Angebote mit transparenten Leistungen, damit Sie Aufwand und Ergebnis direkt einschätzen können.',
     },
     {
       name: 'plans',
@@ -177,7 +177,7 @@ export const PricingTable: Block = {
           label: 'Feature Liste',
           minRows: 1,
           admin: {
-            description: 'Kurze Bullet-Points fuer das jeweilige Angebot.',
+                description: 'Kurze Bullet-Points für das jeweilige Angebot.',
           },
           fields: [
             {
@@ -290,7 +290,7 @@ export const PricingTable: Block = {
       name: 'comparisonFootnote',
       type: 'text',
       label: 'Hinweis unter Vergleich (optional)',
-      defaultValue: 'Alle Pakete koennen individuell erweitert oder kombiniert werden.',
+      defaultValue: 'Alle Pakete können individuell erweitert oder kombiniert werden.',
     },
   ],
 }

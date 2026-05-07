@@ -65,7 +65,7 @@ export const Footer: GlobalConfig = {
           label: 'Beschreibung unter dem Logo',
           editor: defaultLexical,
           admin: {
-            description: 'Kurzer Text direkt unter dem Footer-Logo (z. B. was du machst / Claim).',
+            description: 'Kurzer Text direkt unter dem Footer-Logo (z. B. Leistungsschwerpunkt / Claim).',
           },
         },
         {

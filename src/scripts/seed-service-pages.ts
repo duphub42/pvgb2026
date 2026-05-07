@@ -90,7 +90,7 @@ const templates: ServicePageTemplate[] = [
           'Jeder Schritt baut logisch auf dem vorherigen auf. Das reduziert Reibung und schafft eine belastbare Grundlage für Wachstum.',
         strategyLabel: 'Analyse & Ausrichtung',
         strategySubLabel: 'Strategischer Startpunkt',
-        strategyTitle: 'Wir definieren Ziele, Prioritäten und die richtige digitale Richtung',
+        strategyTitle: 'Gemeinsam definieren wir Ziele, Prioritäten und die richtige digitale Richtung',
         strategyText:
           'Am Anfang stehen Zielgruppen, Angebotsschärfung und ein realistischer Maßnahmenplan. Damit wird aus Einzelideen ein konsistentes System mit klaren Prioritäten.',
         benefitsLabel: 'Umsetzung & Ergebnis',
@@ -123,7 +123,7 @@ const templates: ServicePageTemplate[] = [
         blockType: 'servicesGrid',
         heading: 'Meine Servicebereiche',
         intro:
-          'Wähle den Bereich, der zu deinem Projekt passt. Jede Seite ist editierbar und fokussiert auf einen klaren Leistungsbereich.',
+          'Wählen Sie den Bereich, der zu Ihrem Projekt passt. Jede Seite ist editierbar und fokussiert auf einen klaren Leistungsbereich.',
         tagline: 'Klar strukturiert. Zielgerichtet. Backend-bearbeitbar.',
         radialBackground: true,
         radialBackgroundVariant: 'blue',
@@ -198,7 +198,7 @@ const templates: ServicePageTemplate[] = [
         blockType: 'calPopup',
         headline: 'Gemeinsam den nächsten Schritt planen',
         description:
-          'In einem kurzen Kennenlerntermin prüfen wir, welcher Leistungsbereich am besten zu deinem Projekt passt.',
+          'In einem kurzen Kennenlerntermin prüfen wir gemeinsam, welcher Leistungsbereich am besten zu Ihrem Projekt passt.',
         calLink: 'philippbacher/30min',
         buttonLabel: 'Termin buchen',
       },
@@ -272,7 +272,7 @@ const templates: ServicePageTemplate[] = [
         blockType: 'calPopup',
         headline: 'Webdesign-Inhalte und Scope klären',
         description:
-          'Wir prüfen gemeinsam, welche Inhalte, Komponenten und Prozesse für dein Projekt sinnvoll sind.',
+          'Gemeinsam prüfen wir, welche Inhalte, Komponenten und Prozesse für Ihr Projekt sinnvoll sind.',
         calLink: 'philippbacher/30min',
         buttonLabel: 'Webdesign Termin buchen',
       },
@@ -345,7 +345,7 @@ const templates: ServicePageTemplate[] = [
         blockType: 'calPopup',
         headline: 'Marketing-Plan und Kanäle festlegen',
         description:
-          'Wir besprechen Zielgruppe, Kanalmix und mögliche Quick Wins für dein Projekt.',
+          'Gemeinsam besprechen wir Zielgruppe, Kanalmix und mögliche Quick Wins für Ihr Projekt.',
         calLink: 'philippbacher/30min',
         buttonLabel: 'Marketing Termin buchen',
       },
@@ -369,7 +369,7 @@ const templates: ServicePageTemplate[] = [
       {
         blockType: 'introduction',
         heading: 'Technische Wartung, die Ruhe schafft',
-        body: 'Regelmäßige Wartung sorgt dafür, dass deine Website sicher, performant und aktuell bleibt – ohne manuellen Mehraufwand für dich.',
+        body: 'Regelmäßige Wartung sorgt dafür, dass Ihre Website sicher, performant und aktuell bleibt – ohne manuellen Mehraufwand für Sie.',
       },
       {
         blockType: 'servicesOverview',
@@ -418,7 +418,7 @@ const templates: ServicePageTemplate[] = [
         blockType: 'calPopup',
         headline: 'Wartungsbedarf und Serviceumfang klären',
         description:
-          'Wir prüfen gemeinsam den passenden Wartungsumfang für deine Website und digitalen Services.',
+          'Gemeinsam prüfen wir den passenden Wartungsumfang für Ihre Website und digitalen Services.',
         calLink: 'philippbacher/30min',
         buttonLabel: 'Wartungstermin buchen',
       },
