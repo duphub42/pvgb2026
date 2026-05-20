@@ -580,6 +580,18 @@
   opacity: 0.26;
 }
 
+@media (max-width: 47.99rem) {
+  .hero-shell--superhero .hero-content-divider {
+    position: relative;
+    z-index: 0;
+    margin: 0 auto;
+    transform: none;
+    animation: none;
+    filter: none;
+    opacity: 0.34;
+  }
+}
+
 [data-theme='light'] .hero-content-divider {
   background: linear-gradient(
     90deg,

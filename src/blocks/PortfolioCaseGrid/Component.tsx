@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import {
   ArrowUpRight,
@@ -25,6 +25,7 @@ import {
 
 import { Media } from '@/components/Media'
 import { Badge } from '@/components/ui/badge'
+import { cn } from '@/utilities/ui'
 import type {
   Media as MediaType,
   PortfolioCaseGridBlock as PortfolioCaseGridBlockData,
@@ -151,20 +152,26 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   intro,
   cases,
 }) => {
-  const rows = (cases ?? []).filter((item): item is PortfolioCase =>
-    Boolean(item?.title && item?.summary),
+  const rows = useMemo(
+    () =>
+      (cases ?? []).filter((item): item is PortfolioCase =>
+        Boolean(item?.title && item?.summary),
+      ),
+    [cases],
   )
   const [activeCaseKey, setActiveCaseKey] = useState<string | null>(null)
   const sliderRef = useRef<HTMLDivElement | null>(null)
   const isAdjustingLoopRef = useRef(false)
 
-  if (!rows.length) return null
-
-  const withKeys = rows.map((item, index) => ({
-    item,
-    key: typeof item.id === 'string' && item.id ? item.id : `${item.title}-${index}`,
-  }))
-  const loopCards = [...withKeys, ...withKeys, ...withKeys]
+  const withKeys = useMemo(
+    () =>
+      rows.map((item, index) => ({
+        item,
+        key: typeof item.id === 'string' && item.id ? item.id : `${item.title}-${index}`,
+      })),
+    [rows],
+  )
+  const loopCards = useMemo(() => [...withKeys, ...withKeys, ...withKeys], [withKeys])
 
   const activeCase = useMemo(() => {
     if (!activeCaseKey) return null
@@ -175,7 +182,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
     [activeCaseKey, withKeys],
   )
 
-  const openPrevCase = () => {
+  const openPrevCase = useCallback(() => {
     if (!withKeys.length) return
     if (activeCaseIndex < 0) {
       setActiveCaseKey(withKeys[0].key)
@@ -184,9 +191,9 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
     const nextIndex = (activeCaseIndex - 1 + withKeys.length) % withKeys.length
     setActiveCaseKey(withKeys[nextIndex].key)
-  }
+  }, [activeCaseIndex, withKeys])
 
-  const openNextCase = () => {
+  const openNextCase = useCallback(() => {
     if (!withKeys.length) return
     if (activeCaseIndex < 0) {
       setActiveCaseKey(withKeys[0].key)
@@ -195,7 +202,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
     const nextIndex = (activeCaseIndex + 1) % withKeys.length
     setActiveCaseKey(withKeys[nextIndex].key)
-  }
+  }, [activeCaseIndex, withKeys])
 
   const activeDiscipline = (activeCase?.discipline ?? 'webdesign') as Discipline
   const activeDisciplineMeta = disciplineMeta[activeDiscipline] ?? disciplineMeta.webdesign
@@ -237,7 +244,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
     window.addEventListener('keydown', onEsc)
     return () => window.removeEventListener('keydown', onEsc)
-  }, [activeCaseKey, activeCaseIndex, withKeys])
+  }, [activeCaseKey, openNextCase, openPrevCase])
 
   useEffect(() => {
     const slider = sliderRef.current
@@ -270,8 +277,20 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
     return () => slider.removeEventListener('scroll', onScroll)
   }, [withKeys.length])
 
+  if (!rows.length) return null
+
   return (
-    <section className="w-full py-16 md:py-20">
+    <section className="relative w-full py-16 md:py-20">
+      {/* Background Blur Overlay – Like MegaMenu Dropdown */}
+      <div
+        className={cn(
+          'portfolio-blur-overlay fixed inset-0 z-50 bg-background/20 backdrop-blur-md pointer-events-none opacity-0 transition-opacity duration-300',
+          activeCase && 'opacity-100 pointer-events-auto',
+        )}
+        onClick={() => setActiveCaseKey(null)}
+        style={{ transitionTimingFunction: 'cubic-bezier(0.25, 0.1, 0.25, 1)' }}
+      />
+
       <div className="container px-0 md:px-0">
         <div className="max-w-3xl">
           {eyebrow ? (
@@ -374,14 +393,15 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
             </div>
           ) : (
             <div
-              className="relative w-full rounded-3xl bg-black/15 p-2 animate-in fade-in-0 zoom-in-95 duration-200 md:p-3"
+              className="relative z-[60] w-full rounded-3xl bg-black/15 p-2 animate-in fade-in-0 zoom-in-95 duration-300 md:p-3"
               role="dialog"
-              aria-modal="false"
+              aria-modal="true"
               onClick={() => setActiveCaseKey(null)}
+              style={{ animationTimingFunction: 'cubic-bezier(0.25, 0.1, 0.25, 1)' }}
             >
               <button
                 type="button"
-                onClick={openPrevCase}
+                onClick={(e) => { e.stopPropagation(); openPrevCase() }}
                 className="absolute left-2 top-1/2 z-20 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/95 shadow-sm transition hover:bg-background"
                 aria-label="Vorheriges Projekt"
               >
@@ -390,7 +410,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
               <button
                 type="button"
-                onClick={openNextCase}
+                onClick={(e) => { e.stopPropagation(); openNextCase() }}
                 className="absolute right-2 top-1/2 z-20 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/95 shadow-sm transition hover:bg-background"
                 aria-label="Nächstes Projekt"
               >
@@ -401,6 +421,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                 className="relative w-full rounded-3xl border border-border bg-background p-5 shadow-2xl md:p-6"
                 aria-live="polite"
                 onClick={(event) => event.stopPropagation()}
+                style={{ animationTimingFunction: 'cubic-bezier(0.25, 0.1, 0.25, 1)' }}
               >
                 <button
                   type="button"

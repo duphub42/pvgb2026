@@ -35,12 +35,61 @@ export type BlockAnimation = 'default' | 'none' | 'slideUp' | 'blur'
 
 export interface BlockStyles {
   blockSpacing?: BlockSpacing | null
+  blockSpacingPadding?: BlockSpacing['padding']
+  blockSpacingPaddingTop?: BlockSpacing['paddingTop']
+  blockSpacingMarginBottom?: BlockSpacing['marginBottom']
   blockContainer?: BlockContainer | null
   blockBackground?: BlockBackground | null
+  blockBorderEnabled?: boolean | null
+  blockBorderStyle?: BlockBorder['style']
+  blockBorderRadius?: BlockBorder['radius']
   blockBorder?: BlockBorder | null
+  blockOverlayEnabled?: boolean | null
+  blockOverlayColor?: BlockOverlay['color']
+  blockOverlayOpacity?: number | null
   blockOverlay?: BlockOverlay | null
   blockContentSpacing?: BlockContentSpacing | null
   blockAnimation?: BlockAnimation | null
+}
+
+export function normalizeBlockStyles(styles: BlockStyles | null | undefined): BlockStyles {
+  const source = styles ?? {}
+  const blockSpacing =
+    source.blockSpacing ??
+    (source.blockSpacingPadding || source.blockSpacingPaddingTop || source.blockSpacingMarginBottom
+      ? {
+          padding: source.blockSpacingPadding,
+          paddingTop: source.blockSpacingPaddingTop,
+          marginBottom: source.blockSpacingMarginBottom,
+        }
+      : null)
+
+  const blockBorder =
+    source.blockBorder ??
+    (source.blockBorderEnabled
+      ? {
+          enabled: source.blockBorderEnabled,
+          style: source.blockBorderStyle,
+          radius: source.blockBorderRadius,
+        }
+      : null)
+
+  const blockOverlay =
+    source.blockOverlay ??
+    (source.blockOverlayEnabled
+      ? {
+          enabled: source.blockOverlayEnabled,
+          color: source.blockOverlayColor,
+          opacity: source.blockOverlayOpacity,
+        }
+      : null)
+
+  return {
+    ...source,
+    blockSpacing,
+    blockBorder,
+    blockOverlay,
+  }
 }
 
 // ============================================================================

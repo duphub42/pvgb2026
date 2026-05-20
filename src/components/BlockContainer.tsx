@@ -10,6 +10,7 @@ import {
   backgroundMap,
   borderMap,
   contentSpacingMap,
+  normalizeBlockStyles,
 } from '@/blocks/BlockStyleSystem'
 
 // ============================================================================
@@ -152,6 +153,7 @@ export function BlockContainer({
   as: Component = 'section',
 }: BlockContainerProps) {
   const [MotionDiv, setMotionDiv] = useState<React.ComponentType<MotionDivProps> | null>(null)
+  const resolvedStyles = normalizeBlockStyles(styles)
 
   useEffect(() => {
     if (disableAnimation) return
@@ -170,16 +172,17 @@ export function BlockContainer({
     }
   }, [disableAnimation])
 
-  const hasBackground = styles?.blockBackground && styles.blockBackground !== 'none'
-  const hasOverlay = styles?.blockOverlay?.enabled && styles.blockOverlay.opacity != null
-  const animation = styles?.blockAnimation ?? 'default'
+  const hasBackground = resolvedStyles.blockBackground && resolvedStyles.blockBackground !== 'none'
+  const hasOverlay =
+    resolvedStyles.blockOverlay?.enabled && resolvedStyles.blockOverlay.opacity != null
+  const animation = resolvedStyles.blockAnimation ?? 'default'
 
   // Build all classes
-  const containerClasses = buildContainerClasses(styles ?? {})
-  const backgroundClasses = buildBackgroundClasses(styles ?? {})
-  const spacingClasses = buildSpacingClasses(styles ?? {})
-  const borderClasses = buildBorderClasses(styles ?? {})
-  const overlayStyle = buildOverlayStyle(styles ?? {})
+  const containerClasses = buildContainerClasses(resolvedStyles)
+  const backgroundClasses = buildBackgroundClasses(resolvedStyles)
+  const spacingClasses = buildSpacingClasses(resolvedStyles)
+  const borderClasses = buildBorderClasses(resolvedStyles)
+  const overlayStyle = buildOverlayStyle(resolvedStyles)
 
   // Combined wrapper classes
   const wrapperClasses = cn(
@@ -198,7 +201,7 @@ export function BlockContainer({
   )
 
   // Content wrapper - handles content spacing
-  const contentSpacing = styles?.blockContentSpacing ?? 'default'
+  const contentSpacing = resolvedStyles.blockContentSpacing ?? 'default'
   const contentClasses = cn('relative z-10', containerClasses, contentSpacingMap[contentSpacing])
 
   const animationVariant = animationVariants[animation] || animationVariants.default
@@ -263,13 +266,23 @@ export function BlockContainer({
 // ============================================================================
 
 export function useBlockStyles(props: Record<string, unknown>): BlockStyles {
-  return {
+  return normalizeBlockStyles({
     blockSpacing: props.blockSpacing as BlockStyles['blockSpacing'],
+    blockSpacingPadding: props.blockSpacingPadding as BlockStyles['blockSpacingPadding'],
+    blockSpacingPaddingTop: props.blockSpacingPaddingTop as BlockStyles['blockSpacingPaddingTop'],
+    blockSpacingMarginBottom:
+      props.blockSpacingMarginBottom as BlockStyles['blockSpacingMarginBottom'],
     blockContainer: props.blockContainer as BlockStyles['blockContainer'],
     blockBackground: props.blockBackground as BlockStyles['blockBackground'],
     blockBorder: props.blockBorder as BlockStyles['blockBorder'],
+    blockBorderEnabled: props.blockBorderEnabled as BlockStyles['blockBorderEnabled'],
+    blockBorderStyle: props.blockBorderStyle as BlockStyles['blockBorderStyle'],
+    blockBorderRadius: props.blockBorderRadius as BlockStyles['blockBorderRadius'],
     blockOverlay: props.blockOverlay as BlockStyles['blockOverlay'],
+    blockOverlayEnabled: props.blockOverlayEnabled as BlockStyles['blockOverlayEnabled'],
+    blockOverlayColor: props.blockOverlayColor as BlockStyles['blockOverlayColor'],
+    blockOverlayOpacity: props.blockOverlayOpacity as BlockStyles['blockOverlayOpacity'],
     blockContentSpacing: props.blockContentSpacing as BlockStyles['blockContentSpacing'],
     blockAnimation: props.blockAnimation as BlockStyles['blockAnimation'],
-  }
+  })
 }

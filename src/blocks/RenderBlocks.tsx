@@ -141,15 +141,12 @@ export const RenderBlocks: React.FC<{
             index === 0
               ? isProfilBlock
                 ? 'mt-[-1px] mb-6 md:mb-8'
-                : 'mt-[-1px] mb-16'
+                : 'mt-[-1px]'
               : isProfilBlock
                 ? 'my-6 md:my-8'
-                : 'my-16'
+                : undefined
 
-          const className = cn(
-            spacingClass,
-            isLastBlock && hasBackground && 'mb-0',
-          )
+          const className = cn(spacingClass, isLastBlock && hasBackground && 'mb-0')
 
           return (
             <AnimateBlock

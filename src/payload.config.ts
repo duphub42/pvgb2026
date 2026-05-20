@@ -77,6 +77,7 @@ const r2SecretAccessKey = process.env.R2_SECRET_ACCESS_KEY?.trim()
 const r2Bucket = process.env.R2_BUCKET?.trim()
 const r2Enabled = !!(r2AccountId && r2AccessKeyId && r2SecretAccessKey && r2Bucket)
 const vercelBlobToken = process.env.BLOB_READ_WRITE_TOKEN?.trim()
+const debugPayloadConfig = process.env.PAYLOAD_CONFIG_DEBUG === 'true'
 const isVercel = Boolean(
   process.env.VERCEL === '1' ||
   process.env.VERCEL === 'true' ||
@@ -84,10 +85,12 @@ const isVercel = Boolean(
   process.env.VERCEL_PROJECT_PRODUCTION_URL,
 )
 
-console.log('[Payload Config] R2 Status:', r2Enabled ? 'ENABLED' : 'DISABLED')
-console.log('[Payload Config] Vercel Blob Token:', vercelBlobToken ? 'SET' : 'MISSING')
-if (r2Enabled) {
-  console.log('[Payload Config] R2 Bucket:', r2Bucket)
+if (debugPayloadConfig) {
+  console.log('[Payload Config] R2 Status:', r2Enabled ? 'ENABLED' : 'DISABLED')
+  console.log('[Payload Config] Vercel Blob Token:', vercelBlobToken ? 'SET' : 'MISSING')
+  if (r2Enabled) {
+    console.log('[Payload Config] R2 Bucket:', r2Bucket)
+  }
 }
 if (vercelBlobToken && !r2Enabled) {
   console.warn(
@@ -139,13 +142,17 @@ const useSqliteAdapter =
 const activePostgresUrl = process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim() || ''
 
 if (useSqliteAdapter) {
-  console.log('[Payload Config] DB target: SQLite (file:./payload.db oder SQLITE_URL)')
+  if (debugPayloadConfig) {
+    console.log('[Payload Config] DB target: SQLite (file:./payload.db oder SQLITE_URL)')
+  }
 } else {
   const target = parseDbTarget(activePostgresUrl)
-  if (target) {
-    console.log(`[Payload Config] DB target: Postgres ${target.host}/${target.database}`)
-  } else {
-    console.log('[Payload Config] DB target: Postgres (URL gesetzt, konnte nicht geparst werden)')
+  if (debugPayloadConfig) {
+    if (target) {
+      console.log(`[Payload Config] DB target: Postgres ${target.host}/${target.database}`)
+    } else {
+      console.log('[Payload Config] DB target: Postgres (URL gesetzt, konnte nicht geparst werden)')
+    }
   }
 
   const legacyUrl = getEnvLocalDatabaseUrl(projectRoot)
