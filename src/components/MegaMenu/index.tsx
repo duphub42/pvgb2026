@@ -2573,6 +2573,7 @@ export function MegaMenu({
                             span: number
                             key: string
                             content: React.ReactNode
+                            noPadding?: boolean
                           }> = []
                           if (callbackSidebar) {
                             visibleColumns.push({
@@ -2859,23 +2860,14 @@ export function MegaMenu({
                             visibleColumns.push({
                               span: featuredSpan,
                               key: 'highlight',
+                              noPadding: useCustomBg,
                               content: (
                                 <div
-                                  className="megamenu-highlight-wipe-wrap overflow-hidden"
+                                  className="megamenu-highlight-wipe-wrap flex-1 overflow-hidden"
                                   data-wipe={mouseEntrySide}
                                 >
                                   {useCustomBg ? (
-                                    <div
-                                      className="relative min-h-[200px]"
-                                      style={
-                                        useGradientBg
-                                          ? {
-                                              background:
-                                                'radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)',
-                                            }
-                                          : undefined
-                                      }
-                                    >
+                                    <div className="relative h-full">
                                       {useImageBg && bgImageUrl && (
                                         <>
                                           <div
@@ -2890,7 +2882,17 @@ export function MegaMenu({
                                           />
                                         </>
                                       )}
-                                      <div className="relative z-10">{highlightContent}</div>
+                                      {useGradientBg && (
+                                        <div
+                                          className="absolute inset-0"
+                                          style={{
+                                            background:
+                                              'radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)',
+                                          }}
+                                          aria-hidden="true"
+                                        />
+                                      )}
+                                      <div className="relative z-10 p-8">{highlightContent}</div>
                                     </div>
                                   ) : (
                                     highlightContent
@@ -3027,7 +3029,9 @@ export function MegaMenu({
                                                       } as React.CSSProperties
                                                     }
                                                     className={cn(
-                                                      'p-8 flex flex-col min-w-0 megamenu-fan-col',
+                                                      'flex flex-col min-w-0 megamenu-fan-col',
+                                                      !col.noPadding && 'p-8',
+                                                      col.noPadding && 'relative overflow-hidden',
                                                       col.key === 'highlight' &&
                                                         'megamenu-featured',
                                                       col.key === 'items' && 'megamenu-col-items',

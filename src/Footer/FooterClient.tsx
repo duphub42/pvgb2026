@@ -40,6 +40,29 @@ interface FooterWithRawFields extends Footer {
   footer_logo_id?: number | null
 }
 
+type MediaRelationRef = number | { id?: number | null; url?: string | null } | null | undefined
+
+function resolveMediaRelationUrl(media: MediaRelationRef): string {
+  if (media == null) return ''
+
+  if (typeof media === 'number' && Number.isFinite(media) && media > 0) {
+    return `/api/media/stream/${media}`
+  }
+
+  if (typeof media === 'object') {
+    const mediaUrl = typeof media.url === 'string' ? media.url : ''
+    if (mediaUrl.trim().length > 0) {
+      return getMediaUrl(mediaUrl)
+    }
+
+    if (typeof media.id === 'number' && Number.isFinite(media.id) && media.id > 0) {
+      return `/api/media/stream/${media.id}`
+    }
+  }
+
+  return ''
+}
+
 export type FooterClientProps = {
   footer: Footer | null
   header?: Header | null
@@ -85,10 +108,9 @@ export function FooterClient({
       ? String(footer.newsletterIcon).trim()
       : null
   const newsletterIconUpload = footer?.newsletterIconUpload
-  const newsletterIconUploadUrl =
-    newsletterIconUpload && typeof newsletterIconUpload === 'object' && newsletterIconUpload?.url
-      ? getMediaUrl((newsletterIconUpload as { url?: string }).url)
-      : ''
+  const newsletterIconUploadUrl = resolveMediaRelationUrl(
+    newsletterIconUpload as MediaRelationRef,
+  )
   const newsletterSpriteId = null
 
   const hasCustomBg = Boolean((footer?.backgroundColor as string)?.trim())
@@ -306,11 +328,7 @@ export function FooterClient({
                           .trim()
                           .toLowerCase()
                         const customIconUrl =
-                          item?.iconUpload &&
-                          typeof item.iconUpload === 'object' &&
-                          item.iconUpload?.url
-                            ? getMediaUrl((item.iconUpload as { url?: string }).url)
-                            : ''
+                          resolveMediaRelationUrl(item?.iconUpload as MediaRelationRef)
                         const uploadSpriteId = null
                         const spriteId = uploadSpriteId ?? SOCIAL_SPRITE_IDS[platform] ?? null
 
@@ -405,10 +423,9 @@ export function FooterClient({
                         ? String(col.columnIcon).trim()
                         : null
                     const colIconUpload = col?.columnIconUpload
-                    const colIconUploadUrl =
-                      colIconUpload && typeof colIconUpload === 'object' && colIconUpload?.url
-                        ? getMediaUrl((colIconUpload as { url?: string }).url)
-                        : ''
+                    const colIconUploadUrl = resolveMediaRelationUrl(
+                      colIconUpload as MediaRelationRef,
+                    )
                     const colIconSpriteId = null
 
                     const columnWrapperClass =

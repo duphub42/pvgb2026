@@ -831,6 +831,8 @@ export interface MarqueeSliderBlock {
   eyebrow?: string | null;
   heading?: string | null;
   intro?: string | null;
+  displayMode?: ('marquee' | 'gallery') | null;
+  galleryColumns?: ('3' | '4' | '5') | null;
   rows?:
     | {
         direction?: ('left' | 'right') | null;
@@ -842,7 +844,8 @@ export interface MarqueeSliderBlock {
         items?:
           | {
               logo?: (number | null) | Media;
-              name: string;
+              name?: string | null;
+              tileSize?: ('sm' | 'md' | 'wide' | 'tall' | 'large') | null;
               id?: string | null;
             }[]
           | null;
@@ -3395,6 +3398,8 @@ export interface MarqueeSliderBlockSelect<T extends boolean = true> {
   eyebrow?: T;
   heading?: T;
   intro?: T;
+  displayMode?: T;
+  galleryColumns?: T;
   rows?:
     | T
     | {
@@ -3406,6 +3411,7 @@ export interface MarqueeSliderBlockSelect<T extends boolean = true> {
           | {
               logo?: T;
               name?: T;
+              tileSize?: T;
               id?: T;
             };
         id?: T;

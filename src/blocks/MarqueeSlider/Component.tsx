@@ -17,6 +17,8 @@ export const MarqueeSliderBlock: React.FC<MarqueeSliderBlockProps> = (props) => 
     eyebrow,
     heading,
     intro,
+    displayMode,
+    galleryColumns,
     rows,
     index = 0,
     ...styleProps
@@ -27,7 +29,11 @@ export const MarqueeSliderBlock: React.FC<MarqueeSliderBlockProps> = (props) => 
   const parsedRows = (rows ?? [])
     .map((row, rowIndex) => {
       const parsedItems = (row?.items ?? [])
-        .filter((item) => Boolean(item?.name?.trim()))
+        .filter((item) => {
+          const hasName = Boolean(item?.name?.trim())
+          const hasLogo = typeof item?.logo === 'object' && Boolean(item?.logo)
+          return hasName || hasLogo
+        })
         .map((item, itemIndex) => {
           const logoNode =
             typeof item.logo === 'object' && item.logo
@@ -46,8 +52,10 @@ export const MarqueeSliderBlock: React.FC<MarqueeSliderBlockProps> = (props) => 
             key:
               (typeof item.id === 'string' && item.id) ||
               `marquee-item-${rowIndex}-${itemIndex}-${String(item.name).slice(0, 24)}`,
-            name: String(item.name).trim(),
+            name: String(item.name ?? '').trim(),
             logo: logoNode,
+            logoResource: typeof item.logo === 'object' && item.logo ? (item.logo as MediaType) : null,
+            tileSize: item?.tileSize,
           }
         })
 
@@ -62,6 +70,24 @@ export const MarqueeSliderBlock: React.FC<MarqueeSliderBlockProps> = (props) => 
     .filter((row) => row.items.length > 0)
 
   if (!parsedRows.length) return null
+
+  const normalizedDisplayMode = displayMode === 'gallery' ? 'gallery' : 'marquee'
+  const galleryItems = parsedRows.flatMap((row) => row.items)
+  const galleryColumnClasses: Record<string, string> = {
+    '3': 'lg:grid-cols-3',
+    '4': 'lg:grid-cols-4',
+    '5': 'lg:grid-cols-5',
+  }
+  const desktopColsClass =
+    galleryColumnClasses[String(galleryColumns ?? '4')] ?? galleryColumnClasses['4']
+
+  const tileSizeClasses: Record<string, string> = {
+    sm: 'col-span-1 row-span-1',
+    md: 'col-span-1 row-span-1 md:row-span-1',
+    wide: 'col-span-2 row-span-1',
+    tall: 'col-span-1 row-span-2',
+    large: 'col-span-2 row-span-2',
+  }
 
   return (
     <BlockContainer styles={styles} index={index} className="pb-12 pt-10 md:pb-16 md:pt-14">
@@ -84,18 +110,52 @@ export const MarqueeSliderBlock: React.FC<MarqueeSliderBlockProps> = (props) => 
           </header>
         )}
 
-        <div>
-          {parsedRows.map((row, rowIndex) => (
-            <MarqueeSlider
-              key={row.key}
-              items={row.items}
-              direction={row.direction}
-              speed={row.speed}
-              pauseOnHover={row.pauseOnHover}
-              className={rowIndex > 0 ? 'mt-6' : undefined}
-            />
-          ))}
-        </div>
+        {normalizedDisplayMode === 'gallery' ? (
+          <div
+            className={`grid grid-cols-2 auto-rows-[112px] gap-3 sm:grid-cols-3 md:auto-rows-[136px] md:gap-4 ${desktopColsClass} xl:auto-rows-[168px]`}
+          >
+            {galleryItems.map((item, itemIndex) => {
+              const tileClass = tileSizeClasses[String(item.tileSize ?? 'md')] ?? tileSizeClasses.md
+
+              return (
+                <article
+                  key={`${item.key}-tile-${itemIndex}`}
+                  className={`logo-gallery-item group relative overflow-hidden rounded-2xl border border-border/70 bg-card/70 p-2.5 transition-colors duration-200 md:p-3 xl:p-4 dark:border-white/20 dark:hover:bg-white dark:focus-within:bg-white ${tileClass}`}
+                >
+                  <div className="flex h-full w-full items-center justify-center">
+                    {item.logoResource ? (
+                      <Media
+                        resource={item.logoResource}
+                        className="h-full w-full"
+                        imgClassName="logo-gallery-image h-full w-full object-contain p-1 md:p-2"
+                      />
+                    ) : (
+                      <span className="text-xs font-medium text-muted-foreground">{item.name || 'Logo'}</span>
+                    )}
+                  </div>
+                  {item.name ? (
+                    <p className="pointer-events-none absolute inset-x-2 bottom-2 truncate rounded-md bg-background/80 px-2 py-1 text-[10px] font-medium text-foreground opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                      {item.name}
+                    </p>
+                  ) : null}
+                </article>
+              )
+            })}
+          </div>
+        ) : (
+          <div>
+            {parsedRows.map((row, rowIndex) => (
+              <MarqueeSlider
+                key={row.key}
+                items={row.items}
+                direction={row.direction}
+                speed={row.speed}
+                pauseOnHover={row.pauseOnHover}
+                className={rowIndex > 0 ? 'mt-6' : undefined}
+              />
+            ))}
+          </div>
+        )}
       </section>
     </BlockContainer>
   )

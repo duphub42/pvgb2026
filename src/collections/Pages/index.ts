@@ -41,7 +41,7 @@ import {
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
 import { normalizeLayout } from './hooks/normalizeLayout'
 import { revalidatePage } from './hooks/revalidatePage'
-import { stripIdOnUpdate } from './hooks/stripIdOnUpdate'
+import { stripIdOnUpdate, stripIdOnUpdateBeforeValidate } from './hooks/stripIdOnUpdate'
 import { applyPortfolioPreset } from './hooks/applyPortfolioPreset'
 import { PORTFOLIO_TYPE_OPTIONS } from './portfolioPresets'
 import { hero as heroField } from '../../heros/config'
@@ -191,7 +191,11 @@ export const Pages: CollectionConfig = {
   ],
   hooks: {
     afterRead: [normalizeLayout, createClearOrphanedRefsAfterReadHook()],
-    beforeValidate: [applyPortfolioPreset, createClearOrphanedRefsBeforeValidateHook()],
+    beforeValidate: [
+      stripIdOnUpdateBeforeValidate,
+      applyPortfolioPreset,
+      createClearOrphanedRefsBeforeValidateHook(),
+    ],
     beforeChange: [stripIdOnUpdate, createClearOrphanedRefsBeforeChangeHook(), populatePublishedAt],
     afterChange: [revalidatePage],
   },

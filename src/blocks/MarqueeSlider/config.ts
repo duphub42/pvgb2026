@@ -58,9 +58,33 @@ export const MarqueeSliderBlockConfig: Block = {
       label: 'Einleitung',
     },
     {
+      name: 'displayMode',
+      type: 'select',
+      label: 'Anzeige-Modus',
+      defaultValue: 'marquee',
+      options: [
+        { label: 'Laufzeile (Marquee)', value: 'marquee' },
+        { label: 'Statische Logo-Galerie (Bento)', value: 'gallery' },
+      ],
+    },
+    {
+      name: 'galleryColumns',
+      type: 'select',
+      label: 'Galerie-Spalten (Desktop)',
+      defaultValue: '4',
+      options: [
+        { label: '3 Spalten', value: '3' },
+        { label: '4 Spalten', value: '4' },
+        { label: '5 Spalten', value: '5' },
+      ],
+      admin: {
+        condition: (_, siblingData) => String(siblingData?.displayMode ?? 'marquee') === 'gallery',
+      },
+    },
+    {
       name: 'rows',
       type: 'array',
-      label: 'Marquee-Reihen',
+      label: 'Reihen / Gruppen',
       minRows: 1,
       maxRows: 6,
       defaultValue: defaultRows,
@@ -74,6 +98,9 @@ export const MarqueeSliderBlockConfig: Block = {
             { label: 'Nach links', value: 'left' },
             { label: 'Nach rechts', value: 'right' },
           ],
+          admin: {
+            condition: (data) => String(data?.displayMode ?? 'marquee') === 'marquee',
+          },
         },
         {
           name: 'speed',
@@ -85,6 +112,7 @@ export const MarqueeSliderBlockConfig: Block = {
           admin: {
             description:
               'Zeit in Sekunden für einen kompletten Durchlauf. Höherer Wert = langsamer.',
+            condition: (data) => String(data?.displayMode ?? 'marquee') === 'marquee',
           },
         },
         {
@@ -92,6 +120,9 @@ export const MarqueeSliderBlockConfig: Block = {
           type: 'checkbox',
           label: 'Bei Hover pausieren',
           defaultValue: true,
+          admin: {
+            condition: (data) => String(data?.displayMode ?? 'marquee') === 'marquee',
+          },
         },
         {
           name: 'items',
@@ -110,7 +141,19 @@ export const MarqueeSliderBlockConfig: Block = {
               name: 'name',
               type: 'text',
               label: 'Name',
-              required: true,
+            },
+            {
+              name: 'tileSize',
+              type: 'select',
+              label: 'Kachelgroesse (Galerie)',
+              defaultValue: 'md',
+              options: [
+                { label: 'Klein', value: 'sm' },
+                { label: 'Mittel', value: 'md' },
+                { label: 'Breit', value: 'wide' },
+                { label: 'Hoch', value: 'tall' },
+                { label: 'Gross', value: 'large' },
+              ],
             },
           ],
         },

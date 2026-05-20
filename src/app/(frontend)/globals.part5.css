@@ -2569,6 +2569,34 @@ html.theme-wave-transition.theme-wave-light::before {
   opacity: 1;
 }
 
+/* Statische Logo-Galerie: ruhiger Hover ohne Translate/Scale-Jitter */
+.logo-gallery-image {
+  filter: grayscale(100%);
+  opacity: 0.72;
+  transition: filter 0.22s ease, opacity 0.22s ease;
+}
+
+.logo-gallery-item:hover .logo-gallery-image,
+.logo-gallery-item:focus-within .logo-gallery-image {
+  filter: grayscale(0%) drop-shadow(0 0 0.55rem rgba(255, 255, 255, 0.24));
+  opacity: 1;
+}
+
+[data-theme='dark'] .logo-gallery-image {
+  filter: grayscale(100%) invert(1);
+  opacity: 0.92;
+}
+
+[data-theme='dark'] .logo-gallery-item:hover .logo-gallery-image,
+[data-theme='dark'] .logo-gallery-item:focus-within .logo-gallery-image {
+  filter:
+    grayscale(0%)
+    invert(0)
+    drop-shadow(0 0 0.7rem rgba(255, 255, 255, 0.34))
+    drop-shadow(0 0 0.22rem rgba(255, 255, 255, 0.24));
+  opacity: 1;
+}
+
 /* Hero-Box: radialer Glaseffekt gilt auch auf Mobile – keine Überschreibung durch solid/mask.
    Der Verlauf liegt ausschließlich auf .hero-box-inner (siehe oben), nicht auf dem Hero-Overlay. */
 
