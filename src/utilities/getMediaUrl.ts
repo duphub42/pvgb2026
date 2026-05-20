@@ -35,6 +35,11 @@ function toExactDn(pathOrUrl: string): string {
   const exactdn = EXACTDN_DOMAIN?.replace(/^https?:\/\//, '').trim()
   if (!exactdn) return pathOrUrl
 
+  // Stream endpoints must remain same-origin; some CDN setups return HTML for these paths.
+  if (pathOrUrl.includes('/api/media/stream/')) {
+    return pathOrUrl
+  }
+
   if (pathOrUrl.startsWith('/')) {
     return `https://${exactdn}${pathOrUrl}`
   }

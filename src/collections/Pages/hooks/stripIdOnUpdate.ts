@@ -25,8 +25,6 @@ function normalizeMediaObjects(value: unknown): unknown {
   if (typeof value !== 'object') return value
 
   if (Array.isArray(value)) {
-    // Array in-place mutieren (keine neuen Referenzen für Item-Objekte erzeugen,
-    // damit Payload-IDs erhalten bleiben)
     const arr = value as unknown[]
     for (let i = 0; i < arr.length; i++) {
       arr[i] = normalizeMediaObjects(arr[i])
@@ -83,14 +81,14 @@ function collectIdPaths(value: unknown, path = ''): string[] {
 }
 
 export const stripIdOnUpdateBeforeValidate: CollectionBeforeValidateHook = ({ data }) => {
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.PAYLOAD_DEBUG_STRIP_ID === '1') {
     const idPaths = collectIdPaths(data)
     if (idPaths.length) {
       console.log('[stripId] id-Felder VOR Sanitize:\n', idPaths.slice(0, 40).join('\n'))
     }
   }
   const result = sanitizePageData(data)
-  if (process.env.NODE_ENV !== 'production') {
+  if (process.env.PAYLOAD_DEBUG_STRIP_ID === '1') {
     const idPathsAfter = collectIdPaths(result)
     if (idPathsAfter.length) {
       console.log('[stripId] id-Felder NACH Sanitize:\n', idPathsAfter.slice(0, 40).join('\n'))

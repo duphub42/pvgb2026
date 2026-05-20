@@ -133,8 +133,10 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
           title: 'B2B-Relaunch für Industrieanbieter',
           client: 'NOVA Industrial',
           industry: 'Maschinenbau',
+          year: 2025,
           summary:
             'Neustrukturierung der Website für klare Produktnavigation, bessere Conversion und ein modernes Markenbild.',
+          categories: ['relaunch', 'uxUi', 'performance'],
           challenge:
             'Unübersichtliche Inhalte, schwache mobile Usability und hohe Absprungrate auf Leistungsseiten.',
           approach:
@@ -147,7 +149,12 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
             { value: '1.6s', label: 'LCP' },
           ],
           tags: [{ label: 'UX' }, { label: 'Relaunch' }, { label: 'Performance' }],
+          website: { label: 'Website ansehen', href: 'https://example.com' },
           cta: { label: 'Case ansehen', href: '/kontakt' },
+          gallery: [
+            { caption: 'Startseite', image: '/media/portfolio-nova-home.jpg' },
+            { caption: 'Leistungsseite', image: '/media/portfolio-nova-service.jpg' },
+          ],
           featured: true,
         },
         {
@@ -155,8 +162,10 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
           title: 'Landingpage-System für Produktkampagnen',
           client: 'Atlas SaaS',
           industry: 'Software',
+          year: 2024,
           summary:
             'Wiederverwendbare Landingpage-Komponenten für schnellere Kampagnenstarts und konsistente Marke.',
+          categories: ['komplettDesign', 'content', 'performance'],
           challenge:
             'Jede Kampagne wurde als Einzelseite gebaut, was Zeit kostete und inkonsistente Designs erzeugte.',
           approach:
@@ -168,6 +177,7 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
             { value: '+23%', label: 'Lead Rate' },
           ],
           tags: [{ label: 'Landingpages' }, { label: 'Designsystem' }],
+          website: { label: 'Website ansehen', href: 'https://example.com/atlas' },
           cta: { label: 'Mehr erfahren', href: '/kontakt' },
         },
       ],

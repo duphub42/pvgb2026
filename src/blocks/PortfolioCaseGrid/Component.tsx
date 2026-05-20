@@ -1,11 +1,25 @@
+"use client"
+
+import { useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
 import {
   ArrowUpRight,
+  Building2,
+  CalendarDays,
+  ChevronLeft,
+  ChevronRight,
+  Globe,
   Layers3,
   Megaphone,
   MonitorSmartphone,
   Palette,
+  RefreshCcw,
+  Search,
   Sparkles,
+  LayoutGrid,
+  Gauge,
+  ShoppingCart,
+  X,
   type LucideIcon,
 } from 'lucide-react'
 
@@ -15,9 +29,39 @@ import type {
   Media as MediaType,
   PortfolioCaseGridBlock as PortfolioCaseGridBlockData,
 } from '@/payload-types'
-import { cn } from '@/utilities/ui'
 
-type PortfolioCaseGridProps = PortfolioCaseGridBlockData & { disableInnerContainer?: boolean }
+type ExistingPortfolioCase = NonNullable<PortfolioCaseGridBlockData['cases']>[number]
+
+type CategoryKey =
+  | 'relaunch'
+  | 'komplettDesign'
+  | 'branding'
+  | 'seo'
+  | 'uxUi'
+  | 'performance'
+  | 'eCommerce'
+  | 'content'
+
+type PortfolioGalleryItem = {
+  id?: string | null
+  image?: MediaType | string | null
+  caption?: string | null
+}
+
+type PortfolioCase = ExistingPortfolioCase & {
+  year?: number | null
+  categories?: CategoryKey[] | null
+  gallery?: PortfolioGalleryItem[] | null
+  website?: {
+    label?: string | null
+    href?: string | null
+  } | null
+}
+
+type PortfolioCaseGridProps = Omit<PortfolioCaseGridBlockData, 'cases'> & {
+  cases?: PortfolioCase[] | null
+  disableInnerContainer?: boolean
+}
 
 type Discipline = 'webdesign' | 'marketing' | 'branding' | 'mixed'
 
@@ -46,6 +90,47 @@ const disciplineMeta: Record<
   },
 }
 
+const categoryMeta: Record<
+  CategoryKey,
+  {
+    label: string
+    icon: LucideIcon
+  }
+> = {
+  relaunch: {
+    label: 'Relaunch',
+    icon: RefreshCcw,
+  },
+  komplettDesign: {
+    label: 'Komplettdesign',
+    icon: LayoutGrid,
+  },
+  branding: {
+    label: 'Branding',
+    icon: Palette,
+  },
+  seo: {
+    label: 'SEO',
+    icon: Search,
+  },
+  uxUi: {
+    label: 'UX / UI',
+    icon: MonitorSmartphone,
+  },
+  performance: {
+    label: 'Performance',
+    icon: Gauge,
+  },
+  eCommerce: {
+    label: 'E-Commerce',
+    icon: ShoppingCart,
+  },
+  content: {
+    label: 'Content',
+    icon: Sparkles,
+  },
+}
+
 const normalizeHref = (raw?: string | null): string | null => {
   const value = String(raw ?? '').trim()
   if (!value) return null
@@ -57,36 +142,138 @@ const normalizeHref = (raw?: string | null): string | null => {
 const isExternalHref = (href: string): boolean =>
   href.startsWith('http://') || href.startsWith('https://')
 
+const isMediaObject = (value: unknown): value is MediaType =>
+  typeof value === 'object' && value !== null
+
 export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   eyebrow,
   heading,
   intro,
-  layoutVariant = 'editorial',
   cases,
 }) => {
-  const rows = (cases ?? []).filter((item) => Boolean(item?.title && item?.summary))
+  const rows = (cases ?? []).filter((item): item is PortfolioCase =>
+    Boolean(item?.title && item?.summary),
+  )
+  const [activeCaseKey, setActiveCaseKey] = useState<string | null>(null)
+  const sliderRef = useRef<HTMLDivElement | null>(null)
+  const isAdjustingLoopRef = useRef(false)
 
   if (!rows.length) return null
 
-  const sectionToneClass =
-    layoutVariant === 'data'
-      ? 'from-[rgb(var(--color-slate-950))/95] via-[rgb(var(--color-slate-900))/90] to-[rgb(var(--color-slate-950))/95] text-[rgb(var(--hero-process-text))]'
-      : layoutVariant === 'visual'
-        ? 'from-white via-[rgb(239,246,255)]/65 to-[rgb(255,251,235)]/60 text-[rgb(var(--color-slate-950))] dark:from-[rgb(var(--color-slate-950))/90] dark:via-[rgb(var(--color-slate-900))/86] dark:to-[rgb(var(--color-slate-950))/95] dark:text-[rgb(var(--color-slate-100))]'
-        : 'from-[rgb(var(--color-slate-50))] via-white to-[rgb(var(--color-zinc-50))] text-[rgb(var(--color-slate-950))] dark:from-[rgb(var(--color-slate-950))/92] dark:via-[rgb(var(--color-zinc-900))/88] dark:to-[rgb(var(--color-slate-950))/96] dark:text-[rgb(var(--color-slate-100))]'
+  const withKeys = rows.map((item, index) => ({
+    item,
+    key: typeof item.id === 'string' && item.id ? item.id : `${item.title}-${index}`,
+  }))
+  const loopCards = [...withKeys, ...withKeys, ...withKeys]
+
+  const activeCase = useMemo(() => {
+    if (!activeCaseKey) return null
+    return withKeys.find((entry) => entry.key === activeCaseKey)?.item ?? null
+  }, [activeCaseKey, withKeys])
+  const activeCaseIndex = useMemo(
+    () => withKeys.findIndex((entry) => entry.key === activeCaseKey),
+    [activeCaseKey, withKeys],
+  )
+
+  const openPrevCase = () => {
+    if (!withKeys.length) return
+    if (activeCaseIndex < 0) {
+      setActiveCaseKey(withKeys[0].key)
+      return
+    }
+
+    const nextIndex = (activeCaseIndex - 1 + withKeys.length) % withKeys.length
+    setActiveCaseKey(withKeys[nextIndex].key)
+  }
+
+  const openNextCase = () => {
+    if (!withKeys.length) return
+    if (activeCaseIndex < 0) {
+      setActiveCaseKey(withKeys[0].key)
+      return
+    }
+
+    const nextIndex = (activeCaseIndex + 1) % withKeys.length
+    setActiveCaseKey(withKeys[nextIndex].key)
+  }
+
+  const activeDiscipline = (activeCase?.discipline ?? 'webdesign') as Discipline
+  const activeDisciplineMeta = disciplineMeta[activeDiscipline] ?? disciplineMeta.webdesign
+  const ActiveDisciplineIcon = activeDisciplineMeta.icon
+  const activeCtaHref = normalizeHref(activeCase?.cta?.href)
+  const activeCtaLabel = activeCase?.cta?.label?.trim() || 'Case ansehen'
+  const activeWebsiteHref = normalizeHref(activeCase?.website?.href) ?? activeCtaHref
+  const activeWebsiteLabel = activeCase?.website?.label?.trim() || activeCtaLabel
+  const activeTags = (activeCase?.tags ?? []).filter((tag) => tag?.label?.trim())
+  const activeMetrics = (activeCase?.metrics ?? []).filter(
+    (metric) => metric?.value?.trim() && metric?.label?.trim(),
+  )
+  const activeCategories = (activeCase?.categories ?? []).filter(
+    (category): category is CategoryKey => Boolean(category && categoryMeta[category]),
+  )
+  const activeHeroImage = isMediaObject(activeCase?.coverImage)
+    ? activeCase.coverImage
+    : null
+
+  const stepSlider = (direction: 'prev' | 'next') => {
+    const slider = sliderRef.current
+    if (!slider) return
+    const firstCard = slider.querySelector<HTMLElement>('[data-portfolio-card="true"]')
+    const cardWidth = firstCard?.offsetWidth ?? 380
+    const gap = 16
+    const amount = cardWidth + gap
+    const delta = direction === 'next' ? amount : -amount
+    slider.scrollBy({ left: delta, behavior: 'smooth' })
+  }
+
+  useEffect(() => {
+    if (!activeCaseKey) return
+
+    const onEsc = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setActiveCaseKey(null)
+      if (event.key === 'ArrowLeft') openPrevCase()
+      if (event.key === 'ArrowRight') openNextCase()
+    }
+
+    window.addEventListener('keydown', onEsc)
+    return () => window.removeEventListener('keydown', onEsc)
+  }, [activeCaseKey, activeCaseIndex, withKeys])
+
+  useEffect(() => {
+    const slider = sliderRef.current
+    if (!slider || withKeys.length < 2) return
+
+    const firstCard = slider.querySelector<HTMLElement>('[data-portfolio-card="true"]')
+    const cardWidth = firstCard?.offsetWidth ?? 380
+    const gap = 16
+    const halfCardOffset = Math.round((cardWidth + gap) / 2)
+    const desktopOffset = window.innerWidth >= 1024 ? halfCardOffset : 0
+
+    slider.scrollLeft = slider.scrollWidth / 3 + desktopOffset
+
+    const onScroll = () => {
+      if (isAdjustingLoopRef.current) return
+      const section = slider.scrollWidth / 3
+
+      if (slider.scrollLeft < section * 0.5) {
+        isAdjustingLoopRef.current = true
+        slider.scrollLeft += section
+        isAdjustingLoopRef.current = false
+      } else if (slider.scrollLeft > section * 1.5) {
+        isAdjustingLoopRef.current = true
+        slider.scrollLeft -= section
+        isAdjustingLoopRef.current = false
+      }
+    }
+
+    slider.addEventListener('scroll', onScroll, { passive: true })
+    return () => slider.removeEventListener('scroll', onScroll)
+  }, [withKeys.length])
 
   return (
     <section className="w-full py-16 md:py-20">
-      <div
-        className={cn(
-          'container relative overflow-hidden rounded-3xl border border-border/70 bg-gradient-to-br px-6 py-8 shadow-[0_20px_70px_-40px_rgba(var(--color-slate-950),0.28)] md:px-10 md:py-12',
-          sectionToneClass,
-        )}
-      >
-        <div className="pointer-events-none absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/40 blur-3xl dark:bg-white/10" />
-        <div className="pointer-events-none absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-primary/10 blur-3xl" />
-
-        <div className="relative z-10 max-w-3xl">
+      <div className="container px-0 md:px-0">
+        <div className="max-w-3xl">
           {eyebrow ? (
             <Badge
               variant="secondary"
@@ -106,153 +293,284 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
           ) : null}
         </div>
 
-        <div className="relative z-10 mt-8 grid gap-5 lg:grid-cols-2">
-          {rows.map((item, index) => {
-            const key = typeof item.id === 'string' && item.id ? item.id : `${item.title}-${index}`
-            const discipline = (item.discipline ?? 'webdesign') as Discipline
-            const meta = disciplineMeta[discipline] ?? disciplineMeta.webdesign
-            const DisciplineIcon = meta.icon
-            const href = normalizeHref(item.cta?.href)
-            const ctaLabel = item.cta?.label?.trim() || 'Case ansehen'
-            const tags = (item.tags ?? []).filter((tag) => tag?.label?.trim())
-            const metrics = (item.metrics ?? []).filter(
-              (metric) => metric?.value?.trim() && metric?.label?.trim(),
-            )
+        <div className="mt-8">
+          {!activeCase ? (
+            <div className="relative -mx-4 px-4">
+              <div className="pointer-events-none absolute inset-y-0 left-4 z-10 w-12 bg-gradient-to-r from-background/95 via-background/55 to-transparent backdrop-blur-[1px] md:w-20" />
+              <div className="pointer-events-none absolute inset-y-0 right-4 z-10 w-12 bg-gradient-to-l from-background/95 via-background/55 to-transparent backdrop-blur-[1px] md:w-20" />
 
-            return (
-              <article
-                key={key}
-                className={cn(
-                  'group flex min-h-[24rem] flex-col overflow-hidden rounded-2xl border border-border/70 bg-card/85 backdrop-blur-md transition-shadow duration-300 hover:shadow-[0_20px_50px_-36px_rgba(var(--color-slate-950),0.55)] dark:hover:shadow-[0_20px_50px_-34px_rgba(0,0,0,0.68)]',
-                  layoutVariant === 'data' && 'border-white/15 bg-white/5',
-                  item.featured && 'lg:col-span-2',
-                )}
+              <button
+                type="button"
+                onClick={() => stepSlider('prev')}
+                className="absolute left-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/90 text-foreground shadow-sm transition hover:bg-background"
+                aria-label="Vorheriger Slide"
               >
-                {typeof item.coverImage === 'object' && item.coverImage ? (
-                  <div className="relative h-44 w-full overflow-hidden md:h-56">
+                <ChevronLeft className="size-4" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => stepSlider('next')}
+                className="absolute right-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/90 text-foreground shadow-sm transition hover:bg-background"
+                aria-label="Nächster Slide"
+              >
+                <ChevronRight className="size-4" />
+              </button>
+
+              <div
+                ref={sliderRef}
+                className="overflow-x-auto px-10 pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              >
+                <div className="flex w-max gap-4">
+                  {loopCards.map(({ item, key }, loopIndex) => {
+                    const discipline = (item.discipline ?? 'webdesign') as Discipline
+                    const meta = disciplineMeta[discipline] ?? disciplineMeta.webdesign
+                    const DisciplineIcon = meta.icon
+                    const coverImage = isMediaObject(item.coverImage) ? item.coverImage : null
+
+                    return (
+                      <button
+                        type="button"
+                        data-portfolio-card="true"
+                        key={`${key}-${loopIndex}`}
+                        onClick={() => setActiveCaseKey(key)}
+                        className="group w-[78vw] max-w-[420px] shrink-0 snap-start overflow-hidden rounded-3xl border border-border/70 bg-card md:w-[48vw] md:max-w-[460px] lg:w-[33vw] lg:max-w-[390px] xl:w-[30vw] xl:max-w-[380px]"
+                        aria-label={`Details öffnen: ${item.title}`}
+                      >
+                        <div className="overflow-hidden border-b border-border/70">
+                          {coverImage ? (
+                            <Media
+                              resource={coverImage}
+                              className="w-full"
+                              imgClassName="h-auto w-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+                            />
+                          ) : (
+                            <div className="flex h-[240px] items-center justify-center bg-muted/40 text-sm text-muted-foreground">
+                              Kein Titelbild
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="space-y-3 p-4">
+                          <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 text-xs font-medium">
+                            <DisciplineIcon className="size-3.5" />
+                            {meta.label}
+                          </div>
+
+                          <h3 className="text-xl font-semibold leading-tight">{item.title}</h3>
+
+                          {item.industry ? (
+                            <div className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+                              <Building2 className="size-4" />
+                              {item.industry}
+                            </div>
+                          ) : null}
+                        </div>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div
+              className="relative w-full rounded-3xl bg-black/15 p-2 animate-in fade-in-0 zoom-in-95 duration-200 md:p-3"
+              role="dialog"
+              aria-modal="false"
+              onClick={() => setActiveCaseKey(null)}
+            >
+              <button
+                type="button"
+                onClick={openPrevCase}
+                className="absolute left-2 top-1/2 z-20 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/95 shadow-sm transition hover:bg-background"
+                aria-label="Vorheriges Projekt"
+              >
+                <ChevronLeft className="size-5" />
+              </button>
+
+              <button
+                type="button"
+                onClick={openNextCase}
+                className="absolute right-2 top-1/2 z-20 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/95 shadow-sm transition hover:bg-background"
+                aria-label="Nächstes Projekt"
+              >
+                <ChevronRight className="size-5" />
+              </button>
+
+              <div
+                className="relative w-full rounded-3xl border border-border bg-background p-5 shadow-2xl md:p-6"
+                aria-live="polite"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  onClick={() => setActiveCaseKey(null)}
+                  className="absolute right-4 top-4 inline-flex size-9 items-center justify-center rounded-full border border-border/70 bg-background/90 hover:bg-muted"
+                  aria-label="Modal schließen"
+                >
+                  <X className="size-4" />
+                </button>
+
+                {activeHeroImage ? (
+                  <div className="mb-5 overflow-hidden rounded-2xl border border-border/70">
                     <Media
-                      resource={item.coverImage as MediaType}
-                      className="h-full w-full"
-                      imgClassName="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                      resource={activeHeroImage}
+                      className="w-full"
+                      imgClassName="h-auto w-full object-contain"
                     />
-                    <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[rgb(var(--color-slate-950))]/45 via-transparent to-transparent" />
                   </div>
                 ) : null}
 
-                <div className="flex h-full flex-col px-5 pb-5 pt-5 md:px-6">
-                  <div className="mb-4 flex flex-wrap items-center gap-2">
-                    <Badge
-                      variant={item.featured ? 'primary' : 'secondary'}
-                      className="gap-1.5 px-2.5 py-1 text-xs font-semibold"
-                    >
-                      <DisciplineIcon className="size-3.5" />
-                      {meta.label}
-                    </Badge>
-                    {item.client ? (
-                      <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground/90">
-                        {item.client}
-                      </span>
-                    ) : null}
-                    {item.industry ? (
-                      <span className="text-xs text-muted-foreground/80">{item.industry}</span>
-                    ) : null}
-                  </div>
-
-                  <h3 className="text-xl font-semibold leading-snug md:text-2xl">{item.title}</h3>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
-                    {item.summary}
-                  </p>
-
-                  {(item.challenge || item.approach || item.result) && (
-                    <dl className="mt-5 grid gap-3 text-sm md:grid-cols-3">
-                      {item.challenge ? (
-                        <div>
-                          <dt className="font-semibold text-foreground/85">Challenge</dt>
-                          <dd className="mt-1 leading-relaxed text-muted-foreground">
-                            {item.challenge}
-                          </dd>
-                        </div>
-                      ) : null}
-                      {item.approach ? (
-                        <div>
-                          <dt className="font-semibold text-foreground/85">Vorgehen</dt>
-                          <dd className="mt-1 leading-relaxed text-muted-foreground">
-                            {item.approach}
-                          </dd>
-                        </div>
-                      ) : null}
-                      {item.result ? (
-                        <div>
-                          <dt className="font-semibold text-foreground/85">Ergebnis</dt>
-                          <dd className="mt-1 leading-relaxed text-muted-foreground">
-                            {item.result}
-                          </dd>
-                        </div>
-                      ) : null}
-                    </dl>
-                  )}
-
-                  {metrics.length > 0 ? (
-                    <div className="mt-5 grid gap-2 sm:grid-cols-2 xl:grid-cols-3">
-                      {metrics.map((metric, metricIndex) => (
-                        <div
-                          key={
-                            typeof metric.id === 'string' && metric.id
-                              ? metric.id
-                              : `${key}-metric-${metricIndex}`
-                          }
-                          className="rounded-lg border border-border/70 bg-background/70 px-3 py-2"
-                        >
-                          <p className="text-base font-semibold">{metric.value}</p>
-                          <p className="text-xs uppercase tracking-wide text-muted-foreground">
-                            {metric.label}
-                          </p>
-                        </div>
-                      ))}
+                <div className="mb-5 flex items-start gap-3 pr-12">
+                  <div>
+                    <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 text-xs font-medium">
+                      <ActiveDisciplineIcon className="size-3.5" />
+                      {activeDisciplineMeta.label}
                     </div>
-                  ) : null}
+                    <h3 className="mt-3 text-2xl font-semibold leading-tight">{activeCase.title}</h3>
+                  </div>
+                </div>
 
-                  <div className="mt-5 flex flex-wrap items-center gap-2">
-                    {tags.map((tag, tagIndex) => (
+                <div className="flex flex-wrap items-center gap-2 text-xs">
+                  {activeCase.year ? (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 font-medium text-foreground/90">
+                      <CalendarDays className="size-3.5 text-primary" />
+                      {activeCase.year}
+                    </span>
+                  ) : null}
+                  {activeCase.industry ? (
+                    <span className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 font-medium text-foreground/90">
+                      <Building2 className="size-3.5 text-primary" />
+                      {activeCase.industry}
+                    </span>
+                  ) : null}
+                  {activeCategories.map((category) => {
+                    const CategoryIcon = categoryMeta[category].icon
+
+                    return (
                       <Badge
                         variant="secondary"
-                        key={
-                          typeof tag.id === 'string' && tag.id ? tag.id : `${key}-tag-${tagIndex}`
-                        }
+                        key={`popup-${category}`}
+                        className="gap-1.5 px-2.5 py-1 text-xs font-medium"
+                      >
+                        <CategoryIcon className="size-3.5" />
+                        {categoryMeta[category].label}
+                      </Badge>
+                    )
+                  })}
+                </div>
+
+                <p className="mt-4 text-sm leading-relaxed text-muted-foreground md:text-base">
+                  {activeCase.summary}
+                </p>
+
+                {(activeCase.challenge || activeCase.approach || activeCase.result) && (
+                  <dl className="mt-6 grid gap-3 text-sm md:grid-cols-3">
+                    {activeCase.challenge ? (
+                      <div className="rounded-2xl border border-border/70 bg-background/60 p-3">
+                        <dt className="font-semibold text-foreground/85">Challenge</dt>
+                        <dd className="mt-1 leading-relaxed text-muted-foreground">
+                          {activeCase.challenge}
+                        </dd>
+                      </div>
+                    ) : null}
+                    {activeCase.approach ? (
+                      <div className="rounded-2xl border border-border/70 bg-background/60 p-3">
+                        <dt className="font-semibold text-foreground/85">Vorgehen</dt>
+                        <dd className="mt-1 leading-relaxed text-muted-foreground">
+                          {activeCase.approach}
+                        </dd>
+                      </div>
+                    ) : null}
+                    {activeCase.result ? (
+                      <div className="rounded-2xl border border-border/70 bg-background/60 p-3">
+                        <dt className="font-semibold text-foreground/85">Ergebnis</dt>
+                        <dd className="mt-1 leading-relaxed text-muted-foreground">
+                          {activeCase.result}
+                        </dd>
+                      </div>
+                    ) : null}
+                  </dl>
+                )}
+
+                {activeMetrics.length > 0 ? (
+                  <div className="mt-5 grid gap-2 sm:grid-cols-2">
+                    {activeMetrics.map((metric, metricIndex) => (
+                      <div
+                        key={typeof metric.id === 'string' && metric.id ? metric.id : `popup-metric-${metricIndex}`}
+                        className="rounded-xl border border-border/70 bg-background/70 px-3 py-2.5"
+                      >
+                        <p className="text-base font-semibold md:text-lg">{metric.value}</p>
+                        <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                          {metric.label}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                ) : null}
+
+                {activeTags.length > 0 ? (
+                  <div className="mt-5 flex flex-wrap items-center gap-2">
+                    {activeTags.map((tag, tagIndex) => (
+                      <Badge
+                        variant="secondary"
+                        key={typeof tag.id === 'string' && tag.id ? tag.id : `popup-tag-${tagIndex}`}
                         className="px-2.5 py-1 text-xs font-medium"
                       >
                         {tag.label}
                       </Badge>
                     ))}
                   </div>
+                ) : null}
 
-                  {href ? (
-                    <div className="mt-6">
-                      {isExternalHref(href) ? (
+                {(activeWebsiteHref || activeCtaHref) && (
+                  <div className="mt-6">
+                    {activeWebsiteHref ? (
+                      isExternalHref(activeWebsiteHref) ? (
                         <a
-                          href={href}
+                          href={activeWebsiteHref}
                           target="_blank"
                           rel="noreferrer"
-                          className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+                          className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
                         >
-                          {ctaLabel}
+                          <Globe className="size-4" />
+                          {activeWebsiteLabel}
                           <ArrowUpRight className="size-4" />
                         </a>
                       ) : (
                         <Link
-                          href={href}
-                          className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+                          href={activeWebsiteHref}
+                          className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
                         >
-                          {ctaLabel}
+                          <Globe className="size-4" />
+                          {activeWebsiteLabel}
                           <ArrowUpRight className="size-4" />
                         </Link>
-                      )}
-                    </div>
-                  ) : null}
-                </div>
-              </article>
-            )
-          })}
+                      )
+                    ) : isExternalHref(activeCtaHref as string) ? (
+                      <a
+                        href={activeCtaHref as string}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+                      >
+                        {activeCtaLabel}
+                        <ArrowUpRight className="size-4" />
+                      </a>
+                    ) : (
+                      <Link
+                        href={activeCtaHref as string}
+                        className="inline-flex items-center gap-1 text-sm font-semibold text-primary transition-colors hover:text-primary/80"
+                      >
+                        {activeCtaLabel}
+                        <ArrowUpRight className="size-4" />
+                      </Link>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </section>

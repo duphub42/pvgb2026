@@ -2582,6 +2582,101 @@ html.theme-wave-transition.theme-wave-light::before {
   opacity: 1;
 }
 
+.logo-bento-shell {
+  background: #09090b;
+}
+
+.logo-bento-kicker {
+  color: #71717a;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.logo-bento-counter {
+  color: #52525b;
+  font-size: 10px;
+}
+
+.logo-bento-item {
+  transition: border-color 0.2s ease;
+}
+
+.logo-bento-item:hover,
+.logo-bento-item:focus-within {
+  border-color: #3f3f46;
+}
+
+.logo-bento-logo-layer {
+  transition: opacity 0.2s ease;
+}
+
+.logo-bento-image {
+  filter: grayscale(100%);
+  opacity: 0.9;
+  transition: filter 0.2s ease, opacity 0.2s ease;
+}
+
+.logo-bento-item:hover .logo-bento-image,
+.logo-bento-item:focus-within .logo-bento-image {
+  filter: grayscale(0%);
+  opacity: 1;
+}
+
+.logo-bento-detail-layer {
+  background: #18181b;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  opacity: 0;
+  padding: 14px 16px;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.logo-bento-item-interactive:hover .logo-bento-detail-layer,
+.logo-bento-item-interactive:focus-within .logo-bento-detail-layer {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.logo-bento-item-interactive:hover .logo-bento-logo-layer,
+.logo-bento-item-interactive:focus-within .logo-bento-logo-layer {
+  opacity: 0;
+}
+
+.logo-bento-detail-title {
+  color: #a1a1aa;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.logo-bento-detail-text {
+  color: #d4d4d8;
+  font-size: 12px;
+  line-height: 1.55;
+  margin: 0;
+}
+
+.logo-bento-detail-meta {
+  color: #71717a;
+  font-size: 10px;
+}
+
+.logo-bento-item-feature .logo-bento-detail-text {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+@media (max-width: 520px) {
+  .logo-bento-mobile-flat .logo-bento-item {
+    grid-column: span 1 !important;
+    grid-row: span 1 !important;
+  }
+}
+
 [data-theme='dark'] .logo-gallery-image {
   filter: grayscale(100%) invert(1);
   opacity: 0.92;

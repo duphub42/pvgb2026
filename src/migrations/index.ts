@@ -130,6 +130,10 @@ import * as migration_20260428_130000_site_pages_hero_stats_icon from './2026042
 import * as migration_20260428_200000_site_pages_blocks_hero_flowchart from './20260428_200000_site_pages_blocks_hero_flowchart'
 import * as migration_20260428_210000_fix_hero_flowchart_block_style_column_names from './20260428_210000_fix_hero_flowchart_block_style_column_names'
 import * as migration_20260428_220000_mega_menu_special_column_background from './20260428_220000_mega_menu_special_column_background'
+import * as migration_20260507_140000_marquee_slider_gallery_mode_columns from './20260507_140000_marquee_slider_gallery_mode_columns'
+import * as migration_20260520_120000_marquee_slider_bento_columns from './20260520_120000_marquee_slider_bento_columns'
+import * as migration_20260520_120000_portfolio_case_grid_enhanced_fields from './20260520_120000_portfolio_case_grid_enhanced_fields'
+import * as migration_20260520_133000_portfolio_case_categories_compat from './20260520_133000_portfolio_case_categories_compat'
 
 export const migrations = [
   {
@@ -791,6 +795,26 @@ export const migrations = [
     up: migration_20260428_220000_mega_menu_special_column_background.up,
     down: migration_20260428_220000_mega_menu_special_column_background.down,
     name: '20260428_220000_mega_menu_special_column_background',
+  },
+  {
+    up: migration_20260507_140000_marquee_slider_gallery_mode_columns.up,
+    down: migration_20260507_140000_marquee_slider_gallery_mode_columns.down,
+    name: '20260507_140000_marquee_slider_gallery_mode_columns',
+  },
+  {
+    up: migration_20260520_120000_marquee_slider_bento_columns.up,
+    down: migration_20260520_120000_marquee_slider_bento_columns.down,
+    name: '20260520_120000_marquee_slider_bento_columns',
+  },
+  {
+    up: migration_20260520_120000_portfolio_case_grid_enhanced_fields.up,
+    down: migration_20260520_120000_portfolio_case_grid_enhanced_fields.down,
+    name: '20260520_120000_portfolio_case_grid_enhanced_fields',
+  },
+  {
+    up: migration_20260520_133000_portfolio_case_categories_compat.up,
+    down: migration_20260520_133000_portfolio_case_categories_compat.down,
+    name: '20260520_133000_portfolio_case_categories_compat',
   },
   // TEMPORARILY DISABLED - Database migration needs SQLite fix
   // {

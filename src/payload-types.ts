@@ -831,8 +831,13 @@ export interface MarqueeSliderBlock {
   eyebrow?: string | null;
   heading?: string | null;
   intro?: string | null;
-  displayMode?: ('marquee' | 'gallery') | null;
+  displayMode?: ('marquee' | 'gallery' | 'bento') | null;
   galleryColumns?: ('3' | '4' | '5') | null;
+  bentoShowCounter?: boolean | null;
+  bentoCounterLabel?: string | null;
+  bentoGap?: ('tight' | 'default' | 'relaxed') | null;
+  bentoRowHeight?: ('sm' | 'md' | 'lg') | null;
+  bentoMobileFlattenSpans?: boolean | null;
   rows?:
     | {
         direction?: ('left' | 'right') | null;
@@ -846,6 +851,11 @@ export interface MarqueeSliderBlock {
               logo?: (number | null) | Media;
               name?: string | null;
               tileSize?: ('sm' | 'md' | 'wide' | 'tall' | 'large') | null;
+              bentoInteractive?: boolean | null;
+              detailTitle?: string | null;
+              detailText?: string | null;
+              detailMeta?: string | null;
+              emphasis?: ('normal' | 'feature') | null;
               id?: string | null;
             }[]
           | null;
@@ -1357,10 +1367,28 @@ export interface PortfolioCaseGridBlock {
         client?: string | null;
         industry?: string | null;
         summary: string;
+        year?: number | null;
+        categories?:
+          | ('relaunch' | 'komplettDesign' | 'branding' | 'seo' | 'uxUi' | 'performance' | 'eCommerce' | 'content')[]
+          | null;
         challenge?: string | null;
         approach?: string | null;
         result?: string | null;
         coverImage?: (number | null) | Media;
+        gallery?:
+          | {
+              image: number | Media;
+              caption?: string | null;
+              id?: string | null;
+            }[]
+          | null;
+        website?: {
+          label?: string | null;
+          /**
+           * Erlaubt /pfad, slug oder vollstaendige URL.
+           */
+          href?: string | null;
+        };
         metrics?:
           | {
               value: string;
@@ -3400,6 +3428,11 @@ export interface MarqueeSliderBlockSelect<T extends boolean = true> {
   intro?: T;
   displayMode?: T;
   galleryColumns?: T;
+  bentoShowCounter?: T;
+  bentoCounterLabel?: T;
+  bentoGap?: T;
+  bentoRowHeight?: T;
+  bentoMobileFlattenSpans?: T;
   rows?:
     | T
     | {
@@ -3412,6 +3445,11 @@ export interface MarqueeSliderBlockSelect<T extends boolean = true> {
               logo?: T;
               name?: T;
               tileSize?: T;
+              bentoInteractive?: T;
+              detailTitle?: T;
+              detailText?: T;
+              detailMeta?: T;
+              emphasis?: T;
               id?: T;
             };
         id?: T;
@@ -3685,10 +3723,25 @@ export interface PortfolioCaseGridBlockSelect<T extends boolean = true> {
         client?: T;
         industry?: T;
         summary?: T;
+        year?: T;
+        categories?: T;
         challenge?: T;
         approach?: T;
         result?: T;
         coverImage?: T;
+        gallery?:
+          | T
+          | {
+              image?: T;
+              caption?: T;
+              id?: T;
+            };
+        website?:
+          | T
+          | {
+              label?: T;
+              href?: T;
+            };
         metrics?:
           | T
           | {

@@ -82,6 +82,43 @@ export const PortfolioCaseGrid: Block = {
           required: true,
         },
         {
+          name: 'year',
+          type: 'number',
+          label: 'Jahr',
+          min: 1990,
+          max: 2100,
+          defaultValue: new Date().getFullYear(),
+        },
+        {
+          name: 'categories',
+          type: 'select',
+          label: 'Kategorien',
+          hasMany: true,
+          defaultValue: ['relaunch'],
+          hooks: {
+            beforeValidate: [
+              ({ value }) => {
+                if (!Array.isArray(value)) return value
+                const normalized = value
+                  .map((entry) => (typeof entry === 'string' ? entry.trim() : null))
+                  .filter((entry): entry is string => Boolean(entry))
+
+                return Array.from(new Set(normalized))
+              },
+            ],
+          },
+          options: [
+            { label: 'Relaunch', value: 'relaunch' },
+            { label: 'Komplettdesign', value: 'komplettDesign' },
+            { label: 'Branding', value: 'branding' },
+            { label: 'SEO', value: 'seo' },
+            { label: 'UX / UI', value: 'uxUi' },
+            { label: 'Performance', value: 'performance' },
+            { label: 'E-Commerce', value: 'eCommerce' },
+            { label: 'Content', value: 'content' },
+          ],
+        },
+        {
           name: 'challenge',
           type: 'textarea',
           label: 'Challenge',
@@ -100,7 +137,49 @@ export const PortfolioCaseGrid: Block = {
           name: 'coverImage',
           type: 'upload',
           relationTo: 'media',
-          label: 'Case-Bild',
+          label: 'Titelbild',
+        },
+        {
+          name: 'gallery',
+          type: 'array',
+          label: 'Zusatz-Screenshots',
+          minRows: 0,
+          maxRows: 8,
+          fields: [
+            {
+              name: 'image',
+              type: 'upload',
+              relationTo: 'media',
+              label: 'Screenshot',
+              required: true,
+            },
+            {
+              name: 'caption',
+              type: 'text',
+              label: 'Caption',
+            },
+          ],
+        },
+        {
+          name: 'website',
+          type: 'group',
+          label: 'Website',
+          fields: [
+            {
+              name: 'label',
+              type: 'text',
+              label: 'Label',
+              defaultValue: 'Website ansehen',
+            },
+            {
+              name: 'href',
+              type: 'text',
+              label: 'URL',
+              admin: {
+                description: 'Erlaubt /pfad, slug oder vollstaendige URL.',
+              },
+            },
+          ],
         },
         {
           name: 'metrics',
