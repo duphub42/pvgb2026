@@ -15,19 +15,33 @@ function isMediaObject(value: unknown): value is Record<string, unknown> {
   )
 }
 
+const directRelationshipKeys = new Set(['parent'])
+
+function hasId(value: unknown): value is { id: number | string } {
+  return (
+    Boolean(value && typeof value === 'object' && !Array.isArray(value)) &&
+    'id' in (value as Record<string, unknown>) &&
+    (typeof (value as Record<string, unknown>).id === 'number' ||
+      typeof (value as Record<string, unknown>).id === 'string')
+  )
+}
+
 /**
- * Rekursiv: konvertiert alle vollständigen Media-Objekte im Dokument auf ihre ID.
- * Behandelt Objekte, Arrays und primitive Werte. Block- und Array-Item-IDs (UUID-Strings
- * ohne url/mimeType) werden NICHT angefasst – Payload braucht sie für Updates.
+ * Rekursiv: konvertiert vollständige Payload-Dokumente in Relationship-/Upload-Feldern
+ * auf ihre ID. Block- und Array-Item-IDs bleiben erhalten – Payload braucht sie für Updates.
  */
-function normalizeMediaObjects(value: unknown): unknown {
+function normalizePayloadObjects(value: unknown, key?: string): unknown {
   if (value === null || value === undefined) return value
   if (typeof value !== 'object') return value
+
+  if (key && directRelationshipKeys.has(key) && hasId(value)) {
+    return value.id
+  }
 
   if (Array.isArray(value)) {
     const arr = value as unknown[]
     for (let i = 0; i < arr.length; i++) {
-      arr[i] = normalizeMediaObjects(arr[i])
+      arr[i] = normalizePayloadObjects(arr[i])
     }
     return arr
   }
@@ -39,8 +53,13 @@ function normalizeMediaObjects(value: unknown): unknown {
 
   // Normales Objekt: Felder rekursiv verarbeiten (in-place, damit IDs erhalten bleiben)
   const record = value as Record<string, unknown>
+  if (typeof record.relationTo === 'string' && hasId(record.value)) {
+    record.value = record.value.id
+    return record
+  }
+
   for (const key of Object.keys(record)) {
-    record[key] = normalizeMediaObjects(record[key])
+    record[key] = normalizePayloadObjects(record[key], key)
   }
   return record
 }
@@ -59,7 +78,7 @@ function stripTopLevelId(data: unknown): unknown {
 
 function sanitizePageData(data: unknown): unknown {
   const withoutTopLevelId = stripTopLevelId(data)
-  return normalizeMediaObjects(withoutTopLevelId)
+  return normalizePayloadObjects(withoutTopLevelId)
 }
 
 function collectIdPaths(value: unknown, path = ''): string[] {

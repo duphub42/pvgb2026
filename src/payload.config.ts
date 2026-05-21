@@ -1,4 +1,5 @@
 import { sqliteAdapter } from '@payloadcms/db-sqlite'
+import { postgresAdapter } from '@payloadcms/db-postgres'
 import { vercelPostgresAdapter } from '@payloadcms/db-vercel-postgres'
 import { config as dotenvConfig } from 'dotenv'
 import * as fs from 'fs'
@@ -140,6 +141,9 @@ const forceNeon = process.env.USE_NEON === 'true'
 const useSqliteAdapter =
   !forceNeon && (!hasPostgresUrl || (!isProduction && process.env.USE_SQLITE === 'true'))
 const activePostgresUrl = process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim() || ''
+const postgresPool = {
+  connectionString: activePostgresUrl,
+}
 
 if (useSqliteAdapter) {
   if (debugPayloadConfig) {
@@ -203,19 +207,25 @@ export default buildConfig({
   },
   // This config helps us configure global or default features that the other editors can inherit
   editor: defaultLexical,
-  // Vercel-Adapter: Migrationen (db.execute). Push nur mit PAYLOAD_ALLOW_DRIZZLE_PUSH (s. unten).
+  // Prefer node-postgres outside Vercel. The Vercel adapter uses @vercel/postgres for remote
+  // databases, which is less stable for a long-running local dev server against Neon.
   db: !useSqliteAdapter
-    ? vercelPostgresAdapter({
-        pool: {
-          connectionString: process.env.DATABASE_URL || process.env.POSTGRES_URL || '',
-        },
-        // Kein Drizzle-Push ohne Opt-in: bei Schema-Drift kann Push Tabellen/Spalten droppen oder Daten gefährden.
-        // Sicher: `pnpm run migrate:neon` / `pnpm run push:neon` (nur Migrationen).
-        // Opt-in Drizzle: PAYLOAD_ALLOW_DRIZZLE_PUSH=true (z. B. mit `pnpm run push:neon:drizzle` + Bestätigung).
-        push:
-          process.env.NODE_ENV !== 'production' &&
-          process.env.PAYLOAD_ALLOW_DRIZZLE_PUSH === 'true',
-      })
+    ? isVercel
+      ? vercelPostgresAdapter({
+          pool: postgresPool,
+          // Kein Drizzle-Push ohne Opt-in: bei Schema-Drift kann Push Tabellen/Spalten droppen oder Daten gefährden.
+          // Sicher: `pnpm run migrate:neon` / `pnpm run push:neon` (nur Migrationen).
+          // Opt-in Drizzle: PAYLOAD_ALLOW_DRIZZLE_PUSH=true (z. B. mit `pnpm run push:neon:drizzle` + Bestätigung).
+          push:
+            process.env.NODE_ENV !== 'production' &&
+            process.env.PAYLOAD_ALLOW_DRIZZLE_PUSH === 'true',
+        })
+      : postgresAdapter({
+          pool: postgresPool,
+          push:
+            process.env.NODE_ENV !== 'production' &&
+            process.env.PAYLOAD_ALLOW_DRIZZLE_PUSH === 'true',
+        })
     : sqliteAdapter({
         client: {
           url: process.env.SQLITE_URL || 'file:./payload.db',
