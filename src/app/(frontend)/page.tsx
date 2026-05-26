@@ -51,6 +51,7 @@ const getCachedPublishedHomePage = unstable_cache(
     const pages = await payload.find({
       collection: 'site-pages',
       limit: 1,
+      pagination: false,
       depth,
       where: {
         and: [{ slug: { in: ['home', 'Home'] } }, { _status: { equals: 'published' } }],

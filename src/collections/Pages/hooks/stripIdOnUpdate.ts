@@ -16,6 +16,18 @@ function isMediaObject(value: unknown): value is Record<string, unknown> {
 }
 
 const directRelationshipKeys = new Set(['parent'])
+const directUploadKeys = new Set([
+  'backgroundImage',
+  'blockBackgroundImage',
+  'coverImage',
+  'image',
+  'introImage',
+  'logo',
+  'lottieDark',
+  'lottieLight',
+  'media',
+  'wordmark',
+])
 
 function hasId(value: unknown): value is { id: number | string } {
   return (
@@ -35,6 +47,11 @@ function normalizePayloadObjects(value: unknown, key?: string): unknown {
   if (typeof value !== 'object') return value
 
   if (key && directRelationshipKeys.has(key) && hasId(value)) {
+    return value.id
+  }
+
+  // Payload admin can send populated upload docs with only a partial media shape.
+  if (key && directUploadKeys.has(key) && hasId(value)) {
     return value.id
   }
 

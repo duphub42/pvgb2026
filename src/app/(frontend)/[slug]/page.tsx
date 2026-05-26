@@ -70,6 +70,7 @@ async function findPublishedPageBySlug(slugParam: string): Promise<SitePage | nu
     const pages = await payload.find({
       collection: 'site-pages',
       limit: 1,
+      pagination: false,
       depth,
       where: {
         and: [{ slug: where }, { _status: { equals: 'published' } }],
@@ -106,6 +107,7 @@ async function findPublishedPageMetaBySlug(slugParam: string): Promise<SitePage 
     const pages = await payload.find({
       collection: 'site-pages',
       limit: 1,
+      pagination: false,
       depth: 0,
       select: {
         slug: true,

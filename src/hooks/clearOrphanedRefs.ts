@@ -1,4 +1,4 @@
-import type { Payload } from 'payload'
+import type { Payload, PayloadRequest } from 'payload'
 
 const RELATION_COLLECTIONS = ['site-pages', 'blog-posts', 'media'] as const
 type RelationCollection = (typeof RELATION_COLLECTIONS)[number]
@@ -74,6 +74,7 @@ function collectRefs(
 async function buildExistenceCache(
   payload: Payload,
   data: Record<string, unknown>,
+  req?: Partial<PayloadRequest>,
 ): Promise<ExistenceCache> {
   const refs = new Map<RelationCollection, Set<string>>()
   collectRefs(data, refs)
@@ -93,8 +94,10 @@ async function buildExistenceCache(
         collection,
         where: { id: { in: queryIds } },
         limit: queryIds.length,
+        pagination: false,
         depth: 0,
         overrideAccess: true,
+        req,
       })
       const existing = new Set<string>()
       for (const doc of result.docs) {
@@ -111,7 +114,7 @@ async function buildExistenceCache(
 }
 
 type TraverseContext = { parent?: Record<string, unknown>; parentKey?: string }
-type HookReq = { payload?: Payload }
+type HookReq = Partial<PayloadRequest> & { payload?: Payload }
 type AfterReadArgs<T> = { doc?: T; req?: HookReq }
 type BeforeDataArgs = { data?: unknown; req?: HookReq }
 
@@ -202,7 +205,7 @@ export function createClearOrphanedRefsAfterReadHook<T extends Record<string, un
     const doc = args?.doc as T | undefined
     const req = args?.req
     if (!doc || !req?.payload) return (doc ?? {}) as T
-    const cache = await buildExistenceCache(req.payload, doc as Record<string, unknown>)
+    const cache = await buildExistenceCache(req.payload, doc as Record<string, unknown>, req)
     clearOrphanedRefsInValueWithCache(doc, cache)
     return doc
   }
@@ -218,7 +221,7 @@ export function createClearOrphanedRefsBeforeValidateHook() {
     const req = args?.req
     const dataRecord = asRecord(data)
     if (!dataRecord || !req?.payload) return data
-    const cache = await buildExistenceCache(req.payload, dataRecord)
+    const cache = await buildExistenceCache(req.payload, dataRecord, req)
     clearOrphanedRefsInValueWithCache(dataRecord, cache)
     return data
   }
@@ -234,7 +237,7 @@ export function createClearOrphanedRefsBeforeChangeHook() {
     const req = args?.req
     const dataRecord = asRecord(data)
     if (!dataRecord || !req?.payload) return data
-    const cache = await buildExistenceCache(req.payload, dataRecord)
+    const cache = await buildExistenceCache(req.payload, dataRecord, req)
     clearOrphanedRefsInValueWithCache(dataRecord, cache)
     return data
   }

@@ -43,6 +43,7 @@ export default async function LeistungenPage() {
         and: [{ slug: { in: ['leistungen', 'lei'] } }, { _status: { equals: 'published' } }],
       },
       limit: 1,
+      pagination: false,
       sort: '-updatedAt',
       draft: false,
     })

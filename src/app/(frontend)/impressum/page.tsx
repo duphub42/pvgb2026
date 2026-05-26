@@ -49,6 +49,7 @@ async function fetchSitePageBySlug(payload: Payload, slug: string, draft: boolea
   const pages = await payload.find({
     collection: 'site-pages',
     limit: 1,
+    pagination: false,
     depth: 2,
     where: {
       and: [{ slug: { equals: slug } }],

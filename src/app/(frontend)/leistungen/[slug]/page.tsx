@@ -80,6 +80,7 @@ async function findPublishedLeistungenSubpage(slugParam: string) {
   const hubPages = await payload.find({
     collection: 'site-pages',
     limit: 5,
+    pagination: false,
     depth: 0,
     where: {
       and: [
@@ -95,6 +96,7 @@ async function findPublishedLeistungenSubpage(slugParam: string) {
   const pages = await payload.find({
     collection: 'site-pages',
     limit: 1,
+    pagination: false,
     depth: 2,
     where: {
       and: [
@@ -114,6 +116,7 @@ async function findPublishedLeistungenSubpageMeta(slugParam: string) {
   const hubPages = await payload.find({
     collection: 'site-pages',
     limit: 5,
+    pagination: false,
     depth: 0,
     where: {
       and: [
@@ -129,6 +132,7 @@ async function findPublishedLeistungenSubpageMeta(slugParam: string) {
   const pages = await payload.find({
     collection: 'site-pages',
     limit: 1,
+    pagination: false,
     depth: 0,
     select: {
       slug: true,
@@ -236,6 +240,7 @@ export default async function Page({
         await payload.find({
           collection: 'site-pages',
           limit: 1,
+          pagination: false,
           depth: 2,
           where: {
             and: [{ slug: { equals: slug } }],
