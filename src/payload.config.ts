@@ -143,6 +143,9 @@ const useSqliteAdapter =
 const activePostgresUrl = process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim() || ''
 const postgresPool = {
   connectionString: activePostgresUrl,
+  // Allow up to 30 s for Neon compute to wake from hibernation
+  connectionTimeoutMillis: 30_000,
+  idleTimeoutMillis: 60_000,
 }
 
 if (useSqliteAdapter) {

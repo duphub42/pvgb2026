@@ -325,6 +325,7 @@ export interface SitePage {
         | RadialOrbitalTimelineBlock
         | PortfolioCaseGridBlock
         | PortfolioKpiStripBlock
+        | PortfolioTeaserBlock
         | BrandShowcaseBlock
         | ProfilUeberMichBlock
         | ProfilKernkompetenzBlock
@@ -1466,6 +1467,63 @@ export interface PortfolioKpiStripBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'portfolioKpiStrip';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PortfolioTeaserBlock".
+ */
+export interface PortfolioTeaserBlock {
+  blockSpacingPadding?: ('none' | 'sm' | 'default' | 'lg' | 'xl') | null;
+  blockSpacingPaddingTop?: ('default' | 'negative' | 'xl') | null;
+  blockSpacingMarginBottom?: ('none' | 'sm' | 'default' | 'lg') | null;
+  blockContainer?: ('default' | 'full' | 'narrow' | 'wide' | 'none') | null;
+  blockBackground?: ('none' | 'muted' | 'accent' | 'light' | 'dark' | 'card' | 'primary') | null;
+  /**
+   * Optionales Hintergrundbild aus der Media-Galerie. Wird hinter dem Block-Inhalt angezeigt.
+   */
+  blockBackgroundImage?: (number | null) | Media;
+  /**
+   * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
+   */
+  blockBackgroundImageDisableInversion?: boolean | null;
+  blockBorderEnabled?: boolean | null;
+  blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
+  blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
+  blockOverlayEnabled?: boolean | null;
+  blockOverlayColor?: ('dark' | 'light') | null;
+  /**
+   * 0 = transparent, 100 = voll deckend
+   */
+  blockOverlayOpacity?: number | null;
+  blockContentSpacing?: ('compact' | 'default' | 'airy') | null;
+  blockAnimation?: ('default' | 'none' | 'slideUp' | 'blur') | null;
+  eyebrow?: string | null;
+  heading?: string | null;
+  intro?: string | null;
+  variant?: ('cards' | 'editorial') | null;
+  areas?:
+    | {
+        discipline?: ('webdesign' | 'marketing' | 'branding') | null;
+        title: string;
+        description?: string | null;
+        tags?:
+          | {
+              label: string;
+              id?: string | null;
+            }[]
+          | null;
+        /**
+         * z.B. /portfolio-webdesign
+         */
+        href?: string | null;
+        ctaLabel?: string | null;
+        coverImage?: (number | null) | Media;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'portfolioTeaser';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3232,6 +3290,7 @@ export interface SitePagesSelect<T extends boolean = true> {
         radialOrbitalTimeline?: T | RadialOrbitalTimelineBlockSelect<T>;
         portfolioCaseGrid?: T | PortfolioCaseGridBlockSelect<T>;
         portfolioKpiStrip?: T | PortfolioKpiStripBlockSelect<T>;
+        portfolioTeaser?: T | PortfolioTeaserBlockSelect<T>;
         brandShowcase?: T | BrandShowcaseBlockSelect<T>;
         profilUeberMich?: T | ProfilUeberMichBlockSelect<T>;
         profilKernkompetenz?: T | ProfilKernkompetenzBlockSelect<T>;
@@ -3799,6 +3858,50 @@ export interface PortfolioKpiStripBlockSelect<T extends boolean = true> {
         context?: T;
         trend?: T;
         delta?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PortfolioTeaserBlock_select".
+ */
+export interface PortfolioTeaserBlockSelect<T extends boolean = true> {
+  blockSpacingPadding?: T;
+  blockSpacingPaddingTop?: T;
+  blockSpacingMarginBottom?: T;
+  blockContainer?: T;
+  blockBackground?: T;
+  blockBackgroundImage?: T;
+  blockBackgroundImageDisableInversion?: T;
+  blockBorderEnabled?: T;
+  blockBorderStyle?: T;
+  blockBorderRadius?: T;
+  blockOverlayEnabled?: T;
+  blockOverlayColor?: T;
+  blockOverlayOpacity?: T;
+  blockContentSpacing?: T;
+  blockAnimation?: T;
+  eyebrow?: T;
+  heading?: T;
+  intro?: T;
+  variant?: T;
+  areas?:
+    | T
+    | {
+        discipline?: T;
+        title?: T;
+        description?: T;
+        tags?:
+          | T
+          | {
+              label?: T;
+              id?: T;
+            };
+        href?: T;
+        ctaLabel?: T;
+        coverImage?: T;
         id?: T;
       };
   id?: T;

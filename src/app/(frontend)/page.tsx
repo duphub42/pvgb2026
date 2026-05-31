@@ -13,7 +13,7 @@ import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 
-export const revalidate = 300
+export const revalidate = false
 
 type BlockBackground = 'none' | 'muted' | 'accent' | 'light' | 'dark'
 
@@ -63,7 +63,7 @@ const getCachedPublishedHomePage = unstable_cache(
   },
   ['site-page-home'],
   {
-    revalidate: 300,
+    revalidate: false,
     tags: ['site-pages', 'page-home'],
   },
 )

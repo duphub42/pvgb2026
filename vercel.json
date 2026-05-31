@@ -3,6 +3,10 @@
   "installCommand": "pnpm install",
   "crons": [
     {
+      "path": "/api/warmup",
+      "schedule": "*/5 * * * *"
+    },
+    {
       "path": "/api/payload-jobs/run",
       "schedule": "0 0 * * *"
     }

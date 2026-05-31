@@ -15,8 +15,46 @@ import type { SitePage } from '@/payload-types'
 import { getPagePath } from '@/utilities/pagesTree'
 import { Breadcrumbs, type BreadcrumbItem } from '@/components/Breadcrumbs'
 
-export const revalidate = 60
+export const revalidate = false
 const LEISTUNGEN_HUB_SLUGS = new Set(['leistungen', 'lei'])
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config: configPromise })
+  const hubPages = await payload.find({
+    collection: 'site-pages',
+    where: {
+      and: [
+        { slug: { in: Array.from(LEISTUNGEN_HUB_SLUGS) } },
+        { _status: { equals: 'published' } },
+      ],
+    },
+    limit: 5,
+    pagination: false,
+    depth: 0,
+    draft: false,
+  })
+  const hubIds = hubPages.docs
+    .map((doc) => doc.id)
+    .filter((id): id is number => typeof id === 'number')
+  if (hubIds.length === 0) return []
+  const pages = await payload.find({
+    collection: 'site-pages',
+    where: {
+      and: [
+        { _status: { equals: 'published' } },
+        { parent: { in: hubIds } },
+      ],
+    },
+    limit: 100,
+    pagination: false,
+    select: { slug: true },
+    depth: 0,
+    draft: false,
+  })
+  return pages.docs
+    .map((page) => ({ slug: typeof page.slug === 'string' ? page.slug : '' }))
+    .filter((p) => p.slug)
+}
 
 type PageProps = {
   params: Promise<{ slug?: string }>

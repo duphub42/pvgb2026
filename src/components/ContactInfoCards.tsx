@@ -30,7 +30,7 @@ const DEFAULT_CONTACT_CARDS: ContactInfoCardItem[] = [
   {
     title: 'Adresse',
     icon: 'map-pin',
-    lines: 'Philipp Bacher\nMünchen & Remote',
+    lines: 'Philipp Bacher\nHalle/Saale & Remote',
   },
   {
     title: 'Kontaktdaten',

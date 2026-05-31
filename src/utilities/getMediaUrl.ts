@@ -1,6 +1,10 @@
-/** Optional ExactDN domain, e.g. aeqkxfkxm9vw.exactdn.com */
+const DEFAULT_EXACTDN_DOMAIN = 'eqkxfkxm9vw.exactdn.com'
+
+/** ExactDN domain for public media delivery. */
 const EXACTDN_DOMAIN =
-  typeof process !== 'undefined' ? process.env.NEXT_PUBLIC_EXACTDN_DOMAIN : undefined
+  typeof process !== 'undefined'
+    ? process.env.NEXT_PUBLIC_EXACTDN_DOMAIN || DEFAULT_EXACTDN_DOMAIN
+    : DEFAULT_EXACTDN_DOMAIN
 
 /** Site origin for same-origin check (no trailing slash). Used only when ExactDN is enabled. */
 function getSiteOrigin(): string | null {
@@ -35,11 +39,6 @@ function toExactDn(pathOrUrl: string): string {
   const exactdn = EXACTDN_DOMAIN?.replace(/^https?:\/\//, '').trim()
   if (!exactdn) return pathOrUrl
 
-  // Stream endpoints must remain same-origin; some CDN setups return HTML for these paths.
-  if (pathOrUrl.includes('/api/media/stream/')) {
-    return pathOrUrl
-  }
-
   if (pathOrUrl.startsWith('/')) {
     return `https://${exactdn}${pathOrUrl}`
   }
@@ -51,7 +50,6 @@ function toExactDn(pathOrUrl: string): string {
     return pathOrUrl
   }
 }
-
 
 /**
  * Processes media resource URL to ensure proper formatting.
@@ -76,29 +74,21 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
       const parsed = new URL(url)
       const mediaPath = `${parsed.pathname}${parsed.search}`
       const siteHost = getSiteHost()
-      const isLocalHost =
-        parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1'
+      const isLocalHost = parsed.hostname === 'localhost' || parsed.hostname === '127.0.0.1'
       const isSameHost = siteHost != null && parsed.hostname === siteHost
       // Normalize media URLs to same-origin relative paths.
       // This avoids broken absolute localhost URLs stored in content exports,
       // but keeps external Blob/CDN URLs intact.
       if (
-        (isLocalHost || isSameHost) &&
-        parsed.pathname.startsWith('/api/media/') ||
+        ((isLocalHost || isSameHost) && parsed.pathname.startsWith('/api/media/')) ||
         ((isLocalHost || isSameHost) && parsed.pathname.startsWith('/media/'))
       ) {
         const normalizedPath = parsed.pathname.startsWith('/api/media/file/')
-          ? (
-              !isVercelRuntime && isLocalHost
-                  ? localApiMediaToPublicMedia(mediaPath)
-                  : mediaPath
-            )
+          ? !isVercelRuntime && isLocalHost
+            ? localApiMediaToPublicMedia(mediaPath)
+            : mediaPath
           : mediaPath
-        if (
-          isLocalHost &&
-          mediaDebugSeen.size < 30 &&
-          !mediaDebugSeen.has(url)
-        ) {
+        if (isLocalHost && mediaDebugSeen.size < 30 && !mediaDebugSeen.has(url)) {
           mediaDebugSeen.add(url)
           console.info('[debug-media][normalize-absolute-local]', {
             input: url,

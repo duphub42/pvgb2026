@@ -21,7 +21,7 @@ export const contact: (args: ContactArgs) => RequiredDataFromCollectionSlug<'sit
           {
             icon: 'map-pin',
             title: 'Adresse',
-            lines: 'Philipp Bacher\nMünchen & Remote',
+            lines: 'Philipp Bacher\nHalle/Saale & Remote',
           },
           {
             icon: 'phone',

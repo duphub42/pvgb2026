@@ -14,6 +14,10 @@ const NEXT_PUBLIC_SERVER_URL = process.env.VERCEL_PROJECT_PRODUCTION_URL
   : process.env.__NEXT_PRIVATE_ORIGIN ||
     (process.env.PORT ? `http://localhost:${process.env.PORT}` : 'http://localhost:3000')
 
+const EXACTDN_DOMAIN = (
+  process.env.NEXT_PUBLIC_EXACTDN_DOMAIN || 'eqkxfkxm9vw.exactdn.com'
+).replace(/^https?:\/\//, '')
+
 const mediaFallbackRewrites = [
   {
     source: '/media/philippbacher-logo-b-10.svg',
@@ -115,16 +119,8 @@ const nextConfig = {
         hostname: '**.public.blob.vercel-storage.com',
         pathname: '/**',
       },
-      // EWWW Easy IO / ExactDN (NEXT_PUBLIC_EXACTDN_DOMAIN, z.B. abc123.exactdn.com)
-      ...(process.env.NEXT_PUBLIC_EXACTDN_DOMAIN
-        ? [
-            {
-              protocol: 'https',
-              hostname: process.env.NEXT_PUBLIC_EXACTDN_DOMAIN.replace(/^https?:\/\//, ''),
-              pathname: '/**',
-            },
-          ]
-        : []),
+      // EWWW Easy IO / ExactDN (NEXT_PUBLIC_EXACTDN_DOMAIN, z.B. eqkxfkxm9vw.exactdn.com)
+      { protocol: 'https', hostname: EXACTDN_DOMAIN, pathname: '/**' },
       // Placeholder-Bilder (Hero/Logo) für Entwicklung und Copy-Paste-Hero
       { protocol: 'https', hostname: 'placehold.co', pathname: '/**' },
       // Portfolio-Dekor (Ski-Sprung + Farbwolke) für Profil-Hero – Quelle philippbacher.com/portfolio/
@@ -182,6 +178,18 @@ const nextConfig = {
       },
       {
         source: '/_next/static/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+      {
+        source: '/media/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+      {
+        source: '/api/media/file/:path*',
+        headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+      },
+      {
+        source: '/api/media/stream/:path*',
         headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
       },
     ]

@@ -14,7 +14,23 @@ import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 
-export const revalidate = 60
+export const revalidate = false
+
+export async function generateStaticParams() {
+  const payload = await getPayload({ config: configPromise })
+  const pages = await payload.find({
+    collection: 'site-pages',
+    where: { _status: { equals: 'published' } },
+    limit: 200,
+    pagination: false,
+    select: { slug: true },
+    depth: 0,
+    draft: false,
+  })
+  return pages.docs
+    .map((page) => ({ slug: typeof page.slug === 'string' ? page.slug : '' }))
+    .filter((p) => p.slug && p.slug !== 'home')
+}
 
 type PageProps = {
   params: Promise<{ slug?: string }>

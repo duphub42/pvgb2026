@@ -8,7 +8,7 @@ import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 
-export const revalidate = 60
+export const revalidate = false
 
 export const metadata: Metadata = {
   title: 'Leistungen',

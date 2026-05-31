@@ -21,6 +21,7 @@ import { WhyWorkWithMe } from '../../blocks/WhyWorkWithMe/config'
 import { RadialOrbitalTimeline } from '../../blocks/RadialOrbitalTimeline/config'
 import { PortfolioCaseGrid } from '../../blocks/PortfolioCaseGrid/config'
 import { PortfolioKpiStrip } from '../../blocks/PortfolioKpiStrip/config'
+import { PortfolioTeaser } from '../../blocks/PortfolioTeaser/config'
 import { BrandShowcase } from '../../blocks/BrandShowcase/config'
 import { ProfilUeberMich } from '../../blocks/ProfilUeberMich/config'
 import { ProfilKernkompetenz } from '../../blocks/ProfilKernkompetenz/config'
@@ -101,6 +102,7 @@ export const Pages: CollectionConfig = {
                 RadialOrbitalTimeline,
                 PortfolioCaseGrid,
                 PortfolioKpiStrip,
+                PortfolioTeaser,
                 BrandShowcase,
                 ProfilUeberMich,
                 ProfilKernkompetenz,

@@ -10,7 +10,7 @@ import { getCachedGlobal } from '@/utilities/getGlobals'
 import { generateMeta } from '@/utilities/generateMeta'
 import type { Footer as FooterGlobal, SitePage } from '@/payload-types'
 
-export const revalidate = 60
+export const revalidate = false
 
 const LAST_UPDATED = '11. April 2026'
 const LEGAL_NAME = 'Philipp Bacher'

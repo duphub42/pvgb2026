@@ -2851,6 +2851,7 @@ html.theme-wave-transition.theme-wave-light::before {
   left: 0;
   height: 46px;
   pointer-events: none;
+  opacity: 1;
   background: linear-gradient(
     180deg,
     rgba(15, 23, 42, 0.028) 0%,
@@ -2858,6 +2859,13 @@ html.theme-wave-transition.theme-wave-light::before {
     rgba(15, 23, 42, 0.005) 76%,
     rgba(15, 23, 42, 0) 100%
   );
+  transition: opacity 0.18s ease;
+}
+
+body:has(.site-header:hover) .header-glass-plate::after,
+body:has(.megamenu:hover) .header-glass-plate::after,
+body:has(.megamenu[data-menu-open='true']) .header-glass-plate::after {
+  opacity: 0;
 }
 
 [data-theme='dark'] .header-glass-plate {

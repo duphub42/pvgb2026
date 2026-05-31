@@ -6,7 +6,7 @@ const defaultContactInfoCards = [
   {
     icon: 'map-pin' as const,
     title: 'Adresse',
-    lines: 'Philipp Bacher\nMünchen & Remote',
+    lines: 'Philipp Bacher\nHalle/Saale & Remote',
   },
   {
     icon: 'phone' as const,
