@@ -1332,6 +1332,30 @@ export function MegaMenu({
     [pathname],
   )
 
+  const isMegaItemActive = React.useCallback(
+    (item: MegaMenuItem): boolean => {
+      if (!pathname || typeof pathname !== 'string') return false
+
+      // Check top-level URL first
+      if (isTopLevelItemActive(item.url)) return true
+
+      // Check all sub-items from columns
+      for (const col of item.columns ?? []) {
+        for (const sub of col.items ?? []) {
+          if (typeof sub.url === 'string' && isNavLinkActive(pathname, sub.url)) return true
+        }
+      }
+
+      // Check all sub-items from subItems
+      for (const sub of item.subItems ?? []) {
+        if (typeof sub.url === 'string' && isNavLinkActive(pathname, sub.url)) return true
+      }
+
+      return false
+    },
+    [pathname, isTopLevelItemActive],
+  )
+
   const setTopNavItemRef = React.useCallback((key: string, node: HTMLElement | null) => {
     if (node) {
       topNavItemRefs.current.set(key, node)
@@ -1381,12 +1405,12 @@ export function MegaMenu({
 
   const activeTopNavKeyFromPath = useMemo(() => {
     for (const [idx, item] of sortedItems.entries()) {
-      if (isTopLevelItemActive(item.url)) {
+      if (isMegaItemActive(item)) {
         return getMegaMenuItemKey(item, idx)
       }
     }
     return null
-  }, [isTopLevelItemActive, sortedItems])
+  }, [isMegaItemActive, sortedItems])
 
   useEffect(() => {
     setSelectedTopNavKey((previous) => {
@@ -2476,7 +2500,7 @@ export function MegaMenu({
                         const value = menuItemKey
 
                         if (hasDrop) {
-                          const isActive = isTopLevelItemActive(item.url)
+                          const isActive = isMegaItemActive(item)
                           const cols = item.columns ?? []
                           const cw = item.columnWidths
                           const sidebarSpan = cw?.col1 != null ? Number(cw.col1) : sidebarCols
@@ -3142,7 +3166,7 @@ export function MegaMenu({
                                 className={cn(
                                   navigationMenuTriggerStyle(),
                                   'megamenu-top-item cursor-pointer',
-                                  isTopLevelItemActive(item.url) && 'megamenu-top-item--active',
+                                  isMegaItemActive(item) && 'megamenu-top-item--active',
                                 )}
                                 onClick={() => {
                                   setSelectedTopNavKey(menuItemKey)

@@ -321,7 +321,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
               <button
                 type="button"
                 onClick={() => stepSlider('prev')}
-                className="absolute left-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/90 text-foreground shadow-sm transition hover:bg-background"
+                className="absolute left-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-foreground text-background shadow-sm transition hover:opacity-80"
                 aria-label="Vorheriger Slide"
               >
                 <ChevronLeft className="size-4" />
@@ -330,7 +330,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
               <button
                 type="button"
                 onClick={() => stepSlider('next')}
-                className="absolute right-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/90 text-foreground shadow-sm transition hover:bg-background"
+                className="absolute right-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-foreground text-background shadow-sm transition hover:opacity-80"
                 aria-label="Nächster Slide"
               >
                 <ChevronRight className="size-4" />
@@ -340,7 +340,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                 ref={sliderRef}
                 className="overflow-x-auto px-10 pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
               >
-                <div className="flex w-max gap-4">
+                <div className="flex w-max gap-8">
                   {loopCards.map(({ item, key }, loopIndex) => {
                     const discipline = (item.discipline ?? 'webdesign') as Discipline
                     const meta = disciplineMeta[discipline] ?? disciplineMeta.webdesign
@@ -353,14 +353,14 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                         data-portfolio-card="true"
                         key={`${key}-${loopIndex}`}
                         onClick={() => setActiveCaseKey(key)}
-                        className="group w-[78vw] max-w-[420px] shrink-0 snap-start overflow-hidden rounded-3xl border border-border/70 bg-card md:w-[48vw] md:max-w-[460px] lg:w-[33vw] lg:max-w-[390px] xl:w-[30vw] xl:max-w-[380px]"
+                        className="group w-[78vw] max-w-[420px] shrink-0 snap-start overflow-hidden rounded-3xl border border-border/70 bg-muted/25 backdrop-blur-sm md:w-[48vw] md:max-w-[460px] lg:w-[33vw] lg:max-w-[390px] xl:w-[30vw] xl:max-w-[380px]"
                         aria-label={`Details öffnen: ${item.title}`}
                       >
-                        <div className="overflow-hidden border-b border-border/70">
+                        <div className="overflow-hidden border-b border-border/70 px-4 pt-4">
                           {coverImage ? (
                             <Media
                               resource={coverImage}
-                              className="w-full"
+                              className="w-full overflow-hidden rounded-xl"
                               imgClassName="h-auto w-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
                             />
                           ) : (

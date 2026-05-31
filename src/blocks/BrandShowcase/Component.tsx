@@ -67,7 +67,7 @@ export const BrandShowcaseBlock: React.FC<BrandShowcaseProps> = ({
                 </p>
                 <div className="grid gap-4 sm:grid-cols-2">
                   {typeof logo === 'object' && logo ? (
-                    <div className="rounded-xl border border-border/60 bg-muted p-4">
+                    <div className="rounded-xl border border-border bg-slate-100 p-4 dark:bg-slate-900/60">
                       <p className="mb-3 text-xs font-medium text-muted-foreground">Primary Logo</p>
                       <Media
                         resource={logo as MediaType}
@@ -77,7 +77,7 @@ export const BrandShowcaseBlock: React.FC<BrandShowcaseProps> = ({
                     </div>
                   ) : null}
                   {typeof wordmark === 'object' && wordmark ? (
-                    <div className="rounded-xl border border-border/60 bg-muted p-4">
+                    <div className="rounded-xl border border-border bg-slate-100 p-4 dark:bg-slate-900/60">
                       <p className="mb-3 text-xs font-medium text-muted-foreground">Wordmark</p>
                       <Media
                         resource={wordmark as MediaType}

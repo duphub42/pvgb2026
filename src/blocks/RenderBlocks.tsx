@@ -188,7 +188,7 @@ export const RenderBlocks: React.FC<{
               {hasOverlay && (
                 <div
                   aria-hidden
-                  className="rounded-[var(--style-radius-m)]"
+                  className={blockType === 'servicesGrid' ? undefined : 'rounded-[var(--style-radius-m)]'}
                   style={getBlockOverlayStyle(overlay) ?? undefined}
                 />
               )}

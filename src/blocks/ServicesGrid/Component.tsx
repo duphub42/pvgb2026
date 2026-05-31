@@ -111,6 +111,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
     radialBackgroundVariant: _radialBackgroundVariant,
     radialBackgroundStrength: _radialBackgroundStrength,
     categories,
+    disableInnerContainer,
     index = 0,
     ...styleProps
   } = props
@@ -121,6 +122,13 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
     ...styles,
     // Inhalt wird innen auf den Seitenstandard gesetzt.
     blockContainer: 'none',
+    ...(disableInnerContainer
+      ? {
+          blockBackground: 'none',
+          blockOverlay: { enabled: false },
+          blockOverlayEnabled: false,
+        }
+      : null),
   }
   const servicesData = categories ?? []
   const introImageSrc = resolveHeroImageSrc(introImage)
