@@ -2583,7 +2583,8 @@ html.theme-wave-transition.theme-wave-light::before {
 }
 
 .logo-bento-shell {
-  background: #09090b;
+  background: var(--card) !important;
+  border-color: var(--border) !important;
 }
 
 .logo-bento-kicker {
@@ -2600,12 +2601,15 @@ html.theme-wave-transition.theme-wave-light::before {
 }
 
 .logo-bento-item {
+  background: color-mix(in oklab, var(--card) 72%, transparent) !important;
+  border-color: var(--border) !important;
   transition: border-color 0.2s ease;
 }
 
 .logo-bento-item:hover,
 .logo-bento-item:focus-within {
-  border-color: #3f3f46;
+  background: var(--card) !important;
+  border-color: var(--border) !important;
 }
 
 .logo-bento-logo-layer {
@@ -2614,13 +2618,13 @@ html.theme-wave-transition.theme-wave-light::before {
 
 .logo-bento-image {
   filter: grayscale(100%);
-  opacity: 0.9;
+  opacity: 0.72;
   transition: filter 0.2s ease, opacity 0.2s ease;
 }
 
 .logo-bento-item:hover .logo-bento-image,
 .logo-bento-item:focus-within .logo-bento-image {
-  filter: grayscale(0%);
+  filter: grayscale(0%) drop-shadow(0 0 0.55rem rgba(255, 255, 255, 0.24));
   opacity: 1;
 }
 
@@ -2668,6 +2672,49 @@ html.theme-wave-transition.theme-wave-light::before {
 .logo-bento-item-feature .logo-bento-detail-text {
   font-size: 13px;
   line-height: 1.6;
+}
+
+html[data-theme='dark'] .logo-bento-shell,
+[data-theme='dark'] .logo-bento-shell {
+  background: #09090b !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+}
+
+html[data-theme='dark'] .logo-bento-item,
+[data-theme='dark'] .logo-bento-item {
+  background: rgba(24, 24, 27, 0.9) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+html[data-theme='dark'] .logo-bento-item:hover,
+html[data-theme='dark'] .logo-bento-item:focus-within,
+[data-theme='dark'] .logo-bento-item:hover,
+[data-theme='dark'] .logo-bento-item:focus-within {
+  background: rgba(39, 39, 42, 0.95) !important;
+  border-color: rgba(255, 255, 255, 0.28) !important;
+}
+
+html[data-theme='dark'] .logo-bento-image,
+[data-theme='dark'] .logo-bento-image {
+  filter: grayscale(100%) invert(1) !important;
+  opacity: 0.92 !important;
+}
+
+html[data-theme='dark'] .logo-bento-item:hover .logo-bento-image,
+html[data-theme='dark'] .logo-bento-item:focus-within .logo-bento-image,
+[data-theme='dark'] .logo-bento-item:hover .logo-bento-image,
+[data-theme='dark'] .logo-bento-item:focus-within .logo-bento-image {
+  filter:
+    grayscale(0%)
+    invert(0)
+    drop-shadow(0 0 0.7rem rgba(255, 255, 255, 0.34))
+    drop-shadow(0 0 0.22rem rgba(255, 255, 255, 0.24)) !important;
+  opacity: 1 !important;
+}
+
+html[data-theme='dark'] .logo-bento-detail-layer,
+[data-theme='dark'] .logo-bento-detail-layer {
+  background: #18181b !important;
 }
 
 @media (max-width: 520px) {

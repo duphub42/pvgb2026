@@ -5,6 +5,7 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
+import { resolveSharedPortfolioContent } from '@/utilities/sharedPortfolioContent'
 import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 
@@ -51,7 +52,10 @@ export default async function LeistungenPage() {
 
   const heroProps = page?.hero || {}
   const pageSlug = typeof page?.slug === 'string' ? page.slug : 'leistungen'
-  const layoutBlocks = resolveLayoutBlocks('leistungen', page?.layout || [])
+  const layoutBlocks = await resolveSharedPortfolioContent(
+    'leistungen',
+    resolveLayoutBlocks('leistungen', page?.layout || []),
+  )
   const firstBlock = layoutBlocks[0]
   const firstBlockIsServices =
     firstBlock &&
