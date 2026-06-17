@@ -2690,8 +2690,8 @@ html[data-theme='dark'] .logo-bento-item:hover,
 html[data-theme='dark'] .logo-bento-item:focus-within,
 [data-theme='dark'] .logo-bento-item:hover,
 [data-theme='dark'] .logo-bento-item:focus-within {
-  background: rgba(39, 39, 42, 0.95) !important;
-  border-color: rgba(255, 255, 255, 0.28) !important;
+  background: #3f3f46 !important;
+  border-color: rgba(255, 255, 255, 0.22) !important;
 }
 
 html[data-theme='dark'] .logo-bento-image,
@@ -2704,11 +2704,7 @@ html[data-theme='dark'] .logo-bento-item:hover .logo-bento-image,
 html[data-theme='dark'] .logo-bento-item:focus-within .logo-bento-image,
 [data-theme='dark'] .logo-bento-item:hover .logo-bento-image,
 [data-theme='dark'] .logo-bento-item:focus-within .logo-bento-image {
-  filter:
-    grayscale(0%)
-    invert(0)
-    drop-shadow(0 0 0.7rem rgba(255, 255, 255, 0.34))
-    drop-shadow(0 0 0.22rem rgba(255, 255, 255, 0.24)) !important;
+  filter: grayscale(0%) invert(0) !important;
   opacity: 1 !important;
 }
 
