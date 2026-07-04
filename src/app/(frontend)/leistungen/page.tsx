@@ -3,18 +3,15 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
+import { LeistungenFaqBox } from '@/components/LeistungenFaqBox'
 import { RenderHero } from '@/heros/RenderHero'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { resolveSharedPortfolioContent } from '@/utilities/sharedPortfolioContent'
 import { cn } from '@/utilities/ui'
+import { generateMeta } from '@/utilities/generateMeta'
 import type { SitePage } from '@/payload-types'
 
 export const revalidate = false
-
-export const metadata: Metadata = {
-  title: 'Leistungen',
-  description: 'Meine Leistungen im Überblick',
-}
 
 type BlockBackground = 'none' | 'muted' | 'accent' | 'light' | 'dark'
 
@@ -64,9 +61,21 @@ export default async function LeistungenPage() {
     'blockType' in firstBlock &&
     (firstBlock as { blockType?: string }).blockType === 'servicesOverview'
   const firstBlockBackground =
-    firstBlock && typeof firstBlock === 'object' && firstBlock !== null && 'blockBackground' in firstBlock
+    firstBlock &&
+    typeof firstBlock === 'object' &&
+    firstBlock !== null &&
+    'blockBackground' in firstBlock
       ? ((firstBlock as { blockBackground?: string | null }).blockBackground ?? 'none')
       : 'none'
+  const firstCtaIndex = layoutBlocks.findIndex(
+    (block) =>
+      block && typeof block === 'object' && 'blockType' in block && block.blockType === 'cta',
+  )
+  const renderFaqAfterCta = firstCtaIndex >= 0
+  const blocksBeforeAndIncludingCta = renderFaqAfterCta
+    ? layoutBlocks.slice(0, firstCtaIndex + 1)
+    : layoutBlocks
+  const blocksAfterCta = renderFaqAfterCta ? layoutBlocks.slice(firstCtaIndex + 1) : []
   const nextSectionBackground = getNextSectionBackgroundValue(firstBlockBackground)
   const isSuperheroHero =
     heroProps &&
@@ -92,8 +101,48 @@ export default async function LeistungenPage() {
             : 'z-20 max-md:-mt-16 max-md:pt-8 pt-24 md:z-[31] md:-mt-16',
         )}
       >
-        <RenderBlocks blocks={layoutBlocks} />
+        <RenderBlocks blocks={blocksBeforeAndIncludingCta} />
+        {renderFaqAfterCta && <LeistungenFaqBox />}
+        {blocksAfterCta.length > 0 && <RenderBlocks blocks={blocksAfterCta} />}
+        {!renderFaqAfterCta && <LeistungenFaqBox />}
       </div>
     </article>
   )
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const payload = await getPayload({ config: configPromise })
+
+  const page = await payload
+    .find({
+      collection: 'site-pages',
+      where: {
+        and: [{ slug: { in: ['leistungen', 'lei'] } }, { _status: { equals: 'published' } }],
+      },
+      limit: 1,
+      pagination: false,
+      sort: '-updatedAt',
+      draft: false,
+      depth: 0,
+      select: {
+        slug: true,
+        parent: true,
+        meta: true,
+      } as const,
+    })
+    .then(({ docs }) => docs[0] as SitePage | undefined)
+
+  const meta = await generateMeta({ doc: page ?? null })
+
+  return {
+    ...meta,
+    alternates: {
+      ...(meta.alternates ?? {}),
+      canonical: '/leistungen',
+    },
+    openGraph: {
+      ...(meta.openGraph ?? {}),
+      url: '/leistungen',
+    },
+  }
 }

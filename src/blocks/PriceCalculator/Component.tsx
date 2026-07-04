@@ -16,7 +16,7 @@ import {
 const DEFAULT_COPY: PriceCalculatorCopy = {
   sectionLabel: 'Preisrechner',
   heading: 'Was planen Sie?',
-  sub: 'Kategorie wählen, Leistungen anklicken – Richtwert erscheint sofort. Mehrere Kategorien kombinierbar.',
+  sub: 'Kategorie wählen, Leistungen anklicken – Richtwert erscheint sofort. Mehrere Kategorien kombinierbar. Sie können jede Auswahl individuell auf Budget, Ziele und Prioritäten abstimmen. Einzelne Leistungen lassen sich flexibel hinzufügen, austauschen oder weglassen, bis die Konfiguration exakt passt. So entsteht in wenigen Klicks ein persönlicher Leistungsmix als transparente Entscheidungsgrundlage.',
   offerButtonLabel: 'Angebot anfragen ↗',
   offerLink: '/kontakt',
   emptyBreakdownMessage: 'Wählen Sie oben eine Kategorie und Leistungen aus.',
@@ -27,6 +27,19 @@ const DEFAULT_COPY: PriceCalculatorCopy = {
   weekRate: 3200,
   ratesNote:
     'Stundensätze gelten für Beratung, Ad-hoc-Aufgaben und Projekte ohne definierten Scope. Bei Projekten mit klarem Umfang arbeite ich grundsätzlich auf Festpreisbasis – transparenter für Sie, planbarer für beide Seiten.',
+}
+
+const LEGACY_SUB =
+  'Kategorie wählen, Leistungen anklicken – Richtwert erscheint sofort. Mehrere Kategorien kombinierbar.'
+const SUB_EXTENSION =
+  'Sie können jede Auswahl individuell auf Budget, Ziele und Prioritäten abstimmen. Einzelne Leistungen lassen sich flexibel hinzufügen, austauschen oder weglassen, bis die Konfiguration exakt passt. So entsteht in wenigen Klicks ein persönlicher Leistungsmix als transparente Entscheidungsgrundlage.'
+
+function withConfiguratorHint(text: string): string {
+  const normalized = text.trim()
+  if (!normalized) return DEFAULT_COPY.sub
+  if (normalized.includes('individuell auf Budget')) return normalized
+  if (normalized.startsWith(LEGACY_SUB)) return `${LEGACY_SUB} ${SUB_EXTENSION}`
+  return normalized
 }
 
 function mergeCopy(
@@ -42,7 +55,7 @@ function mergeCopy(
   return {
     sectionLabel: str(block.sectionLabel, str(g?.sectionLabel, DEFAULT_COPY.sectionLabel)),
     heading: str(block.heading, str(g?.heading, DEFAULT_COPY.heading)),
-    sub: str(block.sub, str(g?.sub, DEFAULT_COPY.sub)),
+    sub: withConfiguratorHint(str(block.sub, str(g?.sub, DEFAULT_COPY.sub))),
     offerButtonLabel: str(g?.offerButtonLabel, DEFAULT_COPY.offerButtonLabel),
     offerLink: str(g?.offerLink, DEFAULT_COPY.offerLink),
     emptyBreakdownMessage: str(g?.emptyBreakdownMessage, DEFAULT_COPY.emptyBreakdownMessage),

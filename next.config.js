@@ -156,6 +156,8 @@ const nextConfig = {
     return webpackConfig
   },
   reactStrictMode: true,
+  // Embedded Browser (Cursor/Glass), LAN-Preview und 127.0.0.1: erlaubte Dev-Origins für /_next/* (Next.js 15+).
+  allowedDevOrigins: ['127.0.0.1', 'localhost', '*.localhost'],
   redirects,
   async rewrites() {
     return mediaFallbackRewrites

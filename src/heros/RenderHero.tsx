@@ -12,6 +12,12 @@ const heroes = {
   superhero: SuperheroHero,
 }
 
+/** Legacy CMS hero types still stored in older page rows. */
+const LEGACY_HERO_TYPE_ALIASES: Record<string, HeroType> = {
+  heroStylePreview: 'superhero',
+  philippBacher: 'superhero',
+}
+
 export type HeroType = keyof typeof heroes
 
 type HeroRenderProps = {
@@ -77,9 +83,10 @@ export const RenderHero: FC<HeroRenderProps> = (props) => {
 
   const normalizedType =
     rawType in heroes ? rawType : rawType.charAt(0).toLowerCase() + rawType.slice(1)
+  const resolvedType = LEGACY_HERO_TYPE_ALIASES[rawType] ?? LEGACY_HERO_TYPE_ALIASES[normalizedType] ?? normalizedType
   const HeroToRender = (
     heroes as unknown as Record<string, ComponentType<Record<string, unknown>>>
-  )[normalizedType]
+  )[resolvedType]
 
   if (!HeroToRender) return null
 

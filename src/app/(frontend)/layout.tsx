@@ -23,6 +23,99 @@ import { ThemeSettingsStyles } from '@/components/ThemeSettingsStyles'
 import type { DesignDoc } from '@/utilities/designToCss'
 import type { Footer as FooterGlobal, Header as HeaderGlobal } from '@/payload-types'
 
+const SERVICE_AREAS = [
+  'Halle (Saale)',
+  'Leipzig',
+  'Berlin',
+  'Magdeburg',
+  'Erfurt',
+  'Dresden',
+  'Chemnitz',
+]
+
+function parseAddressParts(address?: string | null): {
+  streetAddress?: string
+  postalCode?: string
+  addressLocality?: string
+  addressCountry: string
+} {
+  const lines = (address ?? '')
+    .split('\n')
+    .map((line) => line.trim())
+    .filter(Boolean)
+
+  const streetAddress = lines[0]
+  const secondLine = lines[1] ?? ''
+  const postalMatch = secondLine.match(/(?:D-)?(\d{5})/)
+  const postalCode = postalMatch?.[1]
+  const localityMatch = secondLine.match(/\d{5}\s+(.+)$/)
+  const addressLocality = localityMatch?.[1]?.trim()
+
+  return {
+    streetAddress,
+    postalCode,
+    addressLocality,
+    addressCountry: 'DE',
+  }
+}
+
+function normalizeTelephone(phone?: string | null): string | undefined {
+  if (!phone) return undefined
+  const cleaned = phone.replace(/[^\d+]/g, '')
+  return cleaned || undefined
+}
+
+function getSameAsFromFooter(footerData: FooterGlobal | null): string[] {
+  const links = Array.isArray(footerData?.socialLinks) ? footerData.socialLinks : []
+  const urls = links
+    .map((entry) => (typeof entry?.url === 'string' ? entry.url.trim() : ''))
+    .filter((url) => url.startsWith('http://') || url.startsWith('https://'))
+
+  return Array.from(new Set(urls))
+}
+
+function buildLocalBusinessGraph(footerData: FooterGlobal | null): string {
+  const baseURL = getServerSideURL()
+  const orgName = process.env.NEXT_PUBLIC_SITE_NAME?.trim() || 'Philipp Bacher'
+  const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || 'mail@philippbacher.com'
+  const telephone = normalizeTelephone(footerData?.footerPhone) || '+4934596393323'
+  const address = parseAddressParts(footerData?.footerAddress)
+  const sameAs = getSameAsFromFooter(footerData)
+
+  const graph = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'Organization',
+        '@id': `${baseURL}/#organization`,
+        name: orgName,
+        url: baseURL,
+        email,
+        telephone,
+        sameAs,
+      },
+      {
+        '@type': 'LocalBusiness',
+        '@id': `${baseURL}/#localbusiness`,
+        name: orgName,
+        url: baseURL,
+        email,
+        telephone,
+        priceRange: '190 EUR - 14000 EUR',
+        image: `${baseURL}/favicon.ico`,
+        areaServed: SERVICE_AREAS,
+        address: {
+          '@type': 'PostalAddress',
+          ...address,
+        },
+        sameAs,
+      },
+    ],
+  }
+
+  return JSON.stringify(graph)
+}
+
 function formatUnknownError(error: unknown): string {
   if (error instanceof Error) return `${error.name}: ${error.message}`
   if (typeof error === 'string') return error
@@ -86,6 +179,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       faviconUrl = getMediaUrl(headerData.favicon.url, headerData.favicon.updatedAt) || null
     }
 
+    const localBusinessJsonLd = buildLocalBusinessGraph(footerData)
+
     return (
       <html className={fontClassNames} lang={locale} suppressHydrationWarning>
         <head>
@@ -106,6 +201,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <meta content="yes" name="mobile-web-app-capable" />
           {/* Single theme-color avoids Critical-CH navigation restarts on first request. */}
           <meta content="#0a0a0a" name="theme-color" />
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: localBusinessJsonLd }}
+          />
         </head>
         <body data-layout="default">
           <Providers initialLocale={locale}>

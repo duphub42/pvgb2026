@@ -1,7 +1,6 @@
 'use client'
 
 import React from 'react'
-import Image from 'next/image'
 import Link from 'next/link'
 import {
   Activity,
@@ -86,6 +85,80 @@ const getIconFromName = (name?: string | null): LucideIcon => {
   return INTRO_ICON_MAP[compactKey] ?? CircleHelp
 }
 
+const getServiceFallbackIcon = (title?: string | null): LucideIcon => {
+  const text = String(title ?? '').toLocaleLowerCase('de-DE')
+  if (/webdesign/.test(text)) return DraftingCompass
+  if (/print|grafik/.test(text)) return BookOpen
+  if (/pr[aä]sentation|keynote/.test(text)) return PlayCircle
+  if (/seo/.test(text)) return BarChart3
+  if (/sem|werbung/.test(text)) return Activity
+  if (/content/.test(text)) return Sparkles
+  if (/corporate|\bci\b/.test(text)) return IdCard
+  if (/logo/.test(text)) return Fingerprint
+  if (/markenstrategie|marke/.test(text)) return Users
+  return CircleHelp
+}
+
+const isLikelyPlaceholderServiceIconUrl = (url?: string | null): boolean => {
+  const src = String(url ?? '').trim()
+  return /\/api\/media\/stream\/\d+/.test(src)
+}
+
+const isTinyLoadedImage = (img: HTMLImageElement): boolean => {
+  return img.naturalWidth <= 2 && img.naturalHeight <= 2
+}
+
+type ServiceCardIconProps = {
+  src?: string | null
+  alt?: string | null
+  title: string
+  eager?: boolean
+}
+
+function ServiceCardIcon({
+  src,
+  alt,
+  title,
+  eager = false,
+}: ServiceCardIconProps): React.JSX.Element {
+  const cleanSrc = String(src ?? '').trim()
+  const shouldStartWithImage = Boolean(cleanSrc) && !isLikelyPlaceholderServiceIconUrl(cleanSrc)
+  const [useImage, setUseImage] = React.useState<boolean>(shouldStartWithImage)
+
+  React.useEffect(() => {
+    setUseImage(shouldStartWithImage)
+  }, [shouldStartWithImage])
+
+  const FallbackIcon = getServiceFallbackIcon(title)
+
+  if (useImage) {
+    return (
+      <img
+        src={cleanSrc}
+        alt={String(alt ?? title)}
+        className="services-grid-card-icon-img h-full w-full object-contain"
+        loading={eager ? 'eager' : 'lazy'}
+        fetchPriority={eager ? 'high' : 'auto'}
+        decoding={eager ? 'sync' : 'async'}
+        onLoad={(event) => {
+          if (isTinyLoadedImage(event.currentTarget)) {
+            setUseImage(false)
+          }
+        }}
+        onError={() => {
+          setUseImage(false)
+        }}
+      />
+    )
+  }
+
+  return (
+    <div className="flex h-full w-full items-center justify-center rounded-md bg-muted/40 text-primary">
+      <FallbackIcon className="h-5 w-5" aria-hidden="true" />
+    </div>
+  )
+}
+
 const isSvgIntroImage = (
   media: ServicesGridBlockData['introImage'],
   src: string | null,
@@ -135,6 +208,10 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
   const hasIntroImage = Boolean(introImageSrc)
   const introImageIsSvg = isSvgIntroImage(introImage, introImageSrc)
   const hasIconList = Array.isArray(introIconList) && introIconList.length > 0
+  const eagerServiceIconUrls = (servicesData[0]?.services ?? [])
+    .slice(0, 3)
+    .map((service) => String(service?.icon?.url ?? '').trim())
+    .filter(Boolean)
   const introLayoutClass = introImagePosition === 'left' ? 'lg:flex-row-reverse' : 'lg:flex-row'
   const introImagePopoutClass =
     introImagePosition === 'right' ? 'lg:translate-x-20 lg:-translate-y-4' : 'lg:-translate-y-4'
@@ -147,7 +224,19 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
       index={index}
       className="services-grid-root overflow-visible"
     >
-      <div className={cn('relative z-10 services-grid-container overflow-visible', containerMap.default)}>
+      <div
+        className={cn(
+          'relative z-10 services-grid-container overflow-visible',
+          containerMap.default,
+        )}
+      >
+        {eagerServiceIconUrls.length > 0 ? (
+          <div aria-hidden="true" className="sr-only">
+            {eagerServiceIconUrls.map((url) => (
+              <link key={url} rel="preload" as="image" href={url} />
+            ))}
+          </div>
+        ) : null}
         {(heading || intro || tagline || hasIconList || hasIntroImage) && (
           <div
             className={cn(
@@ -156,9 +245,16 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
               hasIntroImage && introLayoutClass,
             )}
           >
-            <div className={cn('min-w-0 lg:max-w-3xl', hasIntroImage && 'lg:flex-1 lg:max-w-none')}>
+            <div
+              className={cn(
+                'min-w-0',
+                hasIntroImage ? 'lg:flex-1 lg:max-w-none' : 'w-full max-w-none',
+              )}
+            >
               {heading && <h2 className="text-3xl font-bold tracking-tight">{heading}</h2>}
-              {intro && <p className="mt-4 whitespace-pre-line text-lg text-muted-foreground">{intro}</p>}
+              {intro && (
+                <p className="mt-4 whitespace-pre-line text-lg text-muted-foreground">{intro}</p>
+              )}
               {taglineLines.length > 0 && (
                 <div className="mt-4 border-l-2 border-primary pl-4">
                   {taglineLines.map((line, i) => (
@@ -245,6 +341,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {category.services?.map((service, index) => {
                     const href = buildServiceHref(service.link?.slug)
+                    const shouldLoadEagerly = catIndex === 0 && index < 3
                     const content = (
                       <div
                         className={cn(
@@ -256,18 +353,12 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                       >
                         <div className="flex items-end gap-3">
                           <div className="services-grid-card-icon-wrap relative h-12 w-12 shrink-0 self-end overflow-hidden">
-                            {service.icon?.url ? (
-                              <Image
-                                src={service.icon.url}
-                                alt={service.icon.alt ?? service.title}
-                                fill
-                                className="services-grid-card-icon-img object-contain"
-                              />
-                            ) : (
-                              <div className="flex h-full w-full items-center justify-center text-xs text-muted-foreground">
-                                {service.icon?.alt ?? 'Icon'}
-                              </div>
-                            )}
+                            <ServiceCardIcon
+                              src={service.icon?.url}
+                              alt={service.icon?.alt}
+                              title={service.title}
+                              eager={shouldLoadEagerly}
+                            />
                           </div>
                           <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
                             {service.title}

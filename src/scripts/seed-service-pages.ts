@@ -23,17 +23,16 @@ function isPlaceholderLayout(layout: unknown): boolean {
   }
   return false
 }
-
 const templates: ServicePageTemplate[] = [
   {
     slug: 'leistungen',
     title: 'Leistungen',
     hero: {
-      type: 'leistungenHero',
-      headline: 'Leistungen für elegantes Webdesign mit technischem Anspruch',
-      subheadline: 'Edel. Minimal. Performance-orientiert.',
+      type: 'superhero',
+      headline: 'Leistungen für Webdesign, Marketing und laufende Betreuung',
+      subheadline: 'Klar strukturiert, technisch sauber und auf messbare Ergebnisse ausgerichtet.',
       description:
-        'Ich verbinde ästhetische Digital-Erlebnisse mit klaren Prozessen und technischer Verlässlichkeit – für Websites, die überzeugen und langfristig funktionieren.',
+        'Ich entwickle digitale Auftritte, die nicht nur gut aussehen, sondern Orientierung schaffen, Vertrauen aufbauen und Anfragen ermöglichen.',
       links: [
         {
           link: {
@@ -46,85 +45,17 @@ const templates: ServicePageTemplate[] = [
     },
     layout: [
       {
-        blockType: 'servicesOverview',
-        heading: 'Leistungs-Hub auf einen Blick',
-        intro:
-          'Vier Kernbereiche, die als zusammenhängender Prozess funktionieren - von der strategischen Grundlage bis zur kontinuierlichen Optimierung.',
-        services: [
-          {
-            icon: 'compass',
-            title: 'Strategie & Beratung',
-            description:
-              'Positionierung, Zielbild und Prioritäten, damit jede Maßnahme auf ein klares Ergebnis einzahlt.',
-          },
-          {
-            icon: 'code',
-            title: 'Webdesign & Umsetzung',
-            description:
-              'Reduziertes, hochwertiges Design plus technische Umsetzung für schnelle, stabile und wartbare Systeme.',
-          },
-          {
-            icon: 'megaphone',
-            title: 'Marketing & Reichweite',
-            description:
-              'Gezielte Maßnahmen für Sichtbarkeit, qualifizierte Anfragen und nachvollziehbare Performance.',
-          },
-          {
-            icon: 'shield',
-            title: 'Wartung & Entwicklung',
-            description:
-              'Kontinuierliche Pflege, Verbesserungen und klare Weiterentwicklung statt punktueller Einmal-Projekte.',
-          },
-        ],
-      },
-      {
         blockType: 'introduction',
-        heading: 'Ein Hub statt isolierter Einzelleistungen',
-        body: 'Der Leistungs-Hub bündelt Strategie, Gestaltung, Technik und Vermarktung in einer klaren Journey. So entstehen keine Medienbrüche zwischen Beratung, Umsetzung und Betrieb.',
-        tagline: 'Edel im Auftritt. Präzise in der Ausführung. Messbar in der Wirkung.',
-      },
-      {
-        blockType: 'consultingOverview',
-        headline: 'So läuft die Zusammenarbeit - klar, strukturiert, transparent',
-        introText:
-          'Jeder Schritt baut logisch auf dem vorherigen auf. Das reduziert Reibung und schafft eine belastbare Grundlage für Wachstum.',
-        strategyLabel: 'Analyse & Ausrichtung',
-        strategySubLabel: 'Strategischer Startpunkt',
-        strategyTitle: 'Gemeinsam definieren wir Ziele, Prioritäten und die richtige digitale Richtung',
-        strategyText:
-          'Am Anfang stehen Zielgruppen, Angebotsschärfung und ein realistischer Maßnahmenplan. Damit wird aus Einzelideen ein konsistentes System mit klaren Prioritäten.',
-        benefitsLabel: 'Umsetzung & Ergebnis',
-        benefitsSubLabel: 'Vom Konzept zur Wirkung',
-        benefitsTitle: 'Umsetzung in präzisen Etappen',
-        benefitItems: [
-          {
-            title: 'Konzept & Informationsarchitektur',
-            text: 'Struktur, Seitenlogik und User-Flows werden klar definiert, bevor Design und Entwicklung starten.',
-          },
-          {
-            title: 'Design & Content',
-            text: 'Visuelle Sprache und Inhalte werden aufeinander abgestimmt, damit Marke und Nutzen auf den ersten Blick verständlich sind.',
-          },
-          {
-            title: 'Technische Umsetzung',
-            text: 'Performante Entwicklung mit sauberer Basis für SEO, Tracking, Erweiterungen und langfristige Wartbarkeit.',
-          },
-          {
-            title: 'Launch, Messung und Optimierung',
-            text: 'Nach dem Go-live werden Daten genutzt, um Conversions, Sichtbarkeit und Prozesse systematisch weiterzuentwickeln.',
-          },
-        ],
-        experienceLabel: 'Langfristige Partnerschaft',
-        experienceSubLabel: 'Stabilität mit Entwicklungsspielraum',
-        experienceTitle:
-          'Nach dem Launch begleite ich den Hub kontinuierlich bei Verbesserungen, Tests und Skalierung',
+        heading: 'Ein Hub für alle Leistungen',
+        body: 'Damit Sie schnell den passenden Bereich finden und direkt sehen, wie ich arbeite.',
+        tagline: 'Klar strukturiert. Direkt verständlich. Auf den Punkt.',
       },
       {
         blockType: 'servicesGrid',
-        heading: 'Meine Servicebereiche',
+        heading: 'Leistungsspektrum im Überblick',
         intro:
-          'Wählen Sie den Bereich, der zu Ihrem Projekt passt. Jede Seite ist editierbar und fokussiert auf einen klaren Leistungsbereich.',
-        tagline: 'Klar strukturiert. Zielgerichtet. Backend-bearbeitbar.',
+          'Jeder Bereich ist einzeln buchbar und führt auf eine eigene Unterseite. Dort sehen Sie typische Leistungen, konkrete Schwerpunkte und den jeweiligen Nutzen auf einen Blick. So können Sie schnell einschätzen, welcher Bereich zu Ihrem Ziel passt und direkt den nächsten Schritt gehen.',
+        tagline: '',
         radialBackground: true,
         radialBackgroundVariant: 'blue',
         radialBackgroundStrength: 'medium',
@@ -135,77 +66,119 @@ const templates: ServicePageTemplate[] = [
               {
                 title: 'Webdesign',
                 description:
-                  'Moderne, minimalistische Webseiten mit klarer Struktur, schnellen Ladezeiten und hochwertiger Optik.',
+                  'Webdesign und Entwicklung für klare, schnelle und markengerechte Websites.',
                 icon: {
-                  url: '/api/media/file/webdesign.svg',
+                  url: '/api/media/file/webdesign-4.svg',
                   alt: 'Webdesign Icon',
                 },
                 link: { slug: 'leistungen/webdesign' },
               },
               {
-                title: 'Wartung & Support',
+                title: 'Printmedien & Grafikdesign',
                 description:
-                  'Laufende Pflege, Sicherheitsupdates und schnelle technische Reaktion für sorgenfreie Webauftritte.',
+                  'Printprodukte und Grafikdesign, die visuell präzise und wiedererkennbar wirken.',
                 icon: {
-                  url: '/api/media/file/marketing-leistungen.svg',
-                  alt: 'Wartung Icon',
+                  url: '/api/media/file/printmedien-1.svg',
+                  alt: 'Printmedien & Grafikdesign Icon',
                 },
-                link: { slug: 'leistungen/wartung' },
+                link: { slug: 'printmedien-grafikdesign' },
+              },
+              {
+                title: 'Präsentationen & Keynotes',
+                description:
+                  'Starke Präsentationen mit klarer Dramaturgie und hochwertiger Visualität.',
+                icon: {
+                  url: '/api/media/file/keynotes-4.svg',
+                  alt: 'Präsentationen & Keynotes Icon',
+                },
+                link: { slug: 'praesentationen-keynotes' },
               },
             ],
           },
           {
-            categoryLabel: 'Strategie & Wachstum',
+            categoryLabel: 'Marketing & Sichtbarkeit',
             services: [
               {
-                title: 'Marketing',
+                title: 'SEO - Rankings',
                 description:
-                  'Strategisch gesteuerte Digital-Kampagnen mit Fokus auf Sichtbarkeit, Leads und messbare Effekte.',
+                  'Suchmaschinenoptimierung für langfristige Sichtbarkeit und qualifizierte Zugriffe.',
                 icon: {
-                  url: '/api/media/file/marketing-leistungen.svg',
-                  alt: 'Marketing Icon',
+                  url: '/api/media/file/Seo-Suchmaschinenoptimierung-1.svg',
+                  alt: 'SEO Icon',
                 },
-                link: { slug: 'leistungen/marketing' },
+                link: { slug: 'seo-rankings' },
+              },
+              {
+                title: 'SEM - Online Werbung',
+                description:
+                  'Performance-Kampagnen für Sichtbarkeit, Leads und messbare Resultate.',
+                icon: {
+                  url: '/api/media/file/SEM-Suchmaschinenmarketing-1.svg',
+                  alt: 'SEM Icon',
+                },
+                link: { slug: 'sem-online-werbung' },
+              },
+              {
+                title: 'Content Creation',
+                description:
+                  'Inhalte für Website, Social Media und Kampagnen, die Ihre Marke lebendig machen.',
+                icon: {
+                  url: '/api/media/file/content-creation-4.svg',
+                  alt: 'Content Creation Icon',
+                },
+                link: { slug: 'content-creation' },
               },
             ],
           },
-        ],
-      },
-      {
-        blockType: 'whyWorkWithMe',
-        heading: 'Warum diese Leistungen funktionieren',
-        intro:
-          'Jede Spezialisierung ist so aufgebaut, dass Inhalte und Abläufe klar bleiben – auch im Backend.',
-        reasons: [
           {
-            icon: 'zap',
-            title: 'Technisch präzise',
-            description: 'Klare Standards für Code, Performance und Wartbarkeit.',
-          },
-          {
-            icon: 'target',
-            title: 'Reduziert und fokussiert',
-            description: 'Kein Overhead, sondern schlank gestaltete Lösungen mit klarem Nutzen.',
-          },
-          {
-            icon: 'shield',
-            title: 'Verlässlich',
-            description: 'Webseiten und Systeme mit langfristiger Stabilität und Sicherheit.',
+            categoryLabel: 'Branding & Identity',
+            services: [
+              {
+                title: 'CI - Corporate Identity',
+                description:
+                  'Einheitliche Markenauftritte mit klarer visueller Sprache und konsistenten Regeln.',
+                icon: {
+                  url: '/api/media/file/Corporate-Identity-CI-3.svg',
+                  alt: 'CI Icon',
+                },
+                link: { slug: 'ci-corporate-identity' },
+              },
+              {
+                title: 'Logo-Entwicklung',
+                description:
+                  'Einprägsame Logos mit Varianten für digitale und analoge Anwendungen.',
+                icon: {
+                  url: '/api/media/file/Logo-Design-3.svg',
+                  alt: 'Logo-Entwicklung Icon',
+                },
+                link: { slug: 'logo-entwicklung' },
+              },
+              {
+                title: 'Markenstrategie',
+                description:
+                  'Positionierung, Kernbotschaften und Leitplanken für eine starke Marke.',
+                icon: {
+                  url: '/api/media/file/markenstrategie-4.svg',
+                  alt: 'Markenstrategie Icon',
+                },
+                link: { slug: 'markenstrategie' },
+              },
+            ],
           },
         ],
       },
       {
         blockType: 'calPopup',
-        headline: 'Gemeinsam den nächsten Schritt planen',
+        headline: 'Lassen Sie uns das passende Vorgehen für Ihr Projekt finden',
         description:
-          'In einem kurzen Kennenlerntermin prüfen wir gemeinsam, welcher Leistungsbereich am besten zu Ihrem Projekt passt.',
+          'In einem kurzen Gespräch klären wir, welcher Leistungsbereich für Sie am sinnvollsten ist und wie der nächste Schritt aussieht.',
         calLink: 'philippbacher/30min',
         buttonLabel: 'Termin buchen',
       },
     ],
-    metaTitle: 'Leistungen | Webdesign, Marketing, Wartung',
+    metaTitle: 'Leistungen | Webdesign, Marketing und Betreuung',
     metaDescription:
-      'Editierbare Leistungen für Webdesign, Marketing und Wartung. Minimal, technisch und hochwertig strukturiert.',
+      'Klar strukturierte Leistungen für Webdesign, Marketing und laufende Website-Betreuung.',
   },
   {
     slug: 'webdesign',
@@ -433,6 +406,16 @@ async function main() {
   const args = new Set(process.argv.slice(2))
   const overwrite = args.has('--overwrite')
   const dryRun = args.has('--dry-run')
+  const onlyArg = [...args].find((arg) => arg.startsWith('--only='))
+  const onlySlugs = onlyArg
+    ? new Set(
+        onlyArg
+          .replace('--only=', '')
+          .split(',')
+          .map((slug) => slug.trim())
+          .filter(Boolean),
+      )
+    : null
   const payload = await getPayload({ config })
   const now = new Date().toISOString()
 
@@ -441,6 +424,10 @@ async function main() {
   const skipped: string[] = []
 
   for (const template of templates) {
+    if (onlySlugs && !onlySlugs.has(template.slug)) {
+      continue
+    }
+
     const existing = await payload.find({
       collection: 'site-pages',
       limit: 1,

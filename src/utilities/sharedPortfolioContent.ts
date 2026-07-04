@@ -16,9 +16,17 @@ type LayoutBlock = Record<string, unknown> & {
   intro?: unknown
   layoutVariant?: unknown
   rows?: unknown
+  services?: unknown
+  id?: unknown
 }
 
-const TARGET_SLUGS = new Set(['portfolio', 'leistungen', 'webdesign'])
+const TARGET_SLUGS = new Set(['portfolio', 'leistungen', 'webdesign', 'logo'])
+const IRRELEVANT_PORTFOLIO_SERVICE_TITLES = new Set([
+  'Digital Consulting',
+  'Webentwicklung & Apps',
+  'Branding & Design',
+  'Marketing & Automatisierung',
+])
 
 function clone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T
@@ -76,25 +84,111 @@ function withSharedCases(block: LayoutBlock, source?: LayoutBlock): LayoutBlock 
   const cases = Array.isArray(source?.cases) ? clone(source.cases) : []
   if (!source || cases.length === 0) return block
 
+  const rawEyebrow = String(source.eyebrow ?? '').trim()
+  const rawHeading = String(source.heading ?? '').trim()
+  const rawIntro = String(source.intro ?? '').trim()
+  const normalizedRawIntro = rawIntro.replace(/\s*\n+\s*/g, ' ')
+
+  const eyebrow =
+    !rawEyebrow || rawEyebrow === 'Ausgewählte Cases' ? 'Kundenprojekte im Fokus' : rawEyebrow
+
+  const heading =
+    !rawHeading ||
+    rawHeading === 'Ergebnisse aus realen Projekten' ||
+    rawHeading === 'Projekte mit System – nicht nur Oberfläche'
+      ? 'Ausgewählte Kundenprojekte mit klarem Ergebnisfokus'
+      : rawHeading
+
+  const intro =
+    !normalizedRawIntro ||
+    normalizedRawIntro ===
+      'Eine Auswahl repräsentativer Projekte aus allen Bereichen. Jeder Case zeigt Problem, Designentscheidungen und messbares Ergebnis.'
+      ? 'Diese Referenzen zeigen, wie aus Strategie, Design und Umsetzung konkrete Resultate entstehen. Jeder Case macht nachvollziehbar, welche Ausgangslage vorlag, welche Entscheidungen getroffen wurden und welche messbaren Effekte daraus entstanden sind.'
+      : normalizedRawIntro
+
   return {
     ...block,
-    eyebrow: source.eyebrow ?? block.eyebrow,
-    heading: source.heading ?? block.heading,
-    intro: source.intro ?? block.intro,
+    eyebrow,
+    heading,
+    intro,
     layoutVariant: source.layoutVariant ?? block.layoutVariant,
     cases,
   }
 }
 
-function withSharedLogos(block: LayoutBlock, source?: LayoutBlock): LayoutBlock {
+function isIrrelevantPortfolioServicesOverview(block: LayoutBlock): boolean {
+  if (block.blockType !== 'servicesOverview') return false
+  const services = Array.isArray(block.services) ? block.services : []
+  if (!services.length) return false
+
+  return services.some((entry) => {
+    if (!entry || typeof entry !== 'object') return false
+    const title = String((entry as Record<string, unknown>).title ?? '').trim()
+    return IRRELEVANT_PORTFOLIO_SERVICE_TITLES.has(title)
+  })
+}
+
+function buildPortfolioUnderCasesBlock(): LayoutBlock {
+  return {
+    id: 'portfolio-under-cases-context',
+    blockType: 'servicesOverview',
+    blockSpacingPadding: 'default',
+    blockSpacingPaddingTop: 'default',
+    blockSpacingMarginBottom: 'sm',
+    blockContainer: 'default',
+    blockBackground: 'none',
+    headerAlign: 'center',
+    layoutMode: 'columns',
+    services: [
+      {
+        icon: 'code',
+        title: 'Webdesign mit messbarer Anfragewirkung',
+        description:
+          'Ein starker Webauftritt wirkt nur dann nachhaltig, wenn Inhalt, Nutzerfuehrung und Technik als System geplant werden. Die gezeigten Cases zeigen, wie aus klarer Struktur und performanter Umsetzung konkrete Anfragen entstehen. Gute Gestaltung ist dabei kein Selbstzweck, sondern der Hebel fuer Vertrauen und Abschlussbereitschaft. So wird Ihre Website zu einem aktiven Vertriebskanal statt zu einer statischen Visitenkarte.',
+      },
+      {
+        icon: 'trending-up',
+        title: 'Marketing mit klarer Ergebniskette',
+        description:
+          'Relevantes Marketing beginnt mit belastbaren Daten und einer priorisierten Zielsetzung. Die Projekte machen sichtbar, wie SEO, Kampagnen und Content entlang einer klaren Ergebniskette orchestriert werden. Jede Massnahme wird laufend auf Reichweite, Leadqualitaet und Kosten-Effizienz optimiert. Dadurch entsteht ein Wachstumssystem, das nicht vom Zufall abhaengt, sondern reproduzierbar Ergebnisse liefert.',
+      },
+      {
+        icon: 'palette',
+        title: 'Branding, das Abschlussquoten verbessert',
+        description:
+          'Markenwirkung entscheidet in vielen Maerkten bereits vor dem ersten Gespraech ueber Vertrauen und Relevanz. Die Referenzen zeigen, wie konsistente Gestaltung und klare Positionierung die Wahrnehmung von Kompetenz steigern. Ein einheitlicher Auftritt reduziert Erklaerungsaufwand und macht Angebote schneller vergleichbar. Das staerkt Ihre Marktposition und verbessert die Qualitaet eingehender Anfragen nachhaltig.',
+      },
+    ],
+  }
+}
+
+function withSharedLogos(
+  block: LayoutBlock,
+  source?: LayoutBlock,
+  overrides?: { eyebrow?: string; heading?: string; intro?: string },
+): LayoutBlock {
   const rows = Array.isArray(source?.rows) ? clone(source.rows) : []
   if (!source || rows.length === 0) return block
 
+  const rawEyebrow = String(source.eyebrow ?? '').trim()
+  const rawHeading = String(source.heading ?? '').trim()
+  const rawIntro = String(source.intro ?? '').trim()
+
+  const eyebrow = !rawEyebrow || rawEyebrow === 'Referenzen' ? 'Marken-Referenzen' : rawEyebrow
+  const heading =
+    !rawHeading || rawHeading === 'Erstellte Logos'
+      ? 'Logodesign-Referenzen aus realen Kundenaufträgen'
+      : rawHeading
+  const intro =
+    !rawIntro || rawIntro === 'Referenzen umgesetzter Aufträge'
+      ? 'Vom ersten Entwurf bis zur finalen Anwendung: Diese Auswahl zeigt Logos, die für unterschiedliche Branchen entwickelt und in der Praxis erfolgreich eingesetzt wurden.'
+      : rawIntro
+
   return {
     ...block,
-    eyebrow: source.eyebrow ?? block.eyebrow,
-    heading: source.heading ?? block.heading,
-    intro: source.intro ?? block.intro,
+    eyebrow: overrides?.eyebrow ?? eyebrow,
+    heading: overrides?.heading ?? heading,
+    intro: overrides?.intro ?? intro,
     displayMode: 'bento',
     galleryColumns: source.galleryColumns ?? block.galleryColumns ?? '4',
     bentoShowCounter: true,
@@ -118,9 +212,11 @@ function buildSharedCaseBlock(source?: LayoutBlock): LayoutBlock | null {
       blockSpacingMarginBottom: 'default',
       blockContainer: 'default',
       blockBackground: 'none',
-      eyebrow: source.eyebrow ?? 'Ausgewählte Projekte',
-      heading: source.heading ?? 'Ergebnisse aus realen Projekten',
-      intro: source.intro,
+      eyebrow: source.eyebrow ?? 'Kundenprojekte im Fokus',
+      heading: source.heading ?? 'Ausgewählte Kundenprojekte mit klarem Ergebnisfokus',
+      intro:
+        source.intro ??
+        'Diese Referenzen zeigen, wie aus Strategie, Design und Umsetzung konkrete Resultate entstehen. Jeder Case macht nachvollziehbar, welche Ausgangslage vorlag, welche Entscheidungen getroffen wurden und welche messbaren Effekte daraus entstanden sind.',
       layoutVariant: source.layoutVariant ?? 'visual',
       cases: [],
     } as LayoutBlock,
@@ -128,7 +224,10 @@ function buildSharedCaseBlock(source?: LayoutBlock): LayoutBlock | null {
   )
 }
 
-function buildSharedLogoBlock(source?: LayoutBlock): LayoutBlock | null {
+function buildSharedLogoBlock(
+  source?: LayoutBlock,
+  overrides?: { eyebrow?: string; heading?: string; intro?: string },
+): LayoutBlock | null {
   if (!source) return null
 
   return withSharedLogos(
@@ -140,13 +239,16 @@ function buildSharedLogoBlock(source?: LayoutBlock): LayoutBlock | null {
       blockSpacingMarginBottom: 'none',
       blockContainer: 'default',
       blockBackground: 'none',
-      eyebrow: source.eyebrow ?? 'Referenzen',
-      heading: source.heading ?? 'Erstellte Logos',
-      intro: source.intro,
+      eyebrow: source.eyebrow ?? 'Marken-Referenzen',
+      heading: source.heading ?? 'Logodesign-Referenzen aus realen Kundenaufträgen',
+      intro:
+        source.intro ??
+        'Vom ersten Entwurf bis zur finalen Anwendung: Diese Auswahl zeigt Logos, die für unterschiedliche Branchen entwickelt und in der Praxis erfolgreich eingesetzt wurden.',
       displayMode: 'bento',
       rows: [],
     } as LayoutBlock,
     source,
+    overrides,
   )
 }
 
@@ -179,6 +281,55 @@ export async function resolveSharedPortfolioContent(
     if (logoBlock) additions.push(logoBlock)
 
     return [...resolved, ...additions] as LayoutBlocks
+  }
+
+  if (slug === 'logo') {
+    const logoOverrides = {
+      eyebrow: 'Logo Showcase',
+      heading: 'Logo-Referenzen aus realen Branding-Projekten',
+      intro:
+        'Diese Auswahl zeigt Logo-Entwicklungen aus Kundenprojekten - von reduzierten Zeichen bis zu flexiblen Varianten fuer unterschiedliche Anwendungskontexte.',
+    }
+
+    const withLogoHeadings = resolved.map((block) => {
+      if (!block || typeof block !== 'object') return block
+      const typedBlock = block as LayoutBlock
+      if (typedBlock.blockType !== 'marqueeSlider') return block
+      return withSharedLogos(typedBlock, logosBlock, logoOverrides)
+    })
+
+    if (hasLogosBlock) return withLogoHeadings as LayoutBlocks
+
+    const logoBlock = buildSharedLogoBlock(logosBlock, logoOverrides)
+    if (!logoBlock) return withLogoHeadings as LayoutBlocks
+
+    return [...withLogoHeadings, logoBlock] as LayoutBlocks
+  }
+
+  if (slug === 'portfolio') {
+    const cleaned = resolved.filter((block) => {
+      if (!block || typeof block !== 'object') return true
+      const typed = block as LayoutBlock
+      if (typed.blockType === 'whyWorkWithMe') return false
+      if (isIrrelevantPortfolioServicesOverview(typed)) return false
+      return true
+    })
+
+    const hasInjectedBlock = cleaned.some((block) => {
+      if (!block || typeof block !== 'object') return false
+      return String((block as LayoutBlock).id ?? '') === 'portfolio-under-cases-context'
+    })
+
+    if (hasInjectedBlock) return cleaned as LayoutBlocks
+
+    const insertionIndex = cleaned.findIndex((block) => block?.blockType === 'portfolioCaseGrid')
+    if (insertionIndex === -1) {
+      return [...cleaned, buildPortfolioUnderCasesBlock()] as LayoutBlocks
+    }
+
+    const next = [...cleaned]
+    next.splice(insertionIndex + 1, 0, buildPortfolioUnderCasesBlock())
+    return next as LayoutBlocks
   }
 
   return resolved as LayoutBlocks

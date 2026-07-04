@@ -1,4 +1,4 @@
-"use client"
+'use client'
 
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import Link from 'next/link'
@@ -162,9 +162,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 }) => {
   const rows = useMemo(
     () =>
-      (cases ?? []).filter((item): item is PortfolioCase =>
-        Boolean(item?.title && item?.summary),
-      ),
+      (cases ?? []).filter((item): item is PortfolioCase => Boolean(item?.title && item?.summary)),
     [cases],
   )
   const [activeCaseKey, setActiveCaseKey] = useState<string | null>(null)
@@ -226,9 +224,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   const activeCategories = (activeCase?.categories ?? []).filter(
     (category): category is CategoryKey => Boolean(category && categoryMeta[category]),
   )
-  const activeHeroImage = isMediaObject(activeCase?.coverImage)
-    ? activeCase.coverImage
-    : null
+  const activeHeroImage = isMediaObject(activeCase?.coverImage) ? activeCase.coverImage : null
 
   const stepSlider = (direction: 'prev' | 'next') => {
     const slider = sliderRef.current
@@ -290,7 +286,10 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   const fadeBg = blockBgVar[(blockBackground as string) ?? ''] ?? 'var(--background)'
 
   return (
-    <section className="relative w-full py-16 md:py-20" style={{ ['--pcg-fade-bg' as string]: fadeBg }}>
+    <section
+      className="relative w-full py-16 md:py-20"
+      style={{ ['--pcg-fade-bg' as string]: fadeBg }}
+    >
       {/* Background Blur Overlay – Like MegaMenu Dropdown */}
       <div
         className={cn(
@@ -302,7 +301,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
       />
 
       <div className="container px-0 md:px-0">
-        <div className="max-w-3xl">
+        <div className="w-full">
           {eyebrow ? (
             <Badge
               variant="secondary"
@@ -316,9 +315,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
             <h2 className="text-3xl font-semibold leading-tight md:text-4xl">{heading}</h2>
           ) : null}
           {intro ? (
-            <p className="mt-4 max-w-2xl text-sm leading-relaxed opacity-85 md:text-base">
-              {intro}
-            </p>
+            <p className="mt-4 w-full text-sm leading-relaxed opacity-85 md:text-base">{intro}</p>
           ) : null}
         </div>
 
@@ -327,17 +324,23 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
             <div className="relative -mx-4 px-4">
               <div
                 className="pointer-events-none absolute inset-y-0 left-4 z-10 w-12 backdrop-blur-[1px] md:w-20"
-                style={{ background: 'linear-gradient(to right, var(--pcg-fade-bg) 0%, color-mix(in srgb, var(--pcg-fade-bg) 55%, transparent) 60%, transparent 100%)' }}
+                style={{
+                  background:
+                    'linear-gradient(to right, var(--pcg-fade-bg) 0%, color-mix(in srgb, var(--pcg-fade-bg) 55%, transparent) 60%, transparent 100%)',
+                }}
               />
               <div
                 className="pointer-events-none absolute inset-y-0 right-4 z-10 w-12 backdrop-blur-[1px] md:w-20"
-                style={{ background: 'linear-gradient(to left, var(--pcg-fade-bg) 0%, color-mix(in srgb, var(--pcg-fade-bg) 55%, transparent) 60%, transparent 100%)' }}
+                style={{
+                  background:
+                    'linear-gradient(to left, var(--pcg-fade-bg) 0%, color-mix(in srgb, var(--pcg-fade-bg) 55%, transparent) 60%, transparent 100%)',
+                }}
               />
 
               <button
                 type="button"
                 onClick={() => stepSlider('prev')}
-                className="absolute left-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-foreground text-background shadow-sm transition hover:opacity-80"
+                className="portfolio-slider-control absolute left-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full border shadow-sm transition"
                 aria-label="Vorheriger Slide"
               >
                 <ChevronLeft className="size-4" />
@@ -346,7 +349,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
               <button
                 type="button"
                 onClick={() => stepSlider('next')}
-                className="absolute right-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full bg-foreground text-background shadow-sm transition hover:opacity-80"
+                className="portfolio-slider-control absolute right-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full border shadow-sm transition"
                 aria-label="Nächster Slide"
               >
                 <ChevronRight className="size-4" />
@@ -369,7 +372,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                         data-portfolio-card="true"
                         key={`${key}-${loopIndex}`}
                         onClick={() => setActiveCaseKey(key)}
-                        className="group w-[78vw] max-w-[420px] shrink-0 snap-start overflow-hidden rounded-3xl border border-border/70 bg-muted/25 backdrop-blur-sm md:w-[48vw] md:max-w-[460px] lg:w-[33vw] lg:max-w-[390px] xl:w-[30vw] xl:max-w-[380px]"
+                        className="portfolio-case-card group w-[78vw] max-w-[420px] shrink-0 snap-start overflow-hidden rounded-3xl border text-left backdrop-blur-sm md:w-[48vw] md:max-w-[460px] lg:w-[33vw] lg:max-w-[390px] xl:w-[30vw] xl:max-w-[380px]"
                         aria-label={`Details öffnen: ${item.title}`}
                       >
                         <div className="overflow-hidden border-b border-border/70 px-4 pt-4">
@@ -389,7 +392,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                         <div className="space-y-3 p-4">
                           <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 text-xs font-medium">
                             <DisciplineIcon className="size-3.5" />
-                            {meta.label}
+                            Projektfeld: {meta.label}
                           </div>
 
                           <h3 className="text-xl font-semibold leading-tight">{item.title}</h3>
@@ -397,7 +400,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                           {item.industry ? (
                             <div className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
                               <Building2 className="size-4" />
-                              {item.industry}
+                              Branche: {item.industry}
                             </div>
                           ) : null}
                         </div>
@@ -417,7 +420,10 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
             >
               <button
                 type="button"
-                onClick={(e) => { e.stopPropagation(); openPrevCase() }}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  openPrevCase()
+                }}
                 className="absolute left-2 top-1/2 z-20 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/95 shadow-sm transition hover:bg-background"
                 aria-label="Vorheriges Projekt"
               >
@@ -426,7 +432,10 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
               <button
                 type="button"
-                onClick={(e) => { e.stopPropagation(); openNextCase() }}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  openNextCase()
+                }}
                 className="absolute right-2 top-1/2 z-20 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/95 shadow-sm transition hover:bg-background"
                 aria-label="Nächstes Projekt"
               >
@@ -464,7 +473,9 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                       <ActiveDisciplineIcon className="size-3.5" />
                       {activeDisciplineMeta.label}
                     </div>
-                    <h3 className="mt-3 text-2xl font-semibold leading-tight">{activeCase.title}</h3>
+                    <h3 className="mt-3 text-2xl font-semibold leading-tight">
+                      {activeCase.title}
+                    </h3>
                   </div>
                 </div>
 
@@ -534,7 +545,11 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                   <div className="mt-5 grid gap-2 sm:grid-cols-2">
                     {activeMetrics.map((metric, metricIndex) => (
                       <div
-                        key={typeof metric.id === 'string' && metric.id ? metric.id : `popup-metric-${metricIndex}`}
+                        key={
+                          typeof metric.id === 'string' && metric.id
+                            ? metric.id
+                            : `popup-metric-${metricIndex}`
+                        }
                         className="rounded-xl border border-border/70 bg-background/70 px-3 py-2.5"
                       >
                         <p className="text-base font-semibold md:text-lg">{metric.value}</p>
@@ -551,7 +566,9 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                     {activeTags.map((tag, tagIndex) => (
                       <Badge
                         variant="secondary"
-                        key={typeof tag.id === 'string' && tag.id ? tag.id : `popup-tag-${tagIndex}`}
+                        key={
+                          typeof tag.id === 'string' && tag.id ? tag.id : `popup-tag-${tagIndex}`
+                        }
                         className="px-2.5 py-1 text-xs font-medium"
                       >
                         {tag.label}

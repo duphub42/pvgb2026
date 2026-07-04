@@ -41,7 +41,7 @@ type PageTemplate = {
   layout: Array<Record<string, unknown>>
   metaTitle: string
   metaDescription: string
-} 
+}
 
 function resolveSqlitePath(): string {
   const url = String(process.env.SQLITE_URL || 'file:./payload.db').trim()
@@ -73,13 +73,19 @@ function ensureSqliteColumn(
 ): void {
   if (sqliteHasColumn(sqlitePath, table, column)) return
 
-  execFileSync('sqlite3', [sqlitePath, `ALTER TABLE "${table}" ADD COLUMN "${column}" ${definition};`], {
-    stdio: 'pipe',
-  })
+  execFileSync(
+    'sqlite3',
+    [sqlitePath, `ALTER TABLE "${table}" ADD COLUMN "${column}" ${definition};`],
+    {
+      stdio: 'pipe',
+    },
+  )
 }
 
 function ensurePortfolioBlockTablesForSqlite(): void {
-  const hasPostgresUrl = Boolean(process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim())
+  const hasPostgresUrl = Boolean(
+    process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim(),
+  )
   if (hasPostgresUrl) return
 
   const sqlitePath = resolveSqlitePath()
@@ -636,7 +642,12 @@ CREATE INDEX IF NOT EXISTS "_site_pages_v_blocks_price_calculator_path_idx" ON "
     'version_hero_stack_front_offset_y',
     'real DEFAULT 0',
   )
-  ensureSqliteColumn(sqlitePath, '_site_pages_v_blocks_shadcn_block_content_images', '_uuid', 'text')
+  ensureSqliteColumn(
+    sqlitePath,
+    '_site_pages_v_blocks_shadcn_block_content_images',
+    '_uuid',
+    'text',
+  )
   ensureSqliteColumn(
     sqlitePath,
     'payload_locked_documents_rels',
@@ -665,13 +676,7 @@ function buildServicesGridBlock(args: {
   categories: ServicesCategoryTemplate[]
   radialBackgroundVariant?: 'default' | 'blue' | 'orange'
 }): Record<string, unknown> {
-  const {
-    heading,
-    intro,
-    tagline,
-    categories,
-    radialBackgroundVariant = 'default',
-  } = args
+  const { heading, intro, tagline, categories, radialBackgroundVariant = 'default' } = args
 
   return {
     blockType: 'servicesGrid',
@@ -747,7 +752,10 @@ function buildContactInfoCardsBlock(): Record<string, unknown> {
   }
 }
 
-function buildCalPopupBlock(args: { headline: string; description: string }): Record<string, unknown> {
+function buildCalPopupBlock(args: {
+  headline: string
+  description: string
+}): Record<string, unknown> {
   return {
     blockType: 'calPopup',
     headline: args.headline,
@@ -833,32 +841,36 @@ const templates: PageTemplate[] = [
           },
         ],
       }),
-      buildWhyWorkWithMeBlock({
-        heading: 'Warum dieses Setup',
+      {
+        blockType: 'servicesOverview',
+        heading: 'Strategie, Sichtbarkeit und Marke aus einer Hand',
         intro:
-          'Die Portfolio-Unterseiten sind nicht statisch, sondern als editierbare Inhaltsmodule aufgebaut.',
-        reasons: [
+          'Drei Schwerpunkte, die Ihr Wachstum messbar unterstützen und sich gegenseitig verstärken.',
+        services: [
           {
-            icon: 'zap',
-            title: 'Schnell pflegbar',
-            description: 'Inhalte und Reihenfolge lassen sich direkt im Payload-Backend anpassen.',
-          },
-          {
-            icon: 'target',
-            title: 'Bereichsspezifische Dramaturgie',
-            description: 'Webdesign, Marketing und Branding bekommen jeweils eine eigene Storyline.',
+            icon: 'code',
+            title: 'Webdesign mit Conversion-Fokus',
+            description:
+              'Professionelles Webdesign verbindet bei mir klare Nutzerfuhrung, technisches Fundament und schnelle Ladezeiten. So entstehen Webseiten, die in Google gefunden werden und Besucher gezielt zu Anfragen fuhren. Von der Informationsarchitektur bis zur responsiven Umsetzung bleibt jedes Detail auf Conversion-Optimierung ausgerichtet. Das Ergebnis ist ein digitaler Auftritt, der Vertrauen aufbaut und messbar verkauft.',
           },
           {
             icon: 'trending-up',
-            title: 'Skalierbar',
+            title: 'SEO & Marketing mit messbarer Wirkung',
             description:
-              'Neue Cases können ohne Code-Duplikate ergänzt werden und folgen derselben Struktur.',
+              'SEO, SEA und Content-Strategie werden entlang klarer Kennzahlen geplant und umgesetzt. Statt isolierter Einzelmassnahmen entsteht ein Marketing-System, das Reichweite, Sichtbarkeit und Leadqualitat kontinuierlich verbessert. Laufendes Tracking zeigt, welche Kampagnen wirklich funktionieren und wo Potenzial liegt. Dadurch investieren Sie Budget gezielt in Kanale, die nachweisbar Ergebnisse liefern.',
+          },
+          {
+            icon: 'palette',
+            title: 'Branding fur starke Wiedererkennung',
+            description:
+              'Ein konsistentes Branding sorgt dafur, dass Ihre Marke in einem dichten Wettbewerb sofort einzuordnen ist. Logo, Farbwelt, Typografie und Botschaft werden auf Zielgruppe und Positionierung abgestimmt. So entsteht ein einheitlicher Markenauftritt, der online und offline professionell wirkt. Diese Klarheit steigert Wiedererkennung, Vertrauen und die Qualitat jeder Kundenanfrage.',
           },
         ],
-      }),
+      },
       buildCalPopupBlock({
         headline: 'Projektidee besprechen',
-        description: 'In 30 Minuten klären wir Zielbild, Prioritäten und nächsten sinnvollen Schritt.',
+        description:
+          'In 30 Minuten klären wir Zielbild, Prioritäten und nächsten sinnvollen Schritt.',
       }),
     ],
     metaTitle: 'Portfolio | Webdesign, Marketing & Branding',
@@ -879,7 +891,8 @@ const templates: PageTemplate[] = [
       buildIntroductionBlock({
         heading: 'Wie Webdesign-Projekte hier aufgebaut sind',
         body: 'Jeder Case zeigt Ausgangslage, Konzept, UI-Umsetzung und das messbare Ergebnis. So wird nachvollziehbar, warum Designentscheidungen getroffen wurden.',
-        tagline: 'Design ist nicht Dekoration.\nDesign ist ein System für Orientierung und Handlung.',
+        tagline:
+          'Design ist nicht Dekoration.\nDesign ist ein System für Orientierung und Handlung.',
       }),
       {
         blockType: 'shadcnBlock',
@@ -899,13 +912,15 @@ const templates: PageTemplate[] = [
             services: [
               {
                 title: 'Corporate Website',
-                description: 'Klare Positionierung, moderne Gestaltung und konsistente Nutzerführung.',
+                description:
+                  'Klare Positionierung, moderne Gestaltung und konsistente Nutzerführung.',
                 iconUrl: ICONS.webdesign,
                 iconAlt: 'Webdesign',
               },
               {
                 title: 'Landingpage-Systeme',
-                description: 'Conversion-orientierte Seitenstrukturen für Kampagnen und Lead-Generierung.',
+                description:
+                  'Conversion-orientierte Seitenstrukturen für Kampagnen und Lead-Generierung.',
                 iconUrl: ICONS.design,
                 iconAlt: 'Design Leistungen',
               },
@@ -916,7 +931,8 @@ const templates: PageTemplate[] = [
             services: [
               {
                 title: 'Responsive Frontend',
-                description: 'Saubere Umsetzung für Desktop, Tablet und Mobile mit konsistentem Verhalten.',
+                description:
+                  'Saubere Umsetzung für Desktop, Tablet und Mobile mit konsistentem Verhalten.',
                 iconUrl: ICONS.webdesign,
                 iconAlt: 'Responsive Webdesign',
               },
@@ -935,7 +951,8 @@ const templates: PageTemplate[] = [
       buildContactInfoCardsBlock(),
       buildCalPopupBlock({
         headline: 'Webdesign-Projekt starten',
-        description: 'Gemeinsam definieren wir Scope, Prioritäten und einen realistischen Umsetzungsplan.',
+        description:
+          'Gemeinsam definieren wir Scope, Prioritäten und einen realistischen Umsetzungsplan.',
       }),
     ],
     metaTitle: 'Portfolio Webdesign | UX, UI und Performance',
@@ -956,8 +973,7 @@ const templates: PageTemplate[] = [
       buildIntroductionBlock({
         heading: 'Marketing-Cases mit nachvollziehbarer Wirkung',
         body: 'Die Cases folgen einer klaren Logik: Ziel, Kanalmix, Maßnahmen, Ergebnis. So bleibt sichtbar, welche Entscheidung welchen Effekt erzeugt hat.',
-        tagline:
-          'Nicht nur Reichweite zählen.\nRelevante Leads und stabile Performance zählen.',
+        tagline: 'Nicht nur Reichweite zählen.\nRelevante Leads und stabile Performance zählen.',
       }),
       {
         blockType: 'servicesOverview',
@@ -1042,7 +1058,8 @@ const templates: PageTemplate[] = [
       }),
       buildCalPopupBlock({
         headline: 'Marketing-Ziele in einen Plan übersetzen',
-        description: 'Gemeinsam priorisieren wir Kanäle, Budget und Quick Wins in einem kompakten Kickoff.',
+        description:
+          'Gemeinsam priorisieren wir Kanäle, Budget und Quick Wins in einem kompakten Kickoff.',
       }),
     ],
     metaTitle: 'Portfolio Marketing | SEO, SEM und Lead-Strategien',

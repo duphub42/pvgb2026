@@ -31,17 +31,17 @@ export async function GET() {
         blockSpacingMarginBottom: 'default',
         blockContainer: 'default',
         blockBackground: 'none',
-        eyebrow: 'Meine Arbeitsbereiche',
-        heading: 'Drei Disziplinen, ein Qualitätsanspruch',
+        eyebrow: 'Portfolio-Bereiche',
+        heading: 'Drei Disziplinen, ein gemeinsamer Ergebnisfokus',
         intro:
-          'Webdesign, Marketing und Branding greifen in meiner Arbeit direkt ineinander. Jede Unterseite zeigt Projekte mit klarem Aufbau: Ausgangslage, Vorgehen und messbares Ergebnis.',
+          'Webdesign, Marketing und Branding werden hier als zusammenhängendes Leistungssystem sichtbar. Jede Unterseite zeigt die gleiche Logik: Ausgangslage, Vorgehen und messbares Ergebnis.',
         variant: 'cards',
         areas: [
           {
             discipline: 'webdesign',
             title: 'Webdesign & Entwicklung',
             description:
-              'UX-orientierte Websites und digitale Produkte – von der Informationsarchitektur über Interface-Design bis zur performanten, SEO-optimierten Umsetzung.',
+              'UX-orientierte Websites und digitale Produkte - von Informationsarchitektur und Interface-Design bis zur performanten, SEO-fähigen Umsetzung.',
             tags: [
               { label: 'UX & Interface' },
               { label: 'Responsive Design' },
@@ -49,13 +49,13 @@ export async function GET() {
               { label: 'Relaunch' },
             ],
             href: '/portfolio-webdesign',
-            ctaLabel: 'Webdesign-Cases ansehen',
+            ctaLabel: 'Webdesign-Projekte ansehen',
           },
           {
             discipline: 'marketing',
-            title: 'Marketing & SEO/SEM',
+            title: 'Marketing, SEO & SEM',
             description:
-              'Datengetriebene Kampagnen aus SEO, SEM und Lead-Generierung mit nachvollziehbarem Prozess: Analyse, Kanalstrategie, Tests, Optimierung.',
+              'Datengetriebene Kampagnen aus SEO, SEM und Lead-Generierung mit klarem Prozess: Analyse, Kanalstrategie, Testing und Optimierung.',
             tags: [
               { label: 'SEO & Rankings' },
               { label: 'Google Ads' },
@@ -63,13 +63,13 @@ export async function GET() {
               { label: 'KPI-Fokus' },
             ],
             href: '/portfolio-marketing',
-            ctaLabel: 'Marketing-Cases ansehen',
+            ctaLabel: 'Marketing-Projekte ansehen',
           },
           {
             discipline: 'branding',
             title: 'Branding & Corporate Identity',
             description:
-              'Markenauftritte mit klarer Identität – von Logoentwicklung und Farbwelt bis zur konsistenten Anwendung über alle Touchpoints.',
+              'Markenauftritte mit klarer Identität - von Logoentwicklung und visuellem System bis zur konsistenten Anwendung über alle Touchpoints.',
             tags: [
               { label: 'Logo & Wortmarke' },
               { label: 'Corporate Design' },
@@ -77,7 +77,7 @@ export async function GET() {
               { label: 'Brand Strategy' },
             ],
             href: '/portfolio-marken',
-            ctaLabel: 'Branding-Cases ansehen',
+            ctaLabel: 'Branding-Projekte ansehen',
           },
         ],
       },

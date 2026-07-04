@@ -46,7 +46,7 @@ export const PriceCalculatorGlobal: GlobalConfig = {
               type: 'textarea',
               label: 'Einleitung',
               defaultValue:
-                'Kategorie wählen, Leistungen anklicken – Richtwert erscheint sofort. Mehrere Kategorien kombinierbar.',
+                'Kategorie wählen, Leistungen anklicken – Richtwert erscheint sofort. Mehrere Kategorien kombinierbar. Sie können jede Auswahl individuell auf Budget, Ziele und Prioritäten abstimmen. Einzelne Leistungen lassen sich flexibel hinzufügen, austauschen oder weglassen, bis die Konfiguration exakt passt. So entsteht in wenigen Klicks ein persönlicher Leistungsmix als transparente Entscheidungsgrundlage.',
             },
             {
               name: 'offerButtonLabel',

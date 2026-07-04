@@ -33,6 +33,21 @@ const trendMeta: Record<
   },
 }
 
+const pricingContextBlocks = [
+  {
+    title: 'Transparente Kalkulation',
+    text: 'Jedes Angebot basiert auf einem klaren Leistungsumfang und nachvollziehbaren Aufwandspaketen. Sie sehen vor Projektstart, welche Positionen enthalten sind und welche Ergebnisse damit erreicht werden sollen. So entsteht Planungssicherheit statt Kostensprünge im laufenden Prozess. Optionalleistungen werden immer separat ausgewiesen und nur nach Freigabe umgesetzt.',
+  },
+  {
+    title: 'Passend zum Projektziel',
+    text: 'Nicht jedes Unternehmen braucht sofort den größten Leistungsumfang. Die Pakete sind deshalb so strukturiert, dass Sie mit einer sinnvollen Basis starten und später gezielt erweitern können. Das reduziert unnötige Anfangsinvestitionen und hält den Fokus auf den nächsten wichtigen Wachstumsschritt. Strategie, Design und technische Umsetzung bleiben dabei aufeinander abgestimmt.',
+  },
+  {
+    title: 'Wert statt Pauschalversprechen',
+    text: 'Preise orientieren sich nicht an austauschbaren Templates, sondern am konkreten Nutzen für Ihr Geschäft. Im Mittelpunkt stehen messbare Wirkung, bessere Sichtbarkeit und höhere Conversion-Chancen. Jede Investition soll sich in der Praxis als Belastung des Budgets, aber auch als Hebel für Umsatz und Markenstärke beweisen. Genau deshalb werden Leistungen priorisiert, bevor sie produziert werden.',
+  },
+] as const
+
 export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
   eyebrow,
   heading,
@@ -41,6 +56,7 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
   items,
 }) => {
   const kpis = (items ?? []).filter((item) => Boolean(item?.value?.trim() && item?.label?.trim()))
+  const shouldShowPricingContext = heading?.toLowerCase().includes('leistungswerte')
 
   if (!kpis.length) return null
 
@@ -61,12 +77,20 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
   return (
     <section className="w-full py-14 md:py-16">
       <div className={cn('container rounded-3xl border px-6 py-8 md:px-10 md:py-10', wrapperClass)}>
-        <div className="max-w-3xl">
+        <div className="w-full">
           {eyebrow ? (
-            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary/80">{eyebrow}</p>
+            <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary/80">
+              {eyebrow}
+            </p>
           ) : null}
-          {heading ? <h2 className="text-3xl font-semibold leading-tight md:text-4xl">{heading}</h2> : null}
-          {intro ? <p className="mt-3 text-sm leading-relaxed opacity-80 md:text-base">{intro}</p> : null}
+          {heading ? (
+            <h2 className="w-full text-2xl font-semibold leading-tight tracking-tight sm:text-3xl md:text-[clamp(2rem,3.4vw,3.5rem)] md:whitespace-nowrap">
+              {heading}
+            </h2>
+          ) : null}
+          {intro ? (
+            <p className="mt-3 text-sm leading-relaxed opacity-80 md:text-base">{intro}</p>
+          ) : null}
         </div>
 
         <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-4">
@@ -92,13 +116,28 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
 
                 <p className="text-sm font-medium leading-snug">{item.label}</p>
                 {item.context ? (
-                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">{item.context}</p>
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    {item.context}
+                  </p>
                 ) : null}
               </article>
             )
           })}
         </div>
       </div>
+
+      {shouldShowPricingContext ? (
+        <div className="container mt-7 md:mt-8">
+          <div className="grid gap-5 md:grid-cols-3">
+            {pricingContextBlocks.map((block) => (
+              <article key={block.title} className="h-full">
+                <h3 className="text-base font-semibold leading-snug md:text-lg">{block.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{block.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      ) : null}
     </section>
   )
 }

@@ -60,7 +60,7 @@ export const ServicesOverview: Block = {
       type: 'array',
       label: 'Leistungen',
       minRows: 1,
-      maxRows: 8,
+      maxRows: 9,
       defaultValue: defaultServices,
       admin: {
         description: 'Karten mit Icon, Titel und Beschreibung.',

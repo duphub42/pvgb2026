@@ -20,6 +20,9 @@ import type { FaqCategory, FaqIconName } from '@/components/ui/faq-8.data'
 
 type Faq8ClientProps = {
   categories: FaqCategory[]
+  eyebrow?: string
+  title?: string
+  description?: string
 }
 
 const iconMap: Record<FaqIconName, LucideIcon> = {
@@ -29,21 +32,21 @@ const iconMap: Record<FaqIconName, LucideIcon> = {
   Headphones,
 }
 
-export function Faq8Client({ categories }: Faq8ClientProps): React.JSX.Element {
+export function Faq8Client({
+  categories,
+  eyebrow = 'FAQ',
+  title = 'Häufige Fragen für Ihren Website-Launch und Ihre digitale Wachstumsstrategie',
+  description = 'Klare Antworten zu Leistungen, Projektablauf, Budget und Support. So wissen Sie sofort, wie ich Ihre Website, SEO und Conversion nachhaltig verbessern kann.',
+}: Faq8ClientProps): React.JSX.Element {
   const defaultCategory = categories[0]?.value ?? 'allgemein'
 
   return (
     <section className="py-8 sm:py-16 lg:py-24">
       <div className="container">
         <div className="mb-12 space-y-4 md:mb-16 lg:mb-24">
-          <div className="text-primary text-sm font-medium uppercase">FAQ</div>
-          <h2 className="text-2xl font-semibold md:text-3xl lg:text-4xl">
-            Häufige Fragen für Ihren Website-Launch und Ihre digitale Wachstumsstrategie
-          </h2>
-          <p className="text-muted-foreground text-lg sm:text-xl">
-            Klare Antworten zu Leistungen, Projektablauf, Budget und Support. So wissen Sie sofort,
-            wie ich Ihre Website, SEO und Conversion nachhaltig verbessern kann.
-          </p>
+          <div className="text-primary text-sm font-medium uppercase">{eyebrow}</div>
+          <h2 className="text-2xl font-semibold md:text-3xl lg:text-4xl">{title}</h2>
+          <p className="text-muted-foreground text-lg sm:text-xl">{description}</p>
         </div>
 
         <Tabs

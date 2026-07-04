@@ -14,6 +14,18 @@ function isNetworkError(error: Error): boolean {
   )
 }
 
+/** Dev-only: HMR/chunk reload while Next.js recompiles — common in Cursor/Glass, rare in cached Safari. */
+function isRecoverableDevError(error: Error): boolean {
+  if (process.env.NODE_ENV !== 'development') return false
+  const msg = (error?.message || '').toLowerCase()
+  return (
+    msg.includes('loading chunk') ||
+    msg.includes('chunkloaderror') ||
+    msg.includes('dynamically imported module') ||
+    isNetworkError(error)
+  )
+}
+
 export default function Error({
   error,
   reset,
@@ -27,18 +39,34 @@ export default function Error({
     console.error('[Frontend]', error)
   }, [error])
 
+  useEffect(() => {
+    if (!isRecoverableDevError(error)) return
+    const retryId = window.setTimeout(() => {
+      reset()
+      router.refresh()
+    }, 800)
+    return () => window.clearTimeout(retryId)
+  }, [error, reset, router])
+
   const handleReset = () => {
     reset()
     router.refresh()
   }
 
   const isNetwork = isNetworkError(error)
+  const isDevRecoverable = isRecoverableDevError(error)
 
   return (
     <article className="container page-safe-top py-28">
       <div className="prose max-w-none">
         <h1>Seite konnte nicht geladen werden</h1>
-        {isNetwork ? (
+        {isDevRecoverable ? (
+          <p>
+            Der Dev-Server kompiliert gerade neu (HMR). Die Seite wird automatisch neu geladen — in
+            Safari kann der Inhalt zwischenzeitlich schon sichtbar sein, wenn Chunks dort gecacht
+            sind.
+          </p>
+        ) : isNetwork ? (
           <p>
             Die Verbindung ist unterbrochen oder der Server antwortet nicht. Prüfen Sie Ihre
             Internetverbindung bzw. ob der Dev-Server läuft, und versuchen Sie es erneut.

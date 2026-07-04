@@ -4,7 +4,10 @@ import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 import { BlockContainer } from '@/components/BlockContainer'
 import { MarqueeSlider } from '@/components/marquee-slider'
 import { Media } from '@/components/Media'
-import type { MarqueeSliderBlock as MarqueeSliderBlockData, Media as MediaType } from '@/payload-types'
+import type {
+  MarqueeSliderBlock as MarqueeSliderBlockData,
+  Media as MediaType,
+} from '@/payload-types'
 
 type MarqueeSliderBlockProps = MarqueeSliderBlockData & {
   disableInnerContainer?: boolean
@@ -41,17 +44,15 @@ export const MarqueeSliderBlock: React.FC<MarqueeSliderBlockProps> = (props) => 
         })
         .map((item, itemIndex) => {
           const logoNode =
-            typeof item.logo === 'object' && item.logo
-              ? (
-                  <Media
-                    resource={item.logo as MediaType}
-                    className="h-6 w-6 shrink-0"
-                    imgClassName="h-full w-full object-contain"
-                  />
-                )
-              : (
-                  <span className="inline-block h-2.5 w-2.5 rounded-full bg-primary/65" aria-hidden />
-                )
+            typeof item.logo === 'object' && item.logo ? (
+              <Media
+                resource={item.logo as MediaType}
+                className="h-6 w-6 shrink-0"
+                imgClassName="h-full w-full object-contain"
+              />
+            ) : (
+              <span className="inline-block h-2.5 w-2.5 rounded-full bg-primary/65" aria-hidden />
+            )
 
           return {
             key:
@@ -59,7 +60,8 @@ export const MarqueeSliderBlock: React.FC<MarqueeSliderBlockProps> = (props) => 
               `marquee-item-${rowIndex}-${itemIndex}-${String(item.name).slice(0, 24)}`,
             name: String(item.name ?? '').trim(),
             logo: logoNode,
-            logoResource: typeof item.logo === 'object' && item.logo ? (item.logo as MediaType) : null,
+            logoResource:
+              typeof item.logo === 'object' && item.logo ? (item.logo as MediaType) : null,
             tileSize: item?.tileSize,
             bentoInteractive: item?.bentoInteractive === true,
             detailTitle: String(item?.detailTitle ?? '').trim(),
@@ -119,14 +121,16 @@ export const MarqueeSliderBlock: React.FC<MarqueeSliderBlockProps> = (props) => 
     <BlockContainer styles={styles} index={index} className="pb-12 pt-10 md:pb-16 md:pt-14">
       <section className="w-full">
         {(eyebrow || heading || intro) && (
-          <header className="mx-auto mb-8 max-w-3xl text-center md:mb-10">
+          <header className="mb-8 max-w-3xl text-left md:mb-10">
             {eyebrow ? (
               <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary/80">
                 {eyebrow}
               </p>
             ) : null}
             {heading ? (
-              <h2 className="text-balance text-3xl font-semibold leading-tight md:text-4xl">{heading}</h2>
+              <h2 className="text-balance text-3xl font-semibold leading-tight md:text-4xl">
+                {heading}
+              </h2>
             ) : null}
             {intro ? (
               <p className="mt-3 text-pretty text-sm leading-relaxed text-muted-foreground md:text-base">
@@ -154,7 +158,8 @@ export const MarqueeSliderBlock: React.FC<MarqueeSliderBlockProps> = (props) => 
               className={`grid grid-cols-2 sm:grid-cols-3 ${desktopColsClass} ${bentoGapClass} ${bentoRowHeightClass} ${bentoMobileFlattenSpans ? 'logo-bento-mobile-flat' : ''}`}
             >
               {galleryItems.map((item, itemIndex) => {
-                const tileClass = tileSizeClasses[String(item.tileSize ?? 'md')] ?? tileSizeClasses.md
+                const tileClass =
+                  tileSizeClasses[String(item.tileSize ?? 'md')] ?? tileSizeClasses.md
 
                 return (
                   <article
@@ -213,7 +218,9 @@ export const MarqueeSliderBlock: React.FC<MarqueeSliderBlockProps> = (props) => 
                         imgClassName="logo-gallery-image h-full w-full object-contain p-1 md:p-2"
                       />
                     ) : (
-                      <span className="text-xs font-medium text-muted-foreground">{item.name || 'Logo'}</span>
+                      <span className="text-xs font-medium text-muted-foreground">
+                        {item.name || 'Logo'}
+                      </span>
                     )}
                   </div>
                   {item.name ? (

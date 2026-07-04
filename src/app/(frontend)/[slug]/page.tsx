@@ -7,6 +7,8 @@ import configPromise from '@payload-config'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { SectionReveal } from '@/components/ui/SectionReveal'
 import { Faq8 } from '@/components/ui/faq-8'
+import { PortfolioFaqBox } from '@/components/PortfolioFaqBox'
+import { PreiseFaqBox } from '@/components/PreiseFaqBox'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -76,6 +78,34 @@ function formatUnknownError(error: unknown): string {
 const SLUG_ALIASES: Record<string, string[]> = {
   'portfolio-branding': ['portfolio-marken'],
   'portfolio-marken': ['portfolio-branding'],
+}
+
+const PORTFOLIO_META_BY_SLUG: Record<string, { title: string; description: string }> = {
+  portfolio: {
+    title: 'Portfolio fuer Webdesign, SEO und Branding in Halle',
+    description:
+      'Ausgewaehlte Projekte aus Webdesign, SEO, Branding und Performance-Optimierung fuer Unternehmen in Halle und im 200-km-Umkreis.',
+  },
+  'portfolio-webdesign': {
+    title: 'Portfolio Webdesign in Halle',
+    description:
+      'UX/UI- und Performance-Projekte: moderne Websites, klare Conversion-Pfade und technische Optimierung fuer Unternehmen in Halle und Region.',
+  },
+  'portfolio-marketing': {
+    title: 'Portfolio Marketing in Halle',
+    description:
+      'Marketing-Cases mit Fokus auf Sichtbarkeit, Nachfrage und messbare Ergebnisse fuer lokale KMU, B2B und Startups in Halle und Umgebung.',
+  },
+  'portfolio-branding': {
+    title: 'Portfolio Branding in Halle',
+    description:
+      'Branding-Projekte mit klarer Positionierung, visueller Identitaet und konsistentem Markenauftritt fuer Unternehmen in Halle und Region.',
+  },
+  'portfolio-marken': {
+    title: 'Portfolio Branding in Halle',
+    description:
+      'Branding-Projekte mit klarer Positionierung, visueller Identitaet und konsistentem Markenauftritt fuer Unternehmen in Halle und Region.',
+  },
 }
 
 async function findPublishedPageBySlug(slugParam: string): Promise<SitePage | null> {
@@ -238,6 +268,30 @@ export default async function Page({
           typeof previewFirstBlock === 'object' &&
           'blockType' in previewFirstBlock &&
           (previewFirstBlock as { blockType?: string }).blockType === 'servicesOverview'
+        const previewEffectiveSlug =
+          typeof pageById.slug === 'string' && pageById.slug.trim().length > 0
+            ? pageById.slug.trim().toLowerCase()
+            : previewSlug.trim().toLowerCase()
+        const previewTitle =
+          typeof pageById.title === 'string' ? pageById.title.trim().toLowerCase() : ''
+        const previewIsPortfolioPage =
+          previewEffectiveSlug === 'portfolio' ||
+          previewEffectiveSlug.startsWith('portfolio-') ||
+          previewTitle.includes('portfolio')
+        const previewFirstCtaIndex = previewLayoutBlocks.findIndex(
+          (block) =>
+            block && typeof block === 'object' && 'blockType' in block && block.blockType === 'cta',
+        )
+        const previewRenderFaqAfterCta = previewIsPortfolioPage && previewFirstCtaIndex >= 0
+        const previewRenderFaqAtEnd = previewIsPortfolioPage && previewFirstCtaIndex < 0
+        const previewIsPricesPage =
+          previewEffectiveSlug === 'preise' || previewTitle.includes('preise')
+        const previewBlocksBeforeAndIncludingCta = previewRenderFaqAfterCta
+          ? previewLayoutBlocks.slice(0, previewFirstCtaIndex + 1)
+          : previewLayoutBlocks
+        const previewBlocksAfterCta = previewRenderFaqAfterCta
+          ? previewLayoutBlocks.slice(previewFirstCtaIndex + 1)
+          : []
         const previewIsSuperheroHero =
           pageById.hero &&
           typeof pageById.hero === 'object' &&
@@ -276,7 +330,13 @@ export default async function Page({
               )}
             >
               <SectionReveal className="relative z-0 pt-24">
-                <RenderBlocks blocks={previewLayoutBlocks} />
+                {previewIsPricesPage && <PreiseFaqBox />}
+                <RenderBlocks blocks={previewBlocksBeforeAndIncludingCta} />
+                {previewRenderFaqAfterCta && <PortfolioFaqBox />}
+                {previewBlocksAfterCta.length > 0 && (
+                  <RenderBlocks blocks={previewBlocksAfterCta} />
+                )}
+                {previewRenderFaqAtEnd && <PortfolioFaqBox />}
                 {isHomePageSlug(previewSlug) && <Faq8 />}
               </SectionReveal>
             </div>
@@ -333,6 +393,26 @@ export default async function Page({
       'blockBackground' in firstBlock
         ? ((firstBlock as { blockBackground?: string | null }).blockBackground ?? 'none')
         : 'none'
+    const effectiveSlug =
+      typeof page.slug === 'string' && page.slug.trim().length > 0
+        ? page.slug.trim().toLowerCase()
+        : resolvedSlug.trim().toLowerCase()
+    const pageTitle = typeof page.title === 'string' ? page.title.trim().toLowerCase() : ''
+    const isPortfolioPage =
+      effectiveSlug === 'portfolio' ||
+      effectiveSlug.startsWith('portfolio-') ||
+      pageTitle.includes('portfolio')
+    const firstCtaIndex = layoutBlocks.findIndex(
+      (block) =>
+        block && typeof block === 'object' && 'blockType' in block && block.blockType === 'cta',
+    )
+    const renderFaqAfterCta = isPortfolioPage && firstCtaIndex >= 0
+    const renderFaqAtEnd = isPortfolioPage && firstCtaIndex < 0
+    const isPricesPage = effectiveSlug === 'preise' || pageTitle.includes('preise')
+    const blocksBeforeAndIncludingCta = renderFaqAfterCta
+      ? layoutBlocks.slice(0, firstCtaIndex + 1)
+      : layoutBlocks
+    const blocksAfterCta = renderFaqAfterCta ? layoutBlocks.slice(firstCtaIndex + 1) : []
     const nextSectionBackground = getNextSectionBackgroundValue(firstBlockBackground)
     const isSuperheroHero =
       heroProps &&
@@ -372,7 +452,11 @@ export default async function Page({
           )}
         >
           <SectionReveal className="relative z-0 pt-24">
-            <RenderBlocks blocks={layoutBlocks} />
+            {isPricesPage && <PreiseFaqBox />}
+            <RenderBlocks blocks={blocksBeforeAndIncludingCta} />
+            {renderFaqAfterCta && <PortfolioFaqBox />}
+            {blocksAfterCta.length > 0 && <RenderBlocks blocks={blocksAfterCta} />}
+            {renderFaqAtEnd && <PortfolioFaqBox />}
             {showHomeFaq && <Faq8 />}
           </SectionReveal>
         </div>
@@ -422,6 +506,26 @@ export async function generateMetadata({
   try {
     const page = await getCachedPublishedPageMetaBySlug(slug)
     const meta = await generateMeta({ doc: page })
+
+    const portfolioMeta = PORTFOLIO_META_BY_SLUG[slug]
+    if (portfolioMeta) {
+      const canonicalPath = `/${slug}`
+      return {
+        ...meta,
+        title: `${portfolioMeta.title} | Philipp Bacher`,
+        description: portfolioMeta.description,
+        alternates: {
+          ...(meta.alternates ?? {}),
+          canonical: canonicalPath,
+        },
+        openGraph: {
+          ...(meta.openGraph ?? {}),
+          title: `${portfolioMeta.title} | Philipp Bacher`,
+          description: portfolioMeta.description,
+          url: canonicalPath,
+        },
+      }
+    }
 
     return meta
   } catch (err) {

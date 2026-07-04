@@ -83,6 +83,14 @@ export default async function Page({ searchParams: searchParamsPromise }: Args) 
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Search`,
+    title: 'Suche | Philipp Bacher',
+    description: 'Interne Suchergebnisse auf philippbacher.com',
+    robots: {
+      index: false,
+      follow: true,
+    },
+    alternates: {
+      canonical: '/search',
+    },
   }
 }

@@ -2160,14 +2160,21 @@
     bottom: -10px;
   }
 
-  /* Volle Viewport-Breite: 50% = Breite des positionierten Vorfahren, 50dvw = halbe Viewport-Breite —
-     linke Kante der Welle am Viewport-Rand, auch wenn die Section schmaler/versetzt ist (nicht nur zentriert auf Section). */
+  /* Volle Viewport-Breite: vw-Fallback für ältere Safari, dvw wenn unterstützt (scrollbar-sicher). */
   .hero-shape-divider--viewport {
-    left: calc(50% - 50dvw);
+    left: calc(50% - 50vw);
     right: auto;
-    width: 100dvw;
-    max-width: 100dvw;
+    width: 100vw;
+    max-width: 100vw;
     transform: none;
+  }
+
+  @supports (width: 100dvw) {
+    .hero-shape-divider--viewport {
+      left: calc(50% - 50dvw);
+      width: 100dvw;
+      max-width: 100dvw;
+    }
   }
 
   /* Superhero Divider: immer auf den Hintergrund der angrenzenden Content-Section abstimmen. */

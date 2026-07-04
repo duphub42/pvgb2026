@@ -6,6 +6,8 @@ import { mergeOpenGraph } from './mergeOpenGraph'
 import { getPagePath } from './pagesTree'
 import { getServerSideURL } from './getURL'
 
+const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME?.trim() || 'Philipp Bacher'
+
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   const serverUrl = getServerSideURL()
 
@@ -31,9 +33,7 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+  const title = doc?.meta?.title ? `${doc.meta.title} | ${SITE_NAME}` : SITE_NAME
 
   const rawSlug = docWithPathFields?.slug
   let path = '/'
@@ -43,7 +43,11 @@ export const generateMeta = async (args: {
   } else if (typeof rawSlug === 'string' && rawSlug) {
     if (rawSlug === 'home') {
       path = '/'
-    } else if (docWithPathFields && 'parent' in docWithPathFields && docWithPathFields.parent != null) {
+    } else if (
+      docWithPathFields &&
+      'parent' in docWithPathFields &&
+      docWithPathFields.parent != null
+    ) {
       path = `/${getPagePath(doc as SitePage)}`
     } else {
       path = `/${rawSlug}`

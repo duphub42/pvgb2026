@@ -8,7 +8,6 @@ import { Media } from '@/components/Media'
 import { cn } from '@/utilities/ui'
 import { BlockContainer } from '@/components/BlockContainer'
 import type { BlockStyles } from '@/blocks/BlockStyleSystem'
-import { containerMap } from '@/blocks/BlockStyleSystem'
 import { Badge } from '@/components/ui/badge'
 import type { PortfolioTeaserBlock as PortfolioTeaserBlockData } from '@/payload-types'
 
@@ -26,21 +25,20 @@ const disciplineConfig: Record<
   webdesign: {
     label: 'Webdesign',
     Icon: MonitorSmartphone,
-    accent: 'text-blue-600 dark:text-blue-400',
-    bgAccent: 'bg-blue-50 dark:bg-blue-950/40 border-blue-200/60 dark:border-blue-800/40',
+    accent: 'text-muted-foreground',
+    bgAccent: 'bg-card border-border',
   },
   marketing: {
     label: 'Marketing',
     Icon: Megaphone,
-    accent: 'text-emerald-600 dark:text-emerald-400',
-    bgAccent:
-      'bg-emerald-50 dark:bg-emerald-950/40 border-emerald-200/60 dark:border-emerald-800/40',
+    accent: 'text-muted-foreground',
+    bgAccent: 'bg-card border-border',
   },
   branding: {
     label: 'Branding',
     Icon: Palette,
-    accent: 'text-violet-600 dark:text-violet-400',
-    bgAccent: 'bg-violet-50 dark:bg-violet-950/40 border-violet-200/60 dark:border-violet-800/40',
+    accent: 'text-muted-foreground',
+    bgAccent: 'bg-card border-border',
   },
 }
 
@@ -229,7 +227,7 @@ export const PortfolioTeaserBlock: React.FC<PortfolioTeaserProps> = (props) => {
 
   return (
     <BlockContainer styles={styles} index={index}>
-      <div className={cn(containerMap.default, 'space-y-10')}>
+      <div className="w-full space-y-10">
         {/* Header */}
         {(eyebrow || heading || intro) && (
           <div className="max-w-2xl space-y-3">

@@ -72,6 +72,8 @@ type ServicesOverviewProps = ServicesOverviewBlockData & {
   index?: number
 }
 
+type ServicesOverviewLayoutMode = 'cards' | 'columns'
+
 export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) => {
   const {
     disableInnerContainer: _disableInnerContainer,
@@ -81,6 +83,12 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
     index = 0,
     ...styleProps
   } = props
+
+  const headerAlign =
+    (props as ServicesOverviewProps & { headerAlign?: 'left' | 'center' }).headerAlign ?? 'left'
+  const layoutMode =
+    (props as ServicesOverviewProps & { layoutMode?: ServicesOverviewLayoutMode }).layoutMode ??
+    'cards'
 
   // Style-Props direkt an BlockContainer übergeben
   const styles = styleProps as unknown as BlockStyles
@@ -109,50 +117,88 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
     }))
   }, [services])
 
+  const desktopColsClass = items.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
+
   return (
     <BlockContainer
       styles={styles}
       index={index}
       className="services-overview-section overflow-visible pb-16 pt-0 md:pb-20"
     >
-      <div className="relative z-10 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:grid-cols-4 lg:items-stretch lg:gap-6">
-        {items.map(({ key, iconKey, title, description }) => {
-          const Icon = ICON_MAP[iconKey] ?? Compass
-          return (
-            <div key={key} className="services-overview-card-slot relative w-full min-w-0">
-              <div
-                className={cn(
-                  'services-overview-card-codepen group relative flex min-h-0 w-full min-w-0 flex-col overflow-hidden rounded-3xl border border-border/90 bg-card p-5 pb-6',
-                  'lg:min-h-[6.25rem]',
-                  'hover:border-primary/25 dark:border-border dark:hover:border-primary/30',
-                )}
-              >
-                <div className="services-overview-card-content relative z-10 flex min-h-0 min-w-0 flex-1 flex-col pr-9 sm:pr-11">
-                  <h3 className="line-clamp-2 shrink-0 text-balance text-base font-semibold leading-snug tracking-tight text-card-foreground md:text-[1.05rem]">
-                    {title}
-                  </h3>
-                  <div className="services-overview-card-reveal min-h-0 w-full min-w-0">
-                    <p className="services-overview-card-desc whitespace-pre-line text-pretty text-sm text-muted-foreground">
-                      {description}
-                    </p>
-                  </div>
-                </div>
+      {(_heading || _intro) && (
+        <div
+          className={cn('max-w-2xl space-y-3', headerAlign === 'center' && 'mx-auto text-center')}
+        >
+          {_heading ? (
+            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+              {String(_heading)}
+            </p>
+          ) : null}
+          {_intro ? (
+            <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+              {String(_intro)}
+            </p>
+          ) : null}
+        </div>
+      )}
+      {layoutMode === 'columns' ? (
+        <div className="relative z-10 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3 lg:gap-10">
+          {items.map(({ key, title, description }) => (
+            <div key={key} className="min-w-0">
+              <h3 className="text-balance text-lg font-semibold leading-snug tracking-tight text-foreground md:text-xl">
+                {title}
+              </h3>
+              <p className="mt-3 whitespace-pre-line text-pretty text-sm leading-relaxed text-muted-foreground md:text-base">
+                {description}
+              </p>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div
+          className={cn(
+            'relative z-10 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:items-stretch lg:gap-6',
+            desktopColsClass,
+          )}
+        >
+          {items.map(({ key, iconKey, title, description }) => {
+            const Icon = ICON_MAP[iconKey] ?? Compass
+            return (
+              <div key={key} className="services-overview-card-slot relative w-full min-w-0">
                 <div
                   className={cn(
-                    'pointer-events-none absolute right-0 bottom-0 z-[1] flex size-[5.25rem] translate-x-[20%] translate-y-[20%] items-center justify-center sm:size-[5.75rem] sm:translate-x-[22%] sm:translate-y-[22%]',
-                    'transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
-                    'lg:group-hover:scale-[1.1] lg:group-hover:-rotate-[7deg]',
+                    'services-overview-card-codepen group relative flex min-h-0 w-full min-w-0 flex-col overflow-hidden rounded-3xl border border-border/90 bg-card p-5 pb-6',
+                    'lg:min-h-[6.25rem]',
+                    'hover:border-primary/25 dark:border-border dark:hover:border-primary/30',
                   )}
-                  aria-hidden
                 >
-                  <div className="absolute inset-0 rounded-2xl bg-primary/[0.07] ring-1 ring-primary/10 dark:bg-primary/[0.11] dark:ring-primary/15" />
-                  <Icon className="relative z-[1] size-9 text-primary/30 transition-colors duration-300 group-hover:text-primary/50 sm:size-10" />
+                  <div className="services-overview-card-content relative z-10 flex min-h-0 min-w-0 flex-1 flex-col pr-9 sm:pr-11">
+                    <h3 className="line-clamp-2 shrink-0 text-balance text-base font-semibold leading-snug tracking-tight text-card-foreground md:text-[1.05rem]">
+                      {title}
+                    </h3>
+                    <div className="services-overview-card-reveal min-h-0 w-full min-w-0">
+                      <p className="services-overview-card-desc whitespace-pre-line text-pretty text-sm text-muted-foreground">
+                        {description}
+                      </p>
+                    </div>
+                  </div>
+                  <div
+                    className={cn(
+                      'pointer-events-none absolute right-0 bottom-0 z-[1] flex size-[5.25rem] translate-x-[20%] translate-y-[20%] items-center justify-center sm:size-[5.75rem] sm:translate-x-[22%] sm:translate-y-[22%]',
+                      'transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
+                      'lg:group-hover:scale-[1.1] lg:group-hover:-rotate-[7deg]',
+                    )}
+                    aria-hidden
+                  >
+                    <div className="absolute inset-0 rounded-2xl bg-primary/[0.07] ring-1 ring-primary/10 dark:bg-primary/[0.11] dark:ring-primary/15" />
+                    <Icon className="relative z-[1] size-9 text-primary/30 transition-colors duration-300 group-hover:text-primary/50 sm:size-10" />
+                  </div>
                 </div>
               </div>
-            </div>
-          )
-        })}
-      </div>
+            )
+          })}
+        </div>
+      )}
     </BlockContainer>
   )
 }

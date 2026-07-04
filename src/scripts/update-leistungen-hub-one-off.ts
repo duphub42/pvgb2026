@@ -55,9 +55,7 @@ if (!page) {
 
 const servicesOverviewId = makeId()
 const introductionId = makeId()
-const processFlowId = makeId()
 const servicesGridId = makeId()
-const whyWorkWithMeId = makeId()
 const calPopupId = makeId()
 
 const servicesOverviewItems = [
@@ -65,44 +63,25 @@ const servicesOverviewItems = [
     icon: 'compass',
     title: 'Strategie & Beratung',
     description:
-      'Positionierung, Zielbild und Prioritäten, damit jede Maßnahme auf ein klares Ergebnis einzahlt.',
+      'Ziele, Positionierung und die richtige digitale Richtung, bevor Zeit und Budget in Einzelmaßnahmen fließen.',
   },
   {
     icon: 'code',
     title: 'Webdesign & Umsetzung',
     description:
-      'Reduziertes, hochwertiges Design plus technische Umsetzung für schnelle, stabile und wartbare Systeme.',
+      'Reduziertes, hochwertiges Design mit sauberer Technik, guter Performance und klarer Nutzerführung.',
   },
   {
     icon: 'megaphone',
     title: 'Marketing & Reichweite',
     description:
-      'Gezielte Maßnahmen für Sichtbarkeit, qualifizierte Anfragen und nachvollziehbare Performance.',
+      'Maßnahmen für Sichtbarkeit, qualifizierte Anfragen und nachvollziehbare Ergebnisse.',
   },
   {
     icon: 'shield',
     title: 'Wartung & Entwicklung',
     description:
-      'Kontinuierliche Pflege, Verbesserungen und klare Weiterentwicklung statt punktueller Einmal-Projekte.',
-  },
-]
-
-const processSteps = [
-  {
-    title: 'Konzept & Informationsarchitektur',
-    text: 'Struktur, Seitenlogik und User-Flows werden klar definiert, bevor Design und Entwicklung starten.',
-  },
-  {
-    title: 'Design & Content',
-    text: 'Visuelle Sprache und Inhalte werden aufeinander abgestimmt, damit Marke und Nutzen auf den ersten Blick verständlich sind.',
-  },
-  {
-    title: 'Technische Umsetzung',
-    text: 'Performante Entwicklung mit sauberer Basis für SEO, Tracking, Erweiterungen und langfristige Wartbarkeit.',
-  },
-  {
-    title: 'Launch, Messung und Optimierung',
-    text: 'Nach dem Go-live werden Daten genutzt, um Conversions, Sichtbarkeit und Prozesse systematisch weiterzuentwickeln.',
+      'Kontinuierliche Pflege, Updates und Optimierungen für stabile Websites mit Entwicklungsspielraum.',
   },
 ]
 
@@ -143,31 +122,15 @@ const servicesGridCategories = [
   },
 ]
 
-const reasons = [
-  {
-    icon: 'zap',
-    title: 'Technisch präzise',
-    description: 'Klare Standards für Code, Performance und Wartbarkeit.',
-  },
-  {
-    icon: 'target',
-    title: 'Reduziert und fokussiert',
-    description: 'Kein Overhead, sondern schlank gestaltete Lösungen mit klarem Nutzen.',
-  },
-  {
-    icon: 'shield',
-    title: 'Verlässlich',
-    description: 'Webseiten und Systeme mit langfristiger Stabilität und Sicherheit.',
-  },
-]
-
-const allTables = (db.prepare(
-  `
+const allTables = (db
+  .prepare(
+    `
   SELECT name
   FROM sqlite_master
   WHERE type = 'table' AND name NOT LIKE 'sqlite_%'
   `,
-).all() ?? []) as TableInfoRow[]
+  )
+  .all() ?? []) as TableInfoRow[]
 
 const isTopLevelLayoutTable = (tableName: string): boolean => {
   if (tableName.startsWith('_')) return false
@@ -197,9 +160,7 @@ const deleteExistingLayout = (pageId: number): string[] => {
 
   for (const tableName of topLevelLayoutTables) {
     const rows = db
-      .prepare<[number]>(
-        `SELECT id FROM "${tableName}" WHERE _parent_id = ? AND _path = 'layout'`,
-      )
+      .prepare<[number]>(`SELECT id FROM "${tableName}" WHERE _parent_id = ? AND _path = 'layout'`)
       .all(pageId) as Array<{ id?: string | number }>
 
     rows.forEach((row) => {
@@ -215,9 +176,9 @@ const deleteExistingLayout = (pageId: number): string[] => {
   if (oldBlockIds.length > 0) {
     const placeholders = oldBlockIds.map(() => '?').join(', ')
     for (const tableName of childTables) {
-      db.prepare(
-        `DELETE FROM "${tableName}" WHERE _parent_id IN (${placeholders})`,
-      ).run(...oldBlockIds)
+      db.prepare(`DELETE FROM "${tableName}" WHERE _parent_id IN (${placeholders})`).run(
+        ...oldBlockIds,
+      )
     }
   }
 
@@ -233,8 +194,8 @@ const applyLayout = (pageId: number) => {
     `,
   ).run(
     'Leistungen',
-    'Leistungen | Webdesign, Marketing, Wartung',
-    'Editierbare Leistungen für Webdesign, Marketing und Wartung. Minimal, technisch und hochwertig strukturiert.',
+    'Leistungen | Webdesign, Marketing und Betreuung',
+    'Klar strukturierte Leistungen für Webdesign, Marketing und laufende Website-Betreuung.',
     nowIso,
     pageId,
   )
@@ -250,8 +211,8 @@ const applyLayout = (pageId: number) => {
     pageId,
     'layout',
     servicesOverviewId,
-    'Leistungs-Hub auf einen Blick',
-    'Vier Kernbereiche, die als zusammenhängender Prozess funktionieren - von der strategischen Grundlage bis zur kontinuierlichen Optimierung.',
+    'Wobei ich Sie unterstütze',
+    'Vier Bereiche, die einzeln buchbar sind und zusammen eine klare digitale Gesamtstrategie ergeben.',
     null as unknown as string,
   )
 
@@ -276,77 +237,12 @@ const applyLayout = (pageId: number) => {
     pageId,
     'layout',
     introductionId,
-    'Ein Hub statt isolierter Einzelleistungen',
-    'Der Leistungs-Hub bündelt Strategie, Gestaltung, Technik und Vermarktung in einer klaren Journey. So entstehen keine Medienbrüche zwischen Beratung, Umsetzung und Betrieb.',
-    'Edel im Auftritt. Präzise in der Ausführung. Messbar in der Wirkung.',
+    'Ein Hub für alle Leistungen',
+    'Damit Sie schnell den passenden Bereich finden und direkt sehen, wie ich arbeite.',
+    'Klar strukturiert. Direkt verständlich. Auf den Punkt.',
   )
 
-  db.prepare<
-    [
-      number,
-      number,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      string,
-      number,
-    ]
-  >(
-    `
-    INSERT INTO site_pages_blocks_consulting_overview
-      (
-        _order, _parent_id, _path, id,
-        headline, intro_text,
-        strategy_label, strategy_sub_label, strategy_title, strategy_text,
-        benefits_label, benefits_sub_label, benefits_title,
-        experience_label, experience_sub_label, experience_title,
-        pixel_layout_desktop
-      )
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `,
-  ).run(
-    3,
-    pageId,
-    'layout',
-    processFlowId,
-    'So läuft die Zusammenarbeit - klar, strukturiert, transparent',
-    'Jeder Schritt baut logisch auf dem vorherigen auf. Das reduziert Reibung und schafft eine belastbare Grundlage für Wachstum.',
-    'Analyse & Ausrichtung',
-    'Strategischer Startpunkt',
-    'Gemeinsam definieren wir Ziele, Prioritäten und die richtige digitale Richtung',
-    'Am Anfang stehen Zielgruppen, Angebotsschärfung und ein realistischer Maßnahmenplan. Damit wird aus Einzelideen ein konsistentes System mit klaren Prioritäten.',
-    'Umsetzung & Ergebnis',
-    'Vom Konzept zur Wirkung',
-    'Umsetzung in präzisen Etappen',
-    'Langfristige Partnerschaft',
-    'Stabilität mit Entwicklungsspielraum',
-    'Nach dem Launch begleite ich den Hub kontinuierlich bei Verbesserungen, Tests und Skalierung',
-    1,
-  )
-
-  processSteps.forEach((step, index) => {
-    db.prepare<[number, string, string, string, string]>(
-      `
-      INSERT INTO site_pages_blocks_consulting_overview_benefit_items
-        (_order, _parent_id, id, title, text)
-      VALUES (?, ?, ?, ?, ?)
-      `,
-    ).run(index + 1, processFlowId, makeId(), step.title, step.text)
-  })
-
-  db.prepare<
-    [number, number, string, string, string, string, string, number, string, string]
-  >(
+  db.prepare<[number, number, string, string, string, string, string, number, string, string]>(
     `
     INSERT INTO services_grid
       (
@@ -357,13 +253,13 @@ const applyLayout = (pageId: number) => {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
     `,
   ).run(
-    4,
+    3,
     pageId,
     'layout',
     servicesGridId,
-    'Meine Servicebereiche',
-    'Wählen Sie den Bereich, der zu Ihrem Projekt passt. Jede Seite ist editierbar und fokussiert auf einen klaren Leistungsbereich.',
-    'Klar strukturiert. Zielgerichtet. Backend-bearbeitbar.',
+    'Leistungsspektrum im Überblick',
+    'Jeder Bereich ist einzeln buchbar und führt auf eine eigene Unterseite. Dort sehen Sie typische Leistungen, konkrete Schwerpunkte und den jeweiligen Nutzen auf einen Blick. So können Sie schnell einschätzen, welcher Bereich zu Ihrem Ziel passt und direkt den nächsten Schritt gehen.',
+    '',
     1,
     'blue',
     'medium',
@@ -400,32 +296,6 @@ const applyLayout = (pageId: number) => {
     })
   })
 
-  db.prepare<[number, number, string, string, string, string, string]>(
-    `
-    INSERT INTO site_pages_blocks_why_work_with_me
-      (_order, _parent_id, _path, id, heading, intro, block_name)
-    VALUES (?, ?, ?, ?, ?, ?, ?)
-    `,
-  ).run(
-    5,
-    pageId,
-    'layout',
-    whyWorkWithMeId,
-    'Warum diese Leistungen funktionieren',
-    'Jede Spezialisierung ist so aufgebaut, dass Inhalte und Abläufe klar bleiben – auch im Backend.',
-    null as unknown as string,
-  )
-
-  reasons.forEach((reason, index) => {
-    db.prepare<[number, string, string, string, string, string]>(
-      `
-      INSERT INTO site_pages_blocks_why_work_with_me_reasons
-        (_order, _parent_id, id, icon, title, description)
-      VALUES (?, ?, ?, ?, ?, ?)
-      `,
-    ).run(index + 1, whyWorkWithMeId, makeId(), reason.icon, reason.title, reason.description)
-  })
-
   db.prepare<[number, number, string, string, string, string, string, string]>(
     `
     INSERT INTO site_pages_blocks_cal_popup
@@ -433,12 +303,12 @@ const applyLayout = (pageId: number) => {
     VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     `,
   ).run(
-    6,
+    4,
     pageId,
     'layout',
     calPopupId,
-    'Gemeinsam den nächsten Schritt planen',
-    'In einem kurzen Kennenlerntermin prüfen wir gemeinsam, welcher Leistungsbereich am besten zu Ihrem Projekt passt.',
+    'Lassen Sie uns das passende Vorgehen für Ihr Projekt finden',
+    'In einem kurzen Gespräch klären wir, welcher Leistungsbereich für Sie am sinnvollsten ist und wie der nächste Schritt aussieht.',
     'philippbacher/30min',
     'Termin buchen',
   )
@@ -453,7 +323,7 @@ const runner = db.transaction((pageId: number) => {
 if (dryRun) {
   console.log(`[dry-run] DB: ${dbPath}`)
   console.log(
-    `[dry-run] page: id=${page.id}, slug=${page.slug}, title=${page.title}, will_apply_layout_blocks=6`,
+    `[dry-run] page: id=${page.id}, slug=${page.slug}, title=${page.title}, will_apply_layout_blocks=5`,
   )
   db.close()
   process.exit(0)

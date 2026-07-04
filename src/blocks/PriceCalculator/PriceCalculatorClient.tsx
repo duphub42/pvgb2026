@@ -187,7 +187,8 @@ export function PriceCalculatorClient(props: {
           {copy.sectionLabel}
         </p>
         <h2 className="mb-2 type-heading-xl text-foreground">{copy.heading}</h2>
-        <p className="mb-6 max-w-prose type-body text-muted-foreground">{copy.sub}</p>
+        <p className="mb-4 w-full type-body text-muted-foreground">{copy.sub}</p>
+        <hr className="mb-6 border-border/60" />
 
         <div className="mb-5 flex flex-wrap gap-2">
           {sortedCategories.map((c) => (
@@ -332,27 +333,31 @@ export function PriceCalculatorClient(props: {
 
       {showRatesSection && (
         <section className="py-6">
-          <p className="mb-2 type-body-sm uppercase tracking-[0.08em] text-muted-foreground">
-            {copy.ratesSectionLabel}
-          </p>
-          <h2 className="mb-5 type-heading-md text-foreground md:type-heading-lg">
-            {copy.ratesHeading}
-          </h2>
-          <div className="mb-4 flex flex-wrap gap-8">
-            <div>
-              <div className="type-heading-md text-foreground">{fmtEuro(copy.hourlyRate)} €</div>
-              <div className="mt-0.5 type-body text-muted-foreground">Stundensatz · netto</div>
+          <div className="rounded-3xl border border-border/80 bg-background/80 p-6 shadow-sm md:p-8">
+            <p className="mb-2 type-body-sm uppercase tracking-[0.08em] text-muted-foreground">
+              {copy.ratesSectionLabel}
+            </p>
+            <h2 className="mb-6 type-heading-md text-foreground md:type-heading-lg">
+              {copy.ratesHeading}
+            </h2>
+            <div className="grid gap-6 sm:grid-cols-3">
+              <div>
+                <div className="type-heading-md text-foreground">{fmtEuro(copy.hourlyRate)} €</div>
+                <div className="mt-0.5 type-body text-muted-foreground">Stundensatz · netto</div>
+              </div>
+              <div>
+                <div className="type-heading-md text-foreground">{fmtEuro(copy.dayRate)} €</div>
+                <div className="mt-0.5 type-body text-muted-foreground">Tagessatz (8h) · netto</div>
+              </div>
+              <div>
+                <div className="type-heading-md text-foreground">{fmtEuro(copy.weekRate)} €</div>
+                <div className="mt-0.5 type-body text-muted-foreground">Wochensatz · netto</div>
+              </div>
             </div>
-            <div>
-              <div className="type-heading-md text-foreground">{fmtEuro(copy.dayRate)} €</div>
-              <div className="mt-0.5 type-body text-muted-foreground">Tagessatz (8h) · netto</div>
-            </div>
-            <div>
-              <div className="type-heading-md text-foreground">{fmtEuro(copy.weekRate)} €</div>
-              <div className="mt-0.5 type-body text-muted-foreground">Wochensatz · netto</div>
+            <div className="mt-6 border-t border-border/70 pt-5">
+              <p className="max-w-prose type-body text-muted-foreground">{copy.ratesNote}</p>
             </div>
           </div>
-          <p className="max-w-prose type-body text-muted-foreground">{copy.ratesNote}</p>
         </section>
       )}
     </div>
