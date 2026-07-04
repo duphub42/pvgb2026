@@ -1,0 +1,10 @@
+.env
+.env.*
+env.local
+payload.db
+payload.db-*
+node_modules
+.next
+.next-dev
+data/backup
+data/export-from-neon
