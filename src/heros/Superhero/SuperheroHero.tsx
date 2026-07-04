@@ -577,7 +577,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               <div
                 className={cn(
                   heroLayerClass,
-                  'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-x-6 gap-y-6 mt-5 animate-in fade-in slide-in-from-bottom-2 duration-700',
+                  'grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-4 min-[420px]:gap-x-4 md:gap-x-6 md:gap-y-6 mt-5 animate-in fade-in slide-in-from-bottom-2 duration-700',
                 )}
               >
                 {stats!.map((stat, i) => {
@@ -587,7 +587,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                   return (
                     <div
                       key={stat.id ?? i}
-                      className="hero-stat-item relative flex flex-col gap-1.5 pr-6"
+                      className="hero-stat-item relative flex min-w-0 flex-col gap-1 pr-2 min-[420px]:pr-4 md:gap-1.5 md:pr-6"
                     >
                       {Icon ? (
                         <Icon
@@ -596,10 +596,10 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                           aria-hidden
                         />
                       ) : null}
-                      <span className="text-3xl font-semibold leading-none tracking-tight hero-heading-gradient">
+                      <span className="hero-stat-value text-lg font-semibold leading-none tracking-normal min-[420px]:text-3xl hero-heading-gradient">
                         {stat.value}
                       </span>
-                      <span className="text-[0.78rem] leading-snug hero-subheading-contrast uppercase tracking-[0.06em]">
+                      <span className="hero-stat-label text-[0.5rem] leading-tight hero-subheading-contrast uppercase tracking-normal min-[420px]:text-[0.68rem] md:text-[0.78rem] md:leading-snug">
                         {stat.label}
                       </span>
                     </div>

@@ -818,13 +818,10 @@ nav.megamenu-nav a.megamenu-top-item {
   opacity: 0.72;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.12);
 }
-.hero-stat-item:nth-child(2n)::after {
+.hero-stat-item:nth-child(3n)::after {
   display: none;
 }
 @media (min-width: 768px) {
-  .hero-stat-item:nth-child(2n)::after {
-    display: block;
-  }
   .hero-stat-item:nth-child(3n)::after {
     display: none;
   }
@@ -839,6 +836,10 @@ nav.megamenu-nav a.megamenu-top-item {
 }
 .hero-stat-item:last-child::after {
   display: none;
+}
+.hero-stat-label {
+  overflow-wrap: anywhere;
+  hyphens: auto;
 }
 
 /* MegaMenu special column with background image + overlay. */

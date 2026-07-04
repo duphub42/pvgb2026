@@ -26,10 +26,12 @@ import {
 } from 'lucide-react'
 import { cn } from '@/utilities/ui'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
+import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 import type { ServicesGridBlock as ServicesGridBlockData } from '@/payload-types'
 import { containerMap, type BlockStyles } from '@/blocks/BlockStyleSystem'
 import { BlockContainer } from '@/components/BlockContainer'
+import { ResilientImage } from '@/components/ui/resilient-image'
 
 type ServicesGridProps = ServicesGridBlockData & {
   disableInnerContainer?: boolean
@@ -99,12 +101,21 @@ const getServiceFallbackIcon = (title?: string | null): LucideIcon => {
   return CircleHelp
 }
 
-const isLikelyPlaceholderServiceIconUrl = (url?: string | null): boolean => {
+const normalizeServiceIconUrl = (url?: string | null): string => {
   const src = String(url ?? '').trim()
-  return /\/api\/media\/stream\/\d+/.test(src)
+  if (!src) return ''
+  if (src.startsWith('http://') || src.startsWith('https://')) return getMediaUrl(src)
+  if (src.startsWith('/api/media/') || src.startsWith('/media/')) return getMediaUrl(src)
+  if (/^[^/?#]+\.(?:svg|png|jpe?g|webp|gif|avif)(?:[?#].*)?$/i.test(src)) {
+    return `/api/media/file/${src}`
+  }
+  return getMediaUrl(src)
 }
 
-const isTinyLoadedImage = (img: HTMLImageElement): boolean => {
+const isSvgUrl = (src?: string | null): boolean => /\.svg(?:$|[?#])/i.test(String(src ?? ''))
+
+const isTinyLoadedImage = (img: HTMLImageElement, src?: string | null): boolean => {
+  if (isSvgUrl(src)) return false
   return img.naturalWidth <= 2 && img.naturalHeight <= 2
 }
 
@@ -121,8 +132,8 @@ function ServiceCardIcon({
   title,
   eager = false,
 }: ServiceCardIconProps): React.JSX.Element {
-  const cleanSrc = String(src ?? '').trim()
-  const shouldStartWithImage = Boolean(cleanSrc) && !isLikelyPlaceholderServiceIconUrl(cleanSrc)
+  const cleanSrc = normalizeServiceIconUrl(src)
+  const shouldStartWithImage = Boolean(cleanSrc)
   const [useImage, setUseImage] = React.useState<boolean>(shouldStartWithImage)
 
   React.useEffect(() => {
@@ -133,7 +144,7 @@ function ServiceCardIcon({
 
   if (useImage) {
     return (
-      <img
+      <ResilientImage
         src={cleanSrc}
         alt={String(alt ?? title)}
         className="services-grid-card-icon-img h-full w-full object-contain"
@@ -141,7 +152,7 @@ function ServiceCardIcon({
         fetchPriority={eager ? 'high' : 'auto'}
         decoding={eager ? 'sync' : 'async'}
         onLoad={(event) => {
-          if (isTinyLoadedImage(event.currentTarget)) {
+          if (isTinyLoadedImage(event.currentTarget, cleanSrc)) {
             setUseImage(false)
           }
         }}
@@ -210,7 +221,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
   const hasIconList = Array.isArray(introIconList) && introIconList.length > 0
   const eagerServiceIconUrls = (servicesData[0]?.services ?? [])
     .slice(0, 3)
-    .map((service) => String(service?.icon?.url ?? '').trim())
+    .map((service) => normalizeServiceIconUrl(service?.icon?.url))
     .filter(Boolean)
   const introLayoutClass = introImagePosition === 'left' ? 'lg:flex-row-reverse' : 'lg:flex-row'
   const introImagePopoutClass =

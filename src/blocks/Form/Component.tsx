@@ -282,8 +282,12 @@ export const FormBlock: React.FC<
           <Accordion type="single" collapsible className="mt-6">
             {CONTACT_FAQS.map((faq, index) => (
               <AccordionItem key={faq.question} value={`faq-${index}`}>
-                <AccordionTrigger>{faq.question}</AccordionTrigger>
-                <AccordionContent>{faq.answer}</AccordionContent>
+                <AccordionTrigger className="text-[13px] leading-5 sm:text-sm">
+                  {faq.question}
+                </AccordionTrigger>
+                <AccordionContent className="text-[13px] leading-6 sm:text-sm">
+                  {faq.answer}
+                </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

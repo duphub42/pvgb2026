@@ -93,7 +93,7 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
           ) : null}
         </div>
 
-        <div className="mt-7 grid gap-3 sm:grid-cols-2 lg:grid-cols-4 xl:gap-4">
+        <div className="mt-7 grid w-full items-stretch gap-3 sm:grid-cols-2 xl:grid-cols-3 xl:gap-4">
           {kpis.map((item, index) => {
             const key = typeof item.id === 'string' && item.id ? item.id : `kpi-${index}`
             const trend = (item.trend ?? 'up') as Trend
@@ -101,7 +101,7 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
             const TrendIcon = meta.icon
 
             return (
-              <article key={key} className={cn('rounded-2xl border p-4 md:p-5', cardClass)}>
+              <article key={key} className={cn('h-full rounded-2xl border p-4 md:p-5', cardClass)}>
                 <div className="mb-4 flex items-center justify-between gap-2">
                   <p className="text-3xl font-semibold leading-none md:text-4xl">{item.value}</p>
                   <Badge
@@ -127,7 +127,7 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
       </div>
 
       {shouldShowPricingContext ? (
-        <div className="container mt-7 md:mt-8">
+        <div className="container mt-14 md:mt-16">
           <div className="grid gap-5 md:grid-cols-3">
             {pricingContextBlocks.map((block) => (
               <article key={block.title} className="h-full">

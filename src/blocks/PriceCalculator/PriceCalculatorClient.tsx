@@ -181,16 +181,16 @@ export function PriceCalculatorClient(props: {
   }
 
   return (
-    <div className="w-full min-w-0 overflow-hidden py-4">
-      <section className="border-b border-border/80 py-6 md:py-8 first:pt-0">
+    <div className="w-full min-w-0 overflow-hidden py-6">
+      <section className="border-b border-border/80 py-8 md:py-10 first:pt-0">
         <p className="mb-2 type-body-sm uppercase tracking-[0.08em] text-muted-foreground">
           {copy.sectionLabel}
         </p>
-        <h2 className="mb-2 type-heading-xl text-foreground">{copy.heading}</h2>
-        <p className="mb-4 w-full type-body text-muted-foreground">{copy.sub}</p>
-        <hr className="mb-6 border-border/60" />
+        <h2 className="mb-3 type-heading-xl text-foreground">{copy.heading}</h2>
+        <p className="mb-6 w-full type-body text-muted-foreground">{copy.sub}</p>
+        <hr className="mb-8 border-border/60" />
 
-        <div className="mb-5 flex flex-wrap gap-2">
+        <div className="mb-7 flex flex-wrap gap-2.5">
           {sortedCategories.map((c) => (
             <button
               key={String(c.id)}
@@ -209,12 +209,12 @@ export function PriceCalculatorClient(props: {
         </div>
 
         {activeCategory && activeCategory.items.length === 0 && (
-          <p className="mb-4 type-body text-muted-foreground">
+          <p className="mb-6 type-body text-muted-foreground">
             In dieser Kategorie sind noch keine Leistungen hinterlegt.
           </p>
         )}
         {activeCategory && activeCategory.items.length > 0 && (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))]">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-[repeat(auto-fit,minmax(min(100%,16rem),1fr))] md:gap-6">
             {[...activeCategory.items]
               .sort(
                 (a, b) =>
@@ -229,7 +229,7 @@ export function PriceCalculatorClient(props: {
                     type="button"
                     onClick={() => toggleItem(item.id)}
                     className={cn(
-                      'min-w-0 cursor-pointer rounded-3xl border border-border bg-background p-5 text-left shadow-sm transition duration-200 hover:border-slate-400/60 hover:shadow-md',
+                      'min-w-0 cursor-pointer rounded-3xl border border-border bg-background p-5 text-left shadow-sm transition duration-200 hover:border-slate-400/60 hover:shadow-md md:p-6',
                       on &&
                         'border-slate-400/60 bg-slate-100 dark:border-slate-700 dark:bg-slate-950/40',
                     )}
@@ -245,7 +245,7 @@ export function PriceCalculatorClient(props: {
                     </div>
                     <p
                       className={cn(
-                        'mb-3 type-body text-muted-foreground',
+                        'mb-4 mt-2 type-body text-muted-foreground',
                         on && 'text-slate-700 dark:text-slate-300',
                       )}
                     >
@@ -265,7 +265,7 @@ export function PriceCalculatorClient(props: {
           </div>
         )}
 
-        <div className="mt-4 rounded-lg border border-border/80 bg-background p-5">
+        <div className="mt-7 rounded-2xl border border-border/80 bg-background p-5 md:mt-8 md:p-6">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <div className="type-heading-lg text-foreground">
@@ -311,7 +311,7 @@ export function PriceCalculatorClient(props: {
               )}
             </div>
           </div>
-          <div className="mt-4 flex flex-col gap-1.5 border-t border-border/80 pt-4">
+          <div className="mt-5 flex flex-col gap-2 border-t border-border/80 pt-5">
             {breakdownRows.length === 0 ? (
               <p className="py-1 type-body text-muted-foreground">{copy.emptyBreakdownMessage}</p>
             ) : (
@@ -332,8 +332,8 @@ export function PriceCalculatorClient(props: {
       </section>
 
       {showRatesSection && (
-        <section className="py-6">
-          <div className="rounded-3xl border border-border/80 bg-background/80 p-6 shadow-sm md:p-8">
+        <section className="py-8 md:py-10">
+          <div className="rounded-3xl border border-border/80 bg-gradient-to-br from-card/95 via-background/90 to-muted/45 p-6 shadow-[0_18px_50px_-42px_color-mix(in_srgb,var(--theme-elevation-1000)_65%,transparent)] md:p-8">
             <p className="mb-2 type-body-sm uppercase tracking-[0.08em] text-muted-foreground">
               {copy.ratesSectionLabel}
             </p>

@@ -315,18 +315,18 @@ export function PricingTableBlock({
   const footnote = asText(comparisonFootnote)
 
   return (
-    <section className="container w-full min-w-0 py-14 md:py-16 lg:py-20">
-      <div className="relative p-6 md:p-8 lg:p-10">
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -inset-10 rounded-[3rem] bg-[radial-gradient(120%_95%_at_50%_40%,color-mix(in_srgb,var(--theme-elevation-0)_86%,transparent)_0%,color-mix(in_srgb,var(--theme-elevation-0)_62%,transparent)_38%,color-mix(in_srgb,var(--theme-elevation-0)_28%,transparent)_68%,transparent_100%)] blur-2xl"
-        />
-        <div
-          aria-hidden
-          className="pointer-events-none absolute -inset-2 rounded-[2.15rem] bg-[radial-gradient(85%_55%_at_50%_0%,color-mix(in_srgb,var(--theme-elevation-1000)_10%,transparent)_0%,transparent_80%)]"
-        />
+    <section className="relative w-full min-w-0 overflow-hidden py-14 md:py-16 lg:py-20">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -inset-y-10 bg-[radial-gradient(90%_92%_at_50%_42%,color-mix(in_srgb,var(--theme-elevation-0)_86%,transparent)_0%,color-mix(in_srgb,var(--theme-elevation-0)_62%,transparent)_38%,color-mix(in_srgb,var(--theme-elevation-0)_28%,transparent)_68%,transparent_100%)] blur-2xl"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 top-0 h-[52%] bg-[radial-gradient(85%_55%_at_50%_0%,color-mix(in_srgb,var(--theme-elevation-1000)_10%,transparent)_0%,transparent_80%)]"
+      />
 
-        <div className="relative z-10">
+      <div className="container relative z-10 w-full min-w-0">
+        <div className="relative p-6 md:p-8 lg:p-10">
           <div className="mx-auto max-w-3xl text-center">
             <Badge variant="primary">
               {sectionEyebrow}

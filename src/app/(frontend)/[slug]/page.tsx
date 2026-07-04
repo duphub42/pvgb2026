@@ -330,13 +330,13 @@ export default async function Page({
               )}
             >
               <SectionReveal className="relative z-0 pt-24">
-                {previewIsPricesPage && <PreiseFaqBox />}
                 <RenderBlocks blocks={previewBlocksBeforeAndIncludingCta} />
                 {previewRenderFaqAfterCta && <PortfolioFaqBox />}
                 {previewBlocksAfterCta.length > 0 && (
                   <RenderBlocks blocks={previewBlocksAfterCta} />
                 )}
                 {previewRenderFaqAtEnd && <PortfolioFaqBox />}
+                {previewIsPricesPage && <PreiseFaqBox />}
                 {isHomePageSlug(previewSlug) && <Faq8 />}
               </SectionReveal>
             </div>
@@ -452,11 +452,11 @@ export default async function Page({
           )}
         >
           <SectionReveal className="relative z-0 pt-24">
-            {isPricesPage && <PreiseFaqBox />}
             <RenderBlocks blocks={blocksBeforeAndIncludingCta} />
             {renderFaqAfterCta && <PortfolioFaqBox />}
             {blocksAfterCta.length > 0 && <RenderBlocks blocks={blocksAfterCta} />}
             {renderFaqAtEnd && <PortfolioFaqBox />}
+            {isPricesPage && <PreiseFaqBox />}
             {showHomeFaq && <Faq8 />}
           </SectionReveal>
         </div>
