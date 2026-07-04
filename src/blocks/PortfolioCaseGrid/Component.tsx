@@ -146,11 +146,19 @@ const isExternalHref = (href: string): boolean =>
 const isMediaObject = (value: unknown): value is MediaType =>
   typeof value === 'object' && value !== null
 
+const blockBgVar: Record<string, string> = {
+  muted: 'var(--muted)',
+  accent: 'var(--accent)',
+  light: 'var(--theme-elevation-50)',
+  dark: 'var(--theme-elevation-800)',
+}
+
 export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   eyebrow,
   heading,
   intro,
   cases,
+  blockBackground,
 }) => {
   const rows = useMemo(
     () =>
@@ -279,8 +287,10 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
   if (!rows.length) return null
 
+  const fadeBg = blockBgVar[(blockBackground as string) ?? ''] ?? 'var(--background)'
+
   return (
-    <section className="relative w-full py-16 md:py-20">
+    <section className="relative w-full py-16 md:py-20" style={{ ['--pcg-fade-bg' as string]: fadeBg }}>
       {/* Background Blur Overlay – Like MegaMenu Dropdown */}
       <div
         className={cn(
@@ -315,8 +325,14 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
         <div className="mt-8">
           {!activeCase ? (
             <div className="relative -mx-4 px-4">
-              <div className="pointer-events-none absolute inset-y-0 left-4 z-10 w-12 bg-gradient-to-r from-background/95 via-background/55 to-transparent backdrop-blur-[1px] md:w-20" />
-              <div className="pointer-events-none absolute inset-y-0 right-4 z-10 w-12 bg-gradient-to-l from-background/95 via-background/55 to-transparent backdrop-blur-[1px] md:w-20" />
+              <div
+                className="pointer-events-none absolute inset-y-0 left-4 z-10 w-12 backdrop-blur-[1px] md:w-20"
+                style={{ background: 'linear-gradient(to right, var(--pcg-fade-bg) 0%, color-mix(in srgb, var(--pcg-fade-bg) 55%, transparent) 60%, transparent 100%)' }}
+              />
+              <div
+                className="pointer-events-none absolute inset-y-0 right-4 z-10 w-12 backdrop-blur-[1px] md:w-20"
+                style={{ background: 'linear-gradient(to left, var(--pcg-fade-bg) 0%, color-mix(in srgb, var(--pcg-fade-bg) 55%, transparent) 60%, transparent 100%)' }}
+              />
 
               <button
                 type="button"
