@@ -42,12 +42,21 @@ function getLegacyDbUrl() {
 const activeDbUrl = process.env.DATABASE_URL?.trim() || process.env.POSTGRES_URL?.trim() || ''
 const legacyDbUrl = getLegacyDbUrl()
 
-if (activeDbUrl && legacyDbUrl && activeDbUrl !== legacyDbUrl) {
+if (activeDbUrl && legacyDbUrl) {
   const active = parseDbTarget(activeDbUrl)
   const legacy = parseDbTarget(legacyDbUrl)
-  const activeLabel = active ? `${active.host}/${active.database}` : 'unbekanntes Ziel'
-  const legacyLabel = legacy ? `${legacy.host}/${legacy.database}` : 'unbekanntes Ziel'
-  throw new Error(
-    `[load-env-for-payload] DB-Konflikt: env.local zeigt auf ${legacyLabel}, aktiv ist ${activeLabel}. Entferne oder benenne env.local um, damit Payload CLI und App dieselbe Neon-DB verwenden.`,
-  )
+  const sameTarget =
+    active &&
+    legacy &&
+    active.host === legacy.host &&
+    active.database === legacy.database
+
+  if (!sameTarget && activeDbUrl !== legacyDbUrl) {
+    const activeLabel = active ? `${active.host}/${active.database}` : 'unbekanntes Ziel'
+    const legacyLabel = legacy ? `${legacy.host}/${legacy.database}` : 'unbekanntes Ziel'
+
+    throw new Error(
+      `[load-env-for-payload] DB-Konflikt: env.local zeigt auf ${legacyLabel}, aktiv ist ${activeLabel}. Entferne oder benenne env.local um, damit Payload CLI und App dieselbe Neon-DB verwenden.`,
+    )
+  }
 }

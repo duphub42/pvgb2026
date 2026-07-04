@@ -163,12 +163,23 @@ if (useSqliteAdapter) {
   }
 
   const legacyUrl = getEnvLocalDatabaseUrl(projectRoot)
-  if (legacyUrl && legacyUrl !== activePostgresUrl) {
-    const legacyLabel = formatDbTargetLabel(legacyUrl)
-    const activeLabel = formatDbTargetLabel(activePostgresUrl)
-    throw new Error(
-      `[Payload Config] DB-Konflikt: env.local zeigt auf ${legacyLabel}, aktiv ist ${activeLabel}. Entferne oder benenne env.local um, damit App und Migrationen dieselbe Neon-DB verwenden.`,
-    )
+  if (legacyUrl) {
+    const legacyTarget = parseDbTarget(legacyUrl)
+    const activeTarget = parseDbTarget(activePostgresUrl)
+    const sameTarget =
+      legacyTarget &&
+      activeTarget &&
+      legacyTarget.host === activeTarget.host &&
+      legacyTarget.database === activeTarget.database
+
+    if (!sameTarget && legacyUrl !== activePostgresUrl) {
+      const legacyLabel = formatDbTargetLabel(legacyUrl)
+      const activeLabel = formatDbTargetLabel(activePostgresUrl)
+
+      throw new Error(
+        `[Payload Config] DB-Konflikt: env.local zeigt auf ${legacyLabel}, aktiv ist ${activeLabel}. Entferne oder benenne env.local um, damit App und Migrationen dieselbe Neon-DB verwenden.`,
+      )
+    }
   }
 }
 

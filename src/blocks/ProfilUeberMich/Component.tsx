@@ -1,5 +1,4 @@
 import React from 'react'
-import { Target } from 'lucide-react'
 
 import type { ProfilUeberMichBlock as BlockData } from '@/payload-types'
 
@@ -7,7 +6,6 @@ import {
   profilUeberMichEinleitungDefault,
   profilWerteDefaults,
 } from '@/blocks/ProfilBlocks/defaults'
-import { WERT_ICON_MAP } from '@/blocks/ProfilBlocks/shared'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
 import { cn } from '@/utilities/ui'
@@ -35,7 +33,6 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
     fromCms.length > 0
       ? fromCms
       : profilWerteDefaults.map((w) => ({
-          icon: w.icon,
           wert: w.wert,
           beschreibung: w.beschreibung,
         }))
@@ -62,8 +59,6 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
 
         <div className="grid gap-5 sm:grid-cols-2 lg:gap-6">
           {rows.map((w, idx) => {
-            const iconKey = typeof w.icon === 'string' ? w.icon : 'strategy'
-            const Icon = WERT_ICON_MAP[iconKey] ?? Target
             return (
               <Card
                 key={
@@ -78,17 +73,10 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
                   aria-hidden
                   className="absolute inset-x-6 top-0 h-px bg-gradient-to-r from-transparent via-primary/45 to-transparent"
                 />
-                <div className="mb-4 flex items-start gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary ring-1 ring-primary/20 transition-colors duration-300 group-hover:bg-primary/15">
-                    <Icon className="h-5 w-5" aria-hidden />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-foreground">{w.wert}</h3>
-                    <p className="mt-1 text-sm leading-relaxed text-muted-foreground md:text-base">
-                      {w.beschreibung}
-                    </p>
-                  </div>
-                </div>
+                <h3 className="text-lg font-semibold text-foreground">{w.wert}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground md:text-base">
+                  {w.beschreibung}
+                </p>
               </Card>
             )
           })}

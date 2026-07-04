@@ -4,7 +4,7 @@
   "crons": [
     {
       "path": "/api/warmup",
-      "schedule": "*/5 * * * *"
+      "schedule": "0 6 * * *"
     },
     {
       "path": "/api/payload-jobs/run",

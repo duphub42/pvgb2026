@@ -7,8 +7,11 @@ import configPromise from '@payload-config'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { SectionReveal } from '@/components/ui/SectionReveal'
 import { Faq8 } from '@/components/ui/faq-8'
+import { CorporateIdentityFaqBox } from '@/components/CorporateIdentityFaqBox'
 import { PortfolioFaqBox } from '@/components/PortfolioFaqBox'
 import { PreiseFaqBox } from '@/components/PreiseFaqBox'
+import { ProfilFaqBox } from '@/components/ProfilFaqBox'
+import { WebdesignFaqBox } from '@/components/WebdesignFaqBox'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -61,6 +64,19 @@ function getNextSectionBackgroundValue(blockBackground?: string | null): string 
 function isHomePageSlug(slug?: string | null): boolean {
   if (!slug) return true
   return slug.trim().toLowerCase() === 'home'
+}
+
+function isCorporateIdentityPageSlug(slug?: string | null): boolean {
+  const normalizedSlug = slug?.trim().toLowerCase()
+  return normalizedSlug === 'corporate-identity' || normalizedSlug === 'ci-corporate-identity'
+}
+
+function isCorporateIdentityPageTitle(title?: string | null): boolean {
+  const normalizedTitle = title?.trim().toLowerCase() ?? ''
+  return (
+    normalizedTitle.includes('corporate identity') ||
+    normalizedTitle.includes('corporate design')
+  )
 }
 
 function formatUnknownError(error: unknown): string {
@@ -286,6 +302,13 @@ export default async function Page({
         const previewRenderFaqAtEnd = previewIsPortfolioPage && previewFirstCtaIndex < 0
         const previewIsPricesPage =
           previewEffectiveSlug === 'preise' || previewTitle.includes('preise')
+        const previewIsProfilePage =
+          previewEffectiveSlug === 'profil' || previewTitle.includes('profil')
+        const previewIsWebdesignPage =
+          previewEffectiveSlug === 'webdesign' || previewTitle.includes('webdesign')
+        const previewIsCorporateIdentityPage =
+          isCorporateIdentityPageSlug(previewEffectiveSlug) ||
+          isCorporateIdentityPageTitle(previewTitle)
         const previewBlocksBeforeAndIncludingCta = previewRenderFaqAfterCta
           ? previewLayoutBlocks.slice(0, previewFirstCtaIndex + 1)
           : previewLayoutBlocks
@@ -337,6 +360,9 @@ export default async function Page({
                 )}
                 {previewRenderFaqAtEnd && <PortfolioFaqBox />}
                 {previewIsPricesPage && <PreiseFaqBox />}
+                {previewIsProfilePage && <ProfilFaqBox />}
+                {previewIsWebdesignPage && <WebdesignFaqBox />}
+                {previewIsCorporateIdentityPage && <CorporateIdentityFaqBox />}
                 {isHomePageSlug(previewSlug) && <Faq8 />}
               </SectionReveal>
             </div>
@@ -409,6 +435,10 @@ export default async function Page({
     const renderFaqAfterCta = isPortfolioPage && firstCtaIndex >= 0
     const renderFaqAtEnd = isPortfolioPage && firstCtaIndex < 0
     const isPricesPage = effectiveSlug === 'preise' || pageTitle.includes('preise')
+    const isProfilePage = effectiveSlug === 'profil' || pageTitle.includes('profil')
+    const isWebdesignPage = effectiveSlug === 'webdesign' || pageTitle.includes('webdesign')
+    const isCorporateIdentityPage =
+      isCorporateIdentityPageSlug(effectiveSlug) || isCorporateIdentityPageTitle(pageTitle)
     const blocksBeforeAndIncludingCta = renderFaqAfterCta
       ? layoutBlocks.slice(0, firstCtaIndex + 1)
       : layoutBlocks
@@ -457,6 +487,9 @@ export default async function Page({
             {blocksAfterCta.length > 0 && <RenderBlocks blocks={blocksAfterCta} />}
             {renderFaqAtEnd && <PortfolioFaqBox />}
             {isPricesPage && <PreiseFaqBox />}
+            {isProfilePage && <ProfilFaqBox />}
+            {isWebdesignPage && <WebdesignFaqBox />}
+            {isCorporateIdentityPage && <CorporateIdentityFaqBox />}
             {showHomeFaq && <Faq8 />}
           </SectionReveal>
         </div>

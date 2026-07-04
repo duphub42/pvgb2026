@@ -2,7 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
-import { ArrowRight, MonitorSmartphone, Megaphone, Palette } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 
 import { Media } from '@/components/Media'
 import { cn } from '@/utilities/ui'
@@ -20,29 +20,44 @@ type Discipline = 'webdesign' | 'marketing' | 'branding'
 
 const disciplineConfig: Record<
   Discipline,
-  { label: string; Icon: React.ElementType; accent: string; bgAccent: string }
+  { label: string; iconSrc: string; accent: string; bgAccent: string }
 > = {
   webdesign: {
     label: 'Webdesign',
-    Icon: MonitorSmartphone,
+    iconSrc: '/media/portfolio-2.svg',
     accent: 'text-muted-foreground',
     bgAccent: 'bg-card border-border',
   },
   marketing: {
     label: 'Marketing',
-    Icon: Megaphone,
+    iconSrc: '/media/marketing-portfolio-1.svg',
     accent: 'text-muted-foreground',
     bgAccent: 'bg-card border-border',
   },
   branding: {
     label: 'Branding',
-    Icon: Palette,
+    iconSrc: '/media/Branding-Portfolio.svg',
     accent: 'text-muted-foreground',
     bgAccent: 'bg-card border-border',
   },
 }
 
 type AreaItem = NonNullable<PortfolioTeaserBlockData['areas']>[number]
+
+function DisciplineIcon({ src, className }: { src: string; className?: string }) {
+  const maskStyle = {
+    WebkitMask: `url(${src}) center / contain no-repeat`,
+    mask: `url(${src}) center / contain no-repeat`,
+  } as React.CSSProperties
+
+  return (
+    <span
+      aria-hidden="true"
+      className={cn('block shrink-0 bg-current', className)}
+      style={maskStyle}
+    />
+  )
+}
 
 // ---------------------------------------------------------------------------
 // Editorial variant – large alternating rows
@@ -51,7 +66,6 @@ type AreaItem = NonNullable<PortfolioTeaserBlockData['areas']>[number]
 function EditorialCard({ area, index: cardIndex }: { area: AreaItem; index: number }) {
   const disc = (area.discipline ?? 'webdesign') as Discipline
   const config = disciplineConfig[disc] ?? disciplineConfig.webdesign
-  const { Icon } = config
   const isEven = cardIndex % 2 === 0
   const href = area.href ?? '#'
 
@@ -87,7 +101,7 @@ function EditorialCard({ area, index: cardIndex }: { area: AreaItem; index: numb
               config.accent,
             )}
           >
-            <Icon className="h-4 w-4" />
+            <DisciplineIcon src={config.iconSrc} className="h-4 w-4" />
           </span>
           <span className={cn('text-xs font-semibold uppercase tracking-widest', config.accent)}>
             {config.label}
@@ -137,7 +151,6 @@ function EditorialCard({ area, index: cardIndex }: { area: AreaItem; index: numb
 function TeaserCard({ area }: { area: AreaItem }) {
   const disc = (area.discipline ?? 'webdesign') as Discipline
   const config = disciplineConfig[disc] ?? disciplineConfig.webdesign
-  const { Icon } = config
   const href = area.href ?? '#'
 
   return (
@@ -163,9 +176,10 @@ function TeaserCard({ area }: { area: AreaItem }) {
       {/* No image: decorative header strip */}
       {!area.coverImage && (
         <div className={cn('flex h-28 items-center justify-center', config.bgAccent)}>
-          <Icon
+          <DisciplineIcon
+            src={config.iconSrc}
             className={cn(
-              'h-12 w-12 opacity-20 transition-opacity duration-200 group-hover:opacity-35',
+              'h-12 w-12 opacity-30 transition-opacity duration-200 group-hover:opacity-45',
               config.accent,
             )}
           />
@@ -175,6 +189,14 @@ function TeaserCard({ area }: { area: AreaItem }) {
       {/* Text */}
       <div className="flex flex-1 flex-col gap-3 p-5 md:p-6">
         <div className="flex items-center gap-2">
+          <span
+            className={cn(
+              'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border bg-background/60',
+              config.accent,
+            )}
+          >
+            <DisciplineIcon src={config.iconSrc} className="h-4 w-4" />
+          </span>
           <span className={cn('text-xs font-semibold uppercase tracking-widest', config.accent)}>
             {config.label}
           </span>
