@@ -287,8 +287,8 @@ export function FooterClient({
     >
       <FooterBounce>
         <div className="container px-[clamp(1rem,4vw,2rem)]">
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8 xl:grid-cols-[1fr_3fr] [&>*]:pt-4">
-            <div className="md:col-span-12 xl:col-span-1 order-1 md:order-1 xl:order-1 w-full">
+          <div className="grid grid-cols-1 gap-10 md:gap-8 xl:grid-cols-4 [&>*]:pt-4">
+            <div className="order-1 xl:order-1 w-full min-w-0 xl:col-span-1">
               <div className="h-full flex flex-col gap-1">
                 <div className="flex-1 flex flex-col items-center xl:items-start text-center xl:text-left gap-6">
                   {/* Logo */}
@@ -415,7 +415,7 @@ export function FooterClient({
             </div>
 
             {(columns.length > 0 || footer.newsletterTitle != null) && (
-              <div className="md:col-span-12 xl:col-span-1 order-2 md:order-3 xl:order-2 w-full">
+              <div className="order-2 md:order-3 xl:order-2 w-full min-w-0 xl:col-span-3">
                 <div className="grid gap-4 sm:gap-6 md:gap-8 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
                   {columns.map((col, i) => {
                     const colIcon =
