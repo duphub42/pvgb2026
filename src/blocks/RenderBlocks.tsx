@@ -14,6 +14,7 @@ import { DecorativeSectionBackground } from '@/components/DecorativeSectionBackg
 import { AnimateBlock } from '@/components/ui/AnimateBlock'
 import { cn } from '@/utilities/ui'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
+import { getBlockBackgroundImageStyle } from '@/utilities/getBlockBackgroundImageStyle'
 
 type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   blockBackground?: 'none' | 'muted' | 'accent' | 'light' | 'dark' | null
@@ -52,24 +53,6 @@ function getBlockBackgroundStyle(blockBackground?: string | null): React.CSSProp
   }
 
   return style
-}
-
-function getBlockBackgroundImageStyle(
-  backgroundImageUrl: string,
-  placement: 'cover' | 'top-right' = 'cover',
-): React.CSSProperties {
-  const escapedUrl = backgroundImageUrl.replace(/"/g, '\\"')
-
-  return {
-    position: 'absolute',
-    inset: 0,
-    zIndex: 0,
-    pointerEvents: 'none',
-    backgroundImage: `url("${escapedUrl}")`,
-    backgroundSize: placement === 'top-right' ? 'auto' : 'cover',
-    backgroundPosition: placement === 'top-right' ? 'top right' : 'center',
-    backgroundRepeat: 'no-repeat',
-  }
 }
 
 function getBlockOverlayStyle(
@@ -196,6 +179,7 @@ export const RenderBlocks: React.FC<{
                   aria-hidden
                   className={cn(
                     'render-block-background-image',
+                    isPriceCalculator && 'render-block-background-image--top-right',
                     b.blockBackgroundImageDisableInversion &&
                       'render-block-background-image--no-invert',
                   )}

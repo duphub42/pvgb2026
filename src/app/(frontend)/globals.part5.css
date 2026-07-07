@@ -2378,11 +2378,38 @@ html.theme-wave-transition.theme-wave-light::before {
 }
 
 .render-block-background-image {
-  filter: none;
+  transition:
+    filter var(--theme-switch-duration, 320ms) ease,
+    opacity var(--theme-switch-duration, 320ms) ease;
+}
+
+.render-block-background-image--top-right {
+  background-size: 25dvw auto;
+  background-position: right 5% top 5%;
+  background-repeat: no-repeat;
+}
+
+[data-theme='dark'] .render-block-background-image:not(.render-block-background-image--no-invert) {
+  opacity: 0.46;
+  filter: invert(1) brightness(1.1) contrast(1.12) saturate(1.04);
 }
 
 [data-theme='light'] .render-block-background-image:not(.render-block-background-image--no-invert) {
+  opacity: 0.8;
   filter: invert(1) hue-rotate(180deg) saturate(1.08) contrast(1.02) brightness(0.94);
+}
+
+.price-rates-section-icon {
+  display: block;
+  background-color: currentColor;
+  -webkit-mask-image: var(--rates-icon-url);
+  mask-image: var(--rates-icon-url);
+  -webkit-mask-size: contain;
+  mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  mask-position: center;
 }
 
 .section-decor {

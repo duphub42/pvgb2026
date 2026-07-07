@@ -266,7 +266,10 @@ export default async function Page({
       })
       if (pageById) {
         const previewSlug = typeof pageById.slug === 'string' ? pageById.slug : ''
-        const previewLayoutBlocks = resolveLayoutBlocks(previewSlug, pageById.layout)
+        const previewLayoutBlocks = await resolveSharedPortfolioContent(
+          previewSlug,
+          resolveLayoutBlocks(previewSlug, pageById.layout),
+        )
         const previewFirstBlock = previewLayoutBlocks[0]
         const previewFirstBlockBackground =
           previewFirstBlock &&
@@ -297,8 +300,6 @@ export default async function Page({
           (block) =>
             block && typeof block === 'object' && 'blockType' in block && block.blockType === 'cta',
         )
-        const previewRenderFaqAfterCta = previewIsPortfolioPage && previewFirstCtaIndex >= 0
-        const previewRenderFaqAtEnd = previewIsPortfolioPage && previewFirstCtaIndex < 0
         const previewIsPricesPage =
           previewEffectiveSlug === 'preise' || previewTitle.includes('preise')
         const previewIsProfilePage =
@@ -308,6 +309,15 @@ export default async function Page({
         const previewIsCorporateIdentityPage =
           isCorporateIdentityPageSlug(previewEffectiveSlug) ||
           isCorporateIdentityPageTitle(previewTitle)
+        const previewHasDedicatedFaqBox =
+          previewIsPricesPage ||
+          previewIsProfilePage ||
+          previewIsWebdesignPage ||
+          previewIsCorporateIdentityPage
+        const previewRenderFaqAfterCta =
+          previewIsPortfolioPage && !previewHasDedicatedFaqBox && previewFirstCtaIndex >= 0
+        const previewRenderFaqAtEnd =
+          previewIsPortfolioPage && !previewHasDedicatedFaqBox && previewFirstCtaIndex < 0
         const previewBlocksBeforeAndIncludingCta = previewRenderFaqAfterCta
           ? previewLayoutBlocks.slice(0, previewFirstCtaIndex + 1)
           : previewLayoutBlocks
@@ -431,13 +441,15 @@ export default async function Page({
       (block) =>
         block && typeof block === 'object' && 'blockType' in block && block.blockType === 'cta',
     )
-    const renderFaqAfterCta = isPortfolioPage && firstCtaIndex >= 0
-    const renderFaqAtEnd = isPortfolioPage && firstCtaIndex < 0
     const isPricesPage = effectiveSlug === 'preise' || pageTitle.includes('preise')
     const isProfilePage = effectiveSlug === 'profil' || pageTitle.includes('profil')
     const isWebdesignPage = effectiveSlug === 'webdesign' || pageTitle.includes('webdesign')
     const isCorporateIdentityPage =
       isCorporateIdentityPageSlug(effectiveSlug) || isCorporateIdentityPageTitle(pageTitle)
+    const hasDedicatedFaqBox =
+      isPricesPage || isProfilePage || isWebdesignPage || isCorporateIdentityPage
+    const renderFaqAfterCta = isPortfolioPage && !hasDedicatedFaqBox && firstCtaIndex >= 0
+    const renderFaqAtEnd = isPortfolioPage && !hasDedicatedFaqBox && firstCtaIndex < 0
     const blocksBeforeAndIncludingCta = renderFaqAfterCta
       ? layoutBlocks.slice(0, firstCtaIndex + 1)
       : layoutBlocks

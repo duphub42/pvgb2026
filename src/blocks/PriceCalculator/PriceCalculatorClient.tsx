@@ -41,6 +41,8 @@ export type PriceCalculatorCopy = {
   ratesNote: string
 }
 
+const RATES_SECTION_ICON = '/api/media/stream/1354'
+
 function fmtEuro(n: number): string {
   return n.toLocaleString('de-DE')
 }
@@ -334,28 +336,41 @@ export function PriceCalculatorClient(props: {
       {showRatesSection && (
         <section className="py-8 md:py-10">
           <div className="rounded-3xl border border-border/80 bg-gradient-to-br from-card/95 via-background/90 to-muted/45 p-6 shadow-[0_18px_50px_-42px_color-mix(in_srgb,var(--theme-elevation-1000)_65%,transparent)] md:p-8">
-            <p className="mb-2 type-body-sm uppercase tracking-[0.08em] text-muted-foreground">
-              {copy.ratesSectionLabel}
-            </p>
-            <h2 className="mb-6 type-heading-md text-foreground md:type-heading-lg">
-              {copy.ratesHeading}
-            </h2>
-            <div className="grid gap-6 sm:grid-cols-3">
-              <div>
-                <div className="type-heading-md text-foreground">{fmtEuro(copy.hourlyRate)} €</div>
-                <div className="mt-0.5 type-body text-muted-foreground">Stundensatz · netto</div>
+            <div className="flex items-start gap-3 md:gap-4">
+              <span
+                aria-hidden
+                className="price-rates-section-icon h-11 w-11 shrink-0 text-foreground md:h-12 md:w-12"
+                style={
+                  {
+                    '--rates-icon-url': `url("${RATES_SECTION_ICON}")`,
+                  } as React.CSSProperties
+                }
+              />
+              <div className="min-w-0 flex-1">
+                <p className="mb-2 type-body-sm uppercase tracking-[0.08em] text-muted-foreground">
+                  {copy.ratesSectionLabel}
+                </p>
+                <h2 className="type-heading-md text-foreground md:type-heading-lg">
+                  {copy.ratesHeading}
+                </h2>
+                <div className="mt-6 grid gap-6 sm:grid-cols-3">
+                  <div>
+                    <div className="type-heading-md text-foreground">{fmtEuro(copy.hourlyRate)} €</div>
+                    <div className="mt-0.5 type-body text-muted-foreground">Stundensatz · netto</div>
+                  </div>
+                  <div>
+                    <div className="type-heading-md text-foreground">{fmtEuro(copy.dayRate)} €</div>
+                    <div className="mt-0.5 type-body text-muted-foreground">Tagessatz (8h) · netto</div>
+                  </div>
+                  <div>
+                    <div className="type-heading-md text-foreground">{fmtEuro(copy.weekRate)} €</div>
+                    <div className="mt-0.5 type-body text-muted-foreground">Wochensatz · netto</div>
+                  </div>
+                </div>
+                <div className="mt-6 border-t border-border/70 pt-5">
+                  <p className="max-w-prose type-body text-muted-foreground">{copy.ratesNote}</p>
+                </div>
               </div>
-              <div>
-                <div className="type-heading-md text-foreground">{fmtEuro(copy.dayRate)} €</div>
-                <div className="mt-0.5 type-body text-muted-foreground">Tagessatz (8h) · netto</div>
-              </div>
-              <div>
-                <div className="type-heading-md text-foreground">{fmtEuro(copy.weekRate)} €</div>
-                <div className="mt-0.5 type-body text-muted-foreground">Wochensatz · netto</div>
-              </div>
-            </div>
-            <div className="mt-6 border-t border-border/70 pt-5">
-              <p className="max-w-prose type-body text-muted-foreground">{copy.ratesNote}</p>
             </div>
           </div>
         </section>

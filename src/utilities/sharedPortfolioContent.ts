@@ -3,6 +3,8 @@ import { unstable_cache } from 'next/cache'
 import { getPayload } from 'payload'
 
 import type { SitePage } from '@/payload-types'
+import { buildLeistungenPortfolioCaseBlock } from '@/utilities/leistungenPortfolioCases'
+import { buildPortfolioTeaserBlock } from '@/utilities/portfolioHubBlocks'
 
 type LayoutBlocks = NonNullable<SitePage['layout']>
 type LayoutBlock = Record<string, unknown> & {
@@ -35,7 +37,18 @@ function clone<T>(value: T): T {
 async function getSharedPortfolioBlocksUncached() {
   const payload = await getPayload({ config: configPromise })
 
-  const [webdesign, branding] = await Promise.all([
+  const [leistungen, webdesign, branding] = await Promise.all([
+    payload.find({
+      collection: 'site-pages',
+      where: {
+        and: [{ slug: { in: ['leistungen', 'lei'] } }, { _status: { equals: 'published' } }],
+      },
+      limit: 1,
+      pagination: false,
+      depth: 2,
+      draft: false,
+      sort: '-updatedAt',
+    }),
     payload.find({
       collection: 'site-pages',
       where: {
@@ -58,13 +71,22 @@ async function getSharedPortfolioBlocksUncached() {
     }),
   ])
 
+  const leistungenLayout = (leistungen.docs[0] as SitePage | undefined)?.layout ?? []
   const webdesignLayout = (webdesign.docs[0] as SitePage | undefined)?.layout ?? []
   const brandingLayout = (branding.docs[0] as SitePage | undefined)?.layout ?? []
 
+  const leistungenCasesBlock = leistungenLayout.find(
+    (block) => block?.blockType === 'portfolioCaseGrid',
+  ) as LayoutBlock | undefined
+  const webdesignCasesBlock = webdesignLayout.find(
+    (block) => block?.blockType === 'portfolioCaseGrid',
+  ) as LayoutBlock | undefined
+
   return {
-    casesBlock: webdesignLayout.find((block) => block?.blockType === 'portfolioCaseGrid') as
-      | LayoutBlock
-      | undefined,
+    leistungenCasesBlock:
+      leistungenCasesBlock ??
+      (buildLeistungenPortfolioCaseBlock() as LayoutBlock),
+    webdesignCasesBlock,
     logosBlock: brandingLayout.find((block) => block?.blockType === 'marqueeSlider') as
       | LayoutBlock
       | undefined,
@@ -126,6 +148,88 @@ function isIrrelevantPortfolioServicesOverview(block: LayoutBlock): boolean {
     const title = String((entry as Record<string, unknown>).title ?? '').trim()
     return IRRELEVANT_PORTFOLIO_SERVICE_TITLES.has(title)
   })
+}
+
+function isPortfolioHubReplacementBlock(block: LayoutBlock): boolean {
+  if (block.blockType === 'introduction') return true
+  if (block.blockType === 'servicesGrid') return true
+  if (block.blockType === 'whyWorkWithMe') return true
+  if (isIrrelevantPortfolioServicesOverview(block)) return true
+
+  if (block.blockType === 'servicesOverview') {
+    const heading = String(block.heading ?? '').trim()
+    if (heading.includes('Strategie, Sichtbarkeit')) return true
+  }
+
+  if (String(block.id ?? '') === 'portfolio-under-cases-context') return true
+
+  return false
+}
+
+function getLayoutBlock(blocks: LayoutBlocks, blockType: string): LayoutBlock | undefined {
+  const match = blocks.find((block) => block?.blockType === blockType)
+  if (!match || typeof match !== 'object') return undefined
+  return match as LayoutBlock
+}
+
+function resolvePortfolioHubCaseBlock(
+  existing: LayoutBlock | undefined,
+  leistungenCasesBlock: LayoutBlock,
+): LayoutBlock {
+  const cases = Array.isArray(leistungenCasesBlock.cases) ? clone(leistungenCasesBlock.cases) : []
+
+  return {
+    ...(existing ?? {}),
+    id: existing?.id ?? 'portfolio-hub-cases',
+    blockType: 'portfolioCaseGrid',
+    blockSpacingPadding: existing?.blockSpacingPadding ?? 'default',
+    blockSpacingPaddingTop: existing?.blockSpacingPaddingTop ?? 'default',
+    blockSpacingMarginBottom: existing?.blockSpacingMarginBottom ?? 'default',
+    blockContainer: existing?.blockContainer ?? 'default',
+    blockBackground: existing?.blockBackground ?? 'muted',
+    eyebrow: leistungenCasesBlock.eyebrow,
+    heading: leistungenCasesBlock.heading,
+    intro: leistungenCasesBlock.intro,
+    layoutVariant: leistungenCasesBlock.layoutVariant ?? existing?.layoutVariant ?? 'editorial',
+    cases,
+  }
+}
+
+function findLastServicesGridIndex(blocks: LayoutBlocks): number {
+  for (let i = blocks.length - 1; i >= 0; i--) {
+    if (blocks[i]?.blockType === 'servicesGrid') return i
+  }
+  return -1
+}
+
+function resolvePortfolioHubLayout(
+  blocks: LayoutBlocks,
+  leistungenCasesBlock: LayoutBlock,
+  logosBlock?: LayoutBlock,
+): LayoutBlocks {
+  const cleaned = blocks.filter((block) => {
+    if (!block || typeof block !== 'object') return true
+    return !isPortfolioHubReplacementBlock(block as LayoutBlock)
+  }) as LayoutBlocks
+
+  const calPopupBlocks = cleaned.filter((block) => block?.blockType === 'calPopup')
+
+  const teaser = getLayoutBlock(cleaned, 'portfolioTeaser') ?? (buildPortfolioTeaserBlock() as LayoutBlock)
+  const cases = resolvePortfolioHubCaseBlock(
+    getLayoutBlock(cleaned, 'portfolioCaseGrid'),
+    leistungenCasesBlock,
+  )
+  const underCases = buildPortfolioUnderCasesBlock()
+
+  const existingLogos = getLayoutBlock(cleaned, 'marqueeSlider')
+  const logos = existingLogos
+    ? withSharedLogos(existingLogos, logosBlock)
+    : buildSharedLogoBlock(logosBlock)
+
+  const restored: LayoutBlock[] = [teaser, cases, underCases]
+  if (logos) restored.push(logos)
+
+  return [...restored, ...calPopupBlocks] as LayoutBlocks
 }
 
 function buildPortfolioUnderCasesBlock(): LayoutBlock {
@@ -258,23 +362,39 @@ export async function resolveSharedPortfolioContent(
 ): Promise<LayoutBlocks> {
   if (!TARGET_SLUGS.has(slug)) return blocks
 
-  const { casesBlock, logosBlock } = await getSharedPortfolioBlocks()
+  const { leistungenCasesBlock, webdesignCasesBlock, logosBlock } = await getSharedPortfolioBlocks()
   const hasCasesBlock = blocks.some((block) => block?.blockType === 'portfolioCaseGrid')
   const hasLogosBlock = blocks.some((block) => block?.blockType === 'marqueeSlider')
+  const casesBlockForSlug = slug === 'webdesign' ? webdesignCasesBlock : leistungenCasesBlock
 
   const resolved = blocks.map((block) => {
     if (!block || typeof block !== 'object') return block
     const typedBlock = block as LayoutBlock
 
-    if (typedBlock.blockType === 'portfolioCaseGrid') return withSharedCases(typedBlock, casesBlock)
+    if (typedBlock.blockType === 'portfolioCaseGrid') {
+      return withSharedCases(typedBlock, casesBlockForSlug)
+    }
     if (typedBlock.blockType === 'marqueeSlider') return withSharedLogos(typedBlock, logosBlock)
 
     return block
   })
 
+  if (slug === 'leistungen') {
+    if (hasCasesBlock) return resolved as LayoutBlocks
+
+    const caseBlock =
+      buildSharedCaseBlock(leistungenCasesBlock) ?? (leistungenCasesBlock as LayoutBlock)
+    const insertAfter = findLastServicesGridIndex(resolved as LayoutBlocks)
+    const insertIndex = insertAfter >= 0 ? insertAfter + 1 : resolved.length
+
+    const next = [...resolved]
+    next.splice(insertIndex, 0, caseBlock)
+    return next as LayoutBlocks
+  }
+
   if (slug === 'webdesign') {
     const additions: LayoutBlock[] = []
-    const caseBlock = !hasCasesBlock ? buildSharedCaseBlock(casesBlock) : null
+    const caseBlock = !hasCasesBlock ? buildSharedCaseBlock(webdesignCasesBlock) : null
     const logoBlock = !hasLogosBlock ? buildSharedLogoBlock(logosBlock) : null
 
     if (caseBlock) additions.push(caseBlock)
@@ -307,29 +427,7 @@ export async function resolveSharedPortfolioContent(
   }
 
   if (slug === 'portfolio') {
-    const cleaned = resolved.filter((block) => {
-      if (!block || typeof block !== 'object') return true
-      const typed = block as LayoutBlock
-      if (typed.blockType === 'whyWorkWithMe') return false
-      if (isIrrelevantPortfolioServicesOverview(typed)) return false
-      return true
-    })
-
-    const hasInjectedBlock = cleaned.some((block) => {
-      if (!block || typeof block !== 'object') return false
-      return String((block as LayoutBlock).id ?? '') === 'portfolio-under-cases-context'
-    })
-
-    if (hasInjectedBlock) return cleaned as LayoutBlocks
-
-    const insertionIndex = cleaned.findIndex((block) => block?.blockType === 'portfolioCaseGrid')
-    if (insertionIndex === -1) {
-      return [...cleaned, buildPortfolioUnderCasesBlock()] as LayoutBlocks
-    }
-
-    const next = [...cleaned]
-    next.splice(insertionIndex + 1, 0, buildPortfolioUnderCasesBlock())
-    return next as LayoutBlocks
+    return resolvePortfolioHubLayout(resolved as LayoutBlocks, leistungenCasesBlock, logosBlock)
   }
 
   return resolved as LayoutBlocks

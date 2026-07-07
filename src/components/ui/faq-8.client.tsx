@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/accordion'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import type { FaqCategory, FaqIconName } from '@/components/ui/faq-8.data'
+import { getBlockBackgroundImageStyle } from '@/utilities/getBlockBackgroundImageStyle'
 
 type Faq8ClientProps = {
   categories: FaqCategory[]
@@ -32,6 +33,9 @@ const iconMap: Record<FaqIconName, LucideIcon> = {
   Headphones,
 }
 
+// Thumbnail reicht für 25dvw-Deko (Original-PNG ~616 KB, Thumbnail ~13 KB).
+const FAQ_SECTION_BACKGROUND_IMAGE = '/api/media/stream/1353?size=thumbnail'
+
 export function Faq8Client({
   categories,
   eyebrow = 'FAQ',
@@ -41,12 +45,22 @@ export function Faq8Client({
   const defaultCategory = categories[0]?.value ?? 'allgemein'
 
   return (
-    <section className="py-8 sm:py-16 lg:py-24">
-      <div className="container">
+    <section
+      className="py-8 sm:py-16 lg:py-24"
+      style={{ position: 'relative', isolation: 'isolate' }}
+    >
+      <div
+        aria-hidden
+        className="render-block-background-image render-block-background-image--top-right"
+        style={getBlockBackgroundImageStyle(FAQ_SECTION_BACKGROUND_IMAGE, 'top-right')}
+      />
+      <div className="container relative z-10">
         <div className="mb-12 space-y-4 md:mb-16 lg:mb-24">
           <div className="text-primary text-sm font-medium uppercase">{eyebrow}</div>
-          <h2 className="text-2xl font-semibold md:text-3xl lg:text-4xl">{title}</h2>
-          <p className="text-muted-foreground text-lg sm:text-xl">{description}</p>
+          <div className="space-y-4">
+            <h2 className="max-w-2/3 text-2xl font-semibold md:text-3xl lg:text-4xl">{title}</h2>
+            <p className="max-w-prose text-muted-foreground text-lg sm:text-xl">{description}</p>
+          </div>
         </div>
 
         <Tabs
