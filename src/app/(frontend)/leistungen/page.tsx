@@ -102,9 +102,9 @@ export default async function LeistungenPage() {
         )}
       >
         <RenderBlocks blocks={blocksBeforeAndIncludingCta} />
-        {renderFaqAfterCta && <LeistungenFaqBox />}
+        {renderFaqAfterCta && <LeistungenFaqBox faq={page?.faq} />}
         {blocksAfterCta.length > 0 && <RenderBlocks blocks={blocksAfterCta} />}
-        {!renderFaqAfterCta && <LeistungenFaqBox />}
+        {!renderFaqAfterCta && <LeistungenFaqBox faq={page?.faq} />}
       </div>
     </article>
   )

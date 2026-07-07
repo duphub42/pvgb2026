@@ -1,16 +1,17 @@
 import React from 'react'
 
-import { Faq8Client } from '@/components/ui/faq-8.client'
+import { PageFaqBox, type EditablePageFaq } from '@/components/PageFaqBox'
 import type { FaqCategory } from '@/components/ui/faq-8.data'
 
-const webdesignFaqCategories: FaqCategory[] = [
+export const webdesignFaqCategories: FaqCategory[] = [
   {
     value: 'allgemein',
     label: 'Webdesign in Halle',
     icon: 'BriefcaseBusiness',
     faqs: [
       {
-        question: 'Was kostet eine professionelle Website für ein kleines Unternehmen in Halle (Saale)?',
+        question:
+          'Was kostet eine professionelle Website für ein kleines Unternehmen in Halle (Saale)?',
         answer:
           'Eine professionelle Website für kleine Unternehmen in Halle startet meist bei etwa 1.400 bis 2.800 Euro für eine kompakte Website mit bis zu 5 Seiten. Größere Unternehmenswebsites mit Strategie, Text, SEO und individuellen Funktionen liegen häufig bei 2.800 bis 5.500 Euro.',
       },
@@ -25,7 +26,8 @@ const webdesignFaqCategories: FaqCategory[] = [
           'Ich erstelle One-Pager, mehrseitige Unternehmenswebsites, Landingpages, Portfolioseiten, Relaunches und auf Wunsch Online-Shops. Der Fokus liegt auf schnellen, klar strukturierten Websites für lokale Unternehmen, Selbstständige und KMU in Halle und Umgebung.',
       },
       {
-        question: 'Brauche ich als kleiner Handwerksbetrieb oder Einzelhändler überhaupt eine eigene Website?',
+        question:
+          'Brauche ich als kleiner Handwerksbetrieb oder Einzelhändler überhaupt eine eigene Website?',
         answer:
           'Ja, eine eigene Website ist auch für kleine Handwerksbetriebe und Einzelhändler sinnvoll. Sie schafft Vertrauen, beantwortet häufige Kundenfragen, zeigt Leistungen und macht Ihr Unternehmen unabhängig von einzelnen Plattformen.',
       },
@@ -79,22 +81,26 @@ const webdesignFaqCategories: FaqCategory[] = [
     icon: 'CreditCard',
     faqs: [
       {
-        question: 'Wird meine Website automatisch für lokale Suchanfragen wie „Handwerker Halle“ optimiert?',
+        question:
+          'Wird meine Website automatisch für lokale Suchanfragen wie „Handwerker Halle“ optimiert?',
         answer:
           'Lokale Suchanfragen werden nicht automatisch erfolgreich, sie müssen gezielt eingeplant werden. Dazu gehören passende Seitentitel, lokale Inhalte, strukturierte Daten, Kontaktinformationen und klare Leistungsseiten mit Bezug zu Halle und Umgebung.',
       },
       {
-        question: 'Übernehmen Sie auch die Einrichtung oder Optimierung des Google-Unternehmensprofils?',
+        question:
+          'Übernehmen Sie auch die Einrichtung oder Optimierung des Google-Unternehmensprofils?',
         answer:
           'Ja, das Google-Unternehmensprofil kann eingerichtet oder optimiert werden. Dazu gehören Kategorien, Beschreibung, Leistungen, Fotos, Öffnungszeiten, Kontaktangaben und sinnvolle Verknüpfungen zur Website.',
       },
       {
-        question: 'Kann meine Website künftig auch von KI-Suchassistenten wie ChatGPT oder Google AI Overviews gefunden werden?',
+        question:
+          'Kann meine Website künftig auch von KI-Suchassistenten wie ChatGPT oder Google AI Overviews gefunden werden?',
         answer:
           'Ja, gute Chancen entstehen durch klare, strukturierte und zitierfähige Inhalte. FAQ-Antworten, eindeutige Leistungsseiten, lokale Signale, strukturierte Daten und konsistente Unternehmensinformationen helfen Suchmaschinen und KI-Systemen beim Einordnen.',
       },
       {
-        question: 'Was tun Sie konkret, damit meine Website bei Google und in KI-Antworten gut platziert wird?',
+        question:
+          'Was tun Sie konkret, damit meine Website bei Google und in KI-Antworten gut platziert wird?',
         answer:
           'Ich achte auf saubere Seitenstruktur, schnelle Ladezeiten, lokale Keywords, verständliche Antworten, interne Verlinkung, strukturierte Daten, Meta-Daten und Inhalte, die echte Nutzerfragen beantworten. Das stärkt klassische SEO und Generative-Engine-Optimierung.',
       },
@@ -116,7 +122,8 @@ const webdesignFaqCategories: FaqCategory[] = [
           'Ein Grundpaket enthält typischerweise Strukturkonzept, responsives Design, technische Umsetzung, Basis-SEO, Kontaktmöglichkeit, Impressum-/Datenschutz-Einbindung und eine kurze Einweisung. Inhalte, Fotos oder Spezialfunktionen werden je nach Bedarf ergänzt.',
       },
       {
-        question: 'Gibt es einen Unterschied im Preis zwischen einer einfachen Website und einem Online-Shop?',
+        question:
+          'Gibt es einen Unterschied im Preis zwischen einer einfachen Website und einem Online-Shop?',
         answer:
           'Ja, ein Online-Shop ist deutlich aufwendiger als eine Informationswebsite. Produktdaten, Warenkorb, Zahlungsanbieter, Versandlogik, Rechtstexte, E-Mail-Prozesse und Tests erhöhen den Umfang und damit den Preis.',
       },
@@ -212,7 +219,8 @@ const webdesignFaqCategories: FaqCategory[] = [
     icon: 'BriefcaseBusiness',
     faqs: [
       {
-        question: 'Kann eine bestehende Website überarbeitet werden, statt komplett neu erstellt zu werden?',
+        question:
+          'Kann eine bestehende Website überarbeitet werden, statt komplett neu erstellt zu werden?',
         answer:
           'Ja, wenn Technik, Struktur und Inhalte noch tragfähig sind, kann ein Relaunch auf der bestehenden Basis sinnvoll sein. Wenn System, Performance oder Bedienbarkeit stark veraltet sind, ist ein Neuaufbau oft wirtschaftlicher.',
       },
@@ -261,22 +269,26 @@ const webdesignFaqCategories: FaqCategory[] = [
     icon: 'BriefcaseBusiness',
     faqs: [
       {
-        question: 'Was ist der Unterschied zwischen einer Website von Ihnen und einem Homepage-Baukasten?',
+        question:
+          'Was ist der Unterschied zwischen einer Website von Ihnen und einem Homepage-Baukasten?',
         answer:
           'Ein Baukasten ist günstig und schnell, aber oft begrenzt bei Strategie, Performance, SEO, Individualität und späterer Skalierung. Eine professionelle Website wird gezielt auf Zielgruppe, lokale Sichtbarkeit, Conversion und technische Qualität geplant.',
       },
       {
-        question: 'Lohnt sich eine professionell erstellte Website für ein sehr kleines Unternehmen finanziell?',
+        question:
+          'Lohnt sich eine professionell erstellte Website für ein sehr kleines Unternehmen finanziell?',
         answer:
           'Ja, wenn die Website regelmäßig Anfragen erzeugt oder Vertrauen im Verkaufsprozess stärkt. Schon wenige zusätzliche Kunden pro Jahr können die Investition in eine gute lokale Website rechtfertigen.',
       },
       {
-        question: 'Ab welcher Unternehmensgröße oder welchem Budget ist eine individuelle Website sinnvoll?',
+        question:
+          'Ab welcher Unternehmensgröße oder welchem Budget ist eine individuelle Website sinnvoll?',
         answer:
           'Eine individuelle Website ist sinnvoll, sobald Kunden online recherchieren, Angebote vergleichen oder Vertrauen vor dem Erstkontakt brauchen. Als Budget sollten kleine Unternehmen mindestens einen niedrigen vierstelligen Betrag einplanen.',
       },
       {
-        question: 'Was unterscheidet eure Websites von denen anderer Agenturen in Halle oder Leipzig?',
+        question:
+          'Was unterscheidet eure Websites von denen anderer Agenturen in Halle oder Leipzig?',
         answer:
           'Der Schwerpunkt liegt auf klarer Strategie, lokaler Suchsichtbarkeit, schneller Umsetzung, verständlichen Inhalten und messbarer Anfragewirkung. Design, Technik, SEO und laufende Betreuung werden nicht getrennt gedacht, sondern als ein System.',
       },
@@ -288,7 +300,8 @@ const webdesignFaqCategories: FaqCategory[] = [
     icon: 'Headphones',
     faqs: [
       {
-        question: 'Wie können Sie nachweisen, dass eine neue Website tatsächlich mehr Kundenanfragen bringt?',
+        question:
+          'Wie können Sie nachweisen, dass eine neue Website tatsächlich mehr Kundenanfragen bringt?',
         answer:
           'Der Erfolg lässt sich über Formularanfragen, Klicks auf Telefonnummern, E-Mail-Klicks, Terminbuchungen, lokale Rankings und Traffic-Entwicklung messen. Vor dem Launch werden sinnvolle Ziele und Messpunkte festgelegt.',
       },
@@ -298,7 +311,8 @@ const webdesignFaqCategories: FaqCategory[] = [
           'Ja, auf Wunsch werden datenschutzbewusste Tracking-Lösungen, Conversion-Ziele, Formularmessung, Anruf-Klicks und einfache Reports eingerichtet. So wird sichtbar, welche Seiten und Inhalte tatsächlich Anfragen erzeugen.',
       },
       {
-        question: 'Gibt es Beispiele von Kunden aus Halle mit messbar mehr Anfragen nach einem Relaunch?',
+        question:
+          'Gibt es Beispiele von Kunden aus Halle mit messbar mehr Anfragen nach einem Relaunch?',
         answer:
           'Wenn passende Referenzen freigegeben sind, können konkrete Cases besprochen werden. Aussagekräftig sind vor allem Vorher-nachher-Werte zu Sichtbarkeit, Ladezeit, Conversion-Rate und Anzahl qualifizierter Anfragen.',
       },
@@ -306,36 +320,20 @@ const webdesignFaqCategories: FaqCategory[] = [
   },
 ]
 
-const webdesignFaqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: webdesignFaqCategories.flatMap((category) =>
-    category.faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  ),
+export const webdesignFaqFallback = {
+  categories: webdesignFaqCategories,
+  eyebrow: 'FAQ Webdesign',
+  title: 'Häufige Fragen zu Webdesign, lokaler Sichtbarkeit und Website-Kosten in Halle',
+  description:
+    'Klare Antworten für kleine Unternehmen in Halle: Kosten, Ablauf, Technik, lokale SEO, KI-Suche, Wartung, Relaunch und Erfolgsmessung.',
 }
 
-export function WebdesignFaqBox(): React.JSX.Element {
-  return (
-    <>
-      <Faq8Client
-        categories={webdesignFaqCategories}
-        eyebrow="FAQ Webdesign"
-        title="Häufige Fragen zu Webdesign, lokaler Sichtbarkeit und Website-Kosten in Halle"
-        description="Klare Antworten für kleine Unternehmen in Halle: Kosten, Ablauf, Technik, lokale SEO, KI-Suche, Wartung, Relaunch und Erfolgsmessung."
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(webdesignFaqSchema) }}
-      />
-    </>
-  )
+export function WebdesignFaqBox({
+  faq,
+}: {
+  faq?: EditablePageFaq | null
+}): React.JSX.Element | null {
+  return <PageFaqBox faq={faq} fallback={webdesignFaqFallback} />
 }
 
 export default WebdesignFaqBox

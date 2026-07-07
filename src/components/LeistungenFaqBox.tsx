@@ -1,8 +1,8 @@
 import React from 'react'
-import { Faq8Client } from '@/components/ui/faq-8.client'
+import { PageFaqBox, type EditablePageFaq } from '@/components/PageFaqBox'
 import type { FaqCategory } from '@/components/ui/faq-8.data'
 
-const leistungenFaqCategories: FaqCategory[] = [
+export const leistungenFaqCategories: FaqCategory[] = [
   {
     value: 'allgemein',
     label: 'Allgemein',
@@ -181,36 +181,20 @@ const leistungenFaqCategories: FaqCategory[] = [
   },
 ]
 
-const leistungenFaqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: leistungenFaqCategories.flatMap((category) =>
-    category.faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  ),
+export const leistungenFaqFallback = {
+  categories: leistungenFaqCategories,
+  eyebrow: 'FAQ Leistungen',
+  title: 'Häufige Fragen zu Branding, Websites, Social Media, SEO und Content',
+  description:
+    'Diese strukturierte FAQ beantwortet typische Fragen zu Leistungen, Preisen, Umsetzung und regionaler Ausrichtung. So können Nutzer und KI-Systeme die Leistungen schnell einordnen und passende Bausteine leichter finden.',
 }
 
-export function LeistungenFaqBox(): React.JSX.Element {
-  return (
-    <>
-      <Faq8Client
-        categories={leistungenFaqCategories}
-        eyebrow="FAQ Leistungen"
-        title="Häufige Fragen zu Branding, Websites, Social Media, SEO und Content"
-        description="Diese strukturierte FAQ beantwortet typische Fragen zu Leistungen, Preisen, Umsetzung und regionaler Ausrichtung. So können Nutzer und KI-Systeme die Leistungen schnell einordnen und passende Bausteine leichter finden."
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(leistungenFaqSchema) }}
-      />
-    </>
-  )
+export function LeistungenFaqBox({
+  faq,
+}: {
+  faq?: EditablePageFaq | null
+}): React.JSX.Element | null {
+  return <PageFaqBox faq={faq} fallback={leistungenFaqFallback} />
 }
 
 export default LeistungenFaqBox

@@ -1,16 +1,17 @@
 import React from 'react'
 
-import { Faq8Client } from '@/components/ui/faq-8.client'
+import { PageFaqBox, type EditablePageFaq } from '@/components/PageFaqBox'
 import type { FaqCategory } from '@/components/ui/faq-8.data'
 
-const corporateIdentityFaqCategories: FaqCategory[] = [
+export const corporateIdentityFaqCategories: FaqCategory[] = [
   {
     value: 'grundverstaendnis',
     label: 'Grundverstaendnis',
     icon: 'BriefcaseBusiness',
     faqs: [
       {
-        question: 'Was ist der Unterschied zwischen Corporate Identity, Corporate Design und einem Logo?',
+        question:
+          'Was ist der Unterschied zwischen Corporate Identity, Corporate Design und einem Logo?',
         answer:
           'Das Logo ist ein einzelnes Erkennungszeichen. Corporate Design beschreibt die visuelle Gestaltung mit Farben, Typografie, Bildsprache und Layoutregeln. Corporate Identity geht weiter und umfasst auch Positionierung, Tonalität, Werte und den gesamten Auftritt eines Unternehmens.',
       },
@@ -20,12 +21,14 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
           'Eine Corporate Identity kann Logo, Farbwelt, Schriften, Bildsprache, Gestaltungsraster, Geschäftsausstattung, Website-Stil, Social-Media-Vorlagen, Tonalität und Markenregeln umfassen. Der genaue Umfang richtet sich nach Branche, Budget und den wichtigsten Kontaktpunkten Ihrer Kunden.',
       },
       {
-        question: 'Brauche ich als kleiner Betrieb wirklich eine vollständige Corporate Identity, oder reicht ein einfaches Logo?',
+        question:
+          'Brauche ich als kleiner Betrieb wirklich eine vollständige Corporate Identity, oder reicht ein einfaches Logo?',
         answer:
           'Viele kleine Betriebe starten sinnvoll mit Logo, Farben, Schriften und den wichtigsten Anwendungen. Eine vollständige Corporate Identity lohnt sich, wenn der Auftritt auf Website, Fahrzeugen, Angeboten, Social Media und Print einheitlich wirken soll.',
       },
       {
-        question: 'Ab welcher Unternehmensgroesse lohnt sich eine professionelle Corporate Identity?',
+        question:
+          'Ab welcher Unternehmensgroesse lohnt sich eine professionelle Corporate Identity?',
         answer:
           'Eine professionelle Corporate Identity lohnt sich nicht erst ab einer bestimmten Mitarbeiterzahl, sondern sobald Kunden Ihr Unternehmen vergleichen, Vertrauen aufbauen muessen oder mehrere Kanäle bespielt werden. Das betrifft auch Gründer, Handwerksbetriebe, Praxen und lokale Dienstleister in Halle.',
       },
@@ -62,7 +65,8 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
           'Ja, Brand Guidelines oder ein kompaktes Markenhandbuch können erstellt werden. Darin stehen Logo-Nutzung, Farben, Typografie, Abstände, Beispiele und Regeln für Web, Print und Social Media, damit der Auftritt langfristig konsistent bleibt.',
       },
       {
-        question: 'Gestalten Sie auch Fahrzeugbeschriftung, Ladenbeschilderung oder Arbeitskleidung im Corporate Design?',
+        question:
+          'Gestalten Sie auch Fahrzeugbeschriftung, Ladenbeschilderung oder Arbeitskleidung im Corporate Design?',
         answer:
           'Ja, solche Anwendungen können gestaltet oder als Layoutvorgaben vorbereitet werden. Für Produktion, Folierung, Textildruck oder Beschilderung arbeite ich bei Bedarf mit den technischen Spezifikationen Ihrer Dienstleister.',
       },
@@ -74,7 +78,8 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
     icon: 'BriefcaseBusiness',
     faqs: [
       {
-        question: 'Wie läuft die Entwicklung einer Corporate Identity bei Ihnen Schritt für Schritt ab?',
+        question:
+          'Wie läuft die Entwicklung einer Corporate Identity bei Ihnen Schritt für Schritt ab?',
         answer:
           'Der Prozess startet mit Zielklärung, Zielgruppe, Wettbewerb und Stilrichtung. Danach folgen Konzept, Logoentwürfe, Auswahl, Verfeinerung, Anwendungen, Dateiaufbereitung und Übergabe. Auf Wunsch werden Website, Social Media und Print direkt mitgedacht.',
       },
@@ -89,7 +94,8 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
           'Meist sind ein bis zwei strukturierte Korrekturrunden enthalten. Weitere Anpassungen sind möglich und werden transparent nach Aufwand oder als Zusatzpaket vereinbart.',
       },
       {
-        question: 'Werde ich in den Entwicklungsprozess eingebunden, oder bekomme ich nur fertige Ergebnisse praesentiert?',
+        question:
+          'Werde ich in den Entwicklungsprozess eingebunden, oder bekomme ich nur fertige Ergebnisse praesentiert?',
         answer:
           'Sie werden aktiv eingebunden. Am Anfang werden Ziele, Geschmack, Wettbewerber und Zielgruppe geklärt; während der Entwicklung gibt es klare Präsentations- und Feedbackpunkte, damit Entscheidungen nachvollziehbar bleiben.',
       },
@@ -121,7 +127,8 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
           'Eine kompakte Logo- und CI-Entwicklung dauert meist zwei bis sechs Wochen. Wenn Naming, Markenstrategie, viele Anwendungen oder Abstimmungen mit Druck und Beschilderung dazukommen, sollte mehr Zeit eingeplant werden.',
       },
       {
-        question: 'Gibt es günstigere Einstiegspakete für Existenzgründer oder sehr kleine Betriebe?',
+        question:
+          'Gibt es günstigere Einstiegspakete für Existenzgründer oder sehr kleine Betriebe?',
         answer:
           'Ja, der Umfang kann für Gründer bewusst reduziert werden. Ein Startpaket mit Logo, Farben, Typografie und wichtigsten Dateien ist oft ein guter erster Schritt und kann später zu einem vollständigen Corporate Design ausgebaut werden.',
       },
@@ -153,7 +160,8 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
           'Ich kann bei Vorbereitung, Klassenrecherche und Abstimmung unterstützen. Die rechtliche Markenanmeldung und verbindliche Bewertung sollte jedoch über einen spezialisierten Anwalt oder Markenexperten erfolgen.',
       },
       {
-        question: 'Prüfen Sie vorab, ob das Logo oder der Name bereits markenrechtlich geschützt ist?',
+        question:
+          'Prüfen Sie vorab, ob das Logo oder der Name bereits markenrechtlich geschützt ist?',
         answer:
           'Eine einfache Vorabrecherche ist möglich, ersetzt aber keine rechtliche Markenprüfung. Für verbindliche Sicherheit bei Name, Logo und Schutzklassen empfehle ich eine professionelle Markenrecherche.',
       },
@@ -170,12 +178,14 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
     icon: 'Headphones',
     faqs: [
       {
-        question: 'Kann ein bestehendes, veraltetes Logo überarbeitet statt komplett neu erstellt werden?',
+        question:
+          'Kann ein bestehendes, veraltetes Logo überarbeitet statt komplett neu erstellt werden?',
         answer:
           'Ja, ein Logo-Refresh ist oft sinnvoll, wenn Wiedererkennung erhalten bleiben soll. Formen, Proportionen, Farben und Typografie werden modernisiert, ohne die Marke unnötig zu entkernen.',
       },
       {
-        question: 'Woran erkennt man, dass eine Corporate Identity veraltet oder überarbeitungsbeduerftig ist?',
+        question:
+          'Woran erkennt man, dass eine Corporate Identity veraltet oder überarbeitungsbeduerftig ist?',
         answer:
           'Warnzeichen sind uneinheitliche Materialien, schlechte Lesbarkeit, veraltete Farben, fehlende digitale Nutzbarkeit, pixelige Dateien, unscharfe Positionierung oder ein Auftritt, der nicht mehr zu Zielgruppe und Preisniveau passt.',
       },
@@ -185,12 +195,14 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
           'Bestehende Materialien werden priorisiert. Website, Angebote, Visitenkarten, Fahrzeuge, Beschilderung, Social Media und Vorlagen können schrittweise umgestellt werden, damit Kosten und Aufwand planbar bleiben.',
       },
       {
-        question: 'Was kostet ein Rebranding im Vergleich zu einer komplett neuen Corporate Identity?',
+        question:
+          'Was kostet ein Rebranding im Vergleich zu einer komplett neuen Corporate Identity?',
         answer:
           'Ein Rebranding kann günstiger sein, wenn Strategie und Grundelemente tragfaehig bleiben. Wenn Positionierung, Name, Logo, Website und alle Anwendungen neu entwickelt werden, liegt der Aufwand nahe an einer kompletten Neuentwicklung.',
       },
       {
-        question: 'Verliere ich bei einem Redesign meine bisherige Wiedererkennbarkeit bei Stammkunden?',
+        question:
+          'Verliere ich bei einem Redesign meine bisherige Wiedererkennbarkeit bei Stammkunden?',
         answer:
           'Nicht, wenn der Refresh bewusst geplant wird. Wiedererkennbare Elemente wie Farben, Formidee oder Markenkern können erhalten bleiben, während Lesbarkeit, Modernität und digitale Nutzbarkeit verbessert werden.',
       },
@@ -202,7 +214,8 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
     icon: 'BriefcaseBusiness',
     faqs: [
       {
-        question: 'Wird die Corporate Identity direkt in Ihre Website und Social-Media-Kanäle übernommen?',
+        question:
+          'Wird die Corporate Identity direkt in Ihre Website und Social-Media-Kanäle übernommen?',
         answer:
           'Ja, auf Wunsch wird das Corporate Design direkt in Website, Landingpages, Social-Media-Profile, Vorlagen und digitale Anzeigen übertragen. Dadurch entsteht ein konsistenter Auftritt statt einzelner, voneinander getrennter Designteile.',
       },
@@ -224,17 +237,20 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
     icon: 'LockKeyhole',
     faqs: [
       {
-        question: 'Was ist der Unterschied zwischen einem Online-Logo-Generator und einer professionell entwickelten Corporate Identity?',
+        question:
+          'Was ist der Unterschied zwischen einem Online-Logo-Generator und einer professionell entwickelten Corporate Identity?',
         answer:
           'Ein Logo-Generator liefert meist ein austauschbares Zeichen ohne Strategie, Rechteklaerung und System. Eine professionelle Corporate Identity beruecksichtigt Zielgruppe, Wettbewerb, Positionierung, Anwendungen, Lesbarkeit und langfristige Nutzbarkeit.',
       },
       {
-        question: 'Warum sollte ich für ein Logo einen spezialisierten Dienstleister statt einen Freelancer oder Baukasten-Anbieter beauftragen?',
+        question:
+          'Warum sollte ich für ein Logo einen spezialisierten Dienstleister statt einen Freelancer oder Baukasten-Anbieter beauftragen?',
         answer:
           'Entscheidend ist nicht die Bezeichnung, sondern die Arbeitsweise. Wichtig sind strategisches Verstaendnis, saubere Dateien, klare Nutzungsrechte, Anwendungserfahrung und die Faehigkeit, Logo, Website, Print und Marketing zusammenzudenken.',
       },
       {
-        question: 'Was unterscheidet eure Corporate-Identity-Entwicklung von anderen Agenturen in Halle oder Leipzig?',
+        question:
+          'Was unterscheidet eure Corporate-Identity-Entwicklung von anderen Agenturen in Halle oder Leipzig?',
         answer:
           'Der Fokus liegt auf nutzbarer Markenidentität für kleine Unternehmen: klare Positionierung, saubere Gestaltung, lokale Sichtbarkeit, Website-Anschluss und pragmatische Umsetzung ohne unnötig aufgeblasenen Prozess.',
       },
@@ -251,7 +267,8 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
     icon: 'CreditCard',
     faqs: [
       {
-        question: 'Wie wirkt sich eine professionelle Corporate Identity konkret auf die Wahrnehmung meines Unternehmens aus?',
+        question:
+          'Wie wirkt sich eine professionelle Corporate Identity konkret auf die Wahrnehmung meines Unternehmens aus?',
         answer:
           'Ein konsistenter Auftritt wirkt professioneller, vertrauenswürdiger und leichter wiedererkennbar. Kunden können schneller einordnen, wofür Ihr Unternehmen steht, ob es zu ihnen passt und warum sie Kontakt aufnehmen sollten.',
       },
@@ -261,7 +278,8 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
           'Ja, indirekt und oft sehr konkret. Eine klare Identität verbessert Vertrauen, Wiedererkennung, Website-Wirkung, Anzeigen, Angebote und Weiterempfehlungen. Sie ersetzt kein Marketing, macht Marketing aber deutlich wirksamer.',
       },
       {
-        question: 'Gibt es Beispiele, wie sich der Aussenauftritt eines Kunden aus Halle nach dem Rebranding veraendert hat?',
+        question:
+          'Gibt es Beispiele, wie sich der Aussenauftritt eines Kunden aus Halle nach dem Rebranding veraendert hat?',
         answer:
           'Wenn passende Referenzen freigegeben sind, können Vorher-nachher-Beispiele besprochen werden. Relevant sind dabei nicht nur Optik, sondern auch Wiedererkennung, Website-Qualität, Anfragewirkung und Konsistenz über alle Kanäle.',
       },
@@ -269,36 +287,20 @@ const corporateIdentityFaqCategories: FaqCategory[] = [
   },
 ]
 
-const corporateIdentityFaqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: corporateIdentityFaqCategories.flatMap((category) =>
-    category.faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  ),
+export const corporateIdentityFaqFallback = {
+  categories: corporateIdentityFaqCategories,
+  eyebrow: 'FAQ Corporate Identity',
+  title: 'Haeufige Fragen zu Corporate Identity, Corporate Design und Logoentwicklung',
+  description:
+    'Klare Antworten für kleine Unternehmen in Halle und Umgebung: Unterschied zwischen Logo, Corporate Design und Corporate Identity, Ablauf, Kosten, Rechte, Rebranding und Umsetzung auf Website, Print und Social Media.',
 }
 
-export function CorporateIdentityFaqBox(): React.JSX.Element {
-  return (
-    <>
-      <Faq8Client
-        categories={corporateIdentityFaqCategories}
-        eyebrow="FAQ Corporate Identity"
-        title="Haeufige Fragen zu Corporate Identity, Corporate Design und Logoentwicklung"
-        description="Klare Antworten für kleine Unternehmen in Halle und Umgebung: Unterschied zwischen Logo, Corporate Design und Corporate Identity, Ablauf, Kosten, Rechte, Rebranding und Umsetzung auf Website, Print und Social Media."
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(corporateIdentityFaqSchema) }}
-      />
-    </>
-  )
+export function CorporateIdentityFaqBox({
+  faq,
+}: {
+  faq?: EditablePageFaq | null
+}): React.JSX.Element | null {
+  return <PageFaqBox faq={faq} fallback={corporateIdentityFaqFallback} />
 }
 
 export default CorporateIdentityFaqBox

@@ -140,7 +140,7 @@ export default async function RootPage() {
         >
           <SectionReveal className="relative z-0 pt-24">
             <RenderBlocks blocks={layoutBlocksForShell} />
-            <Faq8 />
+            <Faq8 faq={page.faq} />
           </SectionReveal>
         </div>
       </article>

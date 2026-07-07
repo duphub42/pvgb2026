@@ -347,6 +347,33 @@ export interface SitePage {
       )[]
     | null;
   /**
+   * Steuert die automatisch am Seitenende ausgegebene FAQ inklusive strukturierter FAQPage-Daten.
+   */
+  faq?: {
+    enabled?: boolean | null;
+    eyebrow?: string | null;
+    title?: string | null;
+    description?: string | null;
+    categories?:
+      | {
+          /**
+           * Kleingeschriebener eindeutiger Wert fuer Tabs, z. B. "kosten" oder "ablauf".
+           */
+          value?: string | null;
+          label: string;
+          icon?: ('BriefcaseBusiness' | 'LockKeyhole' | 'CreditCard' | 'Headphones') | null;
+          faqs?:
+            | {
+                question: string;
+                answer: string;
+                id?: string | null;
+              }[]
+            | null;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  /**
    * When enabled, the slug will auto-generate from the title field on save and autosave.
    */
   generateSlug?: boolean | null;
@@ -3429,6 +3456,29 @@ export interface SitePagesSelect<T extends boolean = true> {
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
+      };
+  faq?:
+    | T
+    | {
+        enabled?: T;
+        eyebrow?: T;
+        title?: T;
+        description?: T;
+        categories?:
+          | T
+          | {
+              value?: T;
+              label?: T;
+              icon?: T;
+              faqs?:
+                | T
+                | {
+                    question?: T;
+                    answer?: T;
+                    id?: T;
+                  };
+              id?: T;
+            };
       };
   generateSlug?: T;
   slug?: T;

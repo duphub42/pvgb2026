@@ -136,6 +136,7 @@ import * as migration_20260520_120000_portfolio_case_grid_enhanced_fields from '
 import * as migration_20260520_133000_portfolio_case_categories_compat from './20260520_133000_portfolio_case_categories_compat'
 import * as migration_20260531_210000_portfolio_teaser_block_tables from './20260531_210000_portfolio_teaser_block_tables'
 import * as migration_20260707_183500_block_decorative_background from './20260707_183500_block_decorative_background'
+import * as migration_20260707_190000_site_pages_editable_faq from './20260707_190000_site_pages_editable_faq'
 
 export const migrations = [
   {
@@ -827,6 +828,11 @@ export const migrations = [
     up: migration_20260707_183500_block_decorative_background.up,
     down: migration_20260707_183500_block_decorative_background.down,
     name: '20260707_183500_block_decorative_background',
+  },
+  {
+    up: migration_20260707_190000_site_pages_editable_faq.up,
+    down: migration_20260707_190000_site_pages_editable_faq.down,
+    name: '20260707_190000_site_pages_editable_faq',
   },
   // TEMPORARILY DISABLED - Database migration needs SQLite fix
   // {

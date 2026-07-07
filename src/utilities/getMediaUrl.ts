@@ -27,11 +27,10 @@ function getSiteHost(): string | null {
   }
 }
 
-function localApiMediaToPublicMedia(pathWithSearch: string): string {
+function normalizeMediaPath(pathWithSearch: string): string {
   const [pathPart, queryPart] = pathWithSearch.split('?')
-  const match = pathPart?.match(/^\/api\/media\/file\/(.+)$/)
-  if (!match?.[1]) return pathWithSearch
-  const normalizedPath = `/media/${match[1]}`
+  const mediaMatch = pathPart?.match(/^\/media\/(.+)$/)
+  const normalizedPath = mediaMatch?.[1] ? `/api/media/file/${mediaMatch[1]}` : pathWithSearch
   return queryPart != null && queryPart !== '' ? `${normalizedPath}?${queryPart}` : normalizedPath
 }
 
@@ -62,7 +61,6 @@ function toExactDn(pathOrUrl: string): string {
  */
 export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | null): string => {
   if (!url) return ''
-  const isVercelRuntime = process.env.VERCEL === '1' || process.env.VERCEL === 'true'
 
   const encodedTag = cacheTag && cacheTag !== '' ? encodeURIComponent(cacheTag) : null
 
@@ -83,11 +81,7 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
         ((isLocalHost || isSameHost) && parsed.pathname.startsWith('/api/media/')) ||
         ((isLocalHost || isSameHost) && parsed.pathname.startsWith('/media/'))
       ) {
-        const normalizedPath = parsed.pathname.startsWith('/api/media/file/')
-          ? !isVercelRuntime && isLocalHost
-            ? localApiMediaToPublicMedia(mediaPath)
-            : mediaPath
-          : mediaPath
+        const normalizedPath = normalizeMediaPath(mediaPath)
         if (isLocalHost && mediaDebugSeen.size < 30 && !mediaDebugSeen.has(url)) {
           mediaDebugSeen.add(url)
           console.info('[debug-media][normalize-absolute-local]', {
@@ -107,11 +101,13 @@ export const getMediaUrl = (url: string | null | undefined, cacheTag?: string | 
     return appendTag(url)
   }
   if (url.startsWith('/api/media/file/')) {
-    const normalizedPath = isVercelRuntime ? url : localApiMediaToPublicMedia(url)
-    return appendTag(toExactDn(normalizedPath))
-  }
-  if (url.startsWith('/api/media/') || url.startsWith('/media/')) {
     return appendTag(toExactDn(url))
+  }
+  if (url.startsWith('/api/media/')) {
+    return appendTag(toExactDn(url))
+  }
+  if (url.startsWith('/media/')) {
+    return appendTag(toExactDn(normalizeMediaPath(url)))
   }
   return appendTag(url)
 }

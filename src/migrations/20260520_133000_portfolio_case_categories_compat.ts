@@ -3,7 +3,7 @@ import { MigrateDownArgs, MigrateUpArgs, sql } from '@payloadcms/db-vercel-postg
 export async function up({ db }: MigrateUpArgs): Promise<void> {
   await db.execute(
     sql.raw(`
-DO $$
+DO $portfolio_cases_categories$
 BEGIN
   IF to_regclass('public.portfolio_grid_cases_categories') IS NOT NULL THEN
     ALTER TABLE "portfolio_grid_cases_categories"
@@ -24,7 +24,7 @@ BEGIN
     END IF;
 
     CREATE OR REPLACE FUNCTION sync_portfolio_grid_cases_categories_cols()
-    RETURNS trigger AS $$
+    RETURNS trigger AS $sync_portfolio_grid_cases_categories$
     BEGIN
       IF NEW.parent_id IS NULL THEN NEW.parent_id := NEW._parent_id; END IF;
       IF NEW._parent_id IS NULL THEN NEW._parent_id := NEW.parent_id; END IF;
@@ -32,7 +32,7 @@ BEGIN
       IF NEW._order IS NULL THEN NEW._order := NEW."order"; END IF;
       RETURN NEW;
     END;
-    $$ LANGUAGE plpgsql;
+    $sync_portfolio_grid_cases_categories$ LANGUAGE plpgsql;
 
     DROP TRIGGER IF EXISTS trg_sync_portfolio_grid_cases_categories_cols ON "portfolio_grid_cases_categories";
     CREATE TRIGGER trg_sync_portfolio_grid_cases_categories_cols
@@ -56,7 +56,7 @@ BEGIN
     END IF;
 
     CREATE OR REPLACE FUNCTION sync__portfolio_grid_v_cases_categories_cols()
-    RETURNS trigger AS $$
+    RETURNS trigger AS $sync_portfolio_grid_v_cases_categories$
     BEGIN
       IF NEW.parent_id IS NULL THEN NEW.parent_id := NEW._parent_id; END IF;
       IF NEW._parent_id IS NULL THEN NEW._parent_id := NEW.parent_id; END IF;
@@ -64,7 +64,7 @@ BEGIN
       IF NEW._order IS NULL THEN NEW._order := NEW."order"; END IF;
       RETURN NEW;
     END;
-    $$ LANGUAGE plpgsql;
+    $sync_portfolio_grid_v_cases_categories$ LANGUAGE plpgsql;
 
     DROP TRIGGER IF EXISTS trg_sync__portfolio_grid_v_cases_categories_cols ON "_portfolio_grid_v_cases_categories";
     CREATE TRIGGER trg_sync__portfolio_grid_v_cases_categories_cols
@@ -72,7 +72,7 @@ BEGIN
     FOR EACH ROW EXECUTE FUNCTION sync__portfolio_grid_v_cases_categories_cols();
   END IF;
 END
-$$;
+$portfolio_cases_categories$;
 `),
   )
 }
@@ -80,7 +80,7 @@ $$;
 export async function down({ db }: MigrateDownArgs): Promise<void> {
   await db.execute(
     sql.raw(`
-DO $$
+DO $portfolio_cases_categories_down$
 BEGIN
   IF to_regclass('public.portfolio_grid_cases_categories') IS NOT NULL THEN
     DROP TRIGGER IF EXISTS trg_sync_portfolio_grid_cases_categories_cols ON "portfolio_grid_cases_categories";
@@ -92,7 +92,7 @@ BEGIN
     DROP FUNCTION IF EXISTS sync__portfolio_grid_v_cases_categories_cols();
   END IF;
 END
-$$;
+$portfolio_cases_categories_down$;
 `),
   )
 }

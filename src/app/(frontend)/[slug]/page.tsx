@@ -74,8 +74,7 @@ function isCorporateIdentityPageSlug(slug?: string | null): boolean {
 function isCorporateIdentityPageTitle(title?: string | null): boolean {
   const normalizedTitle = title?.trim().toLowerCase() ?? ''
   return (
-    normalizedTitle.includes('corporate identity') ||
-    normalizedTitle.includes('corporate design')
+    normalizedTitle.includes('corporate identity') || normalizedTitle.includes('corporate design')
   )
 }
 
@@ -354,16 +353,16 @@ export default async function Page({
             >
               <SectionReveal className="relative z-0 pt-24">
                 <RenderBlocks blocks={previewBlocksBeforeAndIncludingCta} />
-                {previewRenderFaqAfterCta && <PortfolioFaqBox />}
+                {previewRenderFaqAfterCta && <PortfolioFaqBox faq={pageById.faq} />}
                 {previewBlocksAfterCta.length > 0 && (
                   <RenderBlocks blocks={previewBlocksAfterCta} />
                 )}
-                {previewRenderFaqAtEnd && <PortfolioFaqBox />}
-                {previewIsPricesPage && <PreiseFaqBox />}
-                {previewIsProfilePage && <ProfilFaqBox />}
-                {previewIsWebdesignPage && <WebdesignFaqBox />}
-                {previewIsCorporateIdentityPage && <CorporateIdentityFaqBox />}
-                {isHomePageSlug(previewSlug) && <Faq8 />}
+                {previewRenderFaqAtEnd && <PortfolioFaqBox faq={pageById.faq} />}
+                {previewIsPricesPage && <PreiseFaqBox faq={pageById.faq} />}
+                {previewIsProfilePage && <ProfilFaqBox faq={pageById.faq} />}
+                {previewIsWebdesignPage && <WebdesignFaqBox faq={pageById.faq} />}
+                {previewIsCorporateIdentityPage && <CorporateIdentityFaqBox faq={pageById.faq} />}
+                {isHomePageSlug(previewSlug) && <Faq8 faq={pageById.faq} />}
               </SectionReveal>
             </div>
           </article>
@@ -483,14 +482,14 @@ export default async function Page({
         >
           <SectionReveal className="relative z-0 pt-24">
             <RenderBlocks blocks={blocksBeforeAndIncludingCta} />
-            {renderFaqAfterCta && <PortfolioFaqBox />}
+            {renderFaqAfterCta && <PortfolioFaqBox faq={page.faq} />}
             {blocksAfterCta.length > 0 && <RenderBlocks blocks={blocksAfterCta} />}
-            {renderFaqAtEnd && <PortfolioFaqBox />}
-            {isPricesPage && <PreiseFaqBox />}
-            {isProfilePage && <ProfilFaqBox />}
-            {isWebdesignPage && <WebdesignFaqBox />}
-            {isCorporateIdentityPage && <CorporateIdentityFaqBox />}
-            {showHomeFaq && <Faq8 />}
+            {renderFaqAtEnd && <PortfolioFaqBox faq={page.faq} />}
+            {isPricesPage && <PreiseFaqBox faq={page.faq} />}
+            {isProfilePage && <ProfilFaqBox faq={page.faq} />}
+            {isWebdesignPage && <WebdesignFaqBox faq={page.faq} />}
+            {isCorporateIdentityPage && <CorporateIdentityFaqBox faq={page.faq} />}
+            {showHomeFaq && <Faq8 faq={page.faq} />}
           </SectionReveal>
         </div>
       </article>

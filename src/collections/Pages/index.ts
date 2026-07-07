@@ -46,6 +46,7 @@ import { stripIdOnUpdate, stripIdOnUpdateBeforeValidate } from './hooks/stripIdO
 import { applyPortfolioPreset } from './hooks/applyPortfolioPreset'
 import { PORTFOLIO_TYPE_OPTIONS } from './portfolioPresets'
 import { hero as heroField } from '../../heros/config'
+import { pageFaqField } from '../../fields/pageFaq'
 
 import {
   MetaDescriptionField,
@@ -128,6 +129,10 @@ export const Pages: CollectionConfig = {
               },
             },
           ],
+        },
+        {
+          label: 'FAQ',
+          fields: [pageFaqField],
         },
         {
           label: 'Settings',

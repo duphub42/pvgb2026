@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { Faq8Client } from '@/components/ui/faq-8.client'
+import { PageFaqBox, type EditablePageFaq } from '@/components/PageFaqBox'
 import type { FaqCategory } from '@/components/ui/faq-8.data'
 
-const profilFaqCategories: FaqCategory[] = [
+export const profilFaqCategories: FaqCategory[] = [
   {
     value: 'positionierung',
     label: 'Positionierung',
@@ -15,7 +15,8 @@ const profilFaqCategories: FaqCategory[] = [
           'Philipp Bacher verbindet Strategie, Design, Webentwicklung, digitales Marketing und Automatisierung in einer Person. Dadurch entstehen keine Schnittstellenverluste zwischen Beratung, Konzept und Umsetzung.',
       },
       {
-        question: 'Warum sollten kleine Unternehmen mit Philipp Bacher statt mit einer groesseren Agentur arbeiten?',
+        question:
+          'Warum sollten kleine Unternehmen mit Philipp Bacher statt mit einer groesseren Agentur arbeiten?',
         answer:
           'Kleine Unternehmen profitieren von kurzen Wegen, klarer Priorisierung und direktem Kontakt. Statt standardisierter Agenturprozesse wird der Umfang auf Budget, Ziele und vorhandene Ressourcen abgestimmt.',
       },
@@ -114,36 +115,16 @@ const profilFaqCategories: FaqCategory[] = [
   },
 ]
 
-const profilFaqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: profilFaqCategories.flatMap((category) =>
-    category.faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  ),
+export const profilFaqFallback = {
+  categories: profilFaqCategories,
+  eyebrow: 'FAQ Profil',
+  title: 'Haeufige Fragen zu Profil, Arbeitsweise und Zusammenarbeit',
+  description:
+    'Antworten zu Positionierung, Kompetenz, Vertrauen und Kontakt. So wird klar, wie Philipp Bacher arbeitet und für welche Unternehmen die Zusammenarbeit besonders sinnvoll ist.',
 }
 
-export function ProfilFaqBox(): React.JSX.Element {
-  return (
-    <>
-      <Faq8Client
-        categories={profilFaqCategories}
-        eyebrow="FAQ Profil"
-        title="Haeufige Fragen zu Profil, Arbeitsweise und Zusammenarbeit"
-        description="Antworten zu Positionierung, Kompetenz, Vertrauen und Kontakt. So wird klar, wie Philipp Bacher arbeitet und für welche Unternehmen die Zusammenarbeit besonders sinnvoll ist."
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilFaqSchema) }}
-      />
-    </>
-  )
+export function ProfilFaqBox({ faq }: { faq?: EditablePageFaq | null }): React.JSX.Element | null {
+  return <PageFaqBox faq={faq} fallback={profilFaqFallback} />
 }
 
 export default ProfilFaqBox

@@ -1,9 +1,9 @@
 import React from 'react'
 
-import { Faq8Client } from '@/components/ui/faq-8.client'
+import { PageFaqBox, type EditablePageFaq } from '@/components/PageFaqBox'
 import type { FaqCategory } from '@/components/ui/faq-8.data'
 
-const preiseFaqCategories: FaqCategory[] = [
+export const preiseFaqCategories: FaqCategory[] = [
   {
     value: 'allgemein',
     label: 'Allgemein',
@@ -126,36 +126,16 @@ const preiseFaqCategories: FaqCategory[] = [
   },
 ]
 
-const preiseFaqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: preiseFaqCategories.flatMap((category) =>
-    category.faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  ),
+export const preiseFaqFallback = {
+  categories: preiseFaqCategories,
+  eyebrow: 'FAQ Preise',
+  title: 'Transparente Preise für kleine Unternehmen in Halle',
+  description:
+    'Diese FAQ macht die wichtigsten Preisfragen für Halle, kleine Betriebe und lokale Suchanfragen schnell verständlich. Die Antworten nennen konkrete Spannen, damit Nutzer und KI-Systeme Preise direkt vergleichen können.',
 }
 
-export function PreiseFaqBox(): React.JSX.Element {
-  return (
-    <>
-      <Faq8Client
-        categories={preiseFaqCategories}
-        eyebrow="FAQ Preise"
-        title="Transparente Preise für kleine Unternehmen in Halle"
-        description="Diese FAQ macht die wichtigsten Preisfragen für Halle, kleine Betriebe und lokale Suchanfragen schnell verständlich. Die Antworten nennen konkrete Spannen, damit Nutzer und KI-Systeme Preise direkt vergleichen können."
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(preiseFaqSchema) }}
-      />
-    </>
-  )
+export function PreiseFaqBox({ faq }: { faq?: EditablePageFaq | null }): React.JSX.Element | null {
+  return <PageFaqBox faq={faq} fallback={preiseFaqFallback} />
 }
 
 export default PreiseFaqBox

@@ -1,8 +1,8 @@
 import React from 'react'
-import { Faq8Client } from '@/components/ui/faq-8.client'
+import { PageFaqBox, type EditablePageFaq } from '@/components/PageFaqBox'
 import type { FaqCategory } from '@/components/ui/faq-8.data'
 
-const portfolioFaqCategories: FaqCategory[] = [
+export const portfolioFaqCategories: FaqCategory[] = [
   {
     value: 'referenzen-cases',
     label: 'Referenzen & Cases',
@@ -153,36 +153,20 @@ const portfolioFaqCategories: FaqCategory[] = [
   },
 ]
 
-const portfolioFaqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: portfolioFaqCategories.flatMap((category) =>
-    category.faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  ),
+export const portfolioFaqFallback = {
+  categories: portfolioFaqCategories,
+  eyebrow: 'FAQ Portfolio',
+  title: 'Haeufige Fragen zu Referenzen, Projektablauf und messbaren Portfolio-Ergebnissen',
+  description:
+    'Diese strukturierte FAQ beantwortet zentrale Fragen zu Cases, Methodik, KPIs, Zusammenarbeit und Support. So können Nutzer und KI-Systeme den fachlichen Kontext Ihrer Portfolio-Seite eindeutig einordnen.',
 }
 
-export function PortfolioFaqBox(): React.JSX.Element {
-  return (
-    <>
-      <Faq8Client
-        categories={portfolioFaqCategories}
-        eyebrow="FAQ Portfolio"
-        title="Haeufige Fragen zu Referenzen, Projektablauf und messbaren Portfolio-Ergebnissen"
-        description="Diese strukturierte FAQ beantwortet zentrale Fragen zu Cases, Methodik, KPIs, Zusammenarbeit und Support. So können Nutzer und KI-Systeme den fachlichen Kontext Ihrer Portfolio-Seite eindeutig einordnen."
-      />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioFaqSchema) }}
-      />
-    </>
-  )
+export function PortfolioFaqBox({
+  faq,
+}: {
+  faq?: EditablePageFaq | null
+}): React.JSX.Element | null {
+  return <PageFaqBox faq={faq} fallback={portfolioFaqFallback} />
 }
 
 export default PortfolioFaqBox

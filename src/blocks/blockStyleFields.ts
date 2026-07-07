@@ -113,6 +113,7 @@ export const blockStyleFields: Field[] = [
   },
   {
     name: 'blockDecorativeBackground',
+    dbName: 'deco',
     type: 'select',
     label: 'Zierhintergrund',
     defaultValue: 'none',

@@ -1,0 +1,84 @@
+import { getPayload } from 'payload'
+import config from '@payload-config'
+
+import { corporateIdentityFaqFallback } from '@/components/CorporateIdentityFaqBox'
+import { leistungenFaqFallback } from '@/components/LeistungenFaqBox'
+import { portfolioFaqFallback } from '@/components/PortfolioFaqBox'
+import { preiseFaqFallback } from '@/components/PreiseFaqBox'
+import { profilFaqFallback } from '@/components/ProfilFaqBox'
+import { homeFaqFallback } from '@/components/ui/faq-8'
+import { webdesignFaqFallback } from '@/components/WebdesignFaqBox'
+
+const force = process.argv.includes('--force')
+
+const targets = [
+  { slugs: ['home', 'Home'], fallback: homeFaqFallback },
+  { slugs: ['leistungen', 'lei'], fallback: leistungenFaqFallback },
+  {
+    slugs: [
+      'portfolio',
+      'portfolio-webdesign',
+      'portfolio-marketing',
+      'portfolio-branding',
+      'portfolio-marken',
+    ],
+    fallback: portfolioFaqFallback,
+  },
+  { slugs: ['preise'], fallback: preiseFaqFallback },
+  { slugs: ['profil'], fallback: profilFaqFallback },
+  { slugs: ['webdesign'], fallback: webdesignFaqFallback },
+  {
+    slugs: ['corporate-identity', 'ci-corporate-identity'],
+    fallback: corporateIdentityFaqFallback,
+  },
+]
+
+async function run() {
+  const payload = await getPayload({ config })
+
+  for (const target of targets) {
+    const result = await payload.find({
+      collection: 'site-pages',
+      where: { slug: { in: target.slugs } },
+      limit: 20,
+      depth: 0,
+      pagination: false,
+      overrideAccess: true,
+    })
+
+    for (const page of result.docs) {
+      const hasFaqCategories = Array.isArray(page.faq?.categories) && page.faq.categories.length > 0
+
+      if (hasFaqCategories && !force) {
+        payload.logger.info(
+          `FAQ uebersprungen: ${page.slug ?? page.id} hat bereits CMS-Kategorien.`,
+        )
+        continue
+      }
+
+      await payload.update({
+        collection: 'site-pages',
+        id: page.id,
+        data: {
+          faq: {
+            enabled: true,
+            eyebrow: target.fallback.eyebrow,
+            title: target.fallback.title,
+            description: target.fallback.description,
+            categories: target.fallback.categories,
+          },
+        },
+        overrideAccess: true,
+      })
+
+      payload.logger.info(`FAQ geschrieben: ${page.slug ?? page.id}`)
+    }
+  }
+}
+
+run()
+  .then(() => process.exit(0))
+  .catch((error) => {
+    console.error(error)
+    process.exit(1)
+  })

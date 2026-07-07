@@ -24,19 +24,19 @@ const disciplineConfig: Record<
 > = {
   webdesign: {
     label: 'Webdesign',
-    iconSrc: '/media/portfolio-2.svg',
+    iconSrc: '/api/media/file/portfolio-2.svg',
     accent: 'text-muted-foreground',
     bgAccent: 'bg-card border-border',
   },
   marketing: {
     label: 'Marketing',
-    iconSrc: '/media/marketing-portfolio-1.svg',
+    iconSrc: '/api/media/file/marketing-portfolio-1.svg',
     accent: 'text-muted-foreground',
     bgAccent: 'bg-card border-border',
   },
   branding: {
     label: 'Branding',
-    iconSrc: '/media/Branding-Portfolio.svg',
+    iconSrc: '/api/media/file/Branding-Portfolio.svg',
     accent: 'text-muted-foreground',
     bgAccent: 'bg-card border-border',
   },
