@@ -408,6 +408,8 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   }
 
   const heroLayerClass = 'hero-scroll-layer'
+  const showHeroLogoBand =
+    Boolean(marqueeHeadline?.trim()) || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)
   const heroContentClass = cn(
     'hero-scroll-content relative container z-[40] flex w-full min-w-0 flex-col px-[clamp(1rem,4vw,2rem)] pb-[clamp(3rem,8vh,7rem)] pt-[clamp(1.5rem,6vh,2.5rem)]',
     !portraitSrc && 'hero-scroll-content--no-portrait',
@@ -640,39 +642,44 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               </div>
             )}
 
-            {logoDisplayType === 'logoCarousel' && Array.isArray(marqueeLogos) && marqueeLogos.length > 0 ? (
-              <div
-                className={cn(
-                  heroLayerClass,
-                  'hero-scroll-layer-carousel mt-1 pt-3 border-t border-border/60',
+            {showHeroLogoBand && (
+              <div className="hero-logo-band-shell mt-1 w-full max-w-full md:max-w-2xl">
+                <div className="hero-logo-band-divider border-t border-border/60" aria-hidden />
+
+                {logoDisplayType === 'logoCarousel' &&
+                Array.isArray(marqueeLogos) &&
+                marqueeLogos.length > 0 ? (
+                  <div
+                    className={cn(
+                      heroLayerClass,
+                      'hero-scroll-layer-carousel pt-3',
+                    )}
+                  >
+                    <LogoCarousel
+                      logos={marqueeLogos
+                        .map((row, idx) => {
+                          const src = resolveHeroImageSrc(row?.logo)
+                          if (!src) return null
+                          return {
+                            id: idx,
+                            name: row?.alt ?? `Logo ${idx}`,
+                            imgUrl: src,
+                            alt: row?.alt,
+                          } as const as LogoCarouselLogo
+                        })
+                        .filter((logo): logo is LogoCarouselLogo => Boolean(logo))}
+                      columnCount={3}
+                      className="w-full"
+                    />
+                  </div>
+                ) : (
+                  <HeroLogoMarquee
+                    marqueeHeadline={marqueeHeadline}
+                    marqueeLogos={marqueeLogos}
+                    className={cn(heroLayerClass, 'hero-scroll-layer-marquee pt-3')}
+                  />
                 )}
-              >
-                <LogoCarousel
-                  logos={marqueeLogos
-                    .map((row, idx) => {
-                      const src = resolveHeroImageSrc(row?.logo)
-                      if (!src) return null
-                      return {
-                        id: idx,
-                        name: row?.alt ?? `Logo ${idx}`,
-                        imgUrl: src,
-                        alt: row?.alt,
-                      } as const as LogoCarouselLogo
-                    })
-                    .filter((logo): logo is LogoCarouselLogo => Boolean(logo))}
-                  columnCount={3}
-                  className="w-full"
-                />
               </div>
-            ) : (
-              <HeroLogoMarquee
-                marqueeHeadline={marqueeHeadline}
-                marqueeLogos={marqueeLogos}
-                className={cn(
-                  heroLayerClass,
-                  'hero-scroll-layer-marquee mt-1 pt-3 border-t border-border/60',
-                )}
-              />
             )}
           </div>
 

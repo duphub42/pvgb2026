@@ -191,7 +191,7 @@ async function importLegalPages() {
                         children: [
                           {
                             type: 'text',
-                            text: 'Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.',
+                            text: 'Ich bin nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.',
                             version: 1,
                           },
                         ],
@@ -214,7 +214,7 @@ async function importLegalPages() {
                         children: [
                           {
                             type: 'text',
-                            text: 'Als Diensteanbieter sind wir gemäß den allgemeinen Gesetzen für eigene Inhalte auf diesen Seiten verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.',
+                            text: 'Als Diensteanbieter bin ich gemäß den allgemeinen Gesetzen für eigene Inhalte auf diesen Seiten verantwortlich. Ich bin jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.',
                             version: 1,
                           },
                         ],
@@ -237,7 +237,7 @@ async function importLegalPages() {
                         children: [
                           {
                             type: 'text',
-                            text: 'Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.',
+                            text: 'Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte ich keinen Einfluss habe. Deshalb kann ich für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.',
                             version: 1,
                           },
                         ],
@@ -330,7 +330,7 @@ async function importLegalPages() {
                         children: [
                           {
                             type: 'text',
-                            text: 'Mit dieser Datenschutzerklärung informieren wir Sie darüber, welche personenbezogenen Daten bei der Nutzung dieser Website verarbeitet werden.',
+                            text: 'Mit dieser Datenschutzerklärung informiere ich Sie darüber, welche personenbezogenen Daten bei der Nutzung dieser Website verarbeitet werden.',
                             version: 1,
                           },
                         ],
@@ -399,7 +399,7 @@ async function importLegalPages() {
                         children: [
                           {
                             type: 'text',
-                            text: 'Wenn Sie uns kontaktieren, verarbeiten wir die übermittelten Daten zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage: Art. 6 Abs. 1 lit. b oder lit. f DSGVO.',
+                            text: 'Wenn Sie mich kontaktieren, verarbeite ich die übermittelten Daten zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage: Art. 6 Abs. 1 lit. b oder lit. f DSGVO.',
                             version: 1,
                           },
                         ],

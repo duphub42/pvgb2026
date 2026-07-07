@@ -9,7 +9,7 @@ type NeonFlowProps = {
 
 /**
  * NeonFlow – animierter, weicher „Neon“-Hintergrund (angelehnt an Neon Flow von 21st.dev).
- * Nutze diese Komponente als Hintergrund-Section und lege deinen Content als Children darüber,
+ * Nutze diese Komponente als Hintergrund-Section und lege Ihren Content als Children darüber,
  * oder setze sie als reine Deko-Section ein.
  */
 export const NeonFlow: React.FC<React.PropsWithChildren<NeonFlowProps>> = ({

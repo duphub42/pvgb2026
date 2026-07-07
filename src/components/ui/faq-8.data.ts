@@ -25,7 +25,7 @@ export const faqCategories: FaqCategory[] = [
       {
         question: 'Für wen ist die Zusammenarbeit geeignet?',
         answer:
-          'Für Selbstständige, Gründer, Agenturen und KMU, die ihre Website, ihr Branding und ihr digitales Marketing wirkungsvoll verbinden wollen. Besonders effektiv ist meine Arbeit bei Unternehmen, die Sichtbarkeit, Conversion und professionelle Positionierung gleichzeitig verbessern möchten. Ich helfe Ihnen dabei, aus Ihren digitalen Auftritten ein zusammenhängendes Erlebnis zu machen, das mehr Kunden gewinnt und Vertrauen schafft.',
+          'Für Selbstständige, Gründer, Agenturen und KMU, die Ihre Website, Ihr Branding und Ihr digitales Marketing wirkungsvoll verbinden wollen. Besonders effektiv ist meine Arbeit bei Unternehmen, die Sichtbarkeit, Conversion und professionelle Positionierung gleichzeitig verbessern möchten. Ich helfe Ihnen dabei, aus Ihren digitalen Auftritten ein zusammenhängendes Erlebnis zu machen, das mehr Kunden gewinnt und Vertrauen schafft.',
       },
       {
         question: 'Wann kann Ihr Projekt starten?',

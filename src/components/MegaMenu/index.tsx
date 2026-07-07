@@ -615,7 +615,7 @@ function getMobileMenuFallbackIcon(item: Pick<MegaMenuItem, 'label' | 'url'>): L
   if (/(kontakt|telefon|anruf|call|whatsapp|mail)/.test(haystack)) return Phone
   if (/(termin|buch|booking|kalender)/.test(haystack)) return CalendarDays
   if (/(blog|news|artikel|magazin|presse)/.test(haystack)) return Newspaper
-  if (/(über|ueber|about|team|profil|unternehmen)/.test(haystack)) return User
+  if (/(über|über|about|team|profil|unternehmen)/.test(haystack)) return User
   if (/(start|home|index)/.test(haystack)) return Home
   return Compass
 }

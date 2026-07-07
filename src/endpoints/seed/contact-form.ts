@@ -51,7 +51,7 @@ export const contactForm: RequiredDataFromCollectionSlug<'forms'> = {
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: 'Vielen Dank für Ihre Nachricht. Wir melden uns so bald wie möglich bei Ihnen.',
+                  text: 'Vielen Dank für Ihre Nachricht. Ich melde mich so bald wie möglich bei Ihnen.',
                   version: 1,
                 },
               ],

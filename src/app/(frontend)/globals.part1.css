@@ -1356,7 +1356,7 @@
     .hero-portrait-fade-up {
       mask-image: none;
       -webkit-mask-image: none;
-      /* Unter beiden Shape-Dividern halten, damit unten kein Portrait-Schatten darueber sichtbar ist. */
+      /* Unter beiden Shape-Dividern halten, damit unten kein Portrait-Schatten darüber sichtbar ist. */
       z-index: 28;
       top: auto;
       bottom: 0;
@@ -2566,14 +2566,14 @@
    * Mindestabstand mit max(10vh, header-height), damit der Inhalt nie unter den Header rutscht
    * (bei kurzer Viewport-Höhe ist 10vh < 6rem → ohne max() würde die Box überlappen).
    *
-   * iOS-Safari behandelt 1vh dynamisch (Adressleiste ein-/ausgeblendet). Für echte Geräte verwenden wir,
+   * iOS-Safari behandelt 1vh dynamisch (Adressleiste ein-/ausgeblendet). Für echte Geräte wird verwendet,
    * wenn verfügbar, die stabilere sichtbare Höhe (svh), lassen aber vh als Fallback für andere Browser. */
   @media (max-width: 63.99rem) {
     .hero-pb-section {
       padding-top: calc(var(--header-height, 6rem) + max(10vh, var(--header-height, 6rem)));
     }
     /* Box-Höhe für normale Mobile-Viewports begrenzen, damit sie mit items-end nicht in den Padding-Bereich ragt.
-     * Für sehr kleine Geräte (z. B. iPhone SE, <=375px) heben wir diese Begrenzung weiter unten wieder auf,
+     * Für sehr kleine Geräte (z. B. iPhone SE, <=375px) hebt diese Regel die Begrenzung weiter unten wieder auf,
      * damit sich der Inhalt nach unten ausdehnen kann (kein Abschneiden). */
     .hero-pb-content-wrapper {
       max-height: calc(93vh - 2 * var(--header-height, 6rem));

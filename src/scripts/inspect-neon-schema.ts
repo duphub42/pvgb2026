@@ -6,7 +6,7 @@
  *
  * Wann ausführen: Vor migrate:neon und vor import:neon, damit fehlende Spalten
  * (z. B. _uuid in Array-Tabellen) erkannt werden. Erst Migrationen laufen lassen,
- * dann ggf. import:neon – so vermeidest du Fehler im Admin (Seiten laden, neue Seite anlegen).
+ * dann ggf. import:neon – so vermeiden Sie Fehler im Admin (Seiten laden, neue Seite anlegen).
  *
  * Bei neuen Feldern: EXPECTED_COLUMNS / ARRAY_TABLES_REQUIRING_UUID erweitern,
  * Migration anlegen, dann pnpm run migrate:neon.

@@ -530,7 +530,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                 </form>
                 {status === 'error' && (
                   <p className="text-xs text-destructive">
-                    Fehler beim Senden. Bitte spaeter erneut versuchen.
+                    Fehler beim Senden. Bitte später erneut versuchen.
                   </p>
                 )}
               </div>

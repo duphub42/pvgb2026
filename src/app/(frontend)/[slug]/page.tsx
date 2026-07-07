@@ -98,29 +98,29 @@ const SLUG_ALIASES: Record<string, string[]> = {
 
 const PORTFOLIO_META_BY_SLUG: Record<string, { title: string; description: string }> = {
   portfolio: {
-    title: 'Portfolio fuer Webdesign, SEO und Branding in Halle',
+    title: 'Portfolio für Webdesign, SEO und Branding in Halle',
     description:
-      'Ausgewaehlte Projekte aus Webdesign, SEO, Branding und Performance-Optimierung fuer Unternehmen in Halle und im 200-km-Umkreis.',
+      'Ausgewählte Projekte aus Webdesign, SEO, Branding und Performance-Optimierung für Unternehmen in Halle und im 200-km-Umkreis.',
   },
   'portfolio-webdesign': {
     title: 'Portfolio Webdesign in Halle',
     description:
-      'UX/UI- und Performance-Projekte: moderne Websites, klare Conversion-Pfade und technische Optimierung fuer Unternehmen in Halle und Region.',
+      'UX/UI- und Performance-Projekte: moderne Websites, klare Conversion-Pfade und technische Optimierung für Unternehmen in Halle und Region.',
   },
   'portfolio-marketing': {
     title: 'Portfolio Marketing in Halle',
     description:
-      'Marketing-Cases mit Fokus auf Sichtbarkeit, Nachfrage und messbare Ergebnisse fuer lokale KMU, B2B und Startups in Halle und Umgebung.',
+      'Marketing-Cases mit Fokus auf Sichtbarkeit, Nachfrage und messbare Ergebnisse für lokale KMU, B2B und Startups in Halle und Umgebung.',
   },
   'portfolio-branding': {
     title: 'Portfolio Branding in Halle',
     description:
-      'Branding-Projekte mit klarer Positionierung, visueller Identitaet und konsistentem Markenauftritt fuer Unternehmen in Halle und Region.',
+      'Branding-Projekte mit klarer Positionierung, visueller Identität und konsistentem Markenauftritt für Unternehmen in Halle und Region.',
   },
   'portfolio-marken': {
     title: 'Portfolio Branding in Halle',
     description:
-      'Branding-Projekte mit klarer Positionierung, visueller Identitaet und konsistentem Markenauftritt fuer Unternehmen in Halle und Region.',
+      'Branding-Projekte mit klarer Positionierung, visueller Identität und konsistentem Markenauftritt für Unternehmen in Halle und Region.',
   },
 }
 

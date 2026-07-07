@@ -14,7 +14,7 @@ const leistungenFaqCategories: FaqCategory[] = [
           'Das Angebot umfasst Branding, Webdesign und Webentwicklung, Social Media Marketing, SEO/SEA, Print und klassische Werbung sowie Content und Videoproduktion. Die Leistungen sind modular aufgebaut, damit Sie genau die Bausteine buchen können, die Ihr Projekt wirklich braucht.',
       },
       {
-        question: 'Für welche Unternehmensgröße eignet sich euer Angebot?',
+        question: 'Für welche Unternehmensgröße eignet sich Ihr Angebot?',
         answer:
           'Ich arbeite vor allem für kleine und lokale Betriebe in Halle und Umgebung, die sichtbar werden und professioneller auftreten wollen. Das Setup passt auch für wachsende KMU, wenn mehrere Leistungen sinnvoll kombiniert werden sollen.',
       },
@@ -86,7 +86,7 @@ const leistungenFaqCategories: FaqCategory[] = [
     icon: 'Headphones',
     faqs: [
       {
-        question: 'Welche Plattformen betreut ihr?',
+        question: 'Welche Plattformen betreuen Sie?',
         answer:
           'Je nach Zielgruppe betreue ich Instagram, Facebook, TikTok und LinkedIn. Entscheidend ist nicht die Anzahl der Kanäle, sondern dass die Plattformen zu Ihrem Angebot und Ihrer Zielgruppe passen.',
       },
@@ -96,7 +96,7 @@ const leistungenFaqCategories: FaqCategory[] = [
           'Die laufenden Kosten hängen von Frequenz, Formatmix und Abstimmungsaufwand ab. Ein klar definierter Kanal mit planbaren Inhalten ist günstiger als ein Setup mit mehreren Plattformen, Reels und laufender Community-Betreuung.',
       },
       {
-        question: 'Erstellt ihr auch die Inhalte oder nur die Strategie?',
+        question: 'Erstellen Sie auch die Inhalte oder nur die Strategie?',
         answer:
           'Beides ist möglich. Ich kann Strategie, Redaktionsplanung, Texte, Bildideen und auf Wunsch auch die Produktion von Fotos, Grafiken oder Reels übernehmen.',
       },
@@ -114,7 +114,7 @@ const leistungenFaqCategories: FaqCategory[] = [
     faqs: [
       {
         question:
-          'Was ist der Unterschied zwischen SEO und SEA, und was empfehlt ihr kleinen Betrieben?',
+          'Was ist der Unterschied zwischen SEO und SEA, und was empfehlen Sie kleinen Betrieben?',
         answer:
           'SEO baut organische Sichtbarkeit über Inhalte, Technik und Relevanz auf, während SEA bezahlte Anzeigen sofort Reichweite liefert. Für kleine Betriebe ist oft eine Kombination sinnvoll: SEO für nachhaltige Sichtbarkeit und SEA für schnelle, planbare Anfragen.',
       },
@@ -129,7 +129,7 @@ const leistungenFaqCategories: FaqCategory[] = [
           'Die Höhe des Budgets hängt von Ziel, Wettbewerb und Region ab. Wichtig ist, dass Anzeigenbudget und Betreuung zusammenpassen, damit Kampagnen nicht nur laufen, sondern auch wirtschaftlich bleiben.',
       },
       {
-        question: 'Optimiert ihr auch gezielt für lokale Suchanfragen?',
+        question: 'Optimieren Sie auch gezielt für lokale Suchanfragen?',
         answer:
           'Ja, lokale Keywords und Suchintentionen sind ein zentraler Teil der Arbeit. So wird Ihre Sichtbarkeit auf Anfragen wie „Werbeagentur Halle“ oder branchenspezifische lokale Suchen gezielt gestärkt.',
       },
@@ -141,12 +141,12 @@ const leistungenFaqCategories: FaqCategory[] = [
     icon: 'LockKeyhole',
     faqs: [
       {
-        question: 'Welche Print-Leistungen bietet ihr an?',
+        question: 'Welche Print-Leistungen bieten Sie an?',
         answer:
           'Ich gestalte unter anderem Flyer, Plakate, Visitenkarten und Beschriftungen. Auf Wunsch werden auch Anzeigenmotive oder andere klassische Werbemittel im passenden Look entwickelt.',
       },
       {
-        question: 'Übernehmt ihr auch die Produktion oder nur die Gestaltung?',
+        question: 'Übernehmen Sie auch die Produktion oder nur die Gestaltung?',
         answer:
           'Die Gestaltung ist der Kern, die Produktion kann aber auf Wunsch mitgedacht oder begleitet werden. So bleibt das Ergebnis nicht nur optisch sauber, sondern auch technisch und druckseitig umsetzbar.',
       },
@@ -163,7 +163,7 @@ const leistungenFaqCategories: FaqCategory[] = [
     icon: 'CreditCard',
     faqs: [
       {
-        question: 'Produziert ihr auch Fotos und Videos vor Ort in Halle und Umgebung?',
+        question: 'Produzieren Sie auch Fotos und Videos vor Ort in Halle und Umgebung?',
         answer:
           'Ja, Inhalte können direkt vor Ort in Halle und Umgebung produziert werden. Das ist besonders sinnvoll, wenn echte Einblicke, Teamaufnahmen, Produkte oder Arbeitsprozesse authentisch gezeigt werden sollen.',
       },

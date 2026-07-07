@@ -10,12 +10,14 @@ import {
 import { PriceCalculatorBlockComponent } from '@/blocks/PriceCalculator/Component'
 import { BlockRenderer } from '@/blocks/BlockRenderer'
 import { CLIENT_BLOCK_TYPES } from '@/blocks/clientBlockTypes'
+import { DecorativeSectionBackground } from '@/components/DecorativeSectionBackground'
 import { AnimateBlock } from '@/components/ui/AnimateBlock'
 import { cn } from '@/utilities/ui'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   blockBackground?: 'none' | 'muted' | 'accent' | 'light' | 'dark' | null
+  blockDecorativeBackground?: 'none' | 'topo-corner' | 'topo-band' | null
   blockBackgroundImage?: unknown
   blockBackgroundImageDisableInversion?: boolean | null
   blockOverlay?: {
@@ -52,16 +54,20 @@ function getBlockBackgroundStyle(blockBackground?: string | null): React.CSSProp
   return style
 }
 
-function getBlockBackgroundImageStyle(backgroundImageUrl: string): React.CSSProperties {
+function getBlockBackgroundImageStyle(
+  backgroundImageUrl: string,
+  placement: 'cover' | 'top-right' = 'cover',
+): React.CSSProperties {
   const escapedUrl = backgroundImageUrl.replace(/"/g, '\\"')
+
   return {
     position: 'absolute',
     inset: 0,
     zIndex: 0,
     pointerEvents: 'none',
     backgroundImage: `url("${escapedUrl}")`,
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
+    backgroundSize: placement === 'top-right' ? 'auto' : 'cover',
+    backgroundPosition: placement === 'top-right' ? 'top right' : 'center',
     backgroundRepeat: 'no-repeat',
   }
 }
@@ -110,8 +116,12 @@ function getResolvedBlockOverlay(block: BlockWithStyle): {
 
 export const RenderBlocks: React.FC<{
   blocks: NonNullable<SitePage['layout']>
+  decorativeBackground?: {
+    blockIndex?: number
+    variant?: 'topo-corner' | 'topo-band'
+  }
 }> = (props) => {
-  const { blocks } = props
+  const { blocks, decorativeBackground } = props
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
@@ -135,6 +145,13 @@ export const RenderBlocks: React.FC<{
           const overlay = getResolvedBlockOverlay(b)
           const hasBackground = Boolean((bg && bg !== 'none') || bgImageUrl)
           const hasOverlay = Boolean(overlay?.enabled && overlay.opacity != null)
+          const decorativeVariant =
+            b.blockDecorativeBackground && b.blockDecorativeBackground !== 'none'
+              ? b.blockDecorativeBackground
+              : decorativeBackground?.blockIndex === index
+                ? decorativeBackground.variant
+                : null
+          const hasDecorativeBackground = Boolean(decorativeVariant)
           const isLastBlock = index === blocks.length - 1
 
           const spacingClass =
@@ -165,7 +182,7 @@ export const RenderBlocks: React.FC<{
                 delay: index * 0.06,
               }}
               style={
-                hasBackground
+                hasBackground || hasDecorativeBackground
                   ? {
                       ...getBlockBackgroundStyle(bg),
                       position: 'relative',
@@ -182,9 +199,15 @@ export const RenderBlocks: React.FC<{
                     b.blockBackgroundImageDisableInversion &&
                       'render-block-background-image--no-invert',
                   )}
-                  style={getBlockBackgroundImageStyle(bgImageUrl)}
+                  style={getBlockBackgroundImageStyle(
+                    bgImageUrl,
+                    isPriceCalculator ? 'top-right' : 'cover',
+                  )}
                 />
               ) : null}
+              {hasDecorativeBackground && (
+                <DecorativeSectionBackground variant={decorativeVariant ?? undefined} />
+              )}
               {hasOverlay && (
                 <div
                   aria-hidden
@@ -194,7 +217,7 @@ export const RenderBlocks: React.FC<{
               )}
               <div
                 className={
-                  hasBackground || hasOverlay
+                  hasBackground || hasOverlay || hasDecorativeBackground
                     ? cn('relative z-10 py-8', isLastBlock && hasBackground && 'pb-16')
                     : 'bg-transparent'
                 }

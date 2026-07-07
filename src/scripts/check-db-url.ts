@@ -1,6 +1,6 @@
 /**
  * Zeigt, welche DATABASE_URL die Skripte verwenden (Host/DB nur – kein Passwort).
- * So kannst du prüfen, ob lokal dieselbe DB wie auf Vercel genutzt wird.
+ * So können Sie prüfen, ob lokal dieselbe DB wie auf Vercel genutzt wird.
  *
  * Aufruf: npx tsx src/scripts/check-db-url.ts
  */

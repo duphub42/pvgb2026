@@ -73,7 +73,7 @@ const contactInfoCardsBlock = (): Record<string, unknown> => ({
     {
       icon: 'clock-3',
       title: 'Verfuegbarkeit',
-      lines: 'Mo-Fr: 09:00-18:00 Uhr\nKickoff kurzfristig moeglich',
+      lines: 'Mo-Fr: 09:00-18:00 Uhr\nKickoff kurzfristig möglich',
     },
   ],
   ctaLabel: 'Projektgespraech anfragen',
@@ -89,7 +89,7 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
     subheadline: 'Portfolio Webdesign',
     headline: 'Digitale Erlebnisse mit klarer UX und hoher Designqualitaet',
     description:
-      'Cases aus Website-Strategie, Interface-Design und Umsetzung mit Fokus auf Nutzerfuehrung, Performance und Conversion.',
+      'Cases aus Website-Strategie, Interface-Design und Umsetzung mit Fokus auf Nutzerführung, Performance und Conversion.',
   },
   layout: [
     introBlock({
@@ -184,7 +184,7 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
     },
     calPopupBlock({
       headline: 'Webdesign-Projekt besprechen',
-      description: 'In 30 Minuten klären wir gemeinsam Zielbild, Scope und die sinnvollste Umsetzungsreihenfolge.',
+      description: 'In 30 Minuten klären Sie gemeinsam mit mir Zielbild, Scope und die sinnvollste Umsetzungsreihenfolge.',
     }),
   ],
   metaTitle: 'Portfolio Webdesign | UX, UI und Performance',
@@ -213,7 +213,7 @@ const MARKETING_PRESET: PortfolioPresetPage = {
       blockType: 'portfolioKpiStrip',
       variant: 'solid',
       eyebrow: 'Performance Snapshot',
-      heading: 'Ergebnisse ueber mehrere Marketing-Cases',
+      heading: 'Ergebnisse über mehrere Marketing-Cases',
       intro: 'Ein Auszug zentraler Kennzahlen aus SEO-, SEM- und Lead-Projekten.',
       items: [
         {
@@ -317,7 +317,7 @@ const MARKETING_PRESET: PortfolioPresetPage = {
     }),
     calPopupBlock({
       headline: 'Marketing-Ziele in einen klaren Plan übersetzen',
-      description: 'Gemeinsam priorisieren wir Kanäle, Budget und Quick Wins in einem kompakten Kickoff.',
+      description: 'Gemeinsam werden Kanäle, Budget und Quick Wins in einem kompakten Kickoff priorisiert.',
     }),
   ],
   metaTitle: 'Portfolio Marketing | SEO, SEM und Leads',
@@ -334,7 +334,7 @@ const BRANDING_PRESET: PortfolioPresetPage = {
     subheadline: 'Portfolio Branding',
     headline: 'Markenauftritte von Logo bis konsistentem Designsystem',
     description:
-      'Branding-Cases mit Fokus auf Positionierung, visuelle Sprache und Wiedererkennbarkeit ueber alle Touchpoints.',
+      'Branding-Cases mit Fokus auf Positionierung, visuelle Sprache und Wiedererkennbarkeit über alle Touchpoints.',
   },
   layout: [
     introBlock({
@@ -405,7 +405,7 @@ const BRANDING_PRESET: PortfolioPresetPage = {
     calPopupBlock({
       headline: 'Marke schärfen und konsistent ausrollen',
       description:
-        'Gemeinsam analysieren wir den Status quo, definieren Leitplanken und priorisieren die nächsten Branding-Schritte.',
+        'Gemeinsam werden Status quo, Leitplanken und die nächsten Branding-Schritte klar priorisiert.',
     }),
   ],
   metaTitle: 'Portfolio Branding | Marken, Logos und CI',

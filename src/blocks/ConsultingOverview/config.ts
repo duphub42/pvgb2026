@@ -235,14 +235,14 @@ export const ConsultingOverview: Block = {
       name: 'strategyTitle',
       type: 'text',
       label: 'Step-Titel 1',
-      defaultValue: 'Gemeinsam definieren wir Ziele, Prioritäten und den richtigen Fokus',
+      defaultValue: 'Gemeinsam werden Ziele, Prioritäten und der richtige Fokus definiert',
     },
     {
       name: 'strategyText',
       type: 'textarea',
       label: 'Step-Text 1',
       defaultValue:
-        'Vor der Umsetzung klären wir gemeinsam, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.',
+        'Vor der Umsetzung wird gemeinsam geklärt, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.',
     },
     {
       name: 'strategyIcon',

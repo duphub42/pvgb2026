@@ -169,9 +169,9 @@ const templates: ServicePageTemplate[] = [
       },
       {
         blockType: 'calPopup',
-        headline: 'Lassen Sie uns das passende Vorgehen für Ihr Projekt finden',
+        headline: 'Finden Sie das passende Vorgehen für Ihr Projekt',
         description:
-          'In einem kurzen Gespräch klären wir, welcher Leistungsbereich für Sie am sinnvollsten ist und wie der nächste Schritt aussieht.',
+          'In einem kurzen Gespräch klären Sie gemeinsam mit mir, welcher Leistungsbereich für Sie am sinnvollsten ist und wie der nächste Schritt aussieht.',
         calLink: 'philippbacher/30min',
         buttonLabel: 'Termin buchen',
       },
@@ -245,7 +245,7 @@ const templates: ServicePageTemplate[] = [
         blockType: 'calPopup',
         headline: 'Webdesign-Inhalte und Scope klären',
         description:
-          'Gemeinsam prüfen wir, welche Inhalte, Komponenten und Prozesse für Ihr Projekt sinnvoll sind.',
+          'Sie prüfen gemeinsam mit mir, welche Inhalte, Komponenten und Prozesse für Ihr Projekt sinnvoll sind.',
         calLink: 'philippbacher/30min',
         buttonLabel: 'Webdesign Termin buchen',
       },
@@ -318,7 +318,7 @@ const templates: ServicePageTemplate[] = [
         blockType: 'calPopup',
         headline: 'Marketing-Plan und Kanäle festlegen',
         description:
-          'Gemeinsam besprechen wir Zielgruppe, Kanalmix und mögliche Quick Wins für Ihr Projekt.',
+          'Sie besprechen gemeinsam mit mir Zielgruppe, Kanalmix und mögliche Quick Wins für Ihr Projekt.',
         calLink: 'philippbacher/30min',
         buttonLabel: 'Marketing Termin buchen',
       },
@@ -391,7 +391,7 @@ const templates: ServicePageTemplate[] = [
         blockType: 'calPopup',
         headline: 'Wartungsbedarf und Serviceumfang klären',
         description:
-          'Gemeinsam prüfen wir den passenden Wartungsumfang für Ihre Website und digitalen Services.',
+          'Sie prüfen gemeinsam mit mir den passenden Wartungsumfang für Ihre Website und digitalen Services.',
         calLink: 'philippbacher/30min',
         buttonLabel: 'Wartungstermin buchen',
       },

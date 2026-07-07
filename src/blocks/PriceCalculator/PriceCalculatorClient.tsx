@@ -175,7 +175,7 @@ export function PriceCalculatorClient(props: {
     return (
       <div className="rounded-lg border border-border bg-muted/30 px-5 py-8 text-center type-body text-muted-foreground">
         Der Preisrechner wird aktuell gepflegt. Bitte schauen Sie später wieder vorbei oder
-        kontaktieren Sie uns direkt.
+        kontaktieren Sie mich direkt.
       </div>
     )
   }

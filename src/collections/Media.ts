@@ -51,7 +51,7 @@ export const Media: CollectionConfig = {
   ],
   upload: {
     // Statisch halten: keine env-bedingte Upload-Shape, um Client/Server-Mismatch im Admin zu vermeiden.
-    // Bei aktiviertem S3/R2-Plugin wird der Speicheradapter dort uebernommen.
+    // Bei aktiviertem S3/R2-Plugin wird der Speicheradapter dort übernommen.
     // Achtung: In Vercel Production ist `public/media` nicht schreibbar. Setzt Cloudflare R2 für persistente Uploads.
     staticDir: path.resolve(dirname, '../../public/media'),
     adminThumbnail: 'thumbnail',

@@ -30,14 +30,14 @@ const DEFAULT_STEPS: Step[] = [
     stepNumber: '01',
     title: 'Analyse & Ausrichtung',
     subtitle: 'Fundament für alle weiteren Maßnahmen',
-    text: 'Gemeinsam definieren wir Ziele, Prioritäten und den richtigen Fokus. Vor der Umsetzung klären wir gemeinsam, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.',
+    text: 'Gemeinsam werden Ziele, Prioritäten und der richtige Fokus definiert. Vor der Umsetzung wird gemeinsam geklärt, was wirklich zählt: Zielgruppen, Positionierung, Angebote und konkrete Business-Ziele. So entsteht ein belastbarer Plan statt Aktionismus.',
   },
   {
     key: 'default-02',
     stepNumber: '02',
     title: 'Klärung & Strategie',
     subtitle: 'Ziele verstehen & Struktur schaffen',
-    text: 'Gemeinsam besprechen wir Ihr Projekt, Ihre Zielgruppe und die gewünschten Ergebnisse. Daraus entsteht eine klare strategische Grundlage für alle weiteren Schritte.',
+    text: 'Sie besprechen Ihr Projekt gemeinsam mit mir, Ihre Zielgruppe und die gewünschten Ergebnisse. Daraus entsteht eine klare strategische Grundlage für alle weiteren Schritte.',
   },
   {
     key: 'default-03',

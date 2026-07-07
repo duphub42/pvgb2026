@@ -20,19 +20,19 @@ const profilFaqCategories: FaqCategory[] = [
           'Kleine Unternehmen profitieren von kurzen Wegen, klarer Priorisierung und direktem Kontakt. Statt standardisierter Agenturprozesse wird der Umfang auf Budget, Ziele und vorhandene Ressourcen abgestimmt.',
       },
       {
-        question: 'Was ist der Vorteil gegenueber der Arbeit mit einzelnen Freelancern?',
+        question: 'Was ist der Vorteil gegenüber der Arbeit mit einzelnen Freelancern?',
         answer:
-          'Viele Projekte brauchen mehrere Disziplinen zugleich: Marke, Website, SEO, Content, Tracking und Automatisierung. Philipp Bacher deckt diese Bereiche integriert ab und kann Entscheidungen fachuebergreifend treffen.',
+          'Viele Projekte brauchen mehrere Disziplinen zugleich: Marke, Website, SEO, Content, Tracking und Automatisierung. Philipp Bacher deckt diese Bereiche integriert ab und kann Entscheidungen fachübergreifend treffen.',
       },
       {
         question: 'Warum ist lokale Naehe in Halle und Mitteldeutschland relevant?',
         answer:
-          'Lokale Naehe erleichtert Abstimmung, Marktverstaendnis und persoenliche Termine. Gerade bei KMU-Projekten hilft es, regionale Zielgruppen, Wettbewerber und Entscheidungswege praktisch zu kennen.',
+          'Lokale Naehe erleichtert Abstimmung, Marktverstaendnis und persönliche Termine. Gerade bei KMU-Projekten hilft es, regionale Zielgruppen, Wettbewerber und Entscheidungswege praktisch zu kennen.',
       },
       {
         question: 'Welche Werte praegen die Zusammenarbeit?',
         answer:
-          'Die Zusammenarbeit ist direkt, transparent und ergebnisorientiert. Wichtig sind klare Kommunikation, nachvollziehbare Entscheidungen und Loesungen, die im Alltag des Unternehmens funktionieren.',
+          'Die Zusammenarbeit ist direkt, transparent und ergebnisorientiert. Wichtig sind klare Kommunikation, nachvollziehbare Entscheidungen und Lösungen, die im Alltag des Unternehmens funktionieren.',
       },
       {
         question: 'Auf welche Kundengroesse oder Branche ist das Profil ausgerichtet?',
@@ -59,7 +59,7 @@ const profilFaqCategories: FaqCategory[] = [
       {
         question: 'Arbeitet Philipp Bacher allein oder mit Partnern?',
         answer:
-          'Der Kern der Strategie, Konzeption und Umsetzung liegt direkt bei Philipp Bacher. Fuer Spezialleistungen koennen bei Bedarf ausgewaehlte Partner eingebunden werden, ohne dass die zentrale Verantwortung verloren geht.',
+          'Der Kern der Strategie, Konzeption und Umsetzung liegt direkt bei Philipp Bacher. Für Spezialleistungen können bei Bedarf ausgewählte Partner eingebunden werden, ohne dass die zentrale Verantwortung verloren geht.',
       },
     ],
   },
@@ -81,12 +81,12 @@ const profilFaqCategories: FaqCategory[] = [
       {
         question: 'Wie viele Projekte wurden bisher betreut?',
         answer:
-          'Seit 2010 wurden Projekte fuer Unternehmen in DACH, Benelux, Hongkong, Malaysia und Indonesien umgesetzt. Der Fokus liegt auf nachhaltigen Loesungen statt auf reiner Projektmenge.',
+          'Seit 2010 wurden Projekte für Unternehmen in DACH, Benelux, Hongkong, Malaysia und Indonesien umgesetzt. Der Fokus liegt auf nachhaltigen Lösungen statt auf reiner Projektmenge.',
       },
       {
         question: 'Wie wird der Erfolg der Arbeit gemessen?',
         answer:
-          'Der Erfolg wird je nach Ziel ueber Kennzahlen wie Anfragen, Sichtbarkeit, Conversion-Rate, Ladezeiten, Prozessersparnis oder bessere Vertriebsablaeufe bewertet und in Reviews eingeordnet.',
+          'Der Erfolg wird je nach Ziel über Kennzahlen wie Anfragen, Sichtbarkeit, Conversion-Rate, Ladezeiten, Prozessersparnis oder bessere Vertriebsabläufe bewertet und in Reviews eingeordnet.',
       },
     ],
   },
@@ -98,17 +98,17 @@ const profilFaqCategories: FaqCategory[] = [
       {
         question: 'Wie kann ich unverbindlich Kontakt aufnehmen?',
         answer:
-          'Eine Anfrage ist am einfachsten ueber die Kontaktseite moeglich. Im Erstgespraech werden Ziel, Ausgangslage, Budgetrahmen und sinnvolle naechste Schritte geklaert.',
+          'Eine Anfrage ist am einfachsten über die Kontaktseite möglich. Im Erstgespräch werden Ziel, Ausgangslage, Budgetrahmen und sinnvolle nächste Schritte geklärt.',
       },
       {
         question: 'Wie schnell bekomme ich eine Antwort auf eine Anfrage?',
         answer:
-          'Neue Anfragen werden in der Regel zeitnah beantwortet. Wenn das Vorhaben gut passt, folgt ein strukturiertes Erstgespraech mit konkreter Einschaetzung der naechsten Schritte.',
+          'Neue Anfragen werden in der Regel zeitnah beantwortet. Wenn das Vorhaben gut passt, folgt ein strukturiertes Erstgespräch mit konkreter Einschätzung der nächsten Schritte.',
       },
       {
-        question: 'Sind Termine vor Ort in Halle moeglich oder laeuft alles remote?',
+        question: 'Sind Termine vor Ort in Halle möglich oder läuft alles remote?',
         answer:
-          'Beides ist moeglich. Projekte koennen remote per Video-Call, E-Mail und Projekttools betreut werden; fuer regionale Kunden sind nach Absprache auch persoenliche Termine sinnvoll.',
+          'Beides ist möglich. Projekte können remote per Video-Call, E-Mail und Projekttools betreut werden; für regionale Kunden sind nach Absprache auch persönliche Termine sinnvoll.',
       },
     ],
   },
@@ -136,7 +136,7 @@ export function ProfilFaqBox(): React.JSX.Element {
         categories={profilFaqCategories}
         eyebrow="FAQ Profil"
         title="Haeufige Fragen zu Profil, Arbeitsweise und Zusammenarbeit"
-        description="Antworten zu Positionierung, Kompetenz, Vertrauen und Kontakt. So wird klar, wie Philipp Bacher arbeitet und fuer welche Unternehmen die Zusammenarbeit besonders sinnvoll ist."
+        description="Antworten zu Positionierung, Kompetenz, Vertrauen und Kontakt. So wird klar, wie Philipp Bacher arbeitet und für welche Unternehmen die Zusammenarbeit besonders sinnvoll ist."
       />
       <script
         type="application/ld+json"

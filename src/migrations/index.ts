@@ -135,6 +135,7 @@ import * as migration_20260520_120000_marquee_slider_bento_columns from './20260
 import * as migration_20260520_120000_portfolio_case_grid_enhanced_fields from './20260520_120000_portfolio_case_grid_enhanced_fields'
 import * as migration_20260520_133000_portfolio_case_categories_compat from './20260520_133000_portfolio_case_categories_compat'
 import * as migration_20260531_210000_portfolio_teaser_block_tables from './20260531_210000_portfolio_teaser_block_tables'
+import * as migration_20260707_183500_block_decorative_background from './20260707_183500_block_decorative_background'
 
 export const migrations = [
   {
@@ -821,6 +822,11 @@ export const migrations = [
     up: migration_20260531_210000_portfolio_teaser_block_tables.up,
     down: migration_20260531_210000_portfolio_teaser_block_tables.down,
     name: '20260531_210000_portfolio_teaser_block_tables',
+  },
+  {
+    up: migration_20260707_183500_block_decorative_background.up,
+    down: migration_20260707_183500_block_decorative_background.down,
+    name: '20260707_183500_block_decorative_background',
   },
   // TEMPORARILY DISABLED - Database migration needs SQLite fix
   // {

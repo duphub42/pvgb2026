@@ -521,7 +521,7 @@ export function FooterClient({
                             {footer.newsletterTitle}
                           </h3>
 
-                          <div className="flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-6">
+                          <div className="footer-newsletter-content flex flex-col gap-3 md:grid md:grid-cols-2 md:gap-6">
                             {footer.newsletterDescription != null && (
                               <div className="text-[11px] md:text-sm leading-[1.5] opacity-60 max-w-none min-w-0 text-left [&_p]:mt-0 [&_h1]:mt-0 [&_h2]:mt-0 [&_h3]:mt-0">
                                 <RichText

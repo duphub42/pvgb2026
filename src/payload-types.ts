@@ -609,6 +609,10 @@ export interface HeroMarketingBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -649,6 +653,10 @@ export interface HeroFlowchartBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -698,6 +706,10 @@ export interface HeroWithProcessBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -752,6 +764,10 @@ export interface IntroductionBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -818,6 +834,10 @@ export interface MarqueeSliderBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1048,6 +1068,10 @@ export interface ServicesOverviewBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1112,6 +1136,10 @@ export interface ServicesGridBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1211,6 +1239,10 @@ export interface WhyWorkWithMeBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1289,6 +1321,10 @@ export interface RadialOrbitalTimelineBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1346,6 +1382,10 @@ export interface PortfolioCaseGridBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1386,7 +1426,7 @@ export interface PortfolioCaseGridBlock {
         website?: {
           label?: string | null;
           /**
-           * Erlaubt /pfad, slug oder vollstaendige URL.
+           * Erlaubt /pfad, slug oder vollständige URL.
            */
           href?: string | null;
         };
@@ -1406,7 +1446,7 @@ export interface PortfolioCaseGridBlock {
         cta?: {
           label?: string | null;
           /**
-           * Erlaubt /pfad, slug oder vollstaendige URL.
+           * Erlaubt /pfad, slug oder vollständige URL.
            */
           href?: string | null;
         };
@@ -1436,6 +1476,10 @@ export interface PortfolioKpiStripBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1486,6 +1530,10 @@ export interface PortfolioTeaserBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1543,6 +1591,10 @@ export interface BrandShowcaseBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1615,6 +1667,10 @@ export interface ProfilUeberMichBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1661,6 +1717,10 @@ export interface ProfilKernkompetenzBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1709,6 +1769,10 @@ export interface ProfilKompetenzenBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1757,6 +1821,10 @@ export interface ProfilWerdegangBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1801,6 +1869,10 @@ export interface ProfilZahlenFaktenBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1845,6 +1917,10 @@ export interface ProfilToolsBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1886,6 +1962,10 @@ export interface ProfilLangZertBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1934,6 +2014,10 @@ export interface ProfilCtaBandBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -1971,6 +2055,10 @@ export interface PriceCalculatorBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2011,6 +2099,10 @@ export interface PricingTableBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2095,6 +2187,10 @@ export interface CallToActionBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2183,6 +2279,10 @@ export interface CalPopupBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2226,6 +2326,10 @@ export interface ContactInfoCardsBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2275,6 +2379,10 @@ export interface ContentBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2365,6 +2473,10 @@ export interface MediaBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2399,6 +2511,10 @@ export interface ArchiveBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -2457,6 +2573,10 @@ export interface FormBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -3338,6 +3458,7 @@ export interface HeroMarketingBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3368,6 +3489,7 @@ export interface HeroFlowchartBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3404,6 +3526,7 @@ export interface HeroWithProcessBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3442,6 +3565,7 @@ export interface IntroductionBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3474,6 +3598,7 @@ export interface MarqueeSliderBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3588,6 +3713,7 @@ export interface ServicesOverviewBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3621,6 +3747,7 @@ export interface ServicesGridBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3684,6 +3811,7 @@ export interface WhyWorkWithMeBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3724,6 +3852,7 @@ export interface RadialOrbitalTimelineBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3762,6 +3891,7 @@ export interface PortfolioCaseGridBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3838,6 +3968,7 @@ export interface PortfolioKpiStripBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3875,6 +4006,7 @@ export interface PortfolioTeaserBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3919,6 +4051,7 @@ export interface BrandShowcaseBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -3978,6 +4111,7 @@ export interface ProfilUeberMichBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4011,6 +4145,7 @@ export interface ProfilKernkompetenzBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4049,6 +4184,7 @@ export interface ProfilKompetenzenBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4087,6 +4223,7 @@ export interface ProfilWerdegangBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4121,6 +4258,7 @@ export interface ProfilZahlenFaktenBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4152,6 +4290,7 @@ export interface ProfilToolsBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4183,6 +4322,7 @@ export interface ProfilLangZertBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4221,6 +4361,7 @@ export interface ProfilCtaBandBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4248,6 +4389,7 @@ export interface PriceCalculatorBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4275,6 +4417,7 @@ export interface PricingTableBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4337,6 +4480,7 @@ export interface CallToActionBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4380,6 +4524,7 @@ export interface CalPopupBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4407,6 +4552,7 @@ export interface ContactInfoCardsBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4440,6 +4586,7 @@ export interface ContentBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4485,6 +4632,7 @@ export interface MediaBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4509,6 +4657,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -4538,6 +4687,7 @@ export interface FormBlockSelect<T extends boolean = true> {
   blockBackground?: T;
   blockBackgroundImage?: T;
   blockBackgroundImageDisableInversion?: T;
+  blockDecorativeBackground?: T;
   blockBorderEnabled?: T;
   blockBorderStyle?: T;
   blockBorderRadius?: T;
@@ -5991,6 +6141,10 @@ export interface HtmlEmbedBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -6028,6 +6182,10 @@ export interface BannerBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;
@@ -6077,6 +6235,10 @@ export interface CodeBlock {
    * Verhindert das automatische Invertieren des Hintergrundbildes im hellen Modus (hilfreich bei Personen- oder Produktbildern).
    */
   blockBackgroundImageDisableInversion?: boolean | null;
+  /**
+   * Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.
+   */
+  blockDecorativeBackground?: ('none' | 'topo-corner' | 'topo-band') | null;
   blockBorderEnabled?: boolean | null;
   blockBorderStyle?: ('default' | 'accent' | 'subtle') | null;
   blockBorderRadius?: ('default' | 'sm' | 'lg' | 'none') | null;

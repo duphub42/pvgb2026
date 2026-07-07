@@ -151,7 +151,7 @@ export default async function RootPage() {
       <article className="container page-safe-top py-16">
         <div className="prose max-w-none">
           <h1>Willkommen</h1>
-          <p>Startseite konnte nicht geladen werden. Bitte spaeter erneut versuchen.</p>
+          <p>Startseite konnte nicht geladen werden. Bitte später erneut versuchen.</p>
           <p>
             <Link href="/admin" className="underline">
               Zum Admin

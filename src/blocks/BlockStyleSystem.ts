@@ -40,6 +40,7 @@ export interface BlockStyles {
   blockSpacingMarginBottom?: BlockSpacing['marginBottom']
   blockContainer?: BlockContainer | null
   blockBackground?: BlockBackground | null
+  blockDecorativeBackground?: 'none' | 'topo-corner' | 'topo-band' | null
   blockBorderEnabled?: boolean | null
   blockBorderStyle?: BlockBorder['style']
   blockBorderRadius?: BlockBorder['radius']

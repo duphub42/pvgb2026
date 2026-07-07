@@ -28,7 +28,7 @@ import { blockStyleFields } from '@/blocks/BlockStyleSystem'
 export const MyBlock: Block = {
   slug: 'myBlock',
   fields: [
-    // ... deine bestehenden Felder
+    // ... Ihre bestehenden Felder
     ...blockStyleFields,
   ],
 }

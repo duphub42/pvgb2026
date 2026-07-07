@@ -131,7 +131,7 @@ export default async function DatenschutzPage({ searchParams: searchParamsPromis
         <article className="prose dark:prose-invert max-w-3xl">
           <h1>Datenschutzerklärung</h1>
           <p>
-            Mit dieser Datenschutzerklärung informieren wir Sie darüber, welche personenbezogenen
+            Mit dieser Datenschutzerklärung informiere ich Sie darüber, welche personenbezogenen
             Daten bei der Nutzung dieser Website verarbeitet werden.
           </p>
 
@@ -164,7 +164,7 @@ export default async function DatenschutzPage({ searchParams: searchParamsPromis
 
           <h2>3. Kontaktaufnahme</h2>
           <p>
-            Wenn Sie uns per E-Mail, Telefon oder Kontaktformular kontaktieren, verarbeiten wir die
+            Wenn Sie mich per E-Mail, Telefon oder Kontaktformular kontaktieren, verarbeite ich die
             von Ihnen übermittelten Daten (z. B. Name, Kontaktdaten, Nachricht), um Ihre Anfrage zu
             bearbeiten.
           </p>
@@ -187,7 +187,7 @@ export default async function DatenschutzPage({ searchParams: searchParamsPromis
 
           <h2>5. Empfänger und Auftragsverarbeitung</h2>
           <p>
-            Wir setzen technische Dienstleister für Hosting, Wartung und Bereitstellung dieser
+            Ich setze technische Dienstleister für Hosting, Wartung und Bereitstellung dieser
             Website ein. Soweit diese in unserem Auftrag personenbezogene Daten verarbeiten, erfolgt
             dies auf Grundlage eines Vertrags zur Auftragsverarbeitung gemäß Art. 28 DSGVO.
           </p>
@@ -201,7 +201,7 @@ export default async function DatenschutzPage({ searchParams: searchParamsPromis
           <h2>7. Ihre Rechte</h2>
           <p>Sie haben insbesondere folgende Rechte:</p>
           <ul>
-            <li>Auskunft über Ihre bei uns gespeicherten Daten (Art. 15 DSGVO)</li>
+            <li>Auskunft über Ihre über Sie gespeicherten Daten (Art. 15 DSGVO)</li>
             <li>Berichtigung unrichtiger Daten (Art. 16 DSGVO)</li>
             <li>Löschung Ihrer Daten (Art. 17 DSGVO)</li>
             <li>Einschränkung der Verarbeitung (Art. 18 DSGVO)</li>
@@ -221,7 +221,7 @@ export default async function DatenschutzPage({ searchParams: searchParamsPromis
 
           <h2>9. Datensicherheit</h2>
           <p>
-            Wir nutzen geeignete technische und organisatorische Maßnahmen, um Ihre Daten gegen
+            Ich nutze geeignete technische und organisatorische Maßnahmen, um Ihre Daten gegen
             Verlust, Manipulation und unberechtigtem Zugriff zu schützen.
           </p>
 

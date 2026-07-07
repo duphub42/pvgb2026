@@ -40,12 +40,12 @@ const CONTACT_FAQS = [
   {
     question: 'Wie läuft ein typisches Projekt ab?',
     answer:
-      'Ein Projekt startet mit einem unverbindlichen Erstgespräch, in dem wir Ziele, Zielgruppe und Anforderungen klären. Danach folgen Analyse, Struktur, Design und technische Umsetzung mit regelmäßigen Abstimmungen. Zum Abschluss erhalten Sie eine saubere Übergabe inklusive Einweisung sowie auf Wunsch langfristige Wartung, Support und SEO-Weiterentwicklung.',
+      'Ein Projekt startet mit einem unverbindlichen Erstgespräch, in dem Ziele, Zielgruppe und Anforderungen klären. Danach folgen Analyse, Struktur, Design und technische Umsetzung mit regelmäßigen Abstimmungen. Zum Abschluss erhalten Sie eine saubere Übergabe inklusive Einweisung sowie auf Wunsch langfristige Wartung, Support und SEO-Weiterentwicklung.',
   },
   {
     question: 'Wie schnell kann ein Projekt starten?',
     answer:
-      'Kleinere Optimierungen an Ihrer Webseite können oft kurzfristig beginnen. Für größere Website-Projekte oder Relaunches definieren wir gemeinsam einen realistischen Zeitplan mit klaren Meilensteinen. So haben Sie von Anfang an Planungssicherheit bei Budget, Umfang und Go-live-Termin.',
+      'Kleinere Optimierungen an Ihrer Webseite können oft kurzfristig beginnen. Für größere Website-Projekte oder Relaunches definieren Sie gemeinsam mit mir einen realistischen Zeitplan mit klaren Meilensteinen. So haben Sie von Anfang an Planungssicherheit bei Budget, Umfang und Go-live-Termin.',
   },
   {
     question: 'Bieten Sie auch SEO und Performance-Optimierung an?',

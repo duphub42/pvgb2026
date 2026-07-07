@@ -275,7 +275,7 @@ export const PricingTable: Block = {
             {
               name: 'label',
               type: 'text',
-              label: 'Freitext / Ueberschreibung',
+              label: 'Freitext / Überschreibung',
               admin: {
                 description:
                   'Bei Freitext empfohlen. Sonst optional als benutzerdefinierte Beschriftung.',

@@ -173,45 +173,40 @@ function TeaserCard({ area }: { area: AreaItem }) {
         </div>
       )}
 
-      {/* No image: decorative header strip */}
-      {!area.coverImage && (
-        <div className={cn('flex h-28 items-center justify-center', config.bgAccent)}>
-          <DisciplineIcon
-            src={config.iconSrc}
-            className={cn(
-              'h-12 w-12 opacity-30 transition-opacity duration-200 group-hover:opacity-45',
-              config.accent,
-            )}
-          />
-        </div>
-      )}
-
       {/* Text */}
       <div className="flex flex-1 flex-col gap-3 p-5 md:p-6">
-        <div className="flex items-center gap-2">
+        <div className="flow-root">
           <span
             className={cn(
-              'flex h-8 w-8 shrink-0 items-center justify-center rounded-lg border bg-background/60',
+              'float-right mb-2 ml-4 flex h-16 w-16 shrink-0 items-center justify-center rounded-xl border bg-background/60',
               config.accent,
             )}
           >
-            <DisciplineIcon src={config.iconSrc} className="h-4 w-4" />
+            <DisciplineIcon
+              src={config.iconSrc}
+              className="h-8 w-8 transition-opacity duration-200 group-hover:opacity-80"
+            />
           </span>
-          <span className={cn('text-xs font-semibold uppercase tracking-widest', config.accent)}>
+          <span
+            className={cn(
+              'block text-xs font-semibold uppercase tracking-widest',
+              config.accent,
+            )}
+          >
             {config.label}
           </span>
+
+          <h3 className="mt-2 text-xl font-bold tracking-tight text-foreground">{area.title}</h3>
         </div>
 
-        <h3 className="text-xl font-bold tracking-tight text-foreground">{area.title}</h3>
-
         {area.description && (
-          <p className="line-clamp-3 text-sm leading-relaxed text-muted-foreground">
+          <p className="order-2 line-clamp-3 text-sm leading-relaxed text-muted-foreground">
             {area.description}
           </p>
         )}
 
         {area.tags && area.tags.length > 0 && (
-          <div className="flex flex-wrap gap-1 pt-1">
+          <div className="order-4 flex flex-wrap gap-1 pt-1 sm:order-3">
             {area.tags.slice(0, 5).map((tag) => (
               <Badge
                 key={tag.id ?? tag.label}
@@ -226,12 +221,14 @@ function TeaserCard({ area }: { area: AreaItem }) {
 
         <div
           className={cn(
-            'mt-auto inline-flex items-center gap-1.5 pt-2 text-sm font-semibold',
+            'order-3 flex border-t border-border/60 pt-3 sm:order-4 sm:mt-auto',
             config.accent,
           )}
         >
-          {area.ctaLabel ?? 'Cases ansehen'}
-          <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+          <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
+            {area.ctaLabel ?? 'Cases ansehen'}
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+          </span>
         </div>
       </div>
     </Link>

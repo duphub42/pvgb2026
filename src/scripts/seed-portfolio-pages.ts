@@ -278,7 +278,7 @@ CREATE TABLE IF NOT EXISTS "_contact_cards_v_cards" (
 CREATE INDEX IF NOT EXISTS "_contact_cards_v_cards_order_idx" ON "_contact_cards_v_cards" ("_order");
 CREATE INDEX IF NOT EXISTS "_contact_cards_v_cards_parent_id_idx" ON "_contact_cards_v_cards" ("_parent_id");
 
-CREATE TABLE IF NOT EXISTS "_prof_ueber_v" (
+CREATE TABLE IF NOT EXISTS "_prof_über_v" (
   "_order" integer NOT NULL,
   "_parent_id" integer NOT NULL REFERENCES "_site_pages_v"("id") ON DELETE CASCADE,
   "_path" text NOT NULL,
@@ -292,21 +292,21 @@ CREATE TABLE IF NOT EXISTS "_prof_ueber_v" (
   "_uuid" text,
   "block_name" text
 );
-CREATE INDEX IF NOT EXISTS "_prof_ueber_v_order_idx" ON "_prof_ueber_v" ("_order");
-CREATE INDEX IF NOT EXISTS "_prof_ueber_v_parent_id_idx" ON "_prof_ueber_v" ("_parent_id");
-CREATE INDEX IF NOT EXISTS "_prof_ueber_v_path_idx" ON "_prof_ueber_v" ("_path");
+CREATE INDEX IF NOT EXISTS "_prof_über_v_order_idx" ON "_prof_über_v" ("_order");
+CREATE INDEX IF NOT EXISTS "_prof_über_v_parent_id_idx" ON "_prof_über_v" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "_prof_über_v_path_idx" ON "_prof_über_v" ("_path");
 
-CREATE TABLE IF NOT EXISTS "_prof_ueber_v_werte" (
+CREATE TABLE IF NOT EXISTS "_prof_über_v_werte" (
   "_order" integer NOT NULL,
-  "_parent_id" integer NOT NULL REFERENCES "_prof_ueber_v"("id") ON DELETE CASCADE,
+  "_parent_id" integer NOT NULL REFERENCES "_prof_über_v"("id") ON DELETE CASCADE,
   "id" integer PRIMARY KEY AUTOINCREMENT NOT NULL,
   "icon" text DEFAULT 'strategy',
   "wert" text,
   "beschreibung" text,
   "_uuid" text
 );
-CREATE INDEX IF NOT EXISTS "_prof_ueber_v_werte_order_idx" ON "_prof_ueber_v_werte" ("_order");
-CREATE INDEX IF NOT EXISTS "_prof_ueber_v_werte_parent_id_idx" ON "_prof_ueber_v_werte" ("_parent_id");
+CREATE INDEX IF NOT EXISTS "_prof_über_v_werte_order_idx" ON "_prof_über_v_werte" ("_order");
+CREATE INDEX IF NOT EXISTS "_prof_über_v_werte_parent_id_idx" ON "_prof_über_v_werte" ("_parent_id");
 
 CREATE TABLE IF NOT EXISTS "_prof_kern_v" (
   "_order" integer NOT NULL,
@@ -317,7 +317,7 @@ CREATE TABLE IF NOT EXISTS "_prof_kern_v" (
   "block_overlay_enabled" integer DEFAULT 0,
   "block_overlay_color" text DEFAULT 'dark',
   "block_overlay_opacity" real DEFAULT 30,
-  "ueberschrift" text,
+  "überschrift" text,
   "einleitung" text,
   "_uuid" text,
   "block_name" text
@@ -870,7 +870,7 @@ const templates: PageTemplate[] = [
       buildCalPopupBlock({
         headline: 'Projektidee besprechen',
         description:
-          'In 30 Minuten klären wir Zielbild, Prioritäten und nächsten sinnvollen Schritt.',
+          'In 30 Minuten klären Sie gemeinsam mit mir Zielbild, Prioritäten und den nächsten sinnvollen Schritt.',
       }),
     ],
     metaTitle: 'Portfolio | Webdesign, Marketing & Branding',
@@ -952,7 +952,7 @@ const templates: PageTemplate[] = [
       buildCalPopupBlock({
         headline: 'Webdesign-Projekt starten',
         description:
-          'Gemeinsam definieren wir Scope, Prioritäten und einen realistischen Umsetzungsplan.',
+          'Gemeinsam werden Scope, Prioritäten und ein realistischer Umsetzungsplan definiert.',
       }),
     ],
     metaTitle: 'Portfolio Webdesign | UX, UI und Performance',
@@ -1059,7 +1059,7 @@ const templates: PageTemplate[] = [
       buildCalPopupBlock({
         headline: 'Marketing-Ziele in einen Plan übersetzen',
         description:
-          'Gemeinsam priorisieren wir Kanäle, Budget und Quick Wins in einem kompakten Kickoff.',
+          'Gemeinsam werden Kanäle, Budget und Quick Wins in einem kompakten Kickoff priorisiert.',
       }),
     ],
     metaTitle: 'Portfolio Marketing | SEO, SEM und Lead-Strategien',
@@ -1144,7 +1144,7 @@ const templates: PageTemplate[] = [
       buildCalPopupBlock({
         headline: 'Markenauftritt schärfen',
         description:
-          'Gemeinsam analysieren wir den Status quo, definieren die Positionierung und priorisieren die nächsten Design-Schritte.',
+          'Gemeinsam werden Status quo, Positionierung und die nächsten Design-Schritte klar priorisiert.',
       }),
     ],
     metaTitle: 'Portfolio Marken | Branding, Logo und Corporate Identity',

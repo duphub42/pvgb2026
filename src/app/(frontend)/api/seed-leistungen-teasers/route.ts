@@ -54,7 +54,7 @@ export async function GET() {
       eyebrow: 'Referenzen',
       heading: 'Umgesetzte Websites und Kampagnen',
       intro:
-        'Ein kompakter Auszug aus realen Projekten. Fuer Details geht es direkt in das Portfolio.',
+        'Ein kompakter Auszug aus realen Projekten. Für Details geht es direkt in das Portfolio.',
       layoutVariant: 'editorial',
       cases: [
         {
@@ -63,7 +63,7 @@ export async function GET() {
           client: 'Mittelstaendisches B2B-Unternehmen',
           industry: 'Industrie',
           summary:
-            'Modernisierung von Struktur, UI und Performance fuer bessere Nutzerfuehrung und Conversion.',
+            'Modernisierung von Struktur, UI und Performance für bessere Nutzerführung und Conversion.',
           year: 2024,
           categories: ['relaunch', 'uxUi', 'performance'],
           metrics: [
@@ -76,7 +76,7 @@ export async function GET() {
         },
         {
           discipline: 'marketing',
-          title: 'SEO-Skalierung fuer E-Commerce',
+          title: 'SEO-Skalierung für E-Commerce',
           client: 'E-Commerce Marke',
           industry: 'Retail',
           summary:
@@ -96,7 +96,7 @@ export async function GET() {
           client: 'Tech-Startup',
           industry: 'Software',
           summary:
-            'Vom Markenfundament bis zur visuellen Systematik fuer Web, Social und Print.',
+            'Vom Markenfundament bis zur visuellen Systematik für Web, Social und Print.',
           year: 2023,
           categories: ['branding', 'komplettDesign'],
           metrics: [
@@ -129,7 +129,7 @@ export async function GET() {
             tileSize: 'wide',
             bentoInteractive: true,
             detailTitle: 'Headless CMS',
-            detailText: 'Flexible Block-Architektur fuer Inhalte, Cases und Landingpages.',
+            detailText: 'Flexible Block-Architektur für Inhalte, Cases und Landingpages.',
             detailMeta: 'Content Platform',
           },
           { name: 'Figma', tileSize: 'md' },
@@ -155,7 +155,7 @@ export async function GET() {
       eyebrow: 'Logo-Galerie',
       heading: 'Brands, Tools und Partner (Auszug)',
       intro:
-        'Als Teaser zeigen wir nur eine kleine Auswahl. Die vollstaendige Uebersicht finden Sie im Portfolio.',
+        'Als Teaser zeige ich nur eine kleine Auswahl. Die vollständige Übersicht finden Sie im Portfolio.',
       displayMode: 'bento',
       galleryColumns: '4',
       bentoShowCounter: true,

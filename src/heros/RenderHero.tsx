@@ -26,8 +26,8 @@ type HeroRenderProps = {
 } & Record<string, unknown>
 
 function toTitleFromSlug(slug: string | null): string {
-  if (!slug) return 'Digitale Loesungen mit Substanz'
-  if (slug === 'home') return 'Digitale Loesungen mit Substanz'
+  if (!slug) return 'Digitale Lösungen mit Substanz'
+  if (slug === 'home') return 'Digitale Lösungen mit Substanz'
   if (slug === 'lei' || slug === 'leistungen') return 'Leistungen'
 
   return (
@@ -38,7 +38,7 @@ function toTitleFromSlug(slug: string | null): string {
       ?.split('-')
       .filter(Boolean)
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join(' ') || 'Digitale Loesungen mit Substanz'
+      .join(' ') || 'Digitale Lösungen mit Substanz'
   )
 }
 

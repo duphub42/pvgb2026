@@ -111,6 +111,21 @@ export const blockStyleFields: Field[] = [
     },
     defaultValue: false,
   },
+  {
+    name: 'blockDecorativeBackground',
+    type: 'select',
+    label: 'Zierhintergrund',
+    defaultValue: 'none',
+    options: [
+      { label: 'Keiner', value: 'none' },
+      { label: 'Topografische Ecke', value: 'topo-corner' },
+      { label: 'Topografisches Band', value: 'topo-band' },
+    ],
+    admin: {
+      description:
+        'Dezenter dekorativer Hintergrund innerhalb dieser Section. Wird nicht im Hero gerendert.',
+    },
+  },
 
   // --- Border (flat) ---
   {

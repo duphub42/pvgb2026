@@ -139,7 +139,7 @@ async function main() {
                         children: [
                           {
                             type: 'text',
-                            text: 'Mit dieser Datenschutzerklärung informieren wir Sie darüber, welche personenbezogenen Daten bei der Nutzung dieser Website verarbeitet werden.',
+                            text: 'Mit dieser Datenschutzerklärung informiere ich Sie darüber, welche personenbezogenen Daten bei der Nutzung dieser Website verarbeitet werden.',
                             version: 1,
                           },
                         ],

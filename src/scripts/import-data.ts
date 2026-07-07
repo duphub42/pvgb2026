@@ -716,7 +716,7 @@ async function runImport(payload: Awaited<ReturnType<typeof getPayload>>) {
       } catch (err) {
         const msg = err instanceof Error ? err.message : String(err)
         if (slug === 'forms') {
-          console.warn(`  [forms] Eintrag ${doc.id} uebersprungen: ${msg}`)
+          console.warn(`  [forms] Eintrag ${doc.id} übersprungen: ${msg}`)
           continue
         }
         if (slug === 'users' && data.email && typeof data.email === 'string') {

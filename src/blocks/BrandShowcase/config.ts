@@ -20,7 +20,7 @@ export const BrandShowcase: Block = {
     {
       name: 'heading',
       type: 'text',
-      label: 'Ueberschrift',
+      label: 'Überschrift',
       defaultValue: 'Markenauftritt als konsistentes System',
     },
     {

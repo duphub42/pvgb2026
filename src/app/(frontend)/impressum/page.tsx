@@ -172,22 +172,22 @@ export default async function ImpressumPage({ searchParams: searchParamsPromise 
 
           <h2>Verbraucherstreitbeilegung</h2>
           <p>
-            Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer
+            Ich bin nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer
             Verbraucherschlichtungsstelle teilzunehmen.
           </p>
 
           <h2>Haftung für Inhalte</h2>
           <p>
-            Als Diensteanbieter sind wir gemäß den allgemeinen Gesetzen für eigene Inhalte auf
-            diesen Seiten verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder
+            Als Diensteanbieter bin ich gemäß den allgemeinen Gesetzen für eigene Inhalte auf
+            diesen Seiten verantwortlich. Ich bin jedoch nicht verpflichtet, übermittelte oder
             gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf
             eine rechtswidrige Tätigkeit hinweisen.
           </p>
 
           <h2>Haftung für Links</h2>
           <p>
-            Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen
-            Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr
+            Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte ich keinen
+            Einfluss habe. Deshalb kann ich für diese fremden Inhalte auch keine Gewähr
             übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder
             Betreiber der Seiten verantwortlich.
           </p>

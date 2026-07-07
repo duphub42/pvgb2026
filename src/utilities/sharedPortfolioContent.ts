@@ -144,7 +144,7 @@ function buildPortfolioUnderCasesBlock(): LayoutBlock {
         icon: 'code',
         title: 'Webdesign mit messbarer Anfragewirkung',
         description:
-          'Ein starker Webauftritt wirkt nur dann nachhaltig, wenn Inhalt, Nutzerfuehrung und Technik als System geplant werden. Die gezeigten Cases zeigen, wie aus klarer Struktur und performanter Umsetzung konkrete Anfragen entstehen. Gute Gestaltung ist dabei kein Selbstzweck, sondern der Hebel fuer Vertrauen und Abschlussbereitschaft. So wird Ihre Website zu einem aktiven Vertriebskanal statt zu einer statischen Visitenkarte.',
+          'Ein starker Webauftritt wirkt nur dann nachhaltig, wenn Inhalt, Nutzerführung und Technik als System geplant werden. Die gezeigten Cases zeigen, wie aus klarer Struktur und performanter Umsetzung konkrete Anfragen entstehen. Gute Gestaltung ist dabei kein Selbstzweck, sondern der Hebel für Vertrauen und Abschlussbereitschaft. So wird Ihre Website zu einem aktiven Vertriebskanal statt zu einer statischen Visitenkarte.',
       },
       {
         icon: 'trending-up',
@@ -156,7 +156,7 @@ function buildPortfolioUnderCasesBlock(): LayoutBlock {
         icon: 'palette',
         title: 'Branding, das Abschlussquoten verbessert',
         description:
-          'Markenwirkung entscheidet in vielen Maerkten bereits vor dem ersten Gespraech ueber Vertrauen und Relevanz. Die Referenzen zeigen, wie konsistente Gestaltung und klare Positionierung die Wahrnehmung von Kompetenz steigern. Ein einheitlicher Auftritt reduziert Erklaerungsaufwand und macht Angebote schneller vergleichbar. Das staerkt Ihre Marktposition und verbessert die Qualitaet eingehender Anfragen nachhaltig.',
+          'Markenwirkung entscheidet in vielen Märkten bereits vor dem ersten Gespräch über Vertrauen und Relevanz. Die Referenzen zeigen, wie konsistente Gestaltung und klare Positionierung die Wahrnehmung von Kompetenz steigern. Ein einheitlicher Auftritt reduziert Erklärungsaufwand und macht Angebote schneller vergleichbar. Das stärkt Ihre Marktposition und verbessert die Qualität eingehender Anfragen nachhaltig.',
       },
     ],
   }
@@ -288,7 +288,7 @@ export async function resolveSharedPortfolioContent(
       eyebrow: 'Logo Showcase',
       heading: 'Logo-Referenzen aus realen Branding-Projekten',
       intro:
-        'Diese Auswahl zeigt Logo-Entwicklungen aus Kundenprojekten - von reduzierten Zeichen bis zu flexiblen Varianten fuer unterschiedliche Anwendungskontexte.',
+        'Diese Auswahl zeigt Logo-Entwicklungen aus Kundenprojekten - von reduzierten Zeichen bis zu flexiblen Varianten für unterschiedliche Anwendungskontexte.',
     }
 
     const withLogoHeadings = resolved.map((block) => {

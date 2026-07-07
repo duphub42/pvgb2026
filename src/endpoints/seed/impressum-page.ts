@@ -305,7 +305,7 @@ export const impressum: RequiredDataFromCollectionSlug<'site-pages'> = {
                   children: [
                     {
                       type: 'text',
-                      text: 'Wir sind nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.',
+                      text: 'Ich bin nicht verpflichtet und nicht bereit, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.',
                       detail: 0,
                       format: 0,
                       mode: 'normal',
@@ -342,7 +342,7 @@ export const impressum: RequiredDataFromCollectionSlug<'site-pages'> = {
                   children: [
                     {
                       type: 'text',
-                      text: 'Als Diensteanbieter sind wir gemäß den allgemeinen Gesetzen für eigene Inhalte auf diesen Seiten verantwortlich. Wir sind jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.',
+                      text: 'Als Diensteanbieter bin ich gemäß den allgemeinen Gesetzen für eigene Inhalte auf diesen Seiten verantwortlich. Ich bin jedoch nicht verpflichtet, übermittelte oder gespeicherte fremde Informationen zu überwachen oder nach Umständen zu forschen, die auf eine rechtswidrige Tätigkeit hinweisen.',
                       detail: 0,
                       format: 0,
                       mode: 'normal',
@@ -379,7 +379,7 @@ export const impressum: RequiredDataFromCollectionSlug<'site-pages'> = {
                   children: [
                     {
                       type: 'text',
-                      text: 'Unser Angebot enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Deshalb können wir für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.',
+                      text: 'Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte ich keinen Einfluss habe. Deshalb kann ich für diese fremden Inhalte auch keine Gewähr übernehmen. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber der Seiten verantwortlich.',
                       detail: 0,
                       format: 0,
                       mode: 'normal',

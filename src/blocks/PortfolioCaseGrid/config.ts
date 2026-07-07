@@ -21,7 +21,7 @@ export const PortfolioCaseGrid: Block = {
     {
       name: 'heading',
       type: 'text',
-      label: 'Ueberschrift',
+      label: 'Überschrift',
       defaultValue: 'Ergebnisse aus realen Projekten',
     },
     {
@@ -176,7 +176,7 @@ export const PortfolioCaseGrid: Block = {
               type: 'text',
               label: 'URL',
               admin: {
-                description: 'Erlaubt /pfad, slug oder vollstaendige URL.',
+                description: 'Erlaubt /pfad, slug oder vollständige URL.',
               },
             },
           ],
@@ -233,7 +233,7 @@ export const PortfolioCaseGrid: Block = {
               type: 'text',
               label: 'Link',
               admin: {
-                description: 'Erlaubt /pfad, slug oder vollstaendige URL.',
+                description: 'Erlaubt /pfad, slug oder vollständige URL.',
               },
             },
           ],

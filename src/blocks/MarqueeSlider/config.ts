@@ -49,7 +49,7 @@ export const MarqueeSliderBlockConfig: Block = {
     {
       name: 'heading',
       type: 'text',
-      label: 'Ueberschrift',
+      label: 'Überschrift',
       defaultValue: 'Partner & Tools',
     },
     {

@@ -307,8 +307,8 @@ const applyLayout = (pageId: number) => {
     pageId,
     'layout',
     calPopupId,
-    'Lassen Sie uns das passende Vorgehen für Ihr Projekt finden',
-    'In einem kurzen Gespräch klären wir, welcher Leistungsbereich für Sie am sinnvollsten ist und wie der nächste Schritt aussieht.',
+    'Finden Sie das passende Vorgehen für Ihr Projekt',
+    'In einem kurzen Gespräch klären Sie gemeinsam mit mir, welcher Leistungsbereich für Sie am sinnvollsten ist und wie der nächste Schritt aussieht.',
     'philippbacher/30min',
     'Termin buchen',
   )

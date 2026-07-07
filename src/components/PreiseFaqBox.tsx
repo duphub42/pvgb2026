@@ -15,7 +15,7 @@ const preiseFaqCategories: FaqCategory[] = [
           'Für kleine Unternehmen in Halle liegen viele Projekte im Bereich von 390 bis 2.800 Euro; typische Website- und Branding-Projekte bewegen sich oft zwischen 1.400 und 5.500 Euro. Der genaue Preis hängt davon ab, ob Sie eine Einzelleistung, ein Paket oder mehrere Leistungen kombinieren.',
       },
       {
-        question: 'Wie berechnet ihr eure Preise (Stundensatz, Projektpreis, Paketpreis)?',
+        question: 'Wie berechnen Sie Ihre Preise (Stundensatz, Projektpreis, Paketpreis)?',
         answer:
           'Bei klar abgegrenzten Projekten arbeite ich mit Festpreisen. Für flexible Beratung liegt der Stundensatz bei 120 Euro netto, laufende Leistungen werden als Paket oder monatlicher Retainer kalkuliert.',
       },
@@ -81,7 +81,7 @@ const preiseFaqCategories: FaqCategory[] = [
       {
         question: 'Was passiert, wenn mein Budget kleiner ist als eure Standardpakete?',
         answer:
-          'Dann priorisieren wir die Maßnahmen mit dem größten Nutzen und reduzieren den Scope. Für kleine Unternehmen in Halle ist oft ein fokussierter Einstieg sinnvoller als ein zu großes Gesamtpaket.',
+          'Dann priorisiere ich die Maßnahmen mit dem größten Nutzen und reduzieren den Scope. Für kleine Unternehmen in Halle ist oft ein fokussierter Einstieg sinnvoller als ein zu großes Gesamtpaket.',
       },
       {
         question: 'Sind eure Preise günstiger als bei größeren Agenturen aus Leipzig oder Berlin?',

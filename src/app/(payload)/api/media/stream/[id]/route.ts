@@ -1,5 +1,5 @@
 /**
- * Proxy für Media-Dateien: Holt von externem Storage (R2, S3, Blob) und streamt über unsere Origin.
+ * Proxy für Media-Dateien: Holt von externem Storage (R2, S3, Blob) und streamt über die Origin.
  * Ermöglicht EWWW Easy IO (ExactDN), da das CDN von unserer Origin ziehen muss.
  *
  * Aufruf: GET /api/media/stream/[id] oder GET /api/media/stream/[id]?size=thumbnail

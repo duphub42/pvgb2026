@@ -47,7 +47,7 @@ export const datenschutz: RequiredDataFromCollectionSlug<'site-pages'> = {
                   children: [
                     {
                       type: 'text',
-                      text: 'Mit dieser Datenschutzerklärung informieren wir Sie darüber, welche personenbezogenen Daten bei der Nutzung dieser Website verarbeitet werden.',
+                      text: 'Mit dieser Datenschutzerklärung informiere ich Sie darüber, welche personenbezogenen Daten bei der Nutzung dieser Website verarbeitet werden.',
                       detail: 0,
                       format: 0,
                       mode: 'normal',
@@ -212,7 +212,7 @@ export const datenschutz: RequiredDataFromCollectionSlug<'site-pages'> = {
                   children: [
                     {
                       type: 'text',
-                      text: 'Wenn Sie uns per E-Mail, Telefon oder Kontaktformular kontaktieren, verarbeiten wir die von Ihnen übermittelten Daten (z. B. Name, Kontaktdaten, Nachricht), um Ihre Anfrage zu bearbeiten.',
+                      text: 'Wenn Sie mich per E-Mail, Telefon oder Kontaktformular kontaktieren, verarbeite ich die von Ihnen übermittelten Daten (z. B. Name, Kontaktdaten, Nachricht), um Ihre Anfrage zu bearbeiten.',
                       detail: 0,
                       format: 0,
                       mode: 'normal',
@@ -322,7 +322,7 @@ export const datenschutz: RequiredDataFromCollectionSlug<'site-pages'> = {
                   children: [
                     {
                       type: 'text',
-                      text: 'Wir setzen technische Dienstleister für Hosting, Wartung und Bereitstellung dieser Website ein. Soweit diese in unserem Auftrag personenbezogene Daten verarbeiten, erfolgt dies auf Grundlage eines Vertrags zur Auftragsverarbeitung gemäß Art. 28 DSGVO.',
+                      text: 'Ich setze technische Dienstleister für Hosting, Wartung und Bereitstellung dieser Website ein. Soweit diese in unserem Auftrag personenbezogene Daten verarbeiten, erfolgt dies auf Grundlage eines Vertrags zur Auftragsverarbeitung gemäß Art. 28 DSGVO.',
                       detail: 0,
                       format: 0,
                       mode: 'normal',
@@ -396,7 +396,7 @@ export const datenschutz: RequiredDataFromCollectionSlug<'site-pages'> = {
                   children: [
                     {
                       type: 'text',
-                      text: 'Sie haben insbesondere folgende Rechte: Auskunft über Ihre bei uns gespeicherten Daten (Art. 15 DSGVO), Berichtigung unrichtiger Daten (Art. 16 DSGVO), Löschung Ihrer Daten (Art. 17 DSGVO), Einschränkung der Verarbeitung (Art. 18 DSGVO), Datenübertragbarkeit (Art. 20 DSGVO), Widerspruch gegen die Verarbeitung (Art. 21 DSGVO) und Widerruf erteilter Einwilligungen mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO).',
+                      text: 'Sie haben insbesondere folgende Rechte: Auskunft über Ihre über Sie gespeicherten Daten (Art. 15 DSGVO), Berichtigung unrichtiger Daten (Art. 16 DSGVO), Löschung Ihrer Daten (Art. 17 DSGVO), Einschränkung der Verarbeitung (Art. 18 DSGVO), Datenübertragbarkeit (Art. 20 DSGVO), Widerspruch gegen die Verarbeitung (Art. 21 DSGVO) und Widerruf erteilter Einwilligungen mit Wirkung für die Zukunft (Art. 7 Abs. 3 DSGVO).',
                       detail: 0,
                       format: 0,
                       mode: 'normal',
@@ -470,7 +470,7 @@ export const datenschutz: RequiredDataFromCollectionSlug<'site-pages'> = {
                   children: [
                     {
                       type: 'text',
-                      text: 'Wir nutzen geeignete technische und organisatorische Maßnahmen, um Ihre Daten gegen Verlust, Manipulation und unberechtigten Zugriff zu schützen.',
+                      text: 'Ich nutze geeignete technische und organisatorische Maßnahmen, um Ihre Daten gegen Verlust, Manipulation und unberechtigten Zugriff zu schützen.',
                       detail: 0,
                       format: 0,
                       mode: 'normal',

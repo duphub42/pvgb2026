@@ -36,7 +36,7 @@ export function buildPagesTree(pages: SitePage[]): PageWithChildren[] {
 /**
  * Erzeugt den vollständigen URL-Pfad einer Seite (z. B. "leistungen/webdesign").
  * Erwartet bei verschachtelten Seiten parent mit depth geladen (z. B. depth: 2).
- * Nutzbar für Preview-URLs oder wenn du verschachtelte Routen ([...slug]) einführst.
+ * Nutzbar für Preview-URLs oder wenn Sie verschachtelte Routen ([...slug]) einführst.
  */
 export function getPagePath(page: SitePage): string {
   const segments: string[] = []

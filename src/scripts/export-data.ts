@@ -127,7 +127,7 @@ async function main() {
       'Geprüfte Dateien (Projektroot):',
       envPaths.map((p) => path.relative(projectRoot, p)).join(', '),
     )
-    console.error('Bitte in .env.local eintragen: PAYLOAD_SECRET=dein-geheimes-secret')
+    console.error('Bitte in .env.local eintragen: PAYLOAD_SECRET=Ihr-geheimes-secret')
     console.error('Oder inline: PAYLOAD_SECRET="..." npx tsx src/scripts/export-data.ts')
     process.exit(1)
   }

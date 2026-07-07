@@ -21,7 +21,7 @@ export const PortfolioKpiStrip: Block = {
     {
       name: 'heading',
       type: 'text',
-      label: 'Ueberschrift',
+      label: 'Überschrift',
       defaultValue: 'Die wichtigsten Leistungswerte auf einen Blick',
     },
     {

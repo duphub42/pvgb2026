@@ -230,6 +230,10 @@
     font-size: 1rem;
   }
 
+  .footer-custom .footer-newsletter-content {
+    margin-top: 0.5rem;
+  }
+
   /* Newsletter-Button: mindestens 44px hoch */
   .footer-newsletter-btn-wrap {
     height: 2.75rem; /* 44px */

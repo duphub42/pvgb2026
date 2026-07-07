@@ -1,6 +1,6 @@
 /**
  * GEFÄHRLICH: Drizzle-Schema-Push gegen Neon (kann bei Abweichung zum Code Spalten/Tabellen droppen
- * oder Daten gefährden). Nur nutzen, wenn du weißt, was du tust (z. B. leere Dev-Datenbank).
+ * oder Daten gefährden). Nur nutzen, wenn Sie wissen, was Sie tun (z. B. leere Dev-Datenbank).
  *
  * Voraussetzung:
  *   NEON_DESTRUCTIVE_DRIZZLE_PUSH_CONFIRM=yes
@@ -14,7 +14,7 @@ if (process.env.NEON_DESTRUCTIVE_DRIZZLE_PUSH_CONFIRM !== 'yes') {
   console.error(
     'Abgebrochen: Drizzle-Push kann bestehende Daten/Schema gefährden.\n' +
       'Nur Migrationen (sicher, additiv): pnpm run push:neon  oder  pnpm run migrate:neon\n' +
-      'Wenn du den Drizzle-Push wirklich willst: NEON_DESTRUCTIVE_DRIZZLE_PUSH_CONFIRM=yes pnpm run push:neon:drizzle',
+      'Wenn Sie den Drizzle-Push wirklich ausführen wollen: NEON_DESTRUCTIVE_DRIZZLE_PUSH_CONFIRM=yes pnpm run push:neon:drizzle',
   )
   process.exit(1)
 }

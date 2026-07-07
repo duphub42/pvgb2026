@@ -21,7 +21,7 @@ const portfolioFaqCategories: FaqCategory[] = [
       {
         question: 'Warum sind manche Projekte kuerzer beschrieben als andere?',
         answer:
-          'Die Detailtiefe haengt von Freigaben, Datenlage und Branchenanforderungen ab. Wo moeglich, werden Zahlen und konkrete Ergebnisse gezeigt. Wo noetig, bleibt die Darstellung bewusst komprimiert.',
+          'Die Detailtiefe hängt von Freigaben, Datenlage und Branchenanforderungen ab. Wo möglich, werden Zahlen und konkrete Ergebnisse gezeigt. Wo noetig, bleibt die Darstellung bewusst komprimiert.',
       },
       {
         question: 'Welche Branchen sind im Portfolio vertreten?',
@@ -36,7 +36,7 @@ const portfolioFaqCategories: FaqCategory[] = [
       {
         question: 'Kann ich ein Projekt sehen, das meinem Fall aehnlich ist?',
         answer:
-          'Ja. Nach einem kurzen Erstgespraech kann ich passende Vergleichsprojekte benennen, die in Zielsetzung, Budgetrahmen, Funnel-Struktur oder technischen Anforderungen Ihrem Vorhaben aehneln.',
+          'Ja. Nach einem kurzen Erstgespräch kann ich passende Vergleichsprojekte benennen, die in Zielsetzung, Budgetrahmen, Funnel-Struktur oder technischen Anforderungen Ihrem Vorhaben ähneln.',
       },
     ],
   },
@@ -46,14 +46,14 @@ const portfolioFaqCategories: FaqCategory[] = [
     icon: 'LockKeyhole',
     faqs: [
       {
-        question: 'Wie laeuft ein Portfolio-aehnliches Projekt typischerweise ab?',
+        question: 'Wie läuft ein Portfolio-aehnliches Projekt typischerweise ab?',
         answer:
           'Typisch sind fuenf Phasen: Analyse, Struktur, Design, technische Umsetzung und Optimierung. Jede Phase hat klare Deliverables, damit Entscheidungen transparent und reproduzierbar bleiben.',
       },
       {
         question: 'Welche Rolle spielen UX und Informationsarchitektur?',
         answer:
-          'UX und Informationsarchitektur bilden das Fundament fuer Auffindbarkeit und Conversion. Navigation, Seitenhierarchie, Content-Struktur und CTA-Pfade werden zuerst definiert und dann visuell sowie technisch umgesetzt.',
+          'UX und Informationsarchitektur bilden das Fundament für Auffindbarkeit und Conversion. Navigation, Seitenhierarchie, Content-Struktur und CTA-Pfade werden zuerst definiert und dann visuell sowie technisch umgesetzt.',
       },
       {
         question: 'Arbeiten Sie nur mit neuen Projekten oder auch mit Bestandssystemen?',
@@ -66,9 +66,9 @@ const portfolioFaqCategories: FaqCategory[] = [
           'Designentscheidungen werden mit technischen Vorgaben kombiniert: Bildstrategie, Komponentensystem, Ladezeitziele, Core Web Vitals und Mobil-Performance werden schon in der Konzeption beruecksichtigt.',
       },
       {
-        question: 'Welche CMS- und Tech-Stacks sind moeglich?',
+        question: 'Welche CMS- und Tech-Stacks sind möglich?',
         answer:
-          'Je nach Ziel koennen schlanke CMS-Loesungen, Headless-Architekturen oder klassische Systeme eingesetzt werden. Wichtig ist, dass Redaktion, Wartung, SEO und Erweiterbarkeit langfristig funktionieren.',
+          'Je nach Ziel können schlanke CMS-Lösungen, Headless-Architekturen oder klassische Systeme eingesetzt werden. Wichtig ist, dass Redaktion, Wartung, SEO und Erweiterbarkeit langfristig funktionieren.',
       },
       {
         question: 'Wie werden Inhalte und Freigaben organisiert?',
@@ -90,7 +90,7 @@ const portfolioFaqCategories: FaqCategory[] = [
       {
         question: 'Wie schnell sind erste Ergebnisse sichtbar?',
         answer:
-          'Technische und UX-Verbesserungen wirken oft kurzfristig. SEO- und Demand-Effekte bauen sich ueber mehrere Wochen und Monate auf. Der Zeitrahmen haengt von Wettbewerb, Ausgangslage und Content-Qualitaet ab.',
+          'Technische und UX-Verbesserungen wirken oft kurzfristig. SEO- und Demand-Effekte bauen sich über mehrere Wochen und Monate auf. Der Zeitrahmen hängt von Wettbewerb, Ausgangslage und Content-Qualität ab.',
       },
       {
         question: 'Wie wird Tracking eingerichtet?',
@@ -105,12 +105,12 @@ const portfolioFaqCategories: FaqCategory[] = [
       {
         question: 'Gibt es auch qualitative Erfolgsindikatoren?',
         answer:
-          'Ja. Neben Zahlen sind auch bessere Nutzerfuehrung, klarere Positionierung, staerkeres Markenbild und kuerzere Entscheidungswege im Vertrieb relevante Qualitaetsindikatoren.',
+          'Ja. Neben Zahlen sind auch bessere Nutzerführung, klarere Positionierung, staerkeres Markenbild und kuerzere Entscheidungswege im Vertrieb relevante Qualitätsindikatoren.',
       },
       {
         question: 'Wie oft werden Ergebnisse ausgewertet?',
         answer:
-          'Je nach Projektumfang erfolgt die Auswertung woechentlich, zweiwoechentlich oder monatlich. In den Reviews werden Prioritaeten fuer die naechste Umsetzungsphase definiert.',
+          'Je nach Projektumfang erfolgt die Auswertung wöchentlich, zweiwöchentlich oder monatlich. In den Reviews werden Prioritäten für die nächste Umsetzungsphase definiert.',
       },
     ],
   },
@@ -122,32 +122,32 @@ const portfolioFaqCategories: FaqCategory[] = [
       {
         question: 'Wie startet die Zusammenarbeit nach einer Anfrage?',
         answer:
-          'Der Start erfolgt mit einem strukturierten Erstgespraech. Danach folgen Zielklaerung, Scope-Einschaetzung und ein Vorschlag fuer Prioritaeten, Aufwand und sinnvolle Meilensteine.',
+          'Der Start erfolgt mit einem strukturierten Erstgespräch. Danach folgen Zielklärung, Scope-Einschätzung und ein Vorschlag für Prioritäten, Aufwand und sinnvolle Meilensteine.',
       },
       {
-        question: 'Welche Unterlagen helfen fuer ein gutes Angebot?',
+        question: 'Welche Unterlagen helfen für ein gutes Angebot?',
         answer:
           'Hilfreich sind aktuelle Website-URL, Zielgruppenbeschreibung, Angebotslogik, vorhandene Datenquellen, Wunschzeitplan und bekannte technische Rahmenbedingungen.',
       },
       {
         question: 'Gibt es feste Pakete oder individuelle Umfaenge?',
         answer:
-          'Beides ist moeglich. Es gibt klare Einstiegspakete, gleichzeitig koennen Umfang und Tiefe modular auf Ihre Ziele, Ressourcen und Ihr Budget angepasst werden.',
+          'Beides ist möglich. Es gibt klare Einstiegspakete, gleichzeitig können Umfang und Tiefe modular auf Ihre Ziele, Ressourcen und Ihr Budget angepasst werden.',
       },
       {
-        question: 'Bieten Sie Betreuung nach Launch und Uebergabe?',
+        question: 'Bieten Sie Betreuung nach Launch und Übergabe?',
         answer:
-          'Ja. Nach dem Launch sind Wartung, Weiterentwicklung, Performance-Checks, SEO-Iteration und Support moeglich, damit der Webauftritt dauerhaft stabil und wirksam bleibt.',
+          'Ja. Nach dem Launch sind Wartung, Weiterentwicklung, Performance-Checks, SEO-Iteration und Support möglich, damit der Webauftritt dauerhaft stabil und wirksam bleibt.',
       },
       {
-        question: 'Wie laeuft die Kommunikation waehrend des Projekts?',
+        question: 'Wie läuft die Kommunikation während des Projekts?',
         answer:
-          'Die Kommunikation erfolgt schlank und verbindlich ueber feste Update-Routinen, priorisierte Aufgabenlisten und kurze Entscheidungswege. Das reduziert Leerlauf und schafft klares Momentum.',
+          'Die Kommunikation erfolgt schlank und verbindlich über feste Update-Routinen, priorisierte Aufgabenlisten und kurze Entscheidungswege. Das reduziert Leerlauf und schafft klares Momentum.',
       },
       {
-        question: 'Koennen interne Teams eingebunden werden?',
+        question: 'Können interne Teams eingebunden werden?',
         answer:
-          'Ja. Marketing, Vertrieb, IT oder externe Partner koennen gezielt eingebunden werden. Ziel ist ein Setup, das Know-how transferiert und Ihre Organisation langfristig handlungsfaehig macht.',
+          'Ja. Marketing, Vertrieb, IT oder externe Partner können gezielt eingebunden werden. Ziel ist ein Setup, das Know-how transferiert und Ihre Organisation langfristig handlungsfaehig macht.',
       },
     ],
   },
@@ -175,7 +175,7 @@ export function PortfolioFaqBox(): React.JSX.Element {
         categories={portfolioFaqCategories}
         eyebrow="FAQ Portfolio"
         title="Haeufige Fragen zu Referenzen, Projektablauf und messbaren Portfolio-Ergebnissen"
-        description="Diese strukturierte FAQ beantwortet zentrale Fragen zu Cases, Methodik, KPIs, Zusammenarbeit und Support. So koennen Nutzer und KI-Systeme den fachlichen Kontext Ihrer Portfolio-Seite eindeutig einordnen."
+        description="Diese strukturierte FAQ beantwortet zentrale Fragen zu Cases, Methodik, KPIs, Zusammenarbeit und Support. So können Nutzer und KI-Systeme den fachlichen Kontext Ihrer Portfolio-Seite eindeutig einordnen."
       />
       <script
         type="application/ld+json"

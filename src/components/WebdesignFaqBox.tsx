@@ -52,7 +52,7 @@ const webdesignFaqCategories: FaqCategory[] = [
           'Ja, responsive Design ist Standard. Jede Website wird für Smartphone, Tablet und Desktop geplant, damit Navigation, Texte, Formulare und Kontaktmöglichkeiten auf kleinen Bildschirmen gut nutzbar sind.',
       },
       {
-        question: 'Wie schnell laden die von euch erstellten Websites?',
+        question: 'Wie schnell laden die von Ihnen erstellten Websites?',
         answer:
           'Ziel sind kurze Ladezeiten und gute Core-Web-Vitals-Werte. Dafür werden Bilder optimiert, unnötige Skripte vermieden, saubere Komponenten genutzt und technische Performance bereits während der Umsetzung geprüft.',
       },
@@ -84,7 +84,7 @@ const webdesignFaqCategories: FaqCategory[] = [
           'Lokale Suchanfragen werden nicht automatisch erfolgreich, sie müssen gezielt eingeplant werden. Dazu gehören passende Seitentitel, lokale Inhalte, strukturierte Daten, Kontaktinformationen und klare Leistungsseiten mit Bezug zu Halle und Umgebung.',
       },
       {
-        question: 'Übernehmt ihr auch die Einrichtung oder Optimierung des Google-Unternehmensprofils?',
+        question: 'Übernehmen Sie auch die Einrichtung oder Optimierung des Google-Unternehmensprofils?',
         answer:
           'Ja, das Google-Unternehmensprofil kann eingerichtet oder optimiert werden. Dazu gehören Kategorien, Beschreibung, Leistungen, Fotos, Öffnungszeiten, Kontaktangaben und sinnvolle Verknüpfungen zur Website.',
       },
@@ -94,7 +94,7 @@ const webdesignFaqCategories: FaqCategory[] = [
           'Ja, gute Chancen entstehen durch klare, strukturierte und zitierfähige Inhalte. FAQ-Antworten, eindeutige Leistungsseiten, lokale Signale, strukturierte Daten und konsistente Unternehmensinformationen helfen Suchmaschinen und KI-Systemen beim Einordnen.',
       },
       {
-        question: 'Was tut ihr konkret, damit meine Website bei Google und in KI-Antworten gut platziert wird?',
+        question: 'Was tun Sie konkret, damit meine Website bei Google und in KI-Antworten gut platziert wird?',
         answer:
           'Ich achte auf saubere Seitenstruktur, schnelle Ladezeiten, lokale Keywords, verständliche Antworten, interne Verlinkung, strukturierte Daten, Meta-Daten und Inhalte, die echte Nutzerfragen beantworten. Das stärkt klassische SEO und Generative-Engine-Optimierung.',
       },
@@ -131,7 +131,7 @@ const webdesignFaqCategories: FaqCategory[] = [
           'Nein, Zusatzkosten werden vorab ausgewiesen. Stockfotos, Texterstellung, besondere Formulare, Tracking, Schnittstellen oder Rechtstext-Tools werden nur eingeplant, wenn sie für Ihr Projekt gebraucht werden.',
       },
       {
-        question: 'Bietet ihr auch günstigere Einstiegspakete für Existenzgründer an?',
+        question: 'Bieten Sie auch günstigere Einstiegspakete für Existenzgründer an?',
         answer:
           'Ja, für Existenzgründer und kleine Betriebe kann der Umfang bewusst reduziert werden. Ein fokussierter One-Pager oder eine schlanke Landingpage ist oft ein sinnvoller Start, bevor später weitere Unterseiten ergänzt werden.',
       },
@@ -190,7 +190,7 @@ const webdesignFaqCategories: FaqCategory[] = [
           'Bei gebuchter Betreuung werden technische Probleme priorisiert geprüft und behoben. Ohne Wartung kann Support nach Aufwand erfolgen, sofern Zugriffsdaten und technische Rahmenbedingungen verfügbar sind.',
       },
       {
-        question: 'Bietet ihr laufende Wartung an?',
+        question: 'Bieten Sie laufende Wartung an?',
         answer:
           'Ja, laufende Wartung kann Updates, Sicherheitspatches, Backups, Monitoring, kleinere Inhaltsänderungen und technische Checks umfassen. Der Umfang richtet sich nach System, Risiko und Aktualisierungsbedarf.',
       },
@@ -239,7 +239,7 @@ const webdesignFaqCategories: FaqCategory[] = [
     icon: 'LockKeyhole',
     faqs: [
       {
-        question: 'Erstellt ihr auch Impressum und Datenschutzerklärung?',
+        question: 'Erstellen Sie auch Impressum und Datenschutzerklärung?',
         answer:
           'Ich kann Impressum und Datenschutzerklärung technisch einbinden und bei der Struktur unterstützen. Rechtlich verbindliche Texte sollten jedoch von einem Rechtsanwalt oder einem spezialisierten Rechtstext-Dienst kommen.',
       },
@@ -261,7 +261,7 @@ const webdesignFaqCategories: FaqCategory[] = [
     icon: 'BriefcaseBusiness',
     faqs: [
       {
-        question: 'Was ist der Unterschied zwischen einer Website von euch und einem Homepage-Baukasten?',
+        question: 'Was ist der Unterschied zwischen einer Website von Ihnen und einem Homepage-Baukasten?',
         answer:
           'Ein Baukasten ist günstig und schnell, aber oft begrenzt bei Strategie, Performance, SEO, Individualität und späterer Skalierung. Eine professionelle Website wird gezielt auf Zielgruppe, lokale Sichtbarkeit, Conversion und technische Qualität geplant.',
       },
@@ -288,12 +288,12 @@ const webdesignFaqCategories: FaqCategory[] = [
     icon: 'Headphones',
     faqs: [
       {
-        question: 'Wie könnt ihr nachweisen, dass eine neue Website tatsächlich mehr Kundenanfragen bringt?',
+        question: 'Wie können Sie nachweisen, dass eine neue Website tatsächlich mehr Kundenanfragen bringt?',
         answer:
           'Der Erfolg lässt sich über Formularanfragen, Klicks auf Telefonnummern, E-Mail-Klicks, Terminbuchungen, lokale Rankings und Traffic-Entwicklung messen. Vor dem Launch werden sinnvolle Ziele und Messpunkte festgelegt.',
       },
       {
-        question: 'Baut ihr eine Erfolgsmessung direkt mit ein?',
+        question: 'Bauen Sie eine Erfolgsmessung direkt mit ein?',
         answer:
           'Ja, auf Wunsch werden datenschutzbewusste Tracking-Lösungen, Conversion-Ziele, Formularmessung, Anruf-Klicks und einfache Reports eingerichtet. So wird sichtbar, welche Seiten und Inhalte tatsächlich Anfragen erzeugen.',
       },
