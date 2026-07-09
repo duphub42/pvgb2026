@@ -1,7 +1,21 @@
 import React from 'react'
 
 import type { ConsultingOverviewBlock as ConsultingOverviewBlockData } from '@/payload-types'
-import { Award, Compass, Layers, Sparkles, type LucideIcon } from 'lucide-react'
+import {
+  Award,
+  Briefcase,
+  Compass,
+  Globe,
+  Layers,
+  Lightbulb,
+  Rocket,
+  Settings,
+  Sparkles,
+  Target,
+  TrendingUp,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react'
 import {
   Card,
   CardAction,
@@ -45,9 +59,26 @@ const normalizeText = (value?: string | null): string => String(value ?? '').tri
 
 const hasText = (value?: string | null): value is string => normalizeText(value).length > 0
 
-const getStepIcon = (stepId: string): LucideIcon => {
+const ICON_MAP: Record<string, LucideIcon> = {
+  compass: Compass,
+  sparkles: Sparkles,
+  award: Award,
+  layers: Layers,
+  target: Target,
+  rocket: Rocket,
+  settings: Settings,
+  globe: Globe,
+  zap: Zap,
+  'trending-up': TrendingUp,
+  briefcase: Briefcase,
+  lightbulb: Lightbulb,
+}
+
+const getStepIcon = (icon?: string, stepId?: string): LucideIcon => {
+  const byIcon = icon ? ICON_MAP[icon] : undefined
+  if (byIcon) return byIcon
   if (stepId === 'strategy') return Compass
-  if (stepId.startsWith('benefit')) return Sparkles
+  if (stepId?.startsWith('benefit')) return Sparkles
   if (stepId === 'experience') return Award
   return Layers
 }
@@ -62,10 +93,13 @@ function buildProcessSteps(
     | 'benefitsLabel'
     | 'benefitsSubLabel'
     | 'benefitsTitle'
+    | 'benefitsIcon'
     | 'benefitItems'
     | 'experienceTitle'
     | 'experienceLabel'
     | 'experienceSubLabel'
+    | 'strategyIcon'
+    | 'experienceIcon'
   >,
 ) {
   const steps: Step[] = []
@@ -81,6 +115,7 @@ function buildProcessSteps(
     description: strategyText,
     badge: strategyLabel,
     meta: strategySub,
+    icon: data.strategyIcon ?? undefined,
   })
 
   const benefitsLabel = normalizeText(data.benefitsLabel) || DEFAULTS.benefitsLabel
@@ -100,6 +135,7 @@ function buildProcessSteps(
         description: normalizeText(item.text),
         badge: benefitsLabel,
         meta: index === 0 ? benefitsSub : undefined,
+        icon: item.icon ?? data.benefitsIcon ?? undefined,
       })
     })
   } else {
@@ -108,6 +144,7 @@ function buildProcessSteps(
       title: benefitsTitle,
       description: benefitsSub,
       badge: benefitsLabel,
+      icon: data.benefitsIcon ?? undefined,
     })
   }
 
@@ -120,13 +157,14 @@ function buildProcessSteps(
     title: experienceTitle,
     badge: experienceLabel,
     meta: experienceSub,
+    icon: data.experienceIcon ?? undefined,
   })
 
   return steps
 }
 
 const StepCard: React.FC<{ step: Step }> = ({ step }) => {
-  const Icon = getStepIcon(step.id)
+  const Icon = getStepIcon(step.icon, step.id)
 
   return (
     <Card
@@ -136,7 +174,7 @@ const StepCard: React.FC<{ step: Step }> = ({ step }) => {
       <CardHeader className="flex items-center justify-between gap-4">
         <div className="flex items-center gap-3">
           <span className="inline-flex h-10 w-10 items-center justify-center rounded-2xl border border-border text-muted-foreground">
-            <Icon className="h-5 w-5" />
+            <Icon className="h-5 w-5" strokeWidth={1.5} />
           </span>
           <div className="flex flex-wrap items-center gap-3">
             <span className="inline-flex items-center rounded-full border border-border bg-transparent px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground">
@@ -182,13 +220,16 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   strategySubLabel,
   strategyTitle,
   strategyText,
+  strategyIcon,
   benefitsLabel,
   benefitsSubLabel,
   benefitsTitle,
+  benefitsIcon,
   benefitItems,
   experienceLabel,
   experienceSubLabel,
   experienceTitle,
+  experienceIcon,
   colors,
 }) => {
   const steps = buildProcessSteps({
@@ -196,13 +237,16 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
     strategySubLabel,
     strategyTitle,
     strategyText,
+    strategyIcon,
     benefitsLabel,
     benefitsSubLabel,
     benefitsTitle,
+    benefitsIcon,
     benefitItems,
     experienceLabel,
     experienceSubLabel,
     experienceTitle,
+    experienceIcon,
   })
   const title = normalizeText(headline) || DEFAULTS.headline
   const intro = normalizeText(introText) || DEFAULTS.intro
@@ -215,14 +259,14 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
     <div className="consulting-flow" style={flowStyle}>
       <ol className="consulting-flow-list">
         {steps.map((step) => {
-          const Icon = getStepIcon(step.id)
+          const Icon = getStepIcon(step.icon, step.id)
 
           return (
             <li key={step.id} className="consulting-flow-item">
               <div className="consulting-flow-item-inner">
                 <div className="consulting-flow-content">
                   <span className="consulting-flow-icon" aria-hidden>
-                    <Icon className="h-full w-full" />
+                    <Icon className="h-full w-full" strokeWidth={1.5} />
                   </span>
 
                   <div className="consulting-flow-body">

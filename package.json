@@ -27,6 +27,7 @@
     "seed:globals": "cross-env PAYLOAD_MIGRATING=true tsx src/scripts/seed-globals.ts",
     "seed:portfolio-pages": "cross-env NODE_OPTIONS=--no-deprecation tsx src/scripts/seed-portfolio-subpages.ts",
     "seed:portfolio-subpages": "cross-env NODE_OPTIONS=--no-deprecation tsx src/scripts/seed-portfolio-subpages.ts",
+    "restore:portfolio-cases": "cross-env NODE_OPTIONS=--no-deprecation tsx src/scripts/restore-central-portfolio-cases.ts",
     "seed:service-pages": "cross-env NODE_OPTIONS=--no-deprecation tsx src/scripts/seed-service-pages.ts",
     "hub:update-leistungen": "cross-env NODE_OPTIONS=--no-deprecation tsx src/scripts/update-leistungen-hub-one-off.ts --apply",
     "hub:update-leistungen:dry": "cross-env NODE_OPTIONS=--no-deprecation tsx src/scripts/update-leistungen-hub-one-off.ts",

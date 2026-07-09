@@ -39,6 +39,15 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
   const hasImage = image != null && typeof image === 'object'
   const showLottie = useLottie && (lottieLight || lottieDark)
   const hasMedia = hasImage || showLottie
+  const forceDarkModeInvertForWebdesignIntro =
+    heading?.trim() === 'Webdesign, das aus Besuchern Kunden macht'
+  const imageInvertClass = !showLottie
+    ? forceDarkModeInvertForWebdesignIntro
+      ? 'invert-0 dark:invert'
+      : imageDarkModeInvert
+        ? 'invert dark:invert-0'
+        : undefined
+    : undefined
   const normalizedImageOpacity = Math.min(
     1,
     Math.max(0, Number.isFinite(Number(imageOpacity)) ? Number(imageOpacity) / 100 : 1),
@@ -180,9 +189,7 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
                 themeResource={showLottie ? { light: lottieLight, dark: lottieDark } : undefined}
                 imgClassName={cn(
                   'w-full h-auto max-h-[750px] object-contain xl:max-h-[840px]',
-                  // Base asset is optimized for dark mode.
-                  // When enabled, switch to an inverted variant in light mode.
-                  !showLottie && imageDarkModeInvert && 'invert dark:invert-0',
+                  imageInvertClass,
                 )}
               />
             </div>

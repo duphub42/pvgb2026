@@ -4,6 +4,10 @@ import { NextResponse } from 'next/server'
 import { revalidateTag } from 'next/cache'
 
 import { buildLeistungenPortfolioCaseBlock } from '@/utilities/leistungenPortfolioCases'
+import {
+  CENTRAL_PORTFOLIO_BLOCK_NAME,
+  findCentralPortfolioCaseBlock,
+} from '@/utilities/centralPortfolioCases'
 
 type LayoutBlock = {
   blockType?: string
@@ -44,6 +48,17 @@ export async function GET() {
     const currentLayout = (Array.isArray(leistungen.layout)
       ? clonePlain(leistungen.layout)
       : []) as LayoutBlock[]
+
+    const existingCentral = findCentralPortfolioCaseBlock(currentLayout)
+    if (existingCentral && Array.isArray(existingCentral.cases) && existingCentral.cases.length > 0) {
+      return NextResponse.json({
+        ok: true,
+        skipped: true,
+        message: `Zentraler Portfolio-Block "${CENTRAL_PORTFOLIO_BLOCK_NAME}" ist bereits gepflegt.`,
+        pageId: leistungen.id,
+        counts: { caseTeaserItems: existingCentral.cases.length },
+      })
+    }
 
     const caseTeaser = buildLeistungenPortfolioCaseBlock() as LayoutBlock
 

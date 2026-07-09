@@ -1,6 +1,30 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import type { LucideIcon } from 'lucide-react'
+import {
+  BarChart3,
+  Blocks,
+  Bug,
+  CheckCircle2,
+  Code2,
+  Compass,
+  DraftingCompass,
+  FileText,
+  Gauge,
+  Handshake,
+  Layers3,
+  LineChart,
+  Network,
+  PenTool,
+  Route,
+  Rocket,
+  Search,
+  Settings2,
+  Target,
+  Telescope,
+  Workflow,
+} from 'lucide-react'
 
 import type { HeroWithProcessBlock as HeroWithProcessBlockData } from '@/payload-types'
 
@@ -12,6 +36,72 @@ type Step = {
   title: string
   subtitle: string
   text: string
+}
+
+const STEP_ICON_FALLBACKS: LucideIcon[] = [
+  Compass,
+  Search,
+  Target,
+  Workflow,
+  Network,
+  Route,
+  Layers3,
+  Blocks,
+  PenTool,
+  FileText,
+  Code2,
+  Settings2,
+  Gauge,
+  CheckCircle2,
+  Rocket,
+  LineChart,
+  BarChart3,
+  Telescope,
+  Bug,
+  Handshake,
+  DraftingCompass,
+]
+
+function getStepIconCandidates(step: Step): LucideIcon[] {
+  const source = `${step.title} ${step.subtitle}`.toLowerCase()
+
+  if (source.includes('analyse') || source.includes('ausrichtung')) return [Search, Target, Compass]
+  if (source.includes('strategie')) return [Target, Compass, Search]
+  if (source.includes('konzept') || source.includes('architektur') || source.includes('struktur')) {
+    return [Workflow, Compass, Target]
+  }
+  if (source.includes('design') || source.includes('content')) return [PenTool, Workflow, DraftingCompass]
+  if (source.includes('technik') || source.includes('entwicklung')) return [Code2, DraftingCompass, Workflow]
+  if (source.includes('launch') || source.includes('go-live')) return [Rocket, LineChart, Target]
+  if (source.includes('optimierung') || source.includes('messbar')) return [LineChart, Target, Rocket]
+  if (source.includes('partnerschaft') || source.includes('begleitung')) {
+    return [Handshake, LineChart, Compass]
+  }
+
+  return STEP_ICON_FALLBACKS
+}
+
+function resolveStepIcons(steps: Step[]): LucideIcon[] {
+  const usedIcons = new Set<LucideIcon>()
+  const sequentialFallback = [...STEP_ICON_FALLBACKS]
+
+  return steps.map((step, index) => {
+    const candidates = getStepIconCandidates(step)
+    const uniqueCandidate = candidates.find((Icon) => !usedIcons.has(Icon))
+    if (uniqueCandidate) {
+      usedIcons.add(uniqueCandidate)
+      return uniqueCandidate
+    }
+
+    const fallbackUnique = sequentialFallback.find((Icon) => !usedIcons.has(Icon))
+    if (fallbackUnique) {
+      usedIcons.add(fallbackUnique)
+      return fallbackUnique
+    }
+
+    // Absolute fallback (only if there are more steps than unique icons).
+    return STEP_ICON_FALLBACKS[index % STEP_ICON_FALLBACKS.length] ?? Compass
+  })
 }
 
 const DEFAULTS = {
@@ -115,6 +205,7 @@ export function HeroWithProcessBlock({
   steps,
 }: HeroWithProcessProps) {
   const resolvedSteps = normalizeSteps(steps)
+  const stepIcons = resolveStepIcons(resolvedSteps)
 
   const resolvedSeoH1 = normalizeText(seoH1) || DEFAULTS.seoH1
   const resolvedHeroEyebrow = normalizeText(heroEyebrow) || DEFAULTS.heroEyebrow
@@ -176,6 +267,7 @@ export function HeroWithProcessBlock({
                 const reverseOnDesktop = index % 2 !== 0
 
                 const stepLabel = `step-${index + 1}`
+                const StepIcon = stepIcons[index] ?? Compass
 
                 return (
                   <motion.div
@@ -191,17 +283,27 @@ export function HeroWithProcessBlock({
                   >
                     <div className="flex flex-shrink-0 items-start sm:w-1/2 sm:justify-end">
                       <div className="relative">
-                        <div className="hero-process-step-number flex h-8 w-8 items-center justify-center rounded-full bg-[rgb(var(--hero-process-step-bg))] text-xs font-medium text-[rgb(var(--hero-process-step-text))]">
+                        <div className="pointer-events-none absolute inset-0 rounded-full bg-[rgb(var(--hero-process-step-bg))]/20 blur-[6px]" />
+                        <div className="hero-process-step-number relative flex h-8 w-8 items-center justify-center rounded-full border border-[rgb(var(--hero-process-step-bg))]/30 bg-[rgb(var(--hero-process-step-bg))]/55 text-xs font-medium tracking-[0.05em] text-[rgb(var(--hero-process-step-text))]/72 backdrop-blur-[2px]">
                           {step.stepNumber}
                         </div>
-                        <div className="absolute left-1/2 top-10 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[rgb(var(--hero-process-step-bg))]/40" />
+                        <div className="absolute left-1/2 top-10 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-[rgb(var(--hero-process-step-bg))]/25 blur-[1px]" />
                       </div>
                     </div>
 
                     <div className="hero-process-step-content sm:w-1/2">
-                      <h4 className="hero-process-step-title text-lg font-light sm:text-xl">
-                        {step.title}
-                      </h4>
+                      <div className="flex items-center gap-3">
+                        <span className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[rgb(var(--hero-process-border))]/25 bg-[rgb(var(--hero-process-text))]/[0.035]">
+                          <StepIcon
+                            size={16}
+                            strokeWidth={1.3}
+                            className="text-[rgb(var(--hero-process-text))]/70"
+                          />
+                        </span>
+                        <h4 className="hero-process-step-title text-lg font-light sm:text-xl">
+                          {step.title}
+                        </h4>
+                      </div>
 
                       {step.subtitle ? (
                         <p className="hero-process-step-subtitle mt-1 text-sm text-[rgb(var(--hero-process-text))]/50">

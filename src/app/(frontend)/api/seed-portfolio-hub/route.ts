@@ -5,6 +5,11 @@ import { revalidateTag } from 'next/cache'
 
 import { buildLeistungenPortfolioCaseBlock } from '@/utilities/leistungenPortfolioCases'
 import { buildPortfolioTeaserBlock } from '@/utilities/portfolioHubBlocks'
+import {
+  CENTRAL_PORTFOLIO_BLOCK_NAME,
+  CENTRAL_PORTFOLIO_PAGE_SLUG,
+  findCentralPortfolioCaseBlock,
+} from '@/utilities/centralPortfolioCases'
 
 type LayoutBlock = Record<string, unknown> & { blockType?: string }
 
@@ -47,9 +52,21 @@ export async function GET() {
     const currentLayout = (Array.isArray(portfolioPage.layout) ? portfolioPage.layout : []) as LayoutBlock[]
     const calPopupSource = currentLayout.find((block) => block.blockType === 'calPopup')
 
+    const leistungenRes = await payload.find({
+      collection: 'site-pages',
+      where: { slug: { equals: CENTRAL_PORTFOLIO_PAGE_SLUG } },
+      limit: 1,
+      depth: 2,
+      overrideAccess: true,
+    })
+    const centralCasesBlock =
+      findCentralPortfolioCaseBlock(leistungenRes.docs[0]?.layout) ??
+      (buildLeistungenPortfolioCaseBlock() as LayoutBlock)
+    centralCasesBlock.blockName = CENTRAL_PORTFOLIO_BLOCK_NAME
+
     const newLayout = [
       buildPortfolioTeaserBlock(),
-      buildLeistungenPortfolioCaseBlock(),
+      centralCasesBlock,
       buildCalPopupBlock(calPopupSource),
     ]
 

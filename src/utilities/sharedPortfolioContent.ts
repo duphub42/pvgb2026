@@ -2,7 +2,10 @@ import configPromise from '@payload-config'
 import { unstable_cache } from 'next/cache'
 import { getPayload } from 'payload'
 
+import type { PortfolioType } from '@/collections/Pages/portfolioPresets'
+import { getPortfolioPresetLayout } from '@/collections/Pages/portfolioPresets'
 import type { SitePage } from '@/payload-types'
+import { findCentralPortfolioCaseBlock } from '@/utilities/centralPortfolioCases'
 import { buildLeistungenPortfolioCaseBlock } from '@/utilities/leistungenPortfolioCases'
 import { buildPortfolioTeaserBlock } from '@/utilities/portfolioHubBlocks'
 
@@ -23,6 +26,21 @@ type LayoutBlock = Record<string, unknown> & {
 }
 
 const TARGET_SLUGS = new Set(['portfolio', 'leistungen', 'webdesign', 'logo'])
+
+const PORTFOLIO_SUBPAGE_SLUGS: Record<string, PortfolioType> = {
+  'portfolio-webdesign': 'webdesign',
+  'portfolio-marketing': 'marketing',
+  'portfolio-marken': 'branding',
+  'portfolio-branding': 'branding',
+}
+
+/** Kern-Content-Blöcke, die in Portfolio-Unterseiten fehlen können. */
+const RESTORABLE_BLOCK_TYPES: Record<PortfolioType, string[]> = {
+  webdesign: ['portfolioCaseGrid'],
+  marketing: ['portfolioKpiStrip', 'portfolioCaseGrid'],
+  branding: ['brandShowcase', 'portfolioCaseGrid'],
+}
+
 const IRRELEVANT_PORTFOLIO_SERVICE_TITLES = new Set([
   'Digital Consulting',
   'Webentwicklung & Apps',
@@ -30,14 +48,98 @@ const IRRELEVANT_PORTFOLIO_SERVICE_TITLES = new Set([
   'Marketing & Automatisierung',
 ])
 
+const LEGACY_LOGO_REFERENCE_EYEBROW = 'marken-referenzen'
+const LEGACY_LOGO_REFERENCE_HEADING = 'logodesign-referenzen aus realen kundenaufträgen'
+
 function clone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T
+}
+
+function getPresetBlock(portfolioType: PortfolioType, blockType: string): LayoutBlock | undefined {
+  const presetLayout = getPortfolioPresetLayout(portfolioType) as LayoutBlock[]
+  const match = presetLayout.find((block) => block?.blockType === blockType)
+  if (!match || typeof match !== 'object') return undefined
+  return match
+}
+
+function getPresetCasesBlock(portfolioType: PortfolioType): LayoutBlock | undefined {
+  return getPresetBlock(portfolioType, 'portfolioCaseGrid')
+}
+
+function withDefaultBlockSpacing(block: LayoutBlock, blockType: string): LayoutBlock {
+  return {
+    blockSpacingPadding: 'default',
+    blockSpacingPaddingTop: 'default',
+    blockSpacingMarginBottom: 'default',
+    blockContainer: 'default',
+    blockBackground: blockType === 'portfolioCaseGrid' ? 'muted' : 'none',
+    ...block,
+    id: block.id ?? `portfolio-${blockType}`,
+    blockType,
+  }
+}
+
+function findInsertIndexBeforeTail(blocks: LayoutBlocks): number {
+  const tailTypes = new Set(['calPopup', 'contactInfoCards'])
+  for (let i = 0; i < blocks.length; i++) {
+    if (tailTypes.has(String(blocks[i]?.blockType ?? ''))) return i
+  }
+  return blocks.length
+}
+
+async function resolvePortfolioSubpageLayout(
+  slug: string,
+  blocks: LayoutBlocks,
+): Promise<LayoutBlocks> {
+  const portfolioType = PORTFOLIO_SUBPAGE_SLUGS[slug]
+  if (!portfolioType) return blocks
+
+  const { leistungenCasesBlock } = await getSharedPortfolioBlocks()
+  const centralCasesBlock =
+    leistungenCasesBlock ?? (buildLeistungenPortfolioCaseBlock() as LayoutBlock)
+
+  const withoutContact = blocks.filter(
+    (block) => block?.blockType !== 'contactInfoCards',
+  ) as LayoutBlocks
+
+  const existingTypes = new Set(
+    withoutContact.map((block) => block?.blockType).filter(Boolean) as string[],
+  )
+  const additions: LayoutBlock[] = []
+
+  for (const blockType of RESTORABLE_BLOCK_TYPES[portfolioType]) {
+    if (existingTypes.has(blockType)) continue
+
+    if (blockType === 'portfolioCaseGrid') {
+      additions.push(resolvePortfolioHubCaseBlock(undefined, centralCasesBlock))
+      continue
+    }
+
+    const presetBlock = getPresetBlock(portfolioType, blockType)
+    if (!presetBlock) continue
+
+    additions.push(withDefaultBlockSpacing(clone(presetBlock), blockType))
+  }
+
+  const enriched = withoutContact.map((block) => {
+    if (!block || typeof block !== 'object') return block
+    const typedBlock = block as LayoutBlock
+    if (typedBlock.blockType !== 'portfolioCaseGrid') return block
+    return resolvePortfolioHubCaseBlock(typedBlock, centralCasesBlock)
+  }) as LayoutBlocks
+
+  if (!additions.length) return enriched
+
+  const insertIndex = findInsertIndexBeforeTail(enriched)
+  const next = [...enriched]
+  next.splice(insertIndex, 0, ...(additions as LayoutBlocks))
+  return next
 }
 
 async function getSharedPortfolioBlocksUncached() {
   const payload = await getPayload({ config: configPromise })
 
-  const [leistungen, webdesign, branding] = await Promise.all([
+  const [leistungen, branding] = await Promise.all([
     payload.find({
       collection: 'site-pages',
       where: {
@@ -52,16 +154,6 @@ async function getSharedPortfolioBlocksUncached() {
     payload.find({
       collection: 'site-pages',
       where: {
-        and: [{ slug: { equals: 'portfolio-webdesign' } }, { _status: { equals: 'published' } }],
-      },
-      limit: 1,
-      pagination: false,
-      depth: 2,
-      draft: false,
-    }),
-    payload.find({
-      collection: 'site-pages',
-      where: {
         and: [{ slug: { equals: 'portfolio-marken' } }, { _status: { equals: 'published' } }],
       },
       limit: 1,
@@ -72,21 +164,15 @@ async function getSharedPortfolioBlocksUncached() {
   ])
 
   const leistungenLayout = (leistungen.docs[0] as SitePage | undefined)?.layout ?? []
-  const webdesignLayout = (webdesign.docs[0] as SitePage | undefined)?.layout ?? []
   const brandingLayout = (branding.docs[0] as SitePage | undefined)?.layout ?? []
 
-  const leistungenCasesBlock = leistungenLayout.find(
-    (block) => block?.blockType === 'portfolioCaseGrid',
-  ) as LayoutBlock | undefined
-  const webdesignCasesBlock = webdesignLayout.find(
-    (block) => block?.blockType === 'portfolioCaseGrid',
-  ) as LayoutBlock | undefined
+  const centralCasesBlock = findCentralPortfolioCaseBlock(leistungenLayout) as
+    | LayoutBlock
+    | undefined
 
   return {
     leistungenCasesBlock:
-      leistungenCasesBlock ??
-      (buildLeistungenPortfolioCaseBlock() as LayoutBlock),
-    webdesignCasesBlock,
+      centralCasesBlock ?? (buildLeistungenPortfolioCaseBlock() as LayoutBlock),
     logosBlock: brandingLayout.find((block) => block?.blockType === 'marqueeSlider') as
       | LayoutBlock
       | undefined,
@@ -170,6 +256,19 @@ function getLayoutBlock(blocks: LayoutBlocks, blockType: string): LayoutBlock | 
   const match = blocks.find((block) => block?.blockType === blockType)
   if (!match || typeof match !== 'object') return undefined
   return match as LayoutBlock
+}
+
+function isLegacyLogoReferenceBlock(block: LayoutBlock): boolean {
+  if (block.blockType !== 'marqueeSlider') return false
+
+  const eyebrow = String(block.eyebrow ?? '')
+    .trim()
+    .toLowerCase()
+  const heading = String(block.heading ?? '')
+    .trim()
+    .toLowerCase()
+
+  return eyebrow === LEGACY_LOGO_REFERENCE_EYEBROW && heading === LEGACY_LOGO_REFERENCE_HEADING
 }
 
 function resolvePortfolioHubCaseBlock(
@@ -356,16 +455,93 @@ function buildSharedLogoBlock(
   )
 }
 
+function buildWebdesignCtaBlock(): LayoutBlock {
+  return {
+    id: 'webdesign-cta',
+    blockType: 'cta',
+    blockSpacingPadding: 'default',
+    blockSpacingPaddingTop: 'default',
+    blockSpacingMarginBottom: 'default',
+    blockContainer: 'default',
+    blockBackground: 'none',
+    blockName: 'Webdesign CTA',
+    richText: {
+      root: {
+        type: 'root',
+        children: [
+          {
+            type: 'heading',
+            tag: 'h3',
+            version: 1,
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            children: [
+              {
+                type: 'text',
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Sie wollen eine Website, die sichtbar wird und Anfragen bringt?',
+                version: 1,
+              },
+            ],
+          },
+          {
+            type: 'paragraph',
+            version: 1,
+            direction: 'ltr',
+            format: '',
+            indent: 0,
+            textFormat: 0,
+            textStyle: '',
+            children: [
+              {
+                type: 'text',
+                detail: 0,
+                format: 0,
+                mode: 'normal',
+                style: '',
+                text: 'Lassen Sie uns kurz Ihre Ziele und den passenden Umsetzungsrahmen abstimmen.',
+                version: 1,
+              },
+            ],
+          },
+        ],
+        direction: 'ltr',
+        format: '',
+        indent: 0,
+        version: 1,
+      },
+    },
+    links: [
+      {
+        link: {
+          type: 'custom',
+          appearance: 'default',
+          label: 'Kostenloses Erstgespräch anfragen',
+          url: '/kontakt',
+        },
+      },
+    ],
+  }
+}
+
 export async function resolveSharedPortfolioContent(
   slug: string,
   blocks: LayoutBlocks,
 ): Promise<LayoutBlocks> {
+  if (PORTFOLIO_SUBPAGE_SLUGS[slug]) {
+    return resolvePortfolioSubpageLayout(slug, blocks)
+  }
+
   if (!TARGET_SLUGS.has(slug)) return blocks
 
-  const { leistungenCasesBlock, webdesignCasesBlock, logosBlock } = await getSharedPortfolioBlocks()
+  const { leistungenCasesBlock, logosBlock } = await getSharedPortfolioBlocks()
   const hasCasesBlock = blocks.some((block) => block?.blockType === 'portfolioCaseGrid')
   const hasLogosBlock = blocks.some((block) => block?.blockType === 'marqueeSlider')
-  const casesBlockForSlug = slug === 'webdesign' ? webdesignCasesBlock : leistungenCasesBlock
+  const casesBlockForSlug = leistungenCasesBlock
 
   const resolved = blocks.map((block) => {
     if (!block || typeof block !== 'object') return block
@@ -378,29 +554,37 @@ export async function resolveSharedPortfolioContent(
 
     return block
   })
+  const withoutLegacyLogoReferences = (resolved as LayoutBlocks).filter((block) => {
+    if (!block || typeof block !== 'object') return true
+    return !isLegacyLogoReferenceBlock(block as LayoutBlock)
+  }) as LayoutBlocks
 
   if (slug === 'leistungen') {
-    if (hasCasesBlock) return resolved as LayoutBlocks
+    if (hasCasesBlock) return withoutLegacyLogoReferences
 
     const caseBlock =
       buildSharedCaseBlock(leistungenCasesBlock) ?? (leistungenCasesBlock as LayoutBlock)
-    const insertAfter = findLastServicesGridIndex(resolved as LayoutBlocks)
-    const insertIndex = insertAfter >= 0 ? insertAfter + 1 : resolved.length
+    const insertAfter = findLastServicesGridIndex(withoutLegacyLogoReferences)
+    const insertIndex = insertAfter >= 0 ? insertAfter + 1 : withoutLegacyLogoReferences.length
 
-    const next = [...resolved]
+    const next = [...withoutLegacyLogoReferences] as LayoutBlock[]
     next.splice(insertIndex, 0, caseBlock)
     return next as LayoutBlocks
   }
 
   if (slug === 'webdesign') {
+    const withoutLogoBento = withoutLegacyLogoReferences.filter(
+      (block) => block?.blockType !== 'marqueeSlider',
+    ) as LayoutBlocks
+    const hasCtaBlock = withoutLogoBento.some((block) => block?.blockType === 'cta')
     const additions: LayoutBlock[] = []
-    const caseBlock = !hasCasesBlock ? buildSharedCaseBlock(webdesignCasesBlock) : null
-    const logoBlock = !hasLogosBlock ? buildSharedLogoBlock(logosBlock) : null
+    const caseBlock = !hasCasesBlock ? buildSharedCaseBlock(leistungenCasesBlock) : null
+    const ctaBlock = !hasCtaBlock ? buildWebdesignCtaBlock() : null
 
     if (caseBlock) additions.push(caseBlock)
-    if (logoBlock) additions.push(logoBlock)
+    if (ctaBlock) additions.push(ctaBlock)
 
-    return [...resolved, ...additions] as LayoutBlocks
+    return [...withoutLogoBento, ...additions] as LayoutBlocks
   }
 
   if (slug === 'logo') {
@@ -411,7 +595,7 @@ export async function resolveSharedPortfolioContent(
         'Diese Auswahl zeigt Logo-Entwicklungen aus Kundenprojekten - von reduzierten Zeichen bis zu flexiblen Varianten für unterschiedliche Anwendungskontexte.',
     }
 
-    const withLogoHeadings = resolved.map((block) => {
+    const withLogoHeadings = withoutLegacyLogoReferences.map((block) => {
       if (!block || typeof block !== 'object') return block
       const typedBlock = block as LayoutBlock
       if (typedBlock.blockType !== 'marqueeSlider') return block
@@ -427,8 +611,8 @@ export async function resolveSharedPortfolioContent(
   }
 
   if (slug === 'portfolio') {
-    return resolvePortfolioHubLayout(resolved as LayoutBlocks, leistungenCasesBlock, logosBlock)
+    return resolvePortfolioHubLayout(withoutLegacyLogoReferences, leistungenCasesBlock, logosBlock)
   }
 
-  return resolved as LayoutBlocks
+  return withoutLegacyLogoReferences
 }

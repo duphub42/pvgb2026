@@ -948,7 +948,6 @@ const templates: PageTemplate[] = [
         ],
         radialBackgroundVariant: 'blue',
       }),
-      buildContactInfoCardsBlock(),
       buildCalPopupBlock({
         headline: 'Webdesign-Projekt starten',
         description:

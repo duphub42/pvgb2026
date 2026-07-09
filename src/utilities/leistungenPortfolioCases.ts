@@ -1,6 +1,9 @@
 export type LeistungenCaseBlock = Record<string, unknown> & { blockType?: string }
 
-/** Referenz-Inhalte für den Portfolio-Case-Slider (Leistungen + Portfolio). */
+/**
+ * Fallback-Inhalte, wenn der zentrale Block auf /leistungen noch nicht gepflegt ist.
+ * Produktiv: Cases nur im Block „Zentrale Portfolio-Referenzen“ auf /leistungen pflegen.
+ */
 export function buildLeistungenPortfolioCaseBlock(): LeistungenCaseBlock {
   return {
     blockType: 'portfolioCaseGrid',
