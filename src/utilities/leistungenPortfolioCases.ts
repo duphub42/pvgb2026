@@ -1,4 +1,21 @@
+import {
+  MARKETING_PORTFOLIO_CASES,
+  MARKETING_PORTFOLIO_CASE_TITLES,
+} from '@/utilities/marketingPortfolioCaseContent'
+
 export type LeistungenCaseBlock = Record<string, unknown> & { blockType?: string }
+
+function buildFallbackMarketingCase(title: (typeof MARKETING_PORTFOLIO_CASE_TITLES)[number]) {
+  const seed = MARKETING_PORTFOLIO_CASES[title]
+  const { coverImageId, ...caseData } = seed
+
+  return {
+    ...caseData,
+    title,
+    coverImage: coverImageId,
+    cta: { label: 'Case ansehen', href: seed.website.href },
+  }
+}
 
 /**
  * Fallback-Inhalte, wenn der zentrale Block auf /leistungen noch nicht gepflegt ist.
@@ -36,22 +53,9 @@ export function buildLeistungenPortfolioCaseBlock(): LeistungenCaseBlock {
         cta: { label: 'Projekt ansehen', href: '/portfolio-webdesign' },
         featured: true,
       },
-      {
-        discipline: 'marketing',
-        title: 'SEO-Skalierung für E-Commerce',
-        client: 'E-Commerce Marke',
-        industry: 'Retail',
-        summary:
-          'Technisches SEO, Content-Cluster und Kampagnen-Optimierung mit klarem KPI-Fokus.',
-        year: 2024,
-        categories: ['seo', 'content'],
-        metrics: [
-          { value: '+220%', label: 'Org. Traffic' },
-          { value: '34', label: 'Top-10' },
-        ],
-        tags: [{ label: 'SEO' }, { label: 'Content' }],
-        cta: { label: 'Projekt ansehen', href: '/portfolio-marketing' },
-      },
+      buildFallbackMarketingCase('Trinkwasser Verband'),
+      buildFallbackMarketingCase('Initiative Saubere Luft'),
+      buildFallbackMarketingCase('Soulmating'),
       {
         discipline: 'branding',
         title: 'Markenwelt & Designsystem',

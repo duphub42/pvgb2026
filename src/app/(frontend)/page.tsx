@@ -10,6 +10,7 @@ import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
+import { resolveSharedPortfolioContent } from '@/utilities/sharedPortfolioContent'
 import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 
@@ -90,7 +91,10 @@ export default async function RootPage() {
     }
 
     const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
-    const layoutBlocksForShell = resolveLayoutBlocks('home', page.layout)
+    const layoutBlocksForShell = await resolveSharedPortfolioContent(
+      'home',
+      resolveLayoutBlocks('home', page.layout),
+    )
     const firstBlock = layoutBlocksForShell[0]
     const firstBlockIsServices =
       firstBlock &&

@@ -11,6 +11,7 @@ import { CorporateIdentityFaqBox } from '@/components/CorporateIdentityFaqBox'
 import { PortfolioFaqBox } from '@/components/PortfolioFaqBox'
 import { PreiseFaqBox } from '@/components/PreiseFaqBox'
 import { ProfilFaqBox } from '@/components/ProfilFaqBox'
+import { ContentFaqBox, SemFaqBox, SeoFaqBox } from '@/components/ServiceFaqBoxes'
 import { WebdesignFaqBox } from '@/components/WebdesignFaqBox'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
@@ -76,6 +77,24 @@ function isCorporateIdentityPageTitle(title?: string | null): boolean {
   return (
     normalizedTitle.includes('corporate identity') || normalizedTitle.includes('corporate design')
   )
+}
+
+function isContentPage(slug?: string | null, title?: string | null): boolean {
+  const normalizedSlug = slug?.trim().toLowerCase()
+  const normalizedTitle = title?.trim().toLowerCase() ?? ''
+  return normalizedSlug === 'content' || normalizedTitle.includes('content creation')
+}
+
+function isSemPage(slug?: string | null, title?: string | null): boolean {
+  const normalizedSlug = slug?.trim().toLowerCase()
+  const normalizedTitle = title?.trim().toLowerCase() ?? ''
+  return normalizedSlug === 'sem' || normalizedTitle.includes('sem')
+}
+
+function isSeoPage(slug?: string | null, title?: string | null): boolean {
+  const normalizedSlug = slug?.trim().toLowerCase()
+  const normalizedTitle = title?.trim().toLowerCase() ?? ''
+  return normalizedSlug === 'seo' || normalizedTitle.includes('seo')
 }
 
 function formatUnknownError(error: unknown): string {
@@ -309,11 +328,17 @@ export default async function Page({
         const previewIsCorporateIdentityPage =
           isCorporateIdentityPageSlug(previewEffectiveSlug) ||
           isCorporateIdentityPageTitle(previewTitle)
+        const previewIsContentPage = isContentPage(previewEffectiveSlug, previewTitle)
+        const previewIsSemPage = isSemPage(previewEffectiveSlug, previewTitle)
+        const previewIsSeoPage = isSeoPage(previewEffectiveSlug, previewTitle)
         const previewHasDedicatedFaqBox =
           previewIsPricesPage ||
           previewIsProfilePage ||
           previewIsWebdesignPage ||
-          previewIsCorporateIdentityPage
+          previewIsCorporateIdentityPage ||
+          previewIsContentPage ||
+          previewIsSemPage ||
+          previewIsSeoPage
         const previewRenderFaqAfterCta =
           previewIsPortfolioPage && !previewHasDedicatedFaqBox && previewFirstCtaIndex >= 0
         const previewRenderFaqAtEnd =
@@ -372,6 +397,9 @@ export default async function Page({
                 {previewIsProfilePage && <ProfilFaqBox faq={pageById.faq} />}
                 {previewIsWebdesignPage && <WebdesignFaqBox faq={pageById.faq} />}
                 {previewIsCorporateIdentityPage && <CorporateIdentityFaqBox faq={pageById.faq} />}
+                {previewIsContentPage && <ContentFaqBox faq={pageById.faq} />}
+                {previewIsSemPage && <SemFaqBox faq={pageById.faq} />}
+                {previewIsSeoPage && <SeoFaqBox faq={pageById.faq} />}
                 {isHomePageSlug(previewSlug) && <Faq8 faq={pageById.faq} />}
               </SectionReveal>
             </div>
@@ -446,8 +474,17 @@ export default async function Page({
     const isWebdesignPage = effectiveSlug === 'webdesign' || pageTitle.includes('webdesign')
     const isCorporateIdentityPage =
       isCorporateIdentityPageSlug(effectiveSlug) || isCorporateIdentityPageTitle(pageTitle)
+    const isContentFaqPage = isContentPage(effectiveSlug, pageTitle)
+    const isSemFaqPage = isSemPage(effectiveSlug, pageTitle)
+    const isSeoFaqPage = isSeoPage(effectiveSlug, pageTitle)
     const hasDedicatedFaqBox =
-      isPricesPage || isProfilePage || isWebdesignPage || isCorporateIdentityPage
+      isPricesPage ||
+      isProfilePage ||
+      isWebdesignPage ||
+      isCorporateIdentityPage ||
+      isContentFaqPage ||
+      isSemFaqPage ||
+      isSeoFaqPage
     const renderFaqAfterCta = isPortfolioPage && !hasDedicatedFaqBox && firstCtaIndex >= 0
     const renderFaqAtEnd = isPortfolioPage && !hasDedicatedFaqBox && firstCtaIndex < 0
     const blocksBeforeAndIncludingCta = renderFaqAfterCta
@@ -501,6 +538,9 @@ export default async function Page({
             {isProfilePage && <ProfilFaqBox faq={page.faq} />}
             {isWebdesignPage && <WebdesignFaqBox faq={page.faq} />}
             {isCorporateIdentityPage && <CorporateIdentityFaqBox faq={page.faq} />}
+            {isContentFaqPage && <ContentFaqBox faq={page.faq} />}
+            {isSemFaqPage && <SemFaqBox faq={page.faq} />}
+            {isSeoFaqPage && <SeoFaqBox faq={page.faq} />}
             {showHomeFaq && <Faq8 faq={page.faq} />}
           </SectionReveal>
         </div>

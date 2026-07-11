@@ -250,7 +250,7 @@ export const CalPopupBlock: FC<CalPopupBlockProps> = ({
 
   return (
     <section className="container py-16">
-      <div className="relative mx-auto w-full max-w-none overflow-hidden rounded-[1.5rem] border border-border/60 bg-muted/20 px-6 py-7 shadow-[0_18px_56px_-46px_rgba(15,23,42,0.45)] backdrop-blur-sm dark:bg-muted/10 dark:shadow-[0_18px_56px_-46px_rgba(0,0,0,0.65)] md:px-8 md:py-8 lg:px-10 lg:py-9">
+      <div className="relative mx-auto w-full max-w-none overflow-hidden rounded-[calc(var(--style-radius-l)+0.5rem)] border border-border/60 bg-muted/20 px-6 py-7 shadow-[0_18px_56px_-46px_rgba(15,23,42,0.45)] backdrop-blur-sm dark:bg-muted/10 dark:shadow-[0_18px_56px_-46px_rgba(0,0,0,0.65)] md:rounded-[1.5rem] md:px-8 md:py-8 lg:px-10 lg:py-9">
         <div
           className="pointer-events-none absolute -left-[55%] top-1/2 aspect-square w-[170%] -translate-y-1/2 rounded-full border border-foreground/10 bg-foreground/[0.025] dark:border-foreground/15 dark:bg-foreground/[0.035] md:-left-[24%] md:w-[94%]"
           aria-hidden="true"
@@ -300,7 +300,7 @@ export const CalPopupBlock: FC<CalPopupBlockProps> = ({
                 ctaIcon
                 iconA={ChevronRight}
                 iconB={ArrowUpRight}
-                className="w-full justify-between px-5"
+                className="w-full justify-between rounded-[var(--style-radius-l)] px-5"
               >
                 {buttonLabel}
               </Button>

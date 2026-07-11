@@ -157,17 +157,18 @@ function TeaserCard({ area }: { area: AreaItem }) {
     <Link
       href={href}
       className={cn(
-        'group relative flex flex-col overflow-hidden rounded-2xl border',
+        'group relative block overflow-hidden rounded-2xl border',
         config.bgAccent,
-        'transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5',
+        'transition-shadow duration-300 ease-out hover:shadow-lg',
       )}
     >
+      <div className="flex h-full flex-col transition-transform duration-300 ease-out will-change-transform group-hover:-translate-y-0.5">
       {/* Cover image */}
       {area.coverImage && (
         <div className="relative aspect-[16/9] w-full overflow-hidden">
           <Media
             resource={area.coverImage}
-            imgClassName="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+            imgClassName="h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.03]"
             fill
           />
         </div>
@@ -184,7 +185,7 @@ function TeaserCard({ area }: { area: AreaItem }) {
           >
             <DisciplineIcon
               src={config.iconSrc}
-              className="h-8 w-8 transition-opacity duration-200 group-hover:opacity-80"
+              className="h-8 w-8 transition-opacity duration-300 ease-out group-hover:opacity-80"
             />
           </span>
           <span
@@ -227,9 +228,10 @@ function TeaserCard({ area }: { area: AreaItem }) {
         >
           <span className="inline-flex items-center gap-1.5 text-sm font-semibold">
             {area.ctaLabel ?? 'Cases ansehen'}
-            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 ease-out group-hover:translate-x-1" />
           </span>
         </div>
+      </div>
       </div>
     </Link>
   )

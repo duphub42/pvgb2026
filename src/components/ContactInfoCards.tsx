@@ -83,14 +83,20 @@ export function ContactInfoCards({ cards, ctaLabel, ctaHref }: ContactInfoCardsP
       <div className="relative rounded-3xl bg-transparent px-0 py-0 md:px-2 md:py-8">
         <div className="grid gap-4 md:grid-cols-3">
           {preparedCards.map((item) => {
+            const Icon = ICON_MAP[item.iconKey]
+
             return (
               <div key={item.key} className="relative z-10">
-                <Card variant="secondary" className="h-full">
-                  <CardHeader className="pb-2">
-                    {/* Kein Icon, keine Farbe */}
+                <Card variant="secondary" className="relative h-full min-h-[9.5rem]">
+                  <Icon
+                    className="pointer-events-none absolute -bottom-8 -right-7 size-36 text-foreground/[0.055] transition-transform duration-300 group-hover/card:translate-x-1 group-hover/card:translate-y-1 md:-bottom-11 md:-right-9 md:size-48"
+                    strokeWidth={1.5}
+                    aria-hidden
+                  />
+                  <CardHeader className="relative z-10 pb-2">
                     <CardTitle>{item.title}</CardTitle>
                   </CardHeader>
-                  <CardContent className="space-y-1 text-sm text-muted-foreground">
+                  <CardContent className="relative z-10 space-y-1 text-sm text-muted-foreground">
                     {item.lines.map((line) => (
                       <p key={line}>{line}</p>
                     ))}

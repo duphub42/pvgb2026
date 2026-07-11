@@ -7,6 +7,11 @@ import { getPortfolioPresetLayout } from '@/collections/Pages/portfolioPresets'
 import type { SitePage } from '@/payload-types'
 import { findCentralPortfolioCaseBlock } from '@/utilities/centralPortfolioCases'
 import { buildLeistungenPortfolioCaseBlock } from '@/utilities/leistungenPortfolioCases'
+import {
+  isMarketingPortfolioSliderPage,
+  MARKETING_PORTFOLIO_DISCIPLINES,
+} from '@/utilities/marketingPortfolioCaseContent'
+import { GENERAL_PORTFOLIO_DISCIPLINES } from '@/utilities/webdesignPortfolioCaseContent'
 import { buildPortfolioTeaserBlock } from '@/utilities/portfolioHubBlocks'
 
 type LayoutBlocks = NonNullable<SitePage['layout']>
@@ -25,7 +30,15 @@ type LayoutBlock = Record<string, unknown> & {
   id?: unknown
 }
 
-const TARGET_SLUGS = new Set(['portfolio', 'leistungen', 'webdesign', 'logo'])
+const TARGET_SLUGS = new Set(['portfolio', 'leistungen', 'webdesign', 'logo', 'home'])
+
+const MARKETING_CASE_BLOCK_COPY = {
+  eyebrow: 'Marketing Cases',
+  heading: 'SEO, SEM und Leadgenerierung in realen Projekten',
+  intro:
+    'Referenzen mit Fokus auf organische Sichtbarkeit, Paid-Setup und messbare Lead-Ergebnisse – von der Ads-Phase bis zum organischen Peak.',
+  layoutVariant: 'data',
+} as const
 
 const PORTFOLIO_SUBPAGE_SLUGS: Record<string, PortfolioType> = {
   'portfolio-webdesign': 'webdesign',
@@ -97,6 +110,8 @@ async function resolvePortfolioSubpageLayout(
   const { leistungenCasesBlock } = await getSharedPortfolioBlocks()
   const centralCasesBlock =
     leistungenCasesBlock ?? (buildLeistungenPortfolioCaseBlock() as LayoutBlock)
+  const marketingCaseOptions =
+    portfolioType === 'marketing' ? getMarketingCaseBlockOptions() : undefined
 
   const withoutContact = blocks.filter(
     (block) => block?.blockType !== 'contactInfoCards',
@@ -111,7 +126,9 @@ async function resolvePortfolioSubpageLayout(
     if (existingTypes.has(blockType)) continue
 
     if (blockType === 'portfolioCaseGrid') {
-      additions.push(resolvePortfolioHubCaseBlock(undefined, centralCasesBlock))
+      additions.push(
+        resolvePortfolioHubCaseBlock(undefined, centralCasesBlock, marketingCaseOptions),
+      )
       continue
     }
 
@@ -125,7 +142,7 @@ async function resolvePortfolioSubpageLayout(
     if (!block || typeof block !== 'object') return block
     const typedBlock = block as LayoutBlock
     if (typedBlock.blockType !== 'portfolioCaseGrid') return block
-    return resolvePortfolioHubCaseBlock(typedBlock, centralCasesBlock)
+    return resolvePortfolioHubCaseBlock(typedBlock, centralCasesBlock, marketingCaseOptions)
   }) as LayoutBlocks
 
   if (!additions.length) return enriched
@@ -181,16 +198,23 @@ async function getSharedPortfolioBlocksUncached() {
 
 const getSharedPortfolioBlocks = unstable_cache(
   getSharedPortfolioBlocksUncached,
-  ['shared-portfolio-content'],
+  ['shared-portfolio-content-v3'],
   {
     revalidate: false,
     tags: ['site-pages'],
   },
 )
 
-function withSharedCases(block: LayoutBlock, source?: LayoutBlock): LayoutBlock {
-  const cases = Array.isArray(source?.cases) ? clone(source.cases) : []
+function withSharedCases(
+  block: LayoutBlock,
+  source?: LayoutBlock,
+  disciplineFilter: Set<string> = GENERAL_PORTFOLIO_DISCIPLINES,
+): LayoutBlock {
+  const sourceCases = Array.isArray(source?.cases) ? clone(source.cases) : []
+  const cases = filterPortfolioCases(sourceCases, disciplineFilter)
   if (!source || cases.length === 0) return block
+
+  const isMarketingSlider = disciplineFilter === MARKETING_PORTFOLIO_DISCIPLINES
 
   const rawEyebrow = String(source.eyebrow ?? '').trim()
   const rawHeading = String(source.heading ?? '').trim()
@@ -219,7 +243,7 @@ function withSharedCases(block: LayoutBlock, source?: LayoutBlock): LayoutBlock 
     eyebrow,
     heading,
     intro,
-    layoutVariant: source.layoutVariant ?? block.layoutVariant,
+    layoutVariant: isMarketingSlider ? 'data' : (block.layoutVariant ?? source.layoutVariant ?? 'editorial'),
     cases,
   }
 }
@@ -271,11 +295,44 @@ function isLegacyLogoReferenceBlock(block: LayoutBlock): boolean {
   return eyebrow === LEGACY_LOGO_REFERENCE_EYEBROW && heading === LEGACY_LOGO_REFERENCE_HEADING
 }
 
+type PortfolioCaseBlockOptions = {
+  disciplineFilter?: Set<string>
+  eyebrow?: string
+  heading?: string
+  intro?: string
+  layoutVariant?: string
+}
+
+function filterPortfolioCases(cases: unknown[], disciplineFilter?: Set<string>): unknown[] {
+  if (!disciplineFilter?.size) return cases
+
+  const filtered = cases.filter((entry) => {
+    if (!entry || typeof entry !== 'object') return false
+    const discipline = String((entry as { discipline?: unknown }).discipline ?? '')
+    return disciplineFilter.has(discipline)
+  })
+
+  if (filtered.length > 0) return filtered
+
+  return cases.filter((entry) => {
+    if (!entry || typeof entry !== 'object') return false
+    const title = String((entry as { title?: unknown }).title ?? '')
+    return (
+      title.includes('Trinkwasser') ||
+      title.includes('Saubere Luft') ||
+      title.includes('Initiative') ||
+      title.includes('Soulmating')
+    )
+  })
+}
+
 function resolvePortfolioHubCaseBlock(
   existing: LayoutBlock | undefined,
   leistungenCasesBlock: LayoutBlock,
+  options?: PortfolioCaseBlockOptions,
 ): LayoutBlock {
-  const cases = Array.isArray(leistungenCasesBlock.cases) ? clone(leistungenCasesBlock.cases) : []
+  const sourceCases = Array.isArray(leistungenCasesBlock.cases) ? leistungenCasesBlock.cases : []
+  const cases = clone(filterPortfolioCases(sourceCases, options?.disciplineFilter))
 
   return {
     ...(existing ?? {}),
@@ -286,11 +343,22 @@ function resolvePortfolioHubCaseBlock(
     blockSpacingMarginBottom: existing?.blockSpacingMarginBottom ?? 'default',
     blockContainer: existing?.blockContainer ?? 'default',
     blockBackground: existing?.blockBackground ?? 'muted',
-    eyebrow: leistungenCasesBlock.eyebrow,
-    heading: leistungenCasesBlock.heading,
-    intro: leistungenCasesBlock.intro,
-    layoutVariant: leistungenCasesBlock.layoutVariant ?? existing?.layoutVariant ?? 'editorial',
+    eyebrow: options?.eyebrow ?? leistungenCasesBlock.eyebrow,
+    heading: options?.heading ?? leistungenCasesBlock.heading,
+    intro: options?.intro ?? leistungenCasesBlock.intro,
+    layoutVariant:
+      options?.layoutVariant ??
+      leistungenCasesBlock.layoutVariant ??
+      existing?.layoutVariant ??
+      'editorial',
     cases,
+  }
+}
+
+function getMarketingCaseBlockOptions(): PortfolioCaseBlockOptions {
+  return {
+    disciplineFilter: MARKETING_PORTFOLIO_DISCIPLINES,
+    ...MARKETING_CASE_BLOCK_COPY,
   }
 }
 
@@ -317,6 +385,7 @@ function resolvePortfolioHubLayout(
   const cases = resolvePortfolioHubCaseBlock(
     getLayoutBlock(cleaned, 'portfolioCaseGrid'),
     leistungenCasesBlock,
+    { disciplineFilter: GENERAL_PORTFOLIO_DISCIPLINES },
   )
   const underCases = buildPortfolioUnderCasesBlock()
 
@@ -403,7 +472,10 @@ function withSharedLogos(
   }
 }
 
-function buildSharedCaseBlock(source?: LayoutBlock): LayoutBlock | null {
+function buildSharedCaseBlock(
+  source?: LayoutBlock,
+  disciplineFilter: Set<string> = GENERAL_PORTFOLIO_DISCIPLINES,
+): LayoutBlock | null {
   if (!source) return null
 
   return withSharedCases(
@@ -424,6 +496,7 @@ function buildSharedCaseBlock(source?: LayoutBlock): LayoutBlock | null {
       cases: [],
     } as LayoutBlock,
     source,
+    disciplineFilter,
   )
 }
 
@@ -528,12 +601,39 @@ function buildWebdesignCtaBlock(): LayoutBlock {
   }
 }
 
+async function resolveMarketingSliderLayout(blocks: LayoutBlocks): Promise<LayoutBlocks> {
+  const { leistungenCasesBlock } = await getSharedPortfolioBlocks()
+  const centralCasesBlock =
+    leistungenCasesBlock ?? (buildLeistungenPortfolioCaseBlock() as LayoutBlock)
+  const marketingOptions = getMarketingCaseBlockOptions()
+  const hasCasesBlock = blocks.some((block) => block?.blockType === 'portfolioCaseGrid')
+
+  const resolved = blocks.map((block) => {
+    if (!block || typeof block !== 'object') return block
+    const typedBlock = block as LayoutBlock
+    if (typedBlock.blockType !== 'portfolioCaseGrid') return block
+    return resolvePortfolioHubCaseBlock(typedBlock, centralCasesBlock, marketingOptions)
+  }) as LayoutBlocks
+
+  if (hasCasesBlock) return resolved
+
+  const caseBlock = resolvePortfolioHubCaseBlock(undefined, centralCasesBlock, marketingOptions)
+  const insertIndex = findInsertIndexBeforeTail(resolved)
+  const next = [...resolved] as LayoutBlock[]
+  next.splice(insertIndex, 0, caseBlock)
+  return next as LayoutBlocks
+}
+
 export async function resolveSharedPortfolioContent(
   slug: string,
   blocks: LayoutBlocks,
 ): Promise<LayoutBlocks> {
   if (PORTFOLIO_SUBPAGE_SLUGS[slug]) {
     return resolvePortfolioSubpageLayout(slug, blocks)
+  }
+
+  if (isMarketingPortfolioSliderPage(slug)) {
+    return resolveMarketingSliderLayout(blocks)
   }
 
   if (!TARGET_SLUGS.has(slug)) return blocks
@@ -563,7 +663,7 @@ export async function resolveSharedPortfolioContent(
     if (hasCasesBlock) return withoutLegacyLogoReferences
 
     const caseBlock =
-      buildSharedCaseBlock(leistungenCasesBlock) ?? (leistungenCasesBlock as LayoutBlock)
+      buildSharedCaseBlock(leistungenCasesBlock, GENERAL_PORTFOLIO_DISCIPLINES) ?? (leistungenCasesBlock as LayoutBlock)
     const insertAfter = findLastServicesGridIndex(withoutLegacyLogoReferences)
     const insertIndex = insertAfter >= 0 ? insertAfter + 1 : withoutLegacyLogoReferences.length
 

@@ -6,12 +6,23 @@ import { leistungenFaqFallback } from '@/components/LeistungenFaqBox'
 import { portfolioFaqFallback } from '@/components/PortfolioFaqBox'
 import { preiseFaqFallback } from '@/components/PreiseFaqBox'
 import { profilFaqFallback } from '@/components/ProfilFaqBox'
+import { contentFaqFallback, semFaqFallback, seoFaqFallback } from '@/components/ServiceFaqBoxes'
 import { homeFaqFallback } from '@/components/ui/faq-8'
 import { webdesignFaqFallback } from '@/components/WebdesignFaqBox'
 
 const force = process.argv.includes('--force')
+const onlyArg = process.argv.find((arg) => arg.startsWith('--only='))
+const onlySlugs = onlyArg
+  ? new Set(
+      onlyArg
+        .replace(/^--only=/, '')
+        .split(',')
+        .map((slug) => slug.trim())
+        .filter(Boolean),
+    )
+  : null
 
-const targets = [
+const allTargets = [
   { slugs: ['home', 'Home'], fallback: homeFaqFallback },
   { slugs: ['leistungen', 'lei'], fallback: leistungenFaqFallback },
   {
@@ -27,11 +38,44 @@ const targets = [
   { slugs: ['preise'], fallback: preiseFaqFallback },
   { slugs: ['profil'], fallback: profilFaqFallback },
   { slugs: ['webdesign'], fallback: webdesignFaqFallback },
+  { slugs: ['content'], fallback: contentFaqFallback },
+  { slugs: ['sem'], fallback: semFaqFallback },
+  { slugs: ['seo'], fallback: seoFaqFallback },
   {
     slugs: ['corporate-identity', 'ci-corporate-identity'],
     fallback: corporateIdentityFaqFallback,
   },
 ]
+
+const targets = onlySlugs
+  ? allTargets.filter((target) => target.slugs.some((slug) => onlySlugs.has(slug)))
+  : allTargets
+
+function toStableId(...parts: Array<number | string>): string {
+  return parts
+    .join('-')
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+}
+
+function withStableFaqIds(
+  slug: string,
+  categories: (typeof allTargets)[number]['fallback']['categories'],
+) {
+  return categories.map((category, categoryIndex) => {
+    const categoryId = toStableId(slug, 'faq-category', category.value || categoryIndex)
+
+    return {
+      ...category,
+      id: categoryId,
+      faqs: category.faqs.map((faq, faqIndex) => ({
+        ...faq,
+        id: toStableId(categoryId, 'faq', faqIndex + 1),
+      })),
+    }
+  })
+}
 
 async function run() {
   const payload = await getPayload({ config })
@@ -65,7 +109,10 @@ async function run() {
             eyebrow: target.fallback.eyebrow,
             title: target.fallback.title,
             description: target.fallback.description,
-            categories: target.fallback.categories,
+            categories: withStableFaqIds(
+              String(page.slug ?? target.slugs[0]),
+              target.fallback.categories,
+            ),
           },
         },
         overrideAccess: true,

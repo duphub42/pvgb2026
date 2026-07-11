@@ -1,6 +1,7 @@
 'use client'
 import type { FormFieldBlock, Form as FormType } from '@payloadcms/plugin-form-builder/types'
 
+import { CalendarCheck2, MessageSquareText, Send } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useCallback, useState } from 'react'
 import { useForm, FormProvider } from 'react-hook-form'
@@ -71,6 +72,24 @@ const CONTACT_FAQS = [
     question: 'Wie kann ich eine Anfrage stellen?',
     answer:
       'Nutzen Sie einfach das Kontaktformular auf dieser Seite und beschreiben Sie kurz Ihr Projektziel. Je mehr Infos Sie zu aktueller Website, Leistungen und gewünschtem Zeitrahmen angeben, desto konkreter kann ich antworten. Sie erhalten zeitnah eine Rückmeldung mit ersten Empfehlungen und sinnvollen nächsten Schritten.',
+  },
+] as const
+
+const CONTACT_STEPS = [
+  {
+    icon: Send,
+    title: 'Anfrage senden',
+    text: 'Kurz beschreiben, worum es geht und was erreicht werden soll.',
+  },
+  {
+    icon: MessageSquareText,
+    title: 'Rückmeldung erhalten',
+    text: 'Sie bekommen zeitnah eine Einschätzung mit sinnvollen nächsten Schritten.',
+  },
+  {
+    icon: CalendarCheck2,
+    title: 'Termin abstimmen',
+    text: 'Bei Bedarf klären wir Details in einem unverbindlichen Erstgespräch.',
   },
 ] as const
 
@@ -200,6 +219,27 @@ export const FormBlock: React.FC<
 
   const formContent = (
     <>
+      {isContactPage && (
+        <section
+          aria-label="Ablauf der Kontaktanfrage"
+          className="mb-9 rounded-[0.8rem] border border-border bg-card p-4 lg:mb-10 lg:p-5"
+        >
+          <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+            So geht&apos;s weiter
+          </p>
+          <div className="mt-4 grid gap-4 md:grid-cols-3">
+            {CONTACT_STEPS.map(({ icon: Icon, title, text }) => (
+              <div key={title}>
+                <span className="flex min-h-10 items-start gap-2.5">
+                  <Icon className="size-4 shrink-0 text-muted-foreground" aria-hidden />
+                  <span className="text-sm font-medium leading-5">{title}</span>
+                </span>
+                <span className="mt-1.5 block text-xs leading-5 text-muted-foreground">{text}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
       {isContactPage && (
         <h2 id="kontaktformular" className="mb-4 text-2xl font-semibold lg:text-3xl">
           Kontaktformular
