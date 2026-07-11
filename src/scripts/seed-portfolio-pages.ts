@@ -974,31 +974,6 @@ const templates: PageTemplate[] = [
         body: 'Die Cases folgen einer klaren Logik: Ziel, Kanalmix, Maßnahmen, Ergebnis. So bleibt sichtbar, welche Entscheidung welchen Effekt erzeugt hat.',
         tagline: 'Nicht nur Reichweite zählen.\nRelevante Leads und stabile Performance zählen.',
       }),
-      {
-        blockType: 'servicesOverview',
-        heading: 'Kernbereiche im Marketing-Portfolio',
-        intro: 'Die Projekte verteilen sich auf drei wiederkehrende Schwerpunkte.',
-        services: [
-          {
-            icon: 'trending-up',
-            title: 'SEO',
-            description:
-              'Technische und inhaltliche Optimierung für nachhaltige organische Sichtbarkeit.',
-          },
-          {
-            icon: 'rocket',
-            title: 'SEM',
-            description:
-              'Performance-Kampagnen mit sauberem Setup, Testing und laufender Effizienzsteigerung.',
-          },
-          {
-            icon: 'zap',
-            title: 'Lead-Strategie',
-            description:
-              'Funnel-orientierte Maßnahmen zur Steigerung qualifizierter Anfragen und Conversion-Raten.',
-          },
-        ],
-      },
       buildServicesGridBlock({
         heading: 'Case-Typen im Marketing',
         intro: 'Auswahl typischer Marketing-Projektformen.',

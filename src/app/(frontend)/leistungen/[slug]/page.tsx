@@ -6,8 +6,10 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { SectionReveal } from '@/components/ui/SectionReveal'
+import { LeistungenFaqBox } from '@/components/LeistungenFaqBox'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
+import { appendDefaultCtaBlock } from '@/utilities/defaultCtaBlocks'
 import { generateMeta } from '@/utilities/generateMeta'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { cn } from '@/utilities/ui'
@@ -239,7 +241,14 @@ export default async function Page({
 
       if (pageById && isLeistungenSubpage(pageById)) {
         const previewSlug = typeof pageById.slug === 'string' ? pageById.slug : ''
-        const previewLayoutBlocks = resolveLayoutBlocks(previewSlug, pageById.layout)
+        const previewLayoutBlocks = appendDefaultCtaBlock(
+          resolveLayoutBlocks(previewSlug, pageById.layout),
+          {
+            slug: previewSlug,
+            title: pageById.title,
+            section: 'leistung',
+          },
+        )
         const previewFirstBlock = previewLayoutBlocks[0]
         const previewFirstBlockBackground =
           previewFirstBlock &&
@@ -264,6 +273,7 @@ export default async function Page({
                 <Breadcrumbs items={getLeistungenBreadcrumbItems(pageById.title)} />
               </div>
               <RenderBlocks blocks={previewLayoutBlocks} />
+              <LeistungenFaqBox faq={pageById.faq} />
             </div>
           </article>
         )
@@ -293,7 +303,11 @@ export default async function Page({
   }
 
   const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
-  const layoutBlocks = resolveLayoutBlocks(slug, page.layout)
+  const layoutBlocks = appendDefaultCtaBlock(resolveLayoutBlocks(slug, page.layout), {
+    slug,
+    title: page.title,
+    section: 'leistung',
+  })
   const firstBlock = layoutBlocks[0]
   const firstBlockIsServices =
     firstBlock &&
@@ -337,6 +351,7 @@ export default async function Page({
             <Breadcrumbs items={getLeistungenBreadcrumbItems(page.title)} />
           </div>
           <RenderBlocks blocks={layoutBlocks} />
+          <LeistungenFaqBox faq={page.faq} />
         </SectionReveal>
       </div>
     </article>

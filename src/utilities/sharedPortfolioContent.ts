@@ -19,6 +19,7 @@ type LayoutBlock = Record<string, unknown> & {
   blockType?: string
   bentoGap?: unknown
   bentoRowHeight?: unknown
+  categories?: unknown
   cases?: unknown
   eyebrow?: unknown
   galleryColumns?: unknown
@@ -63,6 +64,7 @@ const IRRELEVANT_PORTFOLIO_SERVICE_TITLES = new Set([
 
 const LEGACY_LOGO_REFERENCE_EYEBROW = 'marken-referenzen'
 const LEGACY_LOGO_REFERENCE_HEADING = 'logodesign-referenzen aus realen kundenaufträgen'
+const MARKETING_OVERVIEW_HEADING = 'kernbereiche im marketing-portfolio'
 
 function clone<T>(value: T): T {
   return JSON.parse(JSON.stringify(value)) as T
@@ -100,6 +102,38 @@ function findInsertIndexBeforeTail(blocks: LayoutBlocks): number {
   return blocks.length
 }
 
+function isMarketingOverviewBlock(block: LayoutBlock): boolean {
+  if (block.blockType !== 'servicesOverview') return false
+  return String(block.heading ?? '').trim().toLocaleLowerCase('de-DE') === MARKETING_OVERVIEW_HEADING
+}
+
+function isMarketingWhyWorkBlock(block: LayoutBlock): boolean {
+  if (block.blockType !== 'whyWorkWithMe') return false
+  return String(block.heading ?? '')
+    .trim()
+    .toLocaleLowerCase('de-DE')
+    .startsWith('was marketing-projekte hier')
+}
+
+function moveMarketingWhyWorkBlockAfterCases(blocks: LayoutBlocks): LayoutBlocks {
+  const whyIndex = blocks.findIndex((block) => {
+    if (!block || typeof block !== 'object') return false
+    return isMarketingWhyWorkBlock(block as LayoutBlock)
+  })
+  if (whyIndex < 0) return blocks
+
+  const casesIndex = blocks.findIndex((block) => block?.blockType === 'portfolioCaseGrid')
+  if (casesIndex < 0 || whyIndex === casesIndex + 1) return blocks
+
+  const next = [...blocks] as LayoutBlocks
+  const [whyBlock] = next.splice(whyIndex, 1)
+  const nextCasesIndex = next.findIndex((block) => block?.blockType === 'portfolioCaseGrid')
+  const insertIndex =
+    nextCasesIndex >= 0 ? nextCasesIndex + 1 : Math.min(findInsertIndexBeforeTail(next), next.length)
+  next.splice(insertIndex, 0, whyBlock)
+  return next
+}
+
 async function resolvePortfolioSubpageLayout(
   slug: string,
   blocks: LayoutBlocks,
@@ -113,9 +147,18 @@ async function resolvePortfolioSubpageLayout(
   const marketingCaseOptions =
     portfolioType === 'marketing' ? getMarketingCaseBlockOptions() : undefined
 
-  const withoutContact = blocks.filter(
-    (block) => block?.blockType !== 'contactInfoCards',
-  ) as LayoutBlocks
+  const withoutContact = blocks.filter((block) => {
+    if (block?.blockType === 'contactInfoCards') return false
+    if (
+      portfolioType === 'marketing' &&
+      block &&
+      typeof block === 'object' &&
+      isMarketingOverviewBlock(block as LayoutBlock)
+    ) {
+      return false
+    }
+    return true
+  }) as LayoutBlocks
 
   const existingTypes = new Set(
     withoutContact.map((block) => block?.blockType).filter(Boolean) as string[],
@@ -145,11 +188,184 @@ async function resolvePortfolioSubpageLayout(
     return resolvePortfolioHubCaseBlock(typedBlock, centralCasesBlock, marketingCaseOptions)
   }) as LayoutBlocks
 
-  if (!additions.length) return enriched
+  const resolved = additions.length
+    ? (() => {
+        const insertIndex = findInsertIndexBeforeTail(enriched)
+        const next = [...enriched]
+        next.splice(insertIndex, 0, ...(additions as LayoutBlocks))
+        return next as LayoutBlocks
+      })()
+    : enriched
 
-  const insertIndex = findInsertIndexBeforeTail(enriched)
-  const next = [...enriched]
-  next.splice(insertIndex, 0, ...(additions as LayoutBlocks))
+  if (portfolioType === 'branding') return ensureBrandingPortfolioEnhancements(resolved)
+  if (portfolioType === 'marketing') return moveMarketingWhyWorkBlockAfterCases(resolved)
+
+  return resolved
+}
+
+const BRANDING_SERVICE_FIELD_DEFAULTS = [
+  {
+    title: 'Markenstrategie',
+    description:
+      'Positionierung, Zielgruppenverständnis und zentrale Botschaften werden so verdichtet, dass die Marke intern klar steuerbar und extern schneller verständlich wird.',
+    icon: { url: '', alt: 'Markenstrategie' },
+  },
+  {
+    title: 'Logo-Entwicklung',
+    description:
+      'Aus einer klaren Idee entsteht ein flexibles Zeichensystem mit Varianten für Website, Social Media, Print und Präsentationen.',
+    icon: { url: '', alt: 'Logo-Entwicklung' },
+  },
+  {
+    title: 'Corporate Identity',
+    description:
+      'Farbwelt, Typografie, Gestaltungsregeln und Tonalität werden zu einem konsistenten Auftritt verbunden, der im Alltag zuverlässig funktioniert.',
+    icon: { url: '', alt: 'Corporate Identity' },
+  },
+]
+
+function buildBrandingGenerativeTextBlock(): LayoutBlock {
+  return {
+    id: 'portfolio-branding-generative-context',
+    blockType: 'servicesOverview',
+    blockSpacingPadding: 'default',
+    blockSpacingPaddingTop: 'default',
+    blockSpacingMarginBottom: 'sm',
+    blockContainer: 'default',
+    blockBackground: 'none',
+    headerAlign: 'center',
+    layoutMode: 'columns',
+    heading: 'Marke, Logo und Branding',
+    intro: 'Drei Bausteine, die zusammen aus einem Auftritt ein wiedererkennbares Markensystem machen.',
+    services: [
+      {
+        icon: 'compass',
+        title: 'Marke',
+        description:
+          'Die Marke definiert Haltung, Nutzen und Wiedererkennbarkeit. Sie macht sichtbar, wofür ein Unternehmen steht, welche Zielgruppen es anspricht und warum Vertrauen entstehen soll.',
+      },
+      {
+        icon: 'palette',
+        title: 'Logo',
+        description:
+          'Das Logo übersetzt den Markenkern in ein prägnantes Zeichen. Entscheidend sind Klarheit, Skalierbarkeit und Varianten, die digital, gedruckt und im Alltag funktionieren.',
+      },
+      {
+        icon: 'shield',
+        title: 'Branding',
+        description:
+          'Branding verbindet Logo, Farben, Typografie, Bildsprache und Tonalität zu einem System. So bleibt die Marke über Website, Sales und Kommunikation konsistent erlebbar.',
+      },
+    ],
+  }
+}
+
+function isBrandingGenerativeTextBlock(block: LayoutBlock): boolean {
+  if (String(block.id ?? '') === 'portfolio-branding-generative-context') return true
+  if (block.blockType !== 'servicesOverview') return false
+  return String(block.heading ?? '').trim().toLowerCase() === 'marke, logo und branding'
+}
+
+function isBrandingServicesGrid(block: LayoutBlock): boolean {
+  if (block.blockType !== 'servicesGrid') return false
+  return String(block.heading ?? '').trim().toLowerCase() === 'leistungsfelder im branding'
+}
+
+function ensureBrandingServicesGrid(block: LayoutBlock): LayoutBlock {
+  const categories = Array.isArray(block.categories) ? clone(block.categories) : []
+  const firstCategory =
+    categories.find((category) => category && typeof category === 'object') ??
+    ({ categoryLabel: 'Marke & Designsystem', services: [] } as Record<string, unknown>)
+
+  const firstCategoryRecord = firstCategory as Record<string, unknown>
+  const services = Array.isArray(firstCategoryRecord.services)
+    ? clone(firstCategoryRecord.services)
+    : []
+  const existingTitles = new Set(
+    services
+      .map((service) =>
+        service && typeof service === 'object'
+          ? String((service as Record<string, unknown>).title ?? '').trim().toLowerCase()
+          : '',
+      )
+      .filter(Boolean),
+  )
+
+  for (const service of BRANDING_SERVICE_FIELD_DEFAULTS) {
+    if (!existingTitles.has(service.title.toLowerCase())) {
+      services.push(service)
+    }
+  }
+
+  firstCategoryRecord.categoryLabel =
+    String(firstCategoryRecord.categoryLabel ?? '').trim() || 'Marke & Designsystem'
+  firstCategoryRecord.services = services
+
+  const nextCategories = categories.length > 0 ? categories : [firstCategoryRecord]
+  if (categories.length > 0) {
+    const firstIndex = nextCategories.findIndex(
+      (category) => category && typeof category === 'object',
+    )
+    nextCategories[firstIndex >= 0 ? firstIndex : 0] = firstCategoryRecord
+  }
+
+  return {
+    ...block,
+    categories: nextCategories,
+  }
+}
+
+function buildBrandingServicesGridBlock(): LayoutBlock {
+  return {
+    id: 'portfolio-branding-service-fields',
+    blockType: 'servicesGrid',
+    blockSpacingPadding: 'default',
+    blockSpacingPaddingTop: 'default',
+    blockSpacingMarginBottom: 'default',
+    blockContainer: 'default',
+    blockBackground: 'none',
+    heading: 'Leistungsfelder im Branding',
+    intro: 'Ausgewählte Projektarten aus Markenaufbau und Weiterentwicklung.',
+    categories: [
+      {
+        categoryLabel: 'Marke & Designsystem',
+        services: clone(BRANDING_SERVICE_FIELD_DEFAULTS),
+      },
+    ],
+    radialBackgroundVariant: 'default',
+  }
+}
+
+function findInsertIndexAfterIntro(blocks: LayoutBlocks): number {
+  const introIndex = blocks.findIndex((block) => block?.blockType === 'introduction')
+  if (introIndex >= 0) return introIndex + 1
+  return Math.min(findInsertIndexBeforeTail(blocks), 1)
+}
+
+function ensureBrandingPortfolioEnhancements(blocks: LayoutBlocks): LayoutBlocks {
+  const next = blocks.map((block) => {
+    if (!block || typeof block !== 'object') return block
+    const typedBlock = block as LayoutBlock
+    if (!isBrandingServicesGrid(typedBlock)) return block
+    return ensureBrandingServicesGrid(typedBlock)
+  }) as LayoutBlocks
+
+  if (!next.some((block) => block && isBrandingGenerativeTextBlock(block as LayoutBlock))) {
+    next.splice(
+      findInsertIndexAfterIntro(next),
+      0,
+      buildBrandingGenerativeTextBlock() as LayoutBlocks[number],
+    )
+  }
+
+  if (!next.some((block) => block && isBrandingServicesGrid(block as LayoutBlock))) {
+    next.splice(
+      findInsertIndexAfterIntro(next) + 1,
+      0,
+      buildBrandingServicesGridBlock() as LayoutBlocks[number],
+    )
+  }
+
   return next
 }
 
@@ -593,7 +809,7 @@ function buildWebdesignCtaBlock(): LayoutBlock {
         link: {
           type: 'custom',
           appearance: 'default',
-          label: 'Kostenloses Erstgespräch anfragen',
+          label: 'Erstgespräch anfragen',
           url: '/kontakt',
         },
       },

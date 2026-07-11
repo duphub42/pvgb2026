@@ -11,11 +11,13 @@ import { CorporateIdentityFaqBox } from '@/components/CorporateIdentityFaqBox'
 import { PortfolioFaqBox } from '@/components/PortfolioFaqBox'
 import { PreiseFaqBox } from '@/components/PreiseFaqBox'
 import { ProfilFaqBox } from '@/components/ProfilFaqBox'
+import { LeistungenFaqBox } from '@/components/LeistungenFaqBox'
 import { ContentFaqBox, SemFaqBox, SeoFaqBox } from '@/components/ServiceFaqBoxes'
 import { WebdesignFaqBox } from '@/components/WebdesignFaqBox'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
+import { appendDefaultCtaBlock } from '@/utilities/defaultCtaBlocks'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { resolveSharedPortfolioContent } from '@/utilities/sharedPortfolioContent'
 import { cn } from '@/utilities/ui'
@@ -95,6 +97,69 @@ function isSeoPage(slug?: string | null, title?: string | null): boolean {
   const normalizedSlug = slug?.trim().toLowerCase()
   const normalizedTitle = title?.trim().toLowerCase() ?? ''
   return normalizedSlug === 'seo' || normalizedTitle.includes('seo')
+}
+
+function isPresentationPage(slug?: string | null, title?: string | null): boolean {
+  const normalizedSlug = slug?.trim().toLowerCase() ?? ''
+  const normalizedTitle = title?.trim().toLowerCase() ?? ''
+  return (
+    normalizedSlug === 'keynotes' ||
+    normalizedSlug === 'praesentationen-keynotes' ||
+    normalizedSlug.includes('presentation') ||
+    normalizedSlug.includes('praesentation') ||
+    normalizedSlug.includes('präsentation') ||
+    normalizedTitle.includes('keynote') ||
+    normalizedTitle.includes('presentation') ||
+    normalizedTitle.includes('praesentation') ||
+    normalizedTitle.includes('präsentation')
+  )
+}
+
+function isPrintPage(slug?: string | null, title?: string | null): boolean {
+  const normalizedSlug = slug?.trim().toLowerCase() ?? ''
+  const normalizedTitle = title?.trim().toLowerCase() ?? ''
+  return (
+    normalizedSlug === 'print' ||
+    normalizedSlug === 'printmedien-grafikdesign' ||
+    normalizedSlug.includes('grafikdesign') ||
+    normalizedTitle.includes('print') ||
+    normalizedTitle.includes('grafikdesign')
+  )
+}
+
+function isLogoPage(slug?: string | null, title?: string | null): boolean {
+  const normalizedSlug = slug?.trim().toLowerCase() ?? ''
+  const normalizedTitle = title?.trim().toLowerCase() ?? ''
+  return (
+    normalizedSlug === 'logo' ||
+    normalizedSlug === 'logo-entwicklung' ||
+    normalizedSlug.includes('logo') ||
+    normalizedTitle.includes('logo')
+  )
+}
+
+function isBrandStrategyPage(slug?: string | null, title?: string | null): boolean {
+  const normalizedSlug = slug?.trim().toLowerCase() ?? ''
+  const normalizedTitle = title?.trim().toLowerCase() ?? ''
+  return (
+    normalizedSlug === 'markenstrategie' ||
+    normalizedSlug.includes('markenstrategie') ||
+    normalizedSlug.includes('positionierung') ||
+    normalizedTitle.includes('markenstrategie') ||
+    normalizedTitle.includes('positionierung')
+  )
+}
+
+function isAutomationPage(slug?: string | null, title?: string | null): boolean {
+  const normalizedSlug = slug?.trim().toLowerCase() ?? ''
+  const normalizedTitle = title?.trim().toLowerCase() ?? ''
+  return (
+    normalizedSlug === 'automatisierung' ||
+    normalizedSlug.includes('automatisierung') ||
+    normalizedSlug.includes('automation') ||
+    normalizedTitle.includes('automatisierung') ||
+    normalizedTitle.includes('automation')
+  )
 }
 
 function formatUnknownError(error: unknown): string {
@@ -285,11 +350,11 @@ export default async function Page({
       })
       if (pageById) {
         const previewSlug = typeof pageById.slug === 'string' ? pageById.slug : ''
-        const previewLayoutBlocks = await resolveSharedPortfolioContent(
+        const previewResolvedLayoutBlocks = await resolveSharedPortfolioContent(
           previewSlug,
           resolveLayoutBlocks(previewSlug, pageById.layout),
         )
-        const previewFirstBlock = previewLayoutBlocks[0]
+        const previewFirstBlock = previewResolvedLayoutBlocks[0]
         const previewFirstBlockBackground =
           previewFirstBlock &&
           typeof previewFirstBlock === 'object' &&
@@ -315,10 +380,6 @@ export default async function Page({
           previewEffectiveSlug === 'portfolio' ||
           previewEffectiveSlug.startsWith('portfolio-') ||
           previewTitle.includes('portfolio')
-        const previewFirstCtaIndex = previewLayoutBlocks.findIndex(
-          (block) =>
-            block && typeof block === 'object' && 'blockType' in block && block.blockType === 'cta',
-        )
         const previewIsPricesPage =
           previewEffectiveSlug === 'preise' || previewTitle.includes('preise')
         const previewIsProfilePage =
@@ -331,6 +392,25 @@ export default async function Page({
         const previewIsContentPage = isContentPage(previewEffectiveSlug, previewTitle)
         const previewIsSemPage = isSemPage(previewEffectiveSlug, previewTitle)
         const previewIsSeoPage = isSeoPage(previewEffectiveSlug, previewTitle)
+        const previewIsPresentationPage = isPresentationPage(previewEffectiveSlug, previewTitle)
+        const previewIsPrintPage = isPrintPage(previewEffectiveSlug, previewTitle)
+        const previewIsLogoPage = isLogoPage(previewEffectiveSlug, previewTitle)
+        const previewIsBrandStrategyPage = isBrandStrategyPage(
+          previewEffectiveSlug,
+          previewTitle,
+        )
+        const previewIsAutomationPage = isAutomationPage(previewEffectiveSlug, previewTitle)
+        const previewHasServiceFaqBox =
+          previewIsWebdesignPage ||
+          previewIsCorporateIdentityPage ||
+          previewIsContentPage ||
+          previewIsSemPage ||
+          previewIsSeoPage ||
+          previewIsPresentationPage ||
+          previewIsPrintPage ||
+          previewIsLogoPage ||
+          previewIsBrandStrategyPage ||
+          previewIsAutomationPage
         const previewHasDedicatedFaqBox =
           previewIsPricesPage ||
           previewIsProfilePage ||
@@ -338,7 +418,29 @@ export default async function Page({
           previewIsCorporateIdentityPage ||
           previewIsContentPage ||
           previewIsSemPage ||
-          previewIsSeoPage
+          previewIsSeoPage ||
+          previewIsPresentationPage ||
+          previewIsPrintPage ||
+          previewIsLogoPage ||
+          previewIsBrandStrategyPage ||
+          previewIsAutomationPage
+        const previewShouldAddDefaultCta =
+          previewHasServiceFaqBox ||
+          (previewIsPortfolioPage &&
+            (previewEffectiveSlug === 'portfolio' ||
+              (previewEffectiveSlug.startsWith('portfolio-') &&
+                previewEffectiveSlug !== 'portfolio-marketing')))
+        const previewLayoutBlocks = previewShouldAddDefaultCta
+          ? appendDefaultCtaBlock(previewResolvedLayoutBlocks, {
+              slug: previewEffectiveSlug,
+              title: pageById.title,
+              section: previewHasServiceFaqBox ? 'leistung' : 'portfolio',
+            })
+          : previewResolvedLayoutBlocks
+        const previewFirstCtaIndex = previewLayoutBlocks.findIndex(
+          (block) =>
+            block && typeof block === 'object' && 'blockType' in block && block.blockType === 'cta',
+        )
         const previewRenderFaqAfterCta =
           previewIsPortfolioPage && !previewHasDedicatedFaqBox && previewFirstCtaIndex >= 0
         const previewRenderFaqAtEnd =
@@ -400,6 +502,11 @@ export default async function Page({
                 {previewIsContentPage && <ContentFaqBox faq={pageById.faq} />}
                 {previewIsSemPage && <SemFaqBox faq={pageById.faq} />}
                 {previewIsSeoPage && <SeoFaqBox faq={pageById.faq} />}
+                {previewIsPresentationPage && <LeistungenFaqBox faq={pageById.faq} />}
+                {previewIsPrintPage && <LeistungenFaqBox faq={pageById.faq} />}
+                {previewIsLogoPage && <LeistungenFaqBox faq={pageById.faq} />}
+                {previewIsBrandStrategyPage && <LeistungenFaqBox faq={pageById.faq} />}
+                {previewIsAutomationPage && <LeistungenFaqBox faq={pageById.faq} />}
                 {isHomePageSlug(previewSlug) && <Faq8 faq={pageById.faq} />}
               </SectionReveal>
             </div>
@@ -437,12 +544,12 @@ export default async function Page({
     }
 
     const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
-    const layoutBlocks = await resolveSharedPortfolioContent(
+    const resolvedLayoutBlocks = await resolveSharedPortfolioContent(
       resolvedSlug,
       resolveLayoutBlocks(resolvedSlug, page.layout),
     )
     const showHomeFaq = isHomePageSlug(resolvedSlug)
-    const firstBlock = layoutBlocks[0]
+    const firstBlock = resolvedLayoutBlocks[0]
     const firstBlockIsServices =
       firstBlock &&
       typeof firstBlock === 'object' &&
@@ -465,10 +572,6 @@ export default async function Page({
       effectiveSlug === 'portfolio' ||
       effectiveSlug.startsWith('portfolio-') ||
       pageTitle.includes('portfolio')
-    const firstCtaIndex = layoutBlocks.findIndex(
-      (block) =>
-        block && typeof block === 'object' && 'blockType' in block && block.blockType === 'cta',
-    )
     const isPricesPage = effectiveSlug === 'preise' || pageTitle.includes('preise')
     const isProfilePage = effectiveSlug === 'profil' || pageTitle.includes('profil')
     const isWebdesignPage = effectiveSlug === 'webdesign' || pageTitle.includes('webdesign')
@@ -477,6 +580,22 @@ export default async function Page({
     const isContentFaqPage = isContentPage(effectiveSlug, pageTitle)
     const isSemFaqPage = isSemPage(effectiveSlug, pageTitle)
     const isSeoFaqPage = isSeoPage(effectiveSlug, pageTitle)
+    const isPresentationFaqPage = isPresentationPage(effectiveSlug, pageTitle)
+    const isPrintFaqPage = isPrintPage(effectiveSlug, pageTitle)
+    const isLogoFaqPage = isLogoPage(effectiveSlug, pageTitle)
+    const isBrandStrategyFaqPage = isBrandStrategyPage(effectiveSlug, pageTitle)
+    const isAutomationFaqPage = isAutomationPage(effectiveSlug, pageTitle)
+    const hasServiceFaqBox =
+      isWebdesignPage ||
+      isCorporateIdentityPage ||
+      isContentFaqPage ||
+      isSemFaqPage ||
+      isSeoFaqPage ||
+      isPresentationFaqPage ||
+      isPrintFaqPage ||
+      isLogoFaqPage ||
+      isBrandStrategyFaqPage ||
+      isAutomationFaqPage
     const hasDedicatedFaqBox =
       isPricesPage ||
       isProfilePage ||
@@ -484,7 +603,28 @@ export default async function Page({
       isCorporateIdentityPage ||
       isContentFaqPage ||
       isSemFaqPage ||
-      isSeoFaqPage
+      isSeoFaqPage ||
+      isPresentationFaqPage ||
+      isPrintFaqPage ||
+      isLogoFaqPage ||
+      isBrandStrategyFaqPage ||
+      isAutomationFaqPage
+    const shouldAddDefaultCta =
+      hasServiceFaqBox ||
+      (isPortfolioPage &&
+        (effectiveSlug === 'portfolio' ||
+          (effectiveSlug.startsWith('portfolio-') && effectiveSlug !== 'portfolio-marketing')))
+    const layoutBlocks = shouldAddDefaultCta
+      ? appendDefaultCtaBlock(resolvedLayoutBlocks, {
+          slug: effectiveSlug,
+          title: page.title,
+          section: hasServiceFaqBox ? 'leistung' : 'portfolio',
+        })
+      : resolvedLayoutBlocks
+    const firstCtaIndex = layoutBlocks.findIndex(
+      (block) =>
+        block && typeof block === 'object' && 'blockType' in block && block.blockType === 'cta',
+    )
     const renderFaqAfterCta = isPortfolioPage && !hasDedicatedFaqBox && firstCtaIndex >= 0
     const renderFaqAtEnd = isPortfolioPage && !hasDedicatedFaqBox && firstCtaIndex < 0
     const blocksBeforeAndIncludingCta = renderFaqAfterCta
@@ -541,6 +681,11 @@ export default async function Page({
             {isContentFaqPage && <ContentFaqBox faq={page.faq} />}
             {isSemFaqPage && <SemFaqBox faq={page.faq} />}
             {isSeoFaqPage && <SeoFaqBox faq={page.faq} />}
+            {isPresentationFaqPage && <LeistungenFaqBox faq={page.faq} />}
+            {isPrintFaqPage && <LeistungenFaqBox faq={page.faq} />}
+            {isLogoFaqPage && <LeistungenFaqBox faq={page.faq} />}
+            {isBrandStrategyFaqPage && <LeistungenFaqBox faq={page.faq} />}
+            {isAutomationFaqPage && <LeistungenFaqBox faq={page.faq} />}
             {showHomeFaq && <Faq8 faq={page.faq} />}
           </SectionReveal>
         </div>

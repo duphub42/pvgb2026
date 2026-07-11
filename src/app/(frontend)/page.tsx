@@ -69,6 +69,34 @@ const getCachedPublishedHomePage = unstable_cache(
   },
 )
 
+const getCachedPublishedHomePageMeta = unstable_cache(
+  async (): Promise<SitePage | null> => {
+    const payload = await getPayload({ config: configPromise })
+    const pages = await payload.find({
+      collection: 'site-pages',
+      limit: 1,
+      pagination: false,
+      depth: 0,
+      select: {
+        slug: true,
+        parent: true,
+        meta: true,
+      } as const,
+      where: {
+        and: [{ slug: { in: ['home', 'Home'] } }, { _status: { equals: 'published' } }],
+      },
+      draft: false,
+    })
+
+    return (pages.docs[0] as SitePage | undefined) ?? null
+  },
+  ['site-page-home-meta'],
+  {
+    revalidate: false,
+    tags: ['site-pages', 'page-home'],
+  },
+)
+
 export default async function RootPage() {
   try {
     const page = await getCachedPublishedHomePage(2)
@@ -169,7 +197,7 @@ export default async function RootPage() {
 
 export async function generateMetadata(): Promise<Metadata> {
   try {
-    const page = await getCachedPublishedHomePage(1)
+    const page = await getCachedPublishedHomePageMeta()
     return await generateMeta({ doc: page ?? null })
   } catch (err) {
     console.error('[RootPage/generateMetadata] failed:', formatUnknownError(err))

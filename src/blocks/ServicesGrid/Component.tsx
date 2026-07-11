@@ -15,10 +15,16 @@ import {
   Heart,
   IdCard,
   Mail,
+  Megaphone,
+  MousePointerClick,
   PlayCircle,
+  Rocket,
+  SearchCheck,
   Settings2,
   Shield,
   Sparkles,
+  Target,
+  TrendingUp,
   Truck,
   Users,
   Zap,
@@ -29,7 +35,7 @@ import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 import type { ServicesGridBlock as ServicesGridBlockData } from '@/payload-types'
-import { containerMap, type BlockStyles } from '@/blocks/BlockStyleSystem'
+import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 import { BlockContainer } from '@/components/BlockContainer'
 import { ResilientImage } from '@/components/ui/resilient-image'
 
@@ -71,10 +77,16 @@ const INTRO_ICON_MAP: Record<string, LucideIcon> = {
   heart: Heart,
   idcard: IdCard,
   mail: Mail,
+  megaphone: Megaphone,
+  mousepointerclick: MousePointerClick,
   playcircle: PlayCircle,
+  rocket: Rocket,
+  searchcheck: SearchCheck,
   settings2: Settings2,
   shield: Shield,
   sparkles: Sparkles,
+  target: Target,
+  trendingup: TrendingUp,
   truck: Truck,
   users: Users,
   zap: Zap,
@@ -92,12 +104,15 @@ const getServiceFallbackIcon = (title?: string | null): LucideIcon => {
   if (/webdesign/.test(text)) return DraftingCompass
   if (/print|grafik/.test(text)) return BookOpen
   if (/pr[aä]sentation|keynote/.test(text)) return PlayCircle
-  if (/seo/.test(text)) return BarChart3
-  if (/sem|werbung/.test(text)) return Activity
+  if (/seo|ranking|sichtbarkeit|organic|relaunch/.test(text)) return SearchCheck
+  if (/sem|sea|ads|anzeige|werbung|kampagne|paid/.test(text)) return Megaphone
+  if (/lead|funnel|conversion|akquise/.test(text)) return Target
+  if (/marketing|performance|kpi/.test(text)) return TrendingUp
   if (/content/.test(text)) return Sparkles
   if (/corporate|\bci\b/.test(text)) return IdCard
   if (/logo/.test(text)) return Fingerprint
   if (/markenstrategie|marke/.test(text)) return Users
+  if (/automatisierung|workflow/.test(text)) return Zap
   return CircleHelp
 }
 
@@ -115,7 +130,7 @@ const normalizeServiceIconUrl = (url?: string | null): string => {
 const isSvgUrl = (src?: string | null): boolean => /\.svg(?:$|[?#])/i.test(String(src ?? ''))
 
 const isTinyLoadedImage = (img: HTMLImageElement, src?: string | null): boolean => {
-  if (isSvgUrl(src)) return false
+  if (isSvgUrl(src)) return img.naturalWidth <= 2 && img.naturalHeight <= 2
   return img.naturalWidth <= 2 && img.naturalHeight <= 2
 }
 
@@ -124,6 +139,7 @@ type ServiceCardIconProps = {
   alt?: string | null
   title: string
   eager?: boolean
+  forceFallback?: boolean
 }
 
 function ServiceCardIcon({
@@ -131,20 +147,31 @@ function ServiceCardIcon({
   alt,
   title,
   eager = false,
+  forceFallback = false,
 }: ServiceCardIconProps): React.JSX.Element {
   const cleanSrc = normalizeServiceIconUrl(src)
-  const shouldStartWithImage = Boolean(cleanSrc)
+  const shouldStartWithImage = Boolean(cleanSrc) && !forceFallback
   const [useImage, setUseImage] = React.useState<boolean>(shouldStartWithImage)
+  const imageRef = React.useRef<HTMLImageElement | null>(null)
 
   React.useEffect(() => {
     setUseImage(shouldStartWithImage)
   }, [shouldStartWithImage])
+
+  React.useEffect(() => {
+    const img = imageRef.current
+    if (!useImage || !img || !img.complete) return
+    if (isTinyLoadedImage(img, cleanSrc)) {
+      setUseImage(false)
+    }
+  }, [cleanSrc, useImage])
 
   const FallbackIcon = getServiceFallbackIcon(title)
 
   if (useImage) {
     return (
       <ResilientImage
+        ref={imageRef}
         src={cleanSrc}
         alt={String(alt ?? title)}
         className="services-grid-card-icon-img h-full w-full object-contain"
@@ -164,8 +191,8 @@ function ServiceCardIcon({
   }
 
   return (
-    <div className="flex h-full w-full items-center justify-center rounded-md bg-muted/40 text-primary">
-      <FallbackIcon className="h-5 w-5" aria-hidden="true" />
+    <div className="flex h-full w-full items-center justify-center rounded-lg border border-primary/20 bg-primary/10 text-primary">
+      <FallbackIcon className="h-5 w-5" strokeWidth={2} aria-hidden="true" />
     </div>
   )
 }
@@ -215,6 +242,9 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
       : null),
   }
   const servicesData = categories ?? []
+  const isMarketingCaseTypes =
+    typeof heading === 'string' &&
+    heading.trim().toLocaleLowerCase('de-DE') === 'case-typen im marketing'
   const introImageSrc = resolveHeroImageSrc(introImage)
   const hasIntroImage = Boolean(introImageSrc)
   const introImageIsSvg = isSvgIntroImage(introImage, introImageSrc)
@@ -235,12 +265,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
       index={index}
       className="services-grid-root overflow-visible"
     >
-      <div
-        className={cn(
-          'relative z-10 services-grid-container overflow-visible',
-          containerMap.default,
-        )}
-      >
+      <div className="relative z-10 w-full services-grid-container overflow-visible">
         {eagerServiceIconUrls.length > 0 ? (
           <div aria-hidden="true" className="sr-only">
             {eagerServiceIconUrls.map((url) => (
@@ -334,16 +359,33 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
           {servicesData.map((category, catIndex) => (
             <div
               key={catIndex}
-              className="grid grid-cols-1 gap-6 bg-transparent md:grid-cols-[auto_1fr] md:items-stretch md:gap-8"
+              className={cn(
+                'grid grid-cols-1 gap-6 bg-transparent',
+                isMarketingCaseTypes
+                  ? 'md:gap-6'
+                  : 'md:grid-cols-[auto_1fr] md:items-stretch md:gap-8',
+              )}
             >
-              <div className="hidden md:flex md:justify-center">
-                <span className="inline-flex rotate-180 items-center justify-center text-xs font-bold uppercase tracking-[0.2em] text-primary/80 [writing-mode:vertical-rl] [text-orientation:mixed]">
+              <div
+                className={cn(
+                  isMarketingCaseTypes
+                    ? 'flex justify-start'
+                    : 'hidden md:flex md:justify-center',
+                )}
+              >
+                <span
+                  className={cn(
+                    'inline-flex items-center justify-center text-xs font-bold uppercase tracking-[0.2em] text-primary/80',
+                    !isMarketingCaseTypes &&
+                      'rotate-180 [writing-mode:vertical-rl] [text-orientation:mixed]',
+                  )}
+                >
                   {category.categoryLabel}
                 </span>
               </div>
 
               <div className="space-y-6">
-                <div className="md:hidden">
+                <div className={cn('md:hidden', isMarketingCaseTypes && 'hidden')}>
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary/80">
                     {category.categoryLabel}
                   </p>
@@ -369,6 +411,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                               alt={service.icon?.alt}
                               title={service.title}
                               eager={shouldLoadEagerly}
+                              forceFallback={isMarketingCaseTypes}
                             />
                           </div>
                           <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">

@@ -48,6 +48,19 @@ const pricingContextBlocks = [
   },
 ] as const
 
+const getMarketingSnapshotIntro = (intro?: string | null): string | null => {
+  const base = intro?.trim()
+  if (!base) return null
+
+  return `${base} Die Werte bündeln typische Effekte aus organischer Sichtbarkeit, Paid-Search-Struktur und Lead-Funnel-Optimierung und zeigen, welche Hebel über mehrere Projektphasen hinweg besonders stark auf Wachstum, Effizienz und Anfragequalität einzahlen.`
+}
+
+const getMarketingSnapshotNote = (heading?: string | null): string | null => {
+  if (!heading?.toLowerCase().includes('marketing-cases')) return null
+
+  return 'Die Kennzahlen sind als verdichteter Snapshot zu lesen: Entscheidend ist nicht ein einzelner Peak, sondern die Kombination aus stabiler Sichtbarkeit, effizienter Budgetsteuerung und messbar besserer Lead-Qualität.'
+}
+
 export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
   eyebrow,
   heading,
@@ -57,27 +70,30 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
 }) => {
   const kpis = (items ?? []).filter((item) => Boolean(item?.value?.trim() && item?.label?.trim()))
   const shouldShowPricingContext = heading?.toLowerCase().includes('leistungswerte')
+  const isMarketingSnapshot = heading?.toLowerCase().includes('marketing-cases')
+  const resolvedIntro = isMarketingSnapshot ? getMarketingSnapshotIntro(intro) : intro?.trim()
+  const snapshotNote = getMarketingSnapshotNote(heading)
 
   if (!kpis.length) return null
 
   const wrapperClass =
     variant === 'solid'
-      ? 'border-slate-800 bg-slate-950 text-slate-50 dark:border-slate-700 dark:bg-slate-900/90 dark:text-slate-100'
+      ? 'text-foreground'
       : variant === 'minimal'
-        ? 'border-border/40 bg-transparent text-foreground'
-        : 'border-border/70 bg-background/80 text-foreground backdrop-blur-xl supports-[backdrop-filter]:bg-background/70'
+        ? 'text-foreground'
+        : 'text-foreground'
 
   const cardClass =
     variant === 'solid'
-      ? 'border-slate-800 bg-slate-900/70 dark:border-slate-700 dark:bg-slate-900/55'
+      ? 'border-border/70 bg-card text-card-foreground'
       : variant === 'minimal'
         ? 'border-border/60 bg-card'
         : 'border-border/60 bg-card/80'
 
   return (
     <section className="w-full py-14 md:py-16">
-      <div className={cn('container rounded-3xl border px-6 py-8 md:px-10 md:py-10', wrapperClass)}>
-        <div className="w-full">
+      <div className={cn('container px-6 py-4 md:px-10 md:py-6', wrapperClass)}>
+        <div className="w-full max-w-5xl">
           {eyebrow ? (
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary/80">
               {eyebrow}
@@ -88,12 +104,14 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
               {heading}
             </h2>
           ) : null}
-          {intro ? (
-            <p className="mt-3 text-sm leading-relaxed opacity-80 md:text-base">{intro}</p>
+          {resolvedIntro ? (
+            <p className="mt-4 max-w-4xl text-sm leading-relaxed text-muted-foreground md:text-base">
+              {resolvedIntro}
+            </p>
           ) : null}
         </div>
 
-        <div className="mt-7 grid w-full items-stretch gap-3 sm:grid-cols-2 xl:grid-cols-3 xl:gap-4">
+        <div className="mt-8 grid w-full items-stretch gap-3 sm:grid-cols-2 xl:grid-cols-4 xl:gap-4">
           {kpis.map((item, index) => {
             const key = typeof item.id === 'string' && item.id ? item.id : `kpi-${index}`
             const trend = (item.trend ?? 'up') as Trend
@@ -124,6 +142,11 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
             )
           })}
         </div>
+        {snapshotNote ? (
+          <p className="mt-5 max-w-5xl text-sm leading-relaxed text-muted-foreground">
+            {snapshotNote}
+          </p>
+        ) : null}
       </div>
 
       {shouldShowPricingContext ? (
