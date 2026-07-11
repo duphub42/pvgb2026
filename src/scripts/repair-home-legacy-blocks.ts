@@ -6,7 +6,7 @@ import config from '@payload-config'
 import { getPortfolioPresetLayout } from '@/collections/Pages/portfolioPresets'
 import type { SitePage } from '@/payload-types'
 
-type LayoutBlock = NonNullable<SitePage['layout']>[number]
+type LayoutBlock = Record<string, unknown> & { blockType?: string }
 
 const LEGACY_HOME_BLOCK_TYPES = new Set(['serpContent', 'lyraContent', 'lyraFeature', 'featuresGrid'])
 
@@ -19,12 +19,12 @@ function getBlockType(block: unknown): string {
 }
 
 function pickPresetBlock(blockType: string): LayoutBlock {
-  const marketingPresetLayout = getPortfolioPresetLayout('marketing')
+  const marketingPresetLayout = getPortfolioPresetLayout('marketing') as LayoutBlock[]
   const found = marketingPresetLayout.find((block) => getBlockType(block) === blockType)
   if (!found) {
     throw new Error(`Preset block "${blockType}" not found.`)
   }
-  return clone(found as LayoutBlock)
+  return clone(found)
 }
 
 async function main() {
