@@ -1028,6 +1028,12 @@ const templates: PageTemplate[] = [
             description:
               'Erkenntnisse aus Cases lassen sich auf neue Kampagnen und Märkte übertragen.',
           },
+          {
+            icon: 'zap',
+            title: 'Conversion-Fokus',
+            description:
+              'Landingpages & Funnel so optimieren, dass aus Traffic qualifizierte Anfragen werden.',
+          },
         ],
       }),
       buildCalPopupBlock({

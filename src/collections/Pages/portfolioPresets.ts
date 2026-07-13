@@ -313,6 +313,12 @@ const MARKETING_PRESET: PortfolioPresetPage = {
           description:
             'Tracking, Attribution und Reporting werden belastbar aufgesetzt, damit Ergebnisse verlässlich sind.',
         },
+        {
+          icon: 'zap',
+          title: 'Conversion-Fokus',
+          description:
+            'Landingpages & Funnel so optimieren, dass aus Traffic qualifizierte Anfragen werden.',
+        },
       ],
     }),
     calPopupBlock({

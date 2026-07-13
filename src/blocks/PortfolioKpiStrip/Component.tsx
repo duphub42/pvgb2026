@@ -2,6 +2,7 @@ import { Minus, TrendingDown, TrendingUp, type LucideIcon } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import type { PortfolioKpiStripBlock as PortfolioKpiStripBlockData } from '@/payload-types'
+import { getBlockBackgroundImageStyle } from '@/utilities/getBlockBackgroundImageStyle'
 import { cn } from '@/utilities/ui'
 
 type PortfolioKpiStripProps = PortfolioKpiStripBlockData & { disableInnerContainer?: boolean }
@@ -48,6 +49,8 @@ const pricingContextBlocks = [
   },
 ] as const
 
+const PRICING_KPI_BACKGROUND_IMAGE = '/api/media/stream/1356'
+
 const getMarketingSnapshotIntro = (intro?: string | null): string | null => {
   const base = intro?.trim()
   if (!base) return null
@@ -89,10 +92,23 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
       : variant === 'minimal'
         ? 'border-border/60 bg-card'
         : 'border-border/60 bg-card/80'
+  const kpiGridClass =
+    kpis.length === 6
+      ? 'lg:grid-cols-3'
+      : kpis.length === 4 || kpis.length === 8
+        ? 'lg:grid-cols-4'
+        : 'lg:grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))]'
 
   return (
-    <section className="w-full py-14 md:py-16">
-      <div className={cn('container px-6 py-4 md:px-10 md:py-6', wrapperClass)}>
+    <section className="relative isolate w-full py-14 md:py-16">
+      {shouldShowPricingContext ? (
+        <div
+          aria-hidden
+          className="render-block-background-image render-block-background-image--top-right"
+          style={getBlockBackgroundImageStyle(PRICING_KPI_BACKGROUND_IMAGE, 'top-right')}
+        />
+      ) : null}
+      <div className={cn('container relative z-10 px-6 py-4 md:px-10 md:py-6', wrapperClass)}>
         <div className="w-full max-w-5xl">
           {eyebrow ? (
             <p className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary/80">
@@ -100,7 +116,7 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
             </p>
           ) : null}
           {heading ? (
-            <h2 className="w-full text-2xl font-semibold leading-tight tracking-tight sm:text-3xl md:text-[clamp(2rem,3.4vw,3.5rem)] md:whitespace-nowrap">
+            <h2 className="w-full max-w-4xl text-2xl font-semibold leading-tight tracking-tight text-balance sm:text-3xl md:text-[clamp(2rem,3.4vw,3.5rem)]">
               {heading}
             </h2>
           ) : null}
@@ -111,7 +127,7 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
           ) : null}
         </div>
 
-        <div className="mt-8 grid w-full items-stretch gap-3 sm:grid-cols-2 xl:grid-cols-4 xl:gap-4">
+        <div className={cn('mt-8 grid w-full items-stretch gap-3 sm:grid-cols-2 xl:gap-4', kpiGridClass)}>
           {kpis.map((item, index) => {
             const key = typeof item.id === 'string' && item.id ? item.id : `kpi-${index}`
             const trend = (item.trend ?? 'up') as Trend
@@ -150,7 +166,7 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
       </div>
 
       {shouldShowPricingContext ? (
-        <div className="container mt-14 md:mt-16">
+        <div className="container relative z-10 mt-14 md:mt-16">
           <div className="grid gap-5 md:grid-cols-3">
             {pricingContextBlocks.map((block) => (
               <article key={block.title} className="h-full">

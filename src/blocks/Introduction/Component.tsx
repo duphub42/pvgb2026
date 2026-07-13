@@ -56,6 +56,7 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
   const taglineLines =
     typeof tagline === 'string' && tagline.trim() ? tagline.split('\n').filter((l) => l.trim()) : []
   const isLeistungenHubIntro = heading?.trim() === 'Ein Hub für alle Leistungen'
+  const isPortfolioMarketingIntro = heading?.trim() === 'Marketing-Cases mit nachvollziehbarer Wirkung'
 
   const hubCards = [
     {
@@ -134,6 +135,13 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
 
   return (
     <BlockContainer styles={styles} index={index}>
+      {isPortfolioMarketingIntro ? (
+        <div
+          aria-hidden
+          className="marketing-graphpaper-bg absolute left-1/2 top-0 z-0 w-screen -translate-x-1/2"
+          style={{ height: 'calc(100% + 40rem)' }}
+        />
+      ) : null}
       <div
         className={cn(
           'grid items-center gap-10',

@@ -3531,6 +3531,80 @@
   [data-layout='wide'] .container {
     max-width: min(90rem, 100%);
   }
+
+  /* Portfolio Marketing: dezentes Graphpaper + Trendlinie (nur als Overlay-DIV nutzen) */
+  .marketing-graphpaper-bg {
+    --mgp-ink: rgba(2, 6, 23, 0.28);
+    --mgp-ink-strong: rgba(2, 6, 23, 0.42);
+    --mgp-opacity: 0.165;
+    opacity: var(--mgp-opacity);
+    pointer-events: none;
+    user-select: none;
+    background-image:
+      /* fein */
+      repeating-linear-gradient(to right, var(--mgp-ink) 0 1px, transparent 1px 18px),
+      repeating-linear-gradient(to bottom, var(--mgp-ink) 0 1px, transparent 1px 18px),
+      /* major */
+      repeating-linear-gradient(to right, var(--mgp-ink-strong) 0 1px, transparent 1px 90px),
+      repeating-linear-gradient(to bottom, var(--mgp-ink-strong) 0 1px, transparent 1px 90px),
+      /* multi-line chart (SVG, like portfolio slider) */
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='280' viewBox='0 0 560 280'%3E%3Cpath d='M10 250 L75 242 L140 230 L205 214 L270 192 L335 162 L400 122 L465 78 L550 32 L550 32 L10 280 Z' fill='rgb(2 6 23)' fill-opacity='0.08'/%3E%3Cpath d='M10 250 L75 242 L140 230 L205 214 L270 192 L335 162 L400 122 L465 78 L550 32' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.62' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 255 L55 248 L95 252 L140 215 L185 228 L230 185 L275 198 L325 142 L375 165 L425 95 L475 110 L520 48 L550 18' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.46' stroke-width='3.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 268 L85 260 L160 252 L235 244 L310 236 L385 228 L460 220 L550 208' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.34' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 258 L100 254 L190 250 L280 246 L320 244 L360 210 L420 164 L480 108 L550 52' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.34' stroke-width='3' stroke-dasharray='10 7' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 262 L70 255 L130 248 L190 252 L250 238 L290 248 L340 218 L400 198 L460 152 L550 42' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.28' stroke-width='2.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='550' cy='18' r='4.5' fill='rgb(2 6 23)' fill-opacity='0.62'/%3E%3Ccircle cx='550' cy='32' r='4' fill='rgb(2 6 23)' fill-opacity='0.46'/%3E%3Ccircle cx='550' cy='208' r='3.5' fill='rgb(2 6 23)' fill-opacity='0.34'/%3E%3Ccircle cx='550' cy='52' r='3.5' fill='rgb(2 6 23)' fill-opacity='0.28'/%3E%3C/svg%3E");
+    background-repeat: repeat, repeat, repeat, repeat, no-repeat;
+    background-size:
+      auto,
+      auto,
+      auto,
+      auto,
+      100% 28rem;
+    background-position:
+      right top,
+      right top,
+      right top,
+      right top,
+      left 0 top 9rem;
+    /* Soft-fade to all edges (top/bottom/left/right) */
+    mask-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 18%, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 14%, rgba(0, 0, 0, 1) 86%, rgba(0, 0, 0, 0) 100%);
+    mask-composite: intersect;
+    -webkit-mask-image:
+      linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 18%, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%),
+      linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 14%, rgba(0, 0, 0, 1) 86%, rgba(0, 0, 0, 0) 100%);
+    -webkit-mask-composite: source-in;
+  }
+
+  [data-theme='dark'] .marketing-graphpaper-bg {
+    --mgp-ink: rgba(248, 250, 252, 0.22);
+    --mgp-ink-strong: rgba(248, 250, 252, 0.32);
+    --mgp-opacity: 0.255;
+    background-image:
+      repeating-linear-gradient(to right, var(--mgp-ink) 0 1px, transparent 1px 18px),
+      repeating-linear-gradient(to bottom, var(--mgp-ink) 0 1px, transparent 1px 18px),
+      repeating-linear-gradient(to right, var(--mgp-ink-strong) 0 1px, transparent 1px 90px),
+      repeating-linear-gradient(to bottom, var(--mgp-ink-strong) 0 1px, transparent 1px 90px),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='280' viewBox='0 0 560 280'%3E%3Cpath d='M10 250 L75 242 L140 230 L205 214 L270 192 L335 162 L400 122 L465 78 L550 32 L550 32 L10 280 Z' fill='rgb(248 250 252)' fill-opacity='0.07'/%3E%3Cpath d='M10 250 L75 242 L140 230 L205 214 L270 192 L335 162 L400 122 L465 78 L550 32' fill='none' stroke='rgb(248 250 252)' stroke-opacity='0.58' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 255 L55 248 L95 252 L140 215 L185 228 L230 185 L275 198 L325 142 L375 165 L425 95 L475 110 L520 48 L550 18' fill='none' stroke='rgb(248 250 252)' stroke-opacity='0.44' stroke-width='3.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 268 L85 260 L160 252 L235 244 L310 236 L385 228 L460 220 L550 208' fill='none' stroke='rgb(248 250 252)' stroke-opacity='0.34' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 258 L100 254 L190 250 L280 246 L320 244 L360 210 L420 164 L480 108 L550 52' fill='none' stroke='rgb(248 250 252)' stroke-opacity='0.34' stroke-width='3' stroke-dasharray='10 7' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 262 L70 255 L130 248 L190 252 L250 238 L290 248 L340 218 L400 198 L460 152 L550 42' fill='none' stroke='rgb(248 250 252)' stroke-opacity='0.28' stroke-width='2.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='550' cy='18' r='4.5' fill='rgb(248 250 252)' fill-opacity='0.58'/%3E%3Ccircle cx='550' cy='32' r='4' fill='rgb(248 250 252)' fill-opacity='0.44'/%3E%3Ccircle cx='550' cy='208' r='3.5' fill='rgb(248 250 252)' fill-opacity='0.34'/%3E%3Ccircle cx='550' cy='52' r='3.5' fill='rgb(248 250 252)' fill-opacity='0.28'/%3E%3C/svg%3E");
+  }
+
+  @media (max-width: 63.99rem) {
+    .marketing-graphpaper-bg {
+      --mgp-opacity: 0.09;
+      background-size:
+        auto,
+        auto,
+        auto,
+        auto,
+        100% 24rem;
+      background-position:
+        right top,
+        right top,
+        right top,
+        right top,
+        left 0 top 8.25rem;
+    }
+    [data-theme='dark'] .marketing-graphpaper-bg {
+      --mgp-opacity: 0.135;
+    }
+  }
 }
 
 @theme inline {

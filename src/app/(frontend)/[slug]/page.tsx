@@ -286,23 +286,30 @@ async function findPublishedPageMetaBySlug(slugParam: string): Promise<SitePage 
   return null
 }
 
-const getCachedPublishedPageBySlug = unstable_cache(
-  async (slugParam: string): Promise<SitePage | null> => findPublishedPageBySlug(slugParam),
-  ['site-pages-published-by-slug-depth-2'],
-  {
-    revalidate,
-    tags: ['site-pages'],
-  },
-)
+const getCachedPublishedPageBySlug =
+  process.env.NODE_ENV === 'development'
+    ? async (slugParam: string): Promise<SitePage | null> => findPublishedPageBySlug(slugParam)
+    : unstable_cache(
+        async (slugParam: string): Promise<SitePage | null> => findPublishedPageBySlug(slugParam),
+        ['site-pages-published-by-slug-depth-2'],
+        {
+          revalidate,
+          tags: ['site-pages'],
+        },
+      )
 
-const getCachedPublishedPageMetaBySlug = unstable_cache(
-  async (slugParam: string): Promise<SitePage | null> => findPublishedPageMetaBySlug(slugParam),
-  ['site-pages-published-by-slug-meta'],
-  {
-    revalidate,
-    tags: ['site-pages'],
-  },
-)
+const getCachedPublishedPageMetaBySlug =
+  process.env.NODE_ENV === 'development'
+    ? async (slugParam: string): Promise<SitePage | null> => findPublishedPageMetaBySlug(slugParam)
+    : unstable_cache(
+        async (slugParam: string): Promise<SitePage | null> =>
+          findPublishedPageMetaBySlug(slugParam),
+        ['site-pages-published-by-slug-meta'],
+        {
+          revalidate,
+          tags: ['site-pages'],
+        },
+      )
 
 export default async function Page({
   params: paramsPromise,
