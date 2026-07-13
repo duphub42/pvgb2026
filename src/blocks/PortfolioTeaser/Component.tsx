@@ -44,6 +44,8 @@ const disciplineConfig: Record<
 
 type AreaItem = NonNullable<PortfolioTeaserBlockData['areas']>[number]
 
+const PORTFOLIO_HUB_TEASER_HEADING = 'Drei Disziplinen, ein gemeinsamer Ergebnisfokus'
+
 function DisciplineIcon({ src, className }: { src: string; className?: string }) {
   const maskStyle = {
     WebkitMask: `url(${src}) center / contain no-repeat`,
@@ -245,58 +247,65 @@ export const PortfolioTeaserBlock: React.FC<PortfolioTeaserProps> = (props) => {
   const { eyebrow, heading, intro, variant = 'cards', areas, index = 0, ...styleProps } = props
 
   const styles = styleProps as unknown as BlockStyles
+  const showPortfolioHubBackground = heading?.trim() === PORTFOLIO_HUB_TEASER_HEADING
 
   return (
-    <BlockContainer styles={styles} index={index}>
-      <div className="w-full space-y-10">
-        {/* Header */}
-        {(eyebrow || heading || intro) && (
-          <div className="max-w-2xl space-y-3">
-            {eyebrow && (
-              <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-                {eyebrow}
-              </p>
-            )}
-            {heading && (
-              <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
-                {heading}
-              </h2>
-            )}
-            {intro && (
-              <p className="whitespace-pre-line text-base leading-relaxed text-muted-foreground md:text-lg">
-                {intro}
-              </p>
-            )}
-          </div>
-        )}
+    <BlockContainer
+      styles={styles}
+      index={index}
+      className={showPortfolioHubBackground ? 'portfolio-teaser-section-background isolate' : undefined}
+    >
+      <div className="w-full">
+        <div className="space-y-10">
+          {/* Header */}
+          {(eyebrow || heading || intro) && (
+            <div className="max-w-2xl space-y-3">
+              {eyebrow && (
+                <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                  {eyebrow}
+                </p>
+              )}
+              {heading && (
+                <h2 className="text-3xl font-bold tracking-tight text-foreground md:text-4xl">
+                  {heading}
+                </h2>
+              )}
+              {intro && (
+                <p className="whitespace-pre-line text-base leading-relaxed text-muted-foreground md:text-lg">
+                  {intro}
+                </p>
+              )}
+            </div>
+          )}
 
-        {/* Area cards */}
-        {areas && areas.length > 0 && (
-          <>
-            {variant === 'editorial' ? (
-              <div className="space-y-6">
-                {(areas as AreaItem[]).map((area, i) => (
-                  <EditorialCard key={area.id ?? i} area={area} index={i} />
-                ))}
-              </div>
-            ) : (
-              <div
-                className={cn(
-                  'grid gap-6',
-                  areas.length === 1
-                    ? 'grid-cols-1'
-                    : areas.length === 2
-                      ? 'grid-cols-1 sm:grid-cols-2'
-                      : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
-                )}
-              >
-                {(areas as AreaItem[]).map((area, i) => (
-                  <TeaserCard key={area.id ?? i} area={area} />
-                ))}
-              </div>
-            )}
-          </>
-        )}
+          {/* Area cards */}
+          {areas && areas.length > 0 && (
+            <>
+              {variant === 'editorial' ? (
+                <div className="space-y-6">
+                  {(areas as AreaItem[]).map((area, i) => (
+                    <EditorialCard key={area.id ?? i} area={area} index={i} />
+                  ))}
+                </div>
+              ) : (
+                <div
+                  className={cn(
+                    'grid gap-6',
+                    areas.length === 1
+                      ? 'grid-cols-1'
+                      : areas.length === 2
+                        ? 'grid-cols-1 sm:grid-cols-2'
+                        : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-3',
+                  )}
+                >
+                  {(areas as AreaItem[]).map((area, i) => (
+                    <TeaserCard key={area.id ?? i} area={area} />
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+        </div>
       </div>
     </BlockContainer>
   )
