@@ -746,7 +746,9 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
             </Badge>
           ) : null}
           {heading ? (
-            <h2 className="text-3xl font-semibold leading-tight md:text-4xl">{heading}</h2>
+            <h2 className="overflow-visible py-1 text-3xl font-semibold leading-[1.16] md:text-4xl md:leading-[1.14]">
+              {heading}
+            </h2>
           ) : null}
           {intro ? (
             <p className="mt-4 w-full text-sm leading-relaxed opacity-85 md:text-base">{intro}</p>
