@@ -265,6 +265,19 @@ html.theme-wave-transition.theme-wave-light::before {
   background-clip: padding-box;
 }
 
+/* Header contact sheet: stay hidden when closed (no forceMount flash after Suspense removal). */
+.megamenu-contact-overlay[data-state='closed'] {
+  opacity: 0 !important;
+  pointer-events: none !important;
+}
+
+.megamenu-contact-sheet[data-state='closed'] {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none !important;
+  transform: translate3d(100%, 0, 0);
+}
+
 @keyframes mobile-mega-overlay-in {
   from {
     opacity: 0;

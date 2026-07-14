@@ -7,7 +7,6 @@ import {
   SheetDescription,
   SheetHeader,
   SheetTitle,
-  SheetTrigger,
 } from '@/components/ui/sheet'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher'
 import { SearchCommand } from '@/components/SearchCommand/SearchCommand'
@@ -375,27 +374,29 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
     <Sheet open={open} onOpenChange={setOpen}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <SheetTrigger asChild>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="header-tool-toggle header-icon-btn shrink-0 text-current"
-              aria-label="Kontakt öffnen"
-            >
-              <Phone className="h-5 w-5" aria-hidden />
-            </Button>
-          </SheetTrigger>
+          <Button
+            type="button"
+            variant="ghost"
+            size="icon"
+            className="header-tool-toggle header-icon-btn shrink-0 text-current"
+            aria-label="Kontakt öffnen"
+            aria-expanded={open}
+            aria-haspopup="dialog"
+            onClick={() => setOpen(true)}
+          >
+            <Phone className="h-5 w-5" aria-hidden />
+          </Button>
         </TooltipTrigger>
         <TooltipContent side="bottom" sideOffset={6}>
           Kontakt öffnen
         </TooltipContent>
       </Tooltip>
-      <SheetContent
-        forceMount
-        side="right"
-        overlayClassName="bg-background/20 backdrop-blur-md"
-        className="megamenu-sheet flex h-[100dvh] max-h-[100dvh] w-[340px] max-w-[340px] flex-col overflow-x-hidden overflow-y-auto overscroll-contain border-l border-border shadow-2xl pt-10 pb-6 supports-[height:100svh]:h-[100svh] sm:w-[420px] sm:max-w-[420px] [@media(max-height:48rem)]:w-[780px] [@media(max-height:48rem)]:max-w-[780px]"
-      >
+      {open ? (
+        <SheetContent
+          side="right"
+          overlayClassName="megamenu-contact-overlay bg-background/20 backdrop-blur-md"
+          className="megamenu-sheet megamenu-contact-sheet flex h-[100dvh] max-h-[100dvh] w-[340px] max-w-[340px] flex-col overflow-x-hidden overflow-y-auto overscroll-contain border-l border-border shadow-2xl pt-10 pb-6 supports-[height:100svh]:h-[100svh] sm:w-[420px] sm:max-w-[420px] [@media(max-height:48rem)]:w-[780px] [@media(max-height:48rem)]:max-w-[780px]"
+        >
         <SheetHeader className="space-y-2">
           <SheetTitle className="text-2xl md:text-3xl font-medium tracking-tighter leading-tight text-foreground">
             Kontakt
@@ -667,6 +668,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
           </div>
         </div>
       </SheetContent>
+      ) : null}
     </Sheet>
   )
 }

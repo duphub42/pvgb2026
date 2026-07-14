@@ -6,7 +6,7 @@ import type { FaqCategory } from '@/components/ui/faq-8.data'
 export const corporateIdentityFaqCategories: FaqCategory[] = [
   {
     value: 'grundverstaendnis',
-    label: 'Grundverstaendnis',
+    label: 'Grundverständnis',
     icon: 'BriefcaseBusiness',
     faqs: [
       {
@@ -28,9 +28,9 @@ export const corporateIdentityFaqCategories: FaqCategory[] = [
       },
       {
         question:
-          'Ab welcher Unternehmensgroesse lohnt sich eine professionelle Corporate Identity?',
+          'Ab welcher Unternehmensgröße lohnt sich eine professionelle Corporate Identity?',
         answer:
-          'Eine professionelle Corporate Identity lohnt sich nicht erst ab einer bestimmten Mitarbeiterzahl, sondern sobald Kunden Ihr Unternehmen vergleichen, Vertrauen aufbauen muessen oder mehrere Kanäle bespielt werden. Das betrifft auch Gründer, Handwerksbetriebe, Praxen und lokale Dienstleister in Halle.',
+          'Eine professionelle Corporate Identity lohnt sich nicht erst ab einer bestimmten Mitarbeiterzahl, sondern sobald Kunden Ihr Unternehmen vergleichen, Vertrauen aufbauen müssen oder mehrere Kanäle bespielt werden. Das betrifft auch Gründer, Handwerksbetriebe, Praxen und lokale Dienstleister in Halle.',
       },
     ],
   },
@@ -95,7 +95,7 @@ export const corporateIdentityFaqCategories: FaqCategory[] = [
       },
       {
         question:
-          'Werde ich in den Entwicklungsprozess eingebunden, oder bekomme ich nur fertige Ergebnisse praesentiert?',
+          'Werde ich in den Entwicklungsprozess eingebunden, oder bekomme ich nur fertige Ergebnisse präsentiert?',
         answer:
           'Sie werden aktiv eingebunden. Am Anfang werden Ziele, Geschmack, Wettbewerber und Zielgruppe geklärt; während der Entwicklung gibt es klare Präsentations- und Feedbackpunkte, damit Entscheidungen nachvollziehbar bleiben.',
       },
@@ -240,7 +240,7 @@ export const corporateIdentityFaqCategories: FaqCategory[] = [
         question:
           'Was ist der Unterschied zwischen einem Online-Logo-Generator und einer professionell entwickelten Corporate Identity?',
         answer:
-          'Ein Logo-Generator liefert meist ein austauschbares Zeichen ohne Strategie, Rechteklaerung und System. Eine professionelle Corporate Identity beruecksichtigt Zielgruppe, Wettbewerb, Positionierung, Anwendungen, Lesbarkeit und langfristige Nutzbarkeit.',
+          'Ein Logo-Generator liefert meist ein austauschbares Zeichen ohne Strategie, Rechteklärung und System. Eine professionelle Corporate Identity berücksichtigt Zielgruppe, Wettbewerb, Positionierung, Anwendungen, Lesbarkeit und langfristige Nutzbarkeit.',
       },
       {
         question:
@@ -273,13 +273,13 @@ export const corporateIdentityFaqCategories: FaqCategory[] = [
           'Ein konsistenter Auftritt wirkt professioneller, vertrauenswürdiger und leichter wiedererkennbar. Kunden können schneller einordnen, wofür Ihr Unternehmen steht, ob es zu ihnen passt und warum sie Kontakt aufnehmen sollten.',
       },
       {
-        question: 'Kann eine gute Corporate Identity tatsaechlich zu mehr Kundenanfragen fuehren?',
+        question: 'Kann eine gute Corporate Identity tatsächlich zu mehr Kundenanfragen führen?',
         answer:
           'Ja, indirekt und oft sehr konkret. Eine klare Identität verbessert Vertrauen, Wiedererkennung, Website-Wirkung, Anzeigen, Angebote und Weiterempfehlungen. Sie ersetzt kein Marketing, macht Marketing aber deutlich wirksamer.',
       },
       {
         question:
-          'Gibt es Beispiele, wie sich der Aussenauftritt eines Kunden aus Halle nach dem Rebranding veraendert hat?',
+          'Gibt es Beispiele, wie sich der Außenauftritt eines Kunden aus Halle nach dem Rebranding verändert hat?',
         answer:
           'Wenn passende Referenzen freigegeben sind, können Vorher-nachher-Beispiele besprochen werden. Relevant sind dabei nicht nur Optik, sondern auch Wiedererkennung, Website-Qualität, Anfragewirkung und Konsistenz über alle Kanäle.',
       },
@@ -290,7 +290,7 @@ export const corporateIdentityFaqCategories: FaqCategory[] = [
 export const corporateIdentityFaqFallback = {
   categories: corporateIdentityFaqCategories,
   eyebrow: 'FAQ Corporate Identity',
-  title: 'Haeufige Fragen zu Corporate Identity, Corporate Design und Logoentwicklung',
+  title: 'Häufige Fragen zu Corporate Identity, Corporate Design und Logoentwicklung',
   description:
     'Klare Antworten für kleine Unternehmen in Halle und Umgebung: Unterschied zwischen Logo, Corporate Design und Corporate Identity, Ablauf, Kosten, Rechte, Rebranding und Umsetzung auf Website, Print und Social Media.',
 }

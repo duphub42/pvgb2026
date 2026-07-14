@@ -357,7 +357,7 @@ export interface SitePage {
     categories?:
       | {
           /**
-           * Kleingeschriebener eindeutiger Wert fuer Tabs, z. B. "kosten" oder "ablauf".
+           * Kleingeschriebener eindeutiger Wert für Tabs, z. B. "kosten" oder "ablauf".
            */
           value?: string | null;
           label: string;

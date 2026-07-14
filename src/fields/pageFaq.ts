@@ -24,7 +24,7 @@ export const pageFaqField: Field = {
     {
       name: 'title',
       type: 'text',
-      label: 'Ueberschrift',
+      label: 'Überschrift',
     },
     {
       name: 'description',
@@ -49,7 +49,7 @@ export const pageFaqField: Field = {
           label: 'Technischer Wert',
           admin: {
             description:
-              'Kleingeschriebener eindeutiger Wert fuer Tabs, z. B. "kosten" oder "ablauf".',
+              'Kleingeschriebener eindeutiger Wert für Tabs, z. B. "kosten" oder "ablauf".',
           },
         },
         {

@@ -19,9 +19,9 @@ export const portfolioFaqCategories: FaqCategory[] = [
           'Ja. Alle gezeigten Arbeiten basieren auf realen Projekten. Wenn Vertraulichkeit vereinbart wurde, werden sensible Daten anonymisiert oder in abstrahierter Form dargestellt.',
       },
       {
-        question: 'Warum sind manche Projekte kuerzer beschrieben als andere?',
+        question: 'Warum sind manche Projekte kürzer beschrieben als andere?',
         answer:
-          'Die Detailtiefe hängt von Freigaben, Datenlage und Branchenanforderungen ab. Wo möglich, werden Zahlen und konkrete Ergebnisse gezeigt. Wo noetig, bleibt die Darstellung bewusst komprimiert.',
+          'Die Detailtiefe hängt von Freigaben, Datenlage und Branchenanforderungen ab. Wo möglich, werden Zahlen und konkrete Ergebnisse gezeigt. Wo nötig, bleibt die Darstellung bewusst komprimiert.',
       },
       {
         question: 'Welche Branchen sind im Portfolio vertreten?',
@@ -34,7 +34,7 @@ export const portfolioFaqCategories: FaqCategory[] = [
           'Das Portfolio wird laufend gepflegt. Neue Projekte werden nach Abschluss und Freigabe integriert, bestehende Cases werden bei wichtigen Entwicklungen aktualisiert.',
       },
       {
-        question: 'Kann ich ein Projekt sehen, das meinem Fall aehnlich ist?',
+        question: 'Kann ich ein Projekt sehen, das meinem Fall ähnlich ist?',
         answer:
           'Ja. Nach einem kurzen Erstgespräch kann ich passende Vergleichsprojekte benennen, die in Zielsetzung, Budgetrahmen, Funnel-Struktur oder technischen Anforderungen Ihrem Vorhaben ähneln.',
       },
@@ -46,9 +46,9 @@ export const portfolioFaqCategories: FaqCategory[] = [
     icon: 'LockKeyhole',
     faqs: [
       {
-        question: 'Wie läuft ein Portfolio-aehnliches Projekt typischerweise ab?',
+        question: 'Wie läuft ein Portfolio-ähnliches Projekt typischerweise ab?',
         answer:
-          'Typisch sind fuenf Phasen: Analyse, Struktur, Design, technische Umsetzung und Optimierung. Jede Phase hat klare Deliverables, damit Entscheidungen transparent und reproduzierbar bleiben.',
+          'Typisch sind fünf Phasen: Analyse, Struktur, Design, technische Umsetzung und Optimierung. Jede Phase hat klare Deliverables, damit Entscheidungen transparent und reproduzierbar bleiben.',
       },
       {
         question: 'Welche Rolle spielen UX und Informationsarchitektur?',
@@ -58,12 +58,12 @@ export const portfolioFaqCategories: FaqCategory[] = [
       {
         question: 'Arbeiten Sie nur mit neuen Projekten oder auch mit Bestandssystemen?',
         answer:
-          'Beides. Bestehende Websites, Tracking-Setups und Content-Bestaende werden analysiert und gezielt verbessert. Ein kompletter Neubau wird nur empfohlen, wenn er wirtschaftlich sinnvoll ist.',
+          'Beides. Bestehende Websites, Tracking-Setups und Content-Bestände werden analysiert und gezielt verbessert. Ein kompletter Neubau wird nur empfohlen, wenn er wirtschaftlich sinnvoll ist.',
       },
       {
         question: 'Wie stellen Sie sicher, dass Design und Performance zusammenpassen?',
         answer:
-          'Designentscheidungen werden mit technischen Vorgaben kombiniert: Bildstrategie, Komponentensystem, Ladezeitziele, Core Web Vitals und Mobil-Performance werden schon in der Konzeption beruecksichtigt.',
+          'Designentscheidungen werden mit technischen Vorgaben kombiniert: Bildstrategie, Komponentensystem, Ladezeitziele, Core Web Vitals und Mobil-Performance werden schon in der Konzeption berücksichtigt.',
       },
       {
         question: 'Welche CMS- und Tech-Stacks sind möglich?',
@@ -95,17 +95,17 @@ export const portfolioFaqCategories: FaqCategory[] = [
       {
         question: 'Wie wird Tracking eingerichtet?',
         answer:
-          'Tracking wird datenschutzkonform und zielorientiert aufgebaut: Events, Ziele, Formularpfade, Kanalzuordnung und Reporting-Views werden auf Ihre Geschaeftsziele abgestimmt.',
+          'Tracking wird datenschutzkonform und zielorientiert aufgebaut: Events, Ziele, Formularpfade, Kanalzuordnung und Reporting-Views werden auf Ihre Geschäftsziele abgestimmt.',
       },
       {
-        question: 'Kann ich nachvollziehen, welche Massnahme welchen Effekt hatte?',
+        question: 'Kann ich nachvollziehen, welche Maßnahme welchen Effekt hatte?',
         answer:
-          'Ja. Aenderungen werden dokumentiert und mit Metriken verknuepft. Damit wird transparent, welche Optimierungen den groessten Beitrag zu Anfragen, Sichtbarkeit oder Umsatz geleistet haben.',
+          'Ja. Änderungen werden dokumentiert und mit Metriken verknüpft. Damit wird transparent, welche Optimierungen den größten Beitrag zu Anfragen, Sichtbarkeit oder Umsatz geleistet haben.',
       },
       {
         question: 'Gibt es auch qualitative Erfolgsindikatoren?',
         answer:
-          'Ja. Neben Zahlen sind auch bessere Nutzerführung, klarere Positionierung, staerkeres Markenbild und kuerzere Entscheidungswege im Vertrieb relevante Qualitätsindikatoren.',
+          'Ja. Neben Zahlen sind auch bessere Nutzerführung, klarere Positionierung, stärkeres Markenbild und kürzere Entscheidungswege im Vertrieb relevante Qualitätsindikatoren.',
       },
       {
         question: 'Wie oft werden Ergebnisse ausgewertet?',
@@ -130,7 +130,7 @@ export const portfolioFaqCategories: FaqCategory[] = [
           'Hilfreich sind aktuelle Website-URL, Zielgruppenbeschreibung, Angebotslogik, vorhandene Datenquellen, Wunschzeitplan und bekannte technische Rahmenbedingungen.',
       },
       {
-        question: 'Gibt es feste Pakete oder individuelle Umfaenge?',
+        question: 'Gibt es feste Pakete oder individuelle Umfänge?',
         answer:
           'Beides ist möglich. Es gibt klare Einstiegspakete, gleichzeitig können Umfang und Tiefe modular auf Ihre Ziele, Ressourcen und Ihr Budget angepasst werden.',
       },
@@ -147,7 +147,7 @@ export const portfolioFaqCategories: FaqCategory[] = [
       {
         question: 'Können interne Teams eingebunden werden?',
         answer:
-          'Ja. Marketing, Vertrieb, IT oder externe Partner können gezielt eingebunden werden. Ziel ist ein Setup, das Know-how transferiert und Ihre Organisation langfristig handlungsfaehig macht.',
+          'Ja. Marketing, Vertrieb, IT oder externe Partner können gezielt eingebunden werden. Ziel ist ein Setup, das Know-how transferiert und Ihre Organisation langfristig handlungsfähig macht.',
       },
     ],
   },
@@ -156,7 +156,7 @@ export const portfolioFaqCategories: FaqCategory[] = [
 export const portfolioFaqFallback = {
   categories: portfolioFaqCategories,
   eyebrow: 'FAQ Portfolio',
-  title: 'Haeufige Fragen zu Referenzen, Projektablauf und messbaren Portfolio-Ergebnissen',
+  title: 'Häufige Fragen zu Referenzen, Projektablauf und messbaren Portfolio-Ergebnissen',
   description:
     'Diese strukturierte FAQ beantwortet zentrale Fragen zu Cases, Methodik, KPIs, Zusammenarbeit und Support. So können Nutzer und KI-Systeme den fachlichen Kontext Ihrer Portfolio-Seite eindeutig einordnen.',
 }

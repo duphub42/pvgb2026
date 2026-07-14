@@ -16,7 +16,7 @@ export const profilFaqCategories: FaqCategory[] = [
       },
       {
         question:
-          'Warum sollten kleine Unternehmen mit Philipp Bacher statt mit einer groesseren Agentur arbeiten?',
+          'Warum sollten kleine Unternehmen mit Philipp Bacher statt mit einer größeren Agentur arbeiten?',
         answer:
           'Kleine Unternehmen profitieren von kurzen Wegen, klarer Priorisierung und direktem Kontakt. Statt standardisierter Agenturprozesse wird der Umfang auf Budget, Ziele und vorhandene Ressourcen abgestimmt.',
       },
@@ -26,19 +26,19 @@ export const profilFaqCategories: FaqCategory[] = [
           'Viele Projekte brauchen mehrere Disziplinen zugleich: Marke, Website, SEO, Content, Tracking und Automatisierung. Philipp Bacher deckt diese Bereiche integriert ab und kann Entscheidungen fachübergreifend treffen.',
       },
       {
-        question: 'Warum ist lokale Naehe in Halle und Mitteldeutschland relevant?',
+        question: 'Warum ist lokale Nähe in Halle und Mitteldeutschland relevant?',
         answer:
-          'Lokale Naehe erleichtert Abstimmung, Marktverstaendnis und persönliche Termine. Gerade bei KMU-Projekten hilft es, regionale Zielgruppen, Wettbewerber und Entscheidungswege praktisch zu kennen.',
+          'Lokale Nähe erleichtert Abstimmung, Marktverständnis und persönliche Termine. Gerade bei KMU-Projekten hilft es, regionale Zielgruppen, Wettbewerber und Entscheidungswege praktisch zu kennen.',
       },
       {
-        question: 'Welche Werte praegen die Zusammenarbeit?',
+        question: 'Welche Werte prägen die Zusammenarbeit?',
         answer:
           'Die Zusammenarbeit ist direkt, transparent und ergebnisorientiert. Wichtig sind klare Kommunikation, nachvollziehbare Entscheidungen und Lösungen, die im Alltag des Unternehmens funktionieren.',
       },
       {
-        question: 'Auf welche Kundengroesse oder Branche ist das Profil ausgerichtet?',
+        question: 'Auf welche Kundengröße oder Branche ist das Profil ausgerichtet?',
         answer:
-          'Der Schwerpunkt liegt auf KMU, Selbststaendigen und wachsenden Unternehmen, die digitale Sichtbarkeit, bessere Prozesse oder einen professionellen Markenauftritt aufbauen moechten.',
+          'Der Schwerpunkt liegt auf KMU, Selbstständigen und wachsenden Unternehmen, die digitale Sichtbarkeit, bessere Prozesse oder einen professionellen Markenauftritt aufbauen möchten.',
       },
     ],
   },
@@ -50,7 +50,7 @@ export const profilFaqCategories: FaqCategory[] = [
       {
         question: 'Welche Qualifikationen und Erfahrung bringt Philipp Bacher mit?',
         answer:
-          'Seit 2010 arbeitet Philipp Bacher selbststaendig an digitalen Projekten in Webentwicklung, Marketing, Corporate Design, Vertriebsaufbau, ERP-Beratung und Automatisierung. Dazu kommen Studienerfahrung in Betriebswirtschaft und Wirtschaftsinformatik.',
+          'Seit 2010 arbeitet Philipp Bacher selbstständig an digitalen Projekten in Webentwicklung, Marketing, Corporate Design, Vertriebsaufbau, ERP-Beratung und Automatisierung. Dazu kommen Studienerfahrung in Betriebswirtschaft und Wirtschaftsinformatik.',
       },
       {
         question: 'Was ist der berufliche Hintergrund von Philipp Bacher?',
@@ -72,7 +72,7 @@ export const profilFaqCategories: FaqCategory[] = [
       {
         question: 'Welche Referenzen oder Vertrauenssignale gibt es?',
         answer:
-          'Relevante Vertrauenssignale sind Projektbeispiele, nachvollziehbare Arbeitsweise, langjaehrige Selbststaendigkeit und die Kombination aus Strategie, Gestaltung, Technik und Marketing in realen Kundenprojekten.',
+          'Relevante Vertrauenssignale sind Projektbeispiele, nachvollziehbare Arbeitsweise, langjährige Selbstständigkeit und die Kombination aus Strategie, Gestaltung, Technik und Marketing in realen Kundenprojekten.',
       },
       {
         question: 'Welche Partnerschaften oder Zertifizierungen sind relevant?',
@@ -118,7 +118,7 @@ export const profilFaqCategories: FaqCategory[] = [
 export const profilFaqFallback = {
   categories: profilFaqCategories,
   eyebrow: 'FAQ Profil',
-  title: 'Haeufige Fragen zu Profil, Arbeitsweise und Zusammenarbeit',
+  title: 'Häufige Fragen zu Profil, Arbeitsweise und Zusammenarbeit',
   description:
     'Antworten zu Positionierung, Kompetenz, Vertrauen und Kontakt. So wird klar, wie Philipp Bacher arbeitet und für welche Unternehmen die Zusammenarbeit besonders sinnvoll ist.',
 }
