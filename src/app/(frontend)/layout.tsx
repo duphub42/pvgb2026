@@ -185,6 +185,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       <html className={fontClassNames} lang={locale} suppressHydrationWarning>
         <head>
           <InitTheme />
+          <style
+            dangerouslySetInnerHTML={{
+              __html: `.hero-scroll-layer-body{opacity:1;color:var(--foreground);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}`,
+            }}
+          />
           <DesignStyles design={design ?? null} />
           <ThemeSettingsStyles themeSettings={themeSettings ?? null} />
           {faviconUrl ? (

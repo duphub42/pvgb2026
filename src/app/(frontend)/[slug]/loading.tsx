@@ -1,4 +1,4 @@
-export default function FrontendLoading() {
+export default function SlugPageLoading() {
   return (
     <div className="page-safe-top" aria-busy="true" aria-label="Seite wird geladen">
       <div className="container py-16">

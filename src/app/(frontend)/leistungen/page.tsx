@@ -14,6 +14,27 @@ import type { SitePage } from '@/payload-types'
 export const revalidate = false
 
 type BlockBackground = 'none' | 'muted' | 'accent' | 'light' | 'dark'
+type SitePageHero = NonNullable<SitePage['hero']>
+
+const leistungenHeroCta: NonNullable<SitePageHero['links']>[number] = {
+  id: 'leistungen-hero-contact-cta',
+  link: {
+    type: 'custom',
+    url: '/kontakt',
+    label: 'Leistung besprechen',
+    appearance: 'default',
+    enableIconSwap: true,
+  },
+}
+
+function getLeistungenHeroProps(hero: SitePageHero | Record<string, never>): SitePageHero {
+  const existingLinks = Array.isArray(hero.links) ? hero.links : []
+
+  return {
+    ...hero,
+    links: [leistungenHeroCta, ...existingLinks.slice(1)],
+  }
+}
 
 function getNextSectionBackgroundValue(blockBackground?: string | null): string {
   const bg = (blockBackground ?? 'none') as BlockBackground
@@ -47,7 +68,7 @@ export default async function LeistungenPage() {
     })
     .then(({ docs }) => docs[0] as SitePage | undefined)
 
-  const heroProps = page?.hero || {}
+  const heroProps = getLeistungenHeroProps(page?.hero || {})
   const pageSlug = typeof page?.slug === 'string' ? page.slug : 'leistungen'
   const layoutBlocks = await resolveSharedPortfolioContent(
     'leistungen',

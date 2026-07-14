@@ -22,7 +22,7 @@ import Image from 'next/image'
 import React from 'react'
 import { HeroLogoMarquee, type HeroMarqueeLogoRow } from '@/heros/HeroLogoMarquee'
 import { LogoCarousel, type LogoCarouselLogo } from '@/components/ui/logo-carousel'
-import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
+import { resolveHeroImageSrc, resolveHeroImageSrcForNextImage } from '@/utilities/resolveHeroImageSrc'
 import { cn } from '@/utilities/ui'
 
 // ---------------------------------------------------------------------------
@@ -180,11 +180,20 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     let lastPortraitHideProgress = ''
     let lastPortraitHardHideProgress = ''
 
-    // LCP fix: delay transition from 'play' to 'done' by 1200ms to allow initial paint without GPU compositing
-    introTimeoutId = window.setTimeout(() => {
-      section.setAttribute('data-hero-intro', 'done')
-      if (host) host.setAttribute('data-hero-intro', 'done')
-    }, 1200)
+    // Intro animations stay off on mobile for LCP; desktop can opt in after first paint.
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const prefersIntro =
+      !prefersReducedMotion && window.matchMedia('(min-width: 768px)').matches
+
+    if (prefersIntro) {
+      section.setAttribute('data-hero-intro', 'play')
+      if (host) host.setAttribute('data-hero-intro', 'play')
+
+      introTimeoutId = window.setTimeout(() => {
+        section.setAttribute('data-hero-intro', 'done')
+        if (host) host.setAttribute('data-hero-intro', 'done')
+      }, 1200)
+    }
 
     const updateScrollProgress = () => {
       rafId = 0
@@ -276,8 +285,8 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     }
   }, [])
 
-  const mediaSrc = resolveHeroImageSrc(media)
-  const bgSrc = resolveHeroImageSrc(backgroundImage)
+  const mediaSrc = resolveHeroImageSrcForNextImage(media)
+  const bgSrc = resolveHeroImageSrcForNextImage(backgroundImage)
   const hasRenderableBg = Boolean(bgSrc) && !bgImageFailed
   const renderBgSrc = hasRenderableBg ? bgSrc : null
 
@@ -400,13 +409,6 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     ? normalizedContentVerticalAlignment
     : 'bottom'
 
-  const getMobileShortCtaLabel = (index: number, fullLabel: string): string => {
-    void index
-
-    const firstWord = fullLabel.trim().split(/\s+/)[0]
-    return firstWord || fullLabel
-  }
-
   const heroLayerClass = 'hero-scroll-layer'
   const showHeroLogoBand =
     Boolean(marqueeHeadline?.trim()) || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)
@@ -440,7 +442,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         !hasRenderableBg && 'bg-background',
         !portraitSrc && 'hero-superhero-no-portrait',
       )}
-      data-hero-intro="play"
+      data-hero-intro="done"
       data-hero-variant="popout"
       data-hero-type={dataHeroType ?? 'superhero'}
       data-hero-has-portrait={portraitSrc ? 'true' : 'false'}
@@ -468,7 +470,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               setBgImageFailed(false)
             }}
             priority
-            unoptimized={Boolean(renderBgSrc?.startsWith('http'))}
+            sizes="100vw"
           />
         </div>
       )}
@@ -631,12 +633,10 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                     iconSwapTo={item?.link?.iconSwapTo}
                     appearance={item?.link?.appearance ?? (index === 0 ? 'default' : 'outline')}
                     size="cta"
-                    className="rounded-[var(--style-radius-l)] max-md:flex-1 max-md:min-w-0 max-md:justify-center max-md:gap-0 max-md:px-3 max-md:text-sm max-md:[&_svg]:hidden"
+                    className="rounded-[var(--style-radius-l)] max-md:flex-1 max-md:min-w-0 max-md:justify-center max-md:gap-0 max-md:px-3 max-md:text-sm max-md:leading-tight max-md:whitespace-normal max-md:[&_svg]:hidden"
                   >
                     <span className="hidden md:inline">{item?.link?.label}</span>
-                    <span className="md:hidden">
-                      {getMobileShortCtaLabel(index, item?.link?.label ?? '')}
-                    </span>
+                    <span className="md:hidden">{item?.link?.label}</span>
                   </CMSLink>
                 ))}
               </div>
@@ -699,7 +699,6 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                   className="hero-superhero-portrait-image object-contain object-center md:object-right-center"
                   sizes="(max-width: 767px) 100vw, (max-width: 1280px) 48vw, 780px"
                   priority
-                  unoptimized={Boolean(portraitSrc.startsWith('http'))}
                 />
               </div>
             </div>

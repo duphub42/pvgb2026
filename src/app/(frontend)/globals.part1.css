@@ -784,12 +784,15 @@
   }
 
   section[data-hero-type='superhero'] .hero-scroll-bg-image {
-    will-change: transform, filter;
     transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-bg-translate-max)), 0)
       scale(calc(1 + var(--hero-scroll-progress) * var(--hero-bg-scale-max)));
     filter: blur(calc(var(--hero-scroll-progress) * var(--hero-bg-blur-max)))
       saturate(calc(1 - var(--hero-scroll-progress) * var(--hero-bg-desaturate-max)));
     transform-origin: center center;
+  }
+
+  section[data-hero-type='superhero'][data-hero-intro='done'] .hero-scroll-bg-image {
+    will-change: transform, filter;
     transition:
       transform var(--hero-motion-duration-bg) var(--hero-motion-ease),
       filter var(--hero-motion-duration-filter) var(--hero-motion-ease);
@@ -862,7 +865,6 @@
       --hero-scroll-portrait-parallax-progress,
       var(--hero-scroll-progress)
     );
-    will-change: transform, opacity;
     transform: translate3d(
         0,
         calc(
@@ -874,6 +876,10 @@
       scale(calc(1 - (var(--hero-portrait-hide-progress) * var(--hero-portrait-scale-down-max))));
     opacity: calc(1 - (var(--hero-portrait-hide-progress) * var(--hero-portrait-fade-max)));
     transition: none;
+  }
+
+  section[data-hero-type='superhero'][data-hero-intro='done'] .hero-scroll-content-portrait {
+    will-change: transform, opacity;
   }
 
   section[data-hero-type='superhero'] .hero-superhero-portrait {
@@ -892,7 +898,6 @@
   section[data-hero-type='superhero'] .hero-superhero-portrait-image {
     filter: blur(calc(var(--hero-portrait-hide-progress) * var(--hero-portrait-blur-max)))
       saturate(calc(1 - var(--hero-portrait-hide-progress) * var(--hero-portrait-desaturate-max)));
-    will-change: filter;
     -webkit-mask-image: linear-gradient(
       to bottom,
       rgba(0, 0, 0, 1) 0%,
@@ -1018,6 +1023,31 @@
       )
       scale(calc(1 - var(--hero-scroll-content-progress) * var(--hero-layer-marquee-scale-max)));
     opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-marquee-fade-max)));
+  }
+
+  @media (max-width: 767px) {
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-bg-image,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-content-portrait,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-layer-eyebrow,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-layer-headline,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-layer-cta,
+    .hero-shell--superhero
+      section[data-hero-type='superhero'][data-hero-intro='play']
+      .hero-scroll-layer-marquee {
+      animation: none !important;
+      opacity: 1 !important;
+      filter: none !important;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {

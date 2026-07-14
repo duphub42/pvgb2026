@@ -15,6 +15,7 @@ import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 
 export const revalidate = false
+export const dynamic = 'force-static'
 
 type BlockBackground = 'none' | 'muted' | 'accent' | 'light' | 'dark'
 

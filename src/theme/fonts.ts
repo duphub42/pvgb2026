@@ -39,7 +39,7 @@ export const fontInter = localFont({
   ],
   variable: '--font-inter',
   display: 'optional',
-  preload: true,
+  preload: false,
   adjustFontFallback: 'Arial',
 })
 
