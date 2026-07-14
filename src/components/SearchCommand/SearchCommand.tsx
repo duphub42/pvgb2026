@@ -10,6 +10,10 @@ import {
 } from '@/components/ui/command'
 import { Button } from '@/components/ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import {
+  WEBMCP_OPEN_SITE_SEARCH_EVENT,
+  type OpenSiteSearchDetail,
+} from '@/utilities/webmcp/events'
 import { Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import * as React from 'react'
@@ -19,18 +23,38 @@ const emptyText = 'Keine Ergebnisse.'
 
 export function SearchCommand() {
   const [open, setOpen] = React.useState(false)
+  const [searchValue, setSearchValue] = React.useState('')
   const router = useRouter()
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault()
-        setOpen((o) => !o)
+        setOpen((current) => !current)
       }
     }
     document.addEventListener('keydown', down)
     return () => document.removeEventListener('keydown', down)
   }, [])
+
+  React.useEffect(() => {
+    const onOpenSearch = (event: Event) => {
+      const detail = (event as CustomEvent<OpenSiteSearchDetail>).detail ?? {}
+
+      if (detail.navigate && detail.query) {
+        router.push(`/search?q=${encodeURIComponent(detail.query)}`)
+        return
+      }
+
+      setOpen(true)
+      if (detail.query) {
+        setSearchValue(detail.query)
+      }
+    }
+
+    window.addEventListener(WEBMCP_OPEN_SITE_SEARCH_EVENT, onOpenSearch)
+    return () => window.removeEventListener(WEBMCP_OPEN_SITE_SEARCH_EVENT, onOpenSearch)
+  }, [router])
 
   const run = React.useCallback((fn: () => void) => {
     setOpen(false)
@@ -41,24 +65,26 @@ export function SearchCommand() {
     <>
       <Tooltip>
         <TooltipTrigger asChild>
-          <span className="inline-flex shrink-0">
-            <Button
-              variant="ghost"
-              size="icon"
-              className="header-tool-toggle header-icon-btn shrink-0 text-current"
-              onClick={() => setOpen(true)}
-              aria-label="Suchen"
-            >
-              <Search className="h-5 w-5" aria-hidden />
-            </Button>
-          </span>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="header-tool-toggle header-icon-btn shrink-0 text-current"
+            onClick={() => setOpen(true)}
+            aria-label="Suchen"
+          >
+            <Search className="h-5 w-5" aria-hidden />
+          </Button>
         </TooltipTrigger>
         <TooltipContent side="bottom" sideOffset={6}>
           Suchen <span className="text-muted-foreground">⌘K</span>
         </TooltipContent>
       </Tooltip>
       <CommandDialog open={open} onOpenChange={setOpen}>
-        <CommandInput placeholder={placeholder} />
+        <CommandInput
+          placeholder={placeholder}
+          value={searchValue}
+          onValueChange={setSearchValue}
+        />
         <CommandList>
           <CommandEmpty>{emptyText}</CommandEmpty>
           <CommandGroup heading="Seiten">
@@ -70,6 +96,20 @@ export function SearchCommand() {
               className="cursor-pointer"
             >
               Blog
+            </CommandItem>
+            <CommandItem
+              onSelect={() =>
+                run(() =>
+                  router.push(
+                    searchValue.trim()
+                      ? `/search?q=${encodeURIComponent(searchValue.trim())}`
+                      : '/search',
+                  ),
+                )
+              }
+              className="cursor-pointer"
+            >
+              Vollständige Suche
             </CommandItem>
           </CommandGroup>
         </CommandList>

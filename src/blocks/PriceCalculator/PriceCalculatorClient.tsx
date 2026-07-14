@@ -1,10 +1,14 @@
 'use client'
 
 import Link from 'next/link'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import {
+  WEBMCP_APPLY_PRICE_CALCULATOR_EVENT,
+  type ApplyPriceCalculatorDetail,
+} from '@/utilities/webmcp/events'
 import { cn } from '@/utilities/ui'
 
 export type PriceCalcItemClient = {
@@ -121,6 +125,25 @@ export function PriceCalculatorClient(props: {
   const resetAll = useCallback(() => {
     setSelectedIds(new Set())
   }, [])
+
+  useEffect(() => {
+    const onApplySelection = (event: Event) => {
+      const detail = (event as CustomEvent<ApplyPriceCalculatorDetail>).detail
+      if (!detail?.itemIds?.length) return
+
+      setSelectedIds(new Set(detail.itemIds.map(String)))
+
+      const firstCategory = sortedCategories.find((category) =>
+        category.items.some((item) => detail.itemIds.map(String).includes(String(item.id))),
+      )
+      if (firstCategory) {
+        setActiveCategoryId(firstCategory.id)
+      }
+    }
+
+    window.addEventListener(WEBMCP_APPLY_PRICE_CALCULATOR_EVENT, onApplySelection)
+    return () => window.removeEventListener(WEBMCP_APPLY_PRICE_CALCULATOR_EVENT, onApplySelection)
+  }, [sortedCategories])
 
   const allItemsFlat = useMemo(() => {
     const map = new Map<string, PriceCalcItemClient>()
