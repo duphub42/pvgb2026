@@ -7,7 +7,18 @@ export type CalModalOptions = {
   }
 }
 
-type CalFunction = ((action: 'modal', options: CalModalOptions) => void) & {
+export type CalInlineOptions = {
+  elementOrSelector: string | HTMLElement
+  calLink: string
+  config?: {
+    layout?: 'month_view'
+  }
+}
+
+type CalFunction = ((
+  action: 'modal' | 'inline',
+  options: CalModalOptions | CalInlineOptions,
+) => void) & {
   q?: unknown[][]
   ns?: Record<string, unknown>
   ui?: unknown
@@ -24,14 +35,25 @@ type CalApi = CalFunction | CalObject | null
 
 export const DEFAULT_CAL_LINK = process.env.NEXT_PUBLIC_CAL_LINK?.trim() || 'philippbacher/30min'
 
+const DEFAULT_CAL_DOMAIN: CalDomain =
+  process.env.NEXT_PUBLIC_CAL_DOMAIN?.trim() === 'cal.com' ? 'cal.com' : 'cal.eu'
+
 export function getCalDomain(calLink: string): CalDomain {
   if (calLink.startsWith('http')) {
     if (calLink.includes('cal.eu')) return 'cal.eu'
-    return 'cal.com'
+    if (calLink.includes('cal.com')) return 'cal.com'
+    return DEFAULT_CAL_DOMAIN
   }
 
   if (calLink.startsWith('eu:')) return 'cal.eu'
-  return 'cal.com'
+  if (calLink.startsWith('com:')) return 'cal.com'
+  return DEFAULT_CAL_DOMAIN
+}
+
+export function getCalBookingUrl(calLink = DEFAULT_CAL_LINK): string {
+  const calDomain = getCalDomain(calLink)
+  const cleanedCalLink = normalizeCalLink(calLink)
+  return `https://${calDomain}/${cleanedCalLink}`
 }
 
 export function normalizeCalLink(calLink: string): string {
@@ -126,6 +148,44 @@ function loadCalEmbedScript(calDomain: CalDomain): Promise<void> {
 
     document.body.appendChild(script)
   })
+}
+
+export async function ensureCalEmbedReady(calLink = DEFAULT_CAL_LINK): Promise<CalDomain> {
+  const calDomain = getCalDomain(calLink)
+  ensureCalStub()
+  await loadCalEmbedScript(calDomain)
+  return calDomain
+}
+
+export async function mountCalInlineEmbed(
+  options: CalInlineOptions,
+  calLink = DEFAULT_CAL_LINK,
+): Promise<void> {
+  if (typeof window === 'undefined') {
+    throw new Error('Cal inline embed requires a browser context.')
+  }
+
+  const calDomain = getCalDomain(calLink)
+  const cleanedCalLink = normalizeCalLink(calLink)
+  const inlineOptions: CalInlineOptions = {
+    ...options,
+    calLink: cleanedCalLink,
+    config: {
+      layout: 'month_view',
+      ...options.config,
+    },
+  }
+
+  ensureCalStub()
+  await loadCalEmbedScript(calDomain)
+
+  const cal = getCal()
+  if (typeof cal === 'function') {
+    cal('inline', inlineOptions)
+    return
+  }
+
+  window.open(`https://${calDomain}/${cleanedCalLink}`, '_blank', 'noopener,noreferrer')
 }
 
 export async function openCalBookingModal(calLink = DEFAULT_CAL_LINK): Promise<{

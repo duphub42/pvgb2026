@@ -1,5 +1,5 @@
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import { getServerSideURL } from '@/utilities/getURL'
+import { getPublicSiteURL } from '@/utilities/getURL'
 
 import type { Footer } from '@/payload-types'
 
@@ -44,7 +44,7 @@ export async function GET(): Promise<Response> {
     console.error('[contact.vcf] Failed to load footer global:', error)
   }
 
-  const websiteUrl = getServerSideURL().replace(/\/$/, '')
+  const websiteUrl = getPublicSiteURL()
   const bookingUrl = `${websiteUrl}/termin`
   const normalizedFooterPhone = normalizePhoneForVCard(footerPhone)
 
