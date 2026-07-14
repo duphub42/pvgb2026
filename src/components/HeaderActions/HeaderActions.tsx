@@ -17,6 +17,11 @@ import {
   FORM_SPAM_META_FIELDS,
   buildFormSpamMetaSubmissionData,
 } from '@/utilities/formSpamProtection'
+import { getWebMcpFieldInputProps, PHONE_FIELD_PATTERN } from '@/utilities/webmcp/formFieldHints'
+import {
+  type AgentSubmitEvent,
+  getWebMcpFormAttributes,
+} from '@/utilities/webmcp/modelContext'
 import { cn } from '@/utilities/ui'
 import { MessageCircle, Phone, PhoneCall } from 'lucide-react'
 import Link from 'next/link'
@@ -77,9 +82,43 @@ const DEFAULT_WHATSAPP_PHONE_E164 = '4915780280163'
 const DEFAULT_WHATSAPP_URL = `https://wa.me/${DEFAULT_WHATSAPP_PHONE_E164}`
 const CONTACT_PHONE_DISPLAY = '+49 3459 6393323'
 const CALLBACK_FORM_CANDIDATE_TITLES = ['rueckruf', 'ruckruf', 'rückruf']
+const CALLBACK_WEBMCP_TOOL_NAME = 'requestCallback'
+const CALLBACK_WEBMCP_FORM_ATTRS = getWebMcpFormAttributes({
+  toolName: CALLBACK_WEBMCP_TOOL_NAME,
+  toolDescription:
+    'Request a phone callback from Philipp Bacher by submitting a phone number and optional message.',
+  autoSubmit: true,
+})
 const PRIVACY_TOKEN_REGEX = /datenschutzbetimmungen|datenschutzbestimmungen/i
 
+function getCallbackFieldValue(
+  field: FormField,
+  formData: FormData | null,
+  formValues: Record<string, string | number | boolean>,
+): string | number | boolean {
+  if (formData) {
+    if (field.blockType === 'checkbox') {
+      return formData.get(field.name) === 'on'
+    }
+
+    const rawValue = formData.get(field.name)
+    if (rawValue == null) {
+      return ''
+    }
+
+    if (field.blockType === 'number') {
+      const parsed = Number(rawValue)
+      return Number.isFinite(parsed) ? parsed : formValues[field.name] ?? ''
+    }
+
+    return String(rawValue)
+  }
+
+  return formValues[field.name] ?? (field.blockType === 'checkbox' ? false : '')
+}
+
 function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
+  const callbackFormRef = React.useRef<HTMLFormElement>(null)
   const [open, setOpen] = React.useState(false)
   const [status, setStatus] = React.useState<'idle' | 'loading' | 'success' | 'error'>('idle')
   const [resolvedCallbackFormId, setResolvedCallbackFormId] = React.useState<number | null>(null)
@@ -139,6 +178,18 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
     setCallbackStartedAt(Date.now())
     setCallbackHoneypotValue('')
   }, [open])
+
+  React.useEffect(() => {
+    const onToolActivated = (event: Event) => {
+      const toolName = (event as Event & { toolName?: string }).toolName
+      if (toolName === CALLBACK_WEBMCP_TOOL_NAME) {
+        setOpen(true)
+      }
+    }
+
+    window.addEventListener('toolactivated', onToolActivated)
+    return () => window.removeEventListener('toolactivated', onToolActivated)
+  }, [])
 
   const callbackFormId = callbackConfig?.formId ?? null
 
@@ -234,20 +285,24 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
     }
   }, [open, callbackFormId])
 
-  const submitCallback = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!callbackConfig) return
-    if (callbackHoneypotValue.trim().length > 0) {
-      setStatus('success')
-      return
+  const runCallbackSubmission = React.useCallback(async (): Promise<{ ok: boolean; message: string }> => {
+    if (!callbackConfig) {
+      return { ok: false, message: 'Callback form is not configured.' }
     }
+
+    if (callbackHoneypotValue.trim().length > 0) {
+      return { ok: true, message: 'Callback request accepted.' }
+    }
+
     setStatus('loading')
+
     try {
+      const formData = callbackFormRef.current ? new FormData(callbackFormRef.current) : null
       const submissionData = callbackFormFields
         .filter((field) => field.blockType !== 'message')
         .map((field) => ({
           field: field.name,
-          value: formValues[field.name] ?? (field.blockType === 'checkbox' ? false : ''),
+          value: getCallbackFieldValue(field, formData, formValues),
         }))
         .concat(
           buildFormSpamMetaSubmissionData({
@@ -264,6 +319,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
           submissionData,
         }),
       })
+
       if (res.ok) {
         setStatus('success')
         setCallbackStartedAt(Date.now())
@@ -285,12 +341,34 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
           }
           return next
         })
-      } else {
-        setStatus('error')
+        return { ok: true, message: 'Callback request submitted successfully.' }
       }
+
+      setStatus('error')
+      return { ok: false, message: 'Callback request failed to submit.' }
     } catch {
       setStatus('error')
+      return { ok: false, message: 'Callback request failed to submit.' }
     }
+  }, [
+    callbackConfig,
+    callbackFormFields,
+    callbackHoneypotValue,
+    callbackStartedAt,
+    formValues,
+  ])
+
+  const submitCallback = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    const agentEvent = e.nativeEvent as AgentSubmitEvent
+    const submission = runCallbackSubmission()
+
+    if (agentEvent.agentInvoked && typeof agentEvent.respondWith === 'function') {
+      agentEvent.respondWith(submission.then((result) => JSON.stringify(result)))
+    }
+
+    await submission
   }
 
   return (
@@ -313,6 +391,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
         </TooltipContent>
       </Tooltip>
       <SheetContent
+        forceMount
         side="right"
         overlayClassName="bg-background/20 backdrop-blur-md"
         className="megamenu-sheet flex h-[100dvh] max-h-[100dvh] w-[340px] max-w-[340px] flex-col overflow-x-hidden overflow-y-auto overscroll-contain border-l border-border shadow-2xl pt-10 pb-6 supports-[height:100svh]:h-[100svh] sm:w-[420px] sm:max-w-[420px] [@media(max-height:48rem)]:w-[780px] [@media(max-height:48rem)]:max-w-[780px]"
@@ -352,7 +431,12 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                     Ihnen.
                   </p>
                 </div>
-                <form onSubmit={submitCallback} className="flex flex-col gap-2">
+                <form
+                  ref={callbackFormRef}
+                  onSubmit={submitCallback}
+                  className="flex flex-col gap-2"
+                  {...CALLBACK_WEBMCP_FORM_ATTRS}
+                >
                   <input
                     type="text"
                     name={FORM_SPAM_META_FIELDS.honeypot}
@@ -405,6 +489,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                             }
                             required={Boolean(field.required)}
                             className="mt-1 h-3.5 w-3.5 rounded border-input accent-primary"
+                            {...getWebMcpFieldInputProps(field)}
                           />
                           <span>
                             {hasPrivacyToken ? (
@@ -441,6 +526,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                           placeholder={field.placeholder ?? field.label ?? ''}
                           required={Boolean(field.required)}
                           className="min-h-[92px] w-full rounded-md border border-input bg-background px-3 py-2 text-base"
+                          {...getWebMcpFieldInputProps(field)}
                         />
                       )
                     }
@@ -464,6 +550,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                           }
                           required={Boolean(field.required)}
                           className="h-10 w-full rounded-md border border-input bg-background px-3 text-base"
+                          {...getWebMcpFieldInputProps(field)}
                         >
                           <option value="">
                             {field.placeholder ?? field.label ?? 'Bitte wählen'}
@@ -495,7 +582,10 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                             ? 'email'
                             : field.blockType === 'number'
                               ? 'number'
-                              : 'text'
+                              : PHONE_FIELD_PATTERN.test(field.name) ||
+                                  PHONE_FIELD_PATTERN.test(field.label ?? '')
+                                ? 'tel'
+                                : 'text'
                         }
                         name={field.name}
                         value={String(formValues[field.name] ?? '')}
@@ -511,6 +601,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
                         placeholder={field.placeholder ?? field.label ?? ''}
                         required={Boolean(field.required)}
                         className="h-10 w-full rounded-md border border-input bg-background px-3 text-base"
+                        {...getWebMcpFieldInputProps(field)}
                       />
                     )
                   })}

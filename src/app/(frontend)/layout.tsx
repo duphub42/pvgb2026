@@ -20,6 +20,7 @@ import { getCachedGlobal } from '@/utilities/getGlobals'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { DesignStyles } from '@/components/DesignStyles'
 import { ThemeSettingsStyles } from '@/components/ThemeSettingsStyles'
+import { WebMCPTools } from '@/components/WebMCP/WebMCPTools'
 import type { DesignDoc } from '@/utilities/designToCss'
 import type { Footer as FooterGlobal, Header as HeaderGlobal } from '@/payload-types'
 
@@ -221,6 +222,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               </main>
               <Footer key="site-footer" locale={locale} footerData={footerData} />
             </RootLayoutInner>
+            <WebMCPTools />
           </Providers>
           {process.env.NODE_ENV === 'development' && process.env.PINY_VISUAL_SELECT === 'true' && (
             <Script src="/_piny/piny.phone.js" strategy="afterInteractive" />
