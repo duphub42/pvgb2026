@@ -1,0 +1,17 @@
+# Philipp Bacher
+> Freelancer für Webdesign, Marketing (SEO/SEM) und Branding aus München — Beratung, Umsetzung und langfristige Betreuung für Unternehmen und Selbstständige.
+
+Philipp Bacher unterstützt Kund:innen bei Websites, Lead-Generierung und Markenauftritt. Die Website ist auf Deutsch; Kontakt per E-Mail, Telefon, WhatsApp oder Rückruf-Formular.
+
+## Hauptseiten
+- [Startseite](https://www.philippbacher.com/): Überblick über Leistungen, Portfolio und Kontaktmöglichkeiten
+- [Leistungen](https://www.philippbacher.com/leistungen): Webdesign, Marketing, Automatisierung und verwandte Services
+- [Portfolio](https://www.philippbacher.com/portfolio): Referenzprojekte aus Webdesign, Marketing und Branding
+- [Blog](https://www.philippbacher.com/posts): Artikel und Updates
+
+## Rechtliches
+- [Impressum](https://www.philippbacher.com/impressum): Anbieterkennzeichnung
+- [Datenschutz](https://www.philippbacher.com/datenschutz): Datenschutzerklärung
+
+## Optional
+- [Sitemap](https://www.philippbacher.com/sitemap.xml): Maschinenlesbare Liste indexierbarer Seiten

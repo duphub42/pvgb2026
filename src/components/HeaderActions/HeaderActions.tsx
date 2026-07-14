@@ -298,16 +298,14 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
       <Tooltip>
         <TooltipTrigger asChild>
           <SheetTrigger asChild>
-            <span className="inline-flex shrink-0">
-              <Button
-                variant="ghost"
-                size="icon"
-                className="header-tool-toggle header-icon-btn text-current"
-                aria-label="Kontakt öffnen"
-              >
-                <Phone className="h-5 w-5" aria-hidden />
-              </Button>
-            </span>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="header-tool-toggle header-icon-btn shrink-0 text-current"
+              aria-label="Kontakt öffnen"
+            >
+              <Phone className="h-5 w-5" aria-hidden />
+            </Button>
           </SheetTrigger>
         </TooltipTrigger>
         <TooltipContent side="bottom" sideOffset={6}>
