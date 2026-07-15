@@ -173,12 +173,27 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
     let rafId = 0
     let introTimeoutId = 0
+    let effectsTimeoutId = 0
     const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
     let lastProgress = ''
     let lastContentProgress = ''
     let lastPortraitParallaxProgress = ''
     let lastPortraitHideProgress = ''
     let lastPortraitHardHideProgress = ''
+    const effectsGestureAbort = new AbortController()
+
+    const enableHeroEffects = () => {
+      // Expensive GPU work (backdrop-filter, will-change) must not run during the LCP
+      // measurement window. Idle timeouts (~2.5s) are still inside Lighthouse mobile LCP.
+      if (section.getAttribute('data-hero-effects') === 'ready') return
+      section.setAttribute('data-hero-effects', 'ready')
+      if (host) host.setAttribute('data-hero-effects', 'ready')
+      effectsGestureAbort.abort()
+      if (effectsTimeoutId !== 0) {
+        window.clearTimeout(effectsTimeoutId)
+        effectsTimeoutId = 0
+      }
+    }
 
     // Intro animations stay off on mobile for LCP; desktop can opt in after first paint.
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -192,7 +207,25 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       introTimeoutId = window.setTimeout(() => {
         section.setAttribute('data-hero-intro', 'done')
         if (host) host.setAttribute('data-hero-intro', 'done')
+        enableHeroEffects()
       }, 1200)
+    } else {
+      // Mobile: wait for real interaction, or a long fallback past Lighthouse LCP cutoff.
+      const gestureOpts: AddEventListenerOptions = {
+        passive: true,
+        capture: true,
+        once: true,
+        signal: effectsGestureAbort.signal,
+      }
+      window.addEventListener('scroll', enableHeroEffects, gestureOpts)
+      window.addEventListener('pointerdown', enableHeroEffects, gestureOpts)
+      window.addEventListener('touchstart', enableHeroEffects, gestureOpts)
+      window.addEventListener('keydown', enableHeroEffects, {
+        capture: true,
+        once: true,
+        signal: effectsGestureAbort.signal,
+      })
+      effectsTimeoutId = window.setTimeout(enableHeroEffects, 8000)
     }
 
     const updateScrollProgress = () => {
@@ -265,6 +298,8 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     return () => {
       if (rafId !== 0) window.cancelAnimationFrame(rafId)
       if (introTimeoutId !== 0) window.clearTimeout(introTimeoutId)
+      if (effectsTimeoutId !== 0) window.clearTimeout(effectsTimeoutId)
+      effectsGestureAbort.abort()
       window.removeEventListener('scroll', requestUpdate)
       window.removeEventListener('resize', requestUpdate)
       window.removeEventListener('orientationchange', requestUpdate)
@@ -274,6 +309,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       section.style.removeProperty('--hero-scroll-portrait-hide-progress')
       section.style.removeProperty('--hero-scroll-portrait-hard-hide-progress')
       section.removeAttribute('data-hero-intro')
+      section.removeAttribute('data-hero-effects')
       if (host) {
         host.style.removeProperty('--hero-scroll-progress')
         host.style.removeProperty('--hero-scroll-content-progress')
@@ -281,6 +317,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         host.style.removeProperty('--hero-scroll-portrait-hide-progress')
         host.style.removeProperty('--hero-scroll-portrait-hard-hide-progress')
         host.removeAttribute('data-hero-intro')
+        host.removeAttribute('data-hero-effects')
       }
     }
   }, [])
@@ -520,7 +557,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               <h1
                 className={cn(
                   heroLayerClass,
-                  'hero-scroll-layer-headline text-pretty text-hero-display tracking-tight hero-heading-gradient',
+                  'hero-scroll-layer-headline text-pretty text-hero-display tracking-tight hero-heading-solid',
                 )}
               >
                 {parsedHeadlineLines.map((segments, lineIndex) => (

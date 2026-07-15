@@ -4,11 +4,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import type { FC } from 'react'
 import { ArrowUpRight, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import {
-  ensureCalEmbedReady,
-  getCalBookingUrl,
-  openCalBookingModal,
-} from '@/utilities/webmcp/calEmbed'
+import { openCalBookingModal } from '@/utilities/webmcp/calEmbed'
 
 type CalPopupBlockProps = {
   headline?: string
@@ -27,12 +23,6 @@ export const CalPopupBlock: FC<CalPopupBlockProps> = ({
   const buttonId = `open-cal-${id}`
   const ctaRef = useRef<HTMLDivElement>(null)
   const [isCtaCentered, setIsCtaCentered] = useState(false)
-
-  useEffect(() => {
-    void ensureCalEmbedReady(calLink).catch(() => {
-      // Fallback on click opens the booking URL directly.
-    })
-  }, [calLink])
 
   useEffect(() => {
     if (typeof window === 'undefined') return
@@ -73,9 +63,7 @@ export const CalPopupBlock: FC<CalPopupBlockProps> = ({
   }, [])
 
   const handleClick = () => {
-    void openCalBookingModal(calLink).catch(() => {
-      window.open(getCalBookingUrl(calLink), '_blank', 'noopener,noreferrer')
-    })
+    void openCalBookingModal(calLink)
   }
 
   const shouldTripleDescription = headline?.trim() === 'Projektidee besprechen'

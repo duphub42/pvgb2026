@@ -38,6 +38,7 @@ import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
+import { openCalBookingModal } from '@/utilities/webmcp/calEmbed'
 
 import { HeaderActions } from '@/components/HeaderActions/HeaderActions'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
@@ -400,6 +401,7 @@ type MobileDockAction = {
   iconScale?: number
   iconOpacity?: number
   isInternal?: boolean
+  openCalModal?: boolean
   targetBlank?: boolean
   rel?: string
   download?: boolean
@@ -1558,7 +1560,7 @@ export function MegaMenu({
         label: 'Calendar',
         icon: CalendarSolidIcon,
         iconMode: 'brand-fill',
-        isInternal: true,
+        openCalModal: true,
         iconScale: 0.93,
         iconOpacity: 0.93,
       },
@@ -1791,6 +1793,11 @@ export function MegaMenu({
     (action: MobileDockAction) => {
       if (typeof window === 'undefined') return
 
+      if (action.openCalModal) {
+        void openCalBookingModal()
+        return
+      }
+
       if (action.isInternal) {
         router.push(action.href)
         return
@@ -1987,6 +1994,11 @@ export function MegaMenu({
       if (mobileDockPendingActionKey === action.key) {
         clearMobileDockActionConfirmation()
         clearMobileDockTooltip()
+        if (action.openCalModal) {
+          event.preventDefault()
+          event.stopPropagation()
+          executeMobileDockAction(action)
+        }
         closeMobileMenuAfterDockAction(180)
         return
       }
@@ -2010,6 +2022,7 @@ export function MegaMenu({
       armMobileDockActionConfirmation,
       showMobileDockTooltip,
       spawnMobileDockRipple,
+      executeMobileDockAction,
     ],
   )
 

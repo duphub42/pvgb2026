@@ -784,22 +784,25 @@
   }
 
   section[data-hero-type='superhero'] .hero-scroll-bg-image {
+    transform: none;
+    filter: none;
+    transform-origin: center center;
+  }
+
+  section[data-hero-type='superhero'][data-hero-effects='ready'] .hero-scroll-bg-image {
+    will-change: transform, filter;
     transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-bg-translate-max)), 0)
       scale(calc(1 + var(--hero-scroll-progress) * var(--hero-bg-scale-max)));
     filter: blur(calc(var(--hero-scroll-progress) * var(--hero-bg-blur-max)))
       saturate(calc(1 - var(--hero-scroll-progress) * var(--hero-bg-desaturate-max)));
-    transform-origin: center center;
-  }
-
-  section[data-hero-type='superhero'][data-hero-intro='done'] .hero-scroll-bg-image {
-    will-change: transform, filter;
     transition:
       transform var(--hero-motion-duration-bg) var(--hero-motion-ease),
       filter var(--hero-motion-duration-filter) var(--hero-motion-ease);
   }
 
   /* LCP fix: no GPU compositing on hero-scroll-content at initial paint.
-     Scroll effects and will-change activate only after intro completes (data-hero-intro='done'). */
+     Scroll effects and will-change activate only after data-hero-effects='ready'
+     (idle / post-intro) — SSR uses data-hero-intro='done' for visible text without GPU cost. */
   section[data-hero-type='superhero'] .hero-scroll-content {
     will-change: auto;
     transform: none;
@@ -808,7 +811,7 @@
     transition: none;
   }
 
-  section[data-hero-type='superhero'][data-hero-intro='done'] .hero-scroll-content {
+  section[data-hero-type='superhero'][data-hero-effects='ready'] .hero-scroll-content {
     will-change: transform, opacity, filter;
     transform: translate3d(
       0,
@@ -832,7 +835,7 @@
     transition: none;
   }
 
-  section[data-hero-type='superhero'][data-hero-intro='done'] .hero-scroll-content-main {
+  section[data-hero-type='superhero'][data-hero-effects='ready'] .hero-scroll-content-main {
     will-change: transform;
     transform: translate3d(
       0,
@@ -850,6 +853,12 @@
   }
 
   section[data-hero-type='superhero'] .hero-scroll-content-portrait {
+    transform: none;
+    opacity: 1;
+    transition: none;
+  }
+
+  section[data-hero-type='superhero'][data-hero-effects='ready'] .hero-scroll-content-portrait {
     --hero-portrait-hide-progress: clamp(
       0,
       max(
@@ -865,6 +874,7 @@
       --hero-scroll-portrait-parallax-progress,
       var(--hero-scroll-progress)
     );
+    will-change: transform, opacity;
     transform: translate3d(
         0,
         calc(
@@ -875,11 +885,6 @@
       )
       scale(calc(1 - (var(--hero-portrait-hide-progress) * var(--hero-portrait-scale-down-max))));
     opacity: calc(1 - (var(--hero-portrait-hide-progress) * var(--hero-portrait-fade-max)));
-    transition: none;
-  }
-
-  section[data-hero-type='superhero'][data-hero-intro='done'] .hero-scroll-content-portrait {
-    will-change: transform, opacity;
   }
 
   section[data-hero-type='superhero'] .hero-superhero-portrait {
@@ -978,7 +983,16 @@
     transition: none;
   }
 
-  section[data-hero-type='superhero'] .hero-scroll-layer-eyebrow {
+  section[data-hero-type='superhero'] .hero-scroll-layer-eyebrow,
+  section[data-hero-type='superhero'] .hero-scroll-layer-headline,
+  section[data-hero-type='superhero'] .hero-scroll-layer-cta,
+  section[data-hero-type='superhero'] .hero-scroll-layer-marquee {
+    transform: none;
+    opacity: 1;
+    filter: none;
+  }
+
+  section[data-hero-type='superhero'][data-hero-effects='ready'] .hero-scroll-layer-eyebrow {
     transform: translate3d(
         0,
         calc(var(--hero-scroll-progress) * var(--hero-layer-eyebrow-translate-max)),
@@ -988,7 +1002,7 @@
     opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-eyebrow-fade-max)));
   }
 
-  section[data-hero-type='superhero'] .hero-scroll-layer-headline {
+  section[data-hero-type='superhero'][data-hero-effects='ready'] .hero-scroll-layer-headline {
     transform: translate3d(
         0,
         calc(var(--hero-scroll-progress) * var(--hero-layer-headline-translate-max)),
@@ -1005,7 +1019,7 @@
     filter: none;
   }
 
-  section[data-hero-type='superhero'] .hero-scroll-layer-cta {
+  section[data-hero-type='superhero'][data-hero-effects='ready'] .hero-scroll-layer-cta {
     transform: translate3d(
         0,
         calc(var(--hero-scroll-progress) * var(--hero-layer-cta-translate-max)),
@@ -1015,7 +1029,7 @@
     opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-cta-fade-max)));
   }
 
-  section[data-hero-type='superhero'] .hero-scroll-layer-marquee {
+  section[data-hero-type='superhero'][data-hero-effects='ready'] .hero-scroll-layer-marquee {
     transform: translate3d(
         0,
         calc(var(--hero-scroll-progress) * var(--hero-layer-marquee-translate-max)),
@@ -1754,8 +1768,8 @@
   /* Milchglas-Effekt: sobald der Hero einspaltig ist (gleicher Breakpoint wie Tailwind md / grid md:grid-cols-2) */
   @media (max-width: 767px) {
     .hero-mobile-glass {
-      /* backdrop-filter deferred until data-hero-intro='done' to avoid blocking LCP paint.
-         The expensive GPU blur layer is applied after the initial paint (1200ms). */
+      /* backdrop-filter deferred until data-hero-effects='ready' to avoid blocking LCP paint.
+         SSR keeps data-hero-intro='done' (text visible) without enabling GPU blur. */
       background: color-mix(in srgb, var(--background) 42%, transparent);
       border-top: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
       box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
@@ -1770,32 +1784,37 @@
       border-top: 1px solid rgba(255, 255, 255, 0.45);
       box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.05);
     }
-    /* Backdrop-filter applied after intro animation completes (avoids blocking initial LCP) */
-    section[data-hero-intro='done'] .hero-mobile-glass {
+    /* Backdrop-filter applied after idle / intro (avoids blocking initial LCP) */
+    section[data-hero-effects='ready'] .hero-mobile-glass {
       backdrop-filter: blur(20px) saturate(1.8);
       -webkit-backdrop-filter: blur(20px) saturate(1.8);
     }
-    [data-theme='dark'] section[data-hero-intro='done'] .hero-mobile-glass {
+    [data-theme='dark'] section[data-hero-effects='ready'] .hero-mobile-glass {
       backdrop-filter: blur(24px) saturate(1.8);
       -webkit-backdrop-filter: blur(24px) saturate(1.8);
     }
 
     .hero-mobile-glass {
+      position: relative;
+      z-index: 18;
+      /* sticky + backdrop-filter deferred until data-hero-effects='ready' */
+      scroll-margin-top: calc(var(--header-height) + 1rem);
+    }
+    section[data-hero-effects='ready'] .hero-mobile-glass {
       position: sticky;
       top: calc(var(--header-height) + 1rem);
-      z-index: 18;
-      /* LCP fix: no will-change / translateZ at initial paint – backdrop-filter (applied at 'done')
-         provides compositing when needed; avoids eager GPU layer over LCP text. */
-      scroll-margin-top: calc(var(--header-height) + 1rem);
     }
 
     .hero-mobile-sticky-portrait {
       position: sticky;
       top: calc(var(--header-height) + 20px);
       align-self: flex-start;
-      will-change: transform;
+      will-change: auto;
       transform: translate3d(0, var(--hero-mobile-portrait-translate, 0px), 0);
       scroll-margin-top: calc(var(--header-height) + 1rem);
+    }
+    section[data-hero-effects='ready'] .hero-mobile-sticky-portrait {
+      will-change: transform;
     }
 
     /* Superhero Hero: Mobile sticky positioning dicht unter dem Header */
@@ -1835,11 +1854,11 @@
       border-top: 1px solid rgba(255, 255, 255, 0.5);
       box-shadow: 0 -10px 32px rgba(0, 0, 0, 0.08);
     }
-    section[data-hero-intro='done'] .hero-mobile-glass {
+    section[data-hero-effects='ready'] .hero-mobile-glass {
       backdrop-filter: blur(24px) saturate(1.9);
       -webkit-backdrop-filter: blur(24px) saturate(1.9);
     }
-    [data-theme='dark'] section[data-hero-intro='done'] .hero-mobile-glass {
+    [data-theme='dark'] section[data-hero-effects='ready'] .hero-mobile-glass {
       backdrop-filter: blur(28px) saturate(1.95);
       -webkit-backdrop-filter: blur(28px) saturate(1.95);
     }
@@ -2967,6 +2986,10 @@
     );
     background-size: 185% auto;
     background-repeat: no-repeat;
+    animation: none;
+  }
+
+  section[data-hero-effects='ready'] .hero-heading-gradient {
     animation: hero-heading-gradient-shift 24s ease-in-out infinite;
   }
 
