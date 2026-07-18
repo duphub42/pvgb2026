@@ -180,6 +180,8 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     let lastPortraitParallaxProgress = ''
     let lastPortraitHideProgress = ''
     let lastPortraitHardHideProgress = ''
+    let scrollProgressListening = false
+    let startScrollProgressTracking: (() => void) | null = null
     const effectsGestureAbort = new AbortController()
 
     const enableHeroEffects = () => {
@@ -188,6 +190,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       if (section.getAttribute('data-hero-effects') === 'ready') return
       section.setAttribute('data-hero-effects', 'ready')
       if (host) host.setAttribute('data-hero-effects', 'ready')
+      startScrollProgressTracking?.()
       effectsGestureAbort.abort()
       if (effectsTimeoutId !== 0) {
         window.clearTimeout(effectsTimeoutId)
@@ -290,19 +293,29 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       rafId = window.requestAnimationFrame(updateScrollProgress)
     }
 
-    updateScrollProgress()
-    window.addEventListener('scroll', requestUpdate, { passive: true })
-    window.addEventListener('resize', requestUpdate)
-    window.addEventListener('orientationchange', requestUpdate)
+    startScrollProgressTracking = () => {
+      if (scrollProgressListening) return
+      scrollProgressListening = true
+      updateScrollProgress()
+      window.addEventListener('scroll', requestUpdate, { passive: true })
+      window.addEventListener('resize', requestUpdate)
+      window.addEventListener('orientationchange', requestUpdate)
+    }
+
+    if (prefersIntro) {
+      startScrollProgressTracking()
+    }
 
     return () => {
       if (rafId !== 0) window.cancelAnimationFrame(rafId)
       if (introTimeoutId !== 0) window.clearTimeout(introTimeoutId)
       if (effectsTimeoutId !== 0) window.clearTimeout(effectsTimeoutId)
       effectsGestureAbort.abort()
-      window.removeEventListener('scroll', requestUpdate)
-      window.removeEventListener('resize', requestUpdate)
-      window.removeEventListener('orientationchange', requestUpdate)
+      if (scrollProgressListening) {
+        window.removeEventListener('scroll', requestUpdate)
+        window.removeEventListener('resize', requestUpdate)
+        window.removeEventListener('orientationchange', requestUpdate)
+      }
       section.style.removeProperty('--hero-scroll-progress')
       section.style.removeProperty('--hero-scroll-content-progress')
       section.style.removeProperty('--hero-scroll-portrait-parallax-progress')

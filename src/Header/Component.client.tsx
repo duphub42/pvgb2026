@@ -87,7 +87,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
 
     const loadMegaMenuItems = async () => {
       try {
-        const response = await fetch('/api/mega-menu?limit=50&depth=4&sort=order')
+        const response = await fetch('/api/frontend/mega-menu')
         if (!response.ok) return
         const data = (await response.json()) as { docs?: MegaMenuItem[] }
         if (cancelled) return
