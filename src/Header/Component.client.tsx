@@ -25,6 +25,7 @@ const MegaMenu = dynamic(
 )
 
 const HEADER_B_LOGO_SRC = '/branding/philippbacher-logo-b-10.svg'
+const EMPTY_MEGA_MENU_ITEMS: MegaMenuItem[] = []
 
 interface HeaderClientProps {
   data: Header
@@ -39,7 +40,7 @@ type HeaderWithLegacyFields = Header & {
 
 export const HeaderClient: React.FC<HeaderClientProps> = ({
   data,
-  megaMenuItems = [],
+  megaMenuItems = EMPTY_MEGA_MENU_ITEMS,
   mobileDockPhone = null,
 }) => {
   const headerData = data as HeaderWithLegacyFields
