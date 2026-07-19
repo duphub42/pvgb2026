@@ -98,16 +98,16 @@ function collectNextImageUrls(html: string, origin: string): URL[] {
     }
   }
 
-  for (const match of decodedHtml.matchAll(/(?:href|src)="([^"]*\/_next\/image\?[^"]+)"/g)) {
-    addUrl(match[1] ?? '')
-  }
-
   for (const match of decodedHtml.matchAll(/(?:imageSrcSet|srcSet)="([^"]+)"/g)) {
     const srcSet = match[1] ?? ''
     for (const candidate of srcSet.split(',')) {
       const [url] = candidate.trim().split(/\s+/)
       addUrl(url ?? '')
     }
+  }
+
+  for (const match of decodedHtml.matchAll(/(?:href|src)="([^"]*\/_next\/image\?[^"]+)"/g)) {
+    addUrl(match[1] ?? '')
   }
 
   return Array.from(urls.values())
