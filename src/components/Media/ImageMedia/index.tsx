@@ -93,12 +93,13 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     typeof src === 'string' ? (srcCandidates[candidateIndex] ?? src) : src
   const fallbackSrc = typeof resolvedSrc === 'string' ? resolvedSrc : resolvedSrc.src
 
-  // NOTE: this is used by the browser to determine which image to download at different screen sizes
-  const sizes = sizeFromProps
-    ? sizeFromProps
-    : Object.entries(breakpoints)
-        .map(([, value]) => `(max-width: ${value}px) ${value * 2}w`)
-        .join(', ')
+  // `sizes` expects CSS lengths, not srcset descriptors. Invalid values like `1280w`
+  // make browsers fall back poorly and can pull oversized images on mobile.
+  const sizes =
+    sizeFromProps ??
+    (fill
+      ? '100vw'
+      : `(max-width: ${breakpoints.md}px) 100vw, (max-width: ${breakpoints.xl}px) 50vw, 33vw`)
 
   // Next.js: placeholder="blur" only for images >= 40x40 and when not disabled (e.g. Logo avoids it to prevent hydration mismatch)
   const useBlurPlaceholder =

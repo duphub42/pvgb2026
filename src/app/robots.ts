@@ -6,8 +6,9 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
+        disallow: '/admin/*',
       },
     ],
-    sitemap: 'https://pvgb2026.vercel.app/sitemap.xml',
+    sitemap: 'https://www.philippbacher.com/sitemap.xml',
   }
 }

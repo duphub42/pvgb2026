@@ -543,10 +543,15 @@
 }
 
 .hero-shell--superhero .hero-content-divider {
+  --hero-divider-translate-max: 6.4rem;
   display: block;
   position: relative;
-  transform: translate3d(0, calc(var(--hero-scroll-progress, 0) * 4.6rem), 0);
-  transition: opacity 0.16s linear;
+  transform: translate3d(
+    0,
+    calc(var(--hero-scroll-progress, 0) * var(--hero-divider-translate-max)),
+    0
+  );
+  transition: transform 0.16s linear;
   opacity: 0.34;
   filter: blur(0.4px);
 }
@@ -566,7 +571,7 @@
 }
 
 .hero-shell--superhero[data-hero-intro='play'] .hero-content-divider {
-  animation: hero-tech-intro-reveal-soft 520ms cubic-bezier(0.16, 1, 0.3, 1) 520ms both;
+  animation: none;
   opacity: 0.34;
 }
 

@@ -8,6 +8,7 @@ import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 import RichText from '@/components/RichText'
 import { CMSLink } from '@/components/Link'
 import { BlockContainer } from '@/components/BlockContainer'
+import { CtaPanel } from '@/components/CtaPanel'
 
 type CallToActionBlockComponentProps = CTABlockProps & {
   index?: number
@@ -29,12 +30,12 @@ export const CallToActionBlock: React.FC<CallToActionBlockComponentProps> = (pro
   const styles = styleProps as unknown as BlockStyles
 
   return (
-    <BlockContainer styles={styles} index={index}>
-      <div className="relative mx-auto w-full max-w-none overflow-hidden rounded-[calc(var(--style-radius-l)+0.5rem)] border border-border/60 bg-muted/20 px-6 py-7 shadow-[0_18px_56px_-46px_rgba(15,23,42,0.45)] backdrop-blur-sm dark:bg-muted/10 dark:shadow-[0_18px_56px_-46px_rgba(0,0,0,0.65)] md:rounded-[1.5rem] md:px-8 md:py-8 lg:px-10 lg:py-9">
-        <div
-          className="pointer-events-none absolute -left-[55%] top-1/2 aspect-square w-[170%] -translate-y-1/2 rounded-full border border-foreground/10 bg-foreground/[0.025] dark:border-foreground/15 dark:bg-foreground/[0.035] md:-left-[24%] md:w-[94%]"
-          aria-hidden="true"
-        />
+    <BlockContainer
+      styles={styles}
+      index={index}
+      className="!pt-[10.666rem] !pb-[10.666rem] md:!pt-[13.334rem] md:!pb-[13.334rem]"
+    >
+      <CtaPanel className="cta-block-shell" cardClassName="cta-card">
         <div className="relative z-10 grid gap-5 md:grid-cols-4 md:items-center md:gap-8 lg:gap-10">
           <div className="md:col-span-3">
             {richText && (
@@ -59,7 +60,7 @@ export const CallToActionBlock: React.FC<CallToActionBlockComponentProps> = (pro
             })}
           </div>
         </div>
-      </div>
+      </CtaPanel>
     </BlockContainer>
   )
 }

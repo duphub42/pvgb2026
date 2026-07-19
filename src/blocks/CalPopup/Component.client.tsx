@@ -4,6 +4,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 import type { FC } from 'react'
 import { ArrowUpRight, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { CtaPanel } from '@/components/CtaPanel'
 import { openCalBookingModal } from '@/utilities/webmcp/calEmbed'
 
 type CalPopupBlockProps = {
@@ -74,12 +75,8 @@ export const CalPopupBlock: FC<CalPopupBlockProps> = ({
     : undefined
 
   return (
-    <section className="container py-16">
-      <div className="relative mx-auto w-full max-w-none overflow-hidden rounded-[calc(var(--style-radius-l)+0.5rem)] border border-border/60 bg-muted/20 px-6 py-7 shadow-[0_18px_56px_-46px_rgba(15,23,42,0.45)] backdrop-blur-sm dark:bg-muted/10 dark:shadow-[0_18px_56px_-46px_rgba(0,0,0,0.65)] md:rounded-[1.5rem] md:px-8 md:py-8 lg:px-10 lg:py-9">
-        <div
-          className="pointer-events-none absolute -left-[55%] top-1/2 aspect-square w-[170%] -translate-y-1/2 rounded-full border border-foreground/10 bg-foreground/[0.025] dark:border-foreground/15 dark:bg-foreground/[0.035] md:-left-[24%] md:w-[94%]"
-          aria-hidden="true"
-        />
+    <section className="container py-[10.666rem]">
+      <CtaPanel className="cal-popup-shell" cardClassName="cal-popup-card">
         <div className="relative z-10 flex flex-col gap-1.5">
           <div className="min-w-0 max-w-3xl text-left">
             {headline ? (
@@ -132,7 +129,7 @@ export const CalPopupBlock: FC<CalPopupBlockProps> = ({
             </div>
           </div>
         </div>
-      </div>
+      </CtaPanel>
     </section>
   )
 }
