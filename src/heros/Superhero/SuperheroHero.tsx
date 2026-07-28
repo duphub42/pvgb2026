@@ -520,6 +520,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               setBgImageFailed(false)
             }}
             priority
+            quality={62}
             sizes="100vw"
           />
         </div>
@@ -749,6 +750,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                   className="hero-superhero-portrait-image object-contain object-center md:object-right-center"
                   sizes="(max-width: 767px) 100vw, (max-width: 1280px) 48vw, 780px"
                   priority
+                  quality={64}
                 />
               </div>
             </div>

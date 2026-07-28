@@ -1,12 +1,17 @@
 @config '../../../tailwind.config.mjs';
-@import 'tailwindcss';
+@import 'tailwindcss' source(none);
+@source '.';
+@source '../../blocks';
+@source '../../components';
+@source '../../Footer';
+@source '../../Header';
+@source '../../heros';
+@source '../../providers';
+@source '../../utilities';
 @import 'tw-animate-css';
 @import '../../theme/colors.css';
 @import './globals.part1.css';
 @import './globals.part2.css';
-@import './globals.part3.css';
-@import './globals.part4.css';
-@import './globals.part5.css';
 /* @config muss vor @import stehen, sonst gibt Tailwind v4 einen Parserfehler. */
 
 @custom-variant dark (&:is([data-theme='dark'] *));
