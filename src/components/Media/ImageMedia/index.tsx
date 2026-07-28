@@ -54,6 +54,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
     pictureClassName,
     imgClassName,
     priority,
+    quality = 72,
     resource,
     size: sizeFromProps,
     src: srcFromProps,
@@ -125,7 +126,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
           height={1}
           loading={loading}
           placeholder="empty"
-          quality={72}
+          quality={quality}
           sizes={sizes}
           src={fallbackSrc}
           style={{ width: '100%', height: 'auto' }}
@@ -154,7 +155,7 @@ export const ImageMedia: React.FC<MediaProps> = (props) => {
         {...placeholderProp}
         priority={priority}
         fetchPriority={priority ? 'high' : undefined}
-        quality={72}
+        quality={quality}
         loading={loading}
         sizes={sizes}
         src={resolvedSrc}

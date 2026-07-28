@@ -195,6 +195,8 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
                 className="w-full"
                 resource={showLottie ? undefined : (image as MediaType)}
                 themeResource={showLottie ? { light: lottieLight, dark: lottieDark } : undefined}
+                quality={60}
+                size="(max-width: 480px) 92vw, (max-width: 768px) 380px, (max-width: 1280px) 42vw, 520px"
                 imgClassName={cn(
                   'w-full h-auto max-h-[750px] object-contain xl:max-h-[840px]',
                   imageInvertClass,
