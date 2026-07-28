@@ -9,7 +9,7 @@ function isLocalDevelopment() {
   return process.env.NODE_ENV === 'development' && !process.env.VERCEL
 }
 
-const DEFAULT_PUBLIC_SITE_URL = 'https://philippbacher.com'
+const DEFAULT_PUBLIC_SITE_URL = 'https://www.philippbacher.com'
 
 function normalizeSiteURL(rawValue: string | undefined): string | null {
   const value = rawValue?.trim().replace(/\/$/, '')
@@ -19,7 +19,11 @@ function normalizeSiteURL(rawValue: string | undefined): string | null {
 function isInternalDeploymentURL(url: string): boolean {
   try {
     const hostname = new URL(url).hostname
-    return hostname === 'localhost' || hostname.endsWith('.vercel.app')
+    return (
+      hostname === 'localhost' ||
+      hostname.endsWith('.vercel.app') ||
+      hostname.endsWith('.exactdn.com')
+    )
   } catch {
     return true
   }

@@ -23,10 +23,37 @@ const getTitleFallbackForSlug = (slug?: unknown): string | null => {
   if (typeof slug !== 'string') return null
 
   switch (slug.trim().toLowerCase()) {
+    case 'kontakt':
+      return 'Kontakt - Webdesign, Marketing und Automatisierung in Halle'
+    case 'preise':
+      return 'Preise für Webdesign, Branding und Marketing'
     case 'profil':
       return 'Profil: Philipp Bacher - Digital Consultant in Halle'
+    case 'datenschutz':
+      return 'Datenschutz'
+    case 'impressum':
+      return 'Impressum'
     default:
       return null
+  }
+}
+
+const getDescriptionFallbackForSlug = (slug?: unknown): string | undefined => {
+  if (typeof slug !== 'string') return undefined
+
+  switch (slug.trim().toLowerCase()) {
+    case 'kontakt':
+      return 'Kontakt zu Philipp Bacher in Halle (Saale) für Webdesign, Branding, SEO, Marketing und digitale Automatisierung.'
+    case 'preise':
+      return 'Orientierung zu Preisen und Paketen für Webdesign, Branding, SEO, Marketing und Automatisierung bei Philipp Bacher.'
+    case 'profil':
+      return 'Philipp Bacher ist Digital Consultant in Halle (Saale) mit Fokus auf Webdesign, Branding, Marketing, SEO und Automatisierung.'
+    case 'datenschutz':
+      return 'Datenschutzerklärung von Philipp Bacher für philippbacher.com.'
+    case 'impressum':
+      return 'Impressum und Anbieterkennzeichnung von Philipp Bacher, Halle (Saale).'
+    default:
+      return undefined
   }
 }
 
@@ -81,6 +108,8 @@ export const generateMeta = async (args: {
   const ogImage = getImageURL(doc?.meta?.image)
 
   const title = getMetaTitle(doc)
+  const description =
+    doc?.meta?.description || getDescriptionFallbackForSlug(docWithPathFields?.slug)
 
   const rawSlug = docWithPathFields?.slug
   let path = '/'
@@ -102,9 +131,9 @@ export const generateMeta = async (args: {
   }
 
   return {
-    description: doc?.meta?.description,
+    description,
     openGraph: mergeOpenGraph({
-      description: doc?.meta?.description || '',
+      description: description || '',
       images: ogImage
         ? [
             {

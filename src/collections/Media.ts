@@ -37,7 +37,11 @@ export const Media: CollectionConfig = {
     {
       name: 'alt',
       type: 'text',
-      //required: true,
+      required: true,
+      admin: {
+        description:
+          'Beschreibe den sichtbaren Inhalt knapp und konkret. Für rein dekorative Grafiken einen kurzen internen Hinweis verwenden.',
+      },
     },
     {
       name: 'caption',

@@ -9,7 +9,12 @@ import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { resolveSharedPortfolioContent } from '@/utilities/sharedPortfolioContent'
 import { cn } from '@/utilities/ui'
 import { generateMeta } from '@/utilities/generateMeta'
-import { buildWebPageJsonLd, safeJsonLd } from '@/utilities/structuredData'
+import {
+  buildOfferCatalogJsonLd,
+  buildServiceJsonLd,
+  buildWebPageJsonLd,
+  safeJsonLd,
+} from '@/utilities/structuredData'
 import type { SitePage } from '@/payload-types'
 
 export const revalidate = false
@@ -105,6 +110,8 @@ export default async function LeistungenPage() {
     'type' in heroProps &&
     (heroProps as { type?: string }).type === 'superhero'
   const webPageJsonLd = page ? buildWebPageJsonLd(page, '/leistungen') : null
+  const serviceJsonLd = page ? buildServiceJsonLd(page, '/leistungen') : null
+  const offerCatalogJsonLd = buildOfferCatalogJsonLd()
 
   return (
     <article style={{ ['--hero-next-section-bg' as string]: nextSectionBackground }}>
@@ -114,6 +121,16 @@ export default async function LeistungenPage() {
           dangerouslySetInnerHTML={{ __html: safeJsonLd(webPageJsonLd) }}
         />
       ) : null}
+      {serviceJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(serviceJsonLd) }}
+        />
+      ) : null}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(offerCatalogJsonLd) }}
+      />
       <div className="relative isolate z-[32]">
         <HeroErrorBoundary>
           <RenderHero {...heroProps} pageSlug={pageSlug} />

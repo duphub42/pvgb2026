@@ -16,7 +16,7 @@ import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 import { getPagePath } from '@/utilities/pagesTree'
 import { Breadcrumbs, type BreadcrumbItem } from '@/components/Breadcrumbs'
-import { buildWebPageJsonLd, safeJsonLd } from '@/utilities/structuredData'
+import { buildServiceJsonLd, buildWebPageJsonLd, safeJsonLd } from '@/utilities/structuredData'
 
 export const revalidate = false
 const LEISTUNGEN_HUB_SLUGS = new Set(['leistungen', 'lei'])
@@ -43,10 +43,7 @@ export async function generateStaticParams() {
   const pages = await payload.find({
     collection: 'site-pages',
     where: {
-      and: [
-        { _status: { equals: 'published' } },
-        { parent: { in: hubIds } },
-      ],
+      and: [{ _status: { equals: 'published' } }, { parent: { in: hubIds } }],
     },
     limit: 100,
     pagination: false,
@@ -131,7 +128,9 @@ async function findPublishedLeistungenSubpage(slugParam: string) {
     },
     draft: false,
   })
-  const hubIds = hubPages.docs.map((doc) => doc.id).filter((id): id is number => typeof id === 'number')
+  const hubIds = hubPages.docs
+    .map((doc) => doc.id)
+    .filter((id): id is number => typeof id === 'number')
   if (hubIds.length === 0) return null
 
   const pages = await payload.find({
@@ -167,7 +166,9 @@ async function findPublishedLeistungenSubpageMeta(slugParam: string) {
     },
     draft: false,
   })
-  const hubIds = hubPages.docs.map((doc) => doc.id).filter((id): id is number => typeof id === 'number')
+  const hubIds = hubPages.docs
+    .map((doc) => doc.id)
+    .filter((id): id is number => typeof id === 'number')
   if (hubIds.length === 0) return null
 
   const pages = await payload.find({
@@ -258,8 +259,9 @@ export default async function Page({
           'blockBackground' in previewFirstBlock
             ? ((previewFirstBlock as { blockBackground?: string | null }).blockBackground ?? 'none')
             : 'none'
-        const previewNextSectionBackground =
-          getNextSectionBackgroundValue(previewFirstBlockBackground)
+        const previewNextSectionBackground = getNextSectionBackgroundValue(
+          previewFirstBlockBackground,
+        )
 
         return (
           <article
@@ -317,7 +319,10 @@ export default async function Page({
     'blockType' in firstBlock &&
     (firstBlock as { blockType?: string }).blockType === 'servicesOverview'
   const firstBlockBackground =
-    firstBlock && typeof firstBlock === 'object' && firstBlock !== null && 'blockBackground' in firstBlock
+    firstBlock &&
+    typeof firstBlock === 'object' &&
+    firstBlock !== null &&
+    'blockBackground' in firstBlock
       ? ((firstBlock as { blockBackground?: string | null }).blockBackground ?? 'none')
       : 'none'
   const nextSectionBackground = getNextSectionBackgroundValue(firstBlockBackground)
@@ -327,6 +332,7 @@ export default async function Page({
     'type' in heroProps &&
     (heroProps as { type?: string }).type === 'superhero'
   const webPageJsonLd = buildWebPageJsonLd(page, getLeistungenPath(page.slug))
+  const serviceJsonLd = buildServiceJsonLd(page, getLeistungenPath(page.slug))
 
   return (
     <article style={{ ['--hero-next-section-bg' as string]: nextSectionBackground }}>
@@ -334,6 +340,12 @@ export default async function Page({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: safeJsonLd(webPageJsonLd) }}
       />
+      {serviceJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(serviceJsonLd) }}
+        />
+      ) : null}
       <div className="relative isolate z-[32]">
         <SectionReveal>
           <HeroErrorBoundary>

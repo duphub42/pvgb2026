@@ -24,7 +24,55 @@ const redirects = async () => {
     permanent: true,
   }
 
-  const redirects = [internetExplorerRedirect, adminPagesRedirect, adminPostsRedirect]
+  const legacyRedirects = [
+    {
+      source: '/angebot',
+      destination: '/leistungen',
+      permanent: true,
+    },
+    {
+      source: '/angebote',
+      destination: '/leistungen',
+      permanent: true,
+    },
+    {
+      source: '/leistungen-old',
+      destination: '/leistungen',
+      permanent: true,
+    },
+    {
+      source: '/portfolio-marken',
+      destination: '/portfolio-branding',
+      permanent: true,
+    },
+    {
+      source: '/kontakt-2',
+      destination: '/kontakt',
+      permanent: true,
+    },
+    {
+      source: '/author/:path*',
+      destination: '/profil',
+      permanent: true,
+    },
+    {
+      source: '/category/:path*',
+      destination: '/posts',
+      permanent: true,
+    },
+    {
+      source: '/tag/:path*',
+      destination: '/posts',
+      permanent: true,
+    },
+  ]
+
+  const redirects = [
+    internetExplorerRedirect,
+    adminPagesRedirect,
+    adminPostsRedirect,
+    ...legacyRedirects,
+  ]
 
   return redirects
 }

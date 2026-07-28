@@ -58,7 +58,9 @@ const getPagesSitemap = unstable_cache(
           .filter((page) => Boolean(page?.slug))
           .map((page) => {
             const url =
-              page?.slug === 'home' ? `${SITE_URL}/` : `${SITE_URL}/${getPagePath(page as SitePage)}`
+              page?.slug === 'home'
+                ? `${SITE_URL}/`
+                : `${SITE_URL}/${getPagePath(page as SitePage)}`
             return {
               loc: url,
               lastmod: page.updatedAt || dateFallback,

@@ -405,7 +405,10 @@ export interface SitePage {
  */
 export interface Media {
   id: number;
-  alt?: string | null;
+  /**
+   * Beschreibe den sichtbaren Inhalt knapp und konkret. Für rein dekorative Grafiken einen kurzen internen Hinweis verwenden.
+   */
+  alt: string;
   caption?: {
     root: {
       type: string;

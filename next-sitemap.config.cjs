@@ -1,7 +1,6 @@
-const SITE_URL = (process.env.NEXT_PUBLIC_PUBLIC_SITE_URL || 'https://philippbacher.com').replace(
-  /\/$/,
-  '',
-)
+const SITE_URL = (
+  process.env.NEXT_PUBLIC_PUBLIC_SITE_URL || 'https://www.philippbacher.com'
+).replace(/\/$/, '')
 
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
