@@ -15,6 +15,7 @@ import { generateMeta } from '@/utilities/generateMeta'
 import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { Breadcrumbs } from '@/components/Breadcrumbs'
+import { buildArticleJsonLd, safeJsonLd } from '@/utilities/structuredData'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -52,8 +53,14 @@ export default async function Post({ params: paramsPromise }: Args) {
 
   if (!post) return <PayloadRedirects url={url} />
 
+  const articleJsonLd = buildArticleJsonLd(post)
+
   return (
     <article className="pt-16 pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(articleJsonLd) }}
+      />
       <PageClient />
 
       {/* Allows redirects for valid pages too */}

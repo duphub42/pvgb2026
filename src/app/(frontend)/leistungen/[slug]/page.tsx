@@ -16,6 +16,7 @@ import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 import { getPagePath } from '@/utilities/pagesTree'
 import { Breadcrumbs, type BreadcrumbItem } from '@/components/Breadcrumbs'
+import { buildWebPageJsonLd, safeJsonLd } from '@/utilities/structuredData'
 
 export const revalidate = false
 const LEISTUNGEN_HUB_SLUGS = new Set(['leistungen', 'lei'])
@@ -325,9 +326,14 @@ export default async function Page({
     typeof heroProps === 'object' &&
     'type' in heroProps &&
     (heroProps as { type?: string }).type === 'superhero'
+  const webPageJsonLd = buildWebPageJsonLd(page, getLeistungenPath(page.slug))
 
   return (
     <article style={{ ['--hero-next-section-bg' as string]: nextSectionBackground }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: safeJsonLd(webPageJsonLd) }}
+      />
       <div className="relative isolate z-[32]">
         <SectionReveal>
           <HeroErrorBoundary>

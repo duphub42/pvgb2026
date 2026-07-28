@@ -4,7 +4,8 @@ import type { Media, SitePage, BlogPost, Config } from '../payload-types'
 
 import { mergeOpenGraph } from './mergeOpenGraph'
 import { getPagePath } from './pagesTree'
-import { getServerSideURL } from './getURL'
+import { getPublicSiteURL } from './getURL'
+import { getMediaUrl } from './getMediaUrl'
 
 const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME?.trim() || 'Philipp Bacher'
 
@@ -51,14 +52,18 @@ const getMetaTitle = (doc?: Partial<SitePage> | Partial<BlogPost> | null): strin
 }
 
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
-  const serverUrl = getServerSideURL()
+  const siteUrl = getPublicSiteURL()
 
-  let url = serverUrl + '/website-template-OG.webp'
+  let url = siteUrl + '/website-template-OG.webp'
 
   if (image && typeof image === 'object' && 'url' in image) {
     const ogUrl = image.sizes?.og?.url
 
-    url = ogUrl ? serverUrl + ogUrl : serverUrl + image.url
+    const mediaUrl = getMediaUrl(ogUrl || image.url, image.updatedAt)
+    url =
+      mediaUrl.startsWith('http://') || mediaUrl.startsWith('https://')
+        ? mediaUrl
+        : `${siteUrl}${mediaUrl}`
   }
 
   return url

@@ -58,6 +58,17 @@ export default async function Page() {
 
 export function generateMetadata(): Metadata {
   return {
-    title: `Payload Website Template Posts`,
+    title: 'Blog | Philipp Bacher',
+    description:
+      'Impulse zu Webdesign, Branding, SEO, Performance und digitaler Sichtbarkeit von Philipp Bacher.',
+    alternates: {
+      canonical: '/posts',
+    },
+    openGraph: {
+      title: 'Blog | Philipp Bacher',
+      description:
+        'Impulse zu Webdesign, Branding, SEO, Performance und digitaler Sichtbarkeit von Philipp Bacher.',
+      url: '/posts',
+    },
   }
 }

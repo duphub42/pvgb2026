@@ -15,12 +15,13 @@ import React from 'react'
 import { RootLayoutInner } from '@/app/(frontend)/RootLayoutInner.client'
 
 import './globals.css'
-import { getServerSideURL } from '@/utilities/getURL'
+import { getPublicSiteURL } from '@/utilities/getURL'
 import { getCachedGlobal } from '@/utilities/getGlobals'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { DesignStyles } from '@/components/DesignStyles'
 import { ThemeSettingsStyles } from '@/components/ThemeSettingsStyles'
 import { DeferredSiteTools } from '@/components/DeferredSiteTools/DeferredSiteTools'
+import { safeJsonLd } from '@/utilities/structuredData'
 import type { DesignDoc } from '@/utilities/designToCss'
 import type { Footer as FooterGlobal, Header as HeaderGlobal } from '@/payload-types'
 
@@ -76,7 +77,7 @@ function getSameAsFromFooter(footerData: FooterGlobal | null): string[] {
 }
 
 function buildLocalBusinessGraph(footerData: FooterGlobal | null): string {
-  const baseURL = getServerSideURL()
+  const baseURL = getPublicSiteURL()
   const orgName = process.env.NEXT_PUBLIC_SITE_NAME?.trim() || 'Philipp Bacher'
   const email = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || 'mail@philippbacher.com'
   const telephone = normalizeTelephone(footerData?.footerPhone) || '+4934596393323'
@@ -96,14 +97,41 @@ function buildLocalBusinessGraph(footerData: FooterGlobal | null): string {
         sameAs,
       },
       {
-        '@type': 'LocalBusiness',
+        '@type': 'Person',
+        '@id': `${baseURL}/#person`,
+        name: orgName,
+        url: baseURL,
+        email,
+        telephone,
+        jobTitle: 'Digital Consultant',
+        worksFor: {
+          '@id': `${baseURL}/#organization`,
+        },
+        sameAs,
+      },
+      {
+        '@type': 'WebSite',
+        '@id': `${baseURL}/#website`,
+        name: orgName,
+        url: baseURL,
+        publisher: {
+          '@id': `${baseURL}/#organization`,
+        },
+        potentialAction: {
+          '@type': 'SearchAction',
+          target: `${baseURL}/search?q={search_term_string}`,
+          'query-input': 'required name=search_term_string',
+        },
+      },
+      {
+        '@type': ['LocalBusiness', 'ProfessionalService'],
         '@id': `${baseURL}/#localbusiness`,
         name: orgName,
         url: baseURL,
         email,
         telephone,
         priceRange: '190 EUR - 14000 EUR',
-        image: `${baseURL}/favicon.ico`,
+        image: `${baseURL}/website-template-OG.webp`,
         areaServed: SERVICE_AREAS,
         address: {
           '@type': 'PostalAddress',
@@ -114,7 +142,7 @@ function buildLocalBusinessGraph(footerData: FooterGlobal | null): string {
     ],
   }
 
-  return JSON.stringify(graph)
+  return safeJsonLd(graph)
 }
 
 function formatUnknownError(error: unknown): string {
@@ -250,12 +278,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
 
 function getMetadataBase(): URL {
   try {
-    const url = getServerSideURL()
+    const url = getPublicSiteURL()
     if (url && url.startsWith('http')) return new URL(url)
   } catch {
     // ignore
   }
-  return new URL('https://localhost')
+  return new URL('https://philippbacher.com')
 }
 
 export const metadata: Metadata = {
@@ -265,7 +293,6 @@ export const metadata: Metadata = {
   openGraph: mergeOpenGraph(),
   twitter: {
     card: 'summary_large_image',
-    creator: '@payloadcms',
   },
 }
 

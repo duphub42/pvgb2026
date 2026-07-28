@@ -1,16 +1,19 @@
 import type { Metadata } from 'next'
-import { getServerSideURL } from './getURL'
+import { getPublicSiteURL } from './getURL'
+
+const siteName = process.env.NEXT_PUBLIC_SITE_NAME?.trim() || 'Philipp Bacher'
 
 const defaultOpenGraph: Metadata['openGraph'] = {
   type: 'website',
-  description: 'An open-source website built with Payload and Next.js.',
+  description:
+    'Webdesign, Branding, SEO und digitale Beratung für Unternehmen in Halle, Leipzig und der DACH-Region.',
   images: [
     {
-      url: `${getServerSideURL()}/website-template-OG.webp`,
+      url: `${getPublicSiteURL()}/website-template-OG.webp`,
     },
   ],
-  siteName: 'Payload Website Template',
-  title: 'Payload Website Template',
+  siteName,
+  title: siteName,
 }
 
 export const mergeOpenGraph = (og?: Metadata['openGraph']): Metadata['openGraph'] => {

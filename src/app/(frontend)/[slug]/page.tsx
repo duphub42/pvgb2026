@@ -21,6 +21,7 @@ import { appendDefaultCtaBlock } from '@/utilities/defaultCtaBlocks'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { resolveSharedPortfolioContent } from '@/utilities/sharedPortfolioContent'
 import { cn } from '@/utilities/ui'
+import { buildWebPageJsonLd, getDocumentPath, safeJsonLd } from '@/utilities/structuredData'
 import type { SitePage } from '@/payload-types'
 
 export const revalidate = false
@@ -644,12 +645,17 @@ export default async function Page({
       typeof heroProps === 'object' &&
       'type' in heroProps &&
       (heroProps as { type?: string }).type === 'superhero'
+    const webPageJsonLd = buildWebPageJsonLd(page, getDocumentPath(page))
 
     return (
       <article
         className={cn(isSuperheroHero && 'hero-shell--superhero')}
         style={{ ['--hero-next-section-bg' as string]: nextSectionBackground }}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(webPageJsonLd) }}
+        />
         {/*
           Hero z-32. Standard-Folgesection z-31, damit Mask nicht über Hero-Popout liegt.
           servicesOverview: Unter lg (Umbruch 1–2 Spalten) z-20 + kein Negativ-Margin — Karten liegen unter dem Hero.

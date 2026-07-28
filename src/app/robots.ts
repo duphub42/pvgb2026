@@ -1,6 +1,9 @@
 import type { MetadataRoute } from 'next'
+import { getPublicSiteURL } from '@/utilities/getURL'
 
 export default function robots(): MetadataRoute.Robots {
+  const siteURL = getPublicSiteURL()
+
   return {
     rules: [
       {
@@ -9,6 +12,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: '/admin/*',
       },
     ],
-    sitemap: 'https://www.philippbacher.com/sitemap.xml',
+    sitemap: `${siteURL}/sitemap.xml`,
   }
 }

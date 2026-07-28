@@ -9,6 +9,7 @@ import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { resolveSharedPortfolioContent } from '@/utilities/sharedPortfolioContent'
 import { cn } from '@/utilities/ui'
 import { generateMeta } from '@/utilities/generateMeta'
+import { buildWebPageJsonLd, safeJsonLd } from '@/utilities/structuredData'
 import type { SitePage } from '@/payload-types'
 
 export const revalidate = false
@@ -103,9 +104,16 @@ export default async function LeistungenPage() {
     typeof heroProps === 'object' &&
     'type' in heroProps &&
     (heroProps as { type?: string }).type === 'superhero'
+  const webPageJsonLd = page ? buildWebPageJsonLd(page, '/leistungen') : null
 
   return (
     <article style={{ ['--hero-next-section-bg' as string]: nextSectionBackground }}>
+      {webPageJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: safeJsonLd(webPageJsonLd) }}
+        />
+      ) : null}
       <div className="relative isolate z-[32]">
         <HeroErrorBoundary>
           <RenderHero {...heroProps} pageSlug={pageSlug} />

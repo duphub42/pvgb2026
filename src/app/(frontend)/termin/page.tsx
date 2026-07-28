@@ -4,12 +4,21 @@ import { TerminBooking } from '@/app/(frontend)/termin/TerminBooking.client'
 import { DEFAULT_CAL_LINK } from '@/utilities/webmcp/calEmbed'
 
 export const metadata: Metadata = {
-  title: 'Termin buchen',
+  title: 'Termin buchen | Philipp Bacher',
   description:
     'Buchen Sie einen kostenlosen Kennenlerntermin mit Philipp Bacher – persönlich oder per Video-Call.',
   robots: {
     index: true,
     follow: true,
+  },
+  alternates: {
+    canonical: '/termin',
+  },
+  openGraph: {
+    title: 'Termin buchen | Philipp Bacher',
+    description:
+      'Buchen Sie einen kostenlosen Kennenlerntermin mit Philipp Bacher – persönlich oder per Video-Call.',
+    url: '/termin',
   },
 }
 

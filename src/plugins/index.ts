@@ -12,14 +12,16 @@ import { beforeSyncWithSearch } from '@/search/beforeSync'
 import { formSubmissionAntiSpam } from '@/hooks/formSubmissionAntiSpam'
 
 import type { SitePage, BlogPost } from '@/payload-types'
-import { getServerSideURL } from '@/utilities/getURL'
+import { getPublicSiteURL } from '@/utilities/getURL'
+
+const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME?.trim() || 'Philipp Bacher'
 
 const generateTitle: GenerateTitle<BlogPost | SitePage> = ({ doc }) => {
-  return doc?.title ? `${doc.title} | Payload Website Template` : 'Payload Website Template'
+  return doc?.title ? `${doc.title} | ${SITE_NAME}` : SITE_NAME
 }
 
 const generateURL: GenerateURL<BlogPost | SitePage> = ({ doc }) => {
-  const url = getServerSideURL()
+  const url = getPublicSiteURL()
 
   return doc?.slug ? `${url}/${doc.slug}` : url
 }

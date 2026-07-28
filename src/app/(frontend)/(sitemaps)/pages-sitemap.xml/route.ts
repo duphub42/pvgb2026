@@ -3,6 +3,7 @@ import { getPayload } from 'payload'
 import config from '@payload-config'
 import { unstable_cache } from 'next/cache'
 import { getPagePath } from '@/utilities/pagesTree'
+import { getPublicSiteURL } from '@/utilities/getURL'
 import type { SitePage } from '@/payload-types'
 
 export const dynamic = 'force-dynamic'
@@ -10,10 +11,7 @@ export const dynamic = 'force-dynamic'
 const getPagesSitemap = unstable_cache(
   async () => {
     const payload = await getPayload({ config })
-    const SITE_URL =
-      process.env.NEXT_PUBLIC_SERVER_URL ||
-      process.env.VERCEL_PROJECT_PRODUCTION_URL ||
-      'https://example.com'
+    const SITE_URL = getPublicSiteURL()
 
     const results = await payload.find({
       collection: 'site-pages',
