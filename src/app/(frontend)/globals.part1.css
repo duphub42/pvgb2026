@@ -2835,9 +2835,8 @@
       z-index: 18;
       opacity: var(--home-hero-mobile-cta-in, 0);
       transform: translate3d(0, calc((1 - var(--home-hero-mobile-cta-in, 0)) * 18svh), 0);
-      transition:
-        opacity 0.4s ease-out,
-        transform 0.4s ease-out;
+      /* See the double-smoothing note on .hero-mobile-portrait-parallax above. */
+      transition: none;
     }
 
     /* Badge/headline/description sit in the upper part of the stage, in normal flow
@@ -2864,9 +2863,8 @@
          comfortably past the ~gap to the portrait's top edge. */
       opacity: calc(1 - clamp(0, calc((var(--home-hero-mobile-text-exit, 0) - 0.55) / 0.45), 1));
       transform: translate3d(0, calc(var(--home-hero-mobile-text-exit, 0) * 13rem), 0);
-      transition:
-        opacity 0.4s ease-out,
-        transform 0.4s ease-out;
+      /* See the double-smoothing note on .hero-mobile-portrait-parallax above. */
+      transition: none;
     }
 
     /* B-icon reveal: sits over roughly the same area the headline reveal above occupies,
@@ -2909,10 +2907,8 @@
          beyond the blur. Dark theme override below layers invert(1) on top, same as the
          header's own B-logo (.logo-contrast) so the icon stays visible on a dark page. */
       filter: var(--home-hero-icon-blur);
-      transition:
-        opacity 0.4s ease-out,
-        transform 0.4s ease-out,
-        filter 0.4s ease-out;
+      /* See the double-smoothing note on .hero-mobile-portrait-parallax above. */
+      transition: none;
     }
 
     [data-theme='dark']
@@ -2964,9 +2960,8 @@
       .hero-scroll-layer-headline
       > span {
       display: block;
-      transition:
-        opacity 0.4s ease-out,
-        transform 0.4s ease-out;
+      /* See the double-smoothing note on .hero-mobile-portrait-parallax above. */
+      transition: none;
     }
 
     /* Description only fades in once all three headline lines have had their turn
@@ -2976,7 +2971,8 @@
       .hero-scroll-layer-body {
       max-width: 50vw;
       opacity: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.12) / 0.04), 1) !important;
-      transition: opacity 0.4s ease-out;
+      /* See the double-smoothing note on .hero-mobile-portrait-parallax above. */
+      transition: none;
     }
 
     /* Badge fades in only after the headlines have finished (0.12+), alongside the
@@ -2984,7 +2980,7 @@
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-scroll-layer-eyebrow {
       opacity: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.12) / 0.04), 1) !important;
-      transition: opacity 0.4s ease-out;
+      transition: none;
     }
 
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
@@ -4530,7 +4526,8 @@
          regardless of layers/specificity, so this needs !important too to actually win. */
       transform: scale(1.54) !important;
       transform-origin: 50% 50%;
-      transition: opacity 0.4s ease-out;
+      /* See the double-smoothing note on .hero-mobile-portrait-parallax further up. */
+      transition: none;
     }
 
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
@@ -4618,9 +4615,8 @@
          !important to reliably win. */
       transform: scale(2.14) !important;
       transform-origin: 90% 24% !important;
-      transition:
-        filter 0.4s ease-out,
-        opacity 0.4s ease-out;
+      /* See the double-smoothing note on .hero-mobile-portrait-parallax further up. */
+      transition: none;
     }
   }
 }
@@ -5213,24 +5209,21 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
      which switches to a rect.height-vs-viewport formula specifically for this case.
      Desktop/tablet never get this rule (media-gated), so they scroll normally. */
   section[data-hero-type='superhero'][data-page-slug='home'] {
-    /* Visible stage fills the real viewport height on every phone in the typical modern
-       range (iPhone SE's 667px up to ~930px, covering iPhone 15/Pro Max, Pixel, Galaxy S
-       etc.) - clamp() rather than a single fixed size, so most phones get the full
-       screen instead of a fixed 667px box with empty space below it. Only devices
-       outside that range (foldables, tablets in portrait) get bounded at the nearer
-       edge. The tall pin runway is derived from the same value so the two stay in sync
-       on every device. Multiplier is the single knob controlling scroll sensitivity here
-       - it sets how many physical scroll pixels the 0->1 progress range spans, while
-       every animation's own timing (headline build-up, portrait slide, CTA, icon - see
-       --home-hero-icon-in etc.) stays defined purely in progress-fraction terms and is
-       unaffected by it. Went 2.2 (original) -> 1.3 (too little scroll distance, felt
-       twitchy/oversensitive - the whole sequence, finishing around progress 0.44-0.52,
-       blew past in a couple of small scroll gestures) -> 1.7 (current middle ground:
-       enough scroll distance to feel deliberate again, while the dead tail after
-       everything's finished - progress 0.52 to the pin's release at 1.0 - stays short
-       enough not to feel stuck). */
-    --home-hero-mobile-stage-cap: clamp(41.6875rem, 100dvh, 58.125rem);
-    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.7);
+    /* Stage height cap lowered from 58.125rem (930px, matched every modern phone's real
+       height 1:1) to 45rem (720px): after the pin releases, the stage - no longer sticky
+       - still has to scroll its own full height out of view before the next section can
+       appear, since it doesn't disappear, it just stops being pinned. At 930px tall
+       (iPhone 15 Pro Max etc.) that was ~930px of dead scroll on top of whatever the
+       reveal itself needed - the actual complaint this was tuned for. Capping at 720px
+       trades away true full-screen immersion on phones taller than that (iPhone SE at
+       667px is still unaffected, still gets its real height) for a meaningfully shorter
+       gap to section 1 on every larger phone. Multiplier bumped 1.7->1.9 alongside this
+       specifically to keep the pin's own scroll distance (stage * (multiplier-1), the
+       thing that controls how sensitive/twitchy the reveal itself feels) roughly where
+       it was before this change (~650px), so shrinking the stage doesn't quietly
+       re-introduce the oversensitive-scroll problem from earlier. */
+    --home-hero-mobile-stage-cap: clamp(41.6875rem, 100dvh, 45rem);
+    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.9);
     --home-hero-top-offset: calc(
       var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)
     );
