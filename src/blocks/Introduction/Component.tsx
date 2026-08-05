@@ -12,10 +12,33 @@ import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 import { cn } from '@/utilities/ui'
 import { Media } from '@/components/Media'
 import { BlockContainer } from '@/components/BlockContainer'
+import { getBlockBackgroundImageStyle } from '@/utilities/getBlockBackgroundImageStyle'
+import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 type IntroductionProps = IntroductionBlockData & {
   disableInnerContainer?: boolean
   index?: number
+}
+
+function resolveThumbnailStreamSrc(media: unknown): string | null {
+  if (typeof media === 'object' && media !== null) {
+    const record = media as Record<string, unknown>
+    const idRaw = record.id ?? record._id ?? record.documentId ?? record.mediaId
+
+    if (typeof idRaw === 'number' && idRaw > 0) return `/api/media/stream/${idRaw}?size=thumbnail`
+    if (typeof idRaw === 'string' && /^\d+$/.test(idRaw)) {
+      return `/api/media/stream/${idRaw}?size=thumbnail`
+    }
+  }
+
+  const src = resolveHeroImageSrc(media)
+  if (!src?.startsWith('/api/media/stream/')) return src
+
+  const [path, query = ''] = src.split('?')
+  const params = new URLSearchParams(query)
+  params.set('size', 'thumbnail')
+
+  return `${path}?${params.toString()}`
 }
 
 export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
@@ -39,6 +62,13 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
   const hasImage = image != null && typeof image === 'object'
   const showLottie = useLottie && (lottieLight || lottieDark)
   const hasMedia = hasImage || showLottie
+  const isHomeIntro =
+    typeof heading === 'string' &&
+    heading.trim() === 'Webdesign, Online Marketing & Automatisierung in Halle (Saale)'
+  const useImageAsTopRightBackground = isHomeIntro && hasImage && !showLottie
+  const backgroundImageSrc = useImageAsTopRightBackground ? resolveThumbnailStreamSrc(image) : null
+  const hasInlineMedia = hasMedia && !useImageAsTopRightBackground
+  const reserveMediaColumn = hasInlineMedia || useImageAsTopRightBackground
   const forceDarkModeInvertForWebdesignIntro =
     heading?.trim() === 'Webdesign, das aus Besuchern Kunden macht'
   const imageInvertClass = !showLottie
@@ -75,6 +105,78 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
       Icon: Fingerprint,
     },
   ]
+
+  const introGrid = (
+    <div
+      className={cn(
+        'grid items-center gap-10',
+        reserveMediaColumn
+          ? 'md:grid-cols-[minmax(0,1fr)_minmax(14rem,min(31dvw,34rem))] xl:min-h-[clamp(20rem,32vw,30rem)]'
+          : 'max-w-3xl',
+        reserveMediaColumn && 'sm:px-0 px-0',
+      )}
+    >
+      <div className={cn('min-w-0', hasImage && !useImageAsTopRightBackground && 'xl:max-w-3xl')}>
+        {heading && (
+          <h2
+            className={cn(
+              'mb-6 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl',
+              useImageAsTopRightBackground && 'max-md:max-w-2/3',
+            )}
+          >
+            {heading}
+          </h2>
+        )}
+
+        {body && (
+          <p className="mb-6 max-w-prose whitespace-pre-line text-base leading-relaxed text-muted-foreground md:text-lg">
+            {body}
+          </p>
+        )}
+
+        {taglineLines.length > 0 && (
+          <div className="border-l-2 border-primary pl-4">
+            {taglineLines.map((line, i) => (
+              <p
+                key={i}
+                className={cn(
+                  'text-sm font-medium leading-relaxed text-foreground/80 md:text-base',
+                  i < taglineLines.length - 1 && 'mb-1',
+                )}
+              >
+                {line}
+              </p>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {hasInlineMedia && (
+        <div
+          className={cn(
+            'relative isolate w-full',
+            'sm:mx-0 sm:max-w-none',
+            'mx-auto max-w-sm lg:mx-0 lg:max-w-[34rem] lg:justify-self-end',
+            'xl:mx-0 xl:w-[38rem] xl:max-w-none',
+          )}
+        >
+          <div style={!showLottie ? { opacity: normalizedImageOpacity } : undefined}>
+            <Media
+              className="w-full"
+              resource={showLottie ? undefined : (image as MediaType)}
+              themeResource={showLottie ? { light: lottieLight, dark: lottieDark } : undefined}
+              quality={60}
+              size="(max-width: 480px) 92vw, (max-width: 768px) 380px, (max-width: 1280px) 42vw, 520px"
+              imgClassName={cn(
+                'w-full h-auto max-h-[750px] object-contain xl:max-h-[840px]',
+                imageInvertClass,
+              )}
+            />
+          </div>
+        </div>
+      )}
+    </div>
+  )
 
   if (isLeistungenHubIntro && !hasMedia) {
     return (
@@ -133,6 +235,22 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
     )
   }
 
+  if (useImageAsTopRightBackground && backgroundImageSrc) {
+    return (
+      <section
+        className="pt-[115px] pb-8 sm:pt-0 sm:pb-14 lg:pt-0 lg:pb-20"
+        style={{ position: 'relative', isolation: 'isolate' }}
+      >
+        <div
+          aria-hidden
+          className="render-block-background-image render-block-background-image--top-right home-intro-maneki-background-image"
+          style={getBlockBackgroundImageStyle(backgroundImageSrc, 'top-right')}
+        />
+        <div className="container relative z-10">{introGrid}</div>
+      </section>
+    )
+  }
+
   return (
     <BlockContainer styles={styles} index={index}>
       {isPortfolioMarketingIntro ? (
@@ -142,70 +260,7 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
           style={{ height: 'calc(100% + 40rem)' }}
         />
       ) : null}
-      <div
-        className={cn(
-          'grid items-center gap-10',
-          hasMedia
-            ? 'lg:grid-cols-[minmax(0,1fr)_minmax(18rem,34rem)] xl:min-h-[clamp(20rem,32vw,30rem)]'
-            : 'max-w-3xl',
-          hasMedia && 'sm:px-0 px-0',
-        )}
-      >
-        <div className={cn('min-w-0', hasImage && 'xl:max-w-3xl')}>
-          {heading && (
-            <h2 className="mb-6 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl">
-              {heading}
-            </h2>
-          )}
-
-          {body && (
-            <p className="mb-6 max-w-prose whitespace-pre-line text-base leading-relaxed text-muted-foreground md:text-lg">
-              {body}
-            </p>
-          )}
-
-          {taglineLines.length > 0 && (
-            <div className="border-l-2 border-primary pl-4">
-              {taglineLines.map((line, i) => (
-                <p
-                  key={i}
-                  className={cn(
-                    'text-sm font-medium leading-relaxed text-foreground/80 md:text-base',
-                    i < taglineLines.length - 1 && 'mb-1',
-                  )}
-                >
-                  {line}
-                </p>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {hasMedia && (
-          <div
-            className={cn(
-              'relative isolate w-full',
-              'sm:mx-0 sm:max-w-none',
-              'mx-auto max-w-sm lg:mx-0 lg:max-w-[34rem] lg:justify-self-end',
-              'xl:mx-0 xl:w-[38rem] xl:max-w-none',
-            )}
-          >
-            <div style={!showLottie ? { opacity: normalizedImageOpacity } : undefined}>
-              <Media
-                className="w-full"
-                resource={showLottie ? undefined : (image as MediaType)}
-                themeResource={showLottie ? { light: lottieLight, dark: lottieDark } : undefined}
-                quality={60}
-                size="(max-width: 480px) 92vw, (max-width: 768px) 380px, (max-width: 1280px) 42vw, 520px"
-                imgClassName={cn(
-                  'w-full h-auto max-h-[750px] object-contain xl:max-h-[840px]',
-                  imageInvertClass,
-                )}
-              />
-            </div>
-          </div>
-        )}
-      </div>
+      {introGrid}
     </BlockContainer>
   )
 }

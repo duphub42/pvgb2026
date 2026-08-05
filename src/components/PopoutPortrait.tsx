@@ -18,6 +18,7 @@ interface PopoutPortraitProps {
    * Parent chain should give a definite height (e.g. grid row + h-full flex).
    */
   fillRowHeight?: boolean
+  showDecor?: boolean
 }
 
 export default function PopoutPortrait({
@@ -25,17 +26,19 @@ export default function PopoutPortrait({
   width = Math.round(VIEWBOX_W * DEFAULT_DISPLAY_SCALE * 2.5),
   height = Math.round(VIEWBOX_H * DEFAULT_DISPLAY_SCALE * 2.5),
   fillRowHeight = false,
+  showDecor = false,
 }: PopoutPortraitProps) {
   const [isSingleCol, setIsSingleCol] = React.useState(false)
 
   // Suppress hydration warning for dynamic styles
   React.useEffect(() => {
+    if (!showDecor) return
     const mql = window.matchMedia('(max-width: 767px)')
     const update = () => setIsSingleCol(mql.matches)
     update()
     mql.addEventListener('change', update)
     return () => mql.removeEventListener('change', update)
-  }, [])
+  }, [showDecor])
 
   const uid = React.useId().replace(/:/g, '')
   const decorMaskId = `${uid}-decor-mask`
@@ -116,11 +119,11 @@ export default function PopoutPortrait({
         }
         @media (min-width: 768px) {
           .pb-popout-root[data-pb-fill-row] {
-            width: auto;
+            width: 100%;
             height: 100%;
-            max-width: none;
+            max-width: 100%;
             max-height: none;
-            flex: 1 1 auto;
+            flex: 0 1 auto;
           }
         }
         .pb-disk-dark {
@@ -131,14 +134,6 @@ export default function PopoutPortrait({
         }
         [data-theme='dark'] .pb-popout-root .pb-disk-dark {
           display: block;
-        }
-        @media (max-width: 767px) {
-          .pb-popout-root {
-            min-width: 320px;
-            width: auto !important;
-            margin-left: auto;
-            margin-right: -5vw;
-          }
         }
         .pb-decor-squiggle {
           fill: none;
@@ -152,163 +147,173 @@ export default function PopoutPortrait({
         }
       `}</style>
 
-      {/* z-0: decor behind everything; masked to exclude interior of popout circle */}
-      <svg
-        className="pointer-events-none absolute inset-0 z-0 overflow-visible"
-        width="100%"
-        height="100%"
-        viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden
-      >
-        <defs>
-          <mask id={decorMaskId} maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse">
-            <rect x={0} y={0} width={VIEWBOX_W} height={VIEWBOX_H} fill="white" />
-            <circle cx={cx} cy={cy} r={r} fill="black" />
-          </mask>
-          <clipPath id={decorOutsideClipId} clipPathUnits="userSpaceOnUse">
-            <path fillRule="evenodd" d={decorOutsideClipD} />
-          </clipPath>
-        </defs>
-        <g mask={`url(#${decorMaskId})`}>
-          {Array.from({ length: decorGridRows }, (_, row) =>
-            Array.from({ length: decorGridCols }, (_, col) => (
-              <circle
-                key={`d-${row}-${col}`}
-                cx={decorGridOrigin.x + col * decorGridStep}
-                cy={decorGridOrigin.y + row * decorGridStep}
-                r={decorGridR}
-                fill="#24254a"
-                opacity={Math.max(0.35, 1 - row * 0.14)}
+      {showDecor && (
+        <>
+          {/* z-0: decor behind everything; masked to exclude interior of popout circle */}
+          <svg
+            className="pointer-events-none absolute inset-0 z-0 overflow-visible"
+            width="100%"
+            height="100%"
+            viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden
+          >
+            <defs>
+              <mask id={decorMaskId} maskUnits="userSpaceOnUse" maskContentUnits="userSpaceOnUse">
+                <rect x={0} y={0} width={VIEWBOX_W} height={VIEWBOX_H} fill="white" />
+                <circle cx={cx} cy={cy} r={r} fill="black" />
+              </mask>
+              <clipPath id={decorOutsideClipId} clipPathUnits="userSpaceOnUse">
+                <path fillRule="evenodd" d={decorOutsideClipD} />
+              </clipPath>
+            </defs>
+            <g mask={`url(#${decorMaskId})`}>
+              {Array.from({ length: decorGridRows }, (_, row) =>
+                Array.from({ length: decorGridCols }, (_, col) => (
+                  <circle
+                    key={`d-${row}-${col}`}
+                    cx={decorGridOrigin.x + col * decorGridStep}
+                    cy={decorGridOrigin.y + row * decorGridStep}
+                    r={decorGridR}
+                    fill="#24254a"
+                    opacity={Math.max(0.35, 1 - row * 0.14)}
+                  />
+                )),
+              ).flat()}
+
+              <path
+                d={arcPathD}
+                stroke="#8284b8"
+                strokeWidth={2.5}
+                fill="none"
+                strokeLinecap="round"
               />
-            )),
-          ).flat()}
+            </g>
 
-          <path d={arcPathD} stroke="#8284b8" strokeWidth={2.5} fill="none" strokeLinecap="round" />
-        </g>
+            <g clipPath={`url(#${decorOutsideClipId})`}>
+              <circle cx={decorDotL.cx} cy={decorDotL.cy} r={decorDotLRadius} fill="#24254a" />
+            </g>
+          </svg>
 
-        <g clipPath={`url(#${decorOutsideClipId})`}>
-          <circle cx={decorDotL.cx} cy={decorDotL.cy} r={decorDotLRadius} fill="#24254a" />
-        </g>
-      </svg>
+          {/* z-1: Bodenschatten (Ellipse unter dem Kreis) + indigo Kreis mit Verlauf */}
+          <svg
+            className="pointer-events-none absolute inset-0 z-[1] overflow-visible"
+            width="100%"
+            height="100%"
+            viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden
+          >
+            <defs>
+              <radialGradient id={diskGradId} cx="38%" cy="32%" r="68%" fx="35%" fy="28%">
+                <stop offset="0%" stopColor="#55568f" />
+                <stop offset="45%" stopColor="#3f4078" />
+                <stop offset="100%" stopColor="#262752" />
+              </radialGradient>
+              <radialGradient
+                id={diskGroundShadowGradId}
+                gradientUnits="objectBoundingBox"
+                cx="50%"
+                cy="50%"
+                r="50%"
+              >
+                <stop offset="0%" stopColor="#080812" stopOpacity="0.52" />
+                <stop offset="45%" stopColor="#10101c" stopOpacity="0.28" />
+                <stop offset="100%" stopColor="#10101c" stopOpacity="0" />
+              </radialGradient>
+              <radialGradient
+                id={diskGroundShadowGradDarkId}
+                gradientUnits="objectBoundingBox"
+                cx="50%"
+                cy="50%"
+                r="50%"
+              >
+                <stop offset="0%" stopColor="#c8cae8" stopOpacity="0.14" />
+                <stop offset="40%" stopColor="#a8abce" stopOpacity="0.07" />
+                <stop offset="100%" stopColor="#a8abce" stopOpacity="0" />
+              </radialGradient>
+              <filter
+                id={diskGroundShadowBlurId}
+                x={cx - diskShadowRx - 56}
+                y={cy + r + diskShadowGap - 12}
+                width={2 * diskShadowRx + 112}
+                height={2 * diskShadowRy + 88}
+                filterUnits="userSpaceOnUse"
+                colorInterpolationFilters="sRGB"
+              >
+                <feGaussianBlur in="SourceGraphic" stdDeviation="14" />
+              </filter>
+              <linearGradient
+                id={diskRimGradId}
+                gradientUnits="userSpaceOnUse"
+                x1={cx - r * 0.55}
+                y1={cy - r * 0.9}
+                x2={cx + r * 0.65}
+                y2={cy + r * 0.75}
+              >
+                <stop offset="0%" stopColor="#ffffff" stopOpacity="0.58" />
+                <stop offset="20%" stopColor="#eef0ff" stopOpacity="0.32" />
+                <stop offset="48%" stopColor="#c8cce8" stopOpacity="0.12" />
+                <stop offset="100%" stopColor="#262752" stopOpacity="0" />
+              </linearGradient>
+            </defs>
+            <g className="pb-disk-light">
+              <ellipse
+                cx={cx}
+                cy={diskShadowCy}
+                rx={diskShadowRx}
+                ry={diskShadowRy}
+                fill={`url(#${diskGroundShadowGradId})`}
+                filter={`url(#${diskGroundShadowBlurId})`}
+              />
+            </g>
+            <g className="pb-disk-dark">
+              <ellipse
+                cx={cx}
+                cy={diskShadowCy}
+                rx={diskShadowRx}
+                ry={diskShadowRy}
+                fill={`url(#${diskGroundShadowGradDarkId})`}
+                filter={`url(#${diskGroundShadowBlurId})`}
+              />
+            </g>
+            <g className="pb-disk-core">
+              <circle cx={cx} cy={cy} r={r} fill={`url(#${diskGradId})`} />
+              <circle
+                cx={cx}
+                cy={cy}
+                r={r}
+                fill="none"
+                stroke={`url(#${diskRimGradId})`}
+                strokeWidth={2.65}
+                vectorEffect="nonScalingStroke"
+              />
+            </g>
+          </svg>
 
-      {/* z-1: Bodenschatten (Ellipse unter dem Kreis) + indigo Kreis mit Verlauf */}
-      <svg
-        className="pointer-events-none absolute inset-0 z-[1] overflow-visible"
-        width="100%"
-        height="100%"
-        viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden
-      >
-        <defs>
-          <radialGradient id={diskGradId} cx="38%" cy="32%" r="68%" fx="35%" fy="28%">
-            <stop offset="0%" stopColor="#55568f" />
-            <stop offset="45%" stopColor="#3f4078" />
-            <stop offset="100%" stopColor="#262752" />
-          </radialGradient>
-          <radialGradient
-            id={diskGroundShadowGradId}
-            gradientUnits="objectBoundingBox"
-            cx="50%"
-            cy="50%"
-            r="50%"
+          {/* z-2: Squiggle im Hintergrund — über Kreisfläche sichtbar, unter Karten und Portrait */}
+          <svg
+            className="pointer-events-none absolute inset-0 z-[2] overflow-visible"
+            width="100%"
+            height="100%"
+            viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden
           >
-            <stop offset="0%" stopColor="#080812" stopOpacity="0.52" />
-            <stop offset="45%" stopColor="#10101c" stopOpacity="0.28" />
-            <stop offset="100%" stopColor="#10101c" stopOpacity="0" />
-          </radialGradient>
-          <radialGradient
-            id={diskGroundShadowGradDarkId}
-            gradientUnits="objectBoundingBox"
-            cx="50%"
-            cy="50%"
-            r="50%"
-          >
-            <stop offset="0%" stopColor="#c8cae8" stopOpacity="0.14" />
-            <stop offset="40%" stopColor="#a8abce" stopOpacity="0.07" />
-            <stop offset="100%" stopColor="#a8abce" stopOpacity="0" />
-          </radialGradient>
-          <filter
-            id={diskGroundShadowBlurId}
-            x={cx - diskShadowRx - 56}
-            y={cy + r + diskShadowGap - 12}
-            width={2 * diskShadowRx + 112}
-            height={2 * diskShadowRy + 88}
-            filterUnits="userSpaceOnUse"
-            colorInterpolationFilters="sRGB"
-          >
-            <feGaussianBlur in="SourceGraphic" stdDeviation="14" />
-          </filter>
-          <linearGradient
-            id={diskRimGradId}
-            gradientUnits="userSpaceOnUse"
-            x1={cx - r * 0.55}
-            y1={cy - r * 0.9}
-            x2={cx + r * 0.65}
-            y2={cy + r * 0.75}
-          >
-            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.58" />
-            <stop offset="20%" stopColor="#eef0ff" stopOpacity="0.32" />
-            <stop offset="48%" stopColor="#c8cce8" stopOpacity="0.12" />
-            <stop offset="100%" stopColor="#262752" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-        <g className="pb-disk-light">
-          <ellipse
-            cx={cx}
-            cy={diskShadowCy}
-            rx={diskShadowRx}
-            ry={diskShadowRy}
-            fill={`url(#${diskGroundShadowGradId})`}
-            filter={`url(#${diskGroundShadowBlurId})`}
-          />
-        </g>
-        <g className="pb-disk-dark">
-          <ellipse
-            cx={cx}
-            cy={diskShadowCy}
-            rx={diskShadowRx}
-            ry={diskShadowRy}
-            fill={`url(#${diskGroundShadowGradDarkId})`}
-            filter={`url(#${diskGroundShadowBlurId})`}
-          />
-        </g>
-        <g className="pb-disk-core">
-          <circle cx={cx} cy={cy} r={r} fill={`url(#${diskGradId})`} />
-          <circle
-            cx={cx}
-            cy={cy}
-            r={r}
-            fill="none"
-            stroke={`url(#${diskRimGradId})`}
-            strokeWidth={2.65}
-            vectorEffect="nonScalingStroke"
-          />
-        </g>
-      </svg>
-
-      {/* z-2: Squiggle im Hintergrund — über Kreisfläche sichtbar, unter Karten und Portrait */}
-      <svg
-        className="pointer-events-none absolute inset-0 z-[2] overflow-visible"
-        width="100%"
-        height="100%"
-        viewBox={`0 0 ${VIEWBOX_W} ${VIEWBOX_H}`}
-        xmlns="http://www.w3.org/2000/svg"
-        aria-hidden
-      >
-        <g
-          transform={`translate(${decorSquiggleTx} ${decorSquiggleTy}) translate(${decorSquigglePivot.x} ${decorSquigglePivot.y}) scale(${decorSquiggleScale}) translate(${-decorSquigglePivot.x} ${-decorSquigglePivot.y})`}
-        >
-          <path
-            className="pb-decor-squiggle"
-            vectorEffect="nonScalingStroke"
-            d="M 120 332 C 133 306, 151 298, 162 319
-               C 172 340, 190 329, 201 309
-               C 211 288, 230 293, 237 314"
-          />
-        </g>
-      </svg>
+            <g
+              transform={`translate(${decorSquiggleTx} ${decorSquiggleTy}) translate(${decorSquigglePivot.x} ${decorSquigglePivot.y}) scale(${decorSquiggleScale}) translate(${-decorSquigglePivot.x} ${-decorSquigglePivot.y})`}
+            >
+              <path
+                className="pb-decor-squiggle"
+                vectorEffect="nonScalingStroke"
+                d="M 120 332 C 133 306, 151 298, 162 319
+                   C 172 340, 190 329, 201 309
+                   C 211 288, 230 293, 237 314"
+              />
+            </g>
+          </svg>
+        </>
+      )}
 
       {/* z-4: Portrait ohne SVG-clipPath, damit das Motiv vollständig sichtbar bleibt (xMidYMax meet im Slot) */}
       <svg
@@ -329,7 +334,8 @@ export default function PopoutPortrait({
             gradientUnits="userSpaceOnUse"
           >
             <stop offset="0%" stopColor="#fff" stopOpacity="1" />
-            <stop offset="85%" stopColor="#fff" stopOpacity="1" />
+            <stop offset="76%" stopColor="#fff" stopOpacity="1" />
+            <stop offset="91%" stopColor="#fff" stopOpacity="0.38" />
             <stop offset="100%" stopColor="#fff" stopOpacity="0" />
           </linearGradient>
           <mask

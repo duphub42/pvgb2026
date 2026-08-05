@@ -96,6 +96,7 @@ export const ReasonCard: React.FC<ReasonCardProps> = ({ title, description, icon
   return (
     <div
       ref={rootRef}
+      data-why-card-surface="true"
       className={cn(
         'group relative min-h-[11.5rem] min-w-0 overflow-hidden rounded-2xl border border-border/35 bg-card',
       )}
@@ -123,10 +124,21 @@ export const ReasonCard: React.FC<ReasonCardProps> = ({ title, description, icon
         aria-hidden
       />
       <div className="relative z-10 flex min-h-full min-w-0 flex-col p-6 pb-10 pr-8">
-        <p className="text-base font-semibold tracking-tight text-card-foreground">{title}</p>
-        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{description}</p>
+        <p
+          data-why-card-detail="true"
+          className="text-base font-semibold tracking-tight text-card-foreground"
+        >
+          {title}
+        </p>
+        <p
+          data-why-card-detail="true"
+          className="mt-2 text-sm leading-relaxed text-muted-foreground"
+        >
+          {description}
+        </p>
       </div>
       <div
+        data-why-card-icon="true"
         className={cn(
           'pointer-events-none absolute -bottom-6 -right-6 z-0 flex size-[7.5rem] items-center justify-center',
           'text-foreground/[0.14] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform',

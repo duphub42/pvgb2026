@@ -474,8 +474,8 @@ export default async function Page({
           >
             <div
               className={cn(
-                'relative isolate z-[32]',
-                !previewIsSuperheroHero && 'hero-bottom-border',
+                'relative isolate',
+                previewIsSuperheroHero ? 'z-[36]' : 'z-[32] hero-bottom-border',
               )}
             >
               <SectionReveal>
@@ -490,15 +490,21 @@ export default async function Page({
                 'relative w-full min-w-0 hero-following-section-mask',
                 previewFirstBlockIsServices
                   ? cn(
-                      'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
-                      previewIsSuperheroHero ? 'z-[34]' : 'lg:z-[33]',
+                      'hero-following-section--services-flush mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
+                      previewIsSuperheroHero ? 'z-auto' : 'z-20 lg:z-[33]',
                     )
                   : previewIsSuperheroHero
-                    ? 'z-[34] mt-0 pt-24'
+                    ? 'z-auto mt-0 pt-24'
                     : 'z-20 max-md:pt-8 pt-24 md:z-[31]',
               )}
             >
-              <SectionReveal className="relative z-0 pt-24">
+                <SectionReveal
+                  className={cn(
+                    'relative',
+                    previewIsSuperheroHero ? 'pt-24' : 'z-0 pt-24',
+                    previewIsSuperheroHero && 'hero-following-section-foreground',
+                  )}
+                >
                 <RenderBlocks blocks={previewBlocksBeforeAndIncludingCta} />
                 {previewRenderFaqAfterCta && <PortfolioFaqBox faq={pageById.faq} />}
                 {previewBlocksAfterCta.length > 0 && (
@@ -666,11 +672,17 @@ export default async function Page({
           />
         ) : null}
         {/*
-          Hero z-32. Standard-Folgesection z-31, damit Mask nicht über Hero-Popout liegt.
+          Hero z-36 for Superhero so the portrait can paint above the following section.
+          Standard-Folgesection z-31, damit Mask nicht über Hero-Popout liegt.
           servicesOverview: Unter lg (Umbruch 1–2 Spalten) z-20 + kein Negativ-Margin — Karten liegen unter dem Hero.
           Ab lg (4 Spalten): z-33 + Flush — Karten dürfen in den Hero ragen / Hover darüber (s. globals services-flush).
         */}
-        <div className={cn('relative isolate z-[32]', !isSuperheroHero && 'hero-bottom-border')}>
+        <div
+          className={cn(
+            'relative isolate',
+            isSuperheroHero ? 'z-[36]' : 'z-[32] hero-bottom-border',
+          )}
+        >
           <SectionReveal>
             <HeroErrorBoundary>
               <RenderHero {...heroProps} pageSlug={resolvedSlug} />
@@ -683,15 +695,21 @@ export default async function Page({
             'relative w-full min-w-0 hero-following-section-mask',
             firstBlockIsServices
               ? cn(
-                  'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
-                  isSuperheroHero ? 'z-[34]' : 'lg:z-[33]',
+                  'hero-following-section--services-flush mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
+                  isSuperheroHero ? 'z-auto' : 'z-20 lg:z-[33]',
                 )
               : isSuperheroHero
-                ? 'z-[34] mt-0 pt-24'
+                ? 'z-auto mt-0 pt-24'
                 : 'z-20 max-md:pt-8 pt-24 md:z-[31]',
           )}
         >
-          <SectionReveal className="relative z-0 pt-24">
+          <SectionReveal
+            className={cn(
+              'relative',
+              isSuperheroHero ? 'pt-24' : 'z-0 pt-24',
+              isSuperheroHero && 'hero-following-section-foreground',
+            )}
+          >
             <RenderBlocks blocks={blocksBeforeAndIncludingCta} />
             {renderFaqAfterCta && <PortfolioFaqBox faq={page.faq} />}
             {blocksAfterCta.length > 0 && <RenderBlocks blocks={blocksAfterCta} />}

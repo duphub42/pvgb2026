@@ -92,5 +92,5 @@ export const RenderHero: FC<HeroRenderProps> = (props) => {
 
   const heroDataWithFallback = withFallbackHeroContent(heroData, pageSlug)
 
-  return <HeroToRender {...heroDataWithFallback} />
+  return <HeroToRender {...heroDataWithFallback} pageSlug={pageSlug} />
 }

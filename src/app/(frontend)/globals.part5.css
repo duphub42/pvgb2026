@@ -2226,6 +2226,13 @@ html.theme-wave-transition.theme-wave-light::before {
 [data-theme='dark'] .site-header .logo-link svg {
   filter: brightness(0) invert(1) !important;
 }
+/* Light: Header-Hintergrund erscheint erst bei Hover (transparent über Hero davor) */
+[data-theme='light'] .megamenu:hover,
+[data-theme='light'] .site-header:hover {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: none;
+  border-bottom-color: transparent !important;
+}
 /* Dark: Linie nur an .header-slide-layer */
 [data-theme='dark'] .megamenu:hover,
 [data-theme='dark'] .site-header:hover {
@@ -2256,6 +2263,85 @@ html.theme-wave-transition.theme-wave-light::before {
 [data-theme='dark'] .megamenu .megamenu-top-item[data-state='open'] [class*='lucide'] {
   color: #ffffff;
 }
+/* Panel-Höhe: Radix setzt --radix-navigation-menu-viewport-height auf .megamenu-viewport, aber ohne
+   diese Regeln bleibt der Wrapper 0px hoch und der Dropdown-Hintergrund unsichtbar (Content ist
+   md:absolute positioniert und trägt daher nicht zur Höhe des Elternelements bei). */
+.megamenu {
+  --megamenu-close-panel-delay: 8ms;
+}
+@keyframes megamenu-slide-down {
+  from {
+    transform: translateY(0);
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+    max-height: 85vh;
+  }
+}
+@keyframes megamenu-slide-up {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+    max-height: 85vh;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 0;
+    max-height: 0;
+  }
+}
+.megamenu-viewport-wrapper {
+  overflow: hidden;
+  max-height: 0;
+  min-height: 0;
+  will-change: transform, height;
+}
+.megamenu-viewport-wrapper:has([data-state='open']) {
+  min-height: 0;
+  height: auto;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  animation: megamenu-slide-down 180ms ease-out forwards;
+}
+.megamenu-viewport-wrapper:has([data-state='open']) .megamenu-viewport {
+  min-height: 0;
+  height: var(--radix-navigation-menu-viewport-height, 15rem);
+}
+.megamenu-dropdown-content {
+  width: 100%;
+  min-width: 0;
+}
+@media (max-width: 1279px) {
+  .megamenu-dropdown-content {
+    align-items: start;
+  }
+}
+.megamenu-viewport-wrapper:not(:has([data-state='open'])) {
+  animation: megamenu-slide-up 150ms ease-in var(--megamenu-close-panel-delay) forwards;
+}
+.megamenu-viewport,
+.megamenu .megamenu-viewport {
+  animation: none !important;
+  transition: height 180ms cubic-bezier(0.25, 0.1, 0.25, 1);
+  will-change: height;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+[data-theme='light'] .megamenu-dropdown-bg,
+[data-theme='light'] .megamenu-viewport-wrapper {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  color: #171717 !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+[data-theme='light'] .megamenu-viewport,
+[data-theme='light'] .megamenu .megamenu-viewport {
+  background: rgba(255, 255, 255, 0.99) !important;
+  color: inherit;
+}
 [data-theme='dark'] .megamenu-dropdown-bg,
 [data-theme='dark'] .megamenu-viewport-wrapper {
   background-color: var(--mega-menu-dropdown-bg, #0a0a0a) !important;
@@ -2269,10 +2355,18 @@ html.theme-wave-transition.theme-wave-light::before {
   color: #fafafa;
 }
 
+/* Basis-Hintergrund der Featured-Spalte im Dropdown (Frosted-Glass-Karte). */
+.megamenu .megamenu-featured {
+  background-color: rgba(255, 255, 255, 0.22) !important;
+  border: 1px solid rgba(255, 255, 255, 0.35) !important;
+  box-shadow: none !important;
+  backdrop-filter: blur(14px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(14px) saturate(180%) !important;
+}
 [data-theme='dark'] .megamenu .megamenu-featured {
   background-color: #070707 !important;
-  color: #fafafa;
   border: 1px solid #1f1f1f !important;
+  color: #fafafa;
   box-shadow: none !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
@@ -2426,6 +2520,13 @@ html.theme-wave-transition.theme-wave-light::before {
   background-repeat: no-repeat;
 }
 
+.home-intro-maneki-background-image.render-block-background-image--top-right {
+  background-size: clamp(14rem, 31dvw, 34rem) auto;
+  transform: scale(calc(1 + var(--home-intro-maneki-scroll-progress, 0) * 0.32));
+  transform-origin: right top;
+  will-change: transform;
+}
+
 .portfolio-teaser-section-background::before {
   --render-block-background-image-opacity: 1;
   content: '';
@@ -2475,15 +2576,41 @@ html.theme-wave-transition.theme-wave-light::before {
   filter: invert(1) hue-rotate(180deg) saturate(1.08) contrast(1.02) brightness(0.94);
 }
 
+:root:not([data-theme]) .home-intro-maneki-background-image:not(.render-block-background-image--no-invert),
+[data-theme='light'] .home-intro-maneki-background-image:not(.render-block-background-image--no-invert) {
+  --render-block-background-image-opacity: 0.119;
+  filter: invert(1) hue-rotate(180deg) saturate(1.08) contrast(1.02) brightness(0.94);
+}
+
+[data-theme='dark'] .home-intro-maneki-background-image:not(.render-block-background-image--no-invert) {
+  --render-block-background-image-opacity: 0.391;
+  filter: brightness(1.18) contrast(1.08) saturate(1.02);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .render-block-background-image {
     animation: none;
     opacity: var(--render-block-background-image-opacity);
   }
 
+  .home-intro-maneki-background-image.render-block-background-image--top-right {
+    transform: none;
+    will-change: auto;
+  }
+
   .portfolio-teaser-section-background::before {
     animation: none;
     opacity: var(--render-block-background-image-opacity);
+  }
+}
+
+@media (max-width: 767px) {
+  .home-intro-maneki-background-image.render-block-background-image--top-right {
+    --home-intro-maneki-mobile-size: clamp(12rem, 58vw, 18rem);
+    background-size: clamp(12rem, 58vw, 18rem) auto;
+    /* Keep the image inside its box (previous formula subtracted 1.5x its own
+       size from the top offset, pushing it entirely above the visible area). */
+    background-position: right -1.75rem top 1rem;
   }
 }
 
@@ -2903,7 +3030,7 @@ html[data-theme='dark'] .logo-bento-detail-layer,
 
 /* Portfolio Case Slider: gleiche, dezente Flächenlogik wie Logo-Bento */
 .portfolio-case-card {
-  background: color-mix(in oklab, var(--card) 5%, transparent);
+  background: color-mix(in oklab, var(--card) 48%, transparent);
   border-color: var(--border);
   transition: background-color 0.2s ease, border-color 0.2s ease;
 }
@@ -2912,6 +3039,18 @@ html[data-theme='dark'] .logo-bento-detail-layer,
 .portfolio-case-card:focus-visible {
   background: var(--card);
   border-color: var(--border);
+}
+
+/* Karten-Visuals (Screenshots, KPI-Charts) starten gedämpft und entfalten
+   ihre volle Farbigkeit erst beim Hover/Fokus der Karte. */
+.portfolio-case-visual {
+  filter: saturate(0.22) contrast(0.97);
+  transition: filter 0.5s ease;
+}
+
+.portfolio-case-card:hover .portfolio-case-visual,
+.portfolio-case-card:focus-visible .portfolio-case-visual {
+  filter: saturate(1) contrast(1);
 }
 
 .portfolio-slider-control {
@@ -2928,31 +3067,31 @@ html[data-theme='dark'] .logo-bento-detail-layer,
 
 html[data-theme='dark'] .portfolio-case-card,
 [data-theme='dark'] .portfolio-case-card {
-  background: rgba(24, 24, 27, 0.05);
-  border-color: rgba(255, 255, 255, 0.12);
+  background: color-mix(in srgb, var(--card) 35%, transparent);
+  border-color: var(--border);
 }
 
 html[data-theme='dark'] .portfolio-case-card:hover,
 html[data-theme='dark'] .portfolio-case-card:focus-visible,
 [data-theme='dark'] .portfolio-case-card:hover,
 [data-theme='dark'] .portfolio-case-card:focus-visible {
-  background: #3f3f46;
-  border-color: rgba(255, 255, 255, 0.22);
+  background: var(--card);
+  border-color: color-mix(in srgb, var(--foreground) 22%, var(--border));
 }
 
 html[data-theme='dark'] .portfolio-slider-control,
 [data-theme='dark'] .portfolio-slider-control {
-  background: rgba(24, 24, 27, 0.05);
-  border-color: rgba(255, 255, 255, 0.16);
-  color: #f4f4f5;
+  background: color-mix(in srgb, var(--card) 20%, transparent);
+  border-color: var(--border);
+  color: var(--foreground);
 }
 
 html[data-theme='dark'] .portfolio-slider-control:hover,
 html[data-theme='dark'] .portfolio-slider-control:focus-visible,
 [data-theme='dark'] .portfolio-slider-control:hover,
 [data-theme='dark'] .portfolio-slider-control:focus-visible {
-  background: rgba(39, 39, 42, 0.95);
-  border-color: rgba(255, 255, 255, 0.24);
+  background: var(--card);
+  border-color: color-mix(in srgb, var(--foreground) 24%, var(--border));
 }
 
 /* Hero-Box: radialer Glaseffekt gilt auch auf Mobile – keine Überschreibung durch solid/mask.

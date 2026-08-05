@@ -5,27 +5,27 @@ import { blockStyleFields } from '@/blocks/blockStyleFields'
 const defaultIntroIconList = [
   {
     icon: 'brain' as const,
-    text: 'Ich denke unternehmerisch, nicht in einzelnen Leistungen.',
-  },
-  {
-    icon: 'target' as const,
-    text: 'Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.',
-  },
-  {
-    icon: 'search' as const,
-    text: 'Ich hinterfrage alles — auch bestehende Strategien.',
+    text: 'Unternehmerisch statt in Einzelleistungen gedacht: Bei Trinkwasser-Verband.de wurde nicht nur eine Website gebaut, sondern Website, Lead-Erfassung und Follow-up-Prozess als ein zusammenhängendes System geplant.',
   },
   {
     icon: 'zap' as const,
-    text: 'Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.',
+    text: 'Jedes Projekt startet mit einer Ist-Analyse bestehender Kanäle und Prozesse — bei MEDIFISCH.de führte das dazu, dass Werbung von META Marketingkanälen eingestellt wurden, weil sie keine messbaren Leads brachten.',
   },
   {
-    icon: 'handshake' as const,
-    text: 'Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.',
+    icon: 'search' as const,
+    text: 'Bestehende Strategien werden geprüft, bevor neue aufgesetzt werden: Ein Website-Relaunch beginnt grundsätzlich mit einer Analyse der aktuellen SEO-Rankings und Nutzerpfade, nicht mit einem Neustart bei null.',
+  },
+  {
+    icon: 'target' as const,
+    text: 'Erfolg wird an Anfragen und Abschlüssen gemessen, nicht an Klickzahlen — deshalb ist eine Marktanalyse fester Bestandteil jedes Projekts: ein monatliches Reporting mit den Kennzahlen, die tatsächlich zu Kundenkontakt führen (Formular-Absendungen, Anrufe), statt reinem Traffic.',
   },
   {
     icon: 'trending-up' as const,
-    text: 'Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.',
+    text: 'Websites entstehen auf einer skalierbaren technischen Basis (Next.js, Payload CMS) — neue Seiten, Funktionen oder ein Onlineshop lassen sich später ergänzen, ohne die Seite komplett neu zu bauen. Nachvollziehbar am Beispiel von Soulmating.de.',
+  },
+  {
+    icon: 'handshake' as const,
+    text: 'Ein Ansprechpartner, keine Weiterleitungsschleifen: Anfragen werden direkt und persönlich beantwortet, das kostenlose Erstgespräch klärt Umfang und Budget meist innerhalb eines Termins statt mehrerer Abstimmungsrunden.',
   },
 ]
 

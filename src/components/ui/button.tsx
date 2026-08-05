@@ -27,7 +27,7 @@ function Button({
   variant = 'default',
   size = 'default',
   asChild = false,
-  ctaIcon = false,
+  ctaIcon: _ctaIcon = false,
   iconA: IconA = ChevronRight,
   iconB: IconB = ArrowUpRight,
   children,
@@ -43,14 +43,12 @@ function Button({
     if (fragmentChildren.length !== 1) return null
 
     const [onlyChild] = fragmentChildren
-    return React.isValidElement<{ children?: React.ReactNode }>(onlyChild)
-      ? onlyChild
-      : null
+    return React.isValidElement<{ children?: React.ReactNode }>(onlyChild) ? onlyChild : null
   }
 
   const slottableChild = asChild ? getSlottableElement(children) : null
   const Comp = asChild && slottableChild != null ? Slot.Root : 'button'
-  const shouldRenderCtaIcon = ctaIcon && variant === 'cta'
+  const shouldRenderCtaIcon = _ctaIcon && variant === 'cta'
 
   const renderCtaContent = (value: React.ReactNode) => (
     <>
@@ -72,10 +70,14 @@ function Button({
 
   const content =
     shouldRenderCtaIcon && slottableChild != null
-      ? React.cloneElement(slottableChild, undefined, renderCtaContent(slottableChild.props.children))
+      ? React.cloneElement(
+          slottableChild,
+          undefined,
+          renderCtaContent(slottableChild.props.children),
+        )
       : shouldRenderCtaIcon
         ? renderCtaContent(children)
-        : slottableChild ?? children
+        : (slottableChild ?? children)
 
   return (
     <Comp

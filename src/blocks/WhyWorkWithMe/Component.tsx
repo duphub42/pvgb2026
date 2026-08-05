@@ -1,6 +1,8 @@
 'use client'
 
-import React, { useMemo } from 'react'
+import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
   Brain,
   Briefcase,
@@ -25,6 +27,8 @@ import { ReasonCard } from '@/blocks/WhyWorkWithMe/ReasonCard'
 import { cn } from '@/utilities/ui'
 import { BlockContainer } from '@/components/BlockContainer'
 
+gsap.registerPlugin(ScrollTrigger)
+
 const ICON_MAP: Record<string, LucideIcon> = {
   brain: Brain,
   lightbulb: Lightbulb,
@@ -45,27 +49,27 @@ const ICON_MAP: Record<string, LucideIcon> = {
 const INTRO_ICON_FALLBACK: Array<{ icon: string; text: string }> = [
   {
     icon: 'brain',
-    text: 'Ich denke unternehmerisch, nicht in einzelnen Leistungen.',
-  },
-  {
-    icon: 'target',
-    text: 'Ich arbeite nicht für Klicks, sondern für echte Ergebnisse.',
-  },
-  {
-    icon: 'search',
-    text: 'Ich hinterfrage alles — auch bestehende Strategien.',
+    text: 'Unternehmerisch statt in Einzelleistungen gedacht: Bei Trinkwasser-Verband.de wurde nicht nur eine Website gebaut, sondern Website, Lead-Erfassung und Follow-up-Prozess als ein zusammenhängendes System geplant.',
   },
   {
     icon: 'zap',
-    text: 'Ich erkenne schnell, was wirklich funktioniert und was nur Zeit kostet.',
+    text: 'Jedes Projekt startet mit einer Ist-Analyse bestehender Kanäle und Prozesse — bei MEDIFISCH.de führte das dazu, dass Werbung von META Marketingkanälen eingestellt wurden, weil sie keine messbaren Leads brachten.',
   },
   {
-    icon: 'handshake',
-    text: 'Ich übernehme Verantwortung für Resultate, nicht nur für Umsetzung.',
+    icon: 'search',
+    text: 'Bestehende Strategien werden geprüft, bevor neue aufgesetzt werden: Ein Website-Relaunch beginnt grundsätzlich mit einer Analyse der aktuellen SEO-Rankings und Nutzerpfade, nicht mit einem Neustart bei null.',
+  },
+  {
+    icon: 'target',
+    text: 'Erfolg wird an Anfragen und Abschlüssen gemessen, nicht an Klickzahlen — deshalb ist eine Marktanalyse fester Bestandteil jedes Projekts: ein monatliches Reporting mit den Kennzahlen, die tatsächlich zu Kundenkontakt führen (Formular-Absendungen, Anrufe), statt reinem Traffic.',
   },
   {
     icon: 'trending-up',
-    text: 'Ich baue Systeme, die wachsen, statt ständig neu gestartet zu werden.',
+    text: 'Websites entstehen auf einer skalierbaren technischen Basis (Next.js, Payload CMS) — neue Seiten, Funktionen oder ein Onlineshop lassen sich später ergänzen, ohne die Seite komplett neu zu bauen. Nachvollziehbar am Beispiel von Soulmating.de.',
+  },
+  {
+    icon: 'handshake',
+    text: 'Ein Ansprechpartner, keine Weiterleitungsschleifen: Anfragen werden direkt und persönlich beantwortet, das kostenlose Erstgespräch klärt Umfang und Budget meist innerhalb eines Termins statt mehrerer Abstimmungsrunden.',
   },
 ]
 
@@ -160,6 +164,156 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = (props) => {
     })
   }, [introIconList])
   const showIntroIconList = introListItems.length > 0
+  const introItemRefs = useRef<Array<HTMLLIElement | null>>([])
+  const cardRefs = useRef<Array<HTMLDivElement | null>>([])
+
+  useEffect(() => {
+    if (!showIntroIconList) return
+
+    let frame = 0
+
+    const updateIntroItemOpacity = () => {
+      frame = 0
+      const viewportCenter = window.innerHeight / 2
+      const fadeDistance = Math.max(window.innerHeight * 0.12, 96)
+
+      introItemRefs.current.forEach((item) => {
+        if (!item) return
+
+        const rect = item.getBoundingClientRect()
+        const itemCenter = rect.top + rect.height / 2
+        const distanceFromCenter = Math.abs(itemCenter - viewportCenter)
+        const centerStrength = Math.max(0, 1 - distanceFromCenter / fadeDistance)
+        const opacity = 0.22 + centerStrength * 0.78
+
+        item.style.setProperty('--why-intro-item-opacity', opacity.toFixed(3))
+        item.style.setProperty('--why-intro-item-focus', centerStrength.toFixed(3))
+      })
+    }
+
+    const scheduleUpdate = () => {
+      if (frame) return
+      frame = window.requestAnimationFrame(updateIntroItemOpacity)
+    }
+
+    introItemRefs.current = introItemRefs.current.slice(0, introListItems.length)
+    updateIntroItemOpacity()
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', scheduleUpdate)
+
+    return () => {
+      if (frame) window.cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', scheduleUpdate)
+    }
+  }, [introListItems.length, showIntroIconList])
+
+  useLayoutEffect(() => {
+    const cards = cardRefs.current.slice(0, items.length).filter(Boolean) as HTMLDivElement[]
+    if (!cards.length) return
+
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (prefersReducedMotion) {
+      cards.forEach((card) => {
+        card.classList.add('is-visible')
+        gsap.set(card, { clearProps: 'all' })
+        gsap.set(card.querySelectorAll('[data-why-card-detail="true"], [data-why-card-icon="true"]'), {
+          clearProps: 'all',
+        })
+      })
+      return
+    }
+
+    const root = cards[0]?.parentElement
+    if (!root) return
+
+    const context = gsap.context(() => {
+      cards.forEach((card, cardIndex) => {
+        gsap.set(card, {
+          autoAlpha: 0,
+          y: 72,
+          x: cardIndex % 2 === 0 ? -18 : 18,
+          scale: 0.9,
+          rotateX: -18,
+          rotateZ: cardIndex % 2 === 0 ? -2.4 : 2.4,
+          filter: 'blur(18px)',
+          transformPerspective: 1000,
+          transformOrigin: '50% 100%',
+        })
+
+        gsap.set(card.querySelectorAll('[data-why-card-detail="true"]'), {
+          autoAlpha: 0,
+          y: 18,
+          filter: 'blur(8px)',
+        })
+
+        gsap.set(card.querySelector('[data-why-card-icon="true"]'), {
+          autoAlpha: 0,
+          scale: 0.72,
+          rotate: cardIndex % 2 === 0 ? -14 : 14,
+        })
+      })
+
+      const timeline = gsap.timeline({
+        defaults: { ease: 'none' },
+        scrollTrigger: {
+          trigger: root,
+          start: 'top 76%',
+          end: 'top 42%',
+          scrub: 0.85,
+        },
+      })
+
+      timeline.to(cards, {
+        autoAlpha: 1,
+        y: 0,
+        x: 0,
+        scale: 1,
+        rotateX: 0,
+        rotateZ: 0,
+        filter: 'blur(0px)',
+        duration: 1,
+        stagger: {
+          each: 0.12,
+          from: 'start',
+        },
+      })
+
+      cards.forEach((card, cardIndex) => {
+        timeline.to(
+          card.querySelectorAll('[data-why-card-detail="true"]'),
+          {
+            autoAlpha: 1,
+            y: 0,
+            filter: 'blur(0px)',
+            duration: 0.56,
+            stagger: 0.05,
+            ease: 'none',
+          },
+          0.18 + cardIndex * 0.12,
+        )
+
+        timeline.to(
+          card.querySelector('[data-why-card-icon="true"]'),
+          {
+            autoAlpha: 1,
+            scale: 1,
+            rotate: 0,
+            duration: 0.62,
+            ease: 'none',
+          },
+          0.24 + cardIndex * 0.12,
+        )
+      })
+    }, root)
+
+    ScrollTrigger.refresh()
+
+    return () => {
+      context.revert()
+    }
+  }, [items.length])
+
   /** null/undefined (alte Blöcke nach Migration): Standardüberschrift; leerer String = bewusst ausblenden */
   const headingUnset = heading === null || heading === undefined
   const headingTrimmed = typeof heading === 'string' ? heading.trim() : ''
@@ -168,10 +322,15 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = (props) => {
   const hasTextColumn = showHeading || showIntro || showIntroIconList
 
   return (
-    <BlockContainer styles={styles} index={index}>
+    <BlockContainer
+      styles={styles}
+      index={index}
+      className="why-work-with-me-block relative z-[120]"
+      disableAnimation
+    >
       <div
         className={cn(
-          'grid min-w-0 gap-10',
+          'why-work-with-me-grid grid min-w-0 gap-10',
           hasTextColumn && 'lg:grid-cols-2 lg:items-start lg:gap-12 xl:gap-16',
         )}
       >
@@ -199,10 +358,16 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = (props) => {
                   'lg:mb-0',
                 )}
               >
-                {introListItems.map(({ key, iconKey, text }) => {
+                {introListItems.map(({ key, iconKey, text }, itemIndex) => {
                   const Icon = ICON_MAP[iconKey] ?? Brain
                   return (
-                    <li key={key} className="flex gap-3">
+                    <li
+                      key={key}
+                      ref={(node) => {
+                        introItemRefs.current[itemIndex] = node
+                      }}
+                      className="why-work-intro-fade-item flex gap-3"
+                    >
                       <span
                         className="mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-lg border border-border/50 bg-muted/40 text-primary"
                         aria-hidden
@@ -220,16 +385,27 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = (props) => {
 
         <div
           className={cn(
-            'grid min-w-0 gap-4',
+            'relative z-[90] grid min-w-0 gap-4',
             /* Rechte Spalte: Karten als Block (2×2 ab sm); ohne Textspalte wie bisher auto-fit. */
             hasTextColumn
               ? 'sm:grid-cols-2'
               : 'grid-cols-1 sm:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(min(100%,15rem),1fr))]',
           )}
         >
-          {items.map(({ key, iconKey, title, description }) => {
+          {items.map(({ key, iconKey, title, description }, cardIndex) => {
             return (
-              <ReasonCard key={key} title={title} description={description} iconKey={iconKey} />
+              <div
+                key={key}
+                ref={(node) => {
+                  cardRefs.current[cardIndex] = node
+                }}
+                className={cn(
+                  'why-work-card-reveal relative z-[130] transform-gpu',
+                  'motion-reduce:translate-y-0 motion-reduce:opacity-100 motion-reduce:blur-0 motion-reduce:transition-none',
+                )}
+              >
+                <ReasonCard title={title} description={description} iconKey={iconKey} />
+              </div>
             )
           })}
         </div>

@@ -268,7 +268,13 @@
     max-width: 100vw;
   }
   body {
-    overflow-x: hidden;
+    /* overflow-x stays on <html> only (see above) - having it here too forces
+       overflow-y to compute as 'auto' (CSS's visible/non-visible axis-coupling rule),
+       which makes <body> a scroll container even though it never actually scrolls
+       (document.scrollingElement is <html>). That silently breaks position:sticky
+       for every descendant on the whole site, since sticky elements bind to the
+       nearest scroll-container ancestor - which was this inert one instead of the
+       real one. Horizontal overflow is still fully clipped by <html>'s rule. */
     overscroll-behavior: none;
     font-family: var(--font-body);
     font-feature-settings: var(--type-feature-settings);
@@ -603,6 +609,8 @@
     --hero-portrait-shadow-1: 0 26px 54px rgba(9, 12, 24, 0.34);
     --hero-portrait-shadow-2: 0 8px 22px rgba(6, 10, 18, 0.2);
     --hero-portrait-shadow-3: 0 0 36px color-mix(in srgb, hsl(var(--primary)) 30%, transparent);
+    --hero-portrait-safe-shift-x: 5%;
+    --hero-portrait-safe-scale: 1;
     --hero-layer-base-translate-max: 0.4rem;
     --hero-layer-base-scale-max: 0.015;
     --hero-layer-base-fade-max: 0.2;
@@ -630,7 +638,7 @@
     width: 100%;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 479px) {
     section[data-hero-type='superhero'] {
       --hero-portrait-translate-max: 11rem;
       --hero-portrait-translate-extra-max: 13rem;
@@ -643,6 +651,59 @@
     --hero-portrait-shadow-1: 0 30px 60px rgba(0, 0, 0, 0.58);
     --hero-portrait-shadow-2: 0 12px 30px rgba(0, 0, 0, 0.4);
     --hero-portrait-shadow-3: 0 0 24px rgba(0, 0, 0, 0.28);
+  }
+
+  section[data-hero-type='superhero'][data-hero-has-portrait='true'] {
+    --hero-portrait-translate-max: 13rem;
+    --hero-portrait-translate-extra-max: 9rem;
+    --hero-portrait-scale-down-max: 0;
+    --hero-portrait-fade-max: 0.78;
+    --hero-portrait-desaturate-max: 0.12;
+    --hero-portrait-blur-max: 10px;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
+    --hero-portrait-translate-max: calc(63rem - 100px);
+    --hero-portrait-translate-extra-max: 0rem;
+    --hero-portrait-fade-max: 1;
+    --hero-portrait-desaturate-max: 0.18;
+    --hero-portrait-blur-max: 8px;
+  }
+
+  @media (min-width: 1024px) and (max-width: 1199px) {
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
+      --hero-portrait-translate-max: calc(66rem - 100px);
+    }
+  }
+
+  @media (max-width: 1023px) {
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
+      --hero-portrait-translate-max: 0rem;
+      --hero-portrait-translate-extra-max: 0rem;
+      --hero-layer-eyebrow-fade-max: 1;
+      --hero-layer-headline-fade-max: 1;
+      --hero-layer-body-fade-max: 1;
+      --hero-layer-cta-fade-max: 1;
+      --hero-layer-marquee-fade-max: 1;
+    }
+  }
+
+  @media (max-width: 479px) {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] {
+      --hero-portrait-translate-max: 2.75rem;
+      --hero-portrait-translate-extra-max: 0rem;
+      --hero-portrait-fade-max: 0;
+      --hero-portrait-desaturate-max: 0;
+      --hero-portrait-blur-max: 0px;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
+      --hero-portrait-translate-max: 0rem;
+      --hero-portrait-translate-extra-max: 0rem;
+      --hero-portrait-fade-max: 0;
+      --hero-portrait-desaturate-max: 0;
+      --hero-portrait-blur-max: 0px;
+    }
   }
 
   .hero-shell--superhero section[data-hero-type='superhero'] {
@@ -789,6 +850,92 @@
     transform-origin: center center;
   }
 
+  section[data-hero-type='superhero'] .hero-scroll-bg-image--home-mobile {
+    display: none;
+  }
+
+  section[data-hero-type='superhero'] .hero-scroll-bg-backplate {
+    transform: none;
+    filter: none;
+    transform-origin: center center;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] {
+    background: var(--background);
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-backplate {
+    filter: blur(18px) saturate(0.92);
+    opacity: 0.44;
+    object-position: 50% var(--home-hero-bg-position-y, var(--hero-focus-y, 50%)) !important;
+    transform: scale(1.045);
+    transform-origin: center center;
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.34) 9%,
+      #000 20%,
+      #000 56%,
+      rgba(0, 0, 0, 0.46) 80%,
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.34) 9%,
+      #000 20%,
+      #000 56%,
+      rgba(0, 0, 0, 0.46) 80%,
+      transparent 100%
+    );
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-image {
+    --hero-home-bg-scene-scale: 0.94;
+    bottom: auto !important;
+    height: clamp(760px, 78svh, 980px) !important;
+    object-fit: contain;
+    object-position: 50% var(--home-hero-bg-position-y, var(--hero-focus-y, 50%)) !important;
+    transform: scale(var(--hero-home-bg-scene-scale));
+    transform-origin: right top;
+    -webkit-mask-image:
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 16%, #000 38%, #000 100%),
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.28) 8%,
+        #000 18%,
+        #000 58%,
+        rgba(0, 0, 0, 0.56) 80%,
+        transparent 100%
+      );
+    mask-image:
+      linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 16%, #000 38%, #000 100%),
+      linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.28) 8%,
+        #000 18%,
+        #000 58%,
+        rgba(0, 0, 0, 0.56) 80%,
+        transparent 100%
+      );
+    -webkit-mask-size:
+      100% 100%,
+      100% 100%;
+    mask-size:
+      100% 100%,
+      100% 100%;
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+  }
+
   section[data-hero-type='superhero'][data-hero-effects='ready'] .hero-scroll-bg-image {
     will-change: transform, filter;
     transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-bg-translate-max)), 0)
@@ -798,6 +945,88 @@
     transition:
       transform var(--hero-motion-duration-bg) var(--hero-motion-ease),
       filter var(--hero-motion-duration-filter) var(--hero-motion-ease);
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
+    .hero-scroll-bg-image {
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-bg-translate-max)), 0)
+      scale(calc(var(--hero-home-bg-scene-scale) + var(--hero-scroll-progress) * var(--hero-bg-scale-max)));
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
+    .hero-scroll-bg-backplate {
+    will-change: transform, filter;
+    transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-bg-translate-max)), 0)
+      scale(calc(1.045 + var(--hero-scroll-progress) * var(--hero-bg-scale-max)));
+    filter: blur(calc(18px + (var(--hero-scroll-progress) * var(--hero-bg-blur-max))))
+      saturate(calc(0.92 - var(--hero-scroll-progress) * var(--hero-bg-desaturate-max)));
+    transition:
+      transform var(--hero-motion-duration-bg) var(--hero-motion-ease),
+      filter var(--hero-motion-duration-filter) var(--hero-motion-ease);
+  }
+
+  @media (orientation: portrait) and (min-width: 768px) and (max-width: 900px) {
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg {
+      overflow: visible;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-backplate {
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 18%,
+        rgba(0, 0, 0, 0.18) 28%,
+        rgba(0, 0, 0, 0.74) 39%,
+        #000 48%,
+        #000 58%,
+        rgba(0, 0, 0, 0.5) 74%,
+        rgba(0, 0, 0, 0.12) 86%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 18%,
+        rgba(0, 0, 0, 0.18) 28%,
+        rgba(0, 0, 0, 0.74) 39%,
+        #000 48%,
+        #000 58%,
+        rgba(0, 0, 0, 0.5) 74%,
+        rgba(0, 0, 0, 0.12) 86%,
+        transparent 100%
+      );
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-image {
+      -webkit-mask-image:
+        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 16%, #000 38%, #000 100%),
+        linear-gradient(
+          to bottom,
+          transparent 0%,
+          transparent 18%,
+          rgba(0, 0, 0, 0.14) 27%,
+          rgba(0, 0, 0, 0.72) 40%,
+          #000 48%,
+          #000 58%,
+          rgba(0, 0, 0, 0.54) 74%,
+          rgba(0, 0, 0, 0.12) 87%,
+          transparent 100%
+        );
+      mask-image:
+        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 16%, #000 38%, #000 100%),
+        linear-gradient(
+          to bottom,
+          transparent 0%,
+          transparent 18%,
+          rgba(0, 0, 0, 0.14) 27%,
+          rgba(0, 0, 0, 0.72) 40%,
+          #000 48%,
+          #000 58%,
+          rgba(0, 0, 0, 0.54) 74%,
+          rgba(0, 0, 0, 0.12) 87%,
+          transparent 100%
+        );
+    }
   }
 
   /* LCP fix: no GPU compositing on hero-scroll-content at initial paint.
@@ -828,10 +1057,37 @@
       filter var(--hero-motion-duration-fast) var(--hero-motion-ease);
   }
 
-  /* LCP fix: no GPU compositing on hero-scroll-content-main at initial paint. */
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
+    .hero-scroll-content {
+    opacity: 1;
+    filter: none;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
+    .hero-scroll-content-copy {
+    --hero-home-copy-fade-progress: clamp(
+      0,
+      calc((var(--hero-scroll-progress) - 0.08) * 3.8),
+      1
+    );
+    opacity: calc(1 - var(--hero-home-copy-fade-progress));
+    filter: saturate(
+      calc(1 - var(--hero-scroll-content-progress) * var(--hero-content-desaturate-max))
+    );
+  }
+
+  /* LCP fix: no GPU compositing on hero-scroll-content-main at initial paint.
+     transform stays a no-op translate3d(0,0,0) rather than `none`: any transform
+     value (even an identity one) makes this element a containing block for
+     position:absolute/sticky descendants (the portrait). Since the "ready" state
+     below also carries a transform, using `none` here would flip the portrait's
+     containing block from the section to this element the instant effects turn on,
+     snapping it to a different resolved position. Keeping a transform present in
+     both states keeps that containing block constant, so only the intentional
+     scroll-driven offset changes, never the reference frame it's measured from. */
   section[data-hero-type='superhero'] .hero-scroll-content-main {
     will-change: auto;
-    transform: none;
+    transform: translate3d(0, 0, 0);
     transition: none;
   }
 
@@ -853,7 +1109,7 @@
   }
 
   section[data-hero-type='superhero'] .hero-scroll-content-portrait {
-    transform: none;
+    transform: translate3d(var(--hero-portrait-safe-shift-x), 0, 0);
     opacity: 1;
     transition: none;
   }
@@ -876,7 +1132,7 @@
     );
     will-change: transform, opacity;
     transform: translate3d(
-        0,
+        var(--hero-portrait-safe-shift-x),
         calc(
           (var(--hero-portrait-parallax-progress) * var(--hero-portrait-translate-max)) +
             (var(--hero-portrait-hide-progress) * var(--hero-portrait-translate-extra-max))
@@ -887,8 +1143,8 @@
     opacity: calc(1 - (var(--hero-portrait-hide-progress) * var(--hero-portrait-fade-max)));
   }
 
-  section[data-hero-type='superhero'] .hero-superhero-portrait {
-    z-index: 14;
+  section[data-hero-type='superhero']:not([data-page-slug='home']) .hero-superhero-portrait {
+    z-index: 50;
     top: calc(var(--header-height, 72px) + clamp(0.5rem, 2vh, 1.25rem));
     scroll-margin-top: calc(var(--header-height, 72px) + clamp(0.5rem, 2vh, 1.25rem));
     max-height: 100%;
@@ -898,6 +1154,36 @@
     filter: drop-shadow(var(--hero-portrait-shadow-1)) drop-shadow(var(--hero-portrait-shadow-2))
       drop-shadow(var(--hero-portrait-shadow-3));
     transition: none;
+  }
+
+  section[data-hero-type='superhero'] .hero-superhero-portrait-popout .pb-popout-root {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    margin-inline: auto;
+    filter: none;
+    transform-origin: center bottom;
+  }
+
+  section[data-hero-type='superhero'][data-hero-effects='ready']
+    .hero-superhero-portrait-popout
+    .pb-popout-root {
+    filter: blur(calc(var(--hero-portrait-hide-progress) * var(--hero-portrait-blur-max)))
+      saturate(calc(1 - var(--hero-portrait-hide-progress) * var(--hero-portrait-desaturate-max)));
+  }
+
+  @media (max-width: 479px) {
+    /* width/min-width intentionally NOT set here anymore (were dead: the more specific
+       has-portrait rule below, and the even more specific home rule further down, both
+       always match whenever this element exists and always win on width). height/margin
+       stay - neither is overridden by those more specific rules, so this is still the
+       one place mobile height/centering come from. */
+    section[data-hero-type='superhero'] .hero-superhero-portrait-popout .pb-popout-root {
+      height: auto;
+      margin-left: auto;
+      margin-right: auto;
+    }
   }
 
   section[data-hero-type='superhero'] .hero-superhero-portrait-image {
@@ -975,6 +1261,32 @@
     filter: blur(4px);
   }
 
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-superhero-portrait-scroll-mask {
+    display: none;
+  }
+
+  /* Profil: the bottom edge fade (.hero-superhero-portrait-scroll-mask, z-index 18) must
+     never paint over the portrait - force the portrait above it unambiguously. */
+  section[data-hero-type='superhero'][data-page-slug='profil'] .hero-superhero-portrait {
+    z-index: 60 !important;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
+    .hero-scroll-content-portrait {
+    opacity: 1;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
+    .hero-superhero-portrait-popout
+    .pb-popout-root {
+    filter: none;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
+    .hero-scroll-content-copy {
+    pointer-events: none;
+  }
+
   section[data-hero-type='superhero'] .hero-scroll-layer {
     will-change: auto;
     transform: none;
@@ -1039,7 +1351,7 @@
     opacity: calc(1 - (var(--hero-scroll-content-progress) * var(--hero-layer-marquee-fade-max)));
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 479px) {
     .hero-shell--superhero
       section[data-hero-type='superhero'][data-hero-intro='play']
       .hero-scroll-bg-image,
@@ -1151,7 +1463,7 @@
     justify-content: flex-end;
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 479px) {
     section[data-hero-type='superhero'].hero-superhero-no-portrait.hero-offset {
       padding-top: max(calc(var(--header-height, 72px) + 0.75rem), 4.6rem) !important;
     }
@@ -1195,14 +1507,148 @@
     right: 0;
   }
 
-  /* Superhero: iPad + Desktop auf 81vh, Mobile unverändert. */
-  @media (min-width: 48rem) {
+  /* Superhero: Desktop bleibt weit, Tablets bekommen eine kompaktere Buehne. */
+  @media (min-width: 75rem) {
     section[data-hero-type='superhero'] {
       min-height: 81vh;
     }
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 30rem) and (max-width: 74.99rem) {
+    section[data-hero-type='superhero'] {
+      min-height: clamp(38.75rem, 68svh, 46.25rem);
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] {
+      min-height: clamp(38.75rem, 66svh, 44rem);
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg {
+      top: calc(-1 * clamp(3.5rem, 7svh, 5.5rem));
+      bottom: calc(-1 * clamp(3.5rem, 7svh, 5.5rem));
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-image {
+      --hero-home-bg-scene-scale: 1.04;
+      height: 100% !important;
+      min-height: calc(100% + clamp(7rem, 14svh, 11rem));
+      object-fit: contain;
+      object-position: 50% var(--home-hero-bg-position-y, var(--hero-focus-y, 50%)) !important;
+      transform-origin: center center;
+      -webkit-mask-image:
+        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 16%, #000 38%, #000 100%),
+        linear-gradient(
+          to bottom,
+          transparent 0%,
+          rgba(0, 0, 0, 0.28) 8%,
+          #000 18%,
+          #000 54%,
+          rgba(0, 0, 0, 0.38) 70%,
+          transparent 88%,
+          transparent 100%
+        );
+      mask-image:
+        linear-gradient(to right, transparent 0%, rgba(0, 0, 0, 0.18) 16%, #000 38%, #000 100%),
+        linear-gradient(
+          to bottom,
+          transparent 0%,
+          rgba(0, 0, 0, 0.28) 8%,
+          #000 18%,
+          #000 54%,
+          rgba(0, 0, 0, 0.38) 70%,
+          transparent 88%,
+          transparent 100%
+        );
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-backplate {
+      height: 100% !important;
+      object-fit: contain;
+      object-position: 50% var(--home-hero-bg-position-y, var(--hero-focus-y, 50%)) !important;
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.28) 8%,
+        #000 18%,
+        #000 54%,
+        rgba(0, 0, 0, 0.34) 72%,
+        transparent 90%,
+        transparent 100%
+      );
+      mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(0, 0, 0, 0.28) 8%,
+        #000 18%,
+        #000 54%,
+        rgba(0, 0, 0, 0.34) 72%,
+        transparent 90%,
+        transparent 100%
+      );
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-content-copy {
+      min-height: clamp(24rem, 48svh, 32rem);
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1199px) {
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg {
+      top: 0;
+      bottom: auto;
+      height: min(100%, clamp(36rem, 78svh, 43rem));
+      overflow: hidden;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-image {
+      --hero-home-bg-scene-scale: 0.76;
+      height: 100% !important;
+      min-height: 0;
+      object-fit: contain;
+      object-position: 50% var(--home-hero-bg-position-y, var(--hero-focus-y, 50%)) !important;
+      transform-origin: center center;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-backplate {
+      height: 100% !important;
+      object-fit: contain;
+      object-position: 50% var(--home-hero-bg-position-y, var(--hero-focus-y, 50%)) !important;
+      opacity: 0.22;
+      transform-origin: right center;
+    }
+  }
+
+  @media (orientation: portrait) and (min-width: 768px) and (max-width: 900px) {
+    section[data-hero-type='superhero'][data-page-slug='home'] {
+      min-height: clamp(48rem, 88svh, 56rem);
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg {
+      top: 0;
+      bottom: auto;
+      height: min(100%, clamp(41rem, 76svh, 50rem));
+      overflow: hidden;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-image {
+      --hero-home-bg-scene-scale: 0.9;
+      height: 100% !important;
+      min-height: 0;
+      object-fit: contain;
+      object-position: 50% var(--home-hero-bg-position-y, var(--hero-focus-y, 50%)) !important;
+      transform-origin: center center;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-backplate {
+      height: 100% !important;
+      object-fit: contain;
+      object-position: 50% var(--home-hero-bg-position-y, var(--hero-focus-y, 50%)) !important;
+      transform-origin: center center;
+    }
+  }
+
+  @media (min-width: 480px) {
     section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-scroll-content-main {
       grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
       column-gap: clamp(0.4rem, 1.6vw, 1.25rem);
@@ -1213,33 +1659,55 @@
       max-width: min(48rem, 100%);
     }
 
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-content-copy {
+      min-height: clamp(28rem, calc(70svh - var(--header-height, 72px)), 40rem);
+    }
+
     section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-superhero-portrait {
       justify-self: center;
-      margin-left: clamp(-4rem, -6vw, -0.5rem);
-      margin-right: clamp(-3rem, -5vw, -0.5rem);
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 
   @media (min-width: 700px) {
-    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-superhero-portrait {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']:not([data-page-slug='home']) .hero-superhero-portrait {
       top: calc(var(--header-height, 72px) + 5vh);
       scroll-margin-top: calc(var(--header-height, 72px) + 5vh);
-      height: calc(100svh - var(--header-height, 72px) - 5vh);
+      height: auto;
       max-height: 100%;
-      width: 37rem;
-      min-width: 37rem;
-      max-width: none;
-      margin-left: clamp(-9rem, -10vw, -1.5rem);
-      margin-right: clamp(-8rem, -10vw, -1.25rem);
+      width: min(37rem, 100%);
+      min-width: 0;
+      max-width: 100%;
+      margin-left: 0;
+      margin-right: 0;
     }
   }
 
   @media (min-width: 1280px) {
-    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-superhero-portrait {
-      width: 41rem;
-      min-width: 41rem;
-      margin-left: clamp(-7rem, -6vw, -1rem);
-      margin-right: clamp(-5.5rem, -5vw, -0.5rem);
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']:not([data-page-slug='home']) .hero-superhero-portrait {
+      width: min(41rem, 100%);
+      min-width: 0;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  /* Profil: the grid row is as tall as the portrait, but the copy column (align-items:
+     start by default) only occupies its own content height at the top of that row - it
+     needs align-self:center to sit centered against the full row height. The portrait
+     itself needs align-self:end so it sits flush with the hero's bottom edge instead of
+     top-aligned with empty space below it. */
+  @media (min-width: 768px) {
+    section[data-hero-type='superhero'][data-page-slug='profil'][data-hero-has-portrait='true']
+      .hero-superhero-portrait {
+      align-self: end;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='profil'][data-hero-has-portrait='true']
+      .hero-scroll-content-copy {
+      align-self: center;
     }
   }
 
@@ -1258,7 +1726,7 @@
   }
 
   /* Hell: Marquee nicht über die volle Zeilenbreite (inline-Breite ~ Headline) – max. 50 % des Hero-Abschnitts. */
-  @media (min-width: 768px) {
+  @media (min-width: 480px) {
     [data-theme='light'] .hero-marquee-band {
       max-width: 50%;
     }
@@ -1276,7 +1744,7 @@
   }
 
   /* Portrait-Hero: ab Tablet keine Wortumbrüche innerhalb einer CMS-Headline-Zeile (Tailwind + min-w-0 am Stack). */
-  @media (min-width: 768px) {
+  @media (min-width: 480px) {
     .hero-philipp-text-column .hero-headline,
     .hero-philipp-text-column .hero-headline > span {
       white-space: nowrap;
@@ -1355,6 +1823,58 @@
     }
   }
 
+  @media (min-width: 480px) {
+    section[data-hero-type='superhero'][data-page-slug='home'].hero-offset {
+      padding-top: 0 !important;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content {
+      padding-bottom: clamp(1.5rem, 3svh, 2.5rem);
+    }
+
+  }
+
+  @media (min-width: 480px) and (max-width: 1199px) {
+    section[data-hero-type='superhero'][data-page-slug='home'].hero-offset {
+      padding-top: 0 !important;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-layer-headline {
+      font-size: clamp(3rem, 5.2vw, 3.45rem);
+      line-height: 1.08;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-stats-grid {
+      margin-top: 1rem;
+      gap-y: 1rem;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-stat-value {
+      font-size: clamp(1.5rem, 3vw, 2rem);
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-stat-label {
+      font-size: 0.68rem;
+      line-height: 1.15;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-content-copy {
+      min-height: clamp(24rem, 48svh, 32rem);
+    }
+  }
+
+  @media (min-width: 1024px) and (max-width: 1199px) {
+    section[data-hero-type='superhero'][data-page-slug='home'].hero-offset {
+      padding-top: 0 !important;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-content-copy {
+      min-height: clamp(21rem, 42svh, 28rem);
+    }
+  }
+
   /* Option 1 + 2: drop-shadow auf Container (Schatten wird nicht geclippt), mask-image für weichen
      unteren Übergang in den Shape-Divider – 75 % Grenze anpassen, wo der Übergang beginnen soll. */
   /* Schatten auf Container, damit er nicht von clip-path/mask abgeschnitten wird. */
@@ -1412,6 +1932,10 @@
 
   /* Folgesection: kurzer Verlauf, weniger Stufen = weniger sichtbare Kanten */
   .hero-following-section-mask {
+    --hero-section-blend-height: clamp(5.5rem, 14vh, 10rem);
+    position: relative;
+    isolation: auto;
+    overflow: visible;
     background-color: var(--hero-next-section-bg, var(--background));
     background-image: linear-gradient(
       to bottom,
@@ -1422,10 +1946,52 @@
       var(--hero-next-section-bg, var(--background)) 100%
     );
   }
+
+  .hero-shell--superhero .hero-following-section-mask {
+    padding-top: clamp(2.5rem, 8vh, 4.5rem);
+  }
+
+  @media (max-width: 479px) {
+    .hero-shell--superhero .hero-following-section-mask {
+      padding-top: clamp(5rem, 12svh, 6.5rem);
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
+      .hero-scroll-content-copy {
+      --hero-home-copy-fade-progress: clamp(
+        0,
+        calc((var(--hero-scroll-progress) - 0.06) * 4.4),
+        1
+      );
+    }
+  }
+
+  .hero-following-section-mask::before {
+    content: '';
+    position: absolute;
+    inset-inline: 0;
+    top: calc(var(--hero-section-blend-height) * -1);
+    z-index: 0;
+    height: calc(var(--hero-section-blend-height) + 4rem);
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 18%, transparent) 24%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 58%, transparent) 58%,
+      var(--hero-next-section-bg, var(--background)) 100%
+    );
+  }
+
+  .hero-following-section-mask > * {
+    position: relative;
+    z-index: 1;
+  }
+
   @supports (content-visibility: auto) {
     .hero-following-section-mask {
       content-visibility: auto;
-      contain: layout paint style;
+      contain: layout style;
       contain-intrinsic-size: auto 1200px;
     }
   }
@@ -1442,21 +2008,69 @@
     }
   }
 
-  /* Superhero: Folgesection bleibt oberhalb, aber mit transparentem Top-Fade statt harter Kante. */
+  /* Superhero: Folgesection-Hintergrund bleibt niedrig, einzelne Content-Layer duerfen darueber. */
   .hero-shell--superhero .hero-following-section-mask {
+    --hero-following-fade-progress: max(
+      var(--hero-scroll-progress, 0),
+      var(--hero-scroll-portrait-parallax-progress, var(--hero-scroll-progress, 0))
+    );
+    --hero-section-blend-height: calc(
+      clamp(9rem, 24vh, 18rem) + (var(--hero-following-fade-progress) * 7rem)
+    );
     background-color: transparent;
     background-image: none;
-    isolation: isolate;
+    contain: none;
+    content-visibility: visible;
+    isolation: auto;
+    z-index: auto;
   }
 
   .hero-shell--superhero .hero-following-section-mask::before {
-    content: none;
-    display: none;
+    content: '';
+    display: block;
+    z-index: 0;
+    top: calc(
+      (var(--hero-section-blend-height) * -1) -
+        (var(--hero-following-fade-progress, 0) * 4rem)
+    );
+    height: calc(var(--hero-section-blend-height) + 6rem);
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.04) 16%,
+      rgba(0, 0, 0, 0.26) 42%,
+      rgba(0, 0, 0, 0.74) 72%,
+      #000 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      rgba(0, 0, 0, 0.04) 16%,
+      rgba(0, 0, 0, 0.26) 42%,
+      rgba(0, 0, 0, 0.74) 72%,
+      #000 100%
+    );
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 8%, transparent) 18%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 42%, transparent) 54%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 88%, transparent) 82%,
+      var(--hero-next-section-bg, var(--background)) 100%
+    );
   }
 
   [data-theme='dark'] .hero-shell--superhero .hero-following-section-mask::before {
-    content: none;
-    display: none;
+    content: '';
+    display: block;
+    background: linear-gradient(
+      to bottom,
+      transparent 0%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 8%, transparent) 18%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 42%, transparent) 54%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 88%, transparent) 82%,
+      var(--hero-next-section-bg, var(--background)) 100%
+    );
   }
 
   .hero-shell--superhero .hero-following-section-mask > * {
@@ -1464,10 +2078,73 @@
     z-index: 1;
   }
 
+  .hero-shell--superhero .hero-following-section-foreground {
+    z-index: 37;
+  }
+
+  /* Warum-mit-mir-Kacheln liegen im Scroll-Bereich der Hero unter dem Popout-Portrait
+     (Portrait-Wrapper isoliert bei z-44). Ab whyWorkWithMe wird der Block-Rendering-Baum
+     in page.tsx in einen zweiten, eigenen Wrapper aufgeteilt, der hier drüber liegt — so
+     bleiben frühere Blöcke (z.B. die Winkekatze im Introduction-Block) hinter dem Portrait. */
+  .hero-shell--superhero .hero-following-section-foreground-elevated {
+    z-index: 46;
+  }
+
+  .why-work-with-me-block {
+    padding-top: 2rem;
+  }
+
+  .why-work-intro-fade-item {
+    opacity: var(--why-intro-item-opacity, 0.5);
+    filter: saturate(calc(0.72 + var(--why-intro-item-focus, 0) * 0.42))
+      contrast(calc(0.84 + var(--why-intro-item-focus, 0) * 0.24))
+      brightness(calc(0.82 + var(--why-intro-item-focus, 0) * 0.22));
+    transform: scale(calc(0.985 + var(--why-intro-item-focus, 0) * 0.025));
+    transform-origin: left center;
+    transition:
+      opacity 160ms linear,
+      filter 160ms linear,
+      transform 160ms linear;
+    will-change: opacity, filter, transform;
+  }
+
+  @media (min-width: 768px) {
+    .why-work-with-me-block {
+      padding-top: 2.5rem;
+    }
+  }
+
+  .why-work-card-reveal {
+    opacity: 0;
+    transform: translate3d(0, 4.5rem, 0) scale(0.9) rotateX(-18deg);
+    filter: blur(18px);
+    will-change: opacity, transform, filter;
+  }
+
+  .why-work-card-reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .why-work-intro-fade-item {
+      transition: none;
+    }
+
+    .why-work-card-reveal {
+      opacity: 1;
+      transform: none;
+      filter: none;
+      animation: none;
+      will-change: auto;
+    }
+  }
+
   /* Superhero: keine Section-Überlagerung in den Hero hinein */
   .hero-following-section-mask.hero-following-section--superhero-overlap::before {
-    content: none;
-    display: none;
+    content: '';
+    display: block;
   }
 
   /* Erste Section = nur Service-Karten: kein Verlauf, harter Anschluss an den Hero (nur lg+).
@@ -1483,6 +2160,31 @@
 
   .hero-shell--superhero .hero-following-section-mask.hero-following-section--services-flush {
     background-image: none;
+  }
+
+  .hero-shell--superhero .hero-following-section-mask.hero-following-section--services-flush::before {
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 0%, transparent) 0,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 34%, transparent)
+        calc(2.75rem + (var(--hero-following-fade-progress, 0) * 2rem)),
+      var(--hero-next-section-bg, var(--background))
+        calc(6rem + (var(--hero-following-fade-progress, 0) * 4rem))
+    );
+  }
+
+  @media (max-width: 479px) {
+    .hero-shell--superhero .hero-following-section-mask {
+      padding-top: clamp(5.25rem, 13svh, 7rem) !important;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-shell--superhero .hero-following-section-mask {
+      transform: none;
+      transition: none;
+      will-change: auto;
+    }
   }
 
   /* Hero-Verlauf + Schatten/Glow auf ::before (verdoppelte Intensität), Mask nur auf ::before,
@@ -1647,126 +2349,8 @@
     z-index: 1;
   }
 
-  /* Leistungen-Hero: theme-adaptives Overlay, flacheres Höhenprofil und weicher Auslauf. */
-  .leistungen-hero {
-    width: 100vw;
-    max-width: none;
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    min-height: clamp(24rem, 52vh, 36rem);
-    padding-top: max(calc(var(--header-height) + 2rem), 7.4rem);
-    padding-bottom: clamp(4rem, 10vh, 7rem);
-    background: var(--background);
-  }
-
-  @media (min-width: 768px) {
-    .leistungen-hero {
-      padding-top: max(calc(var(--header-height) + 2.4rem), 8rem);
-      padding-bottom: clamp(4.5rem, 11vh, 7.5rem);
-    }
-  }
-
-  .leistungen-hero-base {
-    background: linear-gradient(
-      168deg,
-      color-mix(in hsl, hsl(var(--primary)) 6.5%, var(--background)) 0%,
-      color-mix(in hsl, hsl(var(--primary)) 2.2%, var(--background)) 52%,
-      var(--background) 90%
-    );
-  }
-
-  .leistungen-hero-media-image {
-    opacity: 0.62;
-    filter: saturate(1.05) contrast(1.03);
-    transform: scale(1.015);
-    transform-origin: center center;
-  }
-
-  [data-theme='dark'] .leistungen-hero-media-image {
-    opacity: 0.56;
-    filter: saturate(1.02) contrast(1.06) brightness(0.78);
-  }
-
-  [data-theme='light'] .leistungen-hero-media-image {
-    opacity: 0.64;
-    filter: invert(1) hue-rotate(180deg) saturate(1.08) contrast(1.02) brightness(0.94);
-  }
-
-  .leistungen-hero-overlay {
-    background-image:
-      linear-gradient(
-        to bottom,
-        color-mix(in srgb, var(--background) 94%, transparent) 0%,
-        color-mix(in srgb, var(--background) 82%, transparent) 17%,
-        color-mix(in srgb, var(--background) 68%, transparent) 35%,
-        color-mix(in srgb, var(--background) 58%, transparent) 56%,
-        color-mix(in srgb, var(--background) 84%, transparent) 84%,
-        color-mix(in srgb, var(--background) 96%, transparent) 100%
-      ),
-      radial-gradient(112% 66% at 50% 16%, hsl(var(--primary) / 0.15) 0%, transparent 66%);
-    background-repeat: no-repeat;
-  }
-
-  [data-theme='dark'] .leistungen-hero-overlay {
-    background-image:
-      linear-gradient(
-        to bottom,
-        color-mix(in srgb, var(--background) 90%, transparent) 0%,
-        color-mix(in srgb, var(--background) 76%, transparent) 19%,
-        color-mix(in srgb, var(--background) 62%, transparent) 37%,
-        color-mix(in srgb, var(--background) 54%, transparent) 56%,
-        color-mix(in srgb, var(--background) 82%, transparent) 84%,
-        color-mix(in srgb, var(--background) 95%, transparent) 100%
-      ),
-      radial-gradient(120% 70% at 50% 16%, hsl(var(--primary) / 0.18) 0%, transparent 68%);
-  }
-
-  .leistungen-hero-edge-vignette {
-    background: radial-gradient(
-      122% 100% at 50% 42%,
-      transparent 48%,
-      color-mix(in srgb, var(--background) 38%, transparent) 82%,
-      color-mix(in srgb, var(--background) 58%, transparent) 100%
-    );
-  }
-
-  .leistungen-hero-badge {
-    align-items: center;
-    justify-content: center;
-    padding: 0.28rem 0.82rem;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-  }
-
-  .leistungen-hero-footer-fade {
-    height: clamp(7rem, 20vh, 14rem);
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      color-mix(in srgb, var(--background) 34%, transparent) 28%,
-      color-mix(in srgb, var(--background) 66%, transparent) 58%,
-      color-mix(in srgb, var(--background) 86%, transparent) 82%,
-      var(--background) 100%
-    );
-  }
-
-  [data-theme='dark'] .leistungen-hero-footer-fade {
-    background: linear-gradient(
-      to bottom,
-      transparent 0%,
-      color-mix(in srgb, var(--background) 32%, transparent) 26%,
-      color-mix(in srgb, var(--background) 64%, transparent) 58%,
-      color-mix(in srgb, var(--background) 84%, transparent) 82%,
-      var(--background) 100%
-    );
-  }
-
   /* Milchglas-Effekt: sobald der Hero einspaltig ist (gleicher Breakpoint wie Tailwind md / grid md:grid-cols-2) */
-  @media (max-width: 767px) {
+  @media (max-width: 479px) {
     .hero-mobile-glass {
       /* backdrop-filter deferred until data-hero-effects='ready' to avoid blocking LCP paint.
          SSR keeps data-hero-intro='done' (text visible) without enabling GPU blur. */
@@ -1810,7 +2394,6 @@
       top: calc(var(--header-height) + 20px);
       align-self: flex-start;
       will-change: auto;
-      transform: translate3d(0, var(--hero-mobile-portrait-translate, 0px), 0);
       scroll-margin-top: calc(var(--header-height) + 1rem);
     }
     section[data-hero-effects='ready'] .hero-mobile-sticky-portrait {
@@ -1828,7 +2411,7 @@
     }
   }
 
-  @media (max-width: 767px) {
+  @media (max-width: 479px) {
     section[data-hero-type='superhero'][data-hero-has-portrait='true']
       .hero-mobile-sticky-portrait {
       width: 100vw;
@@ -1864,7 +2447,7 @@
     }
   }
 
-  @media (max-width: 767px) and (max-height: 800px) {
+  @media (max-width: 479px) and (max-height: 800px) {
     .hero-mobile-glass {
       top: calc(var(--header-height) + 1.25rem);
     }
@@ -1877,7 +2460,533 @@
       top: calc(var(--header-height) + 0.4rem);
     }
   }
-  @media (min-width: 768px) {
+
+  @media (max-width: 479px) {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'].hero-offset {
+      min-height: auto;
+      padding-top: calc(var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)) !important;
+      overflow-x: clip;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'].hero-offset {
+      padding-top: 0 !important;
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-scroll-content {
+      min-height: auto;
+      padding-top: 0 !important;
+      padding-bottom: clamp(1.25rem, 4svh, 2.25rem) !important;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-content {
+      padding-top: calc(
+        var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)
+      ) !important;
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']
+      .hero-scroll-content-main {
+      gap: 0;
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']
+      .hero-mobile-sticky-portrait {
+      position: relative;
+      top: auto;
+      z-index: 12;
+      height: clamp(292px, 46svh, 372px);
+      min-height: clamp(292px, 46svh, 372px);
+      max-height: clamp(292px, 46svh, 372px);
+      transform: none;
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']
+      .hero-superhero-portrait-popout
+      .pb-popout-root {
+      min-width: min(90vw, 354px);
+      width: min(90vw, 354px) !important;
+      max-width: min(90vw, 354px);
+    }
+
+    /* Badge/headline/description ("reveal") and the stats/CTA/logo-band card ("cta")
+       are separate top-level siblings now, not nested inside one glass copy box -
+       needed on home so the reveal block can sit behind the portrait (see the JSX
+       comment on heroTextColumnClass). Generically (profil etc.) the CTA card just
+       gets the same big pull-up the combined block used to get. */
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']
+      .hero-scroll-content-reveal,
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']
+      .hero-scroll-content-cta {
+      position: relative;
+      z-index: 24;
+      /* Less overlap (was -6rem to -9rem) so the card doesn't cover the hands/glasses. */
+      margin-top: clamp(-4.5rem, -11svh, -3rem) !important;
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']
+      .hero-scroll-content-reveal
+      + .hero-scroll-content-cta {
+      margin-top: clamp(0.6rem, 2svh, 0.9rem) !important;
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']
+      .hero-scroll-content-cta {
+      padding-top: clamp(1.15rem, 4.4svh, 1.75rem) !important;
+      padding-bottom: clamp(0.9rem, 3.2svh, 1.35rem) !important;
+      row-gap: clamp(0.7rem, 2.4svh, 1rem);
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']
+      .hero-scroll-layer-headline {
+      font-size: clamp(1.9rem, 8vw, 2.45rem);
+      line-height: 1.1;
+      letter-spacing: 0;
+      text-wrap: balance;
+      overflow-wrap: normal;
+      word-break: normal;
+      hyphens: manual;
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-scroll-layer-body {
+      max-width: 34rem;
+      font-size: clamp(0.88rem, 3.6vw, 1rem);
+      line-height: 1.42;
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-stat-item {
+      padding-right: 0.5rem;
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-stat-item svg {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-stat-value {
+      font-size: clamp(1.05rem, 5.4vw, 1.45rem);
+    }
+
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-stat-label {
+      font-size: 0.5rem;
+      line-height: 1.12;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
+      background: var(--background);
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-bg-image--desktop,
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-bg-backplate {
+      display: none;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-bg-image--home-mobile {
+      display: block;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-bg-image {
+      height: clamp(520px, 76svh, 680px) !important;
+      object-fit: contain;
+      object-position: 50% var(--home-hero-bg-position-y, 50%) !important;
+      transform: none;
+      transform-origin: center center;
+      -webkit-mask-image: radial-gradient(
+        ellipse var(--home-hero-bg-mask-radius-x, 96%) var(--home-hero-bg-mask-radius-y, 72%) at 50% 50%,
+        #000 0%,
+        #000 var(--home-hero-bg-mask-inner, 50%),
+        rgba(0, 0, 0, 0.72) calc(var(--home-hero-bg-mask-inner, 50%) + 9%),
+        transparent var(--home-hero-bg-mask-outer, 96%)
+      );
+      mask-image: radial-gradient(
+        ellipse var(--home-hero-bg-mask-radius-x, 96%) var(--home-hero-bg-mask-radius-y, 72%) at 50% 50%,
+        #000 0%,
+        #000 var(--home-hero-bg-mask-inner, 50%),
+        rgba(0, 0, 0, 0.72) calc(var(--home-hero-bg-mask-inner, 50%) + 9%),
+        transparent var(--home-hero-bg-mask-outer, 96%)
+      );
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-mobile-sticky-portrait {
+      /* Preferred size is 60% of the STAGE's fixed height (--home-hero-mobile-stage-cap,
+         41.6875rem - always that value on every mobile device, see the section rule
+         above), NOT 60svh. svh tracks the real device viewport, which is exactly what
+         the stage is deliberately fixed against (see that variable's own comment) - using
+         svh here silently reintroduced device-dependence through the back door: 60svh is
+         ~400px on a 667px-tall iPhone SE but ~511px on an 852px-tall iPhone, a ~25% size
+         difference between devices even though the stage itself is identical on both.
+         calc(stage-cap * 0.6) instead resolves to the same ~400px everywhere.
+         Still capped at 80% of .hero-scroll-content-main's actual height (not the fixed
+         stage constant) as a safety net for edge cases (e.g. a much taller headline
+         eating into that box) - .hero-mobile-portrait-parallax (the inner element, see
+         its transform rule below) scales up from a 55%/42% origin at rest, bleeding the
+         PAINTED top of the portrait ~8.4% of this box's own height above this box's
+         actual top edge; 80% accounts for that bleed on top of the reserved 10% header
+         gap. */
+      height: min(clamp(400px, calc(var(--home-hero-mobile-stage-cap, 41.6875rem) * 0.6), 500px), 80%);
+      min-height: 0;
+      max-height: min(clamp(400px, calc(var(--home-hero-mobile-stage-cap, 41.6875rem) * 0.6), 500px), 80%);
+      /* Bottom-anchored to the fixed 667px stage (see .hero-scroll-content's
+         position:relative above) instead of pushed down from the top with a margin -
+         the portrait now always sits flush with the stage's bottom edge regardless of
+         how tall the headline/description block above it is.
+         !important overrides needed on top/width/margin-right specifically because the
+         unmedia-gated desktop rule at section[...][data-page-slug='home'][data-hero-has-portrait='true']
+         .hero-superhero-portrait (same element, different class in its className list)
+         also sets those three - without resetting `top` here, having top+height+bottom
+         all non-auto on an absolutely positioned box is over-constrained and `bottom`
+         gets silently dropped, and without resetting width/margin-right the desktop
+         55vw/45rem width + -4rem margin (calibrated for wide viewports) would apply. */
+      position: absolute !important;
+      top: auto !important;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100% !important;
+      margin-top: 0;
+      margin-right: 0 !important;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-superhero-portrait-popout
+      .pb-popout-root {
+      min-width: min(100vw, 432px);
+      width: min(100vw, 432px) !important;
+      max-width: min(100vw, 432px);
+      transform: translateY(clamp(0.65rem, 2.8svh, 1.15rem)) scale(1.15);
+      transform-origin: center bottom;
+    }
+
+    /* One continuous scroll-driven motion (0 -> 20% scrolled), in sync with the headline
+       lines lighting up one by one (see .hero-scroll-layer-headline spans below) and the
+       background's progressive blur further down - all keyed off the same window so they
+       read as one coordinated intro instead of separate staggered phases.
+       Portrait is NOT pinned/sticky here (see position:relative !important override
+       below) - it scrolls with the page like any other content; this var only drives
+       its own transform on top of that normal scroll motion. Pure CSS custom properties
+       (same pattern as the rest of this hero's scroll effects) rather than a separate
+       GSAP ScrollTrigger timeline - one scroll-progress source of truth, no extra
+       dependency, keeps the existing LCP-safe deferred-effects approach. */
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
+      --home-hero-mobile-shrink: clamp(0, calc(var(--hero-scroll-progress, 0) / 0.2), 1);
+      /* Build-up is short now (0.16 total instead of 0.26): 3 headline lines at 0.04
+         each, then the description over the last 0.04 - see the per-line/body rules
+         below. Background fade matches the description's window so it finishes fading
+         right as the description settles in. */
+      --home-hero-mobile-bg-fade: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.12) / 0.04), 1);
+      /* Per-line "arrival" progress (0->1, monotonic - only the fly-in, not the later
+         dim-down), top line first: for the headline's fly-in-from-the-bottom-edge
+         effect below. Short (0.04-wide) windows per "einblenden nur kurze Wege". */
+      --home-hero-line1-in: clamp(0, calc(var(--hero-scroll-progress, 0) / 0.04), 1);
+      --home-hero-line2-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.04) / 0.04), 1);
+      --home-hero-line3-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.08) / 0.04), 1);
+      /* Starts once the portrait has finished its slide to the edge (0.2 - matches
+         --home-hero-mobile-portrait-shrink reaching 1 below), not while it's still
+         mid-slide - the text block used to start scrolling away at 0.16, overlapping
+         the tail of the portrait's move. */
+      --home-hero-mobile-text-exit: clamp(
+        0,
+        calc((var(--hero-scroll-progress, 0) - 0.2) / 0.12),
+        1
+      );
+      /* Portrait now starts moving immediately, in sync with the headline build-up
+         (0 -> 0.2 of scroll) instead of waiting for it to finish at 0.16 - it used to
+         stay completely still through the whole build-up and only start its shrink+
+         slide-away once the headlines were done. Kept the same 0.2-wide window, just
+         starting from 0 instead of 0.16, so it still fully settles at roughly the same
+         scroll point as before. */
+      --home-hero-mobile-portrait-shrink: clamp(
+        0,
+        calc(var(--hero-scroll-progress, 0) / 0.2),
+        1
+      );
+      /* Final fade-out: 0 until the slide above is fully done (shrink reaches 1 at 0.2)
+         plus a short pause once it's settled at the edge, then fades out over the next
+         0.15 of scroll. Deliberately NOT blended into the slide/shrink motion itself
+         (an earlier attempt tried that and didn't read right) - this only starts once
+         the portrait has completely finished building/settling into position. */
+      --home-hero-mobile-portrait-fadeout: clamp(
+        0,
+        calc((var(--hero-scroll-progress, 0) - 0.3) / 0.15),
+        1
+      );
+    }
+
+    /* Portrait starts centered and dominant, sized to stay FULLY visible (not cropped by
+       the viewport, not overlapping the text block above it), then immediately drifts
+       down and to the right as the headlines fade in (see --home-hero-mobile-portrait-
+       shrink above) until its arm/shoulder pass the browser edge. Once fully settled
+       there, it fades out (see --home-hero-mobile-portrait-fadeout and the opacity rule
+       below) instead of relying only on the viewport's own edge clipping. Origin is
+       fairly central (not near the top) so scaling up doesn't push the head above the
+       viewport or into the text above it. */
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-mobile-portrait-parallax {
+      transform-origin: 55% 42%;
+      /* Rest scale cut from 1.49 to 1.2 (shrink-end proportionally from 1.23 to ~1.1) -
+         this transform is purely visual (doesn't affect this element's layout height,
+         see .hero-mobile-sticky-portrait's height cap above), and scaling up from a
+         42%-down origin bleeds the painted image ~42%*(scale-1) of the box's own height
+         above the box's actual top edge. At 1.49 that bleed (~20.6% of box height) was
+         eating into the reserved header clearance even at rest, before any scroll. At
+         1.2 the bleed shrinks to ~8.4%, small enough that the header gap stays visible
+         on initial paint, not just after the height cap kicks in on short viewports. */
+      /* Shrink delta while sliding to the edge raised from 0.1 to 0.28 (rest 1.2 -> end
+         0.92 instead of 1.1) - an extra ~15% of the rest scale (1.2 * 0.15 = 0.18) shed
+         on top of what was already shrinking, so the portrait visibly gets smaller as it
+         reaches the edge, not just smaller-ish. */
+      transform: translate3d(
+          calc(var(--home-hero-mobile-portrait-shrink) * 34%),
+          calc(var(--home-hero-mobile-portrait-shrink) * 12%),
+          0
+        )
+        scale(calc(1.2 - (var(--home-hero-mobile-portrait-shrink) * 0.28)));
+      opacity: calc(1 - var(--home-hero-mobile-portrait-fadeout, 0));
+      transition:
+        transform 0.4s ease-out,
+        opacity 0.4s ease-out;
+      will-change: transform, opacity;
+    }
+
+    /* Once the portrait has slid aside and settled (portrait-shrink reaches 1 at 0.2 now,
+       not 0.36 - see --home-hero-mobile-portrait-shrink above), it stays fixed there -
+       the CTA card then scrolls up into view from behind/below it (translateY + fade),
+       rather than just sitting static, so the page reads as content scrolling past a
+       portrait that's now parked at the edge instead of everything moving together as
+       one block. Pulled out of normal flow (absolute, anchored to the pinned stage's own
+       bottom) because its natural flow position sits below the portrait's full-height
+       flow box - i.e. below the fold of the pinned 100dvh stage - so an opacity/
+       transform reveal there would happen invisibly, off-screen. Window moved earlier
+       (0.28->0.42, was 0.36->0.52) so it finishes AT/BEFORE the icon reveal (0.3->0.44)
+       instead of lingering past it - once the icon is fully positioned, everything else
+       in the pinned stage has already finished too, so the pin can release and normal
+       scrolling can continue right away instead of holding through a stretch of
+       already-finished, do-nothing scroll distance. */
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
+      --home-hero-mobile-cta-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.28) / 0.14), 1);
+    }
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-content-cta {
+      position: absolute !important;
+      left: 0;
+      right: 0;
+      bottom: clamp(1.5rem, 4svh, 2.5rem);
+      margin-top: 0 !important;
+      z-index: 18;
+      opacity: var(--home-hero-mobile-cta-in, 0);
+      transform: translate3d(0, calc((1 - var(--home-hero-mobile-cta-in, 0)) * 18svh), 0);
+      transition:
+        opacity 0.4s ease-out,
+        transform 0.4s ease-out;
+    }
+
+    /* Badge/headline/description sit in the upper part of the stage, in normal flow
+       ahead of the portrait (order-1, see heroRevealClass), fully visible and readable
+       while the hero builds up. z-index is BELOW the portrait wrapper's (verified at
+       10, not the 14 used elsewhere - .hero-mobile-sticky-portrait establishes its own
+       stacking context, so its children's own z-index doesn't matter here, only the
+       wrapper's) on purpose: once the build-up finishes, the whole block scrolls away
+       downward (see the transform below) and dips into the portrait's territory - the
+       lower z-index is what makes it duck partially *behind* the portrait during that
+       exit instead of drawing over it. No card/background of its own - contrast comes
+       from hero-superhero-image-overlay below, tinting the whole hero background
+       instead of boxing the text in a separate floating card. */
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-content-reveal {
+      position: relative;
+      z-index: 8;
+      margin-top: 0 !important;
+      padding: 0 clamp(0.85rem, 4vw, 1.25rem);
+      /* Opacity stays at 1 through the first 55% of the exit travel (so it's still fully
+         visible while it dips into/behind the portrait's territory - the whole point of
+         the lowered z-index above), then fades out over the remaining 45% once it's
+         deep enough behind the portrait to read as "gone". Travels 13rem (~208px),
+         comfortably past the ~gap to the portrait's top edge. */
+      opacity: calc(1 - clamp(0, calc((var(--home-hero-mobile-text-exit, 0) - 0.55) / 0.45), 1));
+      transform: translate3d(0, calc(var(--home-hero-mobile-text-exit, 0) * 13rem), 0);
+      transition:
+        opacity 0.4s ease-out,
+        transform 0.4s ease-out;
+    }
+
+    /* B-icon reveal: sits over roughly the same area the headline reveal above occupies,
+       positioned against the pin stage (which is what actually establishes the
+       containing block here - itself position:sticky) rather than the reveal block,
+       since that block fades/translates away on its own timeline and would drag the
+       icon down/out with it via opacity compounding if nested inside instead. */
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-mobile-icon-reveal {
+      position: absolute;
+      inset: 0;
+      z-index: 14;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Starts small (8% of the stage's width)/blurry/transparent/rotated, grows steadily
+       to 80% while spinning a full 360deg and sharpening to fully clear/opaque - a single
+       monotonic climb (no overshoot/shrink-back), begins only once the headline reveal
+       above is most of the way through its own exit fade (that block reaches opacity 0
+       at text-exit=1, i.e. scroll progress 0.32 - see above), so it reads as "the icon
+       takes the headlines' place" rather than overlapping them. Base width is the 80%
+       end target already; the growth itself comes from the scale() below (cheaper to
+       animate than width, and keeps the blur/opacity/scale/rotate timeline in one
+       place), starting at 0.1 (10% of 80% = 8%, the start size) and ending at 1 (100% of
+       80% = 80%, the end size). */
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-mobile-icon-reveal-img {
+      --home-hero-icon-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.3) / 0.14), 1);
+      --home-hero-icon-blur: blur(calc((1 - var(--home-hero-icon-in)) * 10px));
+      width: 80%;
+      height: auto;
+      opacity: var(--home-hero-icon-in);
+      /* Full 360deg spin runs across the whole reveal, finishing right side up
+         (icon-in=1 -> 360deg reads visually identical to 0deg) at the same time the blur
+         clears and the growth settles at full size. */
+      transform: scale(calc(0.1 + (var(--home-hero-icon-in) * 0.9)))
+        rotate(calc(var(--home-hero-icon-in) * 360deg));
+      /* Light theme: the SVG is already dark-on-transparent, so no color filter needed
+         beyond the blur. Dark theme override below layers invert(1) on top, same as the
+         header's own B-logo (.logo-contrast) so the icon stays visible on a dark page. */
+      filter: var(--home-hero-icon-blur);
+      transition:
+        opacity 0.4s ease-out,
+        transform 0.4s ease-out,
+        filter 0.4s ease-out;
+    }
+
+    [data-theme='dark']
+      section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-mobile-icon-reveal-img,
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'][data-theme='dark']
+      .hero-mobile-icon-reveal-img {
+      filter: var(--home-hero-icon-blur) invert(1);
+    }
+
+    /* Headline lines fly in one at a time as the user scrolls, top line first (reading
+       order): each line slides up from ~the bottom edge of the screen while fading
+       0->100%, then eases back to 80% (staying put, just dimming) as the NEXT line
+       takes its turn - so only one line ever reads as "fully lit". Third/last line has
+       no fade-down (nothing follows). nth-child assumes the headline's
+       <span class="block"> per-line markup (3 lines on home); a shorter/longer headline
+       just leaves the unused formulas inert. */
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-layer-headline
+      > span:nth-child(1) {
+      opacity: calc(
+        var(--home-hero-line1-in, 0) - clamp(
+            0,
+            calc((var(--hero-scroll-progress, 0) - 0.04) / 0.04),
+            1
+          ) * 0.2
+      );
+      transform: translate3d(0, calc((1 - var(--home-hero-line1-in, 0)) * 1.1rem), 0);
+    }
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-layer-headline
+      > span:nth-child(2) {
+      opacity: calc(
+        var(--home-hero-line2-in, 0) - clamp(
+            0,
+            calc((var(--hero-scroll-progress, 0) - 0.08) / 0.04),
+            1
+          ) * 0.2
+      );
+      transform: translate3d(0, calc((1 - var(--home-hero-line2-in, 0)) * 1.1rem), 0);
+    }
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-layer-headline
+      > span:nth-child(3) {
+      opacity: var(--home-hero-line3-in, 0);
+      transform: translate3d(0, calc((1 - var(--home-hero-line3-in, 0)) * 1.1rem), 0);
+    }
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-layer-headline
+      > span {
+      display: block;
+      transition:
+        opacity 0.4s ease-out,
+        transform 0.4s ease-out;
+    }
+
+    /* Description only fades in once all three headline lines have had their turn
+       (0.12+), right as the background finishes fading out below - so the very last
+       thing to settle is the description, alone against a now-empty background. */
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-layer-body {
+      max-width: 50vw;
+      opacity: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.12) / 0.04), 1) !important;
+      transition: opacity 0.4s ease-out;
+    }
+
+    /* Badge fades in only after the headlines have finished (0.12+), alongside the
+       description - not up front with the rest of the reveal block. */
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-layer-eyebrow {
+      opacity: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.12) / 0.04), 1) !important;
+      transition: opacity 0.4s ease-out;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-mobile-glass {
+      background: color-mix(in srgb, var(--background) 74%, transparent);
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-stats-grid,
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-logo-band-shell {
+      display: none;
+    }
+
+    /* Stats + logo band are the only things this card ever holds on the home mobile
+       hero, and both are hidden above - so the card itself is just an empty glass
+       shell (background/border/shadow/blur) with nothing inside it. */
+    section[data-hero-type='superhero'][data-page-slug='home'] .hero-mobile-glass {
+      display: none;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='profil'][data-hero-has-portrait='true'] {
+      background:
+        radial-gradient(ellipse 92% 48% at 54% 12%, hsl(var(--primary) / 0.13), transparent 64%),
+        linear-gradient(
+          180deg,
+          color-mix(in srgb, var(--background) 88%, hsl(var(--primary)) 12%) 0%,
+          var(--background) 76%
+        );
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='profil'][data-hero-has-portrait='true']
+      .hero-mobile-sticky-portrait {
+      height: clamp(264px, 40svh, 332px);
+      min-height: clamp(264px, 40svh, 332px);
+      max-height: clamp(264px, 40svh, 332px);
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='profil'][data-hero-has-portrait='true']
+      .hero-scroll-content-cta {
+      background: transparent;
+      border-top: 0;
+      box-shadow: none;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='profil'][data-hero-has-portrait='true']
+      .hero-scroll-layer-headline {
+      font-size: clamp(1.75rem, 7.2vw, 2.25rem);
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='profil'] .hero-logo-band-shell {
+      display: none;
+    }
+  }
+  @media (min-width: 480px) {
     .hero-mobile-glass {
       background: transparent;
       backdrop-filter: none;
@@ -1887,19 +2996,17 @@
     }
 
     .hero-desktop-parallax-portrait {
-      /* position entfernt - wird inline via style prop gesetzt */
-      transform: translate3d(0, var(--hero-desktop-portrait-translate, 0px), 0);
+      /* transform/filter/opacity dropped - drove --hero-desktop-portrait-translate/-blur/
+         -opacity, which nothing in the codebase ever sets (always the 0px/0/1 fallback),
+         making them permanent no-ops. width/z-index below are also always overridden by
+         the more specific .hero-superhero-portrait rules on the same element; left as-is
+         since they're harmless. pointer-events:none is the one property here that's
+         actually live (nothing else sets it). */
       width: 100%;
-      max-width: none; /* ← NEU: erlaubt Overflow */
+      max-width: none;
       z-index: 20;
       pointer-events: none;
-      will-change: transform, filter, opacity;
-      filter: blur(var(--hero-desktop-portrait-blur, 0px));
-      opacity: var(--hero-desktop-portrait-opacity, 1);
-      transition:
-        transform 0.25s ease-out,
-        filter 0.25s ease-out,
-        opacity 0.25s ease-out;
+      will-change: auto;
     }
   }
 
@@ -2282,313 +3389,6 @@
 
   [data-theme='dark'] .hero-superhero-shape-divider .hero-superhero-divider-edge {
     opacity: 0;
-  }
-
-  /* CMS: Hero-Oberflächenmuster (Popout) — eigene Ebene, niedriger z-index */
-  .hero-surface-pattern {
-    position: absolute;
-    inset: 0;
-    top: calc(-1 * var(--header-height));
-    pointer-events: none;
-    z-index: -19;
-    opacity: 0.14;
-  }
-
-  [data-theme='light'] .hero-surface-pattern {
-    opacity: 0.12;
-  }
-
-  .hero-surface-pattern--honeycomb {
-    /* gleiche Geometrie wie .hero-pattern-bg */
-    background:
-      radial-gradient(circle farthest-side at 0% 50%, #282828 23.5%, rgba(0, 0, 0, 0) 0) 21px 30px,
-      radial-gradient(circle farthest-side at 0% 50%, #4a4a4a 24%, rgba(0, 0, 0, 0) 0) 19px 30px,
-      linear-gradient(#282828 14%, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0) 85%, #282828 0) 0 0,
-      linear-gradient(
-          150deg,
-          #282828 24%,
-          #4a4a4a 0,
-          #4a4a4a 26%,
-          rgba(0, 0, 0, 0) 0,
-          rgba(0, 0, 0, 0) 74%,
-          #4a4a4a 0,
-          #4a4a4a 76%,
-          #282828 0
-        )
-        0 0,
-      linear-gradient(
-          30deg,
-          #282828 24%,
-          #4a4a4a 0,
-          #4a4a4a 26%,
-          rgba(0, 0, 0, 0) 0,
-          rgba(0, 0, 0, 0) 74%,
-          #4a4a4a 0,
-          #4a4a4a 76%,
-          #282828 0
-        )
-        0 0,
-      linear-gradient(90deg, #4a4a4a 2%, #282828 0, #282828 98%, #4a4a4a 0%) 0 0 #282828;
-    background-size: 40px 60px;
-  }
-
-  [data-theme='light'] .hero-surface-pattern--honeycomb {
-    background:
-      radial-gradient(circle farthest-side at 0% 50%, #d4d4d4 23.5%, rgba(255, 255, 255, 0) 0) 21px
-        30px,
-      radial-gradient(circle farthest-side at 0% 50%, #a3a3a3 24%, rgba(255, 255, 255, 0) 0) 19px
-        30px,
-      linear-gradient(#d4d4d4 14%, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0) 85%, #d4d4d4 0)
-        0 0,
-      linear-gradient(
-          150deg,
-          #d4d4d4 24%,
-          #a3a3a3 0,
-          #a3a3a3 26%,
-          rgba(255, 255, 255, 0) 0,
-          rgba(255, 255, 255, 0) 74%,
-          #a3a3a3 0,
-          #a3a3a3 76%,
-          #d4d4d4 0
-        )
-        0 0,
-      linear-gradient(
-          30deg,
-          #d4d4d4 24%,
-          #a3a3a3 0,
-          #a3a3a3 26%,
-          rgba(255, 255, 255, 0) 0,
-          rgba(255, 255, 255, 0) 74%,
-          #a3a3a3 0,
-          #a3a3a3 76%,
-          #d4d4d4 0
-        )
-        0 0,
-      linear-gradient(90deg, #a3a3a3 2%, #d4d4d4 0, #d4d4d4 98%, #a3a3a3 0%) 0 0 #e5e5e5;
-    background-size: 40px 60px;
-  }
-
-  .hero-surface-pattern--checker {
-    background-color: transparent;
-    background-image:
-      linear-gradient(45deg, hsl(var(--foreground) / 0.06) 25%, transparent 25%),
-      linear-gradient(-45deg, hsl(var(--foreground) / 0.06) 25%, transparent 25%),
-      linear-gradient(45deg, transparent 75%, hsl(var(--foreground) / 0.06) 75%),
-      linear-gradient(-45deg, transparent 75%, hsl(var(--foreground) / 0.06) 75%);
-    background-size: 16px 16px;
-    background-position:
-      0 0,
-      0 8px,
-      8px -8px,
-      -8px 0;
-  }
-
-  .hero-surface-pattern--mmPaper {
-    background-image:
-      linear-gradient(hsl(var(--foreground) / 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--foreground) / 0.07) 1px, transparent 1px),
-      linear-gradient(hsl(var(--foreground) / 0.04) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--foreground) / 0.04) 1px, transparent 1px);
-    background-size:
-      40px 40px,
-      40px 40px,
-      8px 8px,
-      8px 8px;
-  }
-
-  .hero-surface-pattern--dots {
-    background-image: radial-gradient(hsl(var(--foreground) / 0.12) 1px, transparent 1px);
-    background-size: 14px 14px;
-  }
-
-  .hero-surface-pattern--linesHorizontal {
-    background-image: linear-gradient(hsl(var(--foreground) / 0.08) 1px, transparent 1px);
-    background-size: 100% 12px;
-  }
-
-  .hero-surface-pattern--linesVertical {
-    background-image: linear-gradient(90deg, hsl(var(--foreground) / 0.08) 1px, transparent 1px);
-    background-size: 12px 100%;
-  }
-
-  .hero-surface-pattern--gridLines {
-    background-image:
-      linear-gradient(hsl(var(--foreground) / 0.07) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(var(--foreground) / 0.07) 1px, transparent 1px);
-    background-size: 24px 24px;
-  }
-
-  /* Profil-Hero (/profil): Verlauf wie Hero-Basis + Gitter nur in einem „Tech“-Spot (radial maskiert) */
-  .profil-hero-paper {
-    position: relative;
-    isolation: isolate;
-    background-color: var(--background);
-    /* Oben → unten wie .hero-section-surface + .hero-background-overlay + Tönung (Reihenfolge: oben zuerst gemalt) */
-    background-image:
-      linear-gradient(
-        172deg,
-        hsl(var(--primary) / 0.062) 0%,
-        hsl(var(--primary) / 0.022) 47%,
-        transparent 77%
-      ),
-      radial-gradient(ellipse 68% 35% at 58% 58%, hsl(var(--primary) / 0.07) 0%, transparent 66%),
-      radial-gradient(ellipse 54% 27% at 56% 60%, hsl(var(--primary) / 0.04) 0%, transparent 72%),
-      radial-gradient(
-        ellipse 82% 41% at 54% 62%,
-        color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%,
-        transparent 62%
-      ),
-      radial-gradient(
-        ellipse 105% 41% at 50% 100%,
-        hsl(var(--primary) / 0.068) 0%,
-        transparent 70%
-      ),
-      radial-gradient(ellipse 86% 33% at 50% 100%, hsl(var(--primary) / 0.038) 0%, transparent 76%),
-      linear-gradient(
-        172deg,
-        color-mix(in hsl, hsl(var(--primary)) 5%, var(--background)) 0%,
-        color-mix(in hsl, hsl(var(--primary)) 1.6%, var(--background)) 54%,
-        var(--background) 90%
-      );
-    background-repeat: no-repeat;
-  }
-
-  @media (min-width: 1024px) {
-    .profil-hero-paper {
-      background-image:
-        linear-gradient(
-          172deg,
-          hsl(var(--primary) / 0.062) 0%,
-          hsl(var(--primary) / 0.022) 47%,
-          transparent 77%
-        ),
-        radial-gradient(
-          ellipse 70% 37% at 78% 36%,
-          hsl(var(--primary) / 0.072) 0%,
-          transparent 66%
-        ),
-        radial-gradient(
-          ellipse 56% 29% at 76% 38%,
-          hsl(var(--primary) / 0.042) 0%,
-          transparent 72%
-        ),
-        radial-gradient(
-          ellipse 86% 43% at 74% 40%,
-          color-mix(in hsl, hsl(var(--primary)) 4.2%, transparent) 0%,
-          transparent 62%
-        ),
-        radial-gradient(
-          ellipse 105% 41% at 52% 100%,
-          hsl(var(--primary) / 0.068) 0%,
-          transparent 70%
-        ),
-        radial-gradient(
-          ellipse 86% 33% at 50% 100%,
-          hsl(var(--primary) / 0.038) 0%,
-          transparent 76%
-        ),
-        linear-gradient(
-          172deg,
-          color-mix(in hsl, hsl(var(--primary)) 5%, var(--background)) 0%,
-          color-mix(in hsl, hsl(var(--primary)) 1.6%, var(--background)) 54%,
-          var(--background) 90%
-        );
-    }
-  }
-
-  /* Feines Primary-Gitter, nur im rechten oberen „Spot“ (Bildseite), weich auslaufend */
-  .profil-hero-paper::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    pointer-events: none;
-    /* ~50 % schwächer als zuvor (0.11 → ~0.055) */
-    background-image:
-      linear-gradient(to right, hsl(var(--primary) / 0.055) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--primary) / 0.055) 1px, transparent 1px);
-    background-size: 11px 11px;
-    background-position: 0 0;
-    mask-image: radial-gradient(
-      ellipse 82% 68% at 76% 38%,
-      #000 0%,
-      #000 22%,
-      rgba(0, 0, 0, 0.25) 48%,
-      transparent 74%
-    );
-    -webkit-mask-image: radial-gradient(
-      ellipse 82% 68% at 76% 38%,
-      #000 0%,
-      #000 22%,
-      rgba(0, 0, 0, 0.25) 48%,
-      transparent 74%
-    );
-    mask-repeat: no-repeat;
-    -webkit-mask-repeat: no-repeat;
-    mask-size: 100% 100%;
-    -webkit-mask-size: 100% 100%;
-  }
-
-  @media (max-width: 767px) {
-    .profil-hero-paper::before {
-      mask-image: radial-gradient(
-        ellipse 95% 58% at 52% 28%,
-        #000 0%,
-        #000 18%,
-        rgba(0, 0, 0, 0.22) 42%,
-        transparent 70%
-      );
-      -webkit-mask-image: radial-gradient(
-        ellipse 95% 58% at 52% 28%,
-        #000 0%,
-        #000 18%,
-        rgba(0, 0, 0, 0.22) 42%,
-        transparent 70%
-      );
-    }
-  }
-
-  [data-theme='dark'] .profil-hero-paper::before {
-    background-image:
-      linear-gradient(to right, hsl(var(--primary) / 0.08) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--primary) / 0.08) 1px, transparent 1px);
-  }
-
-  @keyframes profil-hero-float-ski {
-    0%,
-    100% {
-      transform: translate3d(0, 0, 0) rotate(-0.25deg);
-    }
-    50% {
-      transform: translate3d(0, -14px, 0) rotate(0.35deg);
-    }
-  }
-
-  @keyframes profil-hero-float-cloud {
-    0%,
-    100% {
-      transform: translate3d(2%, 6px, 0) scale(1.02);
-    }
-    50% {
-      transform: translate3d(-1%, -10px, 0) scale(1.05);
-    }
-  }
-
-  .profil-hero-float-ski {
-    animation: profil-hero-float-ski 7s ease-in-out infinite;
-    will-change: transform;
-  }
-
-  .profil-hero-float-cloud {
-    animation: profil-hero-float-cloud 9s ease-in-out infinite;
-    will-change: transform;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .profil-hero-float-ski,
-    .profil-hero-float-cloud {
-      animation: none;
-    }
   }
 
   /* HeroBox Slide-Up: Keyframes für Wrapper (.hero-box-animate) – Tailwind-kompatibel (auch in tailwind.config.mjs). */
@@ -3657,6 +4457,829 @@
     [data-theme='dark'] .marketing-graphpaper-bg {
       --mgp-opacity: 0.135;
     }
+  }
+
+  /* Home mobile hero bg layers (sharp crop + blurred backplate) - relocated here, into
+     @layer utilities, so their !important declarations actually win against the generic
+     .hero-scroll-bg-image / .hero-scroll-bg-backplate rules above (also in this layer,
+     also !important) - per the CSS Cascade Layers spec, an unlayered !important always
+     loses to a layered one regardless of specificity, so these can't live unlayered. */
+  @media (max-width: 479px) {
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-bg-backplate {
+      display: block;
+      height: clamp(520px, 76svh, 680px) !important;
+      width: 100vw !important;
+      object-fit: cover !important;
+      object-position: 62% 50% !important;
+      opacity: calc(0.55 * (1 - var(--home-hero-mobile-bg-fade, 0)));
+      filter: saturate(0.85) blur(22px);
+      /* !important: a competing unlayered .hero-scroll-bg-backplate rule elsewhere sets
+         transform: scale(1.1) !important - author-important always beats author-normal
+         regardless of layers/specificity, so this needs !important too to actually win. */
+      transform: scale(1.54) !important;
+      transform-origin: 50% 50%;
+      transition: opacity 0.4s ease-out;
+    }
+
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-bg-image--home-mobile {
+      /* !important: an unlayered `display: none` for this same class exists further down
+         the file (pre-existing, unscoped) - since this rule now lives in @layer utilities,
+         it needs !important to outrank that unlayered normal-priority declaration too. The
+         extra [data-hero-has-portrait='true'] attribute (matches this page anyway) brings
+         specificity up to a tie with the generic .hero-scroll-bg-image rule elsewhere in
+         this same layer (line ~2567) - source order (this rule comes later) then wins. */
+      display: block !important;
+      height: clamp(520px, 76svh, 680px) !important;
+      width: 100vw !important;
+      /* Switched from cover (matched on HEIGHT, cropping most of the width away - only
+         a narrow vertical strip of the photo was ever visible) to contain: box is
+         narrower (~0.72:1) than the photo (1.75:1), so contain matches on WIDTH instead,
+         showing the full width of the photo (letterboxed top/bottom before the zoom
+         below fills that in). */
+      object-fit: contain !important;
+      object-position: 50% 31% !important;
+      /* Vignette: opaque through the middle (where the high-five sits), fading to
+         transparent toward the edges so the blurred backplate above shows through there -
+         the "elegant silhouette" look, rather than a hard-edged rectangle of sharp photo.
+         A second linear-gradient layer (intersected with the radial one) fades the top
+         and bottom edges independently of the ellipse's own shape - the ellipse alone
+         doesn't reliably reach 0 right at the box's top/bottom edge, which read as a
+         hard cutoff there even though the sides/corners already faded fine. */
+      -webkit-mask-image:
+        radial-gradient(
+          ellipse 68% 62% at 50% 50%,
+          #000 0%,
+          #000 48%,
+          rgba(0, 0, 0, 0.75) 66%,
+          rgba(0, 0, 0, 0.25) 85%,
+          transparent 100%
+        ),
+        linear-gradient(
+          to bottom,
+          transparent 0%,
+          #000 12%,
+          #000 88%,
+          transparent 100%
+        ) !important;
+      mask-image:
+        radial-gradient(
+          ellipse 68% 62% at 50% 50%,
+          #000 0%,
+          #000 48%,
+          rgba(0, 0, 0, 0.75) 66%,
+          rgba(0, 0, 0, 0.25) 85%,
+          transparent 100%
+        ),
+        linear-gradient(
+          to bottom,
+          transparent 0%,
+          #000 12%,
+          #000 88%,
+          transparent 100%
+        ) !important;
+      -webkit-mask-composite: source-in;
+      mask-composite: intersect;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+      /* Visible but subdued at rest (not a fully vivid photo competing with the portrait/
+         overlay above it) - then fades out entirely (--home-hero-mobile-bg-fade) right as
+         the description settles in, alone. */
+      opacity: calc(0.6 * (1 - var(--home-hero-mobile-bg-fade, 0)));
+      /* Grows blurrier while scrolling (--home-hero-mobile-shrink, 0->1 over the first 20%
+         of scroll) so the headline/description above read more clearly the further the
+         user scrolls, without needing the old hide-behind-portrait trick. Desaturated a
+         touch at rest too, for the same "subdued backdrop" reason. */
+      filter: saturate(0.85) blur(calc(var(--home-hero-mobile-shrink, 0) * 10px));
+      /* A prior iteration tried a heavy 2.7x zoom + vertical-centering transform and
+         dropped it for cropping in tight enough to lose the second woman off the right
+         edge - this is a deliberately more moderate zoom (1.6x, not 2.7x), now paired
+         with contain (see object-fit above) instead of cover so it zooms INTO the full
+         photo width rather than an already-cropped strip. Origin (62% 42%) is an
+         estimate of where the high-five itself sits once the photo is width-fitted -
+         needs visual confirmation against the actual source photo. */
+      /* !important: competing non-important `transform: none` rules exist for the base
+         .hero-scroll-bg-image class elsewhere in this file - author-important always
+         beats author-normal regardless of layers/specificity/source order, so this needs
+         !important to reliably win. */
+      transform: scale(2.14) !important;
+      transform-origin: 90% 24% !important;
+      transition:
+        filter 0.4s ease-out,
+        opacity 0.4s ease-out;
+    }
+  }
+}
+
+/* Home Superhero single source of truth.
+   Earlier generic hero rules still serve other variants; this late block owns the home layout. */
+section[data-hero-type='superhero'][data-page-slug='home'] {
+  --home-hero-stage-height: max(
+    calc(100svh - clamp(1.25rem, 3svh, 2.25rem)),
+    clamp(760px, 72svh, 920px)
+  );
+  --home-hero-content-height: clamp(26rem, 58svh, 40.5rem);
+  --home-hero-bg-focus-zoom: 1;
+  --home-hero-bg-position-y: 50%;
+  --home-hero-portrait-width: min(55vw, 45rem);
+  --home-hero-portrait-height: auto;
+  --home-hero-top-offset: 108px;
+  --home-hero-content-top-padding: calc(var(--home-hero-top-offset) + clamp(1.25rem, 4svh, 2.5rem));
+  /* Portrait's own vertical anchor, kept separate from --home-hero-top-offset (which
+     also drives the text column's top padding) so raising the portrait to align
+     Philipp's eye-line with the background photo's doesn't drag the headline up too.
+     -190px calibrated against the background photo's focal point (38%/42%, see the
+     bg-image mask above) at 1440px width; re-check if either photo changes. */
+  --home-hero-portrait-top-offset: calc(var(--home-hero-top-offset) - 190px);
+  min-height: var(--home-hero-stage-height);
+  overflow: visible;
+  background: var(--background);
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'].hero-offset {
+  padding: 0 !important;
+  padding-block-start: 0 !important;
+  padding-top: 0 !important;
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg {
+  inset: 0 !important;
+  height: 100% !important;
+  min-height: 100% !important;
+  overflow: hidden !important;
+  background: var(--background);
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-image,
+section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-backplate {
+  /* Keyhole is centered on the high-five (her face + raised arm sit around 38%/42% of
+     the source photo) so that moment reads sharp instead of the men/laptop on the far
+     left. Still fades to fully transparent by ~50% so nothing shows sharp/opaque
+     through the portrait's silhouette (its left edge sits around there). */
+  --home-hero-bg-mask-inner: 46%;
+  --home-hero-bg-mask-outer: 112%;
+  --home-hero-bg-mask-radius-x: 30%;
+  --home-hero-bg-mask-radius-y: 64%;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 0 !important;
+  transform: scale(var(--home-hero-bg-focus-zoom, 1)) !important;
+  transform-origin: center center !important;
+  transition: none !important;
+  -webkit-mask-image: radial-gradient(
+    ellipse var(--home-hero-bg-mask-radius-x) var(--home-hero-bg-mask-radius-y) at 38% 42%,
+    #000 0%,
+    #000 var(--home-hero-bg-mask-inner),
+    rgba(0, 0, 0, 0.7) calc(var(--home-hero-bg-mask-inner) + 10%),
+    rgba(0, 0, 0, 0.5) calc(var(--home-hero-bg-mask-inner) + 18%),
+    rgba(0, 0, 0, 0.3) calc(var(--home-hero-bg-mask-inner) + 26%),
+    rgba(0, 0, 0, 0.15) calc(var(--home-hero-bg-mask-inner) + 35%),
+    transparent var(--home-hero-bg-mask-outer)
+  );
+  mask-image: radial-gradient(
+    ellipse var(--home-hero-bg-mask-radius-x) var(--home-hero-bg-mask-radius-y) at 38% 42%,
+    #000 0%,
+    #000 var(--home-hero-bg-mask-inner),
+    rgba(0, 0, 0, 0.7) calc(var(--home-hero-bg-mask-inner) + 10%),
+    rgba(0, 0, 0, 0.5) calc(var(--home-hero-bg-mask-inner) + 18%),
+    rgba(0, 0, 0, 0.3) calc(var(--home-hero-bg-mask-inner) + 26%),
+    rgba(0, 0, 0, 0.15) calc(var(--home-hero-bg-mask-inner) + 35%),
+    transparent var(--home-hero-bg-mask-outer)
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-image--desktop {
+  /* width:auto (instead of 100%) lets the intrinsic aspect ratio size this layer so it
+     always matches its own object-fit:contain content exactly - no left/right letterbox
+     gap. Previously width:100% forced the box to full viewport width while contain kept
+     the rendered photo at a constant pixel width (driven only by box height), so on wide
+     viewports a growing empty gap opened up left of the photo. The mask's ellipse then
+     graded across that empty gap as if it were real content, producing a hard visible
+     seam on wide screens where the mask was still mostly opaque right at the gap's edge.
+     With the box now hugging the actual photo, the ellipse's own falloff (relative to
+     the real content box) already reaches transparent before its own left edge, so the
+     seam with the backplate blur underneath is invisible at any viewport width. */
+  display: block;
+  left: auto !important;
+  right: 0 !important;
+  width: auto !important;
+  object-fit: contain !important;
+  object-position: 50% var(--home-hero-bg-position-y, var(--hero-focus-y, 50%)) !important;
+  transform: none !important;
+  /* Keyhole center nudged 6pp right of the high-five (38%->44%) so the sharp zone keeps
+     its shape but reaches further right before the fade into the blurred backplate
+     starts - the high-five itself stays well inside the opaque core either way. Radius-x
+     scaled up in steps (30%->34.5%->39.7%->45.7%->50.3%) to push the clear/no-fade area
+     out even further before the taper into blur begins. */
+  --home-hero-bg-mask-radius-x: 50.3%;
+  -webkit-mask-image: radial-gradient(
+    ellipse var(--home-hero-bg-mask-radius-x) var(--home-hero-bg-mask-radius-y) at 44% 42%,
+    #000 0%,
+    #000 var(--home-hero-bg-mask-inner),
+    rgba(0, 0, 0, 0.7) calc(var(--home-hero-bg-mask-inner) + 10%),
+    rgba(0, 0, 0, 0.5) calc(var(--home-hero-bg-mask-inner) + 18%),
+    rgba(0, 0, 0, 0.3) calc(var(--home-hero-bg-mask-inner) + 26%),
+    rgba(0, 0, 0, 0.15) calc(var(--home-hero-bg-mask-inner) + 35%),
+    transparent var(--home-hero-bg-mask-outer)
+  );
+  mask-image: radial-gradient(
+    ellipse var(--home-hero-bg-mask-radius-x) var(--home-hero-bg-mask-radius-y) at 44% 42%,
+    #000 0%,
+    #000 var(--home-hero-bg-mask-inner),
+    rgba(0, 0, 0, 0.7) calc(var(--home-hero-bg-mask-inner) + 10%),
+    rgba(0, 0, 0, 0.5) calc(var(--home-hero-bg-mask-inner) + 18%),
+    rgba(0, 0, 0, 0.3) calc(var(--home-hero-bg-mask-inner) + 26%),
+    rgba(0, 0, 0, 0.15) calc(var(--home-hero-bg-mask-inner) + 35%),
+    transparent var(--home-hero-bg-mask-outer)
+  );
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-image--home-mobile {
+  display: none;
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-backplate {
+  /* Offset 10pp to the right of the sharp keyhole's focal point (the high-five, 38%/42%)
+     so the blurred layer keeps fading a bit further past the high-five instead of
+     cutting off right after it - enough to hint at the second person she's high-fiving
+     with. Still close enough to 38% that the seam with the sharp layer reads as one
+     continuous falloff rather than a mismatched double-vignette. */
+  --home-hero-bg-mask-inner: 44%;
+  --home-hero-bg-mask-outer: 92%;
+  --home-hero-bg-mask-radius-x: 80%;
+  --home-hero-bg-mask-radius-y: 74%;
+  display: block;
+  left: auto !important;
+  right: 0 !important;
+  width: 100% !important;
+  object-fit: cover !important;
+  object-position: 50% var(--home-hero-bg-position-y, var(--hero-focus-y, 50%)) !important;
+  opacity: 0.42;
+  filter: blur(32px) saturate(0.96) !important;
+  transform: scale(1.1) !important;
+  transform-origin: center center !important;
+  -webkit-mask-image: radial-gradient(
+    ellipse var(--home-hero-bg-mask-radius-x) var(--home-hero-bg-mask-radius-y) at 48% 42%,
+    #000 0%,
+    #000 var(--home-hero-bg-mask-inner),
+    rgba(0, 0, 0, 0.8) calc(var(--home-hero-bg-mask-inner) + 8%),
+    rgba(0, 0, 0, 0.5) calc(var(--home-hero-bg-mask-inner) + 15%),
+    rgba(0, 0, 0, 0.2) calc(var(--home-hero-bg-mask-inner) + 25%),
+    transparent var(--home-hero-bg-mask-outer)
+  );
+  mask-image: radial-gradient(
+    ellipse var(--home-hero-bg-mask-radius-x) var(--home-hero-bg-mask-radius-y) at 48% 42%,
+    #000 0%,
+    #000 var(--home-hero-bg-mask-inner),
+    rgba(0, 0, 0, 0.8) calc(var(--home-hero-bg-mask-inner) + 8%),
+    rgba(0, 0, 0, 0.5) calc(var(--home-hero-bg-mask-inner) + 15%),
+    rgba(0, 0, 0, 0.2) calc(var(--home-hero-bg-mask-inner) + 25%),
+    transparent var(--home-hero-bg-mask-outer)
+  );
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content {
+  width: 100%;
+  max-width: 100%;
+  min-height: var(--home-hero-stage-height);
+  margin-inline: auto;
+  padding-inline: 1rem !important;
+  padding-top: var(--home-hero-content-top-padding) !important;
+  padding-bottom: 0 !important;
+}
+
+@media (min-width: 640px) {
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content {
+    max-width: min(var(--breakpoint-sm), 100%);
+  }
+}
+
+@media (min-width: 480px) {
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content {
+    max-width: min(var(--breakpoint-md), 100%);
+    padding-inline: 1.5rem !important;
+  }
+
+  /* The copy block only centers its own content within its min-height box; without
+     this, leftover vertical space in the (much taller) stage collects below it
+     instead of splitting evenly, reading as top-aligned. Follows the same
+     top/center/bottom choice as the "Content-Ausrichtung" CMS field via
+     --hero-content-justify (see SuperheroHero.tsx). */
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-scroll-content {
+    justify-content: var(--hero-content-justify, center);
+  }
+}
+
+@media (min-width: 1024px) {
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content {
+    max-width: min(var(--breakpoint-lg), 100%);
+    padding-inline: 2rem !important;
+  }
+}
+
+@media (min-width: 1280px) {
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content {
+    max-width: min(var(--breakpoint-xl), 100%);
+  }
+}
+
+@media (min-width: 1376px) {
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content {
+    max-width: min(var(--breakpoint-2xl), 100%);
+  }
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+  .hero-scroll-content-main {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-width: none;
+  min-height: auto;
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
+  position: relative;
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+  .hero-scroll-content-copy {
+  max-width: 48rem;
+  min-height: var(--home-hero-content-height);
+  align-self: center;
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+  justify-content: center;
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-layer-headline {
+  white-space: nowrap;
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+  .hero-superhero-portrait {
+  position: absolute;
+  right: 0;
+  top: var(--home-hero-portrait-top-offset);
+  width: var(--home-hero-portrait-width);
+  min-width: 0;
+  height: auto;
+  max-height: none;
+  z-index: 10;
+  margin-right: -4rem;
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+  .hero-superhero-portrait-popout
+  .pb-popout-root {
+  width: 100% !important;
+  max-width: 100%;
+  min-width: 0;
+  height: 100%;
+  transform: none !important;
+}
+
+.hero-shell--superhero[data-home-scroll-root] .hero-following-section-mask {
+  --home-hero-bridge-progress: clamp(0, calc(var(--hero-scroll-progress, 0) * 3.2), 1);
+  --home-hero-bridge-offset: clamp(0.75rem, 2.2svh, 1.5rem);
+  background: transparent !important;
+  background-image: none !important;
+  padding-top: clamp(6.5rem, 12svh, 9rem) !important;
+  transform: none;
+  transition: none;
+  will-change: auto;
+}
+
+.hero-shell--superhero[data-home-scroll-root] .hero-following-section-mask::before {
+  content: '' !important;
+  display: block !important;
+  top: 0 !important;
+  height: 100% !important;
+  background: var(--hero-next-section-bg, var(--background)) !important;
+  -webkit-mask-image: none !important;
+  mask-image: none !important;
+}
+
+@media (min-width: 1024px) {
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-scroll-content-copy {
+    max-width: 52rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  section[data-hero-type='superhero'][data-page-slug='home'] {
+    --home-hero-stage-height: clamp(760px, calc(100svh - clamp(1.25rem, 3svh, 2.25rem)), 960px);
+    --home-hero-top-offset: 112px;
+    max-height: 960px;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content {
+    --home-hero-content-top-padding: calc(var(--home-hero-top-offset) + 1rem);
+    padding-top: var(--home-hero-content-top-padding) !important;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-scroll-content-copy {
+    max-width: 56rem;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-superhero-portrait {
+    margin-right: -4rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  /* Above the content column's max-width cap (--breakpoint-2xl), the centered column
+     pulls the right-anchored portrait inward, close enough to the background photo's
+     subject that raising it 190px (see --home-hero-portrait-top-offset) makes Philipp's
+     head cover her face instead of aligning next to it. Drop the extra lift here. */
+  section[data-hero-type='superhero'][data-page-slug='home'] {
+    --home-hero-portrait-top-offset: var(--home-hero-top-offset);
+  }
+}
+
+@media (min-width: 480px) and (max-width: 1023px) {
+  /* Tablet tier: shorter --home-hero-content-height, narrower copy column (40-45vw)
+     and a differently-proportioned portrait mean the -190px desktop calibration (see
+     --home-hero-portrait-top-offset) massively overshoots here, pushing the portrait
+     up into the nav bar. Reset to the unshifted offset for this range. */
+  section[data-hero-type='superhero'][data-page-slug='home'] {
+    --home-hero-portrait-top-offset: calc(var(--home-hero-top-offset) - 60px);
+  }
+
+  /* The sharp layer uses object-fit:contain (unlike the backplate's cover), so at this
+     tier's box aspect ratio the photo itself doesn't reach the box's top/bottom edges -
+     there's a letterboxed gap of real empty space above/below the actual image content.
+     radius-y=64% was tuned against the box edge, not this gap: at that size the mask is
+     still ~60% opaque right where the photo content stops, so it pops in abruptly at
+     that height instead of fading in - the "hard edge" isn't the mask cutting off at a
+     box boundary, it's an under-faded opacity meeting a hard content boundary. Shrunk
+     so the fade actually reaches ~0 by the time the letterboxed content runs out. */
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-image {
+    --home-hero-bg-mask-radius-y: 24%;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 1023px) {
+  /* Was two near-identical blocks (768-850px / 851-1023px) differing only in the
+     portrait's margin-right (-5rem / -7rem) - merged, with that one delta moved to
+     its own min-width:851px block below, so shared tablet tuning only lives once. */
+  section[data-hero-type='superhero'][data-page-slug='home'] {
+    --home-hero-stage-height: clamp(660px, 68svh, 760px);
+    --home-hero-content-height: clamp(24rem, 52svh, 31rem);
+    --home-hero-top-offset: 108px;
+    max-width: none;
+    padding: 0;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content {
+    width: 100%;
+    min-height: var(--home-hero-stage-height);
+    padding-inline: 0 !important;
+    padding-top: var(--home-hero-top-offset) !important;
+    padding-bottom: clamp(1.5rem, 4svh, 2.5rem) !important;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-backplate {
+    /* 66% inner meant the blur stayed at its full, near-opaque strength across most of
+       the ellipse (94% x 80% - nearly the whole box) before tapering only right at the
+       very edge, so almost the entire photo read as blurred instead of just the seam
+       around the sharp keyhole. Lower inner so it starts fading immediately, and a
+       lower opacity on top, so it reads as a soft accent, not a second image layer. */
+    --home-hero-bg-mask-inner: 30%;
+    --home-hero-bg-mask-outer: 106%;
+    --home-hero-bg-mask-radius-x: 80%;
+    --home-hero-bg-mask-radius-y: 80%;
+    opacity: 0.24;
+  }
+
+  .hero-shell--superhero[data-home-scroll-root] .hero-following-section-mask {
+    padding-top: clamp(8rem, 13svh, 10rem) !important;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-scroll-content-copy {
+    max-width: 45vw;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-layer-headline {
+    font-size: clamp(3rem, 5.2vw, 3.45rem);
+    line-height: 1.08;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-stats-grid {
+    grid-template-columns: repeat(3, 1fr);
+    gap-x: 2rem;
+    gap-y: 1.5rem;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-stat-item {
+    padding: 0.5rem 0;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-layer-body {
+    font-weight: 500;
+    font-size: 0.85rem;
+    line-height: 1.4;
+    letter-spacing: 0.01em;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-superhero-portrait {
+    margin-right: -5rem;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-scroll-content-copy {
+    max-width: 40vw;
+  }
+}
+
+@media (min-width: 851px) and (max-width: 1023px) {
+  /* Only delta from the shared 768-1023px block above: portrait sits further left
+     (-7rem vs -5rem) once there's enough width for it to need the extra clearance. */
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-superhero-portrait {
+    margin-right: -7rem;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  /* Small-tablet tier: the shared 480-1023px block above zeroes padding-inline
+     (correct for real tablets, which anchor the copy column via vw units instead),
+     but at this narrower end that reads as the hero content sitting flush against
+     the viewport edge - restore the same inline padding mobile uses. */
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content {
+    padding-inline: 1.5rem !important;
+  }
+
+  /* Stats card keeps its mobile glass background through this tier - it only goes
+     fully transparent once the two-column desktop/tablet grid (md:grid-cols-*,
+     768px) actually kicks in; on the shared 480-1023px block above the card would
+     otherwise turn transparent immediately at 480px, ahead of the grid switch. */
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-mobile-glass {
+    background: color-mix(in srgb, var(--background) 74%, transparent);
+    border-top: 1px solid color-mix(in srgb, var(--foreground) 12%, transparent);
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.1);
+  }
+  [data-theme='dark']
+    section[data-hero-type='superhero'][data-page-slug='home']
+    .hero-mobile-glass {
+    background: color-mix(in srgb, var(--background) 36%, transparent);
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.35);
+  }
+  [data-theme='light']
+    section[data-hero-type='superhero'][data-page-slug='home']
+    .hero-mobile-glass {
+    background: color-mix(in srgb, var(--background) 55%, transparent);
+    border-top: 1px solid rgba(255, 255, 255, 0.45);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.05);
+  }
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
+    .hero-mobile-glass {
+    backdrop-filter: blur(20px) saturate(1.8);
+    -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  }
+  [data-theme='dark']
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
+    .hero-mobile-glass {
+    backdrop-filter: blur(24px) saturate(1.8);
+    -webkit-backdrop-filter: blur(24px) saturate(1.8);
+  }
+
+  /* Description text gets a width cap on this tier too (previously only set below
+     480px), so it doesn't stretch across the full two-column width before the
+     tablet copy-column max-width (45vw/40vw, set at 768px+) takes over. */
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-layer-body {
+    max-width: 50%;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  section[data-hero-type='superhero'][data-page-slug='home'] {
+    /* Same cap as the ≥1280px rule below: without an upper bound here, very tall
+       but narrow desktop viewports (e.g. a rotated/portrait monitor, or a split
+       browser window) would stretch the stage far past a sensible hero height. */
+    --home-hero-stage-height: clamp(760px, calc(100svh - clamp(1.25rem, 3svh, 2.25rem)), 960px);
+    max-height: 960px;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-superhero-portrait {
+    margin-right: -8rem;
+  }
+}
+
+@media (max-width: 479px) {
+  /* Pin the hero: the section is a tall scroll "runway" (not just one screen) so the
+     sticky stage inside it (.hero-mobile-pin-stage) can hold at top:0 for that extra
+     distance - scrolling plays the shrink/reveal/exit animation instead of immediately
+     moving the page past the hero. See updateScrollProgress() in SuperheroHero.tsx,
+     which switches to a rect.height-vs-viewport formula specifically for this case.
+     Desktop/tablet never get this rule (media-gated), so they scroll normally. */
+  section[data-hero-type='superhero'][data-page-slug='home'] {
+    /* Visible stage fills the real viewport height on every phone in the typical modern
+       range (iPhone SE's 667px up to ~930px, covering iPhone 15/Pro Max, Pixel, Galaxy S
+       etc.) - clamp() rather than a single fixed size, so most phones get the full
+       screen instead of a fixed 667px box with empty space below it. Only devices
+       outside that range (foldables, tablets in portrait) get bounded at the nearer
+       edge. The tall pin runway is derived from the same value so the two stay in sync
+       on every device. Multiplier cut from 2.2 to 1.3: every scroll-driven reveal in the
+       stage (headline build-up, portrait slide, CTA, icon) now finishes by progress 0.44
+       (see --home-hero-icon-in), but the pin only releases at progress 1.0 - at 2.2x that
+       left a long stretch of already-finished, do-nothing scroll distance the user had to
+       fight through before the page would move on. At 1.3x the same relative "dead" tail
+       is a fraction of the physical scroll distance, so normal scrolling resumes soon
+       after everything (icon included) is done, without needing to rescale every
+       animation's own timing to fill 0->1 exactly. */
+    --home-hero-mobile-stage-cap: clamp(41.6875rem, 100dvh, 58.125rem);
+    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.3);
+    --home-hero-top-offset: calc(
+      var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)
+    );
+    height: var(--home-hero-stage-height);
+    min-height: var(--home-hero-stage-height);
+  }
+
+  /* The visible "screen" - stays pinned at the top of the viewport for the section's
+     extra scroll runway, capped at the iPhone SE's height (see --home-hero-mobile-
+     stage-cap above) rather than always the full (possibly taller) viewport. */
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-mobile-pin-stage {
+    position: sticky;
+    top: 0;
+    height: var(--home-hero-mobile-stage-cap, 100dvh);
+    /* overflow stays visible (not hidden) - the portrait's oversized rest-state scale
+       (see .hero-mobile-portrait-parallax) intentionally bleeds past this box's edges. */
+    overflow: visible;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'].hero-offset {
+    padding-top: 0 !important;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content {
+    width: min(100% - 2rem, 36rem);
+    /* Fill the sticky stage (see .hero-mobile-pin-stage). Content flows from the top
+       (default justify-content) so padding-top reliably clears the floating header -
+       flex-end (bottom-anchoring) was tried here, but the text+portrait+CTA stack is
+       taller than the space left after header clearance, so bottom-anchoring pushed the
+       overflow upward past the padding and under the header instead of past the bottom. */
+    height: 100%;
+    min-height: auto;
+    /* Positioned so the portrait (see .hero-mobile-sticky-portrait below) can anchor
+       absolutely to THIS box's bottom edge - i.e. the bottom of the fixed 667px stage -
+       rather than to the section's own bottom, which spans the much taller pin runway. */
+    position: relative;
+    padding-inline: 0 !important;
+    padding-top: var(--home-hero-top-offset) !important;
+    padding-bottom: clamp(1.5rem, 4svh, 2.5rem) !important;
+  }
+
+  .hero-shell--superhero[data-home-scroll-root] .hero-following-section-mask {
+    --home-hero-bridge-progress: 1;
+    /* Reduced from clamp(5.5rem, 11svh, 7rem) - gap to the first section after the hero
+       was too generous on mobile. */
+    padding-top: clamp(2.5rem, 5svh, 3.5rem) !important;
+    transform: none;
+    transition: none;
+    will-change: auto;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-scroll-content-main {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    min-height: auto;
+    /* The portrait's position:absolute (see .hero-mobile-sticky-portrait) resolves
+       against THIS element, not .hero-scroll-content - .hero-scroll-content-main always
+       carries a `transform` (see the unguarded rule near the top of this file, kept as
+       an identity transform on purpose), and a transform makes an element the containing
+       block for absolutely positioned descendants regardless of any ancestor's
+       position:relative. Without an explicit height here, this flex box shrinks to fit
+       only its in-flow child (the reveal text - the portrait is out of flow), so
+       bottom:0 lands at the bottom of the TEXT, not the bottom of the 667px stage. */
+    height: 100%;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-image--desktop {
+    display: none;
+  }
+
+  /* Elegant silhouette: a blurred duplicate sits behind the sharp crop and only shows
+     at the edges, where the sharp layer's vignette mask (below) fades to transparent -
+     same DOM order as the sharp layer, so it's naturally underneath without extra z-index.
+     Selector matches [data-hero-has-portrait='true'] too so it outranks (and overrides)
+     the earlier, more specific "display:none" rule for this same class further up. */
+  /* This pair of rules (backplate + home-mobile sharp layer) has moved into the top-level
+     @layer utilities block (see below, right before its closing brace) - the generic
+     .hero-scroll-bg-image / .hero-scroll-bg-backplate rules elsewhere in this file live in
+     @layer utilities and use !important, and per the CSS Cascade Layers spec a layered
+     !important always beats an unlayered !important regardless of specificity. Nesting a
+     fresh @layer utilities {} block here (inside this @media) breaks Tailwind's CSS parser,
+     so the rules were relocated instead of re-wrapped. */
+
+  /* The desktop overlay's left-to-right wipe assumes photo-bleeds-right-of-text layout.
+     Mobile stacks image above text instead, so that horizontal fade just blanks out the
+     left half of the scene for no reason - keep only a top/bottom vignette here.
+     Strongest right behind the text (now living in the top ~1/3, not a floating card
+     anymore - see .hero-scroll-content-reveal), tinted (not clear) through the portrait's
+     zone too - the whole background should read as a subdued backdrop, not a fully
+     vivid photo competing with the portrait - and tinted again at the very bottom to
+     blend into the next section. */
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-superhero-image-overlay {
+    background-image: linear-gradient(
+      to bottom,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 88%, transparent) 0%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 74%, transparent) 18%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 60%, transparent) 34%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 60%, transparent) 58%,
+      color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 88%, transparent) 100%
+    );
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-mobile-sticky-portrait {
+    position: relative !important;
+    top: auto !important;
+    width: 100vw;
+    min-width: 100vw;
+    max-width: 100vw;
+    height: clamp(400px, 60svh, 500px);
+    min-height: clamp(400px, 60svh, 500px);
+    max-height: clamp(400px, 60svh, 500px);
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    transform: none !important;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-superhero-portrait-popout
+    .pb-popout-root {
+    width: min(96vw, 392px) !important;
+    min-width: 0;
+    max-width: min(96vw, 392px);
+    height: 100%;
+    /* Nudged up (was +0.35–0.75rem) so the hands/glasses clear the glass card below. */
+    transform: translateY(clamp(-1.75rem, -4.5svh, -1rem)) scale(1.03) !important;
+    transform-origin: center bottom;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-scroll-content-copy {
+    position: relative !important;
+    top: auto !important;
+    max-width: none;
+    min-height: 0;
+    margin-top: clamp(-6.5rem, -16svh, -4.5rem) !important;
+    padding-top: clamp(1.15rem, 4.4svh, 1.75rem) !important;
+    padding-bottom: clamp(0.9rem, 3.2svh, 1.35rem) !important;
+    row-gap: clamp(0.7rem, 2.4svh, 1rem);
+    background: color-mix(in srgb, var(--background) 74%, transparent);
+  }
+
+  section[data-hero-effects='ready'][data-hero-type='superhero'][data-page-slug='home']
+    .hero-mobile-glass {
+    position: relative !important;
+    top: auto !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-stats-grid,
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-logo-band-shell {
+    display: none;
+  }
+
+  /* Stats + logo band are the only things this card ever holds on the home mobile
+     hero, and both are hidden above - so the card itself is just an empty glass
+     shell (background/border/shadow/blur) with nothing inside it. */
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-mobile-glass {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-shell--superhero[data-home-scroll-root] .hero-following-section-mask {
+    --home-hero-bridge-progress: 1;
+    transform: none;
+    transition: none;
+    will-change: auto;
   }
 }
 

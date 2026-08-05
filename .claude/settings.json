@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm run dev *)",
+      "Bash(nohup pnpm dev *)",
+      "Bash(nohup pnpm run dev *)",
+      "Bash(ps -p *)",
+      "Bash(lsof -ti *)",
+      "Bash"
+    ]
+  }
+}

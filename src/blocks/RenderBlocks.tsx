@@ -103,15 +103,21 @@ export const RenderBlocks: React.FC<{
     blockIndex?: number
     variant?: 'topo-corner' | 'topo-band'
   }
+  /** Offset applied to each block's index (for first-block/last-block detection and stagger
+   * delay) when this array is a slice of a larger, split-rendered block list. */
+  startIndex?: number
+  /** True length of the full (unsliced) block list, for correct last-block detection when
+   * this array is only a slice. Defaults to this array's own length. */
+  totalLength?: number
 }> = (props) => {
-  const { blocks, decorativeBackground } = props
+  const { blocks, decorativeBackground, startIndex = 0, totalLength } = props
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
   if (hasBlocks) {
     return (
       <Fragment>
-        {blocks.map((block, index) => {
+        {blocks.map((block, localIndex) => {
           if (!block || typeof block !== 'object') return null
           const b = block as BlockWithStyle
           const { blockType } = b
@@ -122,6 +128,8 @@ export const RenderBlocks: React.FC<{
           const isClientBlock = CLIENT_BLOCK_TYPES.has(blockType)
           const isProfilBlock = blockType.startsWith('profil')
           if (!isArchive && !isClientBlock && !isPriceCalculator) return null
+
+          const index = startIndex + localIndex
 
           const bg = b.blockBackground
           const bgImageUrl = getBlockBackgroundImageUrl(b.blockBackgroundImage)
@@ -135,7 +143,7 @@ export const RenderBlocks: React.FC<{
                 ? decorativeBackground.variant
                 : null
           const hasDecorativeBackground = Boolean(decorativeVariant)
-          const isLastBlock = index === blocks.length - 1
+          const isLastBlock = index === (totalLength ?? blocks.length) - 1
 
           const spacingClass =
             index === 0
@@ -147,6 +155,12 @@ export const RenderBlocks: React.FC<{
                 : undefined
 
           const className = cn(spacingClass, isLastBlock && hasBackground && 'mb-0')
+          const homeSection =
+            blockType === 'introduction' ||
+            blockType === 'servicesOverview' ||
+            blockType === 'whyWorkWithMe'
+              ? blockType
+              : undefined
 
           return (
             <AnimateBlock
@@ -157,6 +171,7 @@ export const RenderBlocks: React.FC<{
               }
               // Erster Block: mt-[-1px] schließt an den Hero-Shape-Divider an; kein pt-[8vh], damit kein großer Leerraum oberhalb des Contents.
               className={className}
+              data-home-section={homeSection}
               variants={blurryFadeIn}
               viewport={{ once: true, amount: 0.14 }}
               transition={{

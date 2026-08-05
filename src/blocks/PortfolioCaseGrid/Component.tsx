@@ -1,8 +1,10 @@
 'use client'
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
   ArrowUpRight,
   Building2,
@@ -152,19 +154,17 @@ const isExternalHref = (href: string): boolean =>
 const isMediaObject = (value: unknown): value is MediaType =>
   typeof value === 'object' && value !== null
 
-const blockBgVar: Record<string, string> = {
-  muted: 'var(--muted)',
-  accent: 'var(--accent)',
-  light: 'var(--theme-elevation-50)',
-  dark: 'var(--theme-elevation-800)',
-}
+gsap.registerPlugin(ScrollTrigger)
+
+const prefersReducedMotion = () =>
+  typeof window !== 'undefined' &&
+  window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   eyebrow,
   heading,
   intro,
   cases,
-  blockBackground,
   layoutVariant,
 }) => {
   const isDataLayout = layoutVariant === 'data'
@@ -177,6 +177,8 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   const [isPortalMounted, setIsPortalMounted] = useState(false)
   const [modalDragOffset, setModalDragOffset] = useState(0)
   const sliderRef = useRef<HTMLDivElement | null>(null)
+  const headerRef = useRef<HTMLDivElement | null>(null)
+  const sliderWrapRef = useRef<HTMLDivElement | null>(null)
   const modalRef = useRef<HTMLDivElement | null>(null)
   const modalScrollRef = useRef<HTMLDivElement | null>(null)
   const modalDragOffsetRef = useRef(0)
@@ -474,9 +476,164 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
     return () => slider.removeEventListener('scroll', onScroll)
   }, [withKeys.length])
 
-  if (!rows.length) return null
+  // Beim ersten Erscheinen im Viewport läuft der Slider einmal dezent an,
+  // als wäre er sanft angestoßen worden, und kommt dann zum Stehen. Vorher
+  // (bis zu 10 Karten in 2.6s mit power4.out, einer sehr scharfen
+  // Verzögerungskurve) wirkte das wie ein wild losgetretenes Glücksrad statt
+  // eines ruhigen Hinweises auf die Scrollbarkeit.
+  useEffect(() => {
+    if (prefersReducedMotion()) return
 
-  const fadeBg = blockBgVar[(blockBackground as string) ?? ''] ?? 'var(--background)'
+    const slider = sliderRef.current
+    const wrap = sliderWrapRef.current
+    if (!slider || !wrap || withKeys.length < 2) return
+
+    let hasSpun = false
+
+    const runSpin = () => {
+      if (hasSpun) return
+      hasSpun = true
+
+      requestAnimationFrame(() => {
+        const firstCard = slider.querySelector<HTMLElement>('[data-portfolio-card="true"]')
+        const cardWidth = firstCard?.offsetWidth ?? 380
+        const gap = 16
+        const step = cardWidth + gap
+        const spinCards = Math.min(withKeys.length, 3)
+        const distance = step * spinCards
+        const section = slider.scrollWidth / 3
+        const state = { x: slider.scrollLeft }
+
+        isAdjustingLoopRef.current = true
+
+        gsap.to(state, {
+          x: state.x + distance,
+          duration: 1.8,
+          ease: 'power2.out',
+          onUpdate: () => {
+            slider.scrollLeft = state.x
+          },
+          onComplete: () => {
+            let normalized = slider.scrollLeft
+            while (normalized > section * 1.5) normalized -= section
+            while (normalized < section * 0.5) normalized += section
+            slider.scrollLeft = normalized
+            isAdjustingLoopRef.current = false
+          },
+        })
+      })
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            runSpin()
+            observer.disconnect()
+          }
+        })
+      },
+      { threshold: 0.35 },
+    )
+
+    observer.observe(wrap)
+    return () => observer.disconnect()
+  }, [withKeys.length])
+
+  useLayoutEffect(() => {
+    if (prefersReducedMotion()) return
+
+    const header = headerRef.current
+    const sliderWrap = sliderWrapRef.current
+    if (!header && !sliderWrap) return
+
+    const context = gsap.context(() => {
+      const items = header?.querySelectorAll<HTMLElement>('[data-portfolio-header-item="true"]')
+
+      if (header && items?.length) {
+        gsap.fromTo(
+          items,
+          { y: 46, opacity: 0, filter: 'blur(8px)' },
+          {
+            y: 0,
+            opacity: 1,
+            filter: 'blur(0px)',
+            stagger: 0.12,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: header,
+              start: 'top 92%',
+              end: 'top 42%',
+              scrub: 0.7,
+            },
+          },
+        )
+      }
+
+      if (sliderWrap) {
+        // Orientiert sich an der eigenen Mitte des Sliders statt an Top/Bottom-
+        // Kanten: voll sichtbar, sobald die Slider-Mitte im mittleren
+        // Fensterband liegt (60%-40% Viewporthöhe), außerhalb davon wird auf-
+        // bzw. abgebaut. Zwei getrennte ScrollTrigger (Fade-in / Fade-out) statt
+        // einer einzelnen Timeline über beide Kanten, weil "center" nur einen
+        // Punkt kennt, keine Strecke — für Ein- und Ausblenden braucht es daher
+        // je einen eigenen Start/End-Bereich.
+        // Fade-out läuft über eine längere Strecke als vorher ("center 40%"
+        // bis "center 20%" statt "center 10%"). Der Platz bis zur direkt
+        // folgenden KPI-Section ("Ergebnisse über mehrere Marketing-Cases")
+        // ist auf dieser Seite knapp (nur ~250px zwischen den beiden
+        // Section-Mitten) — die Kacheln-Section startet ihr Fade-in daher bei
+        // "center 80%" statt "center 90%" (siehe KpiTileReveal.client.tsx),
+        // um dem Slider genug Puffer für ein sichtbar langsames Ausblenden zu
+        // geben, ohne dass beide Sections gleichzeitig sichtbar sind.
+        gsap.fromTo(
+          sliderWrap,
+          { y: 40, opacity: 0, filter: 'blur(10px)' },
+          {
+            y: 0,
+            opacity: 1,
+            filter: 'blur(0px)',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sliderWrap,
+              start: 'center 90%',
+              end: 'center 60%',
+              scrub: 0.7,
+            },
+          },
+        )
+
+        // fromTo statt to: ein plain .to() erfasst seinen "from"-Zustand beim
+        // Erstellen, und das passiert direkt nachdem der Fade-in oben per
+        // .fromTo() (immediateRender) den Slider sofort auf opacity:0 /
+        // blur:10 gesetzt hat — der Fade-out hätte also "von 0 nach 0"
+        // interpoliert und wäre beim Erreichen seines Start-Punkts
+        // schlagartig auf 0 gesprungen statt sichtbar auszublenden.
+        gsap.fromTo(
+          sliderWrap,
+          { y: 0, opacity: 1, filter: 'blur(0px)' },
+          {
+            y: -40,
+            opacity: 0,
+            filter: 'blur(10px)',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: sliderWrap,
+              start: 'center 40%',
+              end: 'center 20%',
+              scrub: 0.9,
+            },
+          },
+        )
+      }
+    })
+
+    ScrollTrigger.refresh()
+
+    return () => context.revert()
+  }, [rows.length, eyebrow, heading, intro])
+
+  if (!rows.length) return null
 
   const portfolioModal =
     isPortalMounted && activeCase
@@ -727,18 +884,27 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   return (
     <section
       className={cn(
-        'relative w-full py-16 md:py-20',
+        'relative w-full pt-24 pb-36 md:pt-32 md:pb-48',
         isDataLayout && 'portfolio-case-grid--data',
       )}
-      style={{ ['--pcg-fade-bg' as string]: fadeBg }}
     >
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-x-0 -top-10 bottom-0 -z-10"
+        style={{
+          background:
+            'linear-gradient(180deg, transparent 0%, color-mix(in srgb, var(--foreground) 7%, transparent) 22%, color-mix(in srgb, var(--foreground) 7%, transparent) 52%, transparent 78%)',
+        }}
+      />
+
       {portfolioModal}
 
       <div className="container px-0 md:px-0">
-        <div className="w-full">
+        <div ref={headerRef} className="w-full text-center">
           {eyebrow ? (
             <Badge
               variant="secondary"
+              data-portfolio-header-item="true"
               className="mb-3 px-3 py-1 text-xs font-semibold uppercase tracking-[0.16em]"
             >
               <Sparkles className="size-3.5" />
@@ -746,32 +912,25 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
             </Badge>
           ) : null}
           {heading ? (
-            <h2 className="overflow-visible py-1 text-3xl font-semibold leading-[1.16] md:text-4xl md:leading-[1.14]">
+            <h2
+              data-portfolio-header-item="true"
+              className="overflow-visible py-1 text-3xl font-semibold leading-[1.16] md:text-4xl md:leading-[1.14]"
+            >
               {heading}
             </h2>
           ) : null}
           {intro ? (
-            <p className="mt-4 w-full text-sm leading-relaxed opacity-85 md:text-base">{intro}</p>
+            <p
+              data-portfolio-header-item="true"
+              className="mx-auto mt-4 w-full max-w-2xl text-sm leading-relaxed opacity-85 md:text-base"
+            >
+              {intro}
+            </p>
           ) : null}
         </div>
 
-        <div className="mt-8">
+        <div ref={sliderWrapRef} className="mt-14 md:mt-20">
           <div className="relative -mx-4 px-4" aria-hidden={Boolean(activeCase)}>
-            <div
-              className="pointer-events-none absolute inset-y-0 left-4 z-10 w-12 backdrop-blur-[1px] md:w-20"
-              style={{
-                background:
-                  'linear-gradient(to right, var(--pcg-fade-bg) 0%, color-mix(in srgb, var(--pcg-fade-bg) 55%, transparent) 60%, transparent 100%)',
-              }}
-            />
-            <div
-              className="pointer-events-none absolute inset-y-0 right-4 z-10 w-12 backdrop-blur-[1px] md:w-20"
-              style={{
-                background:
-                  'linear-gradient(to left, var(--pcg-fade-bg) 0%, color-mix(in srgb, var(--pcg-fade-bg) 55%, transparent) 60%, transparent 100%)',
-              }}
-            />
-
             <button
               type="button"
               onClick={() => stepSlider('prev')}
@@ -795,6 +954,12 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
             <div
               ref={sliderRef}
               className="overflow-x-auto px-10 pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+              style={{
+                maskImage:
+                  'linear-gradient(to right, transparent 0, black clamp(32px, 6vw, 80px), black calc(100% - clamp(32px, 6vw, 80px)), transparent 100%)',
+                WebkitMaskImage:
+                  'linear-gradient(to right, transparent 0, black clamp(32px, 6vw, 80px), black calc(100% - clamp(32px, 6vw, 80px)), transparent 100%)',
+              }}
             >
               <div className="flex w-max gap-8">
                 {loopCards.map(({ item, key }, loopIndex) => {
@@ -819,12 +984,12 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                       className={cn(
                         'portfolio-case-card group w-[78vw] max-w-[420px] shrink-0 snap-start overflow-hidden rounded-3xl border text-left backdrop-blur-sm md:w-[48vw] md:max-w-[460px] lg:w-[33vw] lg:max-w-[390px] xl:w-[30vw] xl:max-w-[380px]',
                         useMarketingVisual &&
-                          'border-emerald-500/25 bg-gradient-to-b from-emerald-500/[0.04] to-background',
+                          'border-emerald-500/10 bg-gradient-to-b from-emerald-500/[0.015] to-background transition-colors duration-500 hover:border-emerald-500/25 hover:from-emerald-500/[0.04] focus-visible:border-emerald-500/25 focus-visible:from-emerald-500/[0.04]',
                       )}
                       aria-label={`Details öffnen: ${item.title}`}
                       tabIndex={activeCase ? -1 : 0}
                     >
-                      <div className="relative min-h-[240px] overflow-hidden border-b border-border/70 px-4 pt-4 pb-4">
+                      <div className="portfolio-case-visual relative min-h-[240px] overflow-hidden border-b border-border/70 px-4 pt-4 pb-4">
                         {useMarketingVisual && marketingCharts ? (
                           <>
                             <div className="relative z-[1] transition-all duration-500 ease-out group-hover:scale-[0.98] group-hover:opacity-0">

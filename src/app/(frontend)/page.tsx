@@ -7,6 +7,7 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { SectionReveal } from '@/components/ui/SectionReveal'
 import { Faq8 } from '@/components/ui/faq-8'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
+import { HomepageScrollEffects } from '@/components/HomepageScrollEffects'
 import { RenderHero } from '@/heros/RenderHero'
 import { generateMeta } from '@/utilities/generateMeta'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
@@ -145,36 +146,79 @@ export default async function RootPage() {
       'type' in heroProps &&
       (heroProps as { type?: string }).type === 'superhero'
 
+    // The "Warum mit mir" tiles need to render above the sticky hero portrait, so their
+    // wrapper is lifted above it in z-index. Splitting the block list here keeps that
+    // elevation scoped to whyWorkWithMe onward, instead of lifting the whole following
+    // section (which used to also drag the Introduction block's maneki-neko decoration
+    // above the portrait it's meant to sit behind).
+    const whyWorkWithMeIndex = layoutBlocksForShell.findIndex(
+      (block) =>
+        block &&
+        typeof block === 'object' &&
+        'blockType' in block &&
+        (block as { blockType?: string }).blockType === 'whyWorkWithMe',
+    )
+    const hasElevatedSplit = isSuperheroHero && whyWorkWithMeIndex > 0
+    const earlyBlocks = hasElevatedSplit
+      ? layoutBlocksForShell.slice(0, whyWorkWithMeIndex)
+      : layoutBlocksForShell
+    const elevatedBlocks = hasElevatedSplit ? layoutBlocksForShell.slice(whyWorkWithMeIndex) : []
+
     return (
       <article
+        data-home-scroll-root
         className={cn(isSuperheroHero && 'hero-shell--superhero')}
         style={{ ['--hero-next-section-bg' as string]: nextSectionBackground }}
       >
-        <div className={cn('relative isolate z-[32]', !isSuperheroHero && 'hero-bottom-border')}>
+        <HomepageScrollEffects />
+        <div
+          className={cn(
+            'relative isolate',
+            isSuperheroHero ? 'z-[44]' : 'z-[32] hero-bottom-border',
+          )}
+        >
           <SectionReveal>
             <HeroErrorBoundary>
               <RenderHero {...heroProps} pageSlug="home" />
             </HeroErrorBoundary>
           </SectionReveal>
         </div>
-        <hr className="hero-content-divider" aria-hidden />
         <div
           className={cn(
             'relative w-full min-w-0 hero-following-section-mask',
             firstBlockIsServices
               ? cn(
-                  'hero-following-section--services-flush z-20 mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
-                  isSuperheroHero ? 'z-[34]' : 'lg:z-[33]',
+                  'hero-following-section--services-flush mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
+                  isSuperheroHero ? 'z-auto' : 'z-20 lg:z-[33]',
                 )
               : isSuperheroHero
-                ? 'z-[34] mt-0 pt-24'
+                ? 'z-auto mt-0 pt-0'
                 : 'z-20 max-md:pt-8 pt-24 md:z-[31]',
           )}
         >
-          <SectionReveal className="relative z-0 pt-24">
-            <RenderBlocks blocks={layoutBlocksForShell} />
-            <Faq8 faq={page.faq} />
+          <SectionReveal
+            className={cn(
+              'relative',
+              isSuperheroHero ? 'pt-0' : 'z-0 pt-24',
+              isSuperheroHero && 'hero-following-section-foreground',
+            )}
+          >
+            <RenderBlocks
+              blocks={earlyBlocks}
+              totalLength={layoutBlocksForShell.length}
+            />
+            {!hasElevatedSplit && <Faq8 faq={page.faq} />}
           </SectionReveal>
+          {hasElevatedSplit && (
+            <SectionReveal className="relative hero-following-section-foreground-elevated">
+              <RenderBlocks
+                blocks={elevatedBlocks}
+                startIndex={whyWorkWithMeIndex}
+                totalLength={layoutBlocksForShell.length}
+              />
+              <Faq8 faq={page.faq} />
+            </SectionReveal>
+          )}
         </div>
       </article>
     )
