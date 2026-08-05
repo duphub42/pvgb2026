@@ -491,7 +491,7 @@ export function FooterClient({
                   })}
 
                   {footer.newsletterTitle != null && (
-                    <div className="flex min-w-0 flex-col space-y-4 col-span-2 md:col-span-3 lg:col-span-2 lg:row-start-2 lg:col-start-3">
+                    <div className="flex min-w-0 flex-col space-y-4 col-span-2 md:col-span-3 lg:col-span-2 lg:row-start-2 lg:col-start-3 mt-6 sm:mt-0">
                       <div className="group flex flex-row items-start gap-x-2">
                         <div className="footer-column-icon flex shrink-0 pt-0.5 opacity-80 transition-opacity duration-[600ms] group-hover:opacity-100 group-hover:duration-300">
                           {newsletterSpriteId ? (

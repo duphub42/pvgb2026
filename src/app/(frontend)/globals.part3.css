@@ -257,11 +257,11 @@
     conic-gradient(
       from var(--footer-border-angle),
       transparent,
-      #ffffff var(--p),
+      rgba(255, 255, 255, 0.45) var(--p),
       transparent calc(var(--p) * 2)
     ) border-box;
   border: 1px solid transparent;
-  animation: footer-border-gradient-rotate 8s linear infinite;
+  animation: footer-border-gradient-rotate 20s linear infinite;
 }
 .footer-newsletter-btn-wrap > * {
   position: relative;

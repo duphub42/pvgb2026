@@ -2578,7 +2578,7 @@ html.theme-wave-transition.theme-wave-light::before {
 
 :root:not([data-theme]) .home-intro-maneki-background-image:not(.render-block-background-image--no-invert),
 [data-theme='light'] .home-intro-maneki-background-image:not(.render-block-background-image--no-invert) {
-  --render-block-background-image-opacity: 0.119;
+  --render-block-background-image-opacity: 0.68;
   filter: invert(1) hue-rotate(180deg) saturate(1.08) contrast(1.02) brightness(0.94);
 }
 

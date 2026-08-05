@@ -756,7 +756,10 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         // blurry/transparent to full-size/sharp/opaque. A sibling of the reveal block
         // (anchored to the pin stage itself), not nested inside it, so its own reveal
         // timing is independent of that block's own fade/translate exit animation.
-        <div aria-hidden className="hero-mobile-icon-reveal pointer-events-none hidden max-md:flex">
+        <div
+          aria-hidden
+          className="hero-mobile-icon-reveal pointer-events-none hidden max-[479px]:flex"
+        >
           <Image
             src="/branding/philippbacher-logo-b-10.svg"
             alt=""

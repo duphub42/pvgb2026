@@ -2709,14 +2709,17 @@
         calc(var(--hero-scroll-progress, 0) / 0.2),
         1
       );
-      /* Final fade-out: 0 until the slide above is fully done (shrink reaches 1 at 0.2)
-         plus a short pause once it's settled at the edge, then fades out over the next
-         0.15 of scroll. Deliberately NOT blended into the slide/shrink motion itself
-         (an earlier attempt tried that and didn't read right) - this only starts once
-         the portrait has completely finished building/settling into position. */
+      /* Final fade-out: held at 0 not just until the portrait's own slide finishes
+         (shrink reaches 1 at 0.2), but until the separate .hero-mobile-icon-reveal-img
+         (see below - a different element entirely, the decorative icon that grows/spins
+         in) has ALSO completely finished (--home-hero-icon-in reaches 1 at 0.3 + 0.14 =
+         0.44). Fading the portrait any earlier overlapped the icon's rotate-in, reading
+         as if the portrait were breaking down mid-rotation. Fade runs over the 0.15
+         after that. Deliberately NOT blended into the slide/shrink motion itself (an
+         earlier attempt tried that and didn't read right). */
       --home-hero-mobile-portrait-fadeout: clamp(
         0,
-        calc((var(--hero-scroll-progress, 0) - 0.3) / 0.15),
+        calc((var(--hero-scroll-progress, 0) - 0.44) / 0.15),
         1
       );
     }
@@ -4932,6 +4935,43 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
   section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-image {
     --home-hero-bg-mask-radius-y: 24%;
   }
+
+  /* Even with radius-y tuned above, the ellipse's own falloff can still leave a hint of
+     opacity right at the box's top/bottom edge - a second linear-gradient mask layer
+     (intersected with the radial one, same technique as the mobile home background)
+     guarantees a true fade to fully transparent at the very top/bottom regardless of the
+     ellipse's own shape, so no hard edge is visible there. Re-declares the full radial
+     gradient (via the same custom properties, so it still tracks whatever this range's
+     --home-hero-bg-mask-* values are) since `mask-image` can't be appended to, only
+     replaced outright. */
+  section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-bg-image--desktop {
+    -webkit-mask-image:
+      radial-gradient(
+        ellipse var(--home-hero-bg-mask-radius-x) var(--home-hero-bg-mask-radius-y) at 44% 42%,
+        #000 0%,
+        #000 var(--home-hero-bg-mask-inner),
+        rgba(0, 0, 0, 0.7) calc(var(--home-hero-bg-mask-inner) + 10%),
+        rgba(0, 0, 0, 0.5) calc(var(--home-hero-bg-mask-inner) + 18%),
+        rgba(0, 0, 0, 0.3) calc(var(--home-hero-bg-mask-inner) + 26%),
+        rgba(0, 0, 0, 0.15) calc(var(--home-hero-bg-mask-inner) + 35%),
+        transparent var(--home-hero-bg-mask-outer)
+      ),
+      linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    mask-image:
+      radial-gradient(
+        ellipse var(--home-hero-bg-mask-radius-x) var(--home-hero-bg-mask-radius-y) at 44% 42%,
+        #000 0%,
+        #000 var(--home-hero-bg-mask-inner),
+        rgba(0, 0, 0, 0.7) calc(var(--home-hero-bg-mask-inner) + 10%),
+        rgba(0, 0, 0, 0.5) calc(var(--home-hero-bg-mask-inner) + 18%),
+        rgba(0, 0, 0, 0.3) calc(var(--home-hero-bg-mask-inner) + 26%),
+        rgba(0, 0, 0, 0.15) calc(var(--home-hero-bg-mask-inner) + 35%),
+        transparent var(--home-hero-bg-mask-outer)
+      ),
+      linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
 }
 
 @media (min-width: 480px) and (max-width: 1023px) {
@@ -4965,6 +5005,32 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
     --home-hero-bg-mask-radius-x: 80%;
     --home-hero-bg-mask-radius-y: 80%;
     opacity: 0.24;
+    /* Same top/bottom linear-fade intersect as the sharp layer above, so the blurred
+       backplate doesn't show its own hard edge either. */
+    -webkit-mask-image:
+      radial-gradient(
+        ellipse var(--home-hero-bg-mask-radius-x) var(--home-hero-bg-mask-radius-y) at 48% 42%,
+        #000 0%,
+        #000 var(--home-hero-bg-mask-inner),
+        rgba(0, 0, 0, 0.8) calc(var(--home-hero-bg-mask-inner) + 8%),
+        rgba(0, 0, 0, 0.5) calc(var(--home-hero-bg-mask-inner) + 15%),
+        rgba(0, 0, 0, 0.2) calc(var(--home-hero-bg-mask-inner) + 25%),
+        transparent var(--home-hero-bg-mask-outer)
+      ),
+      linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    mask-image:
+      radial-gradient(
+        ellipse var(--home-hero-bg-mask-radius-x) var(--home-hero-bg-mask-radius-y) at 48% 42%,
+        #000 0%,
+        #000 var(--home-hero-bg-mask-inner),
+        rgba(0, 0, 0, 0.8) calc(var(--home-hero-bg-mask-inner) + 8%),
+        rgba(0, 0, 0, 0.5) calc(var(--home-hero-bg-mask-inner) + 15%),
+        rgba(0, 0, 0, 0.2) calc(var(--home-hero-bg-mask-inner) + 25%),
+        transparent var(--home-hero-bg-mask-outer)
+      ),
+      linear-gradient(to bottom, transparent 0%, #000 10%, #000 90%, transparent 100%);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
   }
 
   .hero-shell--superhero[data-home-scroll-root] .hero-following-section-mask {
@@ -5099,16 +5165,18 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
        screen instead of a fixed 667px box with empty space below it. Only devices
        outside that range (foldables, tablets in portrait) get bounded at the nearer
        edge. The tall pin runway is derived from the same value so the two stay in sync
-       on every device. Multiplier cut from 2.2 to 1.3: every scroll-driven reveal in the
-       stage (headline build-up, portrait slide, CTA, icon) now finishes by progress 0.44
-       (see --home-hero-icon-in), but the pin only releases at progress 1.0 - at 2.2x that
-       left a long stretch of already-finished, do-nothing scroll distance the user had to
-       fight through before the page would move on. At 1.3x the same relative "dead" tail
-       is a fraction of the physical scroll distance, so normal scrolling resumes soon
-       after everything (icon included) is done, without needing to rescale every
-       animation's own timing to fill 0->1 exactly. */
+       on every device. Multiplier is the single knob controlling scroll sensitivity here
+       - it sets how many physical scroll pixels the 0->1 progress range spans, while
+       every animation's own timing (headline build-up, portrait slide, CTA, icon - see
+       --home-hero-icon-in etc.) stays defined purely in progress-fraction terms and is
+       unaffected by it. Went 2.2 (original) -> 1.3 (too little scroll distance, felt
+       twitchy/oversensitive - the whole sequence, finishing around progress 0.44-0.52,
+       blew past in a couple of small scroll gestures) -> 1.7 (current middle ground:
+       enough scroll distance to feel deliberate again, while the dead tail after
+       everything's finished - progress 0.52 to the pin's release at 1.0 - stays short
+       enough not to feel stuck). */
     --home-hero-mobile-stage-cap: clamp(41.6875rem, 100dvh, 58.125rem);
-    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.3);
+    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.7);
     --home-hero-top-offset: calc(
       var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)
     );
