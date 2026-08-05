@@ -75,9 +75,9 @@ export function HomepageScrollEffects() {
             manekiBackground,
             {
               '--render-block-background-image-opacity': 0,
+              '--home-intro-maneki-reveal-blur': '14px',
               y: 40,
               scale: 0.9,
-              filter: 'blur(14px)',
             },
             {
               scrollTrigger: {
@@ -87,9 +87,9 @@ export function HomepageScrollEffects() {
                 scrub: 0.85,
               },
               '--render-block-background-image-opacity': manekiTargetOpacity,
+              '--home-intro-maneki-reveal-blur': '0px',
               y: 0,
               scale: 1,
-              filter: 'blur(0px)',
               transformOrigin: 'right top',
               ease: 'none',
             },

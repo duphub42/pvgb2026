@@ -2579,12 +2579,13 @@ html.theme-wave-transition.theme-wave-light::before {
 :root:not([data-theme]) .home-intro-maneki-background-image:not(.render-block-background-image--no-invert),
 [data-theme='light'] .home-intro-maneki-background-image:not(.render-block-background-image--no-invert) {
   --render-block-background-image-opacity: 0.68;
-  filter: invert(1) hue-rotate(180deg) saturate(1.08) contrast(1.02) brightness(0.94);
+  filter: blur(var(--home-intro-maneki-reveal-blur, 0px)) invert(1) hue-rotate(180deg) saturate(1.08)
+    contrast(1.02) brightness(0.94);
 }
 
 [data-theme='dark'] .home-intro-maneki-background-image:not(.render-block-background-image--no-invert) {
   --render-block-background-image-opacity: 0.391;
-  filter: brightness(1.18) contrast(1.08) saturate(1.02);
+  filter: blur(var(--home-intro-maneki-reveal-blur, 0px)) brightness(1.18) contrast(1.08) saturate(1.02);
 }
 
 @media (prefers-reduced-motion: reduce) {

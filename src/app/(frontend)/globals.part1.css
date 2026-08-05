@@ -2273,9 +2273,13 @@
       min-height: calc(100vh - var(--header-height));
       padding-top: 0.5rem;
     }
-    [aria-label='Style Preview Hero'].hero-offset,
-    [aria-label='Profil Hero'].hero-offset {
+    [aria-label='Style Preview Hero'].hero-offset {
       min-height: 0;
+      padding-top: max(calc(var(--header-height) + 1rem), 5.75rem);
+    }
+    /* Profil-Hero: auch auf Mobile Vollbild wie die anderen Superhero-Heroes. */
+    [aria-label='Profil Hero'].hero-offset {
+      min-height: calc(100vh - var(--header-height));
       padding-top: max(calc(var(--header-height) + 1rem), 5.75rem);
     }
 
@@ -2500,12 +2504,13 @@
       overflow-x: clip;
     }
 
-    /* Profil keeps its own dedicated header clearance (see [aria-label='Profil Hero']
-       rule above) instead of the tighter generic value above, which was tuned for the
-       other superhero heroes and left too little air between the heading and the fixed
-       header on small screens. */
+    /* Profil keeps its own dedicated header clearance and fullscreen min-height (see
+       [aria-label='Profil Hero'] rule above) instead of the tighter generic value above,
+       which was tuned for the other superhero heroes and left too little air between the
+       heading and the fixed header - and shrank the hero to content height - on small
+       screens. */
     section[data-hero-type='superhero'][data-page-slug='profil'][data-hero-has-portrait='true'].hero-offset {
-      min-height: auto;
+      min-height: calc(100vh - var(--header-height));
       overflow-x: clip;
     }
 
@@ -2660,25 +2665,34 @@
 
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-mobile-sticky-portrait {
-      /* Preferred size is 60% of the STAGE's fixed height (--home-hero-mobile-stage-cap,
-         41.6875rem - always that value on every mobile device, see the section rule
-         above), NOT 60svh. svh tracks the real device viewport, which is exactly what
-         the stage is deliberately fixed against (see that variable's own comment) - using
-         svh here silently reintroduced device-dependence through the back door: 60svh is
-         ~400px on a 667px-tall iPhone SE but ~511px on an 852px-tall iPhone, a ~25% size
-         difference between devices even though the stage itself is identical on both.
-         calc(stage-cap * 0.6) instead resolves to the same ~400px everywhere.
-         Still capped at 80% of .hero-scroll-content-main's actual height (not the fixed
-         stage constant) as a safety net for edge cases (e.g. a much taller headline
-         eating into that box) - .hero-mobile-portrait-parallax (the inner element, see
-         its transform rule below) scales up from a 55%/42% origin at rest, bleeding the
+      /* Preferred size is 60% of the STAGE's own height (--home-hero-mobile-stage-cap -
+         now `max(41.6875rem, 100dvh)`, i.e. the real device viewport with only a floor,
+         no ceiling - see the section rule above), routed through that variable rather
+         than referencing 60svh directly here so there's exactly one place controlling
+         the stage's real height. Outer clamp(400px, ..., 500px) is what actually keeps
+         the portrait's size sane across devices now that the stage itself scales with
+         the viewport again: 400px floor for the iPhone SE, 500px ceiling so it doesn't
+         keep growing without bound on very tall phones.
+         Still capped at 80% of .hero-scroll-content-main's actual height (not the stage
+         variable) as a safety net for edge cases (e.g. a much taller headline eating
+         into that box) - .hero-mobile-portrait-parallax (the inner element, see its
+         transform rule below) scales up from a 55%/42% origin at rest, bleeding the
          PAINTED top of the portrait ~8.4% of this box's own height above this box's
          actual top edge; 80% accounts for that bleed on top of the reserved 10% header
          gap. */
-      height: min(clamp(400px, calc(var(--home-hero-mobile-stage-cap, 41.6875rem) * 0.6), 500px), 80%);
+      /* !important on height/max-height too (see the note below on top/width/
+         margin-right) - the unmedia-gated desktop rule sets height:auto;max-height:none
+         at equal selector specificity and LATER in source order, so without !important
+         it silently won the tie and reset both back to auto. That went unnoticed because
+         aspect-ratio (600/720, from the aspect-[600/720] Tailwind class) then sized the
+         box from its width alone, landing within ~1px of what this formula produced
+         anyway at the OLD, capped stage height (720px) - a coincidence that broke once
+         --home-hero-mobile-stage-cap stopped being capped and this formula started
+         actually wanting up to 500px. */
+      height: min(clamp(400px, calc(var(--home-hero-mobile-stage-cap, 100dvh) * 0.6), 500px), 80%) !important;
       min-height: 0;
-      max-height: min(clamp(400px, calc(var(--home-hero-mobile-stage-cap, 41.6875rem) * 0.6), 500px), 80%);
-      /* Bottom-anchored to the fixed 667px stage (see .hero-scroll-content's
+      max-height: min(clamp(400px, calc(var(--home-hero-mobile-stage-cap, 100dvh) * 0.6), 500px), 80%) !important;
+      /* Bottom-anchored to the stage (see .hero-scroll-content's
          position:relative above) instead of pushed down from the top with a margin -
          the portrait now always sits flush with the stage's bottom edge regardless of
          how tall the headline/description block above it is.
@@ -2755,14 +2769,16 @@
       /* Final fade-out: held at 0 not just until the portrait's own slide finishes
          (shrink reaches 1 at 0.2), but until the separate .hero-mobile-icon-reveal-img
          (see below - a different element entirely, the decorative icon that grows/spins
-         in) has ALSO completely finished (--home-hero-icon-in reaches 1 at 0.3 + 0.14 =
-         0.44). Fading the portrait any earlier overlapped the icon's rotate-in, reading
-         as if the portrait were breaking down mid-rotation. Fade runs over the 0.15
-         after that. Deliberately NOT blended into the slide/shrink motion itself (an
-         earlier attempt tried that and didn't read right). */
+         in) has ALSO completely finished (--home-hero-icon-in reaches 1 at 0.3 + 0.55 =
+         0.85, matching --home-hero-icon-out's own start there). Fading the portrait any
+         earlier overlapped the icon's rotate-in, reading as if the portrait were
+         breaking down mid-rotation. Runs 0.85->1.0, so it finishes exactly as the pin
+         releases, alongside the icon's own recede (--home-hero-icon-out). Deliberately
+         NOT blended into the slide/shrink motion itself (an earlier attempt tried that
+         and didn't read right). */
       --home-hero-mobile-portrait-fadeout: clamp(
         0,
-        calc((var(--hero-scroll-progress, 0) - 0.44) / 0.15),
+        calc((var(--hero-scroll-progress, 0) - 0.85) / 0.15),
         1
       );
     }
@@ -2816,14 +2832,14 @@
        one block. Pulled out of normal flow (absolute, anchored to the pinned stage's own
        bottom) because its natural flow position sits below the portrait's full-height
        flow box - i.e. below the fold of the pinned 100dvh stage - so an opacity/
-       transform reveal there would happen invisibly, off-screen. Window moved earlier
-       (0.28->0.42, was 0.36->0.52) so it finishes AT/BEFORE the icon reveal (0.3->0.44)
-       instead of lingering past it - once the icon is fully positioned, everything else
-       in the pinned stage has already finished too, so the pin can release and normal
-       scrolling can continue right away instead of holding through a stretch of
-       already-finished, do-nothing scroll distance. */
+       transform reveal there would happen invisibly, off-screen. Window widened and
+       pushed later (0.2->0.75, was 0.28->0.42) alongside the icon-in widening below - it
+       still needs to finish at/before the icon (see --home-hero-icon-in), just further
+       out along the runway now that the icon's own reveal has been stretched to use most
+       of it (was a short window early on, leaving a long already-finished dead stretch
+       before release - see that comment for the full reasoning). */
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
-      --home-hero-mobile-cta-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.28) / 0.14), 1);
+      --home-hero-mobile-cta-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.2) / 0.55), 1);
     }
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-scroll-content-cta {
@@ -2890,18 +2906,35 @@
        end target already; the growth itself comes from the scale() below (cheaper to
        animate than width, and keeps the blur/opacity/scale/rotate timeline in one
        place), starting at 0.1 (10% of 80% = 8%, the start size) and ending at 1 (100% of
-       80% = 80%, the end size). */
+       80% = 80%, the end size). Window widened from (0.3->0.44) to (0.3->0.85): same
+       start (right after the headline exit), finishing exactly where
+       --home-hero-icon-out's own recede window picks up below - previously the icon sat
+       fully built for a long, do-nothing stretch of scroll (progress 0.44->1.0) before
+       the page could move on to the next section. Stretching the reveal to (almost) fill
+       that space means there's no dead time left, AND it fully arrives before it starts
+       receding - it used to finish at 0.97, i.e. AFTER --home-hero-icon-out (0.85->1.0)
+       had already started fading/lifting it, so it read as going transparent again
+       before it was even done growing/rotating into place. */
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-mobile-icon-reveal-img {
-      --home-hero-icon-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.3) / 0.14), 1);
+      --home-hero-icon-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.3) / 0.55), 1);
       --home-hero-icon-blur: blur(calc((1 - var(--home-hero-icon-in)) * 10px));
+      /* Parallax hand-off: over the last 15% of the runway (progress 0.85->1.0, right as
+         the pin is about to release into section 1 - and right as --home-hero-icon-in
+         above finishes), the icon drifts upward a little faster than the normal scroll
+         and fades slightly - a subtle "receding into the background" cue instead of just
+         sitting perfectly static until it's cut off by the viewport edge. Zero everywhere
+         else, so it doesn't affect the build-up. */
+      --home-hero-icon-out: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.85) / 0.15), 1);
       width: 80%;
       height: auto;
-      opacity: var(--home-hero-icon-in);
+      opacity: calc(var(--home-hero-icon-in) * (1 - (var(--home-hero-icon-out) * 0.4)));
       /* Full 360deg spin runs across the whole reveal, finishing right side up
          (icon-in=1 -> 360deg reads visually identical to 0deg) at the same time the blur
-         clears and the growth settles at full size. */
-      transform: scale(calc(0.1 + (var(--home-hero-icon-in) * 0.9)))
+         clears and the growth settles at full size. The extra translateY only kicks in
+         during the tail (--home-hero-icon-out), layered on top of the settled scale. */
+      transform: translate3d(0, calc(var(--home-hero-icon-out) * -3rem), 0)
+        scale(calc(0.1 + (var(--home-hero-icon-in) * 0.9)))
         rotate(calc(var(--home-hero-icon-in) * 360deg));
       /* Light theme: the SVG is already dark-on-transparent, so no color filter needed
          beyond the blur. Dark theme override below layers invert(1) on top, same as the
@@ -5209,21 +5242,19 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
      which switches to a rect.height-vs-viewport formula specifically for this case.
      Desktop/tablet never get this rule (media-gated), so they scroll normally. */
   section[data-hero-type='superhero'][data-page-slug='home'] {
-    /* Stage height cap lowered from 58.125rem (930px, matched every modern phone's real
-       height 1:1) to 45rem (720px): after the pin releases, the stage - no longer sticky
-       - still has to scroll its own full height out of view before the next section can
-       appear, since it doesn't disappear, it just stops being pinned. At 930px tall
-       (iPhone 15 Pro Max etc.) that was ~930px of dead scroll on top of whatever the
-       reveal itself needed - the actual complaint this was tuned for. Capping at 720px
-       trades away true full-screen immersion on phones taller than that (iPhone SE at
-       667px is still unaffected, still gets its real height) for a meaningfully shorter
-       gap to section 1 on every larger phone. Multiplier bumped 1.7->1.9 alongside this
-       specifically to keep the pin's own scroll distance (stage * (multiplier-1), the
-       thing that controls how sensitive/twitchy the reveal itself feels) roughly where
-       it was before this change (~650px), so shrinking the stage doesn't quietly
-       re-introduce the oversensitive-scroll problem from earlier. */
-    --home-hero-mobile-stage-cap: clamp(41.6875rem, 100dvh, 45rem);
-    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.9);
+    /* Reverted the 45rem (720px) ceiling this used to have: it traded away true
+       full-screen immersion on phones taller than that (portrait visibly stopped short
+       of the real screen edge, with a dead gap below it down to the actual viewport
+       bottom - see the "profile picture doesn't reach the bottom" report this reverts)
+       in exchange for less scroll distance after the pin releases. Floor kept (41.6875rem
+       / 667px, iPhone SE) so very short devices still get a usable minimum. Multiplier
+       reverted 1.9->1.7 alongside this - it was bumped specifically to compensate the
+       720px cap and hold the pin's own scroll distance (stage * (multiplier-1), which
+       controls how sensitive/twitchy the reveal feels) around ~650px; keeping it at 1.9
+       on an uncapped (up to ~930px on Pro Max-class phones) stage would have pushed that
+       past 800px instead. */
+    --home-hero-mobile-stage-cap: max(41.6875rem, 100dvh);
+    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.7);
     --home-hero-top-offset: calc(
       var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)
     );
@@ -5328,20 +5359,13 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
     );
   }
 
-  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
-    .hero-mobile-sticky-portrait {
-    position: relative !important;
-    top: auto !important;
-    width: 100vw;
-    min-width: 100vw;
-    max-width: 100vw;
-    height: clamp(400px, 60svh, 500px);
-    min-height: clamp(400px, 60svh, 500px);
-    max-height: clamp(400px, 60svh, 500px);
-    margin-left: calc(50% - 50vw);
-    margin-right: calc(50% - 50vw);
-    transform: none !important;
-  }
+  /* NOTE: an earlier `position: relative !important` + `60svh`-based redefinition of
+     this exact selector used to live here, added in the same pass as the deliberate
+     `position: absolute; bottom: 0` version above (see that rule's own comment) but
+     never removed - being LATER in source order with matching !importants, it silently
+     won and undid that rule's whole point, leaving the portrait sitting in normal flow
+     right after the text block instead of anchored to the stage's bottom edge. Removed;
+     the absolute/bottom:0 rule above is the single source of truth for this element. */
 
   section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
     .hero-superhero-portrait-popout
