@@ -263,7 +263,14 @@
     @apply border-border outline-ring/50;
   }
   html {
-    overflow-x: hidden;
+    /* `clip`, not `hidden`: elements that intentionally bleed past the viewport edge
+       (e.g. the mobile hero portrait popout, see .pb-popout-root /
+       .hero-mobile-portrait-parallax) still count toward this element's scrollable
+       overflow region under `hidden` even though they're visually clipped and not
+       user-scrollable - mobile browsers use that region to size the layout viewport,
+       so the whole page was silently zoomed out ("schwimmt") instead of just clipping
+       the bleeding element. `clip` removes that content from the region entirely. */
+    overflow-x: clip;
     overscroll-behavior: none;
     max-width: 100vw;
   }
@@ -634,7 +641,17 @@
     --hero-layer-marquee-fade-max: 0.22;
     --hero-scroll-progress: 0;
     --hero-scroll-content-progress: 0;
-    overflow: visible;
+    /* overflow-x: clip, not overflow: visible on both axes - the mobile portrait
+       popout (.pb-popout-root / .hero-mobile-portrait-parallax) is deliberately
+       scaled/translated past this section's right edge as it slides toward exit.
+       Its transformed scrollable-overflow still reached the mobile browser's
+       layout-viewport sizing pass through a plain overflow:visible section (even
+       with <html>'s own overflow-x clipping further up), silently zooming the whole
+       page out ("schwimmt"). Clipping at the source, right where the bleed happens,
+       fixes that while overflow-y:visible keeps unrelated vertical bleed (heading
+       descenders, the portrait's vertical pop-out) working. */
+    overflow-x: clip;
+    overflow-y: visible;
     width: 100%;
   }
 
@@ -942,9 +959,14 @@
       scale(calc(1 + var(--hero-scroll-progress) * var(--hero-bg-scale-max)));
     filter: blur(calc(var(--hero-scroll-progress) * var(--hero-bg-blur-max)))
       saturate(calc(1 - var(--hero-scroll-progress) * var(--hero-bg-desaturate-max)));
-    transition:
-      transform var(--hero-motion-duration-bg) var(--hero-motion-ease),
-      filter var(--hero-motion-duration-filter) var(--hero-motion-ease);
+    /* transition: none, not a duration - --hero-scroll-progress is already smoothed
+       in JS (gsap.quickTo, see SuperheroHero.tsx) on every scroll rAF tick. A CSS
+       transition here re-eases AGAIN on every one of those already-smoothed updates,
+       chasing a continuously moving target - a compounding double-smoothing that
+       reads as sluggish/wobbly instead of tightly tracking scroll. Single source of
+       smoothing only, matching the transition:none already used on this element's
+       base (non-ready) state and on .hero-scroll-content-portrait below. */
+    transition: none;
   }
 
   section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
@@ -960,9 +982,9 @@
       scale(calc(1.045 + var(--hero-scroll-progress) * var(--hero-bg-scale-max)));
     filter: blur(calc(18px + (var(--hero-scroll-progress) * var(--hero-bg-blur-max))))
       saturate(calc(0.92 - var(--hero-scroll-progress) * var(--hero-bg-desaturate-max)));
-    transition:
-      transform var(--hero-motion-duration-bg) var(--hero-motion-ease),
-      filter var(--hero-motion-duration-filter) var(--hero-motion-ease);
+    /* See the identical note on .hero-scroll-bg-image above: no CSS transition on a
+       property already smoothed per-frame in JS via gsap.quickTo. */
+    transition: none;
   }
 
   @media (orientation: portrait) and (min-width: 768px) and (max-width: 900px) {
@@ -1051,10 +1073,8 @@
     filter: saturate(
       calc(1 - var(--hero-scroll-content-progress) * var(--hero-content-desaturate-max))
     );
-    transition:
-      transform var(--hero-motion-duration-fast) var(--hero-motion-ease),
-      opacity var(--hero-motion-duration-fast) var(--hero-motion-ease),
-      filter var(--hero-motion-duration-fast) var(--hero-motion-ease);
+    /* See the double-smoothing note on .hero-scroll-bg-image above - same fix. */
+    transition: none;
   }
 
   section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
@@ -1098,7 +1118,8 @@
       calc(var(--hero-scroll-progress) * var(--hero-main-translate-max)),
       0
     );
-    transition: transform var(--hero-motion-duration-fast) var(--hero-motion-ease);
+    /* See the double-smoothing note on .hero-scroll-bg-image above - same fix. */
+    transition: none;
   }
 
   section[data-hero-type='superhero'] .hero-scroll-content-copy {
@@ -1953,7 +1974,7 @@
 
   @media (max-width: 479px) {
     .hero-shell--superhero .hero-following-section-mask {
-      padding-top: clamp(5rem, 12svh, 6.5rem);
+      padding-top: clamp(2rem, 6svh, 3rem);
     }
 
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
@@ -2023,6 +2044,15 @@
     content-visibility: visible;
     isolation: auto;
     z-index: auto;
+  }
+
+  /* Profil: the portrait is bottom-aligned, so it already sits flush with the hero's
+     bottom edge. The generic superhero blend height above was tuned for the home hero's
+     much taller portrait headroom and bleeds far enough up to fade out the profil
+     portrait's visible torso before the next section even starts - cap it to a small
+     clearance instead. */
+  .hero-shell--superhero:has(section[data-page-slug='profil']) .hero-following-section-mask {
+    --hero-section-blend-height: clamp(1.5rem, 4vh, 3rem);
   }
 
   .hero-shell--superhero .hero-following-section-mask::before {
@@ -2462,9 +2492,20 @@
   }
 
   @media (max-width: 479px) {
-    section[data-hero-type='superhero'][data-hero-has-portrait='true'].hero-offset {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']:not(
+        [data-page-slug='profil']
+      ).hero-offset {
       min-height: auto;
       padding-top: calc(var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)) !important;
+      overflow-x: clip;
+    }
+
+    /* Profil keeps its own dedicated header clearance (see [aria-label='Profil Hero']
+       rule above) instead of the tighter generic value above, which was tuned for the
+       other superhero heroes and left too little air between the heading and the fixed
+       header on small screens. */
+    section[data-hero-type='superhero'][data-page-slug='profil'][data-hero-has-portrait='true'].hero-offset {
+      min-height: auto;
       overflow-x: clip;
     }
 
@@ -2513,8 +2554,10 @@
        are separate top-level siblings now, not nested inside one glass copy box -
        needed on home so the reveal block can sit behind the portrait (see the JSX
        comment on heroTextColumnClass). Generically (profil etc.) the CTA card just
-       gets the same big pull-up the combined block used to get. */
-    section[data-hero-type='superhero'][data-hero-has-portrait='true']
+       gets the same big pull-up the combined block used to get - the reveal block
+       (badge/heading/description) must NOT get it there, or it ends up crammed
+       against the fixed header with no breathing room. */
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-scroll-content-reveal,
     section[data-hero-type='superhero'][data-hero-has-portrait='true']
       .hero-scroll-content-cta {
@@ -2754,9 +2797,14 @@
         )
         scale(calc(1.2 - (var(--home-hero-mobile-portrait-shrink) * 0.28)));
       opacity: calc(1 - var(--home-hero-mobile-portrait-fadeout, 0));
-      transition:
-        transform 0.4s ease-out,
-        opacity 0.4s ease-out;
+      /* transition: none, not a duration - --hero-scroll-progress (and everything
+         derived from it, like --home-hero-mobile-portrait-shrink) is already smoothed
+         in JS per scroll rAF tick (gsap.quickTo, see SuperheroHero.tsx). A CSS
+         transition here re-eases AGAIN on every one of those already-smoothed
+         updates, chasing a continuously moving target - the compounding double-
+         smoothing behind the hero's "wobbly"/not-quite-solid feel on scroll. Single
+         source of smoothing only. */
+      transition: none;
       will-change: transform, opacity;
     }
 
@@ -4598,7 +4646,13 @@ section[data-hero-type='superhero'][data-page-slug='home'] {
      bg-image mask above) at 1440px width; re-check if either photo changes. */
   --home-hero-portrait-top-offset: calc(var(--home-hero-top-offset) - 190px);
   min-height: var(--home-hero-stage-height);
-  overflow: visible;
+  /* overflow-x: clip, not overflow: visible on both axes - see the identical note on
+     the generic section[data-hero-type='superhero'] rule above; this later, more
+     specific rule was the one actually winning the cascade and re-introducing the
+     mobile viewport auto-widening bug ("schwimmt") that clip on the earlier rule
+     alone didn't fix. */
+  overflow-x: clip;
+  overflow-y: visible;
   background: var(--background);
 }
 

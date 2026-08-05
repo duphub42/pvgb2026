@@ -622,7 +622,17 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       ref={sectionRef}
       aria-label={sectionAriaLabel ?? 'Hero'}
       className={cn(
-        'hero-offset relative hero-offset--popout text-foreground isolate overflow-visible min-h-[clamp(666px,77vh,888px)]',
+        // overflow-x-clip (not overflow-visible on both axes): the mobile portrait
+        // popout (.pb-popout-root / .hero-mobile-portrait-parallax) is deliberately
+        // scaled/translated past this section's horizontal edge as it slides toward
+        // exit, relying on <html>'s overflow-x to clip it visually. But a transformed
+        // box's scrollable-overflow contribution reaches the mobile browser's layout-
+        // viewport sizing pass even through an ancestor's overflow-x:hidden/clip -
+        // unless clipped at THIS level, near the source - so the whole page was
+        // silently zoomed out ("schwimmt") instead of just clipping the portrait.
+        // overflow-y stays visible so unrelated vertical bleed (heading descenders,
+        // the portrait's vertical pop-out) keeps working.
+        'hero-offset relative hero-offset--popout text-foreground isolate overflow-x-clip overflow-y-visible min-h-[clamp(666px,77vh,888px)]',
         !hasRenderableBg && 'bg-background',
         !portraitSrc && 'hero-superhero-no-portrait',
       )}
