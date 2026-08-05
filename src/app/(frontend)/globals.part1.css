@@ -4651,6 +4651,43 @@
       /* See the double-smoothing note on .hero-mobile-portrait-parallax further up. */
       transition: none;
     }
+
+    /* Both bg layers above carry their own soft-edge mask, but that mask lives on the
+       IMAGE element, which then gets `transform: scale(2.14) ...` (sharp layer) / a big
+       `scale(1.54)` (backplate) applied on top - the mask and the transform scale
+       together, so the fade zone (the outer ~15% of each image's own box) gets dragged
+       far outside the viewport right along with the rest of the scaled image. What's
+       left inside the actual visible viewport is only ever the solid, unfaded CENTER of
+       that mask - so in practice no fade was ever visible, just this container's own
+       `overflow: hidden` clipping the scaled image at a hard rectangle (the reported
+       hard top/bottom edge). Masking the CONTAINER instead - a plain 100%-height box
+       that is never itself transformed - fades the actually-visible top/bottom strip no
+       matter how the image inside it is scaled/positioned. Bottom fade starts at 55%/
+       ends at 78% (well before the box's own 100%) because the photo's own visible
+       content (after object-fit: contain + the scale above) already runs out around
+       ~70% of this box's height - starting the fade any later would still let that
+       photo's real edge show as a hard line before the gradient had a chance to hide it. */
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+      .hero-scroll-bg {
+      -webkit-mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        #000 12%,
+        #000 55%,
+        transparent 78%
+      ) !important;
+      mask-image: linear-gradient(
+        to bottom,
+        transparent 0%,
+        #000 12%,
+        #000 55%,
+        transparent 78%
+      ) !important;
+      -webkit-mask-size: 100% 100%;
+      mask-size: 100% 100%;
+      -webkit-mask-repeat: no-repeat;
+      mask-repeat: no-repeat;
+    }
   }
 }
 
