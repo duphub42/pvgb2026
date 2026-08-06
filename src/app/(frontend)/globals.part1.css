@@ -2776,16 +2776,16 @@
       /* Final fade-out: held at 0 not just until the portrait's own slide finishes
          (shrink reaches 1 at 0.2), but until the separate .hero-mobile-icon-reveal-img
          (see below - a different element entirely, the decorative icon that grows/spins
-         in) has ALSO completely finished (--home-hero-icon-in reaches 1 at 0.3 + 0.55 =
-         0.85, matching --home-hero-icon-out's own start there). Fading the portrait any
-         earlier overlapped the icon's rotate-in, reading as if the portrait were
-         breaking down mid-rotation. Runs 0.85->1.0, so it finishes exactly as the pin
-         releases, alongside the icon's own recede (--home-hero-icon-out). Deliberately
-         NOT blended into the slide/shrink motion itself (an earlier attempt tried that
-         and didn't read right). */
+         in) has ALSO completely finished (--home-hero-icon-in reaches 1 at 0.3 + 0.1 =
+         0.4, matching --home-hero-icon-out's own start there - both narrowed together,
+         see the icon-in comment for why). Fading the portrait any earlier overlapped the
+         icon's rotate-in, reading as if the portrait were breaking down mid-rotation.
+         Runs 0.4->0.55, alongside the icon's own recede (--home-hero-icon-out). NOT
+         blended into the slide/shrink motion itself (an earlier attempt tried that and
+         didn't read right). */
       --home-hero-mobile-portrait-fadeout: clamp(
         0,
-        calc((var(--hero-scroll-progress, 0) - 0.85) / 0.15),
+        calc((var(--hero-scroll-progress, 0) - 0.4) / 0.15),
         1
       );
     }
@@ -2847,14 +2847,11 @@
        one block. Pulled out of normal flow (absolute, anchored to the pinned stage's own
        bottom) because its natural flow position sits below the portrait's full-height
        flow box - i.e. below the fold of the pinned 100dvh stage - so an opacity/
-       transform reveal there would happen invisibly, off-screen. Window widened and
-       pushed later (0.2->0.75, was 0.28->0.42) alongside the icon-in widening below - it
-       still needs to finish at/before the icon (see --home-hero-icon-in), just further
-       out along the runway now that the icon's own reveal has been stretched to use most
-       of it (was a short window early on, leaving a long already-finished dead stretch
-       before release - see that comment for the full reasoning). */
+       transform reveal there would happen invisibly, off-screen. Pulled back in (0.2-
+       >0.38, was 0.2->0.75) alongside the icon-in narrowing above - still needs to
+       finish at/before the icon (see --home-hero-icon-in, now finishing at 0.4). */
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
-      --home-hero-mobile-cta-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.2) / 0.55), 1);
+      --home-hero-mobile-cta-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.2) / 0.18), 1);
     }
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-scroll-content-cta {
@@ -2921,26 +2918,25 @@
        end target already; the growth itself comes from the scale() below (cheaper to
        animate than width, and keeps the blur/opacity/scale/rotate timeline in one
        place), starting at 0.1 (10% of 80% = 8%, the start size) and ending at 1 (100% of
-       80% = 80%, the end size). Window widened from (0.3->0.44) to (0.3->0.85): same
-       start (right after the headline exit), finishing exactly where
-       --home-hero-icon-out's own recede window picks up below - previously the icon sat
-       fully built for a long, do-nothing stretch of scroll (progress 0.44->1.0) before
-       the page could move on to the next section. Stretching the reveal to (almost) fill
-       that space means there's no dead time left, AND it fully arrives before it starts
-       receding - it used to finish at 0.97, i.e. AFTER --home-hero-icon-out (0.85->1.0)
-       had already started fading/lifting it, so it read as going transparent again
-       before it was even done growing/rotating into place. */
+       80% = 80%, the end size). Window narrowed from (0.3->0.85) back down to (0.3->0.4):
+       the wide version was built to kill a "dead time" gap where the icon sat fully
+       built doing nothing for a long stretch before the pin released - but that traded
+       away scroll-responsiveness (needed way too much scroll to fully build). Narrow
+       again for a snappy build; --home-hero-icon-out's own start below is pulled in to
+       0.4 (matching this window's new finish exactly) so the "finishes before it starts
+       receding" fix from that same change stays intact - just compressed, not undone. */
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-mobile-icon-reveal-img {
-      --home-hero-icon-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.3) / 0.55), 1);
+      --home-hero-icon-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.3) / 0.1), 1);
       --home-hero-icon-blur: blur(calc((1 - var(--home-hero-icon-in)) * 10px));
-      /* Parallax hand-off: over the last 15% of the runway (progress 0.85->1.0, right as
-         the pin is about to release into section 1 - and right as --home-hero-icon-in
-         above finishes), the icon drifts upward a little faster than the normal scroll
-         and fades slightly - a subtle "receding into the background" cue instead of just
+      /* Parallax hand-off: right after --home-hero-icon-in above finishes (0.4), the icon
+         drifts upward a little faster than the normal scroll and fades slightly over the
+         following 0.15 - a subtle "receding into the background" cue instead of just
          sitting perfectly static until it's cut off by the viewport edge. Zero everywhere
-         else, so it doesn't affect the build-up. */
-      --home-hero-icon-out: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.85) / 0.15), 1);
+         else, so it doesn't affect the build-up. Leaves 0.4->0.55 as the only "settled,
+         fully built, not yet receding" stretch now (was 0.85->1.0's worth of it before
+         narrowing icon-in) - a deliberate trade for the faster build. */
+      --home-hero-icon-out: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.4) / 0.15), 1);
       width: 80%;
       height: auto;
       opacity: calc(var(--home-hero-icon-in) * (1 - (var(--home-hero-icon-out) * 0.4)));
