@@ -2780,12 +2780,14 @@
          0.4, matching --home-hero-icon-out's own start there - both narrowed together,
          see the icon-in comment for why). Fading the portrait any earlier overlapped the
          icon's rotate-in, reading as if the portrait were breaking down mid-rotation.
-         Runs 0.4->0.55, alongside the icon's own recede (--home-hero-icon-out). NOT
-         blended into the slide/shrink motion itself (an earlier attempt tried that and
-         didn't read right). */
+         Runs 0.4->0.95, matching the icon's own (widened) recede window
+         (--home-hero-icon-out) so both fade away together across the whole remaining
+         runway instead of finishing early and leaving a static dead stretch before the
+         pin releases. NOT blended into the slide/shrink motion itself (an earlier
+         attempt tried that and didn't read right). */
       --home-hero-mobile-portrait-fadeout: clamp(
         0,
-        calc((var(--hero-scroll-progress, 0) - 0.4) / 0.15),
+        calc((var(--hero-scroll-progress, 0) - 0.4) / 0.55),
         1
       );
     }
@@ -2930,21 +2932,25 @@
       --home-hero-icon-in: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.3) / 0.1), 1);
       --home-hero-icon-blur: blur(calc((1 - var(--home-hero-icon-in)) * 10px));
       /* Parallax hand-off: right after --home-hero-icon-in above finishes (0.4), the icon
-         drifts upward a little faster than the normal scroll and fades slightly over the
-         following 0.15 - a subtle "receding into the background" cue instead of just
-         sitting perfectly static until it's cut off by the viewport edge. Zero everywhere
-         else, so it doesn't affect the build-up. Leaves 0.4->0.55 as the only "settled,
-         fully built, not yet receding" stretch now (was 0.85->1.0's worth of it before
-         narrowing icon-in) - a deliberate trade for the faster build. */
-      --home-hero-icon-out: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.4) / 0.15), 1);
+         drifts upward and fades continuously across the ENTIRE remaining runway (0.4-
+         >0.95, was 0.4->0.15 wide = finished at 0.55 and then just sat there, static and
+         fully visible, until the pin released at 1.0 - the "logo hangs around alone for
+         a long time" gap this widening fixes). Ends just short of 1.0, not exactly at
+         it, so the recede visibly completes a beat before the section hand-off rather
+         than being cut off mid-motion by the release. Zero everywhere else, so it
+         doesn't affect the build-up. */
+      --home-hero-icon-out: clamp(0, calc((var(--hero-scroll-progress, 0) - 0.4) / 0.55), 1);
       width: 80%;
       height: auto;
-      opacity: calc(var(--home-hero-icon-in) * (1 - (var(--home-hero-icon-out) * 0.4)));
+      /* Lift/fade both increased (was -3rem / *0.4) now that they have the full tail to
+         work with - needs to read as "actively receding the whole way," not just a
+         slower version of the old brief nudge. */
+      opacity: calc(var(--home-hero-icon-in) * (1 - (var(--home-hero-icon-out) * 0.85)));
       /* Full 360deg spin runs across the whole reveal, finishing right side up
          (icon-in=1 -> 360deg reads visually identical to 0deg) at the same time the blur
          clears and the growth settles at full size. The extra translateY only kicks in
          during the tail (--home-hero-icon-out), layered on top of the settled scale. */
-      transform: translate3d(0, calc(var(--home-hero-icon-out) * -3rem), 0)
+      transform: translate3d(0, calc(var(--home-hero-icon-out) * -7rem), 0)
         scale(calc(0.1 + (var(--home-hero-icon-in) * 0.9)))
         rotate(calc(var(--home-hero-icon-in) * 360deg));
       /* Light theme: the SVG is already dark-on-transparent, so no color filter needed
@@ -4677,20 +4683,31 @@
        ends at 78% (well before the box's own 100%) because the photo's own visible
        content (after object-fit: contain + the scale above) already runs out around
        ~70% of this box's height - starting the fade any later would still let that
-       photo's real edge show as a hard line before the gradient had a chance to hide it. */
+       photo's real edge show as a hard line before the gradient had a chance to hide it.
+       Top fade uses absolute calc() stops pinned to --header-height instead of a %,
+       because this box's own top edge sits directly behind the fixed header (box is
+       inset:0 on the pinned stage, same as the header) - a %-based stop like the old
+       `12%` resolved to less than the header's own height, so the fade had already
+       finished (fully opaque) by the time the photo emerged from under the header,
+       i.e. exactly at the header's bottom edge - reintroducing the same hard line one
+       edge lower. Starting the fade level with the header's bottom (transparent through
+       header height) and only reaching full opacity ~4.5rem further down means the
+       transition happens in the part of the box that's actually visible. */
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-scroll-bg {
       -webkit-mask-image: linear-gradient(
         to bottom,
-        transparent 0%,
-        #000 12%,
+        transparent 0,
+        transparent calc(var(--header-height, 6rem) - 0.5rem),
+        #000 calc(var(--header-height, 6rem) + 4rem),
         #000 55%,
         transparent 78%
       ) !important;
       mask-image: linear-gradient(
         to bottom,
-        transparent 0%,
-        #000 12%,
+        transparent 0,
+        transparent calc(var(--header-height, 6rem) - 0.5rem),
+        #000 calc(var(--header-height, 6rem) + 4rem),
         #000 55%,
         transparent 78%
       ) !important;
@@ -5295,14 +5312,19 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
        of the real screen edge, with a dead gap below it down to the actual viewport
        bottom - see the "profile picture doesn't reach the bottom" report this reverts)
        in exchange for less scroll distance after the pin releases. Floor kept (41.6875rem
-       / 667px, iPhone SE) so very short devices still get a usable minimum. Multiplier
-       reverted 1.9->1.7 alongside this - it was bumped specifically to compensate the
-       720px cap and hold the pin's own scroll distance (stage * (multiplier-1), which
-       controls how sensitive/twitchy the reveal feels) around ~650px; keeping it at 1.9
-       on an uncapped (up to ~930px on Pro Max-class phones) stage would have pushed that
-       past 800px instead. */
+       / 667px, iPhone SE) so very short devices still get a usable minimum.
+       Multiplier lowered 1.7->1.4: the pin's own scroll distance (stage *
+       (multiplier-1), which is the actual amount of scrolling the user does while
+       pinned) was still ~650px at 1.7 - felt like "too much scrolling before the next
+       section shows up" even with the icon/portrait recede (see --home-hero-icon-out /
+       --home-hero-mobile-portrait-fadeout) now filling that stretch with continuous
+       motion instead of sitting static. At 1.4 that distance drops to stage * 0.4 (~270-
+       340px depending on device height), a noticeably shorter, snappier hand-off into
+       section 1. All the 0-1 scroll-progress fractions elsewhere (headline build-up,
+       icon build/recede, etc.) are relative to this same runway, so they compress
+       proportionally along with it - no other timing values need to change. */
     --home-hero-mobile-stage-cap: max(41.6875rem, 100dvh);
-    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.7);
+    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.4);
     --home-hero-top-offset: calc(
       var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)
     );

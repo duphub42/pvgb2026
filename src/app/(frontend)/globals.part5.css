@@ -2520,6 +2520,15 @@ html.theme-wave-transition.theme-wave-light::before {
   background-repeat: no-repeat;
 }
 
+/* Mobile: Section-Text startet weiter oben als auf Desktop, daher würde der
+   Hintergrund sonst vom Text überlagert. Um ca. die doppelte eigene Höhe
+   (2 * 25dvw = 50dvw) nach oben verschieben. */
+@media (max-width: 767px) {
+  .render-block-background-image--top-right:not(.home-intro-maneki-background-image) {
+    background-position: right 5% top calc(5% - 50dvw);
+  }
+}
+
 .home-intro-maneki-background-image.render-block-background-image--top-right {
   background-size: clamp(14rem, 31dvw, 34rem) auto;
   transform: scale(calc(1 + var(--home-intro-maneki-scroll-progress, 0) * 0.32));
@@ -2567,13 +2576,17 @@ html.theme-wave-transition.theme-wave-light::before {
 }
 
 [data-theme='light'] .render-block-background-image:not(.render-block-background-image--no-invert) {
+  /* Assets sind schwarze Linien auf transparent: im Light Mode ohne invert()
+     sichtbar lassen. invert(1) + hue-rotate(180deg) war für Graustufen ein
+     No-Op (Hue-Rotation wirkt nicht auf entsättigte Farben) und hat die
+     Grafik dadurch auf Weiß-auf-Weiß gebracht, also unsichtbar gemacht. */
   --render-block-background-image-opacity: 0.8;
-  filter: invert(1) hue-rotate(180deg) saturate(1.08) contrast(1.02) brightness(0.94);
+  filter: saturate(1.08) contrast(1.02) brightness(0.94);
 }
 
 [data-theme='light'] .portfolio-teaser-section-background::before {
   --render-block-background-image-opacity: 0.8;
-  filter: invert(1) hue-rotate(180deg) saturate(1.08) contrast(1.02) brightness(0.94);
+  filter: saturate(1.08) contrast(1.02) brightness(0.94);
 }
 
 :root:not([data-theme]) .home-intro-maneki-background-image:not(.render-block-background-image--no-invert),
