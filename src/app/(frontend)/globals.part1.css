@@ -2696,13 +2696,19 @@
          position:relative above) instead of pushed down from the top with a margin -
          the portrait now always sits flush with the stage's bottom edge regardless of
          how tall the headline/description block above it is.
-         !important overrides needed on top/width/margin-right specifically because the
-         unmedia-gated desktop rule at section[...][data-page-slug='home'][data-hero-has-portrait='true']
+         !important overrides needed on top/width/margin-left/margin-right specifically
+         because the unmedia-gated desktop rule at
+         section[...][data-page-slug='home'][data-hero-has-portrait='true']
          .hero-superhero-portrait (same element, different class in its className list)
-         also sets those three - without resetting `top` here, having top+height+bottom
-         all non-auto on an absolutely positioned box is over-constrained and `bottom`
-         gets silently dropped, and without resetting width/margin-right the desktop
-         55vw/45rem width + -4rem margin (calibrated for wide viewports) would apply. */
+         also sets those - without resetting `top` here, having top+height+bottom all
+         non-auto on an absolutely positioned box is over-constrained and `bottom` gets
+         silently dropped, and without resetting width/margin-right the desktop
+         55vw/45rem width + -4rem margin (calibrated for wide viewports) would apply.
+         margin-left specifically was leaking in from -1rem somewhere upstream (traced
+         empirically - forcing it to 0 alone fixes the head sitting visibly off-center to
+         the left at rest, verified via getBoundingClientRect) even though `left:0` was
+         already explicit; left:0 alone doesn't override a separately-set margin-left, so
+         both need pinning here for the box to land symmetrically. */
       position: absolute !important;
       top: auto !important;
       left: 0;
@@ -2710,6 +2716,7 @@
       bottom: 0;
       width: 100% !important;
       margin-top: 0;
+      margin-left: 0 !important;
       margin-right: 0 !important;
     }
 
@@ -2793,7 +2800,15 @@
        viewport or into the text above it. */
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-mobile-portrait-parallax {
-      transform-origin: 55% 42%;
+      /* origin-x moved 55%->50%: with the outer box now properly centered (see the
+         margin-left fix on .hero-superhero-portrait above), scaling around 55% was
+         itself the source of the remaining left-skew at rest - scaling expands away from
+         the origin on both sides, so an off-center origin bleeds more on whichever side
+         is further from it (55% is right-of-center, so the LEFT side - being the larger
+         distance - bled further left). Dead-center origin makes the rest-state scale
+         symmetric regardless of scale amount; the slide-to-the-edge animation on scroll
+         is unaffected since that's driven by the separate translate3d below, not origin. */
+      transform-origin: 50% 42%;
       /* Rest scale cut from 1.49 to 1.2 (shrink-end proportionally from 1.23 to ~1.1) -
          this transform is purely visual (doesn't affect this element's layout height,
          see .hero-mobile-sticky-portrait's height cap above), and scaling up from a
