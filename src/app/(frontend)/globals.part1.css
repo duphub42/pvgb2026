@@ -957,8 +957,15 @@
     will-change: transform, filter;
     transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-bg-translate-max)), 0)
       scale(calc(1 + var(--hero-scroll-progress) * var(--hero-bg-scale-max)));
-    filter: blur(calc(var(--hero-scroll-progress) * var(--hero-bg-blur-max)))
-      saturate(calc(1 - var(--hero-scroll-progress) * var(--hero-bg-desaturate-max)));
+    /* blur()/saturate() read the quantized --hero-scroll-blur-progress (falls back to
+       the smooth one if unset), not --hero-scroll-progress directly - unlike the
+       transform above, filter forces the browser to re-rasterize this whole (often
+       full-viewport) image on every value change instead of just re-compositing a GPU
+       layer, so continuous per-frame values here are real, avoidable repaint cost. See
+       SuperheroHero.tsx (sectionSteppedProgressTo) for where it's set - 12 discrete
+       steps instead of a continuous stream, imperceptible for a blur/saturate amount. */
+    filter: blur(calc(var(--hero-scroll-blur-progress, var(--hero-scroll-progress)) * var(--hero-bg-blur-max)))
+      saturate(calc(1 - var(--hero-scroll-blur-progress, var(--hero-scroll-progress)) * var(--hero-bg-desaturate-max)));
     /* transition: none, not a duration - --hero-scroll-progress is already smoothed
        in JS (gsap.quickTo, see SuperheroHero.tsx) on every scroll rAF tick. A CSS
        transition here re-eases AGAIN on every one of those already-smoothed updates,
@@ -980,8 +987,10 @@
     will-change: transform, filter;
     transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-bg-translate-max)), 0)
       scale(calc(1.045 + var(--hero-scroll-progress) * var(--hero-bg-scale-max)));
-    filter: blur(calc(18px + (var(--hero-scroll-progress) * var(--hero-bg-blur-max))))
-      saturate(calc(0.92 - var(--hero-scroll-progress) * var(--hero-bg-desaturate-max)));
+    /* See the identical note on .hero-scroll-bg-image above - same quantized-input
+       reasoning, same var. */
+    filter: blur(calc(18px + (var(--hero-scroll-blur-progress, var(--hero-scroll-progress)) * var(--hero-bg-blur-max))))
+      saturate(calc(0.92 - var(--hero-scroll-blur-progress, var(--hero-scroll-progress)) * var(--hero-bg-desaturate-max)));
     /* See the identical note on .hero-scroll-bg-image above: no CSS transition on a
        property already smoothed per-frame in JS via gsap.quickTo. */
     transition: none;
@@ -5317,19 +5326,20 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
        bottom - see the "profile picture doesn't reach the bottom" report this reverts)
        in exchange for less scroll distance after the pin releases. Floor kept (41.6875rem
        / 667px, iPhone SE) so very short devices still get a usable minimum.
-       Multiplier lowered 1.7->1.4->1.2: the pin's own scroll distance (stage *
-       (multiplier-1), which is the actual amount of scrolling the user does while
-       pinned) was still ~650px at 1.7 - felt like "too much scrolling before the next
-       section shows up" even with the icon/portrait recede (see --home-hero-icon-out /
-       --home-hero-mobile-portrait-fadeout) now filling that stretch with continuous
-       motion instead of sitting static. 1.4 (stage * 0.4, ~270-340px) still left a
-       stretch of empty/near-invisible scrolling once the icon had receded - at 1.2 that
-       distance drops to stage * 0.2 (~135-170px), a much snappier hand-off into section
-       1. All the 0-1 scroll-progress fractions elsewhere (headline build-up, icon
-       build/recede, etc.) are relative to this same runway, so they compress
-       proportionally along with it - no other timing values need to change. */
+       Multiplier history: 1.7 (pin's own scroll distance, stage * (multiplier-1), was
+       ~650px - "too much scrolling before the next section shows up") -> 1.4 (~270-340px,
+       still a stretch of empty/near-invisible scrolling since the following section back
+       then just scrolled up from below on its own slower timeline) -> 1.2 (~135-170px,
+       snappy, but too short once the following section started cross-fading in place
+       instead (see [data-home-section='introduction'] below) - a normal one-flick mobile
+       scroll (300-500px) blew straight through the whole runway in one motion, so the
+       section was still fading in as it was already being scrolled past. Back up to 1.45
+       (~300-375px) - long enough that a typical scroll gesture's momentum settles before
+       carrying past the crossfade, without returning to 1.7's dead-scroll length now that
+       the runway is actively filled by the icon/portrait/background recede AND the
+       following section's own fade-in the whole way through. */
     --home-hero-mobile-stage-cap: max(41.6875rem, 100dvh);
-    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.2);
+    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.45);
     --home-hero-top-offset: calc(
       var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)
     );
@@ -5370,11 +5380,27 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
      ANCESTOR of .hero-mobile-pin-stage, not a descendant, so the opacity fade above never
      touches it - left solid it still hides the following section behind a plain white
      panel even once the stage itself is fully transparent. color-mix ramps its alpha down
-     instead of opacity so it only touches this element's own background-color. */
+     instead of opacity so it only touches this element's own background-color - but
+     background-color, like filter above, is a paint (not composite) property, so this
+     recalculates its own fadeout from the quantized --hero-scroll-blur-progress instead
+     of the shared (smooth, continuous) --home-hero-mobile-portrait-fadeout, same 0.4->0.95
+     window, same reasoning as the filter rules above. */
   section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
     background-color: color-mix(
       in srgb,
-      var(--background) calc((1 - var(--home-hero-mobile-portrait-fadeout, 0)) * 100%),
+      var(--background)
+        calc(
+          (
+              1 -
+                clamp(
+                  0,
+                  calc(
+                    (var(--hero-scroll-blur-progress, var(--hero-scroll-progress, 0)) - 0.4) / 0.55
+                  ),
+                  1
+                )
+            ) * 100%
+        ),
       transparent
     );
   }
@@ -5395,7 +5421,10 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
      from below. HomepageScrollEffects.tsx skips its own GSAP scrub reveal for this
      element (and the maneki decoration's reveal) below 480px so they don't double up. */
   .hero-shell--superhero[data-home-scroll-root] [data-home-section='introduction'] {
-    opacity: var(--hero-scroll-progress, 1);
+    /* Matches --home-hero-mobile-portrait-fadeout's own window (0.4->0.95) instead of
+       the raw 0->1 progress, so this finishes fading in at the same point the hero
+       finishes fading out, rather than trailing slightly behind it. */
+    opacity: clamp(0, calc((var(--hero-scroll-progress, 1) - 0.4) / 0.55), 1);
     transition: none;
     will-change: opacity;
   }

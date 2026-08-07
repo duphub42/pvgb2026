@@ -223,6 +223,15 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         overwrite: 'auto',
       })
     const sectionProgressTo = createProgressSetter(section, '--hero-scroll-progress')
+    // Coarser, quantized copy of progress - only consumed by the background photo's
+    // filter: blur()/saturate() (see globals.part1.css, mobile-scoped) and this file's
+    // own background-color fade. Both force a full repaint of a large, blurred element
+    // on every value change (unlike the transform-based motion elsewhere, which the GPU
+    // composites for free) - stepping their input to ~12 discrete values instead of a
+    // continuous one cuts that repaint work roughly 1:1 with the step count while
+    // staying visually indistinguishable from continuous (blur changes are subtle to
+    // begin with). Everything else keeps reading the smooth --hero-scroll-progress.
+    const sectionSteppedProgressTo = createProgressSetter(section, '--hero-scroll-blur-progress')
     const sectionContentProgressTo = createProgressSetter(section, '--hero-scroll-content-progress')
     const sectionPortraitParallaxProgressTo = createProgressSetter(
       section,
@@ -274,6 +283,9 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         ? Math.max(rect.height - (pinStageHeight || window.innerHeight), 1)
         : Math.max(rect.height * 0.92, window.innerHeight * 0.72)
       const progress = clamp01(-rect.top / scrollDistance)
+      // See sectionSteppedProgressTo above for why this exists (only ever feeds the
+      // photo's filter: blur()/saturate()) - 12 steps across the 0-1 range.
+      const steppedProgress = Math.round(progress * 12) / 12
       const contentProgress = clamp01((progress - 0.08) / 0.92)
       const portraitParallaxProgress = isHomeHero
         ? progress
@@ -318,11 +330,13 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
           '--hero-scroll-portrait-hard-hide-progress': portraitHideProgress,
         }
         gsap.set(section, vars)
+        gsap.set(section, { '--hero-scroll-blur-progress': steppedProgress })
         if (host) gsap.set(host, vars)
         return
       }
 
       sectionProgressTo(progress)
+      sectionSteppedProgressTo(steppedProgress)
       sectionContentProgressTo(contentProgress)
       sectionPortraitParallaxProgressTo(portraitParallaxProgress)
       sectionPortraitHideProgressTo(portraitHideProgress)
@@ -403,6 +417,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         window.removeEventListener('orientationchange', requestUpdate)
       }
       section.style.removeProperty('--hero-scroll-progress')
+      section.style.removeProperty('--hero-scroll-blur-progress')
       section.style.removeProperty('--hero-scroll-content-progress')
       section.style.removeProperty('--hero-scroll-portrait-parallax-progress')
       section.style.removeProperty('--hero-scroll-portrait-hide-progress')
@@ -700,6 +715,14 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                 console.warn('[BG IMG] Failed to load:', renderBgSrc)
                 setBgImageFailed(true)
               }}
+              // LCP element on the home hero (mobile Lighthouse trace flagged it as the
+              // largest content paint). Already covered by the manual preload <link>
+              // above (same renderBgSrc as the mobile/desktop crops), so - same as
+              // those two - `loading="eager"` opts back into rendering it immediately
+              // and `fetchPriority="low"` opts OUT of Next's/React's own automatic
+              // unconditional preload, which would otherwise duplicate the manual one.
+              loading="eager"
+              fetchPriority="low"
               quality={42}
               sizes="100vw"
             />
