@@ -5,7 +5,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "build": "cross-env NODE_OPTIONS=--no-deprecation sh -c 'tsx src/scripts/generate-icon-sprite.ts && node -r ./scripts/load-env-for-payload.cjs ./node_modules/payload/dist/bin/index.js migrate && node -r ./scripts/load-env-for-payload.cjs ./node_modules/payload/dist/bin/index.js generate:types && NODE_OPTIONS=\"--no-deprecation --require ./scripts/load-env-for-payload.cjs\" next build'",
+    "build": "cross-env NODE_OPTIONS=--no-deprecation sh -c 'node -r ./scripts/load-env-for-payload.cjs ./node_modules/payload/dist/bin/index.js migrate && NODE_OPTIONS=\"--no-deprecation --require ./scripts/load-env-for-payload.cjs\" next build'",
     "analyze": "cross-env ANALYZE=true NODE_OPTIONS=--no-deprecation next build",
     "postbuild": "next-sitemap --config next-sitemap.config.cjs",
     "dev": "node scripts/ensure-next-manifests.cjs && node scripts/run-payload-migrate-if-postgres.cjs && cross-env NODE_OPTIONS=\"--no-deprecation --require ./scripts/load-env-for-payload.cjs --max-old-space-size=4096\" next dev -p 3000",
