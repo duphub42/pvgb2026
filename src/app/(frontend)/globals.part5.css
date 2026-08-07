@@ -2521,11 +2521,13 @@ html.theme-wave-transition.theme-wave-light::before {
 }
 
 /* Mobile: Section-Text startet weiter oben als auf Desktop, daher würde der
-   Hintergrund sonst vom Text überlagert. Um ca. die doppelte eigene Höhe
-   (2 * 25dvw = 50dvw) nach oben verschieben. */
+   Hintergrund sonst vom Text überlagert. Ganz an die Oberkante der (die
+   gesamte Section umspannenden) Hintergrund-Box schieben — mehr als "top 0%"
+   ist nicht möglich, da die Box (inset:0 der Section) nichts oberhalb ihrer
+   eigenen Kante rendern kann und der Hintergrund sonst abgeschnitten würde. */
 @media (max-width: 767px) {
   .render-block-background-image--top-right:not(.home-intro-maneki-background-image) {
-    background-position: right 5% top calc(5% - 50dvw);
+    background-position: right 5% top 0%;
   }
 }
 
