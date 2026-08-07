@@ -19,6 +19,14 @@ export function HomepageScrollEffects() {
     const root = document.querySelector<HTMLElement>('[data-home-scroll-root]')
     if (!root) return
 
+    // Below 480px the home hero pins itself and cross-fades straight into the
+    // Introduction block via CSS (--hero-scroll-progress, see globals.part1.css) instead
+    // of it scrolling up from below - the reveals below would either double up on top of
+    // that crossfade (container/item fades) or fire at the wrong moment relative to it
+    // (the maneki decoration's own reveal window), so both are skipped there.
+    const isMobileHeroPin =
+      typeof window !== 'undefined' && window.matchMedia('(max-width: 479px)').matches
+
     const context = gsap.context(() => {
       const intro = root.querySelector<HTMLElement>('[data-home-section="introduction"]')
       const services = root.querySelector<HTMLElement>('[data-home-section="servicesOverview"]')
@@ -29,71 +37,72 @@ export function HomepageScrollEffects() {
         )
         const introItems = intro.querySelectorAll<HTMLElement>('h2, p, [class*="border-l"]')
 
-        gsap.from(intro, {
-          scrollTrigger: {
-            trigger: intro,
-            start: 'top 78%',
-            end: 'top 52%',
-            scrub: 0.85,
-          },
-          y: 28,
-          opacity: 0.82,
-          ease: 'none',
-        })
-
-        if (hasElements(introItems)) {
-          gsap.fromTo(
-            introItems,
-            {
-              y: 34,
-              opacity: 0,
-              filter: 'blur(10px)',
+        if (!isMobileHeroPin) {
+          gsap.from(intro, {
+            scrollTrigger: {
+              trigger: intro,
+              start: 'top 100%',
+              end: 'top 70%',
+              scrub: 0.85,
             },
-            {
-              scrollTrigger: {
-                trigger: intro,
-                start: 'top 72%',
-                end: 'top 48%',
-                scrub: 0.8,
+            opacity: 0.82,
+            ease: 'none',
+          })
+
+          if (hasElements(introItems)) {
+            gsap.fromTo(
+              introItems,
+              {
+                y: 34,
+                opacity: 0,
+                filter: 'blur(10px)',
               },
-              y: 0,
-              opacity: 1,
-              filter: 'blur(0px)',
-              stagger: 0.08,
-              ease: 'none',
-            },
-          )
-        }
-
-        if (manekiBackground) {
-          const manekiTargetOpacity =
-            getComputedStyle(manekiBackground)
-              .getPropertyValue('--render-block-background-image-opacity')
-              .trim() || '1'
-
-          gsap.fromTo(
-            manekiBackground,
-            {
-              '--render-block-background-image-opacity': 0,
-              '--home-intro-maneki-reveal-blur': '14px',
-              y: 40,
-              scale: 0.9,
-            },
-            {
-              scrollTrigger: {
-                trigger: intro,
-                start: 'top 74%',
-                end: 'top 46%',
-                scrub: 0.85,
+              {
+                scrollTrigger: {
+                  trigger: intro,
+                  start: 'top 95%',
+                  end: 'top 65%',
+                  scrub: 0.8,
+                },
+                y: 0,
+                opacity: 1,
+                filter: 'blur(0px)',
+                stagger: 0.08,
+                ease: 'none',
               },
-              '--render-block-background-image-opacity': manekiTargetOpacity,
-              '--home-intro-maneki-reveal-blur': '0px',
-              y: 0,
-              scale: 1,
-              transformOrigin: 'right top',
-              ease: 'none',
-            },
-          )
+            )
+          }
+
+          if (manekiBackground) {
+            const manekiTargetOpacity =
+              getComputedStyle(manekiBackground)
+                .getPropertyValue('--render-block-background-image-opacity')
+                .trim() || '1'
+
+            gsap.fromTo(
+              manekiBackground,
+              {
+                '--render-block-background-image-opacity': 0,
+                '--home-intro-maneki-reveal-blur': '14px',
+                y: 40,
+                scale: 0.9,
+              },
+              {
+                scrollTrigger: {
+                  trigger: intro,
+                  start: 'top 74%',
+                  end: 'top 46%',
+                  scrub: 0.85,
+                },
+                '--render-block-background-image-opacity': manekiTargetOpacity,
+                '--home-intro-maneki-reveal-blur': '0px',
+                y: 0,
+                scale: 1,
+                transformOrigin: 'right top',
+                ease: 'none',
+              },
+            )
+          }
         }
       }
 

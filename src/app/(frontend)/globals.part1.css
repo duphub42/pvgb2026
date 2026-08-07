@@ -2863,7 +2863,11 @@
       bottom: clamp(1.5rem, 4svh, 2.5rem);
       margin-top: 0 !important;
       z-index: 18;
-      opacity: var(--home-hero-mobile-cta-in, 0);
+      /* Fades back out across the same tail window as the icon/portrait/photo (see
+         --home-hero-mobile-portrait-fadeout) - this card's blurred glass background
+         (see .hero-mobile-glass) used to just sit at cta-in's max (1) forever once
+         built, since nothing behind it ever needed to show through before. */
+      opacity: calc(var(--home-hero-mobile-cta-in, 0) * (1 - var(--home-hero-mobile-portrait-fadeout, 0)));
       transform: translate3d(0, calc((1 - var(--home-hero-mobile-cta-in, 0)) * 18svh), 0);
       /* See the double-smoothing note on .hero-mobile-portrait-parallax above. */
       transition: none;
@@ -2945,7 +2949,7 @@
       /* Lift/fade both increased (was -3rem / *0.4) now that they have the full tail to
          work with - needs to read as "actively receding the whole way," not just a
          slower version of the old brief nudge. */
-      opacity: calc(var(--home-hero-icon-in) * (1 - (var(--home-hero-icon-out) * 0.85)));
+      opacity: calc(var(--home-hero-icon-in) * (1 - var(--home-hero-icon-out)));
       /* Full 360deg spin runs across the whole reveal, finishing right side up
          (icon-in=1 -> 360deg reads visually identical to 0deg) at the same time the blur
          clears and the growth settles at full size. The extra translateY only kicks in
@@ -5313,18 +5317,19 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
        bottom - see the "profile picture doesn't reach the bottom" report this reverts)
        in exchange for less scroll distance after the pin releases. Floor kept (41.6875rem
        / 667px, iPhone SE) so very short devices still get a usable minimum.
-       Multiplier lowered 1.7->1.4: the pin's own scroll distance (stage *
+       Multiplier lowered 1.7->1.4->1.2: the pin's own scroll distance (stage *
        (multiplier-1), which is the actual amount of scrolling the user does while
        pinned) was still ~650px at 1.7 - felt like "too much scrolling before the next
        section shows up" even with the icon/portrait recede (see --home-hero-icon-out /
        --home-hero-mobile-portrait-fadeout) now filling that stretch with continuous
-       motion instead of sitting static. At 1.4 that distance drops to stage * 0.4 (~270-
-       340px depending on device height), a noticeably shorter, snappier hand-off into
-       section 1. All the 0-1 scroll-progress fractions elsewhere (headline build-up,
-       icon build/recede, etc.) are relative to this same runway, so they compress
+       motion instead of sitting static. 1.4 (stage * 0.4, ~270-340px) still left a
+       stretch of empty/near-invisible scrolling once the icon had receded - at 1.2 that
+       distance drops to stage * 0.2 (~135-170px), a much snappier hand-off into section
+       1. All the 0-1 scroll-progress fractions elsewhere (headline build-up, icon
+       build/recede, etc.) are relative to this same runway, so they compress
        proportionally along with it - no other timing values need to change. */
     --home-hero-mobile-stage-cap: max(41.6875rem, 100dvh);
-    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.4);
+    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.2);
     --home-hero-top-offset: calc(
       var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)
     );
@@ -5342,6 +5347,57 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
     /* overflow stays visible (not hidden) - the portrait's oversized rest-state scale
        (see .hero-mobile-portrait-parallax) intentionally bleeds past this box's edges. */
     overflow: visible;
+  }
+
+  /* Fades the ENTIRE pinned stage - icon, portrait, background photo/backplate, the
+     section's own base panel, the stats/CTA glass card, badge, decorative surface/overlay
+     gradients, all of it - out together across the same tail window used elsewhere
+     (--home-hero-mobile-portrait-fadeout, 0.4->0.95). Individually chasing each of those
+     layers (several of which - the photo, the base section background, the CTA card's
+     glass panel, .hero-section-surface, .hero-background-overlay - only ever blur/scale/
+     build up and never had their own fade-OUT) turned out to be a long, easy-to-miss tail;
+     one opacity on their shared container catches all of them (present and future) at
+     once instead. This is what actually lets [data-home-section='introduction'] below
+     show through instead of scrolling up from below it. */
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
+    .hero-mobile-pin-stage {
+    opacity: calc(1 - var(--home-hero-mobile-portrait-fadeout, 0));
+    transition: none;
+  }
+
+  /* The SECTION's own base backdrop ("Home Superhero single source of truth" further down
+     this file - background: var(--background), unconditional, not scroll-tied) is an
+     ANCESTOR of .hero-mobile-pin-stage, not a descendant, so the opacity fade above never
+     touches it - left solid it still hides the following section behind a plain white
+     panel even once the stage itself is fully transparent. color-mix ramps its alpha down
+     instead of opacity so it only touches this element's own background-color. */
+  section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
+    background-color: color-mix(
+      in srgb,
+      var(--background) calc((1 - var(--home-hero-mobile-portrait-fadeout, 0)) * 100%),
+      transparent
+    );
+  }
+
+  /* Pull the following-section stack up underneath the pinned hero stage by the stage's
+     own height, so its normal-flow top lands where the pin releases instead of a full
+     stage-height further down - see [data-home-section='introduction'] below for the
+     opacity half of this crossfade, and the fades above for why the stage has nothing
+     left to hide it once progress reaches 1. */
+  .hero-shell--superhero[data-home-scroll-root] .hero-following-section-mask {
+    margin-top: calc(-1 * var(--home-hero-mobile-stage-cap, max(41.6875rem, 100dvh)));
+    position: relative;
+  }
+
+  /* Cross-fades in sync with the hero's own icon/portrait/backdrop recede
+     (--hero-scroll-progress is set on the shared [data-home-scroll-root] ancestor by
+     SuperheroHero.tsx, already available here with no extra JS) instead of scrolling up
+     from below. HomepageScrollEffects.tsx skips its own GSAP scrub reveal for this
+     element (and the maneki decoration's reveal) below 480px so they don't double up. */
+  .hero-shell--superhero[data-home-scroll-root] [data-home-section='introduction'] {
+    opacity: var(--hero-scroll-progress, 1);
+    transition: none;
+    will-change: opacity;
   }
 
   section[data-hero-type='superhero'][data-page-slug='home'].hero-offset {
