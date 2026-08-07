@@ -174,7 +174,7 @@ export default async function RootPage() {
         <div
           className={cn(
             'relative isolate',
-            isSuperheroHero ? 'z-[44]' : 'z-[32] hero-bottom-border',
+            isSuperheroHero ? 'z-[44]' : 'z-[32]',
           )}
         >
           <SectionReveal>

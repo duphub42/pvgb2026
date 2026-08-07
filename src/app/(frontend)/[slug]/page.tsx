@@ -475,7 +475,7 @@ export default async function Page({
             <div
               className={cn(
                 'relative isolate',
-                previewIsSuperheroHero ? 'z-[36]' : 'z-[32] hero-bottom-border',
+                previewIsSuperheroHero ? 'z-[36]' : 'z-[32]',
               )}
             >
               <SectionReveal>
@@ -484,7 +484,6 @@ export default async function Page({
                 </HeroErrorBoundary>
               </SectionReveal>
             </div>
-            <hr className="hero-content-divider" aria-hidden />
             <div
               className={cn(
                 'relative w-full min-w-0 hero-following-section-mask',
@@ -680,7 +679,7 @@ export default async function Page({
         <div
           className={cn(
             'relative isolate',
-            isSuperheroHero ? 'z-[36]' : 'z-[32] hero-bottom-border',
+            isSuperheroHero ? 'z-[36]' : 'z-[32]',
           )}
         >
           <SectionReveal>
@@ -689,7 +688,6 @@ export default async function Page({
             </HeroErrorBoundary>
           </SectionReveal>
         </div>
-        <hr className="hero-content-divider" aria-hidden />
         <div
           className={cn(
             'relative w-full min-w-0 hero-following-section-mask',

@@ -514,50 +514,6 @@
 [data-theme='light'] .footer-bottom-border {
   border-top: 1px solid rgba(0, 0, 0, 0.1);
 }
-.hero-bottom-border {
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-[data-theme='light'] .hero-bottom-border {
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-}
-.hero-content-divider {
-  position: relative;
-  z-index: 35;
-  display: block;
-  width: min(92%, 82rem);
-  height: 1px;
-  margin: clamp(-4.4rem, -8.1vh, -2rem) auto 0;
-  border: 0;
-  will-change: transform, opacity;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0) 0%,
-    rgba(255, 255, 255, 0.2) 18%,
-    rgba(255, 255, 255, 0.2) 82%,
-    rgba(255, 255, 255, 0) 100%
-  );
-  transform: translate3d(0, calc(var(--hero-scroll-progress, 0) * 1.55rem), 0);
-  opacity: calc(1 - (var(--hero-scroll-content-progress, 0) * 0.25));
-  transition: transform 0.16s linear, opacity 0.16s linear;
-  pointer-events: none;
-}
-
-.hero-shell--superhero .hero-content-divider {
-  --hero-divider-translate-max: 6.4rem;
-  display: block;
-  position: relative;
-  transform: translate3d(
-    0,
-    calc(var(--hero-scroll-progress, 0) * var(--hero-divider-translate-max)),
-    0
-  );
-  transition: transform 0.16s linear;
-  opacity: 0.34;
-  filter: blur(0.4px);
-}
-
-/* Superhero-Übergang wird über Mask/Fade gelöst, nicht über harte HR-Linie. */
-
 /* Hide shape/divider visuals for superhero variant (remove bottom edge) */
 .hero-shell--superhero .hero-shape-divider,
 .hero-shell--superhero .hero-superhero-shape-divider,
@@ -570,54 +526,6 @@
   pointer-events: none !important;
 }
 
-.hero-shell--superhero[data-hero-intro='play'] .hero-content-divider {
-  animation: none;
-  opacity: 0.34;
-}
-
-.hero-shell--superhero[data-hero-intro='pre'] .hero-content-divider {
-  opacity: 0;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-shell--superhero[data-hero-intro='play'] .hero-content-divider {
-    animation: none;
-  }
-}
-
-[data-theme='dark'] .hero-shell--superhero .hero-content-divider {
-  opacity: 0.26;
-}
-
-@media (max-width: 47.99rem) {
-  .hero-shell--superhero .hero-content-divider {
-    position: relative;
-    z-index: 0;
-    margin: 0 auto;
-    transform: none;
-    animation: none;
-    filter: none;
-    opacity: 0.34;
-  }
-}
-
-[data-theme='light'] .hero-content-divider {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 0, 0) 0%,
-    rgba(0, 0, 0, 0.16) 18%,
-    rgba(0, 0, 0, 0.16) 82%,
-    rgba(0, 0, 0, 0) 100%
-  );
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hero-content-divider {
-    transform: none;
-    opacity: 1;
-    transition: none;
-  }
-}
 [data-theme='light'] .footer-social-icon {
   opacity: 0.6;
 }
