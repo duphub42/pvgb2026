@@ -27,7 +27,7 @@ function Button({
   variant = 'default',
   size = 'default',
   asChild = false,
-  ctaIcon: _ctaIcon = false,
+  ctaIcon = false,
   iconA: IconA = ChevronRight,
   iconB: IconB = ArrowUpRight,
   children,
@@ -48,7 +48,7 @@ function Button({
 
   const slottableChild = asChild ? getSlottableElement(children) : null
   const Comp = asChild && slottableChild != null ? Slot.Root : 'button'
-  const shouldRenderCtaIcon = _ctaIcon && variant === 'cta'
+  const shouldRenderCtaIcon = ctaIcon && variant === 'cta'
 
   const renderCtaContent = (value: React.ReactNode) => (
     <>

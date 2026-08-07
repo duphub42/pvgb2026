@@ -3,47 +3,17 @@
 import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import {
-  Brain,
-  Briefcase,
-  Globe,
-  Handshake,
-  Heart,
-  Lightbulb,
-  Search,
-  Shield,
-  Target,
-  TrendingUp,
-  User,
-  UserCheck,
-  Zap,
-  type LucideIcon,
-} from 'lucide-react'
+import { Brain } from 'lucide-react'
 
 import type { WhyWorkWithMeBlock as WhyWorkWithMeBlockData } from '@/payload-types'
 import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 
 import { ReasonCard } from '@/blocks/WhyWorkWithMe/ReasonCard'
+import { ICON_MAP } from '@/blocks/WhyWorkWithMe/iconMap'
 import { cn } from '@/utilities/ui'
 import { BlockContainer } from '@/components/BlockContainer'
 
 gsap.registerPlugin(ScrollTrigger)
-
-const ICON_MAP: Record<string, LucideIcon> = {
-  brain: Brain,
-  lightbulb: Lightbulb,
-  user: User,
-  zap: Zap,
-  'trending-up': TrendingUp,
-  globe: Globe,
-  target: Target,
-  search: Search,
-  handshake: Handshake,
-  'user-check': UserCheck,
-  briefcase: Briefcase,
-  heart: Heart,
-  shield: Shield,
-}
 
 /** Wenn `introIconList` in älteren Dokumenten fehlt (noch nicht gespeichert), diese Zeilen anzeigen. Explizit leeres Array = keine Liste. */
 const INTRO_ICON_FALLBACK: Array<{ icon: string; text: string }> = [

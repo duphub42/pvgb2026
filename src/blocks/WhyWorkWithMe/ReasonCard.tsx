@@ -1,45 +1,15 @@
 'use client'
 
 import React, { useCallback, useRef } from 'react'
-import {
-  Brain,
-  Briefcase,
-  Globe,
-  Handshake,
-  Heart,
-  Lightbulb,
-  Search,
-  Shield,
-  Target,
-  TrendingUp,
-  User,
-  UserCheck,
-  Zap,
-  type LucideIcon,
-} from 'lucide-react'
+import { User } from 'lucide-react'
 
 import { cn } from '@/utilities/ui'
+import { ICON_MAP } from '@/blocks/WhyWorkWithMe/iconMap'
 
 type ReasonCardProps = {
   title: string
   description: string
   iconKey: string
-}
-
-const ICON_MAP: Record<string, LucideIcon> = {
-  brain: Brain,
-  lightbulb: Lightbulb,
-  user: User,
-  zap: Zap,
-  'trending-up': TrendingUp,
-  globe: Globe,
-  target: Target,
-  search: Search,
-  handshake: Handshake,
-  'user-check': UserCheck,
-  briefcase: Briefcase,
-  heart: Heart,
-  shield: Shield,
 }
 
 /* --foreground / --border sind volle rgb()-Farben, keine HSL-Tripel — daher color-mix, nicht hsl(var(--border)/…). */

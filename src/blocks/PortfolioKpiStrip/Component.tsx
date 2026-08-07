@@ -76,7 +76,7 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
   const kpis = (items ?? []).filter((item) => Boolean(item?.value?.trim() && item?.label?.trim()))
   const shouldShowPricingContext = heading?.toLowerCase().includes('leistungswerte')
   const isMarketingSnapshot = heading?.toLowerCase().includes('marketing-cases')
-  const enableTileReveal = heading?.trim() === 'Ergebnisse über mehrere Marketing-Cases'
+  const enableTileReveal = isMarketingSnapshot
   const resolvedIntro = isMarketingSnapshot ? getMarketingSnapshotIntro(intro) : intro?.trim()
   const snapshotNote = getMarketingSnapshotNote(heading)
 

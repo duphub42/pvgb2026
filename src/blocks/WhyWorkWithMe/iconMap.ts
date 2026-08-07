@@ -1,0 +1,32 @@
+import {
+  Brain,
+  Briefcase,
+  Globe,
+  Handshake,
+  Heart,
+  Lightbulb,
+  Search,
+  Shield,
+  Target,
+  TrendingUp,
+  User,
+  UserCheck,
+  Zap,
+  type LucideIcon,
+} from 'lucide-react'
+
+export const ICON_MAP: Record<string, LucideIcon> = {
+  brain: Brain,
+  lightbulb: Lightbulb,
+  user: User,
+  zap: Zap,
+  'trending-up': TrendingUp,
+  globe: Globe,
+  target: Target,
+  search: Search,
+  handshake: Handshake,
+  'user-check': UserCheck,
+  briefcase: Briefcase,
+  heart: Heart,
+  shield: Shield,
+}
