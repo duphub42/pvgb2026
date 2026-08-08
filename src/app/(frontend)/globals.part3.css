@@ -71,27 +71,6 @@
     opacity: 0.7;
   }
 
-  /* Einzeln nutzbar für Content: Unterstrich links → rechts */
-  .link-hover-underline {
-    position: relative;
-    display: inline-block;
-  }
-  .link-hover-underline::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -6px;
-    width: 100%;
-    height: 1px;
-    background: currentColor;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.25s ease;
-  }
-  .link-hover-underline:hover::after {
-    transform: scaleX(1);
-  }
-
   /* Tooltips (Header-Toggles etc.): immer voll deckend, unabhängig vom Design-Global */
   [data-radix-popper-content-wrapper] [role='tooltip'],
   .tooltip-content-solid {
@@ -294,8 +273,6 @@
     #000 100%
   ) !important;
 }
-
-
 
 /* Footer: 3D-Absetzung — gleichmäßig über volle Breite, nur nach oben auslaufend (::before = Grid) */
 .footer-elevated.footer-gradient {

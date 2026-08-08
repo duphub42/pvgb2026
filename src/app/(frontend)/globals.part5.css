@@ -9,10 +9,6 @@
   --theme-switch-thumb-shift: 1.36rem;
 }
 
-.theme-switch--wave-active {
-  z-index: 10001;
-}
-
 .theme-switch__track {
   position: relative;
   display: grid;
@@ -143,56 +139,6 @@
   }
 }
 
-html.theme-wave-transition::before {
-  content: '';
-  position: fixed;
-  left: calc(var(--theme-wave-x, 50%) - var(--theme-wave-radius, 50vmax));
-  top: calc(var(--theme-wave-y, 50%) - var(--theme-wave-radius, 50vmax));
-  width: calc(var(--theme-wave-radius, 50vmax) * 2);
-  height: calc(var(--theme-wave-radius, 50vmax) * 2);
-  border-radius: 9999px;
-  pointer-events: none;
-  z-index: 10000;
-  transform: translateZ(0) scale(0.04);
-  transform-origin: center;
-  background: radial-gradient(
-    circle at 50% 50%,
-    color-mix(in srgb, var(--theme-wave-color, rgb(10 10 12 / 0.9)) 100%, white 0%) 0%,
-    color-mix(in srgb, var(--theme-wave-color, rgb(10 10 12 / 0.9)) 86%, transparent) 28%,
-    color-mix(in srgb, var(--theme-wave-color, rgb(10 10 12 / 0.9)) 44%, transparent) 56%,
-    transparent 78%
-  );
-  opacity: 0.78;
-  will-change: transform, opacity;
-  animation: theme-wave-expand var(--theme-wave-duration, 500ms) cubic-bezier(0.2, 0.9, 0.3, 1)
-    both;
-}
-
-html.theme-wave-transition.theme-wave-dark::before {
-  --theme-wave-color: rgb(9 11 15 / 0.96);
-}
-
-html.theme-wave-transition.theme-wave-light::before {
-  --theme-wave-color: rgb(249 251 255 / 0.96);
-}
-
-@keyframes theme-wave-expand {
-  0% {
-    transform: translateZ(0) scale(0.04);
-    opacity: 0.74;
-  }
-  42% {
-    opacity: 0.62;
-  }
-  76% {
-    opacity: 0.34;
-  }
-  100% {
-    transform: translateZ(0) scale(1);
-    opacity: 0;
-  }
-}
-
 [data-theme='dark'] .theme-switch__track {
   border-color: color-mix(in srgb, var(--foreground) 34%, transparent);
   background: linear-gradient(
@@ -225,11 +171,6 @@ html.theme-wave-transition.theme-wave-light::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html.theme-wave-transition::before {
-    animation: none !important;
-    opacity: 0 !important;
-  }
-
   .theme-switch__track,
   .theme-switch__icon,
   .theme-switch__thumb,
@@ -315,75 +256,6 @@ html.theme-wave-transition.theme-wave-light::before {
   to {
     opacity: 0;
     transform: translate3d(0, -5px, 0) scale(0.992);
-  }
-}
-
-@keyframes mobile-mega-radial-in {
-  from {
-    opacity: 0;
-    transform: scale(0.16);
-  }
-  62% {
-    opacity: 0.9;
-  }
-  to {
-    opacity: 0.28;
-    transform: scale(1.9);
-  }
-}
-
-@keyframes mobile-mega-radial-out {
-  from {
-    opacity: 0.28;
-    transform: scale(1.9);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.55);
-  }
-}
-
-@keyframes mobile-mega-fade-up {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes mobile-mega-item-icon-in {
-  from {
-    opacity: 0;
-    transform: translateY(8px) scale(0.88);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes mobile-mega-item-copy-in {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes mobile-mega-dock-in {
-  0% {
-    opacity: 0;
-    transform: translateY(38px) scale(0.985);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0) scale(1);
   }
 }
 
@@ -783,20 +655,6 @@ html.theme-wave-transition.theme-wave-light::before {
   background: transparent !important;
   box-shadow: none !important;
   transform: none !important;
-}
-
-/* Benchmark mode: keep trigger behavior close to original ham demos (icon motion only). */
-.mobile-megamenu-trigger-btn--benchmark,
-.mobile-megamenu-trigger-btn--benchmark:hover,
-.mobile-megamenu-trigger-btn--benchmark[data-open='true'] {
-  border-color: transparent !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  transform: none !important;
-}
-
-.mobile-megamenu-trigger-btn--benchmark {
-  transition: none !important;
 }
 
 .mobile-megamenu-columns {
@@ -1310,7 +1168,6 @@ html.theme-wave-transition.theme-wave-light::before {
   color: var(--mobile-mega-secondary-root-hover-fg);
 }
 
-.mobile-megamenu-sub-list,
 .mobile-megamenu-secondary-list {
   display: flex;
   flex-direction: column;
@@ -2667,25 +2524,6 @@ html.theme-wave-transition.theme-wave-light::before {
   opacity: 0.09;
 }
 
-.section-decor--topo-corner svg {
-  top: clamp(1.5rem, 7vw, 5.5rem);
-  right: max(-9rem, -8vw);
-  width: min(58rem, 78vw);
-  height: min(32rem, 58vw);
-  transform: rotate(-7deg);
-  mask-image: radial-gradient(ellipse at 70% 42%, black 0%, black 44%, transparent 78%);
-}
-
-.section-decor--topo-band svg {
-  top: 8%;
-  left: 50%;
-  width: min(86rem, 118vw);
-  height: 24rem;
-  transform: translateX(-50%);
-  opacity: 0.065;
-  mask-image: linear-gradient(90deg, transparent 0%, black 18%, black 82%, transparent 100%);
-}
-
 [data-theme='dark'] .section-decor {
   color: color-mix(in srgb, hsl(var(--primary)) 58%, white 42%);
 }
@@ -2810,19 +2648,6 @@ html.theme-wave-transition.theme-wave-light::before {
 
 .footer-bounce-root.footer-bounce-visible {
   animation: none;
-}
-
-/* Mobile CLS guard: keep hero entry effects static. */
-@media (max-width: 767px) {
-  .hero-reveal-letter,
-  .hero-reveal-logo,
-  .hero-portrait-fade-up,
-  .hero-blurry-fade-in {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    filter: none !important;
-  }
 }
 
 /* ========== Marquee (infinite horizontal scroll) ========== */
