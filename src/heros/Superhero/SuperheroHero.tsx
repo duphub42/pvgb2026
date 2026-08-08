@@ -105,7 +105,7 @@ export interface SuperheroHeroProps {
 }
 
 const DECODE_TAG_PATTERN = /<decode>([\s\S]*?)<\/decode>/gi
-const HOME_PROFILE_POPOUT_FALLBACK_SRC = '/api/media/file/philippbacher-13.png'
+const HOME_PROFILE_POPOUT_FALLBACK_SRC = '/api/media/stream/1360'
 
 function parseDecodeSegments(line: string): HeadlineSegment[] {
   const segments: HeadlineSegment[] = []
