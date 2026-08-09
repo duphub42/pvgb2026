@@ -69,9 +69,15 @@ export async function GET(
     if (isLocalFile) {
       // Delegate local/cloud delivery to /api/media/file/:filename.
       // That endpoint now supports both local files and R2 fallback.
+      // ExactDN negotiates format by the request's Accept header; this is a server-to-
+      // server fetch (the browser's own Accept header never reaches it), so without an
+      // explicit one ExactDN falls back to serving PNG even when the source is already
+      // an optimized WebP/AVIF - up to 3x the bytes for no reason. Forward what a modern
+      // browser would send so ExactDN can actually negotiate.
       const fileRes = await fetch(url, {
         headers: {
           'Cache-Control': 'public, max-age=31536000, immutable',
+          Accept: 'image/avif,image/webp,image/png,image/*,*/*;q=0.8',
         },
       })
 
@@ -86,6 +92,7 @@ export async function GET(
             const fallbackRes = await fetch(fallbackUrl, {
               headers: {
                 'Cache-Control': 'public, max-age=31536000, immutable',
+                Accept: 'image/avif,image/webp,image/png,image/*,*/*;q=0.8',
               },
             })
 
@@ -134,6 +141,7 @@ export async function GET(
     const res = await fetch(url, {
       headers: {
         'Cache-Control': 'public, max-age=31536000, immutable',
+        Accept: 'image/avif,image/webp,image/png,image/*,*/*;q=0.8',
       },
     })
 
