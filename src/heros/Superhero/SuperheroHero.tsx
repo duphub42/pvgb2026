@@ -210,11 +210,13 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
     // This is the ONLY smoothing layer for scroll-driven motion (the CSS that reads
     // these vars intentionally carries transition:none - see globals.part1.css - so
-    // it doesn't re-ease on top of this and double-smooth into a wobble). 0.36s was
-    // tuned back when a second CSS transition was also in play; alone, it read as
-    // laggy/not-quite-solid - short enough to still iron out discrete scroll-event
-    // granularity, tight enough to feel directly coupled to the scroll gesture.
-    const tweenDuration = prefersReducedMotion ? 0 : 0.18
+    // it doesn't re-ease on top of this and double-smooth into a wobble). A hard, fast
+    // flick covers the whole scroll-progress range in ~50-100ms of input; at a short
+    // duration (0.18s, tried first) the tween can't keep up and visibly finishes playing
+    // after the scroll gesture has already stopped, reading as a glitch. Slower on
+    // purpose so the reveal stays perceptible even on an aggressive scroll, at the cost
+    // of a slight lag behind the scrollbar during normal-speed scrolling.
+    const tweenDuration = prefersReducedMotion ? 0 : 1
     const tweenEase = prefersReducedMotion ? 'none' : 'power3.out'
     const createProgressSetter = (target: HTMLElement, property: string) =>
       gsap.quickTo(target, property, {
