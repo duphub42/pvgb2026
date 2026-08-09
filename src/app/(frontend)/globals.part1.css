@@ -4426,9 +4426,18 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
        (~300-375px) - long enough that a typical scroll gesture's momentum settles before
        carrying past the crossfade, without returning to 1.7's dead-scroll length now that
        the runway is actively filled by the icon/portrait/background recede AND the
-       following section's own fade-in the whole way through. */
+       following section's own fade-in the whole way through.
+       Back to 1.7 (~470-650px): even at 1.45 the whole reveal still read as too fast -
+       a single scroll gesture covered the runway before the effect was recognizable.
+       Since the runway is actively filled the whole way through (see above), the old
+       "dead scroll" objection to 1.7 no longer applies the same way.
+       2.1: the icon-onward tail (progress 0.3->1) at 1.7 finally read right and isn't
+       being touched again - see BUILD_UP_SCROLL_SHARE/BUILD_UP_PROGRESS_SHARE in
+       SuperheroHero.tsx, which now spend disproportionately more of this larger runway
+       on just the build-up (0->0.3) while keeping the tail's own pixel pace roughly what
+       it was at 1.7. */
     --home-hero-mobile-stage-cap: max(41.6875rem, 100dvh);
-    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 1.45);
+    --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 2.1);
     --home-hero-top-offset: calc(
       var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)
     );

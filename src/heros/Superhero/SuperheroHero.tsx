@@ -182,6 +182,13 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     let introTimeoutId = 0
     let effectsTimeoutId = 0
     const clamp01 = (value: number) => Math.min(1, Math.max(0, value))
+    // Home mobile pin only (see isHomeMobilePin below): progress 0.3 is where the icon
+    // reveal starts (--home-hero-icon-in in globals.part1.css) - that's the build-up/
+    // icon-onward split point. 0.55 of the (extended) scroll runway is spent reaching
+    // just that first 0.3 of progress, so the build-up is paced roughly 2.85x slower
+    // than the icon-onward tail (which keeps its existing, already-tuned pace).
+    const BUILD_UP_PROGRESS_SHARE = 0.3
+    const BUILD_UP_SCROLL_SHARE = 0.55
     let lastProgress = ''
     let lastContentProgress = ''
     let lastPortraitParallaxProgress = ''
@@ -216,8 +223,12 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     // after the scroll gesture has already stopped, reading as a glitch. Slower on
     // purpose so the reveal stays perceptible even on an aggressive scroll, at the cost
     // of a slight lag behind the scrollbar during normal-speed scrolling.
+    // power3.out is heavily front-loaded - at duration=1 it was already ~87% done by
+    // 400ms, so nearly all visible motion happened in well under half the "duration" and
+    // the rest was an imperceptible tail. Raising duration alone couldn't fix that; the
+    // curve itself needed to spread the motion out. sine.out is far gentler/more even.
     const tweenDuration = prefersReducedMotion ? 0 : 1
-    const tweenEase = prefersReducedMotion ? 'none' : 'power3.out'
+    const tweenEase = prefersReducedMotion ? 'none' : 'sine.out'
     const createProgressSetter = (target: HTMLElement, property: string) =>
       gsap.quickTo(target, property, {
         duration: tweenDuration,
@@ -284,7 +295,22 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       const scrollDistance = isHomeMobilePin
         ? Math.max(rect.height - (pinStageHeight || window.innerHeight), 1)
         : Math.max(rect.height * 0.92, window.innerHeight * 0.72)
-      const progress = clamp01(-rect.top / scrollDistance)
+      // Build-up (badge/headline/portrait-slide, progress 0->0.3) should read as slow and
+      // deliberate; from the icon reveal onward (0.3->1, see --home-hero-icon-in in
+      // globals.part1.css) the current pace already reads right and isn't touched. A
+      // uniform scrollDistance can't do both at once, so the physical scroll distance is
+      // split unevenly: BUILD_UP_SCROLL_SHARE of the (now-longer) runway is spent on just
+      // the first BUILD_UP_PROGRESS_SHARE of progress, everything past that point maps
+      // linearly across the rest at its own rate. See --home-hero-stage-height in
+      // globals.part1.css, which was extended to give this split room to work with.
+      const rawProgress = clamp01(-rect.top / scrollDistance)
+      const progress = isHomeMobilePin
+        ? rawProgress <= BUILD_UP_SCROLL_SHARE
+          ? (rawProgress / BUILD_UP_SCROLL_SHARE) * BUILD_UP_PROGRESS_SHARE
+          : BUILD_UP_PROGRESS_SHARE +
+            ((rawProgress - BUILD_UP_SCROLL_SHARE) / (1 - BUILD_UP_SCROLL_SHARE)) *
+              (1 - BUILD_UP_PROGRESS_SHARE)
+        : rawProgress
       // See sectionSteppedProgressTo above for why this exists (only ever feeds the
       // photo's filter: blur()/saturate()) - 12 steps across the 0-1 range.
       const steppedProgress = Math.round(progress * 12) / 12
