@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { usePathname } from 'next/navigation'
 import { BarChart3, DraftingCompass, Fingerprint } from 'lucide-react'
 
 import type {
@@ -14,6 +15,7 @@ import { Media } from '@/components/Media'
 import { BlockContainer } from '@/components/BlockContainer'
 import { getBlockBackgroundImageStyle } from '@/utilities/getBlockBackgroundImageStyle'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
 
 type IntroductionProps = IntroductionBlockData & {
   disableInnerContainer?: boolean
@@ -42,6 +44,8 @@ function resolveThumbnailStreamSrc(media: unknown): string | null {
 }
 
 export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
+  const pathname = usePathname()
+  const isEnglish = (pathname || '').startsWith('/en')
   const {
     disableInnerContainer: _disableInnerContainer,
     heading,
@@ -56,6 +60,9 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
     index = 0,
     ...styleProps
   } = props
+  const localizedHeading = isEnglish ? translateValueForLocale(heading, 'en') : heading
+  const localizedBody = isEnglish ? translateValueForLocale(body, 'en') : body
+  const localizedTagline = isEnglish ? translateValueForLocale(tagline, 'en') : tagline
 
   // Style-Props direkt an BlockContainer übergeben
   const styles = styleProps as unknown as BlockStyles
@@ -63,14 +70,15 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
   const showLottie = useLottie && (lottieLight || lottieDark)
   const hasMedia = hasImage || showLottie
   const isHomeIntro =
-    typeof heading === 'string' &&
-    heading.trim() === 'Webdesign, Online Marketing & Automatisierung in Halle (Saale)'
+    typeof localizedHeading === 'string' &&
+    localizedHeading.trim() === 'Web Design, Online Marketing & Automation in Halle (Saale)'
   const useImageAsTopRightBackground = isHomeIntro && hasImage && !showLottie
   const backgroundImageSrc = useImageAsTopRightBackground ? resolveThumbnailStreamSrc(image) : null
   const hasInlineMedia = hasMedia && !useImageAsTopRightBackground
   const reserveMediaColumn = hasInlineMedia || useImageAsTopRightBackground
   const forceDarkModeInvertForWebdesignIntro =
-    heading?.trim() === 'Webdesign, das aus Besuchern Kunden macht'
+    heading?.trim() === 'Webdesign, das aus Besuchern Kunden macht' ||
+    localizedHeading?.trim() === 'Web Design That Turns Visitors Into Customers'
   const imageInvertClass = !showLottie
     ? forceDarkModeInvertForWebdesignIntro
       ? 'invert-0 dark:invert'
@@ -84,11 +92,19 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
   )
 
   const taglineLines =
-    typeof tagline === 'string' && tagline.trim() ? tagline.split('\n').filter((l) => l.trim()) : []
-  const isLeistungenHubIntro = heading?.trim() === 'Ein Hub für alle Leistungen'
-  const isPortfolioMarketingIntro = heading?.trim() === 'Marketing-Cases mit nachvollziehbarer Wirkung'
+    typeof localizedTagline === 'string' && localizedTagline.trim()
+      ? localizedTagline.split('\n').filter((l) => l.trim())
+      : []
+  const isLeistungenHubIntro =
+    heading?.trim() === 'Ein Hub für alle Leistungen' ||
+    heading?.trim() === 'Ein Hub für alle Services' ||
+    localizedHeading?.trim() === 'One Hub for All Services'
+  const isPortfolioMarketingIntro =
+    heading?.trim() === 'Marketing-Cases mit nachvollziehbarer Wirkung' ||
+    localizedHeading?.trim() === 'Marketing Cases With Traceable Impact'
 
-  const hubCards = [
+  const hubCards = translateValueForLocale(
+    [
     {
       title: 'Design & Website',
       description: 'Webdesign, Printmedien und Präsentationen für einen starken Auftritt.',
@@ -104,7 +120,9 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
       description: 'CI, Logo-Entwicklung und Markenstrategie für klare Wiedererkennung.',
       Icon: Fingerprint,
     },
-  ]
+    ],
+    isEnglish ? 'en' : 'de',
+  )
 
   const introGrid = (
     <div
@@ -117,20 +135,20 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
       )}
     >
       <div className={cn('min-w-0', hasImage && !useImageAsTopRightBackground && 'xl:max-w-3xl')}>
-        {heading && (
+        {localizedHeading && (
           <h2
             className={cn(
               'mb-6 text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl',
               useImageAsTopRightBackground && 'max-md:max-w-2/3',
             )}
           >
-            {heading}
+            {localizedHeading}
           </h2>
         )}
 
-        {body && (
+        {localizedBody && (
           <p className="mb-6 max-w-prose whitespace-pre-line text-base leading-relaxed text-muted-foreground md:text-lg">
-            {body}
+            {localizedBody}
           </p>
         )}
 

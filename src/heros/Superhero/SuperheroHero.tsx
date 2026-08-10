@@ -29,6 +29,7 @@ import {
 } from '@/utilities/resolveHeroImageSrc'
 import { cn } from '@/utilities/ui'
 import { PopoutPortrait } from '@/components/PopoutPortrait'
+import type { Locale } from '@/utilities/locale'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -102,6 +103,7 @@ export interface SuperheroHeroProps {
   sectionAriaLabel?: string | null
   dataHeroType?: string | null
   pageSlug?: string | null
+  locale?: Locale
 }
 
 const DECODE_TAG_PATTERN = /<decode>([\s\S]*?)<\/decode>/gi
@@ -165,6 +167,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   sectionAriaLabel,
   dataHeroType,
   pageSlug,
+  locale = 'de',
 }) => {
   const sectionRef = React.useRef<HTMLElement | null>(null)
   const portraitRef = React.useRef<HTMLDivElement | null>(null)
@@ -282,15 +285,15 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       // progress here must track how far through THAT pin runway we are, not the
       // 0.92/0.72-of-hero-height heuristic used everywhere else (which assumes the
       // section scrolls normally and is roughly one screen tall).
-      const isHomeMobilePin =
-        isHomeHero && window.matchMedia('(max-width: 479px)').matches
+      const isHomeMobilePin = isHomeHero && window.matchMedia('(max-width: 479px)').matches
       // The pinned stage is capped at the iPhone SE's height (see globals.part1.css,
       // --home-hero-mobile-stage-cap) rather than always matching window.innerHeight on
       // taller phones, so the pin-release point must be measured against the stage's
       // real height, not the viewport's.
       const pinStageHeight = isHomeMobilePin
-        ? (pinStageEl ??= section.querySelector<HTMLElement>('.hero-mobile-pin-stage'))
-            ?.getBoundingClientRect().height
+        ? (pinStageEl ??=
+            section.querySelector<HTMLElement>('.hero-mobile-pin-stage'))?.getBoundingClientRect()
+            .height
         : undefined
       const scrollDistance = isHomeMobilePin
         ? Math.max(rect.height - (pinStageHeight || window.innerHeight), 1)
@@ -725,332 +728,333 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
           animation while the page visually "stays" on the hero. Desktop/tablet get no
           extra height on the section, so this sticky rule is a no-op there. */}
       <div className="hero-mobile-pin-stage">
-      {shouldRenderBgImage && renderBgSrc && (
-        <div
-          aria-hidden
-          className="hero-scroll-bg pointer-events-none absolute inset-0 overflow-hidden z-0"
-        >
-          {shouldUseCalibratedHomeBg && (
+        {shouldRenderBgImage && renderBgSrc && (
+          <div
+            aria-hidden
+            className="hero-scroll-bg pointer-events-none absolute inset-0 overflow-hidden z-0"
+          >
+            {shouldUseCalibratedHomeBg && (
+              <Image
+                src={renderBgSrc}
+                alt=""
+                fill
+                className="hero-scroll-bg-backplate w-full h-full object-cover"
+                style={{
+                  objectPosition: `100% ${bgFocus.y}%`,
+                }}
+                onError={() => {
+                  console.warn('[BG IMG] Failed to load:', renderBgSrc)
+                  setBgImageFailed(true)
+                }}
+                // LCP element on the home hero (mobile Lighthouse trace flagged it as the
+                // largest content paint). Already covered by the manual preload <link>
+                // above (same renderBgSrc as the mobile/desktop crops), so - same as
+                // those two - `loading="eager"` opts back into rendering it immediately
+                // and `fetchPriority="low"` opts OUT of Next's/React's own automatic
+                // unconditional preload, which would otherwise duplicate the manual one.
+                loading="eager"
+                fetchPriority="low"
+                quality={42}
+                sizes="100vw"
+              />
+            )}
+            {shouldRenderHomeMobileBg && renderBgSrc && (
+              <Image
+                src={renderBgSrc}
+                alt=""
+                fill
+                className="hero-scroll-bg-image hero-scroll-bg-image--home-mobile w-full h-full object-cover"
+                onError={() => {
+                  console.warn('[BG IMG] Failed to load:', renderBgSrc)
+                }}
+                // Preloaded manually above via a media-scoped <link>. `priority` would add
+                // Next's own unconditional preload; `fetchPriority="low"` opts this <img>
+                // out of React's own automatic (also unconditional) image preloading.
+                loading="eager"
+                fetchPriority="low"
+                quality={62}
+                sizes="100vw"
+              />
+            )}
             <Image
+              ref={desktopBgImageRef}
               src={renderBgSrc}
               alt=""
               fill
-              className="hero-scroll-bg-backplate w-full h-full object-cover"
+              className={cn(
+                'hero-scroll-bg-image w-full h-full object-cover',
+                shouldRenderHomeMobileBg && 'hero-scroll-bg-image--desktop',
+              )}
               style={{
-                objectPosition: `100% ${bgFocus.y}%`,
+                objectPosition: shouldUseCalibratedHomeBg
+                  ? `100% ${bgFocus.y}%`
+                  : bgFocus.objectPosition,
               }}
               onError={() => {
+                // Keep the hero stable when media fails and switch to section fallback background.
                 console.warn('[BG IMG] Failed to load:', renderBgSrc)
                 setBgImageFailed(true)
               }}
-              // LCP element on the home hero (mobile Lighthouse trace flagged it as the
-              // largest content paint). Already covered by the manual preload <link>
-              // above (same renderBgSrc as the mobile/desktop crops), so - same as
-              // those two - `loading="eager"` opts back into rendering it immediately
-              // and `fetchPriority="low"` opts OUT of Next's/React's own automatic
-              // unconditional preload, which would otherwise duplicate the manual one.
-              loading="eager"
-              fetchPriority="low"
-              quality={42}
-              sizes="100vw"
-            />
-          )}
-          {shouldRenderHomeMobileBg && renderBgSrc && (
-            <Image
-              src={renderBgSrc}
-              alt=""
-              fill
-              className="hero-scroll-bg-image hero-scroll-bg-image--home-mobile w-full h-full object-cover"
-              onError={() => {
-                console.warn('[BG IMG] Failed to load:', renderBgSrc)
+              onLoad={() => {
+                setBgImageFailed(false)
               }}
-              // Preloaded manually above via a media-scoped <link>. `priority` would add
-              // Next's own unconditional preload; `fetchPriority="low"` opts this <img>
-              // out of React's own automatic (also unconditional) image preloading.
-              loading="eager"
-              fetchPriority="low"
+              // On the home hero this crop is preloaded manually above (media-scoped);
+              // `priority` (and React's own automatic <img> preload, opted out of via
+              // fetchPriority="low") would duplicate that preload for every viewport.
+              // On other hero pages this is the only bg image, so it keeps `priority`.
+              {...(shouldRenderHomeMobileBg
+                ? { loading: 'eager' as const, fetchPriority: 'low' as const }
+                : { priority: true as const })}
               quality={62}
               sizes="100vw"
             />
-          )}
-          <Image
-            ref={desktopBgImageRef}
-            src={renderBgSrc}
-            alt=""
-            fill
-            className={cn(
-              'hero-scroll-bg-image w-full h-full object-cover',
-              shouldRenderHomeMobileBg && 'hero-scroll-bg-image--desktop',
-            )}
-            style={{
-              objectPosition: shouldUseCalibratedHomeBg
-                ? `100% ${bgFocus.y}%`
-                : bgFocus.objectPosition,
-            }}
-            onError={() => {
-              // Keep the hero stable when media fails and switch to section fallback background.
-              console.warn('[BG IMG] Failed to load:', renderBgSrc)
-              setBgImageFailed(true)
-            }}
-            onLoad={() => {
-              setBgImageFailed(false)
-            }}
-            // On the home hero this crop is preloaded manually above (media-scoped);
-            // `priority` (and React's own automatic <img> preload, opted out of via
-            // fetchPriority="low") would duplicate that preload for every viewport.
-            // On other hero pages this is the only bg image, so it keeps `priority`.
-            {...(shouldRenderHomeMobileBg
-              ? { loading: 'eager' as const, fetchPriority: 'low' as const }
-              : { priority: true as const })}
-            quality={62}
-            sizes="100vw"
-          />
-        </div>
-      )}
-
-      {/* Overlay für Text-Lesbarkeit – theme-aware: --background hell in Light, dunkel in Dark */}
-      {shouldRenderBgImage && (
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-0 z-[12] hero-superhero-image-overlay"
-        />
-      )}
-
-      {shouldRenderHomeMobileBg && (
-        // Home mobile only: once the headline build-up has fully faded/slid away (see
-        // --home-hero-mobile-text-exit in globals.part1.css), the B-icon fades in "in
-        // place" over roughly the same spot the headlines occupied - growing from small/
-        // blurry/transparent to full-size/sharp/opaque. A sibling of the reveal block
-        // (anchored to the pin stage itself), not nested inside it, so its own reveal
-        // timing is independent of that block's own fade/translate exit animation.
-        <div
-          aria-hidden
-          className="hero-mobile-icon-reveal pointer-events-none hidden max-[479px]:flex"
-        >
-          <Image
-            src="/branding/philippbacher-logo-b-10.svg"
-            alt=""
-            width={64}
-            height={67}
-            className="hero-mobile-icon-reveal-img"
-          />
-        </div>
-      )}
-
-      <>
-        <div className="hero-section-surface" aria-hidden />
-        <div
-          className="hero-background-overlay hero-background-overlay--style-preview-portrait"
-          aria-hidden
-        />
-        <div
-          className="hero-popout-structure-layer pointer-events-none absolute inset-0 z-[1] hidden"
-          aria-hidden
-        />
-      </>
-
-      <div className={heroContentClass}>
-        <div className={heroMainClass}>
-          <div className={heroTextColumnClass}>
-          <div className={heroRevealClass}>
-          {subheadline && (
-            <Badge
-              variant="secondary"
-              className={cn(
-                heroLayerClass,
-                'hero-scroll-layer-eyebrow w-fit px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] hero-subheading-contrast',
-              )}
-            >
-              {subheadline}
-            </Badge>
-          )}
-
-          {headlineLines.length > 0 && (
-            <h1
-              className={cn(
-                heroLayerClass,
-                'hero-scroll-layer-headline text-pretty text-hero-display tracking-tight hero-heading-solid',
-              )}
-            >
-              {parsedHeadlineLines.map((segments, lineIndex) => (
-                  <span key={lineIndex} className="block">
-                    {segments.map((segment, segmentIndex) => {
-                      const content = segment.text
-                      const isDecodeSegment = segment.decode && content.trim().length > 0
-
-                      if (!isDecodeSegment) {
-                        return (
-                          <React.Fragment key={`${lineIndex}-${segmentIndex}`}>
-                            {content}
-                          </React.Fragment>
-                        )
-                      }
-
-                      if (!decodeAnimationEnabled) {
-                        return (
-                          <React.Fragment key={`${lineIndex}-${segmentIndex}-static`}>
-                            {content}
-                          </React.Fragment>
-                        )
-                      }
-
-                      return (
-                        <ScrambleText
-                          key={`${lineIndex}-${segmentIndex}-decode-stable`}
-                          text={content}
-                          chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
-                          staggerMs={12}
-                          scrambleDurationMs={280}
-                          tickMs={28}
-                          useMonospaceOverlay={false}
-                          startFromText
-                          disableAnimation={!decodeAnimationActive}
-                          className="hero-heading-gradient-decode"
-                        />
-                      )
-                    })}
-                  </span>
-                ))}
-            </h1>
-          )}
-
-          {heroDescription && (
-            <p
-              className={cn(
-                heroLayerClass,
-                'hero-scroll-layer-body',
-                'hero-content-contrast hero-superhero-system-font w-full max-w-none text-[0.9rem] leading-[1.35] md:max-w-[44ch]',
-              )}
-            >
-              {heroDescription}
-            </p>
-          )}
           </div>
+        )}
 
-          <div className={heroCtaClass}>
-            {showStats && (
-              <dl
-                className={cn(
-                  heroLayerClass,
-                  'hero-stats-grid grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-4 min-[420px]:gap-x-4 md:gap-x-6 md:gap-y-6 mt-5 animate-in fade-in slide-in-from-bottom-2 duration-700',
-                )}
-              >
-                {stats!.map((stat, i) => {
-                  const Icon =
-                    stat.icon && stat.icon !== 'none' ? (statIconMap[stat.icon] ?? null) : null
-
-                  return (
-                    <div
-                      key={stat.id ?? i}
-                      className="hero-stat-item relative flex min-w-0 flex-col gap-1 pr-2 min-[420px]:pr-4 md:gap-1.5 md:pr-6"
-                    >
-                      {Icon ? (
-                        <Icon
-                          className="size-6 text-primary/70 mb-0.5"
-                          strokeWidth={1.5}
-                          aria-hidden
-                        />
-                      ) : null}
-                      <dt className="hero-stat-value text-lg font-semibold leading-none tracking-normal min-[420px]:text-3xl hero-heading-gradient">
-                        {stat.value}
-                      </dt>
-                      <dd className="hero-stat-label text-[0.5rem] leading-tight hero-subheading-contrast uppercase tracking-normal min-[420px]:text-[0.68rem] md:text-[0.78rem] md:leading-snug">
-                        {stat.label}
-                      </dd>
-                    </div>
-                  )
-                })}
-              </dl>
-            )}
-
-            {ctaLinks.length > 0 && (
-              <div
-                className={cn(
-                  heroLayerClass,
-                  'hero-scroll-layer-cta flex flex-wrap items-center gap-3 max-md:flex-nowrap max-md:gap-2',
-                )}
-              >
-                {ctaLinks.map((item, index) => (
-                  <CMSLink
-                    key={`${item?.link?.label ?? 'cta'}-${index}`}
-                    type={item?.link?.type}
-                    url={item?.link?.url}
-                    reference={item?.link?.reference}
-                    label={undefined}
-                    newTab={item?.link?.newTab}
-                    icon={item?.link?.icon}
-                    enableIconSwap={item?.link?.enableIconSwap ?? true}
-                    iconSwapFrom={item?.link?.iconSwapFrom}
-                    iconSwapTo={item?.link?.iconSwapTo}
-                    appearance={item?.link?.appearance ?? (index === 0 ? 'default' : 'outline')}
-                    size="cta"
-                    className="rounded-[var(--style-radius-l)] max-md:flex-1 max-md:min-w-0 max-md:justify-center max-md:gap-0 max-md:px-3 max-md:text-sm max-md:leading-tight max-md:whitespace-normal max-md:[&_svg]:hidden"
-                  >
-                    <span className="hidden md:inline">{item?.link?.label}</span>
-                    <span className="md:hidden">{item?.link?.label}</span>
-                  </CMSLink>
-                ))}
-              </div>
-            )}
-
-            {showHeroLogoBand && (
-              <div className="hero-logo-band-shell mt-1 w-full max-w-full md:max-w-2xl">
-                <div className="hero-logo-band-divider border-t border-border/60" aria-hidden />
-
-                {logoDisplayType === 'logoCarousel' &&
-                Array.isArray(marqueeLogos) &&
-                marqueeLogos.length > 0 ? (
-                  <div className={cn(heroLayerClass, 'hero-scroll-layer-carousel pt-3')}>
-                    <LogoCarousel
-                      logos={marqueeLogos
-                        .map((row, idx) => {
-                          const src = resolveHeroImageSrc(row?.logo)
-                          if (!src) return null
-                          return {
-                            id: idx,
-                            name: row?.alt ?? `Logo ${idx}`,
-                            imgUrl: src,
-                            alt: row?.alt,
-                          } as const as LogoCarouselLogo
-                        })
-                        .filter((logo): logo is LogoCarouselLogo => Boolean(logo))}
-                      columnCount={3}
-                      className="w-full"
-                    />
-                  </div>
-                ) : (
-                  <HeroLogoMarquee
-                    marqueeHeadline={marqueeHeadline}
-                    marqueeLogos={marqueeLogos}
-                    className={cn(heroLayerClass, 'hero-scroll-layer-marquee pt-3')}
-                  />
-                )}
-              </div>
-            )}
-          </div>
-          </div>
-
-          {portraitSrc && (
-            <div
-              ref={portraitRef}
-              className={cn(
-                'hero-scroll-content-portrait hero-superhero-portrait hero-superhero-portrait-popout hero-desktop-parallax-portrait hero-mobile-sticky-portrait sticky aspect-[600/720] shrink-0 overflow-visible md:order-none max-md:h-auto max-md:min-h-[222px] max-md:min-w-0 max-md:z-[20] md:z-[14]',
-                'max-md:order-2',
-              )}
-            >
-              <div className="hero-superhero-portrait-media hero-mobile-portrait-parallax relative h-full w-full overflow-visible">
-                <PopoutPortrait imageSrc={portraitSrc} fillRowHeight />
-              </div>
-            </div>
-          )}
-        </div>
-        {portraitSrc && (
+        {/* Overlay für Text-Lesbarkeit – theme-aware: --background hell in Light, dunkel in Dark */}
+        {shouldRenderBgImage && (
           <div
-            className="hero-superhero-portrait-scroll-mask pointer-events-none absolute inset-x-0 bottom-0 hidden md:block"
             aria-hidden
+            className="pointer-events-none absolute inset-0 z-[12] hero-superhero-image-overlay"
           />
         )}
-      </div>
+
+        {shouldRenderHomeMobileBg && (
+          // Home mobile only: once the headline build-up has fully faded/slid away (see
+          // --home-hero-mobile-text-exit in globals.part1.css), the B-icon fades in "in
+          // place" over roughly the same spot the headlines occupied - growing from small/
+          // blurry/transparent to full-size/sharp/opaque. A sibling of the reveal block
+          // (anchored to the pin stage itself), not nested inside it, so its own reveal
+          // timing is independent of that block's own fade/translate exit animation.
+          <div
+            aria-hidden
+            className="hero-mobile-icon-reveal pointer-events-none hidden max-[479px]:flex"
+          >
+            <Image
+              src="/branding/philippbacher-logo-b-10.svg"
+              alt=""
+              width={64}
+              height={67}
+              className="hero-mobile-icon-reveal-img"
+            />
+          </div>
+        )}
+
+        <>
+          <div className="hero-section-surface" aria-hidden />
+          <div
+            className="hero-background-overlay hero-background-overlay--style-preview-portrait"
+            aria-hidden
+          />
+          <div
+            className="hero-popout-structure-layer pointer-events-none absolute inset-0 z-[1] hidden"
+            aria-hidden
+          />
+        </>
+
+        <div className={heroContentClass}>
+          <div className={heroMainClass}>
+            <div className={heroTextColumnClass}>
+              <div className={heroRevealClass}>
+                {subheadline && (
+                  <Badge
+                    variant="secondary"
+                    className={cn(
+                      heroLayerClass,
+                      'hero-scroll-layer-eyebrow w-fit px-1.5 py-px text-[10px] font-medium uppercase leading-tight tracking-[0.1em] hero-subheading-contrast',
+                    )}
+                  >
+                    {subheadline}
+                  </Badge>
+                )}
+
+                {headlineLines.length > 0 && (
+                  <h1
+                    className={cn(
+                      heroLayerClass,
+                      'hero-scroll-layer-headline text-pretty text-hero-display tracking-tight hero-heading-solid',
+                    )}
+                  >
+                    {parsedHeadlineLines.map((segments, lineIndex) => (
+                      <span key={lineIndex} className="block">
+                        {segments.map((segment, segmentIndex) => {
+                          const content = segment.text
+                          const isDecodeSegment = segment.decode && content.trim().length > 0
+
+                          if (!isDecodeSegment) {
+                            return (
+                              <React.Fragment key={`${lineIndex}-${segmentIndex}`}>
+                                {content}
+                              </React.Fragment>
+                            )
+                          }
+
+                          if (!decodeAnimationEnabled) {
+                            return (
+                              <React.Fragment key={`${lineIndex}-${segmentIndex}-static`}>
+                                {content}
+                              </React.Fragment>
+                            )
+                          }
+
+                          return (
+                            <ScrambleText
+                              key={`${lineIndex}-${segmentIndex}-decode-stable`}
+                              text={content}
+                              chars="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"
+                              staggerMs={12}
+                              scrambleDurationMs={280}
+                              tickMs={28}
+                              useMonospaceOverlay={false}
+                              startFromText
+                              disableAnimation={!decodeAnimationActive}
+                              className="hero-heading-gradient-decode"
+                            />
+                          )
+                        })}
+                      </span>
+                    ))}
+                  </h1>
+                )}
+
+                {heroDescription && (
+                  <p
+                    className={cn(
+                      heroLayerClass,
+                      'hero-scroll-layer-body',
+                      'hero-content-contrast hero-superhero-system-font w-full max-w-none text-[0.9rem] leading-[1.35] md:max-w-[44ch]',
+                    )}
+                  >
+                    {heroDescription}
+                  </p>
+                )}
+              </div>
+
+              <div className={heroCtaClass}>
+                {showStats && (
+                  <dl
+                    className={cn(
+                      heroLayerClass,
+                      'hero-stats-grid grid grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-x-2 gap-y-4 min-[420px]:gap-x-4 md:gap-x-6 md:gap-y-6 mt-5 animate-in fade-in slide-in-from-bottom-2 duration-700',
+                    )}
+                  >
+                    {stats!.map((stat, i) => {
+                      const Icon =
+                        stat.icon && stat.icon !== 'none' ? (statIconMap[stat.icon] ?? null) : null
+
+                      return (
+                        <div
+                          key={stat.id ?? i}
+                          className="hero-stat-item relative flex min-w-0 flex-col gap-1 pr-2 min-[420px]:pr-4 md:gap-1.5 md:pr-6"
+                        >
+                          {Icon ? (
+                            <Icon
+                              className="size-6 text-primary/70 mb-0.5"
+                              strokeWidth={1.5}
+                              aria-hidden
+                            />
+                          ) : null}
+                          <dt className="hero-stat-value text-lg font-semibold leading-none tracking-normal min-[420px]:text-3xl hero-heading-gradient">
+                            {stat.value}
+                          </dt>
+                          <dd className="hero-stat-label text-[0.5rem] leading-tight hero-subheading-contrast uppercase tracking-normal min-[420px]:text-[0.68rem] md:text-[0.78rem] md:leading-snug">
+                            {stat.label}
+                          </dd>
+                        </div>
+                      )
+                    })}
+                  </dl>
+                )}
+
+                {ctaLinks.length > 0 && (
+                  <div
+                    className={cn(
+                      heroLayerClass,
+                      'hero-scroll-layer-cta flex flex-wrap items-center gap-3 max-md:flex-nowrap max-md:gap-2',
+                    )}
+                  >
+                    {ctaLinks.map((item, index) => (
+                      <CMSLink
+                        key={`${item?.link?.label ?? 'cta'}-${index}`}
+                        type={item?.link?.type}
+                        url={item?.link?.url}
+                        reference={item?.link?.reference}
+                        label={undefined}
+                        newTab={item?.link?.newTab}
+                        icon={item?.link?.icon}
+                        enableIconSwap={item?.link?.enableIconSwap ?? true}
+                        iconSwapFrom={item?.link?.iconSwapFrom}
+                        iconSwapTo={item?.link?.iconSwapTo}
+                        appearance={item?.link?.appearance ?? (index === 0 ? 'default' : 'outline')}
+                        size="cta"
+                        locale={locale}
+                        className="rounded-[var(--style-radius-l)] max-md:flex-1 max-md:min-w-0 max-md:justify-center max-md:gap-0 max-md:px-3 max-md:text-sm max-md:leading-tight max-md:whitespace-normal max-md:[&_svg]:hidden"
+                      >
+                        <span className="hidden md:inline">{item?.link?.label}</span>
+                        <span className="md:hidden">{item?.link?.label}</span>
+                      </CMSLink>
+                    ))}
+                  </div>
+                )}
+
+                {showHeroLogoBand && (
+                  <div className="hero-logo-band-shell mt-1 w-full max-w-full md:max-w-2xl">
+                    <div className="hero-logo-band-divider border-t border-border/60" aria-hidden />
+
+                    {logoDisplayType === 'logoCarousel' &&
+                    Array.isArray(marqueeLogos) &&
+                    marqueeLogos.length > 0 ? (
+                      <div className={cn(heroLayerClass, 'hero-scroll-layer-carousel pt-3')}>
+                        <LogoCarousel
+                          logos={marqueeLogos
+                            .map((row, idx) => {
+                              const src = resolveHeroImageSrc(row?.logo)
+                              if (!src) return null
+                              return {
+                                id: idx,
+                                name: row?.alt ?? `Logo ${idx}`,
+                                imgUrl: src,
+                                alt: row?.alt,
+                              } as const as LogoCarouselLogo
+                            })
+                            .filter((logo): logo is LogoCarouselLogo => Boolean(logo))}
+                          columnCount={3}
+                          className="w-full"
+                        />
+                      </div>
+                    ) : (
+                      <HeroLogoMarquee
+                        marqueeHeadline={marqueeHeadline}
+                        marqueeLogos={marqueeLogos}
+                        className={cn(heroLayerClass, 'hero-scroll-layer-marquee pt-3')}
+                      />
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {portraitSrc && (
+              <div
+                ref={portraitRef}
+                className={cn(
+                  'hero-scroll-content-portrait hero-superhero-portrait hero-superhero-portrait-popout hero-desktop-parallax-portrait hero-mobile-sticky-portrait sticky aspect-[600/720] shrink-0 overflow-visible md:order-none max-md:h-auto max-md:min-h-[222px] max-md:min-w-0 max-md:z-[20] md:z-[14]',
+                  'max-md:order-2',
+                )}
+              >
+                <div className="hero-superhero-portrait-media hero-mobile-portrait-parallax relative h-full w-full overflow-visible">
+                  <PopoutPortrait imageSrc={portraitSrc} fillRowHeight />
+                </div>
+              </div>
+            )}
+          </div>
+          {portraitSrc && (
+            <div
+              className="hero-superhero-portrait-scroll-mask pointer-events-none absolute inset-x-0 bottom-0 hidden md:block"
+              aria-hidden
+            />
+          )}
+        </div>
       </div>
     </section>
   )

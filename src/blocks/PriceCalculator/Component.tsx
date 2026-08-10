@@ -12,6 +12,8 @@ import {
   type PriceCalcItemClient,
   type PriceCalculatorCopy,
 } from './PriceCalculatorClient'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
+import type { Locale } from '@/utilities/locale'
 
 const DEFAULT_COPY: PriceCalculatorCopy = {
   sectionLabel: 'Preisrechner',
@@ -83,10 +85,14 @@ function mapItem(doc: PriceCalcItem): PriceCalcItemClient {
 }
 
 export async function PriceCalculatorBlockComponent(
-  props: PriceCalculatorBlockFields & { disableInnerContainer?: boolean; index?: number },
+  props: PriceCalculatorBlockFields & {
+    disableInnerContainer?: boolean
+    index?: number
+    locale?: Locale
+  },
 ) {
   // index ist für Server Components nicht verfügbar, wird aber akzeptiert für Kompatibilität
-  const { showRatesSection = true, disableInnerContainer } = props
+  const { showRatesSection = true, disableInnerContainer, locale = 'de' } = props
 
   const payload = await getPayload({ config: configPromise })
 
@@ -131,13 +137,15 @@ export async function PriceCalculatorBlockComponent(
     (a, b) => a.sortOrder - b.sortOrder || a.title.localeCompare(b.title),
   )
 
-  const copy = mergeCopy(globalDoc ?? undefined, props)
+  const copy = translateValueForLocale(mergeCopy(globalDoc ?? undefined, props), locale)
+  const localizedCategories = translateValueForLocale(categories, locale)
 
   return (
     <section className={cnSection(disableInnerContainer)}>
       <PriceCalculatorClient
-        categories={categories}
+        categories={localizedCategories}
         copy={copy}
+        locale={locale}
         showRatesSection={Boolean(showRatesSection)}
       />
     </section>

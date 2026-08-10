@@ -8,9 +8,11 @@ import {
 } from '@/blocks/ProfilBlocks/defaults'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
+import type { Locale } from '@/utilities/locale'
 import { cn } from '@/utilities/ui'
 
-type Props = BlockData & { disableInnerContainer?: boolean }
+type Props = BlockData & { disableInnerContainer?: boolean; locale?: Locale }
 type WertItem = NonNullable<NonNullable<BlockData['werte']>[number]>
 
 export const ProfilUeberMichBlock: React.FC<Props> = ({
@@ -18,9 +20,13 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
   sectionTitle,
   einleitung,
   werte,
+  locale = 'de',
 }) => {
-  const title = sectionTitle?.trim() || 'Über mich'
-  const bodySource = einleitung?.trim() ? einleitung : profilUeberMichEinleitungDefault
+  const title = translateValueForLocale(sectionTitle?.trim() || 'Über mich', locale)
+  const bodySource = translateValueForLocale(
+    einleitung?.trim() ? einleitung : profilUeberMichEinleitungDefault,
+    locale,
+  )
   const paragraphs = bodySource
     .split(/\n\n+/)
     .map((p) => p.trim())
@@ -36,6 +42,7 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
           wert: w.wert,
           beschreibung: w.beschreibung,
         }))
+  const localizedRows = translateValueForLocale(rows, locale)
 
   return (
     <section className={cn('container py-16 md:py-24')}>
@@ -45,7 +52,7 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
             variant="secondary"
             className="w-fit px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em]"
           >
-            Profil
+            {translateValueForLocale('Profil', locale)}
           </Badge>
           <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">
             {title}
@@ -58,7 +65,7 @@ export const ProfilUeberMichBlock: React.FC<Props> = ({
         </div>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:gap-6">
-          {rows.map((w, idx) => {
+          {localizedRows.map((w, idx) => {
             return (
               <Card
                 key={

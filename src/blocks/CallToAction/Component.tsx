@@ -9,9 +9,11 @@ import RichText from '@/components/RichText'
 import { CMSLink } from '@/components/Link'
 import { BlockContainer } from '@/components/BlockContainer'
 import { CtaPanel } from '@/components/CtaPanel'
+import type { Locale } from '@/utilities/locale'
 
 type CallToActionBlockComponentProps = CTABlockProps & {
   index?: number
+  locale?: Locale
 }
 
 const ctaRichTextClassName = [
@@ -24,7 +26,7 @@ const ctaRichTextClassName = [
 ].join(' ')
 
 export const CallToActionBlock: React.FC<CallToActionBlockComponentProps> = (props) => {
-  const { links, richText, index = 0, ...styleProps } = props
+  const { links, richText, index = 0, locale = 'de', ...styleProps } = props
 
   // Style-Props direkt an BlockContainer übergeben
   const styles = styleProps as unknown as BlockStyles
@@ -55,6 +57,7 @@ export const CallToActionBlock: React.FC<CallToActionBlockComponentProps> = (pro
                   size="cta"
                   className="h-auto min-h-11 w-full min-w-0 justify-between whitespace-normal rounded-[var(--style-radius-l)] px-5 text-left leading-snug"
                   {...link}
+                  locale={locale}
                 />
               )
             })}

@@ -41,10 +41,12 @@ import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { openCalBookingModal } from '@/utilities/webmcp/calEmbed'
 
 import { HeaderActions } from '@/components/HeaderActions/HeaderActions'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { ResilientImage } from '@/components/ui/resilient-image'
 import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
 import { isNavLinkActive } from '@/utilities/navLinkActive'
+import { localizePathname } from '@/i18n/routing'
 
 const ThemeSwitcher = dynamic(
   () => import('@/components/ThemeSwitcher/ThemeSwitcher').then((mod) => mod.ThemeSwitcher),
@@ -858,7 +860,7 @@ const ListItem = React.forwardRef<
         <div className="min-w-0 flex-1 space-y-1">
           <div
             className={cn(
-              'text-sm font-medium leading-tight transition-colors',
+              'megamenu-list-item-title text-sm font-medium leading-tight transition-colors',
               isButton ? 'text-current' : 'group-hover:text-foreground',
             )}
           >
@@ -1243,6 +1245,7 @@ export function MegaMenu({
 }: MegaMenuProps) {
   const cardStyle = highlightCardStyle ?? defaultCardStyle
   const pathname = usePathname()
+  const isEnglishPath = pathname?.startsWith('/en') === true
   const router = useRouter()
   const [isVisible, setIsVisible] = useState(true)
   const [isPastFold, setIsPastFold] = useState(false)
@@ -1297,30 +1300,49 @@ export function MegaMenu({
     visible: false,
   })
 
+  const toLocalizedHref = React.useCallback(
+    (href?: string | null): string => {
+      const value = String(href ?? '').trim()
+      if (!value) return '#'
+      if (!isEnglishPath) return value
+      if (/^(?:[a-z][a-z\d+\-.]*:)?\/\//i.test(value)) return value
+      if (/^(?:mailto|tel):/i.test(value)) return value
+      if (value.startsWith('#')) return value
+      if (/\.[a-z0-9]{2,5}(?:[?#].*)?$/i.test(value)) return value
+      if (value.startsWith('/')) return localizePathname(value, 'en')
+      if (/^[a-z0-9][a-z0-9/_-]*(?:[?#].*)?$/i.test(value)) {
+        return localizePathname(`/${value}`, 'en')
+      }
+      return value
+    },
+    [isEnglishPath],
+  )
+
   const navigateToTopLevel = React.useCallback(
     (targetUrl: string) => {
-      if (!targetUrl) return
-      const isExternal = /^(?:[a-z][a-z\d+\-.]*:)?\/\//i.test(targetUrl)
+      const localizedTargetUrl = toLocalizedHref(targetUrl)
+      if (!localizedTargetUrl || localizedTargetUrl === '#') return
+      const isExternal = /^(?:[a-z][a-z\d+\-.]*:)?\/\//i.test(localizedTargetUrl)
       if (isExternal) {
-        window.location.assign(targetUrl)
+        window.location.assign(localizedTargetUrl)
         return
       }
-      router.push(targetUrl)
+      router.push(localizedTargetUrl)
     },
-    [router],
+    [router, toLocalizedHref],
   )
 
   const prefetchTopLevel = React.useCallback(
     (targetUrl?: string | null) => {
       if (!targetUrl) return
       if (typeof window === 'undefined') return
-      const normalizedTargetUrl = targetUrl.trim()
+      const normalizedTargetUrl = toLocalizedHref(targetUrl).trim()
       if (!normalizedTargetUrl) return
       const isExternal = /^(?:[a-z][a-z\d+\-.]*:)?\/\//i.test(normalizedTargetUrl)
       if (isExternal) return
       router.prefetch(normalizedTargetUrl)
     },
-    [router],
+    [router, toLocalizedHref],
   )
 
   const isTopLevelItemActive = React.useCallback(
@@ -1799,7 +1821,7 @@ export function MegaMenu({
       }
 
       if (action.isInternal) {
-        router.push(action.href)
+        router.push(toLocalizedHref(action.href))
         return
       }
 
@@ -1823,7 +1845,7 @@ export function MegaMenu({
 
       window.location.assign(action.href)
     },
-    [router],
+    [router, toLocalizedHref],
   )
 
   const handleDockTooltipActionClick = React.useCallback(
@@ -2424,7 +2446,7 @@ export function MegaMenu({
   return (
     <>
       <HeaderGlassPlate
-        glassActive={isScrolled}
+        glassActive={isPastFold || isScrolled}
         hideToTop={hideToTop}
         isVisible={isVisible}
         revealFromTop={revealFromTop}
@@ -2690,7 +2712,7 @@ export function MegaMenu({
                                               <ListItem
                                                 key={listKey}
                                                 title={sub.label}
-                                                href={sub.url}
+                                                href={toLocalizedHref(sub.url)}
                                                 animationIndex={
                                                   (columnItemStartIndices[colIdx] ?? 0) + idx
                                                 }
@@ -2735,7 +2757,7 @@ export function MegaMenu({
                                         <ListItem
                                           key={listKey}
                                           title={sub.label}
-                                          href={sub.url}
+                                          href={toLocalizedHref(sub.url)}
                                           animationIndex={idx}
                                           isButton={Boolean(sub._isSpecialColumn)}
                                           icon={renderMegaMenuItemIcon(rawMedia, {
@@ -2851,7 +2873,10 @@ export function MegaMenu({
                                             size="cta"
                                             className="megamenu-highlight-cta mt-2 w-fit"
                                           >
-                                            <Link href={cardCtaUrl} className="no-underline">
+                                            <Link
+                                              href={toLocalizedHref(cardCtaUrl)}
+                                              className="no-underline"
+                                            >
                                               <span>{cardCtaLabel}</span>
                                               <span
                                                 className="megamenu-special-icon-swap"
@@ -3172,7 +3197,7 @@ export function MegaMenu({
                           <NavigationMenuItem key={menuItemKey}>
                             <NavigationMenuLink asChild>
                               <Link
-                                href={item.url}
+                                href={toLocalizedHref(item.url)}
                                 ref={(node) => {
                                   setTopNavItemRef(menuItemKey, node)
                                 }}
@@ -3258,6 +3283,7 @@ export function MegaMenu({
                               variant="switch"
                               className="mobile-megamenu-theme-toggle shrink-0"
                             />
+                            <LanguageSwitcher className="mobile-megamenu-language-switcher" />
                             <button
                               type="button"
                               className="mobile-megamenu-trigger-btn mobile-megamenu-trigger-btn--plain inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
@@ -3344,7 +3370,7 @@ export function MegaMenu({
                                         </button>
                                       ) : (
                                         <Link
-                                          href={entry.item.url}
+                                          href={toLocalizedHref(entry.item.url)}
                                           className="mobile-megamenu-item-main w-full"
                                           data-has-description={hasDescription ? 'true' : undefined}
                                           aria-label={entry.item.label}
@@ -3393,7 +3419,7 @@ export function MegaMenu({
                                 <>
                                   <div className="mobile-megamenu-secondary-head">
                                     <Link
-                                      href={activeMobileEntry.item.url}
+                                      href={toLocalizedHref(activeMobileEntry.item.url)}
                                       className="mobile-megamenu-secondary-root"
                                       onClick={() => setMobileMenuOpen(false)}
                                     >
@@ -3441,7 +3467,7 @@ export function MegaMenu({
                                               }
                                             >
                                               <Link
-                                                href={sub.url}
+                                                href={toLocalizedHref(sub.url)}
                                                 className="mobile-megamenu-sub-link"
                                                 onClick={() => setMobileMenuOpen(false)}
                                               >

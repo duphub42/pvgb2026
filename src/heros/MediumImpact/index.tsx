@@ -5,6 +5,7 @@ import type { SitePage } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
+import type { Locale } from '@/utilities/locale'
 
 type MediumImpactHeroData = {
   links?: SitePage['hero'] extends infer H ? (H extends { links?: infer L } ? L : never) : never
@@ -17,6 +18,7 @@ type MediumImpactHeroData = {
   subheadline?: string | null
   headline?: string | null
   description?: string | null
+  locale?: Locale
   marqueeHeadline?: string | null
   marqueeLogos?: SitePage['hero'] extends infer H
     ? H extends { marqueeLogos?: infer M }
@@ -32,6 +34,7 @@ export const MediumImpactHero: React.FC<MediumImpactHeroData> = ({
   subheadline,
   headline,
   description,
+  locale = 'de',
 }) => {
   const hasHeadings = subheadline || headline || description
 
@@ -58,7 +61,11 @@ export const MediumImpactHero: React.FC<MediumImpactHeroData> = ({
             {links.map(({ link }, i) => {
               return (
                 <li key={i}>
-                  <CMSLink {...link} enableIconSwap={link?.enableIconSwap ?? true} />
+                  <CMSLink
+                    {...link}
+                    locale={locale}
+                    enableIconSwap={link?.enableIconSwap ?? true}
+                  />
                 </li>
               )
             })}

@@ -25,6 +25,7 @@ function getHeaderNavHref(link: HeaderNavLink): string | null {
 
 export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
   const pathname = usePathname() ?? ''
+  const locale = pathname.startsWith('/en') ? 'en' : 'de'
   const navItems = data?.navItems || []
   const callbackFormId =
     typeof data?.megaMenuCallbackForm === 'object' &&
@@ -79,6 +80,7 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
             key={key}
             {...link}
             appearance="link"
+            locale={locale}
             className={cn(active && 'header-nav-link--active')}
           />
         )

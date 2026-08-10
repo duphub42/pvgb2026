@@ -2,6 +2,7 @@ import React from 'react'
 
 import { PageFaqBox, type EditablePageFaq } from '@/components/PageFaqBox'
 import type { FaqCategory } from '@/components/ui/faq-8.data'
+import type { Locale } from '@/utilities/locale'
 
 export const contentFaqCategories: FaqCategory[] = [
   {
@@ -264,14 +265,32 @@ export const seoFaqFallback = {
     'Antworten zu Suchmaschinenoptimierung, lokaler Sichtbarkeit, Technik, Content und laufender Betreuung.',
 }
 
-export function ContentFaqBox({ faq }: { faq?: EditablePageFaq | null }): React.JSX.Element | null {
-  return <PageFaqBox faq={faq} fallback={contentFaqFallback} />
+export function ContentFaqBox({
+  faq,
+  locale = 'de',
+}: {
+  faq?: EditablePageFaq | null
+  locale?: Locale
+}): React.JSX.Element | null {
+  return <PageFaqBox faq={faq} fallback={contentFaqFallback} locale={locale} />
 }
 
-export function SemFaqBox({ faq }: { faq?: EditablePageFaq | null }): React.JSX.Element | null {
-  return <PageFaqBox faq={faq} fallback={semFaqFallback} />
+export function SemFaqBox({
+  faq,
+  locale = 'de',
+}: {
+  faq?: EditablePageFaq | null
+  locale?: Locale
+}): React.JSX.Element | null {
+  return <PageFaqBox faq={faq} fallback={semFaqFallback} locale={locale} />
 }
 
-export function SeoFaqBox({ faq }: { faq?: EditablePageFaq | null }): React.JSX.Element | null {
-  return <PageFaqBox faq={faq} fallback={seoFaqFallback} />
+export function SeoFaqBox({
+  faq,
+  locale = 'de',
+}: {
+  faq?: EditablePageFaq | null
+  locale?: Locale
+}): React.JSX.Element | null {
+  return <PageFaqBox faq={faq} fallback={seoFaqFallback} locale={locale} />
 }

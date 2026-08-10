@@ -7,6 +7,7 @@ import type { SitePage } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
+import type { Locale } from '@/utilities/locale'
 
 type HighImpactHeroData = {
   links?: SitePage['hero'] extends infer H ? (H extends { links?: infer L } ? L : never) : never
@@ -19,6 +20,7 @@ type HighImpactHeroData = {
   subheadline?: string | null
   headline?: string | null
   description?: string | null
+  locale?: Locale
   marqueeHeadline?: string | null
   marqueeLogos?: SitePage['hero'] extends infer H
     ? H extends { marqueeLogos?: infer M }
@@ -34,6 +36,7 @@ export const HighImpactHero: React.FC<HighImpactHeroData> = ({
   subheadline,
   headline,
   description,
+  locale = 'de',
 }) => {
   const { setHeaderTheme } = useHeaderTheme()
 
@@ -90,7 +93,11 @@ export const HighImpactHero: React.FC<HighImpactHeroData> = ({
             <ul className="flex md:justify-center gap-4">
               {links.map(({ link }, i) => (
                 <li key={i}>
-                  <CMSLink {...link} enableIconSwap={link?.enableIconSwap ?? true} />
+                  <CMSLink
+                    {...link}
+                    locale={locale}
+                    enableIconSwap={link?.enableIconSwap ?? true}
+                  />
                 </li>
               ))}
             </ul>

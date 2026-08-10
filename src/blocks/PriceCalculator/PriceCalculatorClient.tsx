@@ -5,6 +5,9 @@ import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { localizePathname } from '@/i18n/routing'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
+import type { Locale } from '@/utilities/locale'
 import {
   WEBMCP_APPLY_PRICE_CALCULATOR_EVENT,
   type ApplyPriceCalculatorDetail,
@@ -51,28 +54,34 @@ function fmtEuro(n: number): string {
   return n.toLocaleString('de-DE')
 }
 
-function TagBadges({ pricingType }: { pricingType: PriceCalcItemClient['pricingType'] }) {
+function TagBadges({
+  pricingType,
+  locale,
+}: {
+  pricingType: PriceCalcItemClient['pricingType']
+  locale: Locale
+}) {
   if (pricingType === 'once') {
     return (
       <Badge variant="primary" className="mb-1.5 px-2 py-0.5 type-body-xs">
-        Einmalig
+        {translateValueForLocale('Einmalig', locale)}
       </Badge>
     )
   }
   if (pricingType === 'monthly') {
     return (
       <Badge variant="secondary" className="mb-1.5 px-2 py-0.5 type-body-xs">
-        Monatlich
+        {translateValueForLocale('Monatlich', locale)}
       </Badge>
     )
   }
   return (
     <div className="mb-1.5 flex flex-wrap gap-1">
       <Badge variant="primary" className="px-2 py-0.5 type-body-xs">
-        Einmalig
+        {translateValueForLocale('Einmalig', locale)}
       </Badge>
       <Badge variant="secondary" className="px-2 py-0.5 type-body-xs">
-        Monatlich
+        {translateValueForLocale('Monatlich', locale)}
       </Badge>
     </div>
   )
@@ -84,17 +93,22 @@ function itemPriceLabel(item: PriceCalcItemClient): string {
     parts.push(`${fmtEuro(item.onceMin)}–${fmtEuro(item.onceMax)} €`)
   }
   if (item.monthlyMin != null && item.monthlyMax != null) {
-    parts.push(`${fmtEuro(item.monthlyMin)}–${fmtEuro(item.monthlyMax)} €/Monat`)
+    parts.push(`${fmtEuro(item.monthlyMin)}–${fmtEuro(item.monthlyMax)} €/Mo.`)
   }
   return parts.join(' · ')
+}
+
+function offerIsLocalPath(href: string): boolean {
+  return href.startsWith('/') && !href.startsWith('//')
 }
 
 export function PriceCalculatorClient(props: {
   categories: PriceCalcCategoryClient[]
   copy: PriceCalculatorCopy
+  locale: Locale
   showRatesSection: boolean
 }) {
-  const { categories, copy, showRatesSection } = props
+  const { categories, copy, locale, showRatesSection } = props
 
   const sortedCategories = useMemo(
     () =>
@@ -188,6 +202,9 @@ export function PriceCalculatorClient(props: {
     }, [selectedIds, allItemsFlat])
 
   const offerHref = copy.offerLink?.trim() || '/kontakt'
+  const localizedOfferHref = offerIsLocalPath(offerHref)
+    ? localizePathname(offerHref, locale)
+    : offerHref
   const offerButtonLabel = useMemo(() => {
     const normalized = copy.offerButtonLabel.replace(/\s*[>›»↗]+$/u, '').trim()
     return normalized || copy.offerButtonLabel
@@ -199,8 +216,10 @@ export function PriceCalculatorClient(props: {
   if (sortedCategories.length === 0) {
     return (
       <div className="rounded-lg border border-border bg-muted/30 px-5 py-8 text-center type-body text-muted-foreground">
-        Der Preisrechner wird aktuell gepflegt. Bitte schauen Sie später wieder vorbei oder
-        kontaktieren Sie mich direkt.
+        {translateValueForLocale(
+          'Der Preisrechner wird aktuell gepflegt. Bitte schauen Sie später wieder vorbei oder kontaktieren Sie mich direkt.',
+          locale,
+        )}
       </div>
     )
   }
@@ -235,7 +254,10 @@ export function PriceCalculatorClient(props: {
 
         {activeCategory && activeCategory.items.length === 0 && (
           <p className="mb-6 type-body text-muted-foreground">
-            In dieser Kategorie sind noch keine Leistungen hinterlegt.
+            {translateValueForLocale(
+              'In dieser Kategorie sind noch keine Leistungen hinterlegt.',
+              locale,
+            )}
           </p>
         )}
         {activeCategory && activeCategory.items.length > 0 && (
@@ -259,7 +281,7 @@ export function PriceCalculatorClient(props: {
                         'border-slate-400/60 bg-slate-100 dark:border-slate-700 dark:bg-slate-950/40',
                     )}
                   >
-                    <TagBadges pricingType={item.pricingType} />
+                    <TagBadges pricingType={item.pricingType} locale={locale} />
                     <div
                       className={cn(
                         'type-heading-md text-foreground',
@@ -301,11 +323,14 @@ export function PriceCalculatorClient(props: {
                     : '– €'}
               </div>
               <p className="mt-1 type-body text-muted-foreground">
-                Einmalig · zzgl. MwSt. · Richtwert
+                {translateValueForLocale('Einmalig', locale)} ·{' '}
+                {translateValueForLocale('zzgl. MwSt.', locale)} ·{' '}
+                {translateValueForLocale('Richtwert', locale)}
               </p>
               {totalMonthMin > 0 && (
                 <p className="mt-1 type-body font-semibold text-slate-900 dark:text-slate-200">
-                  + {fmtEuro(totalMonthMin)} – {fmtEuro(totalMonthMax)} €/Monat laufend
+                  + {fmtEuro(totalMonthMin)} – {fmtEuro(totalMonthMax)} €/Mo.{' '}
+                  {translateValueForLocale('laufend', locale)}
                 </p>
               )}
             </div>
@@ -315,12 +340,12 @@ export function PriceCalculatorClient(props: {
                 onClick={resetAll}
                 className="type-body text-muted-foreground underline-offset-2 hover:underline"
               >
-                Auswahl zurücksetzen
+                {translateValueForLocale('Auswahl zurücksetzen', locale)}
               </button>
               {offerIsExternal ? (
                 <Button asChild variant="cta" size="sm" ctaIcon className="mt-2 w-fit">
                   <a
-                    href={offerHref}
+                    href={localizedOfferHref}
                     {...(offerIsHttp ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     className="no-underline"
                   >
@@ -329,7 +354,7 @@ export function PriceCalculatorClient(props: {
                 </Button>
               ) : (
                 <Button asChild variant="cta" size="sm" ctaIcon className="mt-2 w-fit">
-                  <Link href={offerHref} className="no-underline">
+                  <Link href={localizedOfferHref} className="no-underline">
                     {offerButtonLabel}
                   </Link>
                 </Button>
@@ -378,16 +403,29 @@ export function PriceCalculatorClient(props: {
                 </h2>
                 <div className="mt-6 grid gap-6 sm:grid-cols-3">
                   <div>
-                    <div className="type-heading-md text-foreground">{fmtEuro(copy.hourlyRate)} €</div>
-                    <div className="mt-0.5 type-body text-muted-foreground">Stundensatz · netto</div>
+                    <div className="type-heading-md text-foreground">
+                      {fmtEuro(copy.hourlyRate)} €
+                    </div>
+                    <div className="mt-0.5 type-body text-muted-foreground">
+                      {translateValueForLocale('Stundensatz', locale)} ·{' '}
+                      {translateValueForLocale('netto', locale)}
+                    </div>
                   </div>
                   <div>
                     <div className="type-heading-md text-foreground">{fmtEuro(copy.dayRate)} €</div>
-                    <div className="mt-0.5 type-body text-muted-foreground">Tagessatz (8h) · netto</div>
+                    <div className="mt-0.5 type-body text-muted-foreground">
+                      {translateValueForLocale('Tagessatz (8h)', locale)} ·{' '}
+                      {translateValueForLocale('netto', locale)}
+                    </div>
                   </div>
                   <div>
-                    <div className="type-heading-md text-foreground">{fmtEuro(copy.weekRate)} €</div>
-                    <div className="mt-0.5 type-body text-muted-foreground">Wochensatz · netto</div>
+                    <div className="type-heading-md text-foreground">
+                      {fmtEuro(copy.weekRate)} €
+                    </div>
+                    <div className="mt-0.5 type-body text-muted-foreground">
+                      {translateValueForLocale('Wochensatz', locale)} ·{' '}
+                      {translateValueForLocale('netto', locale)}
+                    </div>
                   </div>
                 </div>
                 <div className="mt-6 border-t border-border/70 pt-5">

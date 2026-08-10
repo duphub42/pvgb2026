@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
 import { unstable_cache } from 'next/cache'
-import { draftMode } from 'next/headers'
 import { notFound } from 'next/navigation'
 import { getPayload } from 'payload'
 import configPromise from '@payload-config'
@@ -12,6 +11,7 @@ import { RenderHero } from '@/heros/RenderHero'
 import { appendDefaultCtaBlock } from '@/utilities/defaultCtaBlocks'
 import { generateMeta } from '@/utilities/generateMeta'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
+import { resolveSharedPortfolioContent } from '@/utilities/sharedPortfolioContent'
 import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 import { getPagePath } from '@/utilities/pagesTree'
@@ -19,6 +19,7 @@ import { Breadcrumbs, type BreadcrumbItem } from '@/components/Breadcrumbs'
 import { buildServiceJsonLd, buildWebPageJsonLd, safeJsonLd } from '@/utilities/structuredData'
 
 export const revalidate = false
+export const dynamic = 'force-static'
 const LEISTUNGEN_HUB_SLUGS = new Set(['leistungen', 'lei'])
 
 export async function generateStaticParams() {
@@ -58,7 +59,6 @@ export async function generateStaticParams() {
 
 type PageProps = {
   params: Promise<{ slug?: string }>
-  searchParams: Promise<{ previewId?: string }>
 }
 
 type BlockBackground = 'none' | 'muted' | 'accent' | 'light' | 'dark'
@@ -76,18 +76,6 @@ function getNextSectionBackgroundValue(blockBackground?: string | null): string 
       return 'var(--theme-elevation-800)'
     default:
       return 'var(--background)'
-  }
-}
-
-function formatUnknownError(error: unknown): string {
-  if (error instanceof Error) return `${error.name}: ${error.message}`
-  if (typeof error === 'string') return error
-  if (error === null) return 'null'
-  if (error === undefined) return 'undefined'
-  try {
-    return JSON.stringify(error)
-  } catch {
-    return String(error)
   }
 }
 
@@ -214,99 +202,20 @@ const getCachedPublishedLeistungenSubpageMeta = unstable_cache(
 
 export default async function Page({
   params: paramsPromise,
-  searchParams: searchParamsPromise,
 }: PageProps) {
   const { slug = '' } = await paramsPromise
-  const searchParams = await searchParamsPromise
-  const previewId = searchParams?.previewId
-  const isDraftMode = process.env.NODE_ENV === 'development' ? (await draftMode()).isEnabled : false
-
-  let payload
-  try {
-    payload = await getPayload({ config: configPromise })
-  } catch (err) {
-    console.error('[Leistungen Unterseite] getPayload failed:', formatUnknownError(err))
-    notFound()
-  }
-
-  const rawPreviewId = previewId && previewId !== 'undefined' ? String(previewId).trim() : ''
-  const previewIdNum = rawPreviewId ? Number(rawPreviewId) : NaN
-  const validPreviewId = rawPreviewId && Number.isFinite(previewIdNum) ? previewIdNum : null
-  if (validPreviewId != null) {
-    try {
-      const pageById = await payload.findByID({
-        collection: 'site-pages',
-        id: validPreviewId,
-        depth: 2,
-        draft: true,
-      })
-
-      if (pageById && isLeistungenSubpage(pageById)) {
-        const previewSlug = typeof pageById.slug === 'string' ? pageById.slug : ''
-        const previewLayoutBlocks = appendDefaultCtaBlock(
-          resolveLayoutBlocks(previewSlug, pageById.layout),
-          {
-            slug: previewSlug,
-            title: pageById.title,
-            section: 'leistung',
-          },
-        )
-        const previewFirstBlock = previewLayoutBlocks[0]
-        const previewFirstBlockBackground =
-          previewFirstBlock &&
-          typeof previewFirstBlock === 'object' &&
-          previewFirstBlock !== null &&
-          'blockBackground' in previewFirstBlock
-            ? ((previewFirstBlock as { blockBackground?: string | null }).blockBackground ?? 'none')
-            : 'none'
-        const previewNextSectionBackground = getNextSectionBackgroundValue(
-          previewFirstBlockBackground,
-        )
-
-        return (
-          <article
-            className="hero-safe-top"
-            style={{ ['--hero-next-section-bg' as string]: previewNextSectionBackground }}
-          >
-            <HeroErrorBoundary>
-              <RenderHero {...pageById.hero} pageSlug={getPagePath(pageById)} />
-            </HeroErrorBoundary>
-            <div className="relative z-0 pt-24">
-              <div className="container mb-8">
-                <Breadcrumbs items={getLeistungenBreadcrumbItems(pageById.title)} />
-              </div>
-              <RenderBlocks blocks={previewLayoutBlocks} />
-              <LeistungenFaqBox faq={pageById.faq} />
-            </div>
-          </article>
-        )
-      }
-    } catch {
-      // previewId invalid, fall through to slug lookup
-    }
-  }
-
-  const page = isDraftMode
-    ? (
-        await payload.find({
-          collection: 'site-pages',
-          limit: 1,
-          pagination: false,
-          depth: 2,
-          where: {
-            and: [{ slug: { equals: slug } }],
-          },
-          draft: true,
-        })
-      ).docs[0]
-    : await getCachedPublishedLeistungenSubpage(slug)
+  const page = await getCachedPublishedLeistungenSubpage(slug)
 
   if (!page || !isLeistungenSubpage(page)) {
     notFound()
   }
 
   const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
-  const layoutBlocks = appendDefaultCtaBlock(resolveLayoutBlocks(slug, page.layout), {
+  const resolvedBlocks = await resolveSharedPortfolioContent(
+    slug,
+    resolveLayoutBlocks(slug, page.layout),
+  )
+  const layoutBlocks = appendDefaultCtaBlock(resolvedBlocks, {
     slug,
     title: page.title,
     section: 'leistung',

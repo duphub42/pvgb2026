@@ -21,6 +21,7 @@ import {
   FORM_SPAM_META_FIELDS,
   buildFormSpamMetaSubmissionData,
 } from '@/utilities/formSpamProtection'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
 
 const CONTACT_FAQS = [
   {
@@ -131,6 +132,19 @@ export const FormBlock: React.FC<
   const [isMounted, setIsMounted] = useState(false)
   const router = useRouter()
   const pathname = usePathname()
+  const isEnglish = (pathname || '').startsWith('/en')
+  const displayForm = isEnglish ? translateValueForLocale(formFromProps, 'en') : formFromProps
+  const contactSteps = isEnglish ? translateValueForLocale(CONTACT_STEPS, 'en') : CONTACT_STEPS
+  const contactFaqs = isEnglish ? translateValueForLocale(CONTACT_FAQS, 'en') : CONTACT_FAQS
+  const contactIntroLabel = isEnglish ? 'WHAT HAPPENS NEXT' : "So geht's weiter"
+  const contactFormHeading = isEnglish ? 'Contact form' : 'Kontaktformular'
+  const contactFaqHeading = isEnglish ? 'Frequently Asked Questions' : 'Häufige Fragen'
+  const contactFaqText = isEnglish
+    ? 'Answers about web design, website creation, SEO, relaunches, support and the process of a successful collaboration.'
+    : 'Antworten rund um Webdesign, Website-Erstellung, SEO, Relaunch, Betreuung und den Ablauf einer erfolgreichen Zusammenarbeit.'
+  const buttonLabel = isEnglish
+    ? translateValueForLocale(submitButtonLabel ?? 'Absenden', 'en')
+    : submitButtonLabel
   const isContactPage =
     isMounted && /(^|\/)(kontakt|contact)(\/|$)/.test((pathname || '').toLowerCase())
 
@@ -225,10 +239,10 @@ export const FormBlock: React.FC<
           className="mb-9 rounded-[0.8rem] border border-border bg-card p-4 lg:mb-10 lg:p-5"
         >
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-            So geht&apos;s weiter
+            {contactIntroLabel}
           </p>
           <div className="mt-4 grid gap-4 md:grid-cols-3">
-            {CONTACT_STEPS.map(({ icon: Icon, title, text }) => (
+            {contactSteps.map(({ icon: Icon, title, text }) => (
               <div key={title}>
                 <span className="flex min-h-10 items-start gap-2.5">
                   <Icon className="size-4 shrink-0 text-muted-foreground" aria-hidden />
@@ -242,7 +256,7 @@ export const FormBlock: React.FC<
       )}
       {isContactPage && (
         <h2 id="kontaktformular" className="mb-4 text-2xl font-semibold lg:text-3xl">
-          Kontaktformular
+          {contactFormHeading}
         </h2>
       )}
       {!isContactPage && enableIntro && introContent && !hasSubmitted && (
@@ -268,16 +282,16 @@ export const FormBlock: React.FC<
                 className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden opacity-0"
               />
               <div className="mb-4 last:mb-0">
-                {formFromProps &&
-                  formFromProps.fields &&
-                  formFromProps.fields?.map((field, index) => {
+                {displayForm &&
+                  displayForm.fields &&
+                  displayForm.fields?.map((field, index) => {
                     // eslint-disable-next-line @typescript-eslint/no-explicit-any
                     const Field: React.FC<any> = fields?.[field.blockType as keyof typeof fields]
                     if (Field) {
                       return (
                         <div className="mb-6 last:mb-0" key={index}>
                           <Field
-                            form={formFromProps}
+                            form={displayForm}
                             {...field}
                             {...formMethods}
                             control={control}
@@ -292,7 +306,7 @@ export const FormBlock: React.FC<
               </div>
 
               <Button form={formID} type="submit" variant="default">
-                {submitButtonLabel}
+                {buttonLabel}
               </Button>
             </form>
           )}
@@ -313,14 +327,11 @@ export const FormBlock: React.FC<
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-muted-foreground">
             FAQ
           </p>
-          <h2 className="mt-3 text-2xl font-semibold lg:text-3xl">Häufige Fragen</h2>
-          <p className="mt-3 text-sm text-muted-foreground lg:text-base">
-            Antworten rund um Webdesign, Website-Erstellung, SEO, Relaunch, Betreuung und den Ablauf
-            einer erfolgreichen Zusammenarbeit.
-          </p>
+          <h2 className="mt-3 text-2xl font-semibold lg:text-3xl">{contactFaqHeading}</h2>
+          <p className="mt-3 text-sm text-muted-foreground lg:text-base">{contactFaqText}</p>
 
           <Accordion type="single" collapsible className="mt-6">
-            {CONTACT_FAQS.map((faq, index) => (
+            {contactFaqs.map((faq, index) => (
               <AccordionItem key={faq.question} value={`faq-${index}`}>
                 <AccordionTrigger className="text-[13px] leading-5 sm:text-sm">
                   {faq.question}

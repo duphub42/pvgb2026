@@ -15,6 +15,10 @@ import { CMSLink } from '@/components/Link'
 import { Logo } from '@/components/Logo/Logo'
 import { FooterBounce } from '@/components/FooterBounce/FooterBounce'
 import { messages } from '@/i18n/messages'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
+import { localizePathname } from '@/i18n/routing'
+import { useLocale } from '@/providers/Locale/LocaleContext'
 
 const SOCIAL_SPRITE_IDS: Record<string, string> = {
   linkedin: 'hf-linkedin',
@@ -63,6 +67,19 @@ function resolveMediaRelationUrl(media: MediaRelationRef): string {
   return ''
 }
 
+function localizeFooterHref(href: string | null | undefined, locale: Locale): string {
+  const value = String(href ?? '').trim()
+  if (!value) return '#'
+  if (locale !== 'en') return value
+  if (/^(?:[a-z][a-z\d+\-.]*:)?\/\//i.test(value)) return value
+  if (/^(?:mailto|tel):/i.test(value)) return value
+  if (value.startsWith('#')) return value
+  if (/\.[a-z0-9]{2,5}(?:[?#].*)?$/i.test(value)) return value
+  if (value.startsWith('/')) return localizePathname(value, 'en')
+  if (/^[a-z0-9][a-z0-9/_-]*(?:[?#].*)?$/i.test(value)) return localizePathname(`/${value}`, 'en')
+  return value
+}
+
 export type FooterClientProps = {
   footer: Footer | null
   header?: Header | null
@@ -74,9 +91,11 @@ type NewsletterStatus = 'idle' | 'saving' | 'saved'
 export function FooterClient({
   footer: footerData,
   header: headerData,
-  locale,
+  locale: initialLocale,
 }: FooterClientProps) {
-  const footer: Partial<Footer> = footerData ?? {}
+  const activeLocale = useLocale()
+  const locale = activeLocale ?? initialLocale
+  const footer: Partial<Footer> = translateValueForLocale(footerData ?? {}, locale)
   const [newsletterStatus, setNewsletterStatus] = useState<NewsletterStatus>('idle')
   const footerRootRef = useRef<HTMLElement | null>(null)
   const mobileFooterLogoRef = useRef<HTMLImageElement | null>(null)
@@ -239,7 +258,7 @@ export function FooterClient({
         <FooterBounce>
           <div className="container px-[clamp(1rem,4vw,2rem)] flex flex-col gap-6">
             <div className="gap-8 flex flex-col md:flex-row md:justify-between">
-              <Link className="logo-link flex items-center" href="/">
+              <Link className="logo-link flex items-center" href={localizeFooterHref('/', locale)}>
                 {logoToShow != null ? (
                   <Logo
                     logo={logoToShow}
@@ -267,6 +286,7 @@ export function FooterClient({
                     <CMSLink
                       key={i}
                       {...link}
+                      locale={locale}
                       className="footer-link-underline text-[12px] md:text-sm transition-colors duration-200"
                     />
                   ))}
@@ -293,7 +313,10 @@ export function FooterClient({
                 <div className="flex-1 flex flex-col items-center xl:items-start text-center xl:text-left gap-6">
                   {/* Logo */}
                   <div className="flex items-end justify-center xl:justify-start">
-                    <Link href="/" className="logo-link inline-block max-w-[100%]">
+                    <Link
+                      href={localizeFooterHref('/', locale)}
+                      className="logo-link inline-block max-w-[100%]"
+                    >
                       {logoToShow != null ? (
                         <Logo
                           logo={logoToShow}
@@ -465,7 +488,7 @@ export function FooterClient({
                               {(col.links ?? []).map((linkRow, j) => (
                                 <li key={linkRow.id ?? j}>
                                   <a
-                                    href={linkRow.linkUrl}
+                                    href={localizeFooterHref(linkRow.linkUrl, locale)}
                                     target={linkRow.isExternal ? '_blank' : undefined}
                                     rel={linkRow.isExternal ? 'noopener noreferrer' : undefined}
                                     className="text-[12px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[28px] footer-link"
@@ -591,7 +614,7 @@ export function FooterClient({
             <div className="flex flex-wrap items-center justify-center gap-4 md:gap-6 md:ml-auto md:justify-start">
               {footer.privacyLink != null && (
                 <Link
-                  href={footer.privacyLink}
+                  href={localizeFooterHref(footer.privacyLink, locale)}
                   className="footer-link text-[12px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px]"
                 >
                   <span className="footer-link-text">{messages[locale].footer.privacy}</span>
@@ -603,7 +626,7 @@ export function FooterClient({
               )}
               {footer.termsLink != null && (
                 <Link
-                  href={footer.termsLink}
+                  href={localizeFooterHref(footer.termsLink, locale)}
                   className="footer-link text-[12px] md:text-sm leading-3 opacity-60 tracking-[-0.03em] transition-opacity duration-200 ease-out hover:opacity-100 max-sm:flex max-sm:items-center max-sm:min-h-[44px]"
                 >
                   <span className="footer-link-text">{messages[locale].footer.terms}</span>
@@ -614,6 +637,7 @@ export function FooterClient({
                 </Link>
               )}
               <div className="ml-auto flex items-center gap-3 md:ml-0">
+                <LanguageSwitcher className="h-9 min-w-[4.5rem] opacity-100" />
                 <ThemeSelector />
               </div>
             </div>

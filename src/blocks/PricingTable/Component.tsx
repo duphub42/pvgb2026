@@ -4,10 +4,13 @@ import { Check, Circle, Minus, Sparkles } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { localizePathname } from '@/i18n/routing'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
 import type { PricingTableBlock as PricingTableBlockData } from '@/payload-types'
+import type { Locale } from '@/utilities/locale'
 import { cn } from '@/utilities/ui'
 
-type PricingTableProps = PricingTableBlockData & { disableInnerContainer?: boolean }
+type PricingTableProps = PricingTableBlockData & { disableInnerContainer?: boolean; locale?: Locale }
 type RawPlan = NonNullable<PricingTableBlockData['plans']>[number]
 type RawComparisonRow = NonNullable<PricingTableBlockData['comparisonRows']>[number]
 type RawComparisonValue = NonNullable<RawComparisonRow['values']>[number]
@@ -168,6 +171,12 @@ const toHref = (value: string): string => {
   return `/${trimmed.replace(/^\/+/, '')}`
 }
 
+const localizeHref = (href: string, locale: Locale): string => {
+  if (locale !== 'en') return href
+  if (/^(https?:\/\/|mailto:|tel:|#)/i.test(href)) return href
+  return localizePathname(href, 'en')
+}
+
 const toComparisonType = (value: unknown): ComparisonValueType | null => {
   if (value === 'included' || value === 'optional' || value === 'excluded' || value === 'text') {
     return value
@@ -299,20 +308,35 @@ export function PricingTableBlock({
   comparisonDescription,
   comparisonRows,
   comparisonFootnote,
+  locale = 'de',
 }: PricingTableProps) {
-  const normalizedPlans = normalizePlans(plans)
-  const normalizedRows = normalizeComparisonRows(comparisonRows)
+  const normalizedPlans = translateValueForLocale(normalizePlans(plans), locale).map((plan) => ({
+    ...plan,
+    ctaHref: localizeHref(plan.ctaHref, locale),
+  }))
+  const normalizedRows = translateValueForLocale(normalizeComparisonRows(comparisonRows), locale)
 
-  const title = asText(heading) || 'Webdesign-Pakete für jedes Projektstadium'
-  const sectionEyebrow = asText(eyebrow) || 'Pakete'
+  const title = translateValueForLocale(
+    asText(heading) || 'Webdesign-Pakete für jedes Projektstadium',
+    locale,
+  )
+  const sectionEyebrow = translateValueForLocale(asText(eyebrow) || 'Pakete', locale)
   const sectionDescription =
-    asText(description) ||
-    'Drei klar strukturierte Angebote mit transparenten Leistungen, damit Sie Aufwand und Ergebnis direkt einschätzen können.'
-  const comparisonTitle = asText(comparisonHeading) || 'Feature Vergleich'
-  const comparisonText =
+    translateValueForLocale(
+      asText(description) ||
+        'Drei klar strukturierte Angebote mit transparenten Leistungen, damit Sie Aufwand und Ergebnis direkt einschätzen können.',
+      locale,
+    )
+  const comparisonTitle = translateValueForLocale(
+    asText(comparisonHeading) || 'Feature Vergleich',
+    locale,
+  )
+  const comparisonText = translateValueForLocale(
     asText(comparisonDescription) ||
-    'Direkter Vergleich der wichtigsten Leistungsmerkmale pro Paket.'
-  const footnote = asText(comparisonFootnote)
+      'Direkter Vergleich der wichtigsten Leistungsmerkmale pro Paket.',
+    locale,
+  )
+  const footnote = translateValueForLocale(asText(comparisonFootnote), locale)
 
   return (
     <section className="relative w-full min-w-0 overflow-hidden py-14 md:py-16 lg:py-20">
@@ -364,7 +388,7 @@ export function PricingTableBlock({
                         plan.highlighted && 'shadow-[0_8px_30px_-16px_rgba(0,0,0,0.35)]',
                       )}
                     >
-                      {plan.badge || 'Empfohlen'}
+                    {plan.badge || translateValueForLocale('Empfohlen', locale)}
                     </Badge>
                   ) : null}
                 </div>
@@ -429,7 +453,9 @@ export function PricingTableBlock({
               <table className="w-full border-collapse text-sm">
                 <thead>
                   <tr className="border-b border-border/60 bg-muted/40 text-left">
-                    <th className="px-4 py-3 text-sm font-semibold text-foreground">Leistung</th>
+                    <th className="px-4 py-3 text-sm font-semibold text-foreground">
+                      {translateValueForLocale('Leistung', locale)}
+                    </th>
                     {normalizedPlans.map((plan) => (
                       <th key={`${plan.key}-heading`} className="px-4 py-3 text-center text-sm font-semibold text-foreground">
                         {plan.name}

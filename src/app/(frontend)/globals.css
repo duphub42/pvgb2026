@@ -36,3 +36,15 @@
 @custom-variant hero-playbook-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (max-height: 44rem));
 @custom-variant hero-ipad (@media (min-width: 48rem) and (max-width: 64rem));
 @custom-variant hero-ipad-landscape (@media (orientation: landscape) and (min-width: 63rem) and (max-width: 65rem) and (min-height: 44rem));
+
+.google-translate-host,
+.goog-te-banner-frame,
+.goog-te-balloon-frame,
+#goog-gt-tt,
+.skiptranslate {
+  display: none !important;
+}
+
+body {
+  top: 0 !important;
+}

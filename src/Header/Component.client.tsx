@@ -18,6 +18,8 @@ import { LogoWithGlitch } from '@/components/Logo/LogoWithGlitch'
 import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
 import type { MegaMenuCta, MegaMenuItem } from '@/components/MegaMenu'
 import { HeaderNav } from './Nav'
+import { useLocale } from '@/providers/Locale/LocaleContext'
+import { localizePathname } from '@/i18n/routing'
 
 const MegaMenu = dynamic(
   () => import('@/components/MegaMenu').then((m) => ({ default: m.MegaMenu })),
@@ -61,6 +63,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const hideToTopRef = useRef(false)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const { theme: globalTheme } = useTheme()
+  const locale = useLocale()
+  const homeHref = locale === 'en' ? localizePathname('/', 'en') : '/'
   const pathname = usePathname()
   const [hasHydrated, setHasHydrated] = useState(false)
   const effectivePathname = hasHydrated ? pathname ?? '/' : '/'
@@ -88,7 +92,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
 
     const loadMegaMenuItems = async () => {
       try {
-        const response = await fetch('/api/frontend/mega-menu')
+        const response = await fetch(`/api/frontend/mega-menu?locale=${locale}`)
         if (!response.ok) return
         const data = (await response.json()) as { docs?: MegaMenuItem[] }
         if (cancelled) return
@@ -105,7 +109,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     return () => {
       cancelled = true
     }
-  }, [resolvedMegaMenuItems.length, shouldUseMegaMenu])
+  }, [locale, resolvedMegaMenuItems.length, shouldUseMegaMenu])
 
   useEffect(() => {
     if (isHomePath) {
@@ -333,12 +337,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
 
   const renderLogoLink = (disableAnimation?: boolean) => (
     isHomePath ? (
-      <Link href="/" aria-label="Zur Startseite" className="logo-link relative flex items-center shrink-0">
+      <Link href={homeHref} aria-label="Zur Startseite" className="logo-link relative flex items-center shrink-0">
         {renderPrimaryLogo(disableAnimation)}
       </Link>
     ) : (
     <Link
-      href="/"
+      href={homeHref}
       className="logo-link relative flex items-center shrink-0"
       data-logo-morph-ready={logoMorphReady ? 'true' : 'false'}
       data-logo-preview-active={logoPreviewActive ? 'true' : 'false'}
@@ -453,7 +457,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   return (
     <>
       <HeaderGlassPlate
-        glassActive={isScrolled}
+        glassActive={isPastFold || isScrolled}
         hideToTop={hideToTop}
         isVisible={headerVisible}
         revealFromTop={revealFromTop}

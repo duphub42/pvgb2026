@@ -2,6 +2,8 @@ import React from 'react'
 
 import { Faq8Client } from '@/components/ui/faq-8.client'
 import type { FaqCategory, FaqIconName } from '@/components/ui/faq-8.data'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
+import type { Locale } from '@/utilities/locale'
 
 const FAQ_ICONS = new Set<FaqIconName>([
   'BriefcaseBusiness',
@@ -94,20 +96,28 @@ function buildFaqSchema(categories: FaqCategory[]) {
 export function PageFaqBox({
   faq,
   fallback,
+  locale = 'de',
 }: {
   faq?: EditablePageFaq | null
   fallback: PageFaqFallback
+  locale?: Locale
 }): React.JSX.Element | null {
   const cmsCategories = normalizeFaqCategories(faq)
   if (faq?.enabled === false && cmsCategories.length > 0) return null
 
-  const categories = cmsCategories.length > 0 ? cmsCategories : fallback.categories
+  const categories = translateValueForLocale(
+    cmsCategories.length > 0 ? cmsCategories : fallback.categories,
+    locale,
+  )
 
   if (categories.length === 0) return null
 
-  const eyebrow = faq?.eyebrow?.trim() || fallback.eyebrow
-  const title = faq?.title?.trim() || fallback.title
-  const description = faq?.description?.trim() || fallback.description
+  const eyebrow = translateValueForLocale(faq?.eyebrow?.trim() || fallback.eyebrow, locale)
+  const title = translateValueForLocale(faq?.title?.trim() || fallback.title, locale)
+  const description = translateValueForLocale(
+    faq?.description?.trim() || fallback.description,
+    locale,
+  )
 
   return (
     <>

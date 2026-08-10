@@ -6,17 +6,23 @@ import type { ProfilWerdegangBlock as BlockData } from '@/payload-types'
 import { profilWerdegangDefaults } from '@/blocks/ProfilBlocks/defaults'
 import { Badge } from '@/components/ui/badge'
 import { Card } from '@/components/ui/card'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
+import type { Locale } from '@/utilities/locale'
 import { cn } from '@/utilities/ui'
 
-type Props = BlockData & { disableInnerContainer?: boolean }
+type Props = BlockData & { disableInnerContainer?: boolean; locale?: Locale }
 type EintragItem = NonNullable<NonNullable<BlockData['eintraege']>[number]>
 
 export const ProfilWerdegangBlock: React.FC<Props> = ({
   disableInnerContainer: _d,
   sectionTitle,
   eintraege,
+  locale = 'de',
 }) => {
-  const st = sectionTitle?.trim() || profilWerdegangDefaults.sectionTitle
+  const st = translateValueForLocale(
+    sectionTitle?.trim() || profilWerdegangDefaults.sectionTitle,
+    locale,
+  )
   const fromCms = (eintraege ?? []).filter((e): e is EintragItem =>
     Boolean(e && String(e.zeitraum ?? '').trim() && String(e.position ?? '').trim()),
   )
@@ -30,6 +36,7 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
           beschreibung: e.beschreibung,
           typ: e.typ,
         }))
+  const localizedRows = translateValueForLocale(rows, locale)
 
   return (
     <section className={cn('container py-16 md:py-24')}>
@@ -37,11 +44,11 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
         variant="secondary"
         className="mb-4 w-fit px-3 py-1 text-[11px] font-medium uppercase tracking-[0.14em]"
       >
-        Erfahrung
+        {translateValueForLocale('Erfahrung', locale)}
       </Badge>
       <h2 className="text-3xl font-semibold tracking-tight text-foreground md:text-4xl">{st}</h2>
       <ol className="relative mt-12 space-y-7 border-l border-border/70 pl-8 md:pl-10">
-        {rows.map((w, idx) => {
+        {localizedRows.map((w, idx) => {
           const isWork = w.typ === 'freelance'
           return (
             <li
@@ -66,12 +73,12 @@ export const ProfilWerdegangBlock: React.FC<Props> = ({
                     {isWork ? (
                       <>
                         <Briefcase className="mr-1 h-3 w-3" aria-hidden />
-                        Beruflich
+                        {translateValueForLocale('Beruflich', locale)}
                       </>
                     ) : (
                       <>
                         <GraduationCap className="mr-1 h-3 w-3" aria-hidden />
-                        Ausbildung
+                        {translateValueForLocale('Ausbildung', locale)}
                       </>
                     )}
                   </Badge>

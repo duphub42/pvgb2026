@@ -15,6 +15,7 @@ import { AnimateBlock } from '@/components/ui/AnimateBlock'
 import { cn } from '@/utilities/ui'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 import { getBlockBackgroundImageStyle } from '@/utilities/getBlockBackgroundImageStyle'
+import type { Locale } from '@/utilities/locale'
 
 type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   blockBackground?: 'none' | 'muted' | 'accent' | 'light' | 'dark' | null
@@ -29,6 +30,7 @@ type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   blockOverlayEnabled?: boolean | null
   blockOverlayColor?: 'dark' | 'light' | null
   blockOverlayOpacity?: number | null
+  locale?: Locale
 }
 
 function getBlockBackgroundStyle(blockBackground?: string | null): React.CSSProperties {
@@ -232,6 +234,7 @@ export const RenderBlocks: React.FC<{
                     {...(b as PriceCalculatorBlock)}
                     disableInnerContainer
                     index={index}
+                    locale={b.locale}
                   />
                 ) : (
                   <BlockRenderer blockType={blockType} block={b} index={index} />

@@ -4,8 +4,9 @@ import type { SitePage } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
 import RichText from '@/components/RichText'
+import type { Locale } from '@/utilities/locale'
 
-type LowImpactHeroType = SitePage['hero'] & { children?: React.ReactNode }
+type LowImpactHeroType = SitePage['hero'] & { children?: React.ReactNode; locale?: Locale }
 
 export const LowImpactHero: React.FC<LowImpactHeroType> = ({
   children,
@@ -14,6 +15,7 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
   headline,
   description,
   links,
+  locale = 'de',
 }) => {
   const hasHeadings = subheadline || headline || description
 
@@ -42,7 +44,11 @@ export const LowImpactHero: React.FC<LowImpactHeroType> = ({
             <ul className="mt-6 flex flex-wrap gap-4">
               {links.map(({ link }, i) => (
                 <li key={i}>
-                  <CMSLink {...link} enableIconSwap={link?.enableIconSwap ?? true} />
+                  <CMSLink
+                    {...link}
+                    locale={locale}
+                    enableIconSwap={link?.enableIconSwap ?? true}
+                  />
                 </li>
               ))}
             </ul>

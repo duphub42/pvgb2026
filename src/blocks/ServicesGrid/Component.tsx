@@ -2,6 +2,7 @@
 
 import React from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import {
   Activity,
   BarChart3,
@@ -38,6 +39,7 @@ import type { ServicesGridBlock as ServicesGridBlockData } from '@/payload-types
 import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 import { BlockContainer } from '@/components/BlockContainer'
 import { ResilientImage } from '@/components/ui/resilient-image'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
 
 type ServicesGridProps = ServicesGridBlockData & {
   disableInnerContainer?: boolean
@@ -211,6 +213,8 @@ const isSvgIntroImage = (
 }
 
 export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
+  const pathname = usePathname()
+  const isEnglish = pathname?.startsWith('/en') === true
   const {
     heading,
     intro,
@@ -256,8 +260,13 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
   const introLayoutClass = introImagePosition === 'left' ? 'lg:flex-row-reverse' : 'lg:flex-row'
   const introImagePopoutClass =
     introImagePosition === 'right' ? 'lg:translate-x-20 lg:-translate-y-4' : 'lg:-translate-y-4'
+  const translatedHeading = translateValueForLocale(heading, isEnglish ? 'en' : 'de')
+  const translatedIntro = translateValueForLocale(intro, isEnglish ? 'en' : 'de')
+  const translatedTagline = translateValueForLocale(tagline, isEnglish ? 'en' : 'de')
   const taglineLines =
-    typeof tagline === 'string' && tagline.trim() ? tagline.split('\n').filter((l) => l.trim()) : []
+    typeof translatedTagline === 'string' && translatedTagline.trim()
+      ? translatedTagline.split('\n').filter((l) => l.trim())
+      : []
 
   return (
     <BlockContainer
@@ -273,7 +282,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
             ))}
           </div>
         ) : null}
-        {(heading || intro || tagline || hasIconList || hasIntroImage) && (
+        {(translatedHeading || translatedIntro || translatedTagline || hasIconList || hasIntroImage) && (
           <div
             className={cn(
               'mx-auto grid items-stretch',
@@ -287,9 +296,13 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                 hasIntroImage ? 'lg:flex-1 lg:max-w-none' : 'w-full max-w-none',
               )}
             >
-              {heading && <h2 className="text-3xl font-bold tracking-tight">{heading}</h2>}
-              {intro && (
-                <p className="mt-4 whitespace-pre-line text-lg text-muted-foreground">{intro}</p>
+              {translatedHeading && (
+                <h2 className="text-3xl font-bold tracking-tight">{translatedHeading}</h2>
+              )}
+              {translatedIntro && (
+                <p className="mt-4 whitespace-pre-line text-lg text-muted-foreground">
+                  {translatedIntro}
+                </p>
               )}
               {taglineLines.length > 0 && (
                 <div className="mt-4 border-l-2 border-primary pl-4">
@@ -320,7 +333,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                           <Icon className="size-[1.125rem]" strokeWidth={2} />
                         </span>
                         <span className="text-sm leading-relaxed text-muted-foreground">
-                          {item.text}
+                          {translateValueForLocale(item.text, isEnglish ? 'en' : 'de')}
                         </span>
                       </li>
                     )
@@ -340,8 +353,8 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                   src={introImageSrc || ''}
                   alt={
                     typeof introImage === 'object' && introImage && 'alt' in introImage
-                      ? String(introImage.alt || heading || 'Einleitungsbild')
-                      : String(heading || 'Einleitungsbild')
+                      ? String(introImage.alt || translatedHeading || 'Einleitungsbild')
+                      : String(translatedHeading || 'Einleitungsbild')
                   }
                   className={cn(
                     'services-grid-intro-image relative z-10 block h-auto w-full object-contain object-center',
@@ -380,7 +393,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                       'rotate-180 [writing-mode:vertical-rl] [text-orientation:mixed]',
                   )}
                 >
-                  {category.categoryLabel}
+                  {translateValueForLocale(category.categoryLabel, isEnglish ? 'en' : 'de')}
                 </span>
               </div>
 
@@ -415,15 +428,19 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                             />
                           </div>
                           <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
-                            {service.title}
+                            {translateValueForLocale(service.title, isEnglish ? 'en' : 'de')}
                           </h3>
                         </div>
 
                         <p className="line-clamp-5 whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
-                          {service.description}
+                          {translateValueForLocale(
+                            service.description,
+                            isEnglish ? 'en' : 'de',
+                          )}
                         </p>
                         <div className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-primary opacity-0 transition-opacity group-hover:opacity-100">
-                          Mehr erfahren <ChevronRight className="h-3 w-3" />
+                          {isEnglish ? 'Learn more' : 'Mehr erfahren'}{' '}
+                          <ChevronRight className="h-3 w-3" />
                         </div>
                       </div>
                     )

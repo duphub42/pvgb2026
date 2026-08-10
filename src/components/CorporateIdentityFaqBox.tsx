@@ -2,6 +2,7 @@ import React from 'react'
 
 import { PageFaqBox, type EditablePageFaq } from '@/components/PageFaqBox'
 import type { FaqCategory } from '@/components/ui/faq-8.data'
+import type { Locale } from '@/utilities/locale'
 
 export const corporateIdentityFaqCategories: FaqCategory[] = [
   {
@@ -27,8 +28,7 @@ export const corporateIdentityFaqCategories: FaqCategory[] = [
           'Viele kleine Betriebe starten sinnvoll mit Logo, Farben, Schriften und den wichtigsten Anwendungen. Eine vollständige Corporate Identity lohnt sich, wenn der Auftritt auf Website, Fahrzeugen, Angeboten, Social Media und Print einheitlich wirken soll.',
       },
       {
-        question:
-          'Ab welcher Unternehmensgröße lohnt sich eine professionelle Corporate Identity?',
+        question: 'Ab welcher Unternehmensgröße lohnt sich eine professionelle Corporate Identity?',
         answer:
           'Eine professionelle Corporate Identity lohnt sich nicht erst ab einer bestimmten Mitarbeiterzahl, sondern sobald Kunden Ihr Unternehmen vergleichen, Vertrauen aufbauen müssen oder mehrere Kanäle bespielt werden. Das betrifft auch Gründer, Handwerksbetriebe, Praxen und lokale Dienstleister in Halle.',
       },
@@ -297,10 +297,12 @@ export const corporateIdentityFaqFallback = {
 
 export function CorporateIdentityFaqBox({
   faq,
+  locale = 'de',
 }: {
   faq?: EditablePageFaq | null
+  locale?: Locale
 }): React.JSX.Element | null {
-  return <PageFaqBox faq={faq} fallback={corporateIdentityFaqFallback} />
+  return <PageFaqBox faq={faq} fallback={corporateIdentityFaqFallback} locale={locale} />
 }
 
 export default CorporateIdentityFaqBox

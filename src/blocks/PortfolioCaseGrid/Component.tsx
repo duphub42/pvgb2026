@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
@@ -34,6 +35,7 @@ import {
 import { Badge } from '@/components/ui/badge'
 import { getMarketingCaseChartData } from '@/utilities/marketingPortfolioCaseContent'
 import { cn } from '@/utilities/ui'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
 import type {
   Media as MediaType,
   PortfolioCaseGridBlock as PortfolioCaseGridBlockData,
@@ -167,6 +169,8 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   cases,
   layoutVariant,
 }) => {
+  const pathname = usePathname()
+  const isEnglish = (pathname || '').startsWith('/en')
   const isDataLayout = layoutVariant === 'data'
   const rows = useMemo(
     () =>
@@ -252,9 +256,15 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   const activeDisciplineMeta = disciplineMeta[activeDiscipline] ?? disciplineMeta.webdesign
   const ActiveDisciplineIcon = activeDisciplineMeta.icon
   const activeCtaHref = normalizeHref(activeCase?.cta?.href)
-  const activeCtaLabel = activeCase?.cta?.label?.trim() || 'Case ansehen'
+  const activeCtaLabel = translateValueForLocale(
+    activeCase?.cta?.label?.trim() || 'Case ansehen',
+    isEnglish ? 'en' : 'de',
+  )
   const activeWebsiteHref = normalizeHref(activeCase?.website?.href) ?? activeCtaHref
-  const activeWebsiteLabel = activeCase?.website?.label?.trim() || activeCtaLabel
+  const activeWebsiteLabel = translateValueForLocale(
+    activeCase?.website?.label?.trim() || activeCtaLabel,
+    isEnglish ? 'en' : 'de',
+  )
   const activeTags = (activeCase?.tags ?? []).filter((tag) => tag?.label?.trim())
   const activeMetrics = (activeCase?.metrics ?? []).filter(
     (metric) => metric?.value?.trim() && metric?.label?.trim(),
@@ -650,7 +660,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                 type="button"
                 onClick={openPrevCase}
                 className="absolute left-2 top-1/2 z-20 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/95 shadow-sm transition hover:bg-background md:left-4"
-                aria-label="Vorheriges Projekt"
+                aria-label={isEnglish ? 'Previous project' : 'Vorheriges Projekt'}
               >
                 <ChevronLeft className="size-5" />
               </button>
@@ -659,7 +669,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                 type="button"
                 onClick={openNextCase}
                 className="absolute right-2 top-1/2 z-20 inline-flex size-10 -translate-y-1/2 items-center justify-center rounded-full border border-border/70 bg-background/95 shadow-sm transition hover:bg-background md:right-4"
-                aria-label="Nächstes Projekt"
+                aria-label={isEnglish ? 'Next project' : 'Nächstes Projekt'}
               >
                 <ChevronRight className="size-5" />
               </button>
@@ -685,7 +695,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                     type="button"
                     onClick={closeModal}
                     className="absolute right-4 top-4 z-10 inline-flex size-9 items-center justify-center rounded-full border border-border/70 bg-background/90 hover:bg-muted"
-                    aria-label="Modal schließen"
+                    aria-label={isEnglish ? 'Close modal' : 'Modal schließen'}
                   >
                     <X className="size-4" />
                   </button>
@@ -698,7 +708,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                       {activeHeroImage ? (
                         <div className="overflow-hidden rounded-2xl border border-border/70 lg:col-span-2">
                           <p className="border-b border-border/60 bg-muted/30 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-                            Website-Vorschau
+                            {isEnglish ? 'Website Preview' : 'Website-Vorschau'}
                           </p>
                           <Media
                             resource={activeHeroImage}
@@ -722,7 +732,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                     <div>
                       <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 text-xs font-medium">
                         <ActiveDisciplineIcon className="size-3.5" />
-                        {activeDisciplineMeta.label}
+                        {translateValueForLocale(activeDisciplineMeta.label, isEnglish ? 'en' : 'de')}
                       </div>
                       <h3 className="mt-3 text-2xl font-semibold leading-tight">
                         {activeCase.title}
@@ -753,7 +763,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                           className="gap-1.5 px-2.5 py-1 text-xs font-medium"
                         >
                           <CategoryIcon className="size-3.5" />
-                          {categoryMeta[category].label}
+                          {translateValueForLocale(categoryMeta[category].label, isEnglish ? 'en' : 'de')}
                         </Badge>
                       )
                     })}
@@ -775,7 +785,9 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                       ) : null}
                       {activeCase.approach ? (
                         <div className="rounded-2xl border border-border/70 bg-background/60 p-3">
-                          <dt className="font-semibold text-foreground/85">Vorgehen</dt>
+                          <dt className="font-semibold text-foreground/85">
+                            {isEnglish ? 'Approach' : 'Vorgehen'}
+                          </dt>
                           <dd className="mt-1 leading-relaxed text-muted-foreground">
                             {activeCase.approach}
                           </dd>
@@ -783,7 +795,9 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                       ) : null}
                       {activeCase.result ? (
                         <div className="rounded-2xl border border-border/70 bg-background/60 p-3">
-                          <dt className="font-semibold text-foreground/85">Ergebnis</dt>
+                          <dt className="font-semibold text-foreground/85">
+                            {isEnglish ? 'Result' : 'Ergebnis'}
+                          </dt>
                           <dd className="mt-1 leading-relaxed text-muted-foreground">
                             {activeCase.result}
                           </dd>
@@ -935,7 +949,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
               type="button"
               onClick={() => stepSlider('prev')}
               className="portfolio-slider-control absolute left-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full border shadow-sm transition"
-              aria-label="Vorheriger Slide"
+              aria-label={isEnglish ? 'Previous slide' : 'Vorheriger Slide'}
               tabIndex={activeCase ? -1 : 0}
             >
               <ChevronLeft className="size-4" />
@@ -945,7 +959,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
               type="button"
               onClick={() => stepSlider('next')}
               className="portfolio-slider-control absolute right-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full border shadow-sm transition"
-              aria-label="Nächster Slide"
+              aria-label={isEnglish ? 'Next slide' : 'Nächster Slide'}
               tabIndex={activeCase ? -1 : 0}
             >
               <ChevronRight className="size-4" />
@@ -986,7 +1000,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                         useMarketingVisual &&
                           'border-emerald-500/10 bg-gradient-to-b from-emerald-500/[0.015] to-background transition-colors duration-500 hover:border-emerald-500/25 hover:from-emerald-500/[0.04] focus-visible:border-emerald-500/25 focus-visible:from-emerald-500/[0.04]',
                       )}
-                      aria-label={`Details öffnen: ${item.title}`}
+                      aria-label={`${isEnglish ? 'Open details' : 'Details öffnen'}: ${item.title}`}
                       tabIndex={activeCase ? -1 : 0}
                     >
                       <div className="portfolio-case-visual relative min-h-[240px] overflow-hidden border-b border-border/70 px-4 pt-4 pb-4">
@@ -1016,7 +1030,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                           />
                         ) : (
                           <div className="flex h-[240px] items-center justify-center bg-muted/40 text-sm text-muted-foreground">
-                            Kein Titelbild
+                            {isEnglish ? 'No cover image' : 'Kein Titelbild'}
                           </div>
                         )}
                       </div>
@@ -1024,7 +1038,13 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                       <div className="space-y-3 p-4">
                         <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 text-xs font-medium">
                           <DisciplineIcon className="size-3.5" />
-                          {useMarketingVisual ? 'Marketing · KPI-Fokus' : `Projektfeld: ${meta.label}`}
+                          {useMarketingVisual
+                            ? isEnglish
+                              ? 'Marketing · KPI Focus'
+                              : 'Marketing · KPI-Fokus'
+                            : `${isEnglish ? 'Project Field' : 'Projektfeld'}: ${
+                                isEnglish ? translateValueForLocale(meta.label, 'en') : meta.label
+                              }`}
                         </div>
 
                         <h3 className="text-xl font-semibold leading-tight">{item.title}</h3>
@@ -1038,7 +1058,10 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                         {item.industry ? (
                           <div className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
                             <Building2 className="size-4" />
-                            Branche: {item.industry}
+                            {isEnglish ? 'Industry' : 'Branche'}:{' '}
+                            {isEnglish
+                              ? translateValueForLocale(item.industry, 'en')
+                              : item.industry}
                           </div>
                         ) : null}
                       </div>

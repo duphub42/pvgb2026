@@ -9,13 +9,15 @@ import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 
 import { CMSLink } from '../../components/Link'
 import { BlockContainer } from '@/components/BlockContainer'
+import type { Locale } from '@/utilities/locale'
 
 type ContentBlockComponentProps = ContentBlockProps & {
   index?: number
+  locale?: Locale
 }
 
 export const ContentBlock: React.FC<ContentBlockComponentProps> = (props) => {
-  const { columns, index = 0, ...styleProps } = props
+  const { columns, index = 0, locale = 'de', ...styleProps } = props
 
   const colsSpanClasses = {
     full: '12',
@@ -44,7 +46,7 @@ export const ContentBlock: React.FC<ContentBlockComponentProps> = (props) => {
               >
                 {richText && <RichText data={richText} enableGutter={false} />}
 
-                {enableLink && <CMSLink {...link} />}
+                {enableLink && <CMSLink {...link} locale={locale} />}
               </div>
             )
           })}

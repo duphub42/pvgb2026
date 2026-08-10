@@ -1,13 +1,18 @@
 import { Minus, TrendingDown, TrendingUp, type LucideIcon } from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
 import type { PortfolioKpiStripBlock as PortfolioKpiStripBlockData } from '@/payload-types'
 import { getBlockBackgroundImageStyle } from '@/utilities/getBlockBackgroundImageStyle'
+import type { Locale } from '@/utilities/locale'
 import { cn } from '@/utilities/ui'
 
 import { KpiTileReveal } from './KpiTileReveal.client'
 
-type PortfolioKpiStripProps = PortfolioKpiStripBlockData & { disableInnerContainer?: boolean }
+type PortfolioKpiStripProps = PortfolioKpiStripBlockData & {
+  disableInnerContainer?: boolean
+  locale?: Locale
+}
 
 type Trend = 'up' | 'down' | 'neutral'
 
@@ -72,13 +77,23 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
   intro,
   variant = 'glass',
   items,
+  locale = 'de',
 }) => {
-  const kpis = (items ?? []).filter((item) => Boolean(item?.value?.trim() && item?.label?.trim()))
-  const shouldShowPricingContext = heading?.toLowerCase().includes('leistungswerte')
-  const isMarketingSnapshot = heading?.toLowerCase().includes('marketing-cases')
+  const localizedEyebrow = translateValueForLocale(eyebrow, locale)
+  const localizedHeading = translateValueForLocale(heading, locale)
+  const localizedIntro = translateValueForLocale(intro, locale)
+  const kpis = translateValueForLocale(
+    (items ?? []).filter((item) => Boolean(item?.value?.trim() && item?.label?.trim())),
+    locale,
+  )
+  const sourceHeading = heading?.toLowerCase() ?? ''
+  const shouldShowPricingContext = sourceHeading.includes('leistungswerte')
+  const isMarketingSnapshot = sourceHeading.includes('marketing-cases')
   const enableTileReveal = isMarketingSnapshot
-  const resolvedIntro = isMarketingSnapshot ? getMarketingSnapshotIntro(intro) : intro?.trim()
-  const snapshotNote = getMarketingSnapshotNote(heading)
+  const resolvedIntro = isMarketingSnapshot
+    ? translateValueForLocale(getMarketingSnapshotIntro(intro), locale)
+    : localizedIntro?.trim()
+  const snapshotNote = translateValueForLocale(getMarketingSnapshotNote(heading), locale)
 
   if (!kpis.length) return null
 
@@ -117,20 +132,20 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
       ) : null}
       <div className={cn('container relative z-10 px-6 py-4 md:px-10 md:py-6', wrapperClass)}>
         <div className="w-full max-w-5xl" data-kpi-header-group={enableTileReveal ? 'true' : undefined}>
-          {eyebrow ? (
+          {localizedEyebrow ? (
             <p
               className="mb-2 text-xs font-semibold uppercase tracking-[0.16em] text-primary/80"
               data-kpi-header-item={enableTileReveal ? 'true' : undefined}
             >
-              {eyebrow}
+              {localizedEyebrow}
             </p>
           ) : null}
-          {heading ? (
+          {localizedHeading ? (
             <h2
               className="w-full max-w-4xl text-2xl font-semibold leading-tight tracking-tight text-balance sm:text-3xl md:text-[clamp(2rem,3.4vw,3.5rem)]"
               data-kpi-header-item={enableTileReveal ? 'true' : undefined}
             >
-              {heading}
+              {localizedHeading}
             </h2>
           ) : null}
           {resolvedIntro ? (
@@ -152,6 +167,10 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
             const trend = (item.trend ?? 'up') as Trend
             const meta = trendMeta[trend] ?? trendMeta.up
             const TrendIcon = meta.icon
+            const itemValue = translateValueForLocale(item.value, locale)
+            const itemDelta = translateValueForLocale(item.delta, locale)
+            const itemLabel = translateValueForLocale(item.label, locale)
+            const itemContext = translateValueForLocale(item.context, locale)
 
             return (
               <article
@@ -169,16 +188,18 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
                     data-kpi-reveal-detail={enableTileReveal ? 'true' : undefined}
                     data-kpi-count-value={enableTileReveal ? 'true' : undefined}
                   >
-                    {item.value}
+                    {itemValue}
                   </p>
                   <Badge
                     variant={meta.variant}
                     className="gap-1 px-2 py-1 text-[11px] font-semibold uppercase tracking-wide"
-                    aria-label={meta.label}
+                    aria-label={translateValueForLocale(meta.label, locale)}
                     data-kpi-reveal-detail={enableTileReveal ? 'true' : undefined}
                   >
                     <TrendIcon className="size-3.5" />
-                    {item.delta?.trim() ? item.delta : meta.label}
+                    {itemDelta?.trim()
+                      ? itemDelta
+                      : translateValueForLocale(meta.label, locale)}
                   </Badge>
                 </div>
 
@@ -186,14 +207,14 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
                   className="text-sm font-medium leading-snug"
                   data-kpi-reveal-detail={enableTileReveal ? 'true' : undefined}
                 >
-                  {item.label}
+                  {itemLabel}
                 </p>
-                {item.context ? (
+                {itemContext ? (
                   <p
                     className="mt-1 text-xs leading-relaxed text-muted-foreground"
                     data-kpi-reveal-detail={enableTileReveal ? 'true' : undefined}
                   >
-                    {item.context}
+                    {itemContext}
                   </p>
                 ) : null}
               </article>
@@ -210,7 +231,7 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
       {shouldShowPricingContext ? (
         <div className="container relative z-10 mt-14 md:mt-16">
           <div className="grid gap-5 md:grid-cols-3">
-            {pricingContextBlocks.map((block) => (
+            {translateValueForLocale(pricingContextBlocks, locale).map((block) => (
               <article key={block.title} className="h-full">
                 <h3 className="text-base font-semibold leading-snug md:text-lg">{block.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{block.text}</p>

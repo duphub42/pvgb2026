@@ -3,7 +3,8 @@ import { HighImpactHero } from '@/heros/HighImpact'
 import { LowImpactHero } from '@/heros/LowImpact'
 import { MediumImpactHero } from '@/heros/MediumImpact'
 import { SuperheroHero } from '@/heros/Superhero/SuperheroHero'
-import type { SuperheroHeroProps } from '@/heros/Superhero/SuperheroHero'
+import { translateStringForLocale } from '@/i18n/translationOverlay'
+import type { Locale } from '@/utilities/locale'
 
 const heroes = {
   highImpact: HighImpactHero,
@@ -25,10 +26,12 @@ type HeroRenderProps = {
   type?: string | null
 } & Record<string, unknown>
 
-function toTitleFromSlug(slug: string | null): string {
-  if (!slug) return 'Digitale Lösungen mit Substanz'
-  if (slug === 'home') return 'Digitale Lösungen mit Substanz'
-  if (slug === 'lei' || slug === 'leistungen') return 'Leistungen'
+function toTitleFromSlug(slug: string | null, locale: Locale): string {
+  if (!slug) return translateStringForLocale('Digitale Lösungen mit Substanz', locale)
+  if (slug === 'home') return translateStringForLocale('Digitale Lösungen mit Substanz', locale)
+  if (slug === 'lei' || slug === 'leistungen') {
+    return translateStringForLocale('Leistungen', locale)
+  }
 
   return (
     slug
@@ -38,7 +41,7 @@ function toTitleFromSlug(slug: string | null): string {
       ?.split('-')
       .filter(Boolean)
       .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
-      .join(' ') || 'Digitale Lösungen mit Substanz'
+      .join(' ') || translateStringForLocale('Digitale Lösungen mit Substanz', locale)
   )
 }
 
@@ -46,7 +49,11 @@ function hasNonEmptyString(value: unknown): boolean {
   return typeof value === 'string' && value.trim().length > 0
 }
 
-function withFallbackHeroContent(heroData: Record<string, unknown>, pageSlug: string | null) {
+function withFallbackHeroContent(
+  heroData: Record<string, unknown>,
+  pageSlug: string | null,
+  locale: Locale,
+) {
   const hasMainCopy =
     hasNonEmptyString(heroData.subheadline) ||
     hasNonEmptyString(heroData.headline) ||
@@ -64,10 +71,12 @@ function withFallbackHeroContent(heroData: Record<string, unknown>, pageSlug: st
 
   return {
     ...heroData,
-    subheadline: 'Strategie · Design · Entwicklung',
-    headline: toTitleFromSlug(pageSlug),
-    description:
+    subheadline: translateStringForLocale('Strategie · Design · Entwicklung', locale),
+    headline: toTitleFromSlug(pageSlug, locale),
+    description: translateStringForLocale(
       'Ich gestalte digitale Erlebnisse, die sichtbar machen, was Ihr Angebot einzigartig macht.',
+      locale,
+    ),
   }
 }
 
@@ -83,14 +92,16 @@ export const RenderHero: FC<HeroRenderProps> = (props) => {
 
   const normalizedType =
     rawType in heroes ? rawType : rawType.charAt(0).toLowerCase() + rawType.slice(1)
-  const resolvedType = LEGACY_HERO_TYPE_ALIASES[rawType] ?? LEGACY_HERO_TYPE_ALIASES[normalizedType] ?? normalizedType
+  const resolvedType =
+    LEGACY_HERO_TYPE_ALIASES[rawType] ?? LEGACY_HERO_TYPE_ALIASES[normalizedType] ?? normalizedType
   const HeroToRender = (
     heroes as unknown as Record<string, ComponentType<Record<string, unknown>>>
   )[resolvedType]
 
   if (!HeroToRender) return null
 
-  const heroDataWithFallback = withFallbackHeroContent(heroData, pageSlug)
+  const locale: Locale = props.locale === 'en' ? 'en' : 'de'
+  const heroDataWithFallback = withFallbackHeroContent(heroData, pageSlug, locale)
 
-  return <HeroToRender {...heroDataWithFallback} pageSlug={pageSlug} />
+  return <HeroToRender {...heroDataWithFallback} pageSlug={pageSlug} locale={locale} />
 }

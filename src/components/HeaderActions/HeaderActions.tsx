@@ -9,6 +9,7 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher'
 import { SearchCommand } from '@/components/SearchCommand/SearchCommand'
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
 import { getClientSideURL } from '@/utilities/getURL'
@@ -17,11 +18,11 @@ import {
   buildFormSpamMetaSubmissionData,
 } from '@/utilities/formSpamProtection'
 import { getWebMcpFieldInputProps, PHONE_FIELD_PATTERN } from '@/utilities/webmcp/formFieldHints'
-import {
-  type AgentSubmitEvent,
-  getWebMcpFormAttributes,
-} from '@/utilities/webmcp/modelContext'
+import { type AgentSubmitEvent, getWebMcpFormAttributes } from '@/utilities/webmcp/modelContext'
 import { cn } from '@/utilities/ui'
+import { localizePathname } from '@/i18n/routing'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
+import { useLocale } from '@/providers/Locale/LocaleContext'
 import { MessageCircle, Phone, PhoneCall } from 'lucide-react'
 import Link from 'next/link'
 import React from 'react'
@@ -107,7 +108,7 @@ function getCallbackFieldValue(
 
     if (field.blockType === 'number') {
       const parsed = Number(rawValue)
-      return Number.isFinite(parsed) ? parsed : formValues[field.name] ?? ''
+      return Number.isFinite(parsed) ? parsed : (formValues[field.name] ?? '')
     }
 
     return String(rawValue)
@@ -117,6 +118,8 @@ function getCallbackFieldValue(
 }
 
 function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
+  const locale = useLocale()
+  const t = React.useCallback((value: string) => translateValueForLocale(value, locale), [locale])
   const callbackFormRef = React.useRef<HTMLFormElement>(null)
   const [open, setOpen] = React.useState(false)
   const [status, setStatus] = React.useState<'idle' | 'loading' | 'success' | 'error'>('idle')
@@ -284,7 +287,10 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
     }
   }, [open, callbackFormId])
 
-  const runCallbackSubmission = React.useCallback(async (): Promise<{ ok: boolean; message: string }> => {
+  const runCallbackSubmission = React.useCallback(async (): Promise<{
+    ok: boolean
+    message: string
+  }> => {
     if (!callbackConfig) {
       return { ok: false, message: 'Callback form is not configured.' }
     }
@@ -349,13 +355,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
       setStatus('error')
       return { ok: false, message: 'Callback request failed to submit.' }
     }
-  }, [
-    callbackConfig,
-    callbackFormFields,
-    callbackHoneypotValue,
-    callbackStartedAt,
-    formValues,
-  ])
+  }, [callbackConfig, callbackFormFields, callbackHoneypotValue, callbackStartedAt, formValues])
 
   const submitCallback = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -379,7 +379,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
             variant="ghost"
             size="icon"
             className="header-tool-toggle header-icon-btn shrink-0 text-current"
-            aria-label="Kontakt öffnen"
+            aria-label={t('Kontakt öffnen')}
             aria-expanded={open}
             aria-haspopup="dialog"
             onClick={() => setOpen(true)}
@@ -388,7 +388,7 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
           </Button>
         </TooltipTrigger>
         <TooltipContent side="bottom" sideOffset={6}>
-          Kontakt öffnen
+          {t('Kontakt öffnen')}
         </TooltipContent>
       </Tooltip>
       {open ? (
@@ -397,277 +397,297 @@ function HeaderContactModal({ cta }: { cta?: HeaderContactCta }) {
           overlayClassName="megamenu-contact-overlay bg-background/20 backdrop-blur-md"
           className="megamenu-sheet megamenu-contact-sheet flex h-[100dvh] max-h-[100dvh] w-[340px] max-w-[340px] flex-col overflow-x-hidden overflow-y-auto overscroll-contain border-l border-border shadow-2xl pt-10 pb-6 supports-[height:100svh]:h-[100svh] sm:w-[420px] sm:max-w-[420px] [@media(max-height:48rem)]:w-[780px] [@media(max-height:48rem)]:max-w-[780px]"
         >
-        <SheetHeader className="space-y-2">
-          <SheetTitle className="text-2xl md:text-3xl font-medium tracking-tighter leading-tight text-foreground">
-            Kontakt
-          </SheetTitle>
-          <SheetDescription className="text-base leading-relaxed">
-            Schön, dass Sie hier sind. Wenn Sie Fragen haben oder ein Projekt besprechen möchten,
-            können Sie mich jederzeit direkt kontaktieren. Hinterlassen Sie gern Ihre Nummer für
-            einen Rückruf oder schreiben Sie mir bequem per WhatsApp.
-          </SheetDescription>
-        </SheetHeader>
+          <SheetHeader className="space-y-2">
+            <SheetTitle className="text-2xl md:text-3xl font-medium tracking-tighter leading-tight text-foreground">
+              {t('Kontakt')}
+            </SheetTitle>
+            <SheetDescription className="text-base leading-relaxed">
+              {t(
+                'Schön, dass Sie hier sind. Wenn Sie Fragen haben oder ein Projekt besprechen möchten, können Sie mich jederzeit direkt kontaktieren. Hinterlassen Sie gern Ihre Nummer für einen Rückruf oder schreiben Sie mir bequem per WhatsApp.',
+              )}
+            </SheetDescription>
+          </SheetHeader>
 
-        <div className="mt-12 min-h-0 space-y-12">
-          <div className="space-y-2">
-            <h4 className="flex items-center gap-2 text-base font-semibold">
-              <Phone className="h-4 w-4 text-muted-foreground" aria-hidden />
-              Kontaktdaten
-            </h4>
-            <p className="text-base text-muted-foreground">Telefon: {CONTACT_PHONE_DISPLAY}</p>
-          </div>
+          <div className="mt-12 min-h-0 space-y-12">
+            <div className="space-y-2">
+              <h4 className="flex items-center gap-2 text-base font-semibold">
+                <Phone className="h-4 w-4 text-muted-foreground" aria-hidden />
+                {t('Kontaktdaten')}
+              </h4>
+              <p className="text-base text-muted-foreground">
+                {t('Telefon')}: {CONTACT_PHONE_DISPLAY}
+              </p>
+            </div>
 
-          <hr className="border-border" />
+            <hr className="border-border" />
 
-          <div className="grid grid-cols-1 gap-8 [@media(max-height:48rem)]:grid-cols-2 [@media(max-height:48rem)]:gap-10">
-            {callbackConfig ? (
-              <div className="space-y-3">
-                <div className="space-y-2">
-                  <h4 className="flex items-center gap-2 text-base font-semibold">
-                    <PhoneCall className="h-4 w-4 text-muted-foreground" aria-hidden />
-                    {callbackConfig.title}
-                  </h4>
-                  <p className="text-base text-muted-foreground">
-                    Hinterlassen Sie Ihre Telefonnummer und ich melde mich zeitnah persönlich bei
-                    Ihnen.
-                  </p>
-                </div>
-                <form
-                  ref={callbackFormRef}
-                  onSubmit={submitCallback}
-                  className="flex flex-col gap-2"
-                  {...CALLBACK_WEBMCP_FORM_ATTRS}
-                >
-                  <input
-                    type="text"
-                    name={FORM_SPAM_META_FIELDS.honeypot}
-                    value={callbackHoneypotValue}
-                    onChange={(event) => setCallbackHoneypotValue(event.target.value)}
-                    autoComplete="off"
-                    tabIndex={-1}
-                    aria-hidden="true"
-                    className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden opacity-0"
-                  />
-                  {callbackFormFields.map((field, idx) => {
-                    const rawFieldName = typeof field.name === 'string' ? field.name.trim() : ''
-                    const fieldKey =
-                      rawFieldName !== ''
-                        ? `callback-field-${rawFieldName}-${idx}`
-                        : `callback-field-${field.blockType}-${idx}`
-                    if (field.blockType === 'message') {
-                      const text = field.message?.root?.children
-                        ?.map((child) => child?.text ?? '')
-                        .join(' ')
-                        .trim()
-                      if (!text) return null
-                      return (
-                        <p key={fieldKey} className="text-base text-muted-foreground">
-                          {text}
-                        </p>
-                      )
-                    }
+            <div className="grid grid-cols-1 gap-8 [@media(max-height:48rem)]:grid-cols-2 [@media(max-height:48rem)]:gap-10">
+              {callbackConfig ? (
+                <div className="space-y-3">
+                  <div className="space-y-2">
+                    <h4 className="flex items-center gap-2 text-base font-semibold">
+                      <PhoneCall className="h-4 w-4 text-muted-foreground" aria-hidden />
+                      {t(callbackConfig.title)}
+                    </h4>
+                    <p className="text-base text-muted-foreground">
+                      {t(
+                        'Hinterlassen Sie Ihre Telefonnummer und ich melde mich zeitnah persönlich bei Ihnen.',
+                      )}
+                    </p>
+                  </div>
+                  <form
+                    ref={callbackFormRef}
+                    onSubmit={submitCallback}
+                    className="flex flex-col gap-2"
+                    {...CALLBACK_WEBMCP_FORM_ATTRS}
+                  >
+                    <input
+                      type="text"
+                      name={FORM_SPAM_META_FIELDS.honeypot}
+                      value={callbackHoneypotValue}
+                      onChange={(event) => setCallbackHoneypotValue(event.target.value)}
+                      autoComplete="off"
+                      tabIndex={-1}
+                      aria-hidden="true"
+                      className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden opacity-0"
+                    />
+                    {callbackFormFields.map((field, idx) => {
+                      const rawFieldName = typeof field.name === 'string' ? field.name.trim() : ''
+                      const fieldKey =
+                        rawFieldName !== ''
+                          ? `callback-field-${rawFieldName}-${idx}`
+                          : `callback-field-${field.blockType}-${idx}`
+                      if (field.blockType === 'message') {
+                        const text = field.message?.root?.children
+                          ?.map((child) => child?.text ?? '')
+                          .join(' ')
+                          .trim()
+                        if (!text) return null
+                        return (
+                          <p key={fieldKey} className="text-base text-muted-foreground">
+                            {t(text)}
+                          </p>
+                        )
+                      }
 
-                    if (field.blockType === 'checkbox') {
-                      const checkboxField = field as FormCheckboxField
-                      const label =
-                        checkboxField.label || 'Ich stimme den Datenschutzbestimmungen zu.'
-                      const parts = label.split(PRIVACY_TOKEN_REGEX)
-                      const hasPrivacyToken = parts.length > 1
-                      return (
-                        <label
-                          key={fieldKey}
-                          className="mt-1 grid grid-cols-[0.875rem_1fr] items-start gap-2 text-xs leading-5 text-muted-foreground"
-                        >
-                          <input
-                            type="checkbox"
+                      if (field.blockType === 'checkbox') {
+                        const checkboxField = field as FormCheckboxField
+                        const label =
+                          checkboxField.label || t('Ich stimme den Datenschutzbestimmungen zu.')
+                        const parts = label.split(PRIVACY_TOKEN_REGEX)
+                        const hasPrivacyToken = parts.length > 1
+                        return (
+                          <label
+                            key={fieldKey}
+                            className="mt-1 grid grid-cols-[0.875rem_1fr] items-start gap-2 text-xs leading-5 text-muted-foreground"
+                          >
+                            <input
+                              type="checkbox"
+                              name={field.name}
+                              checked={Boolean(formValues[field.name])}
+                              onChange={(e) =>
+                                setFormValues((prev) => ({
+                                  ...prev,
+                                  [field.name]: e.target.checked,
+                                }))
+                              }
+                              required={Boolean(field.required)}
+                              className="mt-1 h-3.5 w-3.5 rounded border-input accent-primary"
+                              {...getWebMcpFieldInputProps(field)}
+                            />
+                            <span>
+                              {hasPrivacyToken ? (
+                                <>
+                                  {parts[0]}
+                                  <Link
+                                    href={localizePathname('/datenschutz', locale)}
+                                    className="underline underline-offset-2 hover:no-underline"
+                                  >
+                                    {t('Datenschutzbestimmungen')}
+                                  </Link>
+                                  {parts[1]}
+                                </>
+                              ) : (
+                                label
+                              )}
+                            </span>
+                          </label>
+                        )
+                      }
+
+                      if (field.blockType === 'textarea') {
+                        return (
+                          <textarea
+                            key={fieldKey}
                             name={field.name}
-                            checked={Boolean(formValues[field.name])}
+                            value={String(formValues[field.name] ?? '')}
                             onChange={(e) =>
                               setFormValues((prev) => ({
                                 ...prev,
-                                [field.name]: e.target.checked,
+                                [field.name]: e.target.value,
+                              }))
+                            }
+                            placeholder={
+                              field.placeholder
+                                ? t(field.placeholder)
+                                : field.label
+                                  ? t(field.label)
+                                  : ''
+                            }
+                            required={Boolean(field.required)}
+                            className="min-h-[92px] w-full rounded-md border border-input bg-background px-3 py-2 text-base"
+                            {...getWebMcpFieldInputProps(field)}
+                          />
+                        )
+                      }
+
+                      if (
+                        (field.blockType === 'select' ||
+                          field.blockType === 'country' ||
+                          field.blockType === 'state') &&
+                        field.options?.length
+                      ) {
+                        return (
+                          <select
+                            key={fieldKey}
+                            name={field.name}
+                            value={String(formValues[field.name] ?? '')}
+                            onChange={(e) =>
+                              setFormValues((prev) => ({
+                                ...prev,
+                                [field.name]: e.target.value,
                               }))
                             }
                             required={Boolean(field.required)}
-                            className="mt-1 h-3.5 w-3.5 rounded border-input accent-primary"
+                            className="h-10 w-full rounded-md border border-input bg-background px-3 text-base"
                             {...getWebMcpFieldInputProps(field)}
-                          />
-                          <span>
-                            {hasPrivacyToken ? (
-                              <>
-                                {parts[0]}
-                                <Link
-                                  href="/datenschutz"
-                                  className="underline underline-offset-2 hover:no-underline"
-                                >
-                                  Datenschutzbestimmungen
-                                </Link>
-                                {parts[1]}
-                              </>
-                            ) : (
-                              label
-                            )}
-                          </span>
-                        </label>
-                      )
-                    }
+                          >
+                            <option value="">
+                              {field.placeholder
+                                ? t(field.placeholder)
+                                : field.label
+                                  ? t(field.label)
+                                  : t('Bitte wählen')}
+                            </option>
+                            {field.options.map((opt, optIdx) => {
+                              const rawOptionValue =
+                                typeof opt.value === 'string'
+                                  ? opt.value.trim()
+                                  : String(opt.value ?? '').trim()
+                              const optionKey =
+                                rawOptionValue !== ''
+                                  ? `callback-option-${rawOptionValue}-${optIdx}`
+                                  : `callback-option-empty-${optIdx}`
+                              return (
+                                <option key={optionKey} value={opt.value}>
+                                  {opt.label ? t(opt.label) : opt.label}
+                                </option>
+                              )
+                            })}
+                          </select>
+                        )
+                      }
 
-                    if (field.blockType === 'textarea') {
                       return (
-                        <textarea
+                        <input
                           key={fieldKey}
+                          type={
+                            field.blockType === 'email'
+                              ? 'email'
+                              : field.blockType === 'number'
+                                ? 'number'
+                                : PHONE_FIELD_PATTERN.test(field.name) ||
+                                    PHONE_FIELD_PATTERN.test(field.label ?? '')
+                                  ? 'tel'
+                                  : 'text'
+                          }
                           name={field.name}
                           value={String(formValues[field.name] ?? '')}
                           onChange={(e) =>
                             setFormValues((prev) => ({
                               ...prev,
-                              [field.name]: e.target.value,
+                              [field.name]:
+                                field.blockType === 'number'
+                                  ? Number(e.target.value)
+                                  : e.target.value,
                             }))
                           }
-                          placeholder={field.placeholder ?? field.label ?? ''}
-                          required={Boolean(field.required)}
-                          className="min-h-[92px] w-full rounded-md border border-input bg-background px-3 py-2 text-base"
-                          {...getWebMcpFieldInputProps(field)}
-                        />
-                      )
-                    }
-
-                    if (
-                      (field.blockType === 'select' ||
-                        field.blockType === 'country' ||
-                        field.blockType === 'state') &&
-                      field.options?.length
-                    ) {
-                      return (
-                        <select
-                          key={fieldKey}
-                          name={field.name}
-                          value={String(formValues[field.name] ?? '')}
-                          onChange={(e) =>
-                            setFormValues((prev) => ({
-                              ...prev,
-                              [field.name]: e.target.value,
-                            }))
+                          placeholder={
+                            field.placeholder
+                              ? t(field.placeholder)
+                              : field.label
+                                ? t(field.label)
+                                : ''
                           }
                           required={Boolean(field.required)}
                           className="h-10 w-full rounded-md border border-input bg-background px-3 text-base"
                           {...getWebMcpFieldInputProps(field)}
-                        >
-                          <option value="">
-                            {field.placeholder ?? field.label ?? 'Bitte wählen'}
-                          </option>
-                          {field.options.map((opt, optIdx) => {
-                            const rawOptionValue =
-                              typeof opt.value === 'string'
-                                ? opt.value.trim()
-                                : String(opt.value ?? '').trim()
-                            const optionKey =
-                              rawOptionValue !== ''
-                                ? `callback-option-${rawOptionValue}-${optIdx}`
-                                : `callback-option-empty-${optIdx}`
-                            return (
-                              <option key={optionKey} value={opt.value}>
-                                {opt.label}
-                              </option>
-                            )
-                          })}
-                        </select>
+                        />
                       )
-                    }
-
-                    return (
-                      <input
-                        key={fieldKey}
-                        type={
-                          field.blockType === 'email'
-                            ? 'email'
-                            : field.blockType === 'number'
-                              ? 'number'
-                              : PHONE_FIELD_PATTERN.test(field.name) ||
-                                  PHONE_FIELD_PATTERN.test(field.label ?? '')
-                                ? 'tel'
-                                : 'text'
-                        }
-                        name={field.name}
-                        value={String(formValues[field.name] ?? '')}
-                        onChange={(e) =>
-                          setFormValues((prev) => ({
-                            ...prev,
-                            [field.name]:
-                              field.blockType === 'number'
-                                ? Number(e.target.value)
-                                : e.target.value,
-                          }))
-                        }
-                        placeholder={field.placeholder ?? field.label ?? ''}
-                        required={Boolean(field.required)}
-                        className="h-10 w-full rounded-md border border-input bg-background px-3 text-base"
-                        {...getWebMcpFieldInputProps(field)}
-                      />
-                    )
-                  })}
-                  <Button
-                    type="submit"
-                    disabled={status === 'loading'}
-                    className="h-10 w-full rounded-lg px-4 text-sm font-medium"
-                  >
-                    {status === 'loading'
-                      ? '...'
-                      : status === 'success'
-                        ? 'Gesendet'
-                        : callbackConfig.buttonText}
-                  </Button>
-                </form>
-                {status === 'error' && (
-                  <p className="text-xs text-destructive">
-                    Fehler beim Senden. Bitte später erneut versuchen.
-                  </p>
-                )}
-              </div>
-            ) : (
-              <p className="text-base text-muted-foreground">
-                Rückruf-Formular ist aktuell nicht konfiguriert.
-              </p>
-            )}
-
-            <div
-              className="hidden w-px self-stretch bg-border [@media(max-height:48rem)]:block"
-              aria-hidden
-            />
-            <hr className="border-border [@media(max-height:48rem)]:hidden" />
-
-            {resolvedWhatsApp.url ? (
-              <div className="space-y-3 [@media(max-height:48rem)]:col-start-2 [@media(max-height:48rem)]:row-start-1">
-                <div className="space-y-2">
-                  <h4 className="flex items-center gap-2 text-base font-semibold">
-                    <MessageCircle className="h-4 w-4 text-muted-foreground" aria-hidden />
-                    Direkt per WhatsApp
-                  </h4>
-                  <p className="text-base text-muted-foreground">
-                    Für kurze Rückfragen können Sie mich schnell und unkompliziert per WhatsApp
-                    erreichen.
-                  </p>
+                    })}
+                    <Button
+                      type="submit"
+                      disabled={status === 'loading'}
+                      className="h-10 w-full rounded-lg px-4 text-sm font-medium"
+                    >
+                      {status === 'loading'
+                        ? '...'
+                        : status === 'success'
+                          ? 'Gesendet'
+                          : t(callbackConfig.buttonText)}
+                    </Button>
+                  </form>
+                  {status === 'error' && (
+                    <p className="text-xs text-destructive">
+                      {t('Fehler beim Senden. Bitte später erneut versuchen.')}
+                    </p>
+                  )}
                 </div>
-                <Button asChild variant="whatsapp" size="sm" className="w-full gap-2">
-                  <a
-                    href={resolvedWhatsApp.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={resolvedWhatsApp.label}
-                  >
-                    <MessageCircle className="h-5 w-5" aria-hidden />
-                    {resolvedWhatsApp.label}
-                  </a>
-                </Button>
-              </div>
-            ) : (
-              <p className="text-base text-muted-foreground [@media(max-height:48rem)]:col-start-2 [@media(max-height:48rem)]:row-start-1">
-                WhatsApp-Kontakt ist aktuell nicht konfiguriert.
-              </p>
-            )}
+              ) : (
+                <p className="text-base text-muted-foreground">
+                  {t('Rückruf-Formular ist aktuell nicht konfiguriert.')}
+                </p>
+              )}
+
+              <div
+                className="hidden w-px self-stretch bg-border [@media(max-height:48rem)]:block"
+                aria-hidden
+              />
+              <hr className="border-border [@media(max-height:48rem)]:hidden" />
+
+              {resolvedWhatsApp.url ? (
+                <div className="space-y-3 [@media(max-height:48rem)]:col-start-2 [@media(max-height:48rem)]:row-start-1">
+                  <div className="space-y-2">
+                    <h4 className="flex items-center gap-2 text-base font-semibold">
+                      <MessageCircle className="h-4 w-4 text-muted-foreground" aria-hidden />
+                      {t('Direkt per WhatsApp')}
+                    </h4>
+                    <p className="text-base text-muted-foreground">
+                      {t(
+                        'Für kurze Rückfragen können Sie mich schnell und unkompliziert per WhatsApp erreichen.',
+                      )}
+                    </p>
+                  </div>
+                  <Button asChild variant="whatsapp" size="sm" className="w-full gap-2">
+                    <a
+                      href={resolvedWhatsApp.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={resolvedWhatsApp.label}
+                    >
+                      <MessageCircle className="h-5 w-5" aria-hidden />
+                      {resolvedWhatsApp.label}
+                    </a>
+                  </Button>
+                </div>
+              ) : (
+                <p className="text-base text-muted-foreground [@media(max-height:48rem)]:col-start-2 [@media(max-height:48rem)]:row-start-1">
+                  {t('WhatsApp-Kontakt ist aktuell nicht konfiguriert.')}
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-      </SheetContent>
+        </SheetContent>
       ) : null}
     </Sheet>
   )
@@ -685,6 +705,7 @@ export function HeaderActions({
       <ThemeSwitcher />
       <HeaderContactModal cta={contactCta} />
       <SearchCommand />
+      <LanguageSwitcher variant="icon-menu" />
     </div>
   )
 }

@@ -30,6 +30,7 @@ import {
 import type { SitePage } from '@/payload-types'
 
 export const revalidate = false
+export const dynamic = 'force-static'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -49,7 +50,6 @@ export async function generateStaticParams() {
 
 type PageProps = {
   params: Promise<{ slug?: string }>
-  searchParams: Promise<{ previewId?: string }>
 }
 
 type BlockBackground = 'none' | 'muted' | 'accent' | 'light' | 'dark'
@@ -319,219 +319,8 @@ const getCachedPublishedPageMetaBySlug =
 
 export default async function Page({
   params: paramsPromise,
-  searchParams: searchParamsPromise,
 }: PageProps) {
   const { slug = 'home' } = await paramsPromise
-  const searchParams = await searchParamsPromise
-  const previewId = searchParams?.previewId
-  // In production we rely on explicit previewId for previews and keep public pages cacheable.
-
-  let payload
-  try {
-    payload = await getPayload({ config: configPromise })
-  } catch (err) {
-    console.error('[Page] getPayload failed:', formatUnknownError(err))
-    return (
-      <article className="container page-safe-top py-16">
-        <div className="prose max-w-none">
-          <h1>{slug === 'home' || !slug ? 'Willkommen' : 'Seite'}</h1>
-          <p>
-            Die Datenbank ist gerade nicht erreichbar. Bitte später erneut versuchen oder Admin
-            prüfen.
-          </p>
-          <p>
-            <Link href="/admin" className="underline">
-              Zum Admin
-            </Link>
-          </p>
-        </div>
-      </article>
-    )
-  }
-
-  // Admin preview: load by document ID so preview works even when draft cookie isn't sent in iframe
-  const rawPreviewId = previewId && previewId !== 'undefined' ? String(previewId).trim() : ''
-  const previewIdNum = rawPreviewId ? Number(rawPreviewId) : NaN
-  const validPreviewId = rawPreviewId && Number.isFinite(previewIdNum) ? previewIdNum : null
-  if (validPreviewId != null) {
-    try {
-      const pageById = await payload.findByID({
-        collection: 'site-pages',
-        id: validPreviewId,
-        depth: 2,
-        draft: true,
-      })
-      if (pageById) {
-        const previewSlug = typeof pageById.slug === 'string' ? pageById.slug : ''
-        const previewResolvedLayoutBlocks = await resolveSharedPortfolioContent(
-          previewSlug,
-          resolveLayoutBlocks(previewSlug, pageById.layout),
-        )
-        const previewFirstBlock = previewResolvedLayoutBlocks[0]
-        const previewFirstBlockBackground =
-          previewFirstBlock &&
-          typeof previewFirstBlock === 'object' &&
-          previewFirstBlock !== null &&
-          'blockBackground' in previewFirstBlock
-            ? ((previewFirstBlock as { blockBackground?: string | null }).blockBackground ?? 'none')
-            : 'none'
-        const previewNextSectionBackground = getNextSectionBackgroundValue(
-          previewFirstBlockBackground,
-        )
-        const previewFirstBlockIsServices =
-          previewFirstBlock &&
-          typeof previewFirstBlock === 'object' &&
-          'blockType' in previewFirstBlock &&
-          (previewFirstBlock as { blockType?: string }).blockType === 'servicesOverview'
-        const previewEffectiveSlug =
-          typeof pageById.slug === 'string' && pageById.slug.trim().length > 0
-            ? pageById.slug.trim().toLowerCase()
-            : previewSlug.trim().toLowerCase()
-        const previewTitle =
-          typeof pageById.title === 'string' ? pageById.title.trim().toLowerCase() : ''
-        const previewIsPortfolioPage =
-          previewEffectiveSlug === 'portfolio' ||
-          previewEffectiveSlug.startsWith('portfolio-') ||
-          previewTitle.includes('portfolio')
-        const previewIsPricesPage =
-          previewEffectiveSlug === 'preise' || previewTitle.includes('preise')
-        const previewIsProfilePage =
-          previewEffectiveSlug === 'profil' || previewTitle.includes('profil')
-        const previewIsWebdesignPage =
-          previewEffectiveSlug === 'webdesign' || previewTitle.includes('webdesign')
-        const previewIsCorporateIdentityPage =
-          isCorporateIdentityPageSlug(previewEffectiveSlug) ||
-          isCorporateIdentityPageTitle(previewTitle)
-        const previewIsContentPage = isContentPage(previewEffectiveSlug, previewTitle)
-        const previewIsSemPage = isSemPage(previewEffectiveSlug, previewTitle)
-        const previewIsSeoPage = isSeoPage(previewEffectiveSlug, previewTitle)
-        const previewIsPresentationPage = isPresentationPage(previewEffectiveSlug, previewTitle)
-        const previewIsPrintPage = isPrintPage(previewEffectiveSlug, previewTitle)
-        const previewIsLogoPage = isLogoPage(previewEffectiveSlug, previewTitle)
-        const previewIsBrandStrategyPage = isBrandStrategyPage(previewEffectiveSlug, previewTitle)
-        const previewIsAutomationPage = isAutomationPage(previewEffectiveSlug, previewTitle)
-        const previewHasServiceFaqBox =
-          previewIsWebdesignPage ||
-          previewIsCorporateIdentityPage ||
-          previewIsContentPage ||
-          previewIsSemPage ||
-          previewIsSeoPage ||
-          previewIsPresentationPage ||
-          previewIsPrintPage ||
-          previewIsLogoPage ||
-          previewIsBrandStrategyPage ||
-          previewIsAutomationPage
-        const previewHasDedicatedFaqBox =
-          previewIsPricesPage ||
-          previewIsProfilePage ||
-          previewIsWebdesignPage ||
-          previewIsCorporateIdentityPage ||
-          previewIsContentPage ||
-          previewIsSemPage ||
-          previewIsSeoPage ||
-          previewIsPresentationPage ||
-          previewIsPrintPage ||
-          previewIsLogoPage ||
-          previewIsBrandStrategyPage ||
-          previewIsAutomationPage
-        const previewShouldAddDefaultCta =
-          previewHasServiceFaqBox ||
-          (previewIsPortfolioPage &&
-            (previewEffectiveSlug === 'portfolio' ||
-              (previewEffectiveSlug.startsWith('portfolio-') &&
-                previewEffectiveSlug !== 'portfolio-marketing')))
-        const previewLayoutBlocks = previewShouldAddDefaultCta
-          ? appendDefaultCtaBlock(previewResolvedLayoutBlocks, {
-              slug: previewEffectiveSlug,
-              title: pageById.title,
-              section: previewHasServiceFaqBox ? 'leistung' : 'portfolio',
-            })
-          : previewResolvedLayoutBlocks
-        const previewFirstCtaIndex = previewLayoutBlocks.findIndex(
-          (block) =>
-            block && typeof block === 'object' && 'blockType' in block && block.blockType === 'cta',
-        )
-        const previewRenderFaqAfterCta =
-          previewIsPortfolioPage && !previewHasDedicatedFaqBox && previewFirstCtaIndex >= 0
-        const previewRenderFaqAtEnd =
-          previewIsPortfolioPage && !previewHasDedicatedFaqBox && previewFirstCtaIndex < 0
-        const previewBlocksBeforeAndIncludingCta = previewRenderFaqAfterCta
-          ? previewLayoutBlocks.slice(0, previewFirstCtaIndex + 1)
-          : previewLayoutBlocks
-        const previewBlocksAfterCta = previewRenderFaqAfterCta
-          ? previewLayoutBlocks.slice(previewFirstCtaIndex + 1)
-          : []
-        const previewIsSuperheroHero =
-          pageById.hero &&
-          typeof pageById.hero === 'object' &&
-          'type' in pageById.hero &&
-          (pageById.hero as { type?: string }).type === 'superhero'
-
-        return (
-          <article
-            className={cn('hero-safe-top', previewIsSuperheroHero && 'hero-shell--superhero')}
-            style={{ ['--hero-next-section-bg' as string]: previewNextSectionBackground }}
-          >
-            <div
-              className={cn(
-                'relative isolate',
-                previewIsSuperheroHero ? 'z-[36]' : 'z-[32]',
-              )}
-            >
-              <SectionReveal>
-                <HeroErrorBoundary>
-                  <RenderHero {...pageById.hero} pageSlug={previewSlug} />
-                </HeroErrorBoundary>
-              </SectionReveal>
-            </div>
-            <div
-              className={cn(
-                'relative w-full min-w-0 hero-following-section-mask',
-                previewFirstBlockIsServices
-                  ? cn(
-                      'hero-following-section--services-flush mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
-                      previewIsSuperheroHero ? 'z-auto' : 'z-20 lg:z-[33]',
-                    )
-                  : previewIsSuperheroHero
-                    ? 'z-auto mt-0 pt-24'
-                    : 'z-20 max-md:pt-8 pt-24 md:z-[31]',
-              )}
-            >
-                <SectionReveal
-                  className={cn(
-                    'relative',
-                    previewIsSuperheroHero ? 'pt-24' : 'z-0 pt-24',
-                    previewIsSuperheroHero && 'hero-following-section-foreground',
-                  )}
-                >
-                <RenderBlocks blocks={previewBlocksBeforeAndIncludingCta} />
-                {previewRenderFaqAfterCta && <PortfolioFaqBox faq={pageById.faq} />}
-                {previewBlocksAfterCta.length > 0 && (
-                  <RenderBlocks blocks={previewBlocksAfterCta} />
-                )}
-                {previewRenderFaqAtEnd && <PortfolioFaqBox faq={pageById.faq} />}
-                {previewIsPricesPage && <PreiseFaqBox faq={pageById.faq} />}
-                {previewIsProfilePage && <ProfilFaqBox faq={pageById.faq} />}
-                {previewIsWebdesignPage && <WebdesignFaqBox faq={pageById.faq} />}
-                {previewIsCorporateIdentityPage && <CorporateIdentityFaqBox faq={pageById.faq} />}
-                {previewIsContentPage && <ContentFaqBox faq={pageById.faq} />}
-                {previewIsSemPage && <SemFaqBox faq={pageById.faq} />}
-                {previewIsSeoPage && <SeoFaqBox faq={pageById.faq} />}
-                {previewIsPresentationPage && <LeistungenFaqBox faq={pageById.faq} />}
-                {previewIsPrintPage && <LeistungenFaqBox faq={pageById.faq} />}
-                {previewIsLogoPage && <LeistungenFaqBox faq={pageById.faq} />}
-                {previewIsBrandStrategyPage && <LeistungenFaqBox faq={pageById.faq} />}
-                {previewIsAutomationPage && <LeistungenFaqBox faq={pageById.faq} />}
-                {isHomePageSlug(previewSlug) && <Faq8 faq={pageById.faq} />}
-              </SectionReveal>
-            </div>
-          </article>
-        )
-      }
-    } catch {
-      // Invalid or missing id, fall through to slug lookup
-    }
-  }
 
   const resolvedSlug = slug || 'home'
 

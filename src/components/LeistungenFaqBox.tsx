@@ -1,6 +1,7 @@
 import React from 'react'
 import { PageFaqBox, type EditablePageFaq } from '@/components/PageFaqBox'
 import type { FaqCategory } from '@/components/ui/faq-8.data'
+import type { Locale } from '@/utilities/locale'
 
 export const leistungenFaqCategories: FaqCategory[] = [
   {
@@ -191,10 +192,12 @@ export const leistungenFaqFallback = {
 
 export function LeistungenFaqBox({
   faq,
+  locale = 'de',
 }: {
   faq?: EditablePageFaq | null
+  locale?: Locale
 }): React.JSX.Element | null {
-  return <PageFaqBox faq={faq} fallback={leistungenFaqFallback} />
+  return <PageFaqBox faq={faq} fallback={leistungenFaqFallback} locale={locale} />
 }
 
 export default LeistungenFaqBox

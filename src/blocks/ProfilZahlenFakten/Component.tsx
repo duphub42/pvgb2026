@@ -4,15 +4,18 @@ import type { ProfilZahlenFaktenBlock as BlockData } from '@/payload-types'
 
 import { profilZahlenFaktenDefaults } from '@/blocks/ProfilBlocks/defaults'
 import { Card } from '@/components/ui/card'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
+import type { Locale } from '@/utilities/locale'
 import { cn } from '@/utilities/ui'
 
-type Props = BlockData & { disableInnerContainer?: boolean }
+type Props = BlockData & { disableInnerContainer?: boolean; locale?: Locale }
 type ZahlItem = NonNullable<NonNullable<BlockData['items']>[number]>
 
 export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
   disableInnerContainer: _d,
   sectionTitle,
   items,
+  locale = 'de',
 }) => {
   const fromCms = (items ?? []).filter((z): z is ZahlItem =>
     Boolean(z && String(z.zahl ?? '').trim() && String(z.bezeichnung ?? '').trim()),
@@ -21,6 +24,8 @@ export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
     fromCms.length > 0
       ? fromCms
       : profilZahlenFaktenDefaults.map((z) => ({ zahl: z.zahl, bezeichnung: z.bezeichnung }))
+  const localizedRows = translateValueForLocale(rows, locale)
+  const localizedSectionTitle = translateValueForLocale(sectionTitle, locale)
 
   const n = rows.length
   const gridCols =
@@ -37,13 +42,13 @@ export const ProfilZahlenFaktenBlock: React.FC<Props> = ({
       )}
     >
       <div className="container">
-        {sectionTitle ? (
+        {localizedSectionTitle ? (
           <h2 className="mb-10 text-center text-xl font-semibold tracking-tight text-foreground md:text-2xl">
-            {sectionTitle}
+            {localizedSectionTitle}
           </h2>
         ) : null}
         <div className={cn('grid gap-4 md:gap-6', gridCols)}>
-          {rows.map((z, i) => (
+          {localizedRows.map((z, i) => (
             <Card
               key={
                 typeof (z as { id?: unknown }).id === 'string'

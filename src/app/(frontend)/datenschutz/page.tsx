@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { draftMode } from 'next/headers'
 import { getPayload, type Payload } from 'payload'
 
 import configPromise from '@payload-config'
@@ -11,6 +10,7 @@ import { generateMeta } from '@/utilities/generateMeta'
 import type { Footer as FooterGlobal, SitePage } from '@/payload-types'
 
 export const revalidate = false
+export const dynamic = 'force-static'
 
 const LAST_UPDATED = '11. April 2026'
 const LEGAL_NAME = 'Philipp Bacher'
@@ -39,10 +39,6 @@ const DEFAULT_METADATA: Metadata = {
   description: 'Informationen zur Verarbeitung personenbezogener Daten auf dieser Website.',
 }
 
-type PageProps = {
-  searchParams: Promise<{ previewId?: string }>
-}
-
 async function fetchSitePageBySlug(payload: Payload, slug: string, draft: boolean) {
   const pages = await payload.find({
     collection: 'site-pages',
@@ -58,28 +54,10 @@ async function fetchSitePageBySlug(payload: Payload, slug: string, draft: boolea
   return pages.docs[0] as SitePage | undefined
 }
 
-async function findSitePage(slug: string, previewId: string | undefined) {
-  const { isEnabled: isDraftMode } = await draftMode()
-  const rawPreviewId = previewId && previewId !== 'undefined' ? String(previewId).trim() : ''
-  const previewIdNum = rawPreviewId ? Number(rawPreviewId) : NaN
-  const validPreviewId = rawPreviewId && Number.isFinite(previewIdNum) ? previewIdNum : null
-
+async function findSitePage(slug: string) {
   const payload = await getPayload({ config: configPromise })
 
-  if (validPreviewId != null) {
-    const pageById = await payload.findByID({
-      collection: 'site-pages',
-      id: validPreviewId,
-      depth: 2,
-      draft: true,
-    })
-
-    if (pageById) {
-      return pageById
-    }
-  }
-
-  return fetchSitePageBySlug(payload, 'datenschutz', isDraftMode)
+  return fetchSitePageBySlug(payload, slug, false)
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -96,7 +74,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return DEFAULT_METADATA
 }
 
-export default async function DatenschutzPage({ searchParams: searchParamsPromise }: PageProps) {
+export default async function DatenschutzPage() {
   let footer: FooterGlobal | null = null
 
   try {
@@ -105,7 +83,7 @@ export default async function DatenschutzPage({ searchParams: searchParamsPromis
     // Fallback-Inhalte greifen automatisch.
   }
 
-  const page = await findSitePage('datenschutz', (await searchParamsPromise).previewId)
+  const page = await findSitePage('datenschutz')
   if (page) {
     const slug = 'datenschutz'
     const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}

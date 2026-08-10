@@ -1,6 +1,7 @@
 'use client'
 
 import React, { useMemo } from 'react'
+import { usePathname } from 'next/navigation'
 import {
   Code,
   Compass,
@@ -22,6 +23,7 @@ import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 
 import { cn } from '@/utilities/ui'
 import { BlockContainer } from '@/components/BlockContainer'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
 
 import './services-overview-card-hover.css'
 
@@ -75,6 +77,8 @@ type ServicesOverviewProps = ServicesOverviewBlockData & {
 type ServicesOverviewLayoutMode = 'cards' | 'columns'
 
 export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) => {
+  const pathname = usePathname()
+  const isEnglish = pathname?.startsWith('/en') === true
   const {
     disableInnerContainer: _disableInnerContainer,
     heading: _heading,
@@ -105,17 +109,17 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
       return rows.map((s, idx) => ({
         key: (typeof s.id === 'string' && s.id) || `service-${idx}-${String(s.title).slice(0, 24)}`,
         iconKey: typeof s.icon === 'string' && s.icon in ICON_MAP ? s.icon : 'compass',
-        title: String(s.title).trim(),
-        description: String(s.description).trim(),
+        title: translateValueForLocale(String(s.title).trim(), isEnglish ? 'en' : 'de'),
+        description: translateValueForLocale(String(s.description).trim(), isEnglish ? 'en' : 'de'),
       }))
     }
     return STATIC_FALLBACK.map((s, idx) => ({
       key: `fallback-${idx}-${s.title}`,
       iconKey: s.icon,
-      title: s.title,
-      description: s.description,
+      title: translateValueForLocale(s.title, isEnglish ? 'en' : 'de'),
+      description: translateValueForLocale(s.description, isEnglish ? 'en' : 'de'),
     }))
-  }, [services])
+  }, [services, isEnglish])
 
   const desktopColsClass = items.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
 
@@ -131,12 +135,12 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
         >
           {_heading ? (
             <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
-              {String(_heading)}
+              {translateValueForLocale(String(_heading), isEnglish ? 'en' : 'de')}
             </p>
           ) : null}
           {_intro ? (
             <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
-              {String(_intro)}
+              {translateValueForLocale(String(_intro), isEnglish ? 'en' : 'de')}
             </p>
           ) : null}
         </div>

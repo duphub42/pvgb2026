@@ -9,7 +9,6 @@ import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
-import { draftMode } from 'next/headers'
 
 import React from 'react'
 import { RootLayoutInner } from '@/app/(frontend)/RootLayoutInner.client'
@@ -21,6 +20,7 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { DesignStyles } from '@/components/DesignStyles'
 import { ThemeSettingsStyles } from '@/components/ThemeSettingsStyles'
 import { DeferredSiteTools } from '@/components/DeferredSiteTools/DeferredSiteTools'
+import { StaticTranslationHydrator } from '@/components/LanguageSwitcher/StaticTranslationHydrator'
 import { safeJsonLd } from '@/utilities/structuredData'
 import type { DesignDoc } from '@/utilities/designToCss'
 import type { Footer as FooterGlobal, Header as HeaderGlobal } from '@/payload-types'
@@ -159,8 +159,6 @@ function formatUnknownError(error: unknown): string {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   try {
-    // Keep frontend layout cache-friendly in production. Draft mode is only read in development.
-    const isEnabled = process.env.NODE_ENV === 'development' ? (await draftMode()).isEnabled : false
     const locale = 'de'
 
     let design: DesignDoc = null
@@ -242,7 +240,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         </head>
         <body data-layout="default">
           <Providers initialLocale={locale}>
-            <AdminBarGate preview={isEnabled} adminBarProps={{ preview: isEnabled }} />
+            <AdminBarGate preview={false} adminBarProps={{ preview: false }} />
             <Header headerData={headerData} footerData={footerData} />
             <RootLayoutInner>
               <main id="main-content" key="main-content" className="min-h-[100svh]">
@@ -250,6 +248,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               </main>
               <Footer key="site-footer" locale={locale} footerData={footerData} />
             </RootLayoutInner>
+            <StaticTranslationHydrator />
             <DeferredSiteTools />
           </Providers>
           {process.env.NODE_ENV === 'development' && process.env.PINY_VISUAL_SELECT === 'true' && (

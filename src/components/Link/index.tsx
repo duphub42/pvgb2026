@@ -6,6 +6,8 @@ import NextLink from 'next/link'
 import React from 'react'
 
 import type { SitePage, BlogPost } from '@/payload-types'
+import { localizePathname } from '@/i18n/routing'
+import type { Locale } from '@/utilities/locale'
 
 /** Fallback wenn next/link im Client-Bundle undefined ist (verhindert "Cannot read properties of undefined (reading 'call')"). */
 function LinkFallback(props: React.AnchorHTMLAttributes<HTMLAnchorElement> & { href?: string }) {
@@ -18,6 +20,19 @@ type LucideIconName = (typeof iconNames)[number]
 const findLucideIconName = (candidate: string): LucideIconName | null => {
   const found = iconNames.find((iconName) => iconName === candidate)
   return found ?? null
+}
+
+function localizeInternalHref(href: string, locale: Locale): string {
+  const value = href.trim()
+  if (locale !== 'en') return value
+  if (!value) return value
+  if (/^(?:[a-z][a-z\d+\-.]*:)?\/\//i.test(value)) return value
+  if (/^(?:mailto|tel):/i.test(value)) return value
+  if (value.startsWith('#')) return value
+  if (/\.[a-z0-9]{2,5}(?:[?#].*)?$/i.test(value)) return value
+  if (value.startsWith('/')) return localizePathname(value, 'en')
+  if (/^[a-z0-9][a-z0-9/_-]*(?:[?#].*)?$/i.test(value)) return localizePathname(`/${value}`, 'en')
+  return value
 }
 
 type CMSLinkType = {
@@ -35,6 +50,7 @@ type CMSLinkType = {
   /** Swap icon shown on hover. Falls back to ArrowUpRight. */
   iconSwapTo?: string | null
   label?: string | null
+  locale?: Locale
   newTab?: boolean | null
   reference?: {
     relationTo: 'site-pages' | 'blog-posts' | 'pages' | 'posts' // 'pages'/'posts' = legacy/cache
@@ -57,6 +73,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
     iconSwapFrom,
     iconSwapTo,
     label,
+    locale = 'de',
     newTab,
     reference,
     size: sizeFromProps,
@@ -73,6 +90,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
       : url
 
   if (!href) return null
+  const localizedHref = localizeInternalHref(href, locale)
 
   // Keep legacy stored value "default" but render it as the shared CTA style.
   const resolvedAppearance = appearance === 'default' ? 'cta' : appearance
@@ -122,7 +140,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   if (appearance === 'inline') {
     return (
-      <Link className={cn(className)} href={href || url || ''} {...newTabProps}>
+      <Link className={cn(className)} href={localizedHref || url || ''} {...newTabProps}>
         {linkContent}
       </Link>
     )
@@ -156,7 +174,7 @@ export const CMSLink: React.FC<CMSLinkType> = (props) => {
 
   return (
     <Button asChild className={className} size={size} variant={buttonVariant}>
-      <Link href={href || url || ''} {...newTabProps}>
+      <Link href={localizedHref || url || ''} {...newTabProps}>
         {buttonContent}
       </Link>
     </Button>

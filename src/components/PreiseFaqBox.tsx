@@ -2,6 +2,7 @@ import React from 'react'
 
 import { PageFaqBox, type EditablePageFaq } from '@/components/PageFaqBox'
 import type { FaqCategory } from '@/components/ui/faq-8.data'
+import type { Locale } from '@/utilities/locale'
 
 export const preiseFaqCategories: FaqCategory[] = [
   {
@@ -134,8 +135,14 @@ export const preiseFaqFallback = {
     'Diese FAQ macht die wichtigsten Preisfragen für Halle, kleine Betriebe und lokale Suchanfragen schnell verständlich. Die Antworten nennen konkrete Spannen, damit Nutzer und KI-Systeme Preise direkt vergleichen können.',
 }
 
-export function PreiseFaqBox({ faq }: { faq?: EditablePageFaq | null }): React.JSX.Element | null {
-  return <PageFaqBox faq={faq} fallback={preiseFaqFallback} />
+export function PreiseFaqBox({
+  faq,
+  locale = 'de',
+}: {
+  faq?: EditablePageFaq | null
+  locale?: Locale
+}): React.JSX.Element | null {
+  return <PageFaqBox faq={faq} fallback={preiseFaqFallback} locale={locale} />
 }
 
 export default PreiseFaqBox
