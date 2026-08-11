@@ -702,10 +702,10 @@ export function HeaderActions({
 }) {
   return (
     <div className={cn('relative z-20 flex items-center gap-0.5', className)}>
+      <LanguageSwitcher variant="icon-menu" />
       <ThemeSwitcher />
       <HeaderContactModal cta={contactCta} />
       <SearchCommand />
-      <LanguageSwitcher variant="icon-menu" />
     </div>
   )
 }

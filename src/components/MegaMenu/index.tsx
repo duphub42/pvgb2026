@@ -3279,11 +3279,11 @@ export function MegaMenu({
                             )}
                           </div>
                           <div className="mobile-megamenu-utility-actions">
+                            <LanguageSwitcher className="mobile-megamenu-language-switcher" />
                             <ThemeSwitcher
                               variant="switch"
                               className="mobile-megamenu-theme-toggle shrink-0"
                             />
-                            <LanguageSwitcher className="mobile-megamenu-language-switcher" />
                             <button
                               type="button"
                               className="mobile-megamenu-trigger-btn mobile-megamenu-trigger-btn--plain inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
