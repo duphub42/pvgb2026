@@ -5,7 +5,7 @@ import { useTheme } from '@/providers/Theme'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { cn } from '@/utilities/ui'
 
 import type { Header, Media as MediaType } from '@/payload-types'
@@ -13,9 +13,12 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 import dynamic from 'next/dynamic'
+import { Mail, Menu, Search } from 'lucide-react'
 import { Logo } from '@/components/Logo/Logo'
 import { LogoWithGlitch } from '@/components/Logo/LogoWithGlitch'
 import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher'
+import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher'
 import type { MegaMenuCta, MegaMenuItem } from '@/components/MegaMenu'
 import { HeaderNav } from './Nav'
 import { useLocale } from '@/providers/Locale/LocaleContext'
@@ -54,6 +57,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const [isScrolled, setIsScrolled] = useState(false)
   const [revealFromTop, setRevealFromTop] = useState(false)
   const [hideToTop, setHideToTop] = useState(false)
+  const [megaMenuHydrated, setMegaMenuHydrated] = useState(false)
+  const [openMobileMenuOnHydrate, setOpenMobileMenuOnHydrate] = useState(false)
   const logoPreviewTimeoutRef = useRef<number | null>(null)
   const lastScrollYRef = useRef(0)
   const isPastFoldRef = useRef(false)
@@ -67,7 +72,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const homeHref = locale === 'en' ? localizePathname('/', 'en') : '/'
   const pathname = usePathname()
   const [hasHydrated, setHasHydrated] = useState(false)
-  const effectivePathname = hasHydrated ? pathname ?? '/' : '/'
+  const effectivePathname = hasHydrated ? (pathname ?? '/') : '/'
   const normalizedPathname = effectivePathname.replace(/\/+$/, '') || '/'
   const isHomePath = normalizedPathname === '/' || normalizedPathname === '/home'
   const shouldUseMegaMenu =
@@ -118,20 +123,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
       return
     }
 
-    // Always start with the full site logo, then morph to B-logo after intro playback.
-    setLogoMorphReady(false)
-    setLogoPreviewActive(true)
+    // Sub pages start directly in the compact, stable logo state. This avoids the
+    // full logo and compact B-logo appearing as two separate rows while the header hydrates.
+    setLogoPreviewActive(false)
+    setLogoMorphReady(true)
 
     if (logoIntroTimeoutRef.current) {
       window.clearTimeout(logoIntroTimeoutRef.current)
       logoIntroTimeoutRef.current = null
     }
-
-    logoIntroTimeoutRef.current = window.setTimeout(() => {
-      setLogoPreviewActive(false)
-      setLogoMorphReady(true)
-      logoIntroTimeoutRef.current = null
-    }, 1900)
 
     return () => {
       if (logoIntroTimeoutRef.current) {
@@ -335,32 +335,148 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     }, 600)
   }
 
-  const renderLogoLink = (disableAnimation?: boolean) => (
+  const renderLogoLink = (disableAnimation?: boolean) =>
     isHomePath ? (
-      <Link href={homeHref} aria-label="Zur Startseite" className="logo-link relative flex items-center shrink-0">
+      <Link
+        href={homeHref}
+        aria-label="Zur Startseite"
+        className="logo-link relative flex items-center shrink-0"
+      >
         {renderPrimaryLogo(disableAnimation)}
       </Link>
     ) : (
-    <Link
-      href={homeHref}
-      className="logo-link relative flex items-center shrink-0"
-      data-logo-morph-ready={logoMorphReady ? 'true' : 'false'}
-      data-logo-preview-active={logoPreviewActive ? 'true' : 'false'}
-      onMouseEnter={handleLogoMouseEnter}
-      onMouseLeave={handleLogoMouseLeave}
-    >
-      <span className="header-logo-slot header-logo-slot--default">
-        {renderPrimaryLogo(disableAnimation)}
-      </span>
-      <span className="header-logo-slot header-logo-slot--sticky" aria-hidden="true">
-        {renderStickyLogo()}
-      </span>
-    </Link>
+      <Link
+        href={homeHref}
+        className="logo-link relative flex items-center shrink-0"
+        data-logo-morph-ready={logoMorphReady ? 'true' : 'false'}
+        data-logo-preview-active={logoPreviewActive ? 'true' : 'false'}
+        onMouseEnter={handleLogoMouseEnter}
+        onMouseLeave={handleLogoMouseLeave}
+      >
+        <span className="header-logo-slot header-logo-slot--default">
+          {renderPrimaryLogo(disableAnimation)}
+        </span>
+        <span className="header-logo-slot header-logo-slot--sticky" aria-hidden="true">
+          {renderStickyLogo()}
+        </span>
+      </Link>
     )
-  )
 
   const desktopLogoEl = renderLogoLink()
   const mobileLogoEl = renderPrimaryLogo(true)
+
+  const handleMegaMenuHydrated = useCallback(() => {
+    setMegaMenuHydrated(true)
+  }, [])
+
+  const renderMegaMenuShell = () => {
+    const visibleItems = resolvedMegaMenuItems.slice(0, 6)
+    const contactHref = localizePathname('/kontakt', locale)
+    const searchHref = localizePathname('/search', locale)
+
+    return (
+      <>
+        <HeaderGlassPlate
+          glassActive={isPastFold || isScrolled}
+          hideToTop={hideToTop}
+          isVisible={headerVisible}
+          revealFromTop={revealFromTop}
+        />
+        <header
+          suppressHydrationWarning
+          className="megamenu z-50 w-full"
+          data-scrolled={isScrolled ? 'true' : undefined}
+          data-sticky={isPastFold ? 'true' : undefined}
+          data-header-shell="true"
+          {...(resolvedTheme ? { 'data-theme': resolvedTheme } : {})}
+        >
+          <div
+            className={cn(
+              'header-slide-layer transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)]',
+              'header-glass-border',
+              revealFromTop && 'header-reveal-from-top',
+              hideToTop && 'header-hide-to-top',
+              headerVisible || hideToTop
+                ? 'translate-y-0 opacity-100 visible'
+                : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
+            )}
+          >
+            <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
+              <div className="header-main-row flex flex-1 items-stretch justify-between">
+                <Link
+                  href={homeHref}
+                  aria-label="Zur Startseite"
+                  className="logo-link relative flex shrink-0 items-center"
+                >
+                  <span className="hidden items-center lg:inline-flex">
+                    {renderPrimaryLogo(true)}
+                  </span>
+                  <Image
+                    src={HEADER_B_LOGO_SRC}
+                    alt=""
+                    aria-hidden="true"
+                    className="header-b-logo logo-contrast lg:hidden"
+                    width={40}
+                    height={42}
+                    priority
+                  />
+                </Link>
+                <div className="flex h-full items-stretch gap-4">
+                  <nav
+                    className="megamenu-nav flex h-full flex-initial lg:ml-auto max-lg:hidden"
+                    aria-label="Hauptnavigation"
+                  >
+                    <div className="megamenu-nav-list-wrap relative flex h-full flex-1 justify-end">
+                      <div className="megamenu-nav-list h-full justify-end">
+                        {visibleItems.map((item, index) => (
+                          <Link
+                            key={`${item.url}-${item.label}-${index}`}
+                            href={localizePathname(item.url || '/', locale)}
+                            className="megamenu-top-item inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  </nav>
+                  <div className="hidden items-center gap-0 lg:flex">
+                    <LanguageSwitcher variant="icon-menu" />
+                    <ThemeSwitcher />
+                    <Link
+                      href={contactHref}
+                      className="header-tool-toggle header-icon-btn inline-flex shrink-0 items-center justify-center text-current"
+                      aria-label="Kontakt öffnen"
+                    >
+                      <Mail className="h-5 w-5" aria-hidden />
+                    </Link>
+                    <Link
+                      href={searchHref}
+                      className="header-tool-toggle header-icon-btn inline-flex shrink-0 items-center justify-center text-current"
+                      aria-label="Suchen"
+                    >
+                      <Search className="h-5 w-5" aria-hidden />
+                    </Link>
+                  </div>
+                  <div className="flex shrink-0 items-center lg:hidden">
+                    <button
+                      type="button"
+                      className="mobile-megamenu-trigger-btn inline-flex h-12 w-12 min-h-[44px] min-w-[44px] shrink-0 touch-manipulation items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
+                      aria-label="Menü öffnen"
+                      aria-expanded={false}
+                      onClick={() => setOpenMobileMenuOnHydrate(true)}
+                    >
+                      <Menu className="h-7 w-7" aria-hidden />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </header>
+      </>
+    )
+  }
 
   if (useMegaMenu) {
     const layout = data?.megaMenuLayout
@@ -442,15 +558,21 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
       hoverBorder: d?.megaMenuCardHoverBorder ?? 'hover:border-primary/40',
     }
     return (
-      <MegaMenu
-        items={resolvedMegaMenuItems}
-        logo={desktopLogoEl}
-        mobileLogo={mobileLogoEl}
-        columnWidths={columnWidths}
-        megaMenuCta={hasCta ? megaMenuCta : undefined}
-        highlightCardStyle={highlightCardStyle}
-        mobileDockPhone={mobileDockPhone}
-      />
+      <>
+        {!megaMenuHydrated && renderMegaMenuShell()}
+        <MegaMenu
+          items={resolvedMegaMenuItems}
+          logo={desktopLogoEl}
+          mobileLogo={mobileLogoEl}
+          className={megaMenuHydrated ? '' : 'hidden pointer-events-none'}
+          onHydrated={handleMegaMenuHydrated}
+          openMobileMenuOnMount={openMobileMenuOnHydrate}
+          columnWidths={columnWidths}
+          megaMenuCta={hasCta ? megaMenuCta : undefined}
+          highlightCardStyle={highlightCardStyle}
+          mobileDockPhone={mobileDockPhone}
+        />
+      </>
     )
   }
 

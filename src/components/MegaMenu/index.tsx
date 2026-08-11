@@ -795,6 +795,8 @@ type MegaMenuProps = {
   logo?: React.ReactNode
   mobileLogo?: React.ReactNode
   className?: string
+  onHydrated?: () => void
+  openMobileMenuOnMount?: boolean
   /** Spaltenbreiten: Inhalt und Highlight (12er-Grid). `sidebar` wird nicht mehr fürs Layout genutzt. */
   columnWidths?: {
     sidebar?: number
@@ -1267,6 +1269,8 @@ export function MegaMenu({
   logo,
   mobileLogo,
   className = '',
+  onHydrated,
+  openMobileMenuOnMount = false,
   columnWidths,
   megaMenuCta,
   highlightCardStyle,
@@ -1285,8 +1289,8 @@ export function MegaMenu({
   const lastScrollYRef = React.useRef(0)
   const isPastFoldRef = React.useRef(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [mobileMenuIconActive, setMobileMenuIconActive] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(openMobileMenuOnMount)
+  const [mobileMenuIconActive, setMobileMenuIconActive] = useState(openMobileMenuOnMount)
   const [mobileUtilityControlsReady, setMobileUtilityControlsReady] = useState(false)
   const [mobileActivePrimary, setMobileActivePrimary] = useState<string | null>(null)
   const [mobileDockPendingActionKey, setMobileDockPendingActionKey] = useState<string | null>(null)
@@ -1309,6 +1313,17 @@ export function MegaMenu({
   const mobileMenuCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileMenuIconOpenRafRef = useRef<number | null>(null)
   const mobileUtilityControlsReadyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    onHydrated?.()
+  }, [onHydrated])
+
+  useEffect(() => {
+    if (!openMobileMenuOnMount) return
+    setMobileMenuOpen(true)
+    setMobileMenuIconActive(true)
+  }, [openMobileMenuOnMount])
+
   const mobileDockTooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileDockLongPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileDockLongPressTriggeredKeyRef = useRef<string | null>(null)
