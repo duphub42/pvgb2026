@@ -406,6 +406,150 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Ergebnisse aus realen Projekten': 'Results From Real Projects',
   'AUSGEWÄHLTE CASES': 'SELECTED CASES',
   'Ausgewählte Cases': 'Selected Cases',
+  'Projekt ansehen': 'View project',
+  Industrie: 'Industry',
+  'Mittelstaendisches B2B-Unternehmen': 'Mid-sized B2B Company',
+  'Relaunch Unternehmenswebsite': 'Corporate Website Relaunch',
+  'Modernisierung von Struktur, UI und Performance für bessere Nutzerführung und Conversion.':
+    'Modernization of structure, UI and performance for clearer user guidance and better conversion.',
+  'Diese Referenzen zeigen, wie aus Strategie, Design und Umsetzung konkrete Resultate entstehen. Jeder Case macht nachvollziehbar, welche Ausgangslage vorlag, welche Entscheidungen getroffen wurden und welche messbaren Effekte daraus entstanden sind.':
+    'These references show how strategy, design and implementation become concrete results. Each case makes clear what the starting point was, which decisions were made and which measurable effects followed.',
+  'SEO- und Lead-Setup für gezielte Anfragen zu Leitungswasser-Testungen: Fachartikel, Landingpages, Ads-Bootstrap und kontinuierliche Ranking-Optimierung mit exponentiellem Anfragenwachstum.':
+    'SEO and lead setup for targeted inquiries about drinking-water testing: expert articles, landing pages, ads bootstrap and continuous ranking optimization with exponential inquiry growth.',
+  'Der Verband wurde gezielt gegründet, um qualifizierte Anfragen für Leitungswasser-Testungen zu generieren – ohne bestehende organische Sichtbarkeit oder etablierte Rankings.':
+    'The association was created specifically to generate qualified inquiries for drinking-water testing, starting without existing organic visibility or established rankings.',
+  'Dreimonatige Google-Ads-Phase für frühe Leads, parallel Aufbau des SEO-Fundaments mit Fachartikeln, Landingpages, technischer Optimierung und strategischem Linkbuilding über relevante Verweise.':
+    'A three-month Google Ads phase generated early leads while the SEO foundation was built in parallel through expert articles, landing pages, technical optimization and strategic link building via relevant references.',
+  'Top-3-Rankings für relevante Keywords, durchschnittlich rund 300 organische Besucher pro Tag, im Peak 2024 bis zu 30 Leads täglich – nach der Ads-Phase überwiegend organisch.':
+    'Top-three rankings for relevant keywords, around 300 organic visitors per day on average and up to 30 daily leads at the 2024 peak, mostly organic after the ads phase.',
+  'SEO- und Lead-Plattform für Raumluftmessungen: Fachartikel, Landingpages und die Kombination aus Paid Ads und organischer Suche für starkes Anfragenwachstum.':
+    'SEO and lead platform for indoor-air measurements: expert articles, landing pages and a combination of paid ads and organic search for strong inquiry growth.',
+  'Die Initiative wurde mit dem klaren Ziel aufgebaut, Anfragen für Raumluftmessungen zu generieren – bei fehlender organischer Reichweite zu Projektstart.':
+    'The initiative was built with the clear goal of generating inquiries for indoor-air measurements, starting without organic reach at project launch.',
+  'Dreimonatige Ads-Phase für erste Lead-Ströme, begleitet von Content-Hub, Landingpages, Onpage-SEO und Linkbuilding. Nach drei Monaten setzte der organische Traffic verlässlich ein.':
+    'A three-month ads phase created the first lead flow, supported by a content hub, landing pages, on-page SEO and link building. After three months, organic traffic became reliable.',
+  'Top-3-Rankings für relevante Suchbegriffe, im Schnitt rund 300 organische Zugriffe pro Tag und bis zu 30 Leads pro Tag im Peak 2024 – zusätzlich 10–20 Besucher täglich über strategische Verlinkung.':
+    'Top-three rankings for relevant search terms, around 300 organic visits per day on average and up to 30 leads per day at the 2024 peak, plus 10-20 daily visitors through strategic referrals.',
+  'SEO, Content und gezielte Ads für Workshop-Buchungen und Marken-Reichweite: von null Sichtbarkeit zu Top-Rankings, stabilem Traffic und bis zu 1.000 Besuchern pro Tag.':
+    'SEO, content and targeted ads for workshop bookings and brand reach: from zero visibility to top rankings, stable traffic and up to 1,000 visitors per day.',
+  'Start von null: Keine organische Sichtbarkeit, kein etabliertes Ranking – bei gleichzeitigem Ziel, Workshop-Buchungen und Awareness für non-verbale Kommunikationstrainings aufzubauen.':
+    'Starting from zero: no organic visibility and no established rankings, while aiming to build workshop bookings and awareness for non-verbal communication trainings.',
+  'Onpage-SEO, durchschnittlich fünf Fachartikel pro Woche, strategisches Linkbuilding und sporadische Google-Ads-Kampagnen als gezielter Boost.':
+    'On-page SEO, an average of five expert articles per week, strategic link building and occasional Google Ads campaigns as targeted boosts.',
+  'Top 3 für „Speed Dating“, Top 1 für „non-verbales Speed Dating“, 200–300 Besucher/Tag im Schnitt, Peaks bis 1.000/Tag und ca. 30 Buchungen/Monat im Peakjahr 2019.':
+    'Top three for "speed dating", top one for "non-verbal speed dating", 200-300 visitors per day on average, peaks of up to 1,000 per day and around 30 bookings per month in the 2019 peak year.',
+  'Non-verbales Speed Dating': 'Non-Verbal Speed Dating',
+  'Buchungen / Monat': 'Bookings / Month',
+  Fachartikel: 'Expert Articles',
+  'Leads / Tag (Peak 2024)': 'Leads / Day (Peak 2024)',
+  'Referral-Besucher / Tag': 'Referral Visitors / Day',
+  Organisch: 'Organic',
+  'Performance-Verlauf': 'Performance Trend',
+  'Kanal-Mix (Peak)': 'Channel Mix (Peak)',
+  'Organischer Traffic / Tag': 'Organic Traffic / Day',
+  'Leads / Buchungen': 'Leads / Bookings',
+  'Organischer Traffic / Tag Entwicklung': 'Organic Traffic / Day Trend',
+  'Leads / Buchungen Entwicklung': 'Leads / Bookings Trend',
+  'KPI-Entwicklung': 'KPI Development',
+  'Traffic- und Lead-Entwicklung': 'Traffic and Lead Development',
+  'Ads-Bootstrap, dann exponentieller SEO-Aufbau bis zum Lead-Peak 2024':
+    'Ads bootstrap, then exponential SEO growth up to the 2024 lead peak',
+  'Paid-Startphase, Content-Hub und Rankings für Raumluft-Leads':
+    'Paid launch phase, content hub and rankings for indoor-air leads',
+  'Von null Sichtbarkeit zu Top-Rankings und Workshop-Buchungen (Peak 2019)':
+    'From zero visibility to top rankings and workshop bookings (2019 peak)',
+  'Projektjahr': 'Project Year',
+  'Responsive Auftritt': 'Responsive Presence',
+  Dentallabor: 'Dental Lab',
+  Medizintechnik: 'Medical Technology',
+  'Digitaler Marken- und Serviceauftritt für ein Dentallabor, der dentale Präzisionstechnik, Team-Kompetenz und direkte Kontaktwege zu einem hochwertigen Web-Erlebnis verbindet.':
+    'Digital brand and service presence for a dental lab, connecting dental precision technology, team expertise and direct contact paths into a high-quality web experience.',
+  'Ein spezialisiertes Dentallabor muss seine technische Präzision schnell vermitteln, ohne kühl oder austauschbar zu wirken. Die Website sollte Laborleistungen, Team-Kompetenz und Serviceangebote so ordnen, dass Zahnarztpraxen direkt verstehen, wofür KIPP Dental steht und wie die Zusammenarbeit abläuft.':
+    'A specialized dental lab needs to communicate technical precision quickly without feeling cold or interchangeable. The website structures lab services, team expertise and service offers so dental practices immediately understand what KIPP Dental stands for and how collaboration works.',
+  'Entwickelt wurde ein fokussierter Auftritt mit klarer Seitenarchitektur, prägnanter Leistungsdarstellung und einer Bildsprache, die Präzisionstechnik und persönliche Betreuung verbindet. Die Inhalte wurden auf schnelle Orientierung, glaubwürdige Expertise und reibungslose Kontaktwege ausgelegt.':
+    'A focused presence was developed with clear page architecture, concise service presentation and imagery that connects precision technology with personal support. The content is designed for quick orientation, credible expertise and frictionless contact paths.',
+  'Das Ergebnis ist eine moderne Labor-Website, die technische Qualität, Serviceverständnis und Markenauftritt konsistent zusammenführt. KIPP Dental präsentiert sich damit digital so hochwertig, wie die eigene Präzisionsarbeit wahrgenommen werden soll.':
+    'The result is a modern lab website that consistently brings together technical quality, service mindset and brand presence. KIPP Dental now presents itself digitally with the same quality its precision work should convey.',
+  'Projektlaufzeit': 'Project Duration',
+  'Jahre Betreuung': 'Years of Support',
+  'Langfristig betreuter Dropshipping-Shop für Wellness- und SPA-Bedarf: von Sortiment und Kategoriearchitektur bis zu nutzerfreundlicher Produktführung und skalierbarer E-Commerce-Basis.':
+    'Long-term supported dropshipping shop for wellness and spa supplies: from assortment and category architecture to user-friendly product guidance and a scalable e-commerce foundation.',
+  'MEDIFISCH verbindet ein breites Sortiment für Wellness- und SPA-Bedarf mit den operativen Anforderungen eines Dropshipping-Modells. Die Herausforderung lag darin, Produktvielfalt, Vertrauen und Kaufentscheidung so zu strukturieren, dass aus einem umfangreichen Angebot ein verständlicher, skalierbarer Vertriebskanal wird.':
+    'MEDIFISCH combines a broad range of wellness and spa supplies with the operational requirements of a dropshipping model. The challenge was to structure product variety, trust and purchasing decisions so that a large assortment becomes a clear, scalable sales channel.',
+  'Über mehrere Projektphasen hinweg wurden Shop-Struktur, Produktlogik, Kategoriearchitektur und conversionnahe Nutzerführung weiterentwickelt. Im Fokus standen klare Einstiege ins Sortiment, belastbare E-Commerce-Prozesse und eine Pflegebasis, die langfristig mit dem Angebot wachsen kann.':
+    'Across several project phases, shop structure, product logic, category architecture and conversion-oriented user guidance were developed further. The focus was on clear entry points into the assortment, reliable e-commerce processes and a maintenance base that can grow with the offer long term.',
+  'Entstanden ist ein langfristig betreuter Online-Shop, der Sortiment, Produktkommunikation und Verkaufsstrecken in einem stabilen digitalen System bündelt. MEDIFISCH kann dadurch ein spezialisiertes Wellness- und SPA-Angebot professionell sichtbar machen und kontinuierlich ausbauen.':
+    'The result is a long-term supported online shop that bundles assortment, product communication and sales paths into a stable digital system. MEDIFISCH can present and continuously expand a specialized wellness and spa offer professionally.',
+  'Verband Digitale Innovation': 'Digital Innovation Association',
+  'Verein für digitale Innovation / Expertennetzwerk':
+    'Association for Digital Innovation / Expert Network',
+  'Verein fuer digitale Innovation / Expertennetzwerk':
+    'Association for Digital Innovation / Expert Network',
+  Verbandsauftritt: 'Association Presence',
+  Expertennetzwerk: 'Expert Network',
+  'Digitale Innovation': 'Digital Innovation',
+  'Verbandsplattform für digitale Innovation, die Expertennetzwerk, Themenkompetenz und lösungsorientierte Kommunikation zu einem glaubwürdigen digitalen Auftritt bündelt.':
+    'Association platform for digital innovation that combines expert network, topic expertise and solution-oriented communication into a credible digital presence.',
+  'Der Verband brauchte einen digitalen Auftritt, der fachliche Autorität, Netzwerkcharakter und Innovationsanspruch gleichzeitig transportiert. Inhalte zu Transformation, Cybersecurity und digitalen Lösungen sollten nicht wie einzelne Themeninseln wirken, sondern als schlüssiges Expertenökosystem sichtbar werden.':
+    'The association needed a digital presence that conveyed professional authority, network character and innovation ambition at the same time. Content around transformation, cybersecurity and digital solutions had to appear as a coherent expert ecosystem rather than isolated topic islands.',
+  'Konzipiert wurde eine Verbandsplattform mit klaren Themenbereichen, lösungsorientierten Einstiegen und einer Kommunikation, die Fachlichkeit greifbar macht. Struktur, Textführung und visuelle Hierarchie wurden darauf ausgelegt, komplexe Digitalthemen verständlich zu rahmen und Vertrauen in das Netzwerk aufzubauen.':
+    'The concept became an association platform with clear topic areas, solution-oriented entry points and communication that makes expertise tangible. Structure, copy flow and visual hierarchy were designed to frame complex digital topics clearly and build trust in the network.',
+  'Das Ergebnis ist ein professioneller Verbandsauftritt, der Mission, Themenkompetenz und Expertennetzwerk in einer klaren Informationsarchitektur verbindet. Der Verband Digitale Innovation wirkt dadurch nicht nur sichtbar, sondern als kuratierte Anlaufstelle für digitale Zukunftsthemen.':
+    'The result is a professional association presence that connects mission, topic expertise and expert network within a clear information architecture. The Digital Innovation Association becomes visible as a curated contact point for digital future topics.',
+  Zahnarztpraxis: 'Dental Practice',
+  Praxiswebsite: 'Practice Website',
+  'Device-Ansichten': 'Device Views',
+  'Patientennaher Praxisauftritt für Zahnarzt Kipp mit freundlicher Bildsprache, klarer Leistungsstruktur und kurzen Wegen von der ersten Orientierung zur Kontaktaufnahme.':
+    'Patient-focused practice website for Zahnarzt Kipp with friendly imagery, a clear service structure and short paths from first orientation to contact.',
+  'Eine Zahnarztpraxis muss online sehr schnell Vertrauen aufbauen: Patientinnen suchen Orientierung, Leistungen und Kontaktmöglichkeiten, während gleichzeitig Kompetenz, Nähe und ein ruhiger Gesamteindruck spürbar sein müssen. Genau diese Balance sollte der neue Auftritt leisten.':
+    'A dental practice needs to build trust online very quickly: patients look for orientation, services and contact options, while competence, approachability and a calm overall impression must be felt at the same time. The new presence was built around exactly this balance.',
+  'Umgesetzt wurde ein responsiver Praxisauftritt mit freundlichem Einstieg, klarer Leistungsstruktur und bewusst kurzen Wegen zu Kontakt und Anfrage. Bildsprache, Texte und UI wurden so abgestimmt, dass die Website medizinische Qualität vermittelt und trotzdem nahbar bleibt.':
+    'The implementation is a responsive practice presence with a friendly entry, clear service structure and intentionally short paths to contact and inquiry. Imagery, copy and UI were aligned so the website communicates medical quality while remaining approachable.',
+  'Das Ergebnis ist eine helle, patientennahe Website, die Praxisprofil, Behandlungsspektrum und Kontaktpunkte auf allen Geräten konsistent präsentiert. Zahnarzt Kipp erhält damit einen digitalen Erstkontakt, der Vertrauen schafft, bevor ein Termin vereinbart wird.':
+    'The result is a bright, patient-focused website that presents practice profile, treatment spectrum and contact points consistently across devices. Zahnarzt Kipp gains a digital first contact that builds trust before an appointment is made.',
+  'Zahnmedizin / Verbraucherinformation / Expertennetzwerk':
+    'Dentistry / Consumer Information / Expert Network',
+  Informationsformat: 'Information Format',
+  Themenzugang: 'Topic Access',
+  Zahnmedizin: 'Dentistry',
+  'Redaktionelles Portal für Zahnmedizin und Verbraucherinformation, das Themencluster, Expertenperspektiven und SEO-orientierte Inhaltsstruktur in einer klaren Nutzerführung zusammenbringt.':
+    'Editorial portal for dentistry and consumer information that brings topic clusters, expert perspectives and SEO-oriented content structure together in clear user guidance.',
+  'ZHKplus braucht als Portal mehr als eine klassische Website: Viele zahnmedizinische Themen, Verbraucherfragen und Expertenperspektiven müssen auffindbar, verständlich und glaubwürdig organisiert werden. Die Herausforderung lag darin, redaktionelle Tiefe mit einfacher Navigation zu verbinden.':
+    'As a portal, ZHKplus needs more than a classic website: many dental topics, consumer questions and expert perspectives must be organized in a findable, understandable and credible way. The challenge was to combine editorial depth with simple navigation.',
+  'Aufgebaut wurde eine portalartige Informationsarchitektur mit Themenclustern, Artikelübersichten und klaren Einstiegspunkten für unterschiedliche Informationsbedürfnisse. UX, Content-Struktur und SEO-Logik greifen zusammen, damit Inhalte nicht nur publiziert, sondern auch gefunden und genutzt werden.':
+    'A portal-style information architecture was built with topic clusters, article overviews and clear entry points for different information needs. UX, content structure and SEO logic work together so content is not only published, but also found and used.',
+  'Entstanden ist ein umfangreiches Informationsportal, das zahnmedizinische Verbraucheraufklärung, Expertennetzwerk und redaktionelle Inhalte in einer nutzerfreundlichen Oberfläche bündelt. ZHKplus positioniert sich damit als zentrale Anlaufstelle für verständliche Zahnmedizin im Netz.':
+    'The result is an extensive information portal that bundles dental consumer education, expert network and editorial content in a user-friendly interface. ZHKplus positions itself as a central point of contact for understandable dentistry online.',
+  'Markenwelt & Designsystem': 'Brand World & Design System',
+  'Tech-Startup': 'Tech Startup',
+  'Vom Markenfundament bis zur visuellen Systematik für Web, Social und Print.':
+    'From brand foundation to visual systematics for web, social and print.',
+  Komponenten: 'Components',
+  Touchpoints: 'Touchpoints',
+  'Informationsplattform zur Verbraucheraufklärung über Trinkwasserqualität, Analyseverfahren und bundesweite kostenlose Leitungswasser-Tests.':
+    'Information platform for consumer education about drinking-water quality, analysis methods and free nationwide tap-water tests.',
+  'Komplexe Themen rund um Trinkwasserqualität, Analyseverfahren und Gesundheitsaspekte verständlich aufbereiten und Verbraucher transparent informieren.':
+    'Complex topics around drinking-water quality, analysis methods and health aspects are prepared clearly to inform consumers transparently.',
+  'Entwicklung einer klar strukturierten Informationsplattform mit Fokus auf verständliche Produktaufklärung, einfache Nutzerführung und vertrauensvolle Verbraucherkommunikation.':
+    'Development of a clearly structured information platform focused on understandable product education, simple user guidance and trustworthy consumer communication.',
+  'Ein moderner Webauftritt, der Verbraucherinformationen, Produktaufklärung und bundesweite kostenlose Leitungswasser-Tests in einer zugänglichen Plattform vereint.':
+    'A modern web presence that combines consumer information, product education and free nationwide tap-water tests in an accessible platform.',
+  'Informationsplattform zur Aufklärung über Luftqualität, Umweltbelastung und gesundheitliche Auswirkungen im Rahmen der Initiative Saubere Luft.':
+    'Information platform for education about air quality, environmental pollution and health impacts as part of Initiative Saubere Luft.',
+  'Eine komplexe Thematik rund um Luftqualität, Umweltbelastung und gesundheitliche Auswirkungen verständlich aufbereiten und öffentlich zugänglich kommunizieren.':
+    'A complex topic around air quality, environmental pollution and health impacts is made understandable and communicated publicly.',
+  'Entwicklung eines klar strukturierten Informationsauftritts mit Fokus auf Aufklärung, Datenvermittlung und intuitiver Nutzerführung für unterschiedliche Zielgruppen.':
+    'Development of a clearly structured information presence focused on education, data communication and intuitive user guidance for different target groups.',
+  'Ein digitaler Auftritt zur Sensibilisierung für Luftqualität und Umweltgesundheit mit klarer Informationsarchitektur und starker Aufklärungswirkung.':
+    'A digital presence that raises awareness for air quality and environmental health with clear information architecture and strong educational impact.',
+  'Digitale Plattform für Buchung und Bewerbung zu non-verbalen Speed-Dating-Kommunikationstrainings mit intuitiver Nutzerführung und klarer Kommunikation des Angebots.':
+    'Digital platform for booking and promoting non-verbal speed-dating communication trainings with intuitive user guidance and clear offer communication.',
+  'Die digitale Buchung und Bewerbung für non-verbale Speed-Dating-Kommunikationstrainings einfach, klar und vertrauensvoll gestalten.':
+    'Design digital booking and promotion for non-verbal speed-dating communication trainings in a simple, clear and trustworthy way.',
+  'Entwicklung eines strukturierten Webauftritts mit Fokus auf intuitive Buchungs- und Bewerbungsprozesse sowie verständlicher Darstellung des Trainingsformats.':
+    'Development of a structured web presence focused on intuitive booking and application processes as well as a clear presentation of the training format.',
+  'Eine Plattform zur einfachen Teilnahme an non-verbalen Speed-Dating-Kommunikationstrainings mit optimierter Nutzerführung und klarer Informationsstruktur.':
+    'A platform for simple participation in non-verbal speed-dating communication trainings with optimized user guidance and clear information structure.',
   'Händelstr. 3, D-06114 Halle/Saale': 'Handelstr. 3, D-06114 Halle/Saale',
   'Welche Leistungen bieten Sie rund um Webseiten an?': 'Which services do you offer for websites?',
   'Ich biete ganzheitliche Leistungen für professionelle Webseiten: von Strategie und Konzeption über modernes Webdesign bis zur technischen Umsetzung. Dazu gehören auch Suchmaschinenoptimierung (SEO), Ladezeit-Optimierung, Conversion-orientierte Struktur und laufende Website-Betreuung. So entsteht ein Webauftritt, der nicht nur gut aussieht, sondern auch messbar Ergebnisse liefert.':
@@ -795,23 +939,11 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Fast decisions, clear processes and no unnecessary overhead.',
   'SEO, SEA, Social Ads, Automatisierung — Launches in verschiedenen Branchen und 6 Ländern.':
     'SEO, SEA, social ads and automation: launches across different industries and six countries.',
-  'Informationsplattform zur Aufklärung über Luftqualität, Umweltbelastung und gesundheitliche Auswirkungen im Rahmen der Initiative Saubere Luft.':
-    'Information platform educating users about air quality, environmental pollution and health effects as part of Initiative Saubere Luft.',
-  'Digitale Plattform für Buchung und Bewerbung zu non-verbalen Speed-Dating-Kommunikationstrainings mit intuitiver Nutzerführung und klarer Kommunikation des Angebots.':
-    'Digital platform for booking and applying to non-verbal speed-dating communication trainings, with intuitive user guidance and clear communication of the offer.',
   'Digitale Plattform für Buchung und Bewerbung zu non-verbalen Speed-Dating-Communication Trainings mit intuitiver Nutzerführung und klarer Kommunikation des Angebots.':
     'Digital platform for booking and applying to non-verbal speed-dating communication trainings, with intuitive user guidance and clear communication of the offer.',
-  'Informationsplattform zur Verbraucheraufklärung über Trinkwasserqualität, Analyseverfahren und bundesweite kostenlose Leitungswasser-Tests.':
-    'Information platform for consumer education about drinking-water quality, analysis methods and nationwide free tap-water tests.',
   'Ergebnisse über mehrere Marketing-Cases': 'Results Across Multiple Marketing Cases',
   'Suchmaschinenoptimierung sorgt dafür, dass Unternehmen genau dort gefunden werden, wo Entscheidungen entstehen. Mit klarer Struktur, relevanten Inhalten und einer technisch sauberen Basis wird aus Präsenz messbare Nachfrage.':
     'Search engine optimization ensures that companies are found exactly where decisions are made. With clear structure, relevant content and a technically clean foundation, presence becomes measurable demand.',
-  'SEO- und Lead-Plattform für Raumluftmessungen: Fachartikel, Landingpages und die Kombination aus Paid Ads und organischer Suche für starkes Anfragenwachstum.':
-    'SEO and lead platform for indoor air measurements: specialist articles, landing pages and the combination of paid ads and organic search for strong inquiry growth.',
-  'SEO, Content und gezielte Ads für Workshop-Buchungen und Marken-Reichweite: von null Sichtbarkeit zu Top-Rankings, stabilem Traffic und bis zu 1.000 Besuchern pro Tag.':
-    'SEO, content and targeted ads for workshop bookings and brand reach: from zero visibility to top rankings, stable traffic and up to 1,000 visitors per day.',
-  'SEO- und Lead-Setup für gezielte Anfragen zu Leitungswasser-Testungen: Fachartikel, Landingpages, Ads-Bootstrap und kontinuierliche Ranking-Optimierung mit exponentiellem Anfragenwachstum.':
-    'SEO and lead setup for targeted inquiries about tap-water testing: specialist articles, landing pages, ads bootstrap and continuous ranking optimization with exponential inquiry growth.',
   'Klar strukturiert, hochwertig umgesetzt und immer mit Blick auf Wirkung und Zielgruppe. Print ist kein Auslaufmodell – sondern ein präzises Medium für starke Markenauftritte.':
     'Clearly structured, implemented to a high standard and always focused on impact and target audience. Print is not outdated; it is a precise medium for strong brand presences.',
   'Ich entwickle Präsentationsdesigns, die Inhalte strukturieren, Kernaussagen schärfen und komplexe Themen verständlich machen. Dabei verbindet sich visuelle Klarheit mit strategischem Storytelling – damit nicht nur gezeigt, sondern überzeugt wird. Ob Investoren-Pitch, Unternehmenspräsentation oder Keynote: Der Fokus liegt immer auf einer klaren Linie, starken Aussagen und einer visuellen Sprache, die im Kopf bleibt.':

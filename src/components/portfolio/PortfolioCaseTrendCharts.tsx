@@ -1,5 +1,8 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
+
+import { translateValueForLocale } from '@/i18n/translationOverlay'
 import { cn } from '@/utilities/ui'
 
 export type TrendPoint = {
@@ -66,16 +69,21 @@ export function TrendLineChart({
   const linePath = buildLinePath(points, height, VIEW_WIDTH)
   const areaPath = buildAreaPath(points, height, VIEW_WIDTH)
   const lastPoint = points[points.length - 1]
+  const pathname = usePathname()
+  const locale = (pathname || '').startsWith('/en') ? 'en' : 'de'
+  const localizedTitle = translateValueForLocale(title, locale)
+  const localizedPoints = translateValueForLocale(points, locale)
 
   return (
     <div className={cn('rounded-xl border border-border/60 bg-background/50 p-3', className)}>
       <div className="mb-2 flex items-baseline justify-between gap-2">
         <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-          {title}
+          {localizedTitle}
         </p>
         {lastPoint ? (
           <p className="text-xs font-semibold tabular-nums text-foreground/90">
-            {lastPoint.label}: {lastPoint.value.toLocaleString('de-DE')}
+            {translateValueForLocale(lastPoint.label, locale)}:{' '}
+            {lastPoint.value.toLocaleString(locale === 'en' ? 'en-US' : 'de-DE')}
           </p>
         ) : null}
       </div>
@@ -83,7 +91,7 @@ export function TrendLineChart({
         viewBox={`0 0 ${VIEW_WIDTH} ${height}`}
         className="h-auto w-full overflow-visible"
         role="img"
-        aria-label={`${title} Entwicklung`}
+        aria-label={translateValueForLocale(`${title} Entwicklung`, locale)}
       >
         {[0.25, 0.5, 0.75].map((ratio) => (
           <line
@@ -134,7 +142,7 @@ export function TrendLineChart({
         })}
       </svg>
       <div className="mt-1 flex justify-between gap-1 text-[10px] text-muted-foreground">
-        {points.map((point) => (
+        {localizedPoints.map((point) => (
           <span key={point.label} className="truncate">
             {point.label}
           </span>
@@ -152,11 +160,14 @@ type ChannelMixBarProps = {
 
 export function ChannelMixBar({ segments, compact = false, className }: ChannelMixBarProps) {
   const total = segments.reduce((sum, segment) => sum + segment.value, 0) || 1
+  const pathname = usePathname()
+  const locale = (pathname || '').startsWith('/en') ? 'en' : 'de'
+  const localizedSegments = translateValueForLocale(segments, locale)
 
   return (
     <div className={cn('rounded-xl border border-border/60 bg-background/50 p-3', className)}>
       <p className="mb-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-muted-foreground">
-        Kanal-Mix (Peak)
+        {translateValueForLocale('Kanal-Mix (Peak)', locale)}
       </p>
       <div className="flex h-2.5 overflow-hidden rounded-full bg-muted/60">
         {segments.map((segment) => (
@@ -172,9 +183,9 @@ export function ChannelMixBar({ segments, compact = false, className }: ChannelM
         ))}
       </div>
       <div className={cn('mt-2 flex flex-wrap gap-x-3 gap-y-1', compact && 'gap-x-2')}>
-        {segments.map((segment) => (
+        {localizedSegments.map((segment, index) => (
           <span
-            key={segment.label}
+            key={`${segment.label}-${index}`}
             className="inline-flex items-center gap-1.5 text-[10px] text-muted-foreground"
           >
             <span
@@ -204,6 +215,10 @@ export function PortfolioCaseChartPanel({
   compact = false,
   className,
 }: PortfolioCaseChartPanelProps) {
+  const pathname = usePathname()
+  const locale = (pathname || '').startsWith('/en') ? 'en' : 'de'
+  const localizedData = translateValueForLocale(data, locale)
+
   return (
     <div
       className={cn(
@@ -213,26 +228,26 @@ export function PortfolioCaseChartPanel({
     >
       <div className="border-b border-border/50 px-4 py-3">
         <p className="text-[11px] font-semibold uppercase tracking-[0.16em] text-emerald-700 dark:text-emerald-400">
-          Performance-Verlauf
+          {translateValueForLocale('Performance-Verlauf', locale)}
         </p>
-        <p className="mt-0.5 text-sm text-muted-foreground">{data.angle}</p>
+        <p className="mt-0.5 text-sm text-muted-foreground">{localizedData.angle}</p>
       </div>
       <div className={cn('grid gap-3 p-3', compact ? 'grid-cols-1' : 'md:grid-cols-2')}>
         <TrendLineChart
           title="Organischer Traffic / Tag"
-          points={data.traffic}
+          points={localizedData.traffic}
           accent="hsl(160 84% 39%)"
           compact={compact}
         />
         <TrendLineChart
           title="Leads / Buchungen"
-          points={data.leads}
+          points={localizedData.leads}
           accent="hsl(38 92% 50%)"
           compact={compact}
         />
       </div>
       <div className="px-3 pb-3">
-        <ChannelMixBar segments={data.channels} compact={compact} />
+        <ChannelMixBar segments={localizedData.channels} compact={compact} />
       </div>
     </div>
   )
@@ -245,6 +260,10 @@ type PortfolioMarketingCardVisualProps = {
 
 export function PortfolioMarketingCardVisual({ data, metrics }: PortfolioMarketingCardVisualProps) {
   const topMetrics = (metrics ?? []).filter((m) => m?.value?.trim() && m?.label?.trim()).slice(0, 2)
+  const pathname = usePathname()
+  const locale = (pathname || '').startsWith('/en') ? 'en' : 'de'
+  const localizedData = translateValueForLocale(data, locale)
+  const localizedMetrics = translateValueForLocale(topMetrics, locale)
 
   return (
     <div className="relative overflow-hidden rounded-xl border border-emerald-500/15 bg-gradient-to-br from-emerald-950/5 via-background to-amber-500/5 px-3 pb-3 pt-3 dark:from-emerald-400/10">
@@ -258,18 +277,18 @@ export function PortfolioMarketingCardVisual({ data, metrics }: PortfolioMarketi
       />
       <div className="relative">
         <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-emerald-700 dark:text-emerald-400">
-          KPI-Entwicklung
+          {translateValueForLocale('KPI-Entwicklung', locale)}
         </p>
-        <svg
-          viewBox={`0 0 ${VIEW_WIDTH} 96`}
-          className="mt-2 h-[96px] w-full"
-          role="img"
-          aria-label="Traffic- und Lead-Entwicklung"
-        >
+          <svg
+            viewBox={`0 0 ${VIEW_WIDTH} 96`}
+            className="mt-2 h-[96px] w-full"
+            role="img"
+            aria-label={translateValueForLocale('Traffic- und Lead-Entwicklung', locale)}
+          >
           {(() => {
-            const trafficPath = buildLinePath(data.traffic, 96, VIEW_WIDTH)
-            const leadsPath = buildLinePath(data.leads, 96, VIEW_WIDTH)
-            const trafficArea = buildAreaPath(data.traffic, 96, VIEW_WIDTH)
+            const trafficPath = buildLinePath(localizedData.traffic, 96, VIEW_WIDTH)
+            const leadsPath = buildLinePath(localizedData.leads, 96, VIEW_WIDTH)
+            const trafficArea = buildAreaPath(localizedData.traffic, 96, VIEW_WIDTH)
             return (
               <>
                 {trafficArea ? (
@@ -299,8 +318,8 @@ export function PortfolioMarketingCardVisual({ data, metrics }: PortfolioMarketi
           })()}
         </svg>
         <div className="mt-2 flex h-1.5 overflow-hidden rounded-full bg-muted/50">
-          {data.channels.map((segment) => {
-            const total = data.channels.reduce((sum, entry) => sum + entry.value, 0) || 1
+          {localizedData.channels.map((segment) => {
+            const total = localizedData.channels.reduce((sum, entry) => sum + entry.value, 0) || 1
             return (
               <div
                 key={segment.label}
@@ -314,7 +333,7 @@ export function PortfolioMarketingCardVisual({ data, metrics }: PortfolioMarketi
         </div>
         {topMetrics.length > 0 ? (
           <div className="mt-3 grid grid-cols-2 gap-2">
-            {topMetrics.map((metric, index) => (
+            {localizedMetrics.map((metric, index) => (
               <div
                 key={`${metric.label}-${index}`}
                 className="rounded-lg border border-border/60 bg-background/80 px-2.5 py-2"
