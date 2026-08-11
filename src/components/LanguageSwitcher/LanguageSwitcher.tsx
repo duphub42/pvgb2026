@@ -16,9 +16,11 @@ type LanguageSwitcherVariant = 'select' | 'icon-menu'
 
 export function LanguageSwitcher({
   className,
+  disabled = false,
   variant = 'select',
 }: {
   className?: string
+  disabled?: boolean
   variant?: LanguageSwitcherVariant
 }) {
   const locale = useLocale()
@@ -44,6 +46,7 @@ export function LanguageSwitcher({
   }
 
   function handleSelect(newLocale: Locale) {
+    if (disabled) return
     if (newLocale === locale) return
     setOpen(false)
     setLocaleCookie(newLocale)
@@ -84,6 +87,7 @@ export function LanguageSwitcher({
               aria-label={messages[locale].locale.switchTo}
               aria-expanded={open}
               aria-haspopup="menu"
+              disabled={disabled}
               onClick={() => setOpen((value) => !value)}
             >
               <Languages className="h-5 w-5" aria-hidden />
@@ -121,6 +125,8 @@ export function LanguageSwitcher({
     <select
       data-language-switcher
       value={locale}
+      disabled={disabled}
+      data-temporarily-disabled={disabled ? 'true' : undefined}
       onChange={(event) => handleSelect(event.currentTarget.value as Locale)}
       translate="no"
       className={cn(

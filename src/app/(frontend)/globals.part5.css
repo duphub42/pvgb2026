@@ -661,6 +661,13 @@
     background var(--mobile-theme-switch-duration, 220ms) var(--mobile-theme-switch-ease, ease);
 }
 
+.mobile-megamenu-utility-actions
+  .mobile-megamenu-language-switcher[data-temporarily-disabled='true'] {
+  opacity: 0.92;
+  pointer-events: none;
+  -webkit-text-fill-color: currentColor;
+}
+
 .mobile-megamenu-utility-actions .mobile-megamenu-language-switcher:hover {
   opacity: 1;
 }

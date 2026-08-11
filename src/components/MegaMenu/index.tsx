@@ -1257,6 +1257,7 @@ export function MegaMenu({
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [mobileMenuIconActive, setMobileMenuIconActive] = useState(false)
+  const [mobileUtilityControlsReady, setMobileUtilityControlsReady] = useState(false)
   const [mobileActivePrimary, setMobileActivePrimary] = useState<string | null>(null)
   const [mobileDockPendingActionKey, setMobileDockPendingActionKey] = useState<string | null>(null)
   const [mobileDockTooltip, setMobileDockTooltip] = useState<MobileDockTooltipState | null>(null)
@@ -1277,6 +1278,7 @@ export function MegaMenu({
   })
   const mobileMenuCloseTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileMenuIconOpenRafRef = useRef<number | null>(null)
+  const mobileUtilityControlsReadyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileDockTooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileDockLongPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileDockLongPressTriggeredKeyRef = useRef<string | null>(null)
@@ -1608,6 +1610,13 @@ export function MegaMenu({
     if (mobileMenuIconOpenRafRef.current != null) {
       window.cancelAnimationFrame(mobileMenuIconOpenRafRef.current)
       mobileMenuIconOpenRafRef.current = null
+    }
+  }, [])
+
+  const clearMobileUtilityControlsReadyTimeout = React.useCallback(() => {
+    if (mobileUtilityControlsReadyTimeoutRef.current) {
+      clearTimeout(mobileUtilityControlsReadyTimeoutRef.current)
+      mobileUtilityControlsReadyTimeoutRef.current = null
     }
   }, [])
 
@@ -2176,7 +2185,13 @@ export function MegaMenu({
     syncMobileMenuOrigin()
     clearMobileMenuCloseTimeout()
     clearMobileMenuIconOpenRaf()
+    clearMobileUtilityControlsReadyTimeout()
+    setMobileUtilityControlsReady(false)
     setMobileMenuOpen(true)
+    mobileUtilityControlsReadyTimeoutRef.current = setTimeout(() => {
+      setMobileUtilityControlsReady(true)
+      mobileUtilityControlsReadyTimeoutRef.current = null
+    }, 320)
     // Ensure the icon is first rendered in burger state, then morphs to X in the next frame.
     setMobileMenuIconActive(false)
     mobileMenuIconOpenRafRef.current = window.requestAnimationFrame(() => {
@@ -2188,11 +2203,14 @@ export function MegaMenu({
     syncMobileMenuOrigin,
     clearMobileMenuCloseTimeout,
     clearMobileMenuIconOpenRaf,
+    clearMobileUtilityControlsReadyTimeout,
   ])
 
   const closeMobileMenu = React.useCallback(() => {
     clearMobileMenuCloseTimeout()
     clearMobileMenuIconOpenRaf()
+    clearMobileUtilityControlsReadyTimeout()
+    setMobileUtilityControlsReady(false)
     resetMobileDockState()
     setMobileMenuIconActive(false)
     mobileMenuCloseTimeoutRef.current = setTimeout(() => {
@@ -2200,7 +2218,12 @@ export function MegaMenu({
       mobileMenuTriggerRef.current?.focus({ preventScroll: true })
       mobileMenuCloseTimeoutRef.current = null
     }, HAM_ICON_ANIMATION_MS)
-  }, [clearMobileMenuCloseTimeout, clearMobileMenuIconOpenRaf, resetMobileDockState])
+  }, [
+    clearMobileMenuCloseTimeout,
+    clearMobileMenuIconOpenRaf,
+    clearMobileUtilityControlsReadyTimeout,
+    resetMobileDockState,
+  ])
 
   const toggleMobileMenu = React.useCallback(() => {
     if (mobileMenuOpen) {
@@ -2226,16 +2249,25 @@ export function MegaMenu({
   useEffect(() => {
     clearMobileMenuCloseTimeout()
     clearMobileMenuIconOpenRaf()
+    clearMobileUtilityControlsReadyTimeout()
     resetMobileDockState()
     setMobileMenuOpen(false)
     setMobileMenuIconActive(false)
+    setMobileUtilityControlsReady(false)
     setMobileActivePrimary(null)
-  }, [pathname, clearMobileMenuCloseTimeout, clearMobileMenuIconOpenRaf, resetMobileDockState])
+  }, [
+    pathname,
+    clearMobileMenuCloseTimeout,
+    clearMobileMenuIconOpenRaf,
+    clearMobileUtilityControlsReadyTimeout,
+    resetMobileDockState,
+  ])
 
   useEffect(() => {
     return () => {
       clearMobileMenuCloseTimeout()
       clearMobileMenuIconOpenRaf()
+      clearMobileUtilityControlsReadyTimeout()
       clearMobileDockTooltipTimeout()
       clearMobileDockLongPressTimeout()
       clearMobileDockConfirmTimeout()
@@ -3279,7 +3311,10 @@ export function MegaMenu({
                             )}
                           </div>
                           <div className="mobile-megamenu-utility-actions">
-                            <LanguageSwitcher className="mobile-megamenu-language-switcher" />
+                            <LanguageSwitcher
+                              className="mobile-megamenu-language-switcher"
+                              disabled={!mobileUtilityControlsReady}
+                            />
                             <ThemeSwitcher
                               variant="switch"
                               className="mobile-megamenu-theme-toggle shrink-0"
