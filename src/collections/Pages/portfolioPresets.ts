@@ -20,14 +20,21 @@ const PRESET_ORDER: PortfolioType[] = ['webdesign', 'marketing', 'branding']
 
 const clone = <T>(value: T): T => JSON.parse(JSON.stringify(value)) as T
 
-const introBlock = (args: { heading: string; body: string; tagline?: string }): Record<string, unknown> => ({
+const introBlock = (args: {
+  heading: string
+  body: string
+  tagline?: string
+}): Record<string, unknown> => ({
   blockType: 'introduction',
   heading: args.heading,
   body: args.body,
   tagline: args.tagline ?? '',
 })
 
-const calPopupBlock = (args: { headline: string; description: string }): Record<string, unknown> => ({
+const calPopupBlock = (args: {
+  headline: string
+  description: string
+}): Record<string, unknown> => ({
   blockType: 'calPopup',
   headline: args.headline,
   description: args.description,
@@ -99,7 +106,8 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
     }),
     servicesOverviewBlock({
       heading: 'Leistungsfokus im Webdesign',
-      intro: 'Diese Projekte verbinden Strategieverständnis mit sauberer gestalterischer und technischer Umsetzung.',
+      intro:
+        'Diese Projekte verbinden Strategieverständnis mit sauberer gestalterischer und technischer Umsetzung.',
       services: [
         {
           icon: 'monitor',
@@ -170,8 +178,7 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
             'Jede Kampagne wurde als Einzelseite gebaut, was Zeit kostete und inkonsistente Designs erzeugte.',
           approach:
             'Designsystem-basierte Templates mit klaren Content-Zonen und performance-optimierter Umsetzung.',
-          result:
-            'Schnellere Produktionszyklen und bessere Vergleichbarkeit zwischen Kampagnen.',
+          result: 'Schnellere Produktionszyklen und bessere Vergleichbarkeit zwischen Kampagnen.',
           metrics: [
             { value: '-55%', label: 'Time to Publish' },
             { value: '+23%', label: 'Lead Rate' },
@@ -184,7 +191,8 @@ const WEBDESIGN_PRESET: PortfolioPresetPage = {
     },
     calPopupBlock({
       headline: 'Webdesign-Projekt besprechen',
-      description: 'In 30 Minuten klären Sie gemeinsam mit mir Zielbild, Scope und die sinnvollste Umsetzungsreihenfolge.',
+      description:
+        'In 30 Minuten klären Sie gemeinsam mit mir Zielbild, Scope und die sinnvollste Umsetzungsreihenfolge.',
     }),
   ],
   metaTitle: 'Portfolio Webdesign | UX, UI und Performance',
@@ -261,7 +269,8 @@ const MARKETING_PRESET: PortfolioPresetPage = {
           summary:
             'Technische und redaktionelle Neuausrichtung für bessere Rankings in transaktionalen Themenclustern.',
           challenge: 'Sichtbarkeitseinbruch nach CMS-Wechsel und schwache interne Verlinkung.',
-          approach: 'URL-Mapping, Content-Hubs, Search-Intent-Optimierung und strukturierte Snippets.',
+          approach:
+            'URL-Mapping, Content-Hubs, Search-Intent-Optimierung und strukturierte Snippets.',
           result: 'Nachhaltiger Ranking-Aufbau und deutlich mehr organische Lead-Einstiege.',
           metrics: [
             { value: '+72%', label: 'Top-10 Keywords' },
@@ -278,7 +287,8 @@ const MARKETING_PRESET: PortfolioPresetPage = {
           summary:
             'Search- und Remarketing-Setup für qualifizierte Demos mit klarer Budgetsteuerung.',
           challenge: 'Hohe Klickkosten, geringe Abschlussrate und zu breite Keyword-Sets.',
-          approach: 'Intent-Segmentierung, Negative-Listen, Landingpage-Tests und Bidding-Neuausrichtung.',
+          approach:
+            'Intent-Segmentierung, Negative-Listen, Landingpage-Tests und Bidding-Neuausrichtung.',
           result: 'Deutlich mehr qualifizierte Demo-Anfragen bei geringeren CPL-Werten.',
           metrics: [
             { value: '-27%', label: 'CPL' },
@@ -323,7 +333,8 @@ const MARKETING_PRESET: PortfolioPresetPage = {
     }),
     calPopupBlock({
       headline: 'Marketing-Ziele in einen klaren Plan übersetzen',
-      description: 'Gemeinsam werden Kanäle, Budget und Quick Wins in einem kompakten Kickoff priorisiert.',
+      description:
+        'Gemeinsam werden Kanäle, Budget und Quick Wins in einem kompakten Kickoff priorisiert.',
     }),
   ],
   metaTitle: 'Portfolio Marketing | SEO, SEM und Leads',
@@ -336,11 +347,19 @@ const BRANDING_PRESET: PortfolioPresetPage = {
   slug: 'portfolio-branding',
   title: 'Portfolio Branding',
   hero: {
-    type: 'lowImpact',
+    type: 'superhero',
     subheadline: 'Portfolio Branding',
     headline: 'Markenauftritte von Logo bis konsistentem Designsystem',
     description:
       'Branding-Cases mit Fokus auf Positionierung, visuelle Sprache und Wiedererkennbarkeit über alle Touchpoints.',
+    contentVerticalAlignment: 'center',
+    useHaloBackground: true,
+    haloSize: 1.05,
+    haloSpeed: 0.55,
+    haloAmplitudeFactor: 0.85,
+    haloOverlayGradient: 0.7,
+    haloOverlayGrid: 0.08,
+    logoDisplayType: 'marquee',
   },
   layout: [
     introBlock({
@@ -396,7 +415,8 @@ const BRANDING_PRESET: PortfolioPresetPage = {
             'Uneinheitliche Kommunikation, alte Wort-Bild-Marke und fehlende Richtlinien für Umsetzung.',
           approach:
             'Markenkern-Workshop, neues Logo-Set, Typo- und Farbdefinition sowie praxisnahe Brand-Regeln.',
-          result: 'Ein klarer, wiedererkennbarer Markenauftritt über Website, Pitch und Social Kanäle.',
+          result:
+            'Ein klarer, wiedererkennbarer Markenauftritt über Website, Pitch und Social Kanäle.',
           metrics: [
             { value: '3 Wochen', label: 'Vom Workshop bis CI-Release' },
             { value: '+47%', label: 'Direkte Markenwiedererkennung (Survey)' },

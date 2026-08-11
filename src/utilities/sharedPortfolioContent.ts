@@ -104,7 +104,11 @@ function findInsertIndexBeforeTail(blocks: LayoutBlocks): number {
 
 function isMarketingOverviewBlock(block: LayoutBlock): boolean {
   if (block.blockType !== 'servicesOverview') return false
-  return String(block.heading ?? '').trim().toLocaleLowerCase('de-DE') === MARKETING_OVERVIEW_HEADING
+  return (
+    String(block.heading ?? '')
+      .trim()
+      .toLocaleLowerCase('de-DE') === MARKETING_OVERVIEW_HEADING
+  )
 }
 
 function isMarketingWhyWorkBlock(block: LayoutBlock): boolean {
@@ -129,7 +133,9 @@ function moveMarketingWhyWorkBlockAfterCases(blocks: LayoutBlocks): LayoutBlocks
   const [whyBlock] = next.splice(whyIndex, 1)
   const nextCasesIndex = next.findIndex((block) => block?.blockType === 'portfolioCaseGrid')
   const insertIndex =
-    nextCasesIndex >= 0 ? nextCasesIndex + 1 : Math.min(findInsertIndexBeforeTail(next), next.length)
+    nextCasesIndex >= 0
+      ? nextCasesIndex + 1
+      : Math.min(findInsertIndexBeforeTail(next), next.length)
   next.splice(insertIndex, 0, whyBlock)
   return next
 }
@@ -141,7 +147,7 @@ async function resolvePortfolioSubpageLayout(
   const portfolioType = PORTFOLIO_SUBPAGE_SLUGS[slug]
   if (!portfolioType) return blocks
 
-  const { leistungenCasesBlock } = await getSharedPortfolioBlocks()
+  const { leistungenCasesBlock, logosBlock } = await getSharedPortfolioBlocks()
   const centralCasesBlock =
     leistungenCasesBlock ?? (buildLeistungenPortfolioCaseBlock() as LayoutBlock)
   const marketingCaseOptions =
@@ -179,6 +185,16 @@ async function resolvePortfolioSubpageLayout(
     if (!presetBlock) continue
 
     additions.push(withDefaultBlockSpacing(clone(presetBlock), blockType))
+  }
+
+  if (portfolioType === 'branding' && !existingTypes.has('marqueeSlider')) {
+    const logoBlock = buildSharedLogoBlock(logosBlock, {
+      eyebrow: 'Logo Showcase',
+      heading: 'Logo-Referenzen aus realen Branding-Projekten',
+      intro:
+        'Diese Auswahl zeigt Logo-Entwicklungen aus Kundenprojekten - von reduzierten Zeichen bis zu flexiblen Varianten für unterschiedliche Anwendungskontexte.',
+    })
+    if (logoBlock) additions.push(logoBlock)
   }
 
   const enriched = withoutContact.map((block) => {
@@ -236,7 +252,8 @@ function buildBrandingGenerativeTextBlock(): LayoutBlock {
     headerAlign: 'center',
     layoutMode: 'columns',
     heading: 'Marke, Logo und Branding',
-    intro: 'Drei Bausteine, die zusammen aus einem Auftritt ein wiedererkennbares Markensystem machen.',
+    intro:
+      'Drei Bausteine, die zusammen aus einem Auftritt ein wiedererkennbares Markensystem machen.',
     services: [
       {
         icon: 'compass',
@@ -263,12 +280,20 @@ function buildBrandingGenerativeTextBlock(): LayoutBlock {
 function isBrandingGenerativeTextBlock(block: LayoutBlock): boolean {
   if (String(block.id ?? '') === 'portfolio-branding-generative-context') return true
   if (block.blockType !== 'servicesOverview') return false
-  return String(block.heading ?? '').trim().toLowerCase() === 'marke, logo und branding'
+  return (
+    String(block.heading ?? '')
+      .trim()
+      .toLowerCase() === 'marke, logo und branding'
+  )
 }
 
 function isBrandingServicesGrid(block: LayoutBlock): boolean {
   if (block.blockType !== 'servicesGrid') return false
-  return String(block.heading ?? '').trim().toLowerCase() === 'leistungsfelder im branding'
+  return (
+    String(block.heading ?? '')
+      .trim()
+      .toLowerCase() === 'leistungsfelder im branding'
+  )
 }
 
 function ensureBrandingServicesGrid(block: LayoutBlock): LayoutBlock {
@@ -285,7 +310,9 @@ function ensureBrandingServicesGrid(block: LayoutBlock): LayoutBlock {
     services
       .map((service) =>
         service && typeof service === 'object'
-          ? String((service as Record<string, unknown>).title ?? '').trim().toLowerCase()
+          ? String((service as Record<string, unknown>).title ?? '')
+              .trim()
+              .toLowerCase()
           : '',
       )
       .filter(Boolean),
@@ -404,8 +431,7 @@ async function getSharedPortfolioBlocksUncached() {
     | undefined
 
   return {
-    leistungenCasesBlock:
-      centralCasesBlock ?? (buildLeistungenPortfolioCaseBlock() as LayoutBlock),
+    leistungenCasesBlock: centralCasesBlock ?? (buildLeistungenPortfolioCaseBlock() as LayoutBlock),
     logosBlock: brandingLayout.find((block) => block?.blockType === 'marqueeSlider') as
       | LayoutBlock
       | undefined,
@@ -459,7 +485,9 @@ function withSharedCases(
     eyebrow,
     heading,
     intro,
-    layoutVariant: isMarketingSlider ? 'data' : (block.layoutVariant ?? source.layoutVariant ?? 'editorial'),
+    layoutVariant: isMarketingSlider
+      ? 'data'
+      : (block.layoutVariant ?? source.layoutVariant ?? 'editorial'),
     cases,
   }
 }
@@ -597,7 +625,8 @@ function resolvePortfolioHubLayout(
 
   const calPopupBlocks = cleaned.filter((block) => block?.blockType === 'calPopup')
 
-  const teaser = getLayoutBlock(cleaned, 'portfolioTeaser') ?? (buildPortfolioTeaserBlock() as LayoutBlock)
+  const teaser =
+    getLayoutBlock(cleaned, 'portfolioTeaser') ?? (buildPortfolioTeaserBlock() as LayoutBlock)
   const cases = resolvePortfolioHubCaseBlock(
     getLayoutBlock(cleaned, 'portfolioCaseGrid'),
     leistungenCasesBlock,
@@ -879,7 +908,8 @@ export async function resolveSharedPortfolioContent(
     if (hasCasesBlock) return withoutLegacyLogoReferences
 
     const caseBlock =
-      buildSharedCaseBlock(leistungenCasesBlock, GENERAL_PORTFOLIO_DISCIPLINES) ?? (leistungenCasesBlock as LayoutBlock)
+      buildSharedCaseBlock(leistungenCasesBlock, GENERAL_PORTFOLIO_DISCIPLINES) ??
+      (leistungenCasesBlock as LayoutBlock)
     const insertAfter = findLastServicesGridIndex(withoutLegacyLogoReferences)
     const insertIndex = insertAfter >= 0 ? insertAfter + 1 : withoutLegacyLogoReferences.length
 

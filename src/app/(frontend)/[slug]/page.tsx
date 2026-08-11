@@ -20,6 +20,7 @@ import { generateMeta } from '@/utilities/generateMeta'
 import { appendDefaultCtaBlock } from '@/utilities/defaultCtaBlocks'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { resolveSharedPortfolioContent } from '@/utilities/sharedPortfolioContent'
+import { getPortfolioPresetHero } from '@/collections/Pages/portfolioPresets'
 import { cn } from '@/utilities/ui'
 import {
   buildServiceJsonLd,
@@ -154,6 +155,17 @@ function isBrandStrategyPage(slug?: string | null, title?: string | null): boole
     normalizedTitle.includes('markenstrategie') ||
     normalizedTitle.includes('positionierung')
   )
+}
+
+function isBrandingPortfolioSlug(slug?: string | null): boolean {
+  const normalizedSlug = slug?.trim().toLowerCase()
+  return normalizedSlug === 'portfolio-branding' || normalizedSlug === 'portfolio-marken'
+}
+
+function shouldUseBrandingPortfolioHeroFallback(hero: unknown): boolean {
+  if (!hero || typeof hero !== 'object' || Array.isArray(hero)) return true
+  const type = String((hero as { type?: unknown }).type ?? '').trim()
+  return !type || type === 'none' || type === 'lowImpact'
 }
 
 function isAutomationPage(slug?: string | null, title?: string | null): boolean {
@@ -317,9 +329,7 @@ const getCachedPublishedPageMetaBySlug =
         },
       )
 
-export default async function Page({
-  params: paramsPromise,
-}: PageProps) {
+export default async function Page({ params: paramsPromise }: PageProps) {
   const { slug = 'home' } = await paramsPromise
 
   const resolvedSlug = slug || 'home'
@@ -347,7 +357,11 @@ export default async function Page({
       notFound()
     }
 
-    const heroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
+    const rawHeroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
+    const heroProps =
+      isBrandingPortfolioSlug(resolvedSlug) && shouldUseBrandingPortfolioHeroFallback(rawHeroProps)
+        ? getPortfolioPresetHero('branding')
+        : rawHeroProps
     const resolvedLayoutBlocks = await resolveSharedPortfolioContent(
       resolvedSlug,
       resolveLayoutBlocks(resolvedSlug, page.layout),
@@ -417,7 +431,9 @@ export default async function Page({
       hasServiceFaqBox ||
       (isPortfolioPage &&
         (effectiveSlug === 'portfolio' ||
-          (effectiveSlug.startsWith('portfolio-') && effectiveSlug !== 'portfolio-marketing')))
+          (effectiveSlug.startsWith('portfolio-') &&
+            effectiveSlug !== 'portfolio-marketing' &&
+            !isBrandingPortfolioSlug(effectiveSlug))))
     const layoutBlocks = shouldAddDefaultCta
       ? appendDefaultCtaBlock(resolvedLayoutBlocks, {
           slug: effectiveSlug,
@@ -465,12 +481,7 @@ export default async function Page({
           servicesOverview: Unter lg (Umbruch 1–2 Spalten) z-20 + kein Negativ-Margin — Karten liegen unter dem Hero.
           Ab lg (4 Spalten): z-33 + Flush — Karten dürfen in den Hero ragen / Hover darüber (s. globals services-flush).
         */}
-        <div
-          className={cn(
-            'relative isolate',
-            isSuperheroHero ? 'z-[36]' : 'z-[32]',
-          )}
-        >
+        <div className={cn('relative isolate', isSuperheroHero ? 'z-[36]' : 'z-[32]')}>
           <SectionReveal>
             <HeroErrorBoundary>
               <RenderHero {...heroProps} pageSlug={resolvedSlug} />
