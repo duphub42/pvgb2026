@@ -40,7 +40,6 @@ import { usePathname, useRouter } from 'next/navigation'
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { openCalBookingModal } from '@/utilities/webmcp/calEmbed'
 
-import { HeaderActions } from '@/components/HeaderActions/HeaderActions'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { ResilientImage } from '@/components/ui/resilient-image'
@@ -51,6 +50,10 @@ import { localizePathname } from '@/i18n/routing'
 const ThemeSwitcher = dynamic(
   () => import('@/components/ThemeSwitcher/ThemeSwitcher').then((mod) => mod.ThemeSwitcher),
   { ssr: false },
+)
+const HeaderActions = dynamic(
+  () => import('@/components/HeaderActions/HeaderActions').then((mod) => mod.HeaderActions),
+  { ssr: false, loading: () => null },
 )
 
 /** Konfiguration für WhatsApp, Rückruf und Newsletter im Mega-Menü (aus Header-Global) */
@@ -1233,6 +1236,32 @@ const defaultCardStyle: HighlightCardStyle = {
   hoverBorder: 'hover:border-primary/40',
 }
 
+function useIsDesktopNavViewport() {
+  const [isDesktop, setIsDesktop] = useState(false)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 1024px)')
+    const update = () => setIsDesktop(mediaQuery.matches)
+
+    update()
+    if (typeof mediaQuery.addEventListener === 'function') {
+      mediaQuery.addEventListener('change', update)
+    } else {
+      mediaQuery.addListener(update)
+    }
+
+    return () => {
+      if (typeof mediaQuery.removeEventListener === 'function') {
+        mediaQuery.removeEventListener('change', update)
+      } else {
+        mediaQuery.removeListener(update)
+      }
+    }
+  }, [])
+
+  return isDesktop
+}
+
 export function MegaMenu({
   items,
   logo,
@@ -1247,6 +1276,7 @@ export function MegaMenu({
   const pathname = usePathname()
   const isEnglishPath = pathname?.startsWith('/en') === true
   const router = useRouter()
+  const isDesktopNavViewport = useIsDesktopNavViewport()
   const [isVisible, setIsVisible] = useState(true)
   const [isPastFold, setIsPastFold] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
@@ -2247,6 +2277,28 @@ export function MegaMenu({
   )
 
   useEffect(() => {
+    if (isDesktopNavViewport) {
+      clearMobileMenuCloseTimeout()
+      clearMobileMenuIconOpenRaf()
+      clearMobileUtilityControlsReadyTimeout()
+      resetMobileDockState()
+      setMobileMenuOpen(false)
+      setMobileMenuIconActive(false)
+      setMobileUtilityControlsReady(false)
+      setMobileActivePrimary(null)
+      return
+    }
+
+    setActiveMenu(null)
+  }, [
+    isDesktopNavViewport,
+    clearMobileMenuCloseTimeout,
+    clearMobileMenuIconOpenRaf,
+    clearMobileUtilityControlsReadyTimeout,
+    resetMobileDockState,
+  ])
+
+  useEffect(() => {
     clearMobileMenuCloseTimeout()
     clearMobileMenuIconOpenRaf()
     clearMobileUtilityControlsReadyTimeout()
@@ -2528,215 +2580,276 @@ export function MegaMenu({
                 onPointerEnter={cancelCloseTimeout}
                 onPointerLeave={() => scheduleClose(120)}
               >
-                <NavigationMenu
-                  className="megamenu-nav hidden lg:flex lg:h-full lg:flex-initial lg:ml-auto"
-                  delayDuration={70}
-                  skipDelayDuration={100}
-                  value={activeMenu ?? ''}
-                  onValueChange={(value) => {
-                    const next = value || null
-                    if (next !== '' && next !== null) {
-                      cancelCloseTimeout()
-                      setActiveMenu(next)
-                      return
-                    }
+                {isDesktopNavViewport && (
+                  <>
+                    <NavigationMenu
+                      className="megamenu-nav flex h-full flex-initial lg:ml-auto"
+                      delayDuration={70}
+                      skipDelayDuration={100}
+                      value={activeMenu ?? ''}
+                      onValueChange={(value) => {
+                        const next = value || null
+                        if (next !== '' && next !== null) {
+                          cancelCloseTimeout()
+                          setActiveMenu(next)
+                          return
+                        }
 
-                    scheduleClose(160)
-                  }}
-                  viewportWrapperRef={viewportWrapperRef}
-                >
-                  <div
-                    ref={navListWrapRef}
-                    className="megamenu-nav-list-wrap relative flex h-full flex-1 justify-end"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="megamenu-nav-indicator"
-                      data-visible={navIndicatorStyle.visible ? 'true' : 'false'}
-                      style={
-                        {
-                          width: `${navIndicatorStyle.width}px`,
-                          transform: `translateX(${navIndicatorStyle.x}px)`,
-                        } as React.CSSProperties
-                      }
-                    />
-                    <NavigationMenuList className="megamenu-nav-list h-full justify-end">
-                      {sortedItems.map((item, idx) => {
-                        const menuItemKey = getMegaMenuItemKey(item, idx)
-                        const hasDrop = hasDropdown(item)
-                        const value = menuItemKey
-
-                        if (hasDrop) {
-                          const isActive = isMegaItemActive(item)
-                          const cols = item.columns ?? []
-                          const cw = item.columnWidths
-                          const sidebarSpan = cw?.col1 != null ? Number(cw.col1) : sidebarCols
-                          const contentSpan = cw?.col2 != null ? Number(cw.col2) : contentCols
-                          const featuredSpan = cw?.col3 != null ? Number(cw.col3) : featuredCols
-                          const allItemsFromColumns = cols.flatMap((col) =>
-                            (col.items ?? []).map((sub) => ({
-                              ...sub,
-                              _groupTitle: col.title,
-                              _isSpecialColumn: isSpecialMegaMenuColumn(col),
-                            })),
-                          )
-                          const listItems =
-                            allItemsFromColumns.length > 0
-                              ? allItemsFromColumns
-                              : (item.subItems ?? []).map((s) => ({
-                                  ...s,
-                                  _groupTitle: null,
-                                  _isSpecialColumn: false,
-                                }))
-                          const hasGroupTitles = listItems.some(
-                            (x: { _groupTitle?: string | null }) =>
-                              x._groupTitle != null && x._groupTitle !== '',
-                          )
-                          const hasVisualColumnBlocks = cols.some(
-                            (col) =>
-                              isSpecialMegaMenuColumn(col) ||
-                              col.backgroundImage != null ||
-                              col.columnBackground === 'muted',
-                          )
-                          const blockCount = listItems.length
-                          const blockInitialDelayMs = 24
-                          const blockStaggerMs = 72
-                          const highlightStartAfterLastBlockMs = 110
-                          const highlightDelayMs =
-                            blockCount > 0
-                              ? blockInitialDelayMs +
-                                (blockCount - 1) * blockStaggerMs +
-                                highlightStartAfterLastBlockMs
-                              : blockInitialDelayMs + 80
-                          const nonEmptyMegaCols = cols.filter((c) => (c.items?.length ?? 0) > 0)
-                          const singleMegaColumnGroup = nonEmptyMegaCols.length === 1
-                          const columnItemStartIndices: number[] = []
-                          let runningBlockIndex = 0
-                          for (const col of cols) {
-                            columnItemStartIndices.push(runningBlockIndex)
-                            runningBlockIndex += col.items?.length ?? 0
+                        scheduleClose(160)
+                      }}
+                      viewportWrapperRef={viewportWrapperRef}
+                    >
+                      <div
+                        ref={navListWrapRef}
+                        className="megamenu-nav-list-wrap relative flex h-full flex-1 justify-end"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className="megamenu-nav-indicator"
+                          data-visible={navIndicatorStyle.visible ? 'true' : 'false'}
+                          style={
+                            {
+                              width: `${navIndicatorStyle.width}px`,
+                              transform: `translateX(${navIndicatorStyle.x}px)`,
+                            } as React.CSSProperties
                           }
+                        />
+                        <NavigationMenuList className="megamenu-nav-list h-full justify-end">
+                          {sortedItems.map((item, idx) => {
+                            const menuItemKey = getMegaMenuItemKey(item, idx)
+                            const hasDrop = hasDropdown(item)
+                            const value = menuItemKey
 
-                          // Nur Spalten mit Inhalt anzeigen; Breiten aus Backend (Header → Mega-Menü Spaltenbreiten)
-                          const catDesc = item.categoryDescription
-                          const showCategoryIntro =
-                            catDesc != null &&
-                            (Boolean(catDesc.title && String(catDesc.title).trim()) ||
-                              Boolean(catDesc.description && String(catDesc.description).trim()))
-                          const hasCol2 = listItems.length > 0
-                          const hasHighlightCards =
-                            Array.isArray(item.highlight?.cards) && item.highlight.cards.length > 0
-                          const hasLegacyHighlight =
-                            item.highlight != null &&
-                            ((item.highlight.title != null && item.highlight.title !== '') ||
-                              (item.highlight.description != null &&
-                                item.highlight.description !== '') ||
-                              (item.highlight.icon != null && mediaUrl(item.highlight.icon)) ||
-                              (item.highlight.image != null && mediaUrl(item.highlight.image)) ||
-                              (item.highlight.ctaUrl != null && item.highlight.ctaUrl !== ''))
-                          const hasCol3 =
-                            item.highlight != null && (hasHighlightCards || hasLegacyHighlight)
-                          const callbackSidebar = megaMenuCta?.callback ?? null
+                            if (hasDrop) {
+                              const isActive = isMegaItemActive(item)
+                              const cols = item.columns ?? []
+                              const cw = item.columnWidths
+                              const sidebarSpan = cw?.col1 != null ? Number(cw.col1) : sidebarCols
+                              const contentSpan = cw?.col2 != null ? Number(cw.col2) : contentCols
+                              const featuredSpan = cw?.col3 != null ? Number(cw.col3) : featuredCols
+                              const allItemsFromColumns = cols.flatMap((col) =>
+                                (col.items ?? []).map((sub) => ({
+                                  ...sub,
+                                  _groupTitle: col.title,
+                                  _isSpecialColumn: isSpecialMegaMenuColumn(col),
+                                })),
+                              )
+                              const listItems =
+                                allItemsFromColumns.length > 0
+                                  ? allItemsFromColumns
+                                  : (item.subItems ?? []).map((s) => ({
+                                      ...s,
+                                      _groupTitle: null,
+                                      _isSpecialColumn: false,
+                                    }))
+                              const hasGroupTitles = listItems.some(
+                                (x: { _groupTitle?: string | null }) =>
+                                  x._groupTitle != null && x._groupTitle !== '',
+                              )
+                              const hasVisualColumnBlocks = cols.some(
+                                (col) =>
+                                  isSpecialMegaMenuColumn(col) ||
+                                  col.backgroundImage != null ||
+                                  col.columnBackground === 'muted',
+                              )
+                              const blockCount = listItems.length
+                              const blockInitialDelayMs = 24
+                              const blockStaggerMs = 72
+                              const highlightStartAfterLastBlockMs = 110
+                              const highlightDelayMs =
+                                blockCount > 0
+                                  ? blockInitialDelayMs +
+                                    (blockCount - 1) * blockStaggerMs +
+                                    highlightStartAfterLastBlockMs
+                                  : blockInitialDelayMs + 80
+                              const nonEmptyMegaCols = cols.filter(
+                                (c) => (c.items?.length ?? 0) > 0,
+                              )
+                              const singleMegaColumnGroup = nonEmptyMegaCols.length === 1
+                              const columnItemStartIndices: number[] = []
+                              let runningBlockIndex = 0
+                              for (const col of cols) {
+                                columnItemStartIndices.push(runningBlockIndex)
+                                runningBlockIndex += col.items?.length ?? 0
+                              }
 
-                          const cardItems: Array<{
-                            title?: string | null
-                            description?: string | null
-                            icon?: MediaRef
-                            image?: MediaRef
-                            ctaLabel?: string | null
-                            ctaUrl?: string | null
-                          }> = hasHighlightCards
-                            ? item.highlight!.cards!
-                            : hasLegacyHighlight && item.highlight
-                              ? [
-                                  {
-                                    title: item.highlight.title,
-                                    description: item.highlight.description,
-                                    icon: item.highlight.icon,
-                                    image: item.highlight.image,
-                                    ctaLabel: item.highlight.ctaLabel,
-                                    ctaUrl: item.highlight.ctaUrl,
-                                  },
-                                ]
-                              : []
+                              // Nur Spalten mit Inhalt anzeigen; Breiten aus Backend (Header → Mega-Menü Spaltenbreiten)
+                              const catDesc = item.categoryDescription
+                              const showCategoryIntro =
+                                catDesc != null &&
+                                (Boolean(catDesc.title && String(catDesc.title).trim()) ||
+                                  Boolean(
+                                    catDesc.description && String(catDesc.description).trim(),
+                                  ))
+                              const hasCol2 = listItems.length > 0
+                              const hasHighlightCards =
+                                Array.isArray(item.highlight?.cards) &&
+                                item.highlight.cards.length > 0
+                              const hasLegacyHighlight =
+                                item.highlight != null &&
+                                ((item.highlight.title != null && item.highlight.title !== '') ||
+                                  (item.highlight.description != null &&
+                                    item.highlight.description !== '') ||
+                                  (item.highlight.icon != null && mediaUrl(item.highlight.icon)) ||
+                                  (item.highlight.image != null &&
+                                    mediaUrl(item.highlight.image)) ||
+                                  (item.highlight.ctaUrl != null && item.highlight.ctaUrl !== ''))
+                              const hasCol3 =
+                                item.highlight != null && (hasHighlightCards || hasLegacyHighlight)
+                              const callbackSidebar = megaMenuCta?.callback ?? null
 
-                          const visibleColumns: Array<{
-                            span: number
-                            key: string
-                            content: React.ReactNode
-                            noPadding?: boolean
-                          }> = []
-                          if (callbackSidebar) {
-                            visibleColumns.push({
-                              span: sidebarSpan,
-                              key: 'sidebar',
-                              content: <MegaMenuSidebar callback={callbackSidebar} />,
-                            })
-                          }
-                          if (hasCol2) {
-                            visibleColumns.push({
-                              span: contentSpan,
-                              key: 'items',
-                              content: hasGroupTitles || hasVisualColumnBlocks ? (
-                                <div className="grid grid-cols-12 gap-6">
-                                  {cols.map((col, colIdx) => {
-                                    if ((col.items?.length ?? 0) <= 0) return null
+                              const cardItems: Array<{
+                                title?: string | null
+                                description?: string | null
+                                icon?: MediaRef
+                                image?: MediaRef
+                                ctaLabel?: string | null
+                                ctaUrl?: string | null
+                              }> = hasHighlightCards
+                                ? item.highlight!.cards!
+                                : hasLegacyHighlight && item.highlight
+                                  ? [
+                                      {
+                                        title: item.highlight.title,
+                                        description: item.highlight.description,
+                                        icon: item.highlight.icon,
+                                        image: item.highlight.image,
+                                        ctaLabel: item.highlight.ctaLabel,
+                                        ctaUrl: item.highlight.ctaUrl,
+                                      },
+                                    ]
+                                  : []
 
-                                    const isSpecialColumn = isSpecialMegaMenuColumn(col)
-                                    const specialBgUrl =
-                                      col.columnBackground === 'image' && col.backgroundImage
-                                        ? mediaUrl(col.backgroundImage)
-                                        : ''
-                                    const specialOverlayOpacity = (
-                                      (col.overlayOpacity ?? 55) / 100
-                                    ).toFixed(2)
+                              const visibleColumns: Array<{
+                                span: number
+                                key: string
+                                content: React.ReactNode
+                                noPadding?: boolean
+                              }> = []
+                              if (callbackSidebar) {
+                                visibleColumns.push({
+                                  span: sidebarSpan,
+                                  key: 'sidebar',
+                                  content: <MegaMenuSidebar callback={callbackSidebar} />,
+                                })
+                              }
+                              if (hasCol2) {
+                                visibleColumns.push({
+                                  span: contentSpan,
+                                  key: 'items',
+                                  content:
+                                    hasGroupTitles || hasVisualColumnBlocks ? (
+                                      <div className="grid grid-cols-12 gap-6">
+                                        {cols.map((col, colIdx) => {
+                                          if ((col.items?.length ?? 0) <= 0) return null
 
-                                    return (
-                                      <div
-                                        key={getMegaMenuColumnKey(col, colIdx)}
+                                          const isSpecialColumn = isSpecialMegaMenuColumn(col)
+                                          const specialBgUrl =
+                                            col.columnBackground === 'image' && col.backgroundImage
+                                              ? mediaUrl(col.backgroundImage)
+                                              : ''
+                                          const specialOverlayOpacity = (
+                                            (col.overlayOpacity ?? 55) / 100
+                                          ).toFixed(2)
+
+                                          return (
+                                            <div
+                                              key={getMegaMenuColumnKey(col, colIdx)}
+                                              className={cn(
+                                                'min-w-0 space-y-3',
+                                                specialBgUrl &&
+                                                  'megamenu-special-block relative overflow-hidden rounded-xl p-4',
+                                                colSpan(
+                                                  singleMegaColumnGroup
+                                                    ? 12
+                                                    : Math.min(
+                                                        12,
+                                                        Math.max(1, col.columnWidth ?? 4),
+                                                      ),
+                                                ),
+                                              )}
+                                            >
+                                              {specialBgUrl && (
+                                                <>
+                                                  <div
+                                                    className="absolute inset-0 bg-cover bg-center"
+                                                    style={{
+                                                      backgroundImage: `url(${specialBgUrl})`,
+                                                    }}
+                                                    aria-hidden="true"
+                                                  />
+                                                  <div
+                                                    className="absolute inset-0 megamenu-highlight-overlay"
+                                                    style={
+                                                      {
+                                                        '--overlay-opacity': specialOverlayOpacity,
+                                                      } as React.CSSProperties
+                                                    }
+                                                    aria-hidden="true"
+                                                  />
+                                                </>
+                                              )}
+                                              {col.title != null && col.title !== '' && (
+                                                <h4 className="relative z-10 text-sm font-semibold text-muted-foreground uppercase tracking-[-0.009em]">
+                                                  {col.title}
+                                                </h4>
+                                              )}
+                                              <ul
+                                                className={cn(
+                                                  'relative z-10 grid gap-y-4',
+                                                  (col.items?.length ?? 0) > 4
+                                                    ? 'grid-cols-2 gap-x-8'
+                                                    : 'grid-cols-1',
+                                                )}
+                                              >
+                                                {(col.items ?? []).map((sub, idx) => {
+                                                  const rawMedia = sub.image ?? sub.icon ?? null
+                                                  const listKey = getMegaMenuSubItemKey(sub, idx)
+
+                                                  return (
+                                                    <ListItem
+                                                      key={listKey}
+                                                      title={sub.label}
+                                                      href={toLocalizedHref(sub.url)}
+                                                      animationIndex={
+                                                        (columnItemStartIndices[colIdx] ?? 0) + idx
+                                                      }
+                                                      isButton={isSpecialColumn}
+                                                      icon={renderMegaMenuItemIcon(rawMedia, {
+                                                        label: sub.label,
+                                                        fallbackUrl: sub.url,
+                                                      })}
+                                                    >
+                                                      {sub.description ?? ''}
+                                                    </ListItem>
+                                                  )
+                                                })}
+                                              </ul>
+                                            </div>
+                                          )
+                                        })}
+                                      </div>
+                                    ) : (
+                                      <ul
                                         className={cn(
-                                          'min-w-0 space-y-3',
-                                          specialBgUrl &&
-                                            'megamenu-special-block relative overflow-hidden rounded-xl p-4',
-                                          colSpan(
-                                            singleMegaColumnGroup
-                                              ? 12
-                                              : Math.min(12, Math.max(1, col.columnWidth ?? 4)),
-                                          ),
+                                          'grid gap-y-4',
+                                          listItems.length > 4
+                                            ? 'grid-cols-2 gap-x-8'
+                                            : 'grid-cols-1',
                                         )}
                                       >
-                                        {specialBgUrl && (
-                                          <>
-                                            <div
-                                              className="absolute inset-0 bg-cover bg-center"
-                                              style={{ backgroundImage: `url(${specialBgUrl})` }}
-                                              aria-hidden="true"
-                                            />
-                                            <div
-                                              className="absolute inset-0 megamenu-highlight-overlay"
-                                              style={
-                                                {
-                                                  '--overlay-opacity': specialOverlayOpacity,
-                                                } as React.CSSProperties
-                                              }
-                                              aria-hidden="true"
-                                            />
-                                          </>
-                                        )}
-                                        {col.title != null && col.title !== '' && (
-                                          <h4 className="relative z-10 text-sm font-semibold text-muted-foreground uppercase tracking-[-0.009em]">
-                                            {col.title}
-                                          </h4>
-                                        )}
-                                        <ul
-                                          className={cn(
-                                            'relative z-10 grid gap-y-4',
-                                            (col.items?.length ?? 0) > 4
-                                              ? 'grid-cols-2 gap-x-8'
-                                              : 'grid-cols-1',
-                                          )}
-                                        >
-                                          {(col.items ?? []).map((sub, idx) => {
+                                        {listItems.map(
+                                          (
+                                            sub: {
+                                              label: string
+                                              url: string
+                                              description?: string | null
+                                              icon?: MediaRef
+                                              image?: MediaRef
+                                              _isSpecialColumn?: boolean
+                                            },
+                                            idx: number,
+                                          ) => {
                                             const rawMedia = sub.image ?? sub.icon ?? null
                                             const listKey = getMegaMenuSubItemKey(sub, idx)
 
@@ -2745,10 +2858,8 @@ export function MegaMenu({
                                                 key={listKey}
                                                 title={sub.label}
                                                 href={toLocalizedHref(sub.url)}
-                                                animationIndex={
-                                                  (columnItemStartIndices[colIdx] ?? 0) + idx
-                                                }
-                                                isButton={isSpecialColumn}
+                                                animationIndex={idx}
+                                                isButton={Boolean(sub._isSpecialColumn)}
                                                 icon={renderMegaMenuItemIcon(rawMedia, {
                                                   label: sub.label,
                                                   fallbackUrl: sub.url,
@@ -2757,825 +2868,853 @@ export function MegaMenu({
                                                 {sub.description ?? ''}
                                               </ListItem>
                                             )
-                                          })}
-                                        </ul>
-                                      </div>
-                                    )
-                                  })}
-                                </div>
-                              ) : (
-                                <ul
-                                  className={cn(
-                                    'grid gap-y-4',
-                                    listItems.length > 4 ? 'grid-cols-2 gap-x-8' : 'grid-cols-1',
-                                  )}
-                                >
-                                  {listItems.map(
-                                    (
-                                      sub: {
-                                        label: string
-                                        url: string
-                                        description?: string | null
-                                        icon?: MediaRef
-                                        image?: MediaRef
-                                        _isSpecialColumn?: boolean
-                                      },
-                                      idx: number,
-                                    ) => {
-                                      const rawMedia = sub.image ?? sub.icon ?? null
-                                      const listKey = getMegaMenuSubItemKey(sub, idx)
-
-                                      return (
-                                        <ListItem
-                                          key={listKey}
-                                          title={sub.label}
-                                          href={toLocalizedHref(sub.url)}
-                                          animationIndex={idx}
-                                          isButton={Boolean(sub._isSpecialColumn)}
-                                          icon={renderMegaMenuItemIcon(rawMedia, {
-                                            label: sub.label,
-                                            fallbackUrl: sub.url,
-                                          })}
-                                        >
-                                          {sub.description ?? ''}
-                                        </ListItem>
+                                          },
+                                        )}
+                                      </ul>
+                                    ),
+                                })
+                              }
+                              const highlightPosition = item.highlight?.position ?? 'right'
+                              const roundedT =
+                                cardStyle.borderRadius === 'rounded-xl'
+                                  ? 'rounded-t-xl'
+                                  : cardStyle.borderRadius === 'rounded-lg'
+                                    ? 'rounded-t-lg'
+                                    : 'rounded-t-none'
+                              const highlightContent =
+                                hasCol3 && cardItems.length > 0 ? (
+                                  <div className={cn('grid gap-4', highlightPosition === 'below')}>
+                                    {cardItems.map((card, cardIdx) => {
+                                      const cardTitle =
+                                        card.title != null && card.title !== '' ? card.title : null
+                                      const cardDesc =
+                                        card.description != null && card.description !== ''
+                                          ? card.description
+                                          : null
+                                      const cardKey = getMegaMenuCardKey(card, cardIdx)
+                                      const cardIconUrl =
+                                        card.icon != null ? mediaUrl(card.icon) : ''
+                                      const cardIconSpriteId = null
+                                      const cardImageUrl =
+                                        card.image != null ? mediaUrl(card.image) : ''
+                                      const cardCtaUrl =
+                                        card.ctaUrl != null && card.ctaUrl !== ''
+                                          ? card.ctaUrl
+                                          : null
+                                      const cardCtaLabel = card.ctaLabel ?? 'Mehr'
+                                      const hasMedia = cardImageUrl || cardIconUrl
+                                      const mediaBlock = (
+                                        <>
+                                          {cardImageUrl && (
+                                            <div
+                                              className={cn(
+                                                'relative overflow-hidden bg-muted group/highlight',
+                                                highlightPosition === 'below'
+                                                  ? 'aspect-square min-w-[100px] w-[100px] shrink-0 rounded-l-lg'
+                                                  : cn('aspect-video w-full', roundedT),
+                                              )}
+                                            >
+                                              <img
+                                                src={cardImageUrl}
+                                                alt={cardTitle ?? ''}
+                                                className="object-cover w-full h-full transition-transform duration-300 group-hover/highlight:scale-[1.02]"
+                                                loading="eager"
+                                                decoding="sync"
+                                              />
+                                              <div className="absolute inset-0 bg-foreground/10 transition-opacity group-hover/highlight:bg-foreground/5" />
+                                            </div>
+                                          )}
+                                          {!cardImageUrl && cardIconUrl && (
+                                            <div
+                                              className={cn(
+                                                'flex shrink-0 items-center justify-center overflow-hidden bg-muted/60 p-2.5 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
+                                                highlightPosition === 'below'
+                                                  ? 'megamenu-item-icon h-full min-w-[100px] w-[100px] rounded-l-lg'
+                                                  : 'megamenu-item-icon h-14 w-14 rounded-lg',
+                                              )}
+                                            >
+                                              {cardIconSpriteId ? (
+                                                <svg className="h-6 w-6" aria-hidden="true">
+                                                  <use
+                                                    href={`/icons-sprite.svg#${cardIconSpriteId}`}
+                                                  />
+                                                </svg>
+                                              ) : (
+                                                <ResilientImage
+                                                  src={cardIconUrl}
+                                                  alt=""
+                                                  decoding="sync"
+                                                />
+                                              )}
+                                            </div>
+                                          )}
+                                        </>
                                       )
-                                    },
-                                  )}
-                                </ul>
-                              ),
-                            })
-                          }
-                          const highlightPosition = item.highlight?.position ?? 'right'
-                          const roundedT =
-                            cardStyle.borderRadius === 'rounded-xl'
-                              ? 'rounded-t-xl'
-                              : cardStyle.borderRadius === 'rounded-lg'
-                                ? 'rounded-t-lg'
-                                : 'rounded-t-none'
-                          const highlightContent =
-                            hasCol3 && cardItems.length > 0 ? (
-                              <div className={cn('grid gap-4', highlightPosition === 'below')}>
-                                {cardItems.map((card, cardIdx) => {
-                                  const cardTitle =
-                                    card.title != null && card.title !== '' ? card.title : null
-                                  const cardDesc =
-                                    card.description != null && card.description !== ''
-                                      ? card.description
-                                      : null
-                                  const cardKey = getMegaMenuCardKey(card, cardIdx)
-                                  const cardIconUrl = card.icon != null ? mediaUrl(card.icon) : ''
-                                  const cardIconSpriteId = null
-                                  const cardImageUrl =
-                                    card.image != null ? mediaUrl(card.image) : ''
-                                  const cardCtaUrl =
-                                    card.ctaUrl != null && card.ctaUrl !== '' ? card.ctaUrl : null
-                                  const cardCtaLabel = card.ctaLabel ?? 'Mehr'
-                                  const hasMedia = cardImageUrl || cardIconUrl
-                                  const mediaBlock = (
-                                    <>
-                                      {cardImageUrl && (
+                                      const textBlock = (
                                         <div
                                           className={cn(
-                                            'relative overflow-hidden bg-muted group/highlight',
-                                            highlightPosition === 'below'
-                                              ? 'aspect-square min-w-[100px] w-[100px] shrink-0 rounded-l-lg'
-                                              : cn('aspect-video w-full', roundedT),
+                                            hasMedia && highlightPosition !== 'below'
+                                              ? 'pt-3'
+                                              : hasMedia && highlightPosition === 'below'
+                                                ? 'py-3 pl-4 pr-4'
+                                                : 'pt-3',
                                           )}
                                         >
-                                          <img
-                                            src={cardImageUrl}
-                                            alt={cardTitle ?? ''}
-                                            className="object-cover w-full h-full transition-transform duration-300 group-hover/highlight:scale-[1.02]"
-                                            loading="eager"
-                                            decoding="sync"
-                                          />
-                                          <div className="absolute inset-0 bg-foreground/10 transition-opacity group-hover/highlight:bg-foreground/5" />
+                                          <div className="flex flex-col gap-2">
+                                            {cardTitle && (
+                                              <h4 className="text-sm font-semibold tracking-[-0.009em] leading-tight">
+                                                {cardTitle}
+                                              </h4>
+                                            )}
+                                            {cardDesc && (
+                                              <p className="max-h-48 min-h-0 overflow-y-auto break-words text-sm text-muted-foreground leading-snug">
+                                                {cardDesc}
+                                              </p>
+                                            )}
+                                            {cardCtaUrl && (
+                                              <Button
+                                                asChild
+                                                variant="cta"
+                                                size="cta"
+                                                className="megamenu-highlight-cta mt-2 w-fit"
+                                              >
+                                                <Link
+                                                  href={toLocalizedHref(cardCtaUrl)}
+                                                  className="no-underline"
+                                                >
+                                                  <span>{cardCtaLabel}</span>
+                                                  <span
+                                                    className="megamenu-special-icon-swap"
+                                                    aria-hidden="true"
+                                                  >
+                                                    <ChevronRight className="megamenu-special-icon-layer megamenu-special-icon-layer--a h-4 w-4" />
+                                                    <ArrowUpRight className="megamenu-special-icon-layer megamenu-special-icon-layer--b h-4 w-4" />
+                                                  </span>
+                                                </Link>
+                                              </Button>
+                                            )}
+                                          </div>
                                         </div>
-                                      )}
-                                      {!cardImageUrl && cardIconUrl && (
-                                        <div
-                                          className={cn(
-                                            'flex shrink-0 items-center justify-center overflow-hidden bg-muted/60 p-2.5 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
-                                            highlightPosition === 'below'
-                                              ? 'megamenu-item-icon h-full min-w-[100px] w-[100px] rounded-l-lg'
-                                              : 'megamenu-item-icon h-14 w-14 rounded-lg',
+                                      )
+                                      const inner =
+                                        highlightPosition === 'below' && hasMedia ? (
+                                          <div className="flex min-h-[80px] min-w-0 items-stretch">
+                                            {mediaBlock}
+                                            {textBlock}
+                                          </div>
+                                        ) : (
+                                          <>
+                                            {mediaBlock}
+                                            {textBlock}
+                                          </>
+                                        )
+                                      return <div key={cardKey}>{inner}</div>
+                                    })}
+                                  </div>
+                                ) : null
+
+                              if (
+                                hasCol3 &&
+                                item.highlight != null &&
+                                highlightPosition === 'right'
+                              ) {
+                                const useImageBg = item.highlight?.background === 'image'
+                                const useGradientBg = item.highlight?.background === 'gradient'
+                                const useCustomBg = useImageBg || useGradientBg
+                                const bgImageUrl =
+                                  useImageBg && item.highlight?.backgroundImage
+                                    ? mediaUrl(item.highlight.backgroundImage)
+                                    : null
+                                const overlayOpacity = (
+                                  (item.highlight?.overlayOpacity ?? 55) / 100
+                                ).toFixed(2)
+                                visibleColumns.push({
+                                  span: featuredSpan,
+                                  key: 'highlight',
+                                  noPadding: useCustomBg,
+                                  content: (
+                                    <div
+                                      className="megamenu-highlight-wipe-wrap flex-1 overflow-hidden"
+                                      data-wipe={mouseEntrySide}
+                                    >
+                                      {useCustomBg ? (
+                                        <div className="relative h-full">
+                                          {useImageBg && bgImageUrl && (
+                                            <>
+                                              <div
+                                                className="megamenu-bg-layer absolute inset-0 bg-cover bg-center"
+                                                style={{ backgroundImage: `url(${bgImageUrl})` }}
+                                                aria-hidden="true"
+                                              />
+                                              <div
+                                                className="megamenu-bg-layer absolute inset-0 megamenu-highlight-overlay"
+                                                style={
+                                                  {
+                                                    '--overlay-opacity': overlayOpacity,
+                                                  } as React.CSSProperties
+                                                }
+                                                aria-hidden="true"
+                                              />
+                                            </>
                                           )}
-                                        >
-                                          {cardIconSpriteId ? (
-                                            <svg className="h-6 w-6" aria-hidden="true">
-                                              <use href={`/icons-sprite.svg#${cardIconSpriteId}`} />
-                                            </svg>
-                                          ) : (
-                                            <ResilientImage
-                                              src={cardIconUrl}
-                                              alt=""
-                                              decoding="sync"
+                                          {useGradientBg && (
+                                            <div
+                                              className="absolute inset-0"
+                                              style={{
+                                                background:
+                                                  'radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)',
+                                              }}
+                                              aria-hidden="true"
                                             />
                                           )}
+                                          <div className="relative z-10 p-8">
+                                            {highlightContent}
+                                          </div>
                                         </div>
+                                      ) : (
+                                        highlightContent
                                       )}
-                                    </>
-                                  )
-                                  const textBlock = (
+                                    </div>
+                                  ),
+                                })
+                              }
+
+                              return (
+                                <NavigationMenuItem key={menuItemKey} value={value}>
+                                  <NavigationMenuTrigger
+                                    ref={(node) => {
+                                      setTopNavItemRef(menuItemKey, node)
+                                    }}
+                                    className={cn(
+                                      navigationMenuTriggerStyle(),
+                                      'megamenu-top-item cursor-pointer',
+                                      isActive && 'megamenu-top-item--active',
+                                    )}
+                                    onPointerEnter={(e) => {
+                                      const rect = e.currentTarget.getBoundingClientRect()
+                                      setMouseEntrySide(
+                                        e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
+                                      )
+                                      prefetchTopLevel(item.url)
+                                    }}
+                                    onFocus={() => {
+                                      prefetchTopLevel(item.url)
+                                    }}
+                                    onClick={(event) => {
+                                      event.preventDefault()
+                                      event.stopPropagation()
+                                      cancelCloseTimeout()
+                                      setSelectedTopNavKey(menuItemKey)
+                                      setActiveMenu(null)
+                                      navigateToTopLevel(item.url)
+                                    }}
+                                  >
+                                    {item.label}
+                                  </NavigationMenuTrigger>
+                                  <NavigationMenuContent>
                                     <div
-                                      className={cn(
-                                        hasMedia && highlightPosition !== 'below'
-                                          ? 'pt-3'
-                                          : hasMedia && highlightPosition === 'below'
-                                            ? 'py-3 pl-4 pr-4'
-                                            : 'pt-3',
-                                      )}
+                                      className="w-full"
+                                      onPointerEnter={(e) => {
+                                        const rect = e.currentTarget.getBoundingClientRect()
+                                        setMouseEntrySide(
+                                          e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
+                                        )
+                                      }}
                                     >
-                                      <div className="flex flex-col gap-2">
-                                        {cardTitle && (
-                                          <h4 className="text-sm font-semibold tracking-[-0.009em] leading-tight">
-                                            {cardTitle}
-                                          </h4>
-                                        )}
-                                        {cardDesc && (
-                                          <p className="max-h-48 min-h-0 overflow-y-auto break-words text-sm text-muted-foreground leading-snug">
-                                            {cardDesc}
-                                          </p>
-                                        )}
-                                        {cardCtaUrl && (
-                                          <Button
-                                            asChild
-                                            variant="cta"
-                                            size="cta"
-                                            className="megamenu-highlight-cta mt-2 w-fit"
-                                          >
-                                            <Link
-                                              href={toLocalizedHref(cardCtaUrl)}
-                                              className="no-underline"
-                                            >
-                                              <span>{cardCtaLabel}</span>
-                                              <span
-                                                className="megamenu-special-icon-swap"
-                                                aria-hidden="true"
-                                              >
-                                                <ChevronRight className="megamenu-special-icon-layer megamenu-special-icon-layer--a h-4 w-4" />
-                                                <ArrowUpRight className="megamenu-special-icon-layer megamenu-special-icon-layer--b h-4 w-4" />
-                                              </span>
-                                            </Link>
-                                          </Button>
-                                        )}
-                                      </div>
-                                    </div>
-                                  )
-                                  const inner =
-                                    highlightPosition === 'below' && hasMedia ? (
-                                      <div className="flex min-h-[80px] min-w-0 items-stretch">
-                                        {mediaBlock}
-                                        {textBlock}
-                                      </div>
-                                    ) : (
-                                      <>
-                                        {mediaBlock}
-                                        {textBlock}
-                                      </>
-                                    )
-                                  return <div key={cardKey}>{inner}</div>
-                                })}
-                              </div>
-                            ) : null
-
-                          if (hasCol3 && item.highlight != null && highlightPosition === 'right') {
-                            const useImageBg = item.highlight?.background === 'image'
-                            const useGradientBg = item.highlight?.background === 'gradient'
-                            const useCustomBg = useImageBg || useGradientBg
-                            const bgImageUrl =
-                              useImageBg && item.highlight?.backgroundImage
-                                ? mediaUrl(item.highlight.backgroundImage)
-                                : null
-                            const overlayOpacity = (
-                              (item.highlight?.overlayOpacity ?? 55) / 100
-                            ).toFixed(2)
-                            visibleColumns.push({
-                              span: featuredSpan,
-                              key: 'highlight',
-                              noPadding: useCustomBg,
-                              content: (
-                                <div
-                                  className="megamenu-highlight-wipe-wrap flex-1 overflow-hidden"
-                                  data-wipe={mouseEntrySide}
-                                >
-                                  {useCustomBg ? (
-                                    <div className="relative h-full">
-                                      {useImageBg && bgImageUrl && (
-                                        <>
-                                          <div
-                                            className="megamenu-bg-layer absolute inset-0 bg-cover bg-center"
-                                            style={{ backgroundImage: `url(${bgImageUrl})` }}
-                                            aria-hidden="true"
-                                          />
-                                          <div
-                                            className="megamenu-bg-layer absolute inset-0 megamenu-highlight-overlay"
-                                            style={{'--overlay-opacity': overlayOpacity} as React.CSSProperties}
-                                            aria-hidden="true"
-                                          />
-                                        </>
-                                      )}
-                                      {useGradientBg && (
-                                        <div
-                                          className="absolute inset-0"
-                                          style={{
-                                            background:
-                                              'radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)',
-                                          }}
-                                          aria-hidden="true"
-                                        />
-                                      )}
-                                      <div className="relative z-10 p-8">{highlightContent}</div>
-                                    </div>
-                                  ) : (
-                                    highlightContent
-                                  )}
-                                </div>
-                              ),
-                            })
-                          }
-
-                          return (
-                            <NavigationMenuItem key={menuItemKey} value={value}>
-                              <NavigationMenuTrigger
-                                ref={(node) => {
-                                  setTopNavItemRef(menuItemKey, node)
-                                }}
-                                className={cn(
-                                  navigationMenuTriggerStyle(),
-                                  'megamenu-top-item cursor-pointer',
-                                  isActive && 'megamenu-top-item--active',
-                                )}
-                                onPointerEnter={(e) => {
-                                  const rect = e.currentTarget.getBoundingClientRect()
-                                  setMouseEntrySide(
-                                    e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
-                                  )
-                                  prefetchTopLevel(item.url)
-                                }}
-                                onFocus={() => {
-                                  prefetchTopLevel(item.url)
-                                }}
-                                onClick={(event) => {
-                                  event.preventDefault()
-                                  event.stopPropagation()
-                                  cancelCloseTimeout()
-                                  setSelectedTopNavKey(menuItemKey)
-                                  setActiveMenu(null)
-                                  navigateToTopLevel(item.url)
-                                }}
-                              >
-                                {item.label}
-                              </NavigationMenuTrigger>
-                              <NavigationMenuContent>
-                                <div
-                                  className="w-full"
-                                  onPointerEnter={(e) => {
-                                    const rect = e.currentTarget.getBoundingClientRect()
-                                    setMouseEntrySide(
-                                      e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
-                                    )
-                                  }}
-                                >
-                                  {((showCategoryIntro && catDesc) || visibleColumns.length > 0) &&
-                                    (() => {
-                                      const hasHighlightInRow = visibleColumns.some(
-                                        (c) => c.key === 'highlight',
-                                      )
-                                      const twoColsInRow =
-                                        visibleColumns.length === 2 && hasHighlightInRow
-                                      const totalPF = Math.max(1, contentSpan + featuredSpan)
-                                      const xlMainCols = Math.max(
-                                        1,
-                                        Math.min(11, Math.round((12 * contentSpan) / totalPF)),
-                                      )
-                                      const xlSideCols = 12 - xlMainCols
-                                      const highlightColsFlex = Math.min(3, xlSideCols)
-                                      const itemsColsFlex = 12 - highlightColsFlex
-                                      return (
-                                        <div className="megamenu-dropdown-panel">
-                                          {showCategoryIntro && catDesc && (
-                                            <div className="megamenu-dropdown-intro px-8 pt-8 pb-4 border-b border-border/60">
-                                              {catDesc.title != null &&
-                                                String(catDesc.title).trim() !== '' && (
-                                                  <h2 className="text-sm font-semibold uppercase tracking-[-0.009em] text-foreground">
-                                                    {catDesc.title}
-                                                  </h2>
-                                                )}
-                                              {catDesc.description != null &&
-                                                String(catDesc.description).trim() !== '' && (
-                                                  <p
-                                                    className={cn(
-                                                      'text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap',
-                                                      catDesc.title != null &&
-                                                        String(catDesc.title).trim() !== '' &&
-                                                        'mt-2',
+                                      {((showCategoryIntro && catDesc) ||
+                                        visibleColumns.length > 0) &&
+                                        (() => {
+                                          const hasHighlightInRow = visibleColumns.some(
+                                            (c) => c.key === 'highlight',
+                                          )
+                                          const twoColsInRow =
+                                            visibleColumns.length === 2 && hasHighlightInRow
+                                          const totalPF = Math.max(1, contentSpan + featuredSpan)
+                                          const xlMainCols = Math.max(
+                                            1,
+                                            Math.min(11, Math.round((12 * contentSpan) / totalPF)),
+                                          )
+                                          const xlSideCols = 12 - xlMainCols
+                                          const highlightColsFlex = Math.min(3, xlSideCols)
+                                          const itemsColsFlex = 12 - highlightColsFlex
+                                          return (
+                                            <div className="megamenu-dropdown-panel">
+                                              {showCategoryIntro && catDesc && (
+                                                <div className="megamenu-dropdown-intro px-8 pt-8 pb-4 border-b border-border/60">
+                                                  {catDesc.title != null &&
+                                                    String(catDesc.title).trim() !== '' && (
+                                                      <h2 className="text-sm font-semibold uppercase tracking-[-0.009em] text-foreground">
+                                                        {catDesc.title}
+                                                      </h2>
                                                     )}
-                                                  >
-                                                    {catDesc.description}
-                                                  </p>
-                                                )}
-                                            </div>
-                                          )}
-                                          {visibleColumns.length > 0 && (
-                                            <div
-                                              className="megamenu-dropdown-content grid grid-cols-12"
-                                              style={
-                                                {
-                                                  '--megamenu-block-count': blockCount,
-                                                  '--megamenu-highlight-delay': `${highlightDelayMs}ms`,
-                                                } as React.CSSProperties
-                                              }
-                                            >
-                                              {visibleColumns.map((col, idx) => {
-                                                const flexMiddle = twoColsInRow
-                                                const isItemsCol = col.key === 'items'
-                                                const isHighlightCol = col.key === 'highlight'
-                                                const getSpan = () => {
-                                                  /* Nur eine Spalte (z. B. nur Links): volle Dropdown-Breite statt contentCols/6 */
-                                                  if (visibleColumns.length === 1)
-                                                    return col.key === 'sidebar'
-                                                      ? colSpan(col.span)
-                                                      : 'col-span-12'
-                                                  if (isItemsCol && flexMiddle)
-                                                    return cn(
-                                                      'col-span-12',
-                                                      lgColSpan(itemsColsFlex),
-                                                    )
-                                                  if (isItemsCol) return colSpan(col.span)
-                                                  if (isHighlightCol && flexMiddle)
-                                                    return cn(
-                                                      'col-span-12',
-                                                      lgColSpan(highlightColsFlex),
-                                                    )
-                                                  if (isHighlightCol) return colSpan(col.span)
-                                                  return colSpan(col.span)
-                                                }
-                                                return (
-                                                  <div
-                                                    key={col.key}
-                                                    style={
-                                                      {
-                                                        '--megamenu-col-index': idx,
-                                                        '--megamenu-fan-offset':
-                                                          idx - (visibleColumns.length - 1) / 2,
-                                                      } as React.CSSProperties
+                                                  {catDesc.description != null &&
+                                                    String(catDesc.description).trim() !== '' && (
+                                                      <p
+                                                        className={cn(
+                                                          'text-sm text-muted-foreground leading-relaxed whitespace-pre-wrap',
+                                                          catDesc.title != null &&
+                                                            String(catDesc.title).trim() !== '' &&
+                                                            'mt-2',
+                                                        )}
+                                                      >
+                                                        {catDesc.description}
+                                                      </p>
+                                                    )}
+                                                </div>
+                                              )}
+                                              {visibleColumns.length > 0 && (
+                                                <div
+                                                  className="megamenu-dropdown-content grid grid-cols-12"
+                                                  style={
+                                                    {
+                                                      '--megamenu-block-count': blockCount,
+                                                      '--megamenu-highlight-delay': `${highlightDelayMs}ms`,
+                                                    } as React.CSSProperties
+                                                  }
+                                                >
+                                                  {visibleColumns.map((col, idx) => {
+                                                    const flexMiddle = twoColsInRow
+                                                    const isItemsCol = col.key === 'items'
+                                                    const isHighlightCol = col.key === 'highlight'
+                                                    const getSpan = () => {
+                                                      /* Nur eine Spalte (z. B. nur Links): volle Dropdown-Breite statt contentCols/6 */
+                                                      if (visibleColumns.length === 1)
+                                                        return col.key === 'sidebar'
+                                                          ? colSpan(col.span)
+                                                          : 'col-span-12'
+                                                      if (isItemsCol && flexMiddle)
+                                                        return cn(
+                                                          'col-span-12',
+                                                          lgColSpan(itemsColsFlex),
+                                                        )
+                                                      if (isItemsCol) return colSpan(col.span)
+                                                      if (isHighlightCol && flexMiddle)
+                                                        return cn(
+                                                          'col-span-12',
+                                                          lgColSpan(highlightColsFlex),
+                                                        )
+                                                      if (isHighlightCol) return colSpan(col.span)
+                                                      return colSpan(col.span)
                                                     }
-                                                    className={cn(
-                                                      'flex flex-col min-w-0 megamenu-fan-col',
-                                                      !col.noPadding && 'p-8',
-                                                      col.noPadding && 'relative overflow-hidden',
-                                                      col.key === 'highlight' &&
-                                                        'megamenu-featured',
-                                                      col.key === 'items' && 'megamenu-col-items',
-                                                      idx < visibleColumns.length - 1 &&
-                                                        'border-r border-border megamenu-col-divider',
-                                                      isItemsCol &&
-                                                        flexMiddle &&
-                                                        'max-lg:border-r-0',
-                                                      isHighlightCol &&
-                                                        flexMiddle &&
-                                                        'max-lg:border-t max-lg:border-border',
-                                                      getSpan(),
-                                                    )}
-                                                  >
-                                                    {col.content}
-                                                  </div>
-                                                )
-                                              })}
+                                                    return (
+                                                      <div
+                                                        key={col.key}
+                                                        style={
+                                                          {
+                                                            '--megamenu-col-index': idx,
+                                                            '--megamenu-fan-offset':
+                                                              idx - (visibleColumns.length - 1) / 2,
+                                                          } as React.CSSProperties
+                                                        }
+                                                        className={cn(
+                                                          'flex flex-col min-w-0 megamenu-fan-col',
+                                                          !col.noPadding && 'p-8',
+                                                          col.noPadding &&
+                                                            'relative overflow-hidden',
+                                                          col.key === 'highlight' &&
+                                                            'megamenu-featured',
+                                                          col.key === 'items' &&
+                                                            'megamenu-col-items',
+                                                          idx < visibleColumns.length - 1 &&
+                                                            'border-r border-border megamenu-col-divider',
+                                                          isItemsCol &&
+                                                            flexMiddle &&
+                                                            'max-lg:border-r-0',
+                                                          isHighlightCol &&
+                                                            flexMiddle &&
+                                                            'max-lg:border-t max-lg:border-border',
+                                                          getSpan(),
+                                                        )}
+                                                      >
+                                                        {col.content}
+                                                      </div>
+                                                    )
+                                                  })}
+                                                </div>
+                                              )}
                                             </div>
-                                          )}
-                                        </div>
-                                      )
-                                    })()}
-                                  {(hasCol3 &&
-                                    item.highlight != null &&
-                                    highlightPosition === 'below' &&
-                                    highlightContent) ||
-                                  megaMenuCta ? (
-                                    <div
-                                      className="megamenu-dropdown-content-footer"
-                                      style={
-                                        {
-                                          '--megamenu-col-count': visibleColumns.length,
-                                          '--megamenu-col-index': visibleColumns.length,
-                                          '--megamenu-highlight-delay': `${highlightDelayMs}ms`,
-                                        } as React.CSSProperties
-                                      }
-                                    >
-                                      {hasCol3 &&
+                                          )
+                                        })()}
+                                      {(hasCol3 &&
                                         item.highlight != null &&
                                         highlightPosition === 'below' &&
-                                        highlightContent && (
-                                          <div
-                                            className="megamenu-highlight-wipe-wrap megamenu-below-highlight-wrap overflow-hidden"
-                                            data-wipe={mouseEntrySide}
-                                          >
-                                            <div className="megamenu-featured relative border-t border-border p-8">
-                                              {item.highlight?.background === 'image' &&
-                                                item.highlight?.backgroundImage && (
-                                                  <>
+                                        highlightContent) ||
+                                      megaMenuCta ? (
+                                        <div
+                                          className="megamenu-dropdown-content-footer"
+                                          style={
+                                            {
+                                              '--megamenu-col-count': visibleColumns.length,
+                                              '--megamenu-col-index': visibleColumns.length,
+                                              '--megamenu-highlight-delay': `${highlightDelayMs}ms`,
+                                            } as React.CSSProperties
+                                          }
+                                        >
+                                          {hasCol3 &&
+                                            item.highlight != null &&
+                                            highlightPosition === 'below' &&
+                                            highlightContent && (
+                                              <div
+                                                className="megamenu-highlight-wipe-wrap megamenu-below-highlight-wrap overflow-hidden"
+                                                data-wipe={mouseEntrySide}
+                                              >
+                                                <div className="megamenu-featured relative border-t border-border p-8">
+                                                  {item.highlight?.background === 'image' &&
+                                                    item.highlight?.backgroundImage && (
+                                                      <>
+                                                        <div
+                                                          className="megamenu-bg-layer absolute inset-0 bg-cover bg-center"
+                                                          style={{
+                                                            backgroundImage: `url(${mediaUrl(item.highlight.backgroundImage)})`,
+                                                          }}
+                                                          aria-hidden="true"
+                                                        />
+                                                        <div
+                                                          className="megamenu-bg-layer absolute inset-0 megamenu-highlight-overlay"
+                                                          style={
+                                                            {
+                                                              '--overlay-opacity': (
+                                                                (item.highlight?.overlayOpacity ??
+                                                                  55) / 100
+                                                              ).toFixed(2),
+                                                            } as React.CSSProperties
+                                                          }
+                                                          aria-hidden="true"
+                                                        />
+                                                      </>
+                                                    )}
+                                                  {item.highlight?.background === 'gradient' && (
                                                     <div
-                                                      className="megamenu-bg-layer absolute inset-0 bg-cover bg-center"
+                                                      className="absolute inset-0"
                                                       style={{
-                                                        backgroundImage: `url(${mediaUrl(item.highlight.backgroundImage)})`,
+                                                        background:
+                                                          'radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)',
                                                       }}
                                                       aria-hidden="true"
                                                     />
-                                                    <div
-                                                      className="megamenu-bg-layer absolute inset-0 megamenu-highlight-overlay"
-                                                      style={{
-                                                        '--overlay-opacity': (
-                                                          (item.highlight?.overlayOpacity ?? 55) /
-                                                          100
-                                                        ).toFixed(2),
-                                                      } as React.CSSProperties}
-                                                      aria-hidden="true"
-                                                    />
-                                                  </>
-                                                )}
-                                              {item.highlight?.background === 'gradient' && (
-                                                <div
-                                                  className="absolute inset-0"
-                                                  style={{
-                                                    background:
-                                                      'radial-gradient(125% 125% at 50% 10%, var(--background) 40%, var(--primary) 100%)',
-                                                  }}
-                                                  aria-hidden="true"
-                                                />
-                                              )}
-                                              <div className="relative z-10">
-                                                {highlightContent}
+                                                  )}
+                                                  <div className="relative z-10">
+                                                    {highlightContent}
+                                                  </div>
+                                                </div>
                                               </div>
-                                            </div>
-                                          </div>
-                                        )}
-                                      {megaMenuCta && (
-                                        <MegaMenuCtaStrip
-                                          cta={megaMenuCta}
-                                          hideCallback={Boolean(megaMenuCta.callback)}
-                                        />
-                                      )}
+                                            )}
+                                          {megaMenuCta && (
+                                            <MegaMenuCtaStrip
+                                              cta={megaMenuCta}
+                                              hideCallback={Boolean(megaMenuCta.callback)}
+                                            />
+                                          )}
+                                        </div>
+                                      ) : null}
                                     </div>
-                                  ) : null}
-                                </div>
-                              </NavigationMenuContent>
-                            </NavigationMenuItem>
-                          )
-                        }
+                                  </NavigationMenuContent>
+                                </NavigationMenuItem>
+                              )
+                            }
 
-                        return (
-                          <NavigationMenuItem key={menuItemKey}>
-                            <NavigationMenuLink asChild>
-                              <Link
-                                href={toLocalizedHref(item.url)}
-                                ref={(node) => {
-                                  setTopNavItemRef(menuItemKey, node)
-                                }}
-                                className={cn(
-                                  navigationMenuTriggerStyle(),
-                                  'megamenu-top-item cursor-pointer',
-                                  isMegaItemActive(item) && 'megamenu-top-item--active',
-                                )}
-                                onClick={() => {
-                                  setSelectedTopNavKey(menuItemKey)
-                                }}
-                              >
-                                {item.label}
-                              </Link>
-                            </NavigationMenuLink>
-                          </NavigationMenuItem>
-                        )
-                      })}
-                    </NavigationMenuList>
-                  </div>
-                </NavigationMenu>
-                <div className="hidden lg:flex items-center gap-0">
-                  <HeaderActions
-                    contactCta={{
-                      whatsapp: megaMenuCta?.whatsapp,
-                      callback: megaMenuCta?.callback,
-                    }}
-                  />
-                </div>
-                <div className="flex lg:hidden shrink-0 items-center">
-                  <Sheet open={mobileMenuOpen} onOpenChange={handleMobileMenuOpenChange}>
-                    <button
-                      ref={mobileMenuTriggerRef}
-                      type="button"
-                      className="mobile-megamenu-trigger-btn inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
-                      aria-label={mobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
-                      aria-expanded={mobileMenuOpen}
-                      data-open={mobileMenuIconActive ? 'true' : 'false'}
-                      onClick={toggleMobileMenu}
-                    >
-                      <MobileMenuTriggerIcon active={mobileMenuIconActive} />
-                    </button>
-                    <SheetContent
-                      ref={mobileMenuSheetRef}
-                      side="right"
-                      onCloseAutoFocus={(event) => {
-                        event.preventDefault()
-                        mobileMenuTriggerRef.current?.focus({ preventScroll: true })
-                      }}
-                      overlayClassName="mobile-megamenu-overlay data-[state=open]:!animate-none data-[state=closed]:!animate-none"
-                      className="mobile-megamenu-sheet megamenu-sheet h-[100dvh] max-h-[100dvh] w-full max-w-full sm:w-[min(94vw,36rem)] sm:max-w-[36rem] border-l border-border/40 p-0 data-[state=open]:!animate-none data-[state=closed]:!animate-none supports-[height:100svh]:h-[100svh] [&>button]:hidden"
-                      style={
-                        {
-                          '--mobile-mega-item-count': String(Math.max(1, mobileMenuItems.length)),
-                          ...(mobileMenuOrigin
-                            ? {
-                                '--mobile-mega-origin-x': `calc(100% - ${mobileMenuOrigin.right}px)`,
-                                '--mobile-mega-origin-y': `${mobileMenuOrigin.y}px`,
-                              }
-                            : {}),
-                        } as React.CSSProperties
-                      }
-                    >
-                      <SheetTitle className="sr-only">Mobilmenü</SheetTitle>
-                      <div
-                        className="mobile-megamenu-shell flex h-full flex-col"
-                        data-secondary-open={mobileHasSecondaryOpen ? 'true' : 'false'}
-                      >
-                        <div className="mobile-megamenu-utility px-4">
-                          <div className="mobile-megamenu-utility-logo flex items-center">
-                            {mobileLogo ? (
-                              <div className="mobile-megamenu-utility-logo-mask">{mobileLogo}</div>
-                            ) : (
-                              <ResilientImage
-                                src={MOBILE_MENU_LOGO_ICON_SRC}
-                                alt="Philipp Bacher Logo"
-                                className="mobile-megamenu-utility-logo-icon"
-                              />
-                            )}
-                          </div>
-                          <div className="mobile-megamenu-utility-actions">
-                            <LanguageSwitcher
-                              className="mobile-megamenu-language-switcher"
-                              disabled={!mobileUtilityControlsReady}
-                            />
-                            <ThemeSwitcher
-                              variant="switch"
-                              className="mobile-megamenu-theme-toggle shrink-0"
-                            />
-                            <button
-                              type="button"
-                              className="mobile-megamenu-trigger-btn mobile-megamenu-trigger-btn--plain inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
-                              aria-label="Menü schließen"
-                              data-open={mobileMenuIconActive ? 'true' : 'false'}
-                              onClick={closeMobileMenu}
-                            >
-                              <MobileMenuTriggerIcon active={mobileMenuIconActive} />
-                            </button>
-                          </div>
-                        </div>
-
-                        <nav className="mobile-megamenu-scroll min-h-0 flex-1 overflow-hidden px-4">
-                          <div
-                            className={cn(
-                              'mobile-megamenu-columns',
-                              mobileHasSecondaryOpen && 'is-secondary-open',
-                            )}
-                          >
-                            <div
-                              ref={mobileMenuPrimaryRef}
-                              className="mobile-megamenu-primary"
-                              data-show-descriptions={showMobileItemDescriptions ? 'true' : 'false'}
-                            >
-                              <ul className="mobile-megamenu-primary-list">
-                                {mobileMenuItems.map((entry, idx) => {
-                                  const hasSubmenu = entry.subLinks.length > 0
-                                  const isActive = mobileActivePrimary === entry.key
-                                  const hasDescription = Boolean(entry.description)
-                                  const triggerId = `mobile-megamenu-trigger-${toDomId(entry.key)}`
-                                  const menuIconSrc = preferredMediaUrl(entry.item.icon ?? null)
-                                  const forceInvertMenuIcon = shouldForceInvertMegaMenuMedia(
-                                    entry.item.icon ?? null,
-                                    entry.item.label,
-                                  )
-                                  const FallbackIcon = getMobileMenuFallbackIcon(entry.item)
-                                  return (
-                                    <li
-                                      key={entry.key}
-                                      className="mobile-megamenu-item"
-                                      style={
-                                        {
-                                          '--mobile-mega-item-index': idx,
-                                        } as React.CSSProperties
-                                      }
-                                    >
-                                      {hasSubmenu ? (
-                                        <button
-                                          type="button"
-                                          id={triggerId}
-                                          className="mobile-megamenu-item-main mobile-megamenu-item-main--has-submenu w-full"
-                                          data-active={isActive ? 'true' : undefined}
-                                          data-has-description={hasDescription ? 'true' : undefined}
-                                          aria-label={entry.item.label}
-                                          aria-expanded={isActive}
-                                          aria-controls={mobileSubmenuPanelId}
-                                          onClick={() =>
-                                            setMobileActivePrimary((current) =>
-                                              current === entry.key ? null : entry.key,
-                                            )
-                                          }
-                                        >
-                                          <span
-                                            className="mobile-megamenu-item-icon"
-                                            aria-hidden="true"
-                                          >
-                                            <MobileMenuItemIcon
-                                              src={menuIconSrc}
-                                              FallbackIcon={FallbackIcon}
-                                              forceInvert={forceInvertMenuIcon}
-                                            />
-                                          </span>
-                                          <span className="mobile-megamenu-item-copy">
-                                            <span className="mobile-megamenu-item-label truncate font-semibold text-foreground text-left">
-                                              {entry.item.label}
-                                            </span>
-                                            {hasDescription ? (
-                                              <span className="mobile-megamenu-item-description">
-                                                {entry.description}
-                                              </span>
-                                            ) : null}
-                                          </span>
-                                          <ChevronRight className="mobile-megamenu-item-arrow h-4 w-4 shrink-0 text-foreground" />
-                                        </button>
-                                      ) : (
-                                        <Link
-                                          href={toLocalizedHref(entry.item.url)}
-                                          className="mobile-megamenu-item-main w-full"
-                                          data-has-description={hasDescription ? 'true' : undefined}
-                                          aria-label={entry.item.label}
-                                          onClick={() => {
-                                            setMobileMenuOpen(false)
-                                          }}
-                                        >
-                                          <span
-                                            className="mobile-megamenu-item-icon"
-                                            aria-hidden="true"
-                                          >
-                                            <MobileMenuItemIcon
-                                              src={menuIconSrc}
-                                              FallbackIcon={FallbackIcon}
-                                              forceInvert={forceInvertMenuIcon}
-                                            />
-                                          </span>
-                                          <span className="mobile-megamenu-item-copy">
-                                            <span className="mobile-megamenu-item-label truncate font-semibold text-foreground text-left">
-                                              {entry.item.label}
-                                            </span>
-                                            {hasDescription ? (
-                                              <span className="mobile-megamenu-item-description">
-                                                {entry.description}
-                                              </span>
-                                            ) : null}
-                                          </span>
-                                        </Link>
-                                      )}
-                                      {idx < mobileMenuItems.length - 1 && (
-                                        <hr className="mobile-megamenu-divider" aria-hidden />
-                                      )}
-                                    </li>
-                                  )
-                                })}
-                              </ul>
-                            </div>
-                            <aside
-                              id={mobileSubmenuPanelId}
-                              className="mobile-megamenu-secondary"
-                              role="region"
-                              aria-labelledby={activeMobileTriggerId}
-                              aria-hidden={!mobileHasSecondaryOpen}
-                            >
-                              {activeMobileEntry && (
-                                <>
-                                  <div className="mobile-megamenu-secondary-head">
-                                    <Link
-                                      href={toLocalizedHref(activeMobileEntry.item.url)}
-                                      className="mobile-megamenu-secondary-root"
-                                      onClick={() => setMobileMenuOpen(false)}
-                                    >
-                                      {activeMobileEntry.item.label}
-                                    </Link>
-                                    <button
-                                      type="button"
-                                      className="mobile-megamenu-secondary-back-button"
-                                      aria-label="Zurück"
-                                      onClick={() => setMobileActivePrimary(null)}
-                                    >
-                                      <ChevronLeft
-                                        className="mobile-megamenu-secondary-back-icon h-4 w-4"
-                                        aria-hidden="true"
-                                      />
-                                    </button>
-                                  </div>
-                                  <div className="mobile-megamenu-secondary-list">
-                                    {activeMobileGroups.map((group, groupIdx) => (
-                                      <section
-                                        key={`mobile-sub-group-${group.title ?? 'default'}-${groupIdx}`}
-                                        className={cn(
-                                          'mobile-megamenu-sub-group',
-                                          group.title
-                                            ? 'mobile-megamenu-sub-group--titled'
-                                            : 'mobile-megamenu-sub-group--untitled',
-                                        )}
-                                      >
-                                        {group.title ? (
-                                          <p className="mobile-megamenu-sub-group-title">
-                                            <span className="mobile-megamenu-sub-group-title-label">
-                                              {group.title}
-                                            </span>
-                                          </p>
-                                        ) : null}
-                                        <ul className="mobile-megamenu-sub-group-links">
-                                          {group.links.map((sub, subIdx) => (
-                                            <li
-                                              key={getMegaMenuSubItemKey(sub, subIdx)}
-                                              style={
-                                                {
-                                                  '--mobile-mega-sub-link-index':
-                                                    groupIdx * 8 + subIdx,
-                                                } as React.CSSProperties
-                                              }
-                                            >
-                                              <Link
-                                                href={toLocalizedHref(sub.url)}
-                                                className="mobile-megamenu-sub-link"
-                                                onClick={() => setMobileMenuOpen(false)}
-                                              >
-                                                <span className="truncate">{sub.label}</span>
-                                              </Link>
-                                            </li>
-                                          ))}
-                                        </ul>
-                                      </section>
-                                    ))}
-                                  </div>
-                                </>
-                              )}
-                            </aside>
-                          </div>
-                        </nav>
-
-                        <div className="mobile-megamenu-contact-dock px-4 pt-4">
-                          <div
-                            className="mobile-megamenu-contact-tooltip"
-                            aria-live="polite"
-                            aria-atomic="true"
-                          >
-                            <button
-                              type="button"
-                              className={cn(
-                                'mobile-megamenu-contact-tooltip-pill',
-                                mobileDockTooltip && 'is-visible',
-                                mobileDockTooltip?.variant === 'click' && 'is-click',
-                                isMobileDockTooltipActionable && 'is-actionable',
-                              )}
-                              aria-hidden={!isMobileDockTooltipActionable}
-                              tabIndex={isMobileDockTooltipActionable ? 0 : -1}
-                              disabled={!isMobileDockTooltipActionable}
-                              onClick={handleDockTooltipActionClick}
-                              style={
-                                mobileDockTooltip
-                                  ? ({
-                                      '--mobile-dock-tooltip-x': `${mobileDockTooltip.x}px`,
-                                    } as React.CSSProperties)
-                                  : undefined
-                              }
-                            >
-                              <span className="mobile-megamenu-contact-tooltip-pill-title">
-                                {mobileDockTooltip?.label ?? ''}
-                              </span>
-                              {mobileDockTooltip?.detail ? (
-                                <span className="mobile-megamenu-contact-tooltip-pill-meta">
-                                  {mobileDockTooltip.detail}
-                                </span>
-                              ) : null}
-                            </button>
-                          </div>
-                          <div
-                            ref={mobileDockActionsRef}
-                            className="mobile-megamenu-contact-actions"
-                            onPointerEnter={handleDockActionsPointerEnter}
-                            onPointerMove={handleDockActionsPointerMove}
-                            onPointerLeave={handleDockActionsPointerLeave}
-                          >
-                            {mobileDockActions.map((action) => {
-                              const Icon = action.icon
-                              const iconMode = action.iconMode ?? 'stroke'
-                              const iconClassName = 'mobile-megamenu-contact-action-icon'
-                              const iconStyle = {
-                                '--mobile-dock-icon-scale': String(action.iconScale ?? 1),
-                                '--mobile-dock-icon-opacity': String(action.iconOpacity ?? 1),
-                              } as React.CSSProperties
-                              if (action.isInternal) {
-                                return (
+                            return (
+                              <NavigationMenuItem key={menuItemKey}>
+                                <NavigationMenuLink asChild>
                                   <Link
+                                    href={toLocalizedHref(item.url)}
+                                    ref={(node) => {
+                                      setTopNavItemRef(menuItemKey, node)
+                                    }}
+                                    className={cn(
+                                      navigationMenuTriggerStyle(),
+                                      'megamenu-top-item cursor-pointer',
+                                      isMegaItemActive(item) && 'megamenu-top-item--active',
+                                    )}
+                                    onClick={() => {
+                                      setSelectedTopNavKey(menuItemKey)
+                                    }}
+                                  >
+                                    {item.label}
+                                  </Link>
+                                </NavigationMenuLink>
+                              </NavigationMenuItem>
+                            )
+                          })}
+                        </NavigationMenuList>
+                      </div>
+                    </NavigationMenu>
+                    <div className="flex items-center gap-0">
+                      <HeaderActions
+                        contactCta={{
+                          whatsapp: megaMenuCta?.whatsapp,
+                          callback: megaMenuCta?.callback,
+                        }}
+                      />
+                    </div>
+                  </>
+                )}
+                {!isDesktopNavViewport && (
+                  <div className="flex shrink-0 items-center">
+                    <Sheet open={mobileMenuOpen} onOpenChange={handleMobileMenuOpenChange}>
+                      <button
+                        ref={mobileMenuTriggerRef}
+                        type="button"
+                        className="mobile-megamenu-trigger-btn inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
+                        aria-label={mobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
+                        aria-expanded={mobileMenuOpen}
+                        data-open={mobileMenuIconActive ? 'true' : 'false'}
+                        onClick={toggleMobileMenu}
+                      >
+                        <MobileMenuTriggerIcon active={mobileMenuIconActive} />
+                      </button>
+                      <SheetContent
+                        ref={mobileMenuSheetRef}
+                        side="right"
+                        onCloseAutoFocus={(event) => {
+                          event.preventDefault()
+                          mobileMenuTriggerRef.current?.focus({ preventScroll: true })
+                        }}
+                        overlayClassName="mobile-megamenu-overlay data-[state=open]:!animate-none data-[state=closed]:!animate-none"
+                        className="mobile-megamenu-sheet megamenu-sheet h-[100dvh] max-h-[100dvh] w-full max-w-full sm:w-[min(94vw,36rem)] sm:max-w-[36rem] border-l border-border/40 p-0 data-[state=open]:!animate-none data-[state=closed]:!animate-none supports-[height:100svh]:h-[100svh] [&>button]:hidden"
+                        style={
+                          {
+                            '--mobile-mega-item-count': String(Math.max(1, mobileMenuItems.length)),
+                            ...(mobileMenuOrigin
+                              ? {
+                                  '--mobile-mega-origin-x': `calc(100% - ${mobileMenuOrigin.right}px)`,
+                                  '--mobile-mega-origin-y': `${mobileMenuOrigin.y}px`,
+                                }
+                              : {}),
+                          } as React.CSSProperties
+                        }
+                      >
+                        <SheetTitle className="sr-only">Mobilmenü</SheetTitle>
+                        <div
+                          className="mobile-megamenu-shell flex h-full flex-col"
+                          data-secondary-open={mobileHasSecondaryOpen ? 'true' : 'false'}
+                        >
+                          <div className="mobile-megamenu-utility px-4">
+                            <div className="mobile-megamenu-utility-logo flex items-center">
+                              {mobileLogo ? (
+                                <div className="mobile-megamenu-utility-logo-mask">
+                                  {mobileLogo}
+                                </div>
+                              ) : (
+                                <ResilientImage
+                                  src={MOBILE_MENU_LOGO_ICON_SRC}
+                                  alt="Philipp Bacher Logo"
+                                  className="mobile-megamenu-utility-logo-icon"
+                                />
+                              )}
+                            </div>
+                            <div className="mobile-megamenu-utility-actions">
+                              <LanguageSwitcher
+                                className="mobile-megamenu-language-switcher"
+                                disabled={!mobileUtilityControlsReady}
+                              />
+                              <ThemeSwitcher
+                                variant="switch"
+                                className="mobile-megamenu-theme-toggle shrink-0"
+                              />
+                              <button
+                                type="button"
+                                className="mobile-megamenu-trigger-btn mobile-megamenu-trigger-btn--plain inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
+                                aria-label="Menü schließen"
+                                data-open={mobileMenuIconActive ? 'true' : 'false'}
+                                onClick={closeMobileMenu}
+                              >
+                                <MobileMenuTriggerIcon active={mobileMenuIconActive} />
+                              </button>
+                            </div>
+                          </div>
+
+                          <nav className="mobile-megamenu-scroll min-h-0 flex-1 overflow-hidden px-4">
+                            <div
+                              className={cn(
+                                'mobile-megamenu-columns',
+                                mobileHasSecondaryOpen && 'is-secondary-open',
+                              )}
+                            >
+                              <div
+                                ref={mobileMenuPrimaryRef}
+                                className="mobile-megamenu-primary"
+                                data-show-descriptions={
+                                  showMobileItemDescriptions ? 'true' : 'false'
+                                }
+                              >
+                                <ul className="mobile-megamenu-primary-list">
+                                  {mobileMenuItems.map((entry, idx) => {
+                                    const hasSubmenu = entry.subLinks.length > 0
+                                    const isActive = mobileActivePrimary === entry.key
+                                    const hasDescription = Boolean(entry.description)
+                                    const triggerId = `mobile-megamenu-trigger-${toDomId(entry.key)}`
+                                    const menuIconSrc = preferredMediaUrl(entry.item.icon ?? null)
+                                    const forceInvertMenuIcon = shouldForceInvertMegaMenuMedia(
+                                      entry.item.icon ?? null,
+                                      entry.item.label,
+                                    )
+                                    const FallbackIcon = getMobileMenuFallbackIcon(entry.item)
+                                    return (
+                                      <li
+                                        key={entry.key}
+                                        className="mobile-megamenu-item"
+                                        style={
+                                          {
+                                            '--mobile-mega-item-index': idx,
+                                          } as React.CSSProperties
+                                        }
+                                      >
+                                        {hasSubmenu ? (
+                                          <button
+                                            type="button"
+                                            id={triggerId}
+                                            className="mobile-megamenu-item-main mobile-megamenu-item-main--has-submenu w-full"
+                                            data-active={isActive ? 'true' : undefined}
+                                            data-has-description={
+                                              hasDescription ? 'true' : undefined
+                                            }
+                                            aria-label={entry.item.label}
+                                            aria-expanded={isActive}
+                                            aria-controls={mobileSubmenuPanelId}
+                                            onClick={() =>
+                                              setMobileActivePrimary((current) =>
+                                                current === entry.key ? null : entry.key,
+                                              )
+                                            }
+                                          >
+                                            <span
+                                              className="mobile-megamenu-item-icon"
+                                              aria-hidden="true"
+                                            >
+                                              <MobileMenuItemIcon
+                                                src={menuIconSrc}
+                                                FallbackIcon={FallbackIcon}
+                                                forceInvert={forceInvertMenuIcon}
+                                              />
+                                            </span>
+                                            <span className="mobile-megamenu-item-copy">
+                                              <span className="mobile-megamenu-item-label truncate font-semibold text-foreground text-left">
+                                                {entry.item.label}
+                                              </span>
+                                              {hasDescription ? (
+                                                <span className="mobile-megamenu-item-description">
+                                                  {entry.description}
+                                                </span>
+                                              ) : null}
+                                            </span>
+                                            <ChevronRight className="mobile-megamenu-item-arrow h-4 w-4 shrink-0 text-foreground" />
+                                          </button>
+                                        ) : (
+                                          <Link
+                                            href={toLocalizedHref(entry.item.url)}
+                                            className="mobile-megamenu-item-main w-full"
+                                            data-has-description={
+                                              hasDescription ? 'true' : undefined
+                                            }
+                                            aria-label={entry.item.label}
+                                            onClick={() => {
+                                              setMobileMenuOpen(false)
+                                            }}
+                                          >
+                                            <span
+                                              className="mobile-megamenu-item-icon"
+                                              aria-hidden="true"
+                                            >
+                                              <MobileMenuItemIcon
+                                                src={menuIconSrc}
+                                                FallbackIcon={FallbackIcon}
+                                                forceInvert={forceInvertMenuIcon}
+                                              />
+                                            </span>
+                                            <span className="mobile-megamenu-item-copy">
+                                              <span className="mobile-megamenu-item-label truncate font-semibold text-foreground text-left">
+                                                {entry.item.label}
+                                              </span>
+                                              {hasDescription ? (
+                                                <span className="mobile-megamenu-item-description">
+                                                  {entry.description}
+                                                </span>
+                                              ) : null}
+                                            </span>
+                                          </Link>
+                                        )}
+                                        {idx < mobileMenuItems.length - 1 && (
+                                          <hr className="mobile-megamenu-divider" aria-hidden />
+                                        )}
+                                      </li>
+                                    )
+                                  })}
+                                </ul>
+                              </div>
+                              <aside
+                                id={mobileSubmenuPanelId}
+                                className="mobile-megamenu-secondary"
+                                role="region"
+                                aria-labelledby={activeMobileTriggerId}
+                                aria-hidden={!mobileHasSecondaryOpen}
+                              >
+                                {activeMobileEntry && (
+                                  <>
+                                    <div className="mobile-megamenu-secondary-head">
+                                      <Link
+                                        href={toLocalizedHref(activeMobileEntry.item.url)}
+                                        className="mobile-megamenu-secondary-root"
+                                        onClick={() => setMobileMenuOpen(false)}
+                                      >
+                                        {activeMobileEntry.item.label}
+                                      </Link>
+                                      <button
+                                        type="button"
+                                        className="mobile-megamenu-secondary-back-button"
+                                        aria-label="Zurück"
+                                        onClick={() => setMobileActivePrimary(null)}
+                                      >
+                                        <ChevronLeft
+                                          className="mobile-megamenu-secondary-back-icon h-4 w-4"
+                                          aria-hidden="true"
+                                        />
+                                      </button>
+                                    </div>
+                                    <div className="mobile-megamenu-secondary-list">
+                                      {activeMobileGroups.map((group, groupIdx) => (
+                                        <section
+                                          key={`mobile-sub-group-${group.title ?? 'default'}-${groupIdx}`}
+                                          className={cn(
+                                            'mobile-megamenu-sub-group',
+                                            group.title
+                                              ? 'mobile-megamenu-sub-group--titled'
+                                              : 'mobile-megamenu-sub-group--untitled',
+                                          )}
+                                        >
+                                          {group.title ? (
+                                            <p className="mobile-megamenu-sub-group-title">
+                                              <span className="mobile-megamenu-sub-group-title-label">
+                                                {group.title}
+                                              </span>
+                                            </p>
+                                          ) : null}
+                                          <ul className="mobile-megamenu-sub-group-links">
+                                            {group.links.map((sub, subIdx) => (
+                                              <li
+                                                key={getMegaMenuSubItemKey(sub, subIdx)}
+                                                style={
+                                                  {
+                                                    '--mobile-mega-sub-link-index':
+                                                      groupIdx * 8 + subIdx,
+                                                  } as React.CSSProperties
+                                                }
+                                              >
+                                                <Link
+                                                  href={toLocalizedHref(sub.url)}
+                                                  className="mobile-megamenu-sub-link"
+                                                  onClick={() => setMobileMenuOpen(false)}
+                                                >
+                                                  <span className="truncate">{sub.label}</span>
+                                                </Link>
+                                              </li>
+                                            ))}
+                                          </ul>
+                                        </section>
+                                      ))}
+                                    </div>
+                                  </>
+                                )}
+                              </aside>
+                            </div>
+                          </nav>
+
+                          <div className="mobile-megamenu-contact-dock px-4 pt-4">
+                            <div
+                              className="mobile-megamenu-contact-tooltip"
+                              aria-live="polite"
+                              aria-atomic="true"
+                            >
+                              <button
+                                type="button"
+                                className={cn(
+                                  'mobile-megamenu-contact-tooltip-pill',
+                                  mobileDockTooltip && 'is-visible',
+                                  mobileDockTooltip?.variant === 'click' && 'is-click',
+                                  isMobileDockTooltipActionable && 'is-actionable',
+                                )}
+                                aria-hidden={!isMobileDockTooltipActionable}
+                                tabIndex={isMobileDockTooltipActionable ? 0 : -1}
+                                disabled={!isMobileDockTooltipActionable}
+                                onClick={handleDockTooltipActionClick}
+                                style={
+                                  mobileDockTooltip
+                                    ? ({
+                                        '--mobile-dock-tooltip-x': `${mobileDockTooltip.x}px`,
+                                      } as React.CSSProperties)
+                                    : undefined
+                                }
+                              >
+                                <span className="mobile-megamenu-contact-tooltip-pill-title">
+                                  {mobileDockTooltip?.label ?? ''}
+                                </span>
+                                {mobileDockTooltip?.detail ? (
+                                  <span className="mobile-megamenu-contact-tooltip-pill-meta">
+                                    {mobileDockTooltip.detail}
+                                  </span>
+                                ) : null}
+                              </button>
+                            </div>
+                            <div
+                              ref={mobileDockActionsRef}
+                              className="mobile-megamenu-contact-actions"
+                              onPointerEnter={handleDockActionsPointerEnter}
+                              onPointerMove={handleDockActionsPointerMove}
+                              onPointerLeave={handleDockActionsPointerLeave}
+                            >
+                              {mobileDockActions.map((action) => {
+                                const Icon = action.icon
+                                const iconMode = action.iconMode ?? 'stroke'
+                                const iconClassName = 'mobile-megamenu-contact-action-icon'
+                                const iconStyle = {
+                                  '--mobile-dock-icon-scale': String(action.iconScale ?? 1),
+                                  '--mobile-dock-icon-opacity': String(action.iconOpacity ?? 1),
+                                } as React.CSSProperties
+                                if (action.isInternal) {
+                                  return (
+                                    <Link
+                                      key={action.key}
+                                      href={action.href}
+                                      ref={(node) => setMobileDockActionRef(action.key, node)}
+                                      className="mobile-megamenu-contact-action"
+                                      data-action={action.key}
+                                      data-pending={
+                                        mobileDockPendingActionKey === action.key
+                                          ? 'true'
+                                          : undefined
+                                      }
+                                      aria-label={action.label}
+                                      onFocus={(event) => handleDockActionFocus(event, action)}
+                                      onBlur={handleDockActionBlur}
+                                      onMouseEnter={handleDockActionMouseEnter}
+                                      onMouseLeave={handleDockActionMouseLeave}
+                                      onPointerDown={handleDockActionPointerDown}
+                                      onPointerUp={(event) =>
+                                        handleDockActionPointerUp(event, action)
+                                      }
+                                      onPointerCancel={handleDockActionPointerCancel}
+                                      onKeyDown={(event) => handleDockActionKeyDown(event, action)}
+                                      onKeyUp={handleDockActionKeyUp}
+                                      onClick={(event) => handleDockActionClick(event, action)}
+                                    >
+                                      <Icon
+                                        className={iconClassName}
+                                        style={iconStyle}
+                                        data-icon-mode={iconMode}
+                                        aria-hidden
+                                      />
+                                      <span className="sr-only">{action.label}</span>
+                                    </Link>
+                                  )
+                                }
+
+                                return (
+                                  <a
                                     key={action.key}
                                     href={action.href}
+                                    target={action.targetBlank ? '_blank' : undefined}
+                                    rel={action.rel}
+                                    download={action.download ? '' : undefined}
                                     ref={(node) => setMobileDockActionRef(action.key, node)}
                                     className="mobile-megamenu-contact-action"
                                     data-action={action.key}
@@ -3603,51 +3742,16 @@ export function MegaMenu({
                                       aria-hidden
                                     />
                                     <span className="sr-only">{action.label}</span>
-                                  </Link>
+                                  </a>
                                 )
-                              }
-
-                              return (
-                                <a
-                                  key={action.key}
-                                  href={action.href}
-                                  target={action.targetBlank ? '_blank' : undefined}
-                                  rel={action.rel}
-                                  download={action.download ? '' : undefined}
-                                  ref={(node) => setMobileDockActionRef(action.key, node)}
-                                  className="mobile-megamenu-contact-action"
-                                  data-action={action.key}
-                                  data-pending={
-                                    mobileDockPendingActionKey === action.key ? 'true' : undefined
-                                  }
-                                  aria-label={action.label}
-                                  onFocus={(event) => handleDockActionFocus(event, action)}
-                                  onBlur={handleDockActionBlur}
-                                  onMouseEnter={handleDockActionMouseEnter}
-                                  onMouseLeave={handleDockActionMouseLeave}
-                                  onPointerDown={handleDockActionPointerDown}
-                                  onPointerUp={(event) => handleDockActionPointerUp(event, action)}
-                                  onPointerCancel={handleDockActionPointerCancel}
-                                  onKeyDown={(event) => handleDockActionKeyDown(event, action)}
-                                  onKeyUp={handleDockActionKeyUp}
-                                  onClick={(event) => handleDockActionClick(event, action)}
-                                >
-                                  <Icon
-                                    className={iconClassName}
-                                    style={iconStyle}
-                                    data-icon-mode={iconMode}
-                                    aria-hidden
-                                  />
-                                  <span className="sr-only">{action.label}</span>
-                                </a>
-                              )
-                            })}
+                              })}
+                            </div>
                           </div>
                         </div>
-                      </div>
-                    </SheetContent>
-                  </Sheet>
-                </div>
+                      </SheetContent>
+                    </Sheet>
+                  </div>
+                )}
               </div>
             </div>
           </div>
