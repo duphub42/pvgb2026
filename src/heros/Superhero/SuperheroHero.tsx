@@ -30,6 +30,7 @@ import {
 import { cn } from '@/utilities/ui'
 import { PopoutPortrait } from '@/components/PopoutPortrait'
 import type { Locale } from '@/utilities/locale'
+import { translateStringForLocale } from '@/i18n/translationOverlay'
 
 // ---------------------------------------------------------------------------
 // Types
@@ -108,6 +109,7 @@ export interface SuperheroHeroProps {
 
 const DECODE_TAG_PATTERN = /<decode>([\s\S]*?)<\/decode>/gi
 const HOME_PROFILE_POPOUT_FALLBACK_SRC = '/api/media/stream/1360'
+const DEFAULT_MARQUEE_HEADLINE = 'ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN'
 
 function parseDecodeSegments(line: string): HeadlineSegment[] {
   const segments: HeadlineSegment[] = []
@@ -593,9 +595,33 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     return trimmed || null
   }, [description])
 
-  // Mirror HeroLogoMarquee.showBand logic to suppress stats when marquee is active.
-  const hasMarquee =
-    Boolean(marqueeHeadline?.trim()) || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)
+  const renderableMarqueeLogoRows = React.useMemo(
+    () =>
+      Array.isArray(marqueeLogos)
+        ? marqueeLogos.filter((row) => Boolean(resolveHeroImageSrc(row?.logo)))
+        : [],
+    [marqueeLogos],
+  )
+  const carouselLogos = React.useMemo(
+    () =>
+      renderableMarqueeLogoRows
+        .map((row, idx) => {
+          const src = resolveHeroImageSrc(row?.logo)
+          if (!src) return null
+          return {
+            id: idx,
+            name: row?.alt ?? `Logo ${idx}`,
+            imgUrl: src,
+            alt: row?.alt,
+          } as const as LogoCarouselLogo
+        })
+        .filter((logo): logo is LogoCarouselLogo => Boolean(logo)),
+    [renderableMarqueeLogoRows],
+  )
+  const hasMarquee = renderableMarqueeLogoRows.length > 0
+  const effectiveMarqueeHeadline = hasMarquee
+    ? marqueeHeadline?.trim() || translateStringForLocale(DEFAULT_MARQUEE_HEADLINE, locale)
+    : null
   const statIconMap: Record<string, LucideIcon> = {
     TrendingUp,
     Users,
@@ -627,8 +653,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         : 'center'
 
   const heroLayerClass = 'hero-scroll-layer'
-  const showHeroLogoBand =
-    Boolean(marqueeHeadline?.trim()) || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)
+  const showHeroLogoBand = hasMarquee
   const heroContentClass = cn(
     'hero-scroll-content relative container z-[40] flex w-full min-w-0 flex-col px-[clamp(1rem,4vw,2rem)] pb-[clamp(3rem,8vh,7rem)] pt-[clamp(1.5rem,6vh,2.5rem)]',
     !portraitSrc && 'hero-scroll-content--no-portrait',
@@ -1001,31 +1026,23 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                   <div className="hero-logo-band-shell mt-1 w-full max-w-full md:max-w-2xl">
                     <div className="hero-logo-band-divider border-t border-border/60" aria-hidden />
 
-                    {logoDisplayType === 'logoCarousel' &&
-                    Array.isArray(marqueeLogos) &&
-                    marqueeLogos.length > 0 ? (
+                    {logoDisplayType === 'logoCarousel' && carouselLogos.length > 0 ? (
                       <div className={cn(heroLayerClass, 'hero-scroll-layer-carousel pt-3')}>
+                        {effectiveMarqueeHeadline && (
+                          <span className="text-[9px] sm:text-[11px] font-semibold uppercase tracking-[0.18em] text-foreground/80 mt-1 mb-0.5 block">
+                            {effectiveMarqueeHeadline}
+                          </span>
+                        )}
                         <LogoCarousel
-                          logos={marqueeLogos
-                            .map((row, idx) => {
-                              const src = resolveHeroImageSrc(row?.logo)
-                              if (!src) return null
-                              return {
-                                id: idx,
-                                name: row?.alt ?? `Logo ${idx}`,
-                                imgUrl: src,
-                                alt: row?.alt,
-                              } as const as LogoCarouselLogo
-                            })
-                            .filter((logo): logo is LogoCarouselLogo => Boolean(logo))}
+                          logos={carouselLogos}
                           columnCount={3}
                           className="w-full"
                         />
                       </div>
                     ) : (
                       <HeroLogoMarquee
-                        marqueeHeadline={marqueeHeadline}
-                        marqueeLogos={marqueeLogos}
+                        marqueeHeadline={effectiveMarqueeHeadline}
+                        marqueeLogos={renderableMarqueeLogoRows}
                         className={cn(heroLayerClass, 'hero-scroll-layer-marquee pt-3')}
                       />
                     )}

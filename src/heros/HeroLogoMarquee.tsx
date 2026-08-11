@@ -45,8 +45,19 @@ export function HeroLogoMarquee({
   className,
   align = 'start',
 }: HeroLogoMarqueeProps) {
-  const showBand =
-    Boolean(marqueeHeadline?.trim()) || (Array.isArray(marqueeLogos) && marqueeLogos.length > 0)
+  const resolvedLogos = Array.isArray(marqueeLogos)
+    ? marqueeLogos
+        .map((row, idx) => {
+          const url = resolveLogoSrc(row?.logo)
+          return {
+            key: `hero-logo-${url}-${idx}`,
+            url,
+            alt: row?.alt ?? '',
+          }
+        })
+        .filter((logo) => Boolean(logo.url))
+    : []
+  const showBand = resolvedLogos.length > 0
 
   if (!showBand) return null
 
@@ -71,7 +82,7 @@ export function HeroLogoMarquee({
           {marqueeHeadline.trim()}
         </span>
       )}
-      {Array.isArray(marqueeLogos) && marqueeLogos.length > 0 && (
+      {resolvedLogos.length > 0 && (
         <Marquee
           duration={40}
           pauseOnHover
@@ -80,17 +91,14 @@ export function HeroLogoMarquee({
           gapClassName="gap-8"
           className={cn('w-full min-w-0 py-1', isCenter && 'self-stretch')}
         >
-          {marqueeLogos.map((row, idx) => {
-            const url = resolveLogoSrc(row?.logo)
-            if (!url) return null
-            const key = `hero-logo-${url}-${idx}`
+          {resolvedLogos.map((logo) => {
             return (
-              <Tooltip key={key}>
+              <Tooltip key={logo.key}>
                 <TooltipTrigger asChild>
                   <div className="hero-logo-marquee-item flex h-10 md:h-12 min-w-[5rem] shrink-0 items-center justify-center">
                     <ResilientImage
-                      src={url}
-                      alt={row?.alt ?? ''}
+                      src={logo.url}
+                      alt={logo.alt}
                       width={112}
                       height={42}
                       className="hero-logo-grayscale filter grayscale w-auto max-w-[112px] h-auto max-h-[42px] object-contain"
@@ -100,7 +108,7 @@ export function HeroLogoMarquee({
                   </div>
                 </TooltipTrigger>
                 <TooltipContent side="bottom" sideOffset={6}>
-                  {row?.alt || 'Partner logo'}
+                  {logo.alt || 'Partner logo'}
                 </TooltipContent>
               </Tooltip>
             )
