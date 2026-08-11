@@ -1024,8 +1024,6 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
                 {showHeroLogoBand && (
                   <div className="hero-logo-band-shell mt-1 w-full max-w-full md:max-w-2xl">
-                    <div className="hero-logo-band-divider border-t border-border/60" aria-hidden />
-
                     {logoDisplayType === 'logoCarousel' && carouselLogos.length > 0 ? (
                       <div className={cn(heroLayerClass, 'hero-scroll-layer-carousel pt-3')}>
                         {effectiveMarqueeHeadline && (
