@@ -2499,7 +2499,7 @@ export function MegaMenu({
   return (
     <>
       <HeaderGlassPlate
-        glassActive={isPastFold || isScrolled}
+        glassActive={activeMenu != null}
         hideToTop={false}
         isVisible
         revealFromTop={false}

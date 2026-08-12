@@ -8,14 +8,10 @@ import { usePathname } from 'next/navigation'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { cn } from '@/utilities/ui'
 
-import type { Header, Media as MediaType } from '@/payload-types'
-import { getMediaUrl } from '@/utilities/getMediaUrl'
-import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
+import type { Header } from '@/payload-types'
 
 import dynamic from 'next/dynamic'
 import { Mail, Menu, Search } from 'lucide-react'
-import { Logo } from '@/components/Logo/Logo'
-import { LogoWithGlitch } from '@/components/Logo/LogoWithGlitch'
 import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher'
@@ -50,13 +46,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
 }) => {
   const headerData = data as HeaderWithLegacyFields
   const [resolvedMegaMenuItems, setResolvedMegaMenuItems] = useState<MegaMenuItem[]>(megaMenuItems)
-  const [logoMorphReady, setLogoMorphReady] = useState(false)
-  const [logoPreviewActive, setLogoPreviewActive] = useState(false)
   const [isPastFold, setIsPastFold] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const [megaMenuHydrated, setMegaMenuHydrated] = useState(false)
   const [openMobileMenuOnHydrate, setOpenMobileMenuOnHydrate] = useState(false)
-  const logoPreviewTimeoutRef = useRef<number | null>(null)
   const isPastFoldRef = useRef(false)
   const isScrolledRef = useRef(false)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
@@ -66,14 +59,11 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const pathname = usePathname()
   const [hasHydrated, setHasHydrated] = useState(false)
   const effectivePathname = hasHydrated ? (pathname ?? '/') : '/'
-  const normalizedPathname = effectivePathname.replace(/\/+$/, '') || '/'
-  const isHomePath = normalizedPathname === '/' || normalizedPathname === '/home'
   const shouldUseMegaMenu =
     headerData.useMegaMenu === true ||
     headerData.use_mega_menu === true ||
     resolvedMegaMenuItems.length > 0
   const useMegaMenu = shouldUseMegaMenu && resolvedMegaMenuItems.length > 0
-  const logoIntroTimeoutRef = useRef<number | null>(null)
 
   useEffect(() => {
     setHasHydrated(true)
@@ -108,44 +98,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
       cancelled = true
     }
   }, [locale, resolvedMegaMenuItems.length, shouldUseMegaMenu])
-
-  useEffect(() => {
-    if (isHomePath) {
-      setLogoPreviewActive(false)
-      setLogoMorphReady(true)
-      return
-    }
-
-    // Sub pages start directly in the compact, stable logo state. This avoids the
-    // full logo and compact B-logo appearing as two separate rows while the header hydrates.
-    setLogoPreviewActive(false)
-    setLogoMorphReady(true)
-
-    if (logoIntroTimeoutRef.current) {
-      window.clearTimeout(logoIntroTimeoutRef.current)
-      logoIntroTimeoutRef.current = null
-    }
-
-    return () => {
-      if (logoIntroTimeoutRef.current) {
-        window.clearTimeout(logoIntroTimeoutRef.current)
-        logoIntroTimeoutRef.current = null
-      }
-    }
-  }, [effectivePathname, isHomePath])
-
-  useEffect(() => {
-    return () => {
-      if (logoIntroTimeoutRef.current) {
-        window.clearTimeout(logoIntroTimeoutRef.current)
-        logoIntroTimeoutRef.current = null
-      }
-      if (logoPreviewTimeoutRef.current) {
-        window.clearTimeout(logoPreviewTimeoutRef.current)
-        logoPreviewTimeoutRef.current = null
-      }
-    }
-  }, [])
 
   useEffect(() => {
     const stickyEnterThresholdPx = 0
@@ -198,49 +150,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   // Resolved theme: page override (headerTheme) or global theme (reaktiv beim Toggle)
   const resolvedTheme = headerTheme ?? globalTheme ?? null
 
-  // Support both logo (camelCase) and logo_id (snake_case from DB)
-  const logoData = headerData.logo ?? headerData.logo_id
-  const resolvedLogo = logoData && typeof logoData === 'object' ? (logoData as MediaType) : null
-  const hasCustomLogo = logoData != null
-  const logoUrl = resolvedLogo?.url
-    ? resolvedLogo.updatedAt
-      ? getMediaUrl(resolvedLogo.url, resolvedLogo.updatedAt)
-      : getMediaUrl(resolvedLogo.url)
-    : (resolveHeroImageSrc(logoData) ?? '')
-
-  const renderPrimaryLogo = (disableAnimation?: boolean) => {
-    if (isHomePath) {
-      return (
-        <Image
-          src={HEADER_B_LOGO_SRC}
-          alt=""
-          aria-hidden="true"
-          className="header-b-logo logo-contrast"
-          width={40}
-          height={42}
-          priority
-        />
-      )
-    }
-
-    if (hasCustomLogo && logoUrl) {
-      return (
-        <LogoWithGlitch imgSrc={logoUrl} variant="header" disableAnimation={disableAnimation}>
-          <Logo
-            loading="eager"
-            priority="high"
-            logo={logoData ?? null}
-            variant="header"
-            disableAnimation={disableAnimation}
-          />
-        </LogoWithGlitch>
-      )
-    }
-
-    return null
-  }
-
-  const renderStickyLogo = () => (
+  const renderPrimaryLogo = () => (
     <Image
       src={HEADER_B_LOGO_SRC}
       alt=""
@@ -252,58 +162,18 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     />
   )
 
-  const handleLogoMouseEnter = () => {
-    if (!logoMorphReady) return
-
-    if (logoPreviewTimeoutRef.current) {
-      window.clearTimeout(logoPreviewTimeoutRef.current)
-      logoPreviewTimeoutRef.current = null
-    }
-
-    setLogoPreviewActive(true)
-  }
-
-  const handleLogoMouseLeave = () => {
-    if (logoPreviewTimeoutRef.current) {
-      window.clearTimeout(logoPreviewTimeoutRef.current)
-      logoPreviewTimeoutRef.current = null
-    }
-
-    logoPreviewTimeoutRef.current = window.setTimeout(() => {
-      setLogoPreviewActive(false)
-      logoPreviewTimeoutRef.current = null
-    }, 600)
-  }
-
-  const renderLogoLink = (disableAnimation?: boolean) =>
-    isHomePath ? (
-      <Link
-        href={homeHref}
-        aria-label="Zur Startseite"
-        className="logo-link relative flex items-center shrink-0"
-      >
-        {renderPrimaryLogo(disableAnimation)}
-      </Link>
-    ) : (
-      <Link
-        href={homeHref}
-        className="logo-link relative flex items-center shrink-0"
-        data-logo-morph-ready={logoMorphReady ? 'true' : 'false'}
-        data-logo-preview-active={logoPreviewActive ? 'true' : 'false'}
-        onMouseEnter={handleLogoMouseEnter}
-        onMouseLeave={handleLogoMouseLeave}
-      >
-        <span className="header-logo-slot header-logo-slot--default">
-          {renderPrimaryLogo(disableAnimation)}
-        </span>
-        <span className="header-logo-slot header-logo-slot--sticky" aria-hidden="true">
-          {renderStickyLogo()}
-        </span>
-      </Link>
-    )
+  const renderLogoLink = () => (
+    <Link
+      href={homeHref}
+      aria-label="Zur Startseite"
+      className="logo-link relative flex items-center shrink-0"
+    >
+      {renderPrimaryLogo()}
+    </Link>
+  )
 
   const desktopLogoEl = renderLogoLink()
-  const mobileLogoEl = renderPrimaryLogo(true)
+  const mobileLogoEl = renderPrimaryLogo()
 
   const handleMegaMenuHydrated = useCallback(() => {
     setMegaMenuHydrated(true)
@@ -317,7 +187,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     return (
       <>
         <HeaderGlassPlate
-          glassActive={isPastFold || isScrolled}
+          glassActive={false}
           hideToTop={false}
           isVisible
           revealFromTop={false}
@@ -345,7 +215,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
                   className="logo-link relative flex shrink-0 items-center"
                 >
                   <span className="hidden items-center lg:inline-flex">
-                    {renderPrimaryLogo(true)}
+                    {renderPrimaryLogo()}
                   </span>
                   <Image
                     src={HEADER_B_LOGO_SRC}
@@ -515,7 +385,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   return (
     <>
       <HeaderGlassPlate
-        glassActive={isPastFold || isScrolled}
+        glassActive={false}
         hideToTop={false}
         isVisible
         revealFromTop={false}
