@@ -52,13 +52,20 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const [resolvedMegaMenuItems, setResolvedMegaMenuItems] = useState<MegaMenuItem[]>(megaMenuItems)
   const [logoMorphReady, setLogoMorphReady] = useState(false)
   const [logoPreviewActive, setLogoPreviewActive] = useState(false)
+  const [headerVisible, setHeaderVisible] = useState(true)
   const [isPastFold, setIsPastFold] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [revealFromTop, setRevealFromTop] = useState(false)
+  const [hideToTop, setHideToTop] = useState(false)
   const [megaMenuHydrated, setMegaMenuHydrated] = useState(false)
   const [openMobileMenuOnHydrate, setOpenMobileMenuOnHydrate] = useState(false)
   const logoPreviewTimeoutRef = useRef<number | null>(null)
+  const lastScrollYRef = useRef(0)
   const isPastFoldRef = useRef(false)
+  const headerVisibleRef = useRef(true)
   const isScrolledRef = useRef(false)
+  const revealFromTopRef = useRef(false)
+  const hideToTopRef = useRef(false)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const { theme: globalTheme } = useTheme()
   const locale = useLocale()
@@ -150,11 +157,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   useEffect(() => {
     const stickyEnterThresholdPx = 0
     const stickyLeaveThresholdPx = 0
+    const stickyHideThresholdPx = 120
+    const minDeltaForTogglePx = 6
     let rafId: number | null = null
 
     const applyScroll = () => {
       rafId = null
       const currentScrollY = window.scrollY
+      const prevScrollY = lastScrollYRef.current
+      const delta = currentScrollY - prevScrollY
+      lastScrollYRef.current = currentScrollY
+      const scrollingDown = delta > 0
+      const scrollingUp = delta < 0
+      const absDelta = Math.abs(delta)
       const nextIsScrolled = currentScrollY > 20
 
       if (nextIsScrolled !== isScrolledRef.current) {
@@ -171,6 +186,34 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
       if (nextPastFold !== wasPastFold) {
         isPastFoldRef.current = nextPastFold
         setIsPastFold(nextPastFold)
+      }
+
+      let nextHeaderVisible = headerVisibleRef.current
+
+      if (!nextPastFold || currentScrollY <= stickyHideThresholdPx) {
+        nextHeaderVisible = true
+      } else if (scrollingDown && absDelta >= minDeltaForTogglePx) {
+        nextHeaderVisible = false
+      } else if (scrollingUp && absDelta >= minDeltaForTogglePx) {
+        nextHeaderVisible = true
+      }
+
+      if (nextHeaderVisible === headerVisibleRef.current) return
+
+      const wasVisible = headerVisibleRef.current
+      headerVisibleRef.current = nextHeaderVisible
+      setHeaderVisible(nextHeaderVisible)
+
+      const nextRevealFromTop = !wasVisible && nextHeaderVisible && nextPastFold && scrollingUp
+      if (nextRevealFromTop !== revealFromTopRef.current) {
+        revealFromTopRef.current = nextRevealFromTop
+        setRevealFromTop(nextRevealFromTop)
+      }
+
+      const nextHideToTop = wasVisible && !nextHeaderVisible && nextPastFold && scrollingDown
+      if (nextHideToTop !== hideToTopRef.current) {
+        hideToTopRef.current = nextHideToTop
+        setHideToTop(nextHideToTop)
       }
     }
 
@@ -318,9 +361,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
       <>
         <HeaderGlassPlate
           glassActive={isPastFold || isScrolled}
-          hideToTop={false}
-          isVisible
-          revealFromTop={false}
+          hideToTop={hideToTop}
+          isVisible={headerVisible}
+          revealFromTop={revealFromTop}
         />
         <header
           suppressHydrationWarning
@@ -334,8 +377,18 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
             className={cn(
               'header-slide-layer transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)]',
               'header-glass-border',
-              'translate-y-0 opacity-100 visible',
+              revealFromTop && 'header-reveal-from-top',
+              hideToTop && 'header-hide-to-top',
+              headerVisible || hideToTop
+                ? 'translate-y-0 opacity-100 visible'
+                : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
             )}
+            onAnimationEnd={() => {
+              revealFromTopRef.current = false
+              hideToTopRef.current = false
+              setRevealFromTop(false)
+              setHideToTop(false)
+            }}
           >
             <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
               <div className="header-main-row flex flex-1 items-stretch justify-between">
@@ -516,9 +569,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     <>
       <HeaderGlassPlate
         glassActive={isPastFold || isScrolled}
-        hideToTop={false}
-        isVisible
-        revealFromTop={false}
+        hideToTop={hideToTop}
+        isVisible={headerVisible}
+        revealFromTop={revealFromTop}
       />
       <header
         suppressHydrationWarning
@@ -531,8 +584,18 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
           className={cn(
             'header-slide-layer transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)]',
             'header-glass-border',
-            'translate-y-0 opacity-100 visible',
+            revealFromTop && 'header-reveal-from-top',
+            hideToTop && 'header-hide-to-top',
+            headerVisible || hideToTop
+              ? 'translate-y-0 opacity-100 visible'
+              : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
           )}
+          onAnimationEnd={() => {
+            revealFromTopRef.current = false
+            hideToTopRef.current = false
+            setRevealFromTop(false)
+            setHideToTop(false)
+          }}
         >
           <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
             <div className="header-main-row flex flex-1 items-stretch justify-between">
