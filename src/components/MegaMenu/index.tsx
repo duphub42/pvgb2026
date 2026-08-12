@@ -1281,12 +1281,8 @@ export function MegaMenu({
   const isEnglishPath = pathname?.startsWith('/en') === true
   const router = useRouter()
   const isDesktopNavViewport = useIsDesktopNavViewport()
-  const [isVisible, setIsVisible] = useState(true)
   const [isPastFold, setIsPastFold] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
-  const [revealFromTop, setRevealFromTop] = useState(false)
-  const [hideToTop, setHideToTop] = useState(false)
-  const lastScrollYRef = React.useRef(0)
   const isPastFoldRef = React.useRef(false)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(openMobileMenuOnMount)
@@ -2478,16 +2474,9 @@ export function MegaMenu({
   useEffect(() => {
     const stickyEnterThresholdPx = 0
     const stickyLeaveThresholdPx = 0
-    const minDeltaForTogglePx = 6
 
     const handleScroll = () => {
       const currentScrollY = window.scrollY
-      const prevScrollY = lastScrollYRef.current
-      const delta = currentScrollY - prevScrollY
-      lastScrollYRef.current = currentScrollY
-      const scrollingDown = delta > 0
-      const scrollingUp = delta < 0
-      const absDelta = Math.abs(delta)
       setIsScrolled(currentScrollY > 20)
 
       // Sticky activation starts at page top instead of over-the-fold.
@@ -2498,57 +2487,22 @@ export function MegaMenu({
         : currentScrollY >= stickyEnterThresholdPx
 
       if (nextPastFold !== wasPastFold) {
-        if (wasPastFold && !nextPastFold) {
-          setHideToTop(false)
-          setRevealFromTop(false)
-          setIsVisible(true)
-        }
         isPastFoldRef.current = nextPastFold
         setIsPastFold(nextPastFold)
       }
-
-      setIsVisible((prev) => {
-        // Keep visible while dropdown is open.
-        if (activeMenu != null) {
-          return true
-        }
-        let next = prev
-        const hideAfterPx = 1
-
-        if (!nextPastFold) {
-          if (wasPastFold && !nextPastFold) {
-            setHideToTop(false)
-            setRevealFromTop(false)
-          }
-          next = true
-        } else {
-          if (scrollingDown && absDelta >= minDeltaForTogglePx && currentScrollY >= hideAfterPx) {
-            next = false
-          } else if (scrollingUp && absDelta >= minDeltaForTogglePx) {
-            next = true
-          }
-        }
-
-        if (prev === next) return prev
-
-        setRevealFromTop(prev === false && next === true && nextPastFold && scrollingUp)
-        setHideToTop(prev === true && next === false && nextPastFold && scrollingDown)
-
-        return next
-      })
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     handleScroll()
     return () => window.removeEventListener('scroll', handleScroll)
-  }, [activeMenu])
+  }, [])
 
   return (
     <>
       <HeaderGlassPlate
         glassActive={isPastFold || isScrolled}
-        hideToTop={hideToTop}
-        isVisible={isVisible}
-        revealFromTop={revealFromTop}
+        hideToTop={false}
+        isVisible
+        revealFromTop={false}
       />
       {/* Background Blur Overlay – 1:1 test2 */}
       <div
@@ -2570,16 +2524,8 @@ export function MegaMenu({
           className={cn(
             'header-slide-layer transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)]',
             'header-glass-border',
-            revealFromTop && 'header-reveal-from-top',
-            hideToTop && 'header-hide-to-top',
-            isVisible || hideToTop
-              ? 'translate-y-0 opacity-100 visible'
-              : '-translate-y-[115%] opacity-0 pointer-events-none invisible',
+            'translate-y-0 opacity-100 visible',
           )}
-          onAnimationEnd={() => {
-            setRevealFromTop(false)
-            setHideToTop(false)
-          }}
         >
           <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
             <div className="header-main-row flex flex-1 items-stretch justify-between">
