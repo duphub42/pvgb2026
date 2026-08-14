@@ -122,6 +122,36 @@ function slimMegaMenuDoc(doc: MegaMenuDoc): MegaMenuDoc {
 }
 
 const MEGA_MENU_DEPTH = 2
+const MEGA_MENU_SHELL_DEPTH = 0
+
+export type MegaMenuShellDoc = {
+  id?: number | string
+  label?: string | null
+  url?: string | null
+  order?: number | null
+  appearance?: 'link' | 'button' | null
+  hasDropdown?: boolean
+}
+
+function slimMegaMenuShellDoc(doc: MegaMenuDoc): MegaMenuShellDoc {
+  return {
+    id: doc.id,
+    label: doc.label,
+    url: doc.url,
+    order: doc.order,
+    appearance: doc.appearance,
+    // Lets the fast shell render the same dropdown chevron as the fully hydrated
+    // menu, so swapping shell -> real menu doesn't reflow the nav item widths.
+    hasDropdown:
+      (Array.isArray(doc.columns) && doc.columns.length > 0) ||
+      (Array.isArray(doc.subItems) && doc.subItems.length > 0) ||
+      // `highlight` is a Payload group field, so it's always a (possibly empty)
+      // object — check its content, not just presence, matching the real menu's
+      // own hasDropdown() logic in components/MegaMenu/index.tsx.
+      (doc.highlight != null &&
+        (doc.highlight.title != null || doc.highlight.ctaUrl != null)),
+  }
+}
 
 export async function getMegaMenuItems() {
   try {
@@ -167,6 +197,66 @@ export async function getMegaMenuItems() {
     const msg = err instanceof Error ? err.message : String(err)
     if (process.env.NODE_ENV === 'development') {
       console.error('[getMegaMenu] REST fallback failed:', msg)
+    }
+    return []
+  }
+}
+
+export async function getMegaMenuShellItems() {
+  try {
+    const payload = await getPayload({ config: configPromise })
+    const result = await payload.find({
+      collection: 'mega-menu',
+      limit: 50,
+      depth: MEGA_MENU_SHELL_DEPTH,
+      sort: 'order',
+      select: {
+        label: true,
+        url: true,
+        order: true,
+        appearance: true,
+        // Only the array lengths are needed to know whether the chevron should
+        // show, so select minimal subfields instead of the full block content.
+        columns: { id: true },
+        subItems: { label: true },
+        highlight: { title: true, ctaUrl: true },
+      },
+    })
+
+    if (Array.isArray(result.docs) && result.docs.length > 0) {
+      return result.docs.map((doc) => slimMegaMenuShellDoc(doc as MegaMenuDoc))
+    }
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[getMegaMenu] Shell Local API failed, trying REST fallback:', msg)
+    }
+  }
+
+  try {
+    const serverURL = getServerSideURL()
+    const response = await fetch(
+      `${serverURL}/api/mega-menu?limit=50&depth=${MEGA_MENU_SHELL_DEPTH}&sort=order&select[label]=true&select[url]=true&select[order]=true&select[appearance]=true&select[columns][id]=true&select[subItems][label]=true&select[highlight][title]=true&select[highlight][ctaUrl]=true`,
+      {
+        next: { revalidate: 300 },
+      },
+    )
+
+    if (!response.ok) {
+      if (process.env.NODE_ENV === 'development') {
+        console.error('[getMegaMenu] Shell REST fallback failed with status:', response.status)
+      }
+      return []
+    }
+
+    const data = (await response.json()) as { docs?: MegaMenuDoc[] }
+    if (!Array.isArray(data?.docs)) return []
+
+    return data.docs.map(slimMegaMenuShellDoc)
+  } catch (err) {
+    const msg = err instanceof Error ? err.message : String(err)
+    if (process.env.NODE_ENV === 'development') {
+      console.error('[getMegaMenu] Shell REST fallback failed:', msg)
     }
     return []
   }

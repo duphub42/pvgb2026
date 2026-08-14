@@ -8,10 +8,14 @@ import { usePathname } from 'next/navigation'
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { cn } from '@/utilities/ui'
 
-import type { Header } from '@/payload-types'
+import type { Header, Media as MediaType } from '@/payload-types'
+import { getMediaUrl } from '@/utilities/getMediaUrl'
+import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 import dynamic from 'next/dynamic'
-import { Mail, Menu, Search } from 'lucide-react'
+import { ChevronDown, Mail, Menu, Search } from 'lucide-react'
+import { Logo } from '@/components/Logo/Logo'
+import { LogoWithGlitch } from '@/components/Logo/LogoWithGlitch'
 import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher/LanguageSwitcher'
 import { ThemeSwitcher } from '@/components/ThemeSwitcher/ThemeSwitcher'
@@ -46,12 +50,29 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
 }) => {
   const headerData = data as HeaderWithLegacyFields
   const [resolvedMegaMenuItems, setResolvedMegaMenuItems] = useState<MegaMenuItem[]>(megaMenuItems)
+  const [logoMorphReady, setLogoMorphReady] = useState(false)
+  const [logoPreviewActive, setLogoPreviewActive] = useState(false)
+  const logoPreviewTimeoutRef = useRef<number | null>(null)
+  const logoIntroTimeoutRef = useRef<number | null>(null)
+  const [resolvedMegaMenuLocale, setResolvedMegaMenuLocale] = useState<'de' | 'en'>('de')
+  const [megaMenuIsComplete, setMegaMenuIsComplete] = useState(() =>
+    megaMenuItems.some(
+      (item) =>
+        (Array.isArray(item.columns) && item.columns.length > 0) ||
+        (Array.isArray(item.subItems) && item.subItems.length > 0) ||
+        Boolean(item.highlight),
+    ),
+  )
   const [isPastFold, setIsPastFold] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true)
   const [megaMenuHydrated, setMegaMenuHydrated] = useState(false)
   const [openMobileMenuOnHydrate, setOpenMobileMenuOnHydrate] = useState(false)
   const isPastFoldRef = useRef(false)
   const isScrolledRef = useRef(false)
+  const isHeaderVisibleRef = useRef(true)
+  const lastScrollYRef = useRef(0)
+  const megaMenuRequestInFlightRef = useRef(false)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const { theme: globalTheme } = useTheme()
   const locale = useLocale()
@@ -59,6 +80,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const pathname = usePathname()
   const [hasHydrated, setHasHydrated] = useState(false)
   const effectivePathname = hasHydrated ? (pathname ?? '/') : '/'
+  const normalizedPathname = effectivePathname.replace(/\/+$/, '') || '/'
+  const isHomePath = normalizedPathname === '/' || normalizedPathname === '/home'
   const shouldUseMegaMenu =
     headerData.useMegaMenu === true ||
     headerData.use_mega_menu === true ||
@@ -70,48 +93,154 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   }, [])
 
   useEffect(() => {
+    if (locale !== 'de') return
     setResolvedMegaMenuItems(megaMenuItems)
-  }, [megaMenuItems])
+    setResolvedMegaMenuLocale('de')
+    setMegaMenuIsComplete(
+      megaMenuItems.some(
+        (item) =>
+          (Array.isArray(item.columns) && item.columns.length > 0) ||
+          (Array.isArray(item.subItems) && item.subItems.length > 0) ||
+          Boolean(item.highlight),
+      ),
+    )
+  }, [locale, megaMenuItems])
+
+  const loadCompleteMegaMenuItems = useCallback(async () => {
+    if (!shouldUseMegaMenu) return
+    if (resolvedMegaMenuLocale === locale && megaMenuIsComplete) return
+    if (megaMenuRequestInFlightRef.current) return
+
+    megaMenuRequestInFlightRef.current = true
+    try {
+      if (locale === 'en') {
+        setResolvedMegaMenuItems([])
+      }
+      const response = await fetch(`/api/frontend/mega-menu?locale=${locale}`)
+      if (!response.ok) return
+      const data = (await response.json()) as { docs?: MegaMenuItem[] }
+      if (Array.isArray(data?.docs) && data.docs.length > 0) {
+        setResolvedMegaMenuItems(data.docs)
+        setResolvedMegaMenuLocale(locale)
+        setMegaMenuIsComplete(true)
+      }
+    } catch {
+      // Keep graceful fallback to the light shell when request fails.
+    } finally {
+      megaMenuRequestInFlightRef.current = false
+    }
+  }, [locale, megaMenuIsComplete, resolvedMegaMenuLocale, shouldUseMegaMenu])
 
   useEffect(() => {
-    if (!shouldUseMegaMenu || resolvedMegaMenuItems.length > 0) return
+    if (!shouldUseMegaMenu) return
+    if (resolvedMegaMenuLocale === locale && megaMenuIsComplete) return
 
-    let cancelled = false
+    const idleCallback =
+      typeof window !== 'undefined' && 'requestIdleCallback' in window
+        ? window.requestIdleCallback
+        : null
+    let idleId: number | null = null
+    let timeoutId: number | null = null
 
-    const loadMegaMenuItems = async () => {
-      try {
-        const response = await fetch(`/api/frontend/mega-menu?locale=${locale}`)
-        if (!response.ok) return
-        const data = (await response.json()) as { docs?: MegaMenuItem[] }
-        if (cancelled) return
-        if (Array.isArray(data?.docs) && data.docs.length > 0) {
-          setResolvedMegaMenuItems(data.docs)
-        }
-      } catch {
-        // Keep graceful fallback to standard nav when request fails.
-      }
+    if (idleCallback) {
+      idleId = idleCallback(() => {
+        void loadCompleteMegaMenuItems()
+      }, { timeout: 4500 })
+    } else {
+      timeoutId = window.setTimeout(() => {
+        void loadCompleteMegaMenuItems()
+      }, 3000)
     }
-
-    void loadMegaMenuItems()
 
     return () => {
-      cancelled = true
+      if (
+        idleId != null &&
+        typeof window !== 'undefined' &&
+        'cancelIdleCallback' in window
+      ) {
+        window.cancelIdleCallback(idleId)
+      }
+      if (timeoutId != null) window.clearTimeout(timeoutId)
     }
-  }, [locale, resolvedMegaMenuItems.length, shouldUseMegaMenu])
+  }, [
+    loadCompleteMegaMenuItems,
+    locale,
+    megaMenuIsComplete,
+    resolvedMegaMenuLocale,
+    shouldUseMegaMenu,
+  ])
 
   useEffect(() => {
-    const stickyEnterThresholdPx = 0
-    const stickyLeaveThresholdPx = 0
+    if (isHomePath) {
+      setLogoPreviewActive(false)
+      setLogoMorphReady(true)
+      return
+    }
+
+    // Sub pages start directly in the compact, stable logo state. This avoids the
+    // full logo and compact B-logo appearing as two separate rows while the header hydrates.
+    setLogoPreviewActive(false)
+    setLogoMorphReady(true)
+
+    if (logoIntroTimeoutRef.current) {
+      window.clearTimeout(logoIntroTimeoutRef.current)
+      logoIntroTimeoutRef.current = null
+    }
+
+    return () => {
+      if (logoIntroTimeoutRef.current) {
+        window.clearTimeout(logoIntroTimeoutRef.current)
+        logoIntroTimeoutRef.current = null
+      }
+    }
+  }, [effectivePathname, isHomePath])
+
+  useEffect(() => {
+    return () => {
+      if (logoIntroTimeoutRef.current) {
+        window.clearTimeout(logoIntroTimeoutRef.current)
+        logoIntroTimeoutRef.current = null
+      }
+      if (logoPreviewTimeoutRef.current) {
+        window.clearTimeout(logoPreviewTimeoutRef.current)
+        logoPreviewTimeoutRef.current = null
+      }
+    }
+  }, [])
+
+  useEffect(() => {
+    const stickyEnterThresholdPx = 24
+    const stickyLeaveThresholdPx = 8
+    const topShowThresholdPx = 24
+    const hideAfterPx = 120
+    const scrollDeltaThresholdPx = 10
     let rafId: number | null = null
 
     const applyScroll = () => {
       rafId = null
       const currentScrollY = window.scrollY
       const nextIsScrolled = currentScrollY > 20
+      const delta = currentScrollY - lastScrollYRef.current
+      const scrollingDown = delta > scrollDeltaThresholdPx
+      const scrollingUp = delta < -scrollDeltaThresholdPx
+      let nextIsHeaderVisible = isHeaderVisibleRef.current
+
+      if (currentScrollY <= topShowThresholdPx) {
+        nextIsHeaderVisible = true
+      } else if (scrollingDown && currentScrollY > hideAfterPx) {
+        nextIsHeaderVisible = false
+      } else if (scrollingUp) {
+        nextIsHeaderVisible = true
+      }
 
       if (nextIsScrolled !== isScrolledRef.current) {
         isScrolledRef.current = nextIsScrolled
         setIsScrolled(nextIsScrolled)
+      }
+
+      if (nextIsHeaderVisible !== isHeaderVisibleRef.current) {
+        isHeaderVisibleRef.current = nextIsHeaderVisible
+        setIsHeaderVisible(nextIsHeaderVisible)
       }
 
       // Sticky handling starts at page top instead of over-the-fold.
@@ -124,6 +253,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
         isPastFoldRef.current = nextPastFold
         setIsPastFold(nextPastFold)
       }
+
+      lastScrollYRef.current = currentScrollY
     }
 
     const handleScroll = () => {
@@ -150,7 +281,49 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   // Resolved theme: page override (headerTheme) or global theme (reaktiv beim Toggle)
   const resolvedTheme = headerTheme ?? globalTheme ?? null
 
-  const renderPrimaryLogo = () => (
+  // Support both logo (camelCase) and logo_id (snake_case from DB)
+  const logoData = headerData.logo ?? headerData.logo_id
+  const resolvedLogo = logoData && typeof logoData === 'object' ? (logoData as MediaType) : null
+  const hasCustomLogo = logoData != null
+  const logoUrl = resolvedLogo?.url
+    ? resolvedLogo.updatedAt
+      ? getMediaUrl(resolvedLogo.url, resolvedLogo.updatedAt)
+      : getMediaUrl(resolvedLogo.url)
+    : (resolveHeroImageSrc(logoData) ?? '')
+
+  const renderPrimaryLogo = (disableAnimation?: boolean) => {
+    if (isHomePath) {
+      return (
+        <Image
+          src={HEADER_B_LOGO_SRC}
+          alt=""
+          aria-hidden="true"
+          className="header-b-logo logo-contrast"
+          width={40}
+          height={42}
+          priority
+        />
+      )
+    }
+
+    if (hasCustomLogo && logoUrl) {
+      return (
+        <LogoWithGlitch imgSrc={logoUrl} variant="header" disableAnimation={disableAnimation}>
+          <Logo
+            loading="eager"
+            priority="high"
+            logo={logoData ?? null}
+            variant="header"
+            disableAnimation={disableAnimation}
+          />
+        </LogoWithGlitch>
+      )
+    }
+
+    return null
+  }
+
+  const renderStickyLogo = () => (
     <Image
       src={HEADER_B_LOGO_SRC}
       alt=""
@@ -162,18 +335,58 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     />
   )
 
-  const renderLogoLink = () => (
-    <Link
-      href={homeHref}
-      aria-label="Zur Startseite"
-      className="logo-link relative flex items-center shrink-0"
-    >
-      {renderPrimaryLogo()}
-    </Link>
-  )
+  const handleLogoMouseEnter = () => {
+    if (!logoMorphReady) return
+
+    if (logoPreviewTimeoutRef.current) {
+      window.clearTimeout(logoPreviewTimeoutRef.current)
+      logoPreviewTimeoutRef.current = null
+    }
+
+    setLogoPreviewActive(true)
+  }
+
+  const handleLogoMouseLeave = () => {
+    if (logoPreviewTimeoutRef.current) {
+      window.clearTimeout(logoPreviewTimeoutRef.current)
+      logoPreviewTimeoutRef.current = null
+    }
+
+    logoPreviewTimeoutRef.current = window.setTimeout(() => {
+      setLogoPreviewActive(false)
+      logoPreviewTimeoutRef.current = null
+    }, 600)
+  }
+
+  const renderLogoLink = (disableAnimation?: boolean) =>
+    isHomePath ? (
+      <Link
+        href={homeHref}
+        aria-label="Zur Startseite"
+        className="logo-link relative flex items-center shrink-0"
+      >
+        {renderPrimaryLogo(disableAnimation)}
+      </Link>
+    ) : (
+      <Link
+        href={homeHref}
+        className="logo-link relative flex items-center shrink-0"
+        data-logo-morph-ready={logoMorphReady ? 'true' : 'false'}
+        data-logo-preview-active={logoPreviewActive ? 'true' : 'false'}
+        onMouseEnter={handleLogoMouseEnter}
+        onMouseLeave={handleLogoMouseLeave}
+      >
+        <span className="header-logo-slot header-logo-slot--default">
+          {renderPrimaryLogo(disableAnimation)}
+        </span>
+        <span className="header-logo-slot header-logo-slot--sticky" aria-hidden="true">
+          {renderStickyLogo()}
+        </span>
+      </Link>
+    )
 
   const desktopLogoEl = renderLogoLink()
-  const mobileLogoEl = renderPrimaryLogo()
+  const mobileLogoEl = renderPrimaryLogo(true)
 
   const handleMegaMenuHydrated = useCallback(() => {
     setMegaMenuHydrated(true)
@@ -185,26 +398,34 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     const searchHref = localizePathname('/search', locale)
 
     return (
-      <>
+      <div
+        onFocusCapture={() => void loadCompleteMegaMenuItems()}
+        onPointerDownCapture={() => void loadCompleteMegaMenuItems()}
+        onPointerEnter={() => void loadCompleteMegaMenuItems()}
+        onTouchStartCapture={() => void loadCompleteMegaMenuItems()}
+      >
         <HeaderGlassPlate
           glassActive={false}
-          hideToTop={false}
-          isVisible
-          revealFromTop={false}
+          hideToTop={!isHeaderVisible && isScrolled}
+          isVisible={isHeaderVisible}
+          revealFromTop={isHeaderVisible && isScrolled}
         />
         <header
           suppressHydrationWarning
           className="megamenu z-50 w-full"
           data-scrolled={isScrolled ? 'true' : undefined}
           data-sticky={isPastFold ? 'true' : undefined}
+          data-header-visible={isHeaderVisible ? undefined : 'false'}
           data-header-shell="true"
           {...(resolvedTheme ? { 'data-theme': resolvedTheme } : {})}
         >
           <div
             className={cn(
-              'header-slide-layer transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)]',
+              'header-slide-layer transition-[transform,opacity] duration-[1500ms] ease-[cubic-bezier(0.16,1,0.28,1)]',
               'header-glass-border',
-              'translate-y-0 opacity-100 visible',
+              isHeaderVisible
+                ? 'opacity-100 visible'
+                : 'opacity-100 visible pointer-events-none',
             )}
           >
             <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
@@ -215,7 +436,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
                   className="logo-link relative flex shrink-0 items-center"
                 >
                   <span className="hidden items-center lg:inline-flex">
-                    {renderPrimaryLogo()}
+                    {renderPrimaryLogo(true)}
                   </span>
                   <Image
                     src={HEADER_B_LOGO_SRC}
@@ -241,6 +462,12 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
                             className="megamenu-top-item inline-flex h-10 w-max items-center justify-center rounded-md bg-background px-4 py-2 text-sm font-medium transition-colors hover:bg-accent hover:text-accent-foreground"
                           >
                             {item.label}
+                            {item.hasDropdown && (
+                              <ChevronDown
+                                className="relative top-[1px] ml-1 h-4 w-4"
+                                aria-hidden="true"
+                              />
+                            )}
                           </Link>
                         ))}
                       </div>
@@ -270,7 +497,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
                       className="mobile-megamenu-trigger-btn inline-flex h-12 w-12 min-h-[44px] min-w-[44px] shrink-0 touch-manipulation items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50"
                       aria-label="Menü öffnen"
                       aria-expanded={false}
-                      onClick={() => setOpenMobileMenuOnHydrate(true)}
+                      onClick={() => {
+                        setOpenMobileMenuOnHydrate(true)
+                        void loadCompleteMegaMenuItems()
+                      }}
                     >
                       <Menu className="h-7 w-7" aria-hidden />
                     </button>
@@ -280,7 +510,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
             </div>
           </div>
         </header>
-      </>
+      </div>
     )
   }
 
@@ -373,6 +603,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
           className={megaMenuHydrated ? '' : 'hidden pointer-events-none'}
           onHydrated={handleMegaMenuHydrated}
           openMobileMenuOnMount={openMobileMenuOnHydrate}
+          locale={locale}
           columnWidths={columnWidths}
           megaMenuCta={hasCta ? megaMenuCta : undefined}
           highlightCardStyle={highlightCardStyle}
@@ -386,9 +617,9 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     <>
       <HeaderGlassPlate
         glassActive={false}
-        hideToTop={false}
-        isVisible
-        revealFromTop={false}
+        hideToTop={!isHeaderVisible && isScrolled}
+        isVisible={isHeaderVisible}
+        revealFromTop={isHeaderVisible && isScrolled}
       />
       <header
         suppressHydrationWarning
@@ -396,12 +627,15 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
         {...(resolvedTheme ? { 'data-theme': resolvedTheme } : {})}
         data-scrolled={isScrolled ? 'true' : undefined}
         data-sticky={isPastFold ? 'true' : undefined}
+        data-header-visible={isHeaderVisible ? undefined : 'false'}
       >
         <div
           className={cn(
-            'header-slide-layer transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)]',
+            'header-slide-layer transition-[transform,opacity] duration-[1500ms] ease-[cubic-bezier(0.16,1,0.28,1)]',
             'header-glass-border',
-            'translate-y-0 opacity-100 visible',
+            isHeaderVisible
+              ? 'opacity-100 visible'
+              : 'opacity-100 visible pointer-events-none',
           )}
         >
           <div className="container flex h-24 flex-col px-4 pt-9 pb-2">

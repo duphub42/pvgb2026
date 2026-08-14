@@ -21,6 +21,20 @@ interface PopoutPortraitProps {
   showDecor?: boolean
 }
 
+// The SVG <image> below has no srcset/sizes - it always fetches this single URL at
+// whatever intrinsic size the source is. Media-library portraits come straight off
+// /api/media/stream/<id> at their original upload resolution (seen up to ~1100x1775),
+// far beyond what the popout ever displays. Routing through Next's image optimizer at
+// a capped width keeps a plain, cacheable request while cutting that payload down to
+// what's actually rendered (roughly 2x a realistic display width, for retina).
+const PORTRAIT_MAX_WIDTH = 1024
+const PORTRAIT_QUALITY = 75
+
+export function optimizedPortraitSrc(src: string): string {
+  if (!src.startsWith('/api/media/') && !src.startsWith('/media/')) return src
+  return `/_next/image?url=${encodeURIComponent(src)}&w=${PORTRAIT_MAX_WIDTH}&q=${PORTRAIT_QUALITY}`
+}
+
 export default function PopoutPortrait({
   imageSrc = '/media/philippbacher.png',
   width = Math.round(VIEWBOX_W * DEFAULT_DISPLAY_SCALE * 2.5),
@@ -353,7 +367,7 @@ export default function PopoutPortrait({
           </mask>
         </defs>
         <image
-          href={imageSrc}
+          href={optimizedPortraitSrc(imageSrc)}
           x={imgX}
           y={imgY}
           width={imgW}

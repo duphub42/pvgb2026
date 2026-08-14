@@ -46,6 +46,7 @@ import { ResilientImage } from '@/components/ui/resilient-image'
 import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
 import { isNavLinkActive } from '@/utilities/navLinkActive'
 import { localizePathname } from '@/i18n/routing'
+import type { Locale } from '@/utilities/locale'
 
 const ThemeSwitcher = dynamic(
   () => import('@/components/ThemeSwitcher/ThemeSwitcher').then((mod) => mod.ThemeSwitcher),
@@ -544,30 +545,99 @@ const MOBILE_MENU_DEFAULT_DESCRIPTIONS: Record<string, string> = {
   kontakt: 'Direkt Kontakt aufnehmen per Formular, E-Mail, WhatsApp oder Telefon.',
 }
 
-function getDefaultMobileMenuDescription(item: MegaMenuItem): string | null {
+const MOBILE_MENU_DEFAULT_DESCRIPTIONS_EN: Record<string, string> = {
+  home: 'Homepage with an overview of services, projects and current content.',
+  prices: 'Packages, services and transparent terms in a quick comparison.',
+  profile: 'More about me, my background and how I work.',
+  contact: 'Get in touch directly via form, email, WhatsApp or phone.',
+}
+
+const MOBILE_MENU_COPY: Record<
+  Locale,
+  {
+    open: string
+    close: string
+    title: string
+    back: string
+    dockConfirmDetail: string
+    dockTooltips: Record<string, string>
+  }
+> = {
+  de: {
+    open: 'Menü öffnen',
+    close: 'Menü schließen',
+    title: 'Mobilmenü',
+    back: 'Zurück',
+    dockConfirmDetail: 'Erneut tippen',
+    dockTooltips: {
+      phone: 'Jetzt anrufen',
+      email: 'E-Mail schreiben',
+      whatsapp: 'WhatsApp öffnen',
+      vcard: 'Kontakt speichern',
+      calendar: 'Termin buchen',
+    },
+  },
+  en: {
+    open: 'Open menu',
+    close: 'Close menu',
+    title: 'Mobile menu',
+    back: 'Back',
+    dockConfirmDetail: 'Tap again',
+    dockTooltips: {
+      phone: 'Call now',
+      email: 'Write an email',
+      whatsapp: 'Open WhatsApp',
+      vcard: 'Save contact',
+      calendar: 'Book a call',
+    },
+  },
+}
+
+function getDefaultMobileMenuDescription(item: MegaMenuItem, locale: Locale): string | null {
   const normalizedLabel = item.label.trim().toLocaleLowerCase('de-DE')
+  if (locale === 'en') {
+    const englishDescription =
+      MOBILE_MENU_DEFAULT_DESCRIPTIONS_EN[normalizedLabel] ??
+      (normalizedLabel === 'about' ? MOBILE_MENU_DEFAULT_DESCRIPTIONS_EN.profile : undefined)
+    if (englishDescription) return clampMobileMenuDescription(englishDescription)
+  }
+
   if (normalizedLabel in MOBILE_MENU_DEFAULT_DESCRIPTIONS) {
     return clampMobileMenuDescription(MOBILE_MENU_DEFAULT_DESCRIPTIONS[normalizedLabel] ?? '')
   }
 
   const normalizedUrl = item.url.trim().toLocaleLowerCase('de-DE')
   if (normalizedUrl === '/') {
-    return clampMobileMenuDescription(MOBILE_MENU_DEFAULT_DESCRIPTIONS.home)
+    return clampMobileMenuDescription(
+      locale === 'en' ? MOBILE_MENU_DEFAULT_DESCRIPTIONS_EN.home : MOBILE_MENU_DEFAULT_DESCRIPTIONS.home,
+    )
   }
-  if (normalizedUrl === '/preise') {
-    return clampMobileMenuDescription(MOBILE_MENU_DEFAULT_DESCRIPTIONS.preise)
+  if (normalizedUrl === '/preise' || normalizedUrl === '/en/prices' || normalizedUrl === '/prices') {
+    return clampMobileMenuDescription(
+      locale === 'en'
+        ? MOBILE_MENU_DEFAULT_DESCRIPTIONS_EN.prices
+        : MOBILE_MENU_DEFAULT_DESCRIPTIONS.preise,
+    )
   }
-  if (normalizedUrl === '/profil') {
-    return clampMobileMenuDescription(MOBILE_MENU_DEFAULT_DESCRIPTIONS.profil)
+  if (normalizedUrl === '/profil' || normalizedUrl === '/en/profile' || normalizedUrl === '/profile') {
+    return clampMobileMenuDescription(
+      locale === 'en'
+        ? MOBILE_MENU_DEFAULT_DESCRIPTIONS_EN.profile
+        : MOBILE_MENU_DEFAULT_DESCRIPTIONS.profil,
+    )
   }
-  if (normalizedUrl === '/kontakt') {
-    return clampMobileMenuDescription(MOBILE_MENU_DEFAULT_DESCRIPTIONS.kontakt)
+  if (normalizedUrl === '/kontakt' || normalizedUrl === '/en/contact' || normalizedUrl === '/contact') {
+    return clampMobileMenuDescription(
+      locale === 'en'
+        ? MOBILE_MENU_DEFAULT_DESCRIPTIONS_EN.contact
+        : MOBILE_MENU_DEFAULT_DESCRIPTIONS.kontakt,
+    )
   }
 
   return null
 }
 
-function getMobileMenuItemDescription(item: MegaMenuItem): string | null {
+function getMobileMenuItemDescription(item: MegaMenuItem, locale: Locale): string | null {
   const fromCategory = normalizeMobileMenuDescription(item.categoryDescription?.description)
   if (fromCategory) return clampMobileMenuDescription(fromCategory)
 
@@ -586,29 +656,33 @@ function getMobileMenuItemDescription(item: MegaMenuItem): string | null {
   const fromHighlight = normalizeMobileMenuDescription(item.highlight?.description)
   if (fromHighlight) return clampMobileMenuDescription(fromHighlight)
 
-  const fallback = getDefaultMobileMenuDescription(item)
+  const fallback = getDefaultMobileMenuDescription(item, locale)
   if (fallback) return fallback
 
   return null
 }
 
-function getMobileDockClickTooltipCopy(action: MobileDockAction): {
+function getMobileDockClickTooltipCopy(
+  action: MobileDockAction,
+  locale: Locale,
+): {
   label: string
   detail: string
 } {
-  const detail = 'Erneut tippen'
+  const copy = MOBILE_MENU_COPY[locale]
+  const detail = copy.dockConfirmDetail
 
   switch (action.key) {
     case 'phone':
-      return { label: 'Jetzt anrufen', detail }
+      return { label: copy.dockTooltips.phone, detail }
     case 'email':
-      return { label: 'E-Mail schreiben', detail }
+      return { label: copy.dockTooltips.email, detail }
     case 'whatsapp':
-      return { label: 'WhatsApp öffnen', detail }
+      return { label: copy.dockTooltips.whatsapp, detail }
     case 'vcard':
-      return { label: 'Kontakt speichern', detail }
+      return { label: copy.dockTooltips.vcard, detail }
     case 'calendar':
-      return { label: 'Termin buchen', detail }
+      return { label: copy.dockTooltips.calendar, detail }
     default:
       return { label: action.label, detail }
   }
@@ -729,6 +803,8 @@ export type MegaMenuItem = {
   icon?: MediaRef
   image?: MediaRef
   appearance?: 'link' | 'button' | null
+  /** Only set on the light shell payload: whether the full item will render a dropdown. */
+  hasDropdown?: boolean
   /** Pro Menüpunkt: Breiten der 3 Dropdown-Spalten (1–12). Leer = Header-Global. */
   columnWidths?: { col1?: number; col2?: number; col3?: number } | null
   categoryDescription?: { title?: string | null; description?: string | null } | null
@@ -809,6 +885,7 @@ type MegaMenuProps = {
   highlightCardStyle?: HighlightCardStyle
   /** Telefonnummer aus dem Footer-Global für den Call-CTA im mobilen Dock */
   mobileDockPhone?: string | null
+  locale?: Locale
 }
 
 function hasDropdown(item: MegaMenuItem): boolean {
@@ -1275,16 +1352,23 @@ export function MegaMenu({
   megaMenuCta,
   highlightCardStyle,
   mobileDockPhone,
+  locale: localeProp,
 }: MegaMenuProps) {
   const cardStyle = highlightCardStyle ?? defaultCardStyle
   const pathname = usePathname()
   const isEnglishPath = pathname?.startsWith('/en') === true
+  const locale: Locale = localeProp ?? (isEnglishPath ? 'en' : 'de')
+  const mobileCopy = MOBILE_MENU_COPY[locale]
   const router = useRouter()
   const isDesktopNavViewport = useIsDesktopNavViewport()
   const [isPastFold, setIsPastFold] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
+  const [isHeaderVisible, setIsHeaderVisible] = useState(true)
   const isPastFoldRef = React.useRef(false)
+  const isHeaderVisibleRef = React.useRef(true)
+  const lastScrollYRef = React.useRef(0)
   const [activeMenu, setActiveMenu] = useState<string | null>(null)
+  const activeMenuRef = React.useRef<string | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(openMobileMenuOnMount)
   const [mobileMenuIconActive, setMobileMenuIconActive] = useState(openMobileMenuOnMount)
   const [mobileUtilityControlsReady, setMobileUtilityControlsReady] = useState(false)
@@ -1319,6 +1403,15 @@ export function MegaMenu({
     setMobileMenuOpen(true)
     setMobileMenuIconActive(true)
   }, [openMobileMenuOnMount])
+
+  useEffect(() => {
+    activeMenuRef.current = activeMenu
+
+    if (activeMenu != null && !isHeaderVisibleRef.current) {
+      isHeaderVisibleRef.current = true
+      setIsHeaderVisible(true)
+    }
+  }, [activeMenu])
 
   const mobileDockTooltipTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const mobileDockLongPressTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -1481,13 +1574,19 @@ export function MegaMenu({
 
   useEffect(() => {
     setSelectedTopNavKey((previous) => {
+      if (
+        activeMenu &&
+        sortedItems.some((item, idx) => getMegaMenuItemKey(item, idx) === activeMenu)
+      ) {
+        return activeMenu
+      }
       if (activeTopNavKeyFromPath) return activeTopNavKeyFromPath
       if (previous && sortedItems.some((item, idx) => getMegaMenuItemKey(item, idx) === previous)) {
         return previous
       }
       return null
     })
-  }, [activeTopNavKeyFromPath, sortedItems])
+  }, [activeMenu, activeTopNavKeyFromPath, sortedItems])
 
   const updateTopNavIndicator = React.useCallback(() => {
     const navWrap = navListWrapRef.current
@@ -1533,15 +1632,29 @@ export function MegaMenu({
     window.addEventListener('resize', onResize, { passive: true })
     return () => window.removeEventListener('resize', onResize)
   }, [updateTopNavIndicator])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+
+    let frameId = window.requestAnimationFrame(() => {
+      frameId = window.requestAnimationFrame(updateTopNavIndicator)
+    })
+    const timeoutId = window.setTimeout(updateTopNavIndicator, 450)
+
+    return () => {
+      window.cancelAnimationFrame(frameId)
+      window.clearTimeout(timeoutId)
+    }
+  }, [updateTopNavIndicator])
   const mobileMenuItems = useMemo(
     () =>
       sortedItems.map((item, idx) => ({
         key: getMegaMenuItemKey(item, idx),
         item,
-        description: getMobileMenuItemDescription(item),
+        description: getMobileMenuItemDescription(item, locale),
         subLinks: collectMobileSubLinks(item, 8),
       })),
-    [sortedItems],
+    [locale, sortedItems],
   )
   const activeMobileEntry = useMemo(
     () => mobileMenuItems.find((entry) => entry.key === mobileActivePrimary) ?? null,
@@ -2079,7 +2192,7 @@ export function MegaMenu({
       event.stopPropagation()
       actionEl.setAttribute('data-pending', 'true')
       armMobileDockActionConfirmation(action.key)
-      const clickTooltip = getMobileDockClickTooltipCopy(action)
+      const clickTooltip = getMobileDockClickTooltipCopy(action, locale)
       showMobileDockTooltip(clickTooltip.label, actionEl, {
         detail: clickTooltip.detail,
         variant: 'click',
@@ -2095,6 +2208,7 @@ export function MegaMenu({
       showMobileDockTooltip,
       spawnMobileDockRipple,
       executeMobileDockAction,
+      locale,
     ],
   )
 
@@ -2472,12 +2586,34 @@ export function MegaMenu({
   }, [activeMenu])
 
   useEffect(() => {
-    const stickyEnterThresholdPx = 0
-    const stickyLeaveThresholdPx = 0
+    const stickyEnterThresholdPx = 24
+    const stickyLeaveThresholdPx = 8
+    const topShowThresholdPx = 24
+    const hideAfterPx = 120
+    const scrollDeltaThresholdPx = 10
+    let rafId: number | null = null
 
-    const handleScroll = () => {
+    const applyScroll = () => {
+      rafId = null
       const currentScrollY = window.scrollY
+      const delta = currentScrollY - lastScrollYRef.current
       setIsScrolled(currentScrollY > 20)
+      const scrollingDown = delta > scrollDeltaThresholdPx
+      const scrollingUp = delta < -scrollDeltaThresholdPx
+      let nextIsHeaderVisible = isHeaderVisibleRef.current
+
+      if (activeMenuRef.current != null || currentScrollY <= topShowThresholdPx) {
+        nextIsHeaderVisible = true
+      } else if (scrollingDown && currentScrollY > hideAfterPx) {
+        nextIsHeaderVisible = false
+      } else if (scrollingUp) {
+        nextIsHeaderVisible = true
+      }
+
+      if (nextIsHeaderVisible !== isHeaderVisibleRef.current) {
+        isHeaderVisibleRef.current = nextIsHeaderVisible
+        setIsHeaderVisible(nextIsHeaderVisible)
+      }
 
       // Sticky activation starts at page top instead of over-the-fold.
 
@@ -2490,19 +2626,32 @@ export function MegaMenu({
         isPastFoldRef.current = nextPastFold
         setIsPastFold(nextPastFold)
       }
+
+      lastScrollYRef.current = currentScrollY
     }
+
+    const handleScroll = () => {
+      if (rafId != null) return
+      rafId = window.requestAnimationFrame(applyScroll)
+    }
+
     window.addEventListener('scroll', handleScroll, { passive: true })
-    handleScroll()
-    return () => window.removeEventListener('scroll', handleScroll)
+    applyScroll()
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      if (rafId != null) {
+        window.cancelAnimationFrame(rafId)
+      }
+    }
   }, [])
 
   return (
     <>
       <HeaderGlassPlate
         glassActive={activeMenu != null}
-        hideToTop={false}
-        isVisible
-        revealFromTop={false}
+        hideToTop={!isHeaderVisible && isScrolled}
+        isVisible={isHeaderVisible}
+        revealFromTop={isHeaderVisible && isScrolled}
       />
       {/* Background Blur Overlay – 1:1 test2 */}
       <div
@@ -2518,13 +2667,16 @@ export function MegaMenu({
         className={cn('megamenu z-50 w-full', className)}
         data-scrolled={isScrolled ? 'true' : undefined}
         data-sticky={isPastFold ? 'true' : undefined}
+        data-header-visible={isHeaderVisible ? undefined : 'false'}
         data-menu-open={activeMenu != null ? 'true' : undefined}
       >
         <div
           className={cn(
-            'header-slide-layer transition-[transform,opacity] duration-[1200ms] ease-[cubic-bezier(0.12,0.95,0.22,1)]',
+            'header-slide-layer transition-[transform,opacity] duration-[1500ms] ease-[cubic-bezier(0.16,1,0.28,1)]',
             'header-glass-border',
-            'translate-y-0 opacity-100 visible',
+            isHeaderVisible || activeMenu != null
+              ? 'opacity-100 visible'
+              : 'opacity-100 visible pointer-events-none',
           )}
         >
           <div className="container flex h-24 flex-col px-4 pt-9 pb-2">
@@ -3300,7 +3452,7 @@ export function MegaMenu({
                         </NavigationMenuList>
                       </div>
                     </NavigationMenu>
-                    <div className="flex items-center gap-0">
+                    <div className="flex min-h-10 min-w-[166px] items-center gap-0">
                       <HeaderActions
                         contactCta={{
                           whatsapp: megaMenuCta?.whatsapp,
@@ -3317,7 +3469,7 @@ export function MegaMenu({
                         ref={mobileMenuTriggerRef}
                         type="button"
                         className="mobile-megamenu-trigger-btn inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 disabled:pointer-events-none disabled:opacity-50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
-                        aria-label={mobileMenuOpen ? 'Menü schließen' : 'Menü öffnen'}
+                        aria-label={mobileMenuOpen ? mobileCopy.close : mobileCopy.open}
                         aria-expanded={mobileMenuOpen}
                         data-open={mobileMenuIconActive ? 'true' : 'false'}
                         onClick={toggleMobileMenu}
@@ -3345,7 +3497,7 @@ export function MegaMenu({
                           } as React.CSSProperties
                         }
                       >
-                        <SheetTitle className="sr-only">Mobilmenü</SheetTitle>
+                        <SheetTitle className="sr-only">{mobileCopy.title}</SheetTitle>
                         <div
                           className="mobile-megamenu-shell flex h-full flex-col"
                           data-secondary-open={mobileHasSecondaryOpen ? 'true' : 'false'}
@@ -3376,7 +3528,7 @@ export function MegaMenu({
                               <button
                                 type="button"
                                 className="mobile-megamenu-trigger-btn mobile-megamenu-trigger-btn--plain inline-flex shrink-0 items-center justify-center rounded-md outline-none focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/50 [&_svg]:shrink-0 h-12 w-12 min-h-[44px] min-w-[44px] touch-manipulation"
-                                aria-label="Menü schließen"
+                                aria-label={mobileCopy.close}
                                 data-open={mobileMenuIconActive ? 'true' : 'false'}
                                 onClick={closeMobileMenu}
                               >
@@ -3523,7 +3675,7 @@ export function MegaMenu({
                                       <button
                                         type="button"
                                         className="mobile-megamenu-secondary-back-button"
-                                        aria-label="Zurück"
+                                        aria-label={mobileCopy.back}
                                         onClick={() => setMobileActivePrimary(null)}
                                       >
                                         <ChevronLeft

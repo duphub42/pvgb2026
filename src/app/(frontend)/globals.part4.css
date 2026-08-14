@@ -157,18 +157,24 @@ nav.megamenu-nav a.megamenu-top-item {
 .megamenu:hover,
 .site-header:hover {
   background-color: rgba(255, 255, 255, 0.36) !important;
+  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(28px);
   border-bottom-color: transparent !important;
 }
 
 [data-theme='light'] .megamenu:hover,
 [data-theme='light'] .site-header:hover {
   background-color: rgba(255, 255, 255, 0.36) !important;
+  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(28px);
   border-bottom-color: transparent !important;
 }
 
 [data-theme='dark'] .megamenu:hover,
 [data-theme='dark'] .site-header:hover {
   background-color: rgba(24, 24, 24, 0.4) !important;
+  -webkit-backdrop-filter: blur(28px);
+  backdrop-filter: blur(28px);
   border-bottom-color: transparent !important;
 }
 /* Smaller desktop: prevent logo and navigation overlap */

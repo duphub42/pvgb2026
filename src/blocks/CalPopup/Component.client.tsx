@@ -1,11 +1,11 @@
 'use client'
 
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState, type MouseEvent } from 'react'
 import type { FC } from 'react'
 import { ArrowUpRight, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { CtaPanel } from '@/components/CtaPanel'
-import { openCalBookingModal } from '@/utilities/webmcp/calEmbed'
+import { getCalBookingUrl, openCalBookingModal } from '@/utilities/webmcp/calEmbed'
 
 type CalPopupBlockProps = {
   headline?: string
@@ -63,7 +63,10 @@ export const CalPopupBlock: FC<CalPopupBlockProps> = ({
     }
   }, [])
 
-  const handleClick = () => {
+  const fallbackHref = getCalBookingUrl(calLink)
+
+  const handleClick = (event: MouseEvent<HTMLAnchorElement>) => {
+    event.preventDefault()
     void openCalBookingModal(calLink)
   }
 
@@ -114,9 +117,7 @@ export const CalPopupBlock: FC<CalPopupBlockProps> = ({
               }}
             >
               <Button
-                id={buttonId}
-                type="button"
-                onClick={handleClick}
+                asChild
                 variant="cta"
                 size="cta"
                 ctaIcon
@@ -124,7 +125,15 @@ export const CalPopupBlock: FC<CalPopupBlockProps> = ({
                 iconB={ArrowUpRight}
                 className="w-full justify-between rounded-[var(--style-radius-l)] px-5"
               >
-                {buttonLabel}
+                <a
+                  id={buttonId}
+                  href={fallbackHref}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={handleClick}
+                >
+                  {buttonLabel}
+                </a>
               </Button>
             </div>
           </div>

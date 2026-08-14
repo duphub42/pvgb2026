@@ -1,6 +1,6 @@
 import { HeaderClient } from './Component.client'
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import { getMegaMenuItems } from '@/utilities/getMegaMenu'
+import { getMegaMenuShellItems } from '@/utilities/getMegaMenu'
 import React from 'react'
 
 import type { Footer, Header } from '@/payload-types'
@@ -23,7 +23,7 @@ export async function Header({
   const [headerResult, footerResult, megaMenuResult] = await Promise.allSettled([
     headerData ? Promise.resolve(headerData) : getCachedGlobal('header', 1)(),
     footerData ? Promise.resolve(footerData) : getCachedGlobal('footer', 0)(),
-    getMegaMenuItems(),
+    getMegaMenuShellItems(),
   ])
 
   if (headerResult.status === 'fulfilled') {
@@ -44,7 +44,7 @@ export async function Header({
   if (megaMenuResult.status === 'fulfilled' && Array.isArray(megaMenuResult.value)) {
     megaMenuItems = megaMenuResult.value as MegaMenuItem[]
   } else if (megaMenuResult.status === 'rejected') {
-    console.error('[Header] Failed to load mega menu items:', megaMenuResult.reason)
+    console.error('[Header] Failed to load mega menu shell items:', megaMenuResult.reason)
   }
 
   return (

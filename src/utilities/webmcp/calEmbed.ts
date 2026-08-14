@@ -89,19 +89,22 @@ export type CalBookingOpenDetail = {
 }
 
 export function normalizeCalLink(calLink: string): string {
+  const stripSiteLocalePrefix = (value: string) =>
+    value.replace(/^\/+/, '').replace(/^(?:de|en)\//, '')
+
   if (calLink.startsWith('http')) {
     try {
       const url = new URL(calLink)
-      return url.pathname.replace(/^\//, '')
+      return stripSiteLocalePrefix(url.pathname)
     } catch {
-      return calLink
+      return stripSiteLocalePrefix(calLink)
     }
   }
 
-  if (calLink.startsWith('eu:')) return calLink.replace(/^eu:/, '')
-  if (calLink.startsWith('com:')) return calLink.replace(/^com:/, '')
+  if (calLink.startsWith('eu:')) return stripSiteLocalePrefix(calLink.replace(/^eu:/, ''))
+  if (calLink.startsWith('com:')) return stripSiteLocalePrefix(calLink.replace(/^com:/, ''))
 
-  return calLink
+  return stripSiteLocalePrefix(calLink)
 }
 
 function getCal(): CalApi | null {
@@ -118,6 +121,15 @@ function ensureCalSnippet(calDomain: CalDomain): void {
 
   const win = window as WindowWithCal
   const scriptUrl = getCalEmbedScriptUrl(calDomain)
+  const ensureScriptElement = () => {
+    const existing = document.querySelector(`script[src="${scriptUrl}"]`)
+    if (existing) return
+
+    const script = document.createElement('script')
+    script.src = scriptUrl
+    script.async = true
+    document.head.appendChild(script)
+  }
 
   if (!win.Cal) {
     const stub = function Cal(...args: unknown[]) {
@@ -125,10 +137,7 @@ function ensureCalSnippet(calDomain: CalDomain): void {
       if (!cal.loaded) {
         cal.ns = {}
         cal.q = cal.q || []
-        const script = document.createElement('script')
-        script.src = scriptUrl
-        script.async = true
-        document.head.appendChild(script)
+        ensureScriptElement()
         cal.loaded = true
       }
 
@@ -154,15 +163,11 @@ function ensureCalSnippet(calDomain: CalDomain): void {
     stub.q = []
     stub.ns = {}
     win.Cal = stub
+    ensureScriptElement()
+    win.Cal.loaded = true
   } else if (!win.Cal.loaded) {
     // Cal stub exists (e.g. from a previous call for another domain) — still ensure script.
-    const existing = document.querySelector(`script[src="${scriptUrl}"]`)
-    if (!existing) {
-      const script = document.createElement('script')
-      script.src = scriptUrl
-      script.async = true
-      document.head.appendChild(script)
-    }
+    ensureScriptElement()
     win.Cal.loaded = true
     win.Cal.q = win.Cal.q || []
     win.Cal.ns = win.Cal.ns || {}
