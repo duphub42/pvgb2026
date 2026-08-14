@@ -1,14 +1,28 @@
 'use client'
 
-import { useLayoutEffect, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-
-gsap.registerPlugin(ScrollTrigger)
+import { useEffect, useRef } from 'react'
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+let kpiGsapPromise: Promise<{
+  gsap: typeof import('gsap').default
+  ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger
+}> | null = null
+
+const loadKpiGsap = async () => {
+  kpiGsapPromise ??= Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(
+    ([gsapModule, scrollTriggerModule]) => {
+      const gsap = gsapModule.default
+      const ScrollTrigger = scrollTriggerModule.ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger)
+      return { gsap, ScrollTrigger }
+    },
+  )
+
+  return kpiGsapPromise
+}
 
 type ParsedCountValue = {
   target: number
@@ -50,23 +64,30 @@ function formatCountValue(value: number, parsed: ParsedCountValue): string {
 export function KpiTileReveal() {
   const markerRef = useRef<HTMLSpanElement | null>(null)
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (prefersReducedMotion()) return
 
     const root = markerRef.current?.closest<HTMLElement>('[data-kpi-reveal-root="true"]')
     if (!root) return
 
-    const headerGroup = root.querySelector<HTMLElement>('[data-kpi-header-group="true"]')
-    const cardsGroup = root.querySelector<HTMLElement>('[data-kpi-cards-group="true"]')
-    const headerItems = gsap.utils.toArray<HTMLElement>('[data-kpi-header-item="true"]', root)
-    const cards = gsap.utils.toArray<HTMLElement>('[data-kpi-reveal-card="true"]', root)
-
     const DIMMED_ALPHA = 0.5
     const REVEAL_STAGGER = 0.14
     const REVEAL_DURATION = 0.5
     const HIGHLIGHT_STEP = 0.07
+    let context: { revert: () => void } | null = null
+    let cancelled = false
+    let observer: IntersectionObserver | null = null
 
-    const context = gsap.context(() => {
+    const initAnimation = async () => {
+      const { gsap, ScrollTrigger } = await loadKpiGsap()
+      if (cancelled) return
+
+      const headerGroup = root.querySelector<HTMLElement>('[data-kpi-header-group="true"]')
+      const cardsGroup = root.querySelector<HTMLElement>('[data-kpi-cards-group="true"]')
+      const headerItems = gsap.utils.toArray<HTMLElement>('[data-kpi-header-item="true"]', root)
+      const cards = gsap.utils.toArray<HTMLElement>('[data-kpi-reveal-card="true"]', root)
+
+      context = gsap.context(() => {
       // Jede Gruppe orientiert sich an ihrer EIGENEN Mitte statt an der ganzen
       // (hohen) Section: voll sichtbar, sobald die Gruppen-Mitte im mittleren
       // Fensterband liegt (60%-40% Viewporthöhe), außerhalb davon wird auf-
@@ -211,11 +232,27 @@ export function KpiTileReveal() {
         { autoAlpha: DIMMED_ALPHA, duration: HIGHLIGHT_STEP * 0.6 },
         lastHighlightStart + HIGHLIGHT_STEP * 0.6,
       )
-    }, root)
+      }, root)
 
-    ScrollTrigger.refresh()
+      ScrollTrigger.refresh()
+    }
 
-    return () => context.revert()
+    observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return
+        observer?.disconnect()
+        observer = null
+        void initAnimation()
+      },
+      { rootMargin: '520px 0px' },
+    )
+    observer.observe(root)
+
+    return () => {
+      cancelled = true
+      observer?.disconnect()
+      context?.revert()
+    }
   }, [])
 
   return <span ref={markerRef} aria-hidden className="sr-only" />

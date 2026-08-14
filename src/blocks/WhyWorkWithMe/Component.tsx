@@ -1,8 +1,6 @@
 'use client'
 
-import React, { useEffect, useLayoutEffect, useMemo, useRef } from 'react'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import React, { useEffect, useMemo, useRef } from 'react'
 import { Brain } from 'lucide-react'
 
 import type { WhyWorkWithMeBlock as WhyWorkWithMeBlockData } from '@/payload-types'
@@ -12,8 +10,6 @@ import { ReasonCard } from '@/blocks/WhyWorkWithMe/ReasonCard'
 import { ICON_MAP } from '@/blocks/WhyWorkWithMe/iconMap'
 import { cn } from '@/utilities/ui'
 import { BlockContainer } from '@/components/BlockContainer'
-
-gsap.registerPlugin(ScrollTrigger)
 
 /** Wenn `introIconList` in älteren Dokumenten fehlt (noch nicht gespeichert), diese Zeilen anzeigen. Explizit leeres Array = keine Liste. */
 const INTRO_ICON_FALLBACK: Array<{ icon: string; text: string }> = [
@@ -178,7 +174,7 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = (props) => {
     }
   }, [introListItems.length, showIntroIconList])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const cards = cardRefs.current.slice(0, items.length).filter(Boolean) as HTMLDivElement[]
     if (!cards.length) return
 
@@ -186,10 +182,10 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = (props) => {
     if (prefersReducedMotion) {
       cards.forEach((card) => {
         card.classList.add('is-visible')
-        gsap.set(card, { clearProps: 'all' })
-        gsap.set(card.querySelectorAll('[data-why-card-detail="true"], [data-why-card-icon="true"]'), {
-          clearProps: 'all',
-        })
+        card.removeAttribute('style')
+        card
+          .querySelectorAll<HTMLElement>('[data-why-card-detail="true"], [data-why-card-icon="true"]')
+          .forEach((element) => element.removeAttribute('style'))
       })
       return
     }
@@ -197,7 +193,19 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = (props) => {
     const root = cards[0]?.parentElement
     if (!root) return
 
-    const context = gsap.context(() => {
+    let context: { revert: () => void } | null = null
+    let cancelled = false
+    let observer: IntersectionObserver | null = null
+
+    const initAnimation = async () => {
+      const [{ default: gsap }, { ScrollTrigger }] = await Promise.all([
+        import('gsap'),
+        import('gsap/ScrollTrigger'),
+      ])
+      if (cancelled) return
+      gsap.registerPlugin(ScrollTrigger)
+
+      context = gsap.context(() => {
       cards.forEach((card, cardIndex) => {
         gsap.set(card, {
           autoAlpha: 0,
@@ -275,12 +283,26 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = (props) => {
           0.24 + cardIndex * 0.12,
         )
       })
-    }, root)
+      }, root)
 
-    ScrollTrigger.refresh()
+      ScrollTrigger.refresh()
+    }
+
+    observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return
+        observer?.disconnect()
+        observer = null
+        void initAnimation()
+      },
+      { rootMargin: '420px 0px' },
+    )
+    observer.observe(root)
 
     return () => {
-      context.revert()
+      cancelled = true
+      observer?.disconnect()
+      context?.revert()
     }
   }, [items.length])
 

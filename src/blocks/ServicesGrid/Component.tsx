@@ -40,6 +40,7 @@ import type { BlockStyles } from '@/blocks/BlockStyleSystem'
 import { BlockContainer } from '@/components/BlockContainer'
 import { ResilientImage } from '@/components/ui/resilient-image'
 import { translateValueForLocale } from '@/i18n/translationOverlay'
+import { localizePathname } from '@/i18n/routing'
 
 type ServicesGridProps = ServicesGridBlockData & {
   disableInnerContainer?: boolean
@@ -51,13 +52,16 @@ const normalizeServiceSlug = (slug?: string | null): string => {
   return raw.replace(/^\/+|\/+$/g, '')
 }
 
-const buildServiceHref = (slug?: string | null): string | undefined => {
+const buildServiceHref = (slug?: string | null, isEnglish = false): string | undefined => {
   const normalized = normalizeServiceSlug(slug)
   if (!normalized) return undefined
   if (normalized.startsWith('http://') || normalized.startsWith('https://')) return normalized
-  if (normalized.startsWith('/')) return normalized
-  if (normalized.includes('/')) return `/${normalized}`
-  return `/leistungen/${normalized}`
+  const href = normalized.startsWith('/')
+    ? normalized
+    : normalized.includes('/')
+      ? `/${normalized}`
+      : `/leistungen/${normalized}`
+  return isEnglish ? localizePathname(href, 'en') : href
 }
 
 const normalizeIconInput = (raw?: string | null): string =>
@@ -282,7 +286,11 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
             ))}
           </div>
         ) : null}
-        {(translatedHeading || translatedIntro || translatedTagline || hasIconList || hasIntroImage) && (
+        {(translatedHeading ||
+          translatedIntro ||
+          translatedTagline ||
+          hasIconList ||
+          hasIntroImage) && (
           <div
             className={cn(
               'mx-auto grid items-stretch',
@@ -381,9 +389,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
             >
               <div
                 className={cn(
-                  isMarketingCaseTypes
-                    ? 'flex justify-start'
-                    : 'hidden md:flex md:justify-center',
+                  isMarketingCaseTypes ? 'flex justify-start' : 'hidden md:flex md:justify-center',
                 )}
               >
                 <span
@@ -400,13 +406,13 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
               <div className="space-y-6">
                 <div className={cn('md:hidden', isMarketingCaseTypes && 'hidden')}>
                   <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary/80">
-                    {category.categoryLabel}
+                    {translateValueForLocale(category.categoryLabel, isEnglish ? 'en' : 'de')}
                   </p>
                 </div>
 
                 <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
                   {category.services?.map((service, index) => {
-                    const href = buildServiceHref(service.link?.slug)
+                    const href = buildServiceHref(service.link?.slug, isEnglish)
                     const shouldLoadEagerly = catIndex === 0 && index < 3
                     const content = (
                       <div
@@ -433,10 +439,7 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                         </div>
 
                         <p className="line-clamp-5 whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
-                          {translateValueForLocale(
-                            service.description,
-                            isEnglish ? 'en' : 'de',
-                          )}
+                          {translateValueForLocale(service.description, isEnglish ? 'en' : 'de')}
                         </p>
                         <div className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-primary opacity-0 transition-opacity group-hover:opacity-100">
                           {isEnglish ? 'Learn more' : 'Mehr erfahren'}{' '}

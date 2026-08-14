@@ -4,8 +4,9 @@ import { getPayload } from 'payload'
 import configPromise from '@payload-config'
 
 import { RenderBlocks } from '@/blocks/RenderBlocks'
-import { appendDefaultCtaBlock } from '@/utilities/defaultCtaBlocks'
+import { HomepageScrollEffects } from '@/components/HomepageScrollEffects'
 import { Faq8 } from '@/components/ui/faq-8'
+import { SectionReveal } from '@/components/ui/SectionReveal'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getGermanSlugFromEnglishSegments, localizePathname } from '@/i18n/routing'
 import { getPublicSiteURL } from '@/utilities/getURL'
@@ -229,14 +230,7 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
     resolveLayoutBlocks(originalSlug, page.layout),
   )
   const isServicesPage = originalSlug === 'leistungen' || segments[0] === 'services'
-  const blocksWithGeneratedContent = isServicesPage
-    ? appendDefaultCtaBlock(resolvedBlocks, {
-        slug: originalSlug,
-        title: translatedPage.title,
-        section: 'leistung',
-      })
-    : resolvedBlocks
-  const translatedBlocks = translateValueForLocale(blocksWithGeneratedContent, 'en')
+  const translatedBlocks = translateValueForLocale(resolvedBlocks, 'en')
   const layoutBlocks = translatedBlocks.map((block) =>
     block && typeof block === 'object' ? { ...block, locale: 'en' } : block,
   )
@@ -276,13 +270,17 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
 
   return (
     <article
+      {...(showHomeFaq ? { 'data-home-scroll-root': true } : {})}
       className={cn(isSuperheroHero && 'hero-shell--superhero')}
       style={{ ['--hero-next-section-bg' as string]: nextSectionBackground }}
     >
+      {showHomeFaq ? <HomepageScrollEffects /> : null}
       <div className={cn('relative isolate', isSuperheroHero ? 'z-[44]' : 'z-[32]')}>
-        <HeroErrorBoundary>
-          <RenderHero {...heroProps} pageSlug={originalSlug} locale="en" />
-        </HeroErrorBoundary>
+        <SectionReveal>
+          <HeroErrorBoundary>
+            <RenderHero {...heroProps} pageSlug={originalSlug} locale="en" />
+          </HeroErrorBoundary>
+        </SectionReveal>
       </div>
       <div
         className={cn(
@@ -297,7 +295,7 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
               : 'z-20 max-md:pt-8 pt-24 md:z-[31]',
         )}
       >
-        <div
+        <SectionReveal
           className={cn(
             'relative',
             isSuperheroHero ? 'pt-0' : 'z-0 pt-24',
@@ -306,16 +304,16 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
         >
           <RenderBlocks blocks={earlyBlocks} totalLength={layoutBlocks.length} />
           {showHomeFaq && !hasElevatedSplit ? <Faq8 faq={translatedPage.faq} locale="en" /> : null}
-        </div>
+        </SectionReveal>
         {hasElevatedSplit ? (
-          <div className="relative hero-following-section-foreground-elevated">
+          <SectionReveal className="relative hero-following-section-foreground-elevated">
             <RenderBlocks
               blocks={elevatedBlocks}
               startIndex={whyWorkWithMeIndex}
               totalLength={layoutBlocks.length}
             />
             <Faq8 faq={translatedPage.faq} locale="en" />
-          </div>
+          </SectionReveal>
         ) : null}
         {isServicesPage ? <LeistungenFaqBox faq={translatedPage.faq} locale="en" /> : null}
       </div>

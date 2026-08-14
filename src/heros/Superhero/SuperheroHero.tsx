@@ -20,7 +20,6 @@ import {
 } from 'lucide-react'
 import Image, { getImageProps } from 'next/image'
 import React from 'react'
-import gsap from 'gsap'
 import { HeroLogoMarquee, type HeroMarqueeLogoRow } from '@/heros/HeroLogoMarquee'
 import { LogoCarousel, type LogoCarouselLogo } from '@/components/ui/logo-carousel'
 import {
@@ -28,7 +27,7 @@ import {
   resolveHeroImageSrcForNextImage,
 } from '@/utilities/resolveHeroImageSrc'
 import { cn } from '@/utilities/ui'
-import { PopoutPortrait } from '@/components/PopoutPortrait'
+import { PopoutPortrait, optimizedPortraitSrc } from '@/components/PopoutPortrait'
 import type { Locale } from '@/utilities/locale'
 import { translateStringForLocale } from '@/i18n/translationOverlay'
 
@@ -109,6 +108,8 @@ export interface SuperheroHeroProps {
 
 const DECODE_TAG_PATTERN = /<decode>([\s\S]*?)<\/decode>/gi
 const HOME_PROFILE_POPOUT_FALLBACK_SRC = '/api/media/stream/1360'
+const PROFILE_POPOUT_FALLBACK_SRC = '/api/media/stream/1360'
+const PROFILE_CROPPED_PORTRAIT_STREAMS = new Set(['/api/media/stream/1207'])
 const DEFAULT_MARQUEE_HEADLINE = 'ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN'
 
 function parseDecodeSegments(line: string): HeadlineSegment[] {
@@ -177,6 +178,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   const [decodeReady, setDecodeReady] = React.useState(false)
   const [decodeInView, setDecodeInView] = React.useState(false)
   const [bgImageFailed, setBgImageFailed] = React.useState(false)
+  const normalizedPageSlug = typeof pageSlug === 'string' ? pageSlug.replace(/^\/+|\/+$/g, '') : ''
 
   React.useEffect(() => {
     const section = sectionRef.current
@@ -232,14 +234,15 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     // 400ms, so nearly all visible motion happened in well under half the "duration" and
     // the rest was an imperceptible tail. Raising duration alone couldn't fix that; the
     // curve itself needed to spread the motion out. sine.out is far gentler/more even.
-    const tweenDuration = prefersReducedMotion ? 0 : 1
-    const tweenEase = prefersReducedMotion ? 'none' : 'sine.out'
     const createProgressSetter = (target: HTMLElement, property: string) =>
-      gsap.quickTo(target, property, {
-        duration: tweenDuration,
-        ease: tweenEase,
-        overwrite: 'auto',
-      })
+      (value: number) => {
+        target.style.setProperty(property, String(value))
+      }
+    const setCssVars = (target: HTMLElement, vars: Record<string, number>) => {
+      for (const [property, value] of Object.entries(vars)) {
+        target.style.setProperty(property, String(value))
+      }
+    }
     const sectionProgressTo = createProgressSetter(section, '--hero-scroll-progress')
     // Coarser, quantized copy of progress - only consumed by the background photo's
     // filter: blur()/saturate() (see globals.part1.css, mobile-scoped) and this file's
@@ -362,9 +365,9 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
           '--hero-scroll-portrait-hide-progress': portraitHideProgress,
           '--hero-scroll-portrait-hard-hide-progress': portraitHideProgress,
         }
-        gsap.set(section, vars)
-        gsap.set(section, { '--hero-scroll-blur-progress': steppedProgress })
-        if (host) gsap.set(host, vars)
+        setCssVars(section, vars)
+        section.style.setProperty('--hero-scroll-blur-progress', String(steppedProgress))
+        if (host) setCssVars(host, vars)
         return
       }
 
@@ -395,7 +398,17 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
       window.addEventListener('orientationchange', requestUpdate)
     }
 
-    const prefersIntro = !prefersReducedMotion && window.matchMedia('(min-width: 480px)').matches
+    const staticWindow = window as Window & { __PVGB_STATIC_EXPORT__?: boolean }
+    const isStaticExport =
+      staticWindow.__PVGB_STATIC_EXPORT__ === true ||
+      document.documentElement.dataset.pvgbStaticExport === 'true' ||
+      Boolean(document.querySelector('meta[name="x-static-export"]')) ||
+      Boolean(document.querySelector('script[src="/hydrated-assets/hydrated-fixes.js"]'))
+    const sectionPageSlug = section.getAttribute('data-page-slug') || normalizedPageSlug
+    const skipIntro =
+      normalizedPageSlug === 'profil' || (isStaticExport && sectionPageSlug === 'home')
+    const prefersIntro =
+      !skipIntro && !prefersReducedMotion && window.matchMedia('(min-width: 480px)').matches
     // Page already scrolled past the hero on mount (scroll restoration on reload,
     // back/forward navigation, an anchor link). The portrait's parallax transform
     // only starts reflecting real scroll progress once effects are enabled; waiting
@@ -403,7 +416,11 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     // scrolled one well after paint. Skip the reveal and activate immediately instead.
     const startsScrolled = section.getBoundingClientRect().top < -4
 
-    if (prefersIntro && !startsScrolled) {
+    if (skipIntro) {
+      section.setAttribute('data-hero-intro', 'done')
+      if (host) host.setAttribute('data-hero-intro', 'done')
+      enableHeroEffects()
+    } else if (prefersIntro && !startsScrolled) {
       section.setAttribute('data-hero-intro', 'play')
       if (host) host.setAttribute('data-hero-intro', 'play')
 
@@ -449,33 +466,35 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         window.removeEventListener('resize', requestUpdate)
         window.removeEventListener('orientationchange', requestUpdate)
       }
-      section.style.removeProperty('--hero-scroll-progress')
-      section.style.removeProperty('--hero-scroll-blur-progress')
-      section.style.removeProperty('--hero-scroll-content-progress')
-      section.style.removeProperty('--hero-scroll-portrait-parallax-progress')
-      section.style.removeProperty('--hero-scroll-portrait-hide-progress')
-      section.style.removeProperty('--hero-scroll-portrait-hard-hide-progress')
-      gsap.killTweensOf(section)
-      section.removeAttribute('data-hero-intro')
-      section.removeAttribute('data-hero-effects')
-      if (host) {
+      // In next dev / React Strict Mode the effect is mounted, cleaned up, and mounted
+      // again while the DOM node stays visible. Keep layout-driving attrs/vars in place
+      // during that dev-only cleanup so the portrait cannot fall back to its raw top.
+      if (!section.isConnected) {
+        section.style.removeProperty('--hero-scroll-progress')
+        section.style.removeProperty('--hero-scroll-blur-progress')
+        section.style.removeProperty('--hero-scroll-content-progress')
+        section.style.removeProperty('--hero-scroll-portrait-parallax-progress')
+        section.style.removeProperty('--hero-scroll-portrait-hide-progress')
+        section.style.removeProperty('--hero-scroll-portrait-hard-hide-progress')
+        section.removeAttribute('data-hero-intro')
+        section.removeAttribute('data-hero-effects')
+      }
+      if (host && !host.isConnected) {
         host.style.removeProperty('--hero-scroll-progress')
         host.style.removeProperty('--hero-scroll-content-progress')
         host.style.removeProperty('--hero-scroll-portrait-parallax-progress')
         host.style.removeProperty('--hero-scroll-portrait-hide-progress')
         host.style.removeProperty('--hero-scroll-portrait-hard-hide-progress')
-        gsap.killTweensOf(host)
         host.removeAttribute('data-hero-intro')
         host.removeAttribute('data-hero-effects')
       }
     }
-  }, [])
+  }, [normalizedPageSlug])
 
   const mediaSrc = resolveHeroImageSrcForNextImage(media)
   const bgSrc = resolveHeroImageSrcForNextImage(backgroundImage)
   const hasRenderableBg = Boolean(bgSrc) && !bgImageFailed
   const renderBgSrc = hasRenderableBg ? bgSrc : null
-  const normalizedPageSlug = typeof pageSlug === 'string' ? pageSlug.replace(/^\/+|\/+$/g, '') : ''
 
   React.useEffect(() => {
     setBgImageFailed(false)
@@ -588,6 +607,12 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   const homeProfilePopoutFallback =
     normalizedPageSlug === 'home' ? HOME_PROFILE_POPOUT_FALLBACK_SRC : null
   const portraitSrc = resolveHeroImageSrc(media) ?? mediaSrc ?? homeProfilePopoutFallback
+  const displayPortraitSrc =
+    normalizedPageSlug === 'profil' &&
+    portraitSrc &&
+    PROFILE_CROPPED_PORTRAIT_STREAMS.has(portraitSrc)
+      ? PROFILE_POPOUT_FALLBACK_SRC
+      : portraitSrc
 
   const heroDescription = React.useMemo(() => {
     if (!description || typeof description !== 'string') return null
@@ -642,7 +667,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     contentVerticalAlignment === 'top' || contentVerticalAlignment === 'bottom'
       ? contentVerticalAlignment
       : 'center'
-  const effectiveContentVerticalAlignment = portraitSrc
+  const effectiveContentVerticalAlignment = displayPortraitSrc
     ? normalizedContentVerticalAlignment
     : 'bottom'
   const heroContentJustify =
@@ -656,11 +681,11 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   const showHeroLogoBand = hasMarquee
   const heroContentClass = cn(
     'hero-scroll-content relative container z-[40] flex w-full min-w-0 flex-col px-[clamp(1rem,4vw,2rem)] pb-[clamp(3rem,8vh,7rem)] pt-[clamp(1.5rem,6vh,2.5rem)]',
-    !portraitSrc && 'hero-scroll-content--no-portrait',
+    !displayPortraitSrc && 'hero-scroll-content--no-portrait',
   )
   const heroMainClass = cn(
     'hero-scroll-content-main grid min-w-0 gap-0 overflow-visible md:items-start max-md:flex max-md:flex-col',
-    portraitSrc
+    displayPortraitSrc
       ? 'md:grid-cols-1'
       : 'md:grid-cols-1 md:max-w-3xl hero-scroll-content-main--no-portrait',
   )
@@ -676,7 +701,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     'max-md:contents',
     'md:space-y-[clamp(1rem,2.5vh,1.5rem)] md:relative md:z-[20] md:min-h-0 md:max-w-3xl',
     'lg:min-h-[clamp(400px,62vh,680px)]',
-    !portraitSrc && 'hero-scroll-content-copy--no-portrait',
+    !displayPortraitSrc && 'hero-scroll-content-copy--no-portrait',
     effectiveContentVerticalAlignment === 'top' && 'justify-start',
     effectiveContentVerticalAlignment === 'center' && 'justify-center',
     effectiveContentVerticalAlignment === 'bottom' && 'justify-end',
@@ -691,8 +716,10 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
   // that class's many pre-existing desktop rules elsewhere in globals.part1.css.
   const heroCtaClass = cn(
     'hero-scroll-content-cta relative min-w-0 flex flex-col overflow-visible space-y-[clamp(1rem,2.5vh,1.5rem)] max-md:z-[16] max-md:order-3 max-md:flex-shrink-0 max-md:h-auto',
-    portraitSrc && 'hero-mobile-glass max-md:-mx-4 max-md:rounded-t-2xl max-md:px-4',
+    displayPortraitSrc && 'hero-mobile-glass max-md:-mx-4 max-md:rounded-t-2xl max-md:px-4',
   )
+  const shouldInlineCriticalMobileHomePortraitCSS =
+    normalizedPageSlug === 'home' && Boolean(displayPortraitSrc)
 
   return (
     <section
@@ -711,12 +738,12 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
         // the portrait's vertical pop-out) keeps working.
         'hero-offset relative hero-offset--popout text-foreground isolate overflow-x-clip overflow-y-visible min-h-[clamp(666px,77vh,888px)]',
         !hasRenderableBg && 'bg-background',
-        !portraitSrc && 'hero-superhero-no-portrait',
+        !displayPortraitSrc && 'hero-superhero-no-portrait',
       )}
       data-hero-intro="done"
       data-hero-variant="popout"
       data-hero-type={dataHeroType ?? 'superhero'}
-      data-hero-has-portrait={portraitSrc ? 'true' : 'false'}
+      data-hero-has-portrait={displayPortraitSrc ? 'true' : 'false'}
       data-page-slug={normalizedPageSlug || undefined}
       style={
         {
@@ -747,6 +774,23 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
           />
         </>
       )}
+      {(normalizedPageSlug === 'home' || normalizedPageSlug === 'profil') && displayPortraitSrc && (
+        <link
+          rel="preload"
+          as="image"
+          href={optimizedPortraitSrc(displayPortraitSrc)}
+          fetchPriority="high"
+        />
+      )}
+      {shouldInlineCriticalMobileHomePortraitCSS && (
+        <style
+          // Keep the mobile home portrait bottom-anchored before the global CSS bundle
+          // and the image decode both finish. This prevents the first-paint top jump.
+          dangerouslySetInnerHTML={{
+            __html: `@media (max-width:479px){section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']{--home-hero-mobile-stage-cap:max(41.6875rem,100dvh);--home-hero-stage-height:calc(var(--home-hero-mobile-stage-cap)*2.1);height:var(--home-hero-stage-height);min-height:var(--home-hero-stage-height)}section[data-hero-type='superhero'][data-page-slug='home'] .hero-mobile-pin-stage{position:sticky;top:0;height:var(--home-hero-mobile-stage-cap,100dvh);overflow:visible}section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content{height:100%;min-height:auto;position:relative}section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] .hero-scroll-content-main{height:100%}section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] .hero-mobile-sticky-portrait{position:absolute!important;top:auto!important;left:0;right:0;bottom:0;width:100%!important;height:min(clamp(400px,calc(var(--home-hero-mobile-stage-cap,100dvh)*0.6),500px),80%)!important;min-height:0;max-height:min(clamp(400px,calc(var(--home-hero-mobile-stage-cap,100dvh)*0.6),500px),80%)!important;margin-top:0;margin-left:0!important;margin-right:0!important}}`,
+          }}
+        />
+      )}
       {/* Mobile-only pin stage: the section itself is made tall (see globals.part1.css,
           [data-page-slug='home'] @media max-width:479px) so this stage can be sticky and
           hold at top:0 for that extra scroll distance, playing the shrink/reveal/exit
@@ -771,13 +815,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                   console.warn('[BG IMG] Failed to load:', renderBgSrc)
                   setBgImageFailed(true)
                 }}
-                // LCP element on the home hero (mobile Lighthouse trace flagged it as the
-                // largest content paint). Already covered by the manual preload <link>
-                // above (same renderBgSrc as the mobile/desktop crops), so - same as
-                // those two - `loading="eager"` opts back into rendering it immediately
-                // and `fetchPriority="low"` opts OUT of Next's/React's own automatic
-                // unconditional preload, which would otherwise duplicate the manual one.
-                loading="eager"
+                loading="lazy"
                 fetchPriority="low"
                 quality={42}
                 sizes="100vw"
@@ -1049,7 +1087,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               </div>
             </div>
 
-            {portraitSrc && (
+            {displayPortraitSrc && (
               <div
                 ref={portraitRef}
                 className={cn(
@@ -1058,12 +1096,12 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                 )}
               >
                 <div className="hero-superhero-portrait-media hero-mobile-portrait-parallax relative h-full w-full overflow-visible">
-                  <PopoutPortrait imageSrc={portraitSrc} fillRowHeight />
+                  <PopoutPortrait imageSrc={displayPortraitSrc} fillRowHeight />
                 </div>
               </div>
             )}
           </div>
-          {portraitSrc && (
+          {displayPortraitSrc && (
             <div
               className="hero-superhero-portrait-scroll-mask pointer-events-none absolute inset-x-0 bottom-0 hidden md:block"
               aria-hidden

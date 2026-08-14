@@ -1,11 +1,9 @@
 'use client'
 
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import {
   ArrowUpRight,
   Building2,
@@ -96,7 +94,7 @@ const disciplineMeta: Record<
     icon: Palette,
   },
   mixed: {
-    label: 'Interdisziplinaer',
+    label: 'Interdisziplinär',
     icon: Layers3,
   },
 }
@@ -156,11 +154,27 @@ const isExternalHref = (href: string): boolean =>
 const isMediaObject = (value: unknown): value is MediaType =>
   typeof value === 'object' && value !== null
 
-gsap.registerPlugin(ScrollTrigger)
-
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' &&
   window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+let portfolioGsapPromise: Promise<{
+  gsap: typeof import('gsap').default
+  ScrollTrigger: typeof import('gsap/ScrollTrigger').ScrollTrigger
+}> | null = null
+
+const loadPortfolioGsap = async () => {
+  portfolioGsapPromise ??= Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(
+    ([gsapModule, scrollTriggerModule]) => {
+      const gsap = gsapModule.default
+      const ScrollTrigger = scrollTriggerModule.ScrollTrigger
+      gsap.registerPlugin(ScrollTrigger)
+      return { gsap, ScrollTrigger }
+    },
+  )
+
+  return portfolioGsapPromise
+}
 
 export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   eyebrow,
@@ -500,9 +514,10 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
     let hasSpun = false
 
-    const runSpin = () => {
+    const runSpin = async () => {
       if (hasSpun) return
       hasSpun = true
+      const { gsap } = await loadPortfolioGsap()
 
       requestAnimationFrame(() => {
         const firstCard = slider.querySelector<HTMLElement>('[data-portfolio-card="true"]')
@@ -538,7 +553,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            runSpin()
+            void runSpin()
             observer.disconnect()
           }
         })
@@ -550,14 +565,25 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
     return () => observer.disconnect()
   }, [withKeys.length])
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (prefersReducedMotion()) return
 
     const header = headerRef.current
     const sliderWrap = sliderWrapRef.current
     if (!header && !sliderWrap) return
 
-    const context = gsap.context(() => {
+    const root = sliderWrap ?? header
+    if (!root) return
+
+    let context: { revert: () => void } | null = null
+    let cancelled = false
+    let observer: IntersectionObserver | null = null
+
+    const initAnimation = async () => {
+      const { gsap, ScrollTrigger } = await loadPortfolioGsap()
+      if (cancelled) return
+
+      context = gsap.context(() => {
       const items = header?.querySelectorAll<HTMLElement>('[data-portfolio-header-item="true"]')
 
       if (header && items?.length) {
@@ -636,11 +662,27 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
           },
         )
       }
-    })
+      })
 
-    ScrollTrigger.refresh()
+      ScrollTrigger.refresh()
+    }
 
-    return () => context.revert()
+    observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((entry) => entry.isIntersecting)) return
+        observer?.disconnect()
+        observer = null
+        void initAnimation()
+      },
+      { rootMargin: '520px 0px' },
+    )
+    observer.observe(root)
+
+    return () => {
+      cancelled = true
+      observer?.disconnect()
+      context?.revert()
+    }
   }, [rows.length, eyebrow, heading, intro])
 
   if (!rows.length) return null
