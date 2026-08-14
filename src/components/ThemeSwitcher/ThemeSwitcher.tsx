@@ -125,7 +125,11 @@ export function ThemeSwitcher({
                 ? isDark
                   ? 'opacity-100 rotate-0 scale-100'
                   : 'pointer-events-none opacity-0 -rotate-12 scale-90 -translate-x-[0.18rem] translate-y-[0.08rem]'
-                : 'opacity-35 -rotate-12 scale-90 -translate-x-[0.18rem] translate-y-[0.08rem]',
+                : // Before hydration the real theme is unknown, so this defaults to the
+                  // light-mode look (Sun only). A faint pre-mount Moon peeking through
+                  // here used to overlap the Sun and could read as a different icon
+                  // (e.g. a magnifying glass) for the brief window before `mounted` flips.
+                  'pointer-events-none opacity-0 -rotate-12 scale-90 -translate-x-[0.18rem] translate-y-[0.08rem]',
             )}
           />
         </button>
