@@ -5,6 +5,17 @@ payload.db
 payload.db-*
 node_modules
 .next
+.next*
 .next-dev
+static
+test-results
+tmp
 data/backup
 data/export-from-neon
+data/*.sql
+payload.db.backup*
+lighthouse*.json
+lighthouse*.html
+lh-*
+latest_test_build.log
+dev.log
