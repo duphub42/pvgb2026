@@ -1,76 +1,12 @@
-import React from 'react'
+import type { ComponentType } from 'react'
 
 import type { SitePage } from '@/payload-types'
 
-import { CallToActionBlock } from '@/blocks/CallToAction/Component'
-import { CalPopupBlock } from '@/blocks/CalPopup/Component.client'
-import { ConsultingOverviewBlock } from '@/blocks/ConsultingOverview/Component'
-import { ContactInfoCardsBlock } from '@/blocks/ContactInfoCards/Component'
-import { BrandShowcaseBlock } from '@/blocks/BrandShowcase/Component'
-import { ContentBlock } from '@/blocks/Content/Component'
-import { FormBlock } from '@/blocks/Form/Component'
-import { HeroFlowchartBlock } from '@/blocks/HeroFlowchart/Component'
-import { HeroWithProcessBlock } from '@/blocks/HeroWithProcess/Component.client'
-import { HeroMarketingBlock } from '@/blocks/HeroMarketing/Component'
-import { IntroductionBlock } from '@/blocks/Introduction/Component'
-import { MarqueeSliderBlock } from '@/blocks/MarqueeSlider/Component'
-import { MediaBlock } from '@/blocks/MediaBlock/Component'
-import { ProfilBacherLegacyBlock } from '@/blocks/ProfilBacherLegacy/Component'
-import { ProfilCtaBandBlock } from '@/blocks/ProfilCtaBand/Component'
-import { ProfilKernkompetenzBlock } from '@/blocks/ProfilKernkompetenz/Component'
-import { ProfilKompetenzenBlock } from '@/blocks/ProfilKompetenzen/Component'
-import { ProfilLangZertBlock } from '@/blocks/ProfilLangZert/Component'
-import { ProfilToolsBlock } from '@/blocks/ProfilTools/Component'
-import { ProfilUeberMichBlock } from '@/blocks/ProfilUeberMich/Component'
-import { ProfilWerdegangBlock } from '@/blocks/ProfilWerdegang/Component'
-import { ProfilZahlenFaktenBlock } from '@/blocks/ProfilZahlenFakten/Component'
-import { ServicesGridBlock } from '@/blocks/ServicesGrid/Component'
-import { ServicesOverviewBlock } from '@/blocks/ServicesOverview/Component'
-import { PortfolioCaseGridBlock } from '@/blocks/PortfolioCaseGrid/Component'
-import { PortfolioKpiStripBlock } from '@/blocks/PortfolioKpiStrip/Component'
-import { PortfolioTeaserBlock } from '@/blocks/PortfolioTeaser/Component'
-import { PricingTableBlock } from '@/blocks/PricingTable/Component'
-import { RadialOrbitalTimelineBlock } from '@/blocks/RadialOrbitalTimeline/Component'
-import { WhyWorkWithMeBlock } from '@/blocks/WhyWorkWithMe/Component'
-
 import { CLIENT_BLOCK_TYPES } from '@/blocks/clientBlockTypes'
 
-type BlockComponent = React.ComponentType<Record<string, unknown>>
-
-const blockComponents: Record<string, BlockComponent> = {
-  consultingOverview: ConsultingOverviewBlock as unknown as BlockComponent,
-  contactInfoCards: ContactInfoCardsBlock as unknown as BlockComponent,
-  brandShowcase: BrandShowcaseBlock as unknown as BlockComponent,
-  content: ContentBlock as unknown as BlockComponent,
-  heroFlowchart: HeroFlowchartBlock as unknown as BlockComponent,
-  heroWithProcess: HeroWithProcessBlock as unknown as BlockComponent,
-  heroMarketing: HeroMarketingBlock as unknown as BlockComponent,
-  introduction: IntroductionBlock as unknown as BlockComponent,
-  marqueeSlider: MarqueeSliderBlock as unknown as BlockComponent,
-  cta: CallToActionBlock as unknown as BlockComponent,
-  calPopup: CalPopupBlock as unknown as BlockComponent,
-  formBlock: FormBlock as unknown as BlockComponent,
-  mediaBlock: MediaBlock as unknown as BlockComponent,
-  profilBacher: ProfilBacherLegacyBlock as unknown as BlockComponent,
-  profilUeberMich: ProfilUeberMichBlock as unknown as BlockComponent,
-  profilKernkompetenz: ProfilKernkompetenzBlock as unknown as BlockComponent,
-  profilKompetenzen: ProfilKompetenzenBlock as unknown as BlockComponent,
-  profilWerdegang: ProfilWerdegangBlock as unknown as BlockComponent,
-  profilZahlenFakten: ProfilZahlenFaktenBlock as unknown as BlockComponent,
-  profilTools: ProfilToolsBlock as unknown as BlockComponent,
-  profilLangZert: ProfilLangZertBlock as unknown as BlockComponent,
-  profilCtaBand: ProfilCtaBandBlock as unknown as BlockComponent,
-  servicesOverview: ServicesOverviewBlock as unknown as BlockComponent,
-  servicesGrid: ServicesGridBlock as unknown as BlockComponent,
-  portfolioCaseGrid: PortfolioCaseGridBlock as unknown as BlockComponent,
-  portfolioKpiStrip: PortfolioKpiStripBlock as unknown as BlockComponent,
-  portfolioTeaser: PortfolioTeaserBlock as unknown as BlockComponent,
-  pricingTable: PricingTableBlock as unknown as BlockComponent,
-  radialOrbitalTimeline: RadialOrbitalTimelineBlock as unknown as BlockComponent,
-  whyWorkWithMe: WhyWorkWithMeBlock as unknown as BlockComponent,
-}
-
 export const SUPPORTED_BLOCK_TYPES = CLIENT_BLOCK_TYPES
+
+type RenderableBlockComponent = ComponentType<Record<string, unknown>>
 
 type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   blockBackground?: 'none' | 'muted' | 'accent' | 'light' | 'dark' | null
@@ -81,7 +17,7 @@ type BlockWithStyle = NonNullable<SitePage['layout']>[number] & {
   } | null
 }
 
-export function BlockRenderer({
+export async function BlockRenderer({
   blockType,
   block,
   index = 0,
@@ -90,9 +26,103 @@ export function BlockRenderer({
   block: BlockWithStyle
   index?: number
 }) {
-  const Block = blockComponents[blockType]
+  const Block = await getBlockComponent(blockType)
   if (!Block) return null
   return (
     <Block {...(block as unknown as Record<string, unknown>)} disableInnerContainer index={index} />
   )
+}
+
+async function getBlockComponent(blockType: string): Promise<RenderableBlockComponent | null> {
+  switch (blockType) {
+    case 'consultingOverview':
+      return (await import('@/blocks/ConsultingOverview/Component'))
+        .ConsultingOverviewBlock as unknown as RenderableBlockComponent
+    case 'contactInfoCards':
+      return (await import('@/blocks/ContactInfoCards/Component'))
+        .ContactInfoCardsBlock as unknown as RenderableBlockComponent
+    case 'brandShowcase':
+      return (await import('@/blocks/BrandShowcase/Component'))
+        .BrandShowcaseBlock as unknown as RenderableBlockComponent
+    case 'content':
+      return (await import('@/blocks/Content/Component')).ContentBlock as unknown as RenderableBlockComponent
+    case 'heroFlowchart':
+      return (await import('@/blocks/HeroFlowchart/Component'))
+        .HeroFlowchartBlock as unknown as RenderableBlockComponent
+    case 'heroWithProcess':
+      return (await import('@/blocks/HeroWithProcess/Component.client'))
+        .HeroWithProcessBlock as unknown as RenderableBlockComponent
+    case 'heroMarketing':
+      return (await import('@/blocks/HeroMarketing/Component'))
+        .HeroMarketingBlock as unknown as RenderableBlockComponent
+    case 'introduction':
+      return (await import('@/blocks/Introduction/Component'))
+        .IntroductionBlock as unknown as RenderableBlockComponent
+    case 'marqueeSlider':
+      return (await import('@/blocks/MarqueeSlider/Component'))
+        .MarqueeSliderBlock as unknown as RenderableBlockComponent
+    case 'cta':
+      return (await import('@/blocks/CallToAction/Component'))
+        .CallToActionBlock as unknown as RenderableBlockComponent
+    case 'calPopup':
+      return (await import('@/blocks/CalPopup/Component.client'))
+        .CalPopupBlock as unknown as RenderableBlockComponent
+    case 'formBlock':
+      return (await import('@/blocks/Form/Component')).FormBlock as unknown as RenderableBlockComponent
+    case 'mediaBlock':
+      return (await import('@/blocks/MediaBlock/Component')).MediaBlock as unknown as RenderableBlockComponent
+    case 'profilBacher':
+      return (await import('@/blocks/ProfilBacherLegacy/Component'))
+        .ProfilBacherLegacyBlock as unknown as RenderableBlockComponent
+    case 'profilUeberMich':
+      return (await import('@/blocks/ProfilUeberMich/Component'))
+        .ProfilUeberMichBlock as unknown as RenderableBlockComponent
+    case 'profilKernkompetenz':
+      return (await import('@/blocks/ProfilKernkompetenz/Component'))
+        .ProfilKernkompetenzBlock as unknown as RenderableBlockComponent
+    case 'profilKompetenzen':
+      return (await import('@/blocks/ProfilKompetenzen/Component'))
+        .ProfilKompetenzenBlock as unknown as RenderableBlockComponent
+    case 'profilWerdegang':
+      return (await import('@/blocks/ProfilWerdegang/Component'))
+        .ProfilWerdegangBlock as unknown as RenderableBlockComponent
+    case 'profilZahlenFakten':
+      return (await import('@/blocks/ProfilZahlenFakten/Component'))
+        .ProfilZahlenFaktenBlock as unknown as RenderableBlockComponent
+    case 'profilTools':
+      return (await import('@/blocks/ProfilTools/Component'))
+        .ProfilToolsBlock as unknown as RenderableBlockComponent
+    case 'profilLangZert':
+      return (await import('@/blocks/ProfilLangZert/Component'))
+        .ProfilLangZertBlock as unknown as RenderableBlockComponent
+    case 'profilCtaBand':
+      return (await import('@/blocks/ProfilCtaBand/Component'))
+        .ProfilCtaBandBlock as unknown as RenderableBlockComponent
+    case 'servicesOverview':
+      return (await import('@/blocks/ServicesOverview/Component'))
+        .ServicesOverviewBlock as unknown as RenderableBlockComponent
+    case 'servicesGrid':
+      return (await import('@/blocks/ServicesGrid/Component'))
+        .ServicesGridBlock as unknown as RenderableBlockComponent
+    case 'portfolioCaseGrid':
+      return (await import('@/blocks/PortfolioCaseGrid/Component'))
+        .PortfolioCaseGridBlock as unknown as RenderableBlockComponent
+    case 'portfolioKpiStrip':
+      return (await import('@/blocks/PortfolioKpiStrip/Component'))
+        .PortfolioKpiStripBlock as unknown as RenderableBlockComponent
+    case 'portfolioTeaser':
+      return (await import('@/blocks/PortfolioTeaser/Component'))
+        .PortfolioTeaserBlock as unknown as RenderableBlockComponent
+    case 'pricingTable':
+      return (await import('@/blocks/PricingTable/Component'))
+        .PricingTableBlock as unknown as RenderableBlockComponent
+    case 'radialOrbitalTimeline':
+      return (await import('@/blocks/RadialOrbitalTimeline/Component'))
+        .RadialOrbitalTimelineBlock as unknown as RenderableBlockComponent
+    case 'whyWorkWithMe':
+      return (await import('@/blocks/WhyWorkWithMe/Component'))
+        .WhyWorkWithMeBlock as unknown as RenderableBlockComponent
+    default:
+      return null
+  }
 }

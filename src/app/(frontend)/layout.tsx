@@ -4,7 +4,7 @@ import Script from 'next/script'
 
 import { fontClassNames } from '@/theme/fonts'
 import { AdminBarGate } from '@/components/AdminBar/AdminBarGate'
-import { Footer } from '@/Footer/Component'
+import { DeferredFooter } from '@/Footer/DeferredFooter.client'
 import { Header } from '@/Header/Component'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
@@ -214,7 +214,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <InitTheme />
           <style
             dangerouslySetInnerHTML={{
-              __html: `.hero-scroll-layer-body{opacity:1;color:var(--foreground);font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}`,
+              __html: `.hero-scroll-layer-body{opacity:1;color:var(--foreground);font-family:var(--font-body,var(--font-outfit,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif))}`,
             }}
           />
           <DesignStyles design={design ?? null} />
@@ -246,7 +246,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
               <main id="main-content" key="main-content" className="min-h-[100svh]">
                 {children}
               </main>
-              <Footer key="site-footer" locale={locale} footerData={footerData} />
+              <DeferredFooter key="site-footer" locale={locale} />
             </RootLayoutInner>
             <StaticTranslationHydrator />
             <DeferredSiteTools />
