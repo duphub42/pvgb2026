@@ -366,7 +366,21 @@ async function exportRoute(route, page) {
 async function downloadAsset(assetUrl) {
   if (downloadedAssets.has(assetUrl)) return
   downloadedAssets.add(assetUrl)
-  if (assetUrl.startsWith('/_next/image?')) return
+  if (assetUrl.startsWith('/_next/image?')) {
+    // Only reachable in the hydrated variant (stripNextRuntime skips
+    // rewriteNextImageUrls, so raw `/_next/image?url=...` requests survive in the
+    // HTML - the lite variant already rewrote these to cache paths before this
+    // point). The runtime PHP shim for these requests just serves the original
+    // source file directly, since PHP can't run Next's resizer - so the wrapped
+    // request itself needs no saved copy, but the source it points to must exist
+    // on disk, or the shim 404s (this broke inline SVG <image href> usage, e.g.
+    // the hero portrait, which never appears as a bare src/href elsewhere).
+    try {
+      const source = new URL(assetUrl, sourceUrl).searchParams.get('url')
+      if (source) queueAsset(source)
+    } catch {}
+    return
+  }
 
   const cachedRequestUrl = nextImageRequestByCachePath.get(assetUrl)
   const fetchUrl = cachedRequestUrl || assetUrl
