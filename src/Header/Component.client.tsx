@@ -292,20 +292,6 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     : (resolveHeroImageSrc(logoData) ?? '')
 
   const renderPrimaryLogo = (disableAnimation?: boolean) => {
-    if (isHomePath) {
-      return (
-        <Image
-          src={HEADER_B_LOGO_SRC}
-          alt=""
-          aria-hidden="true"
-          className="header-b-logo logo-contrast"
-          width={40}
-          height={42}
-          priority
-        />
-      )
-    }
-
     if (hasCustomLogo && logoUrl) {
       return (
         <LogoWithGlitch imgSrc={logoUrl} variant="header" disableAnimation={disableAnimation}>
@@ -320,7 +306,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
       )
     }
 
-    return null
+    // No custom logo configured in Payload: fall back to the compact B icon
+    // everywhere (there's nothing to morph from).
+    return (
+      <Image
+        src={HEADER_B_LOGO_SRC}
+        alt=""
+        aria-hidden="true"
+        className="header-b-logo logo-contrast"
+        width={40}
+        height={42}
+        priority
+      />
+    )
   }
 
   const renderStickyLogo = () => (
@@ -359,7 +357,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   }
 
   const renderLogoLink = (disableAnimation?: boolean) =>
-    isHomePath ? (
+    !hasCustomLogo || !logoUrl ? (
       <Link
         href={homeHref}
         aria-label="Zur Startseite"
@@ -370,6 +368,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
     ) : (
       <Link
         href={homeHref}
+        aria-label={isHomePath ? 'Zur Startseite' : undefined}
         className="logo-link relative flex items-center shrink-0"
         data-logo-morph-ready={logoMorphReady ? 'true' : 'false'}
         data-logo-preview-active={logoPreviewActive ? 'true' : 'false'}
