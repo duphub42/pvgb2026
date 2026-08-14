@@ -95,6 +95,26 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Why other builders work with me. Discover the advantages.',
   Datenschutz: 'Privacy',
   Datenschutzerklärung: 'Privacy Policy',
+  'Mit dieser Privacy Policy informieren wir Sie darüber, welche personenbezogenen Daten bei der Nutzung dieser Website verarbeitet werden.':
+    'This privacy policy explains which personal data is processed when you use this website.',
+  '1. Verantwortlicher': '1. Controller',
+  Verantwortlicher: 'Controller',
+  '2. Server-Logfiles': '2. Server Log Files',
+  'Beim Aufruf der Website werden technisch erforderliche Daten verarbeitet (z.B. IP-Adresse, Datum/Uhrzeit des Zugriffs, angeforderte URL). Rechtsgrundlage: Art. 6 Abs. 1 lit. f DSGVO (berechtigtes Interesse).':
+    'When the website is accessed, technically required data is processed, such as IP address, date and time of access and requested URL. Legal basis: Art. 6 para. 1 lit. f GDPR (legitimate interest).',
+  '3. Kontaktaufnahme': '3. Contact',
+  'Wenn Sie uns kontaktieren, verarbeiten wir die übermittelten Daten zur Bearbeitung Ihrer Anfrage. Rechtsgrundlage: Art. 6 Abs. 1 lit. b oder lit. f DSGVO.':
+    'If you contact us, we process the submitted data to handle your request. Legal basis: Art. 6 para. 1 lit. b or lit. f GDPR.',
+  '4. Ihre Rechte': '4. Your Rights',
+  'Sie haben Recht auf Auskunft (Art. 15), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung (Art. 18), Datenübertragbarkeit (Art. 20), Widerspruch (Art. 21) und Widerruf (Art. 7 Abs. 3 DSGVO).':
+    'You have the right to access (Art. 15), rectification (Art. 16), deletion (Art. 17), restriction (Art. 18), data portability (Art. 20), objection (Art. 21) and withdrawal of consent (Art. 7 para. 3 GDPR).',
+  '5. Beschwerderecht': '5. Right to Lodge a Complaint',
+  'Sie können sich bei einer Privacy-Aufsichtsbehörde beschweren.':
+    'You may lodge a complaint with a data protection supervisory authority.',
+  '6. Änderungen': '6. Changes',
+  'Wir behalten uns vor, diese Privacy Policy anzupassen.':
+    'We reserve the right to update this privacy policy.',
+  'Stand: 11. April 2026': 'Last updated: April 11, 2026',
   Details: 'Details',
   'CI - Corporate Identity': 'CI - Corporate Identity',
   'Content-Creation': 'Content Creation',
@@ -746,6 +766,10 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Webdesign & Webentwicklung': 'Web Design & Web Development',
   'Welche Leistungen bietet Philipp Bacher als Werbeagentur in Halle (Saale) an?':
     'Which services does Philipp Bacher offer as a digital agency in Halle (Saale)?',
+  'Das Angebot umfasst Branding, Webdesign und Webentwicklung, Social Media Marketing, SEO/SEA, Print und klassische Werbung sowie Content und Videoproduktion. Die Services sind modular aufgebaut, damit Sie genau die Bausteine buchen können, die Ihr Projekt wirklich braucht.':
+    'The offer covers branding, web design and development, social media marketing, SEO/SEA, print and classic advertising, plus content and video production. The services are modular, so you can book exactly the building blocks your project actually needs.',
+  'Das Angebot umfasst Branding, Webdesign und Webentwicklung, Social Media Marketing, SEO/SEA, Print und klassische Werbung sowie Content und Videoproduktion. Die Leistungen sind modular aufgebaut, damit Sie genau die Bausteine buchen können, die Ihr Projekt wirklich braucht.':
+    'The offer covers branding, web design and development, social media marketing, SEO/SEA, print and classic advertising, plus content and video production. The services are modular, so you can book exactly the building blocks your project actually needs.',
   'Für welche Unternehmensgröße eignet sich Ihr Angebot?':
     'What company size is your offer suitable for?',
   'Kann man auch einzelne Leistungen buchen oder nur Gesamtpakete?':
@@ -849,6 +873,9 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Drei klar strukturierte Angebote mit transparenten Services, damit Sie Aufwand und Ergebnis direkt einschätzen können.':
     'Three clearly structured offers with transparent services, so you can assess effort and result directly.',
   'Was planen Sie?': 'What Are You Planning?',
+  'Kategorie wählen, Leistungen anklicken – Richtwert erscheint sofort. Mehrere Kategorien kombinierbar. Sie können jede Auswahl individuell auf Budget, Ziele und Prioritäten abstimmen. Einzelne Leistungen lassen sich flexibel hinzufügen, austauschen oder weglassen, bis die Konfiguration exakt passt. So entsteht in wenigen Klicks ein persönlicher Leistungsmix als transparente Entscheidungsgrundlage.':
+    'Choose a category, select services and see an estimate immediately. Multiple categories can be combined. You can adapt each selection to your budget, goals and priorities, adding, swapping or removing individual services until the configuration fits. In just a few clicks, you get a personal service mix as a transparent basis for your decision.',
+  'Angebot anfragen ↗': 'Request Quote ↗',
   'Auswahl zurücksetzen': 'Reset selection',
   'Wählen Sie oben eine Kategorie und Leistungen aus.': 'Choose a category and services above.',
   'zzgl. MwSt.': 'plus VAT',
@@ -862,6 +889,198 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Der Preisrechner wird aktuell gepflegt. Bitte schauen Sie später wieder vorbei oder kontaktieren Sie mich direkt.':
     'The price calculator is currently being updated. Please check back later or contact me directly.',
   'Für flexible & laufende Zusammenarbeit': 'For Flexible & Ongoing Collaboration',
+  'Website & Webdesign': 'Website & Web Design',
+  'Google Ads / Paid Search': 'Google Ads / Paid Search',
+  'Social Media Marketing': 'Social Media Marketing',
+  'E-Mail-Marketing': 'Email Marketing',
+  'Branding / Logo / CI': 'Branding / Logo / CI',
+  'Print-Design': 'Print Design',
+  Fotografie: 'Photography',
+  Prozessautomatisierung: 'Process Automation',
+  'CRM / ERP-Beratung': 'CRM / ERP Consulting',
+  'Strategie-Beratung / Workshops': 'Strategy Consulting / Workshops',
+  'Wartung & Pflege': 'Maintenance & Care',
+  'Landing Page': 'Landing Page',
+  '1 Seite, Conversion-optimiert, responsiv, CMS-Anbindung':
+    '1 page, conversion-optimized, responsive, CMS integration',
+  'Kleine Website (bis 5 Seiten)': 'Small Website (Up to 5 Pages)',
+  'Unternehmensseite, responsiv, SEO-Grundlagen, CMS':
+    'Company website, responsive, SEO basics, CMS',
+  'Unternehmenswebsite (bis 15 Seiten)': 'Company Website (Up to 15 Pages)',
+  'Vollständiger Auftritt, UI/UX-Konzept, Tracking-Setup':
+    'Complete presence, UI/UX concept, tracking setup',
+  'Onlineshop / E-Commerce': 'Online Shop / E-Commerce',
+  'Produktkatalog, Checkout, Zahlungsanbindung, CMS':
+    'Product catalog, checkout, payment integration, CMS',
+  'Web-App / Kundenportal': 'Web App / Customer Portal',
+  'Individuelle Applikation, Nutzerrollen, API-Anbindungen':
+    'Custom application, user roles, API integrations',
+  'Individuale Applikation, Nutzerrollen, API-Anbindungen':
+    'Custom application, user roles, API integrations',
+  'Redesign bestehende Website': 'Redesign of an Existing Website',
+  'Performance & Core Web Vitals': 'Performance & Core Web Vitals',
+  'Ladezeit, technische Optimierung, Lighthouse-Score':
+    'Load time, technical optimization, Lighthouse score',
+  'SEO-Audit': 'SEO Audit',
+  'Technische Analyse, Keyword-Check, Wettbewerbsvergleich, Handlungsempfehlungen':
+    'Technical analysis, keyword check, competitor comparison, recommendations',
+  'Keyword-Strategie': 'Keyword Strategy',
+  'Suchabsichtsanalyse, Themenclustering, Priorisierung':
+    'Search intent analysis, topic clustering, prioritization',
+  'Technisches SEO': 'Technical SEO',
+  'Crawling, Indexierung, Strukturdaten, interne Verlinkung':
+    'Crawling, indexing, structured data, internal linking',
+  'On-Page-Optimierung': 'On-Page Optimization',
+  'Meta-Tags, Überschriften, Content-Anpassung, Bilder':
+    'Meta tags, headings, content adjustments, images',
+  'Google Business Profile, lokale Citations, Bewertungsmanagement':
+    'Google Business Profile, local citations, review management',
+  'SEO-Betreuung laufend': 'Ongoing SEO Support',
+  'Monatliches Reporting, Anpassungen, neue Inhalte, Linkaufbau':
+    'Monthly reporting, adjustments, new content, link building',
+  'Kampagnen-Setup': 'Campaign Setup',
+  'Kontostruktur, Anzeigengruppen, Keywords, Anzeigentexte, Conversion-Tracking':
+    'Account structure, ad groups, keywords, ad copy, conversion tracking',
+  'Shopping-Kampagne (E-Commerce)': 'Shopping Campaign (E-Commerce)',
+  'Feed-Optimierung, Produktgruppen, Gebotsstrategien':
+    'Feed optimization, product groups, bidding strategies',
+  'Zielgruppen, Banner-Konzept, Aussteuerung': 'Audiences, banner concept, delivery setup',
+  'Kampagnen-Management laufend': 'Ongoing Campaign Management',
+  'Optimierung, A/B-Tests, Reporting, Budgetkontrolle':
+    'Optimization, A/B tests, reporting, budget control',
+  'Audit bestehende Kampagnen': 'Audit of Existing Campaigns',
+  'Analyse Struktur, Qualitätsfaktor, Verschwendung, Empfehlungen':
+    'Analysis of structure, quality score, wasted spend and recommendations',
+  'Strategie & Konzept': 'Strategy & Concept',
+  'Plattformwahl, Zielgruppe, Content-Planung, Tonalität':
+    'Platform selection, target audience, content planning, tone of voice',
+  'Content-Erstellung (monatlich)': 'Content Creation (Monthly)',
+  'Texte, Grafiken, Reels-Konzepte – bis 12 Posts/Monat':
+    'Copy, graphics and reel concepts, up to 12 posts per month',
+  'Kommentare, DMs, Interaktion – bis 5h/Woche':
+    'Comments, DMs and interaction, up to 5 hours per week',
+  'Kampagnensetup, Targeting, Creatives, Optimierung':
+    'Campaign setup, targeting, creatives, optimization',
+  'Profil-Setup & Optimierung': 'Profile Setup & Optimization',
+  'Biografie, Highlights, erste 9 Posts, Branding':
+    'Bio, highlights, first 9 posts, branding',
+  'E-Mail-Strategie & Setup': 'Email Strategy & Setup',
+  'Tool-Auswahl, Listen-Aufbau, Segmentierung, DSGVO':
+    'Tool selection, list building, segmentation, GDPR',
+  'Willkommens-Sequenz': 'Welcome Sequence',
+  '3–5 automatisierte E-Mails, Copywriting, Design':
+    '3-5 automated emails, copywriting, design',
+  'Newsletter-Design & Template': 'Newsletter Design & Template',
+  'Responsives HTML-Template passend zur CI':
+    'Responsive HTML template aligned with the corporate identity',
+  'Newsletter-Erstellung laufend': 'Ongoing Newsletter Creation',
+  'Bis 2 Newsletter/Monat inkl. Text & Design':
+    'Up to 2 newsletters per month including copy and design',
+  'Automation & Funnel': 'Automation & Funnel',
+  'Lead-Magnet, Nurturing-Sequenz, Trigger-basierte Flows':
+    'Lead magnet, nurturing sequence, trigger-based flows',
+  '3 Konzepte, 2 Revisionsrunden, Übergabe in allen Formaten':
+    '3 concepts, 2 revision rounds, delivery in all formats',
+  'Corporate Design komplett': 'Complete Corporate Design',
+  'Logo, Farben, Typografie, Bildsprache, CI-Manual':
+    'Logo, colors, typography, visual language, CI manual',
+  'Modernisierung bestehendes Logo & Design, kein Neustart':
+    'Modernization of existing logo and design, no full restart',
+  'Positionierung, Zielgruppe, Wettbewerb, Claim-Entwicklung':
+    'Positioning, target audience, competitors, claim development',
+  'Design-System / Styleguide': 'Design System / Style Guide',
+  'Komponentenbibliothek für Web & Print, Figma':
+    'Component library for web and print, Figma',
+  Visitenkarte: 'Business Card',
+  'Vorder- & Rückseite, druckfertig, bis 2 Varianten':
+    'Front and back, print-ready, up to 2 variants',
+  'Briefpapier & Briefbogen': 'Letterhead & Stationery',
+  'DIN A4, druckfertig, Word-Template': 'DIN A4, print-ready, Word template',
+  'Flyer / Folder': 'Flyer / Folder',
+  'DIN A5 oder A4, 1–4-seitig, inkl. Layoutkonzept':
+    'DIN A5 or A4, 1-4 pages, including layout concept',
+  'Broschüre / Katalog': 'Brochure / Catalog',
+  'Ab 8 Seiten, Layoutkonzept, Satz, druckfertig':
+    'From 8 pages, layout concept, typesetting, print-ready',
+  'Rollup / Messe-Banner': 'Roll-Up / Trade Fair Banner',
+  'Einzelmotiv, druckfertig, inkl. Bildauswahl':
+    'Single design, print-ready, including image selection',
+  'Präsentation / Pitch Deck': 'Presentation / Pitch Deck',
+  'PowerPoint oder Keynote, bis 20 Folien, CI-konform':
+    'PowerPoint or Keynote, up to 20 slides, CI-compliant',
+  'Business-Portrait (halber Tag)': 'Business Portrait (Half Day)',
+  'Bis 4h, 1 Location, 10 bearbeitete Fotos':
+    'Up to 4 hours, 1 location, 10 edited photos',
+  'Produkt-Fotografie': 'Product Photography',
+  'Bis 20 Produkte, weißer Hintergrund + Lifestyle':
+    'Up to 20 products, white background plus lifestyle',
+  'Event-Fotografie': 'Event Photography',
+  'Bis 4h, 50+ bearbeitete Fotos, Lieferung 5 Werktage':
+    'Up to 4 hours, 50+ edited photos, delivery in 5 business days',
+  'Location-/Imagefotografie': 'Location / Image Photography',
+  'Unternehmen, Räumlichkeiten, Team – halber Tag':
+    'Company, premises, team, half day',
+  'Automatisierungs-Audit': 'Automation Audit',
+  'Analyse bestehender Prozesse, Potenziale, Tool-Empfehlung':
+    'Analysis of existing processes, potential and tool recommendations',
+  'Einzelner Workflow (Make/n8n)': 'Single Workflow (Make/n8n)',
+  '1 Automation, z. B. Lead → CRM → E-Mail, inkl. Test':
+    '1 automation, e.g. lead to CRM to email, including test',
+  'Komplexes Automatisierungsprojekt': 'Complex Automation Project',
+  'Mehrere verknüpfte Flows, Fehlerhandling, Dokumentation':
+    'Several connected flows, error handling, documentation',
+  'Wartung & Monitoring laufend': 'Ongoing Maintenance & Monitoring',
+  'Fehlerüberwachung, Anpassungen, Updates': 'Error monitoring, adjustments, updates',
+  'KI-gestützte Workflows': 'AI-Supported Workflows',
+  'LLM-Integration in bestehende Prozesse (z. B. Claude, GPT)':
+    'LLM integration into existing processes, e.g. Claude or GPT',
+  'CRM-Auswahl & Konzept': 'CRM Selection & Concept',
+  'Anforderungsanalyse, Tool-Vergleich, Empfehlung':
+    'Requirements analysis, tool comparison, recommendation',
+  'CRM-Implementierung (HubSpot/Salesforce)': 'CRM Implementation (HubSpot/Salesforce)',
+  'Setup, Felder, Pipelines, Rollen, Datenmigration':
+    'Setup, fields, pipelines, roles, data migration',
+  'ZOHO-Implementierung': 'ZOHO Implementation',
+  'CRM, Mail, Projects oder Suite – Setup & Schulung':
+    'CRM, Mail, Projects or Suite, setup and training',
+  'SAP-Beratung / VC': 'SAP Consulting / VC',
+  'Prozessanalyse, Konfiguration, Reporting, SAP Visual Composer':
+    'Process analysis, configuration, reporting, SAP Visual Composer',
+  'CRM-Schulung Team': 'CRM Team Training',
+  'Halbtag vor Ort oder remote, bis 10 Personen':
+    'Half day on-site or remote, up to 10 people',
+  'CRM-Betreuung laufend': 'Ongoing CRM Support',
+  'Pflege, neue Felder, Berichte, Nutzer-Support':
+    'Maintenance, new fields, reports, user support',
+  'Digital-Strategie Workshop (halber Tag)': 'Digital Strategy Workshop (Half Day)',
+  'Ist-Analyse, Ziele, Maßnahmenplan – bis 8 Personen':
+    'Current-state analysis, goals, action plan, up to 8 people',
+  'Digital-Strategie Workshop (ganzer Tag)': 'Digital Strategy Workshop (Full Day)',
+  'Vertiefung inkl. Roadmap & Präsentation der Ergebnisse':
+    'Deep dive including roadmap and presentation of results',
+  'Marketingplan-Entwicklung': 'Marketing Plan Development',
+  'Jahresplan, Kanalwahl, Budget, KPIs, Redaktionskalender':
+    'Annual plan, channel selection, budget, KPIs, editorial calendar',
+  'Wettbewerbs- & Marktanalyse': 'Competitor & Market Analysis',
+  'Desk Research, Positionierungsvergleich, Handlungsfelder':
+    'Desk research, positioning comparison, action areas',
+  'Retainer-Beratung laufend': 'Ongoing Retainer Consulting',
+  'Fester monatlicher Kontingent für strategische Fragen & Reviews':
+    'Fixed monthly allowance for strategic questions and reviews',
+  'Website-Wartung Basic': 'Website Maintenance Basic',
+  'Updates, Backups, Sicherheits-Monitoring, 1h Support':
+    'Updates, backups, security monitoring, 1h support',
+  'Website-Wartung Professional': 'Website Maintenance Professional',
+  'Updates, Backups, Monitoring, 3h Inhaltspflege, Reporting':
+    'Updates, backups, monitoring, 3h content maintenance, reporting',
+  'Server-Konfiguration, SSL, Performance-Monitoring, Notfallplan':
+    'Server configuration, SSL, performance monitoring, emergency plan',
+  'Content-Pflege laufend': 'Ongoing Content Maintenance',
+  'Texte, Bilder, neue Unterseiten – bis 5h/Monat':
+    'Copy, images, new subpages, up to 5 hours per month',
+  'SEO-Monitoring & Reporting': 'SEO Monitoring & Reporting',
+  'Rankings, Traffic, Fehler – monatlicher Bericht':
+    'Rankings, traffic, errors, monthly report',
   'Profil: Philipp Bacher - Digital Consultant in Halle':
     'Profile: Philipp Bacher - Digital Consultant in Halle',
   'Über mich': 'About Me',
@@ -1099,9 +1318,6 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'All packages can be individually expanded or combined.',
   'Kategorie wählen, Services anklicken – Richtwert erscheint sofort. Mehrere Kategorien kombinierbar. Sie können jede Auswahl individuell auf Budget, Ziele und Prioritäten abstimmen. Einzelne Services lassen sich flexibel hinzufügen, austauschen oder weglassen, bis die Konfiguration exakt passt. So entsteht in wenigen Klicks ein persönlicher Leistungsmix als transparente Entscheidungsgrundlage.':
     'Choose a category, select services and see an estimate immediately. Multiple categories can be combined. Every selection can be adjusted to budget, goals and priorities. Individual services can be added, exchanged or removed until the configuration fits exactly. This creates a personal service mix in just a few clicks as a transparent basis for decision-making.',
-  'Kategorie wählen, Leistungen anklicken – Richtwert erscheint sofort. Mehrere Kategorien kombinierbar. Sie können jede Auswahl individuell auf Budget, Ziele und Prioritäten abstimmen. Einzelne Leistungen lassen sich flexibel hinzufügen, austauschen oder weglassen, bis die Konfiguration exakt passt. So entsteht in wenigen Klicks ein persönlicher Leistungsmix als transparente Entscheidungsgrundlage.':
-    'Choose a category, select services and see an estimate immediately. Multiple categories can be combined. Every selection can be adjusted to budget, goals and priorities. Individual services can be added, exchanged or removed until the configuration fits exactly. This creates a personal service mix in just a few clicks as a transparent basis for decision-making.',
-  'Strategie-Beratung / Workshops': 'Strategy Consulting / Workshops',
   Monatlich: 'Monthly',
   'Einmalig Unternehmenswebsite (bis 15 Seiten) Vollständiger Auftritt, UI/UX-Konzept, Tracking-Setup 2.800–5.500 €':
     'One-time Company website (up to 15 pages) Complete presence, UI/UX concept, tracking setup 2,800–5,500 €',
@@ -1167,8 +1383,6 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'The same brand logic applies across web, social, sales and print.',
   'Highlights und CTAs': 'Highlights and CTAs',
   'Backgrounds und Flächen': 'Backgrounds and Surfaces',
-  'Vollständiger Auftritt, UI/UX-Konzept, Tracking-Setup':
-    'Complete presence, UI/UX concept, tracking setup',
   'Einmalig Redesign bestehende Website Überarbeitung Optik & Technik, Inhalte übernommen 1.200–3.500 €':
     'One-time Redesign of existing website Visual and technical revision, content migrated 1,200-3,500 €',
   'Überarbeitung Optik & Technik, Inhalte übernommen':

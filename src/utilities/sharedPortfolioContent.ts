@@ -440,19 +440,60 @@ async function getSharedPortfolioBlocksUncached() {
 
 const getSharedPortfolioBlocks = unstable_cache(
   getSharedPortfolioBlocksUncached,
-  ['shared-portfolio-content-v3'],
+  ['shared-portfolio-content-v4'],
   {
     revalidate: false,
     tags: ['site-pages'],
   },
 )
 
+function getPortfolioCaseKey(entry: unknown): string {
+  if (!entry || typeof entry !== 'object') return ''
+
+  const record = entry as Record<string, unknown>
+  const title = String(record.title ?? '').trim()
+  const client = String(record.client ?? '').trim()
+
+  return (title || client).toLocaleLowerCase('de-DE')
+}
+
+function hasExternalPortfolioWebsite(entry: unknown): boolean {
+  if (!entry || typeof entry !== 'object') return false
+
+  const website = (entry as Record<string, unknown>).website
+  if (!website || typeof website !== 'object') return false
+
+  const href = String((website as Record<string, unknown>).href ?? '').trim()
+  return href.startsWith('http')
+}
+
+function mergeWithFallbackPortfolioCases(cases: unknown[]): unknown[] {
+  const fallbackBlock = buildLeistungenPortfolioCaseBlock() as LayoutBlock
+  const fallbackCases = Array.isArray(fallbackBlock.cases) ? clone(fallbackBlock.cases) : []
+  if (fallbackCases.length === 0) return cases
+
+  const seen = new Set(cases.map(getPortfolioCaseKey).filter(Boolean))
+  const merged = [...cases]
+
+  for (const fallbackCase of fallbackCases) {
+    const key = getPortfolioCaseKey(fallbackCase)
+    if (!key || seen.has(key) || !hasExternalPortfolioWebsite(fallbackCase)) continue
+
+    seen.add(key)
+    merged.push(fallbackCase)
+  }
+
+  return merged
+}
+
 function withSharedCases(
   block: LayoutBlock,
   source?: LayoutBlock,
   disciplineFilter: Set<string> = GENERAL_PORTFOLIO_DISCIPLINES,
 ): LayoutBlock {
-  const sourceCases = Array.isArray(source?.cases) ? clone(source.cases) : []
+  const sourceCases = mergeWithFallbackPortfolioCases(
+    Array.isArray(source?.cases) ? clone(source.cases) : [],
+  )
   const cases = filterPortfolioCases(sourceCases, disciplineFilter)
   if (!source || cases.length === 0) return block
 

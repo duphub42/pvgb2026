@@ -22,9 +22,16 @@ const EN_TO_DE_SEGMENTS: Record<string, string> = {
   'web-design': 'webdesign',
 }
 
-const DE_TO_EN_SEGMENTS = Object.fromEntries(
-  Object.entries(EN_TO_DE_SEGMENTS).map(([en, de]) => [de, en]),
-) as Record<string, string>
+const DE_TO_EN_SEGMENTS = {
+  ...Object.fromEntries(Object.entries(EN_TO_DE_SEGMENTS).map(([en, de]) => [de, en])),
+  'ci-corporate-identity': 'corporate-identity',
+  'content-creation': 'content',
+  'logo-entwicklung': 'logo',
+  'praesentationen-keynotes': 'keynotes',
+  'printmedien-grafikdesign': 'print',
+  'sem-online-werbung': 'sem',
+  'seo-rankings': 'seo',
+} as Record<string, string>
 
 export function getLocaleFromPathname(pathname: string | null | undefined): Locale | null {
   const normalized = pathname?.trim() || '/'
@@ -53,7 +60,9 @@ export function localizePathname(pathname: string, locale: Locale): string {
     return `/${germanSegments.join('/')}`.replace(/\/+$/, '') || '/'
   }
 
-  const englishSegments = segments.map((segment) => DE_TO_EN_SEGMENTS[segment] ?? segment)
+  const sourceSegments =
+    segments[0] === 'leistungen' && segments.length > 1 ? segments.slice(1) : segments
+  const englishSegments = sourceSegments.map((segment) => DE_TO_EN_SEGMENTS[segment] ?? segment)
   const path = `/en/${englishSegments.join('/')}`.replace(/\/+$/, '')
   return path || '/en'
 }
