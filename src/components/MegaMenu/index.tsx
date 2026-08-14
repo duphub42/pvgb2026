@@ -52,9 +52,11 @@ const ThemeSwitcher = dynamic(
   () => import('@/components/ThemeSwitcher/ThemeSwitcher').then((mod) => mod.ThemeSwitcher),
   { ssr: false },
 )
-const HeaderActions = dynamic(
-  () => import('@/components/HeaderActions/HeaderActions').then((mod) => mod.HeaderActions),
-  { ssr: false, loading: () => null },
+// Server-rendered (unlike ThemeSwitcher above) so the icon row is present in
+// the initial HTML instead of popping in after its own client chunk loads —
+// that gap made the icons visibly vanish and reflow the nav on every page.
+const HeaderActions = dynamic(() =>
+  import('@/components/HeaderActions/HeaderActions').then((mod) => mod.HeaderActions),
 )
 
 /** Konfiguration für WhatsApp, Rückruf und Newsletter im Mega-Menü (aus Header-Global) */
