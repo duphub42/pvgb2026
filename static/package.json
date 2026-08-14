@@ -1,0 +1,13 @@
+{
+  "name": "pvgb-static-export",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "export": "node scripts/export-site.mjs",
+    "export:lite": "node scripts/export-site.mjs",
+    "export:hydrated": "SOURCE_URL=http://localhost:3003 OUTPUT_DIR=dist-hydrated STRIP_NEXT_RUNTIME=false INCLUDE_STATIC_RUNTIME=false node scripts/export-site.mjs",
+    "serve": "node scripts/serve.mjs",
+    "serve:lite": "node scripts/serve.mjs",
+    "serve:hydrated": "ROOT_DIR=dist-hydrated PORT=8089 node scripts/serve.mjs"
+  }
+}

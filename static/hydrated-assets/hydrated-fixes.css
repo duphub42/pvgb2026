@@ -1,0 +1,24 @@
+nextjs-portal {
+  display: none !important;
+}
+
+section[data-hero-type='superhero'][data-page-slug='home'][data-hero-intro='play']
+  :where(
+    .hero-scroll-content-main,
+    .hero-scroll-content-copy,
+    .hero-scroll-content-portrait,
+    .hero-scroll-layer-eyebrow,
+    .hero-scroll-layer-headline,
+    .hero-scroll-layer-body,
+    .hero-scroll-layer-cta,
+    .hero-scroll-layer-marquee
+  ) {
+  animation: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+[aria-label='Seite wird geladen'] {
+  display: none !important;
+}

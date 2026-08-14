@@ -27,6 +27,11 @@ backups/
 data/backup/
 data/export-from-neon/
 
+# Static export pipeline output (regenerate via static/ npm scripts)
+static/dist-hydrated/
+static/dist-hydrated-test/
+static/dist-test/
+
 # Playwright
 /test-results/
 /playwright-report/
