@@ -13,7 +13,7 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 
 import dynamic from 'next/dynamic'
-import { ChevronDown, Mail, Menu, Search } from 'lucide-react'
+import { ChevronDown, Menu, Phone, Search } from 'lucide-react'
 import { Logo } from '@/components/Logo/Logo'
 import { LogoWithGlitch } from '@/components/Logo/LogoWithGlitch'
 import { HeaderGlassPlate } from '@/components/HeaderGlassPlate/HeaderGlassPlate'
@@ -480,7 +480,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
                       className="header-tool-toggle header-icon-btn inline-flex shrink-0 items-center justify-center text-current"
                       aria-label="Kontakt öffnen"
                     >
-                      <Mail className="h-5 w-5" aria-hidden />
+                      <Phone className="h-5 w-5" aria-hidden />
                     </Link>
                     <Link
                       href={searchHref}

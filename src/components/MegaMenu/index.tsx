@@ -892,6 +892,10 @@ type MegaMenuProps = {
 
 function hasDropdown(item: MegaMenuItem): boolean {
   return (
+    // Trust the light shell's precomputed flag before the full item (with its
+    // actual columns/subItems) has loaded, so the chevron doesn't disappear
+    // and reappear as resolvedMegaMenuItems is swapped from shell to full data.
+    item.hasDropdown === true ||
     (item.subItems != null && item.subItems.length > 0) ||
     (item.columns != null && item.columns.length > 0) ||
     (item.highlight != null && (item.highlight.title != null || item.highlight.ctaUrl != null)) ||
