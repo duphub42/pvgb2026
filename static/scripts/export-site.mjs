@@ -350,6 +350,20 @@ async function writeFile(filePath, body) {
 
 async function exportRoute(route, page) {
   let html = await fetchText(`${sourceUrl}${route}`)
+
+  // A loading fallback here is usually a cold-cache Suspense state (first hit to a
+  // route that fetches Payload data), not a route that's permanently client-only -
+  // a couple of plain retries let the server warm up and return the real SSR HTML.
+  // This matters because the browser-render fallback below captures the DOM *after*
+  // hydration and client animations have already mutated it (inline styles, data-*
+  // state attributes) - serving that back out re-hydrates incorrectly for real
+  // visitors (React hydration mismatch, full client re-render). Plain SSR HTML
+  // doesn't have that problem, so it's always preferred when available.
+  for (let attempt = 0; attempt < 2 && hasLoadingFallback(html); attempt += 1) {
+    await new Promise((resolve) => setTimeout(resolve, 500))
+    html = await fetchText(`${sourceUrl}${route}`)
+  }
+
   if (page && (browserRenderRoutes.has(route) || hasLoadingFallback(html))) {
     try {
       html = await renderText(route, page)
