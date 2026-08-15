@@ -291,12 +291,24 @@ async function fetchText(url) {
 }
 
 function hasLoadingFallback(html) {
-  return (
+  const mentionsFallback =
     html.includes('Seite wird geladen') ||
     html.includes('Loading page') ||
     html.includes('Etwas ist schiefgelaufen') ||
     html.includes('Something went wrong')
-  )
+  if (!mentionsFallback) return false
+
+  // React's streaming SSR always emits the Suspense fallback text into the initial
+  // HTML chunk, even for boundaries that resolve within the very same response - the
+  // resolved content streams in later in that same response, together with an inline
+  // `$RC(...)` call that swaps the fallback out for it during HTML parsing itself
+  // (before hydration, no client JS/data fetch required). Treating every occurrence
+  // of the fallback text as "still loading" was a false positive for every one of
+  // those already-resolved routes, sending them through the browser-render path
+  // below - which captures the DOM *after* hydration and animations have mutated it,
+  // and serving that back out re-hydrates incorrectly for real visitors. `$RC(`
+  // present means the stream resolved itself; only its absence means genuinely stuck.
+  return !html.includes('$RC(')
 }
 
 async function renderText(route, page) {
