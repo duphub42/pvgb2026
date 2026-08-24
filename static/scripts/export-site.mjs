@@ -606,7 +606,12 @@ if ($file === false || $root === false || strpos($file, $root) !== 0 || !is_file
   exit;
 }
 
-$bytes = file_get_contents($file, false, null, 0, 16);
+// 16 bytes isn't enough to catch '<svg' when the file starts with an XML
+// declaration ('<?xml version="1.0" encoding="UTF-8"?>' alone is 38+ bytes),
+// which is exactly how this project's exported SVGs are written - they were
+// silently falling through to application/octet-stream, which browsers won't
+// render as an <img>.
+$bytes = file_get_contents($file, false, null, 0, 512);
 $type = 'application/octet-stream';
 $ext = strtolower(pathinfo($file, PATHINFO_EXTENSION));
 $bytesString = (string) $bytes;
@@ -680,6 +685,7 @@ async function main() {
   queuedAssets.add('/api/frontend/footer?locale=en')
   queuedAssets.add('/api/forms?depth=0&limit=100')
   queuedAssets.add('/branding/philippbacher-logo-b-10.svg')
+  queuedAssets.add('/branding/wordpress-mark-line.svg')
   queuedAssets.add('/favicon.ico')
   queuedAssets.add('/favicon.svg')
   queuedAssets.add('/manifest.json')
