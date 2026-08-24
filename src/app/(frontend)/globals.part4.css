@@ -1141,12 +1141,14 @@ nav.megamenu-nav a.megamenu-top-item {
 }
 
 .megamenu .megamenu-item-icon .megamenu-wordpress-logo-icon {
+  background-color: currentColor;
   color: rgba(0, 0, 0, 0.62);
-  fill: none;
+  display: block;
+  flex-shrink: 0;
+  mask: url('/branding/wordpress-mark-line.svg') center / 112% 112% no-repeat;
   opacity: 1;
-  stroke: currentColor;
-  stroke-width: 1.45;
-  transform: scale(0.9);
+  -webkit-mask: url('/branding/wordpress-mark-line.svg') center / 112% 112% no-repeat;
+  transform: scale(1);
   transform-origin: center;
 }
 

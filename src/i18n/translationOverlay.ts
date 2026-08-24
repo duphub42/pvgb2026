@@ -738,7 +738,49 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Do you want to know which digital levers are truly worthwhile?',
   'Ich analysiere Website, Sichtbarkeit und Conversion-Pfade und leite daraus konkrete, priorisierte nächste Schritte ab.':
     'I analyze website, visibility and conversion paths and derive concrete, prioritized next steps.',
-  'Potenzialanalyse anfragen': 'Request Potential Analysis',
+  Potentialanalyse: 'Growth Audit',
+  Potenzialanalyse: 'Growth Audit',
+  'Potentialanalyse anfragen': 'Request Growth Audit',
+  'Potenzialanalyse anfragen': 'Request Growth Audit',
+  'Kreative Konzepte, moderne Weblösungen und digitale Strategien – alles aus einer Hand.':
+    'Creative concepts, modern web solutions and digital strategies from one source.',
+  'Webdesign und Entwicklung': 'Web design and development',
+  'Web Design und Entwicklung': 'Web design and development',
+  'Printdesign, das auffällt – von Flyer bis Broschüre':
+    'Print design that stands out, from flyers to brochures.',
+  'Präsentationen, die wirken – visuell stark und auf den Punkt':
+    'Presentations that work: visually strong and to the point.',
+  'Presentations, die wirken – visuell stark und auf den Punkt':
+    'Presentations that work: visually strong and to the point.',
+  'Suchmaschinenoptimierung für mehr Sichtbarkeit, Traffic und Anfragen.':
+    'Search engine optimization for more visibility, traffic and inquiries.',
+  'Performance-Marketing auf Suchmaschinen': 'Performance marketing on search engines',
+  'Visuelle Geschichten, Texte und Multimedia, die Ihre Marke lebendig machen – von Social Media bis Website.':
+    'Visual stories, copy and multimedia that bring your brand to life, from social media to your website.',
+  'Markenidentität klar, einheitlich und professionell gestaltet.':
+    'Brand identity designed clearly, consistently and professionally.',
+  'Einprägsame Logos, die Marke und Werte klar sichtbar machen':
+    'Memorable logos that make your brand and values clearly visible.',
+  'Marken klar definieren – Strategie, Positionierung und Storytelling.':
+    'Clearly define brands through strategy, positioning and storytelling.',
+  Automatisierung: 'Automation',
+  'Smarter Workflow, weniger Routine, mehr Fokus auf das Wesentliche – ich digitalisiere Prozesse, damit Ihr Business schneller wächst.':
+    'Smarter workflows, less routine and more focus on what matters: I digitize processes so your business can grow faster.',
+  'Projekte im Überblick – kreative Konzepte, Weblösungen und digitale Highlights.':
+    'Projects at a glance: creative concepts, web solutions and digital highlights.',
+  'Individuelle Webseiten, modern gestaltet und funktional umgesetzt':
+    'Custom websites with modern design and reliable implementation.',
+  'Individuale Webseiten, modern gestaltet und funktional umgesetzt':
+    'Custom websites with modern design and reliable implementation.',
+  'Marketing Projekte': 'Marketing Projects',
+  'Durchdachte Kampagnen mit klarer Botschaft und messbarem Ziel – von der Idee bis zur Performance-Optimierung.':
+    'Well-planned campaigns with a clear message and measurable goal, from idea to performance optimization.',
+  Marken: 'Brands',
+  'Entwicklung von CI- & Logo-Projekten': 'Development of CI and logo projects',
+  'Projekt vorschlagen': 'Suggest a Project',
+  'Ihr Projekt könnte einen neuen Anstrich gebrauchen, etwas Anschub nötig oder soll erweitert werden?':
+    'Could your project use a fresh look, more momentum or a thoughtful extension?',
+  'Vorschlag einreichen': 'Submit Proposal',
   'Sie möchten Abläufe automatisieren, ohne Kontrolle zu verlieren?':
     'Do you want to automate processes without losing control?',
   'Ich prüfe Prozesse, Tools und Schnittstellen und entwickle ein Setup, das wiederkehrende Aufgaben zuverlässig vereinfacht.':

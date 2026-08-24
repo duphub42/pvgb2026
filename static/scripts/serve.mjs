@@ -163,18 +163,28 @@ http
       const compressed = zlib.brotliCompressSync(body, {
         params: { [zlib.constants.BROTLI_PARAM_QUALITY]: 6 },
       })
-      res.writeHead(200, { 'content-type': type, 'content-encoding': 'br', vary: 'accept-encoding' })
+      res.writeHead(200, {
+        'content-type': type,
+        'content-encoding': 'br',
+        vary: 'accept-encoding',
+        'cache-control': 'no-store',
+      })
       res.end(compressed)
       return
     }
     if (COMPRESSIBLE_TYPES.has(type) && /\bgzip\b/.test(acceptEncoding)) {
       const compressed = zlib.gzipSync(body, { level: 6 })
-      res.writeHead(200, { 'content-type': type, 'content-encoding': 'gzip', vary: 'accept-encoding' })
+      res.writeHead(200, {
+        'content-type': type,
+        'content-encoding': 'gzip',
+        vary: 'accept-encoding',
+        'cache-control': 'no-store',
+      })
       res.end(compressed)
       return
     }
 
-    res.writeHead(200, { 'content-type': type })
+    res.writeHead(200, { 'content-type': type, 'cache-control': 'no-store' })
     res.end(body)
   })
   .listen(port, () => {

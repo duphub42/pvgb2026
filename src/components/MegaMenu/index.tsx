@@ -937,17 +937,12 @@ const SERVICES_WORDPRESS_CARD: Record<
   },
 }
 
-function WordPressLogoIcon(props: React.SVGProps<SVGSVGElement>) {
+function WordPressLogoIcon({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLSpanElement>) {
   return (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
-      <circle cx="12" cy="12" r="8.6" strokeWidth="1.45" />
-      <path
-        d="M6.9 8.35 9.2 15.6l2.05-5.75 2.2 5.75 2.45-7.25M5.95 8.35h3.25M14.95 8.35h3.1"
-        strokeWidth="1.45"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
+    <span className={cn('megamenu-wordpress-logo-icon', className)} {...props} />
   )
 }
 
@@ -3205,7 +3200,7 @@ export function MegaMenu({
                                                 </svg>
                                               ) : isWordPressIcon ? (
                                                 <WordPressLogoIcon
-                                                  className="megamenu-wordpress-logo-icon h-5 w-5 text-current"
+                                                  className="megamenu-wordpress-logo-icon h-8 w-8 text-current"
                                                   aria-hidden="true"
                                                 />
                                               ) : (
