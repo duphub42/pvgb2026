@@ -512,7 +512,12 @@ function collectMobileSubLinks(item: MegaMenuItem, limit = 4): MobileMenuSubLink
     links.push({
       label: card.title ?? '',
       url: card.ctaUrl ?? '',
-      groupTitle: item.highlight?.title ?? null,
+      // Highlight cards don't share one meaningful group title - the highlight
+      // block's own `title` is a single CTA/box heading (e.g. "Automatisierung"
+      // for a legacy card), not a category label for every card added to it, so
+      // reusing it here merged unrelated cards (e.g. the WP Agentur card) under
+      // that heading's vertical label.
+      groupTitle: null,
     })
   }
 
@@ -922,7 +927,7 @@ const SERVICES_WORDPRESS_CARD: Record<
   }
 > = {
   de: {
-    title: 'WP Agency',
+    title: 'WP Agentur',
     description: 'WordPress Plugins, WooCommerce Shops, Anpassungen und laufende Betreuung.',
     ctaLabel: 'WordPress anfragen',
     ctaUrl: '/leistungen#wordpress',
@@ -970,10 +975,6 @@ function hasServiceEntry(item: MegaMenuItem, test: RegExp): boolean {
   }
 
   return false
-}
-
-function isAutomationMobileGroup(title: string | null): boolean {
-  return /automatisierung|automation/i.test(title ?? '')
 }
 
 function cleanServicesHighlightDescription(description: string | null | undefined): string | null | undefined {
@@ -3200,7 +3201,7 @@ export function MegaMenu({
                                                 </svg>
                                               ) : isWordPressIcon ? (
                                                 <WordPressLogoIcon
-                                                  className="megamenu-wordpress-logo-icon h-8 w-8 text-current"
+                                                  className="megamenu-wordpress-logo-icon h-[34px] w-[34px] text-current"
                                                   aria-hidden="true"
                                                 />
                                               ) : (
@@ -3836,20 +3837,31 @@ export function MegaMenu({
                                       </button>
                                     </div>
                                     <div className="mobile-megamenu-secondary-list">
-                                      {activeMobileGroups.map((group, groupIdx) => (
+                                      {activeMobileGroups.map((group, groupIdx) => {
+                                        // A group title only earns its own vertical label when it's
+                                        // actually grouping more than one link - a "group" of one
+                                        // (e.g. Automatisierung, WP Agentur) just repeated its own
+                                        // name vertically next to itself.
+                                        const showGroupTitle = Boolean(group.title) && group.links.length > 1
+
+                                        return (
                                         <section
                                           key={`mobile-sub-group-${group.title ?? 'default'}-${groupIdx}`}
                                           className={cn(
                                             'mobile-megamenu-sub-group',
-                                            group.title
+                                            showGroupTitle
                                               ? 'mobile-megamenu-sub-group--titled'
                                               : 'mobile-megamenu-sub-group--untitled',
-                                            isAutomationMobileGroup(group.title) &&
+                                            // Untitled 2-link groups (e.g. Automatisierung + WP Agentur,
+                                            // no longer sharing a title - see collectMobileSubLinks) sit
+                                            // side by side instead of stacked, since they no longer have
+                                            // a heading to visually separate them.
+                                            !group.title &&
                                               group.links.length === 2 &&
                                               'mobile-megamenu-sub-group--split-links',
                                           )}
                                         >
-                                          {group.title ? (
+                                          {showGroupTitle ? (
                                             <p className="mobile-megamenu-sub-group-title">
                                               <span className="mobile-megamenu-sub-group-title-label">
                                                 {group.title}
@@ -3878,7 +3890,8 @@ export function MegaMenu({
                                             ))}
                                           </ul>
                                         </section>
-                                      ))}
+                                        )
+                                      })}
                                     </div>
                                   </>
                                 )}
