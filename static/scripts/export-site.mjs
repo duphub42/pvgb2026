@@ -133,6 +133,27 @@ function queueAsset(rawUrl) {
   if (normalized) queuedAssets.add(normalized)
 }
 
+function cleanMegaMenuText(value) {
+  return value
+    .replace(
+      /Echtzeit-Daten,\s*nahtlose Verbindungen:\s*Ich verbinde Ihre Tools und automatisier(?:e|en) Prozesse direkt über Webhooks\.?/gi,
+      '',
+    )
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+}
+
+function cleanMegaMenuPayload(value) {
+  if (typeof value === 'string') return cleanMegaMenuText(value)
+  if (Array.isArray(value)) return value.map(cleanMegaMenuPayload)
+  if (value != null && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, child]) => [key, cleanMegaMenuPayload(child)]),
+    )
+  }
+  return value
+}
+
 function collectFromSrcset(srcset) {
   for (const part of srcset.split(',')) {
     const candidate = part.trim().split(/\s+/)[0]
@@ -443,7 +464,13 @@ async function downloadAsset(assetUrl) {
 
   const contentType = response.headers.get('content-type') || ''
   const arrayBuffer = await response.arrayBuffer()
-  const body = Buffer.from(arrayBuffer)
+  const assetPathname = new URL(assetUrl, sourceUrl).pathname
+  let body = Buffer.from(arrayBuffer)
+  if (assetPathname === '/api/frontend/mega-menu' && contentType.includes('application/json')) {
+    try {
+      body = Buffer.from(JSON.stringify(cleanMegaMenuPayload(JSON.parse(body.toString('utf8')))))
+    } catch {}
+  }
   const filePath = assetToFile(assetUrl)
   await writeFile(filePath, body)
 
@@ -463,7 +490,7 @@ async function downloadAsset(assetUrl) {
   // form's own detail endpoint (/api/forms/<id>) - queue them explicitly so
   // HeaderActions' client-side form-field lookup (fetch of /api/forms/<id>?depth=0)
   // has a static file to hit instead of 404ing against the live-only Payload route.
-  if (new URL(assetUrl, sourceUrl).pathname === '/api/forms' && contentType.includes('application/json')) {
+  if (assetPathname === '/api/forms' && contentType.includes('application/json')) {
     try {
       const parsed = JSON.parse(body.toString('utf8'))
       for (const doc of Array.isArray(parsed?.docs) ? parsed.docs : []) {

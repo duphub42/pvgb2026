@@ -508,6 +508,14 @@ function collectMobileSubLinks(item: MegaMenuItem, limit = 4): MobileMenuSubLink
     })
   }
 
+  for (const card of item.highlight?.cards ?? []) {
+    links.push({
+      label: card.title ?? '',
+      url: card.ctaUrl ?? '',
+      groupTitle: item.highlight?.title ?? null,
+    })
+  }
+
   const seen = new Set<string>()
   const deduped: MobileMenuSubLink[] = []
 
@@ -846,7 +854,7 @@ export type MegaMenuItem = {
     cards?: Array<{
       title?: string | null
       description?: string | null
-      icon?: MediaRef
+      icon?: MediaRef | 'wordpress'
       image?: MediaRef
       ctaLabel?: string | null
       ctaUrl?: string | null
@@ -901,6 +909,136 @@ function hasDropdown(item: MegaMenuItem): boolean {
     (item.highlight != null && (item.highlight.title != null || item.highlight.ctaUrl != null)) ||
     (item.image != null && mediaUrl(item.image) !== '')
   )
+}
+
+const SERVICES_WORDPRESS_CARD: Record<
+  Locale,
+  {
+    title: string
+    description: string
+    ctaLabel: string
+    ctaUrl: string
+    icon: 'wordpress'
+  }
+> = {
+  de: {
+    title: 'WP Agency',
+    description: 'WordPress Plugins, WooCommerce Shops, Anpassungen und laufende Betreuung.',
+    ctaLabel: 'WordPress anfragen',
+    ctaUrl: '/leistungen#wordpress',
+    icon: 'wordpress',
+  },
+  en: {
+    title: 'WP Agency',
+    description: 'WordPress plugins, WooCommerce shops, customizations and ongoing support.',
+    ctaLabel: 'Discuss WordPress',
+    ctaUrl: '/en/services#wordpress',
+    icon: 'wordpress',
+  },
+}
+
+function WordPressLogoIcon(props: React.SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" {...props}>
+      <circle cx="12" cy="12" r="8.6" strokeWidth="1.45" />
+      <path
+        d="M6.9 8.35 9.2 15.6l2.05-5.75 2.2 5.75 2.45-7.25M5.95 8.35h3.25M14.95 8.35h3.1"
+        strokeWidth="1.45"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
+
+function isServicesMegaMenuItem(item: MegaMenuItem, locale: Locale): boolean {
+  const haystack = `${item.label} ${item.url}`.toLocaleLowerCase(locale === 'de' ? 'de-DE' : 'en-US')
+  if (locale === 'en') return haystack.includes('services') || haystack.includes('/en/services')
+  return haystack.includes('leistungen') || haystack.includes('/leistungen')
+}
+
+function hasServiceEntry(item: MegaMenuItem, test: RegExp): boolean {
+  for (const col of item.columns ?? []) {
+    for (const sub of col.items ?? []) {
+      if (test.test(`${sub.label} ${sub.url}`.toLocaleLowerCase('de-DE'))) return true
+    }
+  }
+
+  for (const sub of item.subItems ?? []) {
+    if (test.test(`${sub.label} ${sub.url}`.toLocaleLowerCase('de-DE'))) return true
+  }
+
+  for (const card of item.highlight?.cards ?? []) {
+    if (test.test(`${card.title ?? ''} ${card.ctaUrl ?? ''}`.toLocaleLowerCase('de-DE'))) {
+      return true
+    }
+  }
+
+  return false
+}
+
+function isAutomationMobileGroup(title: string | null): boolean {
+  return /automatisierung|automation/i.test(title ?? '')
+}
+
+function cleanServicesHighlightDescription(description: string | null | undefined): string | null | undefined {
+  if (description == null) return description
+
+  return description
+    .replace(
+      /Echtzeit-Daten,\s*nahtlose Verbindungen:\s*Ich verbinde Ihre Tools und automatisier(?:e|en) Prozesse direkt über Webhooks\.?/gi,
+      '',
+    )
+    .replace(/\s{2,}/g, ' ')
+    .trim()
+}
+
+function withServicesHighlightAdditions(items: MegaMenuItem[], locale: Locale): MegaMenuItem[] {
+  return items.map((item) => {
+    if (!isServicesMegaMenuItem(item, locale)) return item
+
+    const needsWordPress = !hasServiceEntry(item, /\bwp\b|wordpress|woocommerce/)
+    if (!needsWordPress) return item
+
+    const highlight = item.highlight
+    const legacyHighlightCard =
+      highlight != null &&
+      ((highlight.title != null && highlight.title !== '') ||
+        (highlight.description != null && highlight.description !== '') ||
+        highlight.icon != null ||
+        highlight.image != null ||
+        (highlight.ctaUrl != null && highlight.ctaUrl !== ''))
+        ? {
+            title: highlight.title,
+            description: cleanServicesHighlightDescription(highlight.description),
+            icon: highlight.icon,
+            image: highlight.image,
+            ctaLabel: highlight.ctaLabel,
+            ctaUrl: highlight.ctaUrl,
+          }
+        : null
+
+    const existingCards = Array.isArray(highlight?.cards) ? highlight.cards : []
+    const nextCards = [
+      ...(existingCards.length > 0
+        ? existingCards.map((card) => ({
+            ...card,
+            description: cleanServicesHighlightDescription(card.description),
+          }))
+        : legacyHighlightCard
+          ? [legacyHighlightCard]
+          : []),
+      SERVICES_WORDPRESS_CARD[locale],
+    ]
+
+    return {
+      ...item,
+      highlight: {
+        ...(highlight ?? {}),
+        cards: nextCards,
+      },
+    }
+  })
 }
 
 /* ListItem: Icon links (quadratisch, 2 Zeilen), daneben Titel + Beschreibung (kleiner, 20% Opacity) */
@@ -1043,7 +1181,7 @@ function collectPreloadMediaUrls(items: MegaMenuItem[]): string[] {
       add(h.icon)
       add(h.image)
       for (const card of h.cards ?? []) {
-        add(card.icon)
+        if (card.icon !== 'wordpress') add(card.icon)
         add(card.image)
       }
     }
@@ -1565,8 +1703,12 @@ export function MegaMenu({
   const sidebarCols = columnWidths?.sidebar ?? 3
 
   const sortedItems = useMemo(
-    () => [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
-    [items],
+    () =>
+      withServicesHighlightAdditions(
+        [...items].sort((a, b) => (a.order ?? 0) - (b.order ?? 0)),
+        locale,
+      ),
+    [items, locale],
   )
 
   const activeTopNavKeyFromPath = useMemo(() => {
@@ -1658,7 +1800,7 @@ export function MegaMenu({
         key: getMegaMenuItemKey(item, idx),
         item,
         description: getMobileMenuItemDescription(item, locale),
-        subLinks: collectMobileSubLinks(item, 8),
+        subLinks: collectMobileSubLinks(item, 12),
       })),
     [locale, sortedItems],
   )
@@ -2820,7 +2962,7 @@ export function MegaMenu({
                               const cardItems: Array<{
                                 title?: string | null
                                 description?: string | null
-                                icon?: MediaRef
+                                icon?: MediaRef | 'wordpress'
                                 image?: MediaRef
                                 ctaLabel?: string | null
                                 ctaUrl?: string | null
@@ -3012,8 +3154,11 @@ export function MegaMenu({
                                           : null
                                       const cardKey = getMegaMenuCardKey(card, cardIdx)
                                       const cardIconUrl =
-                                        card.icon != null ? mediaUrl(card.icon) : ''
+                                        card.icon != null && card.icon !== 'wordpress'
+                                          ? mediaUrl(card.icon)
+                                          : ''
                                       const cardIconSpriteId = null
+                                      const isWordPressIcon = card.icon === 'wordpress'
                                       const cardImageUrl =
                                         card.image != null ? mediaUrl(card.image) : ''
                                       const cardCtaUrl =
@@ -3021,7 +3166,7 @@ export function MegaMenu({
                                           ? card.ctaUrl
                                           : null
                                       const cardCtaLabel = card.ctaLabel ?? 'Mehr'
-                                      const hasMedia = cardImageUrl || cardIconUrl
+                                      const hasMedia = cardImageUrl || cardIconUrl || isWordPressIcon
                                       const mediaBlock = (
                                         <>
                                           {cardImageUrl && (
@@ -3043,7 +3188,7 @@ export function MegaMenu({
                                               <div className="absolute inset-0 bg-foreground/10 transition-opacity group-hover/highlight:bg-foreground/5" />
                                             </div>
                                           )}
-                                          {!cardImageUrl && cardIconUrl && (
+                                          {!cardImageUrl && (cardIconUrl || isWordPressIcon) && (
                                             <div
                                               className={cn(
                                                 'flex shrink-0 items-center justify-center overflow-hidden bg-muted/60 p-2.5 [&_img]:h-full [&_img]:w-full [&_img]:object-contain',
@@ -3058,6 +3203,11 @@ export function MegaMenu({
                                                     href={`/icons-sprite.svg#${cardIconSpriteId}`}
                                                   />
                                                 </svg>
+                                              ) : isWordPressIcon ? (
+                                                <WordPressLogoIcon
+                                                  className="megamenu-wordpress-logo-icon h-5 w-5 text-current"
+                                                  aria-hidden="true"
+                                                />
                                               ) : (
                                                 <ResilientImage
                                                   src={cardIconUrl}
@@ -3699,6 +3849,9 @@ export function MegaMenu({
                                             group.title
                                               ? 'mobile-megamenu-sub-group--titled'
                                               : 'mobile-megamenu-sub-group--untitled',
+                                            isAutomationMobileGroup(group.title) &&
+                                              group.links.length === 2 &&
+                                              'mobile-megamenu-sub-group--split-links',
                                           )}
                                         >
                                           {group.title ? (

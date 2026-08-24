@@ -1139,6 +1139,29 @@ nav.megamenu-nav a.megamenu-top-item {
   stroke: currentColor;
   fill: currentColor;
 }
+
+.megamenu .megamenu-item-icon .megamenu-wordpress-logo-icon {
+  color: rgba(0, 0, 0, 0.62);
+  fill: none;
+  opacity: 1;
+  stroke: currentColor;
+  stroke-width: 1.45;
+  transform: scale(0.9);
+  transform-origin: center;
+}
+
+.megamenu .group:hover .megamenu-item-icon .megamenu-wordpress-logo-icon {
+  color: rgba(0, 0, 0, 0.76);
+}
+
+[data-theme='dark'] .megamenu .megamenu-item-icon .megamenu-wordpress-logo-icon {
+  color: rgba(255, 255, 255, 0.82);
+}
+
+[data-theme='dark'] .megamenu .group:hover .megamenu-item-icon .megamenu-wordpress-logo-icon {
+  color: rgba(255, 255, 255, 0.92);
+}
+
 .megamenu .megamenu-cta-strip {
   background-color: #f5f5f5;
   border-color: #e5e5e5;

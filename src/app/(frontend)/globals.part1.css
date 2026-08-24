@@ -3090,6 +3090,9 @@
     font-size: clamp(1.875rem, 4.5vw + 1rem, 3.75rem);
     line-height: 1.18; /* slightly increased to avoid descender clipping */
     letter-spacing: -0.055em;
+    overflow: visible;
+    padding-inline-end: 0.08em;
+    margin-inline-end: -0.08em;
   }
   .text-hero-display-sm {
     font-family: var(--font-heading);
@@ -3097,6 +3100,15 @@
     font-size: clamp(1.5rem, 3.2vw + 0.75rem, 2.35rem);
     line-height: 1.18; /* align small display line-height with larger display */
     letter-spacing: -0.045em;
+    overflow: visible;
+    padding-inline-end: 0.08em;
+    margin-inline-end: -0.08em;
+  }
+
+  .hero-scroll-layer-headline > .block,
+  .hero-headline > span {
+    padding-inline-end: 0.08em;
+    margin-inline-end: -0.08em;
   }
 
   @keyframes hero-heading-gradient-shift {

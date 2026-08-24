@@ -1562,6 +1562,19 @@
   min-width: 0;
 }
 
+.mobile-megamenu-sub-group--split-links .mobile-megamenu-sub-group-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--mobile-mega-sub-links-gap);
+}
+
+.mobile-megamenu-sub-group--split-links .mobile-megamenu-sub-link {
+  width: 100%;
+  justify-content: center;
+  padding-inline: 0.34rem;
+  text-align: center;
+}
+
 .mobile-megamenu-sub-group-links {
   display: flex;
   flex-direction: column;
@@ -3599,10 +3612,15 @@ html[data-theme='dark'] .services-grid-card-icon-img,
   opacity: 0.92;
 }
 
-/* Megamenu CTA buttons: final lock against global/link overrides.
-   Mirrors global `variant="cta"` behavior: bg = foreground, text = background. */
+/* Megamenu CTA buttons: final lock against global/link overrides. */
 .megamenu .megamenu-col-items a.megamenu-special-link,
-.megamenu .megamenu-featured a.megamenu-highlight-cta,
+.megamenu .megamenu-featured a.megamenu-highlight-cta {
+  color: var(--foreground) !important;
+  background-color: color-mix(in srgb, var(--foreground) 8%, transparent) !important;
+  border-color: color-mix(in srgb, var(--foreground) 14%, transparent) !important;
+  text-decoration: none !important;
+}
+
 .megamenu-sheet a.megamenu-special-link,
 .megamenu-sheet a.megamenu-highlight-cta {
   color: var(--background) !important;
@@ -3618,7 +3636,12 @@ html[data-theme='dark'] .services-grid-card-icon-img,
 }
 
 .megamenu .megamenu-col-items a.megamenu-special-link:is(:hover, :focus-visible, :active),
-.megamenu .megamenu-featured a.megamenu-highlight-cta:is(:hover, :focus-visible, :active),
+.megamenu .megamenu-featured a.megamenu-highlight-cta:is(:hover, :focus-visible, :active) {
+  color: var(--foreground) !important;
+  background-color: color-mix(in srgb, var(--foreground) 13%, transparent) !important;
+  border-color: color-mix(in srgb, var(--foreground) 22%, transparent) !important;
+}
+
 .megamenu-sheet a.megamenu-special-link:is(:hover, :focus-visible, :active),
 .megamenu-sheet a.megamenu-highlight-cta:is(:hover, :focus-visible, :active) {
   color: var(--background) !important;
