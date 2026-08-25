@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import type { Footer, Header } from '@/payload-types'
 import type { Locale } from '@/utilities/locale'
+import { getLocaleFromPathname } from '@/i18n/routing'
 
 // Matches the footer's actual rendered height per breakpoint (measured), so
 // swapping in the real footer doesn't change the document height underneath
@@ -33,6 +34,12 @@ export function DeferredFooter({ locale }: DeferredFooterProps) {
   const requestInFlightRef = useRef(false)
   const [payload, setPayload] = useState<DeferredFooterPayload | null>(null)
   const [shouldLoad, setShouldLoad] = useState(false)
+  const [resolvedLocale, setResolvedLocale] = useState<Locale>(locale)
+
+  useEffect(() => {
+    const nextLocale = getLocaleFromPathname(window.location.pathname) ?? locale
+    setResolvedLocale(nextLocale)
+  }, [locale])
 
   useEffect(() => {
     const root = rootRef.current
@@ -61,7 +68,7 @@ export function DeferredFooter({ locale }: DeferredFooterProps) {
     if (!shouldLoad || payload || requestInFlightRef.current) return
 
     requestInFlightRef.current = true
-    fetch(`/api/frontend/footer?locale=${locale}`)
+    fetch(`/api/frontend/footer?locale=${resolvedLocale}`)
       .then((response) => (response.ok ? response.json() : null))
       .then((data: DeferredFooterPayload | null) => {
         if (data) setPayload(data)
@@ -72,12 +79,16 @@ export function DeferredFooter({ locale }: DeferredFooterProps) {
       .finally(() => {
         requestInFlightRef.current = false
       })
-  }, [locale, payload, shouldLoad])
+  }, [payload, resolvedLocale, shouldLoad])
 
   return (
     <div ref={rootRef} data-deferred-footer-root>
       {payload ? (
-        <FooterClient footer={payload.footer ?? null} header={payload.header ?? null} locale={locale} />
+        <FooterClient
+          footer={payload.footer ?? null}
+          header={payload.header ?? null}
+          locale={resolvedLocale}
+        />
       ) : (
         <div className={FOOTER_PLACEHOLDER_CLASS} aria-hidden="true" />
       )}

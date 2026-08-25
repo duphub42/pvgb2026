@@ -254,11 +254,18 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Office Hours': 'Office Hours',
   'Philipp Bacher – Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Web Design. Ich realisiere moderne, nutzerzentrierte Websites, konsistente Markenauftritte und unterstütze Unternehmen dabei, Ihre Prozesse digital zu automatisieren – effizient, fundiert und ergebnisorientiert.':
     'Philipp Bacher - your personal partner for digital consulting, marketing and web design. I create modern, user-centered websites, consistent brand presences and help companies automate their processes digitally - efficiently, thoughtfully and with a focus on results.',
+  'Philipp Bacher – Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Web Design.':
+    'Philipp Bacher - your personal partner for digital consulting, marketing and web design.',
   '– Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Web Design. Ich realisiere moderne, nutzerzentrierte Websites, konsistente Markenauftritte und unterstütze Unternehmen dabei, Ihre Prozesse digital zu automatisieren – effizient, fundiert und ergebnisorientiert.':
     '- your personal partner for digital consulting, marketing and web design. I create modern, user-centered websites, consistent brand presences and help companies automate their processes digitally - efficiently, thoughtfully and with a focus on results.',
+  'Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Web Design.':
+    'Your personal partner for digital consulting, marketing and web design.',
   'Philipp Bacher - Web Design, Marketing & Automatisierung in Halle':
     'Philipp Bacher - Web Design, Marketing & Automation in Halle',
+  'Newsletter abonnieren': 'Subscribe to the newsletter',
   'Praxisnahe Impulse zu Web Design, Marketing und Automatisierung – kompakt, relevant und mit echtem Mehrwert.':
+    'Practical insights on web design, marketing and automation - concise, relevant and genuinely useful.',
+  'Praxisnahe Impulse zu Web Design, Marketing und Automation – kompakt, relevant und mit echtem Mehrwert.':
     'Practical insights on web design, marketing and automation - concise, relevant and genuinely useful.',
   'Rückmeldung erhalten': 'Receive feedback',
   "SO GEHT'S WEITER": 'WHAT HAPPENS NEXT',
