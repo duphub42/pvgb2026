@@ -170,6 +170,16 @@ export default async function DatenschutzPage() {
             aktiver Zustimmung über das Consent-Banner. Die Einwilligung kann jederzeit über die
             Cookie-Einstellungen widerrufen werden.
           </p>
+          <p>
+            Für die Terminbuchung nutze ich das Buchungstool Cal.com, bereitgestellt von der Cal.com
+            Inc. bzw. deren europäischer Gesellschaft Cal.com B.V. Beim Öffnen des Buchungswidgets
+            wird ein Skript von Cal.com nachgeladen und es können Daten wie Ihre IP-Adresse sowie die
+            von Ihnen im Rahmen der Buchung angegebenen Daten (z. B. Name, E-Mail-Adresse,
+            Terminwunsch) an Cal.com übermittelt und dort verarbeitet werden. Dies erfolgt auf
+            Grundlage von Art. 6 Abs. 1 lit. b DSGVO (Durchführung vorvertraglicher Maßnahmen bzw.
+            Vertragserfüllung), da Sie das Buchungswidget aktiv zur Terminvereinbarung nutzen. Weitere
+            Informationen entnehmen Sie der Datenschutzerklärung von Cal.com.
+          </p>
 
           <h2>5. Empfänger und Auftragsverarbeitung</h2>
           <p>

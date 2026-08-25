@@ -1645,6 +1645,20 @@ export function MegaMenu({
     [pathname],
   )
 
+  // Highlight CTAs are sometimes generic cross-sell links (e.g. a "Get in touch"
+  // card pointing at /kontakt from within the Portfolio dropdown) rather than a
+  // page that actually belongs to that category. If the URL is already another
+  // top-level item's own page, that other item owns the active state instead.
+  const otherTopLevelUrls = React.useMemo(
+    () =>
+      new Set(
+        items
+          .map((it) => (typeof it.url === 'string' ? it.url.trim() : ''))
+          .filter((url) => url !== ''),
+      ),
+    [items],
+  )
+
   const isMegaItemActive = React.useCallback(
     (item: MegaMenuItem): boolean => {
       if (!pathname || typeof pathname !== 'string') return false
@@ -1664,18 +1678,28 @@ export function MegaMenu({
         if (typeof sub.url === 'string' && isNavLinkActive(pathname, sub.url)) return true
       }
 
-      // Check the highlight card's own CTA and any additional highlight cards
+      // Check the highlight card's own CTA and any additional highlight cards,
+      // unless that URL belongs to a different top-level item.
       const highlightCtaUrl = item.highlight?.ctaUrl
-      if (typeof highlightCtaUrl === 'string' && isNavLinkActive(pathname, highlightCtaUrl)) {
+      if (
+        typeof highlightCtaUrl === 'string' &&
+        !otherTopLevelUrls.has(highlightCtaUrl.trim()) &&
+        isNavLinkActive(pathname, highlightCtaUrl)
+      ) {
         return true
       }
       for (const card of item.highlight?.cards ?? []) {
-        if (typeof card.ctaUrl === 'string' && isNavLinkActive(pathname, card.ctaUrl)) return true
+        if (
+          typeof card.ctaUrl === 'string' &&
+          !otherTopLevelUrls.has(card.ctaUrl.trim()) &&
+          isNavLinkActive(pathname, card.ctaUrl)
+        )
+          return true
       }
 
       return false
     },
-    [pathname, isTopLevelItemActive],
+    [pathname, isTopLevelItemActive, otherTopLevelUrls],
   )
 
   const setTopNavItemRef = React.useCallback((key: string, node: HTMLElement | null) => {
@@ -3631,7 +3655,7 @@ export function MegaMenu({
                         </NavigationMenuList>
                       </div>
                     </NavigationMenu>
-                    <div className="flex min-h-10 min-w-[166px] items-center gap-0">
+                    <div className="megamenu-actions-slot">
                       <HeaderActions
                         contactCta={{
                           whatsapp: megaMenuCta?.whatsapp,
