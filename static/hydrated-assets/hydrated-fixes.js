@@ -38,6 +38,18 @@
   const linkObserver = new MutationObserver(fixPortfolioLinks)
   linkObserver.observe(document.documentElement, { childList: true, subtree: true })
 
+  const injectFooterIconFix = () => {
+    if (document.querySelector('style[data-pb-footer-icon-fix]')) return
+
+    const style = document.createElement('style')
+    style.dataset.pbFooterIconFix = 'true'
+    style.textContent =
+      '.footer-custom .footer-icon-img{filter:invert(1)}[data-theme="light"] .footer-custom .footer-icon-img{filter:invert(0)}'
+    document.head.appendChild(style)
+  }
+
+  injectFooterIconFix()
+
   const patchEnglishFooterFetch = () => {
     if (language !== 'en' || typeof window.fetch !== 'function' || window.fetch.__pbFooterPatched) {
       return
