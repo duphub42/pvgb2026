@@ -20,6 +20,7 @@ const EN_TO_DE_SEGMENTS: Record<string, string> = {
   services: 'leistungen',
   seo: 'seo',
   'web-design': 'webdesign',
+  'wordpress-agency': 'wordpress-agentur',
 }
 
 const DE_TO_EN_SEGMENTS = {

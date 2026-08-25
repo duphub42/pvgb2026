@@ -946,7 +946,7 @@ const SERVICES_WORDPRESS_CARD: Record<
     title: 'WP Agency',
     description: 'WordPress plugins, WooCommerce shops, customizations and ongoing support.',
     ctaLabel: 'Discuss WordPress',
-    ctaUrl: '/en/services#wordpress',
+    ctaUrl: '/en/wordpress-agency',
     icon: 'wordpress',
   },
 }
@@ -2860,6 +2860,7 @@ export function MegaMenu({
                         const next = value || null
                         if (next !== '' && next !== null) {
                           cancelCloseTimeout()
+                          void onRequestFullData?.()
                           setActiveMenu(next)
                           return
                         }
@@ -3372,9 +3373,11 @@ export function MegaMenu({
                                       setMouseEntrySide(
                                         e.clientX < rect.left + rect.width / 2 ? 'left' : 'right',
                                       )
+                                      void onRequestFullData?.()
                                       prefetchTopLevel(item.url)
                                     }}
                                     onFocus={() => {
+                                      void onRequestFullData?.()
                                       prefetchTopLevel(item.url)
                                     }}
                                     onClick={(event) => {

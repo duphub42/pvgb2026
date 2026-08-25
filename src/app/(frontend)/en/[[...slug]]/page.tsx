@@ -229,7 +229,8 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
     originalSlug,
     resolveLayoutBlocks(originalSlug, page.layout),
   )
-  const isServicesPage = originalSlug === 'leistungen' || segments[0] === 'services'
+  const isServicesPage =
+    originalSlug === 'leistungen' || segments[0] === 'services' || originalSlug === 'wordpress-agentur'
   const translatedBlocks = translateValueForLocale(resolvedBlocks, 'en')
   const layoutBlocks = translatedBlocks.map((block) =>
     block && typeof block === 'object' ? { ...block, locale: 'en' } : block,

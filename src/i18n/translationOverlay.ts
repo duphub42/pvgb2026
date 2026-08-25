@@ -1456,6 +1456,65 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Every piece helps turn attention into relevance and build a strong, consistent brand perception.',
   'Guter Content entsteht aus Strategie, Präzision und dem Anspruch, Wirkung gezielt zu gestalten.':
     'Good content comes from strategy, precision and the ambition to shape impact deliberately.',
+  // WordPress-Agentur page (/wordpress-agentur, /en/wordpress-agency)
+  'WordPress-Agentur': 'WordPress Agency',
+  'Termin buchen': 'Book Appointment',
+  'WordPress-Entwicklung, die Sicherheit, Performance und Wartbarkeit systematisch verbindet.':
+    'WordPress development that systematically combines security, performance and maintainability.',
+  'Individuelle Plugins, WooCommerce-Shops und laufende Betreuung sorgen dafür, dass WordPress-Projekte stabil, aktuell und startklar für Wachstum bleiben. Statt Insellösungen entsteht ein System, das technisch sauber gepflegt wird und sich zuverlässig weiterentwickeln lässt.':
+    'Custom plugins, WooCommerce shops and ongoing support keep WordPress projects stable, up to date and ready to grow. Instead of one-off fixes, you get a system that is properly maintained and can evolve reliably.',
+  'ENTWICKELT MIT BEWÄHRTEN WORDPRESS- & WOOCOMMERCE-TECHNOLOGIEN':
+    'BUILT WITH PROVEN WORDPRESS & WOOCOMMERCE TECHNOLOGIES',
+  'Weniger Wartungsaufwand. Mehr WordPress-Stabilität.': 'Less Maintenance Effort. More WordPress Stability.',
+  'Eine WordPress- oder WooCommerce-Seite bleibt nur dann zuverlässig, wenn Plugins, Theme und Core sauber aufeinander abgestimmt sind und regelmäßig gepflegt werden. Individuelle Funktionen werden als eigene, dokumentierte Plugins umgesetzt statt als provisorische Codeschnipsel - das hält die Seite auch nach Updates stabil und nachvollziehbar.\nGenauso wichtig ist der Betrieb danach: Updates, Backups und Sicherheits-Monitoring laufen im Hintergrund, sodass Ausfälle und Sicherheitsrisiken früh erkannt statt erst im Ernstfall bemerkt werden. So bleibt mehr Zeit fürs Kerngeschäft, während die technische Basis zuverlässig mitwächst.':
+    'A WordPress or WooCommerce site only stays reliable when plugins, theme and core are properly aligned and maintained regularly. Custom functionality is built as its own documented plugin instead of a quick code snippet - so the site stays stable and traceable through future updates.\nWhat happens afterwards matters just as much: updates, backups and security monitoring run in the background, so outages and security risks get caught early instead of during an emergency. That leaves more time for your core business while the technical foundation keeps growing reliably.',
+  'Individuelle Plugins, WooCommerce-Betreuung und laufende Wartung sorgen für eine WordPress-Seite, die sicher, aktuell und wartbar bleibt - ohne dass Sie sich selbst darum kümmern müssen.':
+    'Custom plugins, WooCommerce support and ongoing maintenance keep a WordPress site secure, current and maintainable - without you having to manage it yourself.',
+  'Lassen Sie uns Ihr WordPress-Projekt besprechen': "Let's Discuss Your WordPress Project",
+  'In einem kurzen Gespräch klären wir Umfang, Ziele und den passenden nächsten Schritt für Ihre WordPress- oder WooCommerce-Website.':
+    'In a short call we clarify scope, goals and the right next step for your WordPress or WooCommerce website.',
+  'Häufige Fragen zur WordPress-Agentur': 'Frequently Asked Questions About the WordPress Agency',
+  'Antworten zu Plugin-Entwicklung, WooCommerce, Sicherheit, Wartung und laufender Betreuung.':
+    'Answers about plugin development, WooCommerce, security, maintenance and ongoing support.',
+  'Plugins & WooCommerce': 'Plugins & WooCommerce',
+  'Entwickeln Sie individuelle WordPress-Plugins?': 'Do you develop custom WordPress plugins?',
+  'Ja, ich entwickle maßgeschneiderte Plugins für Funktionen, die Standardlösungen nicht abdecken - von individuellen Formularen über Schnittstellen bis zu speziellen Workflow-Anpassungen. Der Code wird sauber dokumentiert und wartbar gehalten, damit er auch bei künftigen WordPress-Updates zuverlässig funktioniert.':
+    "Yes, I build tailored plugins for functionality that off-the-shelf solutions don't cover - from custom forms to integrations and specific workflow adjustments. The code is documented and kept maintainable, so it keeps working reliably through future WordPress updates.",
+  'Übernehmen Sie auch WooCommerce-Shops?': 'Do you also take on WooCommerce shops?',
+  'Ja, von der Einrichtung über Zahlungsanbindungen, Produktkatalog und Checkout-Optimierung bis zur laufenden Betreuung. Ziel ist ein Shop, der stabil läuft, sich einfach pflegen lässt und mit dem Sortiment mitwächst.':
+    'Yes, from setup through payment integrations, product catalog and checkout optimization to ongoing support. The goal is a shop that runs stably, is easy to maintain and grows with your product range.',
+  'Kann eine bestehende WordPress-Seite übernommen und weiterentwickelt werden?':
+    'Can an existing WordPress site be taken over and developed further?',
+  'Ja, bestehende Installationen werden zunächst technisch geprüft (Plugins, Theme, Performance, Sicherheit) und danach gezielt weiterentwickelt oder schrittweise modernisiert - meist ohne kompletten Neuaufbau.':
+    'Yes, existing installations are first reviewed technically (plugins, theme, performance, security) and then developed further or modernized step by step - usually without a complete rebuild.',
+  'Arbeiten Sie mit bestimmten Themes oder Page-Buildern?': 'Do you work with specific themes or page builders?',
+  'Die Wahl richtet sich nach Projekt und Anforderungen - von schlanken Custom-Themes bis zu etablierten Page-Buildern. Wichtiger als das Werkzeug ist eine saubere, wartbare Umsetzung ohne unnötigen Plugin-Ballast.':
+    'The choice depends on the project and requirements - from lean custom themes to established page builders. More important than the tool is a clean, maintainable implementation without unnecessary plugin bloat.',
+  'Sicherheit & Wartung': 'Security & Maintenance',
+  'Wie sorgen Sie für die Sicherheit von WordPress-Seiten?': 'How do you keep WordPress sites secure?',
+  'Dazu gehören regelmäßige Updates von Core, Themes und Plugins, Backups, Absicherung von Login und Dateizugriffen sowie Monitoring auf verdächtige Aktivitäten. So bleibt das Risiko für Hacks und Datenverlust gering.':
+    'This includes regular updates to core, themes and plugins, backups, securing login and file access, and monitoring for suspicious activity. That keeps the risk of hacks and data loss low.',
+  'Was umfasst laufende Wartung?': 'What does ongoing maintenance include?',
+  'Laufende Wartung umfasst Updates, Backups, Performance-Checks, Sicherheitsüberwachung und kleinere Anpassungen. Der genaue Umfang wird individuell festgelegt, je nach Größe und Wichtigkeit der Website.':
+    'Ongoing maintenance includes updates, backups, performance checks, security monitoring and minor adjustments. The exact scope is defined individually, based on the size and importance of the website.',
+  'Was passiert bei einem WordPress-Update, das Probleme verursacht?':
+    'What happens if a WordPress update causes problems?',
+  'Updates werden nach Möglichkeit vorab auf einer Testumgebung geprüft. Kommt es dennoch zu Problemen, sorgen aktuelle Backups dafür, dass sich der vorherige Stand schnell wiederherstellen lässt, während der Fehler behoben wird.':
+    'Where possible, updates are tested on a staging environment first. If problems occur anyway, up-to-date backups make it possible to quickly restore the previous state while the issue is fixed.',
+  'Ablauf & Kosten': 'Process & Pricing',
+  'Wie läuft die Zusammenarbeit ab?': 'How does the collaboration work?',
+  'Nach einem kurzen Erstgespräch werden Anforderungen und Umfang geklärt. Danach folgen Konzept bzw. technische Planung, Umsetzung, Testphase und Go-Live - bei Bedarf ergänzt durch laufende Betreuung.':
+    'After a short initial conversation, requirements and scope are clarified. This is followed by concept or technical planning, implementation, testing and go-live - complemented by ongoing support if needed.',
+  'Was kostet eine individuelle Plugin-Entwicklung oder ein WooCommerce-Shop?':
+    'What does custom plugin development or a WooCommerce shop cost?',
+  'Das hängt stark vom Funktionsumfang ab. Nach einer kurzen Anforderungsklärung erhalten Sie eine transparente Einschätzung, bevor die Umsetzung startet - ohne versteckte Zusatzkosten.':
+    'That depends heavily on the scope of functionality. After a short requirements review you get a transparent estimate before implementation starts - with no hidden extra costs.',
+  'Bieten Sie feste Wartungspakete an?': 'Do you offer fixed maintenance packages?',
+  'Ja, es gibt planbare monatliche Wartungspakete für Updates, Backups und Sicherheits-Monitoring. So bleibt die Website dauerhaft aktuell, ohne dass Sie sich selbst darum kümmern müssen.':
+    'Yes, there are predictable monthly maintenance packages for updates, backups and security monitoring. That keeps the website permanently up to date without you having to manage it yourself.',
+  'WordPress Agentur fuer KMU': 'WordPress Agency for SMBs',
+  'WordPress-Agentur fuer KMU: individuelle Plugins, WooCommerce-Shops, Anpassungen und laufende Betreuung fuer stabile, sichere Websites.':
+    'WordPress agency for SMBs: custom plugins, WooCommerce shops, customizations and ongoing support for stable, secure websites.',
 }
 
 const STRING_KEYS_TO_SKIP = new Set([
