@@ -18,13 +18,35 @@ import { Search } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import * as React from 'react'
 
-const placeholder = 'Suchen…'
-const emptyText = 'Keine Ergebnisse.'
+import { useLocale } from '@/providers/Locale/LocaleContext'
+
+const COPY = {
+  de: {
+    ariaLabel: 'Suchen',
+    tooltip: 'Suchen',
+    placeholder: 'Suchen…',
+    emptyText: 'Keine Ergebnisse.',
+    pagesHeading: 'Seiten',
+    start: 'Start',
+    fullSearch: 'Vollständige Suche',
+  },
+  en: {
+    ariaLabel: 'Search',
+    tooltip: 'Search',
+    placeholder: 'Search…',
+    emptyText: 'No results.',
+    pagesHeading: 'Pages',
+    start: 'Home',
+    fullSearch: 'Full search',
+  },
+} as const
 
 export function SearchCommand() {
   const [open, setOpen] = React.useState(false)
   const [searchValue, setSearchValue] = React.useState('')
   const router = useRouter()
+  const locale = useLocale()
+  const t = COPY[locale]
 
   React.useEffect(() => {
     const down = (e: KeyboardEvent) => {
@@ -70,32 +92,26 @@ export function SearchCommand() {
             size="icon"
             className="header-tool-toggle header-icon-btn shrink-0 text-current"
             onClick={() => setOpen(true)}
-            aria-label="Suchen"
+            aria-label={t.ariaLabel}
           >
             <Search className="h-5 w-5" aria-hidden />
           </Button>
         </TooltipTrigger>
         <TooltipContent side="bottom" sideOffset={6}>
-          Suchen <span className="text-muted-foreground">⌘K</span>
+          {t.tooltip} <span className="text-muted-foreground">⌘K</span>
         </TooltipContent>
       </Tooltip>
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput
-          placeholder={placeholder}
+          placeholder={t.placeholder}
           value={searchValue}
           onValueChange={setSearchValue}
         />
         <CommandList>
-          <CommandEmpty>{emptyText}</CommandEmpty>
-          <CommandGroup heading="Seiten">
+          <CommandEmpty>{t.emptyText}</CommandEmpty>
+          <CommandGroup heading={t.pagesHeading}>
             <CommandItem onSelect={() => run(() => router.push('/'))} className="cursor-pointer">
-              Start
-            </CommandItem>
-            <CommandItem
-              onSelect={() => run(() => router.push('/posts'))}
-              className="cursor-pointer"
-            >
-              Blog
+              {t.start}
             </CommandItem>
             <CommandItem
               onSelect={() =>
@@ -109,7 +125,7 @@ export function SearchCommand() {
               }
               className="cursor-pointer"
             >
-              Vollständige Suche
+              {t.fullSearch}
             </CommandItem>
           </CommandGroup>
         </CommandList>
