@@ -269,6 +269,10 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Philipp Bacher - your personal partner for digital consulting, marketing and web design. I create modern, user-centered websites, consistent brand presences and help companies automate their processes digitally - efficiently, thoughtfully and with a focus on results.',
   'Philipp Bacher – Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Web Design.':
     'Philipp Bacher - your personal partner for digital consulting, marketing and web design.',
+  'Philipp Bacher – Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Webdesign. Ich realisiere moderne, nutzerzentrierte Websites, konsistente Markenauftritte und unterstütze Unternehmen dabei, Ihre Prozesse digital zu automatisieren – effizient, fundiert und ergebnisorientiert.':
+    'Philipp Bacher - your personal partner for digital consulting, marketing and web design. I create modern, user-centered websites, consistent brand presences and help companies automate their processes digitally - efficiently, thoughtfully and with a focus on results.',
+  'Philipp Bacher – Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Webdesign.':
+    'Philipp Bacher - your personal partner for digital consulting, marketing and web design.',
   '– Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Web Design. Ich realisiere moderne, nutzerzentrierte Websites, konsistente Markenauftritte und unterstütze Unternehmen dabei, Ihre Prozesse digital zu automatisieren – effizient, fundiert und ergebnisorientiert.':
     '- your personal partner for digital consulting, marketing and web design. I create modern, user-centered websites, consistent brand presences and help companies automate their processes digitally - efficiently, thoughtfully and with a focus on results.',
   'Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Web Design.':
