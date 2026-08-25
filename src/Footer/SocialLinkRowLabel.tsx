@@ -9,6 +9,7 @@ const platformLabels: Record<string, string> = {
   twitter: 'Twitter / X',
   facebook: 'Facebook',
   instagram: 'Instagram',
+  xing: 'Xing',
 }
 
 export const SocialLinkRowLabel: React.FC<RowLabelProps> = () => {

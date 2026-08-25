@@ -22,9 +22,10 @@ import { useLocale } from '@/providers/Locale/LocaleContext'
 
 const SOCIAL_SPRITE_IDS: Record<string, string> = {
   linkedin: 'hf-linkedin',
-  twitter: 'hf-twitter',
+  twitter: 'hf-x',
   facebook: 'hf-facebook',
   instagram: 'hf-instagram',
+  xing: 'hf-xing',
 }
 const MOBILE_FOOTER_B_LOGO_SRC = '/branding/philippbacher-logo-b-10.svg'
 const _MOBILE_FOOTER_B_LOGO_MIN_OPACITY = 0.1

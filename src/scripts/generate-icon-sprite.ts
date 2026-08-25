@@ -109,8 +109,13 @@ async function generateSprite() {
 <circle cx="6" cy="7" r="1.5" fill="currentColor" />
 <path d="M11 10h3a3 3 0 0 1 3 3v7h-4v-6.5a1.5 1.5 0 0 0-3 0V20h-4v-10Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 </symbol>`,
-      `<symbol id="hf-twitter" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<path d="M22 5.92a8.94 8.94 0 0 1-2.6.74A4.13 4.13 0 0 0 21.4 4a8.27 8.27 0 0 1-2.7 1.05A4.14 4.14 0 0 0 12 8.18a4.34 4.34 0 0 0 .11.94A11.73 11.73 0 0 1 3.15 4.6a4.11 4.11 0 0 0-.56 2.08 4.16 4.16 0 0 0 1.84 3.44 4.06 4.06 0 0 1-1.88-.54v.06A4.18 4.18 0 0 0 6.1 13a4.09 4.09 0 0 1-1.87.07A4.16 4.16 0 0 0 8 15.54 8.32 8.32 0 0 1 2 17.46 11.73 11.73 0 0 0 8.29 19.3c7.55 0 11.68-6.46 11.68-12.06 0-.18 0-.36-.01-.54A8.6 8.6 0 0 0 22 5.92Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      // X (formerly Twitter) - solid wordmark glyph, not an outline icon like the others
+      `<symbol id="hf-x" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" fill="currentColor" />
+</symbol>`,
+      // Xing - simplified brand mark (two crossing bars), solid glyph like the X icon above
+      `<symbol id="hf-xing" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M9.5 3.5 4.9 12l4.3 8h-3l-4.2-8 4.6-8.5h3Zm7.9 0h3l-6.1 10.6L19 20.5h-3l-4.7-6.4L16.5 3.5Z" fill="currentColor" />
 </symbol>`,
     ]
 
