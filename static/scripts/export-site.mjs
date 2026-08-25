@@ -258,7 +258,7 @@ function addStaticRuntime(html) {
 function addHydratedFixes(html) {
   return html.replace(
     /<\/body>/i,
-    '<script src="/hydrated-assets/hydrated-fixes.js" defer></script></body>',
+    '<script src="/hydrated-assets/hydrated-fixes.js?v=footer-icons-20260825" defer></script></body>',
   )
 }
 
