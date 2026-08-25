@@ -5548,7 +5548,7 @@ export interface Footer {
    */
   socialLinks?:
     | {
-        platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram';
+        platform: 'linkedin' | 'twitter' | 'facebook' | 'instagram' | 'xing';
         /**
          * Profil-URL (z. B. https://linkedin.com/company/…).
          */
