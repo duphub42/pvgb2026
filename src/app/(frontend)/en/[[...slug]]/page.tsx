@@ -125,6 +125,11 @@ function applyEnglishHeroOverrides(hero: Record<string, unknown>, originalSlug: 
       headline: 'A Clear Investment With Full Transparency and a Comprehensible Structure',
       description: 'Every euro is directed toward growth, impact and measurable results.',
     },
+    automatisierung: {
+      headline: 'Automation that reduces complexity and makes efficiency scalable.',
+      description:
+        'Process automation creates space by reliably handling recurring tasks in the background. This frees up room for what really matters: decisions, growth and focus. Efficiency is no longer worked for, but made systematically possible.',
+    },
     profil: {
       subheadline: 'Profile',
       headline: 'Web Designer, Marketing Expert and Automation Partner',

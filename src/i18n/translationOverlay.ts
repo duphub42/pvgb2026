@@ -148,6 +148,19 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Schön, dass Sie hier sind. Wenn Sie Fragen haben oder ein Projekt besprechen möchten, können Sie mich jederzeit direkt kontaktieren. Hinterlassen Sie gern Ihre Nummer für einen Rückruf oder schreiben Sie mir bequem per WhatsApp.':
     'Good to have you here. If you have questions or would like to discuss a project, you can contact me directly at any time. Leave your number for a callback or message me conveniently via WhatsApp.',
   'Rückruf anfordern': 'Request callback',
+  'Automatisierung, die Komplexität reduziert und Effizienz skalierbar macht.':
+    'Automation that reduces complexity and makes efficiency scalable.',
+  'Prozessautomatisierung schafft Freiraum, indem wiederkehrende Aufgaben im Hintergrund zuverlässig erledigt werden. So entsteht Raum für das, was wirklich zählt: Entscheidungen, Wachstum und Fokus. Effizienz wird nicht mehr erarbeitet, sondern systematisch möglich gemacht.':
+    'Process automation creates space by reliably handling recurring tasks in the background. This frees up room for what really matters: decisions, growth and focus. Efficiency is no longer worked for, but made systematically possible.',
+  'Prozessautomatisierung fuer KMU':
+    'Process automation for SMEs',
+  'Prozessautomatisierung fuer KMU: Workflows, CRM-Anbindungen, Lead-Prozesse und KI-gestuetzte Abläufe, die manuelle Arbeit reduzieren.':
+    'Process automation for SMEs: workflows, CRM integrations, lead processes and AI-powered flows that reduce manual work.',
+  'Weniger manuell. Mehr System.': 'Less manual work. More system.',
+  'Prozessautomatisierung bedeutet, wiederkehrende Abläufe so zu gestalten, dass sie zuverlässig und ohne manuelle Eingriffe im Hintergrund ausgeführt werden. Dadurch entstehen stabile Systeme, die Fehler reduzieren, Zeit zurückgeben und operative Komplexität deutlich senken.\nIm Kern geht es nicht nur um Effizienz, sondern um Struktur: Prozesse werden standardisiert, miteinander verbunden und so optimiert, dass sie skalierbar funktionieren – unabhängig von Teamgröße oder Arbeitsaufkommen. So entsteht ein digitales System, das entlastet statt belastet und Raum für strategische Arbeit schafft.':
+    'Process automation means designing recurring workflows so they run reliably in the background without manual intervention. This creates stable systems that reduce errors, give back time and significantly lower operational complexity.\nAt its core, this is not just about efficiency but about structure: processes are standardized, connected with one another and optimized to work at scale — regardless of team size or workload. The result is a digital system that relieves rather than burdens, creating room for strategic work.',
+  'Prozessautomatisierung reduziert manuelle Schritte, vermeidet Fehler und schafft Systeme, die effizient im Hintergrund arbeiten – zuverlässig, skalierbar und jederzeit kontrollierbar.':
+    'Process automation reduces manual steps, prevents errors and creates systems that work efficiently in the background — reliable, scalable and always under control.',
   'Hinterlassen Sie Ihre Telefonnummer und ich melde mich zeitnah persönlich bei Ihnen.':
     'Leave your phone number and I will get back to you personally soon.',
   'Ich stimme den Datenschutzbestimmungen zu.': 'I agree to the privacy policy.',
