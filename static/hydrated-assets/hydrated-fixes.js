@@ -125,6 +125,7 @@
 
   function renderCookieConsent() {
     forceCookieSettingsLeft()
+    localizeExistingCookieConsent()
     if (document.querySelector('.cookie-consent-panel, .cookie-consent-settings')) return
 
     const storedChoice = localStorage.getItem(CONSENT_STORAGE_KEY)
@@ -212,6 +213,37 @@
     })
   }
 
+  function localizeExistingCookieConsent() {
+    if (language !== 'en') return
+
+    const setText = (element, text) => {
+      if (element && element.textContent !== text) element.textContent = text
+    }
+
+    document.querySelectorAll('.cookie-consent-panel').forEach((panel) => {
+      const title = panel.querySelector('.cookie-consent-panel__body h2')
+      const text = panel.querySelector('.cookie-consent-panel__body p')
+      const privacy = panel.querySelector('.cookie-consent-panel__body a')
+      const mutedButton = panel.querySelector('.cookie-consent-btn--muted span')
+      const primaryButton = panel.querySelector('.cookie-consent-btn--primary span')
+
+      setText(title, consentCopy.title)
+      setText(text, consentCopy.text)
+      if (privacy) {
+        setText(privacy, consentCopy.privacy)
+        privacy.setAttribute('href', consentCopy.privacyHref)
+      }
+      setText(mutedButton, consentCopy.decline)
+      setText(primaryButton, consentCopy.accept)
+      panel.setAttribute('aria-label', consentCopy.title)
+    })
+
+    document.querySelectorAll('.cookie-consent-settings').forEach((settings) => {
+      settings.setAttribute('aria-label', consentCopy.settings)
+      settings.setAttribute('title', consentCopy.settings)
+    })
+  }
+
   function injectGoogleTag() {
     if (document.querySelector(`script[data-pb-gtag="${GA_MEASUREMENT_ID}"]`)) return
 
@@ -285,6 +317,7 @@
     window.setTimeout(() => {
       renderCookieConsent()
       forceCookieSettingsLeft()
+      localizeExistingCookieConsent()
     }, 1200)
   }
 
@@ -294,6 +327,12 @@
     renderCookieConsentFallback()
   }
 
-  const cookieSettingsObserver = new MutationObserver(forceCookieSettingsLeft)
-  cookieSettingsObserver.observe(document.documentElement, { childList: true, subtree: true })
+  const cookieSettingsObserver = new MutationObserver(() => {
+    forceCookieSettingsLeft()
+    localizeExistingCookieConsent()
+  })
+  cookieSettingsObserver.observe(document.documentElement, {
+    childList: true,
+    subtree: true,
+  })
 })()
