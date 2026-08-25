@@ -406,11 +406,11 @@
   display: inline;
   min-height: 0;
 }
-.footer-icon-img {
-  filter: invert(1);
+.footer-custom .footer-icon-img {
+  filter: invert(1) brightness(1.08);
 }
-[data-theme='light'] .footer-icon-img {
-  filter: invert(0);
+[data-theme='light'] .footer-custom .footer-icon-img {
+  filter: invert(1) brightness(1.08);
 }
 .mobile-footer-b-logo {
   width: auto;
