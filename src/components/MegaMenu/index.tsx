@@ -939,7 +939,7 @@ const SERVICES_WORDPRESS_CARD: Record<
     title: 'WP Agentur',
     description: 'WordPress Plugins, WooCommerce Shops, Anpassungen und laufende Betreuung.',
     ctaLabel: 'WordPress anfragen',
-    ctaUrl: '/leistungen#wordpress',
+    ctaUrl: '/wordpress-agentur',
     icon: 'wordpress',
   },
   en: {

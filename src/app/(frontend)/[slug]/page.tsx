@@ -180,6 +180,18 @@ function isAutomationPage(slug?: string | null, title?: string | null): boolean 
   )
 }
 
+function isWordPressAgencyPage(slug?: string | null, title?: string | null): boolean {
+  const normalizedSlug = slug?.trim().toLowerCase() ?? ''
+  const normalizedTitle = title?.trim().toLowerCase() ?? ''
+  return (
+    normalizedSlug === 'wordpress-agentur' ||
+    normalizedSlug.includes('wordpress-agentur') ||
+    normalizedSlug.includes('wp-agentur') ||
+    normalizedTitle.includes('wordpress-agentur') ||
+    normalizedTitle.includes('wp agentur')
+  )
+}
+
 function formatUnknownError(error: unknown): string {
   if (error instanceof Error) return `${error.name}: ${error.message}`
   if (typeof error === 'string') return error
@@ -403,6 +415,7 @@ export default async function Page({ params: paramsPromise }: PageProps) {
     const isLogoFaqPage = isLogoPage(effectiveSlug, pageTitle)
     const isBrandStrategyFaqPage = isBrandStrategyPage(effectiveSlug, pageTitle)
     const isAutomationFaqPage = isAutomationPage(effectiveSlug, pageTitle)
+    const isWordPressAgencyFaqPage = isWordPressAgencyPage(effectiveSlug, pageTitle)
     const hasServiceFaqBox =
       isWebdesignPage ||
       isCorporateIdentityPage ||
@@ -524,6 +537,7 @@ export default async function Page({ params: paramsPromise }: PageProps) {
             {isLogoFaqPage && <LeistungenFaqBox faq={page.faq} />}
             {isBrandStrategyFaqPage && <LeistungenFaqBox faq={page.faq} />}
             {isAutomationFaqPage && <LeistungenFaqBox faq={page.faq} />}
+            {isWordPressAgencyFaqPage && <LeistungenFaqBox faq={page.faq} />}
             {showHomeFaq && <Faq8 faq={page.faq} />}
           </SectionReveal>
         </div>
