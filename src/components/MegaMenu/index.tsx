@@ -1661,6 +1661,15 @@ export function MegaMenu({
         if (typeof sub.url === 'string' && isNavLinkActive(pathname, sub.url)) return true
       }
 
+      // Check the highlight card's own CTA and any additional highlight cards
+      const highlightCtaUrl = item.highlight?.ctaUrl
+      if (typeof highlightCtaUrl === 'string' && isNavLinkActive(pathname, highlightCtaUrl)) {
+        return true
+      }
+      for (const card of item.highlight?.cards ?? []) {
+        if (typeof card.ctaUrl === 'string' && isNavLinkActive(pathname, card.ctaUrl)) return true
+      }
+
       return false
     },
     [pathname, isTopLevelItemActive],
