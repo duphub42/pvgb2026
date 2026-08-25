@@ -349,9 +349,9 @@ const BRANDING_PRESET: PortfolioPresetPage = {
   hero: {
     type: 'superhero',
     subheadline: 'Portfolio Branding',
-    headline: 'Markenauftritte von Logo bis konsistentem Designsystem',
+    headline: 'MARKE, LOGO UND BRANDING',
     description:
-      'Branding-Cases mit Fokus auf Positionierung, visuelle Sprache und Wiedererkennbarkeit über alle Touchpoints.',
+      'Drei Bausteine, die zusammen aus einem Auftritt ein wiedererkennbares Markensystem machen.',
     contentVerticalAlignment: 'center',
     useHaloBackground: true,
     haloSize: 1.05,
