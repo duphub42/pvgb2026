@@ -407,10 +407,10 @@
   min-height: 0;
 }
 .footer-custom .footer-icon-img {
-  filter: invert(1) brightness(1.08);
+  filter: invert(1);
 }
 [data-theme='light'] .footer-custom .footer-icon-img {
-  filter: invert(1) brightness(1.08);
+  filter: invert(0);
 }
 .mobile-footer-b-logo {
   width: auto;
