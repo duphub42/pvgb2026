@@ -285,8 +285,19 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const logoData = headerData.logo ?? headerData.logo_id
   const resolvedLogo = logoData && typeof logoData === 'object' ? (logoData as MediaType) : null
   const hasCustomLogo = logoData != null
+  const resolvedLogoIsSvg =
+    resolvedLogo != null &&
+    (String(resolvedLogo.mimeType ?? '').toLowerCase().includes('svg') ||
+      String(resolvedLogo.filename ?? '').toLowerCase().endsWith('.svg') ||
+      String(resolvedLogo.url ?? '').toLowerCase().endsWith('.svg'))
+  const resolvedLogoFileUrl =
+    resolvedLogo?.filename != null && resolvedLogo.filename !== ''
+      ? `/api/media/file/${encodeURIComponent(resolvedLogo.filename)}`
+      : null
   const logoUrl = resolvedLogo?.url
-    ? resolvedLogo.updatedAt
+    ? resolvedLogoIsSvg && resolvedLogoFileUrl
+      ? resolvedLogoFileUrl
+      : resolvedLogo.updatedAt
       ? getMediaUrl(resolvedLogo.url, resolvedLogo.updatedAt)
       : getMediaUrl(resolvedLogo.url)
     : (resolveHeroImageSrc(logoData) ?? '')
@@ -317,6 +328,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
         width={40}
         height={42}
         priority
+        unoptimized
       />
     )
   }
@@ -330,6 +342,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
       width={40}
       height={42}
       priority
+      unoptimized
     />
   )
 
@@ -445,6 +458,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
                     width={40}
                     height={42}
                     priority
+                    unoptimized
                   />
                 </Link>
                 <div className="flex h-full items-stretch gap-4">
@@ -601,6 +615,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
           mobileLogo={mobileLogoEl}
           className={megaMenuHydrated ? '' : 'hidden pointer-events-none'}
           onHydrated={handleMegaMenuHydrated}
+          onRequestFullData={loadCompleteMegaMenuItems}
           openMobileMenuOnMount={openMobileMenuOnHydrate}
           locale={locale}
           columnWidths={columnWidths}

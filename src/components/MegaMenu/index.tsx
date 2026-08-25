@@ -887,6 +887,15 @@ type MegaMenuProps = {
   mobileLogo?: React.ReactNode
   className?: string
   onHydrated?: () => void
+  /**
+   * Called when the mobile menu is opened. The light shell payload (see
+   * getMegaMenuShellItems) has no columns/subItems, so an item like Portfolio
+   * renders as a plain link with no expandable submenu until the full items
+   * load - which otherwise only happens via an idle callback (up to ~4.5s) or
+   * desktop hover/focus. Without this, opening the mobile menu quickly after
+   * page load can show every dropdown item as a dead-end link.
+   */
+  onRequestFullData?: () => void
   openMobileMenuOnMount?: boolean
   /** Spaltenbreiten: Inhalt und Highlight (12er-Grid). `sidebar` wird nicht mehr fürs Layout genutzt. */
   columnWidths?: {
@@ -1487,6 +1496,7 @@ export function MegaMenu({
   mobileLogo,
   className = '',
   onHydrated,
+  onRequestFullData,
   openMobileMenuOnMount = false,
   columnWidths,
   megaMenuCta,
@@ -2480,6 +2490,7 @@ export function MegaMenu({
   }, [mobileMenuItems, mobileMenuOpen])
 
   const openMobileMenu = React.useCallback(() => {
+    onRequestFullData?.()
     collapseMobileBrowserChrome()
     syncMobileMenuOrigin()
     clearMobileMenuCloseTimeout()
@@ -2498,6 +2509,7 @@ export function MegaMenu({
       mobileMenuIconOpenRafRef.current = null
     })
   }, [
+    onRequestFullData,
     collapseMobileBrowserChrome,
     syncMobileMenuOrigin,
     clearMobileMenuCloseTimeout,
