@@ -44,7 +44,7 @@
     const style = document.createElement('style')
     style.dataset.pbFooterIconFix = 'true'
     style.textContent =
-      '.footer-custom .footer-icon-img{filter:invert(1)}[data-theme="light"] .footer-custom .footer-icon-img{filter:invert(0)}'
+      '.footer-custom .footer-icon-img{filter:invert(1)}[data-theme="light"] .footer-custom .footer-icon-img{filter:invert(0)}.site-header .logo-glitch-layer,.megamenu .logo-glitch-layer{display:none!important;opacity:0!important}.logo-link .header-logo-slot--sticky{opacity:0;pointer-events:none}.site-header[data-sticky="true"] .logo-link[data-logo-morph-ready="true"] .header-logo-slot--sticky,.megamenu[data-sticky="true"] .logo-link[data-logo-morph-ready="true"] .header-logo-slot--sticky{opacity:1}.site-header:not([data-sticky="true"]) .logo-link .header-logo-slot--default,.megamenu:not([data-sticky="true"]) .logo-link .header-logo-slot--default{opacity:1;clip-path:inset(0 0 0 0);filter:none}'
     document.head.appendChild(style)
   }
 

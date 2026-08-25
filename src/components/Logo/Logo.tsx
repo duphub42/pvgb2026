@@ -48,6 +48,24 @@ export const Logo = (props: Props) => {
   if (logo && typeof logo === 'object') {
     const logoObject = logo as MediaType
     const logoUrl = logoObject.url ?? logoObject.sizes?.thumbnail?.url ?? ''
+    const logoMimeType = String(logoObject.mimeType ?? '').toLowerCase()
+    const isSvgLogo = logoMimeType.includes('svg') || logoUrl.toLowerCase().endsWith('.svg')
+    const svgFileUrl =
+      logoObject.filename != null && logoObject.filename !== ''
+        ? `/api/media/file/${encodeURIComponent(logoObject.filename)}`
+        : null
+
+    if (logoObject.url && isSvgLogo) {
+      return (
+        <img
+          src={svgFileUrl ?? getMediaUrl(logoObject.url, logoObject.updatedAt)}
+          alt={logoObject.alt ?? 'Logo'}
+          className={clsx(sizeClass, invertClass, animateClass, className)}
+          loading={loading}
+          decoding="async"
+        />
+      )
+    }
 
     if (logoObject.url) {
       return (

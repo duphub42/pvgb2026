@@ -72,7 +72,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const isScrolledRef = useRef(false)
   const isHeaderVisibleRef = useRef(true)
   const lastScrollYRef = useRef(0)
-  const megaMenuRequestInFlightRef = useRef(false)
+  const megaMenuRequestPromiseRef = useRef<Promise<void> | null>(null)
   const { headerTheme, setHeaderTheme } = useHeaderTheme()
   const { theme: globalTheme } = useTheme()
   const locale = useLocale()
@@ -109,58 +109,45 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
   const loadCompleteMegaMenuItems = useCallback(async () => {
     if (!shouldUseMegaMenu) return
     if (resolvedMegaMenuLocale === locale && megaMenuIsComplete) return
-    if (megaMenuRequestInFlightRef.current) return
 
-    megaMenuRequestInFlightRef.current = true
-    try {
-      if (locale === 'en') {
-        setResolvedMegaMenuItems([])
-      }
-      const response = await fetch(`/api/frontend/mega-menu?locale=${locale}`)
-      if (!response.ok) return
-      const data = (await response.json()) as { docs?: MegaMenuItem[] }
-      if (Array.isArray(data?.docs) && data.docs.length > 0) {
-        setResolvedMegaMenuItems(data.docs)
-        setResolvedMegaMenuLocale(locale)
-        setMegaMenuIsComplete(true)
-      }
-    } catch {
-      // Keep graceful fallback to the light shell when request fails.
-    } finally {
-      megaMenuRequestInFlightRef.current = false
+    if (megaMenuRequestPromiseRef.current) {
+      return megaMenuRequestPromiseRef.current
     }
+
+    const requestPromise = (async () => {
+      try {
+        if (locale === 'en') {
+          setResolvedMegaMenuItems([])
+        }
+        const response = await fetch(`/api/frontend/mega-menu?locale=${locale}`)
+        if (!response.ok) return
+        const data = (await response.json()) as { docs?: MegaMenuItem[] }
+        if (Array.isArray(data?.docs) && data.docs.length > 0) {
+          setResolvedMegaMenuItems(data.docs)
+          setResolvedMegaMenuLocale(locale)
+          setMegaMenuIsComplete(true)
+        }
+      } catch {
+        // Keep graceful fallback to the light shell when request fails.
+      } finally {
+        megaMenuRequestPromiseRef.current = null
+      }
+    })()
+
+    megaMenuRequestPromiseRef.current = requestPromise
+    return requestPromise
   }, [locale, megaMenuIsComplete, resolvedMegaMenuLocale, shouldUseMegaMenu])
 
   useEffect(() => {
     if (!shouldUseMegaMenu) return
     if (resolvedMegaMenuLocale === locale && megaMenuIsComplete) return
 
-    const idleCallback =
-      typeof window !== 'undefined' && 'requestIdleCallback' in window
-        ? window.requestIdleCallback
-        : null
-    let idleId: number | null = null
-    let timeoutId: number | null = null
-
-    if (idleCallback) {
-      idleId = idleCallback(() => {
-        void loadCompleteMegaMenuItems()
-      }, { timeout: 4500 })
-    } else {
-      timeoutId = window.setTimeout(() => {
-        void loadCompleteMegaMenuItems()
-      }, 3000)
-    }
+    const timeoutId = window.setTimeout(() => {
+      void loadCompleteMegaMenuItems()
+    }, 180)
 
     return () => {
-      if (
-        idleId != null &&
-        typeof window !== 'undefined' &&
-        'cancelIdleCallback' in window
-      ) {
-        window.cancelIdleCallback(idleId)
-      }
-      if (timeoutId != null) window.clearTimeout(timeoutId)
+      window.clearTimeout(timeoutId)
     }
   }, [
     loadCompleteMegaMenuItems,

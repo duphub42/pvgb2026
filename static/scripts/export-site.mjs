@@ -31,6 +31,15 @@ const ROUTE_ALIASES = [
 
 const LANGUAGE_LINK_REWRITES = {
   en: new Map([
+    ['/', '/en/'],
+    ['/leistungen', '/en/services/'],
+    ['/leistungen/', '/en/services/'],
+    ['/kontakt', '/en/contact/'],
+    ['/kontakt/', '/en/contact/'],
+    ['/preise', '/en/prices/'],
+    ['/preise/', '/en/prices/'],
+    ['/profil', '/en/profile/'],
+    ['/profil/', '/en/profile/'],
     ['/portfolio', '/en/portfolio/'],
     ['/portfolio/', '/en/portfolio/'],
     ['/portfolio-webdesign', '/en/portfolio-web-design/'],
@@ -154,6 +163,22 @@ function cleanMegaMenuPayload(value) {
   return value
 }
 
+function collectMediaFileAssets(value) {
+  if (Array.isArray(value)) {
+    value.forEach(collectMediaFileAssets)
+    return
+  }
+
+  if (value == null || typeof value !== 'object') return
+
+  const filename = value.filename
+  if (typeof filename === 'string' && filename.trim() !== '') {
+    queueAsset(`/api/media/file/${encodeURIComponent(filename)}`)
+  }
+
+  Object.values(value).forEach(collectMediaFileAssets)
+}
+
 function collectFromSrcset(srcset) {
   for (const part of srcset.split(',')) {
     const candidate = part.trim().split(/\s+/)[0]
@@ -251,7 +276,7 @@ function addStaticRuntime(html) {
   )
   return withStyles.replace(
     /<\/body>/i,
-    '<script src="/static-assets/static-runtime.js" defer></script></body>',
+    '<script src="/static-assets/static-runtime.js?v=mobile-menu-wp-20260825" defer></script></body>',
   )
 }
 
@@ -272,10 +297,73 @@ function rewriteLocalizedLinks(html, route) {
   })
 }
 
+function localizeStaticChrome(html, route) {
+  if (!route.startsWith('/en')) return html
+
+  return html
+    .replace(/<html([^>]*)\blang=(["'])de\2/gi, '<html$1lang="en"')
+    .replace(/>(\s*)Leistungen(\s*)</g, '>$1Services$2<')
+    .replace(/>(\s*)LEISTUNGEN(\s*)</g, '>$1SERVICES$2<')
+    .replace(/>(\s*)Kontakt(\s*)</g, '>$1Contact$2<')
+    .replace(/>(\s*)KONTAKT(\s*)</g, '>$1CONTACT$2<')
+    .replace(/>(\s*)Preise(\s*)</g, '>$1Prices$2<')
+    .replace(/>(\s*)PREISE(\s*)</g, '>$1PRICES$2<')
+    .replace(/>(\s*)Profil(\s*)</g, '>$1Profile$2<')
+    .replace(/>(\s*)PROFIL(\s*)</g, '>$1PROFILE$2<')
+    .replace(/>(\s*)Sprache wechseln(\s*)</g, '>$1Switch language$2<')
+    .replace(/aria-label=(["'])Sprache wechseln\1/gi, 'aria-label="Switch language"')
+    .replace(/aria-label=(["'])Zur Startseite\1/gi, 'aria-label="Go to homepage"')
+    .replace(/aria-label=(["'])Kontakt öffnen\1/gi, 'aria-label="Open contact"')
+    .replace(/aria-label=(["'])Suchen\1/gi, 'aria-label="Search"')
+    .replace(/aria-label=(["'])Designmodus wechseln\1/gi, 'aria-label="Switch design mode"')
+    .replace(/aria-label=(["'])Menü öffnen\1/gi, 'aria-label="Open menu"')
+    .replace(
+      /<button([^>]*?)\sdata-active="true"([^>]*?)\saria-checked="true"([^>]*)>DE<\/button><button([^>]*?)\saria-checked="false"([^>]*)>EN<\/button>/g,
+      '<button$1$2 aria-checked="false"$3>DE</button><button$4 data-active="true" aria-checked="true"$5>EN</button>',
+    )
+}
+
+function enhancePrivacyHtml(html, route) {
+  const isGermanPrivacy = route === '/datenschutz'
+  const isEnglishPrivacy = route === '/en/privacy'
+  if (!isGermanPrivacy && !isEnglishPrivacy) return html
+  if (html.includes('Google Analytics 4')) return html
+
+  if (isEnglishPrivacy) {
+    const withEnglishAnchor = html.replace(
+      '<h2>4. Your Rights</h2>',
+      '<h2>4. Cookies and analytics</h2><p>This website uses technically necessary storage for operation and security. Google Analytics 4 is loaded only after active consent via the consent banner. If you consent, usage data such as page views, device and browser information, approximate location data and interactions may be processed by Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. Consent can be withdrawn at any time via the cookie settings.</p><h2>5. Your Rights</h2>',
+    )
+    if (withEnglishAnchor !== html) {
+      return withEnglishAnchor
+        .replace('<h2>5. Right to Lodge a Complaint</h2>', '<h2>6. Right to Lodge a Complaint</h2>')
+        .replace('<h2>6. Changes</h2>', '<h2>7. Changes</h2>')
+    }
+
+    return html
+      .replace(
+      '<h2>4. Ihre Rechte</h2>',
+      '<h2>4. Cookies and analytics</h2><p>This website uses technically necessary storage for operation and security. Google Analytics 4 is loaded only after active consent via the consent banner. If you consent, usage data such as page views, device and browser information, approximate location data and interactions may be processed by Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Ireland. Consent can be withdrawn at any time via the cookie settings.</p><h2>5. Your Rights</h2>',
+      )
+      .replace('<h2>5. Right to Lodge a Complaint</h2>', '<h2>6. Right to Lodge a Complaint</h2>')
+      .replace('<h2>6. Changes</h2>', '<h2>7. Changes</h2>')
+  }
+
+  return html
+    .replace(
+      '<h2>4. Ihre Rechte</h2>',
+      '<h2>4. Cookies und Analytics</h2><p>Diese Website verwendet technisch notwendige Speicherungen für Betrieb und Sicherheit. Google Analytics 4 wird ausschließlich nach aktiver Einwilligung über das Consent-Banner geladen. Bei Einwilligung können Nutzungsdaten wie Seitenaufrufe, Geräte- und Browserinformationen, ungefähre Standortdaten und Interaktionen durch Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland verarbeitet werden. Die Einwilligung kann jederzeit über die Cookie-Einstellungen widerrufen werden.</p><h2>5. Ihre Rechte</h2>',
+    )
+    .replace('<h2>5. Beschwerderecht</h2>', '<h2>6. Beschwerderecht</h2>')
+    .replace('<h2>6. Änderungen</h2>', '<h2>7. Änderungen</h2>')
+}
+
 function transformHtml(html, route) {
   const withoutNextImageProxy = stripNextRuntime ? rewriteNextImageUrls(html) : html
   const withLocalizedLinks = rewriteLocalizedLinks(withoutNextImageProxy, route)
-  const withoutDevOnlyRequests = removeDevOnlyRequests(withLocalizedLinks)
+  const withLocalizedChrome = localizeStaticChrome(withLocalizedLinks, route)
+  const withEnhancedPrivacy = enhancePrivacyHtml(withLocalizedChrome, route)
+  const withoutDevOnlyRequests = removeDevOnlyRequests(withEnhancedPrivacy)
   const withoutRuntime = stripNextRuntime
     ? stripNextRuntimeScripts(withoutDevOnlyRequests)
     : withoutDevOnlyRequests
@@ -499,6 +587,15 @@ async function downloadAsset(assetUrl) {
     } catch {}
   }
 
+  if (
+    (assetPathname === '/api/frontend/footer' || assetPathname === '/api/frontend/mega-menu') &&
+    contentType.includes('application/json')
+  ) {
+    try {
+      collectMediaFileAssets(JSON.parse(body.toString('utf8')))
+    } catch {}
+  }
+
   console.log(`asset ${assetUrl}`)
 }
 
@@ -527,7 +624,7 @@ async function writeSupportFiles() {
   await writeFile(
     path.join(distDir, '.htaccess'),
     [
-      'Options -Indexes',
+      'Options -Indexes -MultiViews',
       'DirectoryIndex index.html index.php',
       '',
       '<IfModule mod_rewrite.c>',
@@ -535,6 +632,9 @@ async function writeSupportFiles() {
       '',
       '# Static replacement for Next image optimizer requests.',
       'RewriteRule ^_next/image$ /_next/image/index.php [L,QSA]',
+      '',
+      '# Static media stream wrapper with MIME sniffing for extensionless uploads.',
+      'RewriteRule ^api/media/stream/([0-9]+)$ /api/media/stream/index.php?id=$1 [L,QSA]',
       '',
       '# Static no-op for Next dev stackframe requests.',
       'RewriteRule ^__nextjs_original-stack-frames$ /hydrated-assets/noop.json [L]',
@@ -607,7 +707,7 @@ if ($file === false || $root === false || strpos($file, $root) !== 0 || !is_file
 }
 
 // 16 bytes isn't enough to catch '<svg' when the file starts with an XML
-// declaration ('<?xml version="1.0" encoding="UTF-8"?>' alone is 38+ bytes),
+// declaration; those headers alone can be 38+ bytes,
 // which is exactly how this project's exported SVGs are written - they were
 // silently falling through to application/octet-stream, which browsers won't
 // render as an <img>.
@@ -624,6 +724,45 @@ if ($ext === 'svg' || strpos(ltrim($bytesString), '<svg') === 0 || strpos($bytes
 } elseif (substr($bytesString, 0, 4) === 'RIFF' && substr($bytesString, 8, 4) === 'WEBP') {
   $type = 'image/webp';
 } elseif ($ext === 'ico') {
+  $type = 'image/x-icon';
+}
+
+header('Content-Type: ' . $type);
+header('Cache-Control: public, max-age=31536000, immutable');
+readfile($file);
+`,
+  )
+
+  await writeFile(
+    path.join(distDir, 'api', 'media', 'stream', 'index.php'),
+    `<?php
+$id = $_GET['id'] ?? '';
+if (!is_string($id) || !preg_match('/^[0-9]+$/', $id)) {
+  http_response_code(400);
+  echo 'Bad media id';
+  exit;
+}
+
+$root = realpath($_SERVER['DOCUMENT_ROOT']);
+$file = realpath($_SERVER['DOCUMENT_ROOT'] . '/api/media/stream/' . $id);
+if ($file === false || $root === false || strpos($file, $root) !== 0 || !is_file($file)) {
+  http_response_code(404);
+  echo 'Media not found';
+  exit;
+}
+
+$bytes = file_get_contents($file, false, null, 0, 512);
+$bytesString = (string) $bytes;
+$type = 'application/octet-stream';
+if (strpos(ltrim($bytesString), '<svg') === 0 || strpos($bytesString, '<svg') !== false) {
+  $type = 'image/svg+xml';
+} elseif (substr($bytesString, 0, 4) === "\\x89PNG") {
+  $type = 'image/png';
+} elseif (substr($bytesString, 0, 3) === "\\xFF\\xD8\\xFF") {
+  $type = 'image/jpeg';
+} elseif (substr($bytesString, 0, 4) === 'RIFF' && substr($bytesString, 8, 4) === 'WEBP') {
+  $type = 'image/webp';
+} elseif (substr($bytesString, 0, 4) === "\\x00\\x00\\x01\\x00") {
   $type = 'image/x-icon';
 }
 

@@ -899,6 +899,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
               width={64}
               height={67}
               className="hero-mobile-icon-reveal-img"
+              unoptimized
             />
           </div>
         )}

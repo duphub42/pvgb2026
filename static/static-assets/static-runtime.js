@@ -13,6 +13,7 @@
       logo: '/logo/',
       brand: '/markenstrategie/',
       automation: '/automatisierung/',
+      wordpress: '/wordpress-agentur/',
       portfolioWeb: '/portfolio-webdesign/',
       portfolioMarketing: '/portfolio-marketing/',
       portfolioBrand: '/portfolio-marken/',
@@ -35,6 +36,7 @@
       logo: '/en/logo/',
       brand: '/en/brand-strategy/',
       automation: '/en/automation/',
+      wordpress: '/en/wordpress-agency/',
       portfolioWeb: '/en/portfolio-web-design/',
       portfolioMarketing: '/en/portfolio-marketing/',
       portfolioBrand: '/en/portfolio-branding/',
@@ -59,7 +61,7 @@
         ['Design', [['Websites', 'Webdesign und Entwicklung', 'web'], ['Print- & Grafikdesign', 'Markenmaterialien und Layouts', 'print'], ['Präsentationen', 'Keynotes und Slides', 'keynotes']]],
         ['Marketing', [['SEO', 'Sichtbarkeit in Suchmaschinen', 'seo'], ['SEM', 'Google Ads und Kampagnen', 'sem'], ['Content-Creation', 'Texte, Bilder und Inhalte', 'content']]],
         ['Branding', [['Corporate Identity', 'Systeme für starke Marken', 'ci'], ['Logo-Entwicklung', 'Zeichen, Wortmarken und Systeme', 'logo'], ['Markenstrategie', 'Positionierung und Botschaft', 'brand']]],
-        ['Automation', [['Automatisierung', 'Workflows, Prozesse und KI', 'automation']]],
+        ['Automation', [['Automatisierung', 'Workflows, Prozesse und KI', 'automation'], ['WP Agentur', 'WordPress Plugins, WooCommerce Shops und Betreuung', 'wordpress']]],
       ],
       portfolioColumns: [
         ['Referenzen', [['Webdesign-Referenzen', 'Websites und digitale Auftritte', 'portfolioWeb'], ['Marketing-Referenzen', 'Kampagnen und Sichtbarkeit', 'portfolioMarketing'], ['Marken-Referenzen', 'Branding und Identität', 'portfolioBrand']]],
@@ -77,7 +79,7 @@
         ['Design', [['Web Design', 'Websites and development', 'web'], ['Print & Graphic Design', 'Brand materials and layouts', 'print'], ['Presentations', 'Keynotes and slides', 'keynotes']]],
         ['Marketing', [['SEO', 'Search visibility', 'seo'], ['SEM', 'Google Ads and campaigns', 'sem'], ['Content Creation', 'Copy, visuals and content', 'content']]],
         ['Branding', [['Corporate Identity', 'Systems for strong brands', 'ci'], ['Logo Design', 'Marks, wordmarks and systems', 'logo'], ['Brand Strategy', 'Positioning and messaging', 'brand']]],
-        ['Automation', [['Automation', 'Workflows, processes and AI', 'automation']]],
+        ['Automation', [['Automation', 'Workflows, processes and AI', 'automation'], ['WP Agency', 'WordPress plugins, WooCommerce shops and support', 'wordpress']]],
       ],
       portfolioColumns: [
         ['Work', [['Web Design Projects', 'Websites and digital presences', 'portfolioWeb'], ['Marketing Projects', 'Campaigns and visibility', 'portfolioMarketing'], ['Branding Projects', 'Branding and identity', 'portfolioBrand']]],

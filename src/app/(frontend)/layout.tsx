@@ -20,6 +20,7 @@ import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { DesignStyles } from '@/components/DesignStyles'
 import { ThemeSettingsStyles } from '@/components/ThemeSettingsStyles'
 import { DeferredSiteTools } from '@/components/DeferredSiteTools/DeferredSiteTools'
+import { CookieConsent } from '@/components/CookieConsent/CookieConsent'
 import { StaticTranslationHydrator } from '@/components/LanguageSwitcher/StaticTranslationHydrator'
 import { safeJsonLd } from '@/utilities/structuredData'
 import type { DesignDoc } from '@/utilities/designToCss'
@@ -250,6 +251,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             </RootLayoutInner>
             <StaticTranslationHydrator />
             <DeferredSiteTools />
+            <CookieConsent />
           </Providers>
           {process.env.NODE_ENV === 'development' && process.env.PINY_VISUAL_SELECT === 'true' && (
             <Script src="/_piny/piny.phone.js" strategy="afterInteractive" />
