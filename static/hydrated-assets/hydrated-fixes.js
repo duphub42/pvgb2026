@@ -44,7 +44,7 @@
     const style = document.createElement('style')
     style.dataset.pbFooterIconFix = 'true'
     style.textContent =
-      '.footer-custom .footer-icon-img{filter:invert(1)}[data-theme="light"] .footer-custom .footer-icon-img{filter:invert(0)}.site-header .logo-glitch-layer,.megamenu .logo-glitch-layer{display:none!important;opacity:0!important}.logo-link .header-logo-slot--sticky{opacity:0;pointer-events:none}.site-header[data-sticky="true"] .logo-link[data-logo-morph-ready="true"] .header-logo-slot--sticky,.megamenu[data-sticky="true"] .logo-link[data-logo-morph-ready="true"] .header-logo-slot--sticky{opacity:1}.site-header:not([data-sticky="true"]) .logo-link .header-logo-slot--default,.megamenu:not([data-sticky="true"]) .logo-link .header-logo-slot--default{opacity:1;clip-path:inset(0 0 0 0);filter:none}'
+      '.footer-custom .footer-icon-img{filter:invert(1)}[data-theme="light"] .footer-custom .footer-icon-img{filter:invert(0)}@media (min-width:1024px){.megamenu .logo-link>img.header-b-logo,.site-header .logo-link>img.header-b-logo{display:none!important;opacity:0!important}.megamenu .header-logo-slot--sticky img.header-b-logo,.site-header .header-logo-slot--sticky img.header-b-logo{display:block!important}}.logo-link .header-logo-slot--sticky{opacity:0;pointer-events:none}.site-header[data-sticky="true"] .logo-link[data-logo-morph-ready="true"] .header-logo-slot--sticky,.megamenu[data-sticky="true"] .logo-link[data-logo-morph-ready="true"] .header-logo-slot--sticky{opacity:1}.site-header:not([data-sticky="true"]) .logo-link .header-logo-slot--default,.megamenu:not([data-sticky="true"]) .logo-link .header-logo-slot--default{opacity:1;clip-path:inset(0 0 0 0);filter:none}'
     document.head.appendChild(style)
   }
 
@@ -77,6 +77,36 @@
   }
 
   patchEnglishFooterFetch()
+
+  const localizeEnglishFooterText = () => {
+    if (language !== 'en') return
+
+    const replacements = new Map([
+      [
+        'Philipp Bacher – Ihr personaler Ansprechpartner für Digital Consulting, Marketing und Web Design.',
+        'Philipp Bacher - your personal partner for digital consulting, marketing and web design.',
+      ],
+      [
+        'Philipp Bacher – Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Web Design.',
+        'Philipp Bacher - your personal partner for digital consulting, marketing and web design.',
+      ],
+      [
+        'Philipp Bacher – Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing und Webdesign.',
+        'Philipp Bacher - your personal partner for digital consulting, marketing and web design.',
+      ],
+    ])
+
+    document.querySelectorAll('footer, .footer-custom').forEach((footer) => {
+      const walker = document.createTreeWalker(footer, NodeFilter.SHOW_TEXT)
+      for (let node = walker.nextNode(); node; node = walker.nextNode()) {
+        let text = node.nodeValue || ''
+        replacements.forEach((replacement, needle) => {
+          text = text.replaceAll(needle, replacement)
+        })
+        if (text !== node.nodeValue) node.nodeValue = text
+      }
+    })
+  }
 
   const CONSENT_STORAGE_KEY = 'pb_cookie_consent_v1'
   const GA_MEASUREMENT_ID = 'G-Y0D7045XMB'
@@ -330,6 +360,7 @@
       renderCookieConsent()
       forceCookieSettingsLeft()
       localizeExistingCookieConsent()
+      localizeEnglishFooterText()
     }, 1200)
   }
 
@@ -342,6 +373,7 @@
   const cookieSettingsObserver = new MutationObserver(() => {
     forceCookieSettingsLeft()
     localizeExistingCookieConsent()
+    localizeEnglishFooterText()
   })
   cookieSettingsObserver.observe(document.documentElement, {
     childList: true,
