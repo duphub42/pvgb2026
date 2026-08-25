@@ -454,7 +454,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
                     aria-label="Hauptnavigation"
                   >
                     <div className="megamenu-nav-list-wrap relative flex h-full flex-1 justify-end">
-                      <div className="megamenu-nav-list h-full justify-end">
+                      <div className="megamenu-nav-list h-full justify-end space-x-1">
                         {visibleItems.map((item, index) => (
                           <Link
                             key={`${item.url}-${item.label}-${index}`}
@@ -473,7 +473,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({
                       </div>
                     </div>
                   </nav>
-                  <div className="hidden items-center gap-0 lg:flex">
+                  <div className="hidden items-center gap-0.5 lg:flex">
                     <LanguageSwitcher variant="icon-menu" />
                     <ThemeSwitcher />
                     <Link
