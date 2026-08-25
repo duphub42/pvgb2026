@@ -93,6 +93,8 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
   const layoutMode =
     (props as ServicesOverviewProps & { layoutMode?: ServicesOverviewLayoutMode }).layoutMode ??
     'cards'
+  const heading = _heading != null ? String(_heading).trim() : ''
+  const isBrandingSystemIntro = heading === 'Marke, Logo und Branding'
 
   // Style-Props direkt an BlockContainer übergeben
   const styles = styleProps as unknown as BlockStyles
@@ -131,15 +133,30 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
     >
       {(_heading || _intro) && (
         <div
-          className={cn('max-w-2xl space-y-3', headerAlign === 'center' && 'mx-auto text-center')}
+          className={cn(
+            isBrandingSystemIntro ? 'max-w-3xl space-y-4' : 'max-w-2xl space-y-3',
+            headerAlign === 'center' && 'mx-auto text-center',
+          )}
         >
           {_heading ? (
-            <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+            <h2
+              className={cn(
+                isBrandingSystemIntro
+                  ? 'text-balance text-3xl font-bold leading-tight tracking-normal text-foreground md:text-4xl lg:text-5xl'
+                  : 'text-xs font-semibold uppercase tracking-widest text-muted-foreground',
+              )}
+            >
               {translateValueForLocale(String(_heading), isEnglish ? 'en' : 'de')}
-            </p>
+            </h2>
           ) : null}
           {_intro ? (
-            <p className="text-base leading-relaxed text-muted-foreground md:text-lg">
+            <p
+              className={cn(
+                isBrandingSystemIntro
+                  ? 'mx-auto max-w-2xl text-pretty text-base leading-relaxed text-muted-foreground md:text-xl'
+                  : 'text-base leading-relaxed text-muted-foreground md:text-lg',
+              )}
+            >
               {translateValueForLocale(String(_intro), isEnglish ? 'en' : 'de')}
             </p>
           ) : null}

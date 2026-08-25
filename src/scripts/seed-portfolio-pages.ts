@@ -1052,9 +1052,9 @@ const templates: PageTemplate[] = [
     hero: {
       type: 'lowImpact',
       subheadline: 'Portfolio Branding',
-      headline: 'MARKE, LOGO UND BRANDING',
+      headline: 'Markenprojekte von Logoentwicklung bis konsistenter Markenwelt',
       description:
-        'Drei Bausteine, die zusammen aus einem Auftritt ein wiedererkennbares Markensystem machen.',
+        'Branding-Cases, die Strategie und Gestaltung verbinden und eine klare Wiedererkennbarkeit schaffen.',
     },
     layout: [
       buildIntroductionBlock({
