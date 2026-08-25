@@ -15,6 +15,7 @@ const SOCIAL_PLATFORMS: { label: string; value: string }[] = [
   { label: 'Facebook', value: 'facebook' },
   { label: 'Instagram', value: 'instagram' },
   { label: 'Xing', value: 'xing' },
+  { label: 'ProvenExpert', value: 'provenexpert' },
 ]
 
 export const Footer: GlobalConfig = {

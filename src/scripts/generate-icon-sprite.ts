@@ -117,6 +117,11 @@ async function generateSprite() {
       `<symbol id="hf-xing" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
 <path d="M9.5 3.5 4.9 12l4.3 8h-3l-4.2-8 4.6-8.5h3Zm7.9 0h3l-6.1 10.6L19 20.5h-3l-4.7-6.4L16.5 3.5Z" fill="currentColor" />
 </symbol>`,
+      // ProvenExpert - shield with checkmark (trust/review badge), simplified brand mark
+      `<symbol id="hf-provenexpert" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<path d="M12 2 4 5v6c0 5.25 3.4 9.74 8 11 4.6-1.26 8-5.75 8-11V5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+<path d="m8.5 12 2.5 2.5 4.5-4.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+</symbol>`,
     ]
 
     const sprite = [

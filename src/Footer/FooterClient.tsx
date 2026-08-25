@@ -26,6 +26,7 @@ const SOCIAL_SPRITE_IDS: Record<string, string> = {
   facebook: 'hf-facebook',
   instagram: 'hf-instagram',
   xing: 'hf-xing',
+  provenexpert: 'hf-provenexpert',
 }
 const MOBILE_FOOTER_B_LOGO_SRC = '/branding/philippbacher-logo-b-10.svg'
 const _MOBILE_FOOTER_B_LOGO_MIN_OPACITY = 0.1
