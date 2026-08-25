@@ -280,17 +280,8 @@ function addStaticRuntime(html) {
   )
 }
 
-// Injected synchronously into <head> (render-blocking, before first paint) rather than
-// via the deferred hydrated-fixes.js script below. The glitch-layer clones default to
-// opacity:0/visibility:hidden in the app's own CSS, which is fine on localhost:3000, but
-// in the static export there's a brief window between first paint and the deferred script
-// running where they were visibly offset next to the logo - this closes that window.
-const HYDRATED_HEAD_CSS =
-  '<style>.site-header .logo-glitch-layer,.megamenu .logo-glitch-layer{display:none!important;opacity:0!important}</style>'
-
 function addHydratedFixes(html) {
-  const withHeadCss = html.replace(/<\/head>/i, `${HYDRATED_HEAD_CSS}</head>`)
-  return withHeadCss.replace(
+  return html.replace(
     /<\/body>/i,
     '<script src="/hydrated-assets/hydrated-fixes.js?v=footer-icons-20260825" defer></script></body>',
   )
