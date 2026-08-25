@@ -208,10 +208,12 @@ const StepCard: React.FC<{ step: Step }> = ({ step }) => {
 type ConsultingOverviewProps = ConsultingOverviewBlockData & {
   disableInnerContainer?: boolean
   layoutMode?: 'standard' | 'stepList'
+  locale?: string
 }
 
 export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   disableInnerContainer,
+  locale,
   pixelLayoutDesktop,
   layoutMode = 'stepList',
   headline,
@@ -325,7 +327,7 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
       >
         <header className="relative z-10 mx-auto max-w-3xl text-center">
           <p className="inline-flex items-center rounded-full border border-border bg-muted px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/85">
-            Prozess
+            {locale === 'en' ? 'Process' : 'Prozess'}
           </p>
           <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-[-0.03em] text-foreground md:text-4xl lg:text-5xl">
             {title}

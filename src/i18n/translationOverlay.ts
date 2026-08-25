@@ -1459,6 +1459,57 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   // WordPress-Agentur page (/wordpress-agentur, /en/wordpress-agency)
   'WordPress-Agentur': 'WordPress Agency',
   'Termin buchen': 'Book Appointment',
+  // WordPress-Agentur page: process (consultingOverview) + services grid
+  'So läuft die Zusammenarbeit an Ihrem WordPress-Projekt': 'How We Work Together on Your WordPress Project',
+  'Transparent, strukturiert und mit klarem nächsten Schritt: jede Phase baut auf der vorherigen auf.':
+    'Transparent, structured and with a clear next step: each phase builds on the last.',
+  'Analyse & Planung': 'Analysis & Planning',
+  'Fundament für eine stabile Umsetzung': 'The foundation for a stable implementation',
+  'Bestehende Installation, Anforderungen und Ziele werden geklärt':
+    'Clarifying the existing installation, requirements and goals',
+  'Zu Beginn wird geprüft, was bereits vorhanden ist - Plugins, Theme, Performance, Sicherheit - und was das Projekt konkret braucht. So entsteht ein realistischer Plan statt Rätselraten.':
+    "At the start, we check what's already there - plugins, theme, performance, security - and what the project actually needs. That produces a realistic plan instead of guesswork.",
+  Umsetzung: 'Implementation',
+  'Sauber entwickelt, gründlich getestet': 'Cleanly built, thoroughly tested',
+  'Umsetzung in klaren Etappen': 'Implementation in clear stages',
+  'Konzept & technische Planung': 'Concept & Technical Planning',
+  'Funktionsumfang, Datenstruktur und Schnittstellen werden festgelegt, bevor der erste Code entsteht.':
+    'Feature scope, data structure and integrations are defined before the first line of code is written.',
+  Entwicklung: 'Development',
+  'Individuelle Plugins, WooCommerce-Einrichtung oder -Anpassungen werden sauber dokumentiert umgesetzt.':
+    'Custom plugins, WooCommerce setup or customizations are implemented and properly documented.',
+  Testphase: 'Testing',
+  'Funktionen, Performance und Sicherheit werden vor dem Go-live geprüft, damit es keine Überraschungen gibt.':
+    'Functionality, performance and security are tested before go-live, so there are no surprises.',
+  'Go-live': 'Go-Live',
+  'Der Wechsel auf die neue oder überarbeitete Umgebung erfolgt kontrolliert und mit Rückfallebene.':
+    'The switch to the new or updated environment happens in a controlled way, with a fallback in place.',
+  'Laufende Betreuung': 'Ongoing Support',
+  'Damit es dabei bleibt': 'To keep it that way',
+  'Nach dem Launch sorgen Updates, Backups und Monitoring dafür, dass die Seite stabil und sicher bleibt':
+    'After launch, updates, backups and monitoring keep the site stable and secure',
+  'Leistungen im Überblick': 'Services at a Glance',
+  'Von der individuellen Plugin-Entwicklung bis zur laufenden Betreuung - modular buchbar, je nach Bedarf.':
+    'From custom plugin development to ongoing support - modular, booked as needed.',
+  'Individuelle Plugins': 'Custom Plugins',
+  'Maßgeschneiderte Funktionen, die Standard-Plugins nicht abdecken - dokumentiert und wartbar.':
+    "Tailored functionality that off-the-shelf plugins don't cover - documented and maintainable.",
+  'WooCommerce-Setup & Anpassungen': 'WooCommerce Setup & Customization',
+  'Produktkatalog, Zahlungsanbindung, Checkout-Optimierung und individuelle Erweiterungen.':
+    'Product catalog, payment integration, checkout optimization and custom extensions.',
+  'Theme-Anpassungen': 'Theme Customization',
+  'Bestehende oder neue Themes werden sauber angepasst, ohne unnötigen Plugin-Ballast.':
+    'Existing or new themes are cleanly customized, without unnecessary plugin bloat.',
+  'Betrieb & Sicherheit': 'Operations & Security',
+  'Updates & Backups': 'Updates & Backups',
+  'Regelmäßige, geprüfte Updates von Core, Theme und Plugins inklusive Backup-Strategie.':
+    'Regular, tested updates to core, theme and plugins, including a backup strategy.',
+  'Sicherheits-Monitoring': 'Security Monitoring',
+  'Überwachung auf verdächtige Aktivitäten und Absicherung von Login und Dateizugriffen.':
+    'Monitoring for suspicious activity and securing login and file access.',
+  'Performance-Optimierung': 'Performance Optimization',
+  'Ladezeiten, Datenbank und Caching werden geprüft und gezielt verbessert.':
+    'Load times, database and caching are reviewed and specifically improved.',
   'WordPress-Entwicklung, die Sicherheit, Performance und Wartbarkeit systematisch verbindet.':
     'WordPress development that systematically combines security, performance and maintainability.',
   'Individuelle Plugins, WooCommerce-Shops und laufende Betreuung sorgen dafür, dass WordPress-Projekte stabil, aktuell und startklar für Wachstum bleiben. Statt Insellösungen entsteht ein System, das technisch sauber gepflegt wird und sich zuverlässig weiterentwickeln lässt.':
