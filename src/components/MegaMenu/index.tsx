@@ -48,13 +48,16 @@ import { isNavLinkActive } from '@/utilities/navLinkActive'
 import { localizePathname } from '@/i18n/routing'
 import type { Locale } from '@/utilities/locale'
 
-const ThemeSwitcher = dynamic(
-  () => import('@/components/ThemeSwitcher/ThemeSwitcher').then((mod) => mod.ThemeSwitcher),
-  { ssr: false },
+// Server-rendered: ThemeSwitcher already uses useSyncExternalStore with a
+// getServerSnapshot, so it renders consistent markup on the server. Skipping
+// ssr:false here avoids the icon vanishing on first paint and popping back in
+// after its own client chunk loads, which reflowed the nav on every page.
+const ThemeSwitcher = dynamic(() =>
+  import('@/components/ThemeSwitcher/ThemeSwitcher').then((mod) => mod.ThemeSwitcher),
 )
-// Server-rendered (unlike ThemeSwitcher above) so the icon row is present in
-// the initial HTML instead of popping in after its own client chunk loads —
-// that gap made the icons visibly vanish and reflow the nav on every page.
+// Server-rendered for the same reason as ThemeSwitcher above: the icon row
+// must be present in the initial HTML instead of popping in after its own
+// client chunk loads.
 const HeaderActions = dynamic(() =>
   import('@/components/HeaderActions/HeaderActions').then((mod) => mod.HeaderActions),
 )
