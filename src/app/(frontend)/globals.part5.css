@@ -3252,7 +3252,14 @@ html[data-theme='dark'] .portfolio-slider-control:focus-visible,
     opacity var(--header-logo-morph-duration) var(--header-logo-morph-ease),
     transform var(--header-logo-morph-duration) var(--header-logo-morph-ease),
     filter var(--header-logo-morph-duration) var(--header-logo-morph-ease),
-    clip-path var(--header-logo-morph-duration) var(--header-logo-morph-ease);
+    /* Deliberately faster than the other properties: clicking the logo
+       navigates almost immediately after the hover/tap that triggers this
+       reveal, and on the static export every navigation is a full page
+       reload that cuts the transition off wherever it happens to be. A slow
+       clip-path wipe gets caught mid-reveal, showing the wordmark sliced off
+       partway through. Snapping it open quickly means the worst case is a
+       faint (still-fading-in) but *complete* logo, not a crisp clipped one. */
+    clip-path 60ms linear;
 }
 
 .logo-link .header-logo-slot--default {

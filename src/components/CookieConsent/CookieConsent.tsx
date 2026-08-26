@@ -23,6 +23,7 @@ export function CookieConsent() {
   const [choice, setChoice] = useState<ConsentChoice | null>(null)
   const [isOpen, setIsOpen] = useState(true)
   const [locale, setLocale] = useState<Locale>('de')
+  const [footerInView, setFooterInView] = useState(false)
 
   const copy =
     locale === 'en'
@@ -57,6 +58,41 @@ export function CookieConsent() {
     setIsOpen(true)
   }, [])
 
+  useEffect(() => {
+    if (typeof IntersectionObserver === 'undefined') return
+
+    let intersectionObserver: IntersectionObserver | null = null
+
+    const observeFooter = (footer: Element) => {
+      intersectionObserver = new IntersectionObserver(
+        ([entry]) => setFooterInView(entry.isIntersecting),
+        { rootMargin: '0px', threshold: 0 },
+      )
+      intersectionObserver.observe(footer)
+    }
+
+    const existingFooter = document.querySelector('.footer-custom')
+    if (existingFooter) {
+      observeFooter(existingFooter)
+      return () => intersectionObserver?.disconnect()
+    }
+
+    // Footer is deferred/lazy-mounted - watch for it to appear.
+    const mutationObserver = new MutationObserver(() => {
+      const footer = document.querySelector('.footer-custom')
+      if (footer) {
+        observeFooter(footer)
+        mutationObserver.disconnect()
+      }
+    })
+    mutationObserver.observe(document.body, { childList: true, subtree: true })
+
+    return () => {
+      mutationObserver.disconnect()
+      intersectionObserver?.disconnect()
+    }
+  }, [])
+
   const saveChoice = (nextChoice: ConsentChoice) => {
     window.localStorage.setItem(CONSENT_STORAGE_KEY, nextChoice)
     setChoice(nextChoice)
@@ -67,7 +103,7 @@ export function CookieConsent() {
 
   return (
     <>
-      {isOpen && (
+      {isOpen && !footerInView && (
         <section
           aria-label={copy.title}
           className="cookie-consent-panel"
@@ -103,7 +139,7 @@ export function CookieConsent() {
         </section>
       )}
 
-      {!isOpen && choice != null && (
+      {!isOpen && choice != null && !footerInView && (
         <button
           type="button"
           className="cookie-consent-settings"
