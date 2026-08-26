@@ -1418,4 +1418,19 @@ body:has(.mobile-megamenu-sheet[data-state='open']) .cookie-consent-panel {
     order: -1;
     min-width: 0;
   }
+
+  /* Docked mostly off-screen at the edge so it doesn't sit in the way of
+     content on small screens; slides fully into view on hover/focus/press. */
+  .cookie-consent-settings {
+    left: 0;
+    transform: translateX(calc(-100% + 0.6rem));
+    transition: transform 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .cookie-consent-settings:hover,
+  .cookie-consent-settings:focus-visible,
+  .cookie-consent-settings:focus,
+  .cookie-consent-settings:active {
+    transform: translateX(0);
+  }
 }
