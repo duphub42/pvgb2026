@@ -107,15 +107,11 @@ export function CookieConsent() {
         <button
           type="button"
           className="cookie-consent-settings"
-          style={{
-            left: 'max(1.5rem, env(safe-area-inset-left))',
-            right: 'auto',
-          }}
           aria-label={copy.settings}
           title={copy.settings}
           onClick={() => setIsOpen(true)}
         >
-          <Cookie className="h-4 w-4" aria-hidden="true" />
+          <Cookie className="h-5 w-5" aria-hidden="true" />
         </button>
       )}
     </>

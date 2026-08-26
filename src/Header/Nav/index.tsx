@@ -85,7 +85,9 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           />
         )
       })}
-      <HeaderActions contactCta={contactCta} />
+      <div className="megamenu-actions-slot">
+        <HeaderActions contactCta={contactCta} />
+      </div>
     </nav>
   )
 }

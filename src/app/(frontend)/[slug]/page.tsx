@@ -168,6 +168,35 @@ function shouldUseBrandingPortfolioHeroFallback(hero: unknown): boolean {
   return !type || type === 'none' || type === 'lowImpact'
 }
 
+function mergeBrandingPortfolioHeroFallback(hero: Record<string, unknown>): Record<string, unknown> {
+  const presetHero = getPortfolioPresetHero('branding') as Record<string, unknown>
+  const preservedMediaEntries = Object.entries({
+    media: hero.media,
+    mediaType: hero.mediaType,
+    mediaTypeMobile: hero.mediaTypeMobile,
+    backgroundImage: hero.backgroundImage,
+    backgroundVideo: hero.backgroundVideo,
+    foregroundImage: hero.foregroundImage,
+    backgroundPreset: hero.backgroundPreset,
+    surfacePattern: hero.surfacePattern,
+    stackBackImage: hero.stackBackImage,
+    stackBackOffsetX: hero.stackBackOffsetX,
+    stackBackOffsetY: hero.stackBackOffsetY,
+    stackMidImage: hero.stackMidImage,
+    stackMidOffsetX: hero.stackMidOffsetX,
+    stackMidOffsetY: hero.stackMidOffsetY,
+    stackFrontImage: hero.stackFrontImage,
+    stackFrontOffsetX: hero.stackFrontOffsetX,
+    stackFrontOffsetY: hero.stackFrontOffsetY,
+    overlayOpacity: hero.overlayOpacity,
+  }).filter(([, value]) => value != null && value !== '')
+
+  return {
+    ...presetHero,
+    ...Object.fromEntries(preservedMediaEntries),
+  }
+}
+
 function isAutomationPage(slug?: string | null, title?: string | null): boolean {
   const normalizedSlug = slug?.trim().toLowerCase() ?? ''
   const normalizedTitle = title?.trim().toLowerCase() ?? ''
@@ -372,7 +401,7 @@ export default async function Page({ params: paramsPromise }: PageProps) {
     const rawHeroProps = page.hero && typeof page.hero === 'object' ? page.hero : {}
     const heroProps =
       isBrandingPortfolioSlug(resolvedSlug) && shouldUseBrandingPortfolioHeroFallback(rawHeroProps)
-        ? getPortfolioPresetHero('branding')
+        ? mergeBrandingPortfolioHeroFallback(rawHeroProps as Record<string, unknown>)
         : rawHeroProps
     const resolvedLayoutBlocks = await resolveSharedPortfolioContent(
       resolvedSlug,
