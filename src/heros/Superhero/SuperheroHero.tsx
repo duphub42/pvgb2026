@@ -815,7 +815,7 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                   console.warn('[BG IMG] Failed to load:', renderBgSrc)
                   setBgImageFailed(true)
                 }}
-                loading="lazy"
+                loading="eager"
                 fetchPriority="low"
                 quality={42}
                 sizes="100vw"
