@@ -56,11 +56,7 @@ const buildServiceHref = (slug?: string | null, isEnglish = false): string | und
   const normalized = normalizeServiceSlug(slug)
   if (!normalized) return undefined
   if (normalized.startsWith('http://') || normalized.startsWith('https://')) return normalized
-  const href = normalized.startsWith('/')
-    ? normalized
-    : normalized.includes('/')
-      ? `/${normalized}`
-      : `/leistungen/${normalized}`
+  const href = normalized.startsWith('/') ? normalized : `/${normalized}`
   return isEnglish ? localizePathname(href, 'en') : href
 }
 
