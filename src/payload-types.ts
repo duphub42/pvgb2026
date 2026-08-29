@@ -1535,6 +1535,10 @@ export interface PortfolioKpiStripBlock {
          * Beispiel: +34% YoY
          */
         delta?: string | null;
+        /**
+         * Optional. Ohne Auswahl wird automatisch das Trend-Icon verwendet.
+         */
+        icon?: ('trending-up' | 'trending-down' | 'target' | 'bar-chart-3' | 'gauge' | 'tag' | 'coins') | null;
         id?: string | null;
       }[]
     | null;
@@ -4042,6 +4046,7 @@ export interface PortfolioKpiStripBlockSelect<T extends boolean = true> {
         context?: T;
         trend?: T;
         delta?: T;
+        icon?: T;
         id?: T;
       };
   id?: T;

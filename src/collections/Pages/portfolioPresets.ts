@@ -230,6 +230,7 @@ const MARKETING_PRESET: PortfolioPresetPage = {
           context: 'in 9 Monaten nach Relaunch',
           trend: 'up',
           delta: '+186%',
+          icon: 'trending-up',
         },
         {
           value: '-32%',
@@ -237,6 +238,7 @@ const MARKETING_PRESET: PortfolioPresetPage = {
           context: 'durch Kampagnenrestrukturierung',
           trend: 'down',
           delta: '-32%',
+          icon: 'target',
         },
         {
           value: '+64%',
@@ -251,6 +253,7 @@ const MARKETING_PRESET: PortfolioPresetPage = {
           context: 'Brand + Generic Search',
           trend: 'up',
           delta: '+1.1x',
+          icon: 'bar-chart-3',
         },
       ],
     },

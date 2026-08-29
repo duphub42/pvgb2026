@@ -83,6 +83,23 @@ export const PortfolioKpiStrip: Block = {
             description: 'Beispiel: +34% YoY',
           },
         },
+        {
+          name: 'icon',
+          type: 'select',
+          label: 'Icon',
+          admin: {
+            description: 'Optional. Ohne Auswahl wird automatisch das Trend-Icon verwendet.',
+          },
+          options: [
+            { label: 'Trend steigend', value: 'trending-up' },
+            { label: 'Trend fallend', value: 'trending-down' },
+            { label: 'Ziel/Target', value: 'target' },
+            { label: 'Balkendiagramm', value: 'bar-chart-3' },
+            { label: 'Tacho/Performance', value: 'gauge' },
+            { label: 'Preisschild', value: 'tag' },
+            { label: 'Coins/Investition', value: 'coins' },
+          ],
+        },
       ],
     },
   ],

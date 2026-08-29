@@ -1,4 +1,14 @@
-import { Minus, TrendingDown, TrendingUp, type LucideIcon } from 'lucide-react'
+import {
+  BarChart3,
+  Coins,
+  Gauge,
+  Minus,
+  Tag,
+  Target,
+  TrendingDown,
+  TrendingUp,
+  type LucideIcon,
+} from 'lucide-react'
 
 import { Badge } from '@/components/ui/badge'
 import { translateValueForLocale } from '@/i18n/translationOverlay'
@@ -39,6 +49,16 @@ const trendMeta: Record<
     variant: 'secondary',
     label: 'Neutral',
   },
+}
+
+const kpiIconMap: Record<string, LucideIcon> = {
+  'trending-up': TrendingUp,
+  'trending-down': TrendingDown,
+  target: Target,
+  'bar-chart-3': BarChart3,
+  gauge: Gauge,
+  tag: Tag,
+  coins: Coins,
 }
 
 const pricingContextBlocks = [
@@ -167,6 +187,8 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
             const trend = (item.trend ?? 'up') as Trend
             const meta = trendMeta[trend] ?? trendMeta.up
             const TrendIcon = meta.icon
+            const ValueIcon =
+              (typeof item.icon === 'string' && kpiIconMap[item.icon]) || meta.icon
             const itemValue = translateValueForLocale(item.value, locale)
             const itemDelta = translateValueForLocale(item.delta, locale)
             const itemLabel = translateValueForLocale(item.label, locale)
@@ -183,13 +205,22 @@ export const PortfolioKpiStripBlock: React.FC<PortfolioKpiStripProps> = ({
                 data-kpi-reveal-card={enableTileReveal ? 'true' : undefined}
               >
                 <div className="mb-4 flex items-center justify-between gap-2">
-                  <p
-                    className="text-3xl font-semibold leading-none md:text-4xl"
-                    data-kpi-reveal-detail={enableTileReveal ? 'true' : undefined}
-                    data-kpi-count-value={enableTileReveal ? 'true' : undefined}
-                  >
-                    {itemValue}
-                  </p>
+                  <div className="flex items-center gap-3">
+                    <span
+                      aria-hidden
+                      className="flex size-9 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary"
+                      data-kpi-reveal-detail={enableTileReveal ? 'true' : undefined}
+                    >
+                      <ValueIcon className="size-5" />
+                    </span>
+                    <p
+                      className="text-3xl font-semibold leading-none md:text-4xl"
+                      data-kpi-reveal-detail={enableTileReveal ? 'true' : undefined}
+                      data-kpi-count-value={enableTileReveal ? 'true' : undefined}
+                    >
+                      {itemValue}
+                    </p>
+                  </div>
                   <Badge
                     variant={meta.variant}
                     className="gap-1 px-2 py-1 text-[11px] font-semibold uppercase tracking-wide"

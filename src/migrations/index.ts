@@ -138,6 +138,7 @@ import * as migration_20260531_210000_portfolio_teaser_block_tables from './2026
 import * as migration_20260707_183500_block_decorative_background from './20260707_183500_block_decorative_background'
 import * as migration_20260707_190000_site_pages_editable_faq from './20260707_190000_site_pages_editable_faq'
 import * as migration_20260711_093000_fix_site_pages_faq_array_id_defaults from './20260711_093000_fix_site_pages_faq_array_id_defaults'
+import * as migration_20260829_100000_portfolio_kpis_items_icon from './20260829_100000_portfolio_kpis_items_icon'
 
 export const migrations = [
   {
@@ -839,6 +840,11 @@ export const migrations = [
     up: migration_20260711_093000_fix_site_pages_faq_array_id_defaults.up,
     down: migration_20260711_093000_fix_site_pages_faq_array_id_defaults.down,
     name: '20260711_093000_fix_site_pages_faq_array_id_defaults',
+  },
+  {
+    up: migration_20260829_100000_portfolio_kpis_items_icon.up,
+    down: migration_20260829_100000_portfolio_kpis_items_icon.down,
+    name: '20260829_100000_portfolio_kpis_items_icon',
   },
   // TEMPORARILY DISABLED - Database migration needs SQLite fix
   // {
