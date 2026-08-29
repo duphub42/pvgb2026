@@ -560,6 +560,7 @@
     --hero-portrait-shadow-3: 0 0 36px color-mix(in srgb, hsl(var(--primary)) 30%, transparent);
     --hero-portrait-safe-shift-x: 5%;
     --hero-portrait-safe-scale: 1;
+    --hero-portrait-hide-translate-x-max: 0rem;
     --hero-layer-base-translate-max: 0.4rem;
     --hero-layer-base-scale-max: 0.015;
     --hero-layer-base-fade-max: 0.2;
@@ -627,6 +628,15 @@
     --hero-portrait-fade-max: 1;
     --hero-portrait-desaturate-max: 0.18;
     --hero-portrait-blur-max: 8px;
+  }
+
+  /* Desktop: instead of fading the portrait to transparent as it hides, slide it
+     off to the right so it disappears via translateX. */
+  @media (min-width: 1024px) {
+    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
+      --hero-portrait-fade-max: 0;
+      --hero-portrait-hide-translate-x-max: 40rem;
+    }
   }
 
   @media (min-width: 1024px) and (max-width: 1199px) {
@@ -1098,7 +1108,10 @@
     );
     will-change: transform, opacity;
     transform: translate3d(
-        var(--hero-portrait-safe-shift-x),
+        calc(
+          var(--hero-portrait-safe-shift-x) +
+            (var(--hero-portrait-hide-progress) * var(--hero-portrait-hide-translate-x-max))
+        ),
         calc(
           (var(--hero-portrait-parallax-progress) * var(--hero-portrait-translate-max)) +
             (var(--hero-portrait-hide-progress) * var(--hero-portrait-translate-extra-max))
@@ -2376,11 +2389,17 @@
       background: var(--background);
     }
 
+    /* !important: the unconditional `.hero-scroll-bg-image--desktop`/`.hero-scroll-bg-
+       backplate` rules further down this same layer (desktop/tablet halo tuning) set
+       `display: block` with no media guard, so without !important here they win this
+       cascade on mobile too (later source order, same specificity/layer) - the backplate
+       was rendering (and being downloaded) on mobile despite this rule, which made it
+       Lighthouse's LCP element and inflated mobile LCP to ~7.7s. */
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-scroll-bg-image--desktop,
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-scroll-bg-backplate {
-      display: none;
+      display: none !important;
     }
 
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']

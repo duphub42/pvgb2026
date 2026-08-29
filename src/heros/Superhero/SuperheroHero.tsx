@@ -815,18 +815,12 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                   console.warn('[BG IMG] Failed to load:', renderBgSrc)
                   setBgImageFailed(true)
                 }}
-                // No manual preload link covers this crop - it renders at quality=42
-                // while the preload links above are built at quality=62 (matching the
-                // sharp mobile/desktop crops), so this is a distinct URL. On mobile home
-                // it's also the actual LCP-painted element (an unconditional CSS rule
-                // keeps it visible at opacity:0.42 beneath the sharp masked crop, even
-                // past the max-width:479px breakpoint - see globals.part1.css around the
-                // `.hero-scroll-bg-backplate { opacity: 0.42 }` rule). `fetchPriority="low"`
-                // here was previously starving it: with nothing preloading it, the browser
-                // only discovered/fetched it ~6.5s into the load (vs ~1.6s for the
-                // preloaded crop), which was directly inflating LCP to ~7.7s.
+                // Desktop/tablet-only halo layer (hidden on mobile via the
+                // max-width:479px !important rule in globals.part1.css - see the
+                // comment there). Low priority is correct here: it's never the visible
+                // LCP element once that mobile hide rule actually wins the cascade.
                 loading="eager"
-                fetchPriority="high"
+                fetchPriority="low"
                 quality={42}
                 sizes="100vw"
               />
