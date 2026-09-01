@@ -560,7 +560,6 @@
     --hero-portrait-shadow-3: 0 0 36px color-mix(in srgb, hsl(var(--primary)) 30%, transparent);
     --hero-portrait-safe-shift-x: 5%;
     --hero-portrait-safe-scale: 1;
-    --hero-portrait-hide-translate-x-max: 0rem;
     --hero-layer-base-translate-max: 0.4rem;
     --hero-layer-base-scale-max: 0.015;
     --hero-layer-base-fade-max: 0.2;
@@ -628,15 +627,6 @@
     --hero-portrait-fade-max: 1;
     --hero-portrait-desaturate-max: 0.18;
     --hero-portrait-blur-max: 8px;
-  }
-
-  /* Desktop: instead of fading the portrait to transparent as it hides, slide it
-     off to the right so it disappears via translateX. */
-  @media (min-width: 1024px) {
-    section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true'] {
-      --hero-portrait-fade-max: 0;
-      --hero-portrait-hide-translate-x-max: 40rem;
-    }
   }
 
   @media (min-width: 1024px) and (max-width: 1199px) {
@@ -1108,10 +1098,7 @@
     );
     will-change: transform, opacity;
     transform: translate3d(
-        calc(
-          var(--hero-portrait-safe-shift-x) +
-            (var(--hero-portrait-hide-progress) * var(--hero-portrait-hide-translate-x-max))
-        ),
+        var(--hero-portrait-safe-shift-x),
         calc(
           (var(--hero-portrait-parallax-progress) * var(--hero-portrait-translate-max)) +
             (var(--hero-portrait-hide-progress) * var(--hero-portrait-translate-extra-max))
@@ -2595,12 +2582,15 @@
          on top of what was already shrinking, so the portrait visibly gets smaller as it
          reaches the edge, not just smaller-ish. */
       transform: translate3d(
-          calc(var(--home-hero-mobile-portrait-shrink) * 34%),
+          calc(
+            (var(--home-hero-mobile-portrait-shrink) * 34%) +
+              (var(--home-hero-mobile-portrait-fadeout, 0) * 140%)
+          ),
           calc(var(--home-hero-mobile-portrait-shrink) * 12%),
           0
         )
         scale(calc(1.2 - (var(--home-hero-mobile-portrait-shrink) * 0.28)));
-      opacity: calc(1 - var(--home-hero-mobile-portrait-fadeout, 0));
+      opacity: 1;
       /* transition: none, not a duration - --hero-scroll-progress (and everything
          derived from it, like --home-hero-mobile-portrait-shrink) is already smoothed
          in JS per scroll rAF tick (gsap.quickTo, see SuperheroHero.tsx). A CSS
