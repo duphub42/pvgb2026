@@ -70,18 +70,6 @@ export function getCalBookingUrl(calLink = DEFAULT_CAL_LINK): string {
   return `https://www.${calDomain}/${cleanedCalLink}`
 }
 
-export function getCalEmbedUrl(calLink = DEFAULT_CAL_LINK): string {
-  const cleanedCalLink = normalizeCalLink(calLink)
-  const calDomain = getCalDomain(calLink)
-  // Public booking host (www) for reliable iframe embeds; app.* is for the embed script.
-  const bookingOrigin = calDomain === 'cal.eu' ? 'https://www.cal.eu' : 'https://app.cal.com'
-  const params = new URLSearchParams({
-    embed: '',
-    layout: 'month_view',
-  })
-  return `${bookingOrigin}/${cleanedCalLink}/embed?${params.toString()}`
-}
-
 export const CAL_BOOKING_OPEN_EVENT = 'pvgb:open-cal-booking'
 
 export type CalBookingOpenDetail = {

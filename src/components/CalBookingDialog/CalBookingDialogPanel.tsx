@@ -1,6 +1,7 @@
 'use client'
 
 import { X } from 'lucide-react'
+import { useEffect, useId, useRef, useState } from 'react'
 import {
   Dialog,
   DialogClose,
@@ -8,7 +9,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from '@/components/ui/dialog'
-import { getCalEmbedUrl } from '@/utilities/webmcp/calEmbed'
+import { getCalBookingUrl, mountCalInlineEmbed } from '@/utilities/webmcp/calEmbed'
 
 type CalBookingDialogPanelProps = {
   open: boolean
@@ -21,7 +22,40 @@ export function CalBookingDialogPanel({
   calLink,
   onOpenChange,
 }: CalBookingDialogPanelProps) {
-  const embedUrl = getCalEmbedUrl(calLink)
+  const id = useId()
+  const containerId = `cal-modal-inline-${id.replace(/:/g, '')}`
+  const containerRef = useRef<HTMLDivElement>(null)
+  const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading')
+
+  useEffect(() => {
+    if (!open) return
+
+    const container = containerRef.current
+    if (!container) return
+
+    let cancelled = false
+    setStatus('loading')
+
+    void mountCalInlineEmbed(
+      {
+        elementOrSelector: container,
+        calLink,
+      },
+      calLink,
+    )
+      .then(() => {
+        if (!cancelled) setStatus('ready')
+      })
+      .catch(() => {
+        if (!cancelled) setStatus('error')
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [open, calLink])
+
+  const fallbackUrl = getCalBookingUrl(calLink)
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -47,14 +81,29 @@ export function CalBookingDialogPanel({
           </DialogClose>
         </div>
         {open ? (
-          <iframe
-            key={embedUrl}
-            src={embedUrl}
-            title="Cal.eu Terminbuchung"
-            className="min-h-0 w-full flex-1 border-0 bg-background"
-            loading="eager"
-            allow="camera; microphone; fullscreen"
-          />
+          <div className="relative min-h-0 w-full flex-1 overflow-hidden bg-background">
+            {status === 'loading' ? (
+              <div className="absolute inset-0 flex items-center justify-center bg-muted/20">
+                <p className="text-sm text-muted-foreground">Kalender wird geladen …</p>
+              </div>
+            ) : null}
+            {status === 'error' ? (
+              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-muted/20 px-6 text-center">
+                <p className="text-sm text-muted-foreground">
+                  Der Kalender konnte nicht eingebettet werden.
+                </p>
+                <a
+                  href={fallbackUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm font-medium underline underline-offset-4"
+                >
+                  Termin direkt auf Cal.eu buchen
+                </a>
+              </div>
+            ) : null}
+            <div id={containerId} ref={containerRef} className="h-full w-full" />
+          </div>
         ) : null}
       </DialogContent>
     </Dialog>
