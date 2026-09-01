@@ -109,15 +109,16 @@
   }
 
   const CONSENT_STORAGE_KEY = 'pb_cookie_consent_v1'
-  const GA_MEASUREMENT_ID = 'G-Y0D7045XMB'
-  const GA_COOKIE_PREFIXES = ['_ga', '_gid', '_gat']
+  const GA_MEASUREMENT_ID = 'G-40K5QY3RJQ'
+  const GOOGLE_ADS_ID = 'AW-17945584933'
+  const GOOGLE_COOKIE_PREFIXES = ['_ga', '_gid', '_gat', '_gac', '_gcl']
 
   const consentCopy =
     language === 'en'
       ? {
           title: 'Privacy settings',
-          text: 'I use Google Analytics only with your consent to understand visits and improve the website.',
-          accept: 'Accept analytics',
+          text: 'I use Google Analytics and Google Ads conversion measurement only with your consent to understand visits and improve the website.',
+          accept: 'Accept tracking',
           decline: 'Necessary only',
           settings: 'Cookie settings',
           privacy: 'Privacy policy',
@@ -125,8 +126,8 @@
         }
       : {
           title: 'Datenschutz-Einstellungen',
-          text: 'Ich nutze Google Analytics nur mit Ihrer Zustimmung, um Besuche zu verstehen und die Website zu verbessern.',
-          accept: 'Analytics akzeptieren',
+          text: 'Ich nutze Google Analytics und Google Ads Conversion-Messung nur mit Ihrer Zustimmung, um Besuche zu verstehen und die Website zu verbessern.',
+          accept: 'Tracking akzeptieren',
           decline: 'Nur notwendige',
           settings: 'Cookie-Einstellungen',
           privacy: 'Datenschutz',
@@ -296,8 +297,8 @@
 
     window.gtag('consent', 'update', {
       ad_personalization: 'denied',
-      ad_storage: 'denied',
-      ad_user_data: 'denied',
+      ad_storage: 'granted',
+      ad_user_data: 'granted',
       analytics_storage: 'granted',
     })
     window.gtag('js', new Date())
@@ -305,6 +306,7 @@
       anonymize_ip: true,
       send_page_view: true,
     })
+    window.gtag('config', GOOGLE_ADS_ID)
 
     const script = document.createElement('script')
     script.async = true
@@ -332,7 +334,7 @@
       .split(';')
       .map((cookie) => cookie.trim().split('=')[0])
       .filter((name) =>
-        GA_COOKIE_PREFIXES.some((prefix) => name === prefix || name.startsWith(`${prefix}_`)),
+        GOOGLE_COOKIE_PREFIXES.some((prefix) => name === prefix || name.startsWith(`${prefix}_`)),
       )
 
     const hostname = window.location.hostname

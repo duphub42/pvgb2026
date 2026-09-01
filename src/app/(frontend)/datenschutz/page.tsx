@@ -164,11 +164,19 @@ export default async function DatenschutzPage() {
           </p>
           <p>
             Nach Ihrer Einwilligung wird Google Analytics 4 eingesetzt, ein Webanalysedienst der
-            Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Dabei können
-            Nutzungsdaten wie Seitenaufrufe, Geräte- und Browserinformationen, ungefähre
-            Standortdaten und Interaktionen verarbeitet werden. Die Einbindung erfolgt erst nach
-            aktiver Zustimmung über das Consent-Banner. Die Einwilligung kann jederzeit über die
-            Cookie-Einstellungen widerrufen werden.
+            Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Die verwendete
+            Measurement-ID lautet G-40K5QY3RJQ. Dabei können Nutzungsdaten wie Seitenaufrufe,
+            Geräte- und Browserinformationen, ungefähre Standortdaten und Interaktionen verarbeitet
+            werden. Die Einbindung erfolgt erst nach aktiver Zustimmung über das Consent-Banner. Die
+            Einwilligung kann jederzeit über die Cookie-Einstellungen widerrufen werden.
+          </p>
+          <p>
+            Nach Ihrer Einwilligung wird außerdem Google Ads Conversion-Tracking eingesetzt,
+            ebenfalls über Dienste der Google Ireland Limited. Die verwendete Google Ads
+            Conversion-ID lautet AW-17945584933. Damit kann nachvollzogen werden, ob Nutzerinnen und
+            Nutzer nach einem Anzeigenkontakt bestimmte Aktionen auf der Website ausführen, z. B.
+            eine Kontaktaufnahme. Die Verarbeitung erfolgt nur nach Einwilligung und kann jederzeit
+            über die Cookie-Einstellungen widerrufen werden.
           </p>
           <p>
             Für die Terminbuchung nutze ich das Buchungstool Cal.com, bereitgestellt von der Cal.com

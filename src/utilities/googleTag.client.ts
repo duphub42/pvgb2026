@@ -1,8 +1,9 @@
 'use client'
 
 export const CONSENT_STORAGE_KEY = 'pb_cookie_consent_v1'
-export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-Y0D7045XMB'
-const GA_COOKIE_PREFIXES = ['_ga', '_gid', '_gat']
+export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-40K5QY3RJQ'
+export const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-17945584933'
+const GOOGLE_COOKIE_PREFIXES = ['_ga', '_gid', '_gat', '_gac', '_gcl']
 
 declare global {
   interface Window {
@@ -22,8 +23,8 @@ export function injectGoogleTag() {
 
   window.gtag('consent', 'update', {
     ad_personalization: 'denied',
-    ad_storage: 'denied',
-    ad_user_data: 'denied',
+    ad_storage: 'granted',
+    ad_user_data: 'granted',
     analytics_storage: 'granted',
   })
   window.gtag('js', new Date())
@@ -31,6 +32,7 @@ export function injectGoogleTag() {
     anonymize_ip: true,
     send_page_view: true,
   })
+  window.gtag('config', GOOGLE_ADS_ID)
 
   const script = document.createElement('script')
   script.async = true
@@ -51,7 +53,7 @@ function deleteGoogleAnalyticsCookies() {
     .split(';')
     .map((cookie) => cookie.trim().split('=')[0])
     .filter((name) =>
-      GA_COOKIE_PREFIXES.some((prefix) => name === prefix || name.startsWith(`${prefix}_`)),
+      GOOGLE_COOKIE_PREFIXES.some((prefix) => name === prefix || name.startsWith(`${prefix}_`)),
     )
 
   const hostname = window.location.hostname

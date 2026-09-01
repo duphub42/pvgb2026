@@ -29,8 +29,8 @@ export function CookieConsent() {
     locale === 'en'
       ? {
           title: 'Privacy settings',
-          text: 'I use Google Analytics only with your consent to understand visits and improve the website.',
-          accept: 'Accept analytics',
+          text: 'I use Google Analytics and Google Ads conversion measurement only with your consent to understand visits and improve the website.',
+          accept: 'Accept tracking',
           decline: 'Necessary only',
           settings: 'Cookie settings',
           privacy: 'Privacy policy',
@@ -38,8 +38,8 @@ export function CookieConsent() {
         }
       : {
           title: 'Datenschutz-Einstellungen',
-          text: 'Ich nutze Google Analytics nur mit Ihrer Zustimmung, um Besuche zu verstehen und die Website zu verbessern.',
-          accept: 'Analytics akzeptieren',
+          text: 'Ich nutze Google Analytics und Google Ads Conversion-Messung nur mit Ihrer Zustimmung, um Besuche zu verstehen und die Website zu verbessern.',
+          accept: 'Tracking akzeptieren',
           decline: 'Nur notwendige',
           settings: 'Cookie-Einstellungen',
           privacy: 'Datenschutz',
