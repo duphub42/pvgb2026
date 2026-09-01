@@ -69,7 +69,7 @@ const ASSET_PREFIXES = [
   '/favicon',
   '/icons-sprite.svg',
   '/manifest.json',
-  '/website-template-OG.webp',
+  '/philippbacher-website.png',
 ]
 
 // Maps a synthetic per-width cache path (written into the exported HTML and to disk)
@@ -848,7 +848,7 @@ async function main() {
   queuedAssets.add('/favicon.svg')
   queuedAssets.add('/manifest.json')
   queuedAssets.add('/icons-sprite.svg')
-  queuedAssets.add('/website-template-OG.webp')
+  queuedAssets.add('/philippbacher-website.png')
 
   while (queuedAssets.size > downloadedAssets.size) {
     const next = [...queuedAssets].find((asset) => !downloadedAssets.has(asset))
