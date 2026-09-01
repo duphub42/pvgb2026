@@ -81,7 +81,7 @@ const getMetaTitle = (doc?: Partial<SitePage> | Partial<BlogPost> | null): strin
 const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
   const siteUrl = getPublicSiteURL()
 
-  let url = siteUrl + '/website-template-OG.webp'
+  let url = siteUrl + '/philippbacher-website.png'
 
   if (image && typeof image === 'object' && 'url' in image) {
     const ogUrl = image.sizes?.og?.url

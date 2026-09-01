@@ -8,7 +8,7 @@ type JsonLdObject = Record<string, unknown>
 
 const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME?.trim() || 'Philipp Bacher'
 const CONTACT_EMAIL = process.env.NEXT_PUBLIC_CONTACT_EMAIL?.trim() || 'mail@philippbacher.com'
-const DEFAULT_IMAGE_PATH = '/website-template-OG.webp'
+const DEFAULT_IMAGE_PATH = '/philippbacher-website.png'
 const SERVICE_AREAS = [
   'Halle (Saale)',
   'Leipzig',

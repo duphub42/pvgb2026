@@ -132,7 +132,7 @@ function buildLocalBusinessGraph(footerData: FooterGlobal | null): string {
         email,
         telephone,
         priceRange: '190 EUR - 14000 EUR',
-        image: `${baseURL}/website-template-OG.webp`,
+        image: `${baseURL}/philippbacher-website.png`,
         areaServed: SERVICE_AREAS,
         address: {
           '@type': 'PostalAddress',
@@ -167,6 +167,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     let headerData: HeaderGlobal | null = null
     let footerData: FooterGlobal | null = null
     let faviconUrl: string | null = null
+    let faviconType: string | null = null
 
     const [designResult, themeSettingsResult, headerResult, footerResult] =
       await Promise.allSettled([
@@ -205,6 +206,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       headerData.favicon?.url
     ) {
       faviconUrl = getMediaUrl(headerData.favicon.url, headerData.favicon.updatedAt) || null
+      faviconType =
+        'mimeType' in headerData.favicon && headerData.favicon.mimeType
+          ? headerData.favicon.mimeType
+          : 'image/x-icon'
     }
 
     const localBusinessJsonLd = buildLocalBusinessGraph(footerData)
@@ -221,7 +226,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <DesignStyles design={design ?? null} />
           <ThemeSettingsStyles themeSettings={themeSettings ?? null} />
           {faviconUrl ? (
-            <link href={faviconUrl} rel="icon" type="image/x-icon" />
+            <link href={faviconUrl} rel="icon" type={faviconType ?? 'image/x-icon'} />
           ) : (
             <>
               <link href="/favicon.ico" rel="icon" sizes="32x32" />

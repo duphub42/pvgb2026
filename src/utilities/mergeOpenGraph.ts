@@ -9,7 +9,7 @@ const defaultOpenGraph: Metadata['openGraph'] = {
     'Webdesign, Branding, SEO und digitale Beratung für Unternehmen in Halle, Leipzig und der DACH-Region.',
   images: [
     {
-      url: `${getPublicSiteURL()}/website-template-OG.webp`,
+      url: `${getPublicSiteURL()}/philippbacher-website.png`,
     },
   ],
   siteName,
