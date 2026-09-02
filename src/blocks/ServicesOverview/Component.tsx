@@ -3,6 +3,7 @@
 import React, { useMemo } from 'react'
 import { usePathname } from 'next/navigation'
 import {
+  ArrowUpRight,
   Code,
   Compass,
   Globe,
@@ -174,7 +175,7 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
           ))}
         </div>
       ) : (
-        <div className="services-overview-expand-row relative z-30 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:items-stretch lg:gap-4">
+        <div className="services-overview-expand-row relative z-30 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:items-stretch">
           {items.map(({ key, iconKey, title, description }, itemIndex) => {
             const Icon = ICON_MAP[iconKey] ?? Compass
             return (
@@ -186,19 +187,26 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
                 )}
               >
                 <div className="relative z-10 flex min-h-0 min-w-0 flex-1 flex-col">
-                  <div className="mb-2.5 flex shrink-0 items-center gap-2.5">
-                    <span
-                      className="services-overview-card-icon-badge flex size-9 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 group-hover:rotate-[-4deg]"
+                  <div className="mb-2.5 flex shrink-0 items-center justify-between gap-2.5">
+                    <div className="flex items-center gap-2.5">
+                      <span
+                        className="services-overview-card-icon-badge flex size-9 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 group-hover:rotate-[-4deg]"
+                        aria-hidden
+                      >
+                        <Icon className="size-[1.1rem]" strokeWidth={2.25} />
+                      </span>
+                      <span
+                        className="services-overview-card-index select-none text-xs font-medium tabular-nums text-muted-foreground/40"
+                        aria-hidden
+                      >
+                        {String(itemIndex + 1).padStart(2, '0')}
+                      </span>
+                    </div>
+                    <ArrowUpRight
+                      className="services-overview-card-arrow size-4 shrink-0"
                       aria-hidden
-                    >
-                      <Icon className="size-[1.1rem]" strokeWidth={2.25} />
-                    </span>
-                    <span
-                      className="services-overview-card-index select-none text-xs font-medium tabular-nums text-muted-foreground/40"
-                      aria-hidden
-                    >
-                      {String(itemIndex + 1).padStart(2, '0')}
-                    </span>
+                      strokeWidth={2.25}
+                    />
                   </div>
                   <h3 className="services-overview-card-title line-clamp-2 shrink-0 text-balance text-base font-semibold leading-snug tracking-tight text-card-foreground md:text-[1.05rem]">
                     {title}
