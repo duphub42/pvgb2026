@@ -1316,7 +1316,7 @@ export interface WhyWorkWithMeBlock {
           | 'heart'
           | 'shield';
         /**
-         * Ein Satz pro Zeile — wird als Listenpunkt mit Icon angezeigt.
+         * Format: "Kurzes Argument: Kurzer Beleg." oder "Kurzes Argument — Kurzer Beleg." Der Teil vor dem ersten ": " bzw. " — " wird fett hervorgehoben, der Rest gedämpft dargestellt.
          */
         text: string;
         id?: string | null;

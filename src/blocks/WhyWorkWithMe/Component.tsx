@@ -15,29 +15,45 @@ import { BlockContainer } from '@/components/BlockContainer'
 const INTRO_ICON_FALLBACK: Array<{ icon: string; text: string }> = [
   {
     icon: 'brain',
-    text: 'Unternehmerisch statt in Einzelleistungen gedacht: Bei Trinkwasser-Verband.de wurde nicht nur eine Website gebaut, sondern Website, Lead-Erfassung und Follow-up-Prozess als ein zusammenhängendes System geplant.',
+    text: 'Unternehmerisch statt in Einzelleistungen gedacht: Bei Trinkwasser-Verband.de wurden Website, Lead-Erfassung und Follow-up als ein System geplant.',
   },
   {
     icon: 'zap',
-    text: 'Jedes Projekt startet mit einer Ist-Analyse bestehender Kanäle und Prozesse — bei MEDIFISCH.de führte das dazu, dass Werbung von META Marketingkanälen eingestellt wurden, weil sie keine messbaren Leads brachten.',
+    text: 'Jedes Projekt startet mit einer Ist-Analyse bestehender Kanäle — bei MEDIFISCH.de führte das zur Einstellung von Meta-Werbung ohne messbare Leads.',
   },
   {
     icon: 'search',
-    text: 'Bestehende Strategien werden geprüft, bevor neue aufgesetzt werden: Ein Website-Relaunch beginnt grundsätzlich mit einer Analyse der aktuellen SEO-Rankings und Nutzerpfade, nicht mit einem Neustart bei null.',
+    text: 'Bestehende Strategien werden geprüft, bevor neue aufgesetzt werden: Ein Relaunch startet mit einer Analyse der SEO-Rankings und Nutzerpfade – nicht bei null.',
   },
   {
     icon: 'target',
-    text: 'Erfolg wird an Anfragen und Abschlüssen gemessen, nicht an Klickzahlen — deshalb ist eine Marktanalyse fester Bestandteil jedes Projekts: ein monatliches Reporting mit den Kennzahlen, die tatsächlich zu Kundenkontakt führen (Formular-Absendungen, Anrufe), statt reinem Traffic.',
+    text: 'Erfolg wird an Anfragen und Abschlüssen gemessen, nicht an Klickzahlen: Monatliches Reporting zeigt die Kennzahlen, die zu echtem Kundenkontakt führen (Formular-Absendungen, Anrufe).',
   },
   {
     icon: 'trending-up',
-    text: 'Websites entstehen auf einer skalierbaren technischen Basis (Next.js, Payload CMS) — neue Seiten, Funktionen oder ein Onlineshop lassen sich später ergänzen, ohne die Seite komplett neu zu bauen. Nachvollziehbar am Beispiel von Soulmating.de.',
+    text: 'Websites entstehen auf skalierbarer Basis (Next.js, Payload CMS) — neue Seiten, Funktionen oder ein Shop lassen sich später ergänzen. Beispiel: Soulmating.de.',
   },
   {
     icon: 'handshake',
-    text: 'Ein Ansprechpartner, keine Weiterleitungsschleifen: Anfragen werden direkt und persönlich beantwortet, das kostenlose Erstgespräch klärt Umfang und Budget meist innerhalb eines Termins statt mehrerer Abstimmungsrunden.',
+    text: 'Ein Ansprechpartner, keine Weiterleitungsschleifen: Anfragen werden direkt beantwortet, das kostenlose Erstgespräch klärt Umfang und Budget meist in einem Termin.',
   },
 ]
+
+/** Erstes ": " oder " — " trennt das fett hervorgehobene Kern-Argument vom gedämpften Beleg-Text. */
+const ARGUMENT_SPLIT = /^(.*?)(: | — )(.*)$/s
+
+function renderIntroItemText(text: string): React.ReactNode {
+  const match = text.match(ARGUMENT_SPLIT)
+  if (!match) return text
+  const [, argument, separator, detail] = match
+  return (
+    <>
+      <strong className="font-semibold text-foreground">{argument}</strong>
+      {separator}
+      {detail}
+    </>
+  )
+}
 
 const STATIC_FALLBACK: Array<{ icon: string; title: string; description: string }> = [
   {
@@ -366,7 +382,7 @@ export const WhyWorkWithMeBlock: React.FC<WhyWorkWithMeProps> = (props) => {
                       >
                         <Icon className="size-[1.125rem]" strokeWidth={2} />
                       </span>
-                      <span className="min-w-0 pt-0.5">{text}</span>
+                      <span className="min-w-0 pt-0.5">{renderIntroItemText(text)}</span>
                     </li>
                   )
                 })}
