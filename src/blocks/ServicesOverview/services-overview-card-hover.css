@@ -135,7 +135,7 @@
     padding: 1.5rem;
     transition:
       flex-grow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 0.35s ease,
+      background-color 0.5s ease,
       transform 0.35s ease;
   }
 
@@ -150,28 +150,28 @@
 
   .services-overview-card-codepen:hover {
     flex-grow: 2.2;
-    background-color: var(--foreground);
+    background-color: color-mix(in srgb, var(--foreground) 55%, transparent);
     transform: none;
   }
 
   .services-overview-card-codepen:hover .services-overview-card-icon-badge {
-    background: color-mix(in srgb, var(--background) 15%, transparent);
-    color: var(--background);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--background) 25%, transparent);
+    background: color-mix(in srgb, var(--background) 12%, transparent);
+    color: color-mix(in srgb, var(--background) 92%, var(--foreground));
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--background) 20%, transparent);
   }
 
   .services-overview-card-codepen:hover .services-overview-card-index {
-    color: color-mix(in srgb, var(--background) 40%, transparent);
+    color: color-mix(in srgb, var(--background) 32%, transparent);
   }
 
   .services-overview-card-codepen:hover .services-overview-card-title {
-    color: var(--background);
+    color: color-mix(in srgb, var(--background) 92%, var(--foreground));
   }
 
   .services-overview-card-codepen:hover .services-overview-card-arrow {
-    opacity: 1;
+    opacity: 0.85;
     transform: translate(0, 0);
-    color: var(--background);
+    color: color-mix(in srgb, var(--background) 92%, var(--foreground));
   }
 
   /* Feste Höhe für Titel + Beschreibung, damit die Zeile beim Hover nicht wächst
@@ -188,11 +188,11 @@
     overflow: hidden;
     min-height: 4.1em;
     color: transparent;
-    transition: color 0.3s ease;
+    transition: color 0.4s ease;
   }
 
   .services-overview-card-codepen:hover .services-overview-card-desc {
-    color: color-mix(in srgb, var(--background) 75%, transparent);
+    color: color-mix(in srgb, var(--background) 80%, transparent);
   }
 }
 
