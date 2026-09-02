@@ -1,6 +1,7 @@
 /**
  * Monochrome Karten in einer zusammenhängenden Leiste (ab lg). Die gehoverte Kachel
- * wächst in der Breite und füllt sich dunkel (Invert), Nachbarn zeigen nur Icon + Titel.
+ * wächst in der Breite und bekommt eine leichte Grau-Tönung (kein Farbwechsel/Invert -
+ * das wirkte zu kontrastreich), Nachbarn zeigen nur Icon + Titel.
  *
  * Wichtig zu den Farb-Tokens dieses Projekts: --foreground/--card/--muted/--border/
  * --background sind bereits fertige Farbwerte (Hex/RGB, siehe DesignStyles-Fallback und
@@ -167,7 +168,7 @@
     background: conic-gradient(
       from var(--services-overview-beam-angle, 0deg),
       transparent 0%,
-      color-mix(in srgb, var(--background) 70%, transparent) 6%,
+      color-mix(in srgb, var(--foreground) 45%, transparent) 6%,
       transparent 14%
     );
     -webkit-mask:
@@ -196,7 +197,7 @@
     opacity: 0;
     background: radial-gradient(
       320px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-      color-mix(in srgb, var(--background) 16%, transparent),
+      color-mix(in srgb, var(--foreground) 8%, transparent),
       transparent 70%
     );
     transition: opacity 0.4s ease;
@@ -208,35 +209,26 @@
 
   .services-overview-card-codepen:hover {
     flex-grow: 2.2;
-    background-color: color-mix(in srgb, var(--foreground) 55%, transparent);
+    background-color: color-mix(in srgb, var(--foreground) 6%, transparent);
     transform: none;
   }
 
   .services-overview-card-codepen:hover .services-overview-card-icon-badge {
-    background: color-mix(in srgb, var(--background) 12%, transparent);
-    color: color-mix(in srgb, var(--background) 92%, var(--foreground));
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--background) 20%, transparent);
+    background: color-mix(in srgb, var(--foreground) 10%, transparent);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--foreground) 16%, transparent);
   }
 
-  .services-overview-card-codepen:hover .services-overview-card-index {
-    color: color-mix(in srgb, var(--background) 32%, transparent);
-  }
-
-  .services-overview-card-codepen:hover .services-overview-card-title {
-    color: color-mix(in srgb, var(--background) 92%, var(--foreground));
-  }
-
+  /* Titel/Icon behalten ihre normale Farbe - nur die Karte hebt sich per leichter
+     Grau-Tönung ab, keine Invertierung/Farbwechsel (das wirkte zu kontrastreich). */
   .services-overview-card-arrow {
     transition:
       opacity 0.3s ease,
-      transform 0.3s ease,
-      color 0.3s ease;
+      transform 0.3s ease;
   }
 
   .services-overview-card-codepen:hover .services-overview-card-arrow {
-    opacity: 0.85;
+    opacity: 0.7;
     transform: translate(0, 0);
-    color: color-mix(in srgb, var(--background) 92%, var(--foreground));
     transition-delay: 0.06s;
   }
 
@@ -244,7 +236,6 @@
      (kein Layout-Shift auf nachfolgende Sections) - nur Sichtbarkeit ändert sich. */
   .services-overview-card-title {
     min-height: 2.6em;
-    transition: color 0.35s ease;
   }
 
   .services-overview-card-desc {
@@ -258,7 +249,7 @@
   }
 
   .services-overview-card-codepen:hover .services-overview-card-desc {
-    color: color-mix(in srgb, var(--background) 80%, transparent);
+    color: var(--muted-foreground);
     transition-delay: 0.12s;
   }
 }
