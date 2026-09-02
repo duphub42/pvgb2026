@@ -123,8 +123,6 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
     }))
   }, [services, isEnglish])
 
-  const desktopColsClass = items.length === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4'
-
   return (
     <BlockContainer
       styles={styles}
@@ -176,42 +174,38 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
           ))}
         </div>
       ) : (
-        <div
-          className={cn(
-            'relative z-30 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:items-stretch lg:gap-6',
-            desktopColsClass,
-          )}
-        >
+        <div className="services-overview-expand-row relative z-30 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:items-stretch lg:gap-4">
           {items.map(({ key, iconKey, title, description }, itemIndex) => {
             const Icon = ICON_MAP[iconKey] ?? Compass
             return (
-              <div key={key} className="relative w-full min-w-0">
-                <div
-                  className={cn(
-                    'services-overview-card-codepen group relative flex min-h-0 w-full min-w-0 flex-col overflow-hidden rounded-3xl border border-border/90 bg-card p-5 pb-6',
-                    'dark:border-border',
-                  )}
-                >
-                  <span
-                    className="services-overview-card-index pointer-events-none absolute right-3 top-2 select-none text-4xl font-black leading-none tracking-tighter sm:text-5xl"
-                    aria-hidden
-                  >
-                    {String(itemIndex + 1).padStart(2, '0')}
-                  </span>
-                  <div className="relative z-10 flex min-h-0 min-w-0 flex-1 flex-col">
+              <div
+                key={key}
+                className={cn(
+                  'services-overview-card-codepen group relative flex min-h-0 w-full min-w-0 flex-col overflow-hidden rounded-3xl border border-border/90 bg-card p-5 pb-6',
+                  'dark:border-border',
+                )}
+              >
+                <div className="relative z-10 flex min-h-0 min-w-0 flex-1 flex-col">
+                  <div className="mb-2.5 flex shrink-0 items-center gap-2.5">
                     <span
-                      className="services-overview-card-icon-badge mb-2.5 flex size-9 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 group-hover:rotate-[-4deg]"
+                      className="services-overview-card-icon-badge flex size-9 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 group-hover:rotate-[-4deg]"
                       aria-hidden
                     >
                       <Icon className="size-[1.1rem]" strokeWidth={2.25} />
                     </span>
-                    <h3 className="shrink-0 text-balance text-base font-semibold leading-snug tracking-tight text-card-foreground md:text-[1.05rem]">
-                      {title}
-                    </h3>
-                    <p className="services-overview-card-desc mt-1.5 whitespace-pre-line text-pretty text-sm text-muted-foreground">
-                      {description}
-                    </p>
+                    <span
+                      className="services-overview-card-index select-none text-xs font-medium tabular-nums text-muted-foreground/40"
+                      aria-hidden
+                    >
+                      {String(itemIndex + 1).padStart(2, '0')}
+                    </span>
                   </div>
+                  <h3 className="services-overview-card-title line-clamp-2 shrink-0 text-balance text-base font-semibold leading-snug tracking-tight text-card-foreground md:text-[1.05rem]">
+                    {title}
+                  </h3>
+                  <p className="services-overview-card-desc whitespace-pre-line text-pretty text-sm text-muted-foreground">
+                    {description}
+                  </p>
                 </div>
               </div>
             )

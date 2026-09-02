@@ -1515,6 +1515,16 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Nach dem Launch sorgen Updates, Backups und Monitoring dafür, dass die Seite stabil und sicher bleibt':
     'After launch, updates, backups and monitoring keep the site stable and secure',
   'Leistungen im Überblick': 'Services at a Glance',
+  'Meine Leistungen im Überblick': 'My Services at a Glance',
+  'Webentwicklung & Apps': 'Web Development & Apps',
+  'Strategische Beratung, Roadmaps, Business- & Marketing-Strategien – fundiert, praktisch, wirksam.':
+    'Strategic consulting, roadmaps, business & marketing strategies – grounded, practical, effective.',
+  'Moderne, performante Websites und Web-Apps – responsiv, SEO-optimiert, auf Conversion ausgelegt.':
+    'Modern, high-performance websites and web apps – responsive, SEO-optimized, built for conversion.',
+  'Klare Markenbotschaften, einprägsame Designs und ein einheitlicher Auftritt – für hohe Wiedererkennung.':
+    'Clear brand messaging, memorable designs and a consistent appearance – for strong recognition.',
+  'Cross-Channel Kampagnen, Ads, E-Mail-Marketing, Social Media, Automatisierungen – effizient und messbar.':
+    'Cross-channel campaigns, ads, email marketing, social media, automations – efficient and measurable.',
   'Von der individuellen Plugin-Entwicklung bis zur laufenden Betreuung - modular buchbar, je nach Bedarf.':
     'From custom plugin development to ongoing support - modular, booked as needed.',
   'Individuelle Plugins': 'Custom Plugins',

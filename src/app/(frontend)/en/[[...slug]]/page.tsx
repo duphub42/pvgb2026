@@ -263,16 +263,17 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
     (heroProps as { type?: string }).type === 'superhero'
 
   const showHomeFaq = originalSlug === 'home'
-  const whyWorkWithMeIndex = layoutBlocks.findIndex(
+  const ELEVATION_TRIGGER_BLOCK_TYPES = new Set(['whyWorkWithMe', 'servicesOverview'])
+  const elevationStartIndex = layoutBlocks.findIndex(
     (block) =>
       block &&
       typeof block === 'object' &&
       'blockType' in block &&
-      (block as { blockType?: string }).blockType === 'whyWorkWithMe',
+      ELEVATION_TRIGGER_BLOCK_TYPES.has((block as { blockType?: string }).blockType ?? ''),
   )
-  const hasElevatedSplit = showHomeFaq && isSuperheroHero && whyWorkWithMeIndex > 0
-  const earlyBlocks = hasElevatedSplit ? layoutBlocks.slice(0, whyWorkWithMeIndex) : layoutBlocks
-  const elevatedBlocks = hasElevatedSplit ? layoutBlocks.slice(whyWorkWithMeIndex) : []
+  const hasElevatedSplit = showHomeFaq && isSuperheroHero && elevationStartIndex > -1
+  const earlyBlocks = hasElevatedSplit ? layoutBlocks.slice(0, elevationStartIndex) : layoutBlocks
+  const elevatedBlocks = hasElevatedSplit ? layoutBlocks.slice(elevationStartIndex) : []
 
   return (
     <article
@@ -315,7 +316,7 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
           <SectionReveal className="relative hero-following-section-foreground-elevated">
             <RenderBlocks
               blocks={elevatedBlocks}
-              startIndex={whyWorkWithMeIndex}
+              startIndex={elevationStartIndex}
               totalLength={layoutBlocks.length}
             />
             <Faq8 faq={translatedPage.faq} locale="en" />
