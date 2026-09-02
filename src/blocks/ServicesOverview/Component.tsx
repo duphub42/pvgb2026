@@ -175,7 +175,7 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
           ))}
         </div>
       ) : (
-        <div className="services-overview-expand-row relative z-30 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:items-stretch">
+        <div className="services-overview-expand-row relative z-30 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:items-stretch lg:gap-0">
           {items.map(({ key, iconKey, title, description }, itemIndex) => {
             const Icon = ICON_MAP[iconKey] ?? Compass
             return (
