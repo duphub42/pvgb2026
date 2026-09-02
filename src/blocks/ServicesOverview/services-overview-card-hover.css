@@ -1,7 +1,8 @@
 /**
- * Monochrome Karten in einer zusammenhängenden Leiste (ab lg). Die gehoverte Kachel
- * wächst in der Breite und bekommt eine leichte Grau-Tönung (kein Farbwechsel/Invert -
- * das wirkte zu kontrastreich), Nachbarn zeigen nur Icon + Titel.
+ * Monochrome Karten in einer zusammenhängenden Leiste (ab lg), im Stil von shadcn/ui:
+ * schlichte Border, kurze transition-colors, ein ruhiger bg-muted-artiger Hover statt
+ * verspielter Effekte (kein Farbwechsel/Invert, kein Spotlight, kein Beam). Die gehoverte
+ * Kachel wächst in der Breite, Nachbarn zeigen nur Icon + Titel.
  *
  * Wichtig zu den Farb-Tokens dieses Projekts: --foreground/--card/--muted/--border/
  * --background sind bereits fertige Farbwerte (Hex/RGB, siehe DesignStyles-Fallback und
@@ -14,18 +15,6 @@
  * folgende Section auslöst.
  */
 
-@property --services-overview-beam-angle {
-  syntax: '<angle>';
-  inherits: false;
-  initial-value: 0deg;
-}
-
-@keyframes services-overview-beam-spin {
-  to {
-    --services-overview-beam-angle: 360deg;
-  }
-}
-
 .services-overview-card-icon-badge {
   background: color-mix(in srgb, var(--muted) 60%, transparent);
   color: var(--foreground);
@@ -33,82 +22,11 @@
 }
 
 .services-overview-card-codepen {
-  position: relative;
-  z-index: 0;
-  transition:
-    box-shadow 0.35s ease,
-    border-color 0.35s ease,
-    transform 0.35s ease;
-  box-shadow: 0 0 6px 0 rgb(32 32 36 / 0.08);
-}
-
-[data-theme='dark'] .services-overview-card-codepen {
-  box-shadow: none;
+  transition: border-color 0.2s ease;
 }
 
 .services-overview-card-codepen:hover {
   border-color: hsl(var(--primary) / 0.25);
-  box-shadow: 0 10px 24px 0 rgb(32 32 36 / 0.12);
-  transform: translateY(-3px);
-}
-
-[data-theme='dark'] .services-overview-card-codepen:hover {
-  box-shadow: 0 2px 16px rgb(0 0 0 / 0.35);
-}
-
-/* Nur im 4-Spalten-Layout über Nachbarn stacken, damit die Anhebung nichts verdeckt */
-@media (min-width: 64rem) {
-  .services-overview-card-codepen:hover {
-    z-index: 10;
-  }
-}
-
-.services-overview-card-codepen::before,
-.services-overview-card-codepen::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 4px;
-  width: 100%;
-  pointer-events: none;
-  border-radius: inherit;
-  border-top-left-radius: 1.5rem;
-  border-top-right-radius: 1.5rem;
-}
-
-.services-overview-card-codepen::before {
-  background: var(--foreground);
-  width: 0;
-  opacity: 0;
-  z-index: 15;
-  transition:
-    opacity 0s ease,
-    width 0s ease;
-  transition-delay: 0.5s;
-}
-
-.services-overview-card-codepen::after {
-  background: var(--card);
-  z-index: 16;
-  transition: width 0.5s ease;
-}
-
-.services-overview-card-codepen:hover::before {
-  width: 100%;
-  opacity: 1;
-  transition:
-    opacity 0.5s ease,
-    width 0.5s ease;
-  transition-delay: 0s;
-}
-
-.services-overview-card-codepen:hover::after {
-  width: 0;
-  opacity: 0;
-  transition:
-    width 0s ease,
-    opacity 0s ease;
 }
 
 .services-overview-card-desc {
@@ -117,19 +35,18 @@
 }
 
 .services-overview-card-arrow {
-  color: var(--foreground);
+  color: var(--muted-foreground);
   opacity: 0;
-  transform: translate(-4px, 4px);
+  transform: translateX(-2px);
   transition:
-    opacity 0.3s ease,
-    transform 0.3s ease,
-    color 0.3s ease;
+    opacity 0.2s ease,
+    transform 0.2s ease;
 }
 
 /* Fine pointer ab lg: eine zusammenhängende Leiste mit dünnen Trennlinien statt
-   einzelner Karten. Die gehoverte Kachel wächst in der Breite (flex-grow), füllt
-   sich dunkel (Invert) und zeigt Beschreibung + Pfeil; Nachbarn rücken zusammen und
-   zeigen nur Icon + Titel. Unter lg / Touch: normales Grid, Beschreibung immer sichtbar. */
+   einzelner Karten. Die gehoverte Kachel wächst in der Breite (flex-grow) und zeigt
+   ihre Beschreibung, Nachbarn rücken zusammen und zeigen nur Icon + Titel. Unter lg /
+   Touch: normales Grid, Beschreibung immer sichtbar. */
 @media (hover: hover) and (pointer: fine) and (min-width: 64rem) {
   .services-overview-expand-row {
     display: flex;
@@ -144,92 +61,24 @@
     border-radius: 0;
     border: none;
     border-right: 1px solid var(--border);
-    box-shadow: none;
     padding: 1.5rem;
     transition:
-      flex-grow 0.5s cubic-bezier(0.22, 1, 0.36, 1),
-      background-color 0.5s ease,
-      transform 0.35s ease;
+      flex-grow 0.35s ease,
+      background-color 0.2s ease;
   }
 
   .services-overview-card-codepen:last-child {
     border-right: none;
   }
 
-  /* Rotierender Lichtsaum am Rand (Border-Beam) - nur sichtbar via mask-composite
-     entlang der 1px-Kontur, läuft während des Hovers einmal in 2.6s um die Karte. */
-  .services-overview-card-codepen::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 6;
-    padding: 1px;
-    border-radius: inherit;
-    background: conic-gradient(
-      from var(--services-overview-beam-angle, 0deg),
-      transparent 0%,
-      color-mix(in srgb, var(--foreground) 45%, transparent) 6%,
-      transparent 14%
-    );
-    -webkit-mask:
-      linear-gradient(#000 0 0) content-box,
-      linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  .services-overview-card-codepen:hover::before {
-    opacity: 1;
-    animation: services-overview-beam-spin 2.6s linear infinite;
-  }
-
-  /* Spotlight, das der Maus folgt (Position via --spot-x/--spot-y aus onMouseMove) -
-     dezentes, additives Licht auf der Grau-Füllung statt hartem Kontrast. */
-  .services-overview-card-codepen::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    pointer-events: none;
-    opacity: 0;
-    background: radial-gradient(
-      320px circle at var(--spot-x, 50%) var(--spot-y, 50%),
-      color-mix(in srgb, var(--foreground) 8%, transparent),
-      transparent 70%
-    );
-    transition: opacity 0.4s ease;
-  }
-
-  .services-overview-card-codepen:hover::after {
-    opacity: 1;
-  }
-
   .services-overview-card-codepen:hover {
     flex-grow: 2.2;
-    background-color: color-mix(in srgb, var(--foreground) 6%, transparent);
-    transform: none;
-  }
-
-  .services-overview-card-codepen:hover .services-overview-card-icon-badge {
-    background: color-mix(in srgb, var(--foreground) 10%, transparent);
-    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--foreground) 16%, transparent);
-  }
-
-  /* Titel/Icon behalten ihre normale Farbe - nur die Karte hebt sich per leichter
-     Grau-Tönung ab, keine Invertierung/Farbwechsel (das wirkte zu kontrastreich). */
-  .services-overview-card-arrow {
-    transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
+    background-color: var(--muted);
   }
 
   .services-overview-card-codepen:hover .services-overview-card-arrow {
-    opacity: 0.7;
-    transform: translate(0, 0);
-    transition-delay: 0.06s;
+    opacity: 1;
+    transform: translateX(0);
   }
 
   /* Feste Höhe für Titel + Beschreibung, damit die Zeile beim Hover nicht wächst
@@ -245,26 +94,19 @@
     overflow: hidden;
     min-height: 4.1em;
     color: transparent;
-    transition: color 0.4s ease;
+    transition: color 0.2s ease;
   }
 
   .services-overview-card-codepen:hover .services-overview-card-desc {
     color: var(--muted-foreground);
-    transition-delay: 0.12s;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .services-overview-card-codepen,
-  .services-overview-card-codepen:hover {
+  .services-overview-card-codepen:hover,
+  .services-overview-card-arrow {
     transition: none;
-    transform: none;
-    z-index: 0;
-  }
-
-  .services-overview-card-codepen::before,
-  .services-overview-card-codepen::after {
-    display: none;
   }
 
   .services-overview-card-codepen:hover {

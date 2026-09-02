@@ -181,11 +181,6 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
             return (
               <div
                 key={key}
-                onMouseMove={(event) => {
-                  const rect = event.currentTarget.getBoundingClientRect()
-                  event.currentTarget.style.setProperty('--spot-x', `${event.clientX - rect.left}px`)
-                  event.currentTarget.style.setProperty('--spot-y', `${event.clientY - rect.top}px`)
-                }}
                 className={cn(
                   'services-overview-card-codepen group relative flex min-h-0 w-full min-w-0 flex-col overflow-hidden rounded-3xl border border-border/90 bg-card p-5 pb-6',
                   'dark:border-border',
@@ -195,7 +190,7 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
                   <div className="mb-2.5 flex shrink-0 items-center justify-between gap-2.5">
                     <div className="flex items-center gap-2.5">
                       <span
-                        className="services-overview-card-icon-badge flex size-9 shrink-0 items-center justify-center rounded-xl transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 group-hover:scale-110 group-hover:rotate-[-4deg]"
+                        className="services-overview-card-icon-badge flex size-9 shrink-0 items-center justify-center rounded-xl transition-colors duration-200"
                         aria-hidden
                       >
                         <Icon className="size-[1.1rem]" strokeWidth={2.25} />
