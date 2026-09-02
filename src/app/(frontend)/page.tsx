@@ -146,23 +146,25 @@ export default async function RootPage() {
       'type' in heroProps &&
       (heroProps as { type?: string }).type === 'superhero'
 
-    // The "Warum mit mir" tiles need to render above the sticky hero portrait, so their
-    // wrapper is lifted above it in z-index. Splitting the block list here keeps that
-    // elevation scoped to whyWorkWithMe onward, instead of lifting the whole following
-    // section (which used to also drag the Introduction block's maneki-neko decoration
-    // above the portrait it's meant to sit behind).
-    const whyWorkWithMeIndex = layoutBlocksForShell.findIndex(
+    // The "Warum mit mir" tiles (and, when present, the services overview right before them)
+    // need to render above the sticky hero portrait, so their wrapper is lifted above it in
+    // z-index. Splitting the block list here keeps that elevation scoped to whichever of
+    // these comes first onward, instead of lifting the whole following section (which used
+    // to also drag the Introduction block's maneki-neko decoration above the portrait it's
+    // meant to sit behind).
+    const ELEVATION_TRIGGER_BLOCK_TYPES = new Set(['whyWorkWithMe', 'servicesOverview'])
+    const elevationStartIndex = layoutBlocksForShell.findIndex(
       (block) =>
         block &&
         typeof block === 'object' &&
         'blockType' in block &&
-        (block as { blockType?: string }).blockType === 'whyWorkWithMe',
+        ELEVATION_TRIGGER_BLOCK_TYPES.has((block as { blockType?: string }).blockType ?? ''),
     )
-    const hasElevatedSplit = isSuperheroHero && whyWorkWithMeIndex > 0
+    const hasElevatedSplit = isSuperheroHero && elevationStartIndex > -1
     const earlyBlocks = hasElevatedSplit
-      ? layoutBlocksForShell.slice(0, whyWorkWithMeIndex)
+      ? layoutBlocksForShell.slice(0, elevationStartIndex)
       : layoutBlocksForShell
-    const elevatedBlocks = hasElevatedSplit ? layoutBlocksForShell.slice(whyWorkWithMeIndex) : []
+    const elevatedBlocks = hasElevatedSplit ? layoutBlocksForShell.slice(elevationStartIndex) : []
 
     return (
       <article
@@ -213,7 +215,7 @@ export default async function RootPage() {
             <SectionReveal className="relative hero-following-section-foreground-elevated">
               <RenderBlocks
                 blocks={elevatedBlocks}
-                startIndex={whyWorkWithMeIndex}
+                startIndex={elevationStartIndex}
                 totalLength={layoutBlocksForShell.length}
               />
               <Faq8 faq={page.faq} />
