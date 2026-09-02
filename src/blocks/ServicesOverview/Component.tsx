@@ -178,41 +178,39 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
       ) : (
         <div
           className={cn(
-            'relative z-10 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:items-stretch lg:gap-6',
+            'relative z-30 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:items-stretch lg:gap-6',
             desktopColsClass,
           )}
         >
-          {items.map(({ key, iconKey, title, description }) => {
+          {items.map(({ key, iconKey, title, description }, itemIndex) => {
             const Icon = ICON_MAP[iconKey] ?? Compass
             return (
-              <div key={key} className="services-overview-card-slot relative w-full min-w-0">
+              <div key={key} className="relative w-full min-w-0">
                 <div
                   className={cn(
                     'services-overview-card-codepen group relative flex min-h-0 w-full min-w-0 flex-col overflow-hidden rounded-3xl border border-border/90 bg-card p-5 pb-6',
-                    'lg:min-h-[6.25rem]',
-                    'hover:border-primary/25 dark:border-border dark:hover:border-primary/30',
+                    'dark:border-border',
                   )}
                 >
-                  <div className="services-overview-card-content relative z-10 flex min-h-0 min-w-0 flex-1 flex-col pr-9 sm:pr-11">
-                    <h3 className="line-clamp-2 shrink-0 text-balance text-base font-semibold leading-snug tracking-tight text-card-foreground md:text-[1.05rem]">
-                      {title}
-                    </h3>
-                    <div className="services-overview-card-reveal min-h-0 w-full min-w-0">
-                      <p className="services-overview-card-desc whitespace-pre-line text-pretty text-sm text-muted-foreground">
-                        {description}
-                      </p>
-                    </div>
-                  </div>
-                  <div
-                    className={cn(
-                      'pointer-events-none absolute right-0 bottom-0 z-[1] flex size-[5.25rem] translate-x-[20%] translate-y-[20%] items-center justify-center sm:size-[5.75rem] sm:translate-x-[22%] sm:translate-y-[22%]',
-                      'transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]',
-                      'lg:group-hover:scale-[1.1] lg:group-hover:-rotate-[7deg]',
-                    )}
+                  <span
+                    className="services-overview-card-index pointer-events-none absolute right-3 top-2 select-none text-4xl font-black leading-none tracking-tighter sm:text-5xl"
                     aria-hidden
                   >
-                    <div className="absolute inset-0 rounded-2xl bg-primary/[0.07] ring-1 ring-primary/10 dark:bg-primary/[0.11] dark:ring-primary/15" />
-                    <Icon className="relative z-[1] size-9 text-primary/30 transition-colors duration-300 group-hover:text-primary/50 sm:size-10" />
+                    {String(itemIndex + 1).padStart(2, '0')}
+                  </span>
+                  <div className="relative z-10 flex min-h-0 min-w-0 flex-1 flex-col">
+                    <span
+                      className="services-overview-card-icon-badge mb-2.5 flex size-9 shrink-0 items-center justify-center rounded-xl transition-transform duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-0.5 group-hover:rotate-[-4deg]"
+                      aria-hidden
+                    >
+                      <Icon className="size-[1.1rem]" strokeWidth={2.25} />
+                    </span>
+                    <h3 className="shrink-0 text-balance text-base font-semibold leading-snug tracking-tight text-card-foreground md:text-[1.05rem]">
+                      {title}
+                    </h3>
+                    <p className="services-overview-card-desc mt-1.5 whitespace-pre-line text-pretty text-sm text-muted-foreground">
+                      {description}
+                    </p>
                   </div>
                 </div>
               </div>

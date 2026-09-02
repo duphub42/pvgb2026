@@ -1,16 +1,30 @@
 /**
- * Fine pointer ab lg (4 Spalten): fester Grid-Slot, Karte absolute bottom-0, Beschreibung per Hover.
- * Unter lg (Umbruch auf 1–2 Spalten): Fließtext sichtbar, kein reservierter Slot, kein Hover-Resize.
- * Touch / reduced-motion: normaler Fluss, kein Slot-Zwang.
+ * Monochrome Karten, Beschreibung immer sichtbar (kein Hover-Aufklappen, kein reservierter
+ * Leerraum über der Karte). Hover hebt die Karte nur leicht an und stackt sie über Nachbarn.
  */
+
+.services-overview-card-icon-badge {
+  background: hsl(var(--muted) / 0.5);
+  color: hsl(var(--foreground));
+  box-shadow: inset 0 0 0 1px hsl(var(--border));
+}
+
+.services-overview-card-index {
+  color: hsl(var(--foreground) / 0.08);
+  transition: color 0.35s ease;
+}
+
+.services-overview-card-codepen:hover .services-overview-card-index {
+  color: hsl(var(--foreground) / 0.14);
+}
 
 .services-overview-card-codepen {
   position: relative;
   z-index: 0;
-  transform-origin: bottom center;
   transition:
     box-shadow 0.35s ease,
-    border-color 0.35s ease;
+    border-color 0.35s ease,
+    transform 0.35s ease;
   box-shadow: 0 0 6px 0 rgb(32 32 36 / 0.08);
 }
 
@@ -19,20 +33,19 @@
 }
 
 .services-overview-card-codepen:hover {
-  box-shadow: 0 10px 20px 0 rgb(32 32 36 / 0.12);
+  border-color: hsl(var(--primary) / 0.25);
+  box-shadow: 0 10px 24px 0 rgb(32 32 36 / 0.12);
+  transform: translateY(-3px);
 }
 
 [data-theme='dark'] .services-overview-card-codepen:hover {
-  box-shadow:
-    0 2px 12px rgb(0 0 0 / 0.35),
-    0 0 48px -16px color-mix(in srgb, var(--foreground) 10%, transparent);
+  box-shadow: 0 2px 16px rgb(0 0 0 / 0.35);
 }
 
-/* Stacking über Nachbarn nur im 4-Spalten-Hover-Layout */
+/* Nur im 4-Spalten-Layout über Nachbarn stacken, damit die Anhebung nichts verdeckt */
 @media (min-width: 64rem) {
   .services-overview-card-codepen:hover {
-    /* Über Hero-Text (Parent-Folgesection md:z-[33]) und Nachbarkarten */
-    z-index: 50;
+    z-index: 10;
   }
 }
 
@@ -84,102 +97,21 @@
     opacity 0s ease;
 }
 
-.services-overview-card-reveal .services-overview-card-desc {
+.services-overview-card-desc {
   margin: 0;
   line-height: 1.45;
-}
-
-.services-overview-card-reveal {
-  margin-top: 0.35rem;
-}
-
-/* Fine pointer + lg+: Slot-Höhe, Karte unten verankert, Beschreibung ein-/ausklappbar */
-@media (hover: hover) and (pointer: fine) {
-  @media (min-width: 64rem) {
-    .services-overview-card-slot {
-      /* Nur 4-Spalten-Layout: fester Slot für Hover-Wachstum nach oben */
-      min-height: clamp(15.25rem, 6vh, 17.25rem);
-      overflow: visible;
-    }
-
-    .services-overview-card-slot .services-overview-card-codepen {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      max-height: 100%;
-    }
-
-    .services-overview-card-content {
-      overflow: hidden;
-    }
-
-    .services-overview-card-reveal {
-      margin-top: 0;
-      overflow: hidden;
-      max-height: 0;
-      opacity: 0;
-      transform: translateY(0.35rem);
-      transition:
-        max-height 0.5s ease,
-        opacity 0.35s ease,
-        transform 0.42s ease,
-        margin-top 0.35s ease;
-    }
-
-    .services-overview-card-codepen:hover .services-overview-card-reveal {
-      margin-top: 0.45rem;
-      max-height: min(7.5rem, 22vh);
-      opacity: 1;
-      transform: translateY(0);
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-  }
-}
-
-/* Touch / grober Pointer: kein hoher Slot, Karte im Fluss */
-@media (hover: none), (pointer: coarse) {
-  .services-overview-card-slot {
-    min-height: 0;
-  }
-
-  .services-overview-card-slot .services-overview-card-codepen {
-    position: static;
-    max-height: none;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .services-overview-card-codepen,
   .services-overview-card-codepen:hover {
     transition: none;
+    transform: none;
     z-index: 0;
   }
 
   .services-overview-card-codepen::before,
   .services-overview-card-codepen::after {
     display: none;
-  }
-
-  .services-overview-card-slot {
-    min-height: 0 !important;
-  }
-
-  .services-overview-card-slot .services-overview-card-codepen {
-    position: static !important;
-    max-height: none !important;
-  }
-
-  .services-overview-card-content {
-    overflow: visible !important;
-  }
-
-  .services-overview-card-codepen .services-overview-card-reveal {
-    margin-top: 0.35rem !important;
-    max-height: none !important;
-    opacity: 1 !important;
-    transform: none !important;
-    overflow: visible !important;
   }
 }
