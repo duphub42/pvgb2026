@@ -18,11 +18,15 @@ import {
   Mail,
   Megaphone,
   MousePointerClick,
+  Paintbrush,
   PlayCircle,
+  Puzzle,
+  RefreshCw,
   Rocket,
   SearchCheck,
   Settings2,
   Shield,
+  ShoppingCart,
   Sparkles,
   Target,
   TrendingUp,
@@ -34,6 +38,13 @@ import {
 import { cn } from '@/utilities/ui'
 import { resolveHeroImageSrc } from '@/utilities/resolveHeroImageSrc'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+} from '@/components/ui/dialog'
 
 import type { ServicesGridBlock as ServicesGridBlockData } from '@/payload-types'
 import type { BlockStyles } from '@/blocks/BlockStyleSystem'
@@ -115,6 +126,11 @@ const getServiceFallbackIcon = (title?: string | null): LucideIcon => {
   if (/logo/.test(text)) return Fingerprint
   if (/markenstrategie|marke/.test(text)) return Users
   if (/automatisierung|workflow/.test(text)) return Zap
+  if (/plugin/.test(text)) return Puzzle
+  if (/woocommerce|shop|checkout|warenkorb/.test(text)) return ShoppingCart
+  if (/\btheme\b/.test(text)) return Paintbrush
+  if (/update|backup/.test(text)) return RefreshCw
+  if (/sicherheit|security/.test(text)) return Shield
   return CircleHelp
 }
 
@@ -212,9 +228,16 @@ const isSvgIntroImage = (
   return false
 }
 
+type ServiceDialogData = {
+  title: string
+  description: string
+  detailsText?: string
+}
+
 export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
   const pathname = usePathname()
   const isEnglish = pathname?.startsWith('/en') === true
+  const [openService, setOpenService] = React.useState<ServiceDialogData | null>(null)
   const {
     heading,
     intro,
@@ -410,10 +433,22 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                   {category.services?.map((service, index) => {
                     const href = buildServiceHref(service.link?.slug, isEnglish)
                     const shouldLoadEagerly = catIndex === 0 && index < 3
+                    const translatedTitle = translateValueForLocale(
+                      service.title,
+                      isEnglish ? 'en' : 'de',
+                    )
+                    const translatedDescription = translateValueForLocale(
+                      service.description,
+                      isEnglish ? 'en' : 'de',
+                    )
+                    const translatedDetailsText = translateValueForLocale(
+                      service.detailsText,
+                      isEnglish ? 'en' : 'de',
+                    )
                     const content = (
                       <div
                         className={cn(
-                          'services-grid-card group block space-y-4 rounded-xl border p-5 shadow-sm backdrop-blur-[1px] transition hover:-translate-y-1 hover:shadow-xl',
+                          'services-grid-card group block space-y-4 rounded-xl border p-5 text-left shadow-sm backdrop-blur-[1px] transition hover:-translate-y-1 hover:shadow-xl',
                           service.featured
                             ? 'border-primary/35 bg-primary/14 text-foreground'
                             : 'border-border/80 bg-card/92 text-card-foreground',
@@ -430,12 +465,12 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                             />
                           </div>
                           <h3 className="text-xl font-semibold tracking-tight group-hover:text-primary transition-colors">
-                            {translateValueForLocale(service.title, isEnglish ? 'en' : 'de')}
+                            {translatedTitle}
                           </h3>
                         </div>
 
                         <p className="line-clamp-5 whitespace-pre-line text-sm leading-relaxed text-muted-foreground">
-                          {translateValueForLocale(service.description, isEnglish ? 'en' : 'de')}
+                          {translatedDescription}
                         </p>
                         <div className="flex items-center gap-1 text-xs font-bold uppercase tracking-wider text-primary opacity-0 transition-opacity group-hover:opacity-100">
                           {isEnglish ? 'Learn more' : 'Mehr erfahren'}{' '}
@@ -444,12 +479,31 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
                       </div>
                     )
 
-                    return href ? (
-                      <Link key={index} href={href} className="block">
+                    if (href) {
+                      return (
+                        <Link key={index} href={href} className="block">
+                          {content}
+                        </Link>
+                      )
+                    }
+
+                    return (
+                      <button
+                        key={index}
+                        type="button"
+                        className="block w-full"
+                        onClick={() =>
+                          setOpenService({
+                            title: String(translatedTitle ?? ''),
+                            description: String(translatedDescription ?? ''),
+                            detailsText: translatedDetailsText
+                              ? String(translatedDetailsText)
+                              : undefined,
+                          })
+                        }
+                      >
                         {content}
-                      </Link>
-                    ) : (
-                      <div key={index}>{content}</div>
+                      </button>
                     )
                   })}
                 </div>
@@ -458,6 +512,17 @@ export const ServicesGridBlock: React.FC<ServicesGridProps> = (props) => {
           ))}
         </div>
       </div>
+
+      <Dialog open={openService !== null} onOpenChange={(open) => !open && setOpenService(null)}>
+        <DialogContent className="max-w-lg">
+          <DialogHeader>
+            <DialogTitle>{openService?.title}</DialogTitle>
+          </DialogHeader>
+          <DialogDescription className="whitespace-pre-line text-sm leading-relaxed text-foreground/90">
+            {openService?.detailsText || openService?.description}
+          </DialogDescription>
+        </DialogContent>
+      </Dialog>
     </BlockContainer>
   )
 }

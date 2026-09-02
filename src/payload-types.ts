@@ -1232,6 +1232,10 @@ export interface ServicesGridBlock {
               title: string;
               description: string;
               /**
+               * Optional: Wird im Popup angezeigt, wenn auf die Karte geklickt wird. Leer lassen, um stattdessen die normale Beschreibung zu zeigen.
+               */
+              detailsText?: string | null;
+              /**
                * Optional: Füge einen Seiten-Slug hinzu, um die Karte anklickbar zu machen.
                */
               link?: {
@@ -3843,6 +3847,7 @@ export interface ServicesGridBlockSelect<T extends boolean = true> {
                   };
               title?: T;
               description?: T;
+              detailsText?: T;
               link?:
                 | T
                 | {

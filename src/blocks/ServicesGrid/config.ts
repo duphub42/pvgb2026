@@ -172,6 +172,15 @@ export const ServicesGrid: Block = {
               required: true,
             },
             {
+              name: 'detailsText',
+              type: 'textarea',
+              label: 'Ausführliche Beschreibung (Popup)',
+              admin: {
+                description:
+                  'Optional: Wird im Popup angezeigt, wenn auf die Karte geklickt wird. Leer lassen, um stattdessen die normale Beschreibung zu zeigen.',
+              },
+            },
+            {
               name: 'link',
               type: 'group',
               admin: {
