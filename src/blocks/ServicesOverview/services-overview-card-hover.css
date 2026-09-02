@@ -13,6 +13,18 @@
  * folgende Section auslöst.
  */
 
+@property --services-overview-beam-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes services-overview-beam-spin {
+  to {
+    --services-overview-beam-angle: 360deg;
+  }
+}
+
 .services-overview-card-icon-badge {
   background: color-mix(in srgb, var(--muted) 60%, transparent);
   color: var(--foreground);
@@ -143,8 +155,34 @@
     border-right: none;
   }
 
+  /* Rotierender Lichtsaum am Rand (Border-Beam) - nur sichtbar via mask-composite
+     entlang der 1px-Kontur, läuft während des Hovers einmal in 2.6s um die Karte. */
   .services-overview-card-codepen::before {
-    display: none;
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 6;
+    padding: 1px;
+    border-radius: inherit;
+    background: conic-gradient(
+      from var(--services-overview-beam-angle, 0deg),
+      transparent 0%,
+      color-mix(in srgb, var(--background) 70%, transparent) 6%,
+      transparent 14%
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  .services-overview-card-codepen:hover::before {
+    opacity: 1;
+    animation: services-overview-beam-spin 2.6s linear infinite;
   }
 
   /* Spotlight, das der Maus folgt (Position via --spot-x/--spot-y aus onMouseMove) -
@@ -188,10 +226,18 @@
     color: color-mix(in srgb, var(--background) 92%, var(--foreground));
   }
 
+  .services-overview-card-arrow {
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease,
+      color 0.3s ease;
+  }
+
   .services-overview-card-codepen:hover .services-overview-card-arrow {
     opacity: 0.85;
     transform: translate(0, 0);
     color: color-mix(in srgb, var(--background) 92%, var(--foreground));
+    transition-delay: 0.06s;
   }
 
   /* Feste Höhe für Titel + Beschreibung, damit die Zeile beim Hover nicht wächst
@@ -213,6 +259,7 @@
 
   .services-overview-card-codepen:hover .services-overview-card-desc {
     color: color-mix(in srgb, var(--background) 80%, transparent);
+    transition-delay: 0.12s;
   }
 }
 
