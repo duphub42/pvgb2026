@@ -758,14 +758,6 @@
   .site-header:not(:hover) .logo-link svg {
     filter: brightness(0) invert(1) !important;
   }
-  /* Fixed/sticky header (solid background, no longer over the hero): show the logo in
-     its real colors instead of the white idle-over-hero treatment above. */
-  .megamenu[data-sticky='true']:not(:hover) .logo-link img,
-  .megamenu[data-sticky='true']:not(:hover) .logo-link svg,
-  .site-header[data-sticky='true']:not(:hover) .logo-link img,
-  .site-header[data-sticky='true']:not(:hover) .logo-link svg {
-    filter: none !important;
-  }
   .megamenu:not(:hover) .megamenu-top-item,
   .megamenu:not(:hover) .megamenu-top-item [class*='lucide'] {
     color: #fafafa !important;

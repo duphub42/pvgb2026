@@ -2135,50 +2135,6 @@
     );
   }
 
-  .hero-home-flower {
-    position: absolute;
-    top: auto;
-    bottom: clamp(2rem, 7vh, 6rem);
-    width: clamp(15rem, 31vw, 30rem);
-    height: clamp(15rem, 31vw, 30rem);
-    object-fit: contain;
-    opacity: 0.34;
-    mix-blend-mode: multiply;
-  }
-
-  .hero-home-flower--left {
-    left: clamp(-7rem, -3vw, -2rem);
-    transform: rotate(-8deg);
-  }
-
-  .hero-home-flower--right {
-    right: clamp(-7rem, -3vw, -2rem);
-    transform: scaleX(-1) rotate(-5deg);
-  }
-
-  [data-theme='dark'] .hero-home-flower {
-    filter: invert(1);
-    mix-blend-mode: screen;
-    opacity: 0.28;
-  }
-
-  @media (max-width: 767px) {
-    .hero-home-flower {
-      bottom: clamp(1rem, 5vh, 3rem);
-      width: 52vw;
-      height: 52vw;
-      opacity: 0.24;
-    }
-
-    .hero-home-flower--left {
-      left: -18vw;
-    }
-
-    .hero-home-flower--right {
-      right: -18vw;
-    }
-  }
-
   /* Milchglas-Effekt: sobald der Hero einspaltig ist (gleicher Breakpoint wie Tailwind md / grid md:grid-cols-2) */
   @media (max-width: 479px) {
     .hero-mobile-glass {
