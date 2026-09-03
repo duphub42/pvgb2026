@@ -3225,6 +3225,11 @@ html[data-theme='dark'] .portfolio-slider-control:focus-visible,
   --header-logo-morph-duration: 920ms;
   --header-logo-morph-ease: cubic-bezier(0.16, 0.9, 0.22, 1);
   --header-logo-preview-duration: 420ms;
+  /* More breathing room from the header's edges - top doubled from the container's
+     2.25rem (pt-9) baseline. The header bar itself stays a fixed height, so the logo
+     is allowed to overflow past its bottom edge rather than shrinking the header. */
+  margin-top: 2.25rem;
+  margin-left: 0.75rem;
 }
 
 @media (min-width: 640px) {

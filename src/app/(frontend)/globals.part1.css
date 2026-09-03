@@ -2135,6 +2135,50 @@
     );
   }
 
+  .hero-home-flower {
+    position: absolute;
+    top: auto;
+    bottom: clamp(2rem, 7vh, 6rem);
+    width: clamp(15rem, 31vw, 30rem);
+    height: clamp(15rem, 31vw, 30rem);
+    object-fit: contain;
+    opacity: 0.34;
+    mix-blend-mode: multiply;
+  }
+
+  .hero-home-flower--left {
+    left: clamp(-7rem, -3vw, -2rem);
+    transform: rotate(-8deg);
+  }
+
+  .hero-home-flower--right {
+    right: clamp(-7rem, -3vw, -2rem);
+    transform: scaleX(-1) rotate(-5deg);
+  }
+
+  [data-theme='dark'] .hero-home-flower {
+    filter: invert(1);
+    mix-blend-mode: screen;
+    opacity: 0.28;
+  }
+
+  @media (max-width: 767px) {
+    .hero-home-flower {
+      bottom: clamp(1rem, 5vh, 3rem);
+      width: 52vw;
+      height: 52vw;
+      opacity: 0.24;
+    }
+
+    .hero-home-flower--left {
+      left: -18vw;
+    }
+
+    .hero-home-flower--right {
+      right: -18vw;
+    }
+  }
+
   /* Milchglas-Effekt: sobald der Hero einspaltig ist (gleicher Breakpoint wie Tailwind md / grid md:grid-cols-2) */
   @media (max-width: 479px) {
     .hero-mobile-glass {
@@ -4139,7 +4183,9 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
   --home-hero-bridge-offset: clamp(0.75rem, 2.2svh, 1.5rem);
   background: transparent !important;
   background-image: none !important;
-  padding-top: clamp(6.5rem, 12svh, 9rem) !important;
+  /* Reduced from clamp(6.5rem, 12svh, 9rem) - left a large blank gap between the hero
+     and the first section on desktop, same fix already applied on mobile below. */
+  padding-top: clamp(3.25rem, 6svh, 4.5rem) !important;
   transform: none;
   transition: none;
   will-change: auto;
@@ -4314,7 +4360,8 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
   }
 
   .hero-shell--superhero[data-home-scroll-root] .hero-following-section-mask {
-    padding-top: clamp(8rem, 13svh, 10rem) !important;
+    /* Reduced from clamp(8rem, 13svh, 10rem) - same oversized gap as desktop. */
+    padding-top: clamp(4rem, 6.5svh, 5rem) !important;
   }
 
   section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
