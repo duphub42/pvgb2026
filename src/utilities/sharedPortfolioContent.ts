@@ -616,7 +616,9 @@ function resolvePortfolioHubCaseBlock(
   leistungenCasesBlock: LayoutBlock,
   options?: PortfolioCaseBlockOptions,
 ): LayoutBlock {
-  const sourceCases = Array.isArray(leistungenCasesBlock.cases) ? leistungenCasesBlock.cases : []
+  const sourceCases = mergeWithFallbackPortfolioCases(
+    Array.isArray(leistungenCasesBlock.cases) ? clone(leistungenCasesBlock.cases) : [],
+  )
   const cases = clone(filterPortfolioCases(sourceCases, options?.disciplineFilter))
 
   return {

@@ -6,6 +6,16 @@ type PortfolioCaseCopy = {
 }
 
 export const RECENT_PORTFOLIO_CASE_COPY: Record<string, PortfolioCaseCopy> = {
+  'Moriss Obstplantagen': {
+    summary:
+      'Individuelle WordPress-Website für einen Obsthof mit Hofladen, Sortiment, Saisonangeboten, Blog, Kontakt, Anfahrt und lokaler Auffindbarkeit.',
+    challenge:
+      'Moriss brauchte einen digitalen Auftritt, der die persönliche Hofgeschichte, saisonale Produkte und praktische Kundeninformationen zusammenbringt. Hofladen, Öffnungszeiten, Sortiment und Anfahrt sollten schnell verständlich sein, ohne dass die Seite wie eine austauschbare Branchenvorlage wirkt.',
+    approach:
+      'Entwickelt wurde ein schlankes Custom-Theme mit eigenständiger visueller Sprache, klaren Seitenwegen und editierbaren Inhalten. Produktbereiche, saisonale Elemente, Blog, Kontakt und lokale SEO-Signale wurden so verbunden, dass der Hof online sofort greifbar wird.',
+    result:
+      'Das Ergebnis ist eine charakterstarke Obsthof-Website, die Marke, Sortiment und Besuchsinformationen bündelt. Moriss.de dient zugleich als Referenz für ein spezialisiertes Website-Angebot für weitere Obsthöfe und Direktvermarkter.',
+  },
   'KIPP Dental': {
     summary:
       'Digitaler Marken- und Serviceauftritt für ein Dentallabor, der dentale Präzisionstechnik, Team-Kompetenz und direkte Kontaktwege zu einem hochwertigen Web-Erlebnis verbindet.',

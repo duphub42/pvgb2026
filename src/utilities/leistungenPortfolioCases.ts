@@ -2,6 +2,7 @@ import {
   MARKETING_PORTFOLIO_CASES,
   MARKETING_PORTFOLIO_CASE_TITLES,
 } from '@/utilities/marketingPortfolioCaseContent'
+import { RECENT_PORTFOLIO_CASE_COPY } from '@/utilities/recentPortfolioCaseCopy'
 
 export type LeistungenCaseBlock = Record<string, unknown> & { blockType?: string }
 
@@ -36,6 +37,34 @@ export function buildLeistungenPortfolioCaseBlock(): LeistungenCaseBlock {
       'Ein kompakter Auszug aus realen Projekten. Für Details geht es direkt in das Portfolio.',
     layoutVariant: 'editorial',
     cases: [
+      {
+        discipline: 'webdesign',
+        title: 'Moriss Obstplantagen',
+        client: 'Moriss Obstplantagen',
+        industry: 'Obsthof / Direktvermarktung',
+        year: 2026,
+        categories: ['komplettDesign', 'uxUi', 'performance', 'seo'],
+        featured: true,
+        ...RECENT_PORTFOLIO_CASE_COPY['Moriss Obstplantagen'],
+        metrics: [
+          { value: '2026', label: 'Projektjahr' },
+          { value: '100%', label: 'Custom WordPress' },
+        ],
+        tags: [
+          { label: 'Webdesign' },
+          { label: 'WordPress' },
+          { label: 'Obsthof' },
+          { label: 'lokale SEO' },
+        ],
+        website: { label: 'moriss.de', href: 'https://moriss.de' },
+        cta: { label: 'Website ansehen', href: 'https://moriss.de' },
+        coverImage: {
+          url: '/media/moriss-obsthof-showcase.png',
+          alt: 'Moriss Obstplantagen Website-Showcase',
+          width: 1453,
+          height: 609,
+        },
+      },
       {
         discipline: 'webdesign',
         title: 'Relaunch Unternehmenswebsite',

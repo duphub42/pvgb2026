@@ -4,6 +4,7 @@ import configPromise from '@payload-config'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { LeistungenFaqBox } from '@/components/LeistungenFaqBox'
+import { ObsthofOfferTeaser } from '@/components/ObsthofOfferTeaser'
 import { RenderHero } from '@/heros/RenderHero'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { resolveSharedPortfolioContent } from '@/utilities/sharedPortfolioContent'
@@ -148,6 +149,7 @@ export default async function LeistungenPage() {
         )}
       >
         <RenderBlocks blocks={blocksBeforeAndIncludingCta} />
+        <ObsthofOfferTeaser />
         {renderFaqAfterCta && <LeistungenFaqBox faq={page?.faq} />}
         {blocksAfterCta.length > 0 && <RenderBlocks blocks={blocksAfterCta} />}
         {!renderFaqAfterCta && <LeistungenFaqBox faq={page?.faq} />}

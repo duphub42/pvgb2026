@@ -7,6 +7,7 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { SectionReveal } from '@/components/ui/SectionReveal'
 import { LeistungenFaqBox } from '@/components/LeistungenFaqBox'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
+import { ObsthofOfferTeaser } from '@/components/ObsthofOfferTeaser'
 import { RenderHero } from '@/heros/RenderHero'
 import { appendDefaultCtaBlock } from '@/utilities/defaultCtaBlocks'
 import { generateMeta } from '@/utilities/generateMeta'
@@ -278,6 +279,7 @@ export default async function Page({
             <Breadcrumbs items={getLeistungenBreadcrumbItems(page.title)} />
           </div>
           <RenderBlocks blocks={layoutBlocks} />
+          {slug === 'webdesign' ? <ObsthofOfferTeaser /> : null}
           <LeistungenFaqBox faq={page.faq} />
         </SectionReveal>
       </div>

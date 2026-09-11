@@ -12,6 +12,7 @@ import { PortfolioFaqBox } from '@/components/PortfolioFaqBox'
 import { PreiseFaqBox } from '@/components/PreiseFaqBox'
 import { ProfilFaqBox } from '@/components/ProfilFaqBox'
 import { LeistungenFaqBox } from '@/components/LeistungenFaqBox'
+import { ObsthofOfferTeaser } from '@/components/ObsthofOfferTeaser'
 import { ContentFaqBox, SemFaqBox, SeoFaqBox } from '@/components/ServiceFaqBoxes'
 import { WebdesignFaqBox } from '@/components/WebdesignFaqBox'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
@@ -533,9 +534,13 @@ export default async function Page({ params: paramsPromise }: PageProps) {
         <div
           className={cn(
             'relative w-full min-w-0 hero-following-section-mask',
-            firstBlockIsServices
+            isWebdesignPage && 'hero-following-section--closed',
+            isWebdesignPage
+              ? cn('z-auto mt-0 pt-0', !isSuperheroHero && 'z-20 md:z-[31]')
+              : firstBlockIsServices
               ? cn(
-                  'hero-following-section--services-flush mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
+                  'hero-following-section--services-flush mt-0',
+                  'max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
                   isSuperheroHero ? 'z-auto' : 'z-20 lg:z-[33]',
                 )
               : isSuperheroHero
@@ -546,13 +551,18 @@ export default async function Page({ params: paramsPromise }: PageProps) {
           <SectionReveal
             className={cn(
               'relative',
-              isSuperheroHero ? 'pt-24' : 'z-0 pt-24',
+              isWebdesignPage
+                ? 'z-0 pt-0'
+                : isSuperheroHero
+                  ? 'pt-24'
+                  : 'z-0 pt-24',
               isSuperheroHero && 'hero-following-section-foreground',
             )}
           >
             <RenderBlocks blocks={blocksBeforeAndIncludingCta} />
             {renderFaqAfterCta && <PortfolioFaqBox faq={page.faq} />}
             {blocksAfterCta.length > 0 && <RenderBlocks blocks={blocksAfterCta} />}
+            {isWebdesignPage && <ObsthofOfferTeaser />}
             {renderFaqAtEnd && <PortfolioFaqBox faq={page.faq} />}
             {isPricesPage && <PreiseFaqBox faq={page.faq} />}
             {isProfilePage && <ProfilFaqBox faq={page.faq} />}

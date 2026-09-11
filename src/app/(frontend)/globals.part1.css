@@ -1878,6 +1878,17 @@
     z-index: 1;
   }
 
+  .hero-following-section-mask.hero-following-section--closed {
+    background-color: var(--hero-next-section-bg, var(--background));
+    background-image: none;
+  }
+
+  .hero-following-section-mask.hero-following-section--closed::before {
+    top: -1px;
+    height: 1px;
+    background: var(--hero-next-section-bg, var(--background));
+  }
+
   @supports (content-visibility: auto) {
     .hero-following-section-mask {
       content-visibility: auto;
@@ -1970,6 +1981,20 @@
       color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 88%, transparent) 82%,
       var(--hero-next-section-bg, var(--background)) 100%
     );
+  }
+
+  .hero-shell--superhero .hero-following-section-mask.hero-following-section--closed {
+    --hero-section-blend-height: 0px;
+    background-color: var(--hero-next-section-bg, var(--background));
+    background-image: none;
+  }
+
+  .hero-shell--superhero .hero-following-section-mask.hero-following-section--closed::before {
+    top: -1px;
+    height: 1px;
+    -webkit-mask-image: none;
+    mask-image: none;
+    background: var(--hero-next-section-bg, var(--background));
   }
 
   .hero-shell--superhero .hero-following-section-mask > * {
