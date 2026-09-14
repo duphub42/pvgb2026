@@ -282,7 +282,7 @@ export function WordPressThemeShowcase() {
           </div>
         </div>
 
-        <div className="relative isolate overflow-visible rounded-3xl border border-border/70 bg-card px-5 py-8 shadow-[0_22px_60px_-50px_rgba(0,0,0,0.62)] md:px-8 md:py-10 xl:px-10">
+        <div className="relative isolate overflow-hidden rounded-3xl border border-border/70 bg-card px-5 py-8 shadow-[0_22px_60px_-50px_rgba(0,0,0,0.62)] md:px-8 md:py-10 xl:px-10">
           <div
             className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(circle_at_14%_18%,rgba(0,0,0,0.06),transparent_32%),linear-gradient(135deg,rgba(0,0,0,0.04),transparent_52%)] dark:bg-[radial-gradient(circle_at_14%_18%,rgba(255,255,255,0.08),transparent_32%),linear-gradient(135deg,rgba(255,255,255,0.05),transparent_52%)]"
             aria-hidden="true"
