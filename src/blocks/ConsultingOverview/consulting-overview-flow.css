@@ -1,6 +1,6 @@
 .consulting-flow {
   --flow-line: color-mix(in srgb, var(--foreground) 68%, transparent);
-  --flow-line-soft: color-mix(in srgb, var(--foreground) 18%, transparent);
+  --flow-line-soft: color-mix(in srgb, var(--foreground) 12%, transparent);
   --flow-line-hot: color-mix(in srgb, var(--foreground) 86%, transparent);
   --flow-arrow-surface: color-mix(in srgb, var(--background) 92%, transparent);
   --flow-arrow-shadow: color-mix(in srgb, var(--foreground) 32%, transparent);
@@ -86,9 +86,10 @@
   );
   background-size: 100% 220%;
   border-radius: 999px;
+  opacity: 0.28;
   transform: translateX(-50%);
   pointer-events: none;
-  animation: consulting-flow-arrow-line-down 2.35s linear infinite;
+  animation: consulting-flow-arrow-line-down 7.5s linear infinite both;
 }
 
 .consulting-flow-item:not(:last-child)::after {
@@ -101,10 +102,36 @@
   height: 0.72rem;
   border-right: 2px solid var(--flow-line);
   border-bottom: 2px solid var(--flow-line);
+  opacity: 0.28;
   filter: drop-shadow(0 0 10px var(--flow-arrow-shadow));
   transform: translateX(-50%) rotate(45deg);
   pointer-events: none;
-  animation: consulting-flow-arrow-head-down 2.35s ease-in-out infinite;
+  animation: consulting-flow-arrow-head-down 7.5s ease-in-out infinite both;
+}
+
+.consulting-flow-item:nth-child(1)::before,
+.consulting-flow-item:nth-child(1)::after {
+  animation-delay: 0s;
+}
+
+.consulting-flow-item:nth-child(2)::before,
+.consulting-flow-item:nth-child(2)::after {
+  animation-delay: -6s;
+}
+
+.consulting-flow-item:nth-child(3)::before,
+.consulting-flow-item:nth-child(3)::after {
+  animation-delay: -4.5s;
+}
+
+.consulting-flow-item:nth-child(4)::before,
+.consulting-flow-item:nth-child(4)::after {
+  animation-delay: -3s;
+}
+
+.consulting-flow-item:nth-child(5)::before,
+.consulting-flow-item:nth-child(5)::after {
+  animation-delay: -1.5s;
 }
 
 .consulting-flow-item-inner {
@@ -535,71 +562,131 @@
 }
 
 @keyframes consulting-flow-arrow-line-right {
-  from {
+  0%,
+  74%,
+  100% {
+    opacity: 0.22;
     background-position: 120% 50%;
   }
 
-  to {
+  8% {
+    opacity: 1;
+    background-position: 120% 50%;
+  }
+
+  26% {
+    opacity: 1;
+    background-position: -120% 50%;
+  }
+
+  34% {
+    opacity: 0.22;
     background-position: -120% 50%;
   }
 }
 
 @keyframes consulting-flow-arrow-line-left {
-  from {
+  0%,
+  74%,
+  100% {
+    opacity: 0.22;
     background-position: -120% 50%;
   }
 
-  to {
+  8% {
+    opacity: 1;
+    background-position: -120% 50%;
+  }
+
+  26% {
+    opacity: 1;
+    background-position: 120% 50%;
+  }
+
+  34% {
+    opacity: 0.22;
     background-position: 120% 50%;
   }
 }
 
 @keyframes consulting-flow-arrow-line-down {
-  from {
+  0%,
+  74%,
+  100% {
+    opacity: 0.22;
     background-position: 50% -120%;
   }
 
-  to {
+  8% {
+    opacity: 1;
+    background-position: 50% -120%;
+  }
+
+  26% {
+    opacity: 1;
+    background-position: 50% 120%;
+  }
+
+  34% {
+    opacity: 0.22;
     background-position: 50% 120%;
   }
 }
 
 @keyframes consulting-flow-arrow-head-right {
   0%,
+  74%,
   100% {
-    opacity: 0.72;
+    opacity: 0.18;
     transform: translateY(-50%) rotate(-45deg) translate3d(-0.12rem, 0, 0);
   }
 
-  50% {
+  18% {
     opacity: 1;
     transform: translateY(-50%) rotate(-45deg) translate3d(0.16rem, 0, 0);
+  }
+
+  34% {
+    opacity: 0.18;
+    transform: translateY(-50%) rotate(-45deg) translate3d(0.22rem, 0, 0);
   }
 }
 
 @keyframes consulting-flow-arrow-head-left {
   0%,
+  74%,
   100% {
-    opacity: 0.72;
+    opacity: 0.18;
     transform: translateY(-50%) rotate(135deg) translate3d(-0.12rem, 0, 0);
   }
 
-  50% {
+  18% {
     opacity: 1;
     transform: translateY(-50%) rotate(135deg) translate3d(0.16rem, 0, 0);
+  }
+
+  34% {
+    opacity: 0.18;
+    transform: translateY(-50%) rotate(135deg) translate3d(0.22rem, 0, 0);
   }
 }
 
 @keyframes consulting-flow-arrow-head-down {
   0%,
+  74%,
   100% {
-    opacity: 0.72;
+    opacity: 0.18;
     transform: translateX(-50%) rotate(45deg) translate3d(0, -0.12rem, 0);
   }
 
-  50% {
+  18% {
     opacity: 1;
     transform: translateX(-50%) rotate(45deg) translate3d(0, 0.16rem, 0);
+  }
+
+  34% {
+    opacity: 0.18;
+    transform: translateX(-50%) rotate(45deg) translate3d(0, 0.22rem, 0);
   }
 }
 
