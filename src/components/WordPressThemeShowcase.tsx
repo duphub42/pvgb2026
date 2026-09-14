@@ -84,26 +84,29 @@ const builders = [
 ]
 
 const builderBackgroundLogos = [
-  { icon: '/wordpress-builders/bricks.svg', className: 'left-[2%] top-[8%] h-36 w-36 -rotate-12' },
+  {
+    icon: '/wordpress-builders/bricks.svg',
+    className: '-left-[2%] top-[2%] h-28 w-28 -rotate-[31deg]',
+  },
   {
     icon: '/wordpress-builders/oxygen.svg',
-    className: 'left-[35%] top-[2%] h-48 w-48 rotate-[16deg]',
+    className: 'left-[12%] top-[10%] h-40 w-40 rotate-[18deg]',
   },
   {
     icon: '/wordpress-builders/elementor.svg',
-    className: 'right-[8%] top-[4%] h-40 w-40 -rotate-[18deg]',
+    className: 'left-[30%] top-[3%] h-32 w-32 -rotate-[12deg]',
   },
   {
     icon: '/wordpress-builders/divi.svg',
-    className: 'left-[24%] bottom-[4%] h-44 w-44 rotate-[22deg]',
+    className: 'left-[7%] top-[44%] h-52 w-52 rotate-[34deg]',
   },
   {
     icon: '/wordpress-builders/gutenberg.svg',
-    className: 'right-[36%] bottom-[7%] h-52 w-52 -rotate-[10deg]',
+    className: 'left-[34%] top-[36%] h-60 w-60 -rotate-[22deg]',
   },
   {
     icon: '/wordpress-builders/beaver-builder.svg',
-    className: 'right-[1%] bottom-[10%] h-36 w-36 rotate-[14deg]',
+    className: 'left-[57%] top-[58%] h-36 w-36 rotate-[47deg]',
   },
 ]
 
