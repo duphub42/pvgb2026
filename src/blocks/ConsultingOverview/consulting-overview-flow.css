@@ -1,6 +1,7 @@
 .consulting-flow {
-  --flow-line: color-mix(in srgb, var(--foreground) 28%, transparent);
-  --flow-arrow-surface: color-mix(in srgb, var(--background) 88%, transparent);
+  --flow-line: color-mix(in srgb, var(--foreground) 54%, transparent);
+  --flow-arrow-surface: color-mix(in srgb, var(--background) 92%, transparent);
+  --flow-arrow-shadow: color-mix(in srgb, var(--foreground) 18%, transparent);
   --flow-grid: color-mix(in srgb, var(--foreground) 7%, transparent);
   position: relative;
   box-sizing: border-box;
@@ -67,11 +68,12 @@
   content: '';
   position: absolute;
   left: 50%;
-  bottom: -0.78rem;
+  bottom: -0.92rem;
   z-index: 3;
-  width: 1px;
-  height: 0.7rem;
-  background: linear-gradient(180deg, var(--flow-line), transparent);
+  width: 2px;
+  height: 0.95rem;
+  background: linear-gradient(180deg, transparent, var(--flow-line) 28%, var(--flow-line));
+  border-radius: 999px;
   transform: translateX(-50%);
   pointer-events: none;
 }
@@ -80,12 +82,13 @@
   content: '';
   position: absolute;
   left: 50%;
-  bottom: -1.02rem;
+  bottom: -1.32rem;
   z-index: 4;
-  width: 0.58rem;
-  height: 0.58rem;
-  border-right: 1.5px solid var(--flow-line);
-  border-bottom: 1.5px solid var(--flow-line);
+  width: 0.72rem;
+  height: 0.72rem;
+  border-right: 2px solid var(--flow-line);
+  border-bottom: 2px solid var(--flow-line);
+  filter: drop-shadow(0 0 8px var(--flow-arrow-shadow));
   transform: translateX(-50%) rotate(45deg);
   pointer-events: none;
 }
@@ -138,11 +141,11 @@
 
 .consulting-flow-number {
   position: absolute;
-  top: 0.85rem;
-  right: 0.9rem;
+  left: 0.95rem;
+  bottom: 0.75rem;
   z-index: 1;
-  color: color-mix(in srgb, var(--foreground) 18%, transparent);
-  font-size: clamp(2rem, 4.2vw, 3.7rem);
+  color: color-mix(in srgb, var(--foreground) 10%, transparent);
+  font-size: clamp(1.85rem, 3.4vw, 3.05rem);
   font-weight: 700;
   letter-spacing: -0.06em;
   line-height: 0.8;
@@ -234,18 +237,18 @@
 
   .consulting-flow-item:not(:last-child)::before {
     left: auto;
-    right: -1.2rem;
+    right: -1.56rem;
     bottom: auto;
     top: 50%;
-    width: 1.05rem;
-    height: 1px;
-    background: linear-gradient(90deg, var(--flow-line), transparent);
+    width: 1.42rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--flow-line) 26%, var(--flow-line));
     transform: translateY(-50%);
   }
 
   .consulting-flow-item:not(:last-child)::after {
     left: auto;
-    right: -1.28rem;
+    right: -1.72rem;
     bottom: auto;
     top: 50%;
     transform: translateY(-50%) rotate(-45deg);
@@ -254,18 +257,18 @@
   .consulting-flow-item:nth-child(2n)::before {
     left: 50%;
     right: auto;
-    bottom: -1rem;
+    bottom: -1.22rem;
     top: auto;
-    width: 1px;
-    height: 0.85rem;
-    background: linear-gradient(180deg, var(--flow-line), transparent);
+    width: 2px;
+    height: 1.1rem;
+    background: linear-gradient(180deg, transparent, var(--flow-line) 28%, var(--flow-line));
     transform: translateX(-50%);
   }
 
   .consulting-flow-item:nth-child(2n)::after {
     left: 50%;
     right: auto;
-    bottom: -1.24rem;
+    bottom: -1.62rem;
     top: auto;
     transform: translateX(-50%) rotate(45deg);
   }
@@ -303,18 +306,18 @@
 
   .consulting-flow-item:not(:last-child)::before {
     left: auto;
-    right: -1.38rem;
+    right: -1.72rem;
     bottom: auto;
     top: 50%;
-    width: 1.15rem;
-    height: 1px;
-    background: linear-gradient(90deg, var(--flow-line), transparent);
+    width: 1.56rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--flow-line) 26%, var(--flow-line));
     transform: translateY(-50%);
   }
 
   .consulting-flow-item:not(:last-child)::after {
     left: auto;
-    right: -1.46rem;
+    right: -1.88rem;
     bottom: auto;
     top: 50%;
     transform: translateY(-50%) rotate(-45deg);
@@ -323,37 +326,37 @@
   .consulting-flow-item:nth-child(3)::before {
     left: 50%;
     right: auto;
-    bottom: -1.12rem;
+    bottom: -1.32rem;
     top: auto;
-    width: 1px;
-    height: 0.95rem;
-    background: linear-gradient(180deg, var(--flow-line), transparent);
+    width: 2px;
+    height: 1.16rem;
+    background: linear-gradient(180deg, transparent, var(--flow-line) 28%, var(--flow-line));
     transform: translateX(-50%);
   }
 
   .consulting-flow-item:nth-child(3)::after {
     left: 50%;
     right: auto;
-    bottom: -1.36rem;
+    bottom: -1.72rem;
     top: auto;
     transform: translateX(-50%) rotate(45deg);
   }
 
   .consulting-flow-item:nth-child(4)::before,
   .consulting-flow-item:nth-child(5)::before {
-    left: -1.38rem;
+    left: -1.72rem;
     right: auto;
     bottom: auto;
     top: 50%;
-    width: 1.15rem;
-    height: 1px;
-    background: linear-gradient(270deg, var(--flow-line), transparent);
+    width: 1.56rem;
+    height: 2px;
+    background: linear-gradient(270deg, transparent, var(--flow-line) 26%, var(--flow-line));
     transform: translateY(-50%);
   }
 
   .consulting-flow-item:nth-child(4)::after,
   .consulting-flow-item:nth-child(5)::after {
-    left: -1.46rem;
+    left: -1.88rem;
     right: auto;
     bottom: auto;
     top: 50%;
