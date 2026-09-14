@@ -1,9 +1,4 @@
 .consulting-flow {
-  --flow-line: color-mix(in srgb, var(--foreground) 68%, transparent);
-  --flow-line-soft: color-mix(in srgb, var(--foreground) 12%, transparent);
-  --flow-line-hot: color-mix(in srgb, var(--foreground) 86%, transparent);
-  --flow-arrow-surface: color-mix(in srgb, var(--background) 92%, transparent);
-  --flow-arrow-shadow: color-mix(in srgb, var(--foreground) 32%, transparent);
   --flow-grid: color-mix(in srgb, var(--foreground) 7%, transparent);
   position: relative;
   box-sizing: border-box;
@@ -64,52 +59,6 @@
 .consulting-flow-item {
   position: relative;
   min-width: 0;
-}
-
-.consulting-flow-item:not(:last-child)::before {
-  content: '⌄';
-  position: absolute;
-  left: 50%;
-  bottom: -1.22rem;
-  z-index: 3;
-  display: flex;
-  width: 1.7rem;
-  height: 1.15rem;
-  align-items: center;
-  justify-content: flex-end;
-  background: linear-gradient(180deg, var(--flow-line-soft), var(--flow-line) 50%, transparent 51%);
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 2px 100%;
-  color: var(--flow-line);
-  font-size: 1.1rem;
-  font-weight: 700;
-  line-height: 1;
-  opacity: 0.24;
-  text-shadow: 0 0 10px var(--flow-arrow-shadow);
-  transform: translateX(-50%);
-  pointer-events: none;
-  animation: consulting-flow-arrow-carrier-down 7.5s ease-in-out infinite both;
-}
-
-.consulting-flow-item:nth-child(1)::before {
-  animation-delay: 0s;
-}
-
-.consulting-flow-item:nth-child(2)::before {
-  animation-delay: -6s;
-}
-
-.consulting-flow-item:nth-child(3)::before {
-  animation-delay: -4.5s;
-}
-
-.consulting-flow-item:nth-child(4)::before {
-  animation-delay: -3s;
-}
-
-.consulting-flow-item:nth-child(5)::before {
-  animation-delay: -1.5s;
 }
 
 .consulting-flow-item-inner {
@@ -278,54 +227,6 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1.2rem 1.7rem;
   }
-
-  .consulting-flow-item:not(:last-child)::before {
-    content: '›';
-    left: auto;
-    right: -1.8rem;
-    bottom: auto;
-    top: 50%;
-    width: 1.9rem;
-    height: 1.1rem;
-    background: linear-gradient(
-      90deg,
-      var(--flow-line-soft),
-      var(--flow-line) 56%,
-      transparent 57%
-    );
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100% 2px;
-    justify-content: flex-end;
-    transform: translateY(-50%);
-    animation-name: consulting-flow-arrow-carrier-right;
-  }
-
-  .consulting-flow-item:nth-child(2n)::before {
-    content: '⌄';
-    left: 50%;
-    right: auto;
-    bottom: -1.36rem;
-    top: auto;
-    width: 1.7rem;
-    height: 1.25rem;
-    background: linear-gradient(
-      180deg,
-      var(--flow-line-soft),
-      var(--flow-line) 50%,
-      transparent 51%
-    );
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 2px 100%;
-    justify-content: flex-end;
-    transform: translateX(-50%);
-    animation-name: consulting-flow-arrow-carrier-down;
-  }
-
-  .consulting-flow-item:last-child::before {
-    content: none;
-  }
 }
 
 @media (min-width: 1120px) {
@@ -351,77 +252,6 @@
   .consulting-flow-item:nth-child(6) {
     grid-column: 1;
     grid-row: 2;
-  }
-
-  .consulting-flow-item:not(:last-child)::before {
-    content: '›';
-    left: auto;
-    right: -1.96rem;
-    bottom: auto;
-    top: 50%;
-    width: 2.05rem;
-    height: 1.12rem;
-    background: linear-gradient(
-      90deg,
-      var(--flow-line-soft),
-      var(--flow-line) 56%,
-      transparent 57%
-    );
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100% 2px;
-    justify-content: flex-end;
-    transform: translateY(-50%);
-    animation-name: consulting-flow-arrow-carrier-right;
-  }
-
-  .consulting-flow-item:nth-child(3)::before {
-    content: '⌄';
-    left: 50%;
-    right: auto;
-    bottom: -1.52rem;
-    top: auto;
-    width: 1.72rem;
-    height: 1.42rem;
-    background: linear-gradient(
-      180deg,
-      var(--flow-line-soft),
-      var(--flow-line) 50%,
-      transparent 51%
-    );
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 2px 100%;
-    justify-content: flex-end;
-    transform: translateX(-50%);
-    animation-name: consulting-flow-arrow-carrier-down;
-  }
-
-  .consulting-flow-item:nth-child(4)::before,
-  .consulting-flow-item:nth-child(5)::before {
-    content: '‹';
-    left: -1.96rem;
-    right: auto;
-    bottom: auto;
-    top: 50%;
-    width: 2.05rem;
-    height: 1.12rem;
-    background: linear-gradient(
-      270deg,
-      var(--flow-line-soft),
-      var(--flow-line) 56%,
-      transparent 57%
-    );
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 100% 2px;
-    justify-content: flex-start;
-    transform: translateY(-50%);
-    animation-name: consulting-flow-arrow-carrier-left;
-  }
-
-  .consulting-flow-item:last-child::before {
-    content: none;
   }
 }
 
@@ -491,75 +321,8 @@
   }
 }
 
-@keyframes consulting-flow-arrow-carrier-right {
-  0%,
-  74%,
-  100% {
-    opacity: 0.22;
-    filter: drop-shadow(0 0 0 transparent);
-    transform: translateY(-50%) translate3d(-0.1rem, 0, 0);
-  }
-
-  18% {
-    opacity: 1;
-    filter: drop-shadow(0 0 10px var(--flow-arrow-shadow));
-    transform: translateY(-50%) translate3d(0.16rem, 0, 0);
-  }
-
-  34% {
-    opacity: 0.22;
-    filter: drop-shadow(0 0 0 transparent);
-    transform: translateY(-50%) translate3d(0.22rem, 0, 0);
-  }
-}
-
-@keyframes consulting-flow-arrow-carrier-left {
-  0%,
-  74%,
-  100% {
-    opacity: 0.22;
-    filter: drop-shadow(0 0 0 transparent);
-    transform: translateY(-50%) translate3d(0.1rem, 0, 0);
-  }
-
-  18% {
-    opacity: 1;
-    filter: drop-shadow(0 0 10px var(--flow-arrow-shadow));
-    transform: translateY(-50%) translate3d(-0.16rem, 0, 0);
-  }
-
-  34% {
-    opacity: 0.22;
-    filter: drop-shadow(0 0 0 transparent);
-    transform: translateY(-50%) translate3d(-0.22rem, 0, 0);
-  }
-}
-
-@keyframes consulting-flow-arrow-carrier-down {
-  0%,
-  74%,
-  100% {
-    opacity: 0.22;
-    filter: drop-shadow(0 0 0 transparent);
-    transform: translateX(-50%) translate3d(0, -0.1rem, 0);
-  }
-
-  18% {
-    opacity: 1;
-    filter: drop-shadow(0 0 10px var(--flow-arrow-shadow));
-    transform: translateX(-50%) translate3d(0, 0.16rem, 0);
-  }
-
-  34% {
-    opacity: 0.22;
-    filter: drop-shadow(0 0 0 transparent);
-    transform: translateX(-50%) translate3d(0, 0.22rem, 0);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .consulting-flow-content,
-  .consulting-flow-item::before,
   .consulting-flow-item-inner {
     animation: none !important;
   }

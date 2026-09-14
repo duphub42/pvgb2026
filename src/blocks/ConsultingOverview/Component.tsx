@@ -294,7 +294,6 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   experienceSubLabel,
   experienceTitle,
   experienceIcon,
-  colors,
 }) => {
   const steps = buildProcessSteps({
     strategyLabel,
@@ -316,11 +315,9 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   const intro = normalizeText(introText) || DEFAULTS.intro
   const usePixelLayout = pixelLayoutDesktop !== false
   const useStepList = layoutMode === 'stepList'
-  const strokeColor = colors?.timelineStroke || '#999999'
-  const flowStyle = { '--consulting-flow-stroke': strokeColor } as React.CSSProperties
 
   const renderStepList = () => (
-    <div className="consulting-flow" style={flowStyle}>
+    <div className="consulting-flow">
       <ol className="consulting-flow-list">
         {steps.map((rawStep, index) => {
           const step = getProcessStep(rawStep, index)
