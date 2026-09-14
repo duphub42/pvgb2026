@@ -84,26 +84,26 @@ const builders = [
 ]
 
 const builderBackgroundLogos = [
-  { icon: '/wordpress-builders/bricks.svg', className: 'left-[3%] top-[15%] h-28 w-28 -rotate-12' },
+  { icon: '/wordpress-builders/bricks.svg', className: 'left-[2%] top-[8%] h-36 w-36 -rotate-12' },
   {
     icon: '/wordpress-builders/oxygen.svg',
-    className: 'left-[24%] top-[4%] h-40 w-40 rotate-[16deg]',
+    className: 'left-[35%] top-[2%] h-48 w-48 rotate-[16deg]',
   },
   {
     icon: '/wordpress-builders/elementor.svg',
-    className: 'right-[9%] top-[10%] h-32 w-32 -rotate-[18deg]',
+    className: 'right-[8%] top-[4%] h-40 w-40 -rotate-[18deg]',
   },
   {
     icon: '/wordpress-builders/divi.svg',
-    className: 'left-[10%] bottom-[12%] h-36 w-36 rotate-[22deg]',
+    className: 'left-[24%] bottom-[4%] h-44 w-44 rotate-[22deg]',
   },
   {
     icon: '/wordpress-builders/gutenberg.svg',
-    className: 'right-[25%] bottom-[3%] h-44 w-44 -rotate-[10deg]',
+    className: 'right-[36%] bottom-[7%] h-52 w-52 -rotate-[10deg]',
   },
   {
     icon: '/wordpress-builders/beaver-builder.svg',
-    className: 'right-[2%] bottom-[22%] h-28 w-28 rotate-[14deg]',
+    className: 'right-[1%] bottom-[10%] h-36 w-36 rotate-[14deg]',
   },
 ]
 
@@ -232,7 +232,7 @@ export function WordPressThemeShowcase() {
                 width={220}
                 height={220}
                 unoptimized
-                className={`absolute object-contain opacity-[0.055] blur-[10px] grayscale saturate-0 dark:invert dark:opacity-[0.07] ${logo.className}`}
+                className={`absolute object-contain opacity-[0.105] blur-[7px] grayscale saturate-0 dark:invert dark:opacity-[0.12] ${logo.className}`}
               />
             ))}
           </div>
