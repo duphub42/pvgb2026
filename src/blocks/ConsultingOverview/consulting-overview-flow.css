@@ -1,18 +1,26 @@
 .consulting-flow {
-  --connector-height: 42px;
-  --connector-border-width: 1px;
-  --connector-color: hsl(var(--border));
-  --headline-color: hsl(var(--foreground));
-  --body-color: hsl(var(--muted-foreground));
-  --muted-color: hsl(var(--muted-foreground));
-  --circle-size-small: 36px;
-  --circle-padding-small: 9px;
-  --circle-size-large: 174px;
-  --circle-padding-large: 48px;
-  box-sizing: content-box;
-  max-width: 100%;
+  --flow-line: color-mix(in srgb, var(--foreground) 28%, transparent);
+  --flow-grid: color-mix(in srgb, var(--foreground) 7%, transparent);
+  --flow-grid-strong: color-mix(in srgb, var(--foreground) 11%, transparent);
+  box-sizing: border-box;
+  max-width: min(100%, 1180px);
   margin: 0 auto;
-  padding: 0 12px;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--foreground) 10%, var(--border));
+  border-radius: 1.75rem;
+  background:
+    linear-gradient(90deg, var(--flow-grid) 1px, transparent 1px),
+    linear-gradient(0deg, var(--flow-grid) 1px, transparent 1px),
+    linear-gradient(90deg, transparent 0 4.9rem, var(--flow-grid-strong) 4.9rem 5rem),
+    linear-gradient(0deg, transparent 0 4.9rem, var(--flow-grid-strong) 4.9rem 5rem);
+  background-color: color-mix(in srgb, var(--background) 92%, var(--card) 8%);
+  background-size:
+    24px 24px,
+    24px 24px,
+    120px 120px,
+    120px 120px;
+  box-shadow: inset 0 1px 0 color-mix(in srgb, var(--background) 90%, transparent);
 }
 
 .consulting-flow *,
@@ -22,95 +30,92 @@
 }
 
 .consulting-flow-list {
-  margin: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.85rem;
   padding: 0;
+  margin: 0;
   list-style: none;
-  counter-reset: consulting-step-counter;
 }
 
 .consulting-flow-item {
-  counter-increment: consulting-step-counter;
   position: relative;
-}
-
-.consulting-flow-item::before {
-  content: counter(consulting-step-counter, decimal-leading-zero);
-  color: var(--connector-color);
-  font-weight: 300;
-  opacity: 0.62;
-  pointer-events: none;
-  z-index: 0;
+  min-width: 0;
 }
 
 .consulting-flow-item-inner {
   position: relative;
-  z-index: 1;
-}
-
-.consulting-flow-item + .consulting-flow-item {
-  margin-top: calc(var(--connector-height) * 2);
-}
-
-.consulting-flow-item + .consulting-flow-item > .consulting-flow-item-inner {
-  margin-top: calc(var(--connector-border-width) * -1);
+  height: 100%;
 }
 
 .consulting-flow-content {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-end;
-  gap: clamp(0.9rem, 1.2vw, 1.35rem);
-  padding-bottom: 18px;
+  position: relative;
+  display: grid;
+  min-height: 100%;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0.95rem;
+  align-items: start;
+  padding: 1rem;
+  overflow: hidden;
+  border: 1px solid color-mix(in srgb, var(--foreground) 13%, var(--border));
+  border-radius: 1rem;
+  background: color-mix(in srgb, var(--card) 78%, transparent);
+  box-shadow:
+    0 18px 48px -42px rgb(0 0 0 / 0.42),
+    inset 0 1px 0 color-mix(in srgb, var(--background) 86%, transparent);
+  backdrop-filter: blur(10px);
+  transition:
+    transform 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.consulting-flow-content::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--foreground) 5%, transparent),
+    transparent 46%
+  );
+  opacity: 0.72;
+}
+
+.consulting-flow-item:hover .consulting-flow-content {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--foreground) 22%, transparent);
+  background: color-mix(in srgb, var(--card) 88%, transparent);
+}
+
+.consulting-flow-number {
+  position: absolute;
+  top: 0.85rem;
+  right: 0.9rem;
+  z-index: 1;
+  color: color-mix(in srgb, var(--foreground) 18%, transparent);
+  font-size: clamp(2rem, 4.2vw, 3.7rem);
+  font-weight: 700;
+  letter-spacing: -0.06em;
+  line-height: 0.8;
+  pointer-events: none;
 }
 
 .consulting-flow-icon {
-  --icon-shadow-rgb: 24 24 27;
-  --icon-shadow-opacity: 0.48;
-  --icon-surface-opacity: 0.94;
-  display: block;
   position: relative;
-  flex: 0 0 auto;
-  isolation: isolate;
-  border-radius: 9999px;
-  background: hsl(var(--background) / var(--icon-surface-opacity));
-  color: hsl(var(--muted-foreground));
-  box-shadow:
-    0 18px 42px -20px hsl(var(--foreground) / 0.26),
-    0 6px 20px -14px hsl(var(--foreground) / 0.18),
-    inset 0 0 0 1px hsl(var(--border) / 0.75);
-}
-
-.consulting-flow-icon::before {
-  content: '';
-  position: absolute;
-  inset: -26%;
-  z-index: -1;
-  border-radius: inherit;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at 50% 50%,
-    rgb(var(--icon-shadow-rgb) / 0.42) 0%,
-    rgb(var(--icon-shadow-rgb) / 0.22) 30%,
-    rgb(var(--icon-shadow-rgb) / 0.09) 56%,
-    transparent 78%
-  );
-  filter: blur(14px);
-  opacity: var(--icon-shadow-opacity);
-}
-
-.consulting-flow-icon::after {
-  content: '';
-  position: absolute;
-  inset: -8%;
-  border-radius: inherit;
-  pointer-events: none;
-  background: radial-gradient(
-    circle at 50% 36%,
-    hsl(var(--background) / 0.62) 0%,
-    hsl(var(--background) / 0.18) 48%,
-    transparent 74%
-  );
-  opacity: 0.72;
+  z-index: 1;
+  display: inline-flex;
+  width: 3rem;
+  height: 3rem;
+  align-items: center;
+  justify-content: center;
+  padding: 0.78rem;
+  border: 1px solid color-mix(in srgb, var(--foreground) 14%, var(--border));
+  border-radius: 0.95rem;
+  background: color-mix(in srgb, var(--background) 88%, transparent);
+  color: color-mix(in srgb, var(--foreground) 78%, transparent);
+  box-shadow: 0 14px 32px -28px color-mix(in srgb, var(--foreground) 48%, transparent);
 }
 
 .consulting-flow-icon svg {
@@ -119,254 +124,155 @@
 }
 
 .consulting-flow-body {
+  position: relative;
+  z-index: 1;
   min-width: 0;
-  color: var(--body-color);
-  font-size: 12px;
-  font-weight: 300;
-  line-height: 18px;
-  text-align: left;
+  color: var(--muted-foreground);
 }
 
 .consulting-flow-tags {
   display: flex;
+  min-width: 0;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  justify-content: flex-start;
+  gap: 0.45rem;
+  align-items: center;
+  padding-right: 3.2rem;
+}
+
+.consulting-flow-badge,
+.consulting-flow-meta {
+  display: inline-flex;
+  max-width: 100%;
+  align-items: center;
+  font-size: 10px;
+  font-weight: 650;
+  letter-spacing: 0.13em;
+  line-height: 1.15;
+  text-transform: uppercase;
+  overflow-wrap: anywhere;
+}
+
+.consulting-flow-badge {
+  color: color-mix(in srgb, var(--foreground) 78%, transparent);
 }
 
 .consulting-flow-meta {
-  color: var(--muted-color);
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  line-height: 1.2;
-  text-transform: uppercase;
+  color: color-mix(in srgb, var(--muted-foreground) 82%, transparent);
 }
 
 .consulting-flow-title {
-  margin: 1rem 0 0;
-  color: var(--headline-color);
-  font-size: 24px;
-  font-weight: 300;
+  margin: 0.62rem 0 0;
+  color: var(--foreground);
+  font-size: clamp(1.05rem, 1.25vw, 1.24rem);
+  font-weight: 600;
   letter-spacing: 0;
-  line-height: 30px;
+  line-height: 1.16;
   overflow-wrap: anywhere;
-  text-align: left;
 }
 
 .consulting-flow-description {
-  margin: 0.7rem 0 0;
-  color: var(--body-color);
-  font-size: 12px;
-  font-weight: 300;
-  line-height: 18px;
+  margin: 0.6rem 0 0;
+  color: var(--muted-foreground);
+  font-size: 0.9rem;
+  font-weight: 350;
+  line-height: 1.55;
   overflow-wrap: anywhere;
-  text-align: left;
-  white-space: pre-line;
 }
 
-.consulting-flow-item:nth-child(5n + 1) .consulting-flow-icon {
-  --icon-shadow-opacity: 0.44;
-  --icon-surface-opacity: 0.95;
-}
-
-.consulting-flow-item:nth-child(5n + 2) .consulting-flow-icon {
-  --icon-shadow-opacity: 0.52;
-  --icon-surface-opacity: 0.93;
-}
-
-.consulting-flow-item:nth-child(5n + 3) .consulting-flow-icon {
-  --icon-shadow-opacity: 0.47;
-  --icon-surface-opacity: 0.92;
-}
-
-.consulting-flow-item:nth-child(5n + 4) .consulting-flow-icon {
-  --icon-shadow-opacity: 0.5;
-  --icon-surface-opacity: 0.93;
-}
-
-.consulting-flow-item:nth-child(5n + 5) .consulting-flow-icon {
-  --icon-shadow-opacity: 0.42;
-  --icon-surface-opacity: 0.95;
-}
-
-@media (max-width: 600px) {
-  .consulting-flow-item {
-    display: flex;
-    min-width: 0;
+@media (min-width: 720px) {
+  .consulting-flow-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1rem;
   }
+}
 
-  .consulting-flow-item::before {
-    position: relative;
-    margin-right: 12px;
-    color: hsl(var(--foreground));
-    font-size: 36px;
-    font-weight: 300;
-    line-height: 42px;
-  }
-
-  .consulting-flow-item-inner {
-    min-width: 0;
-    flex: 1 1 auto;
+@media (min-width: 1120px) {
+  .consulting-flow-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
   }
 
   .consulting-flow-content {
-    position: relative;
-    align-items: flex-start;
-    gap: 0;
-    padding-left: 0;
-    padding-right: 0;
+    min-height: 17.25rem;
   }
 
-  .consulting-flow-content::before {
+  .consulting-flow-item:not(:nth-child(3n)) .consulting-flow-item-inner::after {
     content: '';
     position: absolute;
-    top: 84px;
-    bottom: 0;
-    left: 9px;
-    width: 1px;
-    background: var(--connector-color);
-  }
-
-  .consulting-flow-item:last-child .consulting-flow-content::before {
-    content: none;
-  }
-
-  .consulting-flow-icon {
-    position: absolute;
-    top: 42px;
-    left: -9px;
-    width: var(--circle-size-small);
-    height: var(--circle-size-small);
-    padding: var(--circle-padding-small);
-  }
-
-  .consulting-flow-body {
-    margin-top: 8px;
-    margin-left: 12px;
-    width: min(100%, 42rem);
-    max-width: 100%;
+    top: 50%;
+    right: -0.75rem;
+    z-index: 2;
+    width: 0.5rem;
+    height: 1px;
+    background: var(--flow-line);
   }
 }
 
-@media (min-width: 601px) {
+@supports (animation-timeline: view()) {
+  @media (min-width: 1120px) and (prefers-reduced-motion: no-preference) {
+    .consulting-flow-item:nth-child(3n + 1) .consulting-flow-item-inner {
+      animation: consulting-flow-plan-drift-a linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+
+    .consulting-flow-item:nth-child(3n + 2) .consulting-flow-item-inner {
+      animation: consulting-flow-plan-drift-b linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+
+    .consulting-flow-item:nth-child(3n) .consulting-flow-item-inner {
+      animation: consulting-flow-plan-drift-c linear both;
+      animation-timeline: view();
+      animation-range: entry 0% exit 100%;
+    }
+  }
+}
+
+@keyframes consulting-flow-plan-drift-a {
+  from {
+    transform: translate3d(-0.55rem, 0.45rem, 0);
+  }
+
+  to {
+    transform: translate3d(0.45rem, -0.35rem, 0);
+  }
+}
+
+@keyframes consulting-flow-plan-drift-b {
+  from {
+    transform: translate3d(0, 0.55rem, 0);
+  }
+
+  to {
+    transform: translate3d(0, -0.45rem, 0);
+  }
+}
+
+@keyframes consulting-flow-plan-drift-c {
+  from {
+    transform: translate3d(0.55rem, 0.45rem, 0);
+  }
+
+  to {
+    transform: translate3d(-0.45rem, -0.35rem, 0);
+  }
+}
+
+@media (max-width: 560px) {
   .consulting-flow {
-    max-width: min(100%, 1060px);
-    padding: 0 clamp(12px, 2vw, 24px);
+    padding: 0.75rem;
+    border-radius: 1.25rem;
   }
 
-  .consulting-flow-item + .consulting-flow-item {
-    margin-top: calc(var(--connector-height) * 2.4);
+  .consulting-flow-content {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+    padding: 1rem;
   }
 
-  .consulting-flow-item::before {
-    position: absolute;
-    color: var(--connector-color);
-    font-size: 104px;
-    font-weight: 300;
-    line-height: 1;
-    opacity: 0.36;
-    filter: blur(1.6px);
+  .consulting-flow-tags {
+    padding-right: 3rem;
   }
-
-  .consulting-flow-icon {
-    width: var(--circle-size-large);
-    height: var(--circle-size-large);
-    padding: var(--circle-padding-large);
-  }
-
-  .consulting-flow-body {
-    margin-top: calc(var(--connector-height) * 2);
-    flex: 0 1 35%;
-    max-width: 34rem;
-  }
-
-  .consulting-flow-item > .consulting-flow-item-inner::before,
-  .consulting-flow-item > .consulting-flow-item-inner::after {
-    content: '';
-    position: absolute;
-    display: block;
-    height: var(--connector-height);
-    width: calc(33.3333% - var(--connector-height));
-    border-style: solid;
-    border-width: 0;
-    border-color: var(--connector-color);
-  }
-
-  .consulting-flow-item:first-child > .consulting-flow-item-inner::before {
-    content: none;
-  }
-
-  .consulting-flow-item:last-child > .consulting-flow-item-inner::after {
-    content: none;
-  }
-
-  .consulting-flow-item:nth-child(odd) .consulting-flow-content {
-    justify-content: flex-start;
-    padding-left: 88px;
-  }
-
-  .consulting-flow-item:nth-child(odd) > .consulting-flow-item-inner::before,
-  .consulting-flow-item:nth-child(odd) > .consulting-flow-item-inner::after {
-    left: calc(33.3333% - (var(--connector-height) / 2));
-    border-left-width: var(--connector-border-width);
-  }
-
-  .consulting-flow-item:nth-child(odd) > .consulting-flow-item-inner::before {
-    margin-top: calc(var(--connector-height) * -1);
-    border-top-width: var(--connector-border-width);
-    border-top-left-radius: var(--connector-height);
-  }
-
-  .consulting-flow-item:nth-child(odd) > .consulting-flow-item-inner::after {
-    margin-bottom: calc(var(--connector-height) * -1);
-    border-bottom-width: var(--connector-border-width);
-    border-bottom-left-radius: var(--connector-height);
-  }
-
-  .consulting-flow-item:nth-child(odd)::before {
-    left: 0;
-    margin-left: 33.3333%;
-    transform: translateX(-100%);
-  }
-
-  .consulting-flow-item:nth-child(even) .consulting-flow-content {
-    justify-content: flex-end;
-    padding-right: 88px;
-  }
-
-  .consulting-flow-item:nth-child(even) > .consulting-flow-item-inner::before,
-  .consulting-flow-item:nth-child(even) > .consulting-flow-item-inner::after {
-    right: calc(33.3333% - (var(--connector-height) / 2));
-    border-right-width: var(--connector-border-width);
-  }
-
-  .consulting-flow-item:nth-child(even) > .consulting-flow-item-inner::before {
-    margin-top: calc(var(--connector-height) * -1);
-    border-top-width: var(--connector-border-width);
-    border-top-right-radius: var(--connector-height);
-  }
-
-  .consulting-flow-item:nth-child(even) > .consulting-flow-item-inner::after {
-    margin-bottom: calc(var(--connector-height) * -1);
-    border-bottom-width: var(--connector-border-width);
-    border-bottom-right-radius: var(--connector-height);
-  }
-
-  .consulting-flow-item:nth-child(even)::before {
-    right: 0;
-    margin-right: 33.3333%;
-    transform: translateX(100%);
-  }
-
-}
-
-[data-theme='dark'] .consulting-flow-icon,
-.dark .consulting-flow-icon {
-  --icon-shadow-rgb: 0 0 0;
-  --icon-shadow-opacity: 0.56;
-  --icon-surface-opacity: 0.9;
-  box-shadow:
-    0 20px 40px -20px rgb(0 0 0 / 0.55),
-    inset 0 0 0 1px hsl(var(--border) / 0.9);
 }

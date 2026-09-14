@@ -16,7 +16,8 @@ const EN_TO_DE_SEGMENTS: Record<string, string> = {
   print: 'print',
   privacy: 'datenschutz',
   profile: 'profil',
-  sem: 'sem',
+  'ai-marketing-geo-seo': 'ki-marketing-geo-seo',
+  sem: 'ki-marketing-geo-seo',
   services: 'leistungen',
   seo: 'seo',
   'web-design': 'webdesign',
@@ -30,7 +31,9 @@ const DE_TO_EN_SEGMENTS = {
   'logo-entwicklung': 'logo',
   'praesentationen-keynotes': 'keynotes',
   'printmedien-grafikdesign': 'print',
-  'sem-online-werbung': 'sem',
+  'ki-marketing-geo-seo': 'ai-marketing-geo-seo',
+  sem: 'ai-marketing-geo-seo',
+  'sem-online-werbung': 'ai-marketing-geo-seo',
   'seo-rankings': 'seo',
 } as Record<string, string>
 

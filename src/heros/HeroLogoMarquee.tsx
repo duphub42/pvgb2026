@@ -19,6 +19,7 @@ export interface HeroLogoMarqueeProps {
   className?: string
   /** High-Impact-Hero: zentrierte Ausrichtung. */
   align?: 'start' | 'center'
+  variant?: 'marquee' | 'isometricGrid'
 }
 
 const MARQUEE_CONTAINER_STYLE: React.CSSProperties = {
@@ -44,6 +45,7 @@ export function HeroLogoMarquee({
   marqueeLogos,
   className,
   align = 'start',
+  variant = 'marquee',
 }: HeroLogoMarqueeProps) {
   const resolvedLogos = Array.isArray(marqueeLogos)
     ? marqueeLogos
@@ -62,11 +64,13 @@ export function HeroLogoMarquee({
   if (!showBand) return null
 
   const isCenter = align === 'center'
+  const isIsometricGrid = variant === 'isometricGrid'
 
   return (
     <div
       className={cn(
         'hero-marquee-band hero-marquee-band--cta relative z-[50] flex flex-col gap-3 w-full min-w-0 max-w-full md:max-w-2xl pb-2 pr-[50px]',
+        isIsometricGrid && 'hero-marquee-band--isometric pr-0 md:max-w-xl',
         isCenter ? 'items-center text-center self-center' : 'items-start text-left',
         className,
       )}
@@ -82,7 +86,35 @@ export function HeroLogoMarquee({
           {marqueeHeadline.trim()}
         </span>
       )}
-      {resolvedLogos.length > 0 && (
+      {isIsometricGrid ? (
+        <div className={cn('hero-ai-logo-isometric-wrap w-full', isCenter && 'self-stretch')}>
+          <div className="hero-ai-logo-isometric-grid">
+            {resolvedLogos.map((logo, index) => (
+              <Tooltip key={logo.key}>
+                <TooltipTrigger asChild>
+                  <div
+                    className="hero-ai-logo-isometric-card hero-logo-marquee-item flex items-center justify-center"
+                    style={{ ['--hero-ai-logo-index' as string]: index }}
+                  >
+                    <ResilientImage
+                      src={logo.url}
+                      alt={logo.alt}
+                      width={112}
+                      height={42}
+                      className="hero-logo-grayscale h-auto max-h-[36px] w-[104px] max-w-[104px] object-contain filter grayscale"
+                      loading="eager"
+                      decoding="async"
+                    />
+                  </div>
+                </TooltipTrigger>
+                <TooltipContent side="bottom" sideOffset={6}>
+                  {logo.alt || 'Partner logo'}
+                </TooltipContent>
+              </Tooltip>
+            ))}
+          </div>
+        </div>
+      ) : resolvedLogos.length > 0 ? (
         <Marquee
           duration={40}
           pauseOnHover
@@ -101,8 +133,8 @@ export function HeroLogoMarquee({
                       alt={logo.alt}
                       width={112}
                       height={42}
-                      className="hero-logo-grayscale filter grayscale w-auto max-w-[112px] h-auto max-h-[42px] object-contain"
-                      loading="lazy"
+                      className="hero-logo-grayscale h-auto max-h-[42px] w-[112px] max-w-[112px] object-contain filter grayscale"
+                      loading="eager"
                       decoding="async"
                     />
                   </div>
@@ -114,7 +146,7 @@ export function HeroLogoMarquee({
             )
           })}
         </Marquee>
-      )}
+      ) : null}
     </div>
   )
 }

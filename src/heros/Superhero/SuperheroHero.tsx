@@ -111,6 +111,21 @@ const HOME_PROFILE_POPOUT_FALLBACK_SRC = '/api/media/stream/1360'
 const PROFILE_POPOUT_FALLBACK_SRC = '/api/media/stream/1360'
 const PROFILE_CROPPED_PORTRAIT_STREAMS = new Set(['/api/media/stream/1207'])
 const DEFAULT_MARQUEE_HEADLINE = 'ERGEBNISSE DURCH MARKTFÜHRENDE TECHNOLOGIEN'
+const AUTOMATION_HERO_LOGOS: HeroMarqueeLogoRow[] = [
+  { logo: '/automation/n8n.svg', alt: 'n8n' },
+  { logo: '/automation/make.svg', alt: 'Make' },
+  { logo: '/automation/ifttt.svg', alt: 'IFTTT' },
+]
+const GEO_SEO_AI_PROVIDER_LOGOS: HeroMarqueeLogoRow[] = [
+  { logo: '/ai-provider-logos/openai.svg', alt: 'OpenAI / ChatGPT' },
+  { logo: '/ai-provider-logos/googlegemini.svg', alt: 'Google Gemini' },
+  { logo: '/ai-provider-logos/claude.svg', alt: 'Anthropic Claude' },
+  { logo: '/ai-provider-logos/perplexity.svg', alt: 'Perplexity' },
+  { logo: '/ai-provider-logos/microsoft-copilot.svg', alt: 'Microsoft Copilot' },
+  { logo: '/ai-provider-logos/mistralai.svg', alt: 'Mistral AI' },
+  { logo: '/ai-provider-logos/meta.svg', alt: 'Meta AI' },
+  { logo: '/ai-provider-logos/xai-grok.svg', alt: 'xAI Grok' },
+]
 
 function parseDecodeSegments(line: string): HeadlineSegment[] {
   const segments: HeadlineSegment[] = []
@@ -234,10 +249,9 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     // 400ms, so nearly all visible motion happened in well under half the "duration" and
     // the rest was an imperceptible tail. Raising duration alone couldn't fix that; the
     // curve itself needed to spread the motion out. sine.out is far gentler/more even.
-    const createProgressSetter = (target: HTMLElement, property: string) =>
-      (value: number) => {
-        target.style.setProperty(property, String(value))
-      }
+    const createProgressSetter = (target: HTMLElement, property: string) => (value: number) => {
+      target.style.setProperty(property, String(value))
+    }
     const setCssVars = (target: HTMLElement, vars: Record<string, number>) => {
       for (const [property, value] of Object.entries(vars)) {
         target.style.setProperty(property, String(value))
@@ -620,13 +634,18 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
     return trimmed || null
   }, [description])
 
-  const renderableMarqueeLogoRows = React.useMemo(
-    () =>
-      Array.isArray(marqueeLogos)
-        ? marqueeLogos.filter((row) => Boolean(resolveHeroImageSrc(row?.logo)))
-        : [],
-    [marqueeLogos],
-  )
+  const renderableMarqueeLogoRows = React.useMemo(() => {
+    const baseLogos = Array.isArray(marqueeLogos) ? marqueeLogos : []
+    const nextLogos =
+      normalizedPageSlug === 'automatisierung' || normalizedPageSlug === 'automation'
+        ? [...baseLogos, ...AUTOMATION_HERO_LOGOS]
+        : normalizedPageSlug === 'ki-marketing-geo-seo' ||
+            normalizedPageSlug === 'ai-marketing-geo-seo'
+          ? [...baseLogos, ...GEO_SEO_AI_PROVIDER_LOGOS]
+          : baseLogos
+
+    return nextLogos.filter((row) => Boolean(resolveHeroImageSrc(row?.logo)))
+  }, [marqueeLogos, normalizedPageSlug])
   const carouselLogos = React.useMemo(
     () =>
       renderableMarqueeLogoRows
@@ -679,6 +698,8 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
 
   const heroLayerClass = 'hero-scroll-layer'
   const showHeroLogoBand = hasMarquee
+  const useIsometricLogoGrid =
+    normalizedPageSlug === 'ki-marketing-geo-seo' || normalizedPageSlug === 'ai-marketing-geo-seo'
   const heroContentClass = cn(
     'hero-scroll-content relative container z-[40] flex w-full min-w-0 flex-col px-[clamp(1rem,4vw,2rem)] pb-[clamp(3rem,8vh,7rem)] pt-[clamp(1.5rem,6vh,2.5rem)]',
     !displayPortraitSrc && 'hero-scroll-content--no-portrait',
@@ -1074,17 +1095,18 @@ export const SuperheroHero: React.FC<SuperheroHeroProps> = ({
                             {effectiveMarqueeHeadline}
                           </span>
                         )}
-                        <LogoCarousel
-                          logos={carouselLogos}
-                          columnCount={3}
-                          className="w-full"
-                        />
+                        <LogoCarousel logos={carouselLogos} columnCount={3} className="w-full" />
                       </div>
                     ) : (
                       <HeroLogoMarquee
                         marqueeHeadline={effectiveMarqueeHeadline}
                         marqueeLogos={renderableMarqueeLogoRows}
-                        className={cn(heroLayerClass, 'hero-scroll-layer-marquee pt-3')}
+                        variant={useIsometricLogoGrid ? 'isometricGrid' : 'marquee'}
+                        className={cn(
+                          heroLayerClass,
+                          'hero-scroll-layer-marquee pt-3',
+                          useIsometricLogoGrid && 'hero-scroll-layer-marquee--isometric',
+                        )}
                       />
                     )}
                   </div>

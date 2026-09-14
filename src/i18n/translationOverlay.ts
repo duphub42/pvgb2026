@@ -202,6 +202,10 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Start a Project. Gain Clarity. Create Results.',
   'SEO - Rankings': 'SEO - Rankings',
   'SEM - Online Werbung': 'SEM - Online Advertising',
+  'GEO/SEO': 'SEM & GEO',
+  'SEM & GEO': 'SEM & GEO',
+  'Sichtbarkeit in Google, KI-Suche und Antwortsystemen wie ChatGPT.':
+    'Visibility in Google, AI search and answer systems such as ChatGPT.',
   'Print- & Grafikdesign': 'Print & Graphic Design',
   Präsentationen: 'Presentations',
   Seite: 'Page',
@@ -399,8 +403,31 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Do Not Wait for Customers to Come - Be Visible When They Search',
   'Suchmaschinenmarketing bringt Angebote genau in dem Moment nach vorne, in dem konkrete Nachfrage entsteht. Präzise gesteuert, klar messbar und direkt wirksam – für Sichtbarkeit, die nicht zufällig passiert, sondern geplant ist.':
     'Search engine marketing brings offers forward at the exact moment concrete demand emerges. Precisely controlled, clearly measurable and directly effective: visibility that is planned, not accidental.',
+  'Suchmaschinenmarketing und KI-Werbung bringen Angebote genau in dem Moment nach vorne, in dem konkrete Nachfrage entsteht. Präzise gesteuert, klar messbar und direkt wirksam – von Google Ads bis zu neuen Werbeplätzen in KI-Antwortsystemen wie ChatGPT.':
+    'Search engine marketing and AI advertising bring offers forward at the exact moment concrete demand emerges. Precisely controlled, clearly measurable and directly effective: from Google Ads to new ad placements in AI answer systems such as ChatGPT.',
   'SEM nutzt vorhandene Nachfrage gezielt aus. Im Fokus steht nicht Reichweite, sondern Relevanz – genau die Menschen zu erreichen, die bereits nach einer Lösung suchen. Durch strukturierte Kampagnen, klare Botschaften und optimierte Zielseiten entsteht aus Sichtbarkeit eine konkrete Handlung.':
     'SEM uses existing demand with precision. The focus is not reach, but relevance: reaching exactly the people already searching for a solution. Structured campaigns, clear messages and optimized landing pages turn visibility into concrete action.',
+  'SEM nutzt vorhandene Nachfrage gezielt aus – in Suchmaschinen, auf Performance-Plattformen und zunehmend in KI-gestützten Antwortsystemen. Im Fokus steht nicht Reichweite, sondern Relevanz: genau die Menschen zu erreichen, die bereits nach einer Lösung fragen. Durch strukturierte Kampagnen, klare Botschaften, KI-taugliche Zielseiten und sauberes Tracking entsteht aus Sichtbarkeit eine konkrete Handlung.':
+    'SEM uses existing demand with precision: in search engines, on performance platforms and increasingly in AI-powered answer systems. The focus is not reach, but relevance: reaching exactly the people already asking for a solution. Structured campaigns, clear messages, AI-ready landing pages and clean tracking turn visibility into concrete action.',
+  'Ich optimiere Inhalte und Seiten so, dass sie in Google, KI-Suche und Antwortsystemen wie ChatGPT besser verstanden, eingeordnet und empfohlen werden. Dazu gehören klare Entitäten, strukturierte Antworten, technische SEO-Grundlagen, interne Verlinkung, FAQ, lokale Signale und Inhalte, die echte Nutzerfragen präzise beantworten.':
+    'I optimize content and pages so they are better understood, classified and recommended in Google, AI search and answer systems such as ChatGPT. This includes clear entities, structured answers, technical SEO foundations, internal linking, FAQ, local signals and content that precisely answers real user questions.',
+  'GEO, SEO & KI-Suche': 'GEO, SEO & AI Search',
+  'Was ist der Unterschied zwischen SEO und GEO?': 'What is the difference between SEO and GEO?',
+  'SEO verbessert die organische Sichtbarkeit in Suchmaschinen wie Google. GEO steht für Generative Engine Optimization und zielt darauf ab, dass Inhalte auch von KI-Systemen wie ChatGPT, Perplexity oder Google AI Overviews verstanden, eingeordnet und als passende Antwortquelle genutzt werden können.':
+    'SEO improves organic visibility in search engines such as Google. GEO stands for Generative Engine Optimization and aims to help content be understood, classified and used as a suitable answer source by AI systems such as ChatGPT, Perplexity or Google AI Overviews.',
+  'Warum ist GEO für Unternehmen wichtig?': 'Why is GEO important for companies?',
+  'Immer mehr Nutzer stellen Fragen direkt an KI-Systeme, statt nur klassische Suchergebnisse zu vergleichen. Dafür müssen Leistungen, Standorte, Nutzen, Preise, FAQ und fachliche Zusammenhänge klar strukturiert sein. GEO hilft dabei, Inhalte so aufzubereiten, dass Mensch, Suchmaschine und KI-System schneller verstehen, wofür ein Angebot relevant ist.':
+    'More and more users ask questions directly in AI systems instead of only comparing classic search results. Services, locations, benefits, prices, FAQs and subject-matter context need to be clearly structured. GEO helps prepare content so people, search engines and AI systems understand faster what an offer is relevant for.',
+  'Wie wird eine Seite für GEO/SEO optimiert?': 'How is a page optimized for GEO/SEO?',
+  'Wichtig sind klare Seitenstruktur, präzise Überschriften, eindeutige Entitäten, FAQ, strukturierte Daten, interne Verlinkung, schnelle Ladezeiten, lokale Signale und Inhalte, die konkrete Fragen direkt beantworten. Ziel ist nicht Keyword-Stuffing, sondern verständliche, zitierfähige und fachlich saubere Information.':
+    'Important factors include clear page structure, precise headings, unambiguous entities, FAQs, structured data, internal linking, fast loading times, local signals and content that directly answers specific questions. The goal is not keyword stuffing, but understandable, citable and professionally sound information.',
+  'Bleibt klassisches SEO weiterhin wichtig?': 'Does classic SEO remain important?',
+  'Ja. GEO ersetzt SEO nicht, sondern erweitert es. Technische Qualität, gute Inhalte, Seitenarchitektur, lokale Relevanz und vertrauensbildende Signale bleiben die Grundlage. Darauf baut GEO auf, damit Inhalte auch in KI-Antworten und neuen Suchformaten besser einordenbar werden.':
+    'Yes. GEO does not replace SEO, it extends it. Technical quality, good content, site architecture, local relevance and trust signals remain the foundation. GEO builds on this so content can also be classified better in AI answers and new search formats.',
+  'Berücksichtigen Sie auch KI-Werbung und neue Werbeplätze?':
+    'Do you also consider AI advertising and new ad placements?',
+  'Ja, wenn bezahlte Platzierungen in KI-Systemen oder KI-gestützten Suchformaten sinnvoll werden, können sie ergänzend betrachtet werden. Die Basis bleibt aber eine starke GEO/SEO-Struktur: Nur wenn Angebot, Inhalte und Zielseiten klar sind, können organische Sichtbarkeit und bezahlte Tests sauber bewertet werden.':
+    'Yes, if paid placements in AI systems or AI-supported search formats become useful, they can be considered as an addition. The foundation remains a strong GEO/SEO structure: only when the offer, content and landing pages are clear can organic visibility and paid tests be evaluated cleanly.',
   'Gezielt ausgerichtet, messbar wirksam und darauf fokussiert, Ergebnisse zu schaffen, die sich spürbar verändern':
     'Precisely aligned, measurably effective and focused on creating results that noticeably change',
   'Content Creation formt Wahrnehmung und schafft Bedeutung. Im Mittelpunkt steht die Fähigkeit, Inhalte zu gestalten, die Aufmerksamkeit binden, Vertrauen aufbauen und Marken klar positionieren.':
@@ -430,6 +457,10 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'A consistent appearance emerges where design, language and attitude are treated as one system.',
   'SEO, SEM und Leadgenerierung in realen Projekten':
     'SEO, SEM and Lead Generation in Real Projects',
+  'GEO/SEO und Leadgenerierung in realen Projekten':
+    'GEO/SEO and Lead Generation in Real Projects',
+  'Referenzen mit Fokus auf organische Sichtbarkeit, KI-taugliche Inhaltsstruktur und messbare Lead-Ergebnisse – von der frühen Ads-Phase bis zum organischen Peak.':
+    'References focused on organic visibility, AI-ready content structure and measurable lead results, from the early ads phase to the organic peak.',
   'Referenzen mit Fokus auf organische Sichtbarkeit, Paid-Setup und messbare Lead-Ergebnisse – von der Ads-Phase bis zum organischen Peak.':
     'References focused on organic visibility, paid setup and measurable lead results, from the ads phase to the organic peak.',
   'Org. Besucher / Tag': 'Org. Visitors / Day',
@@ -852,6 +883,30 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'SEM - Suchmaschinenmarketing': 'SEM - Search Engine Marketing',
   'Google Ads & SEM Halle - Kampagnen mit klaren KPIs | Philipp Bacher':
     'Google Ads & SEM Halle - Campaigns With Clear KPIs | Philipp Bacher',
+  'SEM & GEO - Suchmaschinenmarketing und KI-Sichtbarkeit':
+    'SEM & GEO - Search Marketing and AI Visibility',
+  'GEO/SEO - Sichtbarkeit in Google und KI-Suche':
+    'SEM & GEO - Search Marketing and AI Visibility',
+  'Gefunden werden, wenn Menschen suchen oder KI-Systeme antworten':
+    'Be Found When People Search or AI Systems Answer',
+  'SEM bringt Ihr Angebot in klassischen Suchmaschinen und Performance-Kampagnen nach vorne, wenn konkrete Nachfrage besteht. GEO bereitet Inhalte so auf, dass KI-Systeme wie ChatGPT, Perplexity oder Google AI Overviews Ihr Angebot verstehen, einordnen und als Antwortquelle nutzen können. Zusammen entsteht Sichtbarkeit dort, wo Menschen aktiv suchen, vergleichen oder direkt nach Empfehlungen fragen.':
+    'SEM moves your offer forward in classic search engines and performance campaigns when concrete demand exists. GEO prepares content so AI systems such as ChatGPT, Perplexity and Google AI Overviews can understand, classify and use your offer as an answer source. Together, they create visibility where people actively search, compare or directly ask for recommendations.',
+  'SEM und GEO kurz unterschieden':
+    'SEM and GEO, Briefly Differentiated',
+  'SEM steht für Search Engine Marketing: bezahlte Suchanzeigen, Kampagnenstruktur, Budgetsteuerung, Landingpages und Conversion-Tracking. Es wirkt schnell, ist direkt messbar und eignet sich besonders, wenn bestehende Nachfrage gezielt abgeholt werden soll.':
+    'SEM means search engine marketing: paid search ads, campaign structure, budget control, landing pages and conversion tracking. It works quickly, is directly measurable and is especially useful when existing demand should be captured with precision.',
+  'GEO steht für Generative Engine Optimization: Inhalte, Daten und Seitenstrukturen werden so gestaltet, dass KI-Systeme sie leichter verstehen und in Antworten berücksichtigen können. GEO wirkt langfristiger und ergänzt SEO, weil Nutzer zunehmend direkt in KI-Systemen nach Lösungen fragen.':
+    'GEO means generative engine optimization: content, data and page structures are designed so AI systems can understand them more easily and consider them in answers. GEO works more long-term and extends SEO because users increasingly ask AI systems directly for solutions.',
+  'GEO/SEO verbindet klassische Suchmaschinenoptimierung mit Sichtbarkeit in KI-Antwortsystemen wie ChatGPT, Perplexity und Google AI Overviews. Ziel ist, dass Ihr Angebot klar verstanden, richtig eingeordnet und in relevanten Such- und Antwortmomenten sichtbar wird.':
+    'GEO/SEO connects classic search engine optimization with visibility in AI answer systems such as ChatGPT, Perplexity and Google AI Overviews. The goal is for your offer to be clearly understood, correctly classified and visible in relevant search and answer moments.',
+  'Sichtbar in Google und KI-Antworten': 'Visible in Google and AI Answers',
+  'GEO/SEO sorgt dafür, dass Inhalte nicht nur ranken, sondern auch verstanden werden. Im Fokus stehen klare Entitäten, präzise Antworten, saubere Seitenstruktur, technische SEO-Grundlagen und Inhalte, die echte Nutzerfragen direkt beantworten. So entsteht eine Website, die für klassische Suchmaschinen, lokale Suchanfragen und KI-Systeme gleichermaßen einordenbar ist.':
+    'GEO/SEO ensures that content does not only rank, but is also understood. The focus is on clear entities, precise answers, clean page structure, technical SEO foundations and content that directly answers real user questions. This creates a website that can be classified by classic search engines, local searches and AI systems alike.',
+  'Klar strukturiert, zitierfähig und vorbereitet auf die Suche über Google, ChatGPT und AI Overviews':
+    'Clearly structured, citable and prepared for search through Google, ChatGPT and AI Overviews',
+  'Häufige Fragen zu GEO, SEO und KI-Suche': 'Frequently Asked Questions About GEO, SEO and AI Search',
+  'Antworten zu Generative Engine Optimization, klassischem SEO, KI-Suche, strukturierten Inhalten und Sichtbarkeit in Antwortsystemen.':
+    'Answers about generative engine optimization, classic SEO, AI search, structured content and visibility in answer systems.',
   'Printmedien & Grafikdesign': 'Print Media & Graphic Design',
   'Printmedien & Grafikdesign Halle | Philipp Bacher':
     'Print Media & Graphic Design Halle | Philipp Bacher',

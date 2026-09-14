@@ -118,7 +118,12 @@ export function isMarketingPortfolioCaseTitle(title: unknown): title is Marketin
 export const MARKETING_PORTFOLIO_DISCIPLINES = new Set(['marketing', 'mixed', 'webdesign'])
 
 /** Top-Level-Leistungsseiten mit Marketing-Portfolio-Slider (SEO, SEM, Content). */
-export const MARKETING_PORTFOLIO_SLIDER_SLUGS = new Set(['seo', 'sem', 'content'])
+export const MARKETING_PORTFOLIO_SLIDER_SLUGS = new Set([
+  'seo',
+  'sem',
+  'ki-marketing-geo-seo',
+  'content',
+])
 
 export function isMarketingPortfolioSliderPage(slug: string): boolean {
   return MARKETING_PORTFOLIO_SLIDER_SLUGS.has(slug.trim().toLowerCase())

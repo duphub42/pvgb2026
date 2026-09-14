@@ -92,10 +92,10 @@ function applyEnglishHeroOverrides(hero: Record<string, unknown>, originalSlug: 
         'Search engine optimization ensures that companies are found exactly where decisions are made. With clear structure, relevant content and a technically clean foundation, presence becomes measurable demand.',
     },
     sem: {
-      subheadline: 'SEM - Search Engine Marketing',
-      headline: 'Be Visible When Customers Are Searching',
+      subheadline: 'SEM & GEO - Search Marketing and AI Visibility',
+      headline: 'Be Found When People Search or AI Systems Answer',
       description:
-        'Search engine marketing puts offers in front of people at the exact moment real demand emerges. Precisely managed, clearly measurable and directly effective: visibility that is planned, not accidental.',
+        'SEM and GEO connect paid search campaigns with visibility in AI answer systems such as ChatGPT, Perplexity and Google AI Overviews. SEM captures existing demand through measurable campaigns; GEO structures content so AI systems can understand, classify and recommend your offer.',
     },
     content: {
       subheadline: 'Content Creation',

@@ -51,6 +51,11 @@ const redirects = async () => {
       permanent: true,
     },
     {
+      source: '/sem',
+      destination: '/ki-marketing-geo-seo',
+      permanent: true,
+    },
+    {
       source: '/author/:path*',
       destination: '/profil',
       permanent: true,

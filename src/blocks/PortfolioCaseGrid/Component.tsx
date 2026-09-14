@@ -155,8 +155,7 @@ const isMediaObject = (value: unknown): value is MediaType =>
   typeof value === 'object' && value !== null
 
 const prefersReducedMotion = () =>
-  typeof window !== 'undefined' &&
-  window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
 
 let portfolioGsapPromise: Promise<{
   gsap: typeof import('gsap').default
@@ -184,8 +183,18 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   layoutVariant,
 }) => {
   const pathname = usePathname()
-  const isEnglish = (pathname || '').startsWith('/en')
+  const normalizedPathname = pathname || ''
+  const isEnglish = normalizedPathname.startsWith('/en')
+  const pathWithoutLocale = normalizedPathname.replace(/^\/en(?=\/|$)/, '') || '/'
+  const isWebdesignLandingPage = /^\/webdesign\/?$/.test(pathWithoutLocale)
+  const isGeoSeoMarketingPage =
+    /^\/ki-marketing-geo-seo\/?$/.test(pathWithoutLocale) ||
+    /^\/ai-marketing-geo-seo\/?$/.test(pathWithoutLocale)
+  const isPortfolioGridPage =
+    /^\/portfolio-[^/]+\/?$/.test(pathWithoutLocale) || isGeoSeoMarketingPage
   const isDataLayout = layoutVariant === 'data'
+  const isIsometricLayout =
+    !isPortfolioGridPage && (layoutVariant === 'visual' || isWebdesignLandingPage)
   const rows = useMemo(
     () =>
       (cases ?? []).filter((item): item is PortfolioCase => Boolean(item?.title && item?.summary)),
@@ -197,6 +206,8 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   const sliderRef = useRef<HTMLDivElement | null>(null)
   const headerRef = useRef<HTMLDivElement | null>(null)
   const sliderWrapRef = useRef<HTMLDivElement | null>(null)
+  const caseGridRef = useRef<HTMLDivElement | null>(null)
+  const isometricScrollerRef = useRef<HTMLDivElement | null>(null)
   const modalRef = useRef<HTMLDivElement | null>(null)
   const modalScrollRef = useRef<HTMLDivElement | null>(null)
   const modalDragOffsetRef = useRef(0)
@@ -234,6 +245,16 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
     [rows],
   )
   const loopCards = useMemo(() => [...withKeys, ...withKeys, ...withKeys], [withKeys])
+  const isometricCards = useMemo(
+    () =>
+      Array.from({ length: 4 }, (_, repeatIndex) =>
+        withKeys.map((entry) => ({
+          ...entry,
+          renderKey: `${entry.key}-iso-${repeatIndex}`,
+        })),
+      ).flat(),
+    [withKeys],
+  )
 
   const activeCase = useMemo(() => {
     if (!activeCaseKey) return null
@@ -289,8 +310,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   const activeHeroImage = isMediaObject(activeCase?.coverImage) ? activeCase.coverImage : null
   const activeMarketingCharts = activeCase ? getMarketingCaseChartData(activeCase.title) : null
   const showMarketingCharts =
-    Boolean(activeMarketingCharts) &&
-    (activeCase?.discipline === 'marketing' || isDataLayout)
+    Boolean(activeMarketingCharts) && (activeCase?.discipline === 'marketing' || isDataLayout)
 
   const stepSlider = (direction: 'prev' | 'next') => {
     const slider = sliderRef.current
@@ -365,8 +385,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
     const onTouchStart = (event: TouchEvent) => {
       const atTop = scrollEl.scrollTop <= 1
-      const atBottom =
-        scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 1
+      const atBottom = scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 1
       const notScrollable = scrollEl.scrollHeight <= scrollEl.clientHeight + 1
 
       modalTouchDragRef.current.startY = event.touches[0]?.clientY ?? 0
@@ -386,8 +405,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
       if (!axis) return
 
       const deltaY = (event.touches[0]?.clientY ?? 0) - modalTouchDragRef.current.startY
-      const validDrag =
-        (axis === 'down' && deltaY > 0) || (axis === 'up' && deltaY < 0)
+      const validDrag = (axis === 'down' && deltaY > 0) || (axis === 'up' && deltaY < 0)
 
       if (!validDrag) return
 
@@ -444,8 +462,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
       }
 
       const atTop = scrollEl.scrollTop <= 0
-      const atBottom =
-        scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 1
+      const atBottom = scrollEl.scrollTop + scrollEl.clientHeight >= scrollEl.scrollHeight - 1
 
       if ((atTop && event.deltaY < 0) || (atBottom && event.deltaY > 0)) {
         event.preventDefault()
@@ -470,6 +487,8 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   }, [activeCaseKey, openNextCase, openPrevCase])
 
   useEffect(() => {
+    if (isPortfolioGridPage || isIsometricLayout) return
+
     const slider = sliderRef.current
     if (!slider || withKeys.length < 2) return
 
@@ -498,15 +517,27 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
     slider.addEventListener('scroll', onScroll, { passive: true })
     return () => slider.removeEventListener('scroll', onScroll)
-  }, [withKeys.length])
+  }, [isPortfolioGridPage, isIsometricLayout, withKeys.length])
 
-  // Beim ersten Erscheinen im Viewport läuft der Slider einmal dezent an,
-  // als wäre er sanft angestoßen worden, und kommt dann zum Stehen. Vorher
-  // (bis zu 10 Karten in 2.6s mit power4.out, einer sehr scharfen
-  // Verzögerungskurve) wirkte das wie ein wild losgetretenes Glücksrad statt
-  // eines ruhigen Hinweises auf die Scrollbarkeit.
   useEffect(() => {
-    if (prefersReducedMotion()) return
+    if (!isIsometricLayout) return
+
+    const scroller = isometricScrollerRef.current
+    if (!scroller) return
+
+    const setInitialScroll = () => {
+      const maxScroll = scroller.scrollWidth - scroller.clientWidth
+      const preferredStart = window.innerWidth >= 1024 ? 4000 : 2200
+      scroller.scrollLeft = Math.max(0, Math.min(maxScroll, preferredStart))
+    }
+
+    requestAnimationFrame(setInitialScroll)
+    const timeout = window.setTimeout(setInitialScroll, 400)
+    return () => window.clearTimeout(timeout)
+  }, [isIsometricLayout, isometricCards.length])
+
+  useEffect(() => {
+    if (isPortfolioGridPage || isIsometricLayout || prefersReducedMotion()) return
 
     const slider = sliderRef.current
     const wrap = sliderWrapRef.current
@@ -563,16 +594,18 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
 
     observer.observe(wrap)
     return () => observer.disconnect()
-  }, [withKeys.length])
+  }, [isPortfolioGridPage, isIsometricLayout, withKeys.length])
 
   useEffect(() => {
     if (prefersReducedMotion()) return
 
     const header = headerRef.current
+    const caseGrid = caseGridRef.current
     const sliderWrap = sliderWrapRef.current
-    if (!header && !sliderWrap) return
+    const visualWrap = isPortfolioGridPage ? caseGrid : sliderWrap
+    if (!header && !visualWrap) return
 
-    const root = sliderWrap ?? header
+    const root = visualWrap ?? header
     if (!root) return
 
     let context: { revert: () => void } | null = null
@@ -584,84 +617,136 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
       if (cancelled) return
 
       context = gsap.context(() => {
-      const items = header?.querySelectorAll<HTMLElement>('[data-portfolio-header-item="true"]')
+        const items = header?.querySelectorAll<HTMLElement>('[data-portfolio-header-item="true"]')
 
-      if (header && items?.length) {
-        gsap.fromTo(
-          items,
-          { y: 46, opacity: 0, filter: 'blur(8px)' },
-          {
-            y: 0,
-            opacity: 1,
-            filter: 'blur(0px)',
-            stagger: 0.12,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: header,
-              start: 'top 92%',
-              end: 'top 42%',
-              scrub: 0.7,
+        if (header && items?.length) {
+          gsap.fromTo(
+            items,
+            { y: 46, opacity: 0, filter: 'blur(8px)' },
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              stagger: 0.12,
+              ease: 'none',
+              scrollTrigger: {
+                trigger: header,
+                start: 'top 92%',
+                end: 'top 42%',
+                scrub: 0.7,
+              },
             },
-          },
-        )
-      }
+          )
+        }
 
-      if (sliderWrap) {
-        // Orientiert sich an der eigenen Mitte des Sliders statt an Top/Bottom-
-        // Kanten: voll sichtbar, sobald die Slider-Mitte im mittleren
-        // Fensterband liegt (60%-40% Viewporthöhe), außerhalb davon wird auf-
-        // bzw. abgebaut. Zwei getrennte ScrollTrigger (Fade-in / Fade-out) statt
-        // einer einzelnen Timeline über beide Kanten, weil "center" nur einen
-        // Punkt kennt, keine Strecke — für Ein- und Ausblenden braucht es daher
-        // je einen eigenen Start/End-Bereich.
-        // Fade-out läuft über eine längere Strecke als vorher ("center 40%"
-        // bis "center 20%" statt "center 10%"). Der Platz bis zur direkt
-        // folgenden KPI-Section ("Ergebnisse über mehrere Marketing-Cases")
-        // ist auf dieser Seite knapp (nur ~250px zwischen den beiden
-        // Section-Mitten) — die Kacheln-Section startet ihr Fade-in daher bei
-        // "center 80%" statt "center 90%" (siehe KpiTileReveal.client.tsx),
-        // um dem Slider genug Puffer für ein sichtbar langsames Ausblenden zu
-        // geben, ohne dass beide Sections gleichzeitig sichtbar sind.
-        gsap.fromTo(
-          sliderWrap,
-          { y: 40, opacity: 0, filter: 'blur(10px)' },
-          {
-            y: 0,
-            opacity: 1,
-            filter: 'blur(0px)',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sliderWrap,
-              start: 'center 90%',
-              end: 'center 60%',
-              scrub: 0.7,
+        if (isPortfolioGridPage && caseGrid) {
+          gsap.fromTo(
+            caseGrid,
+            { y: 40, opacity: 0, filter: 'blur(10px)' },
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: caseGrid,
+                start: 'top 105%',
+                end: 'top 68%',
+                scrub: 1.1,
+              },
             },
-          },
-        )
+          )
 
-        // fromTo statt to: ein plain .to() erfasst seinen "from"-Zustand beim
-        // Erstellen, und das passiert direkt nachdem der Fade-in oben per
-        // .fromTo() (immediateRender) den Slider sofort auf opacity:0 /
-        // blur:10 gesetzt hat — der Fade-out hätte also "von 0 nach 0"
-        // interpoliert und wäre beim Erreichen seines Start-Punkts
-        // schlagartig auf 0 gesprungen statt sichtbar auszublenden.
-        gsap.fromTo(
-          sliderWrap,
-          { y: 0, opacity: 1, filter: 'blur(0px)' },
-          {
-            y: -40,
-            opacity: 0,
-            filter: 'blur(10px)',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: sliderWrap,
-              start: 'center 40%',
-              end: 'center 20%',
-              scrub: 0.9,
+          gsap.fromTo(
+            caseGrid,
+            { y: 0, opacity: 1, filter: 'blur(0px)' },
+            {
+              y: -40,
+              opacity: 0,
+              filter: 'blur(10px)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: caseGrid,
+                start: 'bottom 48%',
+                end: 'bottom 12%',
+                scrub: 1.8,
+              },
             },
-          },
-        )
-      }
+          )
+        } else if (sliderWrap && isIsometricLayout) {
+          const isometricTrack = sliderWrap.querySelector<HTMLElement>(
+            '[data-portfolio-isometric-track="true"]',
+          )
+
+          gsap.fromTo(
+            sliderWrap,
+            { y: 28, opacity: 0, filter: 'blur(8px)' },
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: sliderWrap,
+                start: 'top 96%',
+                end: 'top 62%',
+                scrub: 1.2,
+              },
+            },
+          )
+
+          if (isometricTrack) {
+            gsap.fromTo(
+              isometricTrack,
+              { xPercent: -5, yPercent: 3 },
+              {
+                xPercent: 7,
+                yPercent: -5,
+                ease: 'none',
+                scrollTrigger: {
+                  trigger: sliderWrap,
+                  start: 'top bottom',
+                  end: 'bottom top',
+                  scrub: 1.6,
+                },
+              },
+            )
+          }
+        } else if (sliderWrap) {
+          gsap.fromTo(
+            sliderWrap,
+            { y: 40, opacity: 0, filter: 'blur(10px)' },
+            {
+              y: 0,
+              opacity: 1,
+              filter: 'blur(0px)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: sliderWrap,
+                start: 'center 90%',
+                end: 'center 60%',
+                scrub: 0.7,
+              },
+            },
+          )
+
+          gsap.fromTo(
+            sliderWrap,
+            { y: 0, opacity: 1, filter: 'blur(0px)' },
+            {
+              y: -40,
+              opacity: 0,
+              filter: 'blur(10px)',
+              ease: 'none',
+              scrollTrigger: {
+                trigger: sliderWrap,
+                start: 'center 40%',
+                end: 'center 20%',
+                scrub: 0.9,
+              },
+            },
+          )
+        }
       })
 
       ScrollTrigger.refresh()
@@ -683,7 +768,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
       observer?.disconnect()
       context?.revert()
     }
-  }, [rows.length, eyebrow, heading, intro])
+  }, [rows.length, eyebrow, heading, intro, isPortfolioGridPage, isIsometricLayout])
 
   if (!rows.length) return null
 
@@ -774,7 +859,10 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                     <div>
                       <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 text-xs font-medium">
                         <ActiveDisciplineIcon className="size-3.5" />
-                        {translateValueForLocale(activeDisciplineMeta.label, isEnglish ? 'en' : 'de')}
+                        {translateValueForLocale(
+                          activeDisciplineMeta.label,
+                          isEnglish ? 'en' : 'de',
+                        )}
                       </div>
                       <h3 className="mt-3 text-2xl font-semibold leading-tight">
                         {activeCase.title}
@@ -805,7 +893,10 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                           className="gap-1.5 px-2.5 py-1 text-xs font-medium"
                         >
                           <CategoryIcon className="size-3.5" />
-                          {translateValueForLocale(categoryMeta[category].label, isEnglish ? 'en' : 'de')}
+                          {translateValueForLocale(
+                            categoryMeta[category].label,
+                            isEnglish ? 'en' : 'de',
+                          )}
                         </Badge>
                       )
                     })}
@@ -940,7 +1031,8 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   return (
     <section
       className={cn(
-        'relative w-full pt-24 pb-36 md:pt-32 md:pb-48',
+        'relative w-full pt-24 md:pt-32',
+        isIsometricLayout ? 'pb-4 md:pb-6' : 'pb-36 md:pb-48',
         isDataLayout && 'portfolio-case-grid--data',
       )}
     >
@@ -985,135 +1077,327 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
           ) : null}
         </div>
 
-        <div ref={sliderWrapRef} className="mt-14 md:mt-20">
-          <div className="relative -mx-4 px-4" aria-hidden={Boolean(activeCase)}>
-            <button
-              type="button"
-              onClick={() => stepSlider('prev')}
-              className="portfolio-slider-control absolute left-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full border shadow-sm transition"
-              aria-label={isEnglish ? 'Previous slide' : 'Vorheriger Slide'}
-              tabIndex={activeCase ? -1 : 0}
-            >
-              <ChevronLeft className="size-4" />
-            </button>
+        {isPortfolioGridPage ? (
+          <div ref={caseGridRef} className="mt-10 md:mt-14" aria-hidden={Boolean(activeCase)}>
+            <div className="grid auto-rows-[15.5rem] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {withKeys.map(({ item, key }, index) => {
+                const discipline = (item.discipline ?? 'webdesign') as Discipline
+                const meta = disciplineMeta[discipline] ?? disciplineMeta.webdesign
+                const DisciplineIcon = meta.icon
+                const coverImage = isMediaObject(item.coverImage) ? item.coverImage : null
+                const marketingCharts = getMarketingCaseChartData(item.title)
+                const cardMetrics = (item.metrics ?? []).filter(
+                  (metric) => metric?.value?.trim() && metric?.label?.trim(),
+                )
+                const useMarketingVisual =
+                  Boolean(marketingCharts) && (discipline === 'marketing' || isDataLayout)
 
-            <button
-              type="button"
-              onClick={() => stepSlider('next')}
-              className="portfolio-slider-control absolute right-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full border shadow-sm transition"
-              aria-label={isEnglish ? 'Next slide' : 'Nächster Slide'}
-              tabIndex={activeCase ? -1 : 0}
-            >
-              <ChevronRight className="size-4" />
-            </button>
-
-            <div
-              ref={sliderRef}
-              className="overflow-x-auto px-10 pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
-              style={{
-                maskImage:
-                  'linear-gradient(to right, transparent 0, black clamp(32px, 6vw, 80px), black calc(100% - clamp(32px, 6vw, 80px)), transparent 100%)',
-                WebkitMaskImage:
-                  'linear-gradient(to right, transparent 0, black clamp(32px, 6vw, 80px), black calc(100% - clamp(32px, 6vw, 80px)), transparent 100%)',
-              }}
-            >
-              <div className="flex w-max gap-8">
-                {loopCards.map(({ item, key }, loopIndex) => {
-                  const discipline = (item.discipline ?? 'webdesign') as Discipline
-                  const meta = disciplineMeta[discipline] ?? disciplineMeta.webdesign
-                  const DisciplineIcon = meta.icon
-                  const coverImage = isMediaObject(item.coverImage) ? item.coverImage : null
-                  const marketingCharts = getMarketingCaseChartData(item.title)
-                  const cardMetrics = (item.metrics ?? []).filter(
-                    (metric) => metric?.value?.trim() && metric?.label?.trim(),
-                  )
-                  const useMarketingVisual =
-                    Boolean(marketingCharts) &&
-                    (discipline === 'marketing' || isDataLayout)
-
-                  return (
-                    <button
-                      type="button"
-                      data-portfolio-card="true"
-                      key={`${key}-${loopIndex}`}
-                      onClick={() => setActiveCaseKey(key)}
-                      className={cn(
-                        'portfolio-case-card group w-[78vw] max-w-[420px] shrink-0 snap-start overflow-hidden rounded-3xl border text-left backdrop-blur-sm md:w-[48vw] md:max-w-[460px] lg:w-[33vw] lg:max-w-[390px] xl:w-[30vw] xl:max-w-[380px]',
-                        useMarketingVisual &&
-                          'border-emerald-500/10 bg-gradient-to-b from-emerald-500/[0.015] to-background transition-colors duration-500 hover:border-emerald-500/25 hover:from-emerald-500/[0.04] focus-visible:border-emerald-500/25 focus-visible:from-emerald-500/[0.04]',
-                      )}
-                      aria-label={`${isEnglish ? 'Open details' : 'Details öffnen'}: ${item.title}`}
-                      tabIndex={activeCase ? -1 : 0}
-                    >
-                      <div className="portfolio-case-visual relative min-h-[240px] overflow-hidden border-b border-border/70 px-4 pt-4 pb-4">
-                        {useMarketingVisual && marketingCharts ? (
-                          <>
-                            <div className="relative z-[1] transition-all duration-500 ease-out group-hover:scale-[0.98] group-hover:opacity-0">
-                              <PortfolioMarketingCardVisual
-                                data={marketingCharts}
-                                metrics={cardMetrics}
+                return (
+                  <button
+                    type="button"
+                    data-portfolio-card="true"
+                    key={key}
+                    onClick={() => setActiveCaseKey(key)}
+                    className={cn(
+                      'portfolio-case-card group flex h-full flex-col overflow-hidden rounded-3xl border text-left backdrop-blur-sm transition duration-300 hover:-translate-y-1 hover:shadow-[0_22px_70px_-48px_rgba(0,0,0,0.65)]',
+                      index % 9 === 0 && 'sm:col-span-2 sm:row-span-2',
+                      index % 9 === 3 && 'lg:row-span-2',
+                      index % 9 === 5 && 'lg:col-span-2',
+                      useMarketingVisual &&
+                        'border-emerald-500/10 bg-gradient-to-b from-emerald-500/[0.015] to-background transition-colors duration-500 hover:border-emerald-500/25 hover:from-emerald-500/[0.04] focus-visible:border-emerald-500/25 focus-visible:from-emerald-500/[0.04]',
+                    )}
+                    aria-label={`${isEnglish ? 'Open details' : 'Details öffnen'}: ${item.title}`}
+                    tabIndex={activeCase ? -1 : 0}
+                  >
+                    <div className="portfolio-case-visual relative min-h-0 flex-1 overflow-hidden border-b border-border/70 px-3 pt-3 pb-3">
+                      {useMarketingVisual && marketingCharts ? (
+                        <>
+                          <div className="relative z-[1] flex h-full min-h-[210px] items-center transition-all duration-500 ease-out group-hover:scale-[0.98] group-hover:opacity-0">
+                            <PortfolioMarketingCardVisual
+                              data={marketingCharts}
+                              metrics={cardMetrics}
+                            />
+                          </div>
+                          {coverImage ? (
+                            <div className="absolute inset-x-3 top-3 bottom-3 z-[2] overflow-hidden rounded-xl bg-background/70 opacity-0 transition-all duration-500 ease-out group-hover:opacity-100">
+                              <Media
+                                resource={coverImage}
+                                className="h-full w-full"
+                                imgClassName="h-full w-full object-contain object-center transition-opacity duration-500"
                               />
                             </div>
-                            {coverImage ? (
-                              <div className="absolute inset-x-4 top-4 bottom-4 z-[2] overflow-hidden rounded-xl opacity-0 transition-all duration-500 ease-out group-hover:opacity-100">
-                                <Media
-                                  resource={coverImage}
-                                  className="h-full w-full"
-                                  imgClassName="h-full w-full object-contain object-top transition-transform duration-500 group-hover:scale-[1.03]"
-                                />
-                              </div>
-                            ) : null}
-                          </>
-                        ) : coverImage ? (
-                          <Media
-                            resource={coverImage}
-                            className="w-full overflow-hidden rounded-xl"
-                            imgClassName="h-auto w-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
-                          />
-                        ) : (
-                          <div className="flex h-[240px] items-center justify-center bg-muted/40 text-sm text-muted-foreground">
-                            {isEnglish ? 'No cover image' : 'Kein Titelbild'}
-                          </div>
-                        )}
-                      </div>
-
-                      <div className="space-y-3 p-4">
-                        <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 text-xs font-medium">
-                          <DisciplineIcon className="size-3.5" />
-                          {useMarketingVisual
-                            ? isEnglish
-                              ? 'Marketing · KPI Focus'
-                              : 'Marketing · KPI-Fokus'
-                            : `${isEnglish ? 'Project Field' : 'Projektfeld'}: ${
-                                isEnglish ? translateValueForLocale(meta.label, 'en') : meta.label
-                              }`}
+                          ) : null}
+                        </>
+                      ) : coverImage ? (
+                        <Media
+                          resource={coverImage}
+                          className="h-full w-full overflow-hidden rounded-xl bg-background/70"
+                          imgClassName="h-full w-full object-contain object-center transition-opacity duration-500"
+                        />
+                      ) : (
+                        <div className="flex h-full min-h-[210px] items-center justify-center bg-muted/40 text-sm text-muted-foreground">
+                          {isEnglish ? 'No cover image' : 'Kein Titelbild'}
                         </div>
+                      )}
+                    </div>
 
-                        <h3 className="text-xl font-semibold leading-tight">{item.title}</h3>
-
-                        {useMarketingVisual ? (
-                          <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
-                            {item.summary}
-                          </p>
-                        ) : null}
-
-                        {item.industry ? (
-                          <div className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
-                            <Building2 className="size-4" />
-                            {isEnglish ? 'Industry' : 'Branche'}:{' '}
-                            {isEnglish
-                              ? translateValueForLocale(item.industry, 'en')
-                              : item.industry}
-                          </div>
-                        ) : null}
+                    <div className="space-y-2.5 p-3.5">
+                      <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 text-xs font-medium">
+                        <DisciplineIcon className="size-3.5" />
+                        {useMarketingVisual
+                          ? isEnglish
+                            ? 'Marketing · KPI Focus'
+                            : 'Marketing · KPI-Fokus'
+                          : `${isEnglish ? 'Project Field' : 'Projektfeld'}: ${
+                              isEnglish ? translateValueForLocale(meta.label, 'en') : meta.label
+                            }`}
                       </div>
-                    </button>
-                  )
-                })}
+
+                      <h3 className="text-lg font-semibold leading-tight">{item.title}</h3>
+
+                      {useMarketingVisual ? (
+                        <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                          {item.summary}
+                        </p>
+                      ) : null}
+
+                      {item.industry ? (
+                        <div className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+                          <Building2 className="size-3.5" />
+                          {isEnglish ? 'Industry' : 'Branche'}:{' '}
+                          {isEnglish ? translateValueForLocale(item.industry, 'en') : item.industry}
+                        </div>
+                      ) : null}
+                    </div>
+                  </button>
+                )
+              })}
+            </div>
+          </div>
+        ) : isIsometricLayout ? (
+          <div
+            ref={sliderWrapRef}
+            className="relative mt-6 px-0 pt-6 pb-0 md:mt-8 md:pt-8 md:pb-0"
+            aria-hidden={Boolean(activeCase)}
+            >
+              <div
+                ref={isometricScrollerRef}
+                className="relative left-1/2 w-[112vw] -translate-x-1/2 overflow-x-auto overflow-y-visible px-0 [scrollbar-width:none] [-ms-overflow-style:none] sm:w-[116vw] lg:w-[120vw] [&::-webkit-scrollbar]:hidden"
+              >
+              <div
+                data-portfolio-isometric-track="true"
+                className="w-max min-w-[220rem] pt-20 pb-0 sm:min-w-[300rem] sm:pt-24 sm:pb-0 lg:min-w-[420rem] lg:pt-28 lg:pb-0"
+                style={{
+                  perspective: '1600px',
+                }}
+              >
+                <div
+                  className="grid grid-flow-col grid-rows-[14rem_14rem_14rem] gap-4 sm:grid-rows-[18rem_18rem_18rem] sm:gap-5 lg:grid-rows-[21rem_21rem_21rem] lg:gap-7 [&>*]:w-[22rem] sm:[&>*]:w-[30rem] lg:[&>*]:w-[38rem]"
+                  style={{
+                    transform: 'translate3d(0, -5rem, 0) rotateX(56deg) rotateZ(34deg)',
+                    transformOrigin: '50% 50%',
+                    transformStyle: 'preserve-3d',
+                  }}
+                >
+                  {isometricCards.map(({ item, key, renderKey }) => {
+                    const coverImage = isMediaObject(item.coverImage) ? item.coverImage : null
+
+                    return (
+                      <button
+                        type="button"
+                        data-portfolio-card="true"
+                        key={renderKey}
+                        onClick={() => setActiveCaseKey(key)}
+                        className="group relative block h-full min-w-0 text-left outline-none"
+                        style={{
+                          backfaceVisibility: 'hidden',
+                          transformStyle: 'preserve-3d',
+                        }}
+                        aria-label={`${isEnglish ? 'Open details' : 'Details öffnen'}: ${item.title}`}
+                        tabIndex={activeCase ? -1 : 0}
+                      >
+                        <span
+                          aria-hidden
+                          className="absolute inset-1 rounded-xl bg-foreground/12 shadow-[0_10px_28px_rgba(0,0,0,0.14)] transition duration-300 ease-out [transform:translateZ(-1px)_scale(0.95)] group-hover:opacity-60 group-hover:[transform:translateZ(-1px)_scale(1)] sm:inset-2 sm:rounded-2xl"
+                        />
+                        <article
+                          className="relative h-full overflow-visible rounded-xl transition duration-300 ease-out sm:rounded-2xl"
+                          style={{
+                            backfaceVisibility: 'hidden',
+                            transformStyle: 'preserve-3d',
+                            transformOrigin: 'center bottom',
+                          }}
+                        >
+                          <span
+                            aria-hidden
+                            className="absolute inset-0 rounded-xl border border-border/45 bg-muted/45 transition duration-300 ease-out [transform:translateZ(0)] group-hover:[transform:translateZ(10px)] sm:rounded-2xl"
+                          />
+                          <span
+                            aria-hidden
+                            className="absolute inset-0 rounded-xl border border-border/50 bg-[linear-gradient(90deg,color-mix(in_srgb,var(--foreground)_8%,transparent)_1px,transparent_1px),linear-gradient(0deg,color-mix(in_srgb,var(--foreground)_8%,transparent)_1px,transparent_1px)] bg-[size:16px_16px] opacity-80 transition duration-300 ease-out [transform:translateZ(12px)] group-hover:[transform:translateZ(28px)] sm:rounded-2xl sm:bg-[size:22px_22px]"
+                          />
+                          <div
+                            className="absolute inset-0 overflow-hidden rounded-xl border border-border/70 bg-background p-1.5 shadow-[0_1px_0_color-mix(in_srgb,var(--background)_82%,transparent)] transition duration-300 ease-out [transform:translateZ(24px)] [transform-origin:center_bottom] group-hover:border-primary/35 group-hover:[transform:translateZ(58px)_rotateX(-5deg)] sm:rounded-2xl sm:p-2.5"
+                            style={{
+                              transformOrigin: 'center bottom',
+                            }}
+                          >
+                            {coverImage ? (
+                              <Media
+                                resource={coverImage}
+                                className="portfolio-case-visual h-full w-full overflow-hidden rounded-lg border border-border/50 bg-background sm:rounded-xl"
+                                imgClassName="h-full w-full object-cover object-top opacity-95 transition duration-300 ease-out group-hover:scale-[1.025]"
+                              />
+                            ) : (
+                              <div className="flex h-full items-center justify-center rounded-lg border border-border/50 bg-muted/40 text-xs text-muted-foreground sm:rounded-xl">
+                                {isEnglish ? 'No cover image' : 'Kein Titelbild'}
+                              </div>
+                            )}
+                            <div className="pointer-events-none absolute inset-1.5 rounded-lg bg-[linear-gradient(135deg,rgba(255,255,255,0.32),transparent_42%)] dark:bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_42%)] sm:inset-2.5 sm:rounded-xl" />
+                            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/92 via-background/58 to-transparent px-2 py-2 sm:px-3">
+                              <span className="line-clamp-1 text-[10px] font-semibold leading-tight text-foreground/90 sm:text-xs">
+                                {item.title}
+                              </span>
+                            </div>
+                          </div>
+                        </article>
+                      </button>
+                    )
+                  })}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div ref={sliderWrapRef} className="mt-14 md:mt-20">
+            <div className="relative -mx-4 px-4" aria-hidden={Boolean(activeCase)}>
+              <button
+                type="button"
+                onClick={() => stepSlider('prev')}
+                className="portfolio-slider-control absolute left-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full border shadow-sm transition"
+                aria-label={isEnglish ? 'Previous slide' : 'Vorheriger Slide'}
+                tabIndex={activeCase ? -1 : 0}
+              >
+                <ChevronLeft className="size-4" />
+              </button>
+
+              <button
+                type="button"
+                onClick={() => stepSlider('next')}
+                className="portfolio-slider-control absolute right-6 top-1/2 z-20 inline-flex size-9 -translate-y-1/2 items-center justify-center rounded-full border shadow-sm transition"
+                aria-label={isEnglish ? 'Next slide' : 'Nächster Slide'}
+                tabIndex={activeCase ? -1 : 0}
+              >
+                <ChevronRight className="size-4" />
+              </button>
+
+              <div
+                ref={sliderRef}
+                className="overflow-x-auto px-10 pb-4 [scrollbar-width:none] [-ms-overflow-style:none] [&::-webkit-scrollbar]:hidden"
+                style={{
+                  maskImage:
+                    'linear-gradient(to right, transparent 0, black clamp(32px, 6vw, 80px), black calc(100% - clamp(32px, 6vw, 80px)), transparent 100%)',
+                  WebkitMaskImage:
+                    'linear-gradient(to right, transparent 0, black clamp(32px, 6vw, 80px), black calc(100% - clamp(32px, 6vw, 80px)), transparent 100%)',
+                }}
+              >
+                <div className="flex w-max gap-8">
+                  {loopCards.map(({ item, key }, loopIndex) => {
+                    const discipline = (item.discipline ?? 'webdesign') as Discipline
+                    const meta = disciplineMeta[discipline] ?? disciplineMeta.webdesign
+                    const DisciplineIcon = meta.icon
+                    const coverImage = isMediaObject(item.coverImage) ? item.coverImage : null
+                    const marketingCharts = getMarketingCaseChartData(item.title)
+                    const cardMetrics = (item.metrics ?? []).filter(
+                      (metric) => metric?.value?.trim() && metric?.label?.trim(),
+                    )
+                    const useMarketingVisual =
+                      Boolean(marketingCharts) && (discipline === 'marketing' || isDataLayout)
+
+                    return (
+                      <button
+                        type="button"
+                        data-portfolio-card="true"
+                        key={`${key}-${loopIndex}`}
+                        onClick={() => setActiveCaseKey(key)}
+                        className={cn(
+                          'portfolio-case-card group w-[78vw] max-w-[420px] shrink-0 snap-start overflow-hidden rounded-3xl border text-left backdrop-blur-sm md:w-[48vw] md:max-w-[460px] lg:w-[33vw] lg:max-w-[390px] xl:w-[30vw] xl:max-w-[380px]',
+                          useMarketingVisual &&
+                            'border-emerald-500/10 bg-gradient-to-b from-emerald-500/[0.015] to-background transition-colors duration-500 hover:border-emerald-500/25 hover:from-emerald-500/[0.04] focus-visible:border-emerald-500/25 focus-visible:from-emerald-500/[0.04]',
+                        )}
+                        aria-label={`${isEnglish ? 'Open details' : 'Details öffnen'}: ${item.title}`}
+                        tabIndex={activeCase ? -1 : 0}
+                      >
+                        <div className="portfolio-case-visual relative min-h-[240px] overflow-hidden border-b border-border/70 px-4 pt-4 pb-4">
+                          {useMarketingVisual && marketingCharts ? (
+                            <>
+                              <div className="relative z-[1] transition-all duration-500 ease-out group-hover:scale-[0.98] group-hover:opacity-0">
+                                <PortfolioMarketingCardVisual
+                                  data={marketingCharts}
+                                  metrics={cardMetrics}
+                                />
+                              </div>
+                              {coverImage ? (
+                                <div className="absolute inset-x-4 top-4 bottom-4 z-[2] overflow-hidden rounded-xl opacity-0 transition-all duration-500 ease-out group-hover:opacity-100">
+                                  <Media
+                                    resource={coverImage}
+                                    className="h-full w-full"
+                                    imgClassName="h-full w-full object-contain object-top transition-transform duration-500 group-hover:scale-[1.03]"
+                                  />
+                                </div>
+                              ) : null}
+                            </>
+                          ) : coverImage ? (
+                            <Media
+                              resource={coverImage}
+                              className="w-full overflow-hidden rounded-xl"
+                              imgClassName="h-auto w-full object-contain transition-transform duration-500 group-hover:scale-[1.03]"
+                            />
+                          ) : (
+                            <div className="flex h-[240px] items-center justify-center bg-muted/40 text-sm text-muted-foreground">
+                              {isEnglish ? 'No cover image' : 'Kein Titelbild'}
+                            </div>
+                          )}
+                        </div>
+
+                        <div className="space-y-3 p-4">
+                          <div className="inline-flex items-center gap-1.5 rounded-full border border-border/70 bg-background/70 px-2.5 py-1 text-xs font-medium">
+                            <DisciplineIcon className="size-3.5" />
+                            {useMarketingVisual
+                              ? isEnglish
+                                ? 'Marketing · KPI Focus'
+                                : 'Marketing · KPI-Fokus'
+                              : `${isEnglish ? 'Project Field' : 'Projektfeld'}: ${
+                                  isEnglish ? translateValueForLocale(meta.label, 'en') : meta.label
+                                }`}
+                          </div>
+
+                          <h3 className="text-xl font-semibold leading-tight">{item.title}</h3>
+
+                          {useMarketingVisual ? (
+                            <p className="line-clamp-2 text-sm leading-relaxed text-muted-foreground">
+                              {item.summary}
+                            </p>
+                          ) : null}
+
+                          {item.industry ? (
+                            <div className="inline-flex items-center gap-1.5 text-sm text-muted-foreground">
+                              <Building2 className="size-4" />
+                              {isEnglish ? 'Industry' : 'Branche'}:{' '}
+                              {isEnglish
+                                ? translateValueForLocale(item.industry, 'en')
+                                : item.industry}
+                            </div>
+                          ) : null}
+                        </div>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </section>
   )

@@ -7,13 +7,16 @@ import configPromise from '@payload-config'
 import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { SectionReveal } from '@/components/ui/SectionReveal'
 import { Faq8 } from '@/components/ui/faq-8'
+import { AutomationPlatformsShowcase } from '@/components/AutomationPlatformsShowcase'
 import { CorporateIdentityFaqBox } from '@/components/CorporateIdentityFaqBox'
 import { PortfolioFaqBox } from '@/components/PortfolioFaqBox'
 import { PreiseFaqBox } from '@/components/PreiseFaqBox'
 import { ProfilFaqBox } from '@/components/ProfilFaqBox'
 import { LeistungenFaqBox } from '@/components/LeistungenFaqBox'
 import { ObsthofOfferTeaser } from '@/components/ObsthofOfferTeaser'
+import { WordPressThemeShowcase } from '@/components/WordPressThemeShowcase'
 import { ContentFaqBox, SemFaqBox, SeoFaqBox } from '@/components/ServiceFaqBoxes'
+import { WebdesignPlatformShowcase } from '@/components/WebdesignPlatformShowcase'
 import { WebdesignFaqBox } from '@/components/WebdesignFaqBox'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { RenderHero } from '@/heros/RenderHero'
@@ -477,13 +480,25 @@ export default async function Page({ params: paramsPromise }: PageProps) {
           (effectiveSlug.startsWith('portfolio-') &&
             effectiveSlug !== 'portfolio-marketing' &&
             !isBrandingPortfolioSlug(effectiveSlug))))
-    const layoutBlocks = shouldAddDefaultCta
+    const baseLayoutBlocks = shouldAddDefaultCta
       ? appendDefaultCtaBlock(resolvedLayoutBlocks, {
           slug: effectiveSlug,
           title: page.title,
           section: hasServiceFaqBox ? 'leistung' : 'portfolio',
         })
       : resolvedLayoutBlocks
+    const layoutBlocks = isWordPressAgencyFaqPage
+      ? baseLayoutBlocks.filter(
+          (block) =>
+            !(block && typeof block === 'object' && 'blockType' in block && block.blockType === 'consultingOverview'),
+        )
+      : baseLayoutBlocks
+    const wordPressAgencyProcessBlocks = isWordPressAgencyFaqPage
+      ? baseLayoutBlocks.filter(
+          (block) =>
+            block && typeof block === 'object' && 'blockType' in block && block.blockType === 'consultingOverview',
+        )
+      : []
     const firstCtaIndex = layoutBlocks.findIndex(
       (block) =>
         block && typeof block === 'object' && 'blockType' in block && block.blockType === 'cta',
@@ -563,6 +578,14 @@ export default async function Page({ params: paramsPromise }: PageProps) {
             {renderFaqAfterCta && <PortfolioFaqBox faq={page.faq} />}
             {blocksAfterCta.length > 0 && <RenderBlocks blocks={blocksAfterCta} />}
             {isWebdesignPage && <ObsthofOfferTeaser />}
+            {isWebdesignPage && <WebdesignPlatformShowcase />}
+            {isWordPressAgencyFaqPage && <WordPressThemeShowcase />}
+            {wordPressAgencyProcessBlocks.length > 0 && (
+              <RenderBlocks
+                blocks={wordPressAgencyProcessBlocks as NonNullable<SitePage['layout']>}
+              />
+            )}
+            {isAutomationFaqPage && <AutomationPlatformsShowcase />}
             {renderFaqAtEnd && <PortfolioFaqBox faq={page.faq} />}
             {isPricesPage && <PreiseFaqBox faq={page.faq} />}
             {isProfilePage && <ProfilFaqBox faq={page.faq} />}

@@ -9,6 +9,7 @@ import { findCentralPortfolioCaseBlock } from '@/utilities/centralPortfolioCases
 import { buildLeistungenPortfolioCaseBlock } from '@/utilities/leistungenPortfolioCases'
 import {
   isMarketingPortfolioSliderPage,
+  MARKETING_PORTFOLIO_CASE_TITLES,
   MARKETING_PORTFOLIO_DISCIPLINES,
 } from '@/utilities/marketingPortfolioCaseContent'
 import { GENERAL_PORTFOLIO_DISCIPLINES } from '@/utilities/webdesignPortfolioCaseContent'
@@ -35,11 +36,13 @@ const TARGET_SLUGS = new Set(['portfolio', 'leistungen', 'webdesign', 'logo', 'h
 
 const MARKETING_CASE_BLOCK_COPY = {
   eyebrow: 'Marketing Cases',
-  heading: 'SEO, SEM und Leadgenerierung in realen Projekten',
+  heading: 'GEO/SEO und Leadgenerierung in realen Projekten',
   intro:
-    'Referenzen mit Fokus auf organische Sichtbarkeit, Paid-Setup und messbare Lead-Ergebnisse – von der Ads-Phase bis zum organischen Peak.',
-  layoutVariant: 'data',
+    'Referenzen mit Fokus auf organische Sichtbarkeit, KI-taugliche Inhaltsstruktur und messbare Lead-Ergebnisse – von der frühen Ads-Phase bis zum organischen Peak.',
+  layoutVariant: 'visual',
 } as const
+
+const GEO_SEO_MARKETING_DISCIPLINES = new Set(['marketing'])
 
 const PORTFOLIO_SUBPAGE_SLUGS: Record<string, PortfolioType> = {
   'portfolio-webdesign': 'webdesign',
@@ -486,6 +489,28 @@ function mergeWithFallbackPortfolioCases(cases: unknown[]): unknown[] {
   return merged
 }
 
+function mergeWithMarketingFallbackPortfolioCases(cases: unknown[]): unknown[] {
+  const fallbackBlock = buildLeistungenPortfolioCaseBlock() as LayoutBlock
+  const fallbackCases = Array.isArray(fallbackBlock.cases) ? clone(fallbackBlock.cases) : []
+  if (fallbackCases.length === 0) return cases
+
+  const marketingTitles = new Set<string>(MARKETING_PORTFOLIO_CASE_TITLES)
+  const marketingFallbackCases = fallbackCases.filter((entry) => {
+    if (!entry || typeof entry !== 'object' || !hasExternalPortfolioWebsite(entry)) return false
+    const title = String((entry as Record<string, unknown>).title ?? '').trim()
+    return marketingTitles.has(title)
+  })
+  if (marketingFallbackCases.length === 0) return cases
+
+  const marketingKeys = new Set(marketingFallbackCases.map(getPortfolioCaseKey).filter(Boolean))
+  const withoutSeedDuplicates = cases.filter((entry) => {
+    const key = getPortfolioCaseKey(entry)
+    return !key || !marketingKeys.has(key)
+  })
+
+  return [...withoutSeedDuplicates, ...marketingFallbackCases]
+}
+
 function withSharedCases(
   block: LayoutBlock,
   source?: LayoutBlock,
@@ -582,16 +607,55 @@ function isLegacyLogoReferenceBlock(block: LayoutBlock): boolean {
 
 type PortfolioCaseBlockOptions = {
   disciplineFilter?: Set<string>
+  casePredicate?: (entry: unknown) => boolean
   eyebrow?: string
   heading?: string
   intro?: string
   layoutVariant?: string
 }
 
-function filterPortfolioCases(cases: unknown[], disciplineFilter?: Set<string>): unknown[] {
-  if (!disciplineFilter?.size) return cases
+function portfolioCaseSearchText(entry: unknown): string {
+  if (!entry || typeof entry !== 'object') return ''
 
-  const filtered = cases.filter((entry) => {
+  const record = entry as Record<string, unknown>
+  const parts: string[] = []
+  for (const key of ['title', 'summary', 'challenge', 'approach', 'result', 'discipline']) {
+    const value = record[key]
+    if (typeof value === 'string') parts.push(value)
+  }
+
+  for (const key of ['tags', 'categories']) {
+    const value = record[key]
+    if (!Array.isArray(value)) continue
+    for (const item of value) {
+      if (typeof item === 'string') {
+        parts.push(item)
+      } else if (item && typeof item === 'object') {
+        const label = (item as Record<string, unknown>).label
+        if (typeof label === 'string') parts.push(label)
+      }
+    }
+  }
+
+  return parts.join(' ').toLocaleLowerCase('de-DE')
+}
+
+function isGeoSeoMarketingCase(entry: unknown): boolean {
+  const text = portfolioCaseSearchText(entry)
+  return /\b(geo|seo|sem|sea|ads?|google ads|paid|ranking|rankings|organisch|organic|ki|chatgpt|ai overview|antwortsystem)\b/.test(
+    text,
+  )
+}
+
+function filterPortfolioCases(
+  cases: unknown[],
+  disciplineFilter?: Set<string>,
+  casePredicate?: (entry: unknown) => boolean,
+): unknown[] {
+  const byPredicate = casePredicate ? cases.filter(casePredicate) : cases
+  if (!disciplineFilter?.size) return byPredicate
+
+  const filtered = byPredicate.filter((entry) => {
     if (!entry || typeof entry !== 'object') return false
     const discipline = String((entry as { discipline?: unknown }).discipline ?? '')
     return disciplineFilter.has(discipline)
@@ -599,7 +663,7 @@ function filterPortfolioCases(cases: unknown[], disciplineFilter?: Set<string>):
 
   if (filtered.length > 0) return filtered
 
-  return cases.filter((entry) => {
+  return byPredicate.filter((entry) => {
     if (!entry || typeof entry !== 'object') return false
     const title = String((entry as { title?: unknown }).title ?? '')
     return (
@@ -616,10 +680,16 @@ function resolvePortfolioHubCaseBlock(
   leistungenCasesBlock: LayoutBlock,
   options?: PortfolioCaseBlockOptions,
 ): LayoutBlock {
-  const sourceCases = mergeWithFallbackPortfolioCases(
+  const sourceCasesBase = mergeWithFallbackPortfolioCases(
     Array.isArray(leistungenCasesBlock.cases) ? clone(leistungenCasesBlock.cases) : [],
   )
-  const cases = clone(filterPortfolioCases(sourceCases, options?.disciplineFilter))
+  const sourceCases =
+    options?.casePredicate === isGeoSeoMarketingCase
+      ? mergeWithMarketingFallbackPortfolioCases(sourceCasesBase)
+      : sourceCasesBase
+  const cases = clone(
+    filterPortfolioCases(sourceCases, options?.disciplineFilter, options?.casePredicate),
+  )
 
   return {
     ...(existing ?? {}),
@@ -644,7 +714,8 @@ function resolvePortfolioHubCaseBlock(
 
 function getMarketingCaseBlockOptions(): PortfolioCaseBlockOptions {
   return {
-    disciplineFilter: MARKETING_PORTFOLIO_DISCIPLINES,
+    disciplineFilter: GEO_SEO_MARKETING_DISCIPLINES,
+    casePredicate: isGeoSeoMarketingCase,
     ...MARKETING_CASE_BLOCK_COPY,
   }
 }

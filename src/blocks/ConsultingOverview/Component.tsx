@@ -36,6 +36,68 @@ type Step = {
   icon?: string
 }
 
+const PROCESS_STEP_COPY: Array<Pick<Step, 'title' | 'description' | 'badge' | 'meta' | 'icon'>> = [
+  {
+    title: 'Zielbild scharfstellen',
+    description:
+      'Wir klären Angebot, Zielgruppe, bestehende Website, technische Grenzen und messbare Erwartungen. Danach ist klar, was gebaut wird und was bewusst nicht.',
+    badge: 'Orientierung',
+    meta: 'Audit & Prioritäten',
+    icon: 'compass',
+  },
+  {
+    title: 'Systemplan entwerfen',
+    description:
+      'Aus Inhalten, Seitenstruktur, Builder-Setup, Templates und Pflegebedarf entsteht ein belastbarer Umsetzungsplan statt einer losen Wunschliste.',
+    badge: 'Planung',
+    meta: 'Struktur & Architektur',
+    icon: 'layers',
+  },
+  {
+    title: 'Design in Komponenten übersetzen',
+    description:
+      'Layouts, Module und Inhaltsbereiche werden so aufgebaut, dass sie wiederverwendbar, verständlich und im Alltag sauber pflegbar bleiben.',
+    badge: 'UI-System',
+    meta: 'Builder & Komponenten',
+    icon: 'sparkles',
+  },
+  {
+    title: 'WordPress sauber umsetzen',
+    description:
+      'Theme, Builder, Plugins und Custom-Code werden schlank kombiniert. Performance, Responsiveness und Wartbarkeit werden während der Umsetzung mitgedacht.',
+    badge: 'Umsetzung',
+    meta: 'Theme & Technik',
+    icon: 'settings',
+  },
+  {
+    title: 'Testen, härten, launchen',
+    description:
+      'Vor dem Go-live werden Inhalte, Formulare, Mobilansicht, Ladezeiten, Tracking und typische Nutzerwege geprüft. Danach geht die Seite kontrolliert online.',
+    badge: 'Launch',
+    meta: 'QA & Übergabe',
+    icon: 'rocket',
+  },
+  {
+    title: 'Weiterentwickeln mit Daten',
+    description:
+      'Nach dem Launch geht es um echte Nutzung: Sichtbarkeit, Anfragen, Inhalte, technische Pflege und sinnvolle Verbesserungen auf Basis von Daten.',
+    badge: 'Wachstum',
+    meta: 'SEO & Optimierung',
+    icon: 'trending-up',
+  },
+]
+
+const getProcessStep = (step: Step, index: number): Step => {
+  const curated = PROCESS_STEP_COPY[index]
+  if (!curated) return step
+
+  return {
+    ...step,
+    ...curated,
+    id: step.id,
+  }
+}
+
 const DEFAULTS = {
   headline: 'Ihr persönlicher Ansprechpartner für Digital Consulting, Marketing & Webdesign',
   intro:
@@ -260,13 +322,15 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   const renderStepList = () => (
     <div className="consulting-flow" style={flowStyle}>
       <ol className="consulting-flow-list">
-        {steps.map((step) => {
+        {steps.map((rawStep, index) => {
+          const step = getProcessStep(rawStep, index)
           const Icon = getStepIcon(step.icon, step.id)
 
           return (
             <li key={step.id} className="consulting-flow-item">
               <div className="consulting-flow-item-inner">
                 <div className="consulting-flow-content">
+                  <span className="consulting-flow-number">{pad(index + 1)}</span>
                   <span className="consulting-flow-icon" aria-hidden>
                     <Icon className="h-full w-full" strokeWidth={1.5} />
                   </span>
@@ -295,27 +359,27 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   return (
     <section
       className={cn(
-        'relative overflow-x-hidden overflow-y-hidden',
+        'relative overflow-x-hidden overflow-y-hidden py-8 md:py-12',
         !disableInnerContainer && 'container',
       )}
     >
       <div
         aria-hidden
-        className="pointer-events-none absolute -left-36 top-28 h-72 w-72 rounded-full blur-3xl"
-        style={{ background: '#E5E7EB', opacity: 0.28 }}
+        className="pointer-events-none absolute -left-44 top-24 h-80 w-80 rounded-full blur-[14rem]"
+        style={{ background: '#E5E7EB', opacity: 0.16 }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -right-36 bottom-24 h-80 w-80 rounded-full blur-3xl"
-        style={{ background: '#CBD5E1', opacity: 0.24 }}
+        className="pointer-events-none absolute -right-44 bottom-20 h-96 w-96 rounded-full blur-[14rem]"
+        style={{ background: '#CBD5E1', opacity: 0.14 }}
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute left-1/2 top-10 hidden h-[24rem] w-[24rem] -translate-x-1/2 rounded-full lg:block"
+        className="pointer-events-none absolute left-1/2 top-10 hidden h-[28rem] w-[28rem] -translate-x-1/2 rounded-full blur-[16rem] lg:block"
         style={{
           background:
-            'radial-gradient(circle at 50% 50%, rgba(148,163,184,0.16) 0%, transparent 72%)',
-          opacity: 0.34,
+            'radial-gradient(circle at 50% 50%, rgba(148,163,184,0.18) 0%, transparent 74%)',
+          opacity: 0.2,
         }}
       />
 
@@ -330,10 +394,14 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
             {locale === 'en' ? 'Process' : 'Prozess'}
           </p>
           <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-[-0.03em] text-foreground md:text-4xl lg:text-5xl">
-            {title}
+            {locale === 'en'
+              ? 'A clear plan for WordPress projects.'
+              : 'Ein klarer Plan statt WordPress-Wildwuchs.'}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
-            {intro}
+            {locale === 'en'
+              ? 'From audit to launch, every step has a purpose: structure, technical decisions, implementation, testing and measurable improvement.'
+              : 'Von der ersten Analyse bis zur laufenden Optimierung: Jeder Schritt hat eine klare Aufgabe, ein sichtbares Ergebnis und einen technischen Zweck.'}
           </p>
         </header>
 
