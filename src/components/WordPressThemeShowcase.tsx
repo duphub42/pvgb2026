@@ -83,6 +83,30 @@ const builders = [
   },
 ]
 
+const builderBackgroundLogos = [
+  { icon: '/wordpress-builders/bricks.svg', className: 'left-[3%] top-[15%] h-28 w-28 -rotate-12' },
+  {
+    icon: '/wordpress-builders/oxygen.svg',
+    className: 'left-[24%] top-[4%] h-40 w-40 rotate-[16deg]',
+  },
+  {
+    icon: '/wordpress-builders/elementor.svg',
+    className: 'right-[9%] top-[10%] h-32 w-32 -rotate-[18deg]',
+  },
+  {
+    icon: '/wordpress-builders/divi.svg',
+    className: 'left-[10%] bottom-[12%] h-36 w-36 rotate-[22deg]',
+  },
+  {
+    icon: '/wordpress-builders/gutenberg.svg',
+    className: 'right-[25%] bottom-[3%] h-44 w-44 -rotate-[10deg]',
+  },
+  {
+    icon: '/wordpress-builders/beaver-builder.svg',
+    className: 'right-[2%] bottom-[22%] h-28 w-28 rotate-[14deg]',
+  },
+]
+
 export function WordPressThemeShowcase() {
   return (
     <section className="w-full overflow-visible py-10 md:py-14 xl:py-18">
@@ -198,9 +222,23 @@ export function WordPressThemeShowcase() {
           </div>
         </div>
 
-        <div className="relative isolate overflow-visible px-1 py-14 md:px-2 md:py-20 xl:px-4 xl:py-24">
-          <div className="grid gap-10 xl:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] xl:items-start xl:gap-14">
-            <div className="max-w-2xl">
+        <div className="relative isolate overflow-hidden px-1 py-20 md:px-2 md:py-28 xl:px-4 xl:py-36">
+          <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
+            {builderBackgroundLogos.map((logo, index) => (
+              <Image
+                key={`${logo.icon}-${index}`}
+                src={logo.icon}
+                alt=""
+                width={220}
+                height={220}
+                unoptimized
+                className={`absolute object-contain opacity-[0.055] blur-[10px] grayscale saturate-0 dark:invert dark:opacity-[0.07] ${logo.className}`}
+              />
+            ))}
+          </div>
+
+          <div className="relative z-10 grid gap-12 xl:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] xl:items-start xl:gap-14">
+            <div className="max-w-2xl xl:py-6">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                 Builder-Expertise
               </p>
