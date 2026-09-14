@@ -59,6 +59,15 @@ type PageProps = {
 
 type BlockBackground = 'none' | 'muted' | 'accent' | 'light' | 'dark'
 
+function isLayoutBlockType(block: unknown, blockType: string): block is { blockType: string } {
+  return Boolean(
+    block &&
+    typeof block === 'object' &&
+    'blockType' in block &&
+    (block as { blockType?: unknown }).blockType === blockType,
+  )
+}
+
 function getNextSectionBackgroundValue(blockBackground?: string | null): string {
   const bg = (blockBackground ?? 'none') as BlockBackground
   switch (bg) {
@@ -172,7 +181,9 @@ function shouldUseBrandingPortfolioHeroFallback(hero: unknown): boolean {
   return !type || type === 'none' || type === 'lowImpact'
 }
 
-function mergeBrandingPortfolioHeroFallback(hero: Record<string, unknown>): Record<string, unknown> {
+function mergeBrandingPortfolioHeroFallback(
+  hero: Record<string, unknown>,
+): Record<string, unknown> {
   const presetHero = getPortfolioPresetHero('branding') as Record<string, unknown>
   const preservedMediaEntries = Object.entries({
     media: hero.media,
@@ -487,22 +498,19 @@ export default async function Page({ params: paramsPromise }: PageProps) {
           section: hasServiceFaqBox ? 'leistung' : 'portfolio',
         })
       : resolvedLayoutBlocks
-    const layoutBlocks = isWordPressAgencyFaqPage
-      ? baseLayoutBlocks.filter(
-          (block) =>
-            !(block && typeof block === 'object' && 'blockType' in block && block.blockType === 'consultingOverview'),
-        )
+    const layoutBlocksWithoutWordPressProcess = isWordPressAgencyFaqPage
+      ? baseLayoutBlocks.filter((block) => !isLayoutBlockType(block, 'consultingOverview'))
       : baseLayoutBlocks
-    const wordPressAgencyProcessBlocks = isWordPressAgencyFaqPage
-      ? baseLayoutBlocks.filter(
-          (block) =>
-            block && typeof block === 'object' && 'blockType' in block && block.blockType === 'consultingOverview',
-        )
+    const wordPressAgencyDeferredCtaBlocks = isWordPressAgencyFaqPage
+      ? layoutBlocksWithoutWordPressProcess.filter((block) => isLayoutBlockType(block, 'cta'))
       : []
-    const firstCtaIndex = layoutBlocks.findIndex(
-      (block) =>
-        block && typeof block === 'object' && 'blockType' in block && block.blockType === 'cta',
-    )
+    const layoutBlocks = isWordPressAgencyFaqPage
+      ? layoutBlocksWithoutWordPressProcess.filter((block) => !isLayoutBlockType(block, 'cta'))
+      : layoutBlocksWithoutWordPressProcess
+    const wordPressAgencyProcessBlocks = isWordPressAgencyFaqPage
+      ? baseLayoutBlocks.filter((block) => isLayoutBlockType(block, 'consultingOverview'))
+      : []
+    const firstCtaIndex = layoutBlocks.findIndex((block) => isLayoutBlockType(block, 'cta'))
     const renderFaqAfterCta = isPortfolioPage && !hasDedicatedFaqBox && firstCtaIndex >= 0
     const renderFaqAtEnd = isPortfolioPage && !hasDedicatedFaqBox && firstCtaIndex < 0
     const blocksBeforeAndIncludingCta = renderFaqAfterCta
@@ -553,24 +561,20 @@ export default async function Page({ params: paramsPromise }: PageProps) {
             isWebdesignPage
               ? cn('z-auto mt-0 pt-0', !isSuperheroHero && 'z-20 md:z-[31]')
               : firstBlockIsServices
-              ? cn(
-                  'hero-following-section--services-flush mt-0',
-                  'max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
-                  isSuperheroHero ? 'z-auto' : 'z-20 lg:z-[33]',
-                )
-              : isSuperheroHero
-                ? 'z-auto mt-0 pt-24'
-                : 'z-20 max-md:pt-8 pt-24 md:z-[31]',
+                ? cn(
+                    'hero-following-section--services-flush mt-0',
+                    'max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
+                    isSuperheroHero ? 'z-auto' : 'z-20 lg:z-[33]',
+                  )
+                : isSuperheroHero
+                  ? 'z-auto mt-0 pt-24'
+                  : 'z-20 max-md:pt-8 pt-24 md:z-[31]',
           )}
         >
           <SectionReveal
             className={cn(
               'relative',
-              isWebdesignPage
-                ? 'z-0 pt-0'
-                : isSuperheroHero
-                  ? 'pt-24'
-                  : 'z-0 pt-24',
+              isWebdesignPage ? 'z-0 pt-0' : isSuperheroHero ? 'pt-24' : 'z-0 pt-24',
               isSuperheroHero && 'hero-following-section-foreground',
             )}
           >
@@ -600,6 +604,11 @@ export default async function Page({ params: paramsPromise }: PageProps) {
             {isBrandStrategyFaqPage && <LeistungenFaqBox faq={page.faq} />}
             {isAutomationFaqPage && <LeistungenFaqBox faq={page.faq} />}
             {isWordPressAgencyFaqPage && <LeistungenFaqBox faq={page.faq} />}
+            {wordPressAgencyDeferredCtaBlocks.length > 0 && (
+              <RenderBlocks
+                blocks={wordPressAgencyDeferredCtaBlocks as NonNullable<SitePage['layout']>}
+              />
+            )}
             {showHomeFaq && <Faq8 faq={page.faq} />}
           </SectionReveal>
         </div>
