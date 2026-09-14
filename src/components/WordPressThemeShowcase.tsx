@@ -225,7 +225,7 @@ export function WordPressThemeShowcase() {
           </div>
         </div>
 
-        <div className="relative isolate overflow-hidden px-1 py-20 md:px-2 md:py-28 xl:px-4 xl:py-36">
+        <div className="relative isolate overflow-visible px-1 py-20 md:px-2 md:py-28 xl:px-4 xl:py-36">
           <div className="pointer-events-none absolute inset-0 -z-10" aria-hidden="true">
             {builderBackgroundLogos.map((logo, index) => (
               <Image
