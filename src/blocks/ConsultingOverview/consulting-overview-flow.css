@@ -428,10 +428,10 @@
   .consulting-flow-item:nth-child(3)::before {
     left: 50%;
     right: auto;
-    bottom: -1.32rem;
+    bottom: -1.42rem;
     top: auto;
     width: 2px;
-    height: 1.3rem;
+    height: 1.42rem;
     background: linear-gradient(
       180deg,
       transparent 0%,
@@ -444,16 +444,16 @@
     );
     background-size: 100% 220%;
     transform: translateX(-50%);
-    animation-name: consulting-flow-arrow-line-down;
+    animation-name: consulting-flow-arrow-line-down-bridge;
   }
 
   .consulting-flow-item:nth-child(3)::after {
     left: 50%;
     right: auto;
-    bottom: -1.72rem;
+    bottom: -1.88rem;
     top: auto;
-    transform: translateX(-50%) rotate(45deg);
-    animation-name: consulting-flow-arrow-head-down;
+    transform: translateX(-50%) rotate(45deg) translate3d(0, 0, 0);
+    animation-name: consulting-flow-arrow-head-down-bridge;
   }
 
   .consulting-flow-item:nth-child(4)::before,
@@ -687,6 +687,49 @@
   34% {
     opacity: 0.18;
     transform: translateX(-50%) rotate(45deg) translate3d(0, 0.22rem, 0);
+  }
+}
+
+@keyframes consulting-flow-arrow-line-down-bridge {
+  0%,
+  74%,
+  100% {
+    opacity: 0.22;
+    background-position: 50% -120%;
+  }
+
+  8% {
+    opacity: 1;
+    background-position: 50% -120%;
+  }
+
+  26% {
+    opacity: 1;
+    background-position: 50% 120%;
+  }
+
+  34% {
+    opacity: 0.22;
+    background-position: 50% 120%;
+  }
+}
+
+@keyframes consulting-flow-arrow-head-down-bridge {
+  0%,
+  74%,
+  100% {
+    opacity: 0.18;
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  18% {
+    opacity: 1;
+    transform: translateX(-50%) rotate(45deg) translateY(0.18rem);
+  }
+
+  34% {
+    opacity: 0.18;
+    transform: translateX(-50%) rotate(45deg) translateY(0.24rem);
   }
 }
 
