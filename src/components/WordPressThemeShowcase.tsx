@@ -3,6 +3,9 @@ import Link from 'next/link'
 import { Blocks, Gauge, Layers3, Moon, Settings2, Smartphone } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { localizePathname } from '@/i18n/routing'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
+import type { Locale } from '@/utilities/locale'
 
 const facts = [
   {
@@ -110,7 +113,10 @@ const builderBackgroundLogos = [
   },
 ]
 
-export function WordPressThemeShowcase() {
+export function WordPressThemeShowcase({ locale = 'de' }: { locale?: Locale }) {
+  const t = (value: string) => translateValueForLocale(value, locale)
+  const localize = (href: string) => localizePathname(href, locale)
+
   return (
     <section className="w-full overflow-visible py-10 md:py-14 xl:py-18">
       <div className="mx-auto flex w-full max-w-[86rem] flex-col gap-14 overflow-visible px-4 md:px-6 lg:px-8 xl:gap-20">
@@ -131,7 +137,7 @@ export function WordPressThemeShowcase() {
             <div className="grid gap-8 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] xl:items-end xl:gap-14">
               <div className="max-w-3xl">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-[var(--wp-case-muted)]">
-                  Custom WordPress Themes
+                  {t('Custom WordPress Themes')}
                 </p>
                 <h2
                   className="mt-4 text-balance type-heading-xl md:text-5xl"
@@ -143,12 +149,12 @@ export function WordPressThemeShowcase() {
                     WebkitTextFillColor: 'var(--wp-case-text)',
                   }}
                 >
-                  Komplette WordPress Themes statt nur Plugin-Anpassungen.
+                  {t('Komplette WordPress Themes statt nur Plugin-Anpassungen.')}
                 </h2>
                 <p className="mt-5 text-pretty text-base leading-8 text-[var(--wp-case-muted)] md:text-lg">
-                  Am Beispiel Moriss zeigt sich, wie ein vollständiges WordPress Custom Theme
-                  entstehen kann: individuelles Design, editierbare Inhalte, klare Komponenten und
-                  eine technische Basis, die nach individuellen Vorgaben exakt zum Betrieb passt.
+                  {t(
+                    'Am Beispiel Moriss zeigt sich, wie ein vollständiges WordPress Custom Theme entstehen kann: individuelles Design, editierbare Inhalte, klare Komponenten und eine technische Basis, die nach individuellen Vorgaben exakt zum Betrieb passt.',
+                  )}
                 </p>
               </div>
               <div className="relative mx-auto w-full max-w-[48rem] xl:-ml-[6%] xl:max-w-none xl:pl-2">
@@ -161,7 +167,7 @@ export function WordPressThemeShowcase() {
                   className="h-auto w-full drop-shadow-[0_22px_42px_rgba(0,0,0,0.48)]"
                 />
                 <p className="mt-4 text-xs font-medium uppercase tracking-[0.16em] text-[var(--wp-case-muted)] xl:text-right">
-                  Moriss Obstplantagen als vollständiges Custom Theme
+                  {t('Moriss Obstplantagen als vollständiges Custom Theme')}
                 </p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row xl:justify-end">
                   <Button
@@ -172,13 +178,13 @@ export function WordPressThemeShowcase() {
                     className="w-full justify-center sm:w-56"
                   >
                     <Link
-                      href="/leistungen/webdesign/websites-fuer-obsthoefe"
+                      href={localize('/leistungen/webdesign/websites-fuer-obsthoefe')}
                       style={{
                         backgroundColor: 'var(--background)',
                         color: 'var(--foreground)',
                       }}
                     >
-                      Moriss Case ansehen
+                      {t('Moriss Case ansehen')}
                     </Link>
                   </Button>
                   <Button
@@ -192,7 +198,7 @@ export function WordPressThemeShowcase() {
                     }}
                   >
                     <a href="https://moriss.de" target="_blank" rel="noopener noreferrer">
-                      Live-Referenz öffnen
+                      {t('Live-Referenz öffnen')}
                     </a>
                   </Button>
                 </div>
@@ -213,10 +219,10 @@ export function WordPressThemeShowcase() {
                   >
                     <Icon className="h-5 w-5 text-[var(--wp-case-muted)]" aria-hidden="true" />
                     <h3 className="mt-4 text-base font-semibold text-[var(--wp-case-text)]">
-                      {fact.label}
+                      {t(fact.label)}
                     </h3>
                     <p className="mt-2 text-sm leading-6 text-[var(--wp-case-muted)]">
-                      {fact.text}
+                      {t(fact.text)}
                     </p>
                   </article>
                 )
@@ -243,15 +249,15 @@ export function WordPressThemeShowcase() {
           <div className="relative z-10 grid gap-12 xl:grid-cols-[minmax(0,0.72fr)_minmax(0,1.28fr)] xl:items-start xl:gap-14">
             <div className="max-w-2xl xl:py-6">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                Builder-Expertise
+                {t('Builder-Expertise')}
               </p>
               <h2 className="mt-4 text-balance type-heading-xl text-foreground md:text-5xl">
-                WordPress-Umsetzung mit den gängigen Buildern.
+                {t('WordPress-Umsetzung mit den gängigen Buildern.')}
               </h2>
               <p className="mt-5 text-pretty text-base leading-8 text-muted-foreground md:text-lg">
-                Nicht jedes WordPress-Projekt braucht dieselbe technische Grundlage. Bestehende
-                Seiten werden dort weiterentwickelt, wo sie sinnvoll aufgebaut sind; neue Systeme
-                entstehen mit dem Builder, der zu Performance, Pflege und Designfreiheit passt.
+                {t(
+                  'Nicht jedes WordPress-Projekt braucht dieselbe technische Grundlage. Bestehende Seiten werden dort weiterentwickelt, wo sie sinnvoll aufgebaut sind; neue Systeme entstehen mit dem Builder, der zu Performance, Pflege und Designfreiheit passt.',
+                )}
               </p>
             </div>
 
@@ -278,7 +284,7 @@ export function WordPressThemeShowcase() {
                     </span>
                     <h3 className="text-lg font-semibold text-foreground">{builder.name}</h3>
                   </div>
-                  <p className="mt-4 text-sm leading-6 text-muted-foreground">{builder.focus}</p>
+                  <p className="mt-4 text-sm leading-6 text-muted-foreground">{t(builder.focus)}</p>
                 </article>
               ))}
             </div>
@@ -303,7 +309,7 @@ export function WordPressThemeShowcase() {
                   className="h-auto w-full drop-shadow-[0_20px_38px_rgba(0,0,0,0.28)]"
                 />
                 <p className="mt-4 text-xs font-medium uppercase tracking-[0.16em] text-muted-foreground">
-                  kipp-dental.de als individuelle Bricks Theme-Erstellung
+                  {t('kipp-dental.de als individuelle Bricks Theme-Erstellung')}
                 </p>
                 <div className="mt-6 flex flex-col gap-3 sm:flex-row xl:justify-start">
                   <Button
@@ -314,7 +320,7 @@ export function WordPressThemeShowcase() {
                     className="w-full justify-center sm:w-56"
                   >
                     <a href="https://kipp-dental.de" target="_blank" rel="noopener noreferrer">
-                      KIPP Dental ansehen
+                      {t('KIPP Dental ansehen')}
                     </a>
                   </Button>
                   <Button
@@ -323,14 +329,14 @@ export function WordPressThemeShowcase() {
                     size="cta"
                     className="w-full justify-center sm:w-56"
                   >
-                    <Link href="/portfolio">Weitere Referenzen</Link>
+                    <Link href={localize('/portfolio')}>{t('Weitere Referenzen')}</Link>
                   </Button>
                 </div>
               </div>
 
               <div className="max-w-3xl xl:justify-self-end">
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  WP Theme-Erstellung mit Bricks
+                  {t('WP Theme-Erstellung mit Bricks')}
                 </p>
                 <h2
                   className="mt-4 text-balance type-heading-xl md:text-5xl"
@@ -342,13 +348,12 @@ export function WordPressThemeShowcase() {
                     WebkitTextFillColor: 'var(--foreground)',
                   }}
                 >
-                  Individuelle WordPress-Auftritte auch auf Bricks-Basis.
+                  {t('Individuelle WordPress-Auftritte auch auf Bricks-Basis.')}
                 </h2>
                 <p className="mt-5 text-pretty text-base leading-8 text-muted-foreground md:text-lg">
-                  KIPP Dental zeigt eine weitere Art von WordPress-Projekt: kein fertiges Theme, das
-                  nur oberflächlich angepasst wird, sondern eine gezielte Theme-Erstellung mit
-                  Bricks, individuellen Templates und einer Nutzerführung, die zum
-                  medizinisch-technischen Angebot passt.
+                  {t(
+                    'KIPP Dental zeigt eine weitere Art von WordPress-Projekt: kein fertiges Theme, das nur oberflächlich angepasst wird, sondern eine gezielte Theme-Erstellung mit Bricks, individuellen Templates und einer Nutzerführung, die zum medizinisch-technischen Angebot passt.',
+                  )}
                 </p>
               </div>
             </div>
@@ -362,8 +367,10 @@ export function WordPressThemeShowcase() {
                     className="rounded-2xl border border-border/70 bg-background/70 p-4"
                   >
                     <Icon className="h-5 w-5 text-muted-foreground" aria-hidden="true" />
-                    <h3 className="mt-4 text-base font-semibold text-foreground">{fact.label}</h3>
-                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{fact.text}</p>
+                    <h3 className="mt-4 text-base font-semibold text-foreground">
+                      {t(fact.label)}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-muted-foreground">{t(fact.text)}</p>
                   </article>
                 )
               })}

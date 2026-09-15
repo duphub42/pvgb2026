@@ -3,6 +3,9 @@ import Link from 'next/link'
 import { Blocks, Code2, LayoutTemplate, ShoppingCart, Store, Wrench } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { localizePathname } from '@/i18n/routing'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
+import type { Locale } from '@/utilities/locale'
 import { cn } from '@/utilities/ui'
 
 const cmsSystems = [
@@ -105,11 +108,13 @@ function LogoCard({
   logo,
   text,
   className,
+  t,
 }: {
   name: string
   logo?: string
   text: string
   className?: string
+  t: (value: string) => string
 }) {
   return (
     <article
@@ -146,13 +151,16 @@ function LogoCard({
         </h3>
       </div>
       <p className="mt-4 min-w-0 text-sm leading-6 text-muted-foreground break-words [overflow-wrap:anywhere]">
-        {text}
+        {t(text)}
       </p>
     </article>
   )
 }
 
-export function WebdesignPlatformShowcase() {
+export function WebdesignPlatformShowcase({ locale = 'de' }: { locale?: Locale }) {
+  const t = (value: string) => translateValueForLocale(value, locale)
+  const localize = (href: string) => localizePathname(href, locale)
+
   return (
     <section className="w-full overflow-visible py-10 md:py-14 xl:py-18">
       <div className="mx-auto flex w-full max-w-[86rem] flex-col gap-12 px-4 md:px-6 lg:px-8 xl:gap-16">
@@ -166,7 +174,7 @@ export function WebdesignPlatformShowcase() {
             <div className="max-w-3xl">
               <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-background/68">
                 <LayoutTemplate className="h-4 w-4" aria-hidden="true" />
-                WordPress-Leistungen
+                {t('WordPress-Leistungen')}
               </p>
               <h2
                 className="mt-4 text-balance type-heading-xl !text-background md:text-5xl"
@@ -175,23 +183,23 @@ export function WebdesignPlatformShowcase() {
                   WebkitTextFillColor: 'var(--background)',
                 }}
               >
-                Von der Website bis zum individuellen WordPress-System.
+                {t('Von der Website bis zum individuellen WordPress-System.')}
               </h2>
               <p className="mt-5 text-pretty text-base leading-8 text-background/74 md:text-lg">
-                Webdesign kann als vollständiges WordPress-Projekt umgesetzt werden: mit Custom
-                Theme, Builder-Setup, WooCommerce, Performance-Optimierung, Pflegekonzept und
-                editierbaren Inhaltsbereichen für den Alltag.
+                {t(
+                  'Webdesign kann als vollständiges WordPress-Projekt umgesetzt werden: mit Custom Theme, Builder-Setup, WooCommerce, Performance-Optimierung, Pflegekonzept und editierbaren Inhaltsbereichen für den Alltag.',
+                )}
               </p>
               <div className="mt-7">
                 <Button asChild variant="cta" size="cta" ctaIcon>
                   <Link
-                    href="/wordpress-agentur"
+                    href={localize('/wordpress-agentur')}
                     style={{
                       backgroundColor: 'var(--background)',
                       color: 'var(--foreground)',
                     }}
                   >
-                    WordPress-Leistungen ansehen
+                    {t('WordPress-Leistungen ansehen')}
                   </Link>
                 </Button>
               </div>
@@ -222,8 +230,10 @@ export function WebdesignPlatformShowcase() {
                     className="rounded-2xl border border-background/14 bg-background/[0.06] p-5"
                   >
                     <Icon className="h-5 w-5 text-background/72" aria-hidden="true" />
-                    <h3 className="mt-4 text-base font-semibold text-background">{item.title}</h3>
-                    <p className="mt-2 text-sm leading-6 text-background/68">{item.text}</p>
+                    <h3 className="mt-4 text-base font-semibold text-background">
+                      {t(item.title)}
+                    </h3>
+                    <p className="mt-2 text-sm leading-6 text-background/68">{t(item.text)}</p>
                   </article>
                 )
               })}
@@ -238,14 +248,15 @@ export function WebdesignPlatformShowcase() {
           <div className="grid min-w-0 gap-8 xl:grid-cols-[minmax(0,0.68fr)_minmax(0,1.32fr)] xl:items-start xl:gap-14">
             <div className="min-w-0 max-w-2xl">
               <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                CMS & Webshops
+                {t('CMS & Webshops')}
               </p>
               <h2 className="mt-4 text-balance type-heading-xl text-foreground break-words md:text-5xl [overflow-wrap:anywhere]">
-                Umsetzung mit den gängigen Systemen.
+                {t('Umsetzung mit den gängigen Systemen.')}
               </h2>
               <p className="mt-5 text-pretty text-base leading-8 text-muted-foreground break-words md:text-lg [overflow-wrap:anywhere]">
-                Je nach Projekt wird die Plattform gewählt, die zu Inhaltspflege, Shop-Anforderung,
-                Budget, Erweiterbarkeit und bestehender Infrastruktur passt.
+                {t(
+                  'Je nach Projekt wird die Plattform gewählt, die zu Inhaltspflege, Shop-Anforderung, Budget, Erweiterbarkeit und bestehender Infrastruktur passt.',
+                )}
               </p>
             </div>
 
@@ -254,6 +265,7 @@ export function WebdesignPlatformShowcase() {
                 <LogoCard
                   key={system.name}
                   {...system}
+                  t={t}
                   className={cn(
                     index === 0 && 'sm:col-span-2 lg:col-span-2 lg:row-span-2',
                     index === 2 && 'lg:row-span-2',
@@ -272,22 +284,22 @@ export function WebdesignPlatformShowcase() {
           <div className="grid min-w-0 gap-8 xl:grid-cols-[minmax(0,1.32fr)_minmax(0,0.68fr)] xl:items-start xl:gap-14">
             <div className="grid min-w-0 grid-cols-1 gap-3 sm:grid-cols-[repeat(2,minmax(0,1fr))] lg:grid-cols-[repeat(4,minmax(0,1fr))] xl:order-1">
               {techStacks.map((tech) => (
-                <LogoCard key={tech.name} {...tech} />
+                <LogoCard key={tech.name} {...tech} t={t} />
               ))}
             </div>
 
             <div className="min-w-0 max-w-2xl xl:order-2">
               <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                 <Code2 className="h-4 w-4" aria-hidden="true" />
-                Entwicklung
+                {t('Entwicklung')}
               </p>
               <h2 className="mt-4 text-balance type-heading-xl text-foreground break-words md:text-5xl [overflow-wrap:anywhere]">
-                React, PHP und moderne Webentwicklung.
+                {t('React, PHP und moderne Webentwicklung.')}
               </h2>
               <p className="mt-5 text-pretty text-base leading-8 text-muted-foreground break-words md:text-lg [overflow-wrap:anywhere]">
-                Neben klassischen CMS-Projekten entstehen individuelle Frontends, Schnittstellen,
-                Backend-Logik, Komponentenbibliotheken und technische Erweiterungen, wenn ein
-                Standardsystem allein nicht reicht.
+                {t(
+                  'Neben klassischen CMS-Projekten entstehen individuelle Frontends, Schnittstellen, Backend-Logik, Komponentenbibliotheken und technische Erweiterungen, wenn ein Standardsystem allein nicht reicht.',
+                )}
               </p>
             </div>
           </div>

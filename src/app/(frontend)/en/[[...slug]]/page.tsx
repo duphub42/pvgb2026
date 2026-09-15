@@ -7,15 +7,19 @@ import { RenderBlocks } from '@/blocks/RenderBlocks'
 import { HomepageScrollEffects } from '@/components/HomepageScrollEffects'
 import { Faq8 } from '@/components/ui/faq-8'
 import { SectionReveal } from '@/components/ui/SectionReveal'
+import { AutomationPlatformsShowcase } from '@/components/AutomationPlatformsShowcase'
 import { generateMeta } from '@/utilities/generateMeta'
 import { getGermanSlugFromEnglishSegments, localizePathname } from '@/i18n/routing'
 import { getPublicSiteURL } from '@/utilities/getURL'
 import { HeroErrorBoundary } from '@/components/HeroErrorBoundary'
 import { LeistungenFaqBox } from '@/components/LeistungenFaqBox'
+import { ObsthofOfferTeaser } from '@/components/ObsthofOfferTeaser'
 import { RenderHero } from '@/heros/RenderHero'
 import { resolveLayoutBlocks } from '@/utilities/profilLayoutFallback'
 import { resolveSharedPortfolioContent } from '@/utilities/sharedPortfolioContent'
 import { translateValueForLocale } from '@/i18n/translationOverlay'
+import { WebdesignPlatformShowcase } from '@/components/WebdesignPlatformShowcase'
+import { WordPressThemeShowcase } from '@/components/WordPressThemeShowcase'
 import { cn } from '@/utilities/ui'
 import type { SitePage } from '@/payload-types'
 
@@ -266,6 +270,8 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
 
   const showHomeFaq = originalSlug === 'home'
   const isWebdesignPage = originalSlug === 'webdesign'
+  const isAutomationPage = originalSlug === 'automatisierung'
+  const isWordPressAgencyPage = originalSlug === 'wordpress-agentur'
   const ELEVATION_TRIGGER_BLOCK_TYPES = new Set(['whyWorkWithMe', 'servicesOverview'])
   const elevationStartIndex = layoutBlocks.findIndex(
     (block) =>
@@ -318,6 +324,10 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
             pageSlug={originalSlug}
             totalLength={layoutBlocks.length}
           />
+          {isWebdesignPage ? <ObsthofOfferTeaser locale="en" /> : null}
+          {isWebdesignPage ? <WebdesignPlatformShowcase locale="en" /> : null}
+          {isWordPressAgencyPage ? <WordPressThemeShowcase locale="en" /> : null}
+          {isAutomationPage ? <AutomationPlatformsShowcase locale="en" /> : null}
           {showHomeFaq && !hasElevatedSplit ? <Faq8 faq={translatedPage.faq} locale="en" /> : null}
         </SectionReveal>
         {hasElevatedSplit ? (

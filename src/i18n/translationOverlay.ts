@@ -854,6 +854,161 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Nach dem Launch geht es um echte Nutzung: Sichtbarkeit, Anfragen, Inhalte, technische Pflege und sinnvolle Verbesserungen auf Basis von Daten.':
     'After launch, the focus is real usage: visibility, inquiries, content, technical maintenance and meaningful improvements based on data.',
   'SEO & Optimierung': 'SEO & Optimization',
+  'Custom WordPress Themes': 'Custom WordPress Themes',
+  'Komplette WordPress Themes statt nur Plugin-Anpassungen.':
+    'Complete WordPress Themes Instead of Plugin Tweaks.',
+  'Am Beispiel Moriss zeigt sich, wie ein vollständiges WordPress Custom Theme entstehen kann: individuelles Design, editierbare Inhalte, klare Komponenten und eine technische Basis, die nach individuellen Vorgaben exakt zum Betrieb passt.':
+    'The Moriss example shows how a complete custom WordPress theme can be built: individual design, editable content, clear components and a technical foundation tailored precisely to the business requirements.',
+  'Moriss Obstplantagen als vollständiges Custom Theme':
+    'Moriss Obstplantagen as a Complete Custom Theme',
+  'Moriss Case ansehen': 'View Moriss Case',
+  'Live-Referenz öffnen': 'Open Live Reference',
+  'Theme-System mit sauber abgestimmten hellen und dunklen Ansichten.':
+    'Theme system with carefully coordinated light and dark views.',
+  'Performance-orientierte Umsetzung mit sehr guten Messwerten.':
+    'Performance-oriented implementation with very strong metrics.',
+  'Layouts, Navigation und Inhalte funktionieren auf Smartphone, Tablet und Desktop.':
+    'Layouts, navigation and content work on smartphones, tablets and desktop.',
+  'Individuell nach Vorgaben, Marke, Inhalt und gewünschter Nutzerführung entwickelt.':
+    'Developed individually around requirements, brand, content and the desired user journey.',
+  'Builder-Expertise': 'Builder Expertise',
+  'WordPress-Umsetzung mit den gängigen Buildern.':
+    'WordPress Implementation With Common Builders.',
+  'Nicht jedes WordPress-Projekt braucht dieselbe technische Grundlage. Bestehende Seiten werden dort weiterentwickelt, wo sie sinnvoll aufgebaut sind; neue Systeme entstehen mit dem Builder, der zu Performance, Pflege und Designfreiheit passt.':
+    'Not every WordPress project needs the same technical foundation. Existing sites are developed further where their structure makes sense; new systems are built with the builder that fits performance, maintenance and design freedom.',
+  'performante Theme-Erstellung, Templates, Komponenten und dynamische Inhalte':
+    'performance-oriented theme creation, templates, components and dynamic content',
+  'technisch schlanke Layouts, strukturierte Komponenten und saubere Weiterentwicklung':
+    'technically lean layouts, structured components and clean further development',
+  'bestehende Seiten stabilisieren, neu strukturieren und wartbarer machen':
+    'stabilizing existing sites, restructuring them and making them easier to maintain',
+  'Relaunches, Design-Anpassungen und systematische Optimierung vorhandener Auftritte':
+    'relaunches, design adjustments and systematic optimization of existing websites',
+  'native WordPress-Blöcke, editierbare Inhaltsbereiche und langfristig robuste Pflege':
+    'native WordPress blocks, editable content areas and robust long-term maintenance',
+  'solide Unternehmensseiten, modulare Layouts und pragmatische Bestandsbetreuung':
+    'solid company websites, modular layouts and pragmatic support for existing setups',
+  'kipp-dental.de als individuelle Bricks Theme-Erstellung':
+    'kipp-dental.de as an Individual Bricks Theme Build',
+  'KIPP Dental ansehen': 'View KIPP Dental',
+  'Weitere Referenzen': 'More References',
+  'WP Theme-Erstellung mit Bricks': 'WP Theme Creation With Bricks',
+  'Individuelle WordPress-Auftritte auch auf Bricks-Basis.':
+    'Individual WordPress Websites Also Built on Bricks.',
+  'KIPP Dental zeigt eine weitere Art von WordPress-Projekt: kein fertiges Theme, das nur oberflächlich angepasst wird, sondern eine gezielte Theme-Erstellung mit Bricks, individuellen Templates und einer Nutzerführung, die zum medizinisch-technischen Angebot passt.':
+    'KIPP Dental shows another type of WordPress project: not an off-the-shelf theme with surface-level changes, but a focused Bricks theme build with individual templates and a user journey that fits the medical-technical offer.',
+  'Individuelle Templates, Komponenten und Layouts im Bricks-System statt Standard-Theme von der Stange.':
+    'Individual templates, components and layouts in the Bricks system instead of an off-the-shelf standard theme.',
+  'Design, Seitenstruktur und Inhaltsbereiche werden an Praxis, Leistungen und Zielgruppe angepasst.':
+    'Design, page structure and content areas are adapted to the practice, services and target audience.',
+  'Die Website bleibt auf mobilen Geräten, Tablet und Desktop klar nutzbar.':
+    'The website remains clear and usable on mobile devices, tablets and desktop.',
+  'Schlanker Aufbau, saubere Assets und reduzierte Plugin-Abhängigkeit für schnelle Ladezeiten.':
+    'Lean structure, clean assets and reduced plugin dependency for fast load times.',
+  'Branchenspezifisches Webdesign': 'Industry-Specific Web Design',
+  'Websites für Obsthöfe, Hofläden und Direktvermarkter':
+    'Websites for Orchards, Farm Shops and Direct Marketers',
+  'Ein eigenes WordPress-Angebot für Obstbaubetriebe, Hofläden und Direktvermarkter, die Sortiment, Saisonangebote, Öffnungszeiten und Anfahrt klar sichtbar machen wollen.':
+    'A dedicated WordPress offer for fruit growers, farm shops and direct marketers who want to make products, seasonal offers, opening hours and directions clearly visible.',
+  'Obsthof-Angebot ansehen': 'View Orchard Website Offer',
+  'Referenz: moriss.de': 'Reference: moriss.de',
+  'WordPress-Leistungen': 'WordPress Services',
+  'Von der Website bis zum individuellen WordPress-System.':
+    'From the Website to an Individual WordPress System.',
+  'Webdesign kann als vollständiges WordPress-Projekt umgesetzt werden: mit Custom Theme, Builder-Setup, WooCommerce, Performance-Optimierung, Pflegekonzept und editierbaren Inhaltsbereichen für den Alltag.':
+    'Web design can be implemented as a complete WordPress project: with a custom theme, builder setup, WooCommerce, performance optimization, maintenance concept and editable content areas for daily use.',
+  'WordPress-Leistungen ansehen': 'View WordPress Services',
+  'Individuelle Templates, Komponenten und WordPress-Strukturen.':
+    'Individual templates, components and WordPress structures.',
+  'Builder & Bestand': 'Builders & Existing Setups',
+  'Bricks, Gutenberg, Elementor, Oxygen, Divi und bestehende Setups.':
+    'Bricks, Gutenberg, Elementor, Oxygen, Divi and existing setups.',
+  'Shop-Strukturen, Produktseiten, Checkout und Erweiterungen.':
+    'Shop structures, product pages, checkout and extensions.',
+  'CMS & Webshops': 'CMS & Webshops',
+  'Umsetzung mit den gängigen Systemen.': 'Implementation With Common Systems.',
+  'Je nach Projekt wird die Plattform gewählt, die zu Inhaltspflege, Shop-Anforderung, Budget, Erweiterbarkeit und bestehender Infrastruktur passt.':
+    'Depending on the project, the platform is chosen to fit content maintenance, shop requirements, budget, extensibility and existing infrastructure.',
+  'Websites, redaktionelle Inhalte, Custom Themes und performante Unternehmensseiten.':
+    'Websites, editorial content, custom themes and high-performing company websites.',
+  'Shops auf WordPress-Basis, Produktseiten, Checkout und Erweiterungen.':
+    'WordPress-based shops, product pages, checkout and extensions.',
+  'Headless CMS, eigene Datenmodelle und flexible redaktionelle Oberflächen.':
+    'Headless CMS, custom data models and flexible editorial interfaces.',
+  'Schnelle Shop-Projekte, Theme-Anpassungen, Landingpages und Conversion-Flows.':
+    'Fast shop projects, theme adjustments, landing pages and conversion flows.',
+  'E-Commerce-Auftritte mit klaren Kategorien, Produktwelten und Systemlogik.':
+    'E-commerce presences with clear categories, product worlds and system logic.',
+  'Skalierbare Commerce-Strukturen, Produktkataloge und komplexere Shop-Prozesse.':
+    'Scalable commerce structures, product catalogs and more complex shop processes.',
+  'Visuell starke Seiten, schnelle Prototypen und CMS-basierte Marketingseiten.':
+    'Visually strong pages, fast prototypes and CMS-based marketing sites.',
+  'Strukturierte Corporate-Websites, Mehrsprachigkeit und umfangreiche Inhaltsmodelle.':
+    'Structured corporate websites, multilingual content and extensive content models.',
+  'Komplexere Inhaltsarchitekturen, Rollenmodelle und modulare Website-Strukturen.':
+    'More complex content architectures, role models and modular website structures.',
+  'Betreuung, Anpassung und Weiterentwicklung bestehender Joomla-Websites.':
+    'Support, customization and further development of existing Joomla websites.',
+  'React, PHP und moderne Webentwicklung.': 'React, PHP and Modern Web Development.',
+  'Neben klassischen CMS-Projekten entstehen individuelle Frontends, Schnittstellen, Backend-Logik, Komponentenbibliotheken und technische Erweiterungen, wenn ein Standardsystem allein nicht reicht.':
+    'In addition to classic CMS projects, individual frontends, interfaces, backend logic, component libraries and technical extensions are created when a standard system alone is not enough.',
+  'Interaktive Oberflächen, Komponenten, Dashboards und dynamische Frontends.':
+    'Interactive interfaces, components, dashboards and dynamic frontends.',
+  'Performante Websites, App-Router-Strukturen, SEO und moderne Webanwendungen.':
+    'High-performing websites, app-router structures, SEO and modern web applications.',
+  'Robuster Code, klare Datenmodelle und wartbare Komponenten für langfristige Projekte.':
+    'Robust code, clear data models and maintainable components for long-term projects.',
+  'WordPress-Logik, Backend-Anpassungen, Templates, Schnittstellen und Integrationen.':
+    'WordPress logic, backend adjustments, templates, interfaces and integrations.',
+  'Individuelle Webanwendungen, API-Backends und strukturierte Geschäftslogik.':
+    'Individual web applications, API backends and structured business logic.',
+  'APIs, Automationen, Build-Prozesse und serverseitige JavaScript-Anwendungen.':
+    'APIs, automations, build processes and server-side JavaScript applications.',
+  'Designsysteme, responsive Layouts und präzise UI-Umsetzung ohne Ballast.':
+    'Design systems, responsive layouts and precise UI implementation without ballast.',
+  Automatisierungsplattformen: 'Automation Platforms',
+  'Workflows mit n8n, Make und IFTTT.': 'Workflows With n8n, Make and IFTTT.',
+  'Ich entwickle Automatisierungen für wiederkehrende Abläufe, Datenübergaben, Benachrichtigungen, CRM-Prozesse und KI-gestützte Schritte. Je nach Anforderung läuft das Setup selbst gehostet mit n8n oder cloudbasiert mit n8n Cloud, Make oder IFTTT.':
+    'I develop automations for recurring processes, data transfers, notifications, CRM workflows and AI-supported steps. Depending on the requirements, the setup runs self-hosted with n8n or cloud-based with n8n Cloud, Make or IFTTT.',
+  'Flexible Workflows, API-Verbindungen und komplexe Prozessketten, wahlweise selbst gehostet oder cloudbasiert.':
+    'Flexible workflows, API connections and complex process chains, either self-hosted or cloud-based.',
+  'Visuelle Automatisierungen für Marketing, Sales, CRM, Datenpflege und wiederkehrende operative Aufgaben.':
+    'Visual automations for marketing, sales, CRM, data maintenance and recurring operational tasks.',
+  'Einfache Trigger-Automationen für Benachrichtigungen, Tools, einfache Datenflüsse und persönliche Produktivität.':
+    'Simple trigger automations for notifications, tools, simple data flows and personal productivity.',
+  'Mehr Kontrolle über Daten, Infrastruktur, Zugänge und sensible Geschäftsprozesse.':
+    'More control over data, infrastructure, access and sensitive business processes.',
+  'Cloud-basiert': 'Cloud-Based',
+  'Schneller Start mit Make, IFTTT oder n8n Cloud, wenn Wartung und Betrieb schlank bleiben sollen.':
+    'A faster start with Make, IFTTT or n8n Cloud when maintenance and operations should stay lean.',
+  'Von Lead-Eingang über CRM, E-Mail, Aufgaben, Reporting und KI-Schritte bis zur Übergabe ans Team.':
+    'From lead intake through CRM, email, tasks, reporting and AI steps to handover to the team.',
+  'Lead-Quelle': 'Lead Source',
+  'Website-Formular, Ads-Landingpage, Calendly, Newsletter oder manueller Vertriebskontakt.':
+    'Website form, ads landing page, Calendly, newsletter or manual sales contact.',
+  Qualifizierung: 'Qualification',
+  'Felder prüfen, Dubletten erkennen, Lead-Score setzen und Zuständigkeit ableiten.':
+    'Check fields, detect duplicates, set lead scores and derive responsibility.',
+  'Saubere Übergabe an Salesforce, HubSpot, Zoho oder Pipedrive mit Fehlerhandling.':
+    'Clean handover to Salesforce, HubSpot, Zoho or Pipedrive with error handling.',
+  'CRM-Datensatz': 'CRM Record',
+  'Kontakt, Unternehmen, Deal, Pipeline-Status und Quelle werden konsistent angelegt.':
+    'Contact, company, deal, pipeline status and source are created consistently.',
+  'Interne Regeln, Tasks, Sequenzen, E-Mail-Strecken und Benachrichtigungen optimieren.':
+    'Optimize internal rules, tasks, sequences, email flows and notifications.',
+  'Team-Info, Angebotsprozess, Reminder, Reporting oder externe Tool-Verknüpfung auslösen.':
+    'Trigger team updates, proposal process, reminders, reporting or external tool connections.',
+  'Beispiel: Sales-Funnel': 'Example: Sales Funnel',
+  'Vom Lead zum CRM-Prozess.': 'From Lead to CRM Process.',
+  'Ein typischer Funnel muss nicht bei der Formularübertragung aufhören. Leads werden qualifiziert, per Webhook ins CRM geschrieben und dort mit internen Automationen weitergeführt. Externe Tools wie n8n oder Make verbinden die Systeme, während CRM-Regeln direkt in Salesforce, HubSpot, Zoho oder Pipedrive sauber konfiguriert und optimiert werden.':
+    'A typical funnel does not have to stop at form transfer. Leads are qualified, written into the CRM via webhook and continued there with internal automations. External tools such as n8n or Make connect the systems, while CRM rules are configured and optimized directly in Salesforce, HubSpot, Zoho or Pipedrive.',
+  'Extern verknüpfen': 'Connect Externally',
+  'n8n, Make oder IFTTT verbinden Website, E-Mail, Tabellen, Ads, Support, KI-Modelle und interne Systeme über APIs.':
+    'n8n, Make or IFTTT connect websites, email, spreadsheets, ads, support, AI models and internal systems through APIs.',
+  'Intern optimieren': 'Optimize Internally',
+  'CRM-native Workflows bleiben dort, wo sie hingehören: Pipelines, Aufgaben, Sequenzen, Felder, Scoring und Benachrichtigungen im CRM selbst.':
+    'CRM-native workflows stay where they belong: pipelines, tasks, sequences, fields, scoring and notifications inside the CRM itself.',
+  'Budget einordnen': 'Estimate Budget',
   'Sie möchten wissen, welche digitalen Hebel sich wirklich lohnen?':
     'Do you want to know which digital levers are truly worthwhile?',
   'Ich analysiere Website, Sichtbarkeit und Conversion-Pfade und leite daraus konkrete, priorisierte nächste Schritte ab.':

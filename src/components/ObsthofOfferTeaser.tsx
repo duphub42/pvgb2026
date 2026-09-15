@@ -3,8 +3,14 @@ import Link from 'next/link'
 import { Leaf } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { localizePathname } from '@/i18n/routing'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
+import type { Locale } from '@/utilities/locale'
 
-export function ObsthofOfferTeaser() {
+export function ObsthofOfferTeaser({ locale = 'de' }: { locale?: Locale }) {
+  const t = (value: string) => translateValueForLocale(value, locale)
+  const localize = (href: string) => localizePathname(href, locale)
+
   return (
     <section className="w-full overflow-visible py-10 md:py-14 xl:py-18">
       <div className="mx-auto w-full max-w-[86rem] overflow-visible px-4 md:px-6 lg:px-8">
@@ -26,7 +32,7 @@ export function ObsthofOfferTeaser() {
             <div className="max-w-3xl xl:max-w-none">
               <p className="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--obsthof-cta-muted)] sm:text-sm sm:tracking-[0.16em]">
                 <Leaf className="h-4 w-4" aria-hidden="true" />
-                Branchenspezifisches Webdesign
+                {t('Branchenspezifisches Webdesign')}
               </p>
               <h2
                 className="mt-4 text-balance type-heading-lg md:type-heading-xl"
@@ -38,11 +44,12 @@ export function ObsthofOfferTeaser() {
                   WebkitTextFillColor: 'var(--obsthof-cta-text)',
                 }}
               >
-                Websites für Obsthöfe, Hofläden und Direktvermarkter
+                {t('Websites für Obsthöfe, Hofläden und Direktvermarkter')}
               </h2>
               <p className="mt-4 text-sm leading-7 text-[var(--obsthof-cta-muted)] sm:text-base md:text-lg">
-                Ein eigenes WordPress-Angebot für Obstbaubetriebe, Hofläden und Direktvermarkter,
-                die Sortiment, Saisonangebote, Öffnungszeiten und Anfahrt klar sichtbar machen wollen.
+                {t(
+                  'Ein eigenes WordPress-Angebot für Obstbaubetriebe, Hofläden und Direktvermarkter, die Sortiment, Saisonangebote, Öffnungszeiten und Anfahrt klar sichtbar machen wollen.',
+                )}
               </p>
               <div className="mt-7">
                 <Button
@@ -56,8 +63,8 @@ export function ObsthofOfferTeaser() {
                     color: 'var(--obsthof-cta-bg)',
                   }}
                 >
-                  <Link href="/leistungen/webdesign/websites-fuer-obsthoefe">
-                    Obsthof-Angebot ansehen
+                  <Link href={localize('/leistungen/webdesign/websites-fuer-obsthoefe')}>
+                    {t('Obsthof-Angebot ansehen')}
                   </Link>
                 </Button>
               </div>
@@ -73,7 +80,7 @@ export function ObsthofOfferTeaser() {
                 className="h-auto w-full drop-shadow-[0_20px_36px_rgba(0,0,0,0.44)] [filter:drop-shadow(0_0_28px_rgba(255,255,255,0.18))_drop-shadow(0_22px_42px_rgba(0,0,0,0.46))]"
               />
               <p className="mt-3 text-xs font-medium uppercase tracking-[0.14em] text-[var(--obsthof-cta-muted)] xl:text-right">
-                Referenz: moriss.de
+                {t('Referenz: moriss.de')}
               </p>
             </div>
           </div>

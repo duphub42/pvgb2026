@@ -15,6 +15,9 @@ import {
 } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { localizePathname } from '@/i18n/routing'
+import { translateValueForLocale } from '@/i18n/translationOverlay'
+import type { Locale } from '@/utilities/locale'
 
 const platforms = [
   {
@@ -87,7 +90,10 @@ const funnelFlow = [
 
 const crmTools = ['Salesforce', 'HubSpot', 'Zoho', 'Pipedrive']
 
-export function AutomationPlatformsShowcase() {
+export function AutomationPlatformsShowcase({ locale = 'de' }: { locale?: Locale }) {
+  const t = (value: string) => translateValueForLocale(value, locale)
+  const localize = (href: string) => localizePathname(href, locale)
+
   return (
     <section className="w-full overflow-visible py-10 md:py-14 xl:py-18">
       <div className="mx-auto w-full max-w-[86rem] overflow-visible px-4 md:px-6 lg:px-8">
@@ -101,16 +107,15 @@ export function AutomationPlatformsShowcase() {
             <div className="max-w-3xl">
               <p className="inline-flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
                 <Zap className="h-4 w-4" aria-hidden="true" />
-                Automatisierungsplattformen
+                {t('Automatisierungsplattformen')}
               </p>
               <h2 className="mt-4 text-balance type-heading-xl text-foreground md:text-5xl">
-                Workflows mit n8n, Make und IFTTT.
+                {t('Workflows mit n8n, Make und IFTTT.')}
               </h2>
               <p className="mt-5 text-pretty text-base leading-8 text-muted-foreground md:text-lg">
-                Ich entwickle Automatisierungen für wiederkehrende Abläufe, Datenübergaben,
-                Benachrichtigungen, CRM-Prozesse und KI-gestützte Schritte. Je nach Anforderung
-                läuft das Setup selbst gehostet mit n8n oder cloudbasiert mit n8n Cloud, Make oder
-                IFTTT.
+                {t(
+                  'Ich entwickle Automatisierungen für wiederkehrende Abläufe, Datenübergaben, Benachrichtigungen, CRM-Prozesse und KI-gestützte Schritte. Je nach Anforderung läuft das Setup selbst gehostet mit n8n oder cloudbasiert mit n8n Cloud, Make oder IFTTT.',
+                )}
               </p>
             </div>
 
@@ -131,7 +136,9 @@ export function AutomationPlatformsShowcase() {
                       />
                     </div>
                     <h3 className="mt-4 text-lg font-semibold text-foreground">{platform.name}</h3>
-                    <p className="mt-3 text-sm leading-6 text-muted-foreground">{platform.text}</p>
+                    <p className="mt-3 text-sm leading-6 text-muted-foreground">
+                      {t(platform.text)}
+                    </p>
                   </div>
                 </article>
               ))}
@@ -151,10 +158,10 @@ export function AutomationPlatformsShowcase() {
                   </span>
                   <span className="min-w-0">
                     <strong className="block text-base font-semibold text-foreground break-words">
-                      {option.title}
+                      {t(option.title)}
                     </strong>
                     <span className="mt-1 block text-sm leading-6 text-muted-foreground">
-                      {option.text}
+                      {t(option.text)}
                     </span>
                   </span>
                 </article>
@@ -166,17 +173,15 @@ export function AutomationPlatformsShowcase() {
             <div className="grid gap-8 xl:grid-cols-[minmax(0,0.64fr)_minmax(0,1.36fr)] xl:items-start">
               <div>
                 <p className="text-sm font-semibold uppercase tracking-[0.18em] text-muted-foreground">
-                  Beispiel: Sales-Funnel
+                  {t('Beispiel: Sales-Funnel')}
                 </p>
                 <h3 className="mt-4 text-balance type-heading-lg text-foreground md:type-heading-xl">
-                  Vom Lead zum CRM-Prozess.
+                  {t('Vom Lead zum CRM-Prozess.')}
                 </h3>
                 <p className="mt-4 text-sm leading-7 text-muted-foreground md:text-base">
-                  Ein typischer Funnel muss nicht bei der Formularübertragung aufhören. Leads werden
-                  qualifiziert, per Webhook ins CRM geschrieben und dort mit internen Automationen
-                  weitergeführt. Externe Tools wie n8n oder Make verbinden die Systeme, während
-                  CRM-Regeln direkt in Salesforce, HubSpot, Zoho oder Pipedrive sauber konfiguriert
-                  und optimiert werden.
+                  {t(
+                    'Ein typischer Funnel muss nicht bei der Formularübertragung aufhören. Leads werden qualifiziert, per Webhook ins CRM geschrieben und dort mit internen Automationen weitergeführt. Externe Tools wie n8n oder Make verbinden die Systeme, während CRM-Regeln direkt in Salesforce, HubSpot, Zoho oder Pipedrive sauber konfiguriert und optimiert werden.',
+                  )}
                 </p>
 
                 <div className="mt-6 flex flex-wrap gap-2">
@@ -225,12 +230,12 @@ export function AutomationPlatformsShowcase() {
                                 Node {index + 1}
                               </span>
                               <strong className="mt-1 block text-base font-semibold text-foreground">
-                                {step.title}
+                                {t(step.title)}
                               </strong>
                             </span>
                           </div>
                           <p className="mt-4 text-sm leading-6 text-muted-foreground">
-                            {step.text}
+                            {t(step.text)}
                           </p>
                         </article>
                       </div>
@@ -243,12 +248,13 @@ export function AutomationPlatformsShowcase() {
                     <div className="flex items-center gap-3">
                       <Webhook className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                       <strong className="text-sm font-semibold text-foreground">
-                        Extern verknüpfen
+                        {t('Extern verknüpfen')}
                       </strong>
                     </div>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                      n8n, Make oder IFTTT verbinden Website, E-Mail, Tabellen, Ads, Support,
-                      KI-Modelle und interne Systeme über APIs.
+                      {t(
+                        'n8n, Make oder IFTTT verbinden Website, E-Mail, Tabellen, Ads, Support, KI-Modelle und interne Systeme über APIs.',
+                      )}
                     </p>
                   </div>
 
@@ -256,12 +262,13 @@ export function AutomationPlatformsShowcase() {
                     <div className="flex items-center gap-3">
                       <Bell className="h-4 w-4 text-muted-foreground" aria-hidden="true" />
                       <strong className="text-sm font-semibold text-foreground">
-                        Intern optimieren
+                        {t('Intern optimieren')}
                       </strong>
                     </div>
                     <p className="mt-2 text-sm leading-6 text-muted-foreground">
-                      CRM-native Workflows bleiben dort, wo sie hingehören: Pipelines, Aufgaben,
-                      Sequenzen, Felder, Scoring und Benachrichtigungen im CRM selbst.
+                      {t(
+                        'CRM-native Workflows bleiben dort, wo sie hingehören: Pipelines, Aufgaben, Sequenzen, Felder, Scoring und Benachrichtigungen im CRM selbst.',
+                      )}
                     </p>
                   </div>
                 </div>
@@ -271,10 +278,10 @@ export function AutomationPlatformsShowcase() {
 
           <div className="mt-10 flex flex-col gap-3 sm:flex-row">
             <Button asChild variant="cta" size="cta" ctaIcon>
-              <Link href="/kontakt">Automatisierung besprechen</Link>
+              <Link href={localize('/kontakt')}>{t('Automatisierung besprechen')}</Link>
             </Button>
             <Button asChild variant="outline">
-              <Link href="/preise">Budget einordnen</Link>
+              <Link href={localize('/preise')}>{t('Budget einordnen')}</Link>
             </Button>
           </div>
         </div>
