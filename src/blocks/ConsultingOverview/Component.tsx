@@ -36,7 +36,9 @@ type Step = {
   icon?: string
 }
 
-const PROCESS_STEP_COPY: Array<Pick<Step, 'title' | 'description' | 'badge' | 'meta' | 'icon'>> = [
+const WORDPRESS_PROCESS_STEP_COPY: Array<
+  Pick<Step, 'title' | 'description' | 'badge' | 'meta' | 'icon'>
+> = [
   {
     title: 'Zielbild scharfstellen',
     description:
@@ -87,8 +89,65 @@ const PROCESS_STEP_COPY: Array<Pick<Step, 'title' | 'description' | 'badge' | 'm
   },
 ]
 
-const getProcessStep = (step: Step, index: number): Step => {
-  const curated = PROCESS_STEP_COPY[index]
+const WEBDESIGN_PROCESS_STEP_COPY: Array<
+  Pick<Step, 'title' | 'description' | 'badge' | 'meta' | 'icon'>
+> = [
+  {
+    title: 'Ziele und Nutzerwege klären',
+    description:
+      'Wir definieren Zielgruppen, Angebote, Prioritäten und die wichtigsten Kontaktwege. So entsteht eine Website, die Besucher nicht nur informiert, sondern gezielt zur Anfrage führt.',
+    badge: 'Strategie',
+    meta: 'Ziele & Struktur',
+    icon: 'compass',
+  },
+  {
+    title: 'Seitenstruktur und Inhalte planen',
+    description:
+      'Aus Leistungen, Referenzen, Vertrauenselementen und Suchintentionen entsteht eine klare Sitemap mit sinnvollen Inhaltsbereichen und starken Einstiegen.',
+    badge: 'Konzept',
+    meta: 'UX & Content',
+    icon: 'layers',
+  },
+  {
+    title: 'Interface und Komponenten gestalten',
+    description:
+      'Design, Module und Interaktionen werden als wiederverwendbares System aufgebaut: klar, responsiv, markentauglich und ohne unnötige Reibung.',
+    badge: 'Design',
+    meta: 'UI-System',
+    icon: 'sparkles',
+  },
+  {
+    title: 'Technisch sauber umsetzen',
+    description:
+      'Frontend, CMS, Formulare, Tracking und Performance werden so verbunden, dass die Website schnell lädt, einfach pflegbar bleibt und zuverlässig funktioniert.',
+    badge: 'Entwicklung',
+    meta: 'CMS & Code',
+    icon: 'settings',
+  },
+  {
+    title: 'Prüfen, optimieren, launchen',
+    description:
+      'Vor dem Go-live werden Mobilansicht, Ladezeiten, Formulare, SEO-Grundlagen, Datenschutzpunkte und typische Nutzerwege getestet.',
+    badge: 'Launch',
+    meta: 'QA & Go-live',
+    icon: 'rocket',
+  },
+  {
+    title: 'Sichtbarkeit und Anfragen ausbauen',
+    description:
+      'Nach dem Launch wird sichtbar, welche Seiten wirken. Inhalte, lokale SEO, Conversion-Pfade und technische Pflege werden datenbasiert weiterentwickelt.',
+    badge: 'Wachstum',
+    meta: 'SEO & Conversion',
+    icon: 'trending-up',
+  },
+]
+
+const getProcessStep = (
+  step: Step,
+  index: number,
+  copy: Array<Pick<Step, 'title' | 'description' | 'badge' | 'meta' | 'icon'>>,
+): Step => {
+  const curated = copy[index]
   if (!curated) return step
 
   return {
@@ -271,6 +330,7 @@ type ConsultingOverviewProps = ConsultingOverviewBlockData & {
   disableInnerContainer?: boolean
   layoutMode?: 'standard' | 'stepList'
   locale?: string
+  pageSlug?: string
 }
 
 export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
@@ -278,6 +338,7 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   locale,
   pixelLayoutDesktop,
   layoutMode = 'stepList',
+  pageSlug,
   headline,
   introText,
   strategyLabel,
@@ -315,12 +376,35 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   const intro = normalizeText(introText) || DEFAULTS.intro
   const usePixelLayout = pixelLayoutDesktop !== false
   const useStepList = layoutMode === 'stepList'
+  const normalizedPageSlug = normalizeText(pageSlug).toLowerCase()
+  const isWordPressPage =
+    normalizedPageSlug === 'wordpress-agentur' || normalizedPageSlug.includes('wordpress')
+  const isWebdesignPage = normalizedPageSlug === 'webdesign'
+  const stepListCopy = isWordPressPage ? WORDPRESS_PROCESS_STEP_COPY : WEBDESIGN_PROCESS_STEP_COPY
+  const stepListHeading = isWordPressPage
+    ? locale === 'en'
+      ? 'A clear plan for WordPress projects.'
+      : 'Ein klarer Plan statt WordPress-Wildwuchs.'
+    : isWebdesignPage
+      ? locale === 'en'
+        ? 'A clear web design process from strategy to launch.'
+        : 'Ein klarer Webdesign-Prozess von Strategie bis Launch.'
+      : title
+  const stepListIntro = isWordPressPage
+    ? locale === 'en'
+      ? 'From audit to launch, every step has a purpose: structure, technical decisions, implementation, testing and measurable improvement.'
+      : 'Von der ersten Analyse bis zur laufenden Optimierung: Jeder Schritt hat eine klare Aufgabe, ein sichtbares Ergebnis und einen technischen Zweck.'
+    : isWebdesignPage
+      ? locale === 'en'
+        ? 'From structure and content to interface, development and optimization: every step turns the website into a usable growth system.'
+        : 'Von Struktur und Inhalten über Interface und Entwicklung bis zur Optimierung: Jeder Schritt macht die Website nutzbarer, schneller und anfrageorientierter.'
+      : intro
 
   const renderStepList = () => (
     <div className="consulting-flow">
       <ol className="consulting-flow-list">
         {steps.map((rawStep, index) => {
-          const step = getProcessStep(rawStep, index)
+          const step = getProcessStep(rawStep, index, stepListCopy)
           const Icon = getStepIcon(step.icon, step.id)
 
           return (
@@ -391,14 +475,10 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
             {locale === 'en' ? 'Process' : 'Prozess'}
           </p>
           <h2 className="mt-5 text-3xl font-semibold leading-tight tracking-[-0.03em] text-foreground md:text-4xl lg:text-5xl">
-            {locale === 'en'
-              ? 'A clear plan for WordPress projects.'
-              : 'Ein klarer Plan statt WordPress-Wildwuchs.'}
+            {stepListHeading}
           </h2>
           <p className="mx-auto mt-5 max-w-2xl text-base leading-8 text-muted-foreground md:text-lg">
-            {locale === 'en'
-              ? 'From audit to launch, every step has a purpose: structure, technical decisions, implementation, testing and measurable improvement.'
-              : 'Von der ersten Analyse bis zur laufenden Optimierung: Jeder Schritt hat eine klare Aufgabe, ein sichtbares Ergebnis und einen technischen Zweck.'}
+            {stepListIntro}
           </p>
         </header>
 

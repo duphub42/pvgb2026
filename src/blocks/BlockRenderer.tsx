@@ -21,15 +21,22 @@ export async function BlockRenderer({
   blockType,
   block,
   index = 0,
+  pageSlug,
 }: {
   blockType: string
   block: BlockWithStyle
   index?: number
+  pageSlug?: string
 }) {
   const Block = await getBlockComponent(blockType)
   if (!Block) return null
   return (
-    <Block {...(block as unknown as Record<string, unknown>)} disableInnerContainer index={index} />
+    <Block
+      {...(block as unknown as Record<string, unknown>)}
+      disableInnerContainer
+      index={index}
+      pageSlug={pageSlug}
+    />
   )
 }
 
@@ -45,7 +52,8 @@ async function getBlockComponent(blockType: string): Promise<RenderableBlockComp
       return (await import('@/blocks/BrandShowcase/Component'))
         .BrandShowcaseBlock as unknown as RenderableBlockComponent
     case 'content':
-      return (await import('@/blocks/Content/Component')).ContentBlock as unknown as RenderableBlockComponent
+      return (await import('@/blocks/Content/Component'))
+        .ContentBlock as unknown as RenderableBlockComponent
     case 'heroFlowchart':
       return (await import('@/blocks/HeroFlowchart/Component'))
         .HeroFlowchartBlock as unknown as RenderableBlockComponent
@@ -68,9 +76,11 @@ async function getBlockComponent(blockType: string): Promise<RenderableBlockComp
       return (await import('@/blocks/CalPopup/Component.client'))
         .CalPopupBlock as unknown as RenderableBlockComponent
     case 'formBlock':
-      return (await import('@/blocks/Form/Component')).FormBlock as unknown as RenderableBlockComponent
+      return (await import('@/blocks/Form/Component'))
+        .FormBlock as unknown as RenderableBlockComponent
     case 'mediaBlock':
-      return (await import('@/blocks/MediaBlock/Component')).MediaBlock as unknown as RenderableBlockComponent
+      return (await import('@/blocks/MediaBlock/Component'))
+        .MediaBlock as unknown as RenderableBlockComponent
     case 'profilBacher':
       return (await import('@/blocks/ProfilBacherLegacy/Component'))
         .ProfilBacherLegacyBlock as unknown as RenderableBlockComponent

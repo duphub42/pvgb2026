@@ -101,6 +101,7 @@ function getResolvedBlockOverlay(block: BlockWithStyle): {
 
 export const RenderBlocks: React.FC<{
   blocks: NonNullable<SitePage['layout']>
+  pageSlug?: string
   decorativeBackground?: {
     blockIndex?: number
     variant?: 'topo-corner' | 'topo-band'
@@ -112,7 +113,7 @@ export const RenderBlocks: React.FC<{
    * this array is only a slice. Defaults to this array's own length. */
   totalLength?: number
 }> = (props) => {
-  const { blocks, decorativeBackground, startIndex = 0, totalLength } = props
+  const { blocks, pageSlug, decorativeBackground, startIndex = 0, totalLength } = props
 
   const hasBlocks = blocks && Array.isArray(blocks) && blocks.length > 0
 
@@ -212,7 +213,9 @@ export const RenderBlocks: React.FC<{
               {hasOverlay && (
                 <div
                   aria-hidden
-                  className={blockType === 'servicesGrid' ? undefined : 'rounded-[var(--style-radius-m)]'}
+                  className={
+                    blockType === 'servicesGrid' ? undefined : 'rounded-[var(--style-radius-m)]'
+                  }
                   style={getBlockOverlayStyle(overlay) ?? undefined}
                 />
               )}
@@ -237,7 +240,12 @@ export const RenderBlocks: React.FC<{
                     locale={b.locale}
                   />
                 ) : (
-                  <BlockRenderer blockType={blockType} block={b} index={index} />
+                  <BlockRenderer
+                    blockType={blockType}
+                    block={b}
+                    index={index}
+                    pageSlug={pageSlug}
+                  />
                 )}
               </div>
             </AnimateBlock>

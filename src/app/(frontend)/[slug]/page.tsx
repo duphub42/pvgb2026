@@ -578,15 +578,18 @@ export default async function Page({ params: paramsPromise }: PageProps) {
               isSuperheroHero && 'hero-following-section-foreground',
             )}
           >
-            <RenderBlocks blocks={blocksBeforeAndIncludingCta} />
+            <RenderBlocks blocks={blocksBeforeAndIncludingCta} pageSlug={effectiveSlug} />
             {renderFaqAfterCta && <PortfolioFaqBox faq={page.faq} />}
-            {blocksAfterCta.length > 0 && <RenderBlocks blocks={blocksAfterCta} />}
+            {blocksAfterCta.length > 0 && (
+              <RenderBlocks blocks={blocksAfterCta} pageSlug={effectiveSlug} />
+            )}
             {isWebdesignPage && <ObsthofOfferTeaser />}
             {isWebdesignPage && <WebdesignPlatformShowcase />}
             {isWordPressAgencyFaqPage && <WordPressThemeShowcase />}
             {wordPressAgencyProcessBlocks.length > 0 && (
               <RenderBlocks
                 blocks={wordPressAgencyProcessBlocks as NonNullable<SitePage['layout']>}
+                pageSlug={effectiveSlug}
               />
             )}
             {isAutomationFaqPage && <AutomationPlatformsShowcase />}
@@ -607,6 +610,7 @@ export default async function Page({ params: paramsPromise }: PageProps) {
             {wordPressAgencyDeferredCtaBlocks.length > 0 && (
               <RenderBlocks
                 blocks={wordPressAgencyDeferredCtaBlocks as NonNullable<SitePage['layout']>}
+                pageSlug={effectiveSlug}
               />
             )}
             {showHomeFaq && <Faq8 faq={page.faq} />}

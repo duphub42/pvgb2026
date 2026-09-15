@@ -900,8 +900,17 @@
        layer, so continuous per-frame values here are real, avoidable repaint cost. See
        SuperheroHero.tsx (sectionSteppedProgressTo) for where it's set - 12 discrete
        steps instead of a continuous stream, imperceptible for a blur/saturate amount. */
-    filter: blur(calc(var(--hero-scroll-blur-progress, var(--hero-scroll-progress)) * var(--hero-bg-blur-max)))
-      saturate(calc(1 - var(--hero-scroll-blur-progress, var(--hero-scroll-progress)) * var(--hero-bg-desaturate-max)));
+    filter: blur(
+        calc(
+          var(--hero-scroll-blur-progress, var(--hero-scroll-progress)) * var(--hero-bg-blur-max)
+        )
+      )
+      saturate(
+        calc(
+          1 - var(--hero-scroll-blur-progress, var(--hero-scroll-progress)) *
+            var(--hero-bg-desaturate-max)
+        )
+      );
     /* transition: none, not a duration - --hero-scroll-progress is already smoothed
        in JS (gsap.quickTo, see SuperheroHero.tsx) on every scroll rAF tick. A CSS
        transition here re-eases AGAIN on every one of those already-smoothed updates,
@@ -915,7 +924,11 @@
   section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
     .hero-scroll-bg-image {
     transform: translate3d(0, calc(var(--hero-scroll-progress) * var(--hero-bg-translate-max)), 0)
-      scale(calc(var(--hero-home-bg-scene-scale) + var(--hero-scroll-progress) * var(--hero-bg-scale-max)));
+      scale(
+        calc(
+          var(--hero-home-bg-scene-scale) + var(--hero-scroll-progress) * var(--hero-bg-scale-max)
+        )
+      );
   }
 
   section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
@@ -925,8 +938,21 @@
       scale(calc(1.045 + var(--hero-scroll-progress) * var(--hero-bg-scale-max)));
     /* See the identical note on .hero-scroll-bg-image above - same quantized-input
        reasoning, same var. */
-    filter: blur(calc(18px + (var(--hero-scroll-blur-progress, var(--hero-scroll-progress)) * var(--hero-bg-blur-max))))
-      saturate(calc(0.92 - var(--hero-scroll-blur-progress, var(--hero-scroll-progress)) * var(--hero-bg-desaturate-max)));
+    filter: blur(
+        calc(
+          18px +
+            (
+              var(--hero-scroll-blur-progress, var(--hero-scroll-progress)) *
+                var(--hero-bg-blur-max)
+            )
+        )
+      )
+      saturate(
+        calc(
+          0.92 - var(--hero-scroll-blur-progress, var(--hero-scroll-progress)) *
+            var(--hero-bg-desaturate-max)
+        )
+      );
     /* See the identical note on .hero-scroll-bg-image above: no CSS transition on a
        property already smoothed per-frame in JS via gsap.quickTo. */
     transition: none;
@@ -1030,11 +1056,7 @@
 
   section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
     .hero-scroll-content-copy {
-    --hero-home-copy-fade-progress: clamp(
-      0,
-      calc((var(--hero-scroll-progress) - 0.08) * 3.8),
-      1
-    );
+    --hero-home-copy-fade-progress: clamp(0, calc((var(--hero-scroll-progress) - 0.08) * 3.8), 1);
     opacity: calc(1 - var(--hero-home-copy-fade-progress));
     filter: saturate(
       calc(1 - var(--hero-scroll-content-progress) * var(--hero-content-desaturate-max))
@@ -1613,7 +1635,8 @@
   }
 
   @media (min-width: 700px) {
-    section[data-hero-type='superhero'][data-hero-has-portrait='true']:not([data-page-slug='home']) .hero-superhero-portrait {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']:not([data-page-slug='home'])
+      .hero-superhero-portrait {
       top: calc(var(--header-height, 72px) + 5vh);
       scroll-margin-top: calc(var(--header-height, 72px) + 5vh);
       height: auto;
@@ -1627,7 +1650,8 @@
   }
 
   @media (min-width: 1280px) {
-    section[data-hero-type='superhero'][data-hero-has-portrait='true']:not([data-page-slug='home']) .hero-superhero-portrait {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true']:not([data-page-slug='home'])
+      .hero-superhero-portrait {
       width: min(41rem, 100%);
       min-width: 0;
       margin-left: 0;
@@ -1768,7 +1792,6 @@
     section[data-hero-type='superhero'][data-page-slug='home'] .hero-scroll-content {
       padding-bottom: clamp(1.5rem, 3svh, 2.5rem);
     }
-
   }
 
   @media (min-width: 480px) and (max-width: 1199px) {
@@ -1848,11 +1871,7 @@
 
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-effects='ready']
       .hero-scroll-content-copy {
-      --hero-home-copy-fade-progress: clamp(
-        0,
-        calc((var(--hero-scroll-progress) - 0.06) * 4.4),
-        1
-      );
+      --hero-home-copy-fade-progress: clamp(0, calc((var(--hero-scroll-progress) - 0.06) * 4.4), 1);
     }
   }
 
@@ -1879,13 +1898,14 @@
   }
 
   .hero-following-section-mask.hero-following-section--closed {
+    margin-top: -1px;
     background-color: var(--hero-next-section-bg, var(--background));
     background-image: none;
   }
 
   .hero-following-section-mask.hero-following-section--closed::before {
-    top: -1px;
-    height: 1px;
+    top: -2px;
+    height: 3px;
     background: var(--hero-next-section-bg, var(--background));
   }
 
@@ -1940,8 +1960,7 @@
     display: block;
     z-index: 0;
     top: calc(
-      (var(--hero-section-blend-height) * -1) -
-        (var(--hero-following-fade-progress, 0) * 4rem)
+      (var(--hero-section-blend-height) * -1) - (var(--hero-following-fade-progress, 0) * 4rem)
     );
     height: calc(var(--hero-section-blend-height) + 6rem);
     -webkit-mask-image: linear-gradient(
@@ -1985,13 +2004,14 @@
 
   .hero-shell--superhero .hero-following-section-mask.hero-following-section--closed {
     --hero-section-blend-height: 0px;
+    margin-top: -1px;
     background-color: var(--hero-next-section-bg, var(--background));
     background-image: none;
   }
 
   .hero-shell--superhero .hero-following-section-mask.hero-following-section--closed::before {
-    top: -1px;
-    height: 1px;
+    top: -2px;
+    height: 3px;
     -webkit-mask-image: none;
     mask-image: none;
     background: var(--hero-next-section-bg, var(--background));
@@ -2086,7 +2106,8 @@
     background-image: none;
   }
 
-  .hero-shell--superhero .hero-following-section-mask.hero-following-section--services-flush::before {
+  .hero-shell--superhero
+    .hero-following-section-mask.hero-following-section--services-flush::before {
     background-image: linear-gradient(
       to bottom,
       color-mix(in srgb, var(--hero-next-section-bg, var(--background)) 0%, transparent) 0,
@@ -2303,13 +2324,10 @@
 
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-scroll-content {
-      padding-top: calc(
-        var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)
-      ) !important;
+      padding-top: calc(var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)) !important;
     }
 
-    section[data-hero-type='superhero'][data-hero-has-portrait='true']
-      .hero-scroll-content-main {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-scroll-content-main {
       gap: 0;
     }
 
@@ -2341,8 +2359,7 @@
        against the fixed header with no breathing room. */
     section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrait='true']
       .hero-scroll-content-reveal,
-    section[data-hero-type='superhero'][data-hero-has-portrait='true']
-      .hero-scroll-content-cta {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-scroll-content-cta {
       position: relative;
       z-index: 24;
       /* Less overlap (was -6rem to -9rem) so the card doesn't cover the hands/glasses. */
@@ -2355,15 +2372,13 @@
       margin-top: clamp(0.6rem, 2svh, 0.9rem) !important;
     }
 
-    section[data-hero-type='superhero'][data-hero-has-portrait='true']
-      .hero-scroll-content-cta {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-scroll-content-cta {
       padding-top: clamp(1.15rem, 4.4svh, 1.75rem) !important;
       padding-bottom: clamp(0.9rem, 3.2svh, 1.35rem) !important;
       row-gap: clamp(0.7rem, 2.4svh, 1rem);
     }
 
-    section[data-hero-type='superhero'][data-hero-has-portrait='true']
-      .hero-scroll-layer-headline {
+    section[data-hero-type='superhero'][data-hero-has-portrait='true'] .hero-scroll-layer-headline {
       font-size: clamp(1.9rem, 8vw, 2.45rem);
       line-height: 1.1;
       letter-spacing: 0;
@@ -2427,14 +2442,16 @@
       transform: none;
       transform-origin: center center;
       -webkit-mask-image: radial-gradient(
-        ellipse var(--home-hero-bg-mask-radius-x, 96%) var(--home-hero-bg-mask-radius-y, 72%) at 50% 50%,
+        ellipse var(--home-hero-bg-mask-radius-x, 96%) var(--home-hero-bg-mask-radius-y, 72%) at 50%
+          50%,
         #000 0%,
         #000 var(--home-hero-bg-mask-inner, 50%),
         rgba(0, 0, 0, 0.72) calc(var(--home-hero-bg-mask-inner, 50%) + 9%),
         transparent var(--home-hero-bg-mask-outer, 96%)
       );
       mask-image: radial-gradient(
-        ellipse var(--home-hero-bg-mask-radius-x, 96%) var(--home-hero-bg-mask-radius-y, 72%) at 50% 50%,
+        ellipse var(--home-hero-bg-mask-radius-x, 96%) var(--home-hero-bg-mask-radius-y, 72%) at 50%
+          50%,
         #000 0%,
         #000 var(--home-hero-bg-mask-inner, 50%),
         rgba(0, 0, 0, 0.72) calc(var(--home-hero-bg-mask-inner, 50%) + 9%),
@@ -2472,9 +2489,15 @@
          anyway at the OLD, capped stage height (720px) - a coincidence that broke once
          --home-hero-mobile-stage-cap stopped being capped and this formula started
          actually wanting up to 500px. */
-      height: min(clamp(400px, calc(var(--home-hero-mobile-stage-cap, 100dvh) * 0.6), 500px), 80%) !important;
+      height: min(
+        clamp(400px, calc(var(--home-hero-mobile-stage-cap, 100dvh) * 0.6), 500px),
+        80%
+      ) !important;
       min-height: 0;
-      max-height: min(clamp(400px, calc(var(--home-hero-mobile-stage-cap, 100dvh) * 0.6), 500px), 80%) !important;
+      max-height: min(
+        clamp(400px, calc(var(--home-hero-mobile-stage-cap, 100dvh) * 0.6), 500px),
+        80%
+      ) !important;
       /* Bottom-anchored to the stage (see .hero-scroll-content's
          position:relative above) instead of pushed down from the top with a margin -
          the portrait now always sits flush with the stage's bottom edge regardless of
@@ -2551,11 +2574,7 @@
          slide-away once the headlines were done. Kept the same 0.2-wide window, just
          starting from 0 instead of 0.16, so it still fully settles at roughly the same
          scroll point as before. */
-      --home-hero-mobile-portrait-shrink: clamp(
-        0,
-        calc(var(--hero-scroll-progress, 0) / 0.2),
-        1
-      );
+      --home-hero-mobile-portrait-shrink: clamp(0, calc(var(--hero-scroll-progress, 0) / 0.2), 1);
       /* Final fade-out: held at 0 not just until the portrait's own slide finishes
          (shrink reaches 1 at 0.2), but until the separate .hero-mobile-icon-reveal-img
          (see below - a different element entirely, the decorative icon that grows/spins
@@ -2653,7 +2672,9 @@
          --home-hero-mobile-portrait-fadeout) - this card's blurred glass background
          (see .hero-mobile-glass) used to just sit at cta-in's max (1) forever once
          built, since nothing behind it ever needed to show through before. */
-      opacity: calc(var(--home-hero-mobile-cta-in, 0) * (1 - var(--home-hero-mobile-portrait-fadeout, 0)));
+      opacity: calc(
+        var(--home-hero-mobile-cta-in, 0) * (1 - var(--home-hero-mobile-portrait-fadeout, 0))
+      );
       transform: translate3d(0, calc((1 - var(--home-hero-mobile-cta-in, 0)) * 18svh), 0);
       /* See the double-smoothing note on .hero-mobile-portrait-parallax above. */
       transition: none;
@@ -2770,11 +2791,8 @@
       .hero-scroll-layer-headline
       > span:nth-child(1) {
       opacity: calc(
-        var(--home-hero-line1-in, 0) - clamp(
-            0,
-            calc((var(--hero-scroll-progress, 0) - 0.04) / 0.04),
-            1
-          ) * 0.2
+        var(--home-hero-line1-in, 0) -
+          clamp(0, calc((var(--hero-scroll-progress, 0) - 0.04) / 0.04), 1) * 0.2
       );
       transform: translate3d(0, calc((1 - var(--home-hero-line1-in, 0)) * 1.1rem), 0);
     }
@@ -2782,11 +2800,8 @@
       .hero-scroll-layer-headline
       > span:nth-child(2) {
       opacity: calc(
-        var(--home-hero-line2-in, 0) - clamp(
-            0,
-            calc((var(--hero-scroll-progress, 0) - 0.08) / 0.04),
-            1
-          ) * 0.2
+        var(--home-hero-line2-in, 0) -
+          clamp(0, calc((var(--hero-scroll-progress, 0) - 0.08) / 0.04), 1) * 0.2
       );
       transform: translate3d(0, calc((1 - var(--home-hero-line2-in, 0)) * 1.1rem), 0);
     }
@@ -3062,7 +3077,6 @@
    * iOS-Safari behandelt 1vh dynamisch (Adressleiste ein-/ausgeblendet). Für echte Geräte wird verwendet,
    * wenn verfügbar, die stabilere sichtbare Höhe (svh), lassen aber vh als Fallback für andere Browser. */
   @media (max-width: 63.99rem) {
-
     /* iOS / moderne Mobile-Browser: svh = sichtbare Viewport-Höhe (ohne URL-Bar). */
     @supports (height: 100svh) {
     }
@@ -3106,7 +3120,6 @@
   /* Unter 555px: Subheadline als Badge darstellen (Light/Dark unterschiedlich);
      Schrift 1/3 größer als zuvor (0.32rem → 0.43rem). */
   @media (max-width: 554px) {
-
   }
 
   /* Hero-Headline: nur ganze Wörter umbrechen, niemals mitten im Wort. */
@@ -3258,7 +3271,14 @@
   }
 
   .hero-superhero-system-font {
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+    font-family:
+      system-ui,
+      -apple-system,
+      Segoe UI,
+      Roboto,
+      Helvetica,
+      Arial,
+      sans-serif;
   }
 
   .hero-following-section-mask h1,
@@ -3652,10 +3672,10 @@
       repeating-linear-gradient(to right, var(--mgp-ink) 0 1px, transparent 1px 18px),
       repeating-linear-gradient(to bottom, var(--mgp-ink) 0 1px, transparent 1px 18px),
       /* major */
-      repeating-linear-gradient(to right, var(--mgp-ink-strong) 0 1px, transparent 1px 90px),
+        repeating-linear-gradient(to right, var(--mgp-ink-strong) 0 1px, transparent 1px 90px),
       repeating-linear-gradient(to bottom, var(--mgp-ink-strong) 0 1px, transparent 1px 90px),
       /* multi-line chart (SVG, like portfolio slider) */
-      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='280' viewBox='0 0 560 280'%3E%3Cpath d='M10 250 L75 242 L140 230 L205 214 L270 192 L335 162 L400 122 L465 78 L550 32 L550 32 L10 280 Z' fill='rgb(2 6 23)' fill-opacity='0.08'/%3E%3Cpath d='M10 250 L75 242 L140 230 L205 214 L270 192 L335 162 L400 122 L465 78 L550 32' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.62' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 255 L55 248 L95 252 L140 215 L185 228 L230 185 L275 198 L325 142 L375 165 L425 95 L475 110 L520 48 L550 18' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.46' stroke-width='3.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 268 L85 260 L160 252 L235 244 L310 236 L385 228 L460 220 L550 208' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.34' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 258 L100 254 L190 250 L280 246 L320 244 L360 210 L420 164 L480 108 L550 52' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.34' stroke-width='3' stroke-dasharray='10 7' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 262 L70 255 L130 248 L190 252 L250 238 L290 248 L340 218 L400 198 L460 152 L550 42' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.28' stroke-width='2.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='550' cy='18' r='4.5' fill='rgb(2 6 23)' fill-opacity='0.62'/%3E%3Ccircle cx='550' cy='32' r='4' fill='rgb(2 6 23)' fill-opacity='0.46'/%3E%3Ccircle cx='550' cy='208' r='3.5' fill='rgb(2 6 23)' fill-opacity='0.34'/%3E%3Ccircle cx='550' cy='52' r='3.5' fill='rgb(2 6 23)' fill-opacity='0.28'/%3E%3C/svg%3E");
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='560' height='280' viewBox='0 0 560 280'%3E%3Cpath d='M10 250 L75 242 L140 230 L205 214 L270 192 L335 162 L400 122 L465 78 L550 32 L550 32 L10 280 Z' fill='rgb(2 6 23)' fill-opacity='0.08'/%3E%3Cpath d='M10 250 L75 242 L140 230 L205 214 L270 192 L335 162 L400 122 L465 78 L550 32' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.62' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 255 L55 248 L95 252 L140 215 L185 228 L230 185 L275 198 L325 142 L375 165 L425 95 L475 110 L520 48 L550 18' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.46' stroke-width='3.25' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 268 L85 260 L160 252 L235 244 L310 236 L385 228 L460 220 L550 208' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.34' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 258 L100 254 L190 250 L280 246 L320 244 L360 210 L420 164 L480 108 L550 52' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.34' stroke-width='3' stroke-dasharray='10 7' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M10 262 L70 255 L130 248 L190 252 L250 238 L290 248 L340 218 L400 198 L460 152 L550 42' fill='none' stroke='rgb(2 6 23)' stroke-opacity='0.28' stroke-width='2.75' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='550' cy='18' r='4.5' fill='rgb(2 6 23)' fill-opacity='0.62'/%3E%3Ccircle cx='550' cy='32' r='4' fill='rgb(2 6 23)' fill-opacity='0.46'/%3E%3Ccircle cx='550' cy='208' r='3.5' fill='rgb(2 6 23)' fill-opacity='0.34'/%3E%3Ccircle cx='550' cy='52' r='3.5' fill='rgb(2 6 23)' fill-opacity='0.28'/%3E%3C/svg%3E");
     background-repeat: repeat, repeat, repeat, repeat, no-repeat;
     background-size:
       auto,
@@ -3671,12 +3691,36 @@
       left 0 top 9rem;
     /* Soft-fade to all edges (top/bottom/left/right) */
     mask-image:
-      linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 18%, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 14%, rgba(0, 0, 0, 1) 86%, rgba(0, 0, 0, 0) 100%);
+      linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 18%,
+        rgba(0, 0, 0, 1) 82%,
+        rgba(0, 0, 0, 0) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 14%,
+        rgba(0, 0, 0, 1) 86%,
+        rgba(0, 0, 0, 0) 100%
+      );
     mask-composite: intersect;
     -webkit-mask-image:
-      linear-gradient(to right, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 18%, rgba(0, 0, 0, 1) 82%, rgba(0, 0, 0, 0) 100%),
-      linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, rgba(0, 0, 0, 1) 14%, rgba(0, 0, 0, 1) 86%, rgba(0, 0, 0, 0) 100%);
+      linear-gradient(
+        to right,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 18%,
+        rgba(0, 0, 0, 1) 82%,
+        rgba(0, 0, 0, 0) 100%
+      ),
+      linear-gradient(
+        to bottom,
+        rgba(0, 0, 0, 0) 0%,
+        rgba(0, 0, 0, 1) 14%,
+        rgba(0, 0, 0, 1) 86%,
+        rgba(0, 0, 0, 0) 100%
+      );
     -webkit-mask-composite: source-in;
   }
 
@@ -3771,13 +3815,7 @@
           rgba(0, 0, 0, 0.25) 85%,
           transparent 100%
         ),
-        linear-gradient(
-          to bottom,
-          transparent 0%,
-          #000 12%,
-          #000 88%,
-          transparent 100%
-        ) !important;
+        linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%) !important;
       mask-image:
         radial-gradient(
           ellipse 68% 62% at 50% 50%,
@@ -3787,13 +3825,7 @@
           rgba(0, 0, 0, 0.25) 85%,
           transparent 100%
         ),
-        linear-gradient(
-          to bottom,
-          transparent 0%,
-          #000 12%,
-          #000 88%,
-          transparent 100%
-        ) !important;
+        linear-gradient(to bottom, transparent 0%, #000 12%, #000 88%, transparent 100%) !important;
       -webkit-mask-composite: source-in;
       mask-composite: intersect;
       -webkit-mask-size: 100% 100%;
@@ -4496,9 +4528,7 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
        it was at 1.7. */
     --home-hero-mobile-stage-cap: max(41.6875rem, 100dvh);
     --home-hero-stage-height: calc(var(--home-hero-mobile-stage-cap) * 2.1);
-    --home-hero-top-offset: calc(
-      var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem)
-    );
+    --home-hero-top-offset: calc(var(--header-height, 6rem) + clamp(0.25rem, 1.2svh, 0.75rem));
     height: var(--home-hero-stage-height);
     min-height: var(--home-hero-stage-height);
   }
@@ -4555,7 +4585,8 @@ section[data-hero-type='superhero'][data-page-slug='home'][data-hero-has-portrai
                   ),
                   1
                 )
-            ) * 100%
+            ) *
+            100%
         ),
       transparent
     );
