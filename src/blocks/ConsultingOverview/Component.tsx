@@ -89,6 +89,59 @@ const WORDPRESS_PROCESS_STEP_COPY: Array<
   },
 ]
 
+const WORDPRESS_PROCESS_STEP_COPY_EN: Array<
+  Pick<Step, 'title' | 'description' | 'badge' | 'meta' | 'icon'>
+> = [
+  {
+    title: 'Sharpen the Target Picture',
+    description:
+      'We clarify the offer, audience, existing website, technical limits and measurable expectations. After that, it is clear what will be built and what will deliberately be left out.',
+    badge: 'Orientation',
+    meta: 'Audit & Priorities',
+    icon: 'compass',
+  },
+  {
+    title: 'Design the System Plan',
+    description:
+      'Content, page structure, builder setup, templates and maintenance needs become a robust implementation plan instead of a loose wish list.',
+    badge: 'Planning',
+    meta: 'Structure & Architecture',
+    icon: 'layers',
+  },
+  {
+    title: 'Translate Design Into Components',
+    description:
+      'Layouts, modules and content areas are built so they remain reusable, understandable and easy to maintain in everyday use.',
+    badge: 'UI System',
+    meta: 'Builder & Components',
+    icon: 'sparkles',
+  },
+  {
+    title: 'Implement WordPress Cleanly',
+    description:
+      'Theme, builder, plugins and custom code are combined leanly. Performance, responsiveness and maintainability are considered throughout implementation.',
+    badge: 'Implementation',
+    meta: 'Theme & Technology',
+    icon: 'settings',
+  },
+  {
+    title: 'Test, Harden, Launch',
+    description:
+      'Before go-live, content, forms, mobile views, load times, tracking and typical user paths are checked. Then the site goes online in a controlled launch.',
+    badge: 'Launch',
+    meta: 'QA & Handover',
+    icon: 'rocket',
+  },
+  {
+    title: 'Improve With Data',
+    description:
+      'After launch, the focus is real usage: visibility, inquiries, content, technical maintenance and meaningful improvements based on data.',
+    badge: 'Growth',
+    meta: 'SEO & Optimization',
+    icon: 'trending-up',
+  },
+]
+
 const WEBDESIGN_PROCESS_STEP_COPY: Array<
   Pick<Step, 'title' | 'description' | 'badge' | 'meta' | 'icon'>
 > = [
@@ -137,6 +190,59 @@ const WEBDESIGN_PROCESS_STEP_COPY: Array<
     description:
       'Nach dem Launch wird sichtbar, welche Seiten wirken. Inhalte, lokale SEO, Conversion-Pfade und technische Pflege werden datenbasiert weiterentwickelt.',
     badge: 'Wachstum',
+    meta: 'SEO & Conversion',
+    icon: 'trending-up',
+  },
+]
+
+const WEBDESIGN_PROCESS_STEP_COPY_EN: Array<
+  Pick<Step, 'title' | 'description' | 'badge' | 'meta' | 'icon'>
+> = [
+  {
+    title: 'Clarify Goals and User Paths',
+    description:
+      'We define target audiences, offers, priorities and the most important contact paths. This creates a website that not only informs visitors, but guides them toward an inquiry.',
+    badge: 'Strategy',
+    meta: 'Goals & Structure',
+    icon: 'compass',
+  },
+  {
+    title: 'Plan Page Structure and Content',
+    description:
+      'Services, references, trust elements and search intent are turned into a clear sitemap with useful content areas and strong entry points.',
+    badge: 'Concept',
+    meta: 'UX & Content',
+    icon: 'layers',
+  },
+  {
+    title: 'Design Interface and Components',
+    description:
+      'Design, modules and interactions are built as a reusable system: clear, responsive, brand-ready and without unnecessary friction.',
+    badge: 'Design',
+    meta: 'UI System',
+    icon: 'sparkles',
+  },
+  {
+    title: 'Implement Cleanly',
+    description:
+      'Frontend, CMS, forms, tracking and performance are connected so the website loads quickly, remains easy to maintain and works reliably.',
+    badge: 'Development',
+    meta: 'CMS & Code',
+    icon: 'settings',
+  },
+  {
+    title: 'Test, Optimize, Launch',
+    description:
+      'Before go-live, mobile views, load times, forms, SEO basics, privacy points and typical user paths are tested.',
+    badge: 'Launch',
+    meta: 'QA & Go-live',
+    icon: 'rocket',
+  },
+  {
+    title: 'Grow Visibility and Inquiries',
+    description:
+      'After launch, it becomes clear which pages perform. Content, local SEO, conversion paths and technical maintenance are developed further based on data.',
+    badge: 'Growth',
     meta: 'SEO & Conversion',
     icon: 'trending-up',
   },
@@ -380,10 +486,17 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
   const isWordPressPage =
     normalizedPageSlug === 'wordpress-agentur' || normalizedPageSlug.includes('wordpress')
   const isWebdesignPage = normalizedPageSlug === 'webdesign'
-  const stepListCopy = isWordPressPage ? WORDPRESS_PROCESS_STEP_COPY : WEBDESIGN_PROCESS_STEP_COPY
+  const stepListCopy =
+    locale === 'en'
+      ? isWordPressPage
+        ? WORDPRESS_PROCESS_STEP_COPY_EN
+        : WEBDESIGN_PROCESS_STEP_COPY_EN
+      : isWordPressPage
+        ? WORDPRESS_PROCESS_STEP_COPY
+        : WEBDESIGN_PROCESS_STEP_COPY
   const stepListHeading = isWordPressPage
     ? locale === 'en'
-      ? 'A clear plan for WordPress projects.'
+      ? 'A Clear Plan Instead of WordPress Sprawl.'
       : 'Ein klarer Plan statt WordPress-Wildwuchs.'
     : isWebdesignPage
       ? locale === 'en'
@@ -392,11 +505,11 @@ export const ConsultingOverviewBlock: React.FC<ConsultingOverviewProps> = ({
       : title
   const stepListIntro = isWordPressPage
     ? locale === 'en'
-      ? 'From audit to launch, every step has a purpose: structure, technical decisions, implementation, testing and measurable improvement.'
+      ? 'From the first audit to ongoing optimization: every step has a clear task, a visible result and a technical purpose.'
       : 'Von der ersten Analyse bis zur laufenden Optimierung: Jeder Schritt hat eine klare Aufgabe, ein sichtbares Ergebnis und einen technischen Zweck.'
     : isWebdesignPage
       ? locale === 'en'
-        ? 'From structure and content to interface, development and optimization: every step turns the website into a usable growth system.'
+        ? 'From structure and content to interface, development and optimization: every step makes the website more usable, faster and more focused on inquiries.'
         : 'Von Struktur und Inhalten über Interface und Entwicklung bis zur Optimierung: Jeder Schritt macht die Website nutzbarer, schneller und anfrageorientierter.'
       : intro
 

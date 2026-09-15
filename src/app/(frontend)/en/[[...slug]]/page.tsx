@@ -235,7 +235,9 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
     resolveLayoutBlocks(originalSlug, page.layout),
   )
   const isServicesPage =
-    originalSlug === 'leistungen' || segments[0] === 'services' || originalSlug === 'wordpress-agentur'
+    originalSlug === 'leistungen' ||
+    segments[0] === 'services' ||
+    originalSlug === 'wordpress-agentur'
   const translatedBlocks = translateValueForLocale(resolvedBlocks, 'en')
   const layoutBlocks = translatedBlocks.map((block) =>
     block && typeof block === 'object' ? { ...block, locale: 'en' } : block,
@@ -263,6 +265,7 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
     (heroProps as { type?: string }).type === 'superhero'
 
   const showHomeFaq = originalSlug === 'home'
+  const isWebdesignPage = originalSlug === 'webdesign'
   const ELEVATION_TRIGGER_BLOCK_TYPES = new Set(['whyWorkWithMe', 'servicesOverview'])
   const elevationStartIndex = layoutBlocks.findIndex(
     (block) =>
@@ -292,6 +295,7 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
       <div
         className={cn(
           'relative w-full min-w-0 hero-following-section-mask',
+          isWebdesignPage && 'hero-following-section--closed',
           firstBlockIsServices
             ? cn(
                 'hero-following-section--services-flush mt-0 max-lg:pt-8 md:max-lg:pt-10 lg:pt-2',
@@ -309,13 +313,18 @@ export default async function EnglishPage({ params: paramsPromise }: PageProps) 
             isSuperheroHero && 'hero-following-section-foreground',
           )}
         >
-          <RenderBlocks blocks={earlyBlocks} totalLength={layoutBlocks.length} />
+          <RenderBlocks
+            blocks={earlyBlocks}
+            pageSlug={originalSlug}
+            totalLength={layoutBlocks.length}
+          />
           {showHomeFaq && !hasElevatedSplit ? <Faq8 faq={translatedPage.faq} locale="en" /> : null}
         </SectionReveal>
         {hasElevatedSplit ? (
           <SectionReveal className="relative hero-following-section-foreground-elevated">
             <RenderBlocks
               blocks={elevatedBlocks}
+              pageSlug={originalSlug}
               startIndex={elevationStartIndex}
               totalLength={layoutBlocks.length}
             />

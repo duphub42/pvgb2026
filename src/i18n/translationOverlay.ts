@@ -152,8 +152,7 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Automation that reduces complexity and makes efficiency scalable.',
   'Prozessautomatisierung schafft Freiraum, indem wiederkehrende Aufgaben im Hintergrund zuverlässig erledigt werden. So entsteht Raum für das, was wirklich zählt: Entscheidungen, Wachstum und Fokus. Effizienz wird nicht mehr erarbeitet, sondern systematisch möglich gemacht.':
     'Process automation creates space by reliably handling recurring tasks in the background. This frees up room for what really matters: decisions, growth and focus. Efficiency is no longer worked for, but made systematically possible.',
-  'Prozessautomatisierung fuer KMU':
-    'Process automation for SMEs',
+  'Prozessautomatisierung fuer KMU': 'Process automation for SMEs',
   'Prozessautomatisierung fuer KMU: Workflows, CRM-Anbindungen, Lead-Prozesse und KI-gestuetzte Abläufe, die manuelle Arbeit reduzieren.':
     'Process automation for SMEs: workflows, CRM integrations, lead processes and AI-powered flows that reduce manual work.',
   'Weniger manuell. Mehr System.': 'Less manual work. More system.',
@@ -457,8 +456,7 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'A consistent appearance emerges where design, language and attitude are treated as one system.',
   'SEO, SEM und Leadgenerierung in realen Projekten':
     'SEO, SEM and Lead Generation in Real Projects',
-  'GEO/SEO und Leadgenerierung in realen Projekten':
-    'GEO/SEO and Lead Generation in Real Projects',
+  'GEO/SEO und Leadgenerierung in realen Projekten': 'GEO/SEO and Lead Generation in Real Projects',
   'Referenzen mit Fokus auf organische Sichtbarkeit, KI-taugliche Inhaltsstruktur und messbare Lead-Ergebnisse – von der frühen Ads-Phase bis zum organischen Peak.':
     'References focused on organic visibility, AI-ready content structure and measurable lead results, from the early ads phase to the organic peak.',
   'Referenzen mit Fokus auf organische Sichtbarkeit, Paid-Setup und messbare Lead-Ergebnisse – von der Ads-Phase bis zum organischen Peak.':
@@ -535,7 +533,7 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Paid launch phase, content hub and rankings for indoor-air leads',
   'Von null Sichtbarkeit zu Top-Rankings und Workshop-Buchungen (Peak 2019)':
     'From zero visibility to top rankings and workshop bookings (2019 peak)',
-  'Projektjahr': 'Project Year',
+  Projektjahr: 'Project Year',
   'Responsive Auftritt': 'Responsive Presence',
   Dentallabor: 'Dental Lab',
   Medizintechnik: 'Medical Technology',
@@ -547,7 +545,7 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'A focused presence was developed with clear page architecture, concise service presentation and imagery that connects precision technology with personal support. The content is designed for quick orientation, credible expertise and frictionless contact paths.',
   'Das Ergebnis ist eine moderne Labor-Website, die technische Qualität, Serviceverständnis und Markenauftritt konsistent zusammenführt. KIPP Dental präsentiert sich damit digital so hochwertig, wie die eigene Präzisionsarbeit wahrgenommen werden soll.':
     'The result is a modern lab website that consistently brings together technical quality, service mindset and brand presence. KIPP Dental now presents itself digitally with the same quality its precision work should convey.',
-  'Projektlaufzeit': 'Project Duration',
+  Projektlaufzeit: 'Project Duration',
   'Jahre Betreuung': 'Years of Support',
   'Langfristig betreuter Dropshipping-Shop für Wellness- und SPA-Bedarf: von Sortiment und Kategoriearchitektur bis zu nutzerfreundlicher Produktführung und skalierbarer E-Commerce-Basis.':
     'Long-term supported dropshipping shop for wellness and spa supplies: from assortment and category architecture to user-friendly product guidance and a scalable e-commerce foundation.',
@@ -791,6 +789,71 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Ich helfe bei Storyline, Struktur und visueller Ausarbeitung, damit Ihre Botschaft verständlich und überzeugend ankommt.':
     'I help with storyline, structure and visual development so your message lands clearly and convincingly.',
   'Präsentation besprechen': 'Discuss Presentation',
+  Prozess: 'Process',
+  'Ein klarer Webdesign-Prozess von Strategie bis Launch.':
+    'A clear web design process from strategy to launch.',
+  'Von Struktur und Inhalten über Interface und Entwicklung bis zur Optimierung: Jeder Schritt macht die Website nutzbarer, schneller und anfrageorientierter.':
+    'From structure and content to interface, development and optimization: every step makes the website more usable, faster and more focused on inquiries.',
+  'Ziele und Nutzerwege klären': 'Clarify Goals and User Paths',
+  'Wir definieren Zielgruppen, Angebote, Prioritäten und die wichtigsten Kontaktwege. So entsteht eine Website, die Besucher nicht nur informiert, sondern gezielt zur Anfrage führt.':
+    'We define target audiences, offers, priorities and the most important contact paths. This creates a website that not only informs visitors, but guides them toward an inquiry.',
+  Strategie: 'Strategy',
+  'Ziele & Struktur': 'Goals & Structure',
+  'Seitenstruktur und Inhalte planen': 'Plan Page Structure and Content',
+  'Aus Leistungen, Referenzen, Vertrauenselementen und Suchintentionen entsteht eine klare Sitemap mit sinnvollen Inhaltsbereichen und starken Einstiegen.':
+    'Services, references, trust elements and search intent are turned into a clear sitemap with useful content areas and strong entry points.',
+  Konzept: 'Concept',
+  'UX & Content': 'UX & Content',
+  'Interface und Komponenten gestalten': 'Design Interface and Components',
+  'Design, Module und Interaktionen werden als wiederverwendbares System aufgebaut: klar, responsiv, markentauglich und ohne unnötige Reibung.':
+    'Design, modules and interactions are built as a reusable system: clear, responsive, brand-ready and without unnecessary friction.',
+  Design: 'Design',
+  'UI-System': 'UI System',
+  'Technisch sauber umsetzen': 'Implement Cleanly',
+  'Frontend, CMS, Formulare, Tracking und Performance werden so verbunden, dass die Website schnell lädt, einfach pflegbar bleibt und zuverlässig funktioniert.':
+    'Frontend, CMS, forms, tracking and performance are connected so the website loads quickly, remains easy to maintain and works reliably.',
+  Entwicklung: 'Development',
+  'CMS & Code': 'CMS & Code',
+  'Prüfen, optimieren, launchen': 'Test, Optimize, Launch',
+  'Vor dem Go-live werden Mobilansicht, Ladezeiten, Formulare, SEO-Grundlagen, Datenschutzpunkte und typische Nutzerwege getestet.':
+    'Before go-live, mobile views, load times, forms, SEO basics, privacy points and typical user paths are tested.',
+  Launch: 'Launch',
+  'QA & Go-live': 'QA & Go-live',
+  'Sichtbarkeit und Anfragen ausbauen': 'Grow Visibility and Inquiries',
+  'Nach dem Launch wird sichtbar, welche Seiten wirken. Inhalte, lokale SEO, Conversion-Pfade und technische Pflege werden datenbasiert weiterentwickelt.':
+    'After launch, it becomes clear which pages perform. Content, local SEO, conversion paths and technical maintenance are developed further based on data.',
+  Wachstum: 'Growth',
+  'SEO & Conversion': 'SEO & Conversion',
+  'Ein klarer Plan statt WordPress-Wildwuchs.': 'A Clear Plan Instead of WordPress Sprawl.',
+  'Von der ersten Analyse bis zur laufenden Optimierung: Jeder Schritt hat eine klare Aufgabe, ein sichtbares Ergebnis und einen technischen Zweck.':
+    'From the first audit to ongoing optimization: every step has a clear task, a visible result and a technical purpose.',
+  'Zielbild scharfstellen': 'Sharpen the Target Picture',
+  'Wir klären Angebot, Zielgruppe, bestehende Website, technische Grenzen und messbare Erwartungen. Danach ist klar, was gebaut wird und was bewusst nicht.':
+    'We clarify the offer, audience, existing website, technical limits and measurable expectations. After that, it is clear what will be built and what will deliberately be left out.',
+  Orientierung: 'Orientation',
+  'Audit & Prioritäten': 'Audit & Priorities',
+  'Systemplan entwerfen': 'Design the System Plan',
+  'Aus Inhalten, Seitenstruktur, Builder-Setup, Templates und Pflegebedarf entsteht ein belastbarer Umsetzungsplan statt einer losen Wunschliste.':
+    'Content, page structure, builder setup, templates and maintenance needs become a robust implementation plan instead of a loose wish list.',
+  Planung: 'Planning',
+  'Struktur & Architektur': 'Structure & Architecture',
+  'Design in Komponenten übersetzen': 'Translate Design Into Components',
+  'Layouts, Module und Inhaltsbereiche werden so aufgebaut, dass sie wiederverwendbar, verständlich und im Alltag sauber pflegbar bleiben.':
+    'Layouts, modules and content areas are built so they remain reusable, understandable and easy to maintain in everyday use.',
+  'Builder & Komponenten': 'Builder & Components',
+  'WordPress sauber umsetzen': 'Implement WordPress Cleanly',
+  'Theme, Builder, Plugins und Custom-Code werden schlank kombiniert. Performance, Responsiveness und Wartbarkeit werden während der Umsetzung mitgedacht.':
+    'Theme, builder, plugins and custom code are combined leanly. Performance, responsiveness and maintainability are considered throughout implementation.',
+  Umsetzung: 'Implementation',
+  'Theme & Technik': 'Theme & Technology',
+  'Testen, härten, launchen': 'Test, Harden, Launch',
+  'Vor dem Go-live werden Inhalte, Formulare, Mobilansicht, Ladezeiten, Tracking und typische Nutzerwege geprüft. Danach geht die Seite kontrolliert online.':
+    'Before go-live, content, forms, mobile views, load times, tracking and typical user paths are checked. Then the site goes online in a controlled launch.',
+  'QA & Übergabe': 'QA & Handover',
+  'Weiterentwickeln mit Daten': 'Improve With Data',
+  'Nach dem Launch geht es um echte Nutzung: Sichtbarkeit, Anfragen, Inhalte, technische Pflege und sinnvolle Verbesserungen auf Basis von Daten.':
+    'After launch, the focus is real usage: visibility, inquiries, content, technical maintenance and meaningful improvements based on data.',
+  'SEO & Optimierung': 'SEO & Optimization',
   'Sie möchten wissen, welche digitalen Hebel sich wirklich lohnen?':
     'Do you want to know which digital levers are truly worthwhile?',
   'Ich analysiere Website, Sichtbarkeit und Conversion-Pfade und leite daraus konkrete, priorisierte nächste Schritte ab.':
@@ -885,14 +948,12 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Google Ads & SEM Halle - Campaigns With Clear KPIs | Philipp Bacher',
   'SEM & GEO - Suchmaschinenmarketing und KI-Sichtbarkeit':
     'SEM & GEO - Search Marketing and AI Visibility',
-  'GEO/SEO - Sichtbarkeit in Google und KI-Suche':
-    'SEM & GEO - Search Marketing and AI Visibility',
+  'GEO/SEO - Sichtbarkeit in Google und KI-Suche': 'SEM & GEO - Search Marketing and AI Visibility',
   'Gefunden werden, wenn Menschen suchen oder KI-Systeme antworten':
     'Be Found When People Search or AI Systems Answer',
   'SEM bringt Ihr Angebot in klassischen Suchmaschinen und Performance-Kampagnen nach vorne, wenn konkrete Nachfrage besteht. GEO bereitet Inhalte so auf, dass KI-Systeme wie ChatGPT, Perplexity oder Google AI Overviews Ihr Angebot verstehen, einordnen und als Antwortquelle nutzen können. Zusammen entsteht Sichtbarkeit dort, wo Menschen aktiv suchen, vergleichen oder direkt nach Empfehlungen fragen.':
     'SEM moves your offer forward in classic search engines and performance campaigns when concrete demand exists. GEO prepares content so AI systems such as ChatGPT, Perplexity and Google AI Overviews can understand, classify and use your offer as an answer source. Together, they create visibility where people actively search, compare or directly ask for recommendations.',
-  'SEM und GEO kurz unterschieden':
-    'SEM and GEO, Briefly Differentiated',
+  'SEM und GEO kurz unterschieden': 'SEM and GEO, Briefly Differentiated',
   'SEM steht für Search Engine Marketing: bezahlte Suchanzeigen, Kampagnenstruktur, Budgetsteuerung, Landingpages und Conversion-Tracking. Es wirkt schnell, ist direkt messbar und eignet sich besonders, wenn bestehende Nachfrage gezielt abgeholt werden soll.':
     'SEM means search engine marketing: paid search ads, campaign structure, budget control, landing pages and conversion tracking. It works quickly, is directly measurable and is especially useful when existing demand should be captured with precision.',
   'GEO steht für Generative Engine Optimization: Inhalte, Daten und Seitenstrukturen werden so gestaltet, dass KI-Systeme sie leichter verstehen und in Antworten berücksichtigen können. GEO wirkt langfristiger und ergänzt SEO, weil Nutzer zunehmend direkt in KI-Systemen nach Lösungen fragen.':
@@ -904,7 +965,8 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'GEO/SEO ensures that content does not only rank, but is also understood. The focus is on clear entities, precise answers, clean page structure, technical SEO foundations and content that directly answers real user questions. This creates a website that can be classified by classic search engines, local searches and AI systems alike.',
   'Klar strukturiert, zitierfähig und vorbereitet auf die Suche über Google, ChatGPT und AI Overviews':
     'Clearly structured, citable and prepared for search through Google, ChatGPT and AI Overviews',
-  'Häufige Fragen zu GEO, SEO und KI-Suche': 'Frequently Asked Questions About GEO, SEO and AI Search',
+  'Häufige Fragen zu GEO, SEO und KI-Suche':
+    'Frequently Asked Questions About GEO, SEO and AI Search',
   'Antworten zu Generative Engine Optimization, klassischem SEO, KI-Suche, strukturierten Inhalten und Sichtbarkeit in Antwortsystemen.':
     'Answers about generative engine optimization, classic SEO, AI search, structured content and visibility in answer systems.',
   'Printmedien & Grafikdesign': 'Print Media & Graphic Design',
@@ -1085,14 +1147,12 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Kampagnensetup, Targeting, Creatives, Optimierung':
     'Campaign setup, targeting, creatives, optimization',
   'Profil-Setup & Optimierung': 'Profile Setup & Optimization',
-  'Biografie, Highlights, erste 9 Posts, Branding':
-    'Bio, highlights, first 9 posts, branding',
+  'Biografie, Highlights, erste 9 Posts, Branding': 'Bio, highlights, first 9 posts, branding',
   'E-Mail-Strategie & Setup': 'Email Strategy & Setup',
   'Tool-Auswahl, Listen-Aufbau, Segmentierung, DSGVO':
     'Tool selection, list building, segmentation, GDPR',
   'Willkommens-Sequenz': 'Welcome Sequence',
-  '3–5 automatisierte E-Mails, Copywriting, Design':
-    '3-5 automated emails, copywriting, design',
+  '3–5 automatisierte E-Mails, Copywriting, Design': '3-5 automated emails, copywriting, design',
   'Newsletter-Design & Template': 'Newsletter Design & Template',
   'Responsives HTML-Template passend zur CI':
     'Responsive HTML template aligned with the corporate identity',
@@ -1112,8 +1172,7 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Positionierung, Zielgruppe, Wettbewerb, Claim-Entwicklung':
     'Positioning, target audience, competitors, claim development',
   'Design-System / Styleguide': 'Design System / Style Guide',
-  'Komponentenbibliothek für Web & Print, Figma':
-    'Component library for web and print, Figma',
+  'Komponentenbibliothek für Web & Print, Figma': 'Component library for web and print, Figma',
   Visitenkarte: 'Business Card',
   'Vorder- & Rückseite, druckfertig, bis 2 Varianten':
     'Front and back, print-ready, up to 2 variants',
@@ -1132,8 +1191,7 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'PowerPoint oder Keynote, bis 20 Folien, CI-konform':
     'PowerPoint or Keynote, up to 20 slides, CI-compliant',
   'Business-Portrait (halber Tag)': 'Business Portrait (Half Day)',
-  'Bis 4h, 1 Location, 10 bearbeitete Fotos':
-    'Up to 4 hours, 1 location, 10 edited photos',
+  'Bis 4h, 1 Location, 10 bearbeitete Fotos': 'Up to 4 hours, 1 location, 10 edited photos',
   'Produkt-Fotografie': 'Product Photography',
   'Bis 20 Produkte, weißer Hintergrund + Lifestyle':
     'Up to 20 products, white background plus lifestyle',
@@ -1141,8 +1199,7 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Bis 4h, 50+ bearbeitete Fotos, Lieferung 5 Werktage':
     'Up to 4 hours, 50+ edited photos, delivery in 5 business days',
   'Location-/Imagefotografie': 'Location / Image Photography',
-  'Unternehmen, Räumlichkeiten, Team – halber Tag':
-    'Company, premises, team, half day',
+  'Unternehmen, Räumlichkeiten, Team – halber Tag': 'Company, premises, team, half day',
   'Automatisierungs-Audit': 'Automation Audit',
   'Analyse bestehender Prozesse, Potenziale, Tool-Empfehlung':
     'Analysis of existing processes, potential and tool recommendations',
@@ -1170,11 +1227,9 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Prozessanalyse, Konfiguration, Reporting, SAP Visual Composer':
     'Process analysis, configuration, reporting, SAP Visual Composer',
   'CRM-Schulung Team': 'CRM Team Training',
-  'Halbtag vor Ort oder remote, bis 10 Personen':
-    'Half day on-site or remote, up to 10 people',
+  'Halbtag vor Ort oder remote, bis 10 Personen': 'Half day on-site or remote, up to 10 people',
   'CRM-Betreuung laufend': 'Ongoing CRM Support',
-  'Pflege, neue Felder, Berichte, Nutzer-Support':
-    'Maintenance, new fields, reports, user support',
+  'Pflege, neue Felder, Berichte, Nutzer-Support': 'Maintenance, new fields, reports, user support',
   'Digital-Strategie Workshop (halber Tag)': 'Digital Strategy Workshop (Half Day)',
   'Ist-Analyse, Ziele, Maßnahmenplan – bis 8 Personen':
     'Current-state analysis, goals, action plan, up to 8 people',
@@ -1202,8 +1257,7 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'Texte, Bilder, neue Unterseiten – bis 5h/Monat':
     'Copy, images, new subpages, up to 5 hours per month',
   'SEO-Monitoring & Reporting': 'SEO Monitoring & Reporting',
-  'Rankings, Traffic, Fehler – monatlicher Bericht':
-    'Rankings, traffic, errors, monthly report',
+  'Rankings, Traffic, Fehler – monatlicher Bericht': 'Rankings, traffic, errors, monthly report',
   'Profil: Philipp Bacher - Digital Consultant in Halle':
     'Profile: Philipp Bacher - Digital Consultant in Halle',
   'Über mich': 'About Me',
@@ -1541,7 +1595,8 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
   'WordPress-Agentur': 'WordPress Agency',
   'Termin buchen': 'Book Appointment',
   // WordPress-Agentur page: process (consultingOverview) + services grid
-  'So läuft die Zusammenarbeit an Ihrem WordPress-Projekt': 'How We Work Together on Your WordPress Project',
+  'So läuft die Zusammenarbeit an Ihrem WordPress-Projekt':
+    'How We Work Together on Your WordPress Project',
   'Transparent, strukturiert und mit klarem nächsten Schritt: jede Phase baut auf der vorherigen auf.':
     'Transparent, structured and with a clear next step: each phase builds on the last.',
   'Analyse & Planung': 'Analysis & Planning',
@@ -1550,13 +1605,11 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Clarifying the existing installation, requirements and goals',
   'Zu Beginn wird geprüft, was bereits vorhanden ist - Plugins, Theme, Performance, Sicherheit - und was das Projekt konkret braucht. So entsteht ein realistischer Plan statt Rätselraten.':
     "At the start, we check what's already there - plugins, theme, performance, security - and what the project actually needs. That produces a realistic plan instead of guesswork.",
-  Umsetzung: 'Implementation',
   'Sauber entwickelt, gründlich getestet': 'Cleanly built, thoroughly tested',
   'Umsetzung in klaren Etappen': 'Implementation in clear stages',
   'Konzept & technische Planung': 'Concept & Technical Planning',
   'Funktionsumfang, Datenstruktur und Schnittstellen werden festgelegt, bevor der erste Code entsteht.':
     'Feature scope, data structure and integrations are defined before the first line of code is written.',
-  Entwicklung: 'Development',
   'Individuelle Plugins, WooCommerce-Einrichtung oder -Anpassungen werden sauber dokumentiert umgesetzt.':
     'Custom plugins, WooCommerce setup or customizations are implemented and properly documented.',
   Testphase: 'Testing',
@@ -1607,7 +1660,8 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Custom plugins, WooCommerce shops and ongoing support keep WordPress projects stable, up to date and ready to grow. Instead of one-off fixes, you get a system that is properly maintained and can evolve reliably.',
   'ENTWICKELT MIT BEWÄHRTEN WORDPRESS- & WOOCOMMERCE-TECHNOLOGIEN':
     'BUILT WITH PROVEN WORDPRESS & WOOCOMMERCE TECHNOLOGIES',
-  'Weniger Wartungsaufwand. Mehr WordPress-Stabilität.': 'Less Maintenance Effort. More WordPress Stability.',
+  'Weniger Wartungsaufwand. Mehr WordPress-Stabilität.':
+    'Less Maintenance Effort. More WordPress Stability.',
   'Eine WordPress- oder WooCommerce-Seite bleibt nur dann zuverlässig, wenn Plugins, Theme und Core sauber aufeinander abgestimmt sind und regelmäßig gepflegt werden. Individuelle Funktionen werden als eigene, dokumentierte Plugins umgesetzt statt als provisorische Codeschnipsel - das hält die Seite auch nach Updates stabil und nachvollziehbar.\nGenauso wichtig ist der Betrieb danach: Updates, Backups und Sicherheits-Monitoring laufen im Hintergrund, sodass Ausfälle und Sicherheitsrisiken früh erkannt statt erst im Ernstfall bemerkt werden. So bleibt mehr Zeit fürs Kerngeschäft, während die technische Basis zuverlässig mitwächst.':
     'A WordPress or WooCommerce site only stays reliable when plugins, theme and core are properly aligned and maintained regularly. Custom functionality is built as its own documented plugin instead of a quick code snippet - so the site stays stable and traceable through future updates.\nWhat happens afterwards matters just as much: updates, backups and security monitoring run in the background, so outages and security risks get caught early instead of during an emergency. That leaves more time for your core business while the technical foundation keeps growing reliably.',
   'Individuelle Plugins, WooCommerce-Betreuung und laufende Wartung sorgen für eine WordPress-Seite, die sicher, aktuell und wartbar bleibt - ohne dass Sie sich selbst darum kümmern müssen.':
@@ -1629,11 +1683,13 @@ const TRANSLATIONS_DE_EN: Record<string, string> = {
     'Can an existing WordPress site be taken over and developed further?',
   'Ja, bestehende Installationen werden zunächst technisch geprüft (Plugins, Theme, Performance, Sicherheit) und danach gezielt weiterentwickelt oder schrittweise modernisiert - meist ohne kompletten Neuaufbau.':
     'Yes, existing installations are first reviewed technically (plugins, theme, performance, security) and then developed further or modernized step by step - usually without a complete rebuild.',
-  'Arbeiten Sie mit bestimmten Themes oder Page-Buildern?': 'Do you work with specific themes or page builders?',
+  'Arbeiten Sie mit bestimmten Themes oder Page-Buildern?':
+    'Do you work with specific themes or page builders?',
   'Die Wahl richtet sich nach Projekt und Anforderungen - von schlanken Custom-Themes bis zu etablierten Page-Buildern. Wichtiger als das Werkzeug ist eine saubere, wartbare Umsetzung ohne unnötigen Plugin-Ballast.':
     'The choice depends on the project and requirements - from lean custom themes to established page builders. More important than the tool is a clean, maintainable implementation without unnecessary plugin bloat.',
   'Sicherheit & Wartung': 'Security & Maintenance',
-  'Wie sorgen Sie für die Sicherheit von WordPress-Seiten?': 'How do you keep WordPress sites secure?',
+  'Wie sorgen Sie für die Sicherheit von WordPress-Seiten?':
+    'How do you keep WordPress sites secure?',
   'Dazu gehören regelmäßige Updates von Core, Themes und Plugins, Backups, Absicherung von Login und Dateizugriffen sowie Monitoring auf verdächtige Aktivitäten. So bleibt das Risiko für Hacks und Datenverlust gering.':
     'This includes regular updates to core, themes and plugins, backups, securing login and file access, and monitoring for suspicious activity. That keeps the risk of hacks and data loss low.',
   'Was umfasst laufende Wartung?': 'What does ongoing maintenance include?',
