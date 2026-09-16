@@ -120,6 +120,45 @@
   .services-overview-card-codepen:hover .services-overview-card-desc {
     color: var(--muted-foreground);
   }
+
+  .services-overview-expand-row--plain {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    align-items: stretch;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border-radius: 0;
+  }
+
+  .services-overview-expand-row--plain .services-overview-card-codepen {
+    flex: initial;
+    border: 1px solid var(--border);
+    background: var(--card);
+    border-radius: 1rem;
+    padding: 1rem;
+    box-shadow: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+
+  .services-overview-expand-row--plain .services-overview-card-codepen:hover {
+    flex-grow: 1;
+    box-shadow: inset 0 -2px 0 0 color-mix(in srgb, var(--foreground) 18%, transparent);
+  }
+
+  .services-overview-expand-row--plain .services-overview-card-title {
+    min-height: 0;
+  }
+
+  .services-overview-expand-row--plain .services-overview-card-desc {
+    display: block;
+    min-height: 0;
+    color: var(--muted-foreground);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

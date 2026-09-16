@@ -210,10 +210,10 @@ export const dummyServices: ServiceCategory[] = [
       },
       {
         icon: { url: '', alt: 'SEM Icon' },
-        title: 'SEM – Online Werbung',
+        title: 'GEO/SEO',
         description:
-          'Ich plane und betreue Online-Kampagnen, die Ihre Reichweite und Conversions erhöhen. Jede Anzeige ist strategisch und zielgruppenorientiert gestaltet. Ich optimiere Kampagnen kontinuierlich, damit Ihr Budget effizient eingesetzt wird. Ihre Botschaften erreichen so die richtigen Menschen zur richtigen Zeit. Ergebnisse und Insights liefere ich verständlich und nachvollziehbar.',
-        link: { slug: 'sem-online-werbung' },
+          'Ich optimiere Inhalte und Seiten so, dass sie in Google, KI-Suche und Antwortsystemen wie ChatGPT besser verstanden, eingeordnet und empfohlen werden. Dazu gehören klare Entitäten, strukturierte Antworten, technische SEO-Grundlagen, interne Verlinkung, FAQ, lokale Signale und Inhalte, die echte Nutzerfragen präzise beantworten.',
+        link: { slug: 'ki-marketing-geo-seo' },
       },
       {
         icon: { url: '', alt: 'Content Creation Icon' },

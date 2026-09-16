@@ -86,28 +86,33 @@ export const contentFaqCategories: FaqCategory[] = [
 export const semFaqCategories: FaqCategory[] = [
   {
     value: 'google-ads',
-    label: 'Google Ads & SEM',
+    label: 'GEO, SEO & KI-Suche',
     icon: 'BriefcaseBusiness',
     faqs: [
       {
-        question: 'Was ist der Unterschied zwischen SEO und SEM?',
+        question: 'Was ist der Unterschied zwischen SEO und GEO?',
         answer:
-          'SEO verbessert die organische Sichtbarkeit in Suchmaschinen, SEM arbeitet mit bezahlten Anzeigen wie Google Ads. SEO baut langfristig Reichweite auf, SEM bringt schneller messbaren Traffic. Besonders stark wird es, wenn beide Bereiche zusammenspielen: Kampagnendaten zeigen, welche Suchbegriffe und Angebote auch organisch relevant sind.',
+          'SEO verbessert die organische Sichtbarkeit in Suchmaschinen wie Google. GEO steht für Generative Engine Optimization und zielt darauf ab, dass Inhalte auch von KI-Systemen wie ChatGPT, Perplexity oder Google AI Overviews verstanden, eingeordnet und als passende Antwortquelle genutzt werden können.',
       },
       {
-        question: 'Für wen lohnen sich Google Ads?',
+        question: 'Warum ist GEO für Unternehmen wichtig?',
         answer:
-          'Google Ads lohnen sich, wenn Menschen aktiv nach Ihren Leistungen suchen und eine Anfrage oder ein Kauf wirtschaftlich genug ist. Besonders geeignet sind lokale Dienstleistungen, B2B-Angebote, erklärungsbedürftige Leistungen und Landingpages mit klarer Conversion-Logik.',
+          'Immer mehr Nutzer stellen Fragen direkt an KI-Systeme, statt nur klassische Suchergebnisse zu vergleichen. Dafür müssen Leistungen, Standorte, Nutzen, Preise, FAQ und fachliche Zusammenhänge klar strukturiert sein. GEO hilft dabei, Inhalte so aufzubereiten, dass Mensch, Suchmaschine und KI-System schneller verstehen, wofür ein Angebot relevant ist.',
       },
       {
-        question: 'Wie viel Budget sollte ich für SEM einplanen?',
+        question: 'Wie wird eine Seite für GEO/SEO optimiert?',
         answer:
-          'Das hängt von Wettbewerb, Region, Ziel und Klickpreisen ab. Für kleine lokale Tests kann ein niedriger vierstelliger Monatsrahmen inklusive Betreuung sinnvoll sein, während stärkere Märkte mehr Mediabudget brauchen. Wichtig ist, Budget nicht breit zu streuen, sondern auf Suchbegriffe mit echter Kaufabsicht zu fokussieren.',
+          'Wichtig sind klare Seitenstruktur, präzise Überschriften, eindeutige Entitäten, FAQ, strukturierte Daten, interne Verlinkung, schnelle Ladezeiten, lokale Signale und Inhalte, die konkrete Fragen direkt beantworten. Ziel ist nicht Keyword-Stuffing, sondern verständliche, zitierfähige und fachlich saubere Information.',
       },
       {
-        question: 'Können bestehende Kampagnen optimiert werden?',
+        question: 'Bleibt klassisches SEO weiterhin wichtig?',
         answer:
-          'Ja, bestehende Konten können geprüft und verbessert werden. Typische Hebel sind Keyword-Struktur, Suchbegriffe, Anzeigentexte, Zielseiten, Conversion-Tracking, Gebotsstrategie, Ausschlüsse und die Trennung von Marken-, Leistungs- und Wettbewerbsanfragen.',
+          'Ja. GEO ersetzt SEO nicht, sondern erweitert es. Technische Qualität, gute Inhalte, Seitenarchitektur, lokale Relevanz und vertrauensbildende Signale bleiben die Grundlage. Darauf baut GEO auf, damit Inhalte auch in KI-Antworten und neuen Suchformaten besser einordenbar werden.',
+      },
+      {
+        question: 'Berücksichtigen Sie auch KI-Werbung und neue Werbeplätze?',
+        answer:
+          'Ja, wenn bezahlte Platzierungen in KI-Systemen oder KI-gestützten Suchformaten sinnvoll werden, können sie ergänzend betrachtet werden. Die Basis bleibt aber eine starke GEO/SEO-Struktur: Nur wenn Angebot, Inhalte und Zielseiten klar sind, können organische Sichtbarkeit und bezahlte Tests sauber bewertet werden.',
       },
     ],
   },
@@ -252,9 +257,9 @@ export const contentFaqFallback = {
 export const semFaqFallback = {
   categories: semFaqCategories,
   eyebrow: 'FAQ',
-  title: 'Häufige Fragen zu SEM und Google Ads',
+  title: 'Häufige Fragen zu GEO, SEO und KI-Suche',
   description:
-    'Antworten zu Suchmaschinenwerbung, Kampagnenbudget, Tracking, Landingpages und Auswertung.',
+    'Antworten zu Generative Engine Optimization, klassischem SEO, KI-Suche, strukturierten Inhalten und Sichtbarkeit in Antwortsystemen.',
 }
 
 export const seoFaqFallback = {

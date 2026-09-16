@@ -1,8 +1,20 @@
 'use client'
 
 import React from 'react'
+import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { BarChart3, DraftingCompass, Fingerprint } from 'lucide-react'
+import {
+  BarChart3,
+  Code2,
+  DraftingCompass,
+  Fingerprint,
+  Gauge,
+  Plug,
+  ShieldCheck,
+  ShoppingCart,
+  Wrench,
+  type LucideIcon,
+} from 'lucide-react'
 
 import type {
   IntroductionBlock as IntroductionBlockData,
@@ -20,6 +32,97 @@ import { translateValueForLocale } from '@/i18n/translationOverlay'
 type IntroductionProps = IntroductionBlockData & {
   disableInnerContainer?: boolean
   index?: number
+}
+
+const wordpressAgencyBuilderIcons = [
+  { name: 'Bricks', src: '/wordpress-builders/bricks.svg', className: 'left-[7%] top-[18%]' },
+  {
+    name: 'Elementor',
+    src: '/wordpress-builders/elementor.svg',
+    className: 'right-[8%] top-[14%]',
+  },
+  { name: 'Oxygen', src: '/wordpress-builders/oxygen.svg', className: 'left-[2%] bottom-[27%]' },
+  {
+    name: 'Gutenberg',
+    src: '/wordpress-builders/gutenberg.svg',
+    className: 'right-[4%] bottom-[25%]',
+  },
+]
+
+const wordpressAgencyServiceIcons: Array<{
+  label: string
+  Icon: LucideIcon
+  className: string
+}> = [
+  { label: 'Plugins', Icon: Plug, className: 'left-[28%] top-[5%]' },
+  { label: 'WooCommerce', Icon: ShoppingCart, className: 'right-[30%] top-[4%]' },
+  { label: 'Wartung', Icon: Wrench, className: 'left-[26%] bottom-[7%]' },
+  { label: 'Sicherheit', Icon: ShieldCheck, className: 'right-[28%] bottom-[7%]' },
+  { label: 'Performance', Icon: Gauge, className: 'left-1/2 top-[15%] -translate-x-1/2' },
+  { label: 'Code', Icon: Code2, className: 'left-1/2 bottom-[16%] -translate-x-1/2' },
+]
+
+function WordPressAgencyOrbitVisual() {
+  return (
+    <div className="relative mx-auto aspect-square w-full max-w-[30rem]">
+      <div
+        className="pointer-events-none absolute inset-[7%] rounded-full border border-border/70 bg-[radial-gradient(circle_at_center,color-mix(in_srgb,var(--foreground)_6%,transparent),transparent_62%)]"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-[20%] rounded-full border border-dashed border-border/80"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-[32%] rounded-full bg-card shadow-[0_22px_70px_-45px_rgba(0,0,0,0.65)]"
+        aria-hidden="true"
+      />
+
+      <div className="absolute left-1/2 top-1/2 z-20 flex size-32 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-border bg-background shadow-[0_18px_54px_-34px_rgba(0,0,0,0.72)] md:size-36">
+        <Image
+          src="/webdesign-platforms/wordpress.svg"
+          alt="WordPress Logo"
+          width={76}
+          height={76}
+          unoptimized
+          className="size-20 object-contain dark:invert"
+        />
+      </div>
+
+      {wordpressAgencyBuilderIcons.map((item) => (
+        <div
+          key={item.name}
+          className={cn(
+            'absolute z-10 flex size-16 items-center justify-center rounded-2xl border border-border/70 bg-background/92 shadow-[0_16px_44px_-34px_rgba(0,0,0,0.62)] backdrop-blur-sm md:size-[4.5rem]',
+            item.className,
+          )}
+          aria-label={item.name}
+        >
+          <Image
+            src={item.src}
+            alt=""
+            width={42}
+            height={42}
+            unoptimized
+            className="size-9 object-contain opacity-80 grayscale dark:invert md:size-10"
+          />
+        </div>
+      ))}
+
+      {wordpressAgencyServiceIcons.map(({ label, Icon, className }) => (
+        <div
+          key={label}
+          className={cn(
+            'absolute z-10 flex size-12 items-center justify-center rounded-full border border-border/70 bg-card/92 text-foreground shadow-[0_14px_36px_-30px_rgba(0,0,0,0.58)] backdrop-blur-sm md:size-14',
+            className,
+          )}
+          aria-label={label}
+        >
+          <Icon className="size-5 md:size-6" strokeWidth={2.1} />
+        </div>
+      ))}
+    </div>
+  )
 }
 
 function resolveThumbnailStreamSrc(media: unknown): string | null {
@@ -102,24 +205,27 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
   const isPortfolioMarketingIntro =
     heading?.trim() === 'Marketing-Cases mit nachvollziehbarer Wirkung' ||
     localizedHeading?.trim() === 'Marketing Cases With Traceable Impact'
+  const isWordPressAgencyStabilityIntro =
+    heading?.trim() === 'Weniger Wartungsaufwand. Mehr WordPress-Stabilität.' ||
+    localizedHeading?.trim() === 'Less Maintenance Effort. More WordPress Stability.'
 
   const hubCards = translateValueForLocale(
     [
-    {
-      title: 'Design & Website',
-      description: 'Webdesign, Printmedien und Präsentationen für einen starken Auftritt.',
-      Icon: DraftingCompass,
-    },
-    {
-      title: 'Marketing & Sichtbarkeit',
-      description: 'SEO, SEM und Content Creation für Reichweite und Anfragen.',
-      Icon: BarChart3,
-    },
-    {
-      title: 'Branding & Identity',
-      description: 'CI, Logo-Entwicklung und Markenstrategie für klare Wiedererkennung.',
-      Icon: Fingerprint,
-    },
+      {
+        title: 'Design & Website',
+        description: 'Webdesign, Printmedien und Präsentationen für einen starken Auftritt.',
+        Icon: DraftingCompass,
+      },
+      {
+        title: 'Marketing & Sichtbarkeit',
+        description: 'SEO, SEM und Content Creation für Reichweite und Anfragen.',
+        Icon: BarChart3,
+      },
+      {
+        title: 'Branding & Identity',
+        description: 'CI, Logo-Entwicklung und Markenstrategie für klare Wiedererkennung.',
+        Icon: Fingerprint,
+      },
     ],
     isEnglish ? 'en' : 'de',
   )
@@ -128,9 +234,11 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
     <div
       className={cn(
         'grid items-center gap-10',
-        reserveMediaColumn
-          ? 'md:grid-cols-[minmax(0,1fr)_minmax(14rem,min(31dvw,34rem))] xl:min-h-[clamp(20rem,32vw,30rem)]'
-          : 'max-w-3xl',
+        isWordPressAgencyStabilityIntro
+          ? 'lg:grid-cols-[minmax(0,0.88fr)_minmax(18rem,0.78fr)] lg:gap-14'
+          : reserveMediaColumn
+            ? 'md:grid-cols-[minmax(0,1fr)_minmax(14rem,min(31dvw,34rem))] xl:min-h-[clamp(20rem,32vw,30rem)]'
+            : 'max-w-3xl',
         reserveMediaColumn && 'sm:px-0 px-0',
       )}
     >
@@ -193,6 +301,12 @@ export const IntroductionBlock: React.FC<IntroductionProps> = (props) => {
           </div>
         </div>
       )}
+
+      {isWordPressAgencyStabilityIntro && !hasInlineMedia ? (
+        <div className="relative isolate mt-2 w-full lg:mt-0 lg:justify-self-end">
+          <WordPressAgencyOrbitVisual />
+        </div>
+      ) : null}
     </div>
   )
 

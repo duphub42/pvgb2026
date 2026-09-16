@@ -96,9 +96,20 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
     'cards'
   const heading = _heading != null ? String(_heading).trim() : ''
   const isBrandingSystemIntro = heading === 'Marke, Logo und Branding'
+  const pathWithoutLocale = (pathname || '').replace(/^\/en(?=\/|$)/, '') || '/'
+  const isWebdesignCmsOverview =
+    pathWithoutLocale === '/webdesign' && /cms|webshop|webshops/i.test(heading)
 
   // Style-Props direkt an BlockContainer übergeben
-  const styles = styleProps as unknown as BlockStyles
+  const styles = (isWebdesignCmsOverview
+    ? {
+        ...styleProps,
+        blockBackground: 'none',
+        blockBorder: null,
+        blockBorderEnabled: false,
+        blockContentSpacing: 'compact',
+      }
+    : styleProps) as unknown as BlockStyles
   const items = useMemo(() => {
     const rows = services?.filter((s): s is NonNullable<(typeof services)[number]> =>
       Boolean(
@@ -128,12 +139,16 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
     <BlockContainer
       styles={styles}
       index={index}
-      className="services-overview-section overflow-visible pb-16 pt-0 md:pb-20"
+      className={cn(
+        'services-overview-section overflow-visible pt-0',
+        isWebdesignCmsOverview ? 'pb-10 md:pb-12' : 'pb-16 md:pb-20',
+      )}
     >
       {(_heading || _intro) && (
         <div
           className={cn(
             isBrandingSystemIntro ? 'max-w-3xl space-y-4' : 'max-w-2xl space-y-3',
+            isWebdesignCmsOverview && 'max-w-3xl space-y-2',
             headerAlign === 'center' && 'mx-auto text-center',
           )}
         >
@@ -175,7 +190,12 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
           ))}
         </div>
       ) : (
-        <div className="services-overview-expand-row relative z-30 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:items-stretch lg:gap-0">
+        <div
+          className={cn(
+            'services-overview-expand-row relative z-30 mt-6 grid grid-cols-1 items-start gap-3 overflow-visible sm:grid-cols-2 sm:gap-4 lg:items-stretch lg:gap-0',
+            isWebdesignCmsOverview && 'services-overview-expand-row--plain mt-2 lg:gap-4',
+          )}
+        >
           {items.map(({ key, iconKey, title, description }, itemIndex) => {
             const Icon = ICON_MAP[iconKey] ?? Compass
             return (
@@ -183,6 +203,7 @@ export const ServicesOverviewBlock: React.FC<ServicesOverviewProps> = (props) =>
                 key={key}
                 className={cn(
                   'services-overview-card-codepen group relative flex min-h-0 w-full min-w-0 flex-col overflow-hidden rounded-3xl border border-border/90 bg-card p-5 pb-6',
+                  isWebdesignCmsOverview && 'rounded-2xl p-4 pb-4',
                   'dark:border-border',
                 )}
               >

@@ -16,7 +16,6 @@ import { RootLayoutInner } from '@/app/(frontend)/RootLayoutInner.client'
 import './globals.css'
 import { getPublicSiteURL } from '@/utilities/getURL'
 import { getCachedGlobal } from '@/utilities/getGlobals'
-import { getMediaUrl } from '@/utilities/getMediaUrl'
 import { DesignStyles } from '@/components/DesignStyles'
 import { ThemeSettingsStyles } from '@/components/ThemeSettingsStyles'
 import { DeferredSiteTools } from '@/components/DeferredSiteTools/DeferredSiteTools'
@@ -35,6 +34,9 @@ const SERVICE_AREAS = [
   'Dresden',
   'Chemnitz',
 ]
+const PROFILE_IMAGE_PATH = '/media/philippbacher-13-500x500.png'
+const FAVICON_HREF = '/favicon.svg'
+const FAVICON_TYPE = 'image/svg+xml'
 
 function parseAddressParts(address?: string | null): {
   streetAddress?: string
@@ -84,6 +86,7 @@ function buildLocalBusinessGraph(footerData: FooterGlobal | null): string {
   const telephone = normalizeTelephone(footerData?.footerPhone) || '+4934596393323'
   const address = parseAddressParts(footerData?.footerAddress)
   const sameAs = getSameAsFromFooter(footerData)
+  const profileImage = `${baseURL}${PROFILE_IMAGE_PATH}`
 
   const graph = {
     '@context': 'https://schema.org',
@@ -104,6 +107,7 @@ function buildLocalBusinessGraph(footerData: FooterGlobal | null): string {
         url: baseURL,
         email,
         telephone,
+        image: profileImage,
         jobTitle: 'Digital Consultant',
         worksFor: {
           '@id': `${baseURL}/#organization`,
@@ -132,13 +136,15 @@ function buildLocalBusinessGraph(footerData: FooterGlobal | null): string {
         email,
         telephone,
         priceRange: '190 EUR - 14000 EUR',
-        image: `${baseURL}/philippbacher-website.png`,
+        image: profileImage,
         areaServed: SERVICE_AREAS,
         address: {
           '@type': 'PostalAddress',
           ...address,
         },
         sameAs,
+        logo: `${baseURL}/favicon.svg`,
+        photo: profileImage,
       },
     ],
   }
@@ -166,8 +172,6 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     let themeSettings: { cssString?: string | null } | null = null
     let headerData: HeaderGlobal | null = null
     let footerData: FooterGlobal | null = null
-    let faviconUrl: string | null = null
-    let faviconType: string | null = null
 
     const [designResult, themeSettingsResult, headerResult, footerResult] =
       await Promise.allSettled([
@@ -199,21 +203,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         ? (footerResult.value as FooterGlobal)
         : null
 
-    if (
-      headerData?.favicon &&
-      typeof headerData.favicon === 'object' &&
-      'url' in headerData.favicon &&
-      headerData.favicon?.url
-    ) {
-      faviconUrl = getMediaUrl(headerData.favicon.url, headerData.favicon.updatedAt) || null
-      faviconType =
-        'mimeType' in headerData.favicon && headerData.favicon.mimeType
-          ? headerData.favicon.mimeType
-          : 'image/x-icon'
-    }
-
     const localBusinessJsonLd = buildLocalBusinessGraph(footerData)
-
     return (
       <html className={fontClassNames} lang={locale} suppressHydrationWarning>
         <head>
@@ -225,14 +215,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           />
           <DesignStyles design={design ?? null} />
           <ThemeSettingsStyles themeSettings={themeSettings ?? null} />
-          {faviconUrl ? (
-            <link href={faviconUrl} rel="icon" type={faviconType ?? 'image/x-icon'} />
-          ) : (
-            <>
-              <link href="/favicon.ico" rel="icon" sizes="32x32" />
-              <link href="/favicon.svg" rel="icon" type="image/svg+xml" />
-            </>
-          )}
+          <link href={FAVICON_HREF} rel="icon" type={FAVICON_TYPE} />
+          <link href="/favicon.ico" rel="alternate icon" />
           <link href="/manifest.json" rel="manifest" />
           <meta content="yes" name="apple-mobile-web-app-capable" />
           <meta content="black-translucent" name="apple-mobile-web-app-status-bar-style" />

@@ -105,9 +105,9 @@ const oid = () => crypto.randomBytes(12).toString('hex')
           slug: 'seo-rankings',
         },
         {
-          title: 'SEM – Online Werbung',
-          description: 'Performance-Marketing auf Suchmaschinen',
-          slug: 'sem-online-werbung',
+          title: 'GEO/SEO',
+          description: 'Sichtbarkeit in Google, KI-Suche und Antwortsystemen wie ChatGPT.',
+          slug: 'ki-marketing-geo-seo',
         },
         {
           title: 'Content Creation',

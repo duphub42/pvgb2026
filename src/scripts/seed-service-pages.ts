@@ -109,14 +109,14 @@ const templates: ServicePageTemplate[] = [
                 link: { slug: 'seo-rankings' },
               },
               {
-                title: 'SEM - Online Werbung',
+                title: 'GEO/SEO',
                 description:
-                  'Performance-Kampagnen für Sichtbarkeit, Leads und messbare Resultate.',
+                  'Sichtbarkeit in Google, KI-Suche und Antwortsystemen wie ChatGPT.',
                 icon: {
                   url: '/api/media/file/SEM-Suchmaschinenmarketing-1.svg',
                   alt: 'SEM Icon',
                 },
-                link: { slug: 'sem-online-werbung' },
+                link: { slug: 'ki-marketing-geo-seo' },
               },
               {
                 title: 'Content Creation',

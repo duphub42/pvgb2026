@@ -1,8 +1,7 @@
 'use client'
 
 export const CONSENT_STORAGE_KEY = 'pb_cookie_consent_v1'
-export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-4OK5QY3RJQ'
-export const GOOGLE_ADS_ID = process.env.NEXT_PUBLIC_GOOGLE_ADS_ID || 'AW-17945584933'
+export const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || 'G-Y0D7045XMB'
 const GOOGLE_COOKIE_PREFIXES = ['_ga', '_gid', '_gat', '_gac', '_gcl']
 
 declare global {
@@ -21,24 +20,14 @@ export function injectGoogleTag() {
     window.dataLayer?.push(args)
   }
 
-  window.gtag('consent', 'update', {
-    ad_personalization: 'denied',
-    ad_storage: 'granted',
-    ad_user_data: 'granted',
-    analytics_storage: 'granted',
-  })
-  window.gtag('js', new Date())
-  window.gtag('config', GA_MEASUREMENT_ID, {
-    anonymize_ip: true,
-    send_page_view: true,
-  })
-  window.gtag('config', GOOGLE_ADS_ID)
-
   const script = document.createElement('script')
   script.async = true
   script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`
   script.dataset.pbGtag = GA_MEASUREMENT_ID
   document.head.appendChild(script)
+
+  window.gtag('js', new Date())
+  window.gtag('config', GA_MEASUREMENT_ID)
 }
 
 function deleteCookieForDomain(name: string, domain?: string) {

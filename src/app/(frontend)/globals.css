@@ -1,4 +1,5 @@
-@config '../../../tailwind.config.mjs' {};
+@config '../../../tailwind.config.mjs' {
+}
 @import 'tailwindcss' source(none);
 @source '.';
 @source '../../blocks';

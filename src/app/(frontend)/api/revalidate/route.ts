@@ -3,7 +3,7 @@
  * Aufruf: GET /api/revalidate?tag=global_header&tag=global_footer&secret=DEIN_SECRET
  * In Production: CRON_SECRET oder REVALIDATE_SECRET in .env setzen, Secret im Request mitschicken.
  */
-import { revalidateTag } from 'next/cache'
+import { revalidatePath, revalidateTag } from 'next/cache'
 import { NextRequest, NextResponse } from 'next/server'
 
 const REVALIDATE_SECRET = process.env.REVALIDATE_SECRET?.trim() || process.env.CRON_SECRET?.trim()
@@ -13,6 +13,7 @@ export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url)
   const secret = searchParams.get('secret')
   const tags = searchParams.getAll('tag').filter(Boolean)
+  const paths = searchParams.getAll('path').filter(Boolean)
 
   const secretValid = !REQUIRE_SECRET_IN_PROD || (REVALIDATE_SECRET && secret === REVALIDATE_SECRET)
   if (!secretValid) {
@@ -22,9 +23,9 @@ export async function GET(request: NextRequest) {
     )
   }
 
-  if (tags.length === 0) {
+  if (tags.length === 0 && paths.length === 0) {
     return NextResponse.json(
-      { error: 'Missing tag(s). Example: ?tag=global_header&tag=global_footer' },
+      { error: 'Missing tag(s) or path(s). Example: ?tag=global_header&path=/leistungen' },
       { status: 400 },
     )
   }
@@ -33,5 +34,9 @@ export async function GET(request: NextRequest) {
     revalidateTag(tag)
   }
 
-  return NextResponse.json({ revalidated: true, tags })
+  for (const path of paths) {
+    revalidatePath(path)
+  }
+
+  return NextResponse.json({ revalidated: true, tags, paths })
 }

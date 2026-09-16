@@ -8,6 +8,8 @@ import { getPublicSiteURL } from './getURL'
 import { getMediaUrl } from './getMediaUrl'
 
 const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME?.trim() || 'Philipp Bacher'
+const DEFAULT_OG_IMAGE_PATH = '/philippbacher-website.png'
+const PROFILE_OG_IMAGE_PATH = '/media/philippbacher-13-1200x630.png'
 
 const normalizeTitle = (value: string): string =>
   value
@@ -78,10 +80,16 @@ const getMetaTitle = (doc?: Partial<SitePage> | Partial<BlogPost> | null): strin
   return titleIncludesSiteName(baseTitle) ? baseTitle : `${baseTitle} | ${SITE_NAME}`
 }
 
-const getImageURL = (image?: Media | Config['db']['defaultIDType'] | null) => {
+const isProfileSlug = (slug?: unknown): boolean =>
+  typeof slug === 'string' && slug.trim().toLowerCase() === 'profil'
+
+const getImageURL = (
+  image?: Media | Config['db']['defaultIDType'] | null,
+  slug?: unknown,
+) => {
   const siteUrl = getPublicSiteURL()
 
-  let url = siteUrl + '/philippbacher-website.png'
+  let url = siteUrl + (isProfileSlug(slug) ? PROFILE_OG_IMAGE_PATH : DEFAULT_OG_IMAGE_PATH)
 
   if (image && typeof image === 'object' && 'url' in image) {
     const ogUrl = image.sizes?.og?.url
@@ -105,7 +113,7 @@ export const generateMeta = async (args: {
     | (Partial<BlogPost> & { slug?: unknown; parent?: unknown })
     | null
 
-  const ogImage = getImageURL(doc?.meta?.image)
+  const ogImage = getImageURL(doc?.meta?.image, docWithPathFields?.slug)
 
   const title = getMetaTitle(doc)
   const description =

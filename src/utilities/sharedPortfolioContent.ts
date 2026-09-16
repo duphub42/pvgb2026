@@ -179,7 +179,9 @@ async function resolvePortfolioSubpageLayout(
 
     if (blockType === 'portfolioCaseGrid') {
       additions.push(
-        resolvePortfolioHubCaseBlock(undefined, centralCasesBlock, marketingCaseOptions),
+        portfolioType === 'webdesign'
+          ? resolveWebdesignSubpageCaseBlock(undefined, leistungenCasesBlock, centralCasesBlock)
+          : resolvePortfolioHubCaseBlock(undefined, centralCasesBlock, marketingCaseOptions),
       )
       continue
     }
@@ -204,6 +206,9 @@ async function resolvePortfolioSubpageLayout(
     if (!block || typeof block !== 'object') return block
     const typedBlock = block as LayoutBlock
     if (typedBlock.blockType !== 'portfolioCaseGrid') return block
+    if (portfolioType === 'webdesign') {
+      return resolveWebdesignSubpageCaseBlock(typedBlock, leistungenCasesBlock, centralCasesBlock)
+    }
     return resolvePortfolioHubCaseBlock(typedBlock, centralCasesBlock, marketingCaseOptions)
   }) as LayoutBlocks
 
@@ -709,6 +714,34 @@ function resolvePortfolioHubCaseBlock(
       existing?.layoutVariant ??
       'editorial',
     cases,
+  }
+}
+
+function resolveWebdesignSubpageCaseBlock(
+  existing: LayoutBlock | undefined,
+  leistungenCasesBlock: LayoutBlock | undefined,
+  fallbackCasesBlock: LayoutBlock,
+): LayoutBlock {
+  const sharedWebdesignBlock =
+    buildSharedCaseBlock(leistungenCasesBlock, GENERAL_PORTFOLIO_DISCIPLINES) ??
+    resolvePortfolioHubCaseBlock(undefined, fallbackCasesBlock, {
+      disciplineFilter: GENERAL_PORTFOLIO_DISCIPLINES,
+    })
+
+  if (!existing) {
+    return {
+      ...sharedWebdesignBlock,
+      eyebrow: 'Ausgewählte Cases',
+      heading: 'Ergebnisse aus realen Projekten',
+      intro:
+        'Eine Auswahl realer Kundenprojekte aus Webdesign, Marketing und Branding - inklusive SEO-, Lead-, Medizin-, Portal- und E-Commerce-Referenzen mit messbaren Ergebnissen.',
+    }
+  }
+
+  return {
+    ...existing,
+    layoutVariant: sharedWebdesignBlock.layoutVariant ?? existing.layoutVariant,
+    cases: sharedWebdesignBlock.cases,
   }
 }
 

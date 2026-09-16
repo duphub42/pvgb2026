@@ -25,7 +25,7 @@ const SERVICE_TYPES_BY_SLUG: Record<string, string> = {
   leistungen: 'Webdesign, Branding, SEO, Online-Marketing und Automatisierung',
   webdesign: 'Webdesign und Webentwicklung',
   seo: 'Suchmaschinenoptimierung',
-  sem: 'Suchmaschinenmarketing und Google Ads',
+  sem: 'SEM & GEO: Suchmaschinenmarketing und KI-Sichtbarkeit',
   content: 'Content Creation',
   'content-creation': 'Content Creation',
   print: 'Printdesign und Grafikdesign',
@@ -129,6 +129,7 @@ export function getServiceTypeForPage(
   if (title.includes('webdesign')) return SERVICE_TYPES_BY_SLUG.webdesign
   if (title.includes('seo') || title.includes('suchmaschinenoptimierung'))
     return SERVICE_TYPES_BY_SLUG.seo
+  if (title.includes('geo') || title.includes('ki-suche')) return SERVICE_TYPES_BY_SLUG.sem
   if (title.includes('sem') || title.includes('google ads')) return SERVICE_TYPES_BY_SLUG.sem
   if (title.includes('content')) return SERVICE_TYPES_BY_SLUG.content
   if (title.includes('print') || title.includes('grafikdesign')) return SERVICE_TYPES_BY_SLUG.print
@@ -187,7 +188,7 @@ export function buildOfferCatalogJsonLd(): JsonLdObject {
   const services = [
     ['Webdesign und Webentwicklung', '/webdesign'],
     ['Suchmaschinenoptimierung', '/seo'],
-    ['Suchmaschinenmarketing und Google Ads', '/sem'],
+    ['SEM & GEO: Suchmaschinenmarketing und KI-Sichtbarkeit', '/ki-marketing-geo-seo'],
     ['Branding und Corporate Identity', '/ci-corporate-identity'],
     ['Logo-Entwicklung', '/logo-entwicklung'],
     ['Markenstrategie', '/markenstrategie'],

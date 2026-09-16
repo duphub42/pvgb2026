@@ -165,7 +165,7 @@ export default async function DatenschutzPage() {
           <p>
             Nach Ihrer Einwilligung wird Google Analytics 4 eingesetzt, ein Webanalysedienst der
             Google Ireland Limited, Gordon House, Barrow Street, Dublin 4, Irland. Die verwendete
-            Measurement-ID lautet G-4OK5QY3RJQ. Dabei können Nutzungsdaten wie Seitenaufrufe,
+            Measurement-ID lautet G-Y0D7045XMB. Dabei können Nutzungsdaten wie Seitenaufrufe,
             Geräte- und Browserinformationen, ungefähre Standortdaten und Interaktionen verarbeitet
             werden. Die Einbindung erfolgt erst nach aktiver Zustimmung über das Consent-Banner. Die
             Einwilligung kann jederzeit über die Cookie-Einstellungen widerrufen werden.

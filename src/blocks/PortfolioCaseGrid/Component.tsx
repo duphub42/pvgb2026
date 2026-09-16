@@ -140,6 +140,112 @@ const categoryMeta: Record<
   },
 }
 
+const showcasePortfolioCards = [
+  {
+    src: '/showcase-portfolio/card-zahnarzt.png',
+    alt: 'Zahnarzt Kipp Website Showcase',
+  },
+  {
+    src: '/showcase-portfolio/card-medifisch.png',
+    alt: 'Medifisch Website Showcase',
+  },
+  {
+    src: '/showcase-portfolio/card-allclean.png',
+    alt: 'Allclean Website Showcase',
+  },
+  {
+    src: '/showcase-portfolio/card-verband-digitale-innovation.png',
+    alt: 'Verband Digitale Innovation Website Showcase',
+  },
+  {
+    src: '/showcase-portfolio/card-baufinanzierung.png',
+    alt: 'Baufinanzierung Halle Website Showcase',
+  },
+  {
+    src: '/showcase-portfolio/card-fit-liner.png',
+    alt: 'Fit Liner Website Showcase',
+  },
+  {
+    src: '/showcase-portfolio/card-kipp-dental.png',
+    alt: 'Kipp Dental Website Showcase',
+  },
+  {
+    src: '/showcase-portfolio/card-zhkplus.png',
+    alt: 'ZHK Plus Website Showcase',
+  },
+  {
+    src: '/showcase-portfolio/card-schlosseicks.png',
+    alt: 'Schloss Eicks Website Showcase',
+  },
+  {
+    src: '/showcase-portfolio/card-soulmating.png',
+    alt: 'Soulmating Website Showcase',
+  },
+  {
+    src: '/showcase-portfolio/card-musikschule-hoerstel.png',
+    alt: 'Musikschule Hoerstel Website Showcase',
+  },
+  {
+    src: '/showcase-portfolio/card-moriss.png',
+    alt: 'Moriss Obstplantagen Website Showcase',
+  },
+]
+
+const getShowcasePortfolioCard = (title: string, fallbackIndex: number) => {
+  const normalizedTitle = title
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+
+  const bySlug = (slug: string) =>
+    showcasePortfolioCards.find((card) => card.src.includes(`/card-${slug}.png`))
+
+  if (normalizedTitle.includes('medifisch')) return bySlug('medifisch')
+  if (normalizedTitle.includes('allclean') || normalizedTitle.includes('all clean')) {
+    return bySlug('allclean')
+  }
+  if (normalizedTitle.includes('lux')) return bySlug('allclean')
+  if (
+    normalizedTitle.includes('verband digitale innovation') ||
+    normalizedTitle.includes('digitale innovation')
+  ) {
+    return bySlug('verband-digitale-innovation')
+  }
+  if (normalizedTitle.includes('baufinanzierung') || normalizedTitle.includes('bfh')) {
+    return bySlug('baufinanzierung')
+  }
+  if (normalizedTitle.includes('fitline') || normalizedTitle.includes('fit liner')) {
+    return bySlug('fit-liner')
+  }
+  if (
+    normalizedTitle.includes('kipp dental') ||
+    normalizedTitle.includes('zahntechnik') ||
+    normalizedTitle.includes('dentallabor')
+  ) {
+    return bySlug('kipp-dental')
+  }
+  if (normalizedTitle.includes('zhk')) return bySlug('zhkplus')
+  if (normalizedTitle.includes('schloss') || normalizedTitle.includes('eicks')) {
+    return bySlug('schlosseicks')
+  }
+  if (normalizedTitle.includes('soulmating')) return bySlug('soulmating')
+  if (
+    normalizedTitle.includes('musikschule') ||
+    normalizedTitle.includes('ton') ||
+    normalizedTitle.includes('toenchen') ||
+    normalizedTitle.includes('horstel')
+  ) {
+    return bySlug('musikschule-hoerstel')
+  }
+  if (normalizedTitle.includes('moriss') || normalizedTitle.includes('obst'))
+    return bySlug('moriss')
+  if (normalizedTitle.includes('zahnarzt') || normalizedTitle.includes('zahnarztpraxis')) {
+    return bySlug('zahnarzt')
+  }
+
+  return showcasePortfolioCards[fallbackIndex % showcasePortfolioCards.length]
+}
+
 const normalizeHref = (raw?: string | null): string | null => {
   const value = String(raw ?? '').trim()
   if (!value) return null
@@ -187,6 +293,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   const isEnglish = normalizedPathname.startsWith('/en')
   const pathWithoutLocale = normalizedPathname.replace(/^\/en(?=\/|$)/, '') || '/'
   const isWebdesignLandingPage = /^\/webdesign\/?$/.test(pathWithoutLocale)
+  const isPortfolioWebdesignPage = /^\/portfolio-webdesign\/?$/.test(pathWithoutLocale)
   const isGeoSeoMarketingPage =
     /^\/ki-marketing-geo-seo\/?$/.test(pathWithoutLocale) ||
     /^\/ai-marketing-geo-seo\/?$/.test(pathWithoutLocale)
@@ -194,7 +301,8 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
     /^\/portfolio-[^/]+\/?$/.test(pathWithoutLocale) || isGeoSeoMarketingPage
   const isDataLayout = layoutVariant === 'data'
   const isIsometricLayout =
-    !isPortfolioGridPage && (layoutVariant === 'visual' || isWebdesignLandingPage)
+    isPortfolioWebdesignPage ||
+    (!isPortfolioGridPage && (layoutVariant === 'visual' || isWebdesignLandingPage))
   const rows = useMemo(
     () =>
       (cases ?? []).filter((item): item is PortfolioCase => Boolean(item?.title && item?.summary)),
@@ -247,7 +355,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   const loopCards = useMemo(() => [...withKeys, ...withKeys, ...withKeys], [withKeys])
   const isometricCards = useMemo(
     () =>
-      Array.from({ length: 4 }, (_, repeatIndex) =>
+      Array.from({ length: 8 }, (_, repeatIndex) =>
         withKeys.map((entry) => ({
           ...entry,
           renderKey: `${entry.key}-iso-${repeatIndex}`,
@@ -520,23 +628,6 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   }, [isPortfolioGridPage, isIsometricLayout, withKeys.length])
 
   useEffect(() => {
-    if (!isIsometricLayout) return
-
-    const scroller = isometricScrollerRef.current
-    if (!scroller) return
-
-    const setInitialScroll = () => {
-      const maxScroll = scroller.scrollWidth - scroller.clientWidth
-      const preferredStart = window.innerWidth >= 1024 ? 4000 : 2200
-      scroller.scrollLeft = Math.max(0, Math.min(maxScroll, preferredStart))
-    }
-
-    requestAnimationFrame(setInitialScroll)
-    const timeout = window.setTimeout(setInitialScroll, 400)
-    return () => window.clearTimeout(timeout)
-  }, [isIsometricLayout, isometricCards.length])
-
-  useEffect(() => {
     if (isPortfolioGridPage || isIsometricLayout || prefersReducedMotion()) return
 
     const slider = sliderRef.current
@@ -602,7 +693,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
     const header = headerRef.current
     const caseGrid = caseGridRef.current
     const sliderWrap = sliderWrapRef.current
-    const visualWrap = isPortfolioGridPage ? caseGrid : sliderWrap
+    const visualWrap = isPortfolioGridPage && !isIsometricLayout ? caseGrid : sliderWrap
     if (!header && !visualWrap) return
 
     const root = visualWrap ?? header
@@ -639,7 +730,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
           )
         }
 
-        if (isPortfolioGridPage && caseGrid) {
+        if (isPortfolioGridPage && !isIsometricLayout && caseGrid) {
           gsap.fromTo(
             caseGrid,
             { y: 40, opacity: 0, filter: 'blur(10px)' },
@@ -674,15 +765,10 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
             },
           )
         } else if (sliderWrap && isIsometricLayout) {
-          const isometricTrack = sliderWrap.querySelector<HTMLElement>(
-            '[data-portfolio-isometric-track="true"]',
-          )
-
           gsap.fromTo(
             sliderWrap,
-            { y: 28, opacity: 0, filter: 'blur(8px)' },
+            { opacity: 0, filter: 'blur(8px)' },
             {
-              y: 0,
               opacity: 1,
               filter: 'blur(0px)',
               ease: 'none',
@@ -694,24 +780,6 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
               },
             },
           )
-
-          if (isometricTrack) {
-            gsap.fromTo(
-              isometricTrack,
-              { xPercent: -5, yPercent: 3 },
-              {
-                xPercent: 7,
-                yPercent: -5,
-                ease: 'none',
-                scrollTrigger: {
-                  trigger: sliderWrap,
-                  start: 'top bottom',
-                  end: 'bottom top',
-                  scrub: 1.6,
-                },
-              },
-            )
-          }
         } else if (sliderWrap) {
           gsap.fromTo(
             sliderWrap,
@@ -1028,10 +1096,110 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
         )
       : null
 
+  const isometricGrid = isIsometricLayout ? (
+    <div
+      ref={sliderWrapRef}
+      className="relative z-0 mt-10 h-[72vh] min-h-[620px] w-full overflow-x-clip overflow-y-visible px-0 pt-6 pb-0 md:mt-14 md:min-h-[660px] md:pt-8 md:pb-0"
+      aria-hidden={Boolean(activeCase)}
+    >
+      <div
+        ref={isometricScrollerRef}
+        className="relative w-screen overflow-x-clip overflow-y-visible px-0"
+      >
+        <div
+          data-portfolio-isometric-track="true"
+          className="w-max min-w-[240rem] pt-44 pb-0 sm:min-w-[320rem] sm:pt-52 sm:pb-0 lg:min-w-[440rem] lg:pt-64 lg:pb-0"
+          style={{
+            perspective: '1600px',
+            transform: 'translate3d(-4350px, 0, 0)',
+          }}
+        >
+          <div
+            data-portfolio-isometric-grid="true"
+            className="grid grid-flow-col grid-rows-[15rem_15rem_15rem] gap-4 sm:grid-rows-[18rem_18rem_18rem] sm:gap-5 lg:grid-rows-[20rem_20rem_20rem] lg:gap-7 [&>*]:w-[19rem] sm:[&>*]:w-[23rem] lg:[&>*]:w-[26rem]"
+            style={{
+              transform: 'translate3d(0, 8rem, 0) rotateX(28deg) rotateZ(6deg)',
+              transformOrigin: '50% 50%',
+              transformStyle: 'preserve-3d',
+            }}
+          >
+            {isometricCards.map(({ item, key, renderKey }, index) => {
+              const coverImage = isMediaObject(item.coverImage) ? item.coverImage : null
+              const showcaseCard = getShowcasePortfolioCard(item.title, index)
+
+              return (
+                <button
+                  type="button"
+                  data-portfolio-card="true"
+                  data-portfolio-isometric-row="locked"
+                  key={renderKey}
+                  onClick={() => setActiveCaseKey(key)}
+                  className="group relative block h-full min-w-0 text-left outline-none"
+                  style={{
+                    backfaceVisibility: 'hidden',
+                    transformStyle: 'preserve-3d',
+                  }}
+                  aria-label={`${isEnglish ? 'Open details' : 'Details öffnen'}: ${item.title}`}
+                  tabIndex={activeCase ? -1 : 0}
+                >
+                  <span
+                    aria-hidden
+                    className="absolute inset-1 rounded-xl bg-foreground/12 shadow-[0_10px_28px_rgba(0,0,0,0.14)] transition duration-300 ease-out [transform:translateZ(-1px)_scale(0.95)] group-hover:opacity-60 group-hover:[transform:translateZ(-1px)_scale(1)] sm:inset-2 sm:rounded-2xl"
+                  />
+                  <article
+                    className="relative h-full overflow-visible rounded-xl transition duration-300 ease-out sm:rounded-2xl"
+                    style={{
+                      backfaceVisibility: 'hidden',
+                      transformStyle: 'preserve-3d',
+                      transformOrigin: 'center bottom',
+                    }}
+                  >
+                    <span
+                      aria-hidden
+                      className="absolute inset-0 rounded-xl border border-border/45 bg-muted/45 transition duration-300 ease-out [transform:translateZ(0)] group-hover:[transform:translateZ(10px)] sm:rounded-2xl"
+                    />
+                    <div
+                      className="absolute inset-0 overflow-hidden rounded-xl border border-border/70 bg-background shadow-[0_18px_45px_rgba(0,0,0,0.16)] transition duration-300 ease-out [transform:translateZ(24px)] [transform-origin:center_bottom] group-hover:border-primary/35 group-hover:[transform:translateZ(52px)_rotateX(-3deg)] sm:rounded-2xl"
+                      style={{
+                        transformOrigin: 'center bottom',
+                      }}
+                    >
+                      {showcaseCard ? (
+                        <img
+                          src={showcaseCard.src}
+                          alt={showcaseCard.alt}
+                          className="h-full w-full bg-white object-contain object-center opacity-100 transition duration-300 ease-out group-hover:scale-[1.01]"
+                          loading="lazy"
+                          decoding="async"
+                          draggable={false}
+                        />
+                      ) : coverImage ? (
+                        <Media
+                          resource={coverImage}
+                          className="portfolio-case-visual h-full w-full overflow-hidden bg-background"
+                          imgClassName="h-full w-full object-contain object-top opacity-100 transition duration-300 ease-out group-hover:scale-[1.01]"
+                        />
+                      ) : (
+                        <div className="flex h-full items-center justify-center bg-muted/40 text-xs text-muted-foreground">
+                          {isEnglish ? 'No cover image' : 'Kein Titelbild'}
+                        </div>
+                      )}
+                      <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(135deg,rgba(255,255,255,0.18),transparent_38%)] dark:bg-[linear-gradient(135deg,rgba(255,255,255,0.06),transparent_38%)]" />
+                    </div>
+                  </article>
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : null
+
   return (
     <section
       className={cn(
-        'relative w-full pt-24 md:pt-32',
+        'relative isolate w-full pt-24 md:pt-32',
         isIsometricLayout ? 'pb-4 md:pb-6' : 'pb-36 md:pb-48',
         isDataLayout && 'portfolio-case-grid--data',
       )}
@@ -1048,7 +1216,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
       {portfolioModal}
 
       <div className="container px-0 md:px-0">
-        <div ref={headerRef} className="w-full text-center">
+        <div ref={headerRef} className="relative z-20 w-full text-center">
           {eyebrow ? (
             <Badge
               variant="secondary"
@@ -1077,7 +1245,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
           ) : null}
         </div>
 
-        {isPortfolioGridPage ? (
+        {isPortfolioGridPage && !isIsometricLayout ? (
           <div ref={caseGridRef} className="mt-10 md:mt-14" aria-hidden={Boolean(activeCase)}>
             <div className="grid auto-rows-[15.5rem] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
               {withKeys.map(({ item, key }, index) => {
@@ -1174,101 +1342,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
               })}
             </div>
           </div>
-        ) : isIsometricLayout ? (
-          <div
-            ref={sliderWrapRef}
-            className="relative mt-6 px-0 pt-6 pb-0 md:mt-8 md:pt-8 md:pb-0"
-            aria-hidden={Boolean(activeCase)}
-            >
-              <div
-                ref={isometricScrollerRef}
-                className="relative left-1/2 w-[112vw] -translate-x-1/2 overflow-x-auto overflow-y-visible px-0 [scrollbar-width:none] [-ms-overflow-style:none] sm:w-[116vw] lg:w-[120vw] [&::-webkit-scrollbar]:hidden"
-              >
-              <div
-                data-portfolio-isometric-track="true"
-                className="w-max min-w-[220rem] pt-20 pb-0 sm:min-w-[300rem] sm:pt-24 sm:pb-0 lg:min-w-[420rem] lg:pt-28 lg:pb-0"
-                style={{
-                  perspective: '1600px',
-                }}
-              >
-                <div
-                  className="grid grid-flow-col grid-rows-[14rem_14rem_14rem] gap-4 sm:grid-rows-[18rem_18rem_18rem] sm:gap-5 lg:grid-rows-[21rem_21rem_21rem] lg:gap-7 [&>*]:w-[22rem] sm:[&>*]:w-[30rem] lg:[&>*]:w-[38rem]"
-                  style={{
-                    transform: 'translate3d(0, -5rem, 0) rotateX(56deg) rotateZ(34deg)',
-                    transformOrigin: '50% 50%',
-                    transformStyle: 'preserve-3d',
-                  }}
-                >
-                  {isometricCards.map(({ item, key, renderKey }) => {
-                    const coverImage = isMediaObject(item.coverImage) ? item.coverImage : null
-
-                    return (
-                      <button
-                        type="button"
-                        data-portfolio-card="true"
-                        key={renderKey}
-                        onClick={() => setActiveCaseKey(key)}
-                        className="group relative block h-full min-w-0 text-left outline-none"
-                        style={{
-                          backfaceVisibility: 'hidden',
-                          transformStyle: 'preserve-3d',
-                        }}
-                        aria-label={`${isEnglish ? 'Open details' : 'Details öffnen'}: ${item.title}`}
-                        tabIndex={activeCase ? -1 : 0}
-                      >
-                        <span
-                          aria-hidden
-                          className="absolute inset-1 rounded-xl bg-foreground/12 shadow-[0_10px_28px_rgba(0,0,0,0.14)] transition duration-300 ease-out [transform:translateZ(-1px)_scale(0.95)] group-hover:opacity-60 group-hover:[transform:translateZ(-1px)_scale(1)] sm:inset-2 sm:rounded-2xl"
-                        />
-                        <article
-                          className="relative h-full overflow-visible rounded-xl transition duration-300 ease-out sm:rounded-2xl"
-                          style={{
-                            backfaceVisibility: 'hidden',
-                            transformStyle: 'preserve-3d',
-                            transformOrigin: 'center bottom',
-                          }}
-                        >
-                          <span
-                            aria-hidden
-                            className="absolute inset-0 rounded-xl border border-border/45 bg-muted/45 transition duration-300 ease-out [transform:translateZ(0)] group-hover:[transform:translateZ(10px)] sm:rounded-2xl"
-                          />
-                          <span
-                            aria-hidden
-                            className="absolute inset-0 rounded-xl border border-border/50 bg-[linear-gradient(90deg,color-mix(in_srgb,var(--foreground)_8%,transparent)_1px,transparent_1px),linear-gradient(0deg,color-mix(in_srgb,var(--foreground)_8%,transparent)_1px,transparent_1px)] bg-[size:16px_16px] opacity-80 transition duration-300 ease-out [transform:translateZ(12px)] group-hover:[transform:translateZ(28px)] sm:rounded-2xl sm:bg-[size:22px_22px]"
-                          />
-                          <div
-                            className="absolute inset-0 overflow-hidden rounded-xl border border-border/70 bg-background p-1.5 shadow-[0_1px_0_color-mix(in_srgb,var(--background)_82%,transparent)] transition duration-300 ease-out [transform:translateZ(24px)] [transform-origin:center_bottom] group-hover:border-primary/35 group-hover:[transform:translateZ(58px)_rotateX(-5deg)] sm:rounded-2xl sm:p-2.5"
-                            style={{
-                              transformOrigin: 'center bottom',
-                            }}
-                          >
-                            {coverImage ? (
-                              <Media
-                                resource={coverImage}
-                                className="portfolio-case-visual h-full w-full overflow-hidden rounded-lg border border-border/50 bg-background sm:rounded-xl"
-                                imgClassName="h-full w-full object-cover object-top opacity-95 transition duration-300 ease-out group-hover:scale-[1.025]"
-                              />
-                            ) : (
-                              <div className="flex h-full items-center justify-center rounded-lg border border-border/50 bg-muted/40 text-xs text-muted-foreground sm:rounded-xl">
-                                {isEnglish ? 'No cover image' : 'Kein Titelbild'}
-                              </div>
-                            )}
-                            <div className="pointer-events-none absolute inset-1.5 rounded-lg bg-[linear-gradient(135deg,rgba(255,255,255,0.32),transparent_42%)] dark:bg-[linear-gradient(135deg,rgba(255,255,255,0.08),transparent_42%)] sm:inset-2.5 sm:rounded-xl" />
-                            <div className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-background/92 via-background/58 to-transparent px-2 py-2 sm:px-3">
-                              <span className="line-clamp-1 text-[10px] font-semibold leading-tight text-foreground/90 sm:text-xs">
-                                {item.title}
-                              </span>
-                            </div>
-                          </div>
-                        </article>
-                      </button>
-                    )
-                  })}
-                </div>
-              </div>
-            </div>
-          </div>
-        ) : (
+        ) : !isIsometricLayout ? (
           <div ref={sliderWrapRef} className="mt-14 md:mt-20">
             <div className="relative -mx-4 px-4" aria-hidden={Boolean(activeCase)}>
               <button
@@ -1397,8 +1471,9 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
               </div>
             </div>
           </div>
-        )}
+        ) : null}
       </div>
+      {isometricGrid}
     </section>
   )
 }
