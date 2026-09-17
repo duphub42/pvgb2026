@@ -9,6 +9,7 @@ const distDir = path.resolve(projectRoot, process.env.OUTPUT_DIR || 'dist')
 const routesPath = path.resolve(projectRoot, 'routes.json')
 const staticAssetsDir = path.resolve(projectRoot, 'static-assets')
 const hydratedAssetsDir = path.resolve(projectRoot, 'hydrated-assets')
+const showcasePortfolioDir = path.resolve(projectRoot, '..', 'public', 'showcase-portfolio')
 const sourceUrl = (process.env.SOURCE_URL || 'http://localhost:3000').replace(/\/+$/, '')
 const renderMode = process.env.RENDER_MODE || 'browser'
 const stripNextRuntime = process.env.STRIP_NEXT_RUNTIME !== 'false'
@@ -49,11 +50,21 @@ const LANGUAGE_LINK_REWRITES = {
     ['/portfolio-marken', '/en/portfolio-branding/'],
     ['/portfolio-marken/', '/en/portfolio-branding/'],
     ['portfolio-marken', '/en/portfolio-branding/'],
+    ['/en/ai-marketing-geo-seo', '/en/ki-marketing-geo-seo/'],
+    ['/en/ai-marketing-geo-seo/', '/en/ki-marketing-geo-seo/'],
+    ['/en/sem', '/en/ki-marketing-geo-seo/'],
+    ['/en/sem/', '/en/ki-marketing-geo-seo/'],
   ]),
   de: new Map([
     ['/portfolio', '/portfolio/'],
     ['/portfolio/', '/portfolio/'],
     ['portfolio-marken', '/portfolio-marken/'],
+    ['/sem', '/ki-marketing-geo-seo/'],
+    ['/sem/', '/ki-marketing-geo-seo/'],
+    ['/geo-seo', '/ki-marketing-geo-seo/'],
+    ['/geo-seo/', '/ki-marketing-geo-seo/'],
+    ['/seo-geo', '/ki-marketing-geo-seo/'],
+    ['/seo-geo/', '/ki-marketing-geo-seo/'],
   ]),
 }
 
@@ -64,7 +75,10 @@ const ASSET_PREFIXES = [
   '/api/forms',
   '/api/media/file/',
   '/api/media/stream/',
+  '/ai-provider-logos/',
   '/branding/',
+  '/showcase-portfolio/',
+  '/webdesign-platforms/',
   '/media/',
   '/favicon',
   '/icons-sprite.svg',
@@ -283,7 +297,7 @@ function addStaticRuntime(html) {
 function addHydratedFixes(html) {
   return html.replace(
     /<\/body>/i,
-    '<script src="/hydrated-assets/hydrated-fixes.js?v=footer-icons-20260825" defer></script></body>',
+    '<script src="/hydrated-assets/hydrated-fixes.js?v=grid-images-direct-20260917" defer></script></body>',
   )
 }
 
@@ -606,6 +620,14 @@ async function writeSupportFiles() {
 
   if (!stripNextRuntime) {
     await fs.cp(hydratedAssetsDir, path.join(distDir, 'hydrated-assets'), { recursive: true })
+    try {
+      await fs.cp(showcasePortfolioDir, path.join(distDir, 'showcase-portfolio'), {
+        recursive: true,
+      })
+    } catch (error) {
+      if (error?.code !== 'ENOENT') throw error
+    }
+
     const nextRoot = path.resolve(projectRoot, '..')
     const nextStaticDirs = ['.next/static']
     if (process.env.INCLUDE_DEV_STATIC === 'true') nextStaticDirs.push('.next-dev/static')

@@ -158,6 +158,14 @@ const showcasePortfolioCards = [
     alt: 'Verband Digitale Innovation Website Showcase',
   },
   {
+    src: '/showcase-portfolio/card-initiative-saubere-luft.png',
+    alt: 'Initiative Saubere Luft Website Showcase',
+  },
+  {
+    src: '/showcase-portfolio/card-trinkwasser-verband.png',
+    alt: 'Trinkwasser Verband Website Showcase',
+  },
+  {
     src: '/showcase-portfolio/card-baufinanzierung.png',
     alt: 'Baufinanzierung Halle Website Showcase',
   },
@@ -191,6 +199,9 @@ const showcasePortfolioCards = [
   },
 ]
 
+const showcasePlaceholder =
+  'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10"%3E%3C/svg%3E'
+
 const getShowcasePortfolioCard = (title: string, fallbackIndex: number) => {
   const normalizedTitle = title
     .toLowerCase()
@@ -205,6 +216,13 @@ const getShowcasePortfolioCard = (title: string, fallbackIndex: number) => {
     return bySlug('allclean')
   }
   if (normalizedTitle.includes('lux')) return bySlug('allclean')
+  if (
+    normalizedTitle.includes('initiative saubere luft') ||
+    normalizedTitle.includes('saubere luft')
+  ) {
+    return bySlug('initiative-saubere-luft')
+  }
+  if (normalizedTitle.includes('trinkwasser')) return bySlug('trinkwasser-verband')
   if (
     normalizedTitle.includes('verband digitale innovation') ||
     normalizedTitle.includes('digitale innovation')
@@ -246,6 +264,71 @@ const getShowcasePortfolioCard = (title: string, fallbackIndex: number) => {
   return showcasePortfolioCards[fallbackIndex % showcasePortfolioCards.length]
 }
 
+type PortfolioCaseEntry = {
+  item: PortfolioCase
+  key: string
+}
+
+const normalizeProjectTitle = (title: string): string =>
+  title
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+
+const preferredIsometricTitleOrder = [
+  'Schloss Eicks',
+  'MEDIFISCH',
+  'Allclean',
+  'Moriss Obstplantagen',
+  'BFH - Baufinanzierung Halle',
+  'Ton & Tönchen',
+  'Verband Digitale Innovation',
+  'ZHKplus - Zahnheilkunde Plus',
+  'Soulmating',
+  'KIPP Dental',
+  'Initiative Saubere Luft',
+  'Zahnarzt Kipp',
+  'Trinkwasser Verband',
+]
+
+const orderPortfolioEntries = <T extends PortfolioCaseEntry>(entries: T[]): T[] =>
+  [...entries].sort((a, b) => {
+    const aIndex = preferredIsometricTitleOrder.findIndex(
+      (title) => normalizeProjectTitle(title) === normalizeProjectTitle(a.item.title),
+    )
+    const bIndex = preferredIsometricTitleOrder.findIndex(
+      (title) => normalizeProjectTitle(title) === normalizeProjectTitle(b.item.title),
+    )
+    const safeAIndex = aIndex === -1 ? Number.MAX_SAFE_INTEGER : aIndex
+    const safeBIndex = bIndex === -1 ? Number.MAX_SAFE_INTEGER : bIndex
+    return safeAIndex - safeBIndex
+  })
+
+const rotateEntries = <T,>(entries: T[], offset: number): T[] => {
+  if (!entries.length) return entries
+  const normalizedOffset = ((offset % entries.length) + entries.length) % entries.length
+  return [...entries.slice(normalizedOffset), ...entries.slice(0, normalizedOffset)]
+}
+
+const buildIsometricCards = (entries: PortfolioCaseEntry[]) => {
+  if (!entries.length) return []
+
+  const orderedEntries = orderPortfolioEntries(entries)
+
+  const centerRepeatIndex = 2
+  return Array.from({ length: 8 }, (_, repeatIndex) => {
+    const distanceFromCenter = repeatIndex - centerRepeatIndex
+    const rotation = Math.abs(distanceFromCenter) * 5
+    const rotated = rotateEntries(orderedEntries, rotation)
+    const repeatEntries = distanceFromCenter < 0 ? [...rotated].reverse() : rotated
+
+    return repeatEntries.map((entry, orderIndex) => ({
+      ...entry,
+      renderKey: `${entry.key}-iso-${repeatIndex}-${orderIndex}`,
+    }))
+  }).flat()
+}
+
 const normalizeHref = (raw?: string | null): string | null => {
   const value = String(raw ?? '').trim()
   if (!value) return null
@@ -262,6 +345,15 @@ const isMediaObject = (value: unknown): value is MediaType =>
 
 const prefersReducedMotion = () =>
   typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+const isMobilePortfolioViewport = () =>
+  typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches
+
+const getMobileShowcaseSrc = (src: string): string =>
+  src.replace('/showcase-portfolio/', '/showcase-portfolio/mobile/').replace(/\.png$/i, '.jpg')
+
+const getDesktopShowcaseSrc = (src: string): string =>
+  src.replace('/showcase-portfolio/', '/showcase-portfolio/desktop/').replace(/\.png$/i, '.jpg')
 
 let portfolioGsapPromise: Promise<{
   gsap: typeof import('gsap').default
@@ -353,16 +445,8 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
     [rows],
   )
   const loopCards = useMemo(() => [...withKeys, ...withKeys, ...withKeys], [withKeys])
-  const isometricCards = useMemo(
-    () =>
-      Array.from({ length: 8 }, (_, repeatIndex) =>
-        withKeys.map((entry) => ({
-          ...entry,
-          renderKey: `${entry.key}-iso-${repeatIndex}`,
-        })),
-      ).flat(),
-    [withKeys],
-  )
+  const mobileIsometricCards = useMemo(() => orderPortfolioEntries(withKeys), [withKeys])
+  const isometricCards = useMemo(() => buildIsometricCards(withKeys), [withKeys])
 
   const activeCase = useMemo(() => {
     if (!activeCaseKey) return null
@@ -688,7 +772,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
   }, [isPortfolioGridPage, isIsometricLayout, withKeys.length])
 
   useEffect(() => {
-    if (prefersReducedMotion()) return
+    if (prefersReducedMotion() || (isIsometricLayout && isMobilePortfolioViewport())) return
 
     const header = headerRef.current
     const caseGrid = caseGridRef.current
@@ -1096,10 +1180,148 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
         )
       : null
 
+  const mobileIsometricGrid = isIsometricLayout ? (
+    <div className="mt-8 px-4 md:hidden" aria-hidden={Boolean(activeCase)}>
+      <div className="mb-4 flex items-end justify-between gap-4">
+        <div className="min-w-0">
+          <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+            {isEnglish ? 'Selected cases' : 'Ausgewählte Cases'}
+          </p>
+          <p className="mt-1 text-sm text-muted-foreground">
+            {mobileIsometricCards.length}{' '}
+            {isEnglish ? 'mobile-optimized previews' : 'mobile optimierte Vorschauen'}
+          </p>
+        </div>
+        <Badge variant="secondary" className="shrink-0 rounded-md px-2.5 py-1 text-xs">
+          {isEnglish ? 'Tap to open' : 'Antippen'}
+        </Badge>
+      </div>
+
+      <div className="grid grid-cols-1 gap-3.5 sm:grid-cols-2">
+      {mobileIsometricCards.map(({ item, key }, index) => {
+        const discipline = (item.discipline ?? 'webdesign') as Discipline
+        const meta = disciplineMeta[discipline] ?? disciplineMeta.webdesign
+        const DisciplineIcon = meta.icon
+        const coverImage = isMediaObject(item.coverImage) ? item.coverImage : null
+        const showcaseCard = getShowcasePortfolioCard(item.title, index)
+        const cardMetrics = (item.metrics ?? []).filter(
+          (metric) => metric?.value?.trim() && metric?.label?.trim(),
+        )
+        const isFeatured = index === 0
+        const translatedDiscipline = isEnglish ? translateValueForLocale(meta.label, 'en') : meta.label
+        const translatedIndustry = item.industry
+          ? isEnglish
+            ? translateValueForLocale(item.industry, 'en')
+            : item.industry
+          : null
+
+        return (
+          <button
+            type="button"
+            data-portfolio-card="true"
+            key={`mobile-${key}`}
+            onClick={() => setActiveCaseKey(key)}
+            className={cn(
+              'portfolio-case-card group relative min-w-0 overflow-hidden rounded-lg border border-border/70 bg-card text-left shadow-sm outline-none transition duration-300 hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-md focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background',
+              isFeatured && 'sm:col-span-2',
+            )}
+            aria-label={`${isEnglish ? 'Open details' : 'Details öffnen'}: ${item.title}`}
+            tabIndex={activeCase ? -1 : 0}
+          >
+            <div
+              className={cn(
+                'portfolio-case-visual relative overflow-hidden border-b border-border/70 bg-white',
+                isFeatured ? 'aspect-[16/10]' : 'aspect-[16/10]',
+              )}
+            >
+              <div className="absolute inset-x-0 top-0 z-[2] flex h-8 items-center gap-1.5 border-b border-black/5 bg-white/86 px-3 backdrop-blur-sm">
+                <span className="size-2 rounded-full bg-red-400/80" />
+                <span className="size-2 rounded-full bg-amber-400/80" />
+                <span className="size-2 rounded-full bg-emerald-400/80" />
+                <span className="ml-auto rounded-sm bg-black/[0.06] px-2 py-0.5 text-[10px] font-medium text-black/45">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
+              </div>
+              {showcaseCard ? (
+                <img
+                  src={getMobileShowcaseSrc(showcaseCard.src)}
+                  alt={showcaseCard.alt}
+                  className="h-full w-full object-contain object-center pt-8 transition duration-300 group-hover:scale-[1.01]"
+                  loading={index < 2 ? 'eager' : 'lazy'}
+                  decoding="async"
+                  draggable={false}
+                />
+              ) : coverImage ? (
+                <Media
+                  resource={coverImage}
+                  className="h-full w-full overflow-hidden bg-background"
+                  imgClassName="h-full w-full object-contain object-center pt-8 transition duration-300 group-hover:scale-[1.01]"
+                />
+              ) : (
+                <div className="flex h-full items-center justify-center bg-muted/40 text-sm text-muted-foreground">
+                  {isEnglish ? 'No cover image' : 'Kein Titelbild'}
+                </div>
+              )}
+            </div>
+
+            <div className="min-w-0 p-4">
+              <div className="mb-3 flex min-w-0 items-center justify-between gap-2">
+                <span className="inline-flex min-w-0 items-center gap-1.5 rounded-md border border-border/70 bg-background px-2 py-1 text-xs font-medium text-muted-foreground">
+                  <DisciplineIcon className="size-3.5 shrink-0" />
+                  <span className="truncate">{translatedDiscipline}</span>
+                </span>
+                {item.year ? (
+                  <span className="inline-flex shrink-0 items-center gap-1 text-xs text-muted-foreground">
+                    <CalendarDays className="size-3.5" />
+                    {item.year}
+                  </span>
+                ) : null}
+              </div>
+
+              <h3 className="min-w-0 text-lg font-semibold leading-tight text-foreground break-words [overflow-wrap:anywhere]">
+                {item.title}
+              </h3>
+
+              {item.summary ? (
+                <p className="mt-2 min-w-0 overflow-hidden text-sm leading-6 text-muted-foreground [display:-webkit-box] [-webkit-box-orient:vertical] [-webkit-line-clamp:2]">
+                  {isEnglish ? translateValueForLocale(item.summary, 'en') : item.summary}
+                </p>
+              ) : null}
+
+              <div className="mt-4 flex min-w-0 flex-wrap items-center gap-2">
+                {translatedIndustry ? (
+                  <span className="inline-flex max-w-full items-center gap-1.5 rounded-md bg-muted px-2 py-1 text-xs text-muted-foreground">
+                    <Building2 className="size-3.5 shrink-0" />
+                    <span className="truncate">{translatedIndustry}</span>
+                  </span>
+                ) : null}
+                {cardMetrics.slice(0, isFeatured ? 2 : 1).map((metric, metricIndex) => (
+                  <span
+                    key={`${key}-mobile-metric-${metricIndex}`}
+                    className="inline-flex max-w-full items-center gap-1.5 rounded-md bg-primary/10 px-2 py-1 text-xs font-medium text-foreground"
+                  >
+                    <span className="shrink-0">{metric.value}</span>
+                    <span className="truncate text-muted-foreground">{metric.label}</span>
+                  </span>
+                ))}
+              </div>
+
+              <span className="mt-4 inline-flex items-center gap-1.5 text-sm font-semibold text-primary">
+                {isEnglish ? 'Open case' : 'Case öffnen'}
+                <ArrowUpRight className="size-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              </span>
+            </div>
+          </button>
+        )
+      })}
+      </div>
+    </div>
+  ) : null
+
   const isometricGrid = isIsometricLayout ? (
     <div
       ref={sliderWrapRef}
-      className="relative z-0 mt-10 h-[72vh] min-h-[620px] w-full overflow-x-clip overflow-y-visible px-0 pt-6 pb-0 md:mt-14 md:min-h-[660px] md:pt-8 md:pb-0"
+      className="relative z-0 mt-10 hidden h-[72vh] min-h-[620px] w-full overflow-x-clip overflow-y-visible px-0 pt-6 pb-0 md:mt-14 md:block md:min-h-[660px] md:pt-8 md:pb-0"
       aria-hidden={Boolean(activeCase)}
     >
       <div
@@ -1166,7 +1388,8 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
                     >
                       {showcaseCard ? (
                         <img
-                          src={showcaseCard.src}
+                          src={showcasePlaceholder}
+                          data-portfolio-showcase-src={getDesktopShowcaseSrc(showcaseCard.src)}
                           alt={showcaseCard.alt}
                           className="h-full w-full bg-white object-contain object-center opacity-100 transition duration-300 ease-out group-hover:scale-[1.01]"
                           loading="lazy"
@@ -1342,7 +1565,9 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
               })}
             </div>
           </div>
-        ) : !isIsometricLayout ? (
+        ) : isIsometricLayout ? (
+          mobileIsometricGrid
+        ) : (
           <div ref={sliderWrapRef} className="mt-14 md:mt-20">
             <div className="relative -mx-4 px-4" aria-hidden={Boolean(activeCase)}>
               <button
@@ -1471,7 +1696,7 @@ export const PortfolioCaseGridBlock: React.FC<PortfolioCaseGridProps> = ({
               </div>
             </div>
           </div>
-        ) : null}
+        )}
       </div>
       {isometricGrid}
     </section>

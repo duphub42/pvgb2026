@@ -111,6 +111,7 @@
   const CONSENT_STORAGE_KEY = 'pb_cookie_consent_v1'
   const GA_MEASUREMENT_ID = 'G-Y0D7045XMB'
   const GOOGLE_COOKIE_PREFIXES = ['_ga', '_gid', '_gat', '_gac', '_gcl']
+  const CONSENT_COOKIE_MAX_AGE = 60 * 60 * 24 * 365
 
   const consentCopy =
     language === 'en'
@@ -165,12 +166,65 @@
     return svg
   }
 
+  function isConsentChoice(value) {
+    return value === 'accepted' || value === 'declined'
+  }
+
+  function getCookieValue(name) {
+    const prefix = `${encodeURIComponent(name)}=`
+    const cookie = document.cookie
+      .split(';')
+      .map((part) => part.trim())
+      .find((part) => part.startsWith(prefix))
+
+    return cookie ? decodeURIComponent(cookie.slice(prefix.length)) : null
+  }
+
+  function getStoredConsentChoice() {
+    try {
+      const storedChoice = window.localStorage.getItem(CONSENT_STORAGE_KEY)
+      if (isConsentChoice(storedChoice)) return storedChoice
+    } catch {}
+
+    const cookieChoice = getCookieValue(CONSENT_STORAGE_KEY)
+    return isConsentChoice(cookieChoice) ? cookieChoice : null
+  }
+
+  function setStoredConsentChoice(choice) {
+    try {
+      window.localStorage.setItem(CONSENT_STORAGE_KEY, choice)
+    } catch {}
+
+    document.cookie = `${encodeURIComponent(CONSENT_STORAGE_KEY)}=${encodeURIComponent(
+      choice,
+    )}; Max-Age=${CONSENT_COOKIE_MAX_AGE}; path=/; SameSite=Lax`
+  }
+
+  function hasNextRuntime() {
+    return Boolean(document.querySelector('script[src*="/_next/static/"]'))
+  }
+
+  function hideCookieElement(element) {
+    if (!element) return
+    element.setAttribute('hidden', '')
+    element.setAttribute('aria-hidden', 'true')
+    element.style.display = 'none'
+  }
+
   function renderCookieConsent() {
     forceCookieSettingsLeft()
     localizeExistingCookieConsent()
+
+    if (hasNextRuntime()) return
+
+    const storedChoice = getStoredConsentChoice()
+    if (storedChoice === 'accepted' || storedChoice === 'declined') {
+      document.querySelectorAll('.cookie-consent-panel').forEach(hideCookieElement)
+    } else if (wireExistingCookiePanel()) {
+      return
+    }
     if (document.querySelector('.cookie-consent-panel, .cookie-consent-settings')) return
 
-    const storedChoice = localStorage.getItem(CONSENT_STORAGE_KEY)
     if (storedChoice === 'accepted') runWhenIdle(injectGoogleTag)
     if (storedChoice === 'accepted' || storedChoice === 'declined') {
       const settings = document.createElement('button')
@@ -182,7 +236,7 @@
       settings.title = consentCopy.settings
       settings.appendChild(createCookieIcon('h-4 w-4'))
       settings.addEventListener('click', () => {
-        settings.remove()
+        hideCookieElement(settings)
         renderCookiePanel()
       })
       document.body.appendChild(settings)
@@ -232,20 +286,40 @@
     accept.append(createActionIcon('check'), document.createElement('span'))
     accept.lastChild.textContent = consentCopy.accept
 
-    const saveChoice = (choice) => {
-      localStorage.setItem(CONSENT_STORAGE_KEY, choice)
-      panel.remove()
-      if (choice === 'accepted') runWhenIdle(injectGoogleTag)
-      if (choice === 'declined') revokeGoogleTagConsent()
-      renderCookieConsent()
-    }
-
-    decline.addEventListener('click', () => saveChoice('declined'))
-    accept.addEventListener('click', () => saveChoice('accepted'))
+    decline.addEventListener('click', () => saveCookieChoice('declined', panel))
+    accept.addEventListener('click', () => saveCookieChoice('accepted', panel))
 
     actions.append(decline, accept)
     panel.append(icon, body, actions)
     document.body.appendChild(panel)
+  }
+
+  function saveCookieChoice(choice, panel) {
+    setStoredConsentChoice(choice)
+    hideCookieElement(panel)
+    if (choice === 'accepted') runWhenIdle(injectGoogleTag)
+    if (choice === 'declined') revokeGoogleTagConsent()
+    renderCookieConsent()
+  }
+
+  function wireExistingCookiePanel() {
+    const panel = document.querySelector('.cookie-consent-panel')
+    if (!panel) return false
+
+    const decline = panel.querySelector('.cookie-consent-btn--muted')
+    const accept = panel.querySelector('.cookie-consent-btn--primary')
+
+    if (decline && decline.dataset.pbCookieWired !== 'true') {
+      decline.dataset.pbCookieWired = 'true'
+      decline.addEventListener('click', () => saveCookieChoice('declined', panel))
+    }
+
+    if (accept && accept.dataset.pbCookieWired !== 'true') {
+      accept.dataset.pbCookieWired = 'true'
+      accept.addEventListener('click', () => saveCookieChoice('accepted', panel))
+    }
+
+    return true
   }
 
   function forceCookieSettingsLeft() {
@@ -346,12 +420,195 @@
     window.setTimeout(callback, 450)
   }
 
+  const portfolioShowcaseSources = new Map([
+    ['allclean', '/showcase-portfolio/desktop/card-allclean.jpg'],
+    ['bfh - baufinanzierung halle', '/showcase-portfolio/desktop/card-baufinanzierung.jpg'],
+    ['initiative saubere luft', '/showcase-portfolio/desktop/card-initiative-saubere-luft.jpg'],
+    ['kipp dental', '/showcase-portfolio/desktop/card-kipp-dental.jpg'],
+    ['medifisch', '/showcase-portfolio/desktop/card-medifisch.jpg'],
+    ['moriss obstplantagen', '/showcase-portfolio/desktop/card-moriss.jpg'],
+    ['schloss eicks', '/showcase-portfolio/desktop/card-schlosseicks.jpg'],
+    ['soulmating', '/showcase-portfolio/desktop/card-soulmating.jpg'],
+    ['ton & tönchen', '/showcase-portfolio/desktop/card-musikschule-hoerstel.jpg'],
+    ['trinkwasser verband', '/showcase-portfolio/desktop/card-trinkwasser-verband.jpg'],
+    ['verband digitale innovation', '/showcase-portfolio/desktop/card-verband-digitale-innovation.jpg'],
+    ['zahnarzt kipp', '/showcase-portfolio/desktop/card-zahnarzt.jpg'],
+    ['zhkplus - zahnheilkunde plus', '/showcase-portfolio/desktop/card-zhkplus.jpg'],
+  ])
+
+  const preferredPortfolioOrder = [
+    'schloss eicks',
+    'medifisch',
+    'allclean',
+    'moriss obstplantagen',
+    'bfh - baufinanzierung halle',
+    'ton & tönchen',
+    'verband digitale innovation',
+    'zhkplus - zahnheilkunde plus',
+    'soulmating',
+    'kipp dental',
+    'initiative saubere luft',
+    'zahnarzt kipp',
+    'trinkwasser verband',
+  ]
+  const portfolioShowcasePlaceholder =
+    'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 10"%3E%3C/svg%3E'
+  let portfolioImageObserver
+
+  function isMobilePortfolioViewport() {
+    return window.matchMedia('(max-width: 767px)').matches
+  }
+
+  function normalizePortfolioTitle(value) {
+    return String(value || '')
+      .replace(/^(Details öffnen|Open details):\s*/i, '')
+      .trim()
+      .toLowerCase()
+  }
+
+  function rotatePortfolioOrder(order, offset) {
+    if (!order.length) return order
+    const normalizedOffset = ((offset % order.length) + order.length) % order.length
+    return [...order.slice(normalizedOffset), ...order.slice(0, normalizedOffset)]
+  }
+
+  function reorderPortfolioShowcaseCards() {
+    document.querySelectorAll('[data-portfolio-isometric-grid="true"]').forEach((grid) => {
+      if (grid.dataset.pbPortfolioMixed === 'true') return
+
+      const cards = Array.from(grid.querySelectorAll('[data-portfolio-card="true"]'))
+      if (cards.length < preferredPortfolioOrder.length) return
+
+      const groups = new Map()
+      cards.forEach((card) => {
+        const title = normalizePortfolioTitle(card.getAttribute('aria-label'))
+        if (!groups.has(title)) groups.set(title, [])
+        groups.get(title).push(card)
+      })
+
+      const titles = [
+        ...preferredPortfolioOrder.filter((title) => groups.has(title)),
+        ...Array.from(groups.keys()).filter((title) => !preferredPortfolioOrder.includes(title)),
+      ]
+      const centerRepeatIndex = 2
+      const repeatCount = Math.ceil(cards.length / Math.max(titles.length, 1))
+      const nextCards = []
+
+      for (let repeatIndex = 0; repeatIndex < repeatCount; repeatIndex += 1) {
+        const distanceFromCenter = repeatIndex - centerRepeatIndex
+        const rotated = rotatePortfolioOrder(titles, Math.abs(distanceFromCenter) * 5)
+        const repeatTitles = distanceFromCenter < 0 ? [...rotated].reverse() : rotated
+
+        repeatTitles.forEach((title) => {
+          const card = groups.get(title)?.shift()
+          if (card) nextCards.push(card)
+        })
+      }
+
+      groups.forEach((remainingCards) => nextCards.push(...remainingCards))
+      nextCards.forEach((card) => grid.appendChild(card))
+      grid.dataset.pbPortfolioMixed = 'true'
+    })
+  }
+
+  function pruneMobilePortfolioShowcaseCards() {
+    if (!isMobilePortfolioViewport()) return
+
+    document.querySelectorAll('[data-portfolio-isometric-grid="true"]').forEach((grid) => {
+      if (grid.dataset.pbPortfolioMobilePruned === 'true') return
+
+      const cards = Array.from(grid.querySelectorAll('[data-portfolio-card="true"]'))
+      cards.slice(26).forEach((card) => card.remove())
+      grid.dataset.pbPortfolioMobilePruned = 'true'
+    })
+  }
+
+  function activatePortfolioShowcaseImage(img) {
+    const src = img.dataset.portfolioShowcaseSrc
+    if (!src || img.getAttribute('src') === src) return
+    img.setAttribute('src', src)
+  }
+
+  function queuePortfolioShowcaseImage(img, index) {
+    if (isMobilePortfolioViewport() && index > 11) return
+
+    if ('IntersectionObserver' in window) {
+      if (!portfolioImageObserver) {
+        portfolioImageObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return
+              portfolioImageObserver.unobserve(entry.target)
+              activatePortfolioShowcaseImage(entry.target)
+            })
+          },
+          { rootMargin: '1400px 5000px' },
+        )
+      }
+      portfolioImageObserver.observe(img)
+      return
+    }
+
+    if (index < 12) activatePortfolioShowcaseImage(img)
+  }
+
+  function forcePortfolioShowcaseImages() {
+    if (isMobilePortfolioViewport()) return
+
+    reorderPortfolioShowcaseCards()
+    pruneMobilePortfolioShowcaseCards()
+
+    document
+      .querySelectorAll('img[data-portfolio-showcase-src], img[src*="/showcase-portfolio/"]')
+      .forEach((img, index) => {
+        const card = img.closest('[data-portfolio-card="true"]')
+        const title = normalizePortfolioTitle(card?.getAttribute('aria-label'))
+        const mappedSrc = portfolioShowcaseSources.get(title)
+        if (mappedSrc) img.dataset.portfolioShowcaseSrc = mappedSrc
+        if (img.getAttribute('src') !== img.dataset.portfolioShowcaseSrc) {
+          img.setAttribute('src', portfolioShowcasePlaceholder)
+        }
+
+        img.loading = 'lazy'
+        img.decoding = 'async'
+        activatePortfolioShowcaseImage(img)
+      })
+  }
+
+  let portfolioShowcaseFixScheduled = false
+  function schedulePortfolioShowcaseImages() {
+    if (isMobilePortfolioViewport()) return
+    if (portfolioShowcaseFixScheduled) return
+    portfolioShowcaseFixScheduled = true
+
+    const run = () => {
+      window.setTimeout(() => {
+        portfolioShowcaseFixScheduled = false
+        forcePortfolioShowcaseImages()
+      }, 800)
+    }
+
+    if (document.readyState === 'complete') {
+      run()
+      return
+    }
+
+    window.addEventListener('load', run, { once: true })
+  }
+
+  const runStaticFixes = () => {
+    renderCookieConsent()
+    forceCookieSettingsLeft()
+    localizeExistingCookieConsent()
+    localizeEnglishFooterText()
+  }
+
   const renderCookieConsentFallback = () => {
+    runStaticFixes()
+
     window.setTimeout(() => {
-      renderCookieConsent()
-      forceCookieSettingsLeft()
-      localizeExistingCookieConsent()
-      localizeEnglishFooterText()
+      schedulePortfolioShowcaseImages()
+      runStaticFixes()
     }, 1200)
   }
 
@@ -362,6 +619,7 @@
   }
 
   const cookieSettingsObserver = new MutationObserver(() => {
+    schedulePortfolioShowcaseImages()
     forceCookieSettingsLeft()
     localizeExistingCookieConsent()
     localizeEnglishFooterText()
