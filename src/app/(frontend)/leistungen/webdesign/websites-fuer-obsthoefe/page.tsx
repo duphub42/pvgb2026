@@ -8,10 +8,7 @@ import {
   ExternalLink,
   FileText,
   Leaf,
-  Mail,
-  MapPin,
   Search,
-  ShieldCheck,
   Smartphone,
   Store,
 } from 'lucide-react'
@@ -478,24 +475,18 @@ export default function ObsthofWebsitesPage() {
 
         <aside className="rounded-3xl border border-border/70 bg-card p-7 shadow-sm">
           <FileText className="h-7 w-7 text-muted-foreground" aria-hidden="true" />
-          <h2 className="mt-5 type-heading-lg text-foreground">Flyer und Akquise</h2>
+          <h2 className="mt-5 type-heading-lg text-foreground">Flyer in Vorbereitung</h2>
           <p className="mt-4 leading-7 text-muted-foreground">
-            Für die Kontaktaufnahme lässt sich diese Seite direkt als Ziel verwenden. Dazu passt
-            ein kompakter Flyer oder ein PDF mit QR-Code, Referenz, Paketstartpreis und Einladung
-            zum Erstgespräch.
+            Hier entsteht ein kompakter Überblick zum Website-Angebot für Obsthöfe, Hofläden und
+            Direktvermarkter. Der Flyer wird nach Fertigstellung öffentlich als PDF bereitgestellt.
           </p>
-          <div className="mt-6 space-y-3 text-sm text-muted-foreground">
-            <p className="flex gap-3">
-              <Mail className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-              persönliche E-Mail mit kurzem Website-Hinweis
+          <div className="mt-6 rounded-2xl border border-dashed border-border bg-background/70 p-6">
+            <p className="text-sm font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+              Demnächst verfügbar
             </p>
-            <p className="flex gap-3">
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-              regionale Leadliste mit Obsthöfen und Hofläden
-            </p>
-            <p className="flex gap-3">
-              <ShieldCheck className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
-              Referenz moriss.de als Vertrauensbeweis
+            <p className="mt-3 text-sm leading-6 text-muted-foreground">
+              Geplant sind eine kurze Leistungsübersicht, die Moriss-Referenz, Paketinformationen
+              und ein direkter Weg zum Erstgespräch.
             </p>
           </div>
         </aside>
